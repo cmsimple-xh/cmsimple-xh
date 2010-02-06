@@ -1,0 +1,31 @@
+﻿// FLV Player Dialog
+FCKLang["DlgFLVPlayerTitle"]          = "FLV Movie- + MP3-Player";
+FCKLang["DlgFLVPlayerURL"]            = "Movie or MP3-File" ;
+FCKLang["DlgFLVPlayerBtnBrowse"]      = "Browse..." ;
+FCKLang["DlgFLVPlayerImgURL"]         = "Preview Image" ;
+FCKLang["DlgFLVPlayerWidth"]          = "Movie Width (in pixels)" ;
+FCKLang["DlgFLVPlayerHeight"]         = "Movie Height (in pixels)" ;
+FCKLang["DlgFLVPlayerAlign"]          = "Align" ;
+FCKLang["DlgFLVPlayerAlignLeft"]      = "Left" ;
+FCKLang["DlgFLVPlayerAlignRight"]     = "Right" ;
+FCKLang["DlgFLVPlayerAlignCenter"]    = "Center" ;
+FCKLang["DlgFLVPlayerHSpace"]         = "HSpace" ;
+FCKLang["DlgFLVPlayerVSpace"]         = "VSpace" ;
+FCKLang["DlgFLVPlayerBgColor"]        = "Background Color"
+FCKLang["DlgFLVPlayerTBColor"]        = "Toolbar Color"
+FCKLang["DlgFLVPlayerTBTColor"]       = "Text Color"
+FCKLang["DlgFLVPlayerTBTRColor"]      = "Rollover Text Color"
+FCKLang["DlgFLVPlayerBtnSelect"]      = "Select..."
+FCKLang["DlgFLVPlayerAutoplay"]       = "Autoplay" ;
+FCKLang["DlgFLVPlayerLoop"]           = "Loop" ;
+FCKLang["DlgFLVPlayerDownload"]       = "Downloadable" ;
+FCKLang["DlgFLVPlayerFullscreen"]     = "Allow Fullscreen" ;
+FCKLang["DlgFLVPlayerAlertUrl"]       = "Please input the URL"
+FCKLang["DlgFLVPlayerAlertWidth"]     = "Please input the Width"
+FCKLang["DlgFLVPlayerAlertHeight"]    = "Please input the Height"
+FCKLang["DlgFLVPlayerPlayerAttrs"]    = "Player Attributes"
+FCKLang["DlgFLVPlayerMovieAttrs"]     = "Movie Attributes"
+FCKLang["DlgFLVPlayerShowNavigation"] = "Display Navigation"
+FCKLang["DlgFLVPlayerShowDigits"]     = "Display Time"
+FCKLang["DlgFLVPlayerWatermarkURL"]   = "Watermark Image"
+

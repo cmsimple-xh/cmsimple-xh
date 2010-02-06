@@ -1,0 +1,32 @@
+<?php
+$cf['security']['password']="test";
+$cf['security']['type']="page";
+$cf['site']['template']="cmsimplefloatXH";
+$cf['site']['title']="English Site Title - change it in your language settings";
+$cf['language']['default']="en";
+$cf['meta']['robots']="index, follow";
+$cf['meta']['author']="";
+$cf['meta']['publisher']="";
+$cf['meta']['content-language']="en";
+$cf['meta']['keywords']="English keywords - change it in your language settings";
+$cf['meta']['description']="English description - change it in your language settings";
+$cf['backup']['numberoffiles']="5";
+$cf['images']['maxsize']="150000";
+$cf['downloads']['maxsize']="1000000";
+$cf['mailform']['email']="";
+$cf['editor']['height']="(screen.availHeight)-400";
+$cf['editor']['external']="fckeditor";
+$cf['menu']['color']="000000";
+$cf['menu']['highlightcolor']="808080";
+$cf['menu']['levels']="3";
+$cf['menu']['levelcatch']="10";
+$cf['menu']['sdoc']="";
+$cf['menu']['legal']="CMSimple Legal Notices";
+$cf['uri']['seperator']=":";
+$cf['uri']['length']="200";
+$cf['xhtml']['endtags']="";
+$cf['xhtml']['amp']="true";
+$cf['plugins']['folder']="plugins";
+$cf['functions']['file']="functions.php";
+$cf['scripting']['regexp']="\#CMSimple (.*?)\#";
+?>

@@ -1,0 +1,162 @@
+*******************************************************************************************
+
+FCKeditor-Integration for CMSimple, 
+©2007-2009 Connie Müller-Gödecke, Holger Irmler, Klaus Treichler, Martin Damken
+This work is licensed under GNU General Public License Version 2 or later (GPL)
+
+*******************************************************************************************
+
+*** Changelog ***
+
+*******************************************************************************************
+*** Version 2.6.0
+Update by Holger Irmler, 2009-12-06
+
+-SiteLink-Plugin rewritten:
+ Bugfix: headings with style definitions are now recognized
+ Bugfix: headings with single quotes now working
+ (code by Martin Damken, Holger Irmler)
+
+
+*** Version 2.5.0
+Update by Holger Irmler, 2009-11-04
+
+-Filebrowser now supports installations in deeper folderstructure than first subfolder
+
+
+*** Version 2.4.1b
+Update by Holger Irmler, 2009-10-31
+
+-Fixed problems with mod_security when including files with paths containing "../../"
+-Custom styles and templates now defined in fckeditor.php
+-Code to resize filebrowser window in fckeditor.php commented out
+
+
+*** Version 2.4.1a
+Update by Holger Irmler, 2009-09-05
+
+-Bugfix: Filbrowser returned links without /FileTypeFolder when CMSimple is installed in the document-root
+
+
+*** Version 2.4.1
+Update by Holger Irmler, 2009-09-03
+
+-Download-Links: removed $sn from link (./?download=file.ext) - as mentioned a long time ago from Martin Damken)
+-Download-Links: by default the right protocol-type "other" is selected in the link-dialog
+-Useless image-links removed from dropdown-list in the filebrowser when the browser is called by the link-dialog
+-Added the old FLVPlayer-plugin again (but deactivated) to keep existing contentfiles on updates with this version running
+-Default filebrowser removed from ZIP
+-Added hints in readme1st.txt about problems with index.xxx files in the ./images and ./downloads - folders on some servers
+-Changelog moved to /FCKeditor - folder
+
+
+*** Version 2.4.0
+Update by Holger Irmler, 2009-09-01
+
+-Changed the default folder-structure:
+ all files, except images, are going to /downloads (without subfolders) to be compatible with the CMSimple-filemanagement.
+ For update-installations - up to version 2.3.0 - there are predefined configurationsettings to use the old folder-structure
+ (look at the end of the file /FCKeditor/editor/filemanager/connectors/php/config.php)
+-Some cosmetic chages are made on the filemanager
+-Download-Links are integrated now in the same way like in oEdit (?download=/$sn/filename.ext)
+-Code of the "Save Changes" message rewritten by Martin Damken
+
+
+*** Version 2.4.0 beta 2
+Update by Holger Irmler, 2009-07-15
+
+-Added a new filebrowser, initial written by Martin Damken as an imagebrowser, with 
+ a lot of new features like deleting of files, preview of image files and so on.
+-All internal links and resource-paths are now saved relative to CMSimple - root folder
+ so you can move your installation to another folder without replacing paths in the content file
+-The default CMSimple folders are used from now:
+ /images
+ /downloads       -> the link-dialog returns ?&download=file.ext      (use "Protocol: other" and ressource-type "Downloads" in the Link-dialog)
+ /downloads       -> the link dialog returns <a href= file.ext> links (use "Protocol: other" and ressource-type "File" in the Link-dialog)
+ /downloads/flash
+ /downloads/media
+ Note: with ressource type "Downloads" it's impossible to create sub-folders and cretae links from subfolders upon compatibility with CMSimples download-function.
+-A little "Save changes?" message appears on exit without saved content
+-Toolbar "CMSimple" enhanced. Old versuion is available as "CMSimpleOld"
+-SWFObject-Plugin for valid flash integration added
+ Note: Only with the flash dialog, not with the "FLV /MP3 Player Plugin"!
+ (libraries are google hosted. If you want the files on your own server 
+ follow the description in the readme at the SWFObject - plugin folder
+-The QuickUpload was removed from the dialogs, please use the new filebrowser
+-The default filebrowser was left in the package as a zip-file
+-The FLV- & Movieplayer plugin was removed (no chance to get compliant code with any DTD)
+
+*** Version 2.4.0 beta 
+Update by Holger Irmler, 2009-07-14
+Non-public release for internal testing
+
+*** Version 2.3.0 
+Update by Holger Irmler, 2009-07-07
+
+- Editor core update to version 2.6.4.1
+  because of some security issues with older FCKeditor versions
+  see http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-2265 for more details
+- Added support for Opera 9 and higher (again)
+- The Editor returns XHTML or HTML depending on CMSimple setting "$cf['xhtml']['endtags']"
+
+*** Version 2.2.1 
+Update by Holger Irmler, 2008-11-28
+
+- fixed problems with UTF-8: 
+  the function "htmlentities" no longer used in fckeditor.php as this caused a lot of problems
+
+
+*** Version 2.2.0  
+Update by Connie Müller-Gödecke, 2008-07-13:
+
+- modified fckeditor.js in order to get FCKeditor working with Opera 9 and higher
+- manual updated to comply with FCKEditor4CMSimple 2.2.0
+
+*** Version 2.2.0 beta 4
+Update by Holger Irmler, 2008-07-01:
+
+- Code rewritten to use with PHP from Version 4.1.0
+  (Version 2.2.0 beta 3 only runs on servers with PHP 5 and newer)
+
+
+*** Version 2.2.0 beta 3
+Update by Holger Irmler, 2008-06-29:
+
+- Editor core update to FCKeditor 2.6.2, released on June 24, 2008
+  with a lot of bugfixes (see: http://www.fckeditor.net/whatsnew)
+- Code for internal linking complete rewritten by Holger Irmler:
+  Internal Links now working "cross-language" from <H1> to <H4> menuelevel
+- ./cmsimple/fckeditor.php direct - access check integrated
+- Filebrowser integration: Enhanced security check integrated
+
+
+*** Version 2.2.0 beta 1 & 2 (non public)
+Update by Holger Irmler, 2008-06-18:
+
+- Editor core update to FCKeditor 2.6.1, released on June 12, 2008
+  with a lot of bugfixes (see: http://www.fckeditor.net/whatsnew)
+- Code for internal linking complete rewritten by Holger Irmler & Klaus Treichler:
+  Internal "cross-language-links" integrated
+- Internal linking ported to a FCKeditor-Plugin called "SiteLink" by Klaus Treichler
+- Auto-detect the base upload folder (./images) for use in connector.php
+- For easier updates, all CMSimple or user related configuration files are renamed and
+  moved to a folder called "./FCKeditor/custom_configurations/"
+- By default now FCKeditor uses your style-definitions from your template for the edit-area
+- Default language now set to autodetected browser language with fallback to "en"
+  
+
+*** Version 2.0 / 2.1
+Update: FCKEditor-Integration Version 2.1 by Connie Müller-Gödecke, April 2008:
+
+- Updated the editor version to FCKEditor 2.6 
+- Added Base-Path to the location of the script, so the Editor can be used in 
+  multilingual installations as well, modified by Holger Irmler, April 2008
+- CMSimple Internal Links support multilingual installations as well
+  modified by Klaus Treichler
+
+
+*** Version 1.0
+Update: FCKEditor 2.5.1 by Connie Müller-Gödecke, December 2007
+Version 1.1 by Connie Müller-Gödecke, March 2008, following Andrew Gregory's hint to 
+optimizing encoding special characters. line 36,
+see here: http://www.cmsimple.dk/forum/viewtopic.php?t=6134

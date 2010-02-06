@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Preview page for the Flash dialog window.
+-->
+<html>
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="robots" content="noindex, nofollow">
+		<script type="text/javascript">
+
+var FCKTools	= window.parent.FCKTools ;
+var FCKConfig	= window.parent.FCKConfig ;
+
+function Import(aSrc) {
+   document.write('<scr'+'ipt type="text/javascript" src="' + aSrc + '"></sc' + 'ript>');
+}
+
+Import(FCKConfig.FullBasePath + 'dialog/common/fck_dialog_common.js');
+
+		</script>
+		<script type="text/javascript">
+// Set the Skin CSS.
+if (FCKTools.GetStyleHtml)
+{
+	document.write( FCKTools.GetStyleHtml( GetCommonDialogCss( FCKConfig.FullBasePath + 'dialog/' ) ) ) ;
+	document.write( FCKTools.GetStyleHtml( FCKConfig.SkinDialogCSS ) ) ;
+}
+else
+{
+	document.write( '<link href="' + window.parent.FCKConfig.SkinPath + 'fck_dialog.css" type="text/css" rel="stylesheet">' ) ;
+	document.write( '<link href="' + window.parent.FCKConfig.BasePath + 'dialog/common/fck_dialog_common.css" type="text/css" rel="stylesheet">' ) ;
+}
+
+if ( window.parent.FCKConfig.BaseHref.length > 0 )
+	document.write( '<base href="' + window.parent.FCKConfig.BaseHref + '">' ) ;
+
+window.onload = function()
+{
+	window.parent.SetPreviewElement( document.body ) ;
+}
+
+		</script>
+	</head>
+	<body style="COLOR: #000000; BACKGROUND-COLOR: #ffffff"></body>
+</html>

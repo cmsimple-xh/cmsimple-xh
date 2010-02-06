@@ -1,0 +1,100 @@
+div.pluginerror {
+	background-color: #930;
+	color: white;
+}
+
+textarea.plugininput {
+	height: 16px;
+}
+
+textarea.plugininput:focus,.plugininputmax {
+	height: 48px;
+}
+
+textarea.plugintextarea {
+	width: 100%;
+	height: 300px;
+}
+
+div.pluginedit,div.plugintext {
+	border: 1px solid #828177;
+	padding: 4px 4px 4px 4px;
+	background-color: buttonface;
+}
+
+form.plugineditform {
+	
+}
+
+div.plugineditcaption {
+	font-size: 14px;
+	font-weight: bold;
+}
+
+table.pluginedittable {
+	width: 100%;
+}
+
+table.pluginedittable td {
+	border: 1px solid #828177;
+	padding: 4px 4px 4px 4px;
+	vertical-align: top;
+	font-size: 12px;
+	font-family: tahoma, verdana, arial;
+}
+
+.pluginedittable td.plugincfcap,pluginedittable td.plugincfhint {
+	padding-top: 12px;
+}
+
+.pluginedittable td.plugincfcap {
+	font-weight: bold;
+}
+
+table.pluginedittable td.plugincf {
+	
+}
+/**
+ * Tooltips, if hint-texts are used within a plugin 
+ * e.g.: $plugin_tx['PluginName']['cf_var_name']='hint';
+ * Will display a span, when hovering var_name.
+ */
+a.pl_tooltip,
+a.pl_tooltip:link,
+a.pl_tooltip:visited,
+a.pl_tooltip:active {
+	position: relative;
+	text-decoration: none;
+	font-weight: normal;
+	border: 0;
+}
+
+a.pl_tooltip:hover {
+/* IE needs some change for the a:hover	to handle the a:hover span */
+background-color: transparent;
+}
+
+a.pl_tooltip span {
+	display: none;
+}
+
+a.pl_tooltip span p {
+    width: auto !important;
+}
+
+a.pl_tooltip:hover span {
+	display: block;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	width: 300px;
+	z-index: 10;
+	border: 1px dotted;
+	padding: 2px 10px 2px 10px;
+	background: #EEEEEE;
+	color: #333;
+	text-align: left;
+}
+a.pl_tooltip img {
+	border: 0;
+}

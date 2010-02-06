@@ -1,0 +1,21 @@
+<!--
+
+CMSimple Legal Notices
+CMSimple - a Simple Content Management System
+Copyright © 1999-2009 Peter Andreas Harteg
+
+DO NOT MODIFY, RENAME OR DELETE THIS FILE
+
+-->
+<p><b>CMSimple -  a Simple Content Management System</b><br />
+Copyright © 1999-2009 <A href="mailto:peter@harteg.dk">Peter Andreas Harteg</a></p>
+
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public Licens or GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the <a href="http://www.cmsimple.org/?Licence:GPL3">GNU General Public License</a> or <a href="http://www.cmsimple.org/?Licence:AGPL3">GNU Affero General Public License</a> for more details.</p>
+
+<p>If you use this program under the AGPL3, you are required to keep these "Appropriate Legal Notices" intact as specified in AGPL3 section 5(d) and 7(b). Also, you need to keep an convenient and prominently visible feature that displays these notices, as defined in AGPL3 section 0.</p>
+
+<p>If you use this program under the AGPL3, you are required to make sure, that this web application provides a way for users to get its source. The original source is available at <a href="http://www.cmsimple.org">CMSimple.ORG</a>.</p>
+
+<p>If you use this program under the AGPL3 and you modify this program, your modified version must prominently offer all users interacting with it an opportunity to receive the source of your modified version by providing access to it from a network server at no charge, through some standard or customary means of facilitating copying of software, as required by AGPL3 section 13. The interface could display a "Source" link that leads users to an archive of the code.</p><p>This installation was downloaded from CMSimple.org Saturday 2nd of January 2010 07:40:56 PM</p>
