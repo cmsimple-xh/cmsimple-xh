@@ -258,6 +258,19 @@ if ($s == -1 && !$f && $o == '' && $su == '') {
 if ($adm && $f == 'save') {
 	$ss = $s;
 	$c[$s] = preg_replace("/<h[1-".$cf['menu']['levels']."][^>]*>(\&nbsp;| )?<\/h[1-".$cf['menu']['levels']."]>/i", "", stsl($text));
+	
+// Deletes hidden CMSimple scriptings and empty tags by deleting a page in edit-mode  - by MD 2010-01 (CMSimple_XH 1.1 update)
+	$rxScript = '~#CMSimple.*#~isU';
+    $delpage = preg_replace($rxScript, '', $c[$s]);  // remove scripting first (there might be tags in it)
+    $delpage = strip_tags($delpage);
+    $delpage = rmanl($delpage);                             // remove linebreaks
+    $delpage = str_replace(array('&nbsp;', ' ', '&#160;'), '', $delpage);  // remove blank spaces
+    if(strlen($delpage) == 0){   // no text on page
+	$o.= '<span style="background: #fff; color: #c00; font-weight: bold;">Page deleted</span>';   // test  
+         $c[$s] = '';                     
+    }
+// END deleting hidden CMSimple scriptings and empty tags by deleting a page in edit-mode  - by MD 2010-01 (CMSimple_XH 1.1 update)
+	
 	if ($s == 0)if(!preg_match("/^<h1[^>]*>.*<\/h1>/i", rmanl($c[0])) && !preg_match("/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/i", rmanl($c[0])))$c[0] = '<h1>'.$tx['toc']['missing'].'</h1>'.$c[0];
 	$title = ucfirst($tx['filetype']['content']);
 	if ($fh = @fopen($pth['file']['content'], "w")) {

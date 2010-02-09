@@ -1,0 +1,278 @@
+ ------------------------------------------------------------------------------------------------------------------
+ | Changelog CMSimple_XH											  |
+ ------------------------------------------------------------------------------------------------------------------
+
+ This file will keep informations about all the changes made 
+ from version to version in all CMSimple_XH core files and all version informations
+ of the included pluginloader, plugins and external editors
+ Currently versions are active:
+ 
+ Major Release: public Version.
+ V.1.0 rc3 Build: 2009103001
+
+ ------------------------------------------------------------------------------------------------------------------
+ Legend
+ ------------------------------------------------------------------------------------------------------------------
+ Each entry contains the date of change, the changed file and the
+ changes that were made.
+ 
+ first line: date / author
+  * = filename / package => new version-nr.
+ :> = old code
+ => = new code
+ +> = added code
+ -> = deleted code
+ x> = general changes
+ 
+ 
+ ------------------------------------------------------------------------------------------------------------------
+ Changes (newest on top)
+ ------------------------------------------------------------------------------------------------------------------
+ 
+==================
+ CMSimple_XH 1.1 
+ utf-8i02
+==================
+ Januar 31, 2010 / GE
+ 
+ * cms.php 
+ 
+ :> function sitename() {
+	global $cf;
+	return isset($cf['site']['title']) ? $cf['site']['title'] : ''; // changed by LM CMSimple_XH 1.1
+}
+----------------------------------------
+ => function sitename() {
+	global $tx;
+	return isset($tx['site']['title']) ? $tx['site']['title'] : ''; // changed by GE CMSimple_XH 1.2
+}
+
+function pagename() { // changed by GE CMSimple_XH 1.2
+	global $cf;
+	return isset($cf['site']['title']) ? $cf['site']['title'] : ''; // changed by LM CMSimple_XH 1.1
+}
+----------------------------------------
+ Januar 29, 2010 / GE
+ 
+  * cms.php - ./cmsimple/cmsimplecore.css included
+ 
+ +> tag('link rel="stylesheet" href="./cmsimple/cmsimplecore.css" type="text/css"')."\n".
+
+ Januar 26, 2010 / MD
+ 
+ * adm.php 
+ 
+ =>	 // Deletes hidden CMSimple scriptings and empty tags by deleting a page in edit-mode  - by MD 2010-01 (CMSimple_XH 1.1 update)
+	
+	$rxScript = '~#CMSimple.*#~isU';
+    $delpage = preg_replace($rxScript, '', $c[$s]);  // remove scripting first (there might be tags in it)
+    $delpage = strip_tags($delpage);
+    $delpage = rmanl($delpage);                             // remove linebreaks
+    $delpage = str_replace(array('&nbsp;', ' ', '&#160;'), '', $delpage);  // remove blank spaces
+    if(strlen($delpage) == 0){   // no text on page
+	$o.= '<span style="background: #fff; color: #c00; font-weight: bold;">Page deleted</span>';   // test  
+         $c[$s] = '';                     
+    }
+ 
+==================
+ CMSimple_XH 1.1
+==================
+
+Januar 11, 2010 / MD
+
+    * adm.php, function check_internal_links($test)
+        :> $query = $test['query'];
+        => list($query) = explode('&', $test['query']); 
+
+
+Januar 04, 2010 / GE
+
+* New content and footer-links in templates because licence contitions of CMSimple 3.3 has changed
+
+
+Januar 02, 2010 / Leen
+
+    * page_params_view.php, line 114 / plugin page_params
+        :> if($file == $template){
+        => if(isset($template) && $file == $template){
+
+    * cms.php, line 414
+        :> return '<a href="'.$sn.'?'.$u[$i].$x.'">';
+        => return isset($u[$i]) ? '<a href="'.$sn.'?'.$u[$i].$x.'">' : '<a href="'.$sn.'?'.$x.'">';
+
+    * cms.php, line 552
+        :> if ($cf['site']['title'] != '')$t = $cf['site']['title'].' - '.$title;
+        => if (isset($cf['site']['title']) && $cf['site']['title'] != '')$t = $cf['site']['title'].' - '.$title;
+
+    * cms.php, line 564
+        :> return $cf['site']['title'];
+        => return isset($cf['site']['title']) ? $cf['site']['title'] : '';
+
+    * cms.php, line 572
+        :> function toc($start, $end) {
+        => function toc($start = NULL, $end = NULL) {
+
+    * cms.php, line 693
+        :> function lastupdate($br, $hour) {
+        => function lastupdate($br = NULL, $hour = NULL) {
+
+    * cms.php, line 701 & 702
+        :> function legallink() {
+                global $cf;
+        => function legallink() {
+                global $cf, $sn;
+
+    * cms.php, line 709
+        :> if ($title != '' && $h[$s] != $title)return $title;
+        => if ($title != '' && (isset($h[$s]) && $h[$s] != $title))return $title;
+
+    * adm.php, line 230
+        :> if($admin)$o .= tag('input type="hidden" name="admin" value="'.$admin.'"');
+        => $o.= isset($admin) ? tag('input type="hidden" name="admin" value="'.$admin.'"') : '';
+
+    * adm.php, line 426 & 427
+        :> $path = $parts['path'];
+           if(!$path){$path = '/';}
+        => $path = isset($parts['path']) ? $parts['path'] : '/';
+
+    * adm.php, line 454
+        :> $html .= "\n".'<p>'.$checkedLinks.$tx['link']['checked'].'</p>'."\n";
+        => $html = "\n".'<p>'.$checkedLinks.$tx['link']['checked'].'</p>'."\n";
+
+    * adm.php, line 528
+        :> preg_match_all($pattern, $content, &$matches);
+        => preg_match_all($pattern, $content, $matches);
+     
+
+ ==================
+ CMSimple_XH 1.0
+ ==================
+ December 12, 2009
+
+ * ./cmsimple/adm.php / mvwd
+	:> fwrite($fh, "HEAD ".$path." HTTP/1.0\r\nHost: ".$host."\r\n\r\n");
+	=> fwrite($fh, "GET ".$path." HTTP/1.1\r\nHost: ".$host."\r\nUser-Agent: CMSimple_XH Link-Checker\r\n\r\n");
+
+	:> return($status);
+           fclose($fh);
+	=> fclose($fh);
+           return($status);
+
+ * ./cmsimple/adm.php - replace "check link" message with "unknown problem" message at line 499 / Leen
+	:> else{$html .= $tx['link']['mailto']."\n";}
+	=> else{$html .= $tx['link']['unknown']."\n";}
+
+ Extended language-files and translated / Leen, Gert, Translators
+
+ * ./cmsimple/languages/da.php - add "link unknown" message entry
+	+> $tx['link']['unknown']="Unknown problem, please check this link by yourself.";
+
+ * ./cmsimple/languages/de.php - add "link unknown" message entry
+	+> $tx['link']['unknown'] = "Unknown problem, please check this link by yourself."
+
+ * ./cmsimple/languages/en.php - add "link unknown" message entry
+	+> $tx['link']['unknown'] = "Unknown problem, please check this link by yourself."
+
+ * ./cmsimple/languages/es.php - add "link unknown" message entry
+	+> $tx['link']['unknown'] = "Unknown problem, please check this link by yourself."
+
+ * ./cmsimple/languages/fr.php - add "link unknown" message entry
+	+> $tx['link']['unknown'] = "Unknown problem, please check this link by yourself."
+
+ * ./cmsimple/languages/nl.php - add "link unknown" message entry
+	+> $tx['link']['unknown'] = "Onbekend probleem, controleer a.u.b. zelf deze link."
+
+ * ./cmsimple/languages/pl.php - add "link unknown" message entry
+	+> $tx['link']['unknown'] = "Unknown problem, please check this link by yourself."
+
+ * ./cmsimple/languages/sk.php - add "link unknown" message entry
+	+> $tx['link']['unknown'] = "Unknown problem, please check this link by yourself."
+
+ ------------------------------------------------------------------------------------------------------------------
+ ==================
+ CMSimple_XH 1.0 RC
+ ==================
+ November 09, 2009
+
+ * New Version 2.5.0 from 2009-11-04 of FCKeditor4CMSimple included / Holger
+
+ * ./cmsimple/cms.php - prepare for php 6 / Bob
+	:> if (eregi('cms.php',sv('PHP_SELF')))die('Access Denied');
+	=> if (preg_match('/cms.php/i',sv('PHP_SELF')))die('Access Denied');
+
+ * ./cmsimple/adm.php - prepare for php 6 / Bob
+	:> if (eregi('adm.php', sv('PHP_SELF')))die('Access Denied');
+	=> if (preg_match('/adm.php/i', sv('PHP_SELF')))die('Access Denied');
+
+ * all language files: new empty variables for url-design / Tata, Gerd
+	=> $tx['urichar']['org']="";
+	=> $tx['urichar']['new']=""; 
+
+------------------------------------------------------------------------------------------------------------------
+ ====================
+ CMSimple_XH 1.0 RC3i
+ ====================
+ October 30, 2009 / Holger, mvwd, Martin
+
+ * ./cmsimple/cms.php => V.1.0rc3 2009-10-30
+
+ 	+> Version informations defined (line 42 & 43):
+	   define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.0rc3');
+	   define('CMSIMPLE_XH_BUILD', 2009103001); (YYYYMMDDxx)
+
+	+> New function call for debug-mode (line 73):
+	   xh_debugmode();
+
+	//removed some "@" from @include() to enable error_reporting with xh_debugmode()
+	:> if (!@include($pth['file']['config']))die('Config file missing');
+	=> if (!include($pth['file']['config']))die('Config file missing');
+
+	:> if (@include($pth['file']['image']))exit;
+	=> if (include($pth['file']['image']))exit;
+
+	:> if (!@include($pth['file']['language']))die('Language file '.$pth['file']['language'].' missing');
+	=> if (!include($pth['file']['language']))die('Language file '.$pth['file']['language'].' missing');
+
+	:> if (@$cf['functions']['file'] != "")include($pth['folder']['cmsimple'].$cf['functions']['file']);
+	=> if ($cf['functions']['file'] != "")include($pth['folder']['cmsimple'].$cf['functions']['file']);
+
+	:> if ($cf['plugins']['folder'] != "")@include($pth['folder']['plugins'].'index.php');
+	=> if ($cf['plugins']['folder'] != "")include($pth['folder']['plugins'].'index.php');
+
+	:> if ($f == 'mailform' && $cf['mailform']['email'] != '')@include($pth['file']['mailform']);
+	=> if ($f == 'mailform' && $cf['mailform']['email'] != '')include($pth['file']['mailform']);
+
+	:> if (!@include($pth['file']['adm'])) {
+	=> if (!include($pth['file']['adm'])) {
+
+	:> if (!@include($pth['file']['template']))echo ...
+	=> if (!include($pth['file']['template']))echo ...
+
+	x> CMSimple scripting part rewritten to get error messages and E_USER warnings.
+	   Code by Martin Oct. 2009
+
+	x> Added function xh_debugmode() (from line 473)
+	   now it's possible to get error messages in th core-files, functions- and userfuncs.php,
+	   language-files, external_editor.php and in template.htm
+	   (for all options refer to function-documentation in the script)
+
+	x> some general changes in function editmenu():
+	   the in top of cms.php defined constants are used to 
+	   display the version informations in admin-mode.
+	   If error_reporting() is enabled, a warning will be displayed in admin mode
+
+ * ./cmsimple/adm.php => V.1.0rc3 20091030
+
+	//Bugfix: backup-files were not displayed in admin-mode below "settings"
+	//changed regex on line 72 & 128, code by Martin:
+	:> "/\d{3}\.htm/"
+	=> "/\d{3}_content\.htm|\d{3}_pagedata\.php/"
+
+ * ./cmsimple/content/content.htm => V.1.0rc3 20091030
+	x> Changed version informations to v1.0rc3
+
+ * Patched version of /plugins/index.php included to comply with xh_deugmode()
+
+ * New Version 2.4.1 b from 2009-10-31 of FCKeditor4CMSimple included
+
+ ------------------------------------------------------------------------------------------------------------------
