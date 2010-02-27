@@ -284,15 +284,12 @@ class PL_Page_Data_Model{
 		$data_string .= "\n################## Page Data ############\n";
 
 		$i = 0;
-		foreach($this -> data as $key => $values){
-			if($i > $cl) {
-				break;
-			}
-			foreach($values as $value_key => $value){
-				$data_string .= "\$page_data['".$key."']['".$value_key."'] = '". str_replace('\"', '"', addslashes($value)) ."';\n";
-			}
-			$data_string .= "\n//----------\n";
-			$i++;
+		foreach($this -> data as $key => $values){			
+                    foreach($values as $value_key => $value){
+                            $data_string .= "\$page_data['".$key."']['".$value_key."'] = '". str_replace('\"', '"', addslashes($value)) ."';\n";
+                    }
+                    $data_string .= "\n//----------\n";
+                    $i++;
 		}
 		$data_string .= "?>";
 

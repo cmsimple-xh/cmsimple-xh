@@ -17,7 +17,7 @@
  changes that were made.
  
  first line: date / author
-  * = filename / package => new version-nr.
+ * = filename / package => new version-nr.
  :> = old code
  => = new code
  +> = added code
@@ -30,50 +30,65 @@
  ------------------------------------------------------------------------------------------------------------------
  
 ==================
- CMSimple_XH 1.1 
- utf-8i02
+CMSimple_XH 1.1.1
 ==================
- Januar 31, 2010 / GE
- 
- * cms.php 
- 
- :> function sitename() {
-	global $cf;
-	return isset($cf['site']['title']) ? $cf['site']['title'] : ''; // changed by LM CMSimple_XH 1.1
-}
-----------------------------------------
- => function sitename() {
-	global $tx;
-	return isset($tx['site']['title']) ? $tx['site']['title'] : ''; // changed by GE CMSimple_XH 1.2
-}
+27 Februar, 2010 / Leen
 
-function pagename() { // changed by GE CMSimple_XH 1.2
-	global $cf;
-	return isset($cf['site']['title']) ? $cf['site']['title'] : ''; // changed by LM CMSimple_XH 1.1
-}
-----------------------------------------
- Januar 29, 2010 / GE
- 
-  * cms.php - ./cmsimple/cmsimplecore.css included
- 
- +> tag('link rel="stylesheet" href="./cmsimple/cmsimplecore.css" type="text/css"')."\n".
+x> deleted ./css/core.css, folder and file
+x> added ./cmsimple/cmsimplecore.css
 
- Januar 26, 2010 / MD
+* cms.php, corrected line 595
+    :> tag('link rel="stylesheet" href="./css/core.css" type="text/css"')
+    => tag('link rel="stylesheet" href="./cmsimple/cmsimplecore.css" type="text/css"')
+
+* cms.php, corrected line 613
+    :> if ($st == 'submenu' || $st == 'search')$t .= '<ul class="'.$st."\n".'">';
+    => if ($st == 'submenu' || $st == 'search')$t .= '<ul class="'.$st.'">'."\n"; 
+
+
+25 Februar, 2010 / Leen
+
+* page_params_view.php / page_params plugin, extended line 113
+    :> if($file != "." && $file != "..") {
+    => if(is_dir($pth['folder']['templates'].$file) && $file != "." && $file != "..") {
+
+* page_data_model.php / pluginloader, removed line 288-290
+    -> if($i > $cl) {
+           break;
+       } 
+
+
+Januar 31, 2010 / GE
  
- * adm.php 
+* cms.php 
+    :>  function sitename() {
+            global $cf;
+            return isset($cf['site']['title']) ? $cf['site']['title'] : ''; // changed by LM CMSimple_XH 1.1
+        }
+    =>  function sitename() {
+            global $tx;
+            return isset($tx['site']['title']) ? $tx['site']['title'] : ''; // changed by GE CMSimple_XH 1.2
+        }
+        function pagename() { // changed by GE CMSimple_XH 1.2
+            global $cf;
+            return isset($cf['site']['title']) ? $cf['site']['title'] : ''; // changed by LM CMSimple_XH 1.1
+        }
+
+
+Januar 26, 2010 / MD
  
- =>	 // Deletes hidden CMSimple scriptings and empty tags by deleting a page in edit-mode  - by MD 2010-01 (CMSimple_XH 1.1 update)
-	
-	$rxScript = '~#CMSimple.*#~isU';
-    $delpage = preg_replace($rxScript, '', $c[$s]);  // remove scripting first (there might be tags in it)
-    $delpage = strip_tags($delpage);
-    $delpage = rmanl($delpage);                             // remove linebreaks
-    $delpage = str_replace(array('&nbsp;', ' ', '&#160;'), '', $delpage);  // remove blank spaces
-    if(strlen($delpage) == 0){   // no text on page
-	$o.= '<span style="background: #fff; color: #c00; font-weight: bold;">Page deleted</span>';   // test  
-         $c[$s] = '';                     
-    }
- 
+    * adm.php, added line 262-272
+        +>  // Deletes hidden CMSimple scriptings and empty tags by deleting a page in edit-mode  - by MD 2010-01 (CMSimple_XH 1.1 update)
+            $rxScript = '~#CMSimple.*#~isU';
+            $delpage = preg_replace($rxScript, '', $c[$s]);  // remove scripting first (there might be tags in it)
+            $delpage = strip_tags($delpage);
+            $delpage = rmanl($delpage);                             // remove linebreaks
+            $delpage = str_replace(array('&nbsp;', ' ', '&#160;'), '', $delpage);  // remove blank spaces
+            if(strlen($delpage) == 0){   // no text on page
+                $o.= '<span style="background: #fff; color: #c00; font-weight: bold;">Page deleted</span>';   // test
+                $c[$s] = '';
+            }
+
 ==================
  CMSimple_XH 1.1
 ==================
@@ -87,7 +102,7 @@ Januar 11, 2010 / MD
 
 Januar 04, 2010 / GE
 
-* New content and footer-links in templates because licence contitions of CMSimple 3.3 has changed
+    * New content and footer-links in templates because licence contitions of CMSimple 3.3 has changed
 
 
 Januar 02, 2010 / Leen

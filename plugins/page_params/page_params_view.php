@@ -110,7 +110,7 @@ function page_params_view($page){
 	$templates_select .= "\n\t".'<option value="0"'. $selected.'>'.$plugin_tx['page_params']['use_default_template'].'</option>';
 	while(false !== ($file = readdir($handle))) {
 		$selected = '';
-		if($file != "." && $file != "..") {
+		if(is_dir($pth['folder']['templates'].$file) && $file != "." && $file != "..") { 
 			if(isset($template) && $file == $template) {
 				$selected = $strSelected;
 			}

@@ -47,8 +47,8 @@ $hjs = '';
 $onload = '';
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
-define('CMSIMPLE_XH_VERSION', 'CMSimple_XH_11_utf-8i02');
-define('CMSIMPLE_XH_BUILD', 2010013101);
+define('CMSIMPLE_XH_VERSION', 'CMSimple_XH_111_utf-8');
+define('CMSIMPLE_XH_BUILD', 2010022801);
 //version-informations
 
 if (preg_match('/cms.php/i',sv('PHP_SELF')))die('Access Denied');
@@ -556,7 +556,7 @@ function head() {
 	$t = '<title>'.strip_tags($t).'</title>'."\n";
 	foreach($cf['meta'] as $i => $k)$t .= meta($i);
 	if ($tx['meta']['codepage'] != '')$t = tag('meta http-equiv="content-type" content="text/html;charset='.$tx['meta']['codepage'].'"')."\n".$t;
-	return $t.tag('meta name="generator" content="'.CMSIMPLE_XH_VERSION.' '.CMSIMPLE_XH_BUILD.' - www.cmsimple-xh.de"')."\n".tag('link rel="stylesheet" href="'.$pth['file']['stylesheet'].'" type="text/css"')."\n".tag('link rel="stylesheet" href="./css/core.css" type="text/css"')."\n".$hjs;
+	return $t.tag('meta name="generator" content="'.CMSIMPLE_XH_VERSION.' '.CMSIMPLE_XH_BUILD.' - www.cmsimple-xh.de"')."\n".tag('link rel="stylesheet" href="'.$pth['file']['stylesheet'].'" type="text/css"')."\n".tag('link rel="stylesheet" href="./cmsimple/cmsimplecore.css" type="text/css"')."\n".$hjs;
 }
 // END new function head() (CMSimple_XH)
 
@@ -610,7 +610,7 @@ function li($ta, $st) {
 	$tl = count($ta);
 	if ($tl < 1)return;
 	$t = '';
-	if ($st == 'submenu' || $st == 'search')$t .= '<ul class="'.$st."\n".'">';
+	if ($st == 'submenu' || $st == 'search')$t .= '<ul class="'.$st.'">'."\n"; 
 	$b = 0;
 	if ($st > 0) {
 		$b = $st-1;
