@@ -130,7 +130,6 @@ FCKConfig.ToolbarSets["CMSimple"] = [
 ] ;
 
 FCKConfig.ProtectedSource.Add( /<\?[\s\S]*?\?>/g ) ;	// PHP style server side code
-FCKConfig.ProtectedSource.Add( /#CMSimple[\s\S]*?#/g ) ; // CMSimple scripting
 
 FCKConfig.EnterMode = 'p' ;			// p | div | br
 FCKConfig.ShiftEnterMode = 'br' ;	// p | div | br

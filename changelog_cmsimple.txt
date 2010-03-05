@@ -28,7 +28,28 @@
  ------------------------------------------------------------------------------------------------------------------
  Changes (newest on top)
  ------------------------------------------------------------------------------------------------------------------
- 
+
+5 March 2010 / Leen
+
+* adm.php, added line 104, chmod uploaded files to 0644 => bug 2963266
+    +> chmod($pth['folder'][$f].$name, 0644);
+
+* ./FCkeditor/custom_configurations/fckeditor_cmsimple.js, deleted line 133 so scripting is visible in edit mode
+    -> FCKConfig.ProtectedSource.Add( /#CMSimple[\s\S]*?#/g ) ; // CMSimple scripting
+
+* adm.php, removed line 262-272 because scripting is visible, and cleanup can be done yourself
+    ->  // Deletes hidden CMSimple scriptings and empty tags by deleting a page in edit-mode  - by MD 2010-01 (CMSimple_XH 1.1 update)
+        $rxScript = '~#CMSimple.*#~isU';
+        $delpage = preg_replace($rxScript, '', $c[$s]);  // remove scripting first (there might be tags in it)
+        $delpage = strip_tags($delpage);
+        $delpage = rmanl($delpage);                             // remove linebreaks
+        $delpage = str_replace(array('&nbsp;', ' ', '&#160;'), '', $delpage);  // remove blank spaces
+        if(strlen($delpage) == 0){   // no text on page
+            $o.= '<span style="background: #fff; color: #c00; font-weight: bold;">Page deleted</span>';   // test
+            $c[$s] = '';
+        }
+        // END deleting hidden CMSimple scriptings and empty tags by deleting a page in edit-mode  - by MD 2010-01 (CMSimple_XH 1.1 update)
+
 ==================
 CMSimple_XH 1.1.1
 ==================

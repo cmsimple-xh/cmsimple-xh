@@ -46,8 +46,8 @@ $page_data['0']['header_location'] = '';
 $page_data['0']['use_header_location'] = '';
 
 //----------
-$page_data['1']['url'] = 'How_to_create_pages';
-$page_data['1']['last_edit'] = '';
+$page_data['1']['url'] = 'How_to_delete_a_page';
+$page_data['1']['last_edit'] = '1267795838';
 $page_data['1']['description'] = '';
 $page_data['1']['keywords'] = '';
 $page_data['1']['title'] = '';
@@ -62,8 +62,8 @@ $page_data['1']['header_location'] = '';
 $page_data['1']['use_header_location'] = '';
 
 //----------
-$page_data['2']['url'] = 'An_H2_heading';
-$page_data['2']['last_edit'] = '';
+$page_data['2']['url'] = 'The_other_templates';
+$page_data['2']['last_edit'] = '1267790935';
 $page_data['2']['description'] = '';
 $page_data['2']['keywords'] = '';
 $page_data['2']['title'] = '';
