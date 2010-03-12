@@ -283,10 +283,11 @@ class PL_Page_Data_Model{
 
 		$data_string .= "\n################## Page Data ############\n";
 
+                ksort($this->data, SORT_NUMERIC);
 		$i = 0;
 		foreach($this -> data as $key => $values){			
                     foreach($values as $value_key => $value){
-                            $data_string .= "\$page_data['".$key."']['".$value_key."'] = '". str_replace('\"', '"', addslashes($value)) ."';\n";
+                        $data_string .= "\$page_data[".$i."]['".$value_key."'] = '". str_replace('\"', '"', addslashes($value)) ."';\n";
                     }
                     $data_string .= "\n//----------\n";
                     $i++;
