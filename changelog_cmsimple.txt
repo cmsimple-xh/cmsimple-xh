@@ -7,9 +7,6 @@
  of the included pluginloader, plugins and external editors
  Currently versions are active:
  
- Major Release: public Version.
- V.1.0 rc3 Build: 2009103001
-
  ------------------------------------------------------------------------------------------------------------------
  Legend
  ------------------------------------------------------------------------------------------------------------------
@@ -29,8 +26,27 @@
  Changes (newest on top)
  ------------------------------------------------------------------------------------------------------------------
 
-5 March 2010 / Leen
+==================
+CMSimple_XH 1.1.2
+==================
 
+12 March 2010 / Leen
+* ./plugins/pluginloader/page_data/page_data_model.php, added line 286:
+    +> ksort($this->data, SORT_NUMERIC);
+
+* ./plugins/pluginloader/page_data/page_data_model.php, line 290:
+    :> $data_string .= "\$page_data['".$key."']['".$value_key."'] = '". str_replace('\"', '"', addslashes($value)) ."';\n";
+    => $data_string .= "\$page_data[".$i."]['".$value_key."'] = '". str_replace('\"', '"', addslashes($value)) ."';\n";
+
+* cms.php (added after "// Plugin loading"), line 169:
+    +> if($function == 'save'){$edit = true;}
+
+* cms.php, line 560:
+    +> tag('link rel="stylesheet" href="./css/core.css" type="text/css"')
+
+* New folder ./css/ within an empty core.css
+
+5 March 2010 / Leen
 * adm.php, added line 104, chmod uploaded files to 0644 => bug 2963266
     +> chmod($pth['folder'][$f].$name, 0644);
 
