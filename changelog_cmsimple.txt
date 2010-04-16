@@ -50,7 +50,7 @@ CMSimple_XH 1.1.2
 * adm.php, added line 104, chmod uploaded files to 0644 => bug 2963266
     +> chmod($pth['folder'][$f].$name, 0644);
 
-* ./FCkeditor/custom_configurations/fckeditor_cmsimple.js, deleted line 133 so scripting is visible in edit mode
+* ./FCkeditor/custom_configurations/fckconfig_cmsimple.js, deleted line 133 so scripting is visible in edit mode
     -> FCKConfig.ProtectedSource.Add( /#CMSimple[\s\S]*?#/g ) ; // CMSimple scripting
 
 * adm.php, removed line 262-272 because scripting is visible, and cleanup can be done yourself
