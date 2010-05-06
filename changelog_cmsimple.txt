@@ -31,6 +31,10 @@ CMSimple_XH 1.2
 6 may 2010 / Leen
 * ./cmsimple/languages/fr.php, fixed false heading replaces - bug 2995817
 
+* ./plugins/page_params/index.php, changed line 74
+    :> $c[$pd_s] .= '<div id = "pp_last_update">'.$tx['lastupdate']['text'].": ".date($tx['lastupdate']['dateformat'], $pd_current['last_edit']).'</div>';
+    => $c[$pd_s] .= '<div id = "pp_last_update">'.$plugin_tx['page_params']['last_edit'].": ".date($tx['lastupdate']['dateformat'], $pd_current['last_edit']).'</div>';
+
 ==================
 CMSimple_XH 1.1.2
 ==================
