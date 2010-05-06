@@ -71,7 +71,7 @@ if(!$edit && $pd_current){
 		}
 	}
 	if($pd_current['show_last_edit'] == '1' && $pd_current['last_edit'] !== ''){
-		$c[$pd_s] .= '<div id = "pp_last_update">'.$tx['lastupdate']['text'].": ".date($tx['lastupdate']['dateformat'], $pd_current['last_edit']).'</div>';
+		$c[$pd_s] .= '<div id = "pp_last_update">'.$plugin_tx['page_params']['last_edit'].": ".date($tx['lastupdate']['dateformat'], $pd_current['last_edit']).'</div>';
 	}
 }
 
