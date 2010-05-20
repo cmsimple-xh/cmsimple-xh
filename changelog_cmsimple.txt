@@ -28,6 +28,13 @@
 ==================
 CMSimple_XH 1.2
 ==================
+15 may 2010 / Leen
+* ./cmsimple/cms.php, solved bug 2976364 - locator function, changed line 724 & line 732
+    724 :> for($i = $s-1; $i > 0 ; $i--) {
+    724 =>for($i = $s-1; $i >= 0 ; $i--) {
+    732 :> return a(0, '').$h[0].'</a> &gt; '.$t.$h[$s];
+    732 => return $t.$h[$s];
+
 6 may 2010 / Leen
 * ./cmsimple/languages/fr.php, fixed false heading replaces - bug 2995817
 

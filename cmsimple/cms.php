@@ -712,26 +712,26 @@ function legallink() {
 }
 
 function locator() {
-	global $title, $h, $s, $f, $c, $l;
-	if (hide($s))return $h[$s];
-	if ($title != '' && (isset($h[$s]) && $h[$s] != $title))return $title;
-	$t = '';
-	if ($s == 0)return $h[$s];
-	else if($f != '')return ucfirst($f);
-	else if($s > 0) {
-		$tl = $l[$s];
-		if ($tl > 1) {
-			for($i = $s-1; $i > 0 ; $i--) {
-				if ($l[$i] < $tl) {
-					$t = a($i, '').$h[$i].'</a> &gt; '.$t;
-					$tl--;
-				}
-				if ($tl < 2)break;
-			}
-		}
-		return a(0, '').$h[0].'</a> &gt; '.$t.$h[$s];
-	}
-	else return '&nbsp;';
+    global $title, $h, $s, $f, $c, $l;
+    if (hide($s))return $h[$s];
+    if ($title != '' && (isset($h[$s]) && $h[$s] != $title))return $title;
+    $t = '';
+    if ($s == 0)return $h[$s];
+    elseif($f != '')return ucfirst($f);
+    elseif($s > 0) {
+        $tl = $l[$s];
+        if ($tl > 1) {
+            for($i = $s-1; $i >= 0 ; $i--) {
+                if ($l[$i] < $tl) {
+                    $t = a($i, '').$h[$i].'</a> &gt; '.$t;
+                    $tl--;
+                }
+                if ($tl < 2)break;
+            }
+        }        
+        return $t.$h[$s];
+    }
+    else return '&nbsp;';
 }
 
 // added version info and Links to cmsimple-xh.de and FAQ-section - by GE 2009/09 (CMSimple_XH)
