@@ -11,7 +11,7 @@
  *
  * @author Martin Damken
  * @link http://www.zeichenkombinat.de
- * @version 1.0.04
+ * @version 1.0.05
  * @package pluginloader
  * @subpackage page_params
  */
