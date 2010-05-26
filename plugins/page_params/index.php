@@ -86,18 +86,19 @@ if(!$edit && $pd_current){
 if(!$adm OR ($adm && !$edit)){
   $pages = $pd_router -> find_all();
 	foreach($pages as $key => $values){
+             if($values['use_header_location'] == '1' AND trim($values['header_location']) !== '') {
+			if(!preg_match('"(http|https|ftp|mailto):"si', $values['header_location'])) {
+				$values['header_location'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].$values['header_location'];
+			}
+			$c[$key]  = '#CMSimple header("Location:'. $values['header_location'] .'"); exit; #';
+		}
 		if($values['linked_to_menu'] == '0'){
 			$c[$key] = '#CMSimple hide#' . $c[$key];
 		}
 		if($values['published'] == '0'){
 			$c[$key] = '#CMSimple hide#';
 		}
-		if($values['use_header_location'] == '1' AND trim($values['header_location']) !== '') { 
-			if(!preg_match('"(http|https|ftp|mailto):"si', $values['header_location'])) {
-				$values['header_location'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].$values['header_location'];
-			}
-			$c[$key]  = '#CMSimple header("Location:'. $values['header_location'] .'"); exit; #';
-		} 
+		
 	}
 }
 
