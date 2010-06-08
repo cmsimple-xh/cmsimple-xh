@@ -44,7 +44,7 @@ if (@$tx['editor']['buttons']!='') {
     if (@is_dir($pth['folder']['editbuttons'])) {
         $getimage='"'.$pth['folder']['editbuttons'].'"+image+".gif"';
     } else $getimage='"'.$sn.'?image="+image';
-    $onload.=' onload="init()"';
+    $onload.="init();";
 
 
 // Javascript printed to head section

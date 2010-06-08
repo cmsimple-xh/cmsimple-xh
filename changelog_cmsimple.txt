@@ -28,6 +28,38 @@
 ==================
 CMSimple_XH 1.2
 ==================
+8 june 2010 / Leen
+* ./cmsimple/cms.php, feature request 3012813 - onload() function, line 577
+    :> return $onload;
+    => return ' onload="'.$onload.'"';
+* ./cmsimple/login.php, feature request 3012813 - onload, line 67
+    :> $onload = 'onLoad="self.focus();document.login.passwd.focus()"';
+    => $onload .= "self.focus();document.login.passwd.focus();";
+* ./cmsimple/oedit.php, feature request 3012813 - onload, line 47
+    :> $onload.=' onload="init()"';
+    => $onload.="init();";
+* ./cmsimple/fckeditor.php, feature request 3012813 - onload, line 102
+    :> $onload.=' onload="init()"';
+    => $onload.="init();";
+* ./plugins/index.php - loading required classes sequence, removed line 203 - 207
+    ->  // Load plugin required_classes
+        if(file_exists($pth['file']['plugin_classes'])) {
+            include($pth['file']['plugin_classes']);
+	}
+* ./plugins/index.php - loading required classes sequence, added at line 196
+    +>  $handle = opendir($pth['folder']['plugins']);
+        while (FALSE!==($plugin = readdir($handle))) {
+            if($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'].$plugin)) {
+                PluginFiles($plugin);
+
+                // Load plugin required_classes
+                if(file_exists($pth['file']['plugin_classes'])) {
+                    include($pth['file']['plugin_classes']);
+                }
+            } // if($plugin)
+        } // while (FALSE !== ($plugin = readdir($handle)))
+        closedir($handle);
+
 15 may 2010 / Leen
 * ./cmsimple/cms.php, solved bug 2976364 - locator function, changed line 724 & line 732
     724 :> for($i = $s-1; $i > 0 ; $i--) {

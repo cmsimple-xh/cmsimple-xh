@@ -574,7 +574,7 @@ function pagename() { // changed by GE CMSimple_XH 1.2
 
 function onload() {
 	global $onload;
-	return $onload;
+	return ' onload="'.$onload.'"';
 }
 
 function toc($start = NULL, $end = NULL) { // changed by LM CMSimple_XH 1.1

@@ -99,7 +99,7 @@ if($sl == $cf['language']['default']) {
 ###### end edit ######################
 
 
-$onload.=' onload="init()"';
+$onload.="init();";
 $hjs.='<script type="text/javascript" src="'.$pth['folder']['base'].$cf['fckeditor']['folder'].'/fckeditor.js"></script>
 
 <script type="text/javascript">

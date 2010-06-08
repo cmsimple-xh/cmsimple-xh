@@ -193,17 +193,25 @@ require_once $pth['folder']['plugins'].$pluginloader_cfg['foldername_pluginloade
  * Include plugin (and plugin files)
  */
 $handle = opendir($pth['folder']['plugins']);
+while (FALSE!==($plugin = readdir($handle))) {
+    if($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'].$plugin)) {
+        PluginFiles($plugin);
+
+        // Load plugin required_classes
+	if(file_exists($pth['file']['plugin_classes'])) {
+            include($pth['file']['plugin_classes']);
+        }
+    } // if($plugin)
+} // while (FALSE !== ($plugin = readdir($handle)))*/
+closedir($handle);
+
+$handle = opendir($pth['folder']['plugins']);
 
 while (FALSE!==($plugin = readdir($handle))) {
 	
 	if($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'].$plugin)) {
 		
-		PluginFiles($plugin);
-		
-		// Load plugin required_classes
-		if(file_exists($pth['file']['plugin_classes'])) {
-			include($pth['file']['plugin_classes']);
-		}
+		PluginFiles($plugin);				
 		
 		// Load plugin config
 		if(file_exists($pth['file']['plugin_config'])) {
