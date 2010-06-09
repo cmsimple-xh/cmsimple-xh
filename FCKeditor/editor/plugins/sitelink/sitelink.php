@@ -196,7 +196,7 @@ session_start();
 		*/
 		
 		    
-    preg_match_all("/<h([1-".$ml."])[^>]*>(.*)<\/h[1-".$ml."]>/i", $c, $headings);
+    preg_match_all("/<h([1-".$ml."])[^>]*>(.*)<\/h[1-".$ml."]>/isU", $c, $headings);
                 $sl_ancestors = array();
                 $sl_levels = $headings[1];
                 $sl_link_texts = $headings[2];

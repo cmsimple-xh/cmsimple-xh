@@ -28,6 +28,11 @@
 ==================
 CMSimple_XH 1.2
 ==================
+9 june 2010 / Leen
+* ./FCKeditor/editor/plugins/sitelink/sitelink.php - linebreaks in <hx> problem solved, line 199
+    :> preg_match_all("/<h([1-".$ml."])[^>]*>(.*)<\/h[1-".$ml."]>/i", $c, $headings);
+    => preg_match_all("/<h([1-".$ml."])[^>]*>(.*)<\/h[1-".$ml."]>/isU", $c, $headings);
+
 8 june 2010 / Leen
 * ./cmsimple/cms.php, feature request 3012813 - onload() function, line 577
     :> return $onload;
