@@ -66,7 +66,7 @@ if ($action=='saverearranged'  && (isset($text) ? strlen($text) : 0 ) > 0 ) {
 /**
  * Finally check for some changed page infos
  */
-if(isset($_POST['save_page_data'])){
+if($s > -1 && isset($_POST['save_page_data'])){
 	$params = $_POST;
 	if(get_magic_quotes_gpc()===1){
 		array_walk($params, create_function('&$data','$data=stripslashes($data);'));
