@@ -203,9 +203,7 @@ while (FALSE!==($plugin = readdir($handle))) {
         }
     } // if($plugin)
 } // while (FALSE !== ($plugin = readdir($handle)))*/
-closedir($handle);
-
-$handle = opendir($pth['folder']['plugins']);
+rewinddir($handle);
 
 while (FALSE!==($plugin = readdir($handle))) {
 	
