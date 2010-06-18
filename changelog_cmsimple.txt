@@ -28,6 +28,15 @@
 ==================
 CMSimple_XH 1.2
 ==================
+12 june 2010 / Bob
+* ./cmsimple/mailform.php - localized mailform subject, line 21, 44 & 45
+    21 :> if (eregi('mailform.php', sv('PHP_SELF')))
+    21 => if (preg_match('/mailform.php/i',sv('PHP_SELF')))
+    44 :> else if(!(eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[_a-z0-9-]+(\.[_a-z0-9-]+)*(\.([a-z]{2,4}))+$", $sender)))
+    44 => else if(!(preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[_a-z0-9-]+(\.[_a-z0-9-]+)*(\.([a-z]{2,4}))+$/i", $sender)))
+    45 :> else if(!(@mail($cf['mailform']['email'], 'Mailform from '.sv('SERVER_NAME'),...
+    45 => else if(!(@mail($cf['mailform']['email'], $tx['menu']['mailform'].' '.sv('SERVER_NAME'),...
+
 9 june 2010 / Leen
 * ./FCKeditor/editor/plugins/sitelink/sitelink.php - linebreaks in <hx> problem solved, line 199
     :> preg_match_all("/<h([1-".$ml."])[^>]*>(.*)<\/h[1-".$ml."]>/i", $c, $headings);

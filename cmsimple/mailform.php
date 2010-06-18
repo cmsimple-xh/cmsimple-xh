@@ -7,18 +7,19 @@ For changelog, downloads and information please see http://www.cmsimple-xh.de
 -- COPYRIGHT INFORMATION START --
 based on CMSimple version 3.3 - December 31. 2009
 Small - simple - smart
-© 1999-2009 Peter Andreas Harteg - peter@harteg.dk
+� 1999-2009 Peter Andreas Harteg - peter@harteg.dk
 -- COPYRIGHT INFORMATION END --
 
 This file is part of CMSimple
 For licence see notice in /cmsimple/cms.php and http://www.cmsimple.org/?Licence
 ======================================
 History:
+2010-06-12  Bob for XH 1.2 : Mail header subject localized
 2009-09-18  GE for CMSimple_XH
 2008-11-19  JB for 32SE added captcha, senders phone and name
 */
 
-if (eregi('mailform.php', sv('PHP_SELF')))die('Access Denied');
+if (preg_match('/mailform.php/i',sv('PHP_SELF')))die('Access Denied');
 
 $title = $tx['title'][$f];
 $o .= '<h1>'.$title.'</h1>';
@@ -41,8 +42,8 @@ $msg = ($tx['mailform']['sendername'] .": " .  stsl($sendername) . "\n" .  $tx['
 	else  if ($mailform == '')  {
 	$e .= '<li>'.$tx['error']['mustwritemes'];
 	}
-	else if(!(eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[_a-z0-9-]+(\.[_a-z0-9-]+)*(\.([a-z]{2,4}))+$", $sender)))$e .= '<li>'.$tx['mailform']['notaccepted'];
-	else if(!(@mail($cf['mailform']['email'], 'Mailform from '.sv('SERVER_NAME'), $msg, "From: ".stsl($sender)."\r\n"."X-Remote: ".sv('REMOTE_ADDR')."\r\n"))) 
+	else if(!(preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[_a-z0-9-]+(\.[_a-z0-9-]+)*(\.([a-z]{2,4}))+$/i", $sender)))$e .= '<li>'.$tx['mailform']['notaccepted'];
+	else if(!(@mail($cf['mailform']['email'], $tx['menu']['mailform'].' '.sv('SERVER_NAME'), $msg, "From: ".stsl($sender)."\r\n"."X-Remote: ".sv('REMOTE_ADDR')."\r\n"))) 
 	{
 	$e .= '<li style="font-size: 118%;">'.$tx['mailform']['notsend'];
 	}
