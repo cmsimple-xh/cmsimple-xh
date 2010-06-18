@@ -42,6 +42,16 @@ CMSimple_XH 1.2
     :> preg_match_all("/<h([1-".$ml."])[^>]*>(.*)<\/h[1-".$ml."]>/i", $c, $headings);
     => preg_match_all("/<h([1-".$ml."])[^>]*>(.*)<\/h[1-".$ml."]>/isU", $c, $headings);
 
+9 june 2010 / Martin
+* ./plugins/pluginloader/page_data/index.php, line 69
+    :> if(isset($_POST['save_page_data'])){
+    => if($s > -1 && isset($_POST['save_page_data'])){
+
+* ./plugins/index.php - loading required classes sequence, line 206 ff.
+    :> closeddir($handle);
+       $handle = opendir($pth['folder']['plugins']);
+    => rewinddir($handle);
+
 8 june 2010 / Leen
 * ./cmsimple/cms.php, feature request 3012813 - onload() function, line 577
     :> return $onload;
