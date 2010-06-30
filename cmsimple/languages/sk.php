@@ -6,6 +6,7 @@ $tx['meta']['codepage']="utf-8";
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";
 $tx['locator']['text']="Nachádzate sa tu: ";
+$tx['locator']['home']="Home";
 $tx['languagemenu']['text']="Výber jazyka: ";
 $tx['template']['text1']="template-text 1";
 $tx['template']['text2']="template-text 2";

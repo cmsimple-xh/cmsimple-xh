@@ -413,7 +413,10 @@ function l($n) {
 }
 
 function a($i, $x) {
-	global $sn, $u;
+	global $sn, $u, $cf;
+        if($i == 0 && $cf['locator']['show_homepage'] == 'true') {
+            return '<a href="http://'.parse_url('http://'.$_SERVER['HTTP_HOST'], PHP_URL_HOST).parse_url('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], PHP_URL_PATH).'">';
+        }
 	return isset($u[$i]) ? '<a href="'.$sn.'?'.$u[$i].$x.'">' : '<a href="'.$sn.'?'.$x.'">'; // changed by LM CMSimple_XH 1.1
 }
 
@@ -578,8 +581,7 @@ function onload() {
 }
 
 function toc($start = NULL, $end = NULL) { // changed by LM CMSimple_XH 1.1
-	global $c, $cl, $s, $l, $cf;
-	$ta = array();
+	global $c, $cl, $s, $l, $cf;	
 	if (isset($start)) {
 		if (!isset($end))$end = $start;
 	}
@@ -591,7 +593,7 @@ function toc($start = NULL, $end = NULL) { // changed by LM CMSimple_XH 1.1
 		for($i = $s; $i > -1; $i--) {
 			if ($l[$i] <= $tl && $l[$i] >= $start && $l[$i] <= $end)if(!hide($i))$ta[] = $i;
 			if ($l[$i] < $tl)$tl = $l[$i];
-		}
+		}                
 		@sort($ta);
 		$tl = $l[$s];
 	}
@@ -635,9 +637,9 @@ function li($ta, $st) {
 			if ($l[$j] > $l[$ta[$i]])$t .= 's';
 			break;
 		}
-		$t .= '">';
-		if ($tf)$t .= a($ta[$i], '');
-		$t .= $h[$ta[$i]];
+		$t .= '">';		
+		$t .= a($ta[$i], '');                
+                $t .= $h[$ta[$i]];
 		if ($tf)$t .= '</a>';
 		if ($st == 'menulevel' || $st == 'sitemaplevel') {
 			if ((isset($ta[$i+1])?$l[$ta[$i+1]]:$b) > $l[$ta[$i]])$lf[$l[$ta[$i]]] = true;
@@ -712,7 +714,7 @@ function legallink() {
 }
 
 function locator() {
-    global $title, $h, $s, $f, $c, $l;
+    global $title, $h, $s, $f, $c, $l, $tx, $cf;
     if (hide($s))return $h[$s];
     if ($title != '' && (isset($h[$s]) && $h[$s] != $title))return $title;
     $t = '';
@@ -728,8 +730,12 @@ function locator() {
                 }
                 if ($tl < 2)break;
             }
-        }        
-        return $t.$h[$s];
+        }                
+        if($cf['locator']['show_homepage'] == 'true') {
+            return a(0, '').$tx['locator']['home'].'</a> &gt; '.$t.$h[$s];
+        } else {
+            return $t.$h[$s];
+        }
     }
     else return '&nbsp;';
 }

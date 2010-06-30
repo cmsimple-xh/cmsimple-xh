@@ -3,6 +3,7 @@ $tx['site']['title']="Deutscher Seitentitel - &auml;ndern in den Spracheinstellu
 $tx['meta']['keywords']="Deutsche Keywords - zu &auml;ndern in den Spracheinstellungen";
 $tx['meta']['description']="Deutsche Description - zu &auml;ndern in den Spracheinstellungen";
 $tx['locator']['text']="Sie sind hier: ";
+$tx['locator']['home']="Startseite";
 $tx['languagemenu']['text']="Sprachauswahl: ";
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";

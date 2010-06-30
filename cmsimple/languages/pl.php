@@ -6,6 +6,7 @@ $tx['meta']['codepage']="utf-8";
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";
 $tx['locator']['text']="Jeste tu: ";
+$tx['locator']['home']="Home";
 $tx['languagemenu']['text']="Wybr jzyka: ";
 $tx['template']['text1']="szablon 1";
 $tx['template']['text2']="szablon 2";

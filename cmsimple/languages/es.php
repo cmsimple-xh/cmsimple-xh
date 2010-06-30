@@ -5,6 +5,7 @@ $tx['meta']['description']="Descripción español - el cambio en la configuraci�
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";
 $tx['locator']['text']="Usted está aquí: ";
+$tx['locator']['home']="Home";
 $tx['languagemenu']['text']="Seleccionar idioma: ";
 $tx['template']['text1'] = "texto de plantilla 1";
 $tx['template']['text2'] = "texto de plantilla 2";

@@ -3,6 +3,7 @@ $tx['site']['title']="Nederlandse website titel - verander het in de taalinstell
 $tx['meta']['keywords']="Engelse keywords - verander het in de taalinstellingen";
 $tx['meta']['description']="Engelse description - verander het in de taalinstellingen";
 $tx['locator']['text']="U bent hier: ";
+$tx['locator']['home']="Home";
 $tx['languagemenu']['text']="selecteer taal: ";
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";

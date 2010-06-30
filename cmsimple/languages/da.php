@@ -5,6 +5,7 @@ $tx['meta']['description']="Dansk Side Titel - ændre det i sprog indstillingern
 $tx['urichar']['org']="";
 $tx['urichar']['new']=""; 
 $tx['locator']['text']="Du er her: ";
+$tx['locator']['home']="Home";
 $tx['languagemenu']['text']="vælg sprog: ";
 $tx['template']['text1'] = "template-text 1";
 $tx['template']['text2'] = "template-text 2";

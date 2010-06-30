@@ -10,6 +10,7 @@ $cf['meta']['publisher']="";
 $cf['meta']['content-language']="en";
 $cf['meta']['keywords']="English keywords - change it in your language settings";
 $cf['meta']['description']="English description - change it in your language settings";
+$cf['locator']['show_homepage']="true";
 $cf['backup']['numberoffiles']="5";
 $cf['images']['maxsize']="150000";
 $cf['downloads']['maxsize']="1000000";

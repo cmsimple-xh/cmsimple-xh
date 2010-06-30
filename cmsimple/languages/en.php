@@ -3,6 +3,7 @@ $tx['site']['title']="English Site Title - change it in your language settings";
 $tx['meta']['keywords']="English keywords - change it in your language settings";
 $tx['meta']['description']="English description - change it in your language settings";
 $tx['locator']['text']="You are here: ";
+$tx['locator']['home']="Home";
 $tx['languagemenu']['text']="select language: ";
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";
