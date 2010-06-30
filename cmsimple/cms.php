@@ -439,9 +439,11 @@ function rfc(){
 }*/
 
 function a($i, $x) {
-	global $sn, $u, $cf;
-        if(($i == 0 && $cf['locator']['show_homepage'] == 'true') && $x == '') {
-            return '<a href="http://'.parse_url('http://'.$_SERVER['HTTP_HOST'], PHP_URL_HOST).parse_url('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], PHP_URL_PATH).'">';
+	global $sn, $u, $cf, $adm;
+        if($i == 0 && !$adm) {
+            if($x == '' && $cf['locator']['show_homepage'] == 'true') {
+                return '<a href="http://'.parse_url('http://'.$_SERVER['HTTP_HOST'], PHP_URL_HOST).parse_url('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], PHP_URL_PATH).'">';
+            }
         }
 	return isset($u[$i]) ? '<a href="'.$sn.'?'.$u[$i].$x.'">' : '<a href="'.$sn.'?'.$x.'">'; // changed by LM CMSimple_XH 1.1
 }
