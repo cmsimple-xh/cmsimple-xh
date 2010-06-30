@@ -664,7 +664,7 @@ function li($ta, $st) {
 			break;
 		}
 		$t .= '">';		
-		$t .= a($ta[$i], '');                
+		if($tf)$t .= a($ta[$i], '');
                 $t .= $h[$ta[$i]];
 		if ($tf)$t .= '</a>';
 		if ($st == 'menulevel' || $st == 'sitemaplevel') {
