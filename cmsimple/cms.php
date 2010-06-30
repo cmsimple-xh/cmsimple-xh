@@ -361,60 +361,86 @@ function e($et, $ft, $fn) {
 	$e .= '<li>'.$tx['error'][$et].' '.$tx['filetype'][$ft].' '.$fn.'</li>';
 }
 
-function rfc() {
-	global $c, $cl, $h, $u, $l, $docstart, $su, $s, $pth, $tx, $edit, $adm, $cf;
-	$c = array();
-	$h = array();
-	$u = array();
-	$l = array();
-	$c = explode("\xC2\xA7", preg_replace("/(<h[1-".$cf['menu']['levels']."][^>]*>)/i", "\xC2\xA7\\1", str_replace("\xC2\xA7", '&sect;', rf($pth['file']['content']))));
 
-	$docstart = '';
-	if (h(0) == '')$docstart .= array_shift($c);
-	if (count($c) == 0)$c[0] = '<h1>'.$tx['toc']['newpage'].'</h1>';
-	if (!preg_match("/^<h1[^>]*>.*<\/h1>/is", $c[0]))$c[0] = '<h1>'.$tx['toc']['missing'].'</h1>'.$c[0];
-	$c[count($c)-1] = preg_replace("/(.*)<\/body>.*<\/html>/i", "\\1", $c[count($c)-1]);
-	if (!($edit && $adm)) {
-		foreach($c as $i => $j) {
-			if (cmscript('remove', $j))unset($c[$i]);
-		}
-		$c = array_values($c);
-	}
-	$duplicate = 1;
-	$empty = 1;
-	$s = -1;
-	$ta = array();
-	$cl = count($c);
-	for($i = 0; $i < $cl; $i++) {
-		$l[$i] = l($i);
-		$h[$i] = h($i);
-		if ($h[$i] == '')$u[$i] = $h[$i] = $tx['toc']['empty'].' '.$empty++;
-		$ta[$l[$i]] = $u[$i] = uenc($h[$i]);
-		if ($l[$i] > 1)for($j = $l[$i]-1; $j > 0; $j--)$u[$i] = (isset($ta[$j])?$ta[$j]:'').$cf['uri']['seperator'].''.$u[$i];
-		$u[$i] = substr($u[$i], 0, $cf['uri']['length']);
-		$w = count($u)-1;
-		for($j = 0; $j < $w; $j++)if($u[$i] == $u[$j]) {
-			$h[$i] = $tx['toc']['dupl'].' '.$duplicate++;
-			$u[$i] = uenc($h[$i]);
-		}
-		if ($su == $u[$i])$s = $i;
-	}
+function rfc(){
+    global $c, $cl, $h, $u, $l, $su, $s, $pth, $tx, $edit, $adm, $cf;
+
+    $c = array();
+    $h = array();
+    $u = array();
+    $l = array();
+    $empty = 0;
+    $duplicate = 0;
+
+    $content = file_get_contents($pth['file']['content']);
+    $stop = $cf['menu']['levels'];
+    $pattern = '/(<h([1-'.$stop.'])[^>]*>(.*)<\/h[1-'.$stop.'](.+))(?=(<(h[1-'.$stop.']|\/body).*>))/isU';
+    preg_match_all($pattern, $content, $pages);
+
+    $c = $pages[1];
+    $cl = count($c);
+    $s = -1;
+
+    if ($cl == 0){
+        $c[] = '<h1>'.$tx['toc']['newpage'].'</h1>';
+        $h[] = trim(strip_tags($tx['toc']['newpage']));
+        $u[] = uenc($h[0]);
+        $l[] = 1;
+        $s = 0;
+        return;
+    }
+
+    $l = $pages[2];
+    $ancestors = array();  /* just a helper for the "url" construction:
+                        * will be filled like this [0] => "Page"
+                        *                          [1] => "Subpage"
+                        *                          [2] => "Sub_Subpage" etc.
+                        */
+
+    foreach($pages[3] as $i => $heading){
+        $temp = trim(strip_tags($heading));
+        if($temp == ''){
+            $empty++;
+            $temp = $tx['toc']['empty']. ' '. $empty;
+        }
+        $h[] = $temp;
+        $ancestors[$l[$i]-1] = uenc($temp);
+        $ancestors = array_slice($ancestors,0, $l[$i]);
+        $url = implode($cf['uri']['seperator'], $ancestors);
+        $u[] = substr($url, 0, $cf['uri']['length']);
+    }
+
+    foreach($u as $i => $url){
+        if ($su == $u[$i]){$s = $i;} // get index of selected page
+
+        for($j = $i + 1; $j < $cl; $j++){   //check for duplicate "urls"
+            if($u[$j] == $u[$i]){
+                $duplicate++;
+                $h[$j] = $tx['toc']['dupl'].' '.$duplicate;
+                $u[$j] = uenc($h[$j]);
+            }
+        }
+    }
+    if(!($edit && $adm)){
+        foreach($c as $i => $j) {
+            if (cmscript('remove', $j)){$c[$i] = '#CMSimple hide#';}
+        }
+    }
 }
 
 function h($n) {
-	global $c, $cf;
-	return trim(strip_tags(preg_replace("/(<h[1-".$cf['menu']['levels']."][^>]*>([^§]*?)<\/h[1-".$cf['menu']['levels']."]>)?[^§]*/i", "\\2", $c[$n])));
+    global $h;
+    return $h[$n];
 }
 
 function l($n) {
-	global $c, $cf;
-	if (isset($c[$n]))return preg_replace("/<h([1-".$cf['menu']['levels']."])[^>]*>[^§]*/i", "\\1", $c[$n]);
-	else return 0;
+    global $l;
+    return $l[$n];
 }
 
 function a($i, $x) {
 	global $sn, $u, $cf;
-        if($i == 0 && $cf['locator']['show_homepage'] == 'true') {
+        if(($i == 0 && $cf['locator']['show_homepage'] == 'true') && $x == '') {
             return '<a href="http://'.parse_url('http://'.$_SERVER['HTTP_HOST'], PHP_URL_HOST).parse_url('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], PHP_URL_PATH).'">';
         }
 	return isset($u[$i]) ? '<a href="'.$sn.'?'.$u[$i].$x.'">' : '<a href="'.$sn.'?'.$x.'">'; // changed by LM CMSimple_XH 1.1
