@@ -33,21 +33,20 @@ initvar('mailform');
 $t = '';
 
 if ($action == 'send') {
-$msg = ($tx['mailform']['sendername'] .": " .  stsl($sendername) . "\n" .  $tx['mailform']['senderphone'] .": ".  stsl($senderphone) . "\n\n"  . stsl($mailform));
+    $msg = ($tx['mailform']['sendername'] . ": " . stsl($sendername) . "\n" . $tx['mailform']['senderphone'] . ": " . stsl($senderphone) . "\n\n" . stsl($mailform));
 
 // echo ($msg);
-	if ($getlast !=$cap)  {
-	$e .= '<li style="font-size: 118%;">'.$tx['mailform']['notaccepted'] ;
-	}
-	else  if ($mailform == '')  {
-	$e .= '<li>'.$tx['error']['mustwritemes'];
-	}
-	else if(!(preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[_a-z0-9-]+(\.[_a-z0-9-]+)*(\.([a-z]{2,4}))+$/i", $sender)))$e .= '<li>'.$tx['mailform']['notaccepted'];
-	else if(!(@mail($cf['mailform']['email'], $tx['menu']['mailform'].' '.sv('SERVER_NAME'), $msg, "From: ".stsl($sender)."\r\n"."X-Remote: ".sv('REMOTE_ADDR')."\r\n"))) 
-	{
-	$e .= '<li style="font-size: 118%;">'.$tx['mailform']['notsend'];
-	}
-	else $t = '<p style="font-size: 118%; text-align: center;">'.$tx['mailform']['send'].'</p>';
+    if ($getlast != $cap) {
+        $e .= '<li style="font-size: 118%;">' . $tx['mailform']['notaccepted'];
+    } else if ($mailform == '') {
+        $e .= '<li>' . $tx['error']['mustwritemes'];
+    } else if (!(preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[_a-z0-9-]+(\.[_a-z0-9-]+)*(\.([a-z]{2,4}))+$/i", $sender))
+        )$e .= '<li>' . $tx['mailform']['notaccepted'];
+    else if (!(@mail_utf8($cf['mailform']['email'], $tx['menu']['mailform'] . ' ' . sv('SERVER_NAME'), $msg, "From: " . stsl($sender) . "\r\n" . "X-Remote: " . sv('REMOTE_ADDR') . "\r\n"))) {
+        $e .= '<li style="font-size: 118%;">' . $tx['mailform']['notsend'];
+    }
+    else
+        $t = '<p style="font-size: 118%; text-align: center;">' . $tx['mailform']['send'] . '</p>';
 }
 
 if ($t == '' || $e != '') {
@@ -88,4 +87,11 @@ if ($t == '' || $e != '') {
 }
 else $o .= $t;
 
+function mail_utf8($to, $subject = '(No Subject)', $message = '', $header = '') {
+    $header_ = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n";
+    if(mail($to, '=?UTF-*?B?'.base64_encode($subject).'?=', $message, $header_ . $header)) {
+        return true;
+    }
+    return false;
+}
 ?>

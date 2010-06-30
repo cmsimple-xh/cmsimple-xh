@@ -2,14 +2,11 @@
 $cf['security']['password']="test";
 $cf['security']['type']="page";
 $cf['site']['template']="cmsimplefloatXH";
-$cf['site']['title']="English Site Title - change it in your language settings";
 $cf['language']['default']="en";
 $cf['meta']['robots']="index, follow";
 $cf['meta']['author']="";
 $cf['meta']['publisher']="";
 $cf['meta']['content-language']="en";
-$cf['meta']['keywords']="English keywords - change it in your language settings";
-$cf['meta']['description']="English description - change it in your language settings";
 $cf['locator']['show_homepage']="true";
 $cf['backup']['numberoffiles']="5";
 $cf['images']['maxsize']="150000";

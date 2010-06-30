@@ -31,7 +31,19 @@ CMSimple_XH 1.2
 30 june 2010 / Leen
 * ./cmsimple/cms.php - line 583 (occured twice)
     -> $ta = array();
+
 * ./cmsimple/cms.php, added Martins new rfc(), h() & l() function
+
+* ./cmsimple/mailform.php added new mail function for utf-8, line 90, 45
+    90 +> function mail_utf8($to, $subject = '(No Subject)', $message = '', $header = '') {
+           $header_ = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n";
+            if(mail($to, '=?UTF-*?B?'.base64_encode($subject).'?=', $message, $header_ . $header)) {
+                return true;
+            }
+            return false;
+        }
+     45 :> else if (!(@mail($cf['mailform']['email'], $tx['menu']['mailform'] . ' ' . sv('SERVER_NAME'), $msg, "From: " . stsl($sender) . "\r\n" . "X-Remote: " . sv('REMOTE_ADDR') . "\r\n"))) {
+     45 => else if (!(@mail_utf8($cf['mailform']['email'], $tx['menu']['mailform'] . ' ' . sv('SERVER_NAME'), $msg, "From: " . stsl($sender) . "\r\n" . "X-Remote: " . sv('REMOTE_ADDR') . "\r\n"))) {
 
 30 june 2010 / Leen - changed locator function
 * ./cmsimple/config.php, line 13 - added config variable

@@ -47,8 +47,8 @@ $hjs = '';
 $onload = '';
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
-define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.1.2_utf-8');
-define('CMSIMPLE_XH_BUILD', 2010031002);
+define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.2 utf-8 beta');
+define('CMSIMPLE_XH_BUILD', 2010063001);
 //version-informations
 
 if (preg_match('/cms.php/i',sv('PHP_SELF')))die('Access Denied');
@@ -428,15 +428,15 @@ function rfc(){
     }
 }
 
-function h($n) {
+/*function h($n) {
     global $h;
     return $h[$n];
-}
+}*/
 
-function l($n) {
+/*function l($n) {
     global $l;
     return $l[$n];
-}
+}*/
 
 function a($i, $x) {
 	global $sn, $u, $cf;
