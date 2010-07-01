@@ -28,6 +28,33 @@
 ==================
 CMSimple_XH 1.2
 ==================
+1 july 2010 / Martin
+* ./cmsimple/plugins/page_prarams/page_params_view.php, line 110-120
+    :> $templates_select .= "\n\t".'<option value="0"'. $selected.'>'.$plugin_tx['page_params']['use_default_template'].'</option>';
+	while(false !== ($file = readdir($handle))) {
+		$selected = '';
+		if(is_dir($pth['folder']['templates'].$file) && $file != "." && $file != "..") {
+			if(isset($template) && $file == $template) {
+				$selected = $strSelected;
+			}
+			$templates_select .= "\n\t".'<option value="'.$file.'"'. $selected.'>'.$file.'</option>';
+		}
+
+	}
+     => $templates_select .= "\n\t".'<option value="0"'. $selected.'>'.$plugin_tx['page_params']['use_default_template'].'</option>';
+	$templates = array();
+	while(false !== ($file = readdir($handle))) {   // einsammeln
+		if(is_dir($pth['folder']['templates'].$file) && $file != "." && $file != "..") {
+			$templates[] = $file;
+			}
+		}
+	natcasesort($templates);                         // sortieren
+	foreach($templates as $file){                   // options schreiben
+		$selected = '';
+		if(isset($template) && $file == $template) {$selected = $strSelected;  }
+		$templates_select .= "\n\t".'<option value="'.$file.'"'. $selected.'>'.$file.'</option>';
+        }
+
 30 june 2010 / Leen
 * ./cmsimple/cms.php - line 583 (occured twice)
     -> $ta = array();

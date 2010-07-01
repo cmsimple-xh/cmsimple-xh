@@ -108,16 +108,18 @@ function page_params_view($page){
 	$handle = opendir($pth['folder']['templates']);
 	$templates_select = "\n".'<select name="template">';
 	$templates_select .= "\n\t".'<option value="0"'. $selected.'>'.$plugin_tx['page_params']['use_default_template'].'</option>';
-	while(false !== ($file = readdir($handle))) {
-		$selected = '';
-		if(is_dir($pth['folder']['templates'].$file) && $file != "." && $file != "..") { 
-			if(isset($template) && $file == $template) {
-				$selected = $strSelected;
+	$templates = array();
+	while(false !== ($file = readdir($handle))) {   // einsammeln
+		if(is_dir($pth['folder']['templates'].$file) && $file != "." && $file != "..") {
+			$templates[] = $file;
 			}
-			$templates_select .= "\n\t".'<option value="'.$file.'"'. $selected.'>'.$file.'</option>';
 		}
-	
-	}
+	natcasesort($templates);                         // sortieren
+	foreach($templates as $file){                   // options schreiben
+		$selected = '';
+		if(isset($template) && $file == $template) {$selected = $strSelected;  }
+		$templates_select .= "\n\t".'<option value="'.$file.'"'. $selected.'>'.$file.'</option>';
+        }
 	$templates_select .= "\n".'</select>';
 	$view .= "\n"."\n\t".'<a class="pl_tooltip" href="#">'.$help_icon.'<span>'.$lang['hint_template'].'</span></a>';
 	$view .= "\n\t".'<span class="pp_label">'.$lang['template'].'</span>'.tag('br').$templates_select .tag('br');
