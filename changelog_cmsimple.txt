@@ -33,6 +33,9 @@ CMSimple_XH 1.2
     :> return '<a href="http://'.parse_url('http://'.$_SERVER['HTTP_HOST'], PHP_URL_HOST).parse_url('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'], PHP_URL_PATH).'">';
     => return '<a href="http://'.$_SERVER[SERVER_NAME].$sn.'?'.$u[0].'">';
 
+* Added ./core/core.css
+* Removed ./cmsimple/cmsimplecore.css
+
 1 july 2010 / Martin
 * ./cmsimple/plugins/page_prarams/page_params_view.php, line 110-120
     :> $templates_select .= "\n\t".'<option value="0"'. $selected.'>'.$plugin_tx['page_params']['use_default_template'].'</option>';
