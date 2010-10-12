@@ -2,7 +2,7 @@
 /*
 ======================================
 CMSimple_XH 1.2
-11-09-2010
+12-10-2010
 based on CMSimple version 3.3 - December 31. 2009
 For changelog, downloads and information please see http://www.cmsimple-xh.com
 ======================================
@@ -48,7 +48,7 @@ $onload = '';
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
 define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.2 utf-8');
-define('CMSIMPLE_XH_BUILD', 2010091101);
+define('CMSIMPLE_XH_BUILD', 2010101201);
 //version-informations
 
 if (preg_match('/cms.php/i',sv('PHP_SELF')))die('Access Denied');
@@ -362,7 +362,7 @@ function e($et, $ft, $fn) {
 }
 
 
-function rfc(){
+function rfc() {
     global $c, $cl, $h, $u, $l, $su, $s, $pth, $tx, $edit, $adm, $cf;
 
     $c = array();
@@ -374,15 +374,26 @@ function rfc(){
 
     $content = file_get_contents($pth['file']['content']);
     $stop = $cf['menu']['levels'];
-    $pattern = '/(<h([1-'.$stop.'])[^>]*>(.*)<\/h[1-'.$stop.'](.+))(?=(<(h[1-'.$stop.']|\/body).*>))/isU';
-    preg_match_all($pattern, $content, $pages);
+    $split_token = '#@CMSIMPLE_SPLIT@#';
 
-    $c = $pages[1];
+
+    $content = preg_split('~</body>~i', $content);
+    $content = preg_replace('~<h[1-' . $stop . ']~i', $split_token . '$0', $content[0]);
+    $content = explode($split_token, $content);
+    array_shift($content);
+
+    foreach ($content as $page) {
+        $c[] = $page;
+        preg_match('~<h([1-' . $stop . ']).*>(.*)</h~isU', $page, $temp);
+        $l[] = $temp[1];
+        $temp_h[] = trim(strip_tags($temp[2]));
+    }
+
     $cl = count($c);
     $s = -1;
 
-    if ($cl == 0){
-        $c[] = '<h1>'.$tx['toc']['newpage'].'</h1>';
+    if ($cl == 0) {
+        $c[] = '<h1>' . $tx['toc']['newpage'] . '</h1>';
         $h[] = trim(strip_tags($tx['toc']['newpage']));
         $u[] = uenc($h[0]);
         $l[] = 1;
@@ -390,43 +401,47 @@ function rfc(){
         return;
     }
 
-    $l = $pages[2];
     $ancestors = array();  /* just a helper for the "url" construction:
-                        * will be filled like this [0] => "Page"
-                        *                          [1] => "Subpage"
-                        *                          [2] => "Sub_Subpage" etc.
-                        */
+     * will be filled like this [0] => "Page"
+     *                          [1] => "Subpage"
+     *                          [2] => "Sub_Subpage" etc.
+     */
 
-    foreach($pages[3] as $i => $heading){
+    foreach ($temp_h as $i => $heading) {
         $temp = trim(strip_tags($heading));
-        if($temp == ''){
+        if ($temp == '') {
             $empty++;
-            $temp = $tx['toc']['empty']. ' '. $empty;
+            $temp = $tx['toc']['empty'] . ' ' . $empty;
         }
         $h[] = $temp;
-        $ancestors[$l[$i]-1] = uenc($temp);
-        $ancestors = array_slice($ancestors,0, $l[$i]);
+        $ancestors[$l[$i] - 1] = uenc($temp);
+        $ancestors = array_slice($ancestors, 0, $l[$i]);
         $url = implode($cf['uri']['seperator'], $ancestors);
         $u[] = substr($url, 0, $cf['uri']['length']);
     }
 
-    foreach($u as $i => $url){
-        if ($su == $u[$i]){$s = $i;} // get index of selected page
+    foreach ($u as $i => $url) {
+        if ($su == $u[$i]) {
+            $s = $i;
+        } // get index of selected page
 
-        for($j = $i + 1; $j < $cl; $j++){   //check for duplicate "urls"
-            if($u[$j] == $u[$i]){
+        for ($j = $i + 1; $j < $cl; $j++) {   //check for duplicate "urls"
+            if ($u[$j] == $u[$i]) {
                 $duplicate++;
-                $h[$j] = $tx['toc']['dupl'].' '.$duplicate;
+                $h[$j] = $tx['toc']['dupl'] . ' ' . $duplicate;
                 $u[$j] = uenc($h[$j]);
             }
         }
     }
-    if(!($edit && $adm)){
-        foreach($c as $i => $j) {
-            if (cmscript('remove', $j)){$c[$i] = '#CMSimple hide#';}
+    if (!($edit && $adm)) {
+        foreach ($c as $i => $j) {
+            if (cmscript('remove', $j)) {
+                $c[$i] = '#CMSimple hide#';
+            }
         }
     }
 }
+
 
 /*function h($n) {
     global $h;
