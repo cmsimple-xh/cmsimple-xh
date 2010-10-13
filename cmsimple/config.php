@@ -2,7 +2,7 @@
 $cf['security']['password']="test";
 $cf['security']['type']="page";
 $cf['site']['template']="cmsimplefloatXH";
-$cf['language']['default']="en";
+$cf['language']['default']="pl";
 $cf['meta']['robots']="index, follow";
 $cf['meta']['author']="";
 $cf['meta']['publisher']="";
