@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 	$pluginloader_tx['menu']['available_plugins'] = 'Plugins: ';
 	$pluginloader_tx['menu']['select_plugin'] = 'Valitse plugin ...';
 	$pluginloader_tx['menu']['tab_main'] = 'Perusasetuksia';

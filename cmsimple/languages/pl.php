@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 $tx['site']['title']="Polski tytu strony - zmie w ustawieniach jzyka";
 $tx['meta']['keywords']="Polskie sowa  - zmie w ustawieniach jzyka";
 $tx['meta']['description']="Polski opis strony - zmie w ustawieniach jzyka";

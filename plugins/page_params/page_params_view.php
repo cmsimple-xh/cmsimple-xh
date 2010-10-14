@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 /**
  * Page-Parameters - module page_params_view
  *

@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 $tx['site']['title']="Título español - Cambiar configuración en la selección de idioma";
 $tx['meta']['keywords']="Palabras clave español - el cambio en la configuración de idioma";
 $tx['meta']['description']="Descripción español - el cambio en la configuración de idioma.";

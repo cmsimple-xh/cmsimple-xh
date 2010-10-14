@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 	$pluginloader_tx['menu']['available_plugins'] = 'Plugins';
 	$pluginloader_tx['menu']['select_plugin'] = 'Plugin wählen ...';
 	$pluginloader_tx['menu']['tab_main'] = 'Plugin-Einstellungen';

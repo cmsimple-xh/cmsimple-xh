@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 /*
 CMSimple_XH 1.2
 2010-07-05
@@ -171,6 +172,7 @@ $o .= '</ul>'.tag('hr').'<p>'.$tx['settings']['backupexplain1'].'</p><p>'.$tx['s
 				if ($action == 'save') {
 					if ($form == 'array') {
 						$text = "<?php\n";
+                                                $text = "/* utf8-marker = äöüß */\n";
 						foreach($GLOBALS[$a] as $k1 => $v1) {
 							if (is_array($v1)) {
 								foreach($v1 as $k2 => $v2) {

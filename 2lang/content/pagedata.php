@@ -1,4 +1,5 @@
-<?php 
+<?php
+/* utf8-marker = äöüß */
 ################## Data fields ############
 $page_data_fields[] = 'url';
 $page_data_fields[] = 'last_edit';

@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 $plugin_tx['page_params']['tab'] = "Page";
 $plugin_tx['page_params']['form_title'] = "Param&egrave;tres de la page";
 $plugin_tx['page_params']['heading'] = "Titre alternatif?";

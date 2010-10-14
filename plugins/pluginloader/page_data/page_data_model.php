@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 /**
  * Page-Data - Module page_data_model
  * Part of the Pluginloader V.2.1.x
@@ -270,7 +271,7 @@ class PL_Page_Data_Model{
 		}
 
 		$data_string = "<?php \n";
-
+                $data_string = "/* utf8-marker = äöüß */ \n";
 		$data_string .= "################## Data fields ############\n";
 		foreach($this -> params as $param){
 			$data_string .= "\$page_data_fields[] = '". $param ."';\n";

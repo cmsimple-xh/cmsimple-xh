@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 session_start();
 //error_reporting(E_ALL);
 

@@ -1,5 +1,5 @@
 <?php
-
+/* utf8-marker = äöüß */
 	$plugin_tx['page_params']['tab']="Página";
 	$plugin_tx['page_params']['form_title']="Parámetros página";
 	$plugin_tx['page_params']['heading']="Otro titulo de página?";

@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 /**
  * Meta-Tags - module meta_tags_view
  *

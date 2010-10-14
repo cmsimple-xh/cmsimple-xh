@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 	$pluginloader_tx['menu']['available_plugins'] = 'Moduliai: ';
 	$pluginloader_tx['menu']['select_plugin'] = 'Pasirinkite modulį ...';
 	$pluginloader_tx['menu']['tab_main'] = 'Modulio nustatymai';

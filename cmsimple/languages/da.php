@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 $tx['site']['title']="Dansk Side Titel - ændre det i sprog indstillingerne";
 $tx['meta']['keywords']="Dansk Side Titel - ændre det i sprog indstillingerne";
 $tx['meta']['description']="Dansk Side Titel - ændre det i sprog indstillingerne";

@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 /*
 CMSimple version 3.2 - June 20. 2008
 Small - simple - smart

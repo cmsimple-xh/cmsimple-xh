@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 $tx['site']['title']="Titre par défaut de la partie francophone du site";
 $tx['meta']['keywords']="Mots clés par défaut de la partie francophone du site";
 $tx['meta']['description']="Description par défaut de la partie francophone du site";

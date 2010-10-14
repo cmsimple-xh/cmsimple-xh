@@ -1,5 +1,5 @@
 <?php
-
+/* utf8-marker = äöüß */
 	$plugin_tx['page_params']['tab']="paramerty strony";
 	$plugin_tx['page_params']['form_title']="Parametry strony";
 	$plugin_tx['page_params']['heading']="Inny nag³ówek?";

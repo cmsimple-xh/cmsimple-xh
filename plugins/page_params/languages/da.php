@@ -1,5 +1,5 @@
 <?php
-
+/* utf8-marker = äöüß */
 	$plugin_tx['page_params']['tab']="Page";
 	$plugin_tx['page_params']['form_title']="Page parameters";
 	$plugin_tx['page_params']['heading']="Alternative heading?";

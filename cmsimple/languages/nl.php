@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 $tx['site']['title']="Nederlandse website titel - verander het in de taalinstellingen";
 $tx['meta']['keywords']="Engelse keywords - verander het in de taalinstellingen";
 $tx['meta']['description']="Engelse description - verander het in de taalinstellingen";

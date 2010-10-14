@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 $tx['site']['title']="Slovenský názov stránky - zmeňte to vo Vašom nastavení jazyka";
 $tx['meta']['keywords']="Slovenské klúčové slová - zmeňte to vo Vašom nastavení jazyka";
 $tx['meta']['description']="Slovenský popis - zmeňte to vo Vašom nastavení jazyka";

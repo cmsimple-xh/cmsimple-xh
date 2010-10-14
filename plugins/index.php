@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 /**
  * Pluginloader Version 2.1 beta 11 (V.2.1.11)
  * For the usage in CMSimple up from version V.2.6 unto V.3.2

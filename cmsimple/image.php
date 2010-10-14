@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 /*
  * CMSimple_XH 1.2
 2010-07-05

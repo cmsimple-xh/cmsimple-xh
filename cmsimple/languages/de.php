@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 $tx['site']['title']="Deutscher Seitentitel - &auml;ndern in den Spracheinstellungen";
 $tx['meta']['keywords']="Deutsche Keywords - zu &auml;ndern in den Spracheinstellungen";
 $tx['meta']['description']="Deutsche Description - zu &auml;ndern in den Spracheinstellungen";

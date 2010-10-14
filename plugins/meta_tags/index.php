@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 /**
  * Meta-Tags - main index.php
  * Plugin (V.2.1-compatible)

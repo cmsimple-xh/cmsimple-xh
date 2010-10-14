@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 /**
  * Page-Data - Module page_data_router
  * Part of the Pluginloader V.2.1.x

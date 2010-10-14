@@ -1,5 +1,5 @@
 <?php
-
+/* utf8-marker = äöüß */
 	$plugin_tx['page_params']['tab']="Stránka";
 	$plugin_tx['page_params']['form_title']="Parametre stránky";
 	$plugin_tx['page_params']['heading']="Alternatívny nadpis?";

@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 	$pluginloader_tx['menu']['available_plugins'] = 'Module: ';
 	$pluginloader_tx['menu']['select_plugin'] = 'Wybierz modul...';
 	$pluginloader_tx['menu']['tab_main'] = 'Ustawienia modulu';

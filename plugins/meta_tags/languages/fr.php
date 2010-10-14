@@ -1,4 +1,5 @@
 <?php
+/* utf8-marker = äöüß */
 $plugin_tx['meta_tags']['tab']="Meta";
 $plugin_tx['meta_tags']['form_title']="Tags Meta";
 $plugin_tx['meta_tags']['title']="Titre:";

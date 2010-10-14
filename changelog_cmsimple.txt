@@ -28,6 +28,14 @@
 ==================
 CMSimple_XH 1.2
 ==================
+14 oktober 2010 / Leen
+* ./****, inserted utf-8 marker in every file
+    +> /* utf8-marker = äöüß */
+* ./cmsimple/adm.php, line 175, add utf8-marker to every file save
+    +> $text = "/* utf8-marker = äöüß */\n";
+* ./plugins/pluginloader/page_data/page_data_model.php, line 274, add utf8-marker to every file save
+    +> $data_string = "/* utf8-marker = äöüß */ \n";
+
 12 oktober 2010 / Leen
 * ./cmsimple/cms.php, new rfc function to solve limit problem (http://www.cmsimpleforum.com/viewtopic.php?f=32&t=2358&start=10#p14052)
 
