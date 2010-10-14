@@ -1,8 +1,9 @@
 <?php
+/* utf8-marker = äöüß */
 $cf['security']['password']="test";
 $cf['security']['type']="page";
 $cf['site']['template']="cmsimplefloatXH";
-$cf['language']['default']="pl";
+$cf['language']['default']="en";
 $cf['meta']['robots']="index, follow";
 $cf['meta']['author']="";
 $cf['meta']['publisher']="";
