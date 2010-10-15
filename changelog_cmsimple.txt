@@ -28,6 +28,9 @@
 ==================
 CMSimple_XH 1.2
 ==================
+15 oktober 2010, moved functions h() and l() to functions.php for compatibility reasons / Leen
+* ./cmsimple/cms.php line 447-455
+
 14 oktober 2010 / Leen
 * ./****, inserted utf-8 marker in every file
     +> /* utf8-marker.= äöüß */

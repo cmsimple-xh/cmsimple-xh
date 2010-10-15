@@ -443,17 +443,6 @@ function rfc() {
     }
 }
 
-
-/*function h($n) {
-    global $h;
-    return $h[$n];
-}*/
-
-/*function l($n) {
-    global $l;
-    return $l[$n];
-}*/
-
 function a($i, $x) {
 	global $sn, $u, $cf, $adm;
         if($i == 0 && !$adm) {
