@@ -153,10 +153,10 @@ if(!include_once($pluginloader_cfg['file_language'])) { echo 'Language file for 
 if($adm) {
 	$i = 0;
 	$pluginloader_plugin_selectbox = '';
-	$pluginloader_plugin_selectbox .= $pluginloader_tx['menu']['available_plugins'];
-	$pluginloader_plugin_selectbox .= '<form style="display: inline; margin-bottom: 0px;">';
-	$pluginloader_plugin_selectbox .= '<select name="Plugins" onchange="location.href=this.options[this.selectedIndex].value" >';
-	$pluginloader_plugin_selectbox .= '<option value="?&amp;normal">'.$pluginloader_tx['menu']['select_plugin'].'</option>';
+	$pluginloader_plugin_selectbox .= "\n".'<b>'.$pluginloader_tx['menu']['available_plugins'].'</b>';
+	$pluginloader_plugin_selectbox .= "\n".'<form style="display: inline; margin-bottom: 0px;">'."\n";
+	$pluginloader_plugin_selectbox .= "\n".'<select name="Plugins" onchange="location.href=this.options[this.selectedIndex].value">'."\n";
+	$pluginloader_plugin_selectbox .= '<option value="?&amp;normal">'.$pluginloader_tx['menu']['select_plugin'].'</option>'."\n";
 	$handle = opendir($pth['folder']['plugins']);
 	$found_plugins = false;
 	
@@ -169,14 +169,14 @@ if($adm) {
 				list ($firstgetkey) = each($_GET);
 				if($firstgetkey == $plugin)
 					$pluginloader_plugin_selectbox .= ' selected="selected"';
-				$pluginloader_plugin_selectbox .= '>'.ucwords($plugin).'</option>';
+				$pluginloader_plugin_selectbox .= '>'.ucwords($plugin).'</option>'."\n";
 				$admin_plugins[$i] = $plugin;
 				$found_plugins = true;
 				$i++;
 			} // if(file_exists($pth['file']['plugin_admin']))
 		}
 	}
-	$pluginloader_plugin_selectbox .= '</select></form>';
+	$pluginloader_plugin_selectbox .= '</select>'."\n".'</form>'."\n";
 		
 	PluginMenu('ROW', '', '', '');
 	PluginMenu('DATA', '', '', $pluginloader_plugin_selectbox);
@@ -356,9 +356,9 @@ function PluginMenu($add='', $link='', $target='', $text='', $style=ARRAY()) {
 		$style['data'] = '';
 	}
 
-	$menu_row = '<table {{STYLE_ROW}} cellpadding="1" cellspacing="0" border="1"><tr>{{TAB}}</tr></table>';
-	$menu_tab = '<td {{STYLE_TAB}}><a {{STYLE_LINK}} href="{{LINK}}" {{TARGET}}>{{TEXT}}</a></td>';
-	$menu_tab_data = '<td {{STYLE_DATA}}>{{TEXT}}</td>';
+	$menu_row = '<table {{STYLE_ROW}} cellpadding="1" cellspacing="0">'."\n".'<tr>'."\n".'{{TAB}}</tr>'."\n".'</table>'."\n"."\n";
+	$menu_tab = '<td {{STYLE_TAB}}><a{{STYLE_LINK}} href="{{LINK}}" {{TARGET}}>{{TEXT}}</a></td>'."\n";
+	$menu_tab_data = '<td {{STYLE_DATA}}>{{TEXT}}</td>'."\n";
 	
 	// Add new row for menu of plugin (or Plugin Loader)
 	if($add == 'ROW') {
@@ -554,17 +554,17 @@ function PluginSaveForm($form=ARRAY(), $style=ARRAY(), $data=ARRAY(), $hint=ARRA
 		foreach($style_keys AS $key) { if(!isset($style[$key])) { $style[$key] = ''; } }
 	
 		$saveform .= $form['errormsg'];
-		$saveform .= '<div '.$style['div'].'>';
+		$saveform .= '<div '.$style['div'].'>'."\n";
 
-		$saveform .= '<form '.$style['form'].' action="'.$form['action'].'" method="'.$form['method'].'">';
-		if(!empty($form['caption'])) { $saveform .= '<div '.$style['divcaption'].'>'.$form['caption'].'</div>'; }
+		$saveform .= '<form '.$style['form'].' action="'.$form['action'].'" method="'.$form['method'].'">'."\n";
+		if(!empty($form['caption'])) { $saveform .= '<div '.$style['divcaption'].'>'."\n".$form['caption']."\n".'</div>'."\n"; }
 	
 		if($form['type']=='TEXT') {
 			$saveform .= '<textarea '.$style['textarea'].' name="'.$form['textarea_name'].'">'.$data.'</textarea>';
 		}
 	
 		if($form['type']=='CONFIG') {
-			$saveform .= '<table '.$style['table'].' cellspacing="0" cellpadding="0" border="0">';
+			$saveform .= '<table '.$style['table'].' cellspacing="0" cellpadding="0">'."\n";
 			$last_cap = '';
 			ksort($data);
 			foreach($data as $key => $value) {
@@ -575,25 +575,25 @@ function PluginSaveForm($form=ARRAY(), $style=ARRAY(), $data=ARRAY(), $hint=ARRA
 				if(!isset($hint['mode_donotshowvarnames']) OR $hint['mode_donotshowvarnames']==FALSE) {
 					if($val_cap[0]!=$last_cap) {
 						$last_cap = $val_cap[0];
-						$saveform .= '<tr><td colspan="2" '.$style['tdcaption'].'>'.$last_cap.'</td></tr>';
+						$saveform .= '<tr>'."\n".'<td colspan="2" '.$style['tdcaption'].'>'.$last_cap.'</td>'."\n".'</tr>'."\n";
 					}
 				}
 				if(isset($hint['mode_donotshowvarnames']) AND $hint['mode_donotshowvarnames']==TRUE AND isset($hint['cf_'.$key]) AND !empty($hint['cf_'.$key])) {	$var_name = $hint['cf_'.$key];	}
 				else { $var_name = (isset($hint['cf_'.$key]) AND !empty($hint['cf_'.$key])) ? '<a href="#" class="pl_tooltip">'.tag('img src = "'.$pluginloader_cfg['folder_pluginloader']. '/css/help_icon.png" alt="" class="helpicon"').'<span>'.$hint['cf_'.$key].'</span></a> '.str_replace("_", " ", $key).': ' : str_replace("_", " ", $key).':'; }
-				$saveform .= '<tr><td '.$style['tdconfig'].'>'.$var_name.'</td><td>';
+				$saveform .= '<tr>'."\n".'<td '.$style['tdconfig'].'>'.$var_name.'</td>'."\n".'<td>';
 				$style_textarea = $style['input'];
-				if(strlen($value) > 50) { $style_textarea = $style['inputmax']; }
+				if(strlen($value)> 50) { $style_textarea = $style['inputmax']; }
 				$saveform .= '<textarea '.$style_textarea.' name="'.$pluginloader_cfg['form_namespace'].$key.'" rows="1" cols="40">'.$value.'</textarea>';
-				$saveform .= '</td></tr>';
+				$saveform .= '</td>'."\n".'</tr>'."\n";
 			}
-			$saveform .= '</table>';
+			$saveform .= '</table>'."\n"."\n";
 		} // if($form['type'] == 'CONFIG')
 	
-		$saveform .= tag('input type="hidden" name="admin" value="'.$form['value_admin'].'"');
-		$saveform .= tag('input type="hidden" name="action" value="'.$form['value_action'].'"').tag('br').tag('input type="submit" '.$style['submit'].' name="plugin_submit" value="'.$form['value_submit'].'"');
-		$saveform .= '</form>';
+		$saveform .= tag('input type="hidden" name="admin" value="'.$form['value_admin'].'"')."\n";
+		$saveform .= tag('input type="hidden" name="action" value="'.$form['value_action'].'"')."\n".tag('br')."\n".tag('input type="submit" '.$style['submit'].' name="plugin_submit" value="'.$form['value_submit'].'"')."\n";
+		$saveform .= '</form>'."\n";
 	}	
-	$saveform .= '</div>';
+	$saveform .= "\n".'</div>'."\n";
 		
 	return $saveform;
 }
@@ -694,7 +694,7 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
 
 	$data = '';
 	$t = '';
-	$error_msg = ($admin=='' OR is_writeable($pth['file'][$admin])) ? '' : '<div class="pluginerror">'.$tx['error']['notwritable'].tag('br').$pth['file'][$admin].'</div>';
+	$error_msg = ($admin=='' OR is_writeable($pth['file'][$admin])) ? '' : '<div class="pluginerror">'."\n".'<b>'.$tx['error']['notwritable'].':</b>'."\n".'</div>'."\n".'<ul>'."\n".'<li>'.$pth['file'][$admin].'</li>'."\n".'</ul>'."\n";
 
 	if($admin == 'plugin_config') {
 		$var_name='plugin_cf'; $data = $plugin_cf[$plugin];

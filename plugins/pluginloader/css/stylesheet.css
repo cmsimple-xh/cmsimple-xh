@@ -1,25 +1,44 @@
 div.pluginerror {
-	background-color: #930;
-	color: white;
+	font-family: arial, sans-serif;
+	font-size: 14px;
+	text-align: center;
+	border: 3px solid #000;
+	background-color: #fc0;
+	color: #000;
+	padding: 4px 6px;
+	margin: 6px 0 0 0;
 }
 
 textarea.plugininput {
-	height: 16px;
+	font-family: arial, sans-serif;
+	font-size: 14px;
+	background: #eee;
+	color: #555;
+	border: 1px solid;
+	height: 50px;
+	padding: 4px;
 }
 
 textarea.plugininput:focus,.plugininputmax {
-	height: 48px;
+	font-family: arial, sans-serif;
+	font-size: 14px;
+	background: #eee;
+	color: #555;
+	border: 1px solid;
+	height: 50px;
+	padding: 4px;
 }
 
 textarea.plugintextarea {
-	width: 100%;
+	font-family: 'courier new', serif;
+	width: 99%;
 	height: 300px;
+	padding: 0 !important;
 }
 
 div.pluginedit,div.plugintext {
-	border: 1px solid #828177;
-	padding: 4px 4px 4px 4px;
-	background-color: buttonface;
+	border: 0px solid #828177;
+	padding: 4px 0;
 }
 
 form.plugineditform {
@@ -27,24 +46,29 @@ form.plugineditform {
 }
 
 div.plugineditcaption {
-	font-size: 14px;
+	font-family: arial, sans-serif;
+	font-size: 15px;
 	font-weight: bold;
+	padding: 6px 4px;
 }
 
 table.pluginedittable {
 	width: 100%;
+	border: 0;
 }
 
 table.pluginedittable td {
-	border: 1px solid #828177;
+	border: 0px solid #828177;
 	padding: 4px 4px 4px 4px;
 	vertical-align: top;
-	font-size: 12px;
-	font-family: tahoma, verdana, arial;
+	font-size: 14px;
+	font-family: arial, sans-serif;
 }
 
 .pluginedittable td.plugincfcap,pluginedittable td.plugincfhint {
-	padding-top: 12px;
+	font-size: 15px;
+	border-top: 1px solid;
+	padding-top: 6px;
 }
 
 .pluginedittable td.plugincfcap {
@@ -98,3 +122,5 @@ a.pl_tooltip:hover span {
 a.pl_tooltip img {
 	border: 0;
 }
+
+img.helpicon {background: none;}

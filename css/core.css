@@ -1,0 +1,117 @@
+/* some basic styles for backend */
+
+.edit {
+font-family: arial, sans-serif;
+font-size: 14px;
+line-height: 1.2em;
+border: 1px solid;
+margin: 2px 0;
+}
+
+.edit td {
+padding: 4px 6px;
+}
+
+.text {
+background: #eee; 
+font-family: arial, sans-serif; 
+font-size: 14px; 
+color: #444; 
+border: 1px solid #666;
+padding: 2px 4px; 
+margin: 0 0 2px 0;
+}
+
+.cmsimplecore_version {
+font-family: arial, sans-serif; 
+font-size: 14px; 
+padding: 0 2px;
+}
+
+/* Info and Help link, Notices and Warnings */
+
+.cmsimplecore_debug {
+background: #900; 
+font-family: arial, sans-serif; 
+font-size: 14px; 
+color: #fff; 
+text-align: center; 
+border: 0px solid #000; 
+padding: 2px 6px; 
+margin: 4px 0;
+}
+
+.cmsimplecore_warning {
+background: #fc0; 
+font-family: arial, sans-serif; 
+font-size: 14px; 
+color: #000; 
+border: 3px solid #000; 
+padding: 4px 6px; 
+margin: 4px 0;
+}
+
+/* file edit textareas */
+
+textarea.cmsimplecore_file_edit {
+width: 99%; 
+font-family: 'courier new', serif;
+padding: 0 !important;
+}
+
+/* the rest */
+
+.cmsimplecore_center {
+text-align: center;
+}
+
+.cmsimplecore_flag {
+border: 0;
+}
+
+
+/* LINKFORMATIERUNG / LINKS for backend */
+
+/*
+.edit a:link, #cmsimplecore_pluginselect a:link {
+font-family: arial, sans-serif !important; 
+font-size: 14px !important; 
+color: #36a !important; 
+text-decoration: none !important; 
+font-style: normal !important;
+}
+
+.edit a:visited, #cmsimplecore_pluginselect a:visited {
+font-family: arial, sans-serif !important; 
+font-size: 14px !important; 
+color: #36a !important; 
+text-decoration: none !important; 
+font-style: normal !important;
+}
+
+.edit a:hover, #cmsimplecore_pluginselect a:hover {
+font-family: arial, sans-serif !important; 
+font-size: 14px; color: #fff !important; 
+text-decoration: none !important; 
+background-color: #666 !important; 
+font-style: normal !important;
+}
+
+.edit a:active, #cmsimplecore_pluginselect a:active {
+font-family: arial, sans-serif !important; 
+font-size: 14px !important; 
+color: #fff !important; 
+text-decoration: none !important; 
+background-color: #666 !important; 
+font-style: normal !important;
+}
+
+.edit a:focus, #cmsimplecore_pluginselect a:focus {
+font-family: arial, sans-serif !important; 
+font-size: 14px !important; 
+color: #fff !important; 
+text-decoration: none !important; 
+background-color: #666 !important; 
+font-style: normal !important;
+}
+ */

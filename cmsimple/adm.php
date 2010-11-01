@@ -53,33 +53,75 @@ if ($adm) {
 
 	if ($validate)$f = 'validate';
 	if ($settings)$f = 'settings';
+	if ($sysinfo)$f = 'sysinfo';
+	if ($phpinfo)$f = 'phpinfo';
 	if ($file)$f = 'file';
 	if ($images || $function == 'images')$f = 'images';
 	if ($downloads || $function == 'downloads')$f = 'downloads';
 	if ($function == 'save')$f = 'save';
 
-	if ($f == 'settings' || $f == 'images' || $f == 'downloads' || $f == 'validate') {
+	if ($f == 'settings' || $f == 'images' || $f == 'downloads' || $f == 'validate' || $f == 'sysinfo' || $f == 'phpinfo') {
 		$title = $tx['title'][$f];
-		$o .= "\n\n".'<h1>'.$title.'</h1>';
+		$o .= "\n\n".'<h1>'.$title.'</h1>'."\n";
 	}
+
+// System Info and Help Links - GE 2010-10-28
+
+if($f == 'sysinfo')
+{
+$o = '<h4>'.$tx['sysinfo']['headline'].'</h4>'."\n";
+$o.= '<p><b>'.$tx['sysinfo']['version'].'</b></p>'."\n";
+$o.= '<ul>'."\n".'<li>'.CMSIMPLE_XH_VERSION.'&nbsp;&nbsp;Build: '.CMSIMPLE_XH_BUILD.'</li>'."\n".'</ul>'."\n"."\n";
+
+$o.='<p><b>'.$tx['sysinfo']['plugins'].'</b></p>'."\n"."\n";
+
+$handle1 = opendir($pth['folder']['plugins']);
+$o.='<ul>'."\n";
+while ($plugin1 = readdir($handle1)) 
+	{
+	if ($plugin1 != '.' && $plugin1 != '..' && $plugin1 != $pluginloader_cfg['foldername_pluginloader'] && is_dir($pth['folder']['plugins'].$plugin1)) 
+		{
+		$o.= '<li>'.ucfirst($plugin1).'</li>'."\n";
+		}
+	}
+$o.='</ul>'."\n"."\n";
+
+$o.= '<p><b>'.$tx['sysinfo']['php_version'].'</b></p>'."\n".'<ul>'."\n".'<li>'.phpversion().'</li>'."\n".'<li><a href="./?&phpinfo" target="blank"><b>'.$tx['sysinfo']['phpinfo_link'].'</b></a> &nbsp; '.$tx['sysinfo']['phpinfo_hint'].'</li>'."\n".'</ul>'."\n"."\n";
+
+$o.='<h4>'.$tx['sysinfo']['helplinks'].'</h4>'."\n"."\n";
+$o.='<ul>
+<li><a href="http://www.cmsimple-xh.com/">cmsimple-xh.com &raquo;</a></li>
+<li><a href="http://www.cmsimple.org/">cmsimple.org &raquo;</a></li>
+<li><a href="http://www.cmsimpleforum.com/">cmsimpleforum.com &raquo;</a></li>
+<li><a href="http://www.cmsimplewiki.com/">cmsimplewiki.com &raquo;</a></li>
+</ul>'."\n"."\n";
+}
+
+// PHP Info - GE 2010-10-28
+
+if($f == 'phpinfo')
+{
+phpinfo();
+exit;
+}
 
 // SETTINGS
 
 	if ($f == 'settings') {
-		$o .= '<p>'.$tx['settings']['warning'].'</p><h4>'.$tx['settings']['systemfiles'].'</h4><ul>';
-		foreach(array('config', 'language') as $i)$o .= '<li><a href="'.$sn.'?file='.$i.amp().'action=array">'.ucfirst($tx['action']['edit']).' '.$tx['filetype'][$i].'</a></li>';
-		foreach(array('stylesheet', 'template') as $i)$o .= '<li><a href="'.$sn.'?file='.$i.amp().'action=edit">'.ucfirst($tx['action']['edit']).' '.$tx['filetype'][$i].'</a></li>';
-		foreach(array('log') as $i)$o .= '<li><a href="'.$sn.'?file='.$i.amp().'action=view">'.ucfirst($tx['action']['view']).' '.$tx['filetype'][$i].'</a></li></ul>';
+		$o .= '<p>'.$tx['settings']['warning'].'</p>'."\n".'<h4>'.$tx['settings']['systemfiles'].'</h4>'."\n".'<ul>'."\n";
+		foreach(array('config', 'language') as $i)$o .= '<li><a href="'.$sn.'?file='.$i.amp().'action=array">'.ucfirst($tx['action']['edit']).' '.$tx['filetype'][$i].'</a></li>'."\n";
+		foreach(array('stylesheet', 'template') as $i)$o .= '<li><a href="'.$sn.'?file='.$i.amp().'action=edit">'.ucfirst($tx['action']['edit']).' '.$tx['filetype'][$i].'</a></li>'."\n";
+		foreach(array('log') as $i)$o .= '<li><a href="'.$sn.'?file='.$i.amp().'action=view">'.ucfirst($tx['action']['view']).' '.$tx['filetype'][$i].'</a></li>'."\n".'</ul>'."\n";
 
 
 // changed backup-area, added pagedata.php download, removed edit-funktion, added backupexplain3 - by MD/GE 2009/08 (CMSimple_XH beta2)
 
-$o .= '<h4>'.$tx['settings']['backup'].'</h4><p>'.$tx['settings']['backupexplain3'].'</p><ul>';
-		foreach(array('content', 'pagedata') as $i)$o .= '<li>'.ucfirst($tx['filetype'][$i]).' <a href="'.$sn.'?file='.$i.amp().'action=view">'.$tx['action']['view'].'</a>'.' <a href="'.$sn.'?file='.$i.amp().'action=download">'.$tx['action']['download'].'</a></li>';
-$o .= '</ul>'.tag('hr').'<p>'.$tx['settings']['backupexplain1'].'</p><p>'.$tx['settings']['backupexplain2'].'</p><ul>';
+$o .= '<h4>'.$tx['settings']['backup'].'</h4><p>'.$tx['settings']['backupexplain3'].'</p>'."\n".'<ul>'."\n";
+		foreach(array('content', 'pagedata') as $i)$o .= '<li>'.ucfirst($tx['filetype'][$i]).' <a href="'.$sn.'?file='.$i.amp().'action=view">'.$tx['action']['view'].'</a>'.' <a href="'.$sn.'?file='.$i.amp().'action=download">'.$tx['action']['download'].'</a></li>'."\n";
+$o .= '</ul>'."\n".tag('hr')."\n".'<p>'.$tx['settings']['backupexplain1'].'</p>'."\n".'<p>'.$tx['settings']['backupexplain2'].'</p>'."\n".'<ul>'."\n";
         $fs = sortdir($pth['folder']['content']);
-        foreach($fs as $p)if(preg_match("/\d{3}_content\.htm|\d{3}_pagedata\.php/", $p))$o .= '<a href="'.$sn.'?file='.$p.amp().'action=view"><li>'.$p.'</a> ('.(round((filesize($pth['folder']['content'].'/'.$p))/102.4)/10).' KB)</li>';
-        $o .= '</ul>';
+        foreach($fs as $p)if(preg_match("/\d{3}_content\.htm|\d{3}_pagedata\.php/", $p))$o .= '<li><a href="'.$sn.'?file='.$p.amp().'action=view">'.$p.'</a> ('.(round((filesize($pth['folder']['content'].'/'.$p))/102.4)/10).' KB)</li>'."\n";
+        $o .= '</ul>'."\n";
     }
 // END modified backup-area (CMSimple_XH beta2)
 
@@ -90,7 +132,7 @@ $o .= '</ul>'.tag('hr').'<p>'.$tx['settings']['backupexplain1'].'</p><p>'.$tx['s
 			if (!(preg_match($reg, $GLOBALS[$f])))e('wrongext', 'file', $GLOBALS[$f]);
 			else
 				{
-				if (@unlink($pth['folder'][$f].$GLOBALS[$f]))$o .= '<p>'.ucfirst($tx['filetype']['file']).' '.$GLOBALS[$f].' '.$tx['result']['deleted'].'</p>';
+				if (@unlink($pth['folder'][$f].$GLOBALS[$f]))$o .= '<p>'.ucfirst($tx['filetype']['file']).' '.$GLOBALS[$f].' '.$tx['result']['deleted'].'</p>'."\n";
 				else e('cntdelete', 'file', $GLOBALS[$f]);
 			}
 		}
@@ -99,24 +141,24 @@ $o .= '</ul>'.tag('hr').'<p>'.$tx['settings']['backupexplain1'].'</p><p>'.$tx['s
 			$size = im($f, 'size');
 			if (!(preg_match($reg, $name)))e('wrongext', 'file', $name);
 			else if(file_exists(rp($pth['folder'][$f].$name)))e('alreadyexists', 'file', $name);
-			else if($size > $cf[$f]['maxsize'])$e .= '<li>'.ucfirst($tx['filetype']['file']).' '.$name.' '.$tx['error']['tolarge'].' '.$cf[$f]['maxsize'].' '.$tx['files']['bytes'].'</li>';
+			else if($size > $cf[$f]['maxsize'])$e .= '<li>'.ucfirst($tx['filetype']['file']).' '.$name.' '.$tx['error']['tolarge'].' '.$cf[$f]['maxsize'].' '.$tx['files']['bytes'].'</li>'."\n";
 			if (!$e) {
 				if (@move_uploaded_file(im($f, 'tmp_name'), $pth['folder'][$f].$name)) {
                                     chmod($pth['folder'][$f].$name, 0644);
-                                    $o .= '<p>'.ucfirst($tx['filetype']['file']).' '.$name.' '.$tx['result']['uploaded'].'</p>';
+                                    $o .= '<p>'.ucfirst($tx['filetype']['file']).' '.$name.' '.$tx['result']['uploaded'].'</p>'."\n";
                                 }
 				else e('cntsave', 'file', $name);
 			}
 		}
-		if ($cf[$f]['maxsize'] > 0)$o .= '<form method="POST" action="'.$sn.'" enctype="multipart/form-data"><p>'.tag('input type="file" class="file" name="'.$f.'" size="30"').tag('input type="hidden" name="action" value="upload"').' '.tag('input type="hidden" name="function" value="'.$f.'"').tag('input type="submit" class="submit" value="'.ucfirst($tx['action']['upload']).'"').'</p></form>';
-		$o .= '<form method="post" action='.$sn.'><table width="100%" cellpadding="5" cellspacing="0" border="0">';
+		if ($cf[$f]['maxsize'] > 0)$o .= '<form method="POST" action="'.$sn.'" enctype="multipart/form-data">'."\n".'<p>'.tag('input type="file" class="file" name="'.$f.'" size="30"')."\n".tag('input type="hidden" name="action" value="upload"')."\n".' '.tag('input type="hidden" name="function" value="'.$f.'"')."\n".tag('input type="submit" class="submit" value="'.ucfirst($tx['action']['upload']).'"')."\n".'</p>'."\n".'</form>'."\n";
+		$o .= '<form method="post" action='.$sn.'>'."\n".'<table width="100%" cellpadding="5" cellspacing="0" border="0">'."\n";
 		$totalsize = 0;
 		if (@is_dir($pth['folder'][$f])) {
 			$fs = sortdir($pth['folder'][$f]);
 			foreach($fs as $p) {
 				if (preg_match($reg, $p)) {
 					$totalsize += filesize($pth['folder'][$f].$p);
-					$o .= '<tr><td>'.tag('input type="radio" class="radio" name="'.$f.'" value="'.$p.'"').'</td><td>';
+					$o .= '<tr>'."\n".'<td>'."\n".tag('input type="radio" class="radio" name="'.$f.'" value="'.$p.'"')."\n".'</td>'."\n".'<td>';
 					if ($f == 'images')$o .= '<img src="'.$pth['folder'][$f].$p.'">'.tag('br');
 					$o .= $p.' ('.(round((filesize($pth['folder'][$f].$p))/102.4)/10).' KB)';
 					if ($f == 'images') {
@@ -125,13 +167,13 @@ $o .= '</ul>'.tag('hr').'<p>'.$tx['settings']['backupexplain1'].'</p><p>'.$tx['s
 							if ($ic > 0)$o .= tag('br').$tx[$f]['usedin'].' '.a($i, '').$h[$i].'</a>';
 						}
 					}
-					$o .= '</td></tr>';
+					$o .= '</td>'."\n".'</tr>'."\n";
 				}
 			}
-			$o .= '</table>'.tag('br').tag('input type="hidden" name="action" value="delete"').tag('input type="hidden" name="function" value="'.$f.'"');
-			if ($totalsize > 0)$o .= tag('input type="submit" class="submit" value="'.ucfirst($tx['action']['delete']).'"');
-			$o .= '</form>';
-			$o .= '<p>'.$tx['files']['totalsize'].': '.(round($totalsize/102.4)/10).' KB</p>';
+			$o .= '</table>'."\n".tag('br').tag('input type="hidden" name="action" value="delete"')."\n".tag('input type="hidden" name="function" value="'.$f.'"')."\n";
+			if ($totalsize > 0)$o .= tag('input type="submit" class="submit" value="'.ucfirst($tx['action']['delete']).'"')."\n";
+			$o .= "\n".'</form>'."\n";
+			$o .= '<p>'.$tx['files']['totalsize'].': '.(round($totalsize/102.4)/10).' KB</p>'."\n";
 		}
 		else e('cntopen', 'folder', $pth['folder'][$f]);
 	}
@@ -212,15 +254,15 @@ $o .= '</ul>'.tag('hr').'<p>'.$tx['settings']['backupexplain1'].'</p><p>'.$tx['s
 				}
 				chkfile($file, true);
 				$title = ucfirst($tx['action']['edit']).' '.(isset($tx['filetype'][$file])?$tx['filetype'][$file]:$file);
-				$o .= '<h1>'.$title.'</h1><form action="'.$sn.(isset($plugin)?'?'.amp().$plugin:'').'" method="post">';
+				$o .= '<h1>'.$title.'</h1>'."\n".'<form action="'.$sn.(isset($plugin)?'?'.amp().$plugin:'').'" method="post">';
 				if ($form == 'array') {
-					$o .= '<table width="100%" cellpadding="1" cellspacing="0" border="0">';
+					$o .= '<table width="100%" cellpadding="1" cellspacing="0" border="0">'."\n";
 					foreach($GLOBALS[$a] as $k1 => $v1) {
 					if(!@$plugin||$k1==@$plugin) {
-						$o .= '<tr><td colspan="2"><h4>'.ucfirst($k1).'</h4></td></tr>';
+						$o .= '<tr>'."\n".'<td colspan="2"><h4>'.ucfirst($k1).'</h4></td>'."\n".'</tr>'."\n";
 						if (is_array($v1))foreach($v1 as $k2 => $v2)if(!is_array($v2)) {
-							if (isset($tx['help'][$k1.'_'.$k2]) && $a == 'cf')$o .= '<tr><td colspan="2"><b>'.$tx['help'][$k1.'_'.$k2].':</b></td></tr>';
-							$o .= '<tr><td valign="top">'.$k1.'_'.$k2.':</td><td>';
+							if (isset($tx['help'][$k1.'_'.$k2]) && $a == 'cf')$o .= '<tr>'."\n".'<td colspan="2"><b>'.$tx['help'][$k1.'_'.$k2].':</b></td>'."\n".'</tr>'."\n";
+							$o .= '<tr>'."\n".'<td valign="top">'.$k1.'_'.$k2.':</td>'."\n".'<td>';
 							if ($k1.$k2 == 'editorbuttons')$o .= '<textarea rows="25" cols="35" name="'.$k1.'_'.$k2.'">'.$v2.'</textarea>';
 							else if($k1.$k2 == 'securitytype') {
 								$o .= '<select name="'.$k1.'_'.$k2.'">';
@@ -233,15 +275,15 @@ $o .= '</ul>'.tag('hr').'<p>'.$tx['settings']['backupexplain1'].'</p><p>'.$tx['s
 							}
 							else if($k1.$k2 == 'languagedefault')selectlist('language', "/^[a-z]{2}\.php$/i", "/^([a-z]{2})\.php$/i");
 							else if($k1.$k2 == 'sitetemplate')selectlist('templates', "/^[^\.]*$/i", "/^([^\.]*)$/i");
-							else $o .= tag('input type="text" class="text" name="'.$k1.'_'.$k2.'" value="'.$v2.'" size="50"');
-							$o .= '</td></tr>';
+							else $o .= tag('input type="text" class="text" name="'.$k1.'_'.$k2.'" value="'.$v2.'" size="30"')."\n";
+							$o .= '</td>'."\n".'</tr>'."\n";
 						}}
 					}
-					$o .= '</table>'.tag('input type="hidden" name="form" value="'.$form.'"');
+					$o .= '</table>'."\n".tag('input type="hidden" name="form" value="'.$form.'"')."\n";
 				}
-				else $o .= '<textarea rows="25" cols="50" name="text">'.rmnl(rf($pth['file'][$file])).'</textarea>';
-                if($admin)$o .= tag('input type="hidden" name="admin" value="'.$admin.'"');
-				$o .= tag('input type="hidden" name="file" value="'.$file.'"').tag('input type="hidden" name="action" value="save"').' '.tag('input type="submit" class="submit" value="'.ucfirst($tx['action']['save']).'"').'</form>';
+				else $o .= '<textarea rows="25" cols="50" name="text" class="cmsimplecore_file_edit">'.rmnl(rf($pth['file'][$file])).'</textarea>';
+                if($admin)$o .= tag('input type="hidden" name="admin" value="'.$admin.'"')."\n";
+				$o .= tag('input type="hidden" name="file" value="'.$file.'"')."\n".tag('input type="hidden" name="action" value="save"')."\n".' '.tag('input type="submit" class="submit" value="'.ucfirst($tx['action']['save']).'"')."\n".'</form>'."\n";
 			}
 		}
 	}
@@ -264,7 +306,7 @@ if ($adm && $f == 'save') {
 	$ss = $s;
 	$c[$s] = preg_replace("/<h[1-".$cf['menu']['levels']."][^>]*>(\&nbsp;| )?<\/h[1-".$cf['menu']['levels']."]>/i", "", stsl($text));
 
-	if ($s == 0)if(!preg_match("/^<h1[^>]*>.*<\/h1>/i", rmanl($c[0])) && !preg_match("/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/i", rmanl($c[0])))$c[0] = '<h1>'.$tx['toc']['missing'].'</h1>'.$c[0];
+	if ($s == 0)if(!preg_match("/^<h1[^>]*>.*<\/h1>/i", rmanl($c[0])) && !preg_match("/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/i", rmanl($c[0])))$c[0] = '<h1>'.$tx['toc']['missing'].'</h1>'."\n".$c[0];
 	$title = ucfirst($tx['filetype']['content']);
 	if ($fh = @fopen($pth['file']['content'], "w")) {
 		fwrite($fh, '<html><head>'.head().'</head><body>'."\n");
@@ -287,9 +329,9 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
 		$su = $u[$s];
 		$iimage = '';
 		if ($cf['editor']['external'] == '')$cf['editor']['external'] = 'oedit';
-		if (!@include($pth['folder']['cmsimple'].$cf['editor']['external'].'.php'))$e .= '<li>External editor '.$cf['editor']['external'].' missing</li>';
+		if (!@include($pth['folder']['cmsimple'].$cf['editor']['external'].'.php'))$e .= '<li>External editor '.$cf['editor']['external'].' missing</li>'."\n";
 	}
-	else $o = '<p>'.$tx['error']['cntlocateheading'].'</p>';
+	else $o = '<p>'.$tx['error']['cntlocateheading'].'</p>'."\n";
 }
 /**
  * collects the links

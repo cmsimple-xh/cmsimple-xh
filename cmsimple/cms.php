@@ -48,8 +48,8 @@ $hjs = '';
 $onload = '';
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
-define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.2');
-define('CMSIMPLE_XH_BUILD', 2010101501);
+define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.2.1');
+define('CMSIMPLE_XH_BUILD', 2010102901);
 //version-informations
 
 if (preg_match('/cms.php/i',sv('PHP_SELF')))die('Access Denied');
@@ -155,7 +155,6 @@ if ($sitemap)$f = 'sitemap';
 
 if ($cf['functions']['file'] != "")include($pth['folder']['cmsimple'].$cf['functions']['file']);
 
-
 // changes title, keywords and description from $tx to $cf - by MD 2009/08 (CMSimple_XH beta)
 
 foreach($tx['meta'] as $key => $param){
@@ -175,7 +174,7 @@ if ($f == 'mailform' && $cf['mailform']['email'] != '')include($pth['file']['mai
 if ($f == 'sitemap') {
 	$title = $tx['title'][$f];
 	$ta = array();
-	$o .= '<h1>'.$title.'</h1>';
+	$o .= '<h1>'.$title.'</h1>'."\n";
 	for($i = 0; $i < $cl; $i++)if(!hide($i))$ta[] = $i;
 	$o .= li($ta, 'sitemaplevel');
 }
@@ -256,7 +255,7 @@ if ($s == -1 && !$f && $o == '')shead('404');
 if (function_exists('loginforms'))loginforms();
 
 foreach(array('content', 'config', 'language', 'stylesheet', 'template', 'log') as $i)chkfile($i, (($login || $settings) && $adm));
-if ($e)$o = '<h1>'.$tx['heading']['warning'].'</h1><ul>'.$e.'</ul>'.$o;
+if ($e)$o = '<div class="cmsimplecore_warning cmsimplecore_center">'."\n".'<b>'.$tx['heading']['warning'].'</b>'."\n".'</div>'."\n".'<ul>'."\n".$e.'</ul>'."\n".$o;
 if ($title == '') {
 	if ($s > -1)$title = $h[$s];
 	else if($f != '')$title = ucfirst($f);
@@ -359,7 +358,7 @@ function chkfile($fl, $writable) {
 
 function e($et, $ft, $fn) {
 	global $e, $tx;
-	$e .= '<li>'.$tx['error'][$et].' '.$tx['filetype'][$ft].' '.$fn.'</li>';
+	$e .= '<li><b>'.$tx['error'][$et].' '.$tx['filetype'][$ft].'</b>'.tag('br').$fn.'</li>'."\n";
 }
 
 
@@ -593,7 +592,7 @@ function head() {
 	$t = '<title>'.strip_tags($t).'</title>'."\n";
 	foreach($cf['meta'] as $i => $k)$t .= meta($i);
 	if ($tx['meta']['codepage'] != '')$t = tag('meta http-equiv="content-type" content="text/html;charset='.$tx['meta']['codepage'].'"')."\n".$t;
-	return $t.tag('meta name="generator" content="'.CMSIMPLE_XH_VERSION.' '.CMSIMPLE_XH_BUILD.' - www.cmsimple-xh.de"')."\n".tag('link rel="stylesheet" href="'.$pth['file']['stylesheet'].'" type="text/css"')."\n".tag('link rel="stylesheet" href="./css/core.css" type="text/css"')."\n".$hjs;
+	return $t.tag('meta name="generator" content="'.CMSIMPLE_XH_VERSION.' '.CMSIMPLE_XH_BUILD.' - www.cmsimple-xh.de"')."\n".tag('link rel="stylesheet" href="./css/core.css" type="text/css"')."\n".tag('link rel="stylesheet" href="'.$pth['file']['stylesheet'].'" type="text/css"')."\n".$hjs;
 }
 // END new function head() (CMSimple_XH)
 
@@ -779,12 +778,12 @@ function locator() {
 function editmenu() {
 	global $adm, $edit, $s, $sn, $tx, $sl;
 	if ($adm) {
-		$t = '<div style="margin: 0 0 6px 0; font-size: 14px; color: #333; text-align: center; border: 1px solid #f60; background: #eed; padding: 2px 8px; ">'.CMSIMPLE_XH_VERSION.'&nbsp;&nbsp;Build: '.CMSIMPLE_XH_BUILD.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.cmsimple-xh.de/english/"><b>INFO &raquo;</b></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.cmsimple-xh.de/faq/"><b>FAQ &raquo;</b></a></div>';
-		if (xh_debugmode())$t .= '<div style="font-size: 14px; color: #f00; text-align: center; padding: 2px 8px; "><b>Notice:</b> Debug-Mode is enabled!</div>';
-		$t .= '<table class="edit" width="100%" cellpadding="1" cellspacing="0" style="border: 1px solid;"><tr><td align="left">';
+		$t = '<div class="cmsimplecore_version">'."\n".'<a href="./?&sysinfo"><b>'.$tx['sysinfo']['link'].'</b></a>'."\n".'</div>'."\n";
+		if (xh_debugmode())$t .= '<div class="cmsimplecore_debug">'."\n".'<b>Notice:</b> Debug-Mode is enabled!'."\n".'</div>'."\n";
+		$t .= '<table class="edit" width="100%" cellpadding="1" cellspacing="0">'."\n".'<tr>'."\n".'<td align="left">'."\n";
 		if ($edit)$t .= a($s, amp().'normal').$tx['editmenu']['normal'].'</a>';
 		else $t .= a($s, amp().'edit').$tx['editmenu']['edit'].'</a>';
-		return $t.'</td><td align="center"><a href="'.$sn.'?'.amp().'validate">'.$tx['editmenu']['validate'].'</a></td><td align="center"><a href="'.$sn.'?'.amp().'images">'.$tx['editmenu']['images'].'</a></td><td align="center"><a href="'.$sn.'?'.amp().'downloads">'.$tx['editmenu']['downloads'].'</a></td><td align="center"><a href="'.$sn.'?'.amp().'settings">'.$tx['editmenu']['settings'].'</a></td><td align="center"><a href="http://www.cmsimple.com/?User%27s_Manual'.amp().'language='.$sl.'" target="_blank">'.$tx['editmenu']['help'].'</a></td><td align="right">'.a($s, amp().'logout').$tx['editmenu']['logout'].'</a></td></tr></table>';
+		return $t."\n".'</td>'."\n".'<td align="center">'."\n".'<a href="'.$sn.'?'.amp().'validate">'.$tx['editmenu']['validate'].'</a>'."\n".'</td>'."\n".'<td align="center">'."\n".'<a href="'.$sn.'?'.amp().'images">'.$tx['editmenu']['images'].'</a>'."\n".'</td>'."\n".'<td align="center">'."\n".'<a href="'.$sn.'?'.amp().'downloads">'.$tx['editmenu']['downloads'].'</a>'."\n".'</td>'."\n".'<td align="center">'."\n".'<a href="'.$sn.'?'.amp().'settings">'.$tx['editmenu']['settings'].'</a>'."\n".'</td>'."\n".'<td align="right">'."\n".a($s, amp().'logout').$tx['editmenu']['logout'].'</a>'."\n".'</td>'."\n".'</tr>'."\n".'</table>'."\n"."\n";
 	}
 }
 // END added version info and Links to cmsimple-xh.de and FAQ-section (CMSimple_XH)
@@ -838,12 +837,12 @@ function languagemenu() {
 			if (preg_match('/^[A-z]{2}$/', $p))$r[] = $p;
 		}
 	}
-	if ($fd == true)closedir($fd); if(count($r) == 0)return ''; if($cf['language']['default'] != $sl)$t .= '<a href="'.$pth['folder']['base'].'">'.tag('img src="'.$pth['folder']['flags'].$cf['language']['default'].'.gif" alt="'.$cf['language']['default'].'" title="&nbsp;'.$cf['language']['default'].'&nbsp;" style="border: 0;" class="flag"').'</a> '; $v = count($r); for($i = 0;
+	if ($fd == true)closedir($fd); if(count($r) == 0)return ''; if($cf['language']['default'] != $sl)$t .= '<a href="'.$pth['folder']['base'].'">'.tag('img src="'.$pth['folder']['flags'].$cf['language']['default'].'.gif" alt="'.$cf['language']['default'].'" title="&nbsp;'.$cf['language']['default'].'&nbsp;" class="cmsimplecore_flag"').'</a> '; $v = count($r); for($i = 0;
 	$i < $v;
 	$i++) {
 		if ($sl != $r[$i]) {
 			if (is_file($pth['folder']['flags'].'/'.$r[$i].'.gif')) {
-				$t .= '<a href="'.$pth['folder']['base'].$r[$i].'/">'.tag('img src="'.$pth['folder']['flags'].$r[$i].'.gif" alt="'.$r[$i].'" title="&nbsp;'.$r[$i].'&nbsp;" style="border: 0;" class="flag"').'</a> ';
+				$t .= '<a href="'.$pth['folder']['base'].$r[$i].'/">'.tag('img src="'.$pth['folder']['flags'].$r[$i].'.gif" alt="'.$r[$i].'" title="&nbsp;'.$r[$i].'&nbsp;" class="cmsimplecore_flag"').'</a> ';
 			} else {
 				$t .= '<a href="'.$pth['folder']['base'].$r[$i].'/">['.$r[$i].']</a> ';
 			}
