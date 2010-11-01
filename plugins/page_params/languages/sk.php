@@ -3,7 +3,7 @@
 	$plugin_tx['page_params']['tab']="Stránka";
 	$plugin_tx['page_params']['form_title']="Parametre stránky";
 	$plugin_tx['page_params']['heading']="Alternatívny nadpis?";
-	$plugin_tx['page_params']['header_location']="Redirect page?";
+	$plugin_tx['page_params']['header_location']="Presmerovať stránku?";
 	$plugin_tx['page_params']['template']="Template stránky:";
 	$plugin_tx['page_params']['last_edit']="Aktualizované:  ";
 	$plugin_tx['page_params']['show_last_edit']="Ukázať dátum aktualizácie?";
