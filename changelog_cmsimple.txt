@@ -26,6 +26,35 @@
  Changes (newest on top)
  ------------------------------------------------------------------------------------------------------------------
 ==================
+CMSimple_XH 1.3
+==================
+01 november 2010, many changes and new functions for backend / GE
+
+* Changed files:
+  - ./css/core.css
+  - ./cmsimple/cms.php
+  - ./cmsimple/adm.php
+  - ./cmsimple/login.php
+  - ./plugins/index.php
+  - ./plugins/pluginloader/css/stylesheet.css
+  - all language files
+
+* Added files:
+  - langconfig.php's (daconfig.php, deconfig.php, enconfig.php ... etc.), 
+  - moved $tx variables for site title, description, keywords and template textes to langconfig.php's
+  - renamed that $tx-variables to $txc-variables ("c" for config)
+  
+* What's new?
+  - nice looking backend, especially edit view of pluginloader files
+  - optimized and styled notices and warnings
+  - "outsourcing" of language-dependent config from the language files to the new langconfig files
+  - sysinfo-, phpinfo- and help-page
+  - using core.css, removed many inline- and html-styles
+  - inserted many "\n" in adm.php and index.php of Pluginloader for better readable sourcecode
+  - moved $tx variables for site title, description, keywords and template textes to langconfig.php's
+  - renamed that $tx-variables to $txc-variables ("c" for config)
+ 
+==================
 CMSimple_XH 1.2
 ==================
 1 november 2010
