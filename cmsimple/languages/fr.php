@@ -1,17 +1,11 @@
 <?php
 /* utf8-marker = äöüß */
-$tx['site']['title']="Titre par défaut de la partie francophone du site";
-$tx['meta']['keywords']="Mots clés par défaut de la partie francophone du site";
-$tx['meta']['description']="Description par défaut de la partie francophone du site";
 $tx['meta']['codepage']="utf-8";
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";
 $tx['locator']['text']="Vous êtes ici : ";
 $tx['locator']['home']="Home";
 $tx['languagemenu']['text']="Choix de langue : ";
-$tx['template']['text1']="template-text 1";
-$tx['template']['text2']="template-text 2";
-$tx['template']['text3']="template-text 3";
 $tx['link']['checked']=" liens ont été testés. ";
 $tx['link']['check_ok']="Tout est correct !";
 $tx['link']['check_errors']="Attention, il y a des erreurs. ";
@@ -93,6 +87,7 @@ $tx['filetype']['log']="journal";
 $tx['filetype']['stylesheet']="feuille de style";
 $tx['filetype']['template']="gabarit";
 $tx['filetype']['language']="langue";
+$tx['filetype']['langconfig']="global site title, meta-tags and template textes";
 $tx['filetype']['config']="configuration";
 $tx['images']['usedin']="Utilisée dans";
 $tx['files']['totalsize']="Taille totale";

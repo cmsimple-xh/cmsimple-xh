@@ -1,16 +1,10 @@
 <?php
 /* utf8-marker = äöüß */
-$tx['site']['title']="Título español - Cambiar configuración en la selección de idioma";
-$tx['meta']['keywords']="Palabras clave español - el cambio en la configuración de idioma";
-$tx['meta']['description']="Descripción español - el cambio en la configuración de idioma.";
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";
 $tx['locator']['text']="Usted está aquí: ";
 $tx['locator']['home']="Home";
 $tx['languagemenu']['text']="Seleccionar idioma: ";
-$tx['template']['text1'] = "texto de plantilla 1";
-$tx['template']['text2'] = "texto de plantilla 2";
-$tx['template']['text3'] = "texto de plantilla 3";
 
 $tx['link']['checked'] = " Los enlaces han sido verificados. ";
 $tx['link']['check_ok'] = "Todo está bien!";
@@ -97,6 +91,7 @@ $tx['filetype']['log']="registro";
 $tx['filetype']['stylesheet']="hoja de estilo";
 $tx['filetype']['template']="plantilla";
 $tx['filetype']['language']="idioma";
+$tx['filetype']['langconfig']="global site title, meta-tags and template textes";
 $tx['filetype']['config']="configuración";
 $tx['images']['usedin']="Utilizado en";
 $tx['files']['totalsize']="Tamaño total";

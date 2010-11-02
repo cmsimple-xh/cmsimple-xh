@@ -1,16 +1,10 @@
 <?php
 /* utf8-marker = äöüß */
-$tx['site']['title']="Dansk Side Titel - ændre det i sprog indstillingerne";
-$tx['meta']['keywords']="Dansk Side Titel - ændre det i sprog indstillingerne";
-$tx['meta']['description']="Dansk Side Titel - ændre det i sprog indstillingerne";
 $tx['urichar']['org']="";
 $tx['urichar']['new']=""; 
 $tx['locator']['text']="Du er her: ";
 $tx['locator']['home']="Home";
 $tx['languagemenu']['text']="vælg sprog: ";
-$tx['template']['text1'] = "template-text 1";
-$tx['template']['text2'] = "template-text 2";
-$tx['template']['text3'] = "template-text 3";
 
 $tx['link']['checked'] = " links er blevet kotroleret. ";
 $tx['link']['check_ok'] = "Alt er fint!";
@@ -97,6 +91,7 @@ $tx['filetype']['log']="log";
 $tx['filetype']['stylesheet']="stylesheet";
 $tx['filetype']['template']="skabelon";
 $tx['filetype']['language']="sprog";
+$tx['filetype']['langconfig']="global site title, meta-tags and template textes";
 $tx['filetype']['config']="konfiguration";
 $tx['images']['usedin']="Used in";
 $tx['files']['totalsize']="Total size";

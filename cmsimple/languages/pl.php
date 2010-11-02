@@ -1,17 +1,11 @@
 <?php
 /* utf8-marker = äöüß */
-$tx['site']['title']="Polski tytu strony - zmie w ustawieniach jzyka";
-$tx['meta']['keywords']="Polskie sowa  - zmie w ustawieniach jzyka";
-$tx['meta']['description']="Polski opis strony - zmie w ustawieniach jzyka";
 $tx['meta']['codepage']="utf-8";
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";
 $tx['locator']['text']="Jeste tu: ";
 $tx['locator']['home']="Home";
 $tx['languagemenu']['text']="Wybr jzyka: ";
-$tx['template']['text1']="szablon 1";
-$tx['template']['text2']="szablon 2";
-$tx['template']['text3']="szablon 3";
 $tx['link']['checked']=" Link(i) zosta(y) sprawdzony(e)";
 $tx['link']['check_ok']="Nie znalezioniono bdu!";
 $tx['link']['check_errors']="Znaleziono bd, wskazwka: ";
@@ -95,6 +89,7 @@ $tx['filetype']['log']="log";
 $tx['filetype']['stylesheet']="style CSS";
 $tx['filetype']['template']="szablon";
 $tx['filetype']['language']="jzyk";
+$tx['filetype']['langconfig']="global site title, meta-tags and template textes";
 $tx['filetype']['config']="konfiguracja";
 $tx['images']['usedin']="W uyciu na: ";
 $tx['files']['totalsize']="Cakowity rozmiar";

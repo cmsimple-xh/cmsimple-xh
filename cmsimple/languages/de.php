@@ -1,16 +1,10 @@
 <?php
 /* utf8-marker = äöüß */
-$tx['site']['title']="Deutscher Seitentitel - &auml;ndern in den Spracheinstellungen";
-$tx['meta']['keywords']="Deutsche Keywords - zu &auml;ndern in den Spracheinstellungen";
-$tx['meta']['description']="Deutsche Description - zu &auml;ndern in den Spracheinstellungen";
 $tx['locator']['text']="Sie sind hier: ";
 $tx['locator']['home']="Startseite";
 $tx['languagemenu']['text']="Sprachauswahl: ";
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";
-$tx['template']['text1'] = "template-text 1";
-$tx['template']['text2'] = "template-text 2";
-$tx['template']['text3'] = "template-text 3";
 
 $tx['link']['checked'] = " Links wurden geprüft. ";
 $tx['link']['check_ok'] = "Keine Fehler gefunden!";
@@ -97,6 +91,7 @@ $tx['filetype']['log']="Log-Datei";
 $tx['filetype']['stylesheet']="Stylesheet";
 $tx['filetype']['template']="Vorlage-Datei";
 $tx['filetype']['language']="Sprache";
+$tx['filetype']['langconfig']="globale Seitentitel, Meta-Tags und Template Texte";
 $tx['filetype']['config']="Konfiguration";
 $tx['images']['usedin']="Benutzt in";
 $tx['files']['totalsize']="Gesamtgröße";

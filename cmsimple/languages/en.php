@@ -1,17 +1,11 @@
 <?php
 /* utf8-marker = äöüß */
-$tx['site']['title']="English Site Title - change it in your language settings";
-$tx['meta']['keywords']="English keywords - change it in your language settings";
-$tx['meta']['description']="English description - change it in your language settings";
 $tx['meta']['codepage']="utf-8";
 $tx['locator']['text']="You are here: ";
 $tx['locator']['home']="Home";
 $tx['languagemenu']['text']="select language: ";
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";
-$tx['template']['text1']="template-text 1";
-$tx['template']['text2']="template-text 2";
-$tx['template']['text3']="template-text 3";
 $tx['link']['checked']=" links have been checked. ";
 $tx['link']['check_ok']="Everything is fine!";
 $tx['link']['check_errors']="Sorry, some problems have occured. ";
@@ -94,6 +88,7 @@ $tx['filetype']['log']="log";
 $tx['filetype']['stylesheet']="stylesheet";
 $tx['filetype']['template']="template";
 $tx['filetype']['language']="language";
+$tx['filetype']['langconfig']="global site title, meta-tags and template textes";
 $tx['filetype']['config']="configuration";
 $tx['images']['usedin']="Used in";
 $tx['files']['totalsize']="Total size";

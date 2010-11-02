@@ -1,17 +1,11 @@
 <?php
 /* utf8-marker = äöüß */
-$tx['site']['title']="Slovenský názov stránky - zmeňte to vo Vašom nastavení jazyka";
-$tx['meta']['keywords']="Slovenské klúčové slová - zmeňte to vo Vašom nastavení jazyka";
-$tx['meta']['description']="Slovenský popis - zmeňte to vo Vašom nastavení jazyka";
 $tx['meta']['codepage']="utf-8";
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";
 $tx['locator']['text']="Nachádzate sa tu: ";
 $tx['locator']['home']="Home";
 $tx['languagemenu']['text']="Výber jazyka: ";
-$tx['template']['text1']="template-text 1";
-$tx['template']['text2']="template-text 2";
-$tx['template']['text3']="template-text 3";
 $tx['link']['checked']=" odkazy boli skontrolované. ";
 $tx['link']['check_ok']="Všetko je vporiadku!";
 $tx['link']['check_errors']="Žiaľ, vyskytli sa nejaké problémy. ";
@@ -93,6 +87,7 @@ $tx['filetype']['log']="log";
 $tx['filetype']['stylesheet']="štýl";
 $tx['filetype']['template']="šablóna";
 $tx['filetype']['language']="jazyk";
+$tx['filetype']['langconfig']="global site title, meta-tags and template textes";
 $tx['filetype']['config']="konfigurácia";
 $tx['images']['usedin']="Použité v";
 $tx['files']['totalsize']="Celková veľkosť";
