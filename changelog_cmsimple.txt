@@ -41,8 +41,6 @@ CMSimple_XH 1.3
 
 * Added files:
   - langconfig.php's (daconfig.php, deconfig.php, enconfig.php ... etc.), 
-  - moved $tx variables for site title, description, keywords and template textes to langconfig.php's
-  - renamed that $tx-variables to $txc-variables ("c" for config)
   
 * What's new?
   - nice looking backend, especially edit view of pluginloader files
