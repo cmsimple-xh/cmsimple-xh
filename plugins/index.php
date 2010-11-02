@@ -470,7 +470,7 @@ function PluginWriteFile($file='', $content='', $exists=FALSE, $append=FALSE) {
 
 	if(file_exists($file) AND !is_writeable($file)) {
 		$do_write = FALSE;
-		$is_written['msg'] = $pluginloader_tx['error']['cntwriteto'].$file;
+		$is_written['msg'] = '<div class="pluginerror">'.$pluginloader_tx['error']['cntwriteto'].$file.'</div>';
 	}
 	
 	if($do_write == TRUE) {
@@ -570,7 +570,7 @@ function PluginSaveForm($form=ARRAY(), $style=ARRAY(), $data=ARRAY(), $hint=ARRA
 			foreach($data as $key => $value) {
 				global $pluginloader_cfg;
 				$var_name='';
-				$val_cap = split('_', $key);
+				$val_cap = explode('_', $key);
 				
 				if(!isset($hint['mode_donotshowvarnames']) OR $hint['mode_donotshowvarnames']==FALSE) {
 					if($val_cap[0]!=$last_cap) {

@@ -48,8 +48,8 @@ $hjs = '';
 $onload = '';
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
-define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.2.1');
-define('CMSIMPLE_XH_BUILD', 2010102901);
+define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.3 intern');
+define('CMSIMPLE_XH_BUILD', 2010110101);
 //version-informations
 
 if (preg_match('/cms.php/i',sv('PHP_SELF')))die('Access Denied');
@@ -91,11 +91,17 @@ if ($image != '') {
 }
 
 $pth['folder']['language'] = $pth['folder']['cmsimple'].'languages/';
+$pth['folder']['langconfig'] = $pth['folder']['cmsimple'].'languages/';
 if (preg_match('/\/[A-z]{2}\/[^\/]*/', sv('PHP_SELF'))) $sl = strtolower(preg_replace('/.*\/([A-z]{2})\/[^\/]*/', '\1', sv('PHP_SELF')));
 	if (!isset($sl))$sl = $cf['language']['default'];
 $pth['file']['language'] = $pth['folder']['language'].basename($sl).'.php';
+$pth['file']['langconfig'] = $pth['folder']['language'].basename($sl).'config.php';
+$pth['file']['corestyle'] = $pth['folder']['base'].'css/core.css';
+
+include($pth['folder']['cmsimple'].'languages/'.$sl.'config.php');
 
 if (!include($pth['file']['language']))die('Language file '.$pth['file']['language'].' missing');
+if (!include($pth['file']['langconfig']))die('Language config file '.$pth['file']['language'].' missing');
 
 $pth['folder']['templates'] = $pth['folder']['base'].'templates/';
 $pth['folder']['template'] = $pth['folder']['templates'].$cf['site']['template'].'/';
@@ -157,10 +163,10 @@ if ($cf['functions']['file'] != "")include($pth['folder']['cmsimple'].$cf['funct
 
 // changes title, keywords and description from $tx to $cf - by MD 2009/08 (CMSimple_XH beta)
 
-foreach($tx['meta'] as $key => $param){
+foreach($txc['meta'] as $key => $param){
      if(strlen(trim($param)) > 0 && $key != 'codepage'){ $cf['meta'][$key] = $param;}
 }
-foreach($tx['site'] as $key => $param){
+foreach($txc['site'] as $key => $param){
      if(strlen(trim($param)) > 0){ $cf['site'][$key] = $param;}
 }
 // END of code added for (CMSimple_XH beta)
@@ -254,7 +260,7 @@ if ($s == -1 && !$f && $o == '')shead('404');
 
 if (function_exists('loginforms'))loginforms();
 
-foreach(array('content', 'config', 'language', 'stylesheet', 'template', 'log') as $i)chkfile($i, (($login || $settings) && $adm));
+foreach(array('content', 'pagedata', 'config', 'language', 'langconfig', 'stylesheet', 'template', 'log') as $i)chkfile($i, (($login || $settings) && $adm));
 if ($e)$o = '<div class="cmsimplecore_warning cmsimplecore_center">'."\n".'<b>'.$tx['heading']['warning'].'</b>'."\n".'</div>'."\n".'<ul>'."\n".$e.'</ul>'."\n".$o;
 if ($title == '') {
 	if ($s > -1)$title = $h[$s];
@@ -512,7 +518,7 @@ function amp() {
 }
 
 function shead($s) {
-	global $iis, $cgi, $tx, $title, $o;
+	global $iis, $cgi, $tx, $txc, $title, $o;
 	if ($s == '401')header(($cgi || $iis)?'status: 401 Unauthorized':'HTTP/1.0 401 Unauthorized');
 	if ($s == '404')header(($cgi || $iis)?'status: 404 Not Found':'HTTP/1.0 404 Not Found');
 	$title = $tx['error'][$s];
@@ -586,20 +592,20 @@ function xh_debugmode() {
 // new function head() ready for html5 - by GE 2009/06 (CMSimple_XH beta)
 
 function head() {
-	global $title, $cf, $pth, $tx, $hjs;
+	global $title, $cf, $pth, $tx, $txc, $hjs;
 	if (isset($cf['site']['title']) && $cf['site']['title'] != '')$t = $cf['site']['title'].' - '.$title; // changed by LM CMSimple_XH 1.1
 	else $t = $title;
 	$t = '<title>'.strip_tags($t).'</title>'."\n";
 	foreach($cf['meta'] as $i => $k)$t .= meta($i);
 	if ($tx['meta']['codepage'] != '')$t = tag('meta http-equiv="content-type" content="text/html;charset='.$tx['meta']['codepage'].'"')."\n".$t;
-	return $t.tag('meta name="generator" content="'.CMSIMPLE_XH_VERSION.' '.CMSIMPLE_XH_BUILD.' - www.cmsimple-xh.de"')."\n".tag('link rel="stylesheet" href="./css/core.css" type="text/css"')."\n".tag('link rel="stylesheet" href="'.$pth['file']['stylesheet'].'" type="text/css"')."\n".$hjs;
+	return $t.tag('meta name="generator" content="'.CMSIMPLE_XH_VERSION.' '.CMSIMPLE_XH_BUILD.' - www.cmsimple-xh.de"')."\n".tag('link rel="stylesheet" href="'.$pth['file']['corestyle'].'" type="text/css"')."\n".tag('link rel="stylesheet" href="'.$pth['file']['stylesheet'].'" type="text/css"')."\n".$hjs;
 }
 // END new function head() (CMSimple_XH)
 
 
 function sitename() {
-	global $tx;
-	return isset($tx['site']['title']) ? $tx['site']['title'] : ''; // changed by GE CMSimple_XH 1.2
+	global $txc;
+	return isset($txc['site']['title']) ? $txc['site']['title'] : ''; // changed by GE CMSimple_XH 1.2
 }
 
 function pagename() { // changed by GE CMSimple_XH 1.2
@@ -746,7 +752,7 @@ function legallink() {
 }
 
 function locator() {
-    global $title, $h, $s, $f, $c, $l, $tx, $cf;
+    global $title, $h, $s, $f, $c, $l, $tx, $txc, $cf;
     if (hide($s))return $h[$s];
     if ($title != '' && (isset($h[$s]) && $h[$s] != $title))return $title;
     $t = '';
@@ -837,12 +843,12 @@ function languagemenu() {
 			if (preg_match('/^[A-z]{2}$/', $p))$r[] = $p;
 		}
 	}
-	if ($fd == true)closedir($fd); if(count($r) == 0)return ''; if($cf['language']['default'] != $sl)$t .= '<a href="'.$pth['folder']['base'].'">'.tag('img src="'.$pth['folder']['flags'].$cf['language']['default'].'.gif" alt="'.$cf['language']['default'].'" title="&nbsp;'.$cf['language']['default'].'&nbsp;" class="cmsimplecore_flag"').'</a> '; $v = count($r); for($i = 0;
+	if ($fd == true)closedir($fd); if(count($r) == 0)return ''; if($cf['language']['default'] != $sl)$t .= '<a href="'.$pth['folder']['base'].'">'.tag('img src="'.$pth['folder']['flags'].$cf['language']['default'].'.gif" alt="'.$cf['language']['default'].'" title="&nbsp;'.$cf['language']['default'].'&nbsp;" class="flag"').'</a> '; $v = count($r); for($i = 0;
 	$i < $v;
 	$i++) {
 		if ($sl != $r[$i]) {
 			if (is_file($pth['folder']['flags'].'/'.$r[$i].'.gif')) {
-				$t .= '<a href="'.$pth['folder']['base'].$r[$i].'/">'.tag('img src="'.$pth['folder']['flags'].$r[$i].'.gif" alt="'.$r[$i].'" title="&nbsp;'.$r[$i].'&nbsp;" class="cmsimplecore_flag"').'</a> ';
+				$t .= '<a href="'.$pth['folder']['base'].$r[$i].'/">'.tag('img src="'.$pth['folder']['flags'].$r[$i].'.gif" alt="'.$r[$i].'" title="&nbsp;'.$r[$i].'&nbsp;" class="flag"').'</a> ';
 			} else {
 				$t .= '<a href="'.$pth['folder']['base'].$r[$i].'/">['.$r[$i].']</a> ';
 			}

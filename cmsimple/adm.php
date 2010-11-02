@@ -109,7 +109,7 @@ exit;
 
 	if ($f == 'settings') {
 		$o .= '<p>'.$tx['settings']['warning'].'</p>'."\n".'<h4>'.$tx['settings']['systemfiles'].'</h4>'."\n".'<ul>'."\n";
-		foreach(array('config', 'language') as $i)$o .= '<li><a href="'.$sn.'?file='.$i.amp().'action=array">'.ucfirst($tx['action']['edit']).' '.$tx['filetype'][$i].'</a></li>'."\n";
+		foreach(array('config', 'langconfig', 'language') as $i)$o .= '<li><a href="'.$sn.'?file='.$i.amp().'action=array">'.ucfirst($tx['action']['edit']).' '.$tx['filetype'][$i].'</a></li>'."\n";
 		foreach(array('stylesheet', 'template') as $i)$o .= '<li><a href="'.$sn.'?file='.$i.amp().'action=edit">'.ucfirst($tx['action']['edit']).' '.$tx['filetype'][$i].'</a></li>'."\n";
 		foreach(array('log') as $i)$o .= '<li><a href="'.$sn.'?file='.$i.amp().'action=view">'.ucfirst($tx['action']['view']).' '.$tx['filetype'][$i].'</a></li>'."\n".'</ul>'."\n";
 
@@ -193,14 +193,15 @@ $o .= '</ul>'."\n".tag('hr')."\n".'<p>'.$tx['settings']['backupexplain1'].'</p>'
 				if ($action == 'array') $form = 'array';
 				if ($form == 'array') {
 					if ($file == 'language')$a = 'tx';
+					if ($file == 'langconfig')$a = 'txc';
 
 // disables editing of site title, keywords and description in config - by MD 2009-09 (CMSimple_XH beta3.2)
 
 					if ($file == 'config'){
-						foreach($tx['meta'] as $key => $param){
+						foreach($txc['meta'] as $key => $param){
 						if(isset($cf['meta'][$key])){unset($cf['meta'][$key]);}
 						}
-						foreach($tx['site'] as $key => $param){
+						foreach($txc['site'] as $key => $param){
 						if(isset($cf['site'][$key])){unset($cf['site'][$key]);}
 						}
 					$a = 'cf';
@@ -234,7 +235,7 @@ $o .= '</ul>'."\n".tag('hr')."\n".'<p>'.$tx['settings']['backupexplain1'].'</p>'
 					if ($fh = @fopen($pth['file'][$file], "w")) {
 						fwrite($fh, $text);
 						fclose($fh);
-						if ($file == 'config' || $file == 'language') {
+						if ($file == 'config' || $file == 'language' || $file == 'langconfig') {
 							if (!@include($pth['file'][$file]))e('cntopen', $file, $pth['file'][$file]);
 							if ($file == 'config') {
 								$pth['folder']['template'] = $pth['folder']['templates'].$cf['site']['template'].'/';
@@ -245,7 +246,9 @@ $o .= '</ul>'."\n".tag('hr')."\n".'<p>'.$tx['settings']['backupexplain1'].'</p>'
 								if (!(preg_match('/\/[A-z]{2}\/[^\/]*/', sv('PHP_SELF')))) {
 									$sl = $cf['language']['default'];
 									$pth['file']['language'] = $pth['folder']['language'].$sl.'.php';
+									$pth['file']['langconfig'] = $pth['folder']['language'].$sl.'config.php';
 									if (!@include($pth['file']['language']))die('Language file '.$pth['file']['language'].' missing');
+									if (!@include($pth['file']['langconfig']))die('Language config file '.$pth['file']['langconfig'].' missing');
 								}
 							}
 						}

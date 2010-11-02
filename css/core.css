@@ -65,9 +65,7 @@ padding: 0 !important;
 text-align: center;
 }
 
-.cmsimplecore_flag {
-border: 0;
-}
+.flag {border: 0;}
 
 
 /* LINKFORMATIERUNG / LINKS for backend */

@@ -136,6 +136,7 @@ else if($logout && $adm) {
 			else e('cntdelete', 'backup', $fl[$i]);
 		}
 	}
+	else e('cntsave', 'backup', $fn);
 
 // SAVE function for pagedata.php added - by MD 2009/09 (CMSimple_XH beta3.2)
 
@@ -161,7 +162,7 @@ else if($logout && $adm) {
 
 // END save function for pagedata.php (CMSimple_XH beta3.2)
 
-	else e('cntsave', 'backup', $fn);
+
 	$adm = false;
 	setcookie('status', '');
 	setcookie('passwd', '');
