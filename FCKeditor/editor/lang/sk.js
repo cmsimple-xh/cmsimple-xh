@@ -308,11 +308,11 @@ DlgTableCellSpace	: "Vzdialenosť buniek",
 DlgTableCellPad		: "Odsadenie obsahu",
 DlgTableCaption		: "Popis",
 DlgTableSummary		: "Prehľad",
-DlgTableHeaders		: "Headers",	//MISSING
-DlgTableHeadersNone		: "None",	//MISSING
-DlgTableHeadersColumn	: "First column",	//MISSING
-DlgTableHeadersRow		: "First Row",	//MISSING
-DlgTableHeadersBoth		: "Both",	//MISSING
+DlgTableHeaders		: "Nadpisy",	
+DlgTableHeadersNone		: "Bez nadpisu",	
+DlgTableHeadersColumn	: "Prvý stĺpec",	
+DlgTableHeadersRow		: "Prvý riadok",
+DlgTableHeadersBoth		: "Oboje",
 
 // Table Cell Dialog
 DlgCellTitle		: "Vlastnosti bunky",
@@ -335,9 +335,9 @@ DlgCellVerAlignTop	: "Nahor",
 DlgCellVerAlignMiddle	: "Doprostred",
 DlgCellVerAlignBottom	: "Dole",
 DlgCellVerAlignBaseline	: "Na základňu",
-DlgCellType		: "Cell Type",	//MISSING
-DlgCellTypeData		: "Data",	//MISSING
-DlgCellTypeHeader	: "Header",	//MISSING
+DlgCellType		: "Tyo bunky",
+DlgCellTypeData		: "Datová",
+DlgCellTypeHeader	: "Nadpis",
 DlgCellRowSpan		: "Zlúčené riadky",
 DlgCellCollSpan		: "Zlúčené stĺpce",
 DlgCellBackColor	: "Farba pozadia",
