@@ -74,9 +74,9 @@ FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/silver/' ;
 // FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/default/' ;
 // FCKConfig.SkinPath = FCKConfig.BasePath + 'skins/office2003/' ;
 
-FCKConfig.ProcessHTMLEntities	= true ;
-FCKConfig.IncludeLatinEntities	= true ;
-FCKConfig.IncludeGreekEntities	= true ;
+FCKConfig.ProcessHTMLEntities	= false ;
+FCKConfig.IncludeLatinEntities	= false ;
+FCKConfig.IncludeGreekEntities	= false ;
 
 FCKConfig.ProcessNumericEntities = false ;
 
