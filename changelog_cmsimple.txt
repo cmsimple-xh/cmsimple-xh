@@ -28,6 +28,11 @@
 ==================
 CMSimple_XH 1.3
 ==================
+22 november, added hungarian language - by Peter
+* Added files:
+    +> ./cmsimple/languages/hu.php
+    +> ./cmsimple/languages/huconfig.php
+
 04 november 2010, fixed bug 3102891 (SF) / Leen
 * ./cmsimple/cms.php, line 455
     :> return '<a href="http://'.$_SERVER[SERVER_NAME].$sn.'?'.$u[0].'">';
@@ -51,7 +56,7 @@ CMSimple_XH 1.3
   - all language files
 
 * Added files:
-  - langconfig.php's (daconfig.php, deconfig.php, enconfig.php ... etc.), 
+  +> langconfig.php's (daconfig.php, deconfig.php, enconfig.php ... etc.),
   
 * What's new?
   - nice looking backend, especially edit view of pluginloader files

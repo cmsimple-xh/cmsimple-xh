@@ -5,7 +5,6 @@ $tx['locator']['home']="Home";
 $tx['languagemenu']['text']="selecteer taal: ";
 $tx['urichar']['org']="";
 $tx['urichar']['new']="";
-
 $tx['link']['checked'] = "links have been checked. ";
 $tx['link']['check_ok'] = "Alles is in orde!";
 $tx['link']['check_errors'] = "Sorry, Er zijn problemen opgetreden. ";
@@ -25,7 +24,6 @@ $tx['link']['hints'] ="Hints:";
 $tx['link']['redirect'] ="De doelpagina stuurt door naar een andere locatie. Controleer en update de link.";
 $tx['link']['email'] ="Is dit email adres geldig en nog in gebruik?";
 $tx['link']['unknown']="Onbekend probleem. Controleer a.u.b. zelf deze link.";
-
 $tx['meta']['codepage']="utf-8";
 $tx['menu']['login']="Inloggen";
 $tx['menu']['mailform']="Email formulier";
@@ -91,7 +89,7 @@ $tx['filetype']['log']="log";
 $tx['filetype']['stylesheet']="stylesheet";
 $tx['filetype']['template']="template";
 $tx['filetype']['language']="taal";
-$tx['filetype']['langconfig']="global site title, meta-tags and template textes";
+$tx['filetype']['langconfig']="globale website titel, meta-tags en template teksten";
 $tx['filetype']['config']="configuratie";
 $tx['images']['usedin']="Gebruikt in";
 $tx['files']['totalsize']="Totale grootte";
