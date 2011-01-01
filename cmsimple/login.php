@@ -93,8 +93,8 @@ if ($cf['security']['type'] == 'page' && $login && $passwd == '' && !$adm) {
 if ($login && !$adm) {
 	if ($cf['security']['type'] != 'wwwaut') {
 		if ($passwd == $cf['security']['password'] && ($cf['security']['type'] == 'page' || $cf['security']['type'] == 'javascript')) {
-			setcookie('status', 'adm');
-			setcookie('passwd', $passwd);
+			setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
+			setcookie('passwd', $passwd, 0, CMSIMPLE_ROOT);
 			$adm = true;
 			$edit = true;
 			writelog(date("Y-m-d H:i:s")." from ".sv('REMOTE_ADDR')." logged_in\n");
@@ -104,12 +104,12 @@ if ($login && !$adm) {
 	} else {
 		if (sv('PHP_AUTH_USER') == '' || sv('PHP_AUTH_PW') == '' || gc('status') == '') {
 
-			setcookie('status', 'login');
+			setcookie('status', 'login', 0, CMSIMPLE_ROOT);
 			header('WWW-Authenticate: Basic realm="'.$tx['login']['warning'].'"');
 			shead('401');
 		} else {
 			if (logincheck()) {
-				setcookie('status', 'adm');
+				setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
 				$adm = true;
 				$edit = true;
 				writelog(date($tx['log']['dateformat']).' '.sv('REMOTE_ADDR').' '.$tx['log']['loggedin']."\n");
@@ -164,8 +164,8 @@ else if($logout && $adm) {
 
 
 	$adm = false;
-	setcookie('status', '');
-	setcookie('passwd', '');
+	setcookie('status', '', 0, CMSIMPLE_ROOT);
+	setcookie('passwd', '', 0, CMSIMPLE_ROOT);
 	$o .= '<p><font color="red">'.$tx['login']['loggedout'].'</font></p>';
 }
 
@@ -176,8 +176,8 @@ if ($adm) {
 	if ($normal)setcookie('mode', '');
 	if (gc('mode') == 'edit' && !$normal)$edit = true;
 } else {
-	if (gc('status') != '')setcookie('status', '');
-	if (gc('passwd') != '')setcookie('passwd', '');
-	if (gc('mode') == 'edit')setcookie('mode', '');
+	if (gc('status') != '')setcookie('status', '', 0, CMSIMPLE_ROOT);
+	if (gc('passwd') != '')setcookie('passwd', '', 0, CMSIMPLE_ROOT);
+	if (gc('mode') == 'edit')setcookie('mode', '', 0, CMSIMPLE_ROOT);
 }
 ?>
