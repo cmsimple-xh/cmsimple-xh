@@ -28,8 +28,16 @@
 ==================
 CMSimple_XH 1.3.1 / 1.4
 ==================
-4 january 2011 - Leen, added czech language files - provided by Josef Kratochvil
-* Added files:
+4 january 2011 - Leen
+* ./cmsimple/fckeditor.php, line 115:
+	:> var oFCKeditor = new FCKeditor("text","100%",500) ;
+	=> var oFCKeditor = new FCKeditor("text","100%",'.$cf['editor']['height'].') ; 
+
+* Updated FCkeditor to 2.6.6
+
+* Updated JW Player to 5.4
+
+* Added czech language files - provided by Josef Kratochvil:
 	+> ./cmsimple/languages/cz.php
 	+> ./cmsimple/languages/czconfig.php
 	+> ./cmsimple/plugins/meta_tags/languages/cz.php

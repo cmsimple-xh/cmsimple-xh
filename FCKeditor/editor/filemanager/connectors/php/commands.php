@@ -1,7 +1,7 @@
 <?php
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2009 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2010 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -276,31 +276,5 @@ function FileUpload( $resourceType, $currentFolder, $sCommand )
 	SendUploadResults( $sErrorNumber, $sFileUrl, $sFileName ) ;
 
 	exit ;
-}
-// code by bram.us
-function DeleteFile($resourceType, $currentFolder) {
-	$sErrorNumber = '0' ;
-	$sErrorMsg = '' ;
-	if ( isset( $_GET['FileName'] ) ) {
-		// Map the virtual path to the local server path.
-		$sServerDir = ServerMapFolder( $resourceType, $currentFolder ) ;
-		$sFileName = $_GET['FileName'] ;
-		if ( strpos( $sFileName, '..' ) !== FALSE ) {
-			$sErrorNumber = '102' ; // Invalid file name.
-			$sErrorMsg = 'Invalid file name';
-		} else {
-			if ( @unlink($sServerDir.$sFileName) ) {
-				$sErrorNumber = '0' ; // deleted
-			} else {
-				$sErrorNumber = '103' ; // not deleted
-				$sErrorMsg = 'Could not delete file '.$sServerDir.$sFileName;
-			}
-		}
-	} else {
-		$sErrorNumber = '102' ; // no file set
-		$sErrorMsg = 'No file specified';
-	}
-	// Create the "Error" node.
-	echo '<Error number="' . $sErrorNumber . '" originalDescription="' . ConvertToXmlAttribute( $sErrorMsg ) . '" />' ;
 }
 ?>

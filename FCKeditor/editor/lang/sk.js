@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2009 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2010 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -308,11 +308,11 @@ DlgTableCellSpace	: "Vzdialenosť buniek",
 DlgTableCellPad		: "Odsadenie obsahu",
 DlgTableCaption		: "Popis",
 DlgTableSummary		: "Prehľad",
-DlgTableHeaders		: "Nadpisy",	
-DlgTableHeadersNone		: "Bez nadpisu",	
-DlgTableHeadersColumn	: "Prvý stĺpec",	
-DlgTableHeadersRow		: "Prvý riadok",
-DlgTableHeadersBoth		: "Oboje",
+DlgTableHeaders		: "Headers",	//MISSING
+DlgTableHeadersNone		: "None",	//MISSING
+DlgTableHeadersColumn	: "First column",	//MISSING
+DlgTableHeadersRow		: "First Row",	//MISSING
+DlgTableHeadersBoth		: "Both",	//MISSING
 
 // Table Cell Dialog
 DlgCellTitle		: "Vlastnosti bunky",
@@ -335,9 +335,9 @@ DlgCellVerAlignTop	: "Nahor",
 DlgCellVerAlignMiddle	: "Doprostred",
 DlgCellVerAlignBottom	: "Dole",
 DlgCellVerAlignBaseline	: "Na základňu",
-DlgCellType		: "Tyo bunky",
-DlgCellTypeData		: "Datová",
-DlgCellTypeHeader	: "Nadpis",
+DlgCellType		: "Cell Type",	//MISSING
+DlgCellTypeData		: "Data",	//MISSING
+DlgCellTypeHeader	: "Header",	//MISSING
 DlgCellRowSpan		: "Zlúčené riadky",
 DlgCellCollSpan		: "Zlúčené stĺpce",
 DlgCellBackColor	: "Farba pozadia",
@@ -530,5 +530,10 @@ DlgAboutInfo		: "Viac informácií získate na",
 DlgDivGeneralTab	: "Hlavné",
 DlgDivAdvancedTab	: "Rozšírené",
 DlgDivStyle		: "Štýl",
-DlgDivInlineStyle	: "Inline štýl"
+DlgDivInlineStyle	: "Inline štýl",
+
+ScaytTitle			: "SCAYT",	//MISSING
+ScaytTitleOptions	: "Options",	//MISSING
+ScaytTitleLangs		: "Languages",	//MISSING
+ScaytTitleAbout		: "About"	//MISSING
 };

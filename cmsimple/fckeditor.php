@@ -112,7 +112,7 @@ var myBaseHref = "http://'.$_SERVER['HTTP_HOST'].$sn.'" ;
 var EditorAreaCss = "'.$css.'";
 var FCKDocType = "'.$DocType.'";
 
-var oFCKeditor = new FCKeditor("text","100%",500) ;
+var oFCKeditor = new FCKeditor("text","100%",'.$cf['editor']['height'].') ; 
 oFCKeditor.BasePath=sBasePath ;
 oFCKeditor.Config["BaseHref"] = myBaseHref ;
 
