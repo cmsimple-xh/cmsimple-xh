@@ -28,6 +28,9 @@
 ==================
 CMSimple_XH 1.4
 ==================
+12-01-2011 - Leen
+* replaced JW player with Flowplayer due to licence issues
+
 7 januari 2011 - Leen
 * ./cmsimple/cms.php, line 455, make link relative
 	:> return '<a href="http://'.$_SERVER['SERVER_NAME'].$sn.'?'.$u[0].'">';

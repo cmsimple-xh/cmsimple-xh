@@ -1,6 +1,6 @@
 ======================================
-CMSimple_XH 1.3
-22-11-2010
+CMSimple_XH 1.4
+12-01-2011
 based on CMSimple version 3.3 - December 31. 2009
 ======================================
 
@@ -14,26 +14,8 @@ Description:
     pages.
 
 Changes in this version:
-    - added hungarian language
-    - added sk fckeditor language
-    - nice looking backend, especially edit view of pluginloader files
-    - optimized and styled notices and warnings
-    - "outsourcing" of language-dependent config from the language files to the
-      new langconfig files
-    - sysinfo-, phpinfo- and help-page
-    - using core.css, removed many inline- and html-styles
-    - inserted many "\n" in adm.php and index.php of Pluginloader for better
-      readable sourcecode
-    - moved $tx variables for site title, description, keywords and template
-      texts to langconfig.php's
-    - renamed that $tx-variables to $txc-variables ("c" for config)
-
-Upgrade instructions: (Not for new installations)
-    1. Back-up your old site.
-    2. Download the upgrade package (Upgrade only possible if your current version
-       is 1.2)
-    3. Copy the contents of your download to the root folder of your website.
-       Overwrite existing files if needed.
-    4. Go to your website, log in, go to settings and change to language files to
-       fit your needs. This because the update overwrites them.
-    5. That's all!
+    - added CMSimple root folder too cookies
+    - added italian & czech lang
+    - Changed flashplayer to Flowplayer
+    - Updated FCKeditor to 2.6.6
+    - made FCKeditor height configurable
