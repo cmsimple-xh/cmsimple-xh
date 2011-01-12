@@ -26,8 +26,13 @@
  Changes (newest on top)
  ------------------------------------------------------------------------------------------------------------------
 ==================
-CMSimple_XH 1.3.1 / 1.4
+CMSimple_XH 1.4
 ==================
+7 januari 2011 - Leen
+* ./cmsimple/cms.php, line 455, make link relative
+	:> return '<a href="http://'.$_SERVER['SERVER_NAME'].$sn.'?'.$u[0].'">';
+	=> return '<a href="'.$sn.'?'.$u[0].'">';
+
 4 january 2011 - Leen
 * ./cmsimple/fckeditor.php, line 115:
 	:> var oFCKeditor = new FCKeditor("text","100%",500) ;

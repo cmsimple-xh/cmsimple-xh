@@ -2,8 +2,8 @@
 /* utf8-marker = äöüß */
 /*
 ======================================
-CMSimple_XH 1.3
-22-11-2010
+CMSimple_XH 1.4
+12-01-2011
 based on CMSimple version 3.3 - December 31. 2009
 For changelog, downloads and information please see http://www.cmsimple-xh.com
 ======================================
@@ -48,8 +48,8 @@ $hjs = '';
 $onload = '';
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
-define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.3');
-define('CMSIMPLE_XH_BUILD', 2010112201);
+define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.4 beta');
+define('CMSIMPLE_XH_BUILD', 2011011201);
 //version-informations
 
 if (preg_match('/cms.php/i',sv('PHP_SELF')))die('Access Denied');
@@ -452,7 +452,7 @@ function a($i, $x) {
 	global $sn, $u, $cf, $adm;
         if($i == 0 && !$adm) {
             if($x == '' && $cf['locator']['show_homepage'] == 'true') {
-                return '<a href="http://'.$_SERVER['SERVER_NAME'].$sn.'?'.$u[0].'">';
+                    return '<a href="'.$sn.'?'.$u[0].'">';
             }
         }
 	return isset($u[$i]) ? '<a href="'.$sn.'?'.$u[$i].$x.'">' : '<a href="'.$sn.'?'.$x.'">'; // changed by LM CMSimple_XH 1.1
