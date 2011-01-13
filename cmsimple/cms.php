@@ -48,8 +48,8 @@ $hjs = '';
 $onload = '';
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
-define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.4 beta');
-define('CMSIMPLE_XH_BUILD', 2011011201);
+define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.4 beta2');
+define('CMSIMPLE_XH_BUILD', 2011011301);
 //version-informations
 
 if (preg_match('/cms.php/i',sv('PHP_SELF')))die('Access Denied');
