@@ -32,7 +32,47 @@ CMSimple_XH 1.4
 * removed included flv/mp3-player
 	-> ./player.swf
 	- ./2lang/player.swf
+	
+* removed FCKeditor swfobject plugin
+	-> ./FCKeditor/editor/plugins/swfobject/
+	
+* changed flvPlayer plugin player
+	-> ./FCKeditor/editor/plugins/flvPlayer/mediaplayer.swf
+	+> ./FCKeditor/editor/plugins/flvPlayer/flowplayer.swf
+	+> ./FCKeditor/editor/plugins/flvPlayer/flowplayer.controls.swf
+	+> ./FCKeditor/editor/plugins/flvPlayer/flowplayer.min.js
+	
+* added folders
+	+> ./userfiles
+	
+* ./cmsimple/cms.php line 65-69, changed folder variables
+	:> 	$pth['folder']['downloads'] = $pth['folder']['base'].'downloads/';
 
+		$pth['folder']['images'] = $pth['folder']['base'].'images/';
+		$pth['folder']['flags'] = $pth['folder']['images'].'flags/';
+		$pth['folder']['editbuttons'] = $pth['folder']['images'].'editor/';
+	=> 	//for compatibility XH <= 1.4 beta2
+		if (!isset($cf['folders']['userfiles']))$cf['folders']['userfiles'] = 'userfiles/';
+		if (!isset($cf['folders']['downloads']))$cf['folders']['downloads'] = 'downloads/';
+		if (!isset($cf['folders']['images']))$cf['folders']['images'] = 'images/';
+		
+		//new Userfiles-folder
+		$pth['folder']['userfiles'] = $pth['folder']['base'].$cf['folders']['userfiles'];
+		
+		//$pth['folder']['downloads'] = $pth['folder']['base'].'downloads/';
+		$pth['folder']['downloads'] = $pth['folder']['base'].$cf['folders']['downloads'];
+			 
+		//$pth['folder']['images'] = $pth['folder']['base'].'images/';
+		$pth['folder']['images'] = $pth['folder']['base'].$cf['folders']['images'];
+		$pth['folder']['flags'] = $pth['folder']['images'].'flags/';
+		$pth['folder']['editbuttons'] = $pth['folder']['images'].'editor/';
+
+* ./cmsimple/config.php, added folder path vars
+	+> 	$cf['folders']['userfiles']="userfiles/";
+		$cf['folders']['downloads']="downloads/";
+		$cf['folders']['images']="images/";
+
+	
 12-01-2011 - Leen
 * replaced new FCK filemanager with old one
 

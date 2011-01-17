@@ -62,9 +62,19 @@ $pth['file']['pagedata'] = $pth['folder']['content'].'pagedata.php';
 if (@is_dir('./cmsimple/')) $pth['folder']['base'] = './';
  else $pth['folder']['base'] = './../';
 
-$pth['folder']['downloads'] = $pth['folder']['base'].'downloads/';
+//for compatibility XH <= 1.4 beta2
+if (!isset($cf['folders']['userfiles']))$cf['folders']['userfiles'] = 'userfiles/';
+if (!isset($cf['folders']['downloads']))$cf['folders']['downloads'] = 'downloads/';
+if (!isset($cf['folders']['images']))$cf['folders']['images'] = 'images/';
 
-$pth['folder']['images'] = $pth['folder']['base'].'images/';
+//new Userfiles-folder
+$pth['folder']['userfiles'] = $pth['folder']['base'].$cf['folders']['userfiles'];
+
+//$pth['folder']['downloads'] = $pth['folder']['base'].'downloads/';
+$pth['folder']['downloads'] = $pth['folder']['base'].$cf['folders']['downloads'];
+     
+//$pth['folder']['images'] = $pth['folder']['base'].'images/';
+$pth['folder']['images'] = $pth['folder']['base'].$cf['folders']['images'];
 $pth['folder']['flags'] = $pth['folder']['images'].'flags/';
 $pth['folder']['editbuttons'] = $pth['folder']['images'].'editor/';
 

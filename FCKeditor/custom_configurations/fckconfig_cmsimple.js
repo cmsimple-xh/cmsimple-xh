@@ -98,7 +98,7 @@ FCKConfig.Plugins.Add('nbsp','de,en');
 FCKConfig.Plugins.Add('tablecommands');
 FCKConfig.Plugins.Add('flvPlayer','en');
 FCKConfig.Plugins.Add('sitelink','de,en');
-FCKConfig.Plugins.Add('swfobject', 'en,es');
+//FCKConfig.Plugins.Add('swfobject', 'en,es');
 
 // Load Toolbars after plugins 
 FCKConfig.ToolbarSets["CMSimpleOld"] = [
@@ -123,7 +123,7 @@ FCKConfig.ToolbarSets["CMSimple"] = [
 	['Undo','Redo'],['Find','Replace'],['SelectAll','RemoveFormat'],
 	['OrderedList','UnorderedList'],['Outdent','Indent','Blockquote','CreateDiv'],
 	['Link','Unlink','sitelink','Anchor'],['TextColor','BGColor'],
-	['Image','Flash','flvPlayer'],['Smiley','SpecialChar','Rule','PageBreak'],
+	['Image','flvPlayer'],['Smiley','SpecialChar','Rule','PageBreak'],
 	['Table','-','TableInsertRowAfter','TableDeleteRows','TableDeleteColumns','TableInsertCellAfter','TableDeleteCells','TableMergeCells','TableHorizontalSplitCell','TableCellProp'] ,
 	['FontFormat'],['FontName'],['FontSize'],['Style'],
 	['About']		// No comma for the last row.
