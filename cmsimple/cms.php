@@ -129,7 +129,7 @@ $sn = preg_replace('/([^\?]*)\?.*/', '\1', sv(($iis?'SCRIPT_NAME':'REQUEST_URI')
 foreach(array('download', 'function', 'search', 'mailform', 'sitemap', 'text', 'selected', 'login', 'logout', 'settings', 'print', 'retrieve', 'file', 'action', 'validate', 'images', 'downloads', 'edit', 'normal', 'stylesheet', 'passwd')as $i)initvar($i);
 
 //by GE 2009-10-14 (CMSimple_XH 1.0rc2)
-define('CMSIMPLE_ROOT', str_replace('/'.$sl.'/', "/", $sn)); //for absolute references
+define('CMSIMPLE_ROOT', str_replace('index.php', '',str_replace('/'.$sl.'/', "/", $sn))); //for absolute references
 define('CMSIMPLE_BASE', (strtolower($cf['language']['default'])==$sl?'./':'./../')); //for relative references
 //END by GE 2009-10-14 (CMSimple_XH 1.0rc2)
 

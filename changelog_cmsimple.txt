@@ -41,6 +41,7 @@ CMSimple_XH 1.4
 	+> ./FCKeditor/editor/plugins/flvPlayer/flowplayer.swf
 	+> ./FCKeditor/editor/plugins/flvPlayer/flowplayer.controls.swf
 	+> ./FCKeditor/editor/plugins/flvPlayer/flowplayer.min.js
+	x> ./FCKeditor/editor/plugins/flvPlayer/flvPlayer.js (changed code)
 	
 * added folders
 	+> ./userfiles
@@ -71,6 +72,10 @@ CMSimple_XH 1.4
 	+> 	$cf['folders']['userfiles']="userfiles/";
 		$cf['folders']['downloads']="downloads/";
 		$cf['folders']['images']="images/";
+
+* ./cmsimple/cms.php line 132, change root url to remove index.php (www.cmsimpleforum.com/viewtopic.php?f=32&t=2644)
+	:> define('CMSIMPLE_ROOT', str_replace('/'.$sl.'/', "/", $sn)); //for absolute references
+	=> define('CMSIMPLE_ROOT', str_replace('index.php', '',str_replace('/'.$sl.'/', "/", $sn))); //for absolute references
 
 	
 12-01-2011 - Leen
