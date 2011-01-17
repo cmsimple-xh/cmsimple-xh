@@ -28,8 +28,12 @@
 ==================
 CMSimple_XH 1.4
 ==================
+17-01-2011 - Leen
+* removed included flv/mp3-player
+	-> ./player.swf
+	- ./2lang/player.swf
+
 12-01-2011 - Leen
-* replaced JW player with Flowplayer due to licence issues
 * replaced new FCK filemanager with old one
 
 7 januari 2011 - Leen
