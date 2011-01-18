@@ -32,6 +32,15 @@ CMSimple_XH 1.4
 * removed FCK flvPlayer plugin & buttons, will be available trough plugin
     -> ./FCKeditor/editor/plugins./flvPlayer/
 
+* ./cmsimple/cms.php moved the following lines to line 65
+    x> $pth['folder']['cmsimple'] = $pth['folder']['base'].'cmsimple/';
+        $pth['file']['image'] = $pth['folder']['cmsimple'].'image.php';
+        $pth['file']['log'] = $pth['folder']['cmsimple'].'log.txt';
+        $pth['file']['cms'] = $pth['folder']['cmsimple'].'cms.php';
+        $pth['file']['config'] = $pth['folder']['cmsimple'].'config.php';
+        if (!include($pth['file']['config']))die('Config file missing');
+
+
 17-01-2011 - Leen
 * removed included flv/mp3-player
 	-> ./player.swf

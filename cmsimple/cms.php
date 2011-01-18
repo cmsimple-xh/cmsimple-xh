@@ -62,6 +62,14 @@ $pth['file']['pagedata'] = $pth['folder']['content'].'pagedata.php';
 if (@is_dir('./cmsimple/')) $pth['folder']['base'] = './';
  else $pth['folder']['base'] = './../';
 
+$pth['folder']['cmsimple'] = $pth['folder']['base'].'cmsimple/';
+$pth['file']['image'] = $pth['folder']['cmsimple'].'image.php';
+$pth['file']['log'] = $pth['folder']['cmsimple'].'log.txt';
+$pth['file']['cms'] = $pth['folder']['cmsimple'].'cms.php';
+$pth['file']['config'] = $pth['folder']['cmsimple'].'config.php';
+
+if (!include($pth['file']['config']))die('Config file missing');
+
 //for compatibility XH <= 1.4 beta2
 if (!isset($cf['folders']['userfiles']))$cf['folders']['userfiles'] = 'userfiles/';
 if (!isset($cf['folders']['downloads']))$cf['folders']['downloads'] = 'downloads/';
@@ -78,16 +86,9 @@ $pth['folder']['images'] = $pth['folder']['base'].$cf['folders']['images'];
 $pth['folder']['flags'] = $pth['folder']['images'].'flags/';
 $pth['folder']['editbuttons'] = $pth['folder']['images'].'editor/';
 
-$pth['folder']['cmsimple'] = $pth['folder']['base'].'cmsimple/';
-$pth['file']['image'] = $pth['folder']['cmsimple'].'image.php';
-$pth['file']['log'] = $pth['folder']['cmsimple'].'log.txt';
-$pth['file']['cms'] = $pth['folder']['cmsimple'].'cms.php';
-$pth['file']['config'] = $pth['folder']['cmsimple'].'config.php';
-
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) debug-mode, enables error-reporting 
 xh_debugmode();
 
-if (!include($pth['file']['config']))die('Config file missing');
 // This is to make it easier to upgrade to 2.7
 if (!isset($cf['scripting']['regexp']))$cf['scripting']['regexp'] = "\#CMSimple (.*?)\#";
 // This is to make it easier to upgrade to 2.9
