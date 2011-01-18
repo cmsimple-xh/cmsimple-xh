@@ -1,5 +1,5 @@
 ======================================
-CMSimple_XH 1.4 beta3
+CMSimple_XH 1.4
 18-01-2011
 based on CMSimple version 3.3 - December 31. 2009
 ======================================

@@ -40,6 +40,41 @@ CMSimple_XH 1.4
         $pth['file']['config'] = $pth['folder']['cmsimple'].'config.php';
         if (!include($pth['file']['config']))die('Config file missing');
 
+* removed oEdit
+    -> ./cmsimple/oedit.php
+    -> ./cmsimple/image.php
+
+* ./cmsimple/cms.php, removed oedit reference and including
+    -> $pth['file']['image'] = $pth['folder']['cmsimple'].'image.php'; (line 66)
+    -> $pth['folder']['editbuttons'] = $pth['folder']['images'].'editor/'; (line 87)
+    -> initvar('image');
+        if ($image != '') {
+                if (include($pth['file']['image']))exit;
+        } (line 99-102)
+
+* ./cmsimple/adm.php line 334, changed default editor to FCK
+    :> if ($cf['editor']['external'] == '')$cf['editor']['external'] = 'oedit';
+    =>if ($cf['editor']['external'] == '')$cf['editor']['external'] = 'fckeditor';
+
+* ./cmsimple/languages/ removed $tx['editor'] from all language files
+
+* ./cmsimple/adm.php line 226-227, removed editorbuttons reference
+    :> if ($k1.$k2 == 'editorbuttons')$text .= '$'.$a.'[\''.$k1.'\'][\''.$k2.'\']=\''.$GLOBALS[$a][$k1][$k2].'\';';
+       else $text .= '$'.$a.'[\''.$k1.'\'][\''.$k2.'\']="'.preg_replace("/\"/s", "", $GLOBALS[$a][$k1][$k2]).'";'."\n";
+    => $text .= '$'.$a.'[\''.$k1.'\'][\''.$k2.'\']="'.preg_replace("/\"/s", "", $GLOBALS[$a][$k1][$k2]).'";'."\n";
+
+* ./cmsimple/adm.php line 226-227, removed editorbuttons reference
+    :> if ($k1.$k2 == 'editorbuttons')$o .= '<textarea rows="25" cols="35" name="'.$k1.'_'.$k2.'">'.$v2.'</textarea>';
+        else if($k1.$k2 == 'securitytype') {
+    => if($k1.$k2 == 'securitytype') {
+
+* ./cmsimple/cms.php removed line 92-97, no reason to support upgrading from 2.7 or 2.9
+    -> // This is to make it easier to upgrade to 2.7
+        if (!isset($cf['scripting']['regexp']))$cf['scripting']['regexp'] = "\#CMSimple (.*?)\#";
+        // This is to make it easier to upgrade to 2.9
+        if (!isset($cf['security']['type']))$cf['security']['type'] = 'page';
+        if (!isset($cf['menu']['levels']))$cf['menu']['levels'] = 3;
+        if (!isset($cf['menu']['levelcatch']))$cf['menu']['levelcatch'] = 10;
 
 17-01-2011 - Leen
 * removed included flv/mp3-player

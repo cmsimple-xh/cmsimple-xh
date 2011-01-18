@@ -1,8 +1,8 @@
 <?php
 /* utf8-marker = äöüß */
 /*
-CMSimple_XH 1.2
-2010-07-05
+CMSimple_XH 1.4
+2011-01-18
 For changelog, downloads and information please see http://www.cmsimple-xh.com
 ======================================
 -- COPYRIGHT INFORMATION START --

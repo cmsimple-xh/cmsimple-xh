@@ -137,47 +137,4 @@ $tx['sysinfo']['helplinks']="Odkazy na Info a Pomoc:";
 $tx['sysinfo']['php_version']="PHP-verzia:";
 $tx['sysinfo']['phpinfo_link']="PHP Info &raquo;";
 $tx['sysinfo']['phpinfo_hint']="(otvorí nové okno alebo záložku)";
-$tx['editor']['noimages']="Žiadne obrázky";
-$tx['editor']['changemode']="Táto funkcia je aktívna iba v režime WYSIWYG. Chcete prepnúť do tohoto režimu?";
-$tx['editor']['buttons']='[
-["ilink","Vlož vybraný odkaz","Vlož vybraný hypertextový odkaz zo zoznamu"],
-[""],
-["iimage","Vlož vybraný obrázok","Vlož vybraný obrázok zo zoznamu"],
-["tr"],["save","Ulož","Ulož tento dokument"],
-["selectall","Vyber všetko (Ctrl+A)","Vyber celý dokument"],
-["cut","Vystrihni (Ctrl+X)","Vystrihni výber do schránky"],
-["copy","Kopíruj (Ctrl+C)","Kopíruj výber do schránky"],
-["paste","Vlož (Ctrl+V)","Vlož obsah schránky"],
-[""],
-["undo","Späť (Ctrl+Z)","Vrátiť poslednú akciu"],
-["redo","Znovu (Ctrl+Y)","Znovu obnoviť predtím vrátenú akciu"],
-[""],
-["html","Zdrojový kód","Prepínač medzi HTML kódom a wysiwyg módom"],
-[""],
-["justifyleft","Zarovnať vľavo","Aplikuj zarovnávnie vľavo"],
-["justifycenter","Na stred","Zarovnávanie na stred"],
-["justifyright","Zarovnať vpravo","Aplikuj zarovnávanie vpravo"],
-[""],
-["insertHorizontalRule","Vlož deliacu čiaru","Vlož deliacu čiaru"],
-[""],
-["createlink","Vytvor alebo edituj hyperodkaz","Vytvor alebo edituj hyperodkaz"],
-["unlink","Odsráň hyperodkaz","Odstráň vybraný hyperodkaz"],
-["tr"],
-["h1","Záhlavie 1 - Nová stránka","Naformátuj vybraný odstavec(ce) ako Záhlavie 1"],
-["h2","Záhlavie 2 - Nová stránka","Naformátuj vybraný odstavec(ce) ako Záhlavie 2"],
-["h3","Záhlavie 3 - Nová stránka","Naformátuj vybraný odstavec(ce) ako Záhlavie 3"],
-["h4","Nadpis 4 - Na stránke","Naformátuj vybraný odstavec(ce) ako Záhlavie 4"],
-["p","Odstavec","Formátuj ako normálny odtavec textu"],
-[""],
-["bold","Bold=Tučné","Naformátuj ako tučný štýl písma"],
-["italic","Italic=Kurzíva","Naformátuj ako štýl písma kurzíva"],
-["underline","Underlined=Podčiarknuté","Naformátuj ako podčiarknutý štýl písma"],
-[""],
-["RemoveFormat","Zruš formátovanie (B,I,U)","Zruš formátovanie vybraného textu  (B,I,U)"],
-[""],
-["insertunorderedlist","Odrážky","Vytvor alebo vymaž odrážky odstavcov"],
-["insertorderedlist","Číslovanie","Vytvor alebo vymaž číslovanie odstavcov"],
-[""],
-["outdent","Zmenši odsadenie","Zmenši odsadenie vybraného textu"],
-["indent","Zväčši odsadenie","Zväčši odsadenie vybraného textu"]
-]';?>
+?>

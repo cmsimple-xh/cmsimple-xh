@@ -137,45 +137,4 @@ $tx['sysinfo']['helplinks']="Info and Help Links:";
 $tx['sysinfo']['php_version']="PHP-Version:";
 $tx['sysinfo']['phpinfo_link']="PHP Info &raquo;";
 $tx['sysinfo']['phpinfo_hint']="(opens in a new window or tab)";
-$tx['editor']['noimages']="Pas d'images trouvées dans";
-$tx['editor']['changemode']="Cette fonction est uniquement visible dans le mode WYSIWYG. Voulez-vous changer de mode ?";
-$tx['editor']['buttons']='[
-["ilink","Insérer le lien sélectionné","Insère le lien sélectionné de la boite de sélection"],
-[""],
-["iimage","Insérer image sélectionnée","Insère image sélectionnée de la boite de sélection"],
-["tr"],
-["save","Enregistrer","Enregistre ce document"],
-[""],
-["selectall","Sélectionner tout (Ctrl+A)","Sélectionne tout le document"],
-["cut","Couper (Ctrl+X)","Coupe la sélection au presse-papier"],
-["copy","Copier (Ctrl+C)","Copie la sélection au presse-papier"],
-["paste","Coller (Ctrl+V)","Insère le contenu du presse-papier"],
-[""],
-["undo","Annuler (Ctrl+Z)","Annule action précédente"],
-["redo","Refaire (Ctrl+Y)","Refait action précédemment annulée"],
-[""],
-["html","Changer de mode","Change entre le mode WYSIWYG et le mode HTML"],
-[""],
-["justifyleft","Aligner à gauche","Aligne à gauche"],
-["justifycenter","Centrer","Centre"],
-["justifyright","Aligner à droite","Aligne à droite"],
-[""],
-["createlink","Créer ou modifier un lien","Crée ou modifie un lien"],
-["unlink","Supprimer un lien","Supprime un lien"],
-["tr"],
-["h1","Titre 1 (saut de page)","Formate le(s) paragraphe(s) sélectionné(s) comme Titre 1"],
-["h2","Titre 2 (sous-menu)","Formate le(s) paragraphe(s) sélectionné(s) comme Titre 2 (sous-menu)"],
-["h3","Titre 3 (sous-menu)","Formate le(s) paragraphe(s) sélectionné(s) comme Titre 3 (sous-menu)"],
-["h4","Titre 4 (sous-titre)","Formate le(s) paragraphe(s) sélectionné(s) comme Titre 4 (sous-titre)"],
-["p","Paragraphe","Formate comme paragraphe normal"],
-[""],
-["bold","Gras","Formate avec une police de type gras"],
-["italic","Italique","Formate avec une police de type italique"],
-["underline","Souligné","Formate avec une police de type souligné"],
-[""],
-["insertunorderedlist","Liste à puces","Crée ou supprime une liste à puces"],
-["insertorderedlist","Liste numérotée","Crée ou supprime une liste numérotée"],
-[""],
-["outdent","Diminuer le retrait","Diminue le retrait du texte sélectionné"],
-["indent","Augmenter le retrait","Augmente le retrait du texte sélectionné"]
-]';?>
+?>

@@ -48,7 +48,7 @@ $hjs = '';
 $onload = '';
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
-define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.4 beta3');
+define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.4');
 define('CMSIMPLE_XH_BUILD', 2011011801);
 //version-informations
 
@@ -63,7 +63,7 @@ if (@is_dir('./cmsimple/')) $pth['folder']['base'] = './';
  else $pth['folder']['base'] = './../';
 
 $pth['folder']['cmsimple'] = $pth['folder']['base'].'cmsimple/';
-$pth['file']['image'] = $pth['folder']['cmsimple'].'image.php';
+
 $pth['file']['log'] = $pth['folder']['cmsimple'].'log.txt';
 $pth['file']['cms'] = $pth['folder']['cmsimple'].'cms.php';
 $pth['file']['config'] = $pth['folder']['cmsimple'].'config.php';
@@ -77,29 +77,12 @@ if (!isset($cf['folders']['images']))$cf['folders']['images'] = 'images/';
 
 //new Userfiles-folder
 $pth['folder']['userfiles'] = $pth['folder']['base'].$cf['folders']['userfiles'];
-
-//$pth['folder']['downloads'] = $pth['folder']['base'].'downloads/';
 $pth['folder']['downloads'] = $pth['folder']['base'].$cf['folders']['downloads'];
-     
-//$pth['folder']['images'] = $pth['folder']['base'].'images/';
 $pth['folder']['images'] = $pth['folder']['base'].$cf['folders']['images'];
 $pth['folder']['flags'] = $pth['folder']['images'].'flags/';
-$pth['folder']['editbuttons'] = $pth['folder']['images'].'editor/';
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) debug-mode, enables error-reporting 
 xh_debugmode();
-
-// This is to make it easier to upgrade to 2.7
-if (!isset($cf['scripting']['regexp']))$cf['scripting']['regexp'] = "\#CMSimple (.*?)\#";
-// This is to make it easier to upgrade to 2.9
-if (!isset($cf['security']['type']))$cf['security']['type'] = 'page';
-if (!isset($cf['menu']['levels']))$cf['menu']['levels'] = 3;
-if (!isset($cf['menu']['levelcatch']))$cf['menu']['levelcatch'] = 10;
-
-initvar('image');
-if ($image != '') {
-	if (include($pth['file']['image']))exit;
-}
 
 $pth['folder']['language'] = $pth['folder']['cmsimple'].'languages/';
 $pth['folder']['langconfig'] = $pth['folder']['cmsimple'].'languages/';
@@ -120,7 +103,6 @@ $pth['file']['template'] = $pth['folder']['template'].'template.htm';
 $pth['file']['stylesheet'] = $pth['folder']['template'].'stylesheet.css';
 $pth['folder']['menubuttons'] = $pth['folder']['template'].'menu/';
 $pth['folder']['templateimages'] = $pth['folder']['template'].'images/';
-
 $pth['folder']['plugins'] = $pth['folder']['base'].$cf['plugins']['folder'].'/';
 
 $iis = strpos(sv('SERVER_SOFTWARE'), "IIS");
@@ -377,7 +359,6 @@ function e($et, $ft, $fn) {
 	global $e, $tx;
 	$e .= '<li><b>'.$tx['error'][$et].' '.$tx['filetype'][$ft].'</b>'.tag('br').$fn.'</li>'."\n";
 }
-
 
 function rfc() {
     global $c, $cl, $h, $u, $l, $su, $s, $pth, $tx, $edit, $adm, $cf;

@@ -139,48 +139,4 @@ $tx['sysinfo']['helplinks']="Info and Help Links:";
 $tx['sysinfo']['php_version']="PHP-Version:";
 $tx['sysinfo']['phpinfo_link']="PHP Info &raquo;";
 $tx['sysinfo']['phpinfo_hint']="(opens in a new window or tab)";
-$tx['editor']['noimages']="Nie znaleziono obrazkw";
-$tx['editor']['changemode']="ta funkcja jest dostpna jest tylko w trybie layout. Chcesz zmieni obecny tryb?";
-$tx['editor']['buttons']='[
-["ilink","Wstaw wybrany link","Wstaw wybrany link z pola wyboru"],
-[""],
-["iimage","Wstaw wybrany obrazek","Wstaw wybrany obrazek z pola wyboru"],
-["tr"],
-["save","Zapisz","Zapisz ten dokument"],
-[""],
-["selectall","Zaznacz wszystko (Ctrl+A)","Zaznacz wszystko w dokumencie"],
-["cut","Wytnij(Ctrl+X)","Wytnij do schowka"],
-["copy","Kopiuj (Ctrl+C)","Kopiuj zaznaczenie do schowka"],
-["paste","Wklej (Ctrl+V)","Wstaw zawarto schwoka"],
-[""],
-["undo","Cofnij (Ctrl+Z)","Cofnij ostatni akcj"],
-["redo","Powtrz (Ctrl+Y)","Powtrz ostatni akcj"],
-[""],
-["html","Zmie tryb","Zmie tryb midzy trybem lay-out a HTML"],
-[""],
-["justifyleft","Wyrwnaj do lewej","Zastosuj wyrwnanie do lewej"],
-["justifycenter","Wyrodkuj","Zastosuj wyrodkowanie"],
-["justifyright","Wyrwnaj do prawej","Zastosuj wyrwnanie do prawej"],
-[""],
-["inserthorizontalrule","Pozioma linia","Wstaw poziom lini"],
-[""],
-["createlink","Stwrz lub edytuj odnonik","Stwrz lub edytuj odnonik"],
-["unlink","Usu odnonik","Usu zaznaczony odnonik"],
-["tr"],
-["h1","Nagwek 1","Formatuj zaznaczenie jako Nagwek 1"],
-["h2","Nagwek 2","Formatuj zaznaczenie jako Nagwek 2"],
-["h3","Nagwek 3","Formatuj zaznaczenie jako Nagwek 3"],
-["h4","Nagwek 4","Formatuj zaznaczenie jako Nagwek 4"],
-[""],
-["bold","Pogrubienie","Pogrubienie czcionki"],
-["italic","Pochylenie","Pochylenie czcionki"],
-["underline","Podkrelenie","Podkrelenie czcionki"],
-[""],
-["removeformat","Usu styl","Usu styl czcionki"],
-[""],
-["insertunorderedlist","Wypunktowanie","Utwrz lub usu wypunktowanie"],
-["insertorderedlist","Numerowanie","Utwrz lub usu numerowanie"],
-[""],
-["outdent","Zmniejsz wcicie","Zmniejsz wcicie zaznaczonego tekstu"],
-["indent","Zwiksz wcicie","Zwikszsz wcicie zaznaczonego tekstu"]
-]';?>
+?>

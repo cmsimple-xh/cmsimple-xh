@@ -1,8 +1,8 @@
 <?php
 /* utf8-marker = äöüß */
 /*
-CMSimple_XH 1.2
-2010-10-15
+CMSimple_XH 1.4
+2011-01-18
 based on CMSimple version 3.3 - December 31. 2009
 For changelog, downloads and information please see http://www.cmsimple-xh.com
 ======================================
@@ -223,8 +223,7 @@ $o .= '</ul>'."\n".tag('hr')."\n".'<p>'.$tx['settings']['backupexplain1'].'</p>'
 										initvar($k1.'_'.$k2);
 										$GLOBALS[$a][$k1][$k2] = $GLOBALS[$k1.'_'.$k2];
 										$GLOBALS[$a][$k1][$k2] = stsl($GLOBALS[$a][$k1][$k2]);
-									if ($k1.$k2 == 'editorbuttons')$text .= '$'.$a.'[\''.$k1.'\'][\''.$k2.'\']=\''.$GLOBALS[$a][$k1][$k2].'\';';
-									else $text .= '$'.$a.'[\''.$k1.'\'][\''.$k2.'\']="'.preg_replace("/\"/s", "", $GLOBALS[$a][$k1][$k2]).'";'."\n";
+									$text .= '$'.$a.'[\''.$k1.'\'][\''.$k2.'\']="'.preg_replace("/\"/s", "", $GLOBALS[$a][$k1][$k2]).'";'."\n";
 									}
 								}
 							}
@@ -266,8 +265,7 @@ $o .= '</ul>'."\n".tag('hr')."\n".'<p>'.$tx['settings']['backupexplain1'].'</p>'
 						if (is_array($v1))foreach($v1 as $k2 => $v2)if(!is_array($v2)) {
 							if (isset($tx['help'][$k1.'_'.$k2]) && $a == 'cf')$o .= '<tr>'."\n".'<td colspan="2"><b>'.$tx['help'][$k1.'_'.$k2].':</b></td>'."\n".'</tr>'."\n";
 							$o .= '<tr>'."\n".'<td valign="top">'.$k1.'_'.$k2.':</td>'."\n".'<td>';
-							if ($k1.$k2 == 'editorbuttons')$o .= '<textarea rows="25" cols="35" name="'.$k1.'_'.$k2.'">'.$v2.'</textarea>';
-							else if($k1.$k2 == 'securitytype') {
+							if($k1.$k2 == 'securitytype') {
 								$o .= '<select name="'.$k1.'_'.$k2.'">';
 								foreach(array('page', 'javascript', 'wwwaut') as $v) {
 									$o .= '<option value="'.$v.'"';
@@ -331,7 +329,7 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
 		if ($s > -1) {
 		$su = $u[$s];
 		$iimage = '';
-		if ($cf['editor']['external'] == '')$cf['editor']['external'] = 'oedit';
+		if ($cf['editor']['external'] == '')$cf['editor']['external'] = 'fckeditor';
 		if (!@include($pth['folder']['cmsimple'].$cf['editor']['external'].'.php'))$e .= '<li>External editor '.$cf['editor']['external'].' missing</li>'."\n";
 	}
 	else $o = '<p>'.$tx['error']['cntlocateheading'].'</p>'."\n";
