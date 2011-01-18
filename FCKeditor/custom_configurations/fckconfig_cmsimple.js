@@ -96,7 +96,7 @@ FCKConfig.PluginsPath = FCKConfig.BasePath + 'plugins/' ;
 FCKConfig.Plugins.Add('dragresizetable' );
 FCKConfig.Plugins.Add('nbsp','de,en');
 FCKConfig.Plugins.Add('tablecommands');
-FCKConfig.Plugins.Add('flvPlayer','en');
+//FCKConfig.Plugins.Add('flvPlayer','en');
 FCKConfig.Plugins.Add('sitelink','de,en');
 //FCKConfig.Plugins.Add('swfobject', 'en,es');
 
@@ -123,7 +123,7 @@ FCKConfig.ToolbarSets["CMSimple"] = [
 	['Undo','Redo'],['Find','Replace'],['SelectAll','RemoveFormat'],
 	['OrderedList','UnorderedList'],['Outdent','Indent','Blockquote','CreateDiv'],
 	['Link','Unlink','sitelink','Anchor'],['TextColor','BGColor'],
-	['Image','flvPlayer'],['Smiley','SpecialChar','Rule','PageBreak'],
+	['Image'],['Smiley','SpecialChar','Rule','PageBreak'],
 	['Table','-','TableInsertRowAfter','TableDeleteRows','TableDeleteColumns','TableInsertCellAfter','TableDeleteCells','TableMergeCells','TableHorizontalSplitCell','TableCellProp'] ,
 	['FontFormat'],['FontName'],['FontSize'],['Style'],
 	['About']		// No comma for the last row.

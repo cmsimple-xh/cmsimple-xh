@@ -3,7 +3,7 @@
 /*
 ======================================
 CMSimple_XH 1.4
-12-01-2011
+18-01-2011
 based on CMSimple version 3.3 - December 31. 2009
 For changelog, downloads and information please see http://www.cmsimple-xh.com
 ======================================
@@ -48,8 +48,8 @@ $hjs = '';
 $onload = '';
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
-define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.4 beta2');
-define('CMSIMPLE_XH_BUILD', 2011011301);
+define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.4 beta3');
+define('CMSIMPLE_XH_BUILD', 2011011801);
 //version-informations
 
 if (preg_match('/cms.php/i',sv('PHP_SELF')))die('Access Denied');

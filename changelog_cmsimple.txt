@@ -28,6 +28,10 @@
 ==================
 CMSimple_XH 1.4
 ==================
+18-01-2011 - Leen
+* removed FCK flvPlayer plugin & buttons, will be available trough plugin
+    -> ./FCKeditor/editor/plugins./flvPlayer/
+
 17-01-2011 - Leen
 * removed included flv/mp3-player
 	-> ./player.swf

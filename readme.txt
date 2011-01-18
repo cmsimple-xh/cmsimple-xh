@@ -1,6 +1,6 @@
 ======================================
-CMSimple_XH 1.4 beta2
-13-01-2011
+CMSimple_XH 1.4 beta3
+18-01-2011
 based on CMSimple version 3.3 - December 31. 2009
 ======================================
 
@@ -16,8 +16,6 @@ Description:
 Changes in this version:
     - added CMSimple root folder too cookies
     - added italian & czech lang
-    - Changed JW player to Flowplayer
+    - removed swf & flvPlayer
     - Updated FCKeditor to 2.6.6
     - made FCKeditor height configurable
-	
-! no config file in upgrade package
