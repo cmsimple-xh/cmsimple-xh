@@ -1,6 +1,6 @@
 ======================================
 CMSimple_XH 1.4
-18-01-2011
+19-01-2011
 based on CMSimple version 3.3 - December 31. 2009
 ======================================
 
@@ -14,8 +14,9 @@ Description:
     pages.
 
 Changes in this version:
-    - added CMSimple root folder too cookies
+    - added CMSimple root folder to cookies
     - added italian & czech lang
     - removed swf & flvPlayer
     - Updated FCKeditor to 2.6.6
     - made FCKeditor height configurable
+    - removed oEdit WYSIWYG

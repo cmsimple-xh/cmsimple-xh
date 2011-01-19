@@ -53,8 +53,8 @@ if ($adm) {
 
 	if ($validate)$f = 'validate';
 	if ($settings)$f = 'settings';
-	if ($sysinfo)$f = 'sysinfo';
-	if ($phpinfo)$f = 'phpinfo';
+	if (isset($sysinfo))$f = 'sysinfo';
+	if (isset($phpinfo))$f = 'phpinfo';
 	if ($file)$f = 'file';
 	if ($images || $function == 'images')$f = 'images';
 	if ($downloads || $function == 'downloads')$f = 'downloads';

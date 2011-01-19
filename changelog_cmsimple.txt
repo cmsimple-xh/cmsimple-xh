@@ -28,6 +28,13 @@
 ==================
 CMSimple_XH 1.4
 ==================
+19-01-2011 - Leen
+* ./cmsimple/adm.php line 56-57, fix notices
+    :> if ($sysinfo)$f = 'sysinfo';
+       if ($phpinfo)$f = 'phpinfo';
+    => if (isset($sysinfo))$f = 'sysinfo';
+       if (isset($phpinfo))$f = 'phpinfo';
+
 18-01-2011 - Leen
 * removed FCK flvPlayer plugin & buttons, will be available trough plugin
     -> ./FCKeditor/editor/plugins./flvPlayer/
