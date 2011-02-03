@@ -1,6 +1,6 @@
 <?php
 /* utf8-marker = äöüß */
-$tx['meta']['codepage']="iso-8859-1";
+$tx['meta']['codepage']="utf-8";
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Mailform";
 $tx['menu']['print']="Versione per Stampa";
