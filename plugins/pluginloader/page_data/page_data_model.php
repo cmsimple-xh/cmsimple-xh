@@ -279,7 +279,7 @@ class PL_Page_Data_Model{
 
 		$data_string .= "\n################## Recently deleted ############\n";
 		foreach($this -> temp_data as $key => $value){
-			$data_string .= "\$temp_data['".$key."'] = '". $value ."';\n";
+			$data_string .= "\$temp_data['".$key."'] = '". str_replace('\"', '"', addslashes($value)) ."';\n";
 		}
 
 		$data_string .= "\n################## Page Data ############\n";
