@@ -52,6 +52,10 @@ function InsertSmiley( url )
 	oEditor.FCKUndo.SaveUndoStep() ;
 
 	var oImg = oEditor.FCK.InsertElement( 'img' ) ;
+	// fixes: Emoticons should have an own css - ID: 3307739
+    // add: .smiley { your style } to
+    // templates/your_template/stylesheet.css
+	oImg.className='smiley';
 	oImg.src = url ;
 	oImg.setAttribute( '_fcksavedurl', url ) ;
 
