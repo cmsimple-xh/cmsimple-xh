@@ -2,7 +2,7 @@
 
 /* utf8-marker = äöüß */
 /*
-  CMSimple version 3.2 - June 20. 2008
+  CMSimple version 1.4.1 - June 27. 2011
   Small - simple - smart
   © 1999-2008 Peter Andreas Harteg - peter@harteg.dk
 

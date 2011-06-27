@@ -1,7 +1,7 @@
 <?php
 /* utf8-marker = äöüß */
 /*
-CMSimple_XH 1.4
+CMSimple_XH 1.4.1
 2011-01-18
 based on CMSimple version 3.3 - December 31. 2009
 For changelog, downloads and information please see http://www.cmsimple-xh.com
