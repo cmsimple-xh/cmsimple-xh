@@ -107,7 +107,16 @@ function page_params_view($page){
 		$selected = $strSelected;
 	}
 	$handle = opendir($pth['folder']['templates']);
-	$templates_select = "\n".'<select name="template">';
+
+        $templates = array();
+        while(false !== ($file = readdir($handle))) {
+            if(is_dir($pth['folder']['templates'].$file) && $file != "." && $file != "..") {
+                $templates[] = $file;
+            }
+            
+        }
+        sort($templates, SORT_STRING);
+        $templates_select = "\n".'<select name="template">';
 	$templates_select .= "\n\t".'<option value="0"'. $selected.'>'.$plugin_tx['page_params']['use_default_template'].'</option>';
 	$templates = array();
 	while(false !== ($file = readdir($handle))) {   // einsammeln
