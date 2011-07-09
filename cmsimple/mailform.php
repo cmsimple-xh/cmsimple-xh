@@ -90,7 +90,7 @@ else $o .= $t;
 
 function mail_utf8($to, $subject = '(No Subject)', $message = '', $header = '') {
     $header_ = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n";
-    if(mail($to, '=?UTF-*?B?'.base64_encode($subject).'?=', $message, $header_ . $header)) {
+    if(mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $header_ . $header)) {
         return true;
     }
     return false;
