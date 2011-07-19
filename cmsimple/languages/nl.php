@@ -20,7 +20,6 @@ $tx['link']['returned_status'] = "Teruggestuurde http status code: ";
 $tx['link']['int_error'] ="Verkeerde interne link, pagina bestaat niet.";
 $tx['link']['ext_error_domain'] ="Verkeerde externe link, domein bestaat niet.";
 $tx['link']['ext_error_page'] ="Verkeerde externe link, pagina bestaat niet.";
-$tx['link']['hints'] ="Hints:";
 $tx['link']['redirect'] ="De doelpagina stuurt door naar een andere locatie. Controleer en update de link.";
 $tx['link']['email'] ="Is dit email adres geldig en nog in gebruik?";
 $tx['link']['unknown']="Onbekend probleem. Controleer a.u.b. zelf deze link.";

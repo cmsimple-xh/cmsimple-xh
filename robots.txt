@@ -1,0 +1,11 @@
+#robots.txt for yourdomain.tld
+User-agent: *
+Disallow: /cmsimple/
+Disallow: /content/
+Disallow: /downloads/
+Disallow: /FCKeditor/
+Disallow: /images/
+Disallow: /plugins/
+Disallow: /templates/
+
+#Sitemap: http://www.yourdomain.tld/sitemap.xml.gz

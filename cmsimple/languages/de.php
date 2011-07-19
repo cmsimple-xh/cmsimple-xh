@@ -21,7 +21,6 @@ $tx['link']['returned_status'] = "http Statuscode: ";
 $tx['link']['int_error'] ="Fehlerhafter interner Link, Seite existiert nicht.";
 $tx['link']['ext_error_domain'] ="Fehlerhafter externer Link, Domain existiert nicht.";
 $tx['link']['ext_error_page'] ="Fehlerhafter externer Link, Seite existiert nicht.";
-$tx['link']['hints'] ="Hinweise:";
 $tx['link']['redirect'] ="Die verlinkte Seite ist weitergeleitet. Bitte überprüfen Sie den Link.";
 $tx['link']['email'] ="Ist diese e-mail Adresse noch aktuell?";
 $tx['link']['unknown']="Unbekanntes Problem, bitte prüfen sie den Link von Hand.";

@@ -8,7 +8,7 @@ For changelog, downloads and information please see http://www.cmsimple-xh.com
 -- COPYRIGHT INFORMATION START --
 based on CMSimple version 3.3 - December 31. 2009
 Small - simple - smart
-@ 1999-2009 Peter Andreas Harteg - peter@harteg.dk
+© 1999-2009 Peter Andreas Harteg - peter@harteg.dk
 -- COPYRIGHT INFORMATION END --
 
 This file is part of CMSimple
@@ -34,20 +34,20 @@ initvar('mailform');
 $t = '';
 
 if ($action == 'send') {
-    $msg = ($tx['mailform']['sendername'] . ": " . stsl($sendername) . "\n" . $tx['mailform']['senderphone'] . ": " . stsl($senderphone) . "\n\n" . stsl($mailform));
+	$msg = ($tx['mailform']['sendername'] . ": " . stsl($sendername) . "\n" . $tx['mailform']['senderphone'] . ": " . stsl($senderphone) . "\n\n" . stsl($mailform));
 
 // echo ($msg);
-    if ($getlast != $cap) {
-        $e .= '<li style="font-size: 118%;">' . $tx['mailform']['notaccepted'];
-    } else if ($mailform == '') {
-        $e .= '<li>' . $tx['error']['mustwritemes'];
-    } else if (!(preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[_a-z0-9-]+(\.[_a-z0-9-]+)*(\.([a-z]{2,4}))+$/i", $sender))
-        )$e .= '<li>' . $tx['mailform']['notaccepted'];
-    else if (!(@mail_utf8($cf['mailform']['email'], $tx['menu']['mailform'] . ' ' . sv('SERVER_NAME'), $msg, "From: " . stsl($sender) . "\r\n" . "X-Remote: " . sv('REMOTE_ADDR') . "\r\n"))) {
-        $e .= '<li style="font-size: 118%;">' . $tx['mailform']['notsend'];
-    }
-    else
-        $t = '<p style="font-size: 118%; text-align: center;">' . $tx['mailform']['send'] . '</p>';
+	if ($getlast != $cap) {
+		$e .= '<li style="font-size: 118%;">' . $tx['mailform']['notaccepted'];
+	} else if ($mailform == '') {
+		$e .= '<li>' . $tx['error']['mustwritemes'];
+	} else if (!(preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[_a-z0-9-]+(\.[_a-z0-9-]+)*(\.([a-z]{2,4}))+$/i", $sender))
+		)$e .= '<li>' . $tx['mailform']['notaccepted'];
+	else if (!(@mail_utf8($cf['mailform']['email'], $tx['menu']['mailform'] . ' ' . sv('SERVER_NAME'), $msg, "From: " . stsl($sender) . "\r\n" . "X-Remote: " . sv('REMOTE_ADDR') . "\r\n"))) {
+		$e .= '<li style="font-size: 118%;">' . $tx['mailform']['notsend'];
+	}
+	else
+		$t = '<p style="font-size: 118%; text-align: center;">' . $tx['mailform']['send'] . '</p>';
 }
 
 if ($t == '' || $e != '') {
@@ -63,7 +63,7 @@ if ($t == '' || $e != '') {
 	.tag('input type="hidden" name="getlast" value="'.$random.'"')
 	.tag('input type="hidden" name="action" value="send"')
 
-// fields before textarea 
+// fields before textarea
 	.'<div style="width:200px; margin: 0 0 8px 0;">'.$tx['mailform']['sendername'].': '
 	.tag('input type="text" class="text" size="35" name="sendername" value="'.htmlspecialchars(stripslashes($sendername)).'"')
 	.'</div>'
@@ -89,10 +89,10 @@ if ($t == '' || $e != '') {
 else $o .= $t;
 
 function mail_utf8($to, $subject = '(No Subject)', $message = '', $header = '') {
-    $header_ = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n";
-    if(mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $header_ . $header)) {
-        return true;
-    }
-    return false;
+	$header_ = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n";
+	if(mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $header_ . $header)) {
+		return true;
+	}
+	return false;
 }
 ?>

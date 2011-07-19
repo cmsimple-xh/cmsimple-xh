@@ -52,17 +52,21 @@ function autogallery($u) {
 
 function newsbox($b) {
 	global $c, $cl, $h, $cf;
-	for($i = 0; $i < $cl; $i++)if($h[$i] == $b)return preg_replace("/".$cf['scripting']['regexp']."/is", "", preg_replace("/.*<\/h[1-".$cf['menu']['levels']."]>/i", "", $c[$i]));
+	for($i = 0; $i < $cl; $i++) {
+		if($h[$i] == $b) {
+			return preg_replace("/".$cf['scripting']['regexp']."/is", "", preg_replace("/.*<\/h[1-".$cf['menu']['levels']."]>/i", "", $c[$i]));
+		}
+	}
 }
 
 function h($n) {
-    global $h;
-    return $h[$n];
+	global $h;
+	return $h[$n];
 }
 
 function l($n) {
-    global $l;
-    return $l[$n];
+	global $l;
+	return $l[$n];
 }
 
 // includes additional userfuncs.php - CMSimple_XH beta3

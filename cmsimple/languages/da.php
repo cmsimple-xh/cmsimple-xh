@@ -1,7 +1,7 @@
 <?php
 /* utf8-marker = äöüß */
 $tx['urichar']['org']="";
-$tx['urichar']['new']=""; 
+$tx['urichar']['new']="";
 $tx['locator']['text']="Du er her: ";
 $tx['locator']['home']="Home";
 $tx['languagemenu']['text']="vælg sprog: ";
@@ -12,7 +12,6 @@ $tx['link']['check_errors'] = "Desværre der opstod nogle problemer. ";
 $tx['link']['check'] = "Venligst kontrolere: ";
 $tx['link']['page'] = "Side: ";
 $tx['link']['errors'] = "Fejl: ";
-$tx['link']['hints'] = "Bemærk: ";
 $tx['link']['link'] = "Link: ";
 $tx['link']['linked_page'] = "Link target: ";
 $tx['link']['error'] = "Fejl: ";
@@ -21,7 +20,7 @@ $tx['link']['returned_status'] = "Returned http status code: ";
 $tx['link']['int_error'] ="fejlbehæftede interne link, siden findes ikke.";
 $tx['link']['ext_error_domain'] ="fejlbehæftede eksternt link, er domænet ikke eksisterer.";
 $tx['link']['ext_error_page'] ="fejlbehæftede eksternt link, siden findes ikke.";
-$tx['link']['hints'] ="Tips:";
+$tx['link']['hints'] = "Bemærk: ";
 $tx['link']['redirect'] ="den målrettede omdirigering til en anden placering fejlede. Venligst kontrollere og opdatere dit link.";
 $tx['link']['email'] ="Er denne e-mailadresse gyldige og stadig i brug?";
 $tx['link']['unknown']="Ukendt problem, tjek venligst linket selv.";
