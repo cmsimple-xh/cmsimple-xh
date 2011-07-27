@@ -264,8 +264,19 @@ if ($retrieve) {
 	exit;
 }
 if ($print) {
-	echo '<html><head>'.head().'<meta name="robots" content="noindex"></head><body class="print"'.onload().'>'.content().'</body></html>';
-	exit;
+    if ($cf['xhtml']['endtags'] == 'true') {
+    echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"',
+        ' "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' . "\n" . 
+        '<html xmlns="http://www.w3.org/1999/xhtml">' . "\n";
+    } else {
+    echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"',
+        ' "http://www.w3.org/TR/html4/loose.dtd">' . "\n" . '<html>' . "\n";
+    }
+    echo '<head>' . "\n" . head(),
+    '<meta name="robots" content="noindex">' . "\n" . 
+    '</head>' . "\n" . '<body class="print"', onload(), '>' . "\n" . 
+    content(), '</body>' . "\n" . '</html>' . "\n";
+    exit;
 }
 
 if (!include($pth['file']['template']))echo '<html><head><title>'.$tx['heading']['error'].'</title></head><body>'.$o.'</body></html>';
@@ -451,8 +462,10 @@ function a($i, $x) {
 }
 
 function meta($n) {
-	global $cf;
-	if ($cf['meta'][$n] != '')return tag('meta name="'.$n.'" content="'.$cf['meta'][$n].'"')."\n";
+    global $cf, $print;
+    $exclude = array('robots', 'keywords', 'description');
+    if ($cf['meta'][$n] != '' && !($print && in_array($n, $exclude)))
+        return tag('meta name="'.$n.'" content="'.$cf['meta'][$n].'"')."\n";
 }
 
 function ml($i) {
