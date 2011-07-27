@@ -1,0 +1,147 @@
+/* RESET BROWSERSTYLE */
+* {padding: 0; margin: 0;}
+
+/* GLOBAL */
+h1, h2, h3 {font-family: verdana, sans-serif; color: #333; font-size: 20px; line-height: 1.2em; font-weight: 100; letter-spacing: 1px; padding: 0 0 6px 0; margin: 10px 0 10px 0;}
+h4 {font-family: verdana, sans-serif; color: #333; font-size: 18px; line-height: 1.4em; font-weight: 100; letter-spacing: 1px; margin: 15px 0 10px 0;}
+h5 {font-family: verdana, sans-serif; color: #333; font-size: 17px; line-height: 1.4em; font-weight: 100; letter-spacing: 1px; margin: 15px 0 10px 0;}
+h6 {font-family: verdana, sans-serif; color: #333; font-size: 16px; line-height: 1.4em; font-weight: 100; letter-spacing: 1px; margin: 15px 0 10px 0;}
+p {margin: 10px 0;}
+ol {margin: 6px 0;}
+ol li {line-height: 1.0em; border: 0; padding: 3px 0; margin: 0 0 0 22px;}
+ul {list-style-image: url(images/inhlist.gif); margin: 6px 0;}
+ul li {line-height: 1.2em; border: 0; padding: 3px 0; margin: 0 0 0 17px;}
+hr {height: 1px; clear: both; color: #999; background-color: #999; border: 0;}
+
+
+/* BODY UND SEITE / BODY AND PAGE */
+body {font-family: verdana, sans-serif; font-size: 14px; line-height: 1.2em; color: #444;}
+#body {background: #fff url(images/bgbody.jpg) repeat-x; text-align: left;}
+#top {font-size: 10px; line-height: 10px;}
+
+
+/* KOPFBEREICH MIT SUCHBOX / HEADER AND SEARCHBOX */
+#tplge_header {background: #333; padding: 0; margin: 0; border-bottom: 5px solid #999;}
+#tplge_headerin {width: 900px; padding: 0; margin: 0 auto;}
+
+#tplge_header h1 {float: right; clear: right; font-family: 'times new roman', serif; color: #777; font-size: 24px; line-height: 1.2em; text-align: right; font-weight: 100; padding: 16px; margin: 0;}
+#searchbox {float: right; width: 30%; text-align: right; padding: 10px; margin: 0;}
+#tplge_headerin input.submit {background: #c60; color: #fff; border: 1px solid #ccc; padding: 0 6px 1px 6px;}
+#tplge_headerin .text {width: 140px; background: #aaa; font-family: arial, sans-serif; font-size: 15px; border: 1px solid #ccc; padding: 0 3px 2px 3px;}
+#tplge_header .tplge_logo {float: left; margin: 0; border: 0px solid #666; margin: 5px;}
+#tplge_header .tplge_headerimg {float: right; background: #fff; padding: 3px; margin: 0 0 0 3px; border: 1px solid #999;}
+
+
+/* BREADCRUMB-NAVIGATION (LOCATOR) */
+#tplge_locator {width: 900px; text-align: left; margin: 0 auto;}
+#tplge_locatorin {font-family: arial, sans-serif; font-size: 15px; text-align: left; color: #333; border-bottom: 1px solid #999; padding: 6px; margin: 12px 20px 0 20px;}
+
+
+/* MAIN */
+#tplge_main {width: 900px; text-align: left; margin: 0 auto;}
+#tplge_mainin {padding: 10px 20px 10px 20px;}
+
+
+/* SIDEBAR NAVIGATION */
+#tplge_sidebar1 {float: left; width: 28%;}
+#tplge_sidebar1in {font-family: arial, sans-serif; border-right: 0px solid #999; margin: 12px 0;}
+
+#tplge_sidebar1 li {list-style-type: none; list-style-image: none;}
+
+#tplge_sidebar1 ul.menulevel1 {color: #c60; border: 0; padding: 0 20px 0 5px; margin: 0;}
+#tplge_sidebar1 ul.menulevel1 li {background: #444; color: #fff; font-size: 15px; line-height: 1.2em; text-align: left; font-weight: 600; border: 3px solid #999; padding: 6px 8px 5px 8px; margin: 3px 0;}
+
+#tplge_sidebar1 ul ul.menulevel2 {border: 0; padding: 8px 0 4px 0; margin: 0;}
+#tplge_sidebar1 ul ul.menulevel2 li {font-size: 15px; line-height: 1.2em; font-weight: 300; text-align: left; border: 0; padding: 0px 0 4px 1px; margin: 0;}
+
+#tplge_sidebar1 ul ul ul.menulevel3 {margin: 5px 0 0 0;}
+#tplge_sidebar1 ul ul ul.menulevel3 li {line-height: 1.2em; font-size: 14px; text-align: left; border: 0; padding: 2px 0 1px 16px; margin: 0;}
+
+
+.langmenu {color: #333; margin: 0 0 16px 0;}
+#tplge_sidebar1 ul.subnav {list-style-type: none; text-align: left; padding: 36px 10px 10px 0; margin: 0;}
+#tplge_sidebar1 ul.subnav li {font-size: 14px; padding: 3px 0 3px 8px; margin: 0;}
+div.subnav {text-align: left; padding: 26px 20px 0 6px; margin: 0;}
+p.lastupdate {font-size: 14px; color: #333; padding: 0 10px 0 10px;}
+.tplge_visitors {font-size: 14px; line-height: 1.4em; color: #666; border-top: 1px solid #999; padding: 16px 0 0 4px;  margin: 0 20px 0 0;}
+
+#tplge_sidebar1 ul.menulevel1 a:link {color: #aaa; font-style: normal;}
+#tplge_sidebar1 ul.menulevel1 a:visited {color: #aaa; font-style: normal;}
+#tplge_sidebar1 ul.menulevel1 a:hover {color: #f90; font-style: normal; text-decoration: none;}
+#tplge_sidebar1 ul.menulevel1 a:active {color: #c60; font-style: normal; text-decoration: none;}
+#tplge_sidebar1 ul.menulevel1 a:focus {color: #c60; font-style: normal; text-decoration: none;}
+
+
+/* INHALT / CONTENT */
+#tplge_content {float: right; width: 70%; text-align: center; margin: 0;}
+#tplge_contentin {font-family: verdana, sans-serif; font-size: 14px; text-align: left; padding: 0 0 20px 0; margin: 0 0 10px 0;}
+#tplge_contentin li {background: none;}
+#tplge_contentin h1, #contentin h2, #contentin h3 {}
+#tplge_content .text {width: 250px; border: 1px solid;}
+.tplge_left {float: left;}
+.tplge_right {float: right;}
+.tplge_center {text-align: center;}
+.tplge_border {border: 1px solid #333;}
+.tplge_noborder {border: 0;}
+.tplge_box01 {background: #f0f3f9; border: 5px solid #bcd; padding: 8px 16px; margin: 12px 0;}
+
+
+/* FLOATENDE BOXEN / FLOAT BOXES */
+#tplge_news {background: #eee; text-align: left; border-top: 1px solid #ccc;}
+#tplge_newsin {width: 900px; font-family: arial, sans-serif; font-size: 15px; padding: 20px 0; margin: 0 auto;}
+
+div.tplge_news {width: 33%; float: right;}
+div.tplge_newsin {line-height: 1.2em; border: 0px solid #996; padding: 0; margin: 0 20px 20px 20px;}
+div.tplge_newsin ul {list-style-type: none; list-style-image: none; padding: 6px 0 12px 0;}
+div.tplge_newsin li {list-style-type: none; list-style-image: none; line-height: 1.2em; padding: 1px 5px; margin: 2px 0;}
+div.tplge_newsin h4 {border-bottom: 1px solid #ccc; padding: 0 0 6px 0; margin: 0;}
+div.tplge_newsin h5 {letter-spacing: 1px; margin: 10px 0 0 0;}
+p.tplge_date {width: 6em; float: right; background: #620; color: #ffe; text-align: center; line-height: 1.2em; padding: 2px; margin: 0;}
+
+
+/* FUSSNAVIGATION / FOOTER NAVIGATION */
+#tplge_footer {clear: both;}
+#tplge_footerin {text-align: center; border-top: 0px solid #999; padding: 8px 0 0 0; margin: 30px 0 0 0;}
+
+
+/* FUSSLINKS / FOOTER LINKS */
+
+#tplge_notes {background: #fff url(images/bgfooter.jpg) repeat-x; font-family: arial, sans-serif; font-size: 14px; text-align: right; color: #999; border-top: 5px solid #999; padding: 16px 40px 200px 40px; margin: 0;}
+div#tplge_notes p {padding: 0; margin: 0;}
+
+#tplge_notes a:link {color: #ccc; text-decoration: none;}
+#tplge_notes a:visited {color: #ccc; text-decoration: none;}
+#tplge_notes a:hover {color: #f90; text-decoration: underline;}
+#tplge_notes a:active {color: #fff; text-decoration: underline;}
+#tplge_notes a:focus {color: #fff; text-decoration: underline;}
+
+
+/* VORDEFINIERTE KLASSEN FUER BILDER / PREDEFINED CLASSES FOR IMAGES */
+img.tplge_left {float: left; margin: 0 20px 10px 0;}
+img.tplge_right {float: right; margin: 0 0 10px 20px;}
+img.tplge_center {margin: 10px auto;}
+img.tplge_border {border: 8px solid #bba;}
+img.tplge_noborder {border: 0;}
+
+
+/* LINKFORMATIERUNG / LINKS */
+a:link {color: #369; text-decoration: none;}
+a:visited {color: #369; text-decoration: none;}
+a:hover {color: #c60; text-decoration: underline;}
+a:active {color: #c60; text-decoration: underline;}
+a:focus {color: #c60; text-decoration: underline;}
+
+
+/* SONSTIGES / THE REST */
+#submit {background: #c60; color: #fff; border: 0; padding: 1px 6px; margin: 1px;}
+.text {border: 1px solid #999;}
+#passwd {border: 1px solid #999;}
+.file {border: 1px solid #999;}
+p.code {background: #eed; font-family: 'courier new', serif; border: 1px solid #997; padding: 10px 16px;}
+.scroll {background: #eec; border: 1px solid #997; padding: 10px; overflow: scroll;}
+.border {border: 1px solid #666;}
+.retrieve {background: #ffffff; background-image:none; border: 0;}
+table.edit {background: #eee; font-size: 14px; line-height: 1.2em; border: 1px solid #999; margin: 1px 0;}
+table.edit td {border: 0; padding: 3px;}
+textarea {width: 90%; background: #f6f6f6; font-family: arial, sans-serif; border: 1px solid #999; padding: 10px; margin: 0 0 10px 0;}
+.hinweis {line-height: 1.2em; padding: 2px 10px;}
