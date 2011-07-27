@@ -69,7 +69,7 @@ if ($adm) {
 
 if($f == 'sysinfo')
 {
-$o = '<h4>'.$tx['sysinfo']['headline'].'</h4>'."\n";
+$o.= '<h4>'.$tx['sysinfo']['headline'].'</h4>'."\n";
 $o.= '<p><b>'.$tx['sysinfo']['version'].'</b></p>'."\n";
 $o.= '<ul>'."\n".'<li>'.CMSIMPLE_XH_VERSION.'&nbsp;&nbsp;Build: '.CMSIMPLE_XH_BUILD.'</li>'."\n".'</ul>'."\n"."\n";
 
