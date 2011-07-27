@@ -2,7 +2,7 @@
 /* utf8-marker = äöüß */
 $cf['security']['password']="test";
 $cf['security']['type']="page";
-$cf['site']['template']="cmsimplefloatXH";
+$cf['site']['template']="cmsimplexh";
 $cf['language']['default']="en";
 $cf['meta']['robots']="index, follow";
 $cf['meta']['author']="";
