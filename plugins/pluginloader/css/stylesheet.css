@@ -31,6 +31,8 @@ textarea.plugininput:focus,.plugininputmax {
 
 textarea.plugintextarea {
 	font-family: 'courier new', serif;
+	font-size: 14px;
+	color: #333;
 	width: 99%;
 	height: 300px;
 	padding: 0 !important;
@@ -83,6 +85,11 @@ table.pluginedittable td.plugincf {
  * e.g.: $plugin_tx['PluginName']['cf_var_name']='hint';
  * Will display a span, when hovering var_name.
  */
+.pl_tooltip {
+font-family: arial, sans-serif;
+font-size: 14px;
+}
+ 
 a.pl_tooltip,
 a.pl_tooltip:link,
 a.pl_tooltip:visited,
@@ -111,7 +118,7 @@ a.pl_tooltip:hover span {
 	position: absolute;
 	top: 15px;
 	left: 15px;
-	width: 300px;
+	width: 360px;
 	z-index: 10;
 	border: 1px dotted;
 	padding: 2px 10px 2px 10px;
