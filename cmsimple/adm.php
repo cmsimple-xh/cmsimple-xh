@@ -230,7 +230,7 @@ $o .= '</ul>'."\n".tag('hr')."\n".'<p>'.$tx['settings']['backupexplain1'].'</p>'
 						}
 						$text .= '?>';
 					}
-					else $text = rmnl(stsl($text));
+					else $text = stsl($text);
 					if ($fh = @fopen($pth['file'][$file], "w")) {
 						fwrite($fh, $text);
 						fclose($fh);
@@ -282,7 +282,7 @@ $o .= '</ul>'."\n".tag('hr')."\n".'<p>'.$tx['settings']['backupexplain1'].'</p>'
 					}
 					$o .= '</table>'."\n".tag('input type="hidden" name="form" value="'.$form.'"')."\n";
 				}
-				else $o .= '<textarea rows="25" cols="50" name="text" class="cmsimplecore_file_edit">'.rmnl(rf($pth['file'][$file])).'</textarea>';
+				else $o .= '<textarea rows="25" cols="50" name="text" class="cmsimplecore_file_edit">'.rf($pth['file'][$file]).'</textarea>';
                 if($admin)$o .= tag('input type="hidden" name="admin" value="'.$admin.'"')."\n";
 				$o .= tag('input type="hidden" name="file" value="'.$file.'"')."\n".tag('input type="hidden" name="action" value="save"')."\n".' '.tag('input type="submit" class="submit" value="'.ucfirst($tx['action']['save']).'"')."\n".'</form>'."\n";
 			}
