@@ -56,6 +56,8 @@ margin: 4px 0;
 textarea.cmsimplecore_file_edit {
 width: 99%; 
 font-family: 'courier new', serif;
+font-size: 14px;
+color: #333;
 padding: 0 !important;
 }
 
