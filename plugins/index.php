@@ -1,4 +1,5 @@
 <?php
+
 /* utf8-marker = äöüß */
 /**
  * Pluginloader Version 2.1 beta 11 (V.2.1.11)
@@ -69,7 +70,6 @@
  * Step 4 - Installation is done and you should be ready to install plugins
  *          Install plugins in an extra subfolder per plugin within the folder "plugins"
  */
-
 /**
  * Catch all neccessary CMSimple-Variables as global
  *
@@ -82,11 +82,11 @@ global $cf, $hjs, $sl, $sn;
 
 /**
  * Deny direct access of Plugin Loader file
- */    
+ */
 $pluginloader_backtrace = debug_backtrace();
 $pluginloader_caller = $pluginloader_backtrace[0]['file'];
-if((!function_exists('content')) OR ($pluginloader_caller!==realpath($pth['file']['cms']))) {
-	die('access denied');
+if ((!function_exists('content')) OR ($pluginloader_caller !== realpath($pth['file']['cms']))) {
+    die('access denied');
 }
 
 define('PLUGINLOADER', TRUE);
@@ -101,8 +101,8 @@ define('PLUGINLOADER_VERSION', 2.111);
  */
 ini_set('display_errors', 0);
 error_reporting(0);
-if(function_exists('xh_debugmode')){
-	xh_debugmode();
+if (function_exists('xh_debugmode')) {
+    xh_debugmode();
 }
 
 /**
@@ -112,161 +112,165 @@ global $pluginloader_cfg;
 $pluginloader_cfg = array();
 $pluginloader_tx = array();
 
-if(!isset($hjs)) { $hjs=''; }
+if (!isset($hjs)) {
+    $hjs = '';
+}
 
 $pluginloader_cfg['folder_down'] = '';
 
 /**
  * Set language for the Plugin Loader
  */
-if(preg_match('/\/[A-z]{2}\/[^\/]*/', sv('PHP_SELF'))) {
-	$pluginloader_cfg['language'] = strtolower(preg_replace('/.*\/([A-z]{2})\/[^\/]*/','\1',sv('PHP_SELF')));
-	$pluginloader_cfg['folder_down'] = '.';
+if (preg_match('/\/[A-z]{2}\/[^\/]*/', sv('PHP_SELF'))) {
+    $pluginloader_cfg['language'] = strtolower(preg_replace('/.*\/([A-z]{2})\/[^\/]*/', '\1', sv('PHP_SELF')));
+    $pluginloader_cfg['folder_down'] = '.';
 } else {
-	$pluginloader_cfg['language'] = strtolower($cf['language']['default']);
+    $pluginloader_cfg['language'] = strtolower($cf['language']['default']);
 }
 
-if(!isset($cf['plugins']['folder']) OR empty($cf['plugins']['folder']) OR !is_dir($cf['plugins']['folder'])) {
-	$cf['plugins']['folder'] = 'plugins';
+if (!isset($cf['plugins']['folder']) OR empty($cf['plugins']['folder']) OR !is_dir($cf['plugins']['folder'])) {
+    $cf['plugins']['folder'] = 'plugins';
 }
 
 $pluginloader_cfg['foldername_pluginloader'] = 'pluginloader';
-$pluginloader_cfg['folder_pluginloader'] = $pluginloader_cfg['folder_down'].'./'.$cf['plugins']['folder'].'/'.$pluginloader_cfg['foldername_pluginloader'].'/';
-$pluginloader_cfg['folder_css'] = $pluginloader_cfg['folder_pluginloader'].'css/';
-$pluginloader_cfg['folder_languages'] = $pluginloader_cfg['folder_pluginloader'].'languages/';
-$pluginloader_cfg['file_css'] = $pluginloader_cfg['folder_css'].'stylesheet.css';
+$pluginloader_cfg['folder_pluginloader'] = $pluginloader_cfg['folder_down'] . './' . $cf['plugins']['folder'] . '/' . $pluginloader_cfg['foldername_pluginloader'] . '/';
+$pluginloader_cfg['folder_css'] = $pluginloader_cfg['folder_pluginloader'] . 'css/';
+$pluginloader_cfg['folder_languages'] = $pluginloader_cfg['folder_pluginloader'] . 'languages/';
+$pluginloader_cfg['file_css'] = $pluginloader_cfg['folder_css'] . 'stylesheet.css';
 $pluginloader_cfg['form_namespace'] = 'PL3bbeec384_';
 
 // include Plugin Loader stylesheet and add it to CMSimple
-$hjs .= "\n".tag('link rel="stylesheet" href="'.$pluginloader_cfg['file_css'].'" type="text/css"')."\n";
+$hjs .= "\n" . tag('link rel="stylesheet" href="' . $pluginloader_cfg['file_css'] . '" type="text/css"') . "\n";
 
 // Use english language, if $sl or default language are not supported by the Plugin Loader
-if(empty($pluginloader_cfg['language'])) { $pluginloader_cfg['language'] = 'en'; }
+if (empty($pluginloader_cfg['language'])) {
+    $pluginloader_cfg['language'] = 'en';
+}
 
 // include Plugin Loader language file
-$pluginloader_cfg['file_language'] = $pluginloader_cfg['folder_languages'].$pluginloader_cfg['language'].'.php';
-if(!include_once($pluginloader_cfg['file_language'])) { echo 'Language file for Plugin Loader not found!'.tag('br').'File: '.$pluginloader_cfg['file_language'].tag('br').'Current Path: '.$_SERVER['PHP_SELF'].tag('hr'); }
+$pluginloader_cfg['file_language'] = $pluginloader_cfg['folder_languages'] . $pluginloader_cfg['language'] . '.php';
+if (!include_once($pluginloader_cfg['file_language'])) {
+    echo 'Language file for Plugin Loader not found!' . tag('br') . 'File: ' . $pluginloader_cfg['file_language'] . tag('br') . 'Current Path: ' . $_SERVER['PHP_SELF'] . tag('hr');
+}
 
 /**
  * If admin is logged in create a select box with all available plugins.
  */
-if($adm) {
-	$i = 0;
-	$pluginloader_plugin_selectbox = '';
-	$pluginloader_plugin_selectbox .= "\n".'<b>'.$pluginloader_tx['menu']['available_plugins'].'</b>';
-	$pluginloader_plugin_selectbox .= "\n".'<form style="display: inline; margin-bottom: 0px;">'."\n";
-	$pluginloader_plugin_selectbox .= "\n".'<select name="Plugins" onchange="location.href=this.options[this.selectedIndex].value">'."\n";
-	$pluginloader_plugin_selectbox .= '<option value="?&amp;normal">'.$pluginloader_tx['menu']['select_plugin'].'</option>'."\n";
-	$handle = opendir($pth['folder']['plugins']);
-	$found_plugins = false;
-	
-	while (FALSE!==($plugin = readdir($handle))) {
-		if($plugin != '.' && $plugin != '..' && is_dir($pth['folder']['plugins'].$plugin)) {
-			PluginFiles($plugin);
-			if(file_exists($pth['file']['plugin_admin'])) {
-				$pluginloader_plugin_selectbox .= '<option value="'.$sn.'?&amp;'.$plugin.'&amp;normal"';
-				reset($_GET);
-				list ($firstgetkey) = each($_GET);
-				if($firstgetkey == $plugin)
-					$pluginloader_plugin_selectbox .= ' selected="selected"';
-				$pluginloader_plugin_selectbox .= '>'.ucwords($plugin).'</option>'."\n";
-				$admin_plugins[$i] = $plugin;
-				$found_plugins = true;
-				$i++;
-			} // if(file_exists($pth['file']['plugin_admin']))
-		}
-	}
-	$pluginloader_plugin_selectbox .= '</select>'."\n".'</form>'."\n";
-		
-	PluginMenu('ROW', '', '', '');
-	PluginMenu('DATA', '', '', $pluginloader_plugin_selectbox);
+if ($adm) {
+    $i = 0;
+    $pluginloader_plugin_selectbox = '';
+    $pluginloader_plugin_selectbox .= "\n" . '<b>' . $pluginloader_tx['menu']['available_plugins'] . '</b>';
+    $pluginloader_plugin_selectbox .= "\n" . '<form style="display: inline; margin-bottom: 0px;">' . "\n";
+    $pluginloader_plugin_selectbox .= "\n" . '<select name="Plugins" onchange="location.href=this.options[this.selectedIndex].value">' . "\n";
+    $pluginloader_plugin_selectbox .= '<option value="?&amp;normal">' . $pluginloader_tx['menu']['select_plugin'] . '</option>' . "\n";
+    $handle = opendir($pth['folder']['plugins']);
+    $found_plugins = false;
 
-	$o .=	PluginMenu('SHOW');
+    while (FALSE !== ($plugin = readdir($handle))) {
+        if ($plugin != '.' && $plugin != '..' && is_dir($pth['folder']['plugins'] . $plugin)) {
+            PluginFiles($plugin);
+            if (file_exists($pth['file']['plugin_admin'])) {
+                $pluginloader_plugin_selectbox .= '<option value="' . $sn . '?&amp;' . $plugin . '&amp;normal"';
+                reset($_GET);
+                list ($firstgetkey) = each($_GET);
+                if ($firstgetkey == $plugin)
+                    $pluginloader_plugin_selectbox .= ' selected="selected"';
+                $pluginloader_plugin_selectbox .= '>' . ucwords($plugin) . '</option>' . "\n";
+                $admin_plugins[$i] = $plugin;
+                $found_plugins = true;
+                $i++;
+            } // if(file_exists($pth['file']['plugin_admin']))
+        }
+    }
+    $pluginloader_plugin_selectbox .= '</select>' . "\n" . '</form>' . "\n";
+
+    PluginMenu('ROW', '', '', '');
+    PluginMenu('DATA', '', '', $pluginloader_plugin_selectbox);
+
+    $o .= PluginMenu('SHOW');
 } // if($adm)
 
 
 /**
  * Bridge to page data
  */
-require_once $pth['folder']['plugins'].$pluginloader_cfg['foldername_pluginloader'].'/page_data/index.php';
+require_once $pth['folder']['plugins'] . $pluginloader_cfg['foldername_pluginloader'] . '/page_data/index.php';
 
 /**
  * Include plugin (and plugin files)
  */
 $handle = opendir($pth['folder']['plugins']);
-while (FALSE!==($plugin = readdir($handle))) {
-    if($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'].$plugin)) {
+while (FALSE !== ($plugin = readdir($handle))) {
+    if ($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'] . $plugin)) {
         PluginFiles($plugin);
 
         // Load plugin required_classes
-	if(file_exists($pth['file']['plugin_classes'])) {
+        if (file_exists($pth['file']['plugin_classes'])) {
             include($pth['file']['plugin_classes']);
         }
     } // if($plugin)
 } // while (FALSE !== ($plugin = readdir($handle)))*/
 rewinddir($handle);
 
-while (FALSE!==($plugin = readdir($handle))) {
-	
-	if($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'].$plugin)) {
-		
-		PluginFiles($plugin);				
-		
-		// Load plugin config
-		if(file_exists($pth['file']['plugin_config'])) {
-			include($pth['file']['plugin_config']);
-		}
+while (FALSE !== ($plugin = readdir($handle))) {
 
-		// If current language file is missing try to copy english language to current language file
-		if(!file_exists($pth['file']['plugin_language'])) {
-			if(file_exists($pth['folder']['plugins'].$plugin.'/languages/en.php')) {
-				$is_copied = copy($pth['folder']['plugins'].$plugin.'/languages/en.php', $pth['file']['plugin_language']);
-				if($is_copied == FALSE) {
-					// Set language file to "EN" if copying failed
-					$pth['file']['plugin_language'] = $pth['folder']['plugins'].$plugin.'/languages/en.php';
-				}
-			}
-		}
+    if ($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'] . $plugin)) {
 
-		// Load plugin language or die
-		if(file_exists($pth['file']['plugin_language'])) {
-			include($pth['file']['plugin_language']);
-		}
-		
-		// Load plugin index.php or die
-		if(file_exists($pth['file']['plugin_index']) AND !include($pth['file']['plugin_index'])) {
-			die($pluginloader_tx['error']['plugin_error'].$pluginloader_tx['error']['cntopen'].$pth['file']['plugin_index']);
-		}
+        PluginFiles($plugin);
 
-		// Add plugin css to the header of CMSimple/Template
-		if(file_exists($pth['file']['plugin_stylesheet'])) {
-			$hjs .= tag('link rel="stylesheet" href="'.$pth['file']['plugin_stylesheet'].'" type="text/css"')."\n";
-		}
+        // Load plugin config
+        if (file_exists($pth['file']['plugin_config'])) {
+            include($pth['file']['plugin_config']);
+        }
 
-	} // if($plugin)
+        // If current language file is missing try to copy english language to current language file
+        if (!file_exists($pth['file']['plugin_language'])) {
+            if (file_exists($pth['folder']['plugins'] . $plugin . '/languages/en.php')) {
+                $is_copied = copy($pth['folder']['plugins'] . $plugin . '/languages/en.php', $pth['file']['plugin_language']);
+                if ($is_copied == FALSE) {
+                    // Set language file to "EN" if copying failed
+                    $pth['file']['plugin_language'] = $pth['folder']['plugins'] . $plugin . '/languages/en.php';
+                }
+            }
+        }
 
+        // Load plugin language or die
+        if (file_exists($pth['file']['plugin_language'])) {
+            include($pth['file']['plugin_language']);
+        }
+
+        // Load plugin index.php or die
+        if (file_exists($pth['file']['plugin_index']) AND !include($pth['file']['plugin_index'])) {
+            die($pluginloader_tx['error']['plugin_error'] . $pluginloader_tx['error']['cntopen'] . $pth['file']['plugin_index']);
+        }
+
+        // Add plugin css to the header of CMSimple/Template
+        if (file_exists($pth['file']['plugin_stylesheet'])) {
+            $hjs .= tag('link rel="stylesheet" href="' . $pth['file']['plugin_stylesheet'] . '" type="text/css"') . "\n";
+        }
+    } // if($plugin)
 } // while (FALSE !== ($plugin = readdir($handle)))
 
 
 /**
  * Load admin functions (admin.php, if exists) of plugin
  */
-if($adm) {
-	// Load common plugin admin functions or die
-	//if(!include($pth['folder']['plugins'].'/admin_common.php')) {
-	//	die($pluginloader_tx['error']['plugin_error'].$pluginloader_tx['error']['cntopen'].$pth['folder']['plugins'].'/admin_common.php');
-	//}
-	if($found_plugins==true) {
-		foreach($admin_plugins as $plugin) {
-			PluginFiles($plugin);
-			if(file_exists($pth['file']['plugin_admin'])) {
-				include($pth['file']['plugin_admin']);
-			}
-		}
-	}
-	// ########## bridge to page data ##########
-	$o .= $pd_router -> create_tabs($s);
-	// #########################################
+if ($adm) {
+    // Load common plugin admin functions or die
+    //if(!include($pth['folder']['plugins'].'/admin_common.php')) {
+    //	die($pluginloader_tx['error']['plugin_error'].$pluginloader_tx['error']['cntopen'].$pth['folder']['plugins'].'/admin_common.php');
+    //}
+    if ($found_plugins == true) {
+        foreach ($admin_plugins as $plugin) {
+            PluginFiles($plugin);
+            if (file_exists($pth['file']['plugin_admin'])) {
+                include($pth['file']['plugin_admin']);
+            }
+        }
+    }
+    // ########## bridge to page data ##########
+    $o .= $pd_router->create_tabs($s);
+    // #########################################
 }
 
 /**
@@ -290,40 +294,39 @@ unset($plugin);
  * @global array $pluginloader_cfg Plugin-Loader's Config-Array
  */
 function PluginFiles($plugin) {
-	
-	global $cf, $pth, $sl;
-	global $pluginloader_cfg;
 
-	$pth['folder']['plugin'] = $pth['folder']['plugins'].$plugin.'/';
-	$pth['folder']['plugin_classes'] = $pth['folder']['plugins'].$plugin.'/classes/';
-	$pth['folder']['plugin_config'] = $pth['folder']['plugins'].$plugin.'/config/';
-	$pth['folder']['plugin_content'] = $pth['folder']['plugins'].$plugin.'/content/';
-	$pth['folder']['plugin_css'] = $pth['folder']['plugins'].$plugin.'/css/';
-	$pth['folder']['plugin_help'] = $pth['folder']['plugins'].$plugin.'/help/';
-	$pth['folder']['plugin_includes'] = $pth['folder']['plugins'].$plugin.'/includes/';
-	$pth['folder']['plugin_languages'] = $pth['folder']['plugins'].$plugin.'/languages/';
+    global $cf, $pth, $sl;
+    global $pluginloader_cfg;
 
-	$pth['file']['plugin_index'] = $pth['folder']['plugin'].'index.php';
-	$pth['file']['plugin_admin'] = $pth['folder']['plugin'].'admin.php';
+    $pth['folder']['plugin'] = $pth['folder']['plugins'] . $plugin . '/';
+    $pth['folder']['plugin_classes'] = $pth['folder']['plugins'] . $plugin . '/classes/';
+    $pth['folder']['plugin_config'] = $pth['folder']['plugins'] . $plugin . '/config/';
+    $pth['folder']['plugin_content'] = $pth['folder']['plugins'] . $plugin . '/content/';
+    $pth['folder']['plugin_css'] = $pth['folder']['plugins'] . $plugin . '/css/';
+    $pth['folder']['plugin_help'] = $pth['folder']['plugins'] . $plugin . '/help/';
+    $pth['folder']['plugin_includes'] = $pth['folder']['plugins'] . $plugin . '/includes/';
+    $pth['folder']['plugin_languages'] = $pth['folder']['plugins'] . $plugin . '/languages/';
 
-	if(file_exists($pth['folder']['plugin_languages'].strtolower($sl).'.php')) {
-		$pth['file']['plugin_language'] = $pth['folder']['plugin_languages'].strtolower($sl).'.php';
-	}
-	else {
-		$pth['file']['plugin_language'] = $pth['folder']['plugin_languages'].strtolower($cf['language']['default']).'.php';
-	}
-	
-	$pth['file']['plugin_classes'] = $pth['folder']['plugin_classes'].'required_classes.php';
-	$pth['file']['plugin_config'] = $pth['folder']['plugin_config'].'config.php';
-	$pth['file']['plugin_stylesheet'] = $pth['folder']['plugin_css'].'stylesheet.css';
+    $pth['file']['plugin_index'] = $pth['folder']['plugin'] . 'index.php';
+    $pth['file']['plugin_admin'] = $pth['folder']['plugin'] . 'admin.php';
 
-	$pth['file']['plugin_help'] = $pth['folder']['plugin_help'].'help_'.strtolower($pluginloader_cfg['language']).'.htm';
-	if(!file_exists($pth['file']['plugin_help'])) {
-		$pth['file']['plugin_help'] = $pth['folder']['plugin_help'].'help_en.htm';
-	}
-	if(!file_exists($pth['file']['plugin_help']) AND file_exists($pth['folder']['plugin_help'].'help.htm')) {
-		$pth['file']['plugin_help'] = $pth['folder']['plugin_help'].'help.htm';
-	}
+    if (file_exists($pth['folder']['plugin_languages'] . strtolower($sl) . '.php')) {
+        $pth['file']['plugin_language'] = $pth['folder']['plugin_languages'] . strtolower($sl) . '.php';
+    } else {
+        $pth['file']['plugin_language'] = $pth['folder']['plugin_languages'] . strtolower($cf['language']['default']) . '.php';
+    }
+
+    $pth['file']['plugin_classes'] = $pth['folder']['plugin_classes'] . 'required_classes.php';
+    $pth['file']['plugin_config'] = $pth['folder']['plugin_config'] . 'config.php';
+    $pth['file']['plugin_stylesheet'] = $pth['folder']['plugin_css'] . 'stylesheet.css';
+
+    $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help_' . strtolower($pluginloader_cfg['language']) . '.htm';
+    if (!file_exists($pth['file']['plugin_help'])) {
+        $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help_en.htm';
+    }
+    if (!file_exists($pth['file']['plugin_help']) AND file_exists($pth['folder']['plugin_help'] . 'help.htm')) {
+        $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help.htm';
+    }
 }
 
 /**
@@ -338,66 +341,66 @@ function PluginFiles($plugin) {
  */
 function PluginMenu($add='', $link='', $target='', $text='', $style=ARRAY()) {
 
-	$add = strtoupper($add);
-	
-	if(!isset($GLOBALS['pluginloader']['plugin_menu'])) {
-		$GLOBALS['pluginloader']['plugin_menu'] = '';
-	}
-	if(!isset($style['row'])) {
-		$style['row'] = 'class="edit" style="width: 100%;"';
-	}
-	if(!isset($style['tab'])) {
-		$style['tab'] = '';
-	}
-	if(!isset($style['link'])) {
-		$style['link'] = '';
-	}
-	if(!isset($style['data'])) {
-		$style['data'] = '';
-	}
+    $add = strtoupper($add);
 
-	$menu_row = '<table {{STYLE_ROW}} cellpadding="1" cellspacing="0">'."\n".'<tr>'."\n".'{{TAB}}</tr>'."\n".'</table>'."\n"."\n";
-	$menu_tab = '<td {{STYLE_TAB}}><a{{STYLE_LINK}} href="{{LINK}}" {{TARGET}}>{{TEXT}}</a></td>'."\n";
-	$menu_tab_data = '<td {{STYLE_DATA}}>{{TEXT}}</td>'."\n";
-	
-	// Add new row for menu of plugin (or Plugin Loader)
-	if($add == 'ROW') {
-		$new_menu_row = $menu_row;
-		$new_menu_row = str_replace('{{STYLE_ROW}}', $style['row'], $new_menu_row);
-		$GLOBALS['pluginloader']['plugin_menu'] .= $new_menu_row;
-	}
+    if (!isset($GLOBALS['pluginloader']['plugin_menu'])) {
+        $GLOBALS['pluginloader']['plugin_menu'] = '';
+    }
+    if (!isset($style['row'])) {
+        $style['row'] = 'class="edit" style="width: 100%;"';
+    }
+    if (!isset($style['tab'])) {
+        $style['tab'] = '';
+    }
+    if (!isset($style['link'])) {
+        $style['link'] = '';
+    }
+    if (!isset($style['data'])) {
+        $style['data'] = '';
+    }
 
-	// Add a new tab to the menu row
-	if($add == 'TAB') {
-		$new_menu_tab = $menu_tab;
-		$new_menu_tab = str_replace('{{STYLE_TAB}}', $style['tab'], $new_menu_tab);
-		$new_menu_tab = str_replace('{{STYLE_LINK}}', $style['link'], $new_menu_tab);
-		$new_menu_tab = str_replace('{{LINK}}', $link, $new_menu_tab);
-		$new_menu_tab = str_replace('{{TARGET}}', $target, $new_menu_tab);
-		$new_menu_tab = str_replace('{{TEXT}}', $text, $new_menu_tab);
-		
-		// Add tab to row
-		$GLOBALS['pluginloader']['plugin_menu'] = str_replace('{{TAB}}', $new_menu_tab.'{{TAB}}', $GLOBALS['pluginloader']['plugin_menu']);
-	}
+    $menu_row = '<table {{STYLE_ROW}} cellpadding="1" cellspacing="0">' . "\n" . '<tr>' . "\n" . '{{TAB}}</tr>' . "\n" . '</table>' . "\n" . "\n";
+    $menu_tab = '<td {{STYLE_TAB}}><a{{STYLE_LINK}} href="{{LINK}}" {{TARGET}}>{{TEXT}}</a></td>' . "\n";
+    $menu_tab_data = '<td {{STYLE_DATA}}>{{TEXT}}</td>' . "\n";
 
-	// Add a new tab to the menu row
-	// Here: user defineable data
-	if($add == 'DATA') {
-		$new_menu_tab_data = $menu_tab_data;
-		$new_menu_tab_data = str_replace('{{STYLE_DATA}}', $style['data'], $new_menu_tab_data);
-		$new_menu_tab_data = str_replace('{{TEXT}}', $text, $new_menu_tab_data);
-		
-		// Add tab to row
-		$GLOBALS['pluginloader']['plugin_menu'] = str_replace('{{TAB}}', $new_menu_tab_data.'{{TAB}}', $GLOBALS['pluginloader']['plugin_menu']);
-	}
+    // Add new row for menu of plugin (or Plugin Loader)
+    if ($add == 'ROW') {
+        $new_menu_row = $menu_row;
+        $new_menu_row = str_replace('{{STYLE_ROW}}', $style['row'], $new_menu_row);
+        $GLOBALS['pluginloader']['plugin_menu'] .= $new_menu_row;
+    }
 
-	// Show complete menu
-	if($add == 'SHOW') {
-		$GLOBALS['pluginloader']['plugin_menu'] = str_replace('{{TAB}}', '', $GLOBALS['pluginloader']['plugin_menu']);
-		$menu = $GLOBALS['pluginloader']['plugin_menu'];
-		$GLOBALS['pluginloader']['plugin_menu']='';
-		return $menu;
-	}
+    // Add a new tab to the menu row
+    if ($add == 'TAB') {
+        $new_menu_tab = $menu_tab;
+        $new_menu_tab = str_replace('{{STYLE_TAB}}', $style['tab'], $new_menu_tab);
+        $new_menu_tab = str_replace('{{STYLE_LINK}}', $style['link'], $new_menu_tab);
+        $new_menu_tab = str_replace('{{LINK}}', $link, $new_menu_tab);
+        $new_menu_tab = str_replace('{{TARGET}}', $target, $new_menu_tab);
+        $new_menu_tab = str_replace('{{TEXT}}', $text, $new_menu_tab);
+
+        // Add tab to row
+        $GLOBALS['pluginloader']['plugin_menu'] = str_replace('{{TAB}}', $new_menu_tab . '{{TAB}}', $GLOBALS['pluginloader']['plugin_menu']);
+    }
+
+    // Add a new tab to the menu row
+    // Here: user defineable data
+    if ($add == 'DATA') {
+        $new_menu_tab_data = $menu_tab_data;
+        $new_menu_tab_data = str_replace('{{STYLE_DATA}}', $style['data'], $new_menu_tab_data);
+        $new_menu_tab_data = str_replace('{{TEXT}}', $text, $new_menu_tab_data);
+
+        // Add tab to row
+        $GLOBALS['pluginloader']['plugin_menu'] = str_replace('{{TAB}}', $new_menu_tab_data . '{{TAB}}', $GLOBALS['pluginloader']['plugin_menu']);
+    }
+
+    // Show complete menu
+    if ($add == 'SHOW') {
+        $GLOBALS['pluginloader']['plugin_menu'] = str_replace('{{TAB}}', '', $GLOBALS['pluginloader']['plugin_menu']);
+        $menu = $GLOBALS['pluginloader']['plugin_menu'];
+        $GLOBALS['pluginloader']['plugin_menu'] = '';
+        return $menu;
+    }
 }
 
 /**
@@ -409,30 +412,30 @@ function PluginMenu($add='', $link='', $target='', $text='', $style=ARRAY()) {
  * @return array If succesfull, return an array with data and success-message.
  */
 function PluginReadFile($file='') {
-	global $pluginloader_tx;
+    global $pluginloader_tx;
 
-	$is_read = ARRAY ();
-	$is_read['success'] = FALSE;
-	$is_read['msg'] = '';
-	$is_read['content'] = '';
+    $is_read = ARRAY();
+    $is_read['success'] = FALSE;
+    $is_read['msg'] = '';
+    $is_read['content'] = '';
 
-	if(!file_exists($file)) {
-		$is_read['msg'] = $pluginloader_tx['error']['cntopen'].$file;
-	} else {
-		if(!is_readable($file)) {
-			$is_read['msg'] = $pluginloader_tx['error']['notreadable'].$file;
-		} else {
-			if($fh = fopen($file, "rb")) {
-				$is_read['content'] = fread($fh, filesize($file));
-				fclose($fh);
-				$is_read['content'] = str_replace("\r\n", "\n", $is_read['content']);
-				$is_read['content'] = str_replace("\r", "\n", $is_read['content']);
-				$is_read['msg'] = $pluginloader_tx['success']['saved'].$file;
-				$is_read['success'] = TRUE;
-			}
-		}
-	}
-	return $is_read;
+    if (!file_exists($file)) {
+        $is_read['msg'] = $pluginloader_tx['error']['cntopen'] . $file;
+    } else {
+        if (!is_readable($file)) {
+            $is_read['msg'] = $pluginloader_tx['error']['notreadable'] . $file;
+        } else {
+            if ($fh = fopen($file, "rb")) {
+                $is_read['content'] = fread($fh, filesize($file));
+                fclose($fh);
+                $is_read['content'] = str_replace("\r\n", "\n", $is_read['content']);
+                $is_read['content'] = str_replace("\r", "\n", $is_read['content']);
+                $is_read['msg'] = $pluginloader_tx['success']['saved'] . $file;
+                $is_read['success'] = TRUE;
+            }
+        }
+    }
+    return $is_read;
 }
 
 /**
@@ -449,40 +452,40 @@ function PluginReadFile($file='') {
  * @return array If succesfull, return an array with success-message.
  */
 function PluginWriteFile($file='', $content='', $exists=FALSE, $append=FALSE) {
-	global $pluginloader_tx;
-	
-	if($append == TRUE) { 
-		$write_mode = 'a+b';
-	} else { 
-		$write_mode = 'w+b';
-	}
+    global $pluginloader_tx;
 
-	$is_written = ARRAY ();
-	$is_written['success'] = FALSE;
-	$is_written['msg'] = '';
-	
-	$do_write = TRUE;
+    if ($append == TRUE) {
+        $write_mode = 'a+b';
+    } else {
+        $write_mode = 'w+b';
+    }
 
-	if(!file_exists($file) AND $exists == TRUE) {
-		$do_write = FALSE;
-		$is_written['msg'] = $pluginloader_tx['error']['cntopen'].$file;
-	}
+    $is_written = ARRAY();
+    $is_written['success'] = FALSE;
+    $is_written['msg'] = '';
 
-	if(file_exists($file) AND !is_writeable($file)) {
-		$do_write = FALSE;
-		$is_written['msg'] = '<div class="pluginerror">'.$pluginloader_tx['error']['cntwriteto'].$file.'</div>';
-	}
-	
-	if($do_write == TRUE) {
-		if($fh = fopen($file, $write_mode)) {
-			fwrite($fh, $content);
-			fclose($fh);
-			$is_written['msg'] = $pluginloader_tx['success']['saved'].$file;
-			$is_written['success'] = TRUE;
-		}
-	}
+    $do_write = TRUE;
 
-	return $is_written;
+    if (!file_exists($file) AND $exists == TRUE) {
+        $do_write = FALSE;
+        $is_written['msg'] = $pluginloader_tx['error']['cntopen'] . $file;
+    }
+
+    if (file_exists($file) AND !is_writeable($file)) {
+        $do_write = FALSE;
+        $is_written['msg'] = '<div class="pluginerror">' . $pluginloader_tx['error']['cntwriteto'] . $file . '</div>';
+    }
+
+    if ($do_write == TRUE) {
+        if ($fh = fopen($file, $write_mode)) {
+            fwrite($fh, $content);
+            fclose($fh);
+            $is_written['msg'] = $pluginloader_tx['success']['saved'] . $file;
+            $is_written['success'] = TRUE;
+        }
+    }
+
+    return $is_written;
 }
 
 /**
@@ -496,14 +499,16 @@ function PluginWriteFile($file='', $content='', $exists=FALSE, $append=FALSE) {
  * @return string Returns the prepared data for saving.
  */
 function PluginPrepareConfigData($var_name='', $data=ARRAY(), $plugin='') {
-	$save_data = "<?php\n\n";
-	foreach($data as $key => $value) {
-		$save_data .= "\t".'$'.$var_name;
-		if(!empty($plugin)) { $save_data .= '[\''.$plugin.'\']'; }
-		$save_data .= '[\''.$key.'\']="'.str_replace("\\'", "'", ((get_magic_quotes_gpc()===1) ? $value : addslashes($value))).'";'."\n";
-	}
-	$save_data .= "\n?>";
-	return $save_data;
+    $save_data = "<?php\n\n";
+    foreach ($data as $key => $value) {
+        $save_data .= "\t" . '$' . $var_name;
+        if (!empty($plugin)) {
+            $save_data .= '[\'' . $plugin . '\']';
+        }
+        $save_data .= '[\'' . $key . '\']="' . str_replace("\\'", "'", ((get_magic_quotes_gpc() === 1) ? $value : addslashes($value))) . '";' . "\n";
+    }
+    $save_data .= "\n?>";
+    return $save_data;
 }
 
 /**
@@ -515,7 +520,7 @@ function PluginPrepareConfigData($var_name='', $data=ARRAY(), $plugin='') {
  * @return string Returns the prepared data for saving.
  */
 function PluginPrepareTextData($data) {
-	return (get_magic_quotes_gpc()===1) ? stripslashes($data) : $data;
+    return (get_magic_quotes_gpc() === 1) ? stripslashes($data) : $data;
 }
 
 /**
@@ -536,66 +541,79 @@ function PluginPrepareTextData($data) {
  * @return string Returns the created form.
  */
 function PluginSaveForm($form=ARRAY(), $style=ARRAY(), $data=ARRAY(), $hint=ARRAY()) {
-	global $pluginloader_tx;
-	$saveform = '';
+    global $pluginloader_tx;
+    $saveform = '';
 
-	if(!isset($form['type']) OR ($form['type']!='TEXT' AND $form['type']!='CONFIG')) {
-		$saveform .= PluginDebugger('invalid_value', debug_backtrace(), $$data, $form['type']); 
-		//$saveform .= $pluginloader_tx['error']['plugin_error'].'function PluginSaveForm: \$form[\'type\']=""';
-	}
-	elseif($form['type']=='CONFIG' AND (!is_array($data) OR count($data)==0)) {
-		$saveform .= PluginDebugger('empty', debug_backtrace(), $$data, ''); 
-	}
-	else {
+    if (!isset($form['type']) OR ($form['type'] != 'TEXT' AND $form['type'] != 'CONFIG')) {
+        $saveform .= PluginDebugger('invalid_value', debug_backtrace(), $$data, $form['type']);
+        //$saveform .= $pluginloader_tx['error']['plugin_error'].'function PluginSaveForm: \$form[\'type\']=""';
+    } elseif ($form['type'] == 'CONFIG' AND (!is_array($data) OR count($data) == 0)) {
+        $saveform .= PluginDebugger('empty', debug_backtrace(), $$data, '');
+    } else {
 
-		$form_keys= ARRAY('action', 'caption', 'errormsg', 'method', 'value_action', 'value_admin', 'value_submit');
-		$style_keys= ARRAY('div', 'divcaption', 'form', 'submit', 'table', 'tdcaption', 'tdconfig', 'tdhint', 'textarea', 'input', 'inputmax');
-		foreach($form_keys AS $key) { if(!isset($form[$key])) { $form[$key] = ''; } }
-		foreach($style_keys AS $key) { if(!isset($style[$key])) { $style[$key] = ''; } }
-	
-		$saveform .= $form['errormsg'];
-		$saveform .= '<div '.$style['div'].'>'."\n";
+        $form_keys = ARRAY('action', 'caption', 'errormsg', 'method', 'value_action', 'value_admin', 'value_submit');
+        $style_keys = ARRAY('div', 'divcaption', 'form', 'submit', 'table', 'tdcaption', 'tdconfig', 'tdhint', 'textarea', 'input', 'inputmax');
+        foreach ($form_keys AS $key) {
+            if (!isset($form[$key])) {
+                $form[$key] = '';
+            }
+        }
+        foreach ($style_keys AS $key) {
+            if (!isset($style[$key])) {
+                $style[$key] = '';
+            }
+        }
 
-		$saveform .= '<form '.$style['form'].' action="'.$form['action'].'" method="'.$form['method'].'">'."\n";
-		if(!empty($form['caption'])) { $saveform .= '<div '.$style['divcaption'].'>'."\n".$form['caption']."\n".'</div>'."\n"; }
-	
-		if($form['type']=='TEXT') {
-			$saveform .= '<textarea '.$style['textarea'].' name="'.$form['textarea_name'].'">'.$data.'</textarea>';
-		}
-	
-		if($form['type']=='CONFIG') {
-			$saveform .= '<table '.$style['table'].' cellspacing="0" cellpadding="0">'."\n";
-			$last_cap = '';
-			ksort($data);
-			foreach($data as $key => $value) {
-				global $pluginloader_cfg;
-				$var_name='';
-				$val_cap = explode('_', $key);
-				
-				if(!isset($hint['mode_donotshowvarnames']) OR $hint['mode_donotshowvarnames']==FALSE) {
-					if($val_cap[0]!=$last_cap) {
-						$last_cap = $val_cap[0];
-						$saveform .= '<tr>'."\n".'<td colspan="2" '.$style['tdcaption'].'>'.$last_cap.'</td>'."\n".'</tr>'."\n";
-					}
-				}
-				if(isset($hint['mode_donotshowvarnames']) AND $hint['mode_donotshowvarnames']==TRUE AND isset($hint['cf_'.$key]) AND !empty($hint['cf_'.$key])) {	$var_name = $hint['cf_'.$key];	}
-				else { $var_name = (isset($hint['cf_'.$key]) AND !empty($hint['cf_'.$key])) ? '<a href="#" class="pl_tooltip">'.tag('img src = "'.$pluginloader_cfg['folder_pluginloader']. '/css/help_icon.png" alt="" class="helpicon"').'<span>'.$hint['cf_'.$key].'</span></a> '.str_replace("_", " ", $key).': ' : str_replace("_", " ", $key).':'; }
-				$saveform .= '<tr>'."\n".'<td '.$style['tdconfig'].'>'.$var_name.'</td>'."\n".'<td>';
-				$style_textarea = $style['input'];
-				if(strlen($value)> 50) { $style_textarea = $style['inputmax']; }
-				$saveform .= '<textarea '.$style_textarea.' name="'.$pluginloader_cfg['form_namespace'].$key.'" rows="1" cols="40">'.$value.'</textarea>';
-				$saveform .= '</td>'."\n".'</tr>'."\n";
-			}
-			$saveform .= '</table>'."\n"."\n";
-		} // if($form['type'] == 'CONFIG')
-	
-		$saveform .= tag('input type="hidden" name="admin" value="'.$form['value_admin'].'"')."\n";
-		$saveform .= tag('input type="hidden" name="action" value="'.$form['value_action'].'"')."\n".tag('br')."\n".tag('input type="submit" '.$style['submit'].' name="plugin_submit" value="'.$form['value_submit'].'"')."\n";
-		$saveform .= '</form>'."\n";
-	}	
-	$saveform .= "\n".'</div>'."\n";
-		
-	return $saveform;
+        $saveform .= $form['errormsg'];
+        $saveform .= '<div ' . $style['div'] . '>' . "\n";
+
+        $saveform .= '<form ' . $style['form'] . ' action="' . $form['action'] . '" method="' . $form['method'] . '">' . "\n";
+        if (!empty($form['caption'])) {
+            $saveform .= '<div ' . $style['divcaption'] . '>' . "\n" . $form['caption'] . "\n" . '</div>' . "\n";
+        }
+
+        if ($form['type'] == 'TEXT') {
+            $saveform .= '<textarea ' . $style['textarea'] . ' name="' . $form['textarea_name'] . '">' . $data . '</textarea>';
+        }
+
+        if ($form['type'] == 'CONFIG') {
+            $saveform .= '<table ' . $style['table'] . ' cellspacing="0" cellpadding="0">' . "\n";
+            $last_cap = '';
+            ksort($data);
+            foreach ($data as $key => $value) {
+                global $pluginloader_cfg;
+                $var_name = '';
+                $val_cap = explode('_', $key);
+
+                if (!isset($hint['mode_donotshowvarnames']) OR $hint['mode_donotshowvarnames'] == FALSE) {
+                    if ($val_cap[0] != $last_cap) {
+                        $last_cap = $val_cap[0];
+                        $saveform .= '<tr>' . "\n" . '<td colspan="2" ' . $style['tdcaption'] . '>' . $last_cap . '</td>' . "\n" . '</tr>' . "\n";
+                    }
+                }
+                if (isset($hint['mode_donotshowvarnames']) AND $hint['mode_donotshowvarnames'] == TRUE AND isset($hint['cf_' . $key]) AND !empty($hint['cf_' . $key])) {
+                    $var_name = $hint['cf_' . $key];
+                } else {
+                    $var_name = (isset($hint['cf_' . $key]) AND !empty($hint['cf_' . $key])) ? '<a href="#" class="pl_tooltip">' . tag('img src = "' . $pluginloader_cfg['folder_pluginloader'] . '/css/help_icon.png" alt="" class="helpicon"') . '<span>' . $hint['cf_' . $key] . '</span></a> ' . str_replace("_", " ", $key) . ': ' : str_replace("_", " ", $key) . ':';
+                }
+                $saveform .= '<tr>' . "\n" . '<td ' . $style['tdconfig'] . '>' . $var_name . '</td>' . "\n" . '<td>';
+                $style_textarea = $style['input'];
+                if (strlen($value) > 50) {
+                    $style_textarea = $style['inputmax'];
+                }
+                $saveform .= '<textarea ' . $style_textarea . ' name="' . $pluginloader_cfg['form_namespace'] . $key . '" rows="1" cols="40">' . $value . '</textarea>';
+                $saveform .= '</td>' . "\n" . '</tr>' . "\n";
+            }
+            $saveform .= '</table>' . "\n" . "\n";
+        } // if($form['type'] == 'CONFIG')
+
+        $saveform .= tag('input type="hidden" name="admin" value="' . $form['value_admin'] . '"') . "\n";
+        $saveform .= tag('input type="hidden" name="action" value="' . $form['value_action'] . '"') . "\n" . tag('br') . "\n" . tag('input type="submit" ' . $style['submit'] . ' name="plugin_submit" value="' . $form['value_submit'] . '"') . "\n";
+        $saveform .= '</form>' . "\n";
+    }
+    $saveform .= "\n" . '</div>' . "\n";
+
+    return $saveform;
 }
 
 /**
@@ -608,60 +626,80 @@ function PluginSaveForm($form=ARRAY(), $style=ARRAY(), $data=ARRAY(), $hint=ARRA
  */
 function print_plugin_admin($main) {
 
-	global $sn, $plugin, $pth, $sl;
-	global $pluginloader_tx, $plugin_tx;
+    global $sn, $plugin, $pth, $sl;
+    global $pluginloader_tx, $plugin_tx;
 
-	initvar('plugin_text');
-	initvar('action');
-	initvar('admin');
-	
-	$t = '';
-	$css = '';
-	$config = '';
-	$language = '';
-	$help = '';
+    initvar('plugin_text');
+    initvar('action');
+    initvar('admin');
 
-	$main = strtoupper($main);
-	
-	PluginFiles($plugin);
+    $t = '';
+    $css = '';
+    $config = '';
+    $language = '';
+    $help = '';
 
-	if(file_exists($pth['file']['plugin_stylesheet'])) {
-		$css = 'ON';
-	}
-	if(file_exists($pth['file']['plugin_config'])) {
-		//include($pth['file']['plugin_config']);
-		$config = 'ON';
-	}
-	if(file_exists($pth['file']['plugin_language'])) {
-		//include($pth['file']['plugin_language']);
-		$language = 'ON';
-	}
-	if(file_exists($pth['file']['plugin_help'])) {
-		$help = 'ON';
-	}
-	
-	/**
-	 *  Use preset texts for the menu, if the plugin itself did not define text for the menu
-	 */
-	if(isset ($plugin_tx[$plugin]['menu_main']) AND !empty($plugin_tx[$plugin]['menu_main'])) { $pluginloader_tx['menu']['tab_main'] = $plugin_tx[$plugin]['menu_main']; }
-	if(isset ($plugin_tx[$plugin]['menu_css']) AND !empty($plugin_tx[$plugin]['menu_css'])) { $pluginloader_tx['menu']['tab_css'] = $plugin_tx[$plugin]['menu_css']; }
-	if(isset ($plugin_tx[$plugin]['menu_config']) AND !empty($plugin_tx[$plugin]['menu_config'])) { $pluginloader_tx['menu']['tab_config'] = $plugin_tx[$plugin]['menu_config']; }
-	if(isset ($plugin_tx[$plugin]['menu_language']) AND !empty($plugin_tx[$plugin]['menu_language'])) { $pluginloader_tx['menu']['tab_language'] = $plugin_tx[$plugin]['menu_language']; }
-	if(isset ($plugin_tx[$plugin]['menu_help']) AND !empty($plugin_tx[$plugin]['menu_help'])) { $pluginloader_tx['menu']['tab_help'] = $plugin_tx[$plugin]['menu_help']; }
+    $main = strtoupper($main);
 
-	$plugin_menu_style=ARRAY();
-	
-	PluginMenu('ROW', '', '', '', $plugin_menu_style);
-	
-	if($main == 'ON') { PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_main&amp;action=plugin_text', '', $pluginloader_tx['menu']['tab_main'], $plugin_menu_style); }
-	if($css == 'ON') { PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_stylesheet&amp;action=plugin_text', '', $pluginloader_tx['menu']['tab_css'], $plugin_menu_style);	}
-	if($config == 'ON') { PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_config&amp;action=plugin_edit', '', $pluginloader_tx['menu']['tab_config'], ''); }
-	if($language == 'ON') { PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_language&amp;action=plugin_edit', '', $pluginloader_tx['menu']['tab_language'], ''); }
-	if($help == 'ON') { PluginMenu('TAB', $pth['file']['plugin_help'], 'target="_blank"', $pluginloader_tx['menu']['tab_help'], ''); }
-	
-	$t .= PluginMenu('SHOW');
+    PluginFiles($plugin);
 
-	return $t;
+    if (file_exists($pth['file']['plugin_stylesheet'])) {
+        $css = 'ON';
+    }
+    if (file_exists($pth['file']['plugin_config'])) {
+        //include($pth['file']['plugin_config']);
+        $config = 'ON';
+    }
+    if (file_exists($pth['file']['plugin_language'])) {
+        //include($pth['file']['plugin_language']);
+        $language = 'ON';
+    }
+    if (file_exists($pth['file']['plugin_help'])) {
+        $help = 'ON';
+    }
+
+    /**
+     *  Use preset texts for the menu, if the plugin itself did not define text for the menu
+     */
+    if (isset($plugin_tx[$plugin]['menu_main']) AND !empty($plugin_tx[$plugin]['menu_main'])) {
+        $pluginloader_tx['menu']['tab_main'] = $plugin_tx[$plugin]['menu_main'];
+    }
+    if (isset($plugin_tx[$plugin]['menu_css']) AND !empty($plugin_tx[$plugin]['menu_css'])) {
+        $pluginloader_tx['menu']['tab_css'] = $plugin_tx[$plugin]['menu_css'];
+    }
+    if (isset($plugin_tx[$plugin]['menu_config']) AND !empty($plugin_tx[$plugin]['menu_config'])) {
+        $pluginloader_tx['menu']['tab_config'] = $plugin_tx[$plugin]['menu_config'];
+    }
+    if (isset($plugin_tx[$plugin]['menu_language']) AND !empty($plugin_tx[$plugin]['menu_language'])) {
+        $pluginloader_tx['menu']['tab_language'] = $plugin_tx[$plugin]['menu_language'];
+    }
+    if (isset($plugin_tx[$plugin]['menu_help']) AND !empty($plugin_tx[$plugin]['menu_help'])) {
+        $pluginloader_tx['menu']['tab_help'] = $plugin_tx[$plugin]['menu_help'];
+    }
+
+    $plugin_menu_style = ARRAY();
+
+    PluginMenu('ROW', '', '', '', $plugin_menu_style);
+
+    if ($main == 'ON') {
+        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_main&amp;action=plugin_text', '', $pluginloader_tx['menu']['tab_main'], $plugin_menu_style);
+    }
+    if ($css == 'ON') {
+        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_stylesheet&amp;action=plugin_text', '', $pluginloader_tx['menu']['tab_css'], $plugin_menu_style);
+    }
+    if ($config == 'ON') {
+        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_config&amp;action=plugin_edit', '', $pluginloader_tx['menu']['tab_config'], '');
+    }
+    if ($language == 'ON') {
+        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_language&amp;action=plugin_edit', '', $pluginloader_tx['menu']['tab_language'], '');
+    }
+    if ($help == 'ON') {
+        PluginMenu('TAB', $pth['file']['plugin_help'], 'target="_blank"', $pluginloader_tx['menu']['tab_help'], '');
+    }
+
+    $t .= PluginMenu('SHOW');
+
+    return $t;
 }
 
 /**
@@ -689,82 +727,84 @@ function print_plugin_admin($main) {
  */
 function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
 
-	global $sn, $action, $admin, $plugin, $pth, $tx;
-	global $pluginloader_tx, $plugin_tx, $plugin_cf;
+    global $sn, $action, $admin, $plugin, $pth, $tx;
+    global $pluginloader_tx, $plugin_tx, $plugin_cf;
 
-	$data = '';
-	$t = '';
-	$error_msg = ($admin=='' OR is_writeable($pth['file'][$admin])) ? '' : '<div class="pluginerror">'."\n".'<b>'.$tx['error']['notwritable'].':</b>'."\n".'</div>'."\n".'<ul>'."\n".'<li>'.$pth['file'][$admin].'</li>'."\n".'</ul>'."\n";
+    $data = '';
+    $t = '';
+    $error_msg = ($admin == '' OR is_writeable($pth['file'][$admin])) ? '' : '<div class="pluginerror">' . "\n" . '<b>' . $tx['error']['notwritable'] . ':</b>' . "\n" . '</div>' . "\n" . '<ul>' . "\n" . '<li>' . $pth['file'][$admin] . '</li>' . "\n" . '</ul>' . "\n";
 
-	if($admin == 'plugin_config') {
-		$var_name='plugin_cf'; $data = $plugin_cf[$plugin];
-	}
-	if($admin == 'plugin_language') {
-		$var_name='plugin_tx'; $data = $plugin_tx[$plugin];
-	}
-	if($admin == 'plugin_stylesheet') {
-		$var_name = 'plugin_text';
-	}
-	if($admin == 'plugin_main') {
-		$var_name = 'plugin_text';
-	}
+    if ($admin == 'plugin_config') {
+        $var_name = 'plugin_cf';
+        $data = $plugin_cf[$plugin];
+    }
+    if ($admin == 'plugin_language') {
+        $var_name = 'plugin_tx';
+        $data = $plugin_tx[$plugin];
+    }
+    if ($admin == 'plugin_stylesheet') {
+        $var_name = 'plugin_text';
+    }
+    if ($admin == 'plugin_main') {
+        $var_name = 'plugin_text';
+    }
 
-	if($action == 'plugin_text' OR $action == 'plugin_edit') {
-		$hint = array_merge($hint, $plugin_tx[$plugin]);
-		$form = ARRAY();
-		$style = ARRAY();
+    if ($action == 'plugin_text' OR $action == 'plugin_edit') {
+        $hint = array_merge($hint, $plugin_tx[$plugin]);
+        $form = ARRAY();
+        $style = ARRAY();
 
-		$style['form']='class="plugineditform"';
-		$style['divcaption']='class="plugineditcaption"';
-		$style['submit']='class="submit"';
+        $style['form'] = 'class="plugineditform"';
+        $style['divcaption'] = 'class="plugineditcaption"';
+        $style['submit'] = 'class="submit"';
 
-		$form['action'] = $sn.'?&amp;'.$plugin;
-		$form['method'] = 'POST';
-		$form['value_admin'] = $admin;
-		$form['value_submit'] = ucfirst($tx['action']['save']);
-		$form['caption'] = ucfirst(str_replace("_", " ", $plugin));
-		$form['errormsg'] = $error_msg;
-		
-		if($action == 'plugin_text') {
-			$file_data = PluginReadFile($pth['file'][$admin]);
-			$data = $file_data['content'];
-			$form['type'] = 'TEXT';
-			$form['value_action'] = 'plugin_textsave';
-			$form['textarea_name'] = 'plugin_text';
-			$style['div']='class="plugintext"';
-			$style['textarea']='class="plugintextarea"';
-		}			
-		if($action == 'plugin_edit') {
-			$form['type'] = 'CONFIG';
-			$form['value_action'] = 'plugin_save';
-			$style['div']='class="pluginedit"';
-			$style['table']='class="pluginedittable"';
-			$style['tdcaption']='class="plugincfcap"';
-			$style['tdhint']='class="plugincfhint"';
-			$style['tdconfig']='class="plugincf"';
-			$style['input']='class="plugininput"';
-			$style['inputmax']='class="plugininputmax"';
-		}
-		$t .= PluginSaveForm($form, $style, $data, $hint); 
-	}
+        $form['action'] = $sn . '?&amp;' . $plugin;
+        $form['method'] = 'POST';
+        $form['value_admin'] = $admin;
+        $form['value_submit'] = ucfirst($tx['action']['save']);
+        $form['caption'] = ucfirst(str_replace("_", " ", $plugin));
+        $form['errormsg'] = $error_msg;
 
-	if($action == 'plugin_save' OR $action == 'plugin_textsave') {	
-		if($action == 'plugin_save') {
-			$config_data=ARRAY();
-			foreach($data as $key => $value) {
-				global $pluginloader_cfg;
-				$config_data[$key] = $_POST[$pluginloader_cfg['form_namespace'].$key];
-			}
-			$save_data = PluginPrepareConfigData($var_name, $config_data, $plugin);
-		}
-		if($action == 'plugin_textsave') {
-			$text_data = $_POST[$var_name];
-			$save_data = PluginPrepareTextData($text_data);
-		}
-		$is_saved = PluginWriteFile($pth['file'][$admin], $save_data);
-		$t .= tag('br').'<b>'.$is_saved['msg'].'</b>'.tag('br');
-	}	
-	return $t;
+        if ($action == 'plugin_text') {
+            $file_data = PluginReadFile($pth['file'][$admin]);
+            $data = $file_data['content'];
+            $form['type'] = 'TEXT';
+            $form['value_action'] = 'plugin_textsave';
+            $form['textarea_name'] = 'plugin_text';
+            $style['div'] = 'class="plugintext"';
+            $style['textarea'] = 'class="plugintextarea"';
+        }
+        if ($action == 'plugin_edit') {
+            $form['type'] = 'CONFIG';
+            $form['value_action'] = 'plugin_save';
+            $style['div'] = 'class="pluginedit"';
+            $style['table'] = 'class="pluginedittable"';
+            $style['tdcaption'] = 'class="plugincfcap"';
+            $style['tdhint'] = 'class="plugincfhint"';
+            $style['tdconfig'] = 'class="plugincf"';
+            $style['input'] = 'class="plugininput"';
+            $style['inputmax'] = 'class="plugininputmax"';
+        }
+        $t .= PluginSaveForm($form, $style, $data, $hint);
+    }
+
+    if ($action == 'plugin_save' OR $action == 'plugin_textsave') {
+        if ($action == 'plugin_save') {
+            $config_data = ARRAY();
+            foreach ($data as $key => $value) {
+                global $pluginloader_cfg;
+                $config_data[$key] = $_POST[$pluginloader_cfg['form_namespace'] . $key];
+            }
+            $save_data = PluginPrepareConfigData($var_name, $config_data, $plugin);
+        }
+        if ($action == 'plugin_textsave') {
+            $text_data = $_POST[$var_name];
+            $save_data = PluginPrepareTextData($text_data);
+        }
+        $is_saved = PluginWriteFile($pth['file'][$admin], $save_data);
+        $t .= tag('br') . '<b>' . $is_saved['msg'] . '</b>' . tag('br');
+    }
+    return $t;
 }
 
 /**
@@ -780,19 +820,20 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
  * @return string Returns result of debugging as text
  */
 function PluginDebugger($error=FALSE, $caller=FALSE, $varname=FALSE, $value=FALSE) {
-	global $pluginloader_tx;
-	$debug = '';
-	$debug .= $pluginloader_tx['error']['plugin_error'].'';
-	switch($error) {
-		case 'empty': $debug .= 'empty/no data ('.$varname.')'; break;
-		default: $debug .= 'undefined error ('.$varname.')';
-	}
-	$debug .= tag('br').'in'.tag('br');
-	foreach($caller AS $call) {
-		$debug .= 'File: '.$call['file'].' - '.$call['function'].' - Line: '.$call['line'].tag('br');
-	}
-	return $debug;
-}		  
+    global $pluginloader_tx;
+    $debug = '';
+    $debug .= $pluginloader_tx['error']['plugin_error'] . '';
+    switch ($error) {
+        case 'empty': $debug .= 'empty/no data (' . $varname . ')';
+            break;
+        default: $debug .= 'undefined error (' . $varname . ')';
+    }
+    $debug .= tag('br') . 'in' . tag('br');
+    foreach ($caller AS $call) {
+        $debug .= 'File: ' . $call['file'] . ' - ' . $call['function'] . ' - Line: ' . $call['line'] . tag('br');
+    }
+    return $debug;
+}
 
 /**
  * Function preCallPlugins() => Pre-Call of Plugins.
@@ -810,7 +851,8 @@ function PluginDebugger($error=FALSE, $caller=FALSE, $varname=FALSE, $value=FALS
  * {{{HOME}}} or: {{{HOME:name_of_Link}}}
  * This creates a link to the first page of your CMSimple-
  * Installation.
- *
+ * 
+ * @param pageIndex - added for search
  * @global bool $edit TRUE if edit-mode is active
  * @global array $c Array containing all contents of all CMSimple-pages
  * @global integer $s Pagenumber of active page
@@ -819,40 +861,44 @@ function PluginDebugger($error=FALSE, $caller=FALSE, $varname=FALSE, $value=FALS
  * @author mvwd
  * @since V.2.1.02
  */
-function preCallPlugins() {
-	global $edit, $c, $s, $u;
-	$error = ' <span style="color:#5b0000; font-size:6px;">{{CALL TO:<span style="color:#c10000;">{{%1}}</span> FAILED}}</span> '; //use this for debugging of failed plugin-calls
-	if(!$edit)
-	{
-		$as = $s<0 ? 0 : $s;
-		$pl_regex = '"{{{RGX:CALL(.*?)}}}"is'; //general CALL-RegEx (Placeholder: "RGX:CALL")
-		/**
-		 * $pl_calls = array with built-in-CALLs:
-		 * If you want both Versions (with and without closing ':') 
-		 * first insert call with ':', then the call without the ':' !!
-		 * A parsed parameter is replaced in '{{%1}}'.
-		 */ 
-		$pl_calls = array( 
-			'PLUGIN:' => 'return {{%1}}',
-			'HOME:' => 'return trim(\'<a href="?'.$u[0].'" title="'.urldecode('{{%1}}').'">'.urldecode('{{%1}}').'</a>\');',
-			'HOME' => 'return trim(\'<a href="?'.$u[0].'" title="'.urldecode($u[0]).'">'.urldecode($u[0]).'</a>\');'
-			);
-		$fd_calls = array();
-		foreach($pl_calls AS $regex => $call) {
-			preg_match_all(str_replace("RGX:CALL", $regex, $pl_regex), $c[$as], $fd_calls[$regex]); //catch all PL-CALLS
-			foreach($fd_calls[$regex][0] AS $call_nr => $replace) {
-				$call = str_replace("{{%1}}", $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]);
-				$fnct_call = preg_replace('"(?:(?:return)\s)*(.*?)\(.*?\);"is', '$1', $call);
-				$fnct = function_exists($fnct_call)? TRUE : FALSE; //without object-calls; functions-only!!
-				if($fnct) {
-					preg_match_all("/\\$([a-z_0-9]*)/i", $call, &$matches);
-					foreach($matches[1] as $var) {
-						global $$var;
-					}
-				} 
-				$c[$as] = str_replace($replace, ($fnct ? eval(str_replace('{{%1}}', $fd_calls[$regex][1][$call_nr], $pl_calls[$regex])) : str_replace('{{%1}}', $regex.$fd_calls[$regex][1][$call_nr], $error)), $c[$as]); //replace PL-CALLS (String only!!)
-			}
-		}
-	}
+function preCallPlugins($pageIndex = -1) {
+    global $edit, $c, $s, $u;
+    $error = ' <span style="color:#5b0000; font-size:14px;">{{CALL TO:<span style="color:#c10000;">{{%1}}</span> FAILED}}</span> '; //use this for debugging of failed plugin-calls
+    if (!$edit) {
+        if ((int) $pageIndex > - 1 && (int)$pageIndex < count($u)) {
+            $as = $pageIndex;
+        } else {
+            $as = $s < 0 ? 0 : $s;
+        }
+        $pl_regex = '"{{{RGX:CALL(.*?)}}}"is'; //general CALL-RegEx (Placeholder: "RGX:CALL")
+        /**
+         * $pl_calls = array with built-in-CALLs:
+         * If you want both Versions (with and without closing ':') 
+         * first insert call with ':', then the call without the ':' !!
+         * A parsed parameter is replaced in '{{%1}}'.
+         */
+        $pl_calls = array(
+            'PLUGIN:' => 'return {{%1}}',
+            'HOME:' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode('{{%1}}') . '">' . urldecode('{{%1}}') . '</a>\');',
+            'HOME' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode($u[0]) . '">' . urldecode($u[0]) . '</a>\');'
+        );
+        $fd_calls = array();
+        foreach ($pl_calls AS $regex => $call) {
+            preg_match_all(str_replace("RGX:CALL", $regex, $pl_regex), $c[$as], $fd_calls[$regex]); //catch all PL-CALLS
+            foreach ($fd_calls[$regex][0] AS $call_nr => $replace) {
+                $call = str_replace("{{%1}}", $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]);
+                $fnct_call = preg_replace('"(?:(?:return)\s)*(.*?)\(.*?\);"is', '$1', $call);
+                $fnct = function_exists($fnct_call) ? TRUE : FALSE; //without object-calls; functions-only!!
+                if ($fnct) {
+                    preg_match_all("/\\$([a-z_0-9]*)/i", $call, &$matches);
+                    foreach ($matches[1] as $var) {
+                        global $$var;
+                    }
+                }
+                $c[$as] = str_replace($replace, ($fnct ? eval(str_replace('{{%1}}', $fd_calls[$regex][1][$call_nr], $pl_calls[$regex])) : str_replace('{{%1}}', $regex . $fd_calls[$regex][1][$call_nr], $error)), $c[$as]); //replace PL-CALLS (String only!!)
+            }
+        }
+    }
 }
+
 ?>
