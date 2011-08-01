@@ -9,7 +9,8 @@
  *
  * @author Holger Irmler
  * @link http://cmsimple.holgerirmler.de
- * @version 1.2 - 2011-06-23
+ * @version 1.3 - 2011-07-27
+ * @build 2011072701
  * @package jQuery
  **/
 
@@ -29,7 +30,8 @@ function include_jQuery($path='') {
 				return;
 			}
 		}
-		$hjs .= "\n".'<script type="text/javascript" src="'.$path.'"></script>';
+		//$hjs .= "\n".'<script type="text/javascript" src="'.$path.'"></script>';
+		$hjs = '<script type="text/javascript" src="'.$path.'"></script>' . $hjs; 
 		define('JQUERY', $plugin_cf['jquery']['version_core']);
 	}
 }
