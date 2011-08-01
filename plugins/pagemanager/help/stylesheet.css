@@ -1,0 +1,27 @@
+body {
+    font-family: Verdana, sans-serif;
+    line-height: 150%;
+    margin-left: 2em;
+    margin-right: 2em;
+    text-align: justify;
+    background: #ffffe1;
+}
+
+#body {
+    margin-left: 12em;
+}
+
+#nav {
+    margin-left: 0;
+    float: left;
+    width: 10em;
+    list-style: none;
+    padding-left: 0;
+}
+
+.image-right {
+    float:right;
+    border: 1px solid black;
+    margin-left: 1em;
+    padding: 10px;
+}

@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<!-- utf8-marker: äöü -->
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<meta name="content-language" content="de">
+<title>Pagemanager_XH - Manual</title>
+<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+</head>
+
+<body>
+
+<h1>Pagemanager_XH - a CMSimple_XH Plugin</h1>
+<p>Pagemanager_XH simplifies the administration of pages of a
+CMSimple_XH installation.
+This plugin is comparable to the Menumanager plugin with regard to functionality,
+but by using a treeview it allows for better handling of websites with many pages.
+With Pagemanager_XH it is also possible to rearrange whole submenus.</p>
+
+<ul id="nav">
+<li><a href="#notice">Important Notice</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#settings">Settings</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#limitations">Limitations</a></li>
+<li><a href="#license">License</a></li>
+<li><a href="#credits">Credits</a></li>
+</ul>
+
+<div id="body">
+
+<p><strong>Please do read this documentation! Support might not be given otherwise.
+It's generally a good idea to read the documentation,
+<em>before</em> you encounter any problems!</strong></p>
+
+<h2><a name="notice">Important Notice</a></h2>
+<p><strong>Pagemanager_XH couldn't be tested so far in various environments.
+It is a so called BETA version.
+Use with caution! Always make a backup as explained in the following.</strong></p>
+<p>Pagemanager_XH hooks deeply into CMSimple_XH.
+The files <em>content.htm</em> and <em>pagedata.php</em> are rewritten on saving.
+<strong>Loss of data is therefore possible!</strong>
+You should save the files <em>content.htm</em> and <em>pagedata.php</em> immediately before using
+Pagemanager_XH, so you could restore them directly in case of any problems.</p>
+
+<h2><a name="requirements">Requirements</a></h2>
+<p>Pagemanager_XH is a plugin for CMSimple_XH.
+It requires a UTF-8 encoded version,
+i.e. it's usable from CMSimple_XH 1.2 on. Additionally it requires the
+jQuery4CMSimple plugin. This will be already installed in all versions of CMSimple_XH since 1.4.1.
+If you have an older version, it's best to download and install
+<a href="http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple">
+jQuery4CMSimple</a> before proceeding.</p>
+
+<h2><a name="installation">Installation</a></h2>
+<p>The installation is done as with many other CMSimple_XH plugins.
+See the <a href="http://www.cmsimple-xh.com/wiki/doku.php/manuals:users_manual:plugins:installation">
+CMSimple_XH wiki</a> for further details.</p>
+<ol>
+<li>Backup the data on your server.</li>
+<li>Unzip the distribution on your computer.</li>
+<li>Upload the whole directory pagemanager to your server into the CMSimple_XH plugin directory.</li>
+<li>If neccessary set write permissions to the subdirectories css, config und languages.</li>
+</ol>
+
+<h2><a name="settings">Settings</a></h2>
+<p>The plugin's configuration is done as with many other
+CMSimple_XH plugins in the website's back-end.
+Select Pagemanager from "Plugins".</p>
+<p>You can change the default settings of Pagemanager_XH in "Plugin Config".
+Hints for the options will be displayed
+when hovering over the help icon with your mouse.</p>
+<p>Localization is done in "Plugin Language".
+You can translate the character strings to your own language,
+or customize them according to your needs.</p>
+<p>The look of Pagemanager_XH can be customized in "Plugin Stylesheet".
+Particularly you should look for the settings that are commented out.
+Perhaps you like to try to active these settings.
+The currently distributed stylesheet is optimized for the
+standard configuration with three menu levels.</p>
+
+<h2><a name="usage">Usage</a></h2>
+<img class="image-right" src="pagemanager.png" alt="Pagemanager_XH screenshot">
+<p>This plugin is used exclusively in CMSimple_XH's backend.
+It is started by "Select&nbsp;Plugin"&nbsp;> "Pagemanager"&nbsp;> "Page&nbsp;administration".
+Now you see a view of your site's structure,
+that basically resembles the sitemap.
+However, it is possible to open and close page branches in this view,
+so you don't loose overview of even extensive websites.
+You can open or close those by clicking on the small markers left to the page,
+or by double clicking their titles.</p>
+<p>Above the tree view of your website's pages you find Pagemanager_XH's <strong>toolbar</strong>.
+When hovering over the buttons, popups which describe the tool's function will be shown.
+The two leftmost buttons allow to expand resp. collapse the tree view of your website.
+The toolbar is particularly useful,
+if your browser doesn't allow Pagemanager_XH's context menu to popup.</p>
+<p>Rearrangement of the structure of your pages is done by <strong>drag & drop</strong>;
+when dragging according markers are shown, so you can see where
+the page will be inserted when dropping it.
+If it is not possible to drag to a certain page,
+because it would result in e.g. a recursive page structure,
+or the nesting level would be greater then your configured menu levels,
+this will be shown by a red cross
+or you will simply be not allowed to drop there.
+<em>So carefully watch the markers,</em>
+until you get a feeling how the drag&drop works.
+If you hold down the CTRL key while dragging,
+the result will be a copy instead of a move operation.</p>
+<table border="1" style="margin: auto">
+<caption><strong>Examples of drag&drop move operations</strong></caption>
+<tr><th>during move</th><th>after move</th></tr>
+<tr><td><img src="move1.png" alt="Move 1"></td><td><img src="result1.png" alt="Result 1"></td></tr>
+<tr><td><img src="move2.png" alt="Move 2"></td><td><img src="result2.png" alt="Result 2"></td></tr>
+<tr><td><img src="move3.png" alt="Move 3"></td><td><img src="result3.png" alt="Result 3"></td></tr>
+<tr><td><img src="move4.png" alt="Move 4"></td><td><img src="result4.png" alt="Result 4"></td></tr>
+</table>
+<p>Additional functionality is available in the toolbar
+or through the <strong>context menu</strong>
+(click the right mouse button on the page).
+You can create new pages, rename or delete existing ones,
+and use the common clipboard functions as an alternative to drag & drop.
+If a paste operation will result in a recursive page structure,
+e.g. by copying a page into itself,
+it will be silently ignored, to not annoy you with a warning message.
+<em>If you delete the selected page, all it's subpages will be deleted as well.</em></p>
+<p>The checkboxes to the left of the pages
+allow you to view and change and their <strong>publishing state</strong>.
+You can configure if they refer to 'Published?' or 'Show in menu?'.
+<strong>Duplicate headings</strong> are shown as in the navigation menu.
+If you hover over them with the mouse pointer,
+the real page headings will be displayed in a popup.
+<strong>Newly created pages</strong> will be shown with a different icon,
+to better distinguish them from old pages.</p>
+<p>The possiblitly to copy whole substructures might not seam resonable at first sight,
+but it could be useful, e.g. if you've got a gallery on those pages,
+because all content <em>and</em> meta data of these pages will be copied too.
+So it is possible to adjust details afterwards.</p>
+<p>Note that there is no undo or cancel functionality.
+If you've totally mixed up your page structure
+simply refresh your browser's view <em>without</em> saving before.
+Your old page structure will be presented again.</p>
+
+<h2><a name="limitations">Limitations</a></h2>
+
+<h3>Irregular page structures</h3>
+<p>It is possible that your existing website has an irregular page structure.
+E.g. after an &lt;h1&gt; heading follows immediatly an &lt;h3&gt; heading
+without an &lt;h2&gt; heading in between.</p>
+<p>You can check the regularity of your page structure 
+with Pagemanager_XH. It will warn you of any irregularities
+and will let you proceed only, if you explicitly confirm!
+If you do not proceed, no harm will be done.</p>
+<p>If you don't understand what this is about:
+<strong>Consult your webmaster, or get any other support before proceeding
+with Pagemanager_XH!</strong></p>
+<p>Irregularities in your page structure might have
+unintentionally happend while you were editing manually
+the page structure in the editor (e.g. changing headings, deleting pages).</p>
+<p><strong>But it is possible that this feature is used by your system
+for a special purpose.</strong> Perhaps all pages with an &lt;h3&gt; heading are
+hidden automatically!
+In this case you can't use Pagemanager_XH, because it reorders
+your page structure to be regular.
+If you nonetheless want to use Pagemanager_XH you have to use other
+means (see the Page Tab above the editor) to hide the appropriate pages.
+But in any case, if you're not <em>exactly</em> knowing,
+if your irregular page structure is intentionally so, consult your webmaster.
+<strong>Support will not be given to repair damage in the case of
+reorderd structures in the CMSimple forum.</strong></p>
+<p>If the page structure of your website is irregular,
+and you want to keep it this way, <em>you can't use Pagemanager_XH</em>.
+If you've already installed it,
+it's best to uninstall it, and to use your current way of manipulating your
+page structure. Or, you can have a look at
+<a href="http://www.cmsimple-styles.com/cmsimplestyles/?Plugins_%26amp%3B_Tools:Menumanager_Plugin">
+Menumanager</a>.</p>
+
+<h3>jQuery</h3>
+<p>Pagemanager_XH <em>may</em> not work in installations
+with jQuery dependent plugins/addons/templates that
+don't use jQuery4CMSimple, but import their own jQuery library.
+This won't get fixed (as it's not possible to fix it in all cases),
+because all developers are advised to use only jQuery4CMSimple together
+with all their jQuery based code for CMSimple_XH.
+So offending extensions should be updated!</p>
+
+<h2><a name="license">License</a></h2>
+<p>Pagemanager_XH is licensed under
+<a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
+<p>&copy; 2011 Christoph M. Becker</p>
+
+<h2><a name="credits">Credits</a></h2>
+<p>This plugin includes <a href="http://www.jstree.com/">jsTree</a>.
+Many thanks to Ivan Bozhanov, the developer of this library.</p>
+<p>jsTree uses <a href="http://jQuery.com">jQuery</a>.
+Many thanks to all developers of this great javascript framework.</p>
+<p>jQuery is made available for CMSimple_XH by
+<a href="http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple">
+jQuery4CMSimple</a>. Many thanks to Holger Irmler, the author of this plugin.</p>
+<p>This plugin uses free applications icons from <a href="http://www.aha-soft.com/">Aha-Soft</a>.
+Many thanks to making these icons freely available.</p>
+<p>Many thanks to the community at the <a href="http://www.cmsimpleforum.com">CMSimple forum</a>
+for tips, suggestions and testing.
+Particularly I want to thank "snafu", who's early feedback encouraged me to
+go on with Pagemanager_XH.
+Many thanks to Ulrich, who found a severe bug (and some minor issues)
+and helped to fix it by providing detailed information on what's happened.
+And many thanks to Gert for providing the nice stylesheet, some bugfixes and translations
+and many valuable hints.
+I also want to thank Martin, whose report about problems with the context menu
+inspired the addition of the toolbar,
+and Tata who inspired the "scrolling" toolbar.</p>
+<p>And last but not least many thanks to all developers of <a href="http://www.cmsimple-xh.com">
+CMSimple_XH</a> without whom this amazing CMS wouldn't exist.</p>
+
+</div>
+
+</body>
+
+</html>

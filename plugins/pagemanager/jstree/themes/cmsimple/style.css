@@ -1,0 +1,79 @@
+/*
+ * jsTree cmsimple theme 1.0
+ * Supported features: dots/no-dots, icons/no-icons, focused, loading
+ * Supported plugins: ui (hovered, clicked), checkbox, contextmenu, search
+ *
+ * cmb: dropped png support
+ */
+
+.jstree-cmsimple li, 
+.jstree-cmsimple ins { background-image:url("d.gif"); background-repeat:no-repeat; background-color:transparent; }
+.jstree-cmsimple li { background-position:-90px 0; background-repeat:repeat-y;  }
+.jstree-cmsimple li.jstree-last { background:transparent; }
+.jstree-cmsimple .jstree-open > ins { background-position:-72px 0; }
+.jstree-cmsimple .jstree-closed > ins { background-position:-54px 0; }
+.jstree-cmsimple .jstree-leaf > ins { background-position:-36px 0; }
+
+.jstree-cmsimple .jstree-hovered { background:#e7f4f9; border:1px solid #e7f4f9; padding:0 2px 0 1px; }
+.jstree-cmsimple .jstree-clicked { background:navy; border:1px solid navy; padding:0 2px 0 1px; color:white; }
+.jstree-cmsimple a .jstree-icon { background-position:-56px -19px; }
+.jstree-cmsimple .jstree-open > a .jstree-icon { background-position:-56px -36px; }
+.jstree-cmsimple a.jstree-loading .jstree-icon { background:url("throbber.gif") center center no-repeat !important; }
+
+.jstree-cmsimple.jstree-focused { background:white; }
+
+.jstree-cmsimple .jstree-no-dots li, 
+.jstree-cmsimple .jstree-no-dots .jstree-leaf > ins { background:transparent; }
+.jstree-cmsimple .jstree-no-dots .jstree-open > ins { background-position:-18px 0; }
+.jstree-cmsimple .jstree-no-dots .jstree-closed > ins { background-position:0 0; }
+
+.jstree-cmsimple .jstree-no-icons a .jstree-icon { display:none; }
+
+.jstree-cmsimple .jstree-search { font-style:italic; }
+
+.jstree-cmsimple .jstree-no-icons .jstree-checkbox { display:inline-block; }
+.jstree-cmsimple .jstree-no-checkboxes .jstree-checkbox { display:none !important; }
+.jstree-cmsimple .jstree-checked > a > .jstree-checkbox { background-position:-38px -19px; }
+.jstree-cmsimple .jstree-unchecked > a > .jstree-checkbox { background-position:-2px -19px; }
+.jstree-cmsimple .jstree-undetermined > a > .jstree-checkbox { background-position:-20px -19px; }
+.jstree-cmsimple .jstree-checked > a > .jstree-checkbox:hover { background-position:-38px -37px; }
+.jstree-cmsimple .jstree-unchecked > a > .jstree-checkbox:hover { background-position:-2px -37px; }
+.jstree-cmsimple .jstree-undetermined > a > .jstree-checkbox:hover { background-position:-20px -37px; }
+
+#vakata-dragged.jstree-cmsimple ins { background:transparent !important; }
+#vakata-dragged.jstree-cmsimple .jstree-ok { background:url("d.gif") -2px -53px no-repeat !important; }
+#vakata-dragged.jstree-cmsimple .jstree-invalid { background:url("d.gif") -18px -53px no-repeat !important; }
+#jstree-marker.jstree-cmsimple { background:url("d.gif") -41px -57px no-repeat !important; text-indent:-100px; }
+
+.jstree-cmsimple a.jstree-search { color:aqua; }
+.jstree-cmsimple .jstree-locked a { color:silver; cursor:default; }
+
+#vakata-contextmenu.jstree-cmsimple-context, 
+#vakata-contextmenu.jstree-cmsimple-context li ul { background:#f0f0f0; border:1px solid #979797; }
+#vakata-contextmenu.jstree-cmsimple-context li { }
+#vakata-contextmenu.jstree-cmsimple-context a { color:black; }
+#vakata-contextmenu.jstree-cmsimple-context a:hover, 
+#vakata-contextmenu.jstree-cmsimple-context .vakata-hover > a { padding:0 5px; background:#e8eff7; border:1px solid #aecff7; color:black; }
+#vakata-contextmenu.jstree-cmsimple-context li.jstree-contextmenu-disabled a, 
+#vakata-contextmenu.jstree-cmsimple-context li.jstree-contextmenu-disabled a:hover { color:silver; background:transparent; border:0; padding:1px 4px; }
+#vakata-contextmenu.jstree-cmsimple-context li.vakata-separator { background:white; border-top:1px solid #e0e0e0; margin:0; }
+#vakata-contextmenu.jstree-cmsimple-context li ul { margin-left:-4px; }
+
+/* IE6 BEGIN */
+.jstree-cmsimple li, 
+.jstree-cmsimple ins,
+#vakata-dragged.jstree-cmsimple .jstree-invalid, 
+#vakata-dragged.jstree-cmsimple .jstree-ok, 
+#jstree-marker.jstree-cmsimple { _background-image:url("d.gif"); }
+.jstree-cmsimple .jstree-open ins { _background-position:-72px 0; }
+.jstree-cmsimple .jstree-closed ins { _background-position:-54px 0; }
+.jstree-cmsimple .jstree-leaf ins { _background-position:-36px 0; }
+.jstree-cmsimple .jstree-open a ins.jstree-icon { _background-position:-56px -36px; }
+.jstree-cmsimple .jstree-closed a ins.jstree-icon { _background-position:-56px -19px; }
+.jstree-cmsimple .jstree-leaf a ins.jstree-icon { _background-position:-56px -19px; }
+#vakata-contextmenu.jstree-cmsimple-context ins { _display:none; }
+#vakata-contextmenu.jstree-cmsimple-context li { _zoom:1; }
+.jstree-cmsimple .jstree-undetermined a .jstree-checkbox { _background-position:-20px -19px; }
+.jstree-cmsimple .jstree-checked a .jstree-checkbox { _background-position:-38px -19px; }
+.jstree-cmsimple .jstree-unchecked a .jstree-checkbox { _background-position:-2px -19px; }
+/* IE6 END */

@@ -1,0 +1,212 @@
+/* DO NOT CHANGE THIS LINE! utf-8 marker: äöüß */
+
+
+/*
+ * Treeview
+ */
+
+#pagemanager {
+    background: #fff;
+    border: 1px solid #999;
+    padding: 16px;
+    margin: 1px 0;
+    /* the following lines enable a scrollable treeview; adjust the height to your needs */
+    height: 400px;
+    overflow: scroll !important;
+}
+
+#pagemanager ul {
+    padding: 0;
+    margin: 0;
+    background: none;
+}
+
+
+/*
+ * <h1>
+ */
+
+#pagemanager ul li {
+    background: none;
+    font-family: arial, sans-serif;
+    font-weight: 700;
+    border: 0px solid #aaa;
+    padding: 0px;
+    margin: 6px 0px 3px 0;
+    list-style-image: none;
+    width: 230px;
+}
+
+#pagemanager ul li a:link {
+    font-size: 15px;
+}
+
+#pagemanager ul li a:visited {
+    font-size: 14px;
+}
+
+
+/*
+ * <h2>
+ */
+ 
+#pagemanager ul ul li {
+    background: none;
+    font-weight: 100;
+    border: 0px solid #999;
+    padding: 0px;
+    margin: 6px 0px 3px 19px;
+}
+
+#pagemanager ul ul li a:link {
+    font-size: 14px;
+}
+
+#pagemanager ul ul li a:visited {
+    font-size: 15px;
+}
+
+
+/*
+ * <h3>
+ */
+ 
+#pagemanager ul ul ul li {
+    background: none;
+    border: 0px solid #666;
+    padding: 0px;
+    margin: 1px 0px 1px 19px;
+}
+
+#pagemanager ul ul ul li a:link {
+    color: #666;
+}
+
+#pagemanager ul ul ul li a:visited {
+    color: #666;
+}
+
+
+/*
+ * Toolbar
+ */
+
+div#pagemanager-toolbar {
+    margin: 1px 0;
+    border: 1px solid #999;
+    background-color: #eee;
+    padding: 0 8px;
+    font-size: 14px;
+}
+
+div#pagemanager-toolbar a:focus {
+    background: none;
+}
+
+
+/*
+ * horizontal toolbar
+ */
+ 
+/* for floating horizontal toolbar: uncomment the following */
+/*
+div#pagemanager-toolbar.horizontal {
+    position: fixed;
+    top: 150px;
+    z-index: 1000;
+}
+*/
+
+div#pagemanager-toolbar.horizontal img {
+    margin: 8px 0;
+}
+
+div#pagemanager-toolbar.horizontal img.tool {
+    margin: 6px 2px;
+}
+
+div#pagemanager-toolbar.horizontal img.separator {
+    margin: 0 0 5px 0;
+}
+
+/*
+ * vertical toolbar
+ *
+ * The style should be adjusted to your needs.
+ * Change top and left accordingly.
+ */
+ 
+div#pagemanager-toolbar.vertical {
+    width: 25px;
+    text-align: center;
+    position: fixed;
+    margin: 0 auto;
+    padding: 0 2px;
+    z-index: 1000;
+}
+
+/* You might adjust the left or right margin of the treeview */
+/*
+#pagemanager {
+    margin-left: 32px;
+}
+*/
+/* and for a lefthand toolbar the margin of the submit button */
+/*
+#pagemanager-submit {
+    margin-left: 32px !important;
+}
+*/
+/* and for a righthand toolbar the position of the tooltips */
+/*
+div#pagemanager-toolbar.vertical a.pl_tooltip:hover span {
+    left: -320px;
+}
+*/
+
+div#pagemanager-toolbar.vertical img {
+    margin: 0 8px;
+}
+
+div#pagemanager-toolbar.vertical img.tool {
+    margin: 6px 2px;
+}
+
+div#pagemanager-toolbar.vertical img.separator {
+    margin: 0 2px;
+}
+
+
+/*
+ * Context menu
+ */
+
+/* To have enough space for the whole context menu, if the template has a small footer */
+div#pagemanager-footer {
+    height: 150px;
+}
+
+div#vakata-contextmenu {
+    width: 400px; 
+    text-align: left; 
+    padding: 9px 0;
+    font-family: arial; 
+    font-size: 14px;
+    /* the following line will open the context menu further to the right */
+    /* margin-left: 100px; */
+}
+
+div#vakata-contextmenu.jstree-cmsimple-context li.vakata-separator,
+div#vakata-contextmenu.jstree-classic-context li.vakata-separator,
+div#vakata-contextmenu.jstree-default-context li.vakata-separator,
+div#vakata-contextmenu.jstree-apple-context li.vakata-separator {
+    margin: 5px 0;
+}
+
+div#vakata-contextmenu ul {
+    width: 100%;
+}
+
+div#vakata-contextmenu li ins {
+    margin: 0 10px 0 6px;
+}

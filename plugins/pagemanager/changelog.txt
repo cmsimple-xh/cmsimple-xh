@@ -1,0 +1,103 @@
+Version 1beta2 - realeased 2011-07-29
+cmb	added old unload behaviour for Opera (inspired by Martin)
+
+Version 1beta1 - released 2011-07-27
+cmb	constrained with of treeview for better usability with table based layouts (solution provided by Gert)
+cmb	changed unload-event to confirm leaving the page
+cmb	extended requirements check
+
+Version 0.9.2 - released 2011-07-19
+cmb	removed superfluous clear:both from #pagemanager style (reported by bca)
+cmb	changed default layout of vertical toolbar (solution provided by Tata)
+cmb	changed treeview to fixed height with scrollbars (solution provided by Gert)
+cmb	compressed jsTree (solution provided by Gert)
+cmb	added screenshot of drag&drop operations to documentation (inspired by Tata)
+
+Version 0.9.1 - released 2011-07-17
+cmb	fixed bug with save icon display in FF5 (reported by Tata)
+cmb	added option toolbar_vertical for power users (suggested by Tata)
+
+Version 0.9 - released 2011-07-16
+cmb	changed opening postion of context menu to pointer (inspired by Ulrich)
+cmb	removed themeing support from base package to additional theme downloads
+cmb	changed default theme to cmsimple
+cmb	fixed bug: opening dialogs scrolls to top of page (reported by Ulrich)
+cmb	integrated save button to toolbar (suggested by Tata)
+cmb	added possibility to activate floating toolbar to stylesheet.css (inspired by Tata)
+cmb	added save confirmation to unload-event (suggested by Gert)
+cmb	updated documentation
+
+Version 0.8 - released 2011-07-15
+cmb	tree opens fully collapsed again (solution provided by Gert)
+cmb	adjusted display of toolbar (solution provided by Gert)
+cmb	changed pagedata_attribute to linked_to_menu by default (suggested by Gert)
+cmb	removed index.php (inspired by bjorn)
+cmb	added option toolbar_show (suggested by Gert)
+cmb	removed possibility to detach toolbar (inspired by Gert and Ulrich)
+cmb	added warning about no selection if using a tool that requires one (inspired by Gert and Ulrich)
+cmb	changed icons to gif-format (suggested by Gert)
+cmb	prohibited: deleting the last toplevel page
+cmb	updated documentation
+
+Version 0.7 - released 2011-07-13
+cmb	added footer to make context menu fully visible (inspired by Martin)
+cmb	removed deprecated call-by-ref from caller (reported by Martin)
+cmb	go to page admin after save (suggested by Gert)
+cmb	display new pages differently (suggested by Gert)
+cmb	addded handling of duplicates (suggested by Gert)
+cmb	added (detachable) toolbar as alternative to right-click contextmenu (inspired by Martin)
+cmb	added toolbuttons to expand and collapse the treeview
+cmb	change short help to be a tooltip (suggested by Gert)
+cmb	added checkboxes to manipulate pagedata (published/linked_to_menu) (inspired by bca)
+cmb	tree opens fully expanded
+cmb	toggle node is now triggered on double click
+cmb	cleaned up code
+cmb	updated documentation
+	
+Version 0.6 - released 2011-07-10
+cmb	removed background for all themes
+cmb	fixed "paste after" operation
+cmb	feedback on illegal create and paste operations (suggested by Ulrich)
+cmb	escape offending characters in strings in $cf and $tx used in JS (reported by Ulrich)
+cmb	fixed bug with duplicate titles (reported by Gert)
+cmb	added icons to context menu
+cmb	updated manual
+
+Version 0.5 - released 2011-07-07
+cmb	clicking a page title opens/closes the branch (inspired by Gert)
+cmb	cleaned up code of init.js and renamed to pagemanager.js
+cmb	changed to new stylesheet provided by Gert
+cmb	creating pages respects menu_levels (reported by Gert)
+cmb	changed to single selection only
+cmb	removing of pages requires confirmation (suggested by Gert and Holger)
+cmb	renamed 'remove' to 'delete'
+cmb	confirmations can be suppressed via config option (suggested by Ulrich)
+cmb	rearranged the context menu (suggested by Gert)
+cmb	updated documentation
+
+Version 0.4.3 - released 2011-07-06
+cmb	fixed severe bug which totally mixed up content of sites with more then 10 pages (reported by Ulrich and Gert)
+
+Version 0.4.2 - released 2011-07-06
+cmb	changed $plugin_tx['pagemanager']['help'] (reported by Ulrich)
+
+Version 0.4.1 - released 2011-07-06
+cmb	removed debug code which failed under certain browsers (reported by Gert)
+
+Version 0.4 - released 2011-07-05
+cmb	added support for creating new toplevel pages and pasting to the toplevel
+cmb	short usage instruction added on top of the page
+cmb	put jsTree initialization code to init.js as template
+cmb	rearranging the page structure now respects $cf[menu_levels] (suggested by snafu)
+cmb	warn about irregularities in page structure
+cmb	clean up page structure on save
+cmb	changed default theme to classic (suggested by snafu)
+cmb	updated documentation
+cmb	cosmetic changes
+
+Version 0.3 - released 2011-06-26
+cmb	updated to be used with jQuery4CMSimple
+cmb	cosmetic changes to code and documentation
+
+Version 0.1 - released 2011-06-24
+cmb	initial release
