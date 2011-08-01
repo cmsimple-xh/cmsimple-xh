@@ -23,15 +23,7 @@ if (preg_match('/functions.php/i', sv('PHP_SELF')))
 
 // Backward compatibility for DHTML menus - moved from functions.php to cms.php (CMSimple_XH 1.0)
 
-function daily_special($prefix) {
-    global $c, $cl, $h, $cf;
 
-    $heading = $prefix . date('w', time() - 2 * 60 * 60);
-    for ($i = 0; $i < $cl; $i++)
-        if ($h[$i] == $heading)
-            return preg_replace('/' . $cf['scripting']['regexp'] . '/is', '', $c[$i]);
-    return '';
-}
 
 // #CMSimple functions to use within content
 
