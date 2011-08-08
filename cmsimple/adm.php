@@ -21,30 +21,33 @@ if (preg_match('/adm.php/i', sv('PHP_SELF')))die('Access Denied');
 
 // Functions used for adm
 
-function selectlist($fn, $regm, $regr) {
+function selectlist($fn, $regm, $regr) 
+{
 	global $k1, $k2, $v2, $o, $pth;
 	$o .= '<select name="'.$k1.'_'.$k2.'">';
-	if ($fd = @opendir($pth['folder'][$fn])) {
-		while (($p = @readdir($fd)) == true) {
-				if (preg_match($regm, $p)) {
+	if ($fd = @opendir($pth['folder'][$fn])) 
+	{
+		while (($p = @readdir($fd)) == true) 
+		{
+			if (preg_match($regm, $p)) 
+			{
 				$v = preg_replace($regr, "\\1", $p);
-				$o .= '<option value="'.$v.'"';
-				if ($v == $v2) $o .= ' selected="selected"';
-				$o .= '>'.$v.'</option>';
+				$options[$v] = ($v == $v2);
 			}
 		}
 		closedir($fd);
 	}
-	$o .= '</select>';
-}
-
-function im($n, $p) {
-	if (!isset($_FILES)) {
-		global $_FILES;
-		$_FILES = $GLOBALS['HTTP_POST_FILES'];
+	ksort($options, SORT_STRING);
+	foreach ($options as $option => $selected) 
+	{
+		$o .= '<option value="'.$option.'"';
+		if ($selected) 
+		{
+			$o .= ' selected="selected"';
+		}
+		$o .= '>'.$option.'</option>';
 	}
-	if (isset($_FILES[$n][$p]))return $_FILES[$n][$p];
-	else return'';
+	$o .= '</select>';
 }
 
 // Adm functionality
