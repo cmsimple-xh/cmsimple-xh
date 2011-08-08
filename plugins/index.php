@@ -165,24 +165,34 @@ if ($adm) {
     $pluginloader_plugin_selectbox .= '<option value="?&amp;normal">' . $pluginloader_tx['menu']['select_plugin'] . '</option>' . "\n";
     $handle = opendir($pth['folder']['plugins']);
     $found_plugins = false;
-
-    while (FALSE !== ($plugin = readdir($handle))) {
-        if ($plugin != '.' && $plugin != '..' && is_dir($pth['folder']['plugins'] . $plugin)) {
-            PluginFiles($plugin);
-            if (file_exists($pth['file']['plugin_admin'])) {
-                $pluginloader_plugin_selectbox .= '<option value="' . $sn . '?&amp;' . $plugin . '&amp;normal"';
-                reset($_GET);
-                list ($firstgetkey) = each($_GET);
-                if ($firstgetkey == $plugin)
-                    $pluginloader_plugin_selectbox .= ' selected="selected"';
-                $pluginloader_plugin_selectbox .= '>' . ucwords($plugin) . '</option>' . "\n";
-                $admin_plugins[$i] = $plugin;
-                $found_plugins = true;
-                $i++;
-            } // if(file_exists($pth['file']['plugin_admin']))
+ 
+	while (FALSE!==($plugin = readdir($handle))) 
+	{
+		if($plugin != '.' && $plugin != '..' && is_dir($pth['folder']['plugins'].$plugin)) 
+		{
+			PluginFiles($plugin);
+			if(file_exists($pth['file']['plugin_admin'])) 
+			{
+				$admin_plugins[$i] = $plugin;
+				$found_plugins = true;
+				$i++;
+            }
         }
     }
-    $pluginloader_plugin_selectbox .= '</select>' . "\n" . '</form>' . "\n";
+	natcasesort($admin_plugins);
+	foreach ($admin_plugins as $plugin) 
+	{
+		PluginFiles($plugin);
+		$pluginloader_plugin_selectbox .= '<option value="'.$sn.'?&amp;'.$plugin.'&amp;normal"';
+		reset($_GET);
+		list ($firstgetkey) = each($_GET);
+		if($firstgetkey == $plugin)
+		{
+			$pluginloader_plugin_selectbox .= ' selected="selected"';
+		}
+		$pluginloader_plugin_selectbox .= '>'.ucwords($plugin).'</option>'."\n";
+	}
+	$pluginloader_plugin_selectbox .= '</select>'."\n".'</form>'."\n";
 
     PluginMenu('ROW', '', '', '');
     PluginMenu('DATA', '', '', $pluginloader_plugin_selectbox);
