@@ -1074,7 +1074,7 @@ function locator() {
     global $title, $h, $s, $f, $c, $l, $tx, $txc, $cf;
     if (hide($s) && $cf['hidden']['path_locator'] != 'true')
         return $h[$s];
-    if ($title != '' && (isset($h[$s]) && $h[$s] != $title))
+    if ($title != '' && (!isset($h[$s]) || $h[$s] != $title))
         return $title;
     $t = '';
     if ($s == 0)
