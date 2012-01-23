@@ -122,6 +122,8 @@ class XHFileBrowser {
                 }
             }
             closedir($handle);
+            natcasesort($this->folders);
+            natcasesort($this->files);
         }
     }
 
@@ -146,6 +148,7 @@ class XHFileBrowser {
                 }
             }
             closedir($handle);
+            natcasesort($folders);
         }
         return $folders;
     }
