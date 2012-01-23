@@ -30,6 +30,7 @@ textarea.plugininput:focus,.plugininputmax {
 }
 
 textarea.plugintextarea {
+	background: #fff;
 	font-family: 'courier new', serif;
 	font-size: 14px;
 	color: #333;
