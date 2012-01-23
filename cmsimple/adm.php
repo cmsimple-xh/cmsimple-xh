@@ -253,7 +253,13 @@ if ($adm) {
                     if ($file == 'language')
                         $a = 'tx';
                     if ($file == 'langconfig')
+                    {
+                        if($cf['language']['default'] == $sl)
+                        {
+                            unset($txc['subsite']);
+                        }
                         $a = 'txc';
+                    } 
 
 // disables editing of site title, keywords and description in config - by MD 2009-09 (CMSimple_XH beta3.2)
 
@@ -334,11 +340,11 @@ if ($adm) {
                 chkfile($file, true);
                 $title = ucfirst($tx['action']['edit']) . ' ' . (isset($tx['filetype'][$file]) ? $tx['filetype'][$file] : $file);
                 $o .= '<h1>' . $title . '</h1>' . "\n"; 
-				if(isset($a) && $a=='txc')
+				if(isset($a) && $a=='txc' && $cf['language']['default'] != $sl)
 				{
 					$o .= '<p>' . "\n" . $tx['help']['subsite'] . "\n" .'</p>' . "\n";
 					$o .= '<p class="cmsimplecore_warning" style="text-align: center;">' . "\n" . $tx['help']['langconfig'] . "\n" .'</p>' . "\n";
-				}
+				} 
 				$o .= '<form action="' . $sn . (isset($plugin) ? '?' . amp() . $plugin : '') . '" method="post">';
                 if ($form == 'array') {
                     $o .= tag('input type="submit" class="submit" value="' . ucfirst($tx['action']['save']) . '"') . "\n";
