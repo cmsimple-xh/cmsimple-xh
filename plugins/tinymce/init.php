@@ -164,11 +164,11 @@ function init_tinymce($classes = array(), $config = false) {
 	
 	//$temp .= tinymce_filebrowser();
 	
-	$temp = str_replace("%FILEBROWSER_CALLBACK%", $_SESSION['tinymce_fb_callback'], $temp);
-	
 	$imageList = !$run ? 'var myImageList = new Array('.get_images($pth['folder']['images']).');' : '';
 	$linkList = !$run ? 'var myLinkList = new Array('.get_internal_links($h, $u, $l, $sn, $pth['folder']['downloads']).');' : '';
 	$filebrowser = !$run ? tinymce_filebrowser() : '';
+	
+	$temp = str_replace("%FILEBROWSER_CALLBACK%", $_SESSION['tinymce_fb_callback'], $temp);
 
     $hjs .= <<<SCRIPT
 <script language="javascript" type="text/javascript">
