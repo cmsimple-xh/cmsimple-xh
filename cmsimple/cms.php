@@ -1114,7 +1114,7 @@ function admin_menu($plugins = array(), $debug = false) {
         $pluginMenu = '';
         if ((bool) $plugins) {
             sort($plugins, SORT_STRING);
-            $pluginMenu .= '<li><a href="javascript:void();">' . ucfirst($tx['editmenu']['plugins']) . "</a>\n    <ul>";
+            $pluginMenu .= '<li><a href="javascript:void(0);">' . ucfirst($tx['editmenu']['plugins']) . "</a>\n    <ul>";
             foreach ($plugins as $plugin) {
                 if($plugin === 'filebrowser'){
                  //   continue;
@@ -1139,7 +1139,7 @@ function admin_menu($plugins = array(), $debug = false) {
         $t .= '<li><a href="' . $sn . '?' . $su . '&' . $changeMode . '">' . $changeText . '</a></li>' . "\n";
 
         $t .= '<li><a href="' . $sn . '?&amp;normal&amp;xhpages" class="">' . ucfirst($tx['editmenu']['pagemanager']) . '</a></li>' . "\n";
-        $t .= '<li><a href="javascript:void();" class="">' . ucfirst($tx['editmenu']['files']) . '</a>' ."\n"; 
+        $t .= '<li><a href="javascript:void(0);" class="">' . ucfirst($tx['editmenu']['files']) . '</a>' ."\n"; 
         $t .= '    <ul>' . "\n";
         $t .= '    <li><a href="' . $sn . '?&amp;normal&amp;images">' . ucfirst($tx['editmenu']['images']) . '</a></li>' . "\n";
         $t .= '    <li><a href="' . $sn . '?&amp;normal&amp;downloads">' . ucfirst($tx['editmenu']['downloads']) . '</a></li>' . "\n";
