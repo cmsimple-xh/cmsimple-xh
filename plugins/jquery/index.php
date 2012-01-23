@@ -4,7 +4,8 @@
  *
  * @author Holger Irmler
  * @link http://cmsimple.holgerirmler.de
- * @version 1.2 - 2011-06-23
+ * @version 1.3 - 2011-07-27
+ * @build 2011072701
  * @package jQuery
  **/
 /* utf8-marker = äöüß */

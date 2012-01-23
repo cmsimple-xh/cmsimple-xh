@@ -12,6 +12,7 @@ ol li {line-height: 1.0em; border: 0; padding: 3px 0; margin: 0 0 0 22px;}
 ul {list-style-image: url(images/inhlist.gif); margin: 6px 0;}
 ul li {line-height: 1.2em; border: 0; padding: 3px 0; margin: 0 0 0 17px;}
 hr {height: 1px; clear: both; color: #999; background-color: #999; border: 0;}
+blockquote {padding: 2px 0 2px 20px; border-left: 3px solid #999;}
 
 
 /* BODY UND SEITE / BODY AND PAGE */

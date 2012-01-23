@@ -1,16 +1,25 @@
 <?php
 
-/* utf8-marker = äöüß */
+/* utf8-marker = äöü */
 /*
-  CMSimple version 1.5 beta - Aug. 2011
+  ======================================
+  CMSimple_XH 1.5.1
+  2012-01-03
+  based on CMSimple version 3.3 - December 31. 2009
+  For changelog, downloads and information please see http://www.cmsimple-xh.com
+  ======================================
+  -- COPYRIGHT INFORMATION START --
+  Based on CMSimple version 3.3 - December 31. 2009
   Small - simple - smart
-  © 1999-2008 Peter Andreas Harteg - peter@harteg.dk
+  © 1999-2009 Peter Andreas Harteg - peter@harteg.dk
 
-  This file is part of CMSimple
-  For licence see notice in /cmsimple/cms.php and http://www.cmsimple.org/?Licence
+  This file is part of CMSimple_XH
+  For licence see notice in /cmsimple/cms.php
+  -- COPYRIGHT INFORMATION END --
+  ======================================
  */
 
-if (eregi('search.php', sv('PHP_SELF'))) {
+if (strpos('search.php', strtolower(sv('PHP_SELF')))) {
     die('Access Denied');
 }
 
@@ -32,42 +41,28 @@ if ($search != '') {
     $words = explode(' ', $search);
 
     foreach ($c as $i => $pagexyz) {
-        if (!hide($i)) {
+        if (!hide($i) || $cf['hidden']['pages_search'] == 'true') {
             $found  = true;
-            preCallPlugins($i);
+	    $pagexyz = evaluate_plugincall($pagexyz, TRUE);
             $pagexyz = mb_strtolower(strip_tags($pagexyz), 'utf-8');
-            $pagexyz = html_entity_decode($pagexyz, ENT_QUOTES, 'utf-8') ;
-
-            preg_match("~".$cf['scripting']['regexp']."~is",  $pagexyz, $matches);
-            if(count($matches) > 0) {
-                $pagexyz = str_replace($matches[0], '', $pagexyz);
-                if(trim($matches[1]) !== 'hide' && trim($matches[1]) !== 'remove') {
-		    $output = '';
-		    $o = '';
-                    @eval($matches[1]);
-                    $pagexyz .= $output;
-                    $pagexyz .= $o;
-                }
-            }
-            foreach($words as $word) {
-                if(strpos($pagexyz, trim($word)) === false) {
+            $pagexyz = html_entity_decode($pagexyz, ENT_QUOTES, 'utf-8');
+            foreach ($words as $word) {
+                if (strpos($pagexyz, trim($word)) === false) {
                     $found = false;
                     break;
                 }
             }
-            if (!$found) {
-                continue;
-            }
+            if (!$found) {continue;}
             $ta[] = $i;
-
         }
     }
+    
     if(count($ta) > 0){
         $cms_searchresults = "\n" .'<ul>';
 	
 	$words = (implode( ",", $words));
         foreach($ta as $i){
-            $cms_searchresults .= "\n\t" . '<li><a href="' . $sn . '?' . $u[$i] . amp() . 'search=' . $words .'">' . $h[$i] . '</a></li>';
+            $cms_searchresults .= "\n\t" . '<li><a href="' . $sn . '?' . $u[$i] . amp() . 'search=' . urlencode($words) .'">' . $h[$i] . '</a></li>';
         }
         $cms_searchresults .= "\n" . '</ul>' . "\n";
     }

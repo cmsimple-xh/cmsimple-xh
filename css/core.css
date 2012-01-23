@@ -1,4 +1,176 @@
-/* some basic styles for backend */
+/* EDITMENU */
+
+#editmenu {
+    width: 100%;
+	min-width: 760px;
+    background-color: #2e3436;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    border-bottom: 1px solid #aaa;
+    color: #d3d7cf;
+}
+
+#editmenu ul {
+    height: 36px;
+	list-style-type: none !important;
+    list-style-image: none;
+    font-family: arial, sans-serif;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    background-color: #2e3436;
+}
+
+#editmenu li {
+    list-style-type: none !important;
+    float: left;
+    position: relative;
+    width: 125px;
+    background-color: #2e3436;
+	text-align: center;
+    color: #d3d7cf;
+    padding: 8px 0 0 0;
+	margin: 0;
+}
+
+#editmenu li a:hover, #editmenu li:hover {
+    background-color: #3f4446;
+}
+
+#editmenu  a, #editmenu a:visited {
+    display: block;
+    color: #d3d7cf;
+    height: 26px;
+    padding: 2px 6px 0px 6px;
+    text-decoration: none;
+    font-style: normal;
+}
+
+#editmenu ul ul {
+    list-style-type: none !important;
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: 36px; 
+    margin: 0;
+    z-index: 9999;
+    visibility: hidden;
+}
+
+#editmenu ul ul li {
+    background: #4f5456;
+    height: 26px;
+	padding: 3px 0 0 0;
+    margin: 0;
+}
+
+#editmenu ul ul li a {
+    height: 16px;
+	padding: 3px 0 0 0;
+	margin: 0;
+}
+
+#editmenu ul ul li:hover {
+    height: 26px;
+	padding: 3px 0 0 0;
+    background: #c50;
+}
+
+#editmenu ul ul li a:hover {
+    background: #c50;
+	height: 20px;
+	padding: 3px 0 0 0;
+	margin: 0;
+}
+
+#editmenu ul ul ul {
+    left: 100%;
+    top: 0px; 
+    visibility: hidden;
+	padding: 0;
+    margin: 0;
+}
+
+#editmenu ul ul ul li {
+    background: #c50;
+    height: 26px;
+	padding: 3px 0 0 0;
+	margin: 0;
+}
+
+#editmenu ul ul ul li a {
+    height: 26px;
+	padding: 3px 0 0 0;
+	margin: 0;
+}
+
+#editmenu ul ul ul li:hover {
+    background: #e70;
+    height: 26px;
+	padding: 3px 0 0 0;
+	margin: 0;
+}
+
+#editmenu ul ul ul li a:hover {
+    background: #e70;
+    height: 20px;
+	padding: 3px 0 0 0;
+	margin: 0;
+}
+
+#editmenu li:hover > ul {
+    visibility: visible;
+}
+
+div#admin-content-container{
+ /*   padding-top: 4ex; */
+}
+
+#edit_menu {
+width: 660px; 
+float: left;
+}
+
+#editmenu_logout {
+width: 98px; 
+float: right;
+}
+
+#edit_menu_logout {
+min-width: 100%; 
+max-width: 100%; 
+text-align: center;
+}
+
+/* ENDE EDITMENU */
+
+
+input.cmsimplecore_settings {
+width: 90%;
+font-size: 14px;
+color: #333;
+padding: 2px 3px;
+margin: 3px 0;
+border: 1px solid #ccc;
+background: #fff;
+}
+
+textarea.cmsimplecore_settings {
+width: 90%;
+height: 56px;
+font-size: 14px;
+color: #333;
+padding: 2px 3px;
+margin: 3px 0;
+border: 1px solid #ccc;
+background: #fff;
+}
+
+textarea.cmsimplecore_settings_short {
+height: 18px;
+}
 
 .edit {
 font-family: arial, sans-serif;
@@ -12,14 +184,17 @@ margin: 2px 0;
 padding: 4px 6px;
 }
 
-.text {
-background: #eee; 
-font-family: arial, sans-serif; 
-font-size: 14px; 
-color: #444; 
-border: 1px solid #666;
-padding: 2px 4px; 
+.text, .captchainput {
+font-family: arial, sans-serif;
+font-size: 14px;
+color: #444;
+padding: 2px 4px;
 margin: 0 0 2px 0;
+}
+
+.captchainput  {
+width:6ex;
+border: 1px solid #666;
 }
 
 .cmsimplecore_version {
@@ -31,14 +206,16 @@ padding: 0 2px;
 /* Info and Help link, Notices and Warnings */
 
 .cmsimplecore_debug {
+height: 18px;
 background: #900; 
 font-family: arial, sans-serif; 
 font-size: 14px; 
+line-height: 14px;
 color: #fff; 
 text-align: center; 
 border: 0px solid #000; 
 padding: 2px 6px; 
-margin: 4px 0;
+margin: auto;
 }
 
 .cmsimplecore_warning {
@@ -55,7 +232,7 @@ margin: 4px 0;
 
 textarea.cmsimplecore_file_edit {
 width: 99%; 
-font-family: 'courier new', serif;
+font-family: 'courier new', monospace;
 font-size: 14px;
 color: #333;
 padding: 0 !important;
@@ -68,6 +245,11 @@ text-align: center;
 }
 
 .flag {border: 0;}
+
+span.highlight_search {
+background: #fd0;
+color: #000;
+}
 
 
 /* LINKFORMATIERUNG / LINKS for backend */

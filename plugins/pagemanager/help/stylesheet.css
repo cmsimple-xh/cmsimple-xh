@@ -3,20 +3,30 @@ body {
     line-height: 150%;
     margin-left: 2em;
     margin-right: 2em;
-    text-align: justify;
     background: #ffffe1;
 }
 
 #body {
-    margin-left: 12em;
+    margin-left: 17em;
+}
+
+#body p {
+    text-align: justify;
 }
 
 #nav {
     margin-left: 0;
     float: left;
-    width: 10em;
+    width: 15em;
     list-style: none;
     padding-left: 0;
+    text-align: left;
+}
+
+#nav ul {
+    list-style: none;
+    font-size: small;
+    padding-left: 1em;
 }
 
 .image-right {
@@ -24,4 +34,8 @@ body {
     border: 1px solid black;
     margin-left: 1em;
     padding: 10px;
+}
+
+.toplink {
+    text-align: right;
 }

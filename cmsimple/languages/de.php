@@ -1,129 +1,201 @@
 <?php
-/* utf8-marker = äöüß */
-$tx['locator']['text']="Sie sind hier: ";
-$tx['locator']['home']="Startseite";
-$tx['languagemenu']['text']="Sprachauswahl: ";
-$tx['urichar']['org']="";
-$tx['urichar']['new']="";
 
-$tx['link']['checked'] = " Links wurden geprüft. ";
-$tx['link']['check_ok'] = "Keine Fehler gefunden!";
-$tx['link']['check_errors'] = "Gefundene Fehler und Hinweise: ";
-$tx['link']['check'] = "Bitte prüfen Sie: ";
-$tx['link']['page'] = "Seite: ";
-$tx['link']['errors'] = "Fehler: ";
-$tx['link']['hints'] = "Hinweise: ";
-$tx['link']['link'] = "Link: ";
-$tx['link']['linked_page'] = "Linkziel: ";
-$tx['link']['error'] = "Fehler: ";
-$tx['link']['not_available'] = "Die verlinkte Seite ist nicht erreichbar.";
-$tx['link']['returned_status'] = "http Statuscode: ";
-$tx['link']['int_error'] ="Fehlerhafter interner Link, Seite existiert nicht.";
-$tx['link']['ext_error_domain'] ="Fehlerhafter externer Link, Domain existiert nicht.";
-$tx['link']['ext_error_page'] ="Fehlerhafter externer Link, Seite existiert nicht.";
-$tx['link']['redirect'] ="Die verlinkte Seite ist weitergeleitet. Bitte überprüfen Sie den Link.";
-$tx['link']['email'] ="Ist diese e-mail Adresse noch aktuell?";
-$tx['link']['unknown']="Unbekanntes Problem, bitte prüfen sie den Link von Hand.";
-
-$tx['meta']['codepage']="utf-8";
-$tx['menu']['login']="Login";
-$tx['menu']['mailform']="e-mail Formular";
-$tx['menu']['print']="Druckversion";
-$tx['menu']['sitemap']="Inhaltsverzeichnis";
-$tx['submenu']['heading']="weiter zu:";
-$tx['title']['images']="Bilder";
-$tx['title']['downloads']="Downloads";
-$tx['title']['mailform']="e-mail Formular";
-$tx['title']['search']="Suchen";
-$tx['title']['settings']="Einstellungen";
-$tx['title']['sitemap']="Sitemap";
-$tx['title']['validate']="Links prüfen";
-$tx['navigator']['next']="nächste Seite »";
-$tx['navigator']['previous']="« vorige Seite";
-$tx['navigator']['top']="Seitenanfang";
-$tx['lastupdate']['text']="Letzte Änderung";
-$tx['lastupdate']['dateformat']="F d. Y H:i:s";
-$tx['search']['button']="Suchen";
-$tx['search']['foundin']="wurde gefunden auf";
-$tx['search']['notfound']="wurde nicht gefunden";
-$tx['search']['pgplural']="Seiten";
-$tx['search']['pgsingular']="Seite";
-$tx['search']['result']="Suchergebnis";
-$tx['mailform']['notaccepted']="Bitte füllen Sie das Formular komplett aus!";
-$tx['mailform']['notsend']="Die Nachricht konnte nicht versendet werden";
-$tx['mailform']['send']="Die Nachricht wurde versendet";
-$tx['mailform']['sender']="Ihre e-mail Adresse";
-$tx['mailform']['sendername']="Ihr Name";
-$tx['mailform']['senderphone']="Ihre Telefon-Nr.";
-$tx['mailform']['captcha']="Spamschutz";
-$tx['mailform']['sendbutton']="Senden";
-$tx['mailform']['message']="Senden sie uns eine e-mail.";
-$tx['title']['guestbook']="Guestbook";
-$tx['login']['warning']="Dieses System darf ausschließlich von autorisierten Personen genutzt werden";
-$tx['login']['loggedout']="Sie wurden ausgeloggt";
-$tx['log']['dateformat']="Y-m-d H:i:s";
-$tx['log']['loggedin']="Eingeloggt";
-$tx['editmenu']['downloads']="Downloads";
-$tx['editmenu']['help']="Hilfe";
-$tx['editmenu']['images']="Bilder";
-$tx['editmenu']['logout']="Logout";
-$tx['editmenu']['edit']="Seite bearbeiten";
-$tx['editmenu']['normal']="Seite ansehen";
-$tx['editmenu']['settings']="Einstellungen";
-$tx['editmenu']['validate']="Links prüfen";
 $tx['action']['delete']="löschen";
 $tx['action']['download']="download";
 $tx['action']['edit']="editieren";
 $tx['action']['save']="sichern";
 $tx['action']['upload']="upload";
 $tx['action']['view']="ansehen";
+$tx['editmenu']['configuration']="CMS";
+$tx['editmenu']['downloads']="Downloads";
+$tx['editmenu']['edit']="Bearbeiten";
+$tx['editmenu']['files']="Dateien";
+$tx['editmenu']['help']="Hilfe";
+$tx['editmenu']['images']="Bilder";
+$tx['editmenu']['langconfig']="Website";
+$tx['editmenu']['language']="Sprache";
+$tx['editmenu']['log']="Log-Datei";
+$tx['editmenu']['logout']="Logout";
+$tx['editmenu']['media']="Media";
+$tx['editmenu']['normal']="Vorschau";
+$tx['editmenu']['pagemanager']="Seiten";
+$tx['editmenu']['plugins']="Plugins";
+$tx['editmenu']['settings']="Einstellungen";
+$tx['editmenu']['stylesheet']="Stylesheet";
+$tx['editmenu']['sysinfo']="Info";
+$tx['editmenu']['template']="Template";
+$tx['editmenu']['userfiles']="Andere";
+$tx['editmenu']['validate']="Links prüfen";
+
+$tx['error']['401']="Fehler 401: Nicht erlaubt";
+$tx['error']['404']="Fehler 404: Nicht gefunden";
+$tx['error']['alreadyexists']="Existiert bereits";
+$tx['error']['cntdelete']="Nicht löschbar:";
+$tx['error']['cntlocateheading']="Keine Seite ausgewählt";
+$tx['error']['cntopen']="Nicht zu öffnen:";
+$tx['error']['cntsave']="Nicht abspeicherbar:";
+$tx['error']['cntwriteto']="Nicht schreibbar:";
+$tx['error']['missing']="Fehlt";
+$tx['error']['notreadable']="Nicht lesbar";
+$tx['error']['notwritable']="Nicht schreibbar";
+$tx['error']['tolarge']="ist zu groß! Die Maximalgröße ist";
+$tx['error']['undefined']="Undefiniert";
+$tx['error']['wrongext']="Falsche Dateierweiterung in";
+
+$tx['files']['bytes']="Bytes";
+$tx['files']['totalsize']="Gesamtgröße";
+
+$tx['filetype']['backup']="Sicherung";
+$tx['filetype']['config']="CMS Konfiguration";
+$tx['filetype']['content']="Content-Datei";
+$tx['filetype']['execute']="Ausführen";
+$tx['filetype']['file']="Datei";
+$tx['filetype']['folder']="Ordner";
+$tx['filetype']['langconfig']="Website Konfiguration";
+$tx['filetype']['language']="Sprach-Datei";
+$tx['filetype']['log']="Log-Datei";
+$tx['filetype']['pagedata']="Pagedata-Datei";
+$tx['filetype']['stylesheet']="CSS-Datei";
+$tx['filetype']['template']="Template-Datei";
+
+$tx['heading']['error']="FEHLER";
+$tx['heading']['warning']="FEHLER–HINWEIS";
+
+$tx['help']['downloads_maxsize']="Maximale Größe für das Hochladen von Datein in den Downloads-Ordner in Byte";
+$tx['help']['editmenu_scroll']="Bei <b>true</b> scrollt das Admin Menü mit";
+$tx['help']['editor_height']="Integer oder JavaScript-Ausdruck, der einen Integer liefert für die Editorhöhe in Pixel.";
+$tx['help']['editor_external']="Wenn Sie einen externen Editor nutzen wollen, installieren Sie ihn als Plugin und tragen Sie seinen Namen hier ein.";
+$tx['help']['filebrowser_external']="Wenn Sie einen externen Datei-Browser verwenden möchten, z.B. hi_kcfinder, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
+$tx['help']['functions_file']="Bitte nicht ändern";
+
+$tx['help']['hidden_path_locator']="<p><b>true</b> zeigt den Pfad einer versteckten Seite im Locator (Breadcrumb Navigation).</p>";
+$tx['help']['hidden_pages_search']="<p><b>true</b> zeigt versteckte Seiten in den Ergebnissen der internen Suchfunktion an.</p>";
+$tx['help']['hidden_pages_sitemap']="<p><b>true</b> zeigt versteckte Seiten im Inhaltsverzeichnis.</p>";
+$tx['help']['hidden_pages_toc']="<p><b>true</b> zeigt versteckte Seiten im Navigationsmenü, wenn sie aufgerufen sind (z. B. aufgerufen per Link).</p>";
+
+$tx['help']['images_maxsize']="Maximale Größe für das Hochladen von Bildern in Byte";
+$tx['help']['language_default']="Die Hauptsprache der Website";
+$tx['help']['langconfig']="Die Einstellungen von <b>Template</b> und <b>Password</b> <br />ersetzen die Einstellungen in der CMS Konfiguration!";
+$tx['help']['locator_show_homepage']="<b>true</b> erzeugt am Anfang des Locators einen Link zur Startseite";
+$tx['help']['menu_color']="Nicht von CMSimple_XH Systemfunktionen genutzt";
+$tx['help']['menu_highlightcolor']="Nicht von CMSimple_XH Systemfunktionen genutzt";
+$tx['help']['menu_levels']="Einstellungen von 1 bis 6 Menü-Niveaus sind möglich.";
+$tx['help']['pagemanager_external']="Wenn Sie einen externen Seiten-Manager verwenden möchten, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
+$tx['help']['plugins_folder']="Bitte nicht ändern";
+$tx['help']['scripting_regexp']="Bitte nicht ändern";
+$tx['help']['security_password']="<p>Standard-Passwort für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:</p><p><b>Einstellungen => CMSimple => Website</b></p>";
+$tx['help']['site_template']="<p>Standard-Template für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:</p><p><b>Einstellungen => CMSimple => Website</b></p></p>";
+$tx['help']['subsite']="<b>Subsite:</b> Zweitsprache oder eine weitere unabhängige Website, die mit der gleichen Installation von CMSimple_XH betrieben wird.";
+$tx['help']['uri_seperator']="Das Zeichen, das in der Adresszeile den Seitennamenin der Struktur trennt.";
+$tx['help']['xhtml_amp']="<b>true</b> konvertiert <b>&</b> zu <b>&amp;amp;</b> im Inhalt. Änderung nicht empfohlen.";
+$tx['help']['xhtml_endtags']="<b>true</b> erzeugt im Inhalt die für bestimmte XHTML-Auszeichnungselemente erforderlichen Abschluss-Schrägstriche, wie &lt;br /&gt; etc.";
+
+$tx['images']['usedin']="Benutzt in";
+
+$tx['languagemenu']['text']="Sprachauswahl: ";
+
+$tx['lastupdate']['dateformat']="d.m.Y, H:i";
+$tx['lastupdate']['text']="Letzte Änderung";
+
+$tx['link']['check']="Bitte überprüfen: ";
+$tx['link']['check_errors']="Gefundene Fehler und Hinweise: ";
+$tx['link']['check_ok']="Keine Fehler gefunden!";
+$tx['link']['checked']=" Links wurden geprüft. ";
+$tx['link']['email']="Ist diese E-Mail-Adresse noch aktuell?";
+$tx['link']['error']="Fehler: ";
+$tx['link']['errors']="Fehler: ";
+$tx['link']['ext_error_domain']="Fehlerhafter externer Link, Domain nicht erreichbar.";
+$tx['link']['ext_error_page']="Fehlerhafter externer Link, Seite nicht erreichbar.";
+$tx['link']['hints']="Hinweise:";
+$tx['link']['int_error']="Fehlerhafter interner Link, Seite existiert nicht.";
+$tx['link']['link']="Link: ";
+$tx['link']['linked_page']="Linkziel: ";
+$tx['link']['page']="Seite: ";
+$tx['link']['redirect']="Verlinkte Seite wird weitergeleitet, bitte Link überprüfen.";
+$tx['link']['returned_status']="http Statuscode: ";
+$tx['link']['unknown']="Unbekanntes Problem, bitte Link überprüfen.";
+
+$tx['locator']['home']="Startseite";
+$tx['locator']['text']="Sie sind hier: ";
+
+$tx['log']['dateformat']="Y-m-d H:i:s";
+$tx['log']['loggedin']="Eingeloggt";
+
+$tx['login']['loggedout']="Sie wurden ausgeloggt";
+$tx['login']['warning']="Administrationsbereich. Bitte Passwort eingeben";
+
+$tx['mailform']['captcha']="Bitte diese Zahl eingeben (Spamschutz)";
+$tx['mailform']['captchafalse']="Bitte Zahl zum Schutz vor Spam eingeben";
+$tx['mailform']['mustwritemessage']="Bitte Mitteilungstext eingeben";
+$tx['mailform']['notaccepted']="Bitte erforderliche Felder ausfüllen";
+$tx['mailform']['notsend']="Die Nachricht konnte nicht versendet werden";
+$tx['mailform']['send']="Die Nachricht wurde versendet";
+$tx['mailform']['sendbutton']="Senden";
+$tx['mailform']['sender']="E-Mail-Adresse (erforderlich)";
+$tx['mailform']['sendername']="Name";
+$tx['mailform']['senderphone']="Telefon-Nr.";
+
+$tx['menu']['login']="Login";
+$tx['menu']['mailform']="Kontakt-Formular";
+$tx['menu']['print']="Druckansicht";
+$tx['menu']['sitemap']="Inhaltsverzeichnis";
+
+$tx['meta']['codepage']="utf-8";
+
+$tx['navigator']['next']="nächste Seite »";
+$tx['navigator']['previous']="« vorige Seite";
+$tx['navigator']['top']="Seitenanfang";
+
 $tx['result']['created']="angelegt";
 $tx['result']['deleted']="gelöscht";
-$tx['result']['uploaded']="hochgeladen ";
-$tx['filetype']['folder']="Ordner";
-$tx['filetype']['file']="Datei";
-$tx['filetype']['backup']="Sicherung";
-$tx['filetype']['content']="Content-Datei";
-$tx['filetype']['pagedata']="Seitendaten-Datei";
-$tx['filetype']['execute']="Ausführen";
-$tx['filetype']['log']="Log-Datei";
-$tx['filetype']['stylesheet']="Stylesheet";
-$tx['filetype']['template']="Vorlage-Datei";
-$tx['filetype']['language']="Sprache";
-$tx['filetype']['langconfig']="globale Seitentitel, Meta-Tags und Template Texte";
-$tx['filetype']['config']="Konfiguration";
-$tx['images']['usedin']="Benutzt in";
-$tx['files']['totalsize']="Gesamtgröße";
-$tx['files']['bytes']="bytes";
-$tx['heading']['error']="FEHLER";
-$tx['heading']['warning']="WARNUNG";
+$tx['result']['uploaded']="hochgeladen";
+
+$tx['search']['button']="Suchen";
+$tx['search']['foundin']="wurde gefunden auf";
+$tx['search']['notfound']="wurde nicht gefunden";
+$tx['search']['pgplural']="Seiten";
+$tx['search']['pgsingular']="Seite";
+$tx['search']['result']="Suchergebnis";
+
+$tx['settings']['backup']="Sicherheitskopien";
+$tx['settings']['backupexplain1']="Beim Logout wird eine Sicherheitskopie des Inhalts angelegt. Die älteste Kopie wird gelöscht.";
+$tx['settings']['backupexplain2']="Sicherheitskopie-Namen beginnen mit Datum und Uhrzeit der Erstellung: YYYYMMDD_HHMMSS .";
+$tx['settings']['backupexplain3']="Bitte Content-Datei und Pagedata-Datei immer zusammen sichern!";
+$tx['settings']['ftp']="Bitte FTP zur Dateiverwaltung benutzen.";
+$tx['settings']['systemfiles']="Systemdateien";
+$tx['settings']['warning']="Bitte hier nur solche Änderungen durchführen, bei denen Sie genau wissen, was diese bewirken!";
+
+$tx['submenu']['heading']="weiter zu:";
+
+$tx['sysinfo']['helplinks']="Hilfe und Informationen";
+$tx['sysinfo']['php_version']="PHP-Version";
+$tx['sysinfo']['phpinfo_hint']="(wird in einem neuen Fenster oder Tab geöffnet)";
+$tx['sysinfo']['phpinfo_link']="PHP Info »";
+$tx['sysinfo']['plugins']="Installierte Plugins";
+$tx['sysinfo']['version']="Installierte CMSimple Version";
+
+$tx['template']['default']="Standard Template";
+
+$tx['title']['downloads']="Downloads";
+$tx['title']['images']="Bilder";
+$tx['title']['mailform']="Kontakt-Formular";
+$tx['title']['media']="Media-Dateien";
+$tx['title']['phpinfo']="PHP-Info";
+$tx['title']['search']="Suchen";
+$tx['title']['settings']="Einstellungen";
+$tx['title']['sitemap']="Sitemap";
+$tx['title']['sysinfo']="System-Info";
+$tx['title']['userfiles']="Andere";
+$tx['title']['validate']="Links prüfen";
+
 $tx['toc']['dupl']="DOPPELTE ÜBERSCHRIFT";
 $tx['toc']['empty']="LEERE ÜBERSCHRIFT";
 $tx['toc']['missing']="FEHLENDE ÜBERSCHRIFT";
 $tx['toc']['newpage']="NEUE SEITE";
-$tx['error']['401']="Fehler 401: Nicht erlaubt";
-$tx['error']['404']="Fehler 404: Nicht gefunden";
-$tx['error']['tolarge']="ist zu groß! Die Maximalgröße ist";
-$tx['error']['cntlocateheading']="Überschrift nicht gefunden";
-$tx['error']['cntwriteto']="Konnte nicht geschrieben werden:";
-$tx['error']['cntdelete']="Konnte nicht gelöscht werden:";
-$tx['error']['cntsave']="Konnte nicht gesichert werden:";
-$tx['error']['cntopen']="Konnte nicht geöffnet werden:";
-$tx['error']['wrongext']="Falsche Dateierweiterung in";
-$tx['error']['alreadyexists']="Existiert bereits";
-$tx['error']['undefined']="Undefiniert";
-$tx['error']['missing']="Fehlt";
-$tx['error']['notreadable']="Nicht lesbar";
-$tx['error']['notwritable']="Nicht schreibbar";
-$tx['error']['mustwritemes']="Sie müssen etwas schreiben";
-$tx['error']['mustwritemail']="Sie müssen eine vorschriftsmäßige e-Mail schreiben";
-$tx['settings']['backup']="Sicherheitskopie";
-$tx['settings']['ftp']="Benutzen Sie FTP zur Dateiverwaltung.";
-$tx['settings']['warning']="Machen Sie hier keine Änderungen falls Sie nicht genau wissen, was Sie tun!";
-$tx['settings']['systemfiles']="Systemdateien";
-$tx['settings']['backupexplain1']="Beim Logout wird eine Sicherheitskopie des Inhalts angelegt. Die älteste Kopie wird gelöscht.";
-$tx['settings']['backupexplain2']="Die Uhrzeit und das Datum der Sicherheitskopie können Sie anhand des Dateinamens ermitteln: YYYYMMDDHHMMSS .";
-$tx['settings']['backupexplain3']="Bitte sichern Sie die Content-Datei und die Seitendaten-Datei immer zusammen!";
+
+$tx['urichar']['new']="";
+$tx['urichar']['org']="";
+
 $tx['validate']['extfail']="EXTERNE VERLINKUNG SCHEITERTE";
 $tx['validate']['extok']="EXTERNE VERLINKUNG OK";
 $tx['validate']['intfail']="INTERNE VERLINKUNG SCHEITERTE";
@@ -131,13 +203,7 @@ $tx['validate']['intfilok']="INTERNE VERLINKUNG AUF DATEI OK";
 $tx['validate']['intok']="INTERNE VERLINKUNG OK";
 $tx['validate']['mailto']="MAILTO VERLINKUNG";
 $tx['validate']['notxt']="KEIN TEXT IN VERLINKUNG";
-$tx['help']['mailform_email']="Wenn gesetzt, wird das Mailformular eingeschaltet";
-$tx['sysinfo']['link']="System Info und Hilfe &raquo;";
-$tx['sysinfo']['headline']="System Info:";
-$tx['sysinfo']['version']="Installierte CMSimple Version:";
-$tx['sysinfo']['plugins']="Installierte Plugins:";
-$tx['sysinfo']['helplinks']="Info und Hilfe Links:";
-$tx['sysinfo']['php_version']="PHP-Version:";
-$tx['sysinfo']['phpinfo_link']="PHP Info &raquo;";
-$tx['sysinfo']['phpinfo_hint']="(Öffnet in einem neuen Fenster oder Tab)";
+
+$tx['utf-8']['marker']="äöü";
+
 ?>

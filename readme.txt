@@ -1,6 +1,6 @@
 ======================================
-CMSimple_XH 1.4
-19-01-2011
+CMSimple_XH 1.5
+19-12-2011
 based on CMSimple version 3.3 - December 31. 2009
 ======================================
 
@@ -13,10 +13,3 @@ Description:
     The headings H4-H6 can be used for structurize the content within the single
     pages.
 
-Changes in this version:
-    - added CMSimple root folder to cookies
-    - added italian & czech lang
-    - removed swf & flvPlayer
-    - Updated FCKeditor to 2.6.6
-    - made FCKeditor height configurable
-    - removed oEdit WYSIWYG

@@ -1,4 +1,48 @@
-Version 1beta2 - realeased 2011-07-29
+Version 1pl1 - released 2011-12-16
+cmb	removed beta warning in manual
+cmb	cosmetic changes in manual
+cmb	added defaultconfig.php for CMSimple_XH 1.5
+
+Version 1 - released 2011-11-16
+cmb	added french language file (provided by Bob)
+
+Version 1rc4 - released 2011-10-23
+cmb	made plugin administration available, even if another external pagemanager is configured
+cmb	changed YES/NO in configuration to true/false
+cmb	changed languages files accordingly
+
+Version 1rc3 - internally released 2011-10-14
+cmb	minimal cosmetic changes
+cmb	updated czech language file (provided by oldnema)
+cmb	updated danish language file
+cmb	added: resign if external pagemanager is configured in CMSimple_XH 1.5
+
+Version 1rc2 - released 2011-09-30
+cmb	minimal cosmetic changes
+cmb	added hook for new edit menu of CMSimple_XH 1.5
+cmb	updated jsTree to pre1.0fix1
+
+Version 1rc1 - released 2011-09-23
+cmb	minimal cosmetic changes and optimisations
+cmb	actually included danish translation
+cmb	updated language files
+
+Version 1beta6 - released 2011-08-12
+cmb	fixed bug regarding page titles starting with a digit (reported by Ulrich)
+
+Version 1beta5 - released 2011-08-11
+cmb	added danish translation (provided by maeg)
+cmb	fixed bug with formatted headings (reported by bd0 and Gert)
+
+Version 1beta4 - released 2011-08-10
+cmb	fixed bug with html special chars in page titles (reported by Gert)
+cmb	added czech translation (provided by oldnema)
+
+Version 1beta3 - released 2011-08-05
+cmb	added slovak translation (provided by Tata)
+cmb	added further security check
+
+Version 1beta2 - released 2011-07-29
 cmb	added old unload behaviour for Opera (inspired by Martin)
 
 Version 1beta1 - released 2011-07-27

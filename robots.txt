@@ -3,9 +3,10 @@ User-agent: *
 Disallow: /cmsimple/
 Disallow: /content/
 Disallow: /downloads/
-Disallow: /FCKeditor/
 Disallow: /images/
 Disallow: /plugins/
 Disallow: /templates/
+Disallow: /2lang/
+Disallow: /2site/
 
 #Sitemap: http://www.yourdomain.tld/sitemap.xml.gz

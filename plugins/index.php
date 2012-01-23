@@ -2,7 +2,7 @@
 
 /* utf8-marker = äöüß */
 /**
- * Pluginloader Version 2.1 beta 11 (V.2.1.11)
+ * Pluginloader Version 2.1 beta 12 (V.2.1.12)
  * For the usage in CMSimple up from version V.2.6 unto V.3.2
  * (actual release) including CMSimple-XH.
  * Handles loading of pluginloader-2.0 and -2.1 compatible plugins.
@@ -118,15 +118,28 @@ if (!isset($hjs)) {
 
 $pluginloader_cfg['folder_down'] = '';
 
-/**
- * Set language for the Plugin Loader
- */
-if (preg_match('/\/[A-z]{2}\/[^\/]*/', sv('PHP_SELF'))) {
-    $pluginloader_cfg['language'] = strtolower(preg_replace('/.*\/([A-z]{2})\/[^\/]*/', '\1', sv('PHP_SELF')));
-    $pluginloader_cfg['folder_down'] = '.';
-} else {
-    $pluginloader_cfg['language'] = strtolower($cf['language']['default']);
+
+// subsite - pluginloader laguage settings
+
+if(file_exists('../plugins/pluginloader/languages/'.$sl.'.php')) 
+{
+	$pluginloader_cfg['language'] = $sl;
+	$pluginloader_cfg['folder_down'] = '.';
+} 
+else 
+{
+	$pluginloader_cfg['language'] = strtolower('en');
+	$pluginloader_cfg['folder_down'] = '.';
 }
+
+if(file_exists('./plugins/pluginloader/languages/'.$sl.'.php'))
+{
+	$pluginloader_cfg['language'] = $sl;
+	$pluginloader_cfg['folder_down'] = '';
+}
+
+// END subsite - pluginloader laguage settings
+
 
 if (!isset($cf['plugins']['folder']) OR empty($cf['plugins']['folder']) OR !is_dir($cf['plugins']['folder'])) {
     $cf['plugins']['folder'] = 'plugins';
@@ -165,39 +178,35 @@ if ($adm) {
     $pluginloader_plugin_selectbox .= '<option value="?&amp;normal">' . $pluginloader_tx['menu']['select_plugin'] . '</option>' . "\n";
     $handle = opendir($pth['folder']['plugins']);
     $found_plugins = false;
- 
-	while (FALSE!==($plugin = readdir($handle))) 
-	{
-		if($plugin != '.' && $plugin != '..' && is_dir($pth['folder']['plugins'].$plugin)) 
-		{
-			PluginFiles($plugin);
-			if(file_exists($pth['file']['plugin_admin'])) 
-			{
-				$admin_plugins[$i] = $plugin;
-				$found_plugins = true;
-				$i++;
+
+    while (FALSE !== ($plugin = readdir($handle))) {
+        if ($plugin != '.' && $plugin != '..' && is_dir($pth['folder']['plugins'] . $plugin)) {
+            PluginFiles($plugin);
+            if (file_exists($pth['file']['plugin_admin'])) {
+                $admin_plugins[$i] = $plugin;
+                $found_plugins = true;
+                $i++;
             }
         }
     }
-	natcasesort($admin_plugins);
-	foreach ($admin_plugins as $plugin) 
-	{
-		PluginFiles($plugin);
-		$pluginloader_plugin_selectbox .= '<option value="'.$sn.'?&amp;'.$plugin.'&amp;normal"';
-		reset($_GET);
-		list ($firstgetkey) = each($_GET);
-		if($firstgetkey == $plugin)
-		{
-			$pluginloader_plugin_selectbox .= ' selected="selected"';
-		}
-		$pluginloader_plugin_selectbox .= '>'.ucwords($plugin).'</option>'."\n";
-	}
-	$pluginloader_plugin_selectbox .= '</select>'."\n".'</form>'."\n";
+    natcasesort($admin_plugins);
+    foreach ($admin_plugins as $plugin) {
+        PluginFiles($plugin);
+        $pluginloader_plugin_selectbox .= '<option value="' . $sn . '?&amp;' . $plugin . '&amp;normal"';
+        reset($_GET);
+        list ($firstgetkey) = each($_GET);
+        if ($firstgetkey == $plugin) {
+            $pluginloader_plugin_selectbox .= ' selected="selected"';
+        }
+        $pluginloader_plugin_selectbox .= '>' . ucwords($plugin) . '</option>' . "\n";
+    }
+    $pluginloader_plugin_selectbox .= '</select>' . "\n" . '</form>' . "\n";
 
-    PluginMenu('ROW', '', '', '');
-    PluginMenu('DATA', '', '', $pluginloader_plugin_selectbox);
+ //   PluginMenu('ROW', '', '', '');
+ //   PluginMenu('DATA', '', '', $pluginloader_plugin_selectbox);
 
-    $o .= PluginMenu('SHOW');
+ //   $o .= PluginMenu('SHOW');
+    $o .= ' ';
 } // if($adm)
 
 
@@ -224,27 +233,33 @@ rewinddir($handle);
 
 while (FALSE !== ($plugin = readdir($handle))) {
 
+
     if ($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'] . $plugin)) {
 
         PluginFiles($plugin);
 
         // Load plugin config
+	if (file_exists($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php')) {
+	    include($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php');
+	}
         if (file_exists($pth['file']['plugin_config'])) {
             include($pth['file']['plugin_config']);
         }
-
-        // If current language file is missing try to copy english language to current language file
-        if (!file_exists($pth['file']['plugin_language'])) {
-            if (file_exists($pth['folder']['plugins'] . $plugin . '/languages/en.php')) {
-                $is_copied = copy($pth['folder']['plugins'] . $plugin . '/languages/en.php', $pth['file']['plugin_language']);
-                if ($is_copied == FALSE) {
-                    // Set language file to "EN" if copying failed
-                    $pth['file']['plugin_language'] = $pth['folder']['plugins'] . $plugin . '/languages/en.php';
-                }
-            }
+    
+    // If plugin language is missing, copy default.php or en.php
+    if (!file_exists($pth['file']['plugin_language'])) {
+        if (file_exists($pth['folder']['plugins'].$plugin.'/languages/default.php')) {
+        copy($pth['folder']['plugins'].$plugin.'/languages/default.php', $pth['file']['plugin_language']);
+        } elseif (file_exists($pth['folder']['plugins'].$plugin.'/languages/en.php')) {
+        copy($pth['folder']['plugins'].$plugin.'/languages/en.php', $pth['file']['plugin_language']);
         }
-
-        // Load plugin language or die
+    }
+    
+    // Load default plugin language
+    if (file_exists($pth['folder']['plugins'] . $plugin . '/languages/default.php')) {
+         include $pth['folder']['plugins'] . $plugin . '/languages/default.php';
+    }
+        // Load plugin language
         if (file_exists($pth['file']['plugin_language'])) {
             include($pth['file']['plugin_language']);
         }
@@ -320,11 +335,7 @@ function PluginFiles($plugin) {
     $pth['file']['plugin_index'] = $pth['folder']['plugin'] . 'index.php';
     $pth['file']['plugin_admin'] = $pth['folder']['plugin'] . 'admin.php';
 
-    if (file_exists($pth['folder']['plugin_languages'] . strtolower($sl) . '.php')) {
-        $pth['file']['plugin_language'] = $pth['folder']['plugin_languages'] . strtolower($sl) . '.php';
-    } else {
-        $pth['file']['plugin_language'] = $pth['folder']['plugin_languages'] . strtolower($cf['language']['default']) . '.php';
-    }
+    $pth['file']['plugin_language'] = $pth['folder']['plugin_languages'] . strtolower($sl) . '.php';
 
     $pth['file']['plugin_classes'] = $pth['folder']['plugin_classes'] . 'required_classes.php';
     $pth['file']['plugin_config'] = $pth['folder']['plugin_config'] . 'config.php';
@@ -515,7 +526,7 @@ function PluginPrepareConfigData($var_name='', $data=ARRAY(), $plugin='') {
         if (!empty($plugin)) {
             $save_data .= '[\'' . $plugin . '\']';
         }
-        $save_data .= '[\'' . $key . '\']="' . str_replace("\\'", "'", ((get_magic_quotes_gpc() === 1) ? $value : addslashes($value))) . '";' . "\n";
+        $save_data .= '[\'' . $key . '\']="' . trim(str_replace("\\'", "'", ((get_magic_quotes_gpc() === 1) ? $value : addslashes($value)))) . '";' . "\n";
     }
     $save_data .= "\n?>";
     return $save_data;
@@ -636,7 +647,7 @@ function PluginSaveForm($form=ARRAY(), $style=ARRAY(), $data=ARRAY(), $hint=ARRA
  */
 function print_plugin_admin($main) {
 
-    global $sn, $plugin, $pth, $sl;
+    global $sn, $plugin, $pth, $sl, $cf;
     global $pluginloader_tx, $plugin_tx;
 
     initvar('plugin_text');
@@ -694,12 +705,15 @@ function print_plugin_admin($main) {
     if ($main == 'ON') {
         PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_main&amp;action=plugin_text', '', $pluginloader_tx['menu']['tab_main'], $plugin_menu_style);
     }
-    if ($css == 'ON') {
-        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_stylesheet&amp;action=plugin_text', '', $pluginloader_tx['menu']['tab_css'], $plugin_menu_style);
+
+    if($css == 'ON') {
+        PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_stylesheet&amp;action=plugin_text', '', $pluginloader_tx['menu']['tab_css'], $plugin_menu_style);	
     }
-    if ($config == 'ON') {
-        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_config&amp;action=plugin_edit', '', $pluginloader_tx['menu']['tab_config'], '');
+
+    if($config == 'ON') { 
+        PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_config&amp;action=plugin_edit', '', $pluginloader_tx['menu']['tab_config'], ''); 
     }
+
     if ($language == 'ON') {
         PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_language&amp;action=plugin_edit', '', $pluginloader_tx['menu']['tab_language'], '');
     }
@@ -760,7 +774,9 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
     }
 
     if ($action == 'plugin_text' OR $action == 'plugin_edit') {
-        $hint = array_merge($hint, $plugin_tx[$plugin]);
+        if (isset($plugin_tx[$plugin])) {
+            $hint = array_merge($hint, $plugin_tx[$plugin]);
+        }
         $form = ARRAY();
         $style = ARRAY();
 
@@ -873,41 +889,14 @@ function PluginDebugger($error=FALSE, $caller=FALSE, $varname=FALSE, $value=FALS
  */
 function preCallPlugins($pageIndex = -1) {
     global $edit, $c, $s, $u;
-    $error = ' <span style="color:#5b0000; font-size:14px;">{{CALL TO:<span style="color:#c10000;">{{%1}}</span> FAILED}}</span> '; //use this for debugging of failed plugin-calls
+
     if (!$edit) {
-        if ((int) $pageIndex > - 1 && (int)$pageIndex < count($u)) {
+        if ((int) $pageIndex > - 1 && (int) $pageIndex < count($u)) {
             $as = $pageIndex;
         } else {
             $as = $s < 0 ? 0 : $s;
         }
-        $pl_regex = '"{{{RGX:CALL(.*?)}}}"is'; //general CALL-RegEx (Placeholder: "RGX:CALL")
-        /**
-         * $pl_calls = array with built-in-CALLs:
-         * If you want both Versions (with and without closing ':') 
-         * first insert call with ':', then the call without the ':' !!
-         * A parsed parameter is replaced in '{{%1}}'.
-         */
-        $pl_calls = array(
-            'PLUGIN:' => 'return {{%1}}',
-            'HOME:' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode('{{%1}}') . '">' . urldecode('{{%1}}') . '</a>\');',
-            'HOME' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode($u[0]) . '">' . urldecode($u[0]) . '</a>\');'
-        );
-        $fd_calls = array();
-        foreach ($pl_calls AS $regex => $call) {
-            preg_match_all(str_replace("RGX:CALL", $regex, $pl_regex), $c[$as], $fd_calls[$regex]); //catch all PL-CALLS
-            foreach ($fd_calls[$regex][0] AS $call_nr => $replace) {
-                $call = str_replace("{{%1}}", $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]);
-                $fnct_call = preg_replace('"(?:(?:return)\s)*(.*?)\(.*?\);"is', '$1', $call);
-                $fnct = function_exists($fnct_call) ? TRUE : FALSE; //without object-calls; functions-only!!
-                if ($fnct) {
-                    preg_match_all("/\\$([a-z_0-9]*)/i", $call, &$matches);
-                    foreach ($matches[1] as $var) {
-                        global $$var;
-                    }
-                }
-                $c[$as] = str_replace($replace, ($fnct ? eval(str_replace('{{%1}}', $fd_calls[$regex][1][$call_nr], $pl_calls[$regex])) : str_replace('{{%1}}', $regex . $fd_calls[$regex][1][$call_nr], $error)), $c[$as]); //replace PL-CALLS (String only!!)
-            }
-        }
+	$c[$as] = evaluate_plugincall($c[$as]);
     }
 }
 

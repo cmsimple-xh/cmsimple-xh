@@ -8,7 +8,8 @@
  *
  * @author Holger Irmler
  * @link http://cmsimple.holgerirmler.de
- * @version 1.2 - 2011-06-23
+ * @version 1.3.1 - 2011-09-30
+ * @build 2011093001
  * @package jQuery
  **/
 
@@ -26,7 +27,9 @@ if($jquery){
 	}
 	if($admin == '') {
 	   	$o .= "\n".'<div class="plugintext">';
-		$o .= "\n".'<div class="plugineditcaption">jQuery for CMSimple v. 1.2 - 2011-06-23</div>';
+		$o .= "\n".'<div class="plugineditcaption">jQuery for CMSimple v. 1.3.1 - 2011-09-30</div>';
+		$o .= '<p>&copy;2011 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
+		
 		if (!$lines = @$lines = file($pth['folder']['plugins'].'jquery/lib/jquery/'.$plugin_cf['jquery']['file_core'])){
 			e('missing', 'file', $pth['folder']['plugins'].'jquery/lib/jquery/'.$plugin_cf['jquery']['file_core']);
 		} else {

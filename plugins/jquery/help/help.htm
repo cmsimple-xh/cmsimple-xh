@@ -52,7 +52,7 @@ jQueryUI to
 a CMSimple installation and make the libraries available to use with
 other CMSimple-Plugins. </p>
 
-<p class="additional">Version 1.3 - 2011-07-27<br>
+<p class="additional">Version 1.3.1 - 2011-09-30<br>
 
 <span class="additional">
 &copy; 2011 Holger Irmler, </span><a class="additional" target="_blank" href="http://cmsimple.holgerirmler.de">http://CMSimple.HolgerIrmler.de</a><span class="additional">.<br>
@@ -218,7 +218,7 @@ include-file. Have a look at the basic code example below:
 <?php
 
 function myplugin(){
-	global $pth; //be sure CMSimple variables are accessible in your function
+	global $pth, $plugin_cf; //be sure CMSimple variables are accessible in your function
 
 	$jqerror = '';
 	if(!file_exists($pth['folder']['plugins'].'jquery/jquery.inc.php')){
@@ -367,7 +367,7 @@ code-example:<br>
 <?php
 
 function myplugin(){
-	global $pth; //be sure CMSimple variables are accessible in your function
+	global $pth, $plugin_cf; //be sure CMSimple variables are accessible in your function
 
 	$jqerror ='';
 	if(!file_exists($pth['folder']['plugins'].'jquery/jquery.inc.php')){

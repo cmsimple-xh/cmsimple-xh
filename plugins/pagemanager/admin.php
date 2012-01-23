@@ -1,29 +1,21 @@
 <?php
 
 /**
- * Backend-functionality of Pagemanager_XH.
+ * Back-End of Pagemanager_XH.
+ *
  * Copyright (c) 2011 Christoph M. Becker (see license.txt)
  */
  
 
-// utf-8 marker: äöüß
-
-if (!isset($plugin))
-    die('Direct access forbidden!');
-   
-
-define('PAGEMANAGER_VERSION', '1beta2');
+// utf-8-marker: äöüß
 
 
-// check requirements
-if (version_compare(PHP_VERSION, '4.3.0') < 0)
-    $e .= '<li>'.$plugin_tx['pagemanager']['error_phpversion'].'</li>'."\n";
-foreach (array('pcre', 'xml') as $ext) { 
-    if (!extension_loaded($ext))
-	$e .= '<li>'.sprintf($plugin_tx['pagemanager']['error_extension'], $ext).'</li>'."\n";
+if (!defined('CMSIMPLE_XH_VERSION')) {
+    die('Access forbidden');
 }
-if (!file_exists($pth['folder']['plugins'].'jquery/jquery.inc.php'))
-    $e .= '<li>'.$plugin_tx['pagemanager']['error_jquery'].'</li>'."\n";
+
+
+define('PAGEMANAGER_VERSION', '1pl1');
 
 
 /**
@@ -91,23 +83,24 @@ function pagemanager_rfc() {
  */
 function pagemanager_version() {
     return tag('br').tag('hr').'<p><strong>Pagemanager_XH</strong></p>'.tag('hr')."\n"
-	    .'<p>Version: '.PAGEMANAGER_VERSION.tag('br')."\n"
-	    .'<p>Pagemanager_XH is powered by '
+	    .'<p>Version: '.PAGEMANAGER_VERSION.'</p>'."\n"
+	    .'<p>Copyright &copy; 2011 Christoph M. Becker</p>'."\n"
+	    .'<p><a href="http://3-magi.net/?CMSimple_XH/Pagemanager_XH" target="_blank">'
+	    .'Pagemanager_XH</a> is powered by '
 	    .'<a href="http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple" target="_blank">'
 	    .'jQuery4CMSimple</a>'
 	    .' and <a href="http://www.jstree.com/" target="_blank">jsTree</a>.</p>'."\n"
-	    .'Copyright &copy; 2011 Christoph M. Becker</p>'."\n"
-	    .'<p>This program is free software: you can redistribute it and/or modify'
+	    .'<p style="text-align: justify">This program is free software: you can redistribute it and/or modify'
 	    .' it under the terms of the GNU General Public License as published by'
 	    .' the Free Software Foundation, either version 3 of the License, or'
 	    .' (at your option) any later version.</p>'."\n"
-	    .'<p>This program is distributed in the hope that it will be useful,'
+	    .'<p style="text-align: justify">This program is distributed in the hope that it will be useful,'
 	    .' but WITHOUT ANY WARRANTY; without even the implied warranty of'
-	    .' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the'
+	    .' MERCHAN&shy;TABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the'
 	    .' GNU General Public License for more details.</p>'."\n"
-	    .'<p>You should have received a copy of the GNU General Public License'
+	    .'<p style="text-align: justify">You should have received a copy of the GNU General Public License'
 	    .' along with this program.  If not, see'
-	    .' <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.'."\n";
+	    .' <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>'."\n";
 }
 
 
@@ -122,7 +115,7 @@ function pagemanager_toolbar($image_ext, $save_js) {
     global $pth, $plugin_cf, $plugin_tx, $tx;
     
     $imgdir = $pth['folder']['plugins'].'pagemanager/images/';
-    $horizontal = strtoupper($plugin_cf['pagemanager']['toolbar_vertical']) != "YES";
+    $horizontal = strtolower($plugin_cf['pagemanager']['toolbar_vertical']) != 'true';
     $res = '<div id="pagemanager-toolbar" class="'.($horizontal ? 'horizontal' : 'vertical').'">'."\n";
     $toolbar = array('save', 'separator', 'expand', 'collapse', 'separator', 'create',
 	    'create_after', 'rename', 'delete', 'separator', 'cut', 'copy',
@@ -213,8 +206,9 @@ function pagemanager_edit() {
     $save_js = 'jQuery(\'#pagemanager-xml\')[0].value ='
 	    .' jQuery(\'#pagemanager\').jstree(\'get_xml\', \'nest\', -1,
 		new Array(\'id\', \'title\', \'pdattr\'))';
-    $bo .= '<form id="pagemanager-form" action="'.$sn.'?&amp;pagemanager&amp;edit" method="post">'."\n";
-    $bo .= strtoupper($plugin_cf['pagemanager']['toolbar_show']) != 'NO'
+    $xhpages = isset($_GET['xhpages']) ? '&amp;pagemanager-xhpages' : '';
+    $bo .= '<form id="pagemanager-form" action="'.$sn.'?&amp;pagemanager&amp;edit'.$xhpages.'" method="post">'."\n";
+    $bo .= strtolower($plugin_cf['pagemanager']['toolbar_show']) == 'true'
 	    ? pagemanager_toolbar($image_ext, $save_js) : '';
     
     // output the treeview of the page structure
@@ -300,7 +294,7 @@ function pagemanager_start_element_handler($parser, $name, $attribs) {
 	$pagemanager_state['level']++;
 	$pagemanager_state['id'] = $attribs['ID'] == ''
 		? '' : preg_replace('/(copy_)?pagemanager-([0-9]*)/', '$2', $attribs['ID']);
-	$pagemanager_state['title'] = $attribs['TITLE'];
+	$pagemanager_state['title'] = htmlspecialchars($attribs['TITLE']);
 	$pagemanager_state['pdattr'] = $attribs['PDATTR'];
 	$pagemanager_state['num']++;
     }
@@ -328,15 +322,16 @@ function pagemanager_cdata_handler($parser, $data) {
     global $c, $h, $cf, $pagemanager_fp, $pagemanager_state, $pagemanager_pd,
 	    $pd_router, $plugin_cf;
     $data = htmlspecialchars($data);
-    fwrite($pagemanager_fp, '<h'.$pagemanager_state['level'].'>'.$pagemanager_state['title']
-	    .'</h'.$pagemanager_state['level'].'>');
     if (isset($c[$pagemanager_state['id']])) {
 	$cnt = $c[$pagemanager_state['id']];
-	$cnt = preg_replace('/<h[1-'.$cf['menu']['levels'].'][^>]*>[^>]*<\/h[1-'
-		.$cf['menu']['levels'].']>/i', '', $cnt);
+	$cnt = preg_replace('/<h[1-'.$cf['menu']['levels'].']([^>]*)>'
+		.'((<[^>]*>)*)[^<]*((<[^>]*>)*)<\/h[1-'.$cf['menu']['levels'].']([^>]*)>/i',
+		'<h'.$pagemanager_state['level'].'$1>${2}'.$pagemanager_state['title'].'$4'
+		.'</h'.$pagemanager_state['level'].'$6>', $cnt, 1);
 	fwrite($pagemanager_fp, rmnl($cnt."\n"));
     } else {
-	fwrite($pagemanager_fp, "\n");
+	fwrite($pagemanager_fp, '<h'.$pagemanager_state['level'].'>'.$pagemanager_state['title']
+		.'</h'.$pagemanager_state['level'].'>'."\n");
     }
     
     if ($pagemanager_state['id'] == '') {
@@ -352,7 +347,7 @@ function pagemanager_cdata_handler($parser, $data) {
 
 /**
  * Saves content.htm manually and
- * pagedata.php via $pd_router->refresh_from_menu_manager().
+ * pagedata.php via $pd_router->model->refresh().
  *
  * @return void
  */
@@ -378,9 +373,32 @@ function pagemanager_save($xml) {
 
 
 /**
+ * Hook into new edit menu of CMSimple_XH 1.5
+ */
+if ($f === 'xhpages' && isset($cf['pagemanager']['external'])
+	&& in_array($cf['pagemanager']['external'], array('', 'pagemanager'))) {
+    pagemanager_edit();
+}
+
+
+/**
  * Plugin administration
  */
 if (isset($pagemanager)) {
+    // check requirements (RELEASE-TODO)
+    define('PAGEMANAGER_PHP_VERSION', '4.3.0');
+    if (version_compare(PHP_VERSION, PAGEMANAGER_PHP_VERSION) < 0)
+	$e .= '<li>'.sprintf($plugin_tx['pagemanager']['error_phpversion'], PAGEMANAGER_PHP_VERSION).'</li>'."\n";
+    foreach (array('pcre', 'xml') as $ext) { 
+	if (!extension_loaded($ext))
+	    $e .= '<li>'.sprintf($plugin_tx['pagemanager']['error_extension'], $ext).'</li>'."\n";
+    }
+    if (!file_exists($pth['folder']['plugins'].'jquery/jquery.inc.php'))
+	$e .= '<li>'.$plugin_tx['pagemanager']['error_jquery'].'</li>'."\n";
+    if (strtolower($tx['meta']['codepage']) != 'utf-8') {
+	$e .= '<li>'.$plugin_tx['pagemanager']['error_encoding'].'</li>'."\n";
+    }
+
     initvar('admin');
     initvar('action');
     
@@ -390,7 +408,9 @@ if (isset($pagemanager)) {
 	case '':
 	    if ($action == 'plugin_save') {
 		pagemanager_save(stsl($_POST['xml']));
-		@header('Location: '.$sn.'?&pagemanager&normal&admin=plugin_main');
+		header('Location: '.$sn.(isset($_GET['pagemanager-xhpages'])
+			? '?&normal&xhpages'
+			: '?&pagemanager&normal&admin=plugin_main'));
 	    } else {
 		$o .= pagemanager_version();
 	    }

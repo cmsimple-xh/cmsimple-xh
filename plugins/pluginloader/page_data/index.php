@@ -60,7 +60,7 @@ if ($adm) {
     /**
      * Second: check for hanges from MenuManager 
      */
-    if ($menumanager && $action == 'saverearranged' && (isset($text) ? strlen($text) : 0 ) > 0) {
+    if (isset($menumanager) && $menumanager && $action == 'saverearranged' && (isset($text) ? strlen($text) : 0 ) > 0) {
         $pd_router->refresh_from_menu_manager($text);
     }
 

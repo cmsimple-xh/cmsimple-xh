@@ -20,7 +20,7 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www
 	<div id="tplge_headerin">
 	<?php
 if (file_exists($pth['folder']['templateimages'].'logo.jpg')){
-echo '<a href="http://www.ge-webdesign.de/cmsimpleplugins/?Eigene_Plugins">'.tag('img src="'.$pth['folder']['templateimages'].'logo.jpg" class="tplge_logo" alt="Logo"').'</a>';
+echo '<a href="./">'.tag('img src="'.$pth['folder']['templateimages'].'logo.jpg" class="tplge_logo" alt="Logo"').'</a>';
 } 
 ?>
 <?php echo searchbox();?>
@@ -70,6 +70,7 @@ echo '<a href="http://www.ge-webdesign.de/cmsimpleplugins/?Eigene_Plugins">'.tag
 
 	<div id="tplge_content">
 	<div id="tplge_contentin">
+	<div style="text-align: right;"><?php echo languagemenu();?></div>
 <?php echo editmenu();?>
 <?php echo content();?>
 <?php echo submenu();?>

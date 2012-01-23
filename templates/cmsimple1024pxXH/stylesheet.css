@@ -1,0 +1,115 @@
+/* RESET BROWSERSTYLE */
+* {padding: 0; margin: 0;}
+
+/* GLOBAL */
+h1, h2, h3 {font-family: verdana, sans-serif; color: #665; font-size: 160%; line-height: 1.4em; font-weight: 300; letter-spacing: 2px; margin: 10px 0 10px 0;}
+h4 {font-family: verdana, sans-serif; color: #666655; font-size: 125%; line-height: 1.4em; font-weight: 300; letter-spacing: 1px; margin: 15px 0 10px 0;}
+h5 {font-family: verdana, sans-serif; color: #666655; font-size: 113%; line-height: 1.4em; font-weight: 300; letter-spacing: 1px; margin: 15px 0 10px 0;}
+h6 {font-family: verdana, sans-serif; color: #666655; font-size: 107%; line-height: 1.4em; font-weight: 300; letter-spacing: 1px; margin: 15px 0 10px 0;}
+p {margin: 10px 0;}
+ol {margin: 6px 0;}
+ol li {line-height: 1.0em; border: 0; padding: 3px 0; margin: 0 0 0 22px;}
+ul {list-style-image: url(images/inhlist.gif); margin: 6px 0 12px 0;}
+ul li {line-height: 1.0em; border: 0; padding: 3px 0; margin: 0 0 0 17px;}
+hr {height: 1px; color: #ccc; background-color: #ccc; border: 0;}
+
+
+/* BODY UND SEITE / BODY AND PAGE */
+body {font-family: arial, sans-serif; font-size: 94%; color: #455;}
+#bgbody {background: #fff url(images/bghead.jpg) repeat-x; text-align: center;}
+#TOP {font-size: 10px; line-height: 10px;}
+#page {width: 980px; line-height: 1.4em; padding: 0; margin:0 auto;}
+#pagein {text-align: left; padding: 1px; margin: 0;}
+
+
+/* KOPFBEREICH MIT SUCHBOX / HEADER AND SEARCHBOX */
+#header {float: left; width: 100%;}
+#headerin {height: 106px;}
+#header h1 {Font-family: 'times new roman', serif; color: #cca; font-size: 200%; line-height: 1.2em; text-align: left; font-weight: 300; padding: 0; margin: 0;}
+#searchbox {float: right; width: 185px; text-align: right;}
+
+
+/* BREADCRUMB-NAVIGATION (LOCATOR) */
+#locator {clear: both; float: left; width: 100%; padding: 0;}
+#locatorin {margin: 0 10px;}
+p.locator {font-family: arial, sans-serif; font-size: 94%; color: #930; border-bottom: 1px solid #999; padding: 0 4px 8px 0; margin: 0 0 16px 0;}
+.locatortext {color: #333; font-weight: 600;}
+
+
+/* SIDEBAR NAVIGATION */
+#sidebar1 {clear: both; float: left; width: 220px; margin: 0 4px 0 0;}
+#sidebar1in {font-family: arial, sans-serif; color: #930; padding: 3px; margin: 0 10px;}
+
+#sidebar1 li {list-style-type: none; list-style-image: none;}
+#sidebar1 ul.menulevel1 li {background-color: #f0f3f6; line-height: 1.0em; font-weight: 600; border: 1px solid #ccc; padding: 5px 6px 5px 6px; margin: 6px 0;}
+#sidebar1 ul.menulevel2 {border: 0; padding: 4px 0 2px 0; margin: 0;}
+#sidebar1 ul.menulevel2 li {background-color: #f6f9fc; font-size: 94%; line-height: 1.0em; font-weight: 300; border: 1px solid #e0e0e0; padding: 4px 3px 4px 6px; margin: 3px 0;}
+#sidebar1 ul.menulevel3 {border: 0; margin: 5px 0 0 0;}
+#sidebar1 ul ul.menulevel3 li {background-color: #f6f9fc; font-size: 1em; line-height: 1.0em; border: 0; padding: 2px 0 3px 12px; margin: 0;}
+.docs {background: url(images/plus.gif) no-repeat right top;}
+.sdocs {background: url(images/plus.gif) no-repeat right top;}
+#sidebar1in h2 {color: #555; font-size: 150%; text-align: left; font-variant: small-caps; letter-spacing: 2px;}
+ul.subnav {list-style-type: none; padding: 10px 0 10px 0; margin: 0;}
+ul.subnav li {padding: 5px 12px; margin: 0;}
+p.lastupdate {font-size: 87%; color: #667; padding: 12px;}
+
+
+/* SIDEBAR NEWS */
+#sidebar2 {float: right; width: 220px;}
+div.newsin {font-size: 94%; line-height: 1.2em; border: 0px solid #aba; border-left: 1px solid #ccc; padding: 0 0 6px 16px; margin: 12px 12px 0 0;}
+div.newsin ul {list-style-type: none; list-style-image: none; padding: 6px 0 12px 0;}
+div.newsin li {list-style-type: none; list-style-image: none; line-height: 1.2em; padding: 1px 5px; margin: 2px 0;}
+div.newsin h2 {font-family: verdana, sans-serif; color: #555; font-size: 24px; font-variant: small-caps; letter-spacing: 2px; padding: 0; margin: 10px 0 0 0;}
+div.newsin h4 {background: #244; color: #ddb; font-size: 107%; font-weight: 300; text-align: center; line-height: 1.2em; letter-spacing: 1px; font-variant: small-caps; border: 0px solid #cca; padding: 1px 3px 2px 3px; margin: 10px 0 0 0;}
+div.newsin h5 {color: #930; font-size: 1em; font-weight: 600; margin: 10px 0 0 0;}
+div.newsin h6 {color: #555; font-size: 1em; font-weight: 300; letter-spacing: 1px; margin: 10px 0 0 0;}
+
+/* INHALT / CONTENT */
+#content {float: left; width: 530px; text-align: center;}
+#contentin {border: 0px solid #abc; text-align: left; padding: 0 20px 20px 10px; margin: 10px;}
+#content li {background: none;}
+.left {float: left;}
+.right {float: right;}
+.center {text-align: center;}
+.border {border: 1px solid #333;}
+.noborder {border: 0;}
+.languagemenu {text-align: right;}
+
+/* FUSSNAVIGATION / FOOTER NAVUGATION */
+#footer {width: 978px; clear: both; float: left;}
+#footerin {text-align: center; border-bottom: 1px solid #999; padding: 0 20px 16px 20px; margin: 0 20px;}
+
+#notes {font-family: arial, sans-serif; font-size: 14px; text-align: center; padding: 8px 0; margin: 0;}
+
+
+/* VORDEFINIERTE KLASSEN FUER BILDER / PREDEFINED CLASSES FOR IMAGES */
+img.left {float: left; margin: 8px 20px 10px 0;}
+img.right {float: right; margin: 8px 0 10px 20px;}
+img.center {margin: 10px auto;}
+img.border {border: 1px solid #333;}
+img.noborder {border: 0;}
+
+
+/* LINKFORMATIERUNG / LINKS */
+a:link {font-family: arial, sans-serif; color: #36a; text-decoration: none;}
+a:visited {font-family: arial, sans-serif; color: #36a; text-decoration: none;}
+a:hover {color: #ffffff; text-decoration: none; background-color: #720;}
+a:active {color: #ffffff; text-decoration: none; background-color: #720;}
+a:focus {color: #ffffff; text-decoration: none; background-color: #720;}
+
+
+/* SONSTIGES / THE REST */
+#passwd {border: 1px solid #999;}
+#submit {background: #720; color: #fff; border: 3px solid #cc9; padding: 1px 6px; margin:0;}
+#headerin .submit, #contentin .submit {width: 5.6em; background: #720; color: #fff; border: 3px solid #cc9; padding: 1px 6px; margin:0;}
+.text {width: 160px; background: #f6f6f6; font-family: arial, sans-serif; font-size: 87%; border: 1px solid #999; padding: 1px 3px;}
+.file {border: 1px solid #999;}
+p.code {background: #eed; font-family: 'courier new', serif; border: 1px solid #997; padding: 20px;}
+p.date {color: #093; text-align: right; line-height: 1.2em;}
+.scroll {background: #eec; border: 1px solid #997; padding: 10px; overflow: scroll;}
+.border {border: 1px solid #666;}
+.retrieve {background: #ffffff; background-image:none; border: 0;}
+table.edit {background: #eee; font-size: 14px; line-height: 1.2em; border: 1px solid #999; margin: 1px 0;}
+table.edit td {border: 0; padding: 3px;}
+textarea {width: 90%; background: #f6f6f6; font-family: arial, sans-serif; border: 1px solid #999; padding: 10px; margin: 0 0 10px 0;}
+.hinweis {line-height: 1.2em; padding: 2px 10px;}

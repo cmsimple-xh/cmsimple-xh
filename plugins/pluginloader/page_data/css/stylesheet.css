@@ -50,6 +50,7 @@
 
 #pd_views a#pd_editor_toggle {
 	width: 20px;
+	height: 20px;
 	float: right;
 	background:url(cross.gif) no-repeat top right;
 	cursor: pointer;

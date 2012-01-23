@@ -1,0 +1,172 @@
+#xhFilebrowser, #xhFilebrowserMenu {
+background: #fff;
+min-width: 440px;
+color: #333;
+border: 1px solid #999999;
+margin: 1px 0;
+overflow: auto;
+padding: 8px 16px;
+font-family: arial, sans-serif;
+font-size: 14px;
+}
+
+#xhFilebrowserMenu {
+font-weight: 700;
+}
+
+
+/* FILEBROWSER MENU */
+
+#xhFilebrowser {
+font-family: arial, sans-serif;
+font-size: 14px;
+font-weight: 900;
+
+}
+
+#xhFilebrowser  fieldset, #xhFilebrowserMenu  fieldset {
+margin: 5px;
+display:none;
+}
+
+
+/* FILEBROWSER LISTS */
+
+span.xhfb_files {
+font-weight: 700;
+color: #900;
+}
+
+p.xhfb_files {
+font-weight: 700;
+padding: 0;
+}
+
+#xhFilebrowser ul, #xhFilebrowserMenu ul {
+list-style-image: none;
+list-style-position:inside;
+padding: 0;
+margin: auto;
+}
+
+#xhFilebrowser ul.unseen, #xhFilebrowserMenu ul.unseen{
+display: none;
+}
+
+#xhFilebrowser li.openFolder, #xhFilebrowserMenu li.openFolder {
+list-style-image:url(icons/folder-open.png);
+padding: 2px 0 2px 5px;
+margin: 0 0 0 0;
+line-height: 1em;
+font-size: 14px; 
+font-weight: 900;
+}
+
+#xhFilebrowser li.folder, #xhFilebrowserMenu li.folder{
+list-style-image:url(icons/folder.png);
+padding: 2px 0 2px 5px;
+margin: 0 0 0 0;
+line-height: 1em;
+font-size: 13px; 
+font-weight: 300;
+}
+
+
+#xhFilebrowser li.openFolder ul, #xhFilebrowserMenu li.openFolder ul {margin-left: 20px;}
+
+
+/* FILEBROWSER FOLDERS */
+
+#xhFilebrowser #folders {
+float: left;
+overflow: auto;
+}
+
+#xhFilebrowser div#subfolders {
+padding: 0 0 10px 0;
+}
+
+#xhFilebrowser div#subfolders li {
+font-size: 13px;
+font-weight: 900;
+}
+
+
+/* FILEBROWSER FILES */
+
+#xhFilebrowser div#files {
+font-weight: 300;
+padding: 0 0 0 30px;
+}
+
+#xhFilebrowser div#files li {
+font-size: 13px;
+padding: 2px 0;
+margin: 0;
+}
+
+#xhFilebrowser #files{
+   margin-bottom: 20px;
+}
+#xhFilebrowser #files li:hover {
+    background-color: #ccc;
+}
+
+#xhFilebrowser #files ul li {
+list-style-type: none;
+}
+
+#xhFilebrowser a { color: #333;}
+a.xhfbfile {padding: 0 2px 0 0; line-height: 1em;}
+a.xhfbfile img{border: none; margin: 6px;}
+a.xhfbfile span{display: none;}
+a.xhfbfile:hover span, #xhFilebrowser #files ul li:hover a.xhfbfile span{
+    display: block;
+    float: right;
+    border: #aaa 1px solid;
+    padding: 2px;
+    background-color: #ddd;
+}
+a.xhfbfile:hover{
+    background-color: #ccc;
+    cursor:pointer;
+}
+#xhFilebrowser #files li.odd{
+   
+}
+#xhFilebrowser #files ul li, #xhFilebrowser #files ul{
+    margin-left: 0em;
+    padding-left: 0em;
+}
+#xhFilebrowser div{
+    font-family: arial, sans-serif;
+    padding: 0px;
+    margin: 0px;
+}
+
+
+#xhFilebrowser #subfolders  fieldset legend {}
+
+#xhFilebrowser a:link {color: #222; text-decoration: none; font-style: normal;}
+#xhFilebrowser a:visited {color: #222; text-decoration: none; font-style: normal;}
+#xhFilebrowser a:hover {color: #c60; text-decoration: none;}
+#xhFilebrowser a:active {color: #c60; text-decoration: none;}
+#xhFilebrowser a:focus {color: #c60; text-decoration: none;}
+
+#xhFilebrowser li.openFolder a:link {color: #920; text-decoration: none; font-style: normal;}
+#xhFilebrowser li.openFolder a:visited {color: #920; text-decoration: none; font-style: normal;}
+#xhFilebrowser li.openFolder a:hover {color: #c60; text-decoration: none;}
+#xhFilebrowser li.openFolder a:active {color: #c60; text-decoration: none;}
+#xhFilebrowser li.openFolder a:focus {color: #c60; text-decoration: none;}
+
+#xhFilebrowser li.folder a:link {color: #222; text-decoration: none; font-style: normal;}
+#xhFilebrowser li.folder a:visited {color: #222; text-decoration: none; font-style: normal;}
+#xhFilebrowser li.folder a:hover {color: #c60; text-decoration: none;}
+#xhFilebrowser li.folder a:active {color: #c60; text-decoration: none;}
+#xhFilebrowser li.folder a:focus {color: #c60; text-decoration: none;}
+
+#xhFilebrowserMenu a:link {color: #222; text-decoration: none; font-style: normal;}
+#xhFilebrowserMenu a:visited {color: #222; text-decoration: none; font-style: normal;}
+#xhFilebrowserMenu a:hover {color: #c60; text-decoration: none;}
+#xhFilebrowserMenu a:active {color: #c60; text-decoration: none;}
+#xhFilebrowserMenu a:focus {color: #c60; text-decoration: none;}

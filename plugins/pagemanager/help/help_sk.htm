@@ -1,0 +1,189 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<!-- utf8-marker: äöü -->
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<meta name="content-language" content="de">
+<title>Pagemanager_XH - Návod</title>
+<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+</head>
+
+<body>
+
+<h1>Pagemanager_XH - CMSimple_XH Plugin</h1>
+<p>Pagemanager_XH zjednodušuje spravovanie stránok v inštalácii CMSimple_XH.
+Tento plugin je svojou funkčnosťou porovnateľný s pluginom Menumanager,
+ale vďaka stromovej štruktúre je aj pri rozsiahlejších stránkach prehľadnejší.
+Pomocou pluginu Pagemanager_XH tak môžete presúvať naraz celé časti štruktúry.</p>
+
+<ul id="nav">
+<li><a href="#requirements">Požiadavky</a></li>
+<li><a href="#installation">Inštalácia</a></li>
+<li><a href="#settings">Nastavenia</a></li>
+<li><a href="#usage">Použitie</a></li>
+<li><a href="#limitations">Obmedzenia</a></li>
+<li><a href="#license">Licencia</a></li>
+<li><a href="#credits">Poďakovanie</a></li>
+</ul>
+
+<div id="body">
+
+<p><strong>Prosím, prečítajte si tieto návody!
+V opačnom prípade možno nezískate žiadnu podporu.
+Je vždy osožné prečítať si dokumentáciu <em>prv</em>, než vyrobíte nejaký problém!</strong></p>
+
+<h2><a name="requirements">Požiadavky</a></h2>
+<p>Pagemanager_XH je plugin určený pre CMSimple_XH.
+Možno ho používať iba s verziami s kódovaním UTF-8,
+teda od CMSimple_XH 1.2. Navyše potrebujete mať nainštalovaný aj plugin jQuery4CMSimple.
+Tento bude súčasťou všetkých ďalších verzií počnúc CMSimple_XH-Versiou 1.4.1.
+Ak používate niektorú staršiu verziu, je najlepšie 
+<a href="http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple">
+jQuery4CMSimple stiahnuť</a> a nainštalovať, kým budete pokračovať.</p>
+<div class="toplink"><a href="#">HORE</a></div>
+
+<h2><a name="installation">Inštalácia</a></h2>
+<p>Inštalácia prebieha rovnako ako pri iných pluginoch CMSimple_XH:</p>
+<ol>
+<li>Urobte si zálohy Vašich súborov zo servera.</li>
+<li>Rozbaľte ZIP-súbor vo Vašom počítači.</li>
+<li>Celý rozbalený adresár uploadujte na Váš server do adresára s Vašimi pluginmi.</li>
+<li>Ak je potrebné, nastavte potrebné prístupové práva pre podadresáre css, config a languages.</li>
+</ol>
+<div class="toplink"><a href="#">HORE</a></div>
+
+<h2><a name="settings">Nastavenia</a></h2>
+<p>Konfigurácia pluginu sa robí rovnako ako pri iných pluginoch CMSimple_XH
+v správcovskom prostredí stránky. Zo zoznamu pluginov vyberte Pagemanager_XH.</p>
+<p>Originálne nastavenia Pagemanager_XH môžete zmeniť v konfigurácii pluginu.
+Pri položkách je umietnená ikona-Pomoc, pod ktorou nájdete vysvetlivky pre jednotlivé položky.</p>
+<p>Lokalizácia sa robí v jazykovom nastavení.
+Vysvetlivky si teda môžete prispôsobit vo Vašom jazyku.</p>
+<p>Vzhľad Pagemanager_XH môžete zmeniť úpravou štýlu.
+Všimnite si hlavne nastavenia, ktoré sú v štýly vyradené komentármi.
+Najprv ich skúste aktivovať.
+Aktuálny Stylesheet je optimalizovaný pre stránku s 3 úrovňami menu.</p>
+<div class="toplink"><a href="#">HORE</a></div>
+
+<h2><a name="usage">Použitie</a></h2>
+<img class="image-right" src="pagemanager.png" alt="Pagemanager_XH Bildschirmfoto">
+<p>Tento plugin je určený pre použitie výlučne v správcovskom prostredí CMSimple_XH. Aktivuje sa cez
+"Pluginy&nbsp;zvoliť"&nbsp;> "Pagemanager"&nbsp;> "Spravovať&nbsp;stránky".
+Zobrazí sa Vám štruktúra Vašej stránky, ktorá v princípe zodpovedá obsahu stránky.
+Niektorá názvy stránok sa dajú ďalej otvárať/zatvárať, aby ste pri rozsiahlejších stránkych nestratili prehľad.
+Otorenie/zatvorenie sa robí pomocou malej z načky vľavo od názvu alebo dvojitým kliknutím na jej názov.</p>
+<p>Nad stromovou štruktúrou Vašej stránky sa nachádza <strong>nástrojová lišta </strong>Pagemanager_XH.
+Ku každému nástroju existuje skrytý popis, ktorý sa objaví pri prechode myškou.
+Prvé dva nástroje umožňujú zobrazenie/skrytie stromovej štruktúry.
+Nástrojová lišta je užitočná hlavne vtedy, ak Váš prehliadač nepodporuje otváranie kontextových menu.</p>
+<p>Zmenu usporadania Vašej stránky urobíte pomocou <strong>Drag & Drop</strong>;
+presúvaním stránky alebo sekcie stránky sa zobrazia potrebné značky,
+aby ste videli, aké bude usporiadanie, ak presun ukončíte.
+Ak sa z nejakého dôvodu nedá stránka presunúť na požadované miesto,
+napr. že by tým vznikla nesprávna štruktúra,
+alebo by vznikla úroveň, ktorá nie je na stránke predvolená,
+bude takáto zmena označená červeným krížikom,
+alebo sa jednoducho nevykoná a stránka/sekcia sa na zvolené miesto nepresunie,
+<em>Preto pozorujte pozorne značky</em>,
+až pokiaľ sa neuistíte, že, wie das Drag&Drop funguje podľa Vašich potrieb.
+Ak pri presune stránok podržíte aj klávesu Ctrl, stránka sa na zvolené miesto skopíruje.</p>
+<table border="1" style="margin: auto">
+<caption><strong>Príklady Drag & Drop úkonov</strong></caption>
+<tr><th>Predtým</th><th>Potom</th></tr>
+<tr><td><img src="move1.png" alt="Verschieben 1"></td><td><img src="result1.png" alt="Ergebnis 1"></td></tr>
+<tr><td><img src="move2.png" alt="Verschieben 2"></td><td><img src="result2.png" alt="Ergebnis 2"></td></tr>
+<tr><td><img src="move3.png" alt="Verschieben 3"></td><td><img src="result3.png" alt="Ergebnis 3"></td></tr>
+<tr><td><img src="move4.png" alt="Verschieben 4"></td><td><img src="result4.png" alt="Ergebnis 4"></td></tr>
+</table>
+<p>Ďalšie funkcie na nástrojovej lište a v <strong>kontextovom menü</strong> (kliknite pravou na niektorú stránku).
+Môžete: vytvoriť nové stránky, premenovať alebo vymazať existujúce stránky,
+k dispozícii sú aj možnosti dočasného uloženia (kopírovať, vystrihnúť, vložiť), ktoré môžete využiť ako alternatívu pre Drag & Drop.
+Ak by ste sa snažili vytvoriť nesprávnu štruktúru stránky, napr. by ste chceli vložiť stránku smu do seba,
+bude tento pokus bez výstrahy ignorovaný, aby ste neboli zaťažovaný zbytočným varovaním.
+<em>Vymazaním stránky vyššej úrovne vymažete aj všetky jej podstránky.</em></p>
+<p>Checkboxy vľavo odo názvov umožňujú nastavenie statusu <strong>zverejnenia</strong>.
+Môžete nastaviť, či sa nimi bude zapisovať 'Zverejniť?'.
+<strong>Duplicitné názvy</strong> sa zobrazia roivnako ako v menu.
+Ak cez ne prejdete myškou,
+zobrazí sa aktuálny názov takejto stránky.
+<strong>Vytvorenie novej stránky</strong> bude označené novou ikonou,aby ste ju lepšie rozoznali medzi existujúcimi stránkami.</p>
+<p>Možnosť kopírovať celé subštruktúry sa môže zdať na prvý pohľad nezrozumiteľná,
+ale môže byť veľmi užitočná, ak chcete v rámci štruktúry premiestniť napr. celú galériu,
+lebo takto sa presunie celý jej obsah vrátane všetkých META údajov. Prípadné detaily sa potom dajú upraviť aj dodatočne.</p>
+<p>Majte na pamäti, že v tomto plugine neexistujú žiadne kroky späť ani prerušenia vykonávaných funkcií.
+Ak by sa poškodila štruktúra stránky, aktualizujte ju obnovením stránky v prehliadači EŠTE PRED ULOŽENÍM ZMIEN. Po uložení už takéto obnovenie nie je možné.
+Obnovením stránky sa však vrátite na začiatok vykonávaných zmien.</p>
+<div class="toplink"><a href="#">HORE</a></div>
+
+<h2><a name="limitations">Obmedzenia</a></h2>
+
+<h3>Nepravidelná štruktúra stránky</h3>
+<p>Je možné, že Vaša stránka má nepravidelnú štruktúru. Napr.: po nadpise &lt;h1&gt; nasleduje priamo nadpis &lt;h3&gt; .</p>
+<p>Aj takúto stránku môžete upravovať pomocou Pagemanager_XH. O nepravidelnostiach budete informovaný a v práci môžete pokračovať iba po potvrdení, že viete, čo robíte.
+AK sa rozhodnete nepokračovať, nič sa nepoškodí.</p>
+<p>Ak nerozumiete, o čo tu ide:
+<strong>Poraďte sa so správcom stránky alebo sa poraďte inde, kým začnete používať Pagemanager_XH.</strong></p>
+<p>Nepravidelnosti v štruktúre sa môžu vyskytnúť aj náhodne, najmä ak ste editovali obsah stránky v textovom editore (napr. pri úpravách formátu nadpisov, pri vymazávaní stránok a pod.).</p>
+<p><strong>Je však tiež možné, že takáto štruktúra je zvolená za istým účelom.</strong>
+Možno majú všetky stránky na úrovni &lt;h3&gt; nejakú špeciálnu vlastnosť (napr. majú byť ukryté)!
+V takom prípade nemôžete používať Pagemanager_XH, lebo tento Vašu štruktúru zreorganizuje a nepravidelnosti odstráni.
+Ak chcete Pagemanager_XH napriek tomu používať,
+musíte takéto stránky (napr.) ukryť iným spôsobom
+(pozrite sa na záložku 'Stránky' pod editorom).
+Ale ak neviete <em>presne</em>, 
+či takáto nepravidelnosť nie  je náhodná a neúmyselná, najprv sa opýtajte správcu stránky.
+<strong>Pomoc v prípadoch poškodenia stránky z dôvodu použitia Pagemanager_XH na stránke s nepravidelnou štruktúrou nie je zaručená ani na CMSimple Forum!</strong></p>
+<p>Ak používate na stránke nepravidelnü štruktúru vedome, <em>nepoužívajte Pagemanager_XH.</em>
+Ak ho už máte nainštalovaný, radšej ho ihneď odinštalujte a pracujte so štruktúrou stránky tak, ako doposiaľ.
+Alebo si stiahnite plugin <a href="http://www.cmsimple-styles.com/cmsimplestyles/?Plugins_%26amp%3B_Tools:Menumanager_Plugin">
+Menumanager</a>.</p>
+
+<h3>jQuery</h3>
+<p>Pagemanager_XH <em>nemusí</em> v prípade, že sú nainštalované Pluginy/Doplnky/Šablóny využívajüce jQuery4CMSimple pracovať korektne,
+pokiaľ tieto importujú vlastné knižnice jQuery.
+Tento problém sa nedá odstrániť (nie je to možné vyriešiť naraz pre všetky prípady),
+pokiaľ nebudú všetci autori používať výlučne jQuery4CMSimple v spojení s ich kódom postavenom na jQuery pre CMSimple_XH.
+Preto musia byť všetky takéto kódy aktualizované!</p>
+<div class="toplink"><a href="#">HORE</a></div>
+
+<h2><a name="license">Licencia</a></h2>
+<p>Pagemanager_XH možno používať iba pri dodržaní 
+<a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
+<p>&copy; 2011 Christoph M. Becker</p>
+<p>Slovenský preklad &copy; 2011 Dr. Martin Sereday</p>
+<p>České preklady &copy; 2011 oldnema</p>
+<p>Dánsky preklad &copy; 2011 Jens Maegaard</p>
+<p>Francúzsky preklad &copy; 2011 Patrick Varlet</p>
+<div class="toplink"><a href="#">HORE</a></div>
+
+<h2><a name="credits">Poďakovanie</a></h2>
+<p>Tento plugin obsahuje <a href="http://www.jstree.com/">jsTree</a>.
+Vďaka Ivanovi Bozhanovovi, autorovi tejto knižnice.</p>
+<p>jsTree používa <a href="http://jQuery.com">jQuery</a>.
+Vďaka všetkým vývojárom tohto skvelého Javascript Frameworks.</p>
+<p>jQuery bolo pre CMSimple_XH poskytnuté prostredníctvom 
+<a href="http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple">
+jQuery4CMSimple</a>.
+Vďaka patri Holgerovi Irmlerovi, Autorovi tohto pluginu.</p>
+<p>Plugin používa "free application icons" od <a href="http://www.aha-soft.com/">Aha-Soft</a>.
+Vďaka za bezpaltné poskytnutie ikon.</p>
+<p>Vďaka aj celej komunite <a href="http://www.cmsimpleforum.com">CMSimple-Forum</a>
+za návrhy, testovanie, úpravy a podporu.
+Chcel by som poďakovať hlavne "snafu", ktorého včasné poznámky ma posmelili,
+aby som sa pluginu Pagemanager_XH ďalej venoval.
+Ďakujem aj Ulrichovi, ktorý odhalil jednu závažnú chybu (a niekoľko menších problémov) a 
+pomohol pri ich odstránení tým, že poskytol detailné vysvetlenie, o čo vlastne išlo.
+Aveľká vďaka patrí aj Gertovi, ktorý poskytol príjemný dizajn, vykonal niektoré úpravy a preklady, a dal tiež veľa cenných rád.
+V každom prípade chcem poďakovať aj Martinovi, ktorého správa o problémoch s kontextovým menu ma inšpirovala k doplneniu nástrojovej lišty.
+Rovnako ďakujem Tatovi za nápad s posuvnou nástrojovou lištou.</p>
+<p>A, samozrejme, obrovské poďakovanie všetkým vývojárom <a href="http://www.cmsimple-xh.com">CMSimple_XH</a>,
+bez ktorých by tento CMS neexistoval.</p>
+<div class="toplink"><a href="#">HORE</a></div>
+
+</div>
+
+</body>
+
+</html>

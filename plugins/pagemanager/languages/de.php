@@ -1,11 +1,11 @@
 <?php
 
-	$plugin_tx['pagemanager']['cf_verbose']="<p>Anzeige von Bestätigungs- und Informationsdialogen? <em>YES</em> (ja) oderr <em>NO</em> (nein)</p><p><strong><em>YES</em> wird unbedingt empfohlen</strong>, es sei denn, Sie sind ein Power User <strong>und</strong> bereits mit Pagemanager_XH vertraut.</p>";
-	$plugin_tx['pagemanager']['cf_toolbar_show']="<p>Soll die Werkzeugleiste angezeigt werden? <em>YES</em> (ja) oder <em>NO</em> (nein)</p>";
-	$plugin_tx['pagemanager']['cf_toolbar_vertical']="<p>Soll die Werkzeugleiste vertikal angezeigt werden? <em>YES</em> (ja) oder <em>NO</em> (nein)</p><p>Dies ist eine Option für Power User, die das Layout in Plugin-Stylesheet anpassen können.</p>";
-	$plugin_tx['pagemanager']['cf_pagedata_attribute']="<p>Das ja/nein (mit Voreinstellung ja) pagedata Attribut für die Checkboxen, z.B. <em>published</em> oder <em>linked_to_menu</em>.</p><p><strong>Vorsicht:</strong> Wenn Sie ein ungeeignetes Attribut wählen, bringen Sie Ihre pagedata.php durcheinander.</p>";
-	$plugin_tx['pagemanager']['cf_treeview_theme']="<p>Stil der Baumansicht: <em>cmsimple</em></p><p>Andere Stile können von http://3-magi.net/?CMSimple_XH/Pagemanager_XH herunter geladen werden.</p>";
-	$plugin_tx['pagemanager']['cf_treeview_animation']="<p>Dauer der Öffnen/Schließen-Animation in ms. <em>0</em> bedeutet keine Animation.</p>";
+	$plugin_tx['pagemanager']['cf_verbose']="<p>Anzeige von Bestätigungs- und Informationsdialogen? <b>true</b> oder <b>false</b></p><p><strong><b>true</b> wird unbedingt empfohlen</strong>, es sei denn, Sie sind ein Power User <strong>und</strong> bereits mit Pagemanager_XH vertraut.</p>";
+	$plugin_tx['pagemanager']['cf_toolbar_show']="<p>Soll die Werkzeugleiste angezeigt werden? <b>true</b> oder <b>false<b></p>";
+	$plugin_tx['pagemanager']['cf_toolbar_vertical']="<p>Soll die Werkzeugleiste vertikal angezeigt werden? <b>true</b> oder <b>false</b></p><p>Dies ist eine Option für Power User, die das Layout in Plugin-Stylesheet anpassen können.</p>";
+	$plugin_tx['pagemanager']['cf_pagedata_attribute']="<p>Das ja/nein (mit Voreinstellung ja) pagedata Attribut für die Checkboxen, z.B. <b>published</b> oder <b>linked_to_menu</b>.</p><p><strong>Vorsicht:</strong> Wenn Sie ein ungeeignetes Attribut wählen, bringen Sie Ihre pagedata.php durcheinander.</p>";
+	$plugin_tx['pagemanager']['cf_treeview_theme']="<p>Stil der Baumansicht: <b>cmsimple</b></p><p>Andere Stile können von http://3-magi.net/?CMSimple_XH/Pagemanager_XH herunter geladen werden.</p>";
+	$plugin_tx['pagemanager']['cf_treeview_animation']="<p>Dauer der Öffnen/Schließen-Animation in ms. 0 bedeutet keine Animation.</p>";
 	$plugin_tx['pagemanager']['cf_utf8_marker']="<p>Interne Verwendung. <strong>Nicht ändern!</strong></p>";
 	$plugin_tx['pagemanager']['menu_main']="Seiten verwalten";
 	$plugin_tx['pagemanager']['op_expand']="Alle Seiten aufklappen";
@@ -32,9 +32,10 @@
 	$plugin_tx['pagemanager']['message_menu_level']="Das würde Ihre <em>menu levels</em> Konfiguration übersteigen!";
 	$plugin_tx['pagemanager']['message_no_selection']="Sie müssen eine Seite auswählen, bevor Sie das Werkzeug verwenden können!";
 	$plugin_tx['pagemanager']['message_delete_last']="Sie dürfen die letzte Seite auf oberster Ebene nicht löschen!";
-	$plugin_tx['pagemanager']['error_phpversion']="Pagemanager_XH benötigt mindestens PHP version 4.3.0!";
+	$plugin_tx['pagemanager']['error_phpversion']="Pagemanager_XH benötigt mindestens PHP version %s!";
 	$plugin_tx['pagemanager']['error_extension']="Pagemanager_XH benötigt die PHP Erweiterung %s!";
 	$plugin_tx['pagemanager']['error_jquery']="Pagemanager_XH benötigt das jQuery4CMSimple-Plugin! Bitte <a href='http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple'>laden sie es herunter</a> und installieren sie es.";
+	$plugin_tx['pagemanager']['error_encoding']="Pagemanager_XH erfordert UTF-8 Kodierung!";
 	$plugin_tx['pagemanager']['error_structure_confirmation']="Ich weiß <em>genau</em> was ich mache! Ich möchte fortfahren.";
 	$plugin_tx['pagemanager']['error_structure_warning']="<strong>Unregelmäßige Seitenstruktur gefunden.</strong> Lesen Sie die Plugin-Hilfe und fragen Sie Ihren Webmaster!";
 	$plugin_tx['pagemanager']['error_nesting']="Zu tiefe Verschachtelung der Seitenstruktur!";
