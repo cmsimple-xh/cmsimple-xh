@@ -39,6 +39,7 @@ $plugin_tx['pagemanager']['error_encoding']="Pagemanager_XH requires UTF-8 encod
 $plugin_tx['pagemanager']['error_structure_confirmation']="I know <em>exactly</em> what I'm doing! I want to proceed.";
 $plugin_tx['pagemanager']['error_structure_warning']="<strong>Irregular page structure found.</strong> For details see plugin help and consult your webmaster!";
 $plugin_tx['pagemanager']['error_nesting']="Too deep nesting of page structure!";
+$plugin_tx['pagemanager']['error_cant_rename']="This page can't be renamed, as its heading is partially formatted.";
 $plugin_tx['pagemanager']['utf8_marker']="äöüß";
 
 ?>

@@ -1,7 +1,7 @@
 /**
  * Page administration of Pagemanager_XH
  *
- * Copyright (c) 2011 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
  */
  
 
@@ -49,7 +49,8 @@ function pagemanager_do(op) {
 
 function pagemanager_confirmStructureWarning() {
     jQuery('#pagemanager-structure-warning').hide(500);
-    jQuery('#pagemanager-submit').show(500);
+    jQuery('#pagemanager-toolbar a:first-child').show();
+    jQuery('#pagemanager-submit').show();
 }
 
 
@@ -120,6 +121,12 @@ var pagemanager_modified = false;
 	    }
 	});
 	
+	$('#pagemanager').bind('loaded.jstree', function () {
+	    if ($('#pagemanager-structure-warning').length == 0) {
+	        $('#pagemanager-toolbar a:first-child').show();
+	    }
+	});
+	
 	/* initialize checkboxes */
 	$('#pagemanager').bind('loaded.jstree', function () {
 	    var checkNodes = (function (parent) {
@@ -152,6 +159,11 @@ var pagemanager_modified = false;
 		    }
 		    break;
 		case 'rename':
+		    if ($(data.args[0][0]).hasClass('pagemanager-no-rename')) {
+			alert('<<<PT_error_cant_rename>>>');
+			e.stopImmediatePropagation();
+			return false;
+		    }
 		    pagemanager.set_text(data.args[0][0], pagemanager._get_node(data.args[0][0]).attr('title'));
 		    break;
 		case 'remove':

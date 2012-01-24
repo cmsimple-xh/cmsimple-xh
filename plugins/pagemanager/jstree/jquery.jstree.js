@@ -1364,9 +1364,9 @@
 			},
 			move_node : function (obj, ref, position, is_copy, is_prepared, skip_check) {
 				var s = this._get_settings().crrm.move;
-				if(!is_prepared) { 
+				if(!is_prepared) {
 					if(typeof position === "undefined") { position = s.default_position; }
-					if(position === "inside" && !s.default_position.match(/^(before|after)$/)) { position = s.default_position; }
+					if(position === "inside" && typeof s.default_position != 'undefined' && !s.default_position.match(/^(before|after)$/)) { position = s.default_position; }
 					return this.__call_old(true, obj, ref, position, is_copy, false, skip_check);
 				}
 				// if the move is already prepared

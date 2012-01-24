@@ -3,7 +3,7 @@
 /**
  * Back-End of Pagemanager_XH.
  *
- * Copyright (c) 2011 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
  */
  
 
@@ -11,23 +11,25 @@
 
 
 if (!defined('CMSIMPLE_XH_VERSION')) {
-    die('Access forbidden');
+    header('HTTP/1.0 403 Forbidden');
+    exit;
 }
 
 
-define('PAGEMANAGER_VERSION', '1pl1');
+define('PAGEMANAGER_VERSION', '1pl3');
 
 
 /**
  * Reads content.htm and sets $pagemanager_h.
  *
  * The function was copied from CMSimple_XH 1.4's cms.php and modified
- * to just set the global $pagemanager_h with the unmodified page titles.
+ * to just set the global $pagemanager_h with the unmodified page titles
+ * and $pagemanager_no_rename wether the heading is partially formatted.
  *
  * @return void
  */
 function pagemanager_rfc() {
-    global $pth, $tx, $cf, $pagemanager_h;
+    global $pth, $tx, $cf, $pagemanager_h, $pagemanager_no_rename;
 
     $c = array();
     $pagemanager_h = array();
@@ -51,6 +53,7 @@ function pagemanager_rfc() {
         preg_match('~<h([1-' . $stop . ']).*>(.*)</h~isU', $page, $temp);
         $l[] = $temp[1];
         $temp_h[] = trim(strip_tags($temp[2]));
+	$pagemanager_no_rename[] = preg_match('/.*?<.*?/isU', $temp[2]);
     }
 
     $cl = count($c);
@@ -59,19 +62,18 @@ function pagemanager_rfc() {
     if ($cl == 0) {
         $c[] = '<h1>' . $tx['toc']['newpage'] . '</h1>';
         $pagemanager_h[] = trim(strip_tags($tx['toc']['newpage']));
-        $u[] = uenc($pagemanager_h[0]);
+	$pagemanager_no_rename[] = preg_match('/.*?<.*?/isU', $tx['toc']['newpage']);
         $l[] = 1;
         $s = 0;
         return;
     }
 
     foreach ($temp_h as $i => $pagemanager_heading) {
-        $temp = trim(strip_tags($pagemanager_heading));
-        if ($temp == '') {
+        if ($pagemanager_heading == '') {
             $empty++;
-            $temp = $tx['toc']['empty'] . ' ' . $empty;
+            $pagemanager_heading = $tx['toc']['empty'] . ' ' . $empty;
         }
-        $pagemanager_h[] = $temp;
+	$pagemanager_h[$i] = $pagemanager_heading;
     }
 }
 
@@ -84,12 +86,12 @@ function pagemanager_rfc() {
 function pagemanager_version() {
     return tag('br').tag('hr').'<p><strong>Pagemanager_XH</strong></p>'.tag('hr')."\n"
 	    .'<p>Version: '.PAGEMANAGER_VERSION.'</p>'."\n"
-	    .'<p>Copyright &copy; 2011 Christoph M. Becker</p>'."\n"
-	    .'<p><a href="http://3-magi.net/?CMSimple_XH/Pagemanager_XH" target="_blank">'
+	    .'<p>Copyright &copy; 2011-2012 <a href="http://3-magi.net">Christoph M. Becker</a></p>'."\n"
+	    .'<p><a href="http://3-magi.net/?CMSimple_XH/Pagemanager_XH">'
 	    .'Pagemanager_XH</a> is powered by '
-	    .'<a href="http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple" target="_blank">'
+	    .'<a href="http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple">'
 	    .'jQuery4CMSimple</a>'
-	    .' and <a href="http://www.jstree.com/" target="_blank">jsTree</a>.</p>'."\n"
+	    .' and <a href="http://www.jstree.com/">jsTree</a>.</p>'."\n"
 	    .'<p style="text-align: justify">This program is free software: you can redistribute it and/or modify'
 	    .' it under the terms of the GNU General Public License as published by'
 	    .' the Free Software Foundation, either version 3 of the License, or'
@@ -125,7 +127,7 @@ function pagemanager_toolbar($image_ext, $save_js) {
 		: 'href="'.$pth['file']['plugin_help'].'" target="_blank"');
 	$img = $imgdir.$tool.($tool != 'separator' || !$horizontal ? '' : '_v').$image_ext;
 	$class = $tool == 'separator' ? 'separator' : 'tool';
-	$res .= ($tool != 'separator' ? '<a '.$link.' class="pl_tooltip">' : '')
+	$res .= ($tool != 'separator' ? '<a '.$link.' class="pl_tooltip"'.($tool == 'save' ? ' style="display: none"' : '').'>' : '')
 		.tag('img class="'.$class.'" src="'.$img.'"'
 		    .($tool != 'help' ? ' onclick="pagemanager_do(\''.$tool.'\'); return false;"' : ''))
 		.($tool != 'separator'
@@ -181,7 +183,7 @@ function pagemanager_instanciateJS($image_ext) {
  */
 function pagemanager_edit() {
     global $hjs, $pth, $o, $sn, $h, $l, $plugin, $plugin_cf, $tx, $plugin_tx,
-	$u, $pagemanager_h, $pd_router;
+	$u, $pagemanager_h, $pagemanager_no_rename, $pd_router;
 
     include_once($pth['folder']['plugins'].'jquery/jquery.inc.php');
     include_jQuery();
@@ -220,8 +222,9 @@ function pagemanager_edit() {
 	    .'<div id="pagemanager" ondblclick="jQuery(\'#pagemanager\').jstree(\'toggle_node\');">'."\n"
     	    .'<ul>'."\n".'<li id="pagemanager-0" title="'.$pagemanager_h[0].'"'
 	    .' pdattr="'.($pd[$plugin_cf['pagemanager']['pagedata_attribute']] == ''
-		? '1' : $pd[$plugin_cf['pagemanager']['pagedata_attribute']])
-	    .'"><a href="#">'.$pagemanager_h[0].'</a>';
+		? '1' : $pd[$plugin_cf['pagemanager']['pagedata_attribute']]).'"'
+	    .($pagemanager_no_rename[0] ? ' class="pagemanager-no-rename"' : '')
+	    .'><a href="#">'.$pagemanager_h[0].'</a>';
     $stack = array();
     for ($i = 1; $i < count($h); $i++) {
 	$ldiff = $l[$i] - $l[$i-1];
@@ -249,8 +252,9 @@ function pagemanager_edit() {
 	$bo .= '<li id="pagemanager-'.$i.'"'
 		.' title="'.$pagemanager_h[$i].'"'
 		.' pdattr="'.($pd[$plugin_cf['pagemanager']['pagedata_attribute']] == ''
-		    ? '1' : $pd[$plugin_cf['pagemanager']['pagedata_attribute']]).'">'
-		.'<a href="#">'.$pagemanager_h[$i].'</a>';
+		    ? '1' : $pd[$plugin_cf['pagemanager']['pagedata_attribute']]).'"'
+		.($pagemanager_no_rename[$i] ? ' class="pagemanager-no-rename"' : '')
+		.'><a href="#">'.$pagemanager_h[$i].'</a>';
     }
     $bo .= '</ul></div>'."\n";
 
@@ -408,9 +412,13 @@ if (isset($pagemanager)) {
 	case '':
 	    if ($action == 'plugin_save') {
 		pagemanager_save(stsl($_POST['xml']));
-		header('Location: '.$sn.(isset($_GET['pagemanager-xhpages'])
-			? '?&normal&xhpages'
-			: '?&pagemanager&normal&admin=plugin_main'));
+		if (!headers_sent()) {
+		    header('Location: http://'.$_SERVER['SERVER_NAME'].$sn
+			    .(isset($_GET['pagemanager-xhpages'])
+			    ? '?&normal&xhpages'
+			    : '?&pagemanager&normal&admin=plugin_main'));
+		}
+		exit();
 	    } else {
 		$o .= pagemanager_version();
 	    }

@@ -1,3 +1,18 @@
+Version 1pl3 - released 2012-01-24
+cmb	improved handling of relocation after saving
+cmb	added Polish translation (contributed by learnandcode)
+cmb	updated manual accordingly
+
+Version 1pl2 - released 2012-01-21
+cmb	added plugin icon
+cmb	extended copyright to 2012
+cmb	fixed minor bug: save button in toolbar was not hidden, if irregular sitestructure was found
+cmb	inhibited renaming of page, if its heading is only partially formatted
+cmb	fixed minor bug in jstree: D&D inside a node didn't work
+cmb	made some minor cosmetic changes
+cmb	added Russian translation (contributed by Termin)
+cmb	updated manual accordingly
+
 Version 1pl1 - released 2011-12-16
 cmb	removed beta warning in manual
 cmb	cosmetic changes in manual

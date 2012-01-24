@@ -15,6 +15,7 @@ body {
 }
 
 #nav {
+    clear: both;
     margin-left: 0;
     float: left;
     width: 15em;
