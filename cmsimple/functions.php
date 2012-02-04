@@ -84,13 +84,13 @@ function l($n) {
 function evaluate_cmsimple_scripting($__text, $__compat = TRUE) {
 	global $output;
     foreach ($GLOBALS as $__name => $__dummy) {global $$__name;}
-    
+
     $__scope_before = NULL; // just that it exists
     $__scripts = array();
     preg_match_all('~'.$cf['scripting']['regexp'].'~is', $__text, $__scripts);
     if (count($__scripts[1]) > 0) {
         //$output = preg_replace('~'.$cf['scripting']['regexp'].'~is', '', $__text);
-	$output = preg_replace('~#CMSimple (?!hide)(.*?)#~is', '', $__text); 
+	$output = preg_replace('~#CMSimple (?!hide)(.*?)#~is', '', $__text);
 	if ($__compat) {$__scripts[1] = array_reverse($__scripts[1]);}
         foreach ($__scripts[1] as $__script) {
             if (strtolower($__script) !== 'hide' && strtolower($__script) !== 'remove') {
@@ -106,7 +106,7 @@ function evaluate_cmsimple_scripting($__text, $__compat = TRUE) {
 		if ($__compat) {break;}
             }
         }
-		$eval_script_output = $output; 
+		$eval_script_output = $output;
 		$output = '';
 		return $eval_script_output;
     }
@@ -123,7 +123,7 @@ function evaluate_cmsimple_scripting($__text, $__compat = TRUE) {
  */
 function evaluate_plugincall($__text) {
     global $u;
-    
+
     $error = ' <span style="color:#5b0000; font-size:14px;">{{CALL TO:<span style="color:#c10000;">{{%1}}</span> FAILED}}</span> '; //use this for debugging of failed plugin-calls
     $pl_regex = '"{{{RGX:CALL(.*?)}}}"is'; //general CALL-RegEx (Placeholder: "RGX:CALL")
     $pl_calls = array(
@@ -177,10 +177,10 @@ function evaluate_scripting($text, $compat = TRUE) {
  */
 function newsbox($heading) {
     global $c, $cl, $h, $cf, $edit;
-    
+
     for ($i = 0; $i < $cl; $i++) {
 	if ($h[$i] == $heading) {
-	    $body = preg_replace("/.*<\/h[1-".$cf['menu']['levels']."]>/i", "", $c[$i]);
+	    $body = preg_replace("/.*<\/h[1-".$cf['menu']['levels']."]>/isu", "", $c[$i]);
 	    return $edit ? $body : preg_replace("/".$cf['scripting']['regexp']."/is", "", evaluate_scripting($body, FALSE));
 	}
     }
@@ -208,13 +208,13 @@ function init_editor($elementClasses = array(),  $initFile = false){
     }
     include_once $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
     $function = 'init_' . $cf['editor']['external'];
-    
+
     if (!function_exists($function)){
         return false;
     }
 
     $function($elementClasses, $initFile);
-    
+
     return true;
 }
 
@@ -225,30 +225,30 @@ function include_editor(){
     }
     include_once $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
     $function = 'include_' . $cf['editor']['external'];
-    
+
     if (!function_exists($function)){
         return false;
     }
 
     $function();
-    
+
     return true;
 }
 
 function editor_replace($elementID = false, $config = ''){
     global $pth, $cf;
-    
+
     if(!$elementID) {
         trigger_error('No elementID given', E_USER_NOTICE);
         return false;
     }
-    
+
     if (!file_exists($pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php')) {
          return false;
     }
     include_once $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
     $function = $cf['editor']['external'] . '_replace';
-    
+
     if (!function_exists($function)){
         return false;
     }
