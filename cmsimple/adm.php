@@ -42,17 +42,17 @@ function selectlist($fn, $regm, $regr) {
     {
         $o .= '<option value="" selected="selected">' . $tx['template']['default'] . '</option>';
     }
-    foreach ($options as $option => $selected) 
+    foreach ($options as $option => $selected)
     {
         $o .= '<option value="' . $option . '"';
-        if ($selected) 
+        if ($selected)
         {
             $o .= ' selected="selected"';
         }
         $o .= '>' . $option . '</option>';
     }
     $o .= '</select>';
-} 
+}
 
 // Adm functionality
 
@@ -259,7 +259,7 @@ if ($adm) {
                             unset($txc['subsite']);
                         }
                         $a = 'txc';
-                    } 
+                    }
 
 // disables editing of site title, keywords and description in config - by MD 2009-09 (CMSimple_XH beta3.2)
 
@@ -339,12 +339,12 @@ if ($adm) {
                 }
                 chkfile($file, true);
                 $title = ucfirst($tx['action']['edit']) . ' ' . (isset($tx['filetype'][$file]) ? $tx['filetype'][$file] : $file);
-                $o .= '<h1>' . $title . '</h1>' . "\n"; 
+                $o .= '<h1>' . $title . '</h1>' . "\n";
 				if(isset($a) && $a=='txc' && $cf['language']['default'] != $sl)
 				{
 					$o .= '<p>' . "\n" . $tx['help']['subsite'] . "\n" .'</p>' . "\n";
 					$o .= '<p class="cmsimplecore_warning" style="text-align: center;">' . "\n" . $tx['help']['langconfig'] . "\n" .'</p>' . "\n";
-				} 
+				}
 				$o .= '<form action="' . $sn . (isset($plugin) ? '?' . amp() . $plugin : '') . '" method="post">';
                 if ($form == 'array') {
                     $o .= tag('input type="submit" class="submit" value="' . ucfirst($tx['action']['save']) . '"') . "\n";
@@ -382,7 +382,7 @@ if ($adm) {
                                             selectlist('templates', "/^[^\.]*$/i", "/^([^\.]*)$/i");
                                         else if ($k1 . $k2 == 'subsitetemplate')
                                             selectlist('templates', "/^[^\.]*$/i", "/^([^\.]*)$/i"); // for subsites
-                                            
+
 //new in 1.5: single line input field or textarea depending on text length
 											else if (strlen($v2) < 30)
 											{
@@ -468,7 +468,7 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
             $s = $ss;
     if ($s > -1) {
         $su = $u[$s];
-        
+
         if ($cf['editor']['external'] == '')
             $cf['editor']['external'] = 'tinymce';
         $editor = init_editor();
@@ -488,17 +488,18 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
         $o .= '
                </form>
                ';
-   
-        
+
+
     }
     else
         $o .= '<p>' . $tx['error']['cntlocateheading'] . '</p>' . "\n";
 }
 
-if ($adm && (isset($images) && $images)
+if ($adm && ((isset($images) && $images)
         || (isset($downloads) && $downloads)
         || (isset($userfiles) && $userfiles)
-        || $edit && (!$f || $f == 'save') && !$download) {
+        || (isset($media) && $media)
+        || $edit && (!$f || $f == 'save') && !$download)) {
     if ($cf['filebrowser']['external'] && !file_exists($pth['folder']['plugins'].$cf['filebrowser']['external'])) {
         $e .= '<li>'.sprintf('External filebrowser %s missing', $cf['filebrowser']['external']).'</li>'."\n";
     }
@@ -633,7 +634,7 @@ function check_internal_link($test) {
     }
 
     $parts = explode('=', $test['query']);
-    
+
     if ($parts[0] == 'download' || $parts[0] == '&download' || $parts[0] == '&amp;download') {
         if (file_exists($pth['folder']['downloads'] . $parts[1])) {
             return 200;
