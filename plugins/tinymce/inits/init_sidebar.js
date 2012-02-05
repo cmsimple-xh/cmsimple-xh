@@ -3,7 +3,7 @@
 
     mode    : "specific_textareas",
     editor_selector : /%INIT_CLASSES%/,
-    
+
     theme : "advanced",
     element_format : "%ELEMENT_FORMAT%",
 //    relative_urls      : false,
@@ -12,15 +12,15 @@
     language : "%LANGUAGE%",
     plugins : "autosave,pagebreak,style,layer,table,save,advimage,advlink,advhr,emotions,iespell,"
             + "insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,"
-            + "noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount",
-  /* 
+            + "noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,lists",
+  /*
     style_formats : [
 
 
         {title : "Normal", block : "p", classes : true , remove : "all", exact : false},
         {title : "Teaser", block : "p", classes : "teaser", exact : true},
         {title : "Zitat",  block : "p", classes : "zitat", exact : false },
- 
+
     ],
     */
     // Theme options
@@ -37,7 +37,7 @@
 
 //    height : "%EDITOR_HEIGHT%",
     content_css   : "%STYLESHEET%",
-    
+
     external_image_list_url : "%TINY_FOLDER%cms_image_list.js",
     external_link_list_url  : "%TINY_FOLDER%cms_link_list.js",
 
@@ -47,7 +47,7 @@
     apply_source_formatting      : true,
     relative_urls : true,
     entity_encoding : "raw",
-    
+
 //  entity_encoding : "'.$plugin_cf['tinymce']['entity_encoding'].'",
 
 

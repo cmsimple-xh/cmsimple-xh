@@ -1,12 +1,12 @@
 {
     // General options
-    
+
     theme : "advanced",
     element_format : "%ELEMENT_FORMAT%",
     language : "%LANGUAGE%",
     plugins : "autosave,pagebreak,style,layer,table,save,advimage,advlink,advhr,emotions,iespell,"
             + "insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,"
-            + "noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,media",
+            + "noneditable,visualchars,nonbreaking,xhtmlxtras,template,wordcount,media,lists",
    /*
     style_formats : [
 
@@ -14,7 +14,7 @@
         {title : "Normal", block : "p", classes : true , remove : "all", exact : false},
         {title : "Teaser", block : "p", classes : "teaser", exact : true},
         {title : "Zitat",  block : "p", classes : "zitat", exact : false },
- 
+
     ],*/
     // Theme options
     theme_advanced_buttons1 : "save,|,fullscreen,code,formatselect,fontselect,fontsizeselect,styleselect",
@@ -27,8 +27,8 @@
     theme_advanced_resizing : true,
     theme_advanced_blockformats : "h1,h2,h3,p,div,h4,h5,h6,blockquote,dt,dd,code",
     theme_advanced_font_sizes : "8px=8px, 10px=10px,12px=12px, 14px=14px, 16px=16px, 18px=18px,20px=20px,24px=24px,36px=36px",
-    
-    
+
+
 //    height : "%EDITOR_HEIGHT%",
     content_css : "%STYLESHEET%",
     //link and image list
