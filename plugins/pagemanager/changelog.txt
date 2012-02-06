@@ -1,3 +1,6 @@
+Version 1pl4 - released 2012-02-06
+cmb	added check for offending extensions using their own jQuery library
+
 Version 1pl3 - released 2012-01-24
 cmb	improved handling of relocation after saving
 cmb	added Polish translation (contributed by learnandcode)
@@ -112,7 +115,7 @@ cmb	tree opens fully expanded
 cmb	toggle node is now triggered on double click
 cmb	cleaned up code
 cmb	updated documentation
-	
+
 Version 0.6 - released 2011-07-10
 cmb	removed background for all themes
 cmb	fixed "paste after" operation

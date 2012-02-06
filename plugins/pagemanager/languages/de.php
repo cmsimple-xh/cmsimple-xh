@@ -40,6 +40,7 @@
 	$plugin_tx['pagemanager']['error_structure_warning']="<strong>Unregelmäßige Seitenstruktur gefunden.</strong> Lesen Sie die Plugin-Hilfe und fragen Sie Ihren Webmaster!";
 	$plugin_tx['pagemanager']['error_nesting']="Zu tiefe Verschachtelung der Seitenstruktur!";
 	$plugin_tx['pagemanager']['error_cant_rename']="Diese Seite kann nicht umbenannt werden, da ihre Überschrift teilweise formatiert ist.";
+	$plugin_tx['pagemanager']['error_offending_extension']="Kollision mit einer Erweiterung, die ihre eigene jQuery Bibliothek einbindet, festgestellt (siehe Handbuch, Abschnitt \"Beschränkungen\").";
 	$plugin_tx['pagemanager']['utf8_marker']="äöüß";
 
 ?>

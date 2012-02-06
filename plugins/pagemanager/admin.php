@@ -5,7 +5,7 @@
  *
  * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
  */
- 
+
 
 // utf-8-marker: äöüß
 
@@ -16,7 +16,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('PAGEMANAGER_VERSION', '1pl3');
+define('PAGEMANAGER_VERSION', '1pl4');
 
 
 /**
@@ -115,7 +115,7 @@ function pagemanager_version() {
  */
 function pagemanager_toolbar($image_ext, $save_js) {
     global $pth, $plugin_cf, $plugin_tx, $tx;
-    
+
     $imgdir = $pth['folder']['plugins'].'pagemanager/images/';
     $horizontal = strtolower($plugin_cf['pagemanager']['toolbar_vertical']) != 'true';
     $res = '<div id="pagemanager-toolbar" class="'.($horizontal ? 'horizontal' : 'vertical').'">'."\n";
@@ -149,9 +149,9 @@ function pagemanager_toolbar($image_ext, $save_js) {
  */
 function pagemanager_instanciateJS($image_ext) {
     global $pth, $plugin_cf, $plugin_tx, $cf, $tx;
-    
+
     $js = rf($pth['folder']['plugins'].'pagemanager/pagemanager.js');
-    
+
     preg_match_all('/<<<PC_(.*)>>>/', $js, $options);
     foreach ($options[1] as $opt) {
 	$pagemanager_cf[$opt] = addcslashes($plugin_cf['pagemanager'][$opt],
@@ -161,14 +161,14 @@ function pagemanager_instanciateJS($image_ext) {
     foreach ($options[1] as $opt)
 	$pagemanager_tx[$opt] = addcslashes($plugin_tx['pagemanager'][$opt],
 		"\0'\"\\\f\n\r\t\v");
-    
+
     $js = preg_replace('/<<<PC_(.*)>>>/e', '$pagemanager_cf["$1"]', $js);
     $js = preg_replace('/<<<PT_(.*)>>>/e', '$pagemanager_tx["$1"]', $js);
     $js = str_replace('<<<MENU_LEVELS>>>', $cf['menu']['levels'], $js);
     $js = str_replace('<<<TOC_DUPL>>>', $tx['toc']['dupl'], $js);
     $js = str_replace('<<<IMAGE_EXT>>>', $image_ext, $js);
     $js = str_replace('<<<IMAGE_DIR>>>', $pth['folder']['plugins'].'pagemanager/images/', $js);
-    
+
     return '<!-- initialize jstree -->'."\n"
 	    .'<script type="text/javascript">'."\n"
 	    .'/* <![CDATA[ */'.$js.'/* ]]> */'."\n"
@@ -190,21 +190,21 @@ function pagemanager_edit() {
     include_jQueryUI();
     include_jQueryPlugin('jsTree', $pth['folder']['plugins']
 	    .'pagemanager/jstree/jquery.jstree.js');
-    
+
     $image_ext = (file_exists($pth['folder']['plugins'].'pagemanager/images/help.png'))
 	    ? '.png' : '.gif';
-    
+
     pagemanager_rfc();
-    
+
     $bo = '';
-    
+
     $swo = '<div id="pagemanager-structure-warning" class="cmsimplecore_warning"><p>'
 	    .$plugin_tx['pagemanager']['error_structure_warning']
 	    .'</p><p><a href="javascript:pagemanager_confirmStructureWarning();">'
 	    .$plugin_tx['pagemanager']['error_structure_confirmation']
 	    .'</a></div>'."\n";
-	    
-    
+
+
     $save_js = 'jQuery(\'#pagemanager-xml\')[0].value ='
 	    .' jQuery(\'#pagemanager\').jstree(\'get_xml\', \'nest\', -1,
 		new Array(\'id\', \'title\', \'pdattr\'))';
@@ -212,12 +212,12 @@ function pagemanager_edit() {
     $bo .= '<form id="pagemanager-form" action="'.$sn.'?&amp;pagemanager&amp;edit'.$xhpages.'" method="post">'."\n";
     $bo .= strtolower($plugin_cf['pagemanager']['toolbar_show']) == 'true'
 	    ? pagemanager_toolbar($image_ext, $save_js) : '';
-    
+
     // output the treeview of the page structure
     // uses ugly hack to clean up irregular page structure
     $irregular = FALSE;
     $pd = $pd_router->find_page(0);
-    
+
     $bo .= '<!-- page structure -->'."\n"
 	    .'<div id="pagemanager" ondblclick="jQuery(\'#pagemanager\').jstree(\'toggle_node\');">'."\n"
     	    .'<ul>'."\n".'<li id="pagemanager-0" title="'.$pagemanager_h[0].'"'
@@ -260,11 +260,11 @@ function pagemanager_edit() {
 
     if ($irregular)
 	$o .= $swo;
-    
+
     $o .= $bo;
-    
+
     $o .= pagemanager_instanciateJS($image_ext);
-    
+
     // HACK?: send 'edit' as query param to prevent the last if clause in
     //		rfc() to insert #CMSimple hide#
     $o .= tag('input type="hidden" name="admin" value=""')."\n"
@@ -273,10 +273,10 @@ function pagemanager_edit() {
 	    .tag('input id="pagemanager-submit" type="submit" class="submit" value="'
 		.ucfirst($tx['action']['save']).'"'
 		.' onclick="'.$save_js.'"'
-		.' style="'.($irregular ? 'display: none' : '').'"')."\n"
+		.' style="display: none"')."\n"
 	    .'</form>'."\n"
 	    .'<div id="pagemanager-footer">&nbsp;</div>'."\n";
-		
+
     $o .= '<div id="pagemanager-confirmation" title=\''
 	    .tag('img src="'.$pth['folder']['plugins'].'pagemanager/images/question'.$image_ext.'"')
 	    .'&nbsp;'.$plugin_tx['pagemanager']['message_confirm']
@@ -337,7 +337,7 @@ function pagemanager_cdata_handler($parser, $data) {
 	fwrite($pagemanager_fp, '<h'.$pagemanager_state['level'].'>'.$pagemanager_state['title']
 		.'</h'.$pagemanager_state['level'].'>'."\n");
     }
-    
+
     if ($pagemanager_state['id'] == '') {
 	$pd = $pd_router->new_page(array());
     } else {
@@ -393,7 +393,7 @@ if (isset($pagemanager)) {
     define('PAGEMANAGER_PHP_VERSION', '4.3.0');
     if (version_compare(PHP_VERSION, PAGEMANAGER_PHP_VERSION) < 0)
 	$e .= '<li>'.sprintf($plugin_tx['pagemanager']['error_phpversion'], PAGEMANAGER_PHP_VERSION).'</li>'."\n";
-    foreach (array('pcre', 'xml') as $ext) { 
+    foreach (array('pcre', 'xml') as $ext) {
 	if (!extension_loaded($ext))
 	    $e .= '<li>'.sprintf($plugin_tx['pagemanager']['error_extension'], $ext).'</li>'."\n";
     }
@@ -405,9 +405,9 @@ if (isset($pagemanager)) {
 
     initvar('admin');
     initvar('action');
-    
+
     $o .= print_plugin_admin('on');
-    
+
     switch ($admin) {
 	case '':
 	    if ($action == 'plugin_save') {

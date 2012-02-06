@@ -40,6 +40,7 @@ $plugin_tx['pagemanager']['error_structure_confirmation']="I know <em>exactly</e
 $plugin_tx['pagemanager']['error_structure_warning']="<strong>Irregular page structure found.</strong> For details see plugin help and consult your webmaster!";
 $plugin_tx['pagemanager']['error_nesting']="Too deep nesting of page structure!";
 $plugin_tx['pagemanager']['error_cant_rename']="This page can't be renamed, as its heading is partially formatted.";
+$plugin_tx['pagemanager']['error_offending_extension']="Offending extension using its own jQuery library detected (see manual, section \"Limitations\").";
 $plugin_tx['pagemanager']['utf8_marker']="äöüß";
 
 ?>

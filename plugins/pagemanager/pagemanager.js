@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
  */
- 
+
 
 // utf-8 marker: äöüß
 
@@ -25,7 +25,7 @@ function pagemanager_do(op) {
 		break;
 	    case 'save':
 		$('#pagemanager-xml')[0].value = $('#pagemanager').jstree(
-			'get_xml', 'nest', -1, new Array('id', 'title', 'pdattr'));	
+			'get_xml', 'nest', -1, new Array('id', 'title', 'pdattr'));
 		$('#pagemanager-form').submit();
 		break;
 	    default:
@@ -62,8 +62,8 @@ function pagemanager_level(obj) {
     }
     return res;
 }
-    
-    
+
+
 function pagemanager_childLevels(obj) {
     var res = -1;
     while (obj.length > 0) {
@@ -88,12 +88,16 @@ function pagemanager_markDuplicates(node, duplicates) {
     return duplicates;
 };
 
-	    
+
 var pagemanager_modified = false;
 
 
 (function ($) {
     $(function () {
+	if (typeof $.jstree == 'undefined') {
+	    alert('<<<PT_error_offending_extension>>>');
+	    return;
+	}
 	$.jstree.plugin('crrm', {
 	    _fn: {
 		pasteAfter: function(obj) {
@@ -107,12 +111,12 @@ var pagemanager_modified = false;
 		}
 	    }
 	});
-	
+
 	$('#pagemanager-confirmation').dialog({
 	    'autoOpen': false,
 	    'modal': true
 	});
-	
+
 	$('#pagemanager-alert').dialog({
 	    'autoOpen': false,
 	    'modal': true,
@@ -120,13 +124,14 @@ var pagemanager_modified = false;
 		'<<<PT_button_ok>>>': function () {$(this).dialog('close');}
 	    }
 	});
-	
+
 	$('#pagemanager').bind('loaded.jstree', function () {
 	    if ($('#pagemanager-structure-warning').length == 0) {
 	        $('#pagemanager-toolbar a:first-child').show();
+		$('#pagemanager-submit').show();
 	    }
 	});
-	
+
 	/* initialize checkboxes */
 	$('#pagemanager').bind('loaded.jstree', function () {
 	    var checkNodes = (function (parent) {
@@ -144,7 +149,7 @@ var pagemanager_modified = false;
 		pagemanager_modified = true;
 	    });
 	});
-	
+
 	$('#pagemanager').bind('before.jstree', function (e, data) {
 	    switch (data.func) {
 		case 'create_node':
@@ -197,20 +202,20 @@ var pagemanager_modified = false;
 		default:
 	    }
 	});
-	
+
 	$('#pagemanager').bind('change_state.jstree', function (e, data) {
 	    data.rslt.attr('pdattr', data.args[1] ? '0' : '1');
 	});
-	
+
 	$('#pagemanager').bind('create_node.jstree', function (e, data) {
 	    pagemanager.set_type('new', data.rslt.obj);
 	    pagemanager.check_node(data.rslt.obj);
 	});
-	
+
 	$('#pagemanager').bind('rename_node.jstree', function (e, data) {
 	    pagemanager._get_node(data.rslt.obj).attr('title', pagemanager.get_text(data.rslt.obj));
 	});
-	
+
 	/* mark copied nodes as new */
 	$('#pagemanager').bind('move_node.jstree', function (e, data) {
 	    if ('cy' in data.rslt && data.rslt.cy) {
@@ -225,7 +230,7 @@ var pagemanager_modified = false;
 		traverse(data.rslt.oc);
 	    }
 	});
-	
+
 	/* restore page titles */
 	$('#pagemanager').bind('rename_node.jstree remove.jstree move_node.jstree', function (e, data) {
 	    var restoreTitles = (function (node) {
@@ -237,12 +242,12 @@ var pagemanager_modified = false;
 	    });
 	    restoreTitles(-1);
 	});
-	
+
 	/* mark duplicate headers */
 	$('#pagemanager').bind('loaded.jstree rename_node.jstree remove.jstree move_node.jstree', function (e, data) {
 	    pagemanager_markDuplicates(-1, 0);
 	});
-	
+
 	if (!window.opera) {
 	    window.onbeforeunload = function () {
 		if (pagemanager_modified && $('#pagemanager-xml')[0].value == '') {
@@ -254,17 +259,17 @@ var pagemanager_modified = false;
 		if (pagemanager_modified && $('#pagemanager-xml')[0].value == '') {
 		    if (confirm('<<<PT_message_confirm_leave>>>')) {
 			$('#pagemanager-xml')[0].value = pagemanager.get_xml(
-				'nest', -1, new Array('id', 'title', 'pdattr'));                
+				'nest', -1, new Array('id', 'title', 'pdattr'));
 			$('#pagemanager-form').submit();
 		    }
 		}
 	    });
 	}
-	
+
 	/*
 	 * Initialize jsTree.
 	 */
-	 
+
 	$('#pagemanager').jstree({
 	    'plugins': ['themes', 'html_data', 'xml_data', 'dnd', 'ui',
 		    'crrm', 'contextmenu', 'checkbox', 'types'],
