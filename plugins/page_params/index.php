@@ -7,7 +7,7 @@
  * Stores page-parameters (heading, template)
  * and let the user take control of visibility
  * of the page.
- * index.php is called by pluginloader and 
+ * index.php is called by pluginloader and
  * manipulates the respective CMSimple-data.
  *
  * @author Martin Damken
@@ -19,7 +19,7 @@
 /**
  * Check if PLUGINLOADER is calling and die if not
  */
-if(!defined('PLUGINLOADER_VERSION')){die('Plugin '. basename(dirname(__FILE__)) . ' requires a newer version of the Pluginloader. No direct access.');} 
+if(!defined('PLUGINLOADER_VERSION')){die('Plugin '. basename(dirname(__FILE__)) . ' requires a newer version of the Pluginloader. No direct access.');}
 /**
  * Include language package
  */
@@ -34,8 +34,8 @@ $pd_router -> add_interest('template');
 $pd_router -> add_interest('published');
 $pd_router -> add_interest('show_last_edit');
 $pd_router -> add_interest('linked_to_menu');
-$pd_router -> add_interest('header_location'); 
-$pd_router -> add_interest('use_header_location'); 
+$pd_router -> add_interest('header_location');
+$pd_router -> add_interest('use_header_location');
 
 /**
  * Add a tab for admin-menu
@@ -89,11 +89,11 @@ if(!$adm OR ($adm && !$edit))
 	$pages = $pd_router -> find_all();
 	foreach($pages as $key => $values)
 	{
-		if($values['use_header_location'] == '1' AND trim($values['header_location']) !== '') 
+		if($values['use_header_location'] == '1' AND trim($values['header_location']) !== '')
 		{
-			if(!preg_match('"(http|https|ftp|mailto):"si', $values['header_location'])) 
+			if(!preg_match('"(http|https|ftp|mailto):"si', $values['header_location']))
 			{
-				$values['header_location'] = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].$values['header_location'];
+				$values['header_location'] = 'http://'.$_SERVER['HTTP_HOST'].$sn.$values['header_location'];
 			}
 			if ($key == $s)
 			{
