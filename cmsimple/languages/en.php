@@ -88,7 +88,7 @@ $tx['help']['scripting_regexp']="Please do not change";
 $tx['help']['security_password']="<p>Default password of the site. Can be substituted in subsites, like secondary language pages etc. under:</p><p><b>Settings => CMSimple => Website</b></p>";
 $tx['help']['site_template']="<p>Default template of the site. Can be substituted in subsites, like secondary language pages etc. under:</p><p><b>Settings => CMSimple => Website</b></p>";
 $tx['help']['subsite']="<b>Subsite:</b> second language or an additional independent website, operated with the same CMSimple_XH installation.";
-$tx['help']['uri_seperator']="The character which separates in the address line page names from the site name.";
+$tx['help']['uri_seperator']="The character which separates names of pages and sub pages in the URL.";
 $tx['help']['xhtml_amp']="<b>true</b> converts <b>&</b> to <b>&amp;amp;</b> in your content. Changing this setting is not recommended";
 $tx['help']['xhtml_endtags']="<b>true</b> creates in the content XHTML required endslashes in standalone tags like &lt;br&gt; etc.";
 
