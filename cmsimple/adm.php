@@ -427,7 +427,7 @@ if ($adm && $f == 'save') {
 
     $ss = $s;
 
-    $c[$s] = preg_replace("/<h[1-" . $cf['menu']['levels'] . "][^>]*>(\&nbsp;| )?<\/h[1-" . $cf['menu']['levels'] . "]>/isu", "", stsl($text));
+    $c[$s] = preg_replace("/<h[1-" . $cf['menu']['levels'] . "][^>]*>(&nbsp;|&#160;|\xC2\xA0| )?<\/h[1-" . $cf['menu']['levels'] . "]>/isu", "", stsl($text));
 
     if ($s == 0)
         if (!preg_match("/^<h1[^>]*>.*<\/h1>/i", rmanl($c[0])) && !preg_match("/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/i", rmanl($c[0])))
