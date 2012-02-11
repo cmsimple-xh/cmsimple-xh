@@ -103,7 +103,7 @@ $pth['folder']['images'] = $pth['folder']['base'] . $cf['folders']['images'];
 $pth['folder']['media'] = $pth['folder']['base'] . $cf['folders']['media'];
 $pth['folder']['flags'] = $pth['folder']['images'] . 'flags/';
 
-//HI 2009-10-30 (CMSimple_XH 1.0rc3) debug-mode, enables error-reporting 
+//HI 2009-10-30 (CMSimple_XH 1.0rc3) debug-mode, enables error-reporting
 xh_debugmode();
 $errors = array();
 
@@ -279,7 +279,7 @@ if ($f == 'sitemap') {
 $si = -1;
 $hc = array();
 for ($i = 0; $i < $cl; $i++) {
-    if (!hide($i))
+    if (!hide($i) || ($i == $s && $cf['hidden']['pages_toc'] == 'true'))
         $hc[] = $i;
     if ($i == $s)
         $si = count($hc);
@@ -415,16 +415,16 @@ function final_clean_up($html) {
         $errorList = '';
         $margin = 34;
         $style = '';
-     
+
         if ($debugMode) {
             $debugHint .= '<div class="cmsimplecore_debug">' . "\n" . '<b>Notice:</b> Debug-Mode is enabled!' . "\n" . '</div>' . "\n";
             $margin += 25;
         }
-        	
+
 
         global $errors;
         if(count($errors) > 0){
-            
+
             $errorList .= '
                 <div class="cmsimplecore_warning" style="margin: 0; border-width: 0;">
                   <ul>
@@ -444,12 +444,12 @@ function final_clean_up($html) {
 	     $html = preg_replace('~</head>~','<style type="text/css">html {margin-top: ' . $margin . 'px;}</style>' ."\n" . '$0', $html, 1);
 
         }
-    
-        $html = preg_replace('~<body[^>]*>~', 
-                            '$0' . '<div' . $style . '>' . $debugHint. admin_menu($plugins, $debugMode) . '</div>' ."\n" .  $errorList, 
+
+        $html = preg_replace('~<body[^>]*>~',
+                            '$0' . '<div' . $style . '>' . $debugHint. admin_menu($plugins, $debugMode) . '</div>' ."\n" .  $errorList,
                          $html, 1);
-      
-      
+
+
     }
 
 
@@ -774,14 +774,14 @@ function xh_debugmode() {
     # 3 - Running errors + notices
     # 4 - All errors except notices and warnings
     # 5 - All errors except notices
-    # 6 - All errors 
+    # 6 - All errors
 
     if (file_exists($pth['folder']['downloads'] . '_XHdebug.txt')) {
         ini_set('display_errors', 1);
         $dbglevel = rf($pth['folder']['downloads'] . '_XHdebug.txt');
         if (strlen($dbglevel) == 1) {
             set_error_handler('xh_debug');
-            
+
             switch ($dbglevel) {
                 case 0: error_reporting(0);
                     break;
@@ -817,7 +817,7 @@ function xh_debugmode() {
 function xh_debug($errno, $errstr, $errfile, $errline, $context)
 {
     global $errors;
-    
+
     if (!(error_reporting() & $errno)) {
         // This error code is not included in error_reporting
         return;
@@ -831,23 +831,23 @@ function xh_debug($errno, $errstr, $errfile, $errline, $context)
     case E_USER_WARNING:
         echo "<b>XH WARNING:</b>  $errstr <br /> $errfile: $errline<br />\n";
         break;
-    
+
     case E_USER_NOTICE:
         $errors[] = "<b>XH-NOTICE:</b> [$errno] $errstr <br />$errfile:$errline<br />\n";
         break;
-    
+
     case E_WARNING:
          $errors[] = "<b>WARNING:</b> $errno $errstr <br />$errfile:$errline<br />\n";
          break;
-    
 
-    
-    
+
+
+
     case E_NOTICE:
         $errors[] = "<b>NOTICE:</b> $errstr <br />$errfile:$errline<br />\n";
         break;
 
-    
+
     case E_ERROR:
          $errors[] = "<b>ERROR:</b> $errstr <br />$errfile:$errline<br />\n";
          break;
@@ -856,10 +856,10 @@ function xh_debug($errno, $errstr, $errfile, $errline, $context)
         echo "Unknown error type: [$errno] $errstr<br />$errfile:$errline<br />\n";
         break;
     }
-   
+
   //  error_log($error, 3, CMS_DIR .'errors.log');
     /* Don't execute PHP internal error handler */
-    
+
     return true;
 }
 
@@ -1107,36 +1107,36 @@ function editmenu() {
     return '';
 }
 
-function admin_menu($plugins = array(), $debug = false) 
+function admin_menu($plugins = array(), $debug = false)
 {
 	global $adm, $edit, $s, $u, $sn, $tx, $sl, $cf, $su;
 
 	if ($adm)
 	{
 		$pluginMenu = '';
-		if ((bool) $plugins) 
+		if ((bool) $plugins)
 		{
 			sort($plugins, SORT_STRING);
 			$pluginMenu .= '<li><a href="javascript:void(0);">' . ucfirst($tx['editmenu']['plugins']) . "</a>\n    <ul>";
-			foreach ($plugins as $plugin) 
+			foreach ($plugins as $plugin)
 			{
 				if($plugin === 'filebrowser')
 				{
 				//   continue;
 				}
-				$pluginMenu .= "\n" . 
+				$pluginMenu .= "\n" .
 					'     <li><a href="?' . $plugin . '&amp;normal">' . ucwords($plugin) . '</a></li>';
 			}
 
 			$pluginMenu .= "\n    </ul>";
 		}
 
-		   
+
 		$t .= "\n" . '<div id="editmenu">';
 
 		$t .= "\n" . '<ul id="edit_menu">' . "\n";
 
-		if ($s < 0) 
+		if ($s < 0)
 		{
 			$su = $u[0];
 		}
@@ -1144,7 +1144,7 @@ function admin_menu($plugins = array(), $debug = false)
 		$changeText = $edit ? $tx['editmenu']['normal'] : $tx['editmenu']['edit'];
 		$t .= '<li><a href="' . $sn . '?' . $su . '&' . $changeMode . '">' . $changeText . '</a></li>' . "\n";
 		$t .= '<li><a href="' . $sn . '?&amp;normal&amp;xhpages" class="">' . ucfirst($tx['editmenu']['pagemanager']) . '</a></li>' . "\n";
-		$t .= '<li><a href="javascript:void(0);" class="">' . ucfirst($tx['editmenu']['files']) . '</a>' ."\n"; 
+		$t .= '<li><a href="javascript:void(0);" class="">' . ucfirst($tx['editmenu']['files']) . '</a>' ."\n";
 		$t .= '    <ul>' . "\n";
 		$t .= '    <li><a href="' . $sn . '?&amp;normal&amp;images">' . ucfirst($tx['editmenu']['images']) . '</a></li>' . "\n";
 		$t .= '    <li><a href="' . $sn . '?&amp;normal&amp;downloads">' . ucfirst($tx['editmenu']['downloads']) . '</a></li>' . "\n";
@@ -1167,14 +1167,14 @@ function admin_menu($plugins = array(), $debug = false)
 		. '    <li><a href="?file=log&amp;action=view" target="_blank">' . ucfirst($tx['editmenu']['log']) . '</a></li>' . "\n"
 		. '    <li><a href="' . $sn . '?&amp;validate">' . ucfirst($tx['editmenu']['validate']) . '</a></li>' . "\n"
 		. '    <li><a href="' . $sn . '?&amp;sysinfo">' . ucfirst($tx['editmenu']['sysinfo']) . '</a></li>' . "\n"
-		. '    </ul>' . "\n" 
+		. '    </ul>' . "\n"
 		. '</li>' . "\n"
-		. $pluginMenu . "\n" 
+		. $pluginMenu . "\n"
 		. '</li>' . "\n";
 		$t .= '</ul>' . "\n" . '<ul id="editmenu_logout">' . "\n";
 		$t .= '<li id="edit_menu_logout"><a href="?&logout">' . ucfirst($tx['editmenu']['logout']) . '</a></li>' . "\n";
 		$t .= '</ul>' . "\n";
-			
+
 		return $t . '<div style="float:none;clear:both;padding:0;margin:0;width:100%;height:0px;"></div>' . "\n" . '</div>' . "\n";
 	}
 }
