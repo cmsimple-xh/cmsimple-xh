@@ -7,7 +7,7 @@ function get_images($directory) {
     if(!$handle) { return ''; }
 
     $i = 0;
-    
+
         while (false !== ($file = readdir($handle))) {
             if (preg_match("/(\.jpg$|\.gif$|\.png$|\.jpeg$)/", $file)) {
                 $files[$i]['name'] = $file;
@@ -15,7 +15,7 @@ function get_images($directory) {
                 $i++;
             }
         }
-    
+
 
     closedir($handle);
 
@@ -35,7 +35,7 @@ function get_internal_links($h, $u, $l, $sn, $downloads_path) {
         if ($l[$i] > 1) {
             $spacer = str_repeat('&nbsp;&nbsp;&nbsp;', $l[$i] - 1);  // just for indenting lower level "pages"
         }
-        $list.='["' . $spacer . substr(str_replace('"', '&quot;', $h[$i]), 0, 30) . '", "' . $sn . '?' . $u[$i] . '"],';
+        $list.='["' . $spacer . substr(str_replace('"', '&quot;', $h[$i]), 0, 30) . '", "' . /*$sn .*/ '?' . $u[$i] . '"],';
     }
     if (@is_dir($downloads_path)) {
         $list .= '["DOWNLOADS:",""],';
@@ -49,4 +49,3 @@ function get_internal_links($h, $u, $l, $sn, $downloads_path) {
     $list = substr($list, 0, -1);
     return($list);
 }
-
