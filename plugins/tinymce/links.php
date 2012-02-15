@@ -35,7 +35,8 @@ function get_internal_links($h, $u, $l, $sn, $downloads_path) {
         if ($l[$i] > 1) {
             $spacer = str_repeat('&nbsp;&nbsp;&nbsp;', $l[$i] - 1);  // just for indenting lower level "pages"
         }
-        $list.='["' . $spacer . substr(str_replace('"', '&quot;', $h[$i]), 0, 30) . '", "' . /*$sn .*/ '?' . $u[$i] . '"],';
+        //$list.='["' . $spacer . substr(str_replace('"', '&quot;', $h[$i]), 0, 30) . '", "' . $sn . '?' . $u[$i] . '"],';
+        $list.='["' . $spacer . addcslashes($h[$i], "\n\r\t\"\\") . '", "?' . $u[$i] . '"],';
     }
     if (@is_dir($downloads_path)) {
         $list .= '["DOWNLOADS:",""],';

@@ -7,16 +7,16 @@ if ($tinymce) {
     $plugin = basename(dirname(__FILE__), "/");
     $o = '<div class="plugintext">';
     $o .= '<div class="plugineditcaption">TinyMCE for CMSimple_XH</div>';
-    $o .= '<p>Version 1.0</p>';
+    $o .= '<p>Version 1.1</p>';
     $o .= '<p>TinyMCE version 3.4.5  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a></p>';
     $o .= '<p>CMSimpe_xh & Filebrowser integration &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.zeichenkombinat.de/</a></p>';
 
-    
+
 
     $admin= isset($_POST['admin']) ? $_POST['admin'] : $admin = isset($_GET['admin']) ? $_GET['admin'] : '';
     $action= isset($_POST['action']) ? $_POST['action'] : $action = isset($_GET['action']) ? $_GET['action'] : '';
     $o .= plugin_admin_common($action,$admin,$plugin);
-    
+
     if ($action === 'plugin_save'){  // refresh
         include $pth['folder']['plugins'] . $plugin . '/config/config.php';
     }
@@ -48,10 +48,9 @@ if ($tinymce) {
         $o .= '</select>'
                 . tag('input type="hidden" name="admin" value="plugin_config"') . "\n"
                 . tag('input type="hidden" name="action" value="plugin_save"') . "\n"
-                
+
                 .tag('input type="submit"  name="plugin_submit" value="' . $tx['action']['save'] . '"') . "\n"
                 . '</form></div>';
     }
     $o .= '</div>';
 }
-
