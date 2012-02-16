@@ -180,13 +180,7 @@ function tinymce_config($xh_editor, $config) {
 
     $temp = tinymce_config(FALSE, $config);
 
-    return '
-	<script type="text/javascript">
-	/* <![CDATA[ */
-	    new tinymce.Editor("' . $elementID .'", ' . $temp . ').render();
-	 /* ]]> */
-	</script>
-	';
+    return 'new tinymce.Editor("' . $elementID .'", ' . $temp . ').render();';
 }
 
 
