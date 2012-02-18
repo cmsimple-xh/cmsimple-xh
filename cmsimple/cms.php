@@ -199,7 +199,6 @@ else
 if (!isset($cf['uri']['length']))
     $cf['uri']['length'] = 200;
 $su = substr($su, 0, $cf['uri']['length']);
-if ($su !== FALSE) {$su = preg_replace('/'.urlencode($cf['uri']['seperator']).'/iU', $cf['uri']['seperator'], $su);}
 
 if ($stylesheet != '') {
     header("Content-type: text/css");
@@ -586,7 +585,7 @@ function rfc() {
         $c[] = $page;
         preg_match('~<h([1-' . $stop . ']).*>(.*)</h~isU', $page, $temp);
         $l[] = $temp[1];
-        $temp_h[] = preg_replace('/\s+/isu', ' ', trim(strip_tags($temp[2]))); 
+        $temp_h[] = preg_replace('/\s+/isu', ' ', trim(strip_tags($temp[2])));
     }
 
     $cl = count($c);
@@ -621,7 +620,7 @@ function rfc() {
     }
 
     foreach ($u as $i => $url) {
-        if ($su == $u[$i]) {
+        if ($su == $u[$i] || $su == urlencode($u[$i])) {
             $s = $i;
         } // get index of selected page
 
