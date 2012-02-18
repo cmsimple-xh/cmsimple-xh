@@ -443,15 +443,15 @@ if ($adm && $f == 'save') {
         fclose($fh);
 
         //preg_match('~<h[1-3][^>]*>(.+)</h[1-3]>~isu', $text, $matches);
-        preg_match('~<h[1-'.$cf['menu']['levels'].'][^>]*>(.+?)</h[1-'.$cf['menu']['levels'].']>~isu', $text, $matches);
+        preg_match('~<h[1-'.$cf['menu']['levels'].'][^>]*>(.+?)</h[1-'.$cf['menu']['levels'].']>~isu', $c[$s], $matches);
 
         if (count($matches) > 0) {
 
             $temp = explode($cf['uri']['seperator'], $selected);
-            array_splice($temp, -1, 1, uenc(trim(strip_tags($matches[1]))));
+            array_splice($temp, -1, 1, uenc(rmnl(trim(strip_tags($matches[1])))));
             $su = implode($cf['uri']['seperator'], $temp);
         } else {
-            $su = $u[$s - 1];
+            $su = $u[min($s - 1, 0)];
         }
         //  var_dump($_SERVER);
         header("Location: " . $sn . "?" . $su);
