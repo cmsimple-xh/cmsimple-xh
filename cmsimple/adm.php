@@ -469,9 +469,7 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
     if ($s > -1) {
         $su = $u[$s];
 
-        if ($cf['editor']['external'] == '')
-            $cf['editor']['external'] = 'tinymce';
-        $editor = init_editor();
+        $editor = $cf['editor']['external'] == '' || init_editor();
         if (!$editor) {
             $e .= '<li>'.sprintf('External editor %s missing', $cf['editor']['external']).'</li>'."\n";
         }
@@ -481,15 +479,12 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
                 . '<textarea name="text" id="text" class="xh-editor" style="height: ' . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
                 . htmlspecialchars($c[$s])
                 . '</textarea>';
-        if (!$editor) {
-
+        if ($cf['editor']['external'] == '' || !$editor) {
             $o .= tag('input type="submit" value="' . $tx['action']['save'] . '"');
         }
         $o .= '
                </form>
                ';
-
-
     }
     else
         $o .= '<p>' . $tx['error']['cntlocateheading'] . '</p>' . "\n";

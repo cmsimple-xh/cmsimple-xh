@@ -196,11 +196,6 @@ if (file_exists($pth['folder']['cmsimple'] . 'userfuncs.php')) {
 
 // EDITOR CALL
 
-	if($cf['editor']['external'] == '')
-	{
-		$cf['editor']['external'] = 'tinymce';
-	}
-
 function init_editor($elementClasses = array(),  $initFile = false){
     global $pth, $cf;
     if (!file_exists($pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php')) {
