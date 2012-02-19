@@ -1,1 +1,1 @@
-utf-8 marker: äöü - please don't delete this line 
+utf-8 marker: Ã¤Ã¶Ã¼ - please don't delete this line 
