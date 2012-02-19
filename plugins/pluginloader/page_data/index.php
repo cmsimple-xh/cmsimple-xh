@@ -53,12 +53,13 @@ if ($adm) {
         /**
          * Collect the headings and pass them over to the router
          */
+        $text = preg_replace("/<h[1-" . $cf['menu']['levels'] . "][^>]*>(&nbsp;|&#160;|\xC2\xA0| )?<\/h[1-" . $cf['menu']['levels'] . "]>/isu", "", stsl($text));
         preg_match_all('/<h[1-' . $cf['menu']['levels'] . '].*>(.+)<\/h[1-' . $cf['menu']['levels'] . ']>/isU', $text, $matches);
         $pd_router->refresh_from_texteditor($matches[1], $s);
     }
 
     /**
-     * Second: check for hanges from MenuManager 
+     * Second: check for hanges from MenuManager
      */
     if (isset($menumanager) && $menumanager && $action == 'saverearranged' && (isset($text) ? strlen($text) : 0 ) > 0) {
         $pd_router->refresh_from_menu_manager($text);
@@ -78,7 +79,7 @@ if ($adm) {
 }
 /**
  * Now we are up to date
- * If no page has been selected yet, we 
+ * If no page has been selected yet, we
  * are on the start page: Get its index
  */
 if ($s == -1 && !$f && $o == '' && $su == '') {

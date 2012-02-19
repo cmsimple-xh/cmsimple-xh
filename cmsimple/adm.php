@@ -427,7 +427,7 @@ if ($adm && $f == 'save') {
 
     $ss = $s;
 
-    $c[$s] = preg_replace("/<h[1-" . $cf['menu']['levels'] . "][^>]*>(&nbsp;|&#160;|\xC2\xA0| )?<\/h[1-" . $cf['menu']['levels'] . "]>/isu", "", stsl($text));
+    $c[$s] = $text;
 
     if ($s == 0)
         if (!preg_match("/^<h1[^>]*>.*<\/h1>/i", rmanl($c[0])) && !preg_match("/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/i", rmanl($c[0])))
@@ -451,7 +451,7 @@ if ($adm && $f == 'save') {
             array_splice($temp, -1, 1, uenc(rmnl(trim(strip_tags($matches[1])))));
             $su = implode($cf['uri']['seperator'], $temp);
         } else {
-            $su = $u[min($s - 1, 0)];
+            $su = $u[max($s - 1, 0)];
         }
         //  var_dump($_SERVER);
         header("Location: " . $sn . "?" . $su);
