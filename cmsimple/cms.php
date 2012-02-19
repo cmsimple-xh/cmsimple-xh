@@ -253,6 +253,13 @@ foreach ($txc['mailform'] as $key => $param) {
     }
 }
 // END of code added for (CMSimple_XH beta)
+
+if (strcasecmp($tx['meta']['codepage'], 'UTF-8') != 0) {
+    $e .= '<li>' . sprintf('<b>UTF-8 encoding required, but codepage %s found!</b>', $tx['meta']['codepage']) . tag('br')
+	. 'Please change that in Settings&rarr;Language&rarr;Meta&rarr;Codepage'
+	. ' and convert all files to UTF-8 without BOM, if not already done.</li>' . "\n";
+}
+
 // Plugin loading
 if ($function == 'save') {
     $edit = true;
