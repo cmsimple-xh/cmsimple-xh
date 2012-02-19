@@ -480,7 +480,7 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
                 . htmlspecialchars($c[$s])
                 . '</textarea>';
         if ($cf['editor']['external'] == '' || !$editor) {
-            $o .= tag('input type="submit" value="' . $tx['action']['save'] . '"');
+            $o .= tag('input type="submit" value="' . ucfirst($tx['action']['save']) . '"');
         }
         $o .= '
                </form>

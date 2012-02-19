@@ -16,7 +16,7 @@
 
 /**
  * PL_Page_Data_Router
- * 
+ *
  * @access public
  */
 class PL_Page_Data_Router{
@@ -24,19 +24,19 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::PL_Page_Data_Router()
-	 * 
+	 *
 	 * @param mixed $data_file
 	 * @param mixed $h
 	 * @return
 	 */
 	function PL_Page_Data_Router($data_file, $h){
 		$this -> model = new PL_Page_Data_Model($h);
-		
+
 	}
 
 	/**
 	 * PL_Page_Data_Router::add_interest()
-	 * 
+	 *
 	 * @param mixed $field
 	 * @return
 	 */
@@ -48,7 +48,7 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::add_tab()
-	 * 
+	 *
 	 * @param mixed $tab_name
 	 * @param mixed $tab_view
 	 * @return
@@ -59,7 +59,7 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::find_page()
-	 * 
+	 *
 	 * @param mixed $id
 	 * @return
 	 */
@@ -67,19 +67,19 @@ class PL_Page_Data_Router{
 		$page = $this -> model -> find_key($id);
 		return $page;
 	}
-	
+
 	/**
 	 * PL_Page_Data_Router::find_all()
-	 * 
+	 *
 	 * @return
 	 */
 	function find_all(){
 		return $this->model->data;
 	}
-	
+
 	/**
 	 * PL_Page_Data_Router::new_page()
-	 * 
+	 *
 	 * @param mixed $params
 	 * @return
 	 */
@@ -90,7 +90,7 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::insert()
-	 * 
+	 *
 	 * @param mixed $pages
 	 * @param mixed $index
 	 * @return
@@ -101,7 +101,7 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::destroy()
-	 * 
+	 *
 	 * @param mixed $key
 	 * @return
 	 */
@@ -131,7 +131,7 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::find_field_value_sortkey()
-	 * 
+	 *
 	 * @param mixed $field
 	 * @param mixed $value
 	 * @param mixed $sort_key
@@ -146,7 +146,7 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::refresh_from_texteditor()
-	 * 
+	 *
 	 * @param mixed $headings
 	 * @param mixed $index
 	 * @return
@@ -155,7 +155,7 @@ class PL_Page_Data_Router{
 		if(count($headings) == 0){
 			/**
 			 * Current page has been deleted:
-			 * Store it temporary, maybe the user 
+			 * Store it temporary, maybe the user
 			 * wants to paste it in somewhere again,
 			 * and remove it from the page infos
 			 */
@@ -165,20 +165,20 @@ class PL_Page_Data_Router{
 		if(count($headings) > 1){
 			/**
 			 * At least one page was inserted:
-			 * Create an array of the new pages 
+			 * Create an array of the new pages
 			 * and insert it into the page data
 			 */
 			$new_pages = array();
 			$current_page = $this -> find_page($index);
 			foreach($headings as $key => $heading){
-				$url = strip_tags($heading);
-				$url = uenc($heading);
+				$url = preg_replace('/\s+/isu', ' ', trim(strip_tags($heading)));
+				$url = uenc($url);
 
 				switch ($url) {
 					case $current_page['url']:
 						/**
 						 * Keeping the current page data:
-						 * this attempt fails, if NEW pages are 
+						 * this attempt fails, if NEW pages are
 						 * added AND current heading was CHANGED
 						 */
 						foreach($current_page as $field => $value){
@@ -187,19 +187,19 @@ class PL_Page_Data_Router{
 						break;
 					case $this -> model -> temp_data['url']:
 						/**
-						 * This is the 'url' of the recently deleted 
-						 * page. Most probably it was just pasted in 
-						 * again. So don't be shy, get the old infos 
+						 * This is the 'url' of the recently deleted
+						 * page. Most probably it was just pasted in
+						 * again. So don't be shy, get the old infos
 						 * for this new page
 						 */
 						foreach($this -> model -> temp_data as $field => $value){
 							$params[$field] = $value;
-						}							
+						}
 						break;
 					default:
 						/**
 						 * The 'url' is used for ... look right above
-						 */						
+						 */
 						$params['url'] = $url;
 						break;
 				}
@@ -213,7 +213,7 @@ class PL_Page_Data_Router{
 			/**
 			 * The heading may have changed, stay up to date.
 			 */
-			$url = strip_tags($headings[0]);
+			$url = preg_replace('/\s+/isu', ' ', trim(strip_tags($headings[0])));
 			$params['url'] = uenc($url);
 			$params['last_edit'] = time();
 			$this -> update($index, $params);
@@ -222,7 +222,7 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::refresh_from_menu_manager()
-	 * 
+	 *
 	 * @param mixed $changes
 	 * @return
 	 */
@@ -273,7 +273,7 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::update()
-	 * 
+	 *
 	 * @param mixed $s
 	 * @param mixed $params
 	 * @return
@@ -290,7 +290,7 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::edit()
-	 * 
+	 *
 	 * @param mixed $pd_s
 	 * @return
 	 */
@@ -302,7 +302,7 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::create_tabs()
-	 * 
+	 *
 	 * @param mixed $s
 	 * @return string Returns views of installed plugins
 	 */
@@ -325,7 +325,7 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::keep_in_mind()
-	 * 
+	 *
 	 * @param mixed $pd_s
 	 * @return
 	 */
@@ -336,7 +336,7 @@ class PL_Page_Data_Router{
 
 	/**
 	 * PL_Page_Data_Router::check_temp()
-	 * 
+	 *
 	 * @param mixed $url
 	 * @return
 	 */
