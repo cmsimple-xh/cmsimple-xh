@@ -383,15 +383,22 @@ if ($adm) {
                                         else if ($k1 . $k2 == 'subsitetemplate')
                                             selectlist('templates', "/^[^\.]*$/i", "/^([^\.]*)$/i"); // for subsites
 
+// use input fields only in CMS config
+                                        
+                                        else if ($a == 'cf')
+                                        {
+                                            $o .= tag('input type="text" class="text" name="'.$k1.'_'.$k2.'" value="'.$v2.'" size="30"')."\n";
+                                        }
+
 //new in 1.5: single line input field or textarea depending on text length
-											else if (strlen($v2) < 30)
-											{
-												$o .= '<textarea rows="2" cols="30" class="cmsimplecore_settings cmsimplecore_settings_short" name="' . $k1 . '_' . $k2 . '">' . $v2 . "</textarea>\n";
-											}
-											else
-											{
+										else if (strlen($v2) < 30)
+										{
+											$o .= '<textarea rows="2" cols="30" class="cmsimplecore_settings cmsimplecore_settings_short" name="' . $k1 . '_' . $k2 . '">' . $v2 . "</textarea>\n";
+										}
+										else
+										{
 												$o .= '<textarea rows="2" cols="30" class="cmsimplecore_settings" name="' . $k1 . '_' . $k2 . '">' . $v2 . "</textarea>\n";
-											}
+										}
                                         $o .= '</td>' . "\n" . '</tr>' . "\n";
                                     }
                         }
