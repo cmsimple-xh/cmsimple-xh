@@ -46,6 +46,7 @@
     plugin_insertdate_timeFormat : "%H:%M:%S",
     apply_source_formatting      : true,
     relative_urls : true,
+    convert_urls: false,
     entity_encoding : "raw",
 
 //  entity_encoding : "'.$plugin_cf['tinymce']['entity_encoding'].'",
