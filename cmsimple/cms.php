@@ -592,7 +592,7 @@ function rfc() {
         $c[] = $page;
         preg_match('~<h([1-' . $stop . ']).*>(.*)</h~isU', $page, $temp);
         $l[] = $temp[1];
-        $temp_h[] = preg_replace('/\s+/isu', ' ', trim(strip_tags($temp[2])));
+        $temp_h[] = preg_replace('/[ \f\n\r\t\xa0]+/isu', ' ', trim(strip_tags($temp[2])));
     }
 
     $cl = count($c);
