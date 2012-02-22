@@ -1,3 +1,6 @@
+Version 1pl5 - released 2012-02-22
+cmb	changed save routine to skip writing of head()
+
 Version 1pl4 - released 2012-02-06
 cmb	added check for offending extensions using their own jQuery library
 

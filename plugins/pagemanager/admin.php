@@ -16,7 +16,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('PAGEMANAGER_VERSION', '1pl4');
+define('PAGEMANAGER_VERSION', '1pl5');
 
 
 /**
@@ -365,7 +365,7 @@ function pagemanager_save($xml) {
     $pagemanager_state['level'] = 0;
     $pagemanager_state['num'] = -1;
     if ($pagemanager_fp = fopen($pth['file']['content'], 'w')) {
-	fputs($pagemanager_fp, '<html><head>'.head().'</head><body>'."\n");
+	fputs($pagemanager_fp, '<html><head><title>Content</title></head><body>'."\n");
 	xml_parse($parser, $xml, TRUE);
 	fputs($pagemanager_fp, '</body></html>');
 	fclose($pagemanager_fp);
