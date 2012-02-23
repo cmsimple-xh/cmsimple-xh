@@ -19,11 +19,13 @@
   ======================================
  */
 
-if (strpos('search.php', strtolower(sv('PHP_SELF')))) {
+$evaluate = strpos('search.php', strtolower(sv('PHP_SELF')));
+if ($evaluate) {
     die('Access Denied');
 }
 
-if(!function_exists('mb_strtolower')) {
+$evaluate = !function_exists('mb_strtolower');
+if ($evaluate) {
     function mb_strtolower($string, $charset = null) {
         $string = utf8_decode($string);
         $string = strtolower($string);
@@ -32,53 +34,58 @@ if(!function_exists('mb_strtolower')) {
     }
 }
 
-
-
 $title = $tx['title']['search'];
 $ta = array();
-if ($search != '') {
+$evaluate = $search != '';
+if ($evaluate) {
     $search = mb_strtolower(trim($search), 'utf-8');
     $words = explode(' ', $search);
-
     foreach ($c as $i => $pagexyz) {
-        if (!hide($i) || $cf['hidden']['pages_search'] == 'true') {
-            $found  = true;
-	    $pagexyz = evaluate_plugincall($pagexyz, TRUE);
+        $evaluate = !hide($i) || $cf['hidden']['pages_search'] == 'true';
+        if ($evaluate) {
+            $found = true;
+            $pagexyz = evaluate_plugincall($pagexyz, TRUE);
             $pagexyz = mb_strtolower(strip_tags($pagexyz), 'utf-8');
             $pagexyz = html_entity_decode($pagexyz, ENT_QUOTES, 'utf-8');
             foreach ($words as $word) {
-                if (strpos($pagexyz, trim($word)) === false) {
+                $evaluate = strpos($pagexyz, trim($word)) === false;
+                if ($evaluate) {
                     $found = false;
                     break;
                 }
             }
-            if (!$found) {continue;}
+            if (!$found) {
+                continue;
+            }
             $ta[] = $i;
         }
     }
-    
-    if(count($ta) > 0){
-        $cms_searchresults = "\n" .'<ul>';
-	
-	$words = (implode( ",", $words));
-        foreach($ta as $i){
-            $cms_searchresults .= "\n\t" . '<li><a href="' . $sn . '?' . $u[$i] . amp() . 'search=' . urlencode($words) .'">' . $h[$i] . '</a></li>';
+    $evaluate = count($ta) > 0;
+    if ($evaluate) {
+        $cms_searchresults = "\n" . '<ul>';
+        $words = (implode(",", $words));
+        foreach ($ta as $i) {
+            $cms_searchresults .= "\n\t";
+            $cms_searchresults .= '<li><a href="' . $sn . '?' . $u[$i] . amp() . 'search=' . urlencode($words) . '">' . $h[$i] . '</a></li>';
         }
         $cms_searchresults .= "\n" . '</ul>' . "\n";
     }
 }
 
-$o .= '<h1>' . $tx['search']['result'] . '</h1><p>"' . htmlspecialchars(stsl($search)) . '" ';
+$o .= '<h1>' . $tx['search']['result'] . '</h1>';
+$o .= '<p>"' . htmlspecialchars(stsl($search)) . '" ';
 
-if (count($ta) == 0) {
+$evaluate = count($ta) == 0;
+if ($evaluate) {
     $o .= $tx['search']['notfound'] . '.</p>';
-}
-else {
+} else {
     $o .= $tx['search']['foundin'] . ' ' . count($ta) . ' ';
-    if (count($ta) > 1
-    )$o .= $tx['search']['pgplural'];
-    else
+    $evaluate = count($ta) > 1;
+    if ($evaluate) {
+        $o .= $tx['search']['pgplural'];
+    } else {
         $o .= $tx['search']['pgsingular'];
+    }
     $o .= ':</p>' . $cms_searchresults;
 }
 
