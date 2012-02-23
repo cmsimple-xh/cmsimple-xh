@@ -54,7 +54,7 @@ structuring within pages.
 </head>
 <body>
 <p style="text-align: center; margin: 60px 0 20px 0;">
-Please open this file offline with an text editor, to get the informations.
+Please open this file offline with a text editor, to get the informations.
 </p>
 <p style="text-align: center; margin: 0;">
 Bitte öffnen Sie diese Datei offline mit einem Texteditor, um die Informationen zu erhalten.
