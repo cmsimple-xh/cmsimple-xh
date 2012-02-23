@@ -118,7 +118,8 @@ if (!($t == '' || $e != '')) {
      * textarea
      */
     $o .= '<textarea rows="12" cols="40" name="mailform">' . "\n";
-    if ($mailform) {
+    $evaluate = $mailform == 'true';
+    if ($evaluate) {
         $o .= htmlspecialchars(stsl($mailform)) . "\n";
     }
     $o .= '</textarea>' . "\n";
@@ -126,7 +127,8 @@ if (!($t == '' || $e != '')) {
     /**
      * captcha
      */
-    if (trim($cf['mailform']['captcha'])) {
+    $evaluate = trim($cf['mailform']['captcha']) == 'true';
+    if ($evaluate) {
         $o .= '<p>' . $tx['mailform']['captcha'] . '</p>' . "\n";
         $o .= tag('input type="text" name="cap" class="captchainput"') . "\n";
         $o .= '<span class="captcha_code">' . "\n";
