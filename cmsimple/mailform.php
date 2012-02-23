@@ -50,7 +50,7 @@ if ($action == 'send')
 	. $tx['mailform']['senderphone'] . ": "
 	. stsl($senderphone) . "\n\n" . stsl($mailform));
 
-// echo ($msg);
+    // echo ($msg);
 	if ($getlast != $cap && trim($cf['mailform']['captcha']) == 'true')
 	{
 		$e .= '<li>' . $tx['mailform']['captchafalse'] . '</li>';
@@ -75,9 +75,11 @@ if ($action == 'send')
 
 if ($t == '' || $e != '')
 {
-//	if (@$tx['mailform']['message'] != '')$o .= '<p>'.$tx['mailform']['message'].'</p>';
+    //	if (@$tx['mailform']['message'] != '')$o .= '<p>'.$tx['mailform']['message'].'</p>';
 
-// JB+ add captcha
+    /**
+     * JB+ add captcha
+     */
 	srand((double)microtime()*1000000);
 	$random=rand(10000,99999);
 
@@ -91,7 +93,9 @@ if ($t == '' || $e != '')
 	}
 	$o .= tag('input type="hidden" name="action" value="send"') . "\n";
 
-// fields before textarea 
+    /**
+     * fields before textarea
+     */
 	$o .= '<div>' . "\n" . $tx['mailform']['sendername'].': ' . tag('br') . "\n"
 	.  tag('input type="text" class="text" size="35" name="sendername" value="'
 	.  htmlspecialchars(stsl($sendername)).'"') . "\n"
@@ -105,12 +109,16 @@ if ($t == '' || $e != '')
 	.  htmlspecialchars(stsl($sender)).'"') . "\n"
 	. '</div>' . "\n" . tag('br') . "\n";
 
-// textarea
+    /**
+     * textarea
+     */
 	$o .= '<textarea rows="12" cols="40" name="mailform">' . "\n";
 	if ($mailform != 'true') $o .= htmlspecialchars(stsl($mailform)) . "\n";
 	$o .= '</textarea>' . "\n";
 
-// captcha
+    /**
+     * captcha
+     */
     if (trim($cf['mailform']['captcha']) == 'true')
 	{
 		$o .= '<p>' .  $tx['mailform']['captcha'] . '</p>' . "\n"
@@ -119,7 +127,9 @@ if ($t == '' || $e != '')
 		.  $random . '</span>' . "\n";
     }
 
-// sendbutton
+    /**
+     * sendbutton
+     */
 	$o .= '<div style="clear: both;">' . "\n"
 	.  tag('input type="submit" class="submit" value="'
 	.  $tx['mailform']['sendbutton'] . '"') . "\n" . '</div>' . "\n";
