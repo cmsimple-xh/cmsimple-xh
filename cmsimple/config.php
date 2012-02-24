@@ -1,6 +1,6 @@
 <?php
 /* utf8-marker = äöüß */
-$cf['security']['password']="uz/Dg!K?";
+$cf['security']['password']="to change before a new release";
 $cf['security']['type']="page";
 $cf['site']['template']="cmsimplexh";
 $cf['language']['default']="en";
