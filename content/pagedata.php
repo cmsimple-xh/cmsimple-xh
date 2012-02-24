@@ -34,7 +34,7 @@ $temp_data['use_header_location'] = '';
 
 ################## Page Data ############
 $page_data[0]['url'] = 'Welcome_to_CMSimple_XH';
-$page_data[0]['last_edit'] = '1322144659';
+$page_data[0]['last_edit'] = '1330011708';
 $page_data[0]['description'] = '';
 $page_data[0]['keywords'] = '';
 $page_data[0]['title'] = '';
@@ -274,7 +274,7 @@ $page_data[14]['use_header_location'] = '';
 
 //----------
 $page_data[15]['url'] = 'Languages';
-$page_data[15]['last_edit'] = '1322046538';
+$page_data[15]['last_edit'] = '1329938196';
 $page_data[15]['description'] = '';
 $page_data[15]['keywords'] = '';
 $page_data[15]['title'] = '';
