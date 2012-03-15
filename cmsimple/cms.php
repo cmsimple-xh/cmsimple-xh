@@ -58,7 +58,7 @@ $onload = '';
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
 define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.5.2');
 define('CMSIMPLE_XH_BUILD', 2012022401);
-define('CMSIMPLE_XH_DATE', '2012-02-24');
+define('CMSIMPLE_XH_DATE', '2012-03-15');
 //version-informations
 
 if (preg_match('/cms.php/i', sv('PHP_SELF')))

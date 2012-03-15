@@ -34,7 +34,7 @@ $temp_data['use_header_location'] = '';
 
 ################## Page Data ############
 $page_data[0]['url'] = 'Welcome_to_CMSimple_XH';
-$page_data[0]['last_edit'] = '1330011708';
+$page_data[0]['last_edit'] = '1331835803';
 $page_data[0]['description'] = '';
 $page_data[0]['keywords'] = '';
 $page_data[0]['title'] = '';
