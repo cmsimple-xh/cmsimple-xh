@@ -1038,7 +1038,7 @@ function printlink() {
     else if ($f != '' && $f != 'save')
         $t .= amp() . $f;
     else if (sv('QUERY_STRING') != '')
-        $t = str_replace('&', '&amp;', sv('QUERY_STRING')) . $t; // str_replace by GE 09-06-22
+        $t = htmlspecialchars(sv('QUERY_STRING'), ENT_QUOTES, "UTF-8") . $t;
     return '<a href="' . $sn . '?' . $t . '">' . $tx['menu']['print'] . '</a>';
 }
 
