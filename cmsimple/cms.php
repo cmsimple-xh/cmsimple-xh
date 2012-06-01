@@ -3,8 +3,8 @@
 /* utf8-marker = äöü */
 /*
   ======================================
-  CMSimple_XH 1.5.2
-  2012-02-24
+  CMSimple_XH 1.5.3
+  2012-03-19
   based on CMSimple version 3.3 - December 31. 2009
   For changelog, downloads and information please see http://www.cmsimple-xh.com
   ======================================
@@ -56,9 +56,9 @@ $onload = '';
 //);
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
-define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.5.2');
-define('CMSIMPLE_XH_BUILD', 2012022401);
-define('CMSIMPLE_XH_DATE', '2012-03-15');
+define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.5.3');
+define('CMSIMPLE_XH_BUILD', 2012031901);
+define('CMSIMPLE_XH_DATE', '2012-03-19');
 //version-informations
 
 if (preg_match('/cms.php/i', sv('PHP_SELF')))
@@ -1025,8 +1025,6 @@ function searchbox() {
 function sitemaplink() {
     return ml('sitemap');
 }
-
-// str_replace for QUERY_STRING in printlink - by GE 2009/06 (CMSimple_XH beta)
 
 function printlink() {
     global $f, $search, $file, $sn, $tx;
