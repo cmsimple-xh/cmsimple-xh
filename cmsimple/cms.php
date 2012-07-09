@@ -1187,7 +1187,7 @@ function content() {
     global $s, $o, $c, $edit, $adm, $cf;
     if (!($edit && $adm) && $s > -1) {
     if (isset($_GET['search'])) {
-        $words = explode(',', urldecode($_GET['search']));
+        $words = explode(',', stsl($_GET['search']));
         $words = array_map(create_function('$w', 'return "&".$w."(?!([^<]+)?>)&isU";'), $words);
         $c[$s] = preg_replace($words, '<span class="highlight_search">\\0</span>', $c[$s]);
     }

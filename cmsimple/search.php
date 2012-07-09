@@ -37,7 +37,7 @@ if(!function_exists('mb_strtolower')) {
 $title = $tx['title']['search'];
 $ta = array();
 if ($search != '') {
-    $search = mb_strtolower(trim($search), 'utf-8');
+    $search = mb_strtolower(trim(stsl($search)), 'utf-8');
     $words = explode(' ', $search);
 
     foreach ($c as $i => $pagexyz) {
@@ -68,7 +68,7 @@ if ($search != '') {
     }
 }
 
-$o .= '<h1>' . $tx['search']['result'] . '</h1><p>"' . htmlspecialchars(stsl($search)) . '" ';
+$o .= '<h1>' . $tx['search']['result'] . '</h1><p>"' . htmlspecialchars($search) . '" ';
 
 if (count($ta) == 0) {
     $o .= $tx['search']['notfound'] . '.</p>';
