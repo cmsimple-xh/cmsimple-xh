@@ -1019,7 +1019,12 @@ function li($ta, $st) {
 
 function searchbox() {
     global $sn, $tx;
-    return '<form action="' . $sn . '" method="post">' . "\n" . '<div id="searchbox">' . "\n" . tag('input type="text" class="text" name="search" size="12"') . "\n" . tag('input type="hidden" name="function" value="search"') . "\n" . ' ' . tag('input type="submit" class="submit" value="' . $tx['search']['button'] . '"') . "\n" . '</div>' . "\n" . '</form>' . "\n";
+    return '<form action="' . $sn . '" method="GET">' . "\n"
+        . '<div id="searchbox">' . "\n"
+        . tag('input type="text" class="text" name="search" size="12"') . "\n"
+        . tag('input type="hidden" name="function" value="search"') . "\n" . ' '
+        . tag('input type="submit" class="submit" value="' . $tx['search']['button'] . '"') . "\n"
+        . '</div>' . "\n" . '</form>' . "\n";
 }
 
 function sitemaplink() {
