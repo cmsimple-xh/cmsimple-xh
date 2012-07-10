@@ -544,6 +544,7 @@ function PluginPrepareTextData($data) {
     return (get_magic_quotes_gpc() === 1) ? stripslashes($data) : $data;
 }
 
+
 /**
  * Function PluginSaveForm()
  * Creates form for config data.
@@ -561,15 +562,14 @@ function PluginPrepareTextData($data) {
  *
  * @return string Returns the created form.
  */
-function PluginSaveForm($form=ARRAY(), $style=ARRAY(), $data=ARRAY(), $hint=ARRAY()) {
+function PluginSaveForm($form, $style=ARRAY(), $data=ARRAY(), $hint=ARRAY()) {
     global $pluginloader_tx;
     $saveform = '';
 
-    if (!isset($form['type']) OR ($form['type'] != 'TEXT' AND $form['type'] != 'CONFIG')) {
-        $saveform .= PluginDebugger('invalid_value', debug_backtrace(), $$data, $form['type']);
-        //$saveform .= $pluginloader_tx['error']['plugin_error'].'function PluginSaveForm: \$form[\'type\']=""';
+    if ($form['type'] != 'TEXT' AND $form['type'] != 'CONFIG') {
+        trigger_error('invalid argument', E_USER_WARNING);
     } elseif ($form['type'] == 'CONFIG' AND (!is_array($data) OR count($data) == 0)) {
-        $saveform .= PluginDebugger('empty', debug_backtrace(), $$data, '');
+        trigger_error('empty', E_USER_WARNING);
     } else {
 
         $form_keys = ARRAY('action', 'caption', 'errormsg', 'method', 'value_action', 'value_admin', 'value_submit');
@@ -847,6 +847,9 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
  */
 function PluginDebugger($error=FALSE, $caller=FALSE, $varname=FALSE, $value=FALSE) {
     global $pluginloader_tx;
+    
+    trigger_error('Function PluginDebugger() is deprecated', E_USER_NOTICE);
+    
     $debug = '';
     $debug .= $pluginloader_tx['error']['plugin_error'] . '';
     switch ($error) {
