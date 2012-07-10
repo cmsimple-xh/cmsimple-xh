@@ -113,6 +113,29 @@ if ($adm) {
 <li><a href="http://www.cmsimpleforum.com/">cmsimpleforum.com &raquo;</a></li>
 <li><a href="http://www.cmsimplewiki.com/">cmsimplewiki.com &raquo;</a></li>
 </ul>' . "\n" . "\n";
+
+        $temp = array('phpversion' => '4.3',
+            'extensions' => array(
+                array('date', false),
+                'pcre',
+                array('session', false),
+                array('xml', false)),
+            'writable' => array(),
+            'other' => array());
+        foreach (array('content', 'images', 'downloads', 'userfiles', 'media') as $i) {
+            $temp['writable'][] = $pth['folder'][$i];
+        }
+        foreach (
+            array('config', 'log', 'language', 'langconfig', 'content',
+                'pagedata', 'template', 'stylesheet') as $i)
+        {
+            $temp['writable'][] = $pth['file'][$i];
+        }
+        $temp['writable'] = array_unique($temp['writable']);
+        sort($temp['writable']);
+        $temp['other'][] = array(strtoupper($tx['meta']['codepage']) == 'UTF-8', true, $tx['syscheck']['encoding']);
+        $temp['other'][] = array(!get_magic_quotes_runtime(), false, $tx['syscheck']['magic_quotes']);
+        $o .= XH_systemCheck($temp);
     }
 
 // PHP Info - GE 2010-10-28
