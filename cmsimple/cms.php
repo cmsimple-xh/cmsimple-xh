@@ -176,7 +176,7 @@ $iis = strpos(sv('SERVER_SOFTWARE'), "IIS");
 $cgi = (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi');
 
 $sn = preg_replace('/([^\?]*)\?.*/', '\1', sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_URI')));
-foreach (array('download', 'function', 'media', 'search', 'mailform', 'sitemap', 'text', 'selected', 'login', 'logout', 'settings', 'print', 'retrieve', 'file', 'action', 'validate', 'images', 'downloads', 'edit', 'normal', 'stylesheet', 'passwd', 'userfiles', 'xhpages')as $i)
+foreach (array('download', 'function', 'media', 'search', 'mailform', 'sitemap', 'text', 'selected', 'login', 'logout', 'settings', 'print', 'file', 'action', 'validate', 'images', 'downloads', 'edit', 'normal', 'stylesheet', 'passwd', 'userfiles', 'xhpages')as $i)
     initvar($i);
 
 //by GE 2009-10-14 (CMSimple_XH 1.0rc2)
@@ -367,10 +367,14 @@ if ($title == '') {
     else if ($f != '')
         $title = ucfirst($f);
 }
-if ($retrieve) {
-    echo '<html><head>' . head() . '</head><body class="retrieve">' . $c[$s] . '</body></html>';
-    exit;
+
+if (!headers_sent($temp['file'], $temp['line'])) {
+    header('Content-Type: text/html; charset=' . $tx['meta']['codepage']);
+} else {
+    $temp = $temp['file'] . ':' . $temp['line'];
+    exit(str_replace('{location}', $temp, $tx['error']['headers']));
 }
+
 if ($print) {
     if ($cf['xhtml']['endtags'] == 'true') {
         echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"',

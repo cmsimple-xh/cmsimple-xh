@@ -35,6 +35,7 @@ $tx['error']['cntlocateheading']="No page selected";
 $tx['error']['cntopen']="Could not open";
 $tx['error']['cntsave']="Could not save";
 $tx['error']['cntwriteto']="Could not write to";
+$tx['error']['headers']="Cannot modify header information - headers already sent (output started at {location})";
 $tx['error']['missing']="Missing";
 $tx['error']['notreadable']="Not readable";
 $tx['error']['notwritable']="Not writeable";
