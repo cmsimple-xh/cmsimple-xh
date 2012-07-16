@@ -368,10 +368,10 @@ if ($title == '') {
         $title = ucfirst($f);
 }
 
-if (!headers_sent($temp['file'], $temp['line'])) {
+if (!headers_sent($tempFile, $tempLine)) {
     header('Content-Type: text/html; charset=' . $tx['meta']['codepage']);
 } else {
-    $temp = $temp['file'] . ':' . $temp['line'];
+    $temp = $tempFile . ':' . $tempLine;
     exit(str_replace('{location}', $temp, $tx['error']['headers']));
 }
 
