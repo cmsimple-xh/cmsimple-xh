@@ -145,6 +145,7 @@ class XHFileBrowserView {
         $html = '<ul>';
         $dir = $this->basePath . $this->currentDirectory;
         $is_image = (int) (strpos($this->linkParams, 'type=images') === 0);
+        $class = 'even';
         foreach ($files as $file) {
             $class = $class == 'odd' ? 'even' : 'odd';
 
