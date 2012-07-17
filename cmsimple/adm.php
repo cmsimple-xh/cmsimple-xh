@@ -322,8 +322,12 @@ if ($adm) {
                                 foreach ($v1 as $k2 => $v2) {
                                     if (!is_array($v2)) {
                                         initvar($k1 . '_' . $k2);
-                                        $GLOBALS[$a][$k1][$k2] = $GLOBALS[$k1 . '_' . $k2];
-                                        $GLOBALS[$a][$k1][$k2] = stsl($GLOBALS[$a][$k1][$k2]);
+                                        $GLOBALS[$a][$k1][$k2] = stsl($GLOBALS[$k1 . '_' . $k2]);
+                                        if ($k1 == 'security' && $k2 == 'password') {
+                                            if ($GLOBALS[$a][$k1][$k2] != stsl($_POST['security_password_old'])) {
+                                                $GLOBALS[$a][$k1][$k2] = $xh_hasher->HashPassword($GLOBALS[$a][$k1][$k2]);
+                                            }
+                                        }
                                         $text .= '$' . $a . '[\'' . $k1 . '\'][\'' . $k2 . '\']="' . addcslashes($GLOBALS[$a][$k1][$k2], "\0..\37\"\$\\") . '";' . "\n";
                                     }
                                 }
@@ -389,6 +393,9 @@ if ($adm) {
 										if (isset($tx['help'][$k1 . '_' . $k2]) && ($a == 'cf' || $a == 'txc'))
 										$o .= '<a href="#" class="pl_tooltip">' . tag('img src = "' . $pluginloader_cfg['folder_pluginloader'] . '/css/help_icon.png" alt="" class="helpicon"') . '<span>' . $tx['help'][$k1 . '_' . $k2] . '</span></a>' . "\n";
 										$o .= "\n" . ucfirst($k2) . ':</td>' . "\n" . '<td>';
+                                        if ($k1 == 'security' && $k2 == 'password') {
+                                            $o .= tag('input type="hidden" name="' . $k1 . '_' . $k2 . '_old" value="' . $v2 . '"');
+                                        }
                                         if ($k1 . $k2 == 'securitytype') {
                                             $o .= '<select name="' . $k1 . '_' . $k2 . '">';
                                             foreach (array('page', 'javascript', 'wwwaut') as $v) {

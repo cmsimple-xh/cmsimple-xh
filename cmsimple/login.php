@@ -23,7 +23,9 @@
 if (preg_match('/login.php/i', sv('PHP_SELF')))
     die('Access Denied');
 
-    
+require 'PasswordHash.php';
+$xh_hasher = new PasswordHash(8, true);
+
 // for subsite solution - GE 20011-02
 
 if ($txc['subsite']['password'] != "") {
@@ -117,9 +119,11 @@ if ($cf['security']['type'] == 'page' && $login && $passwd == '' && !$adm) {
 
 if ($login && !$adm) {
     if ($cf['security']['type'] != 'wwwaut') {
-        if ($passwd == $cf['security']['password'] && ($cf['security']['type'] == 'page' || $cf['security']['type'] == 'javascript')) {
+        if ($xh_hasher->CheckPassword($passwd, $cf['security']['password'])
+	    && ($cf['security']['type'] == 'page' || $cf['security']['type'] == 'javascript'))
+	{
             setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
-            setcookie('passwd', $passwd, 0, CMSIMPLE_ROOT);
+            setcookie('passwd', $cf['security']['password'], 0, CMSIMPLE_ROOT);
             $adm = true;
             $edit = true;
             writelog(date("Y-m-d H:i:s") . " from " . sv('REMOTE_ADDR') . " logged_in\n");
