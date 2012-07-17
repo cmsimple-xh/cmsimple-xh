@@ -230,36 +230,49 @@ function foldersArray($all = true) {
     function uploadFile() {
         $file = $_FILES['fbupload'];
         
-        $dir = explode('/',$this->currentDirectory);
-       
-        if (isset($this->maxFilesizes[$dir[0]])){
-           if ($file['size'] > $this->maxFilesizes[$dir[0]]) {
+        if ($file['error'] != 0) {
+            switch ($file['error']) {
+            case UPLOAD_ERR_INI_SIZE:
+                $this->view->error('error_not_uploaded', $file['name']);
+                $this->view->error('error_file_too_big', array('?',  ini_get('upload_max_filesize')));
+                return;
+            default:
+                $this->view->error('error_not_uploaded', $file['name']);
+                return;
+            }
+        }
+        
+        $type = @getimagesize($file['tmp_name']) !== FALSE ? 'images' : 'downloads';
+        // alternatively the following might be used:
+        // $type = $this->linkType == 'images' ? 'images' : 'downloads';
+        if (isset($this->maxFilesizes[$type])) {
+           if ($file['size'] > $this->maxFilesizes[$type]) {
                $this->view->error('error_not_uploaded', $file['name']);
-               $this->view->error('error_file_too_big', array(number_format($file['size']/1000, 2),  number_format($this->maxFilesizes[$dir[0]]/1000, 2)));
+               $this->view->error('error_file_too_big', array(number_format($file['size']/1000, 2),  number_format($this->maxFilesizes[$type]/1000, 2) . ' kb'));
                return;
            }
         }
         
-        if ($file['error'] != 0) {
-            $this->view->error('error_not_uploaded', $file['name']);
-            return;
-        }
-        $filename = $this->browseBase . $this->currentDirectory . basename($file['name']);
-        if (file_exists($filename)) {
-            $this->view->error('error_not_uploaded', $file['name']);
-            $this->view->error('error_file_already_exists', $filename);
-            return;
-        }
         if ($this->isAllowedFile($file['name']) == false) {
             $this->view->error('error_not_uploaded', $file['name']);
             $this->view->error('error_no_proper_extension', pathinfo($file['name'], PATHINFO_EXTENSION));
 
             return;
         }
+        
+        $filename = $this->browseBase . $this->currentDirectory . basename($file['name']);
+        if (file_exists($filename)) {
+            $this->view->error('error_not_uploaded', $file['name']);
+            $this->view->error('error_file_already_exists', $filename);
+            return;
+        }
+        
         if (move_uploaded_file($_FILES['fbupload']['tmp_name'], $filename)) {
+            chmod($filename, 0644);
             $this->view->success('success_uploaded', $file['name']);
             return;
         }
+        
         $this->view->error('error_not_uploaded', $file['name']);
     }
 

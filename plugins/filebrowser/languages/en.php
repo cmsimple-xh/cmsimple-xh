@@ -4,7 +4,7 @@ $plugin_tx['filebrowser']['help'] = "Fill in the file extensions you want to all
 
 $plugin_tx['filebrowser']['error_not_deleted']="<b>%s</b> was not deleted.";
 $plugin_tx['filebrowser']['error_file_is_used']="The file is used on these pages:";
-$plugin_tx['filebrowser']['error_file_too_big']="File size exceeds (%s kb) allowed limit (%s kb). You can increase the limit in your configuration.";
+$plugin_tx['filebrowser']['error_file_too_big']="File size (%s kb) exceeds allowed limit (%s). You can increase the limit in your configuration.";
 $plugin_tx['filebrowser']['error_folder_not_empty']="Folder is not empty.";
 $plugin_tx['filebrowser']['error_not_writeable']="Folder <b>%s</b> is not writeable. Please change the file permission.";
 $plugin_tx['filebrowser']['error_unknown']="Something went wrong.";
