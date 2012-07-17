@@ -324,7 +324,7 @@ if ($adm) {
                                         initvar($k1 . '_' . $k2);
                                         $GLOBALS[$a][$k1][$k2] = $GLOBALS[$k1 . '_' . $k2];
                                         $GLOBALS[$a][$k1][$k2] = stsl($GLOBALS[$a][$k1][$k2]);
-                                        $text .= '$' . $a . '[\'' . $k1 . '\'][\'' . $k2 . '\']="' . preg_replace("/\"/s", "", $GLOBALS[$a][$k1][$k2]) . '";' . "\n";
+                                        $text .= '$' . $a . '[\'' . $k1 . '\'][\'' . $k2 . '\']="' . addcslashes($GLOBALS[$a][$k1][$k2], "\0..\37\"\$\\") . '";' . "\n";
                                     }
                                 }
                             }
