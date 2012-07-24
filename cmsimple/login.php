@@ -178,6 +178,8 @@ if ($login && !$adm) {
     $o .= '<p class="cmsimplecore_warning" style="text-align: center; font-weight: 900; padding: 8px;">' . $tx['login']['loggedout'] . '</p>';
 }
 
+define('XH_ADM', $adm);
+
 // SETTING FUNCTIONS AS PERMITTED
 
 if ($adm) {

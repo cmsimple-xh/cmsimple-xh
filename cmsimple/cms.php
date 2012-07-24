@@ -392,7 +392,13 @@ if ($print) {
 }
 
 
-
+if (!XH_ADM && $adm) {
+    $s = -1;
+    $adm = $edit = false;
+    $o = '';
+    $f = 'login';
+    loginforms();
+}
 
 
 ob_start('final_clean_up');
@@ -1275,3 +1281,4 @@ function languagemenu() {
 }
 // END modified function languagemenu() - by GE 09-06-26 (CMSimple_XH beta3)
 ?>
+^
