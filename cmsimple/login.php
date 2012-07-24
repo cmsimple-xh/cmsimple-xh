@@ -51,10 +51,8 @@ function gc($s) {
 
 function logincheck() {
     global $cf;
-    if ($cf['security']['type'] == 'wwwaut')
-        return (sv('PHP_AUTH_USER') == $cf['security']['username'] && sv('PHP_AUTH_PW') == $cf['security']['password']);
-    else
-        return (gc('passwd') == $cf['security']['password']);
+    
+    return (gc('passwd') == $cf['security']['password']);
 }
 
 function writelog($m) {
@@ -100,16 +98,6 @@ function loginforms() {
 // if(gc('status')!=''||$login){header('Cache-Control: no-cache');header('Pragma: no-cache');}
 // LOGIN & BACKUP
 
-if (!isset($cf['security']['username']) && $cf['security']['type'] == 'wwwaut')
-    $cf['security']['username'] = "admin";
-
-if ($cgi && $cf['security']['type'] == 'wwwaut') {
-    if (!$_SERVER['REMOTE_USER'])
-        $_SERVER['REMOTE_USER'] = $_SERVER['REDIRECT_REMOTE_USER'];
-    if ((!$_SERVER['PHP_AUTH_USER'] || !$_SERVER['PHP_AUTH_USER']) && preg_match('/^Basic.*/i', $_SERVER['REMOTE_USER']))
-        list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) = explode(':', base64_decode(substr($_SERVER['REMOTE_USER'], 6)));
-}
-
 $adm = (gc('status') == 'adm' && logincheck());
 
 if ($cf['security']['type'] == 'page' && $login && $passwd == '' && !$adm) {
@@ -118,35 +106,17 @@ if ($cf['security']['type'] == 'page' && $login && $passwd == '' && !$adm) {
 }
 
 if ($login && !$adm) {
-    if ($cf['security']['type'] != 'wwwaut') {
-        if ($xh_hasher->CheckPassword($passwd, $cf['security']['password'])
-	    && ($cf['security']['type'] == 'page' || $cf['security']['type'] == 'javascript'))
-	{
-            setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
-            setcookie('passwd', $cf['security']['password'], 0, CMSIMPLE_ROOT);
-            $adm = true;
-            $edit = true;
-            writelog(date("Y-m-d H:i:s") . " from " . sv('REMOTE_ADDR') . " logged_in\n");
-        }
-        else
-            shead('401');
-    } else {
-        if (sv('PHP_AUTH_USER') == '' || sv('PHP_AUTH_PW') == '' || gc('status') == '') {
-
-            setcookie('status', 'login', 0, CMSIMPLE_ROOT);
-            header('WWW-Authenticate: Basic realm="' . $tx['login']['warning'] . '"');
-            shead('401');
-        } else {
-            if (logincheck()) {
-                setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
-                $adm = true;
-                $edit = true;
-                writelog(date($tx['log']['dateformat']) . ' ' . sv('REMOTE_ADDR') . ' ' . $tx['log']['loggedin'] . "\n");
-            } else {
-                shead('401');
-            }
-        }
+    if ($xh_hasher->CheckPassword($passwd, $cf['security']['password'])
+	&& ($cf['security']['type'] == 'page' || $cf['security']['type'] == 'javascript'))
+    {
+	setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
+	setcookie('passwd', $cf['security']['password'], 0, CMSIMPLE_ROOT);
+	$adm = true;
+	$edit = true;
+	writelog(date("Y-m-d H:i:s") . " from " . sv('REMOTE_ADDR') . " logged_in\n");
     }
+    else
+	shead('401');
 } else if ($logout && $adm) {
     $backupDate = date("Ymd_His");
     $fn = $backupDate . '_content.htm';

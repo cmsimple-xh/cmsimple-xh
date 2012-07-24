@@ -323,7 +323,7 @@ if ($adm) {
                                     if (!is_array($v2)) {
                                         initvar($k1 . '_' . $k2);
                                         $GLOBALS[$a][$k1][$k2] = stsl($GLOBALS[$k1 . '_' . $k2]);
-                                        if (($k1 == 'security' || $k1 == 'subsite' && $GLOBALS[$a][$k1][$k2] != '') && $k2 == 'password' && $_POST['security_type'] != 'wwwaut') {
+                                        if (($k1 == 'security' || $k1 == 'subsite' && $GLOBALS[$a][$k1][$k2] != '') && $k2 == 'password') {
                                             if ($GLOBALS[$a][$k1][$k2] != stsl($_POST[$k1 . '_password_old'])) {
                                                 $GLOBALS[$a][$k1][$k2] = $xh_hasher->HashPassword($GLOBALS[$a][$k1][$k2]);
                                             }
@@ -398,7 +398,7 @@ if ($adm) {
                                         }
                                         if ($k1 . $k2 == 'securitytype') {
                                             $o .= '<select name="' . $k1 . '_' . $k2 . '">';
-                                            foreach (array('page', 'javascript', 'wwwaut') as $v) {
+                                            foreach (array('page', 'javascript') as $v) {
                                                 $o .= '<option value="' . $v . '"';
                                                 if ($v == $v2)
                                                     $o .= ' selected="selected"';
