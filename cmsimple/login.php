@@ -77,9 +77,9 @@ function lilink() {
 }
 
 function loginforms() {
-    global $adm, $cf, $print, $retrieve, $hjs, $tx, $onload, $f, $o, $s, $sn, $u;
+    global $adm, $cf, $print, $hjs, $tx, $onload, $f, $o, $s, $sn, $u;
     // Javascript placed in head section used for javascript login
-    if (!$adm && $cf['security']['type'] == 'javascript' && !$print && !$retrieve) {
+    if (!$adm && $cf['security']['type'] == 'javascript' && !$print) {
         $hjs .= '<script type="text/javascript"><!--
 			function login(){var t=prompt("' . $tx['login']['warning'] . '","");if(t!=null&&t!=""){document.getElementById("passwd").value=t;document.getElementById("login").submit();}}
 			//-->
