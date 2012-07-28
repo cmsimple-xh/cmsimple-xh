@@ -46,6 +46,7 @@ $title = '';
 $o = '';
 $e = '';
 $hjs = '';
+$bjs = '';
 $onload = '';
 
 // added to make it possible to overwrite the backend plugins delivered with the core
@@ -424,7 +425,7 @@ if (!include($pth['file']['template'])) {
 }
 
 function final_clean_up($html) {
-    global $adm, $s, $o, $debugMode, $plugins, $errors, $cf;
+    global $adm, $s, $o, $debugMode, $plugins, $errors, $cf, $bjs;
 
     if ($adm === true) {
         $debugHint = '';
@@ -467,7 +468,10 @@ function final_clean_up($html) {
 
 
     }
-
+    
+    if (!empty($bjs)) {
+        $html = preg_replace('/(<\/body\s*>)/isu', $bjs . "\n" . '$1', $html);
+    }
 
     return $html;
 }
@@ -1281,4 +1285,3 @@ function languagemenu() {
 }
 // END modified function languagemenu() - by GE 09-06-26 (CMSimple_XH beta3)
 ?>
-^
