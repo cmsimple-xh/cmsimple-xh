@@ -1049,13 +1049,13 @@ function printlink() {
     global $f, $search, $file, $sn, $tx;
     $t = amp() . 'print';
     if ($f == 'search')
-        $t .= amp() . 'function=search' . amp() . 'search=' . htmlspecialchars(stsl($search));
+        $t .= amp() . 'function=search' . amp() . 'search=' . htmlspecialchars(stsl($search), ENT_COMPAT, 'UTF-8');
     else if ($f == 'file')
         $t .= amp() . 'file=' . $file;
     else if ($f != '' && $f != 'save')
         $t .= amp() . $f;
     else if (sv('QUERY_STRING') != '')
-        $t = htmlspecialchars(sv('QUERY_STRING'), ENT_QUOTES, "UTF-8") . $t;
+        $t = htmlspecialchars(sv('QUERY_STRING'), ENT_COMPAT, "UTF-8") . $t;
     return '<a href="' . $sn . '?' . $t . '">' . $tx['menu']['print'] . '</a>';
 }
 

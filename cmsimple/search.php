@@ -68,7 +68,7 @@ if ($search != '') {
     }
 }
 
-$o .= '<h1>' . $tx['search']['result'] . '</h1><p>"' . htmlspecialchars($search) . '" ';
+$o .= '<h1>' . $tx['search']['result'] . '</h1><p>"' . htmlspecialchars($search, ENT_COMPAT, 'UTF-8') . '" ';
 
 if (count($ta) == 0) {
     $o .= $tx['search']['notfound'] . '.</p>';
