@@ -924,7 +924,7 @@ function onload() {
     return ' onload="' . $onload . '"';
 }
 
-function toc($start = NULL, $end = NULL) { // changed by LM CMSimple_XH 1.1
+function toc($start = NULL, $end = NULL, $li = 'li') { // changed by LM CMSimple_XH 1.1
     global $c, $cl, $s, $l, $cf;
     if (isset($start)) {
         if (!isset($end))
@@ -957,7 +957,7 @@ function toc($start = NULL, $end = NULL) { // changed by LM CMSimple_XH 1.1
         if ($l[$i] < $tl)
             $tl = $l[$i];
     }
-    return li($ta, $start);
+    return call_user_func($li, $ta, $start);
 }
 
 // inserted many "\n" for better structured Sourcecode - by GE 2009/06 (CMSimple_XH beta)
