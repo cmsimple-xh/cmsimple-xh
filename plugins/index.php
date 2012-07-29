@@ -116,54 +116,41 @@ if (!isset($hjs)) {
     $hjs = '';
 }
 
-$pluginloader_cfg['folder_down'] = '';
-
-
-// subsite - pluginloader laguage settings
-
-if(file_exists('../plugins/pluginloader/languages/'.$sl.'.php')) 
-{
-	$pluginloader_cfg['language'] = $sl;
-	$pluginloader_cfg['folder_down'] = '.';
-} 
-else 
-{
-	$pluginloader_cfg['language'] = strtolower('en');
-	$pluginloader_cfg['folder_down'] = '.';
-}
-
-if(file_exists('./plugins/pluginloader/languages/'.$sl.'.php'))
-{
-	$pluginloader_cfg['language'] = $sl;
-	$pluginloader_cfg['folder_down'] = '';
-}
-
-// END subsite - pluginloader laguage settings
-
 
 if (!isset($cf['plugins']['folder']) OR empty($cf['plugins']['folder']) OR !is_dir($cf['plugins']['folder'])) {
     $cf['plugins']['folder'] = 'plugins';
 }
 
+$pluginloader_cfg['folder_down'] = $pth['folder']['base'];
+$pluginloader_cfg['language'] = $sl;
 $pluginloader_cfg['foldername_pluginloader'] = 'pluginloader';
-$pluginloader_cfg['folder_pluginloader'] = $pluginloader_cfg['folder_down'] . './' . $cf['plugins']['folder'] . '/' . $pluginloader_cfg['foldername_pluginloader'] . '/';
+$pluginloader_cfg['folder_pluginloader'] = $pluginloader_cfg['folder_down'] . $cf['plugins']['folder'] . '/' . $pluginloader_cfg['foldername_pluginloader'] . '/';
 $pluginloader_cfg['folder_css'] = $pluginloader_cfg['folder_pluginloader'] . 'css/';
 $pluginloader_cfg['folder_languages'] = $pluginloader_cfg['folder_pluginloader'] . 'languages/';
 $pluginloader_cfg['file_css'] = $pluginloader_cfg['folder_css'] . 'stylesheet.css';
+$pluginloader_cfg['file_language'] = $pluginloader_cfg['folder_languages'] . $pluginloader_cfg['language'] . '.php';
 $pluginloader_cfg['form_namespace'] = 'PL3bbeec384_';
 
 // include Plugin Loader stylesheet and add it to CMSimple
 $hjs .= "\n" . tag('link rel="stylesheet" href="' . $pluginloader_cfg['file_css'] . '" type="text/css"') . "\n";
 
-// Use english language, if $sl or default language are not supported by the Plugin Loader
-if (empty($pluginloader_cfg['language'])) {
-    $pluginloader_cfg['language'] = 'en';
+// if pluginloader language is missing, copy default.php or en.php
+if (!file_exists($pluginloader_cfg['file_language'])) {
+    if (file_exists($pluginloader_cfg['folder_languages'] . 'default.php')) {
+        copy($pluginloader_cfg['folder_languages'] . 'default.php', $pluginloader_cfg['file_language']);
+    } elseif (file_exists($pluginloader_cfg['folder_languages'] . 'en.php')) {
+        copy($pluginloader_cfg['folder_languages'] . 'en.php', $pluginloader_cfg['file_language']);
+    }
+} 
+
+// Load default plugin language
+if (file_exists($pluginloader_cfg['folder_languages'] . 'default.php')) {
+    include $pluginloader_cfg['folder_languages'] . 'default.php';
 }
 
 // include Plugin Loader language file
-$pluginloader_cfg['file_language'] = $pluginloader_cfg['folder_languages'] . $pluginloader_cfg['language'] . '.php';
-if (!include_once($pluginloader_cfg['file_language'])) {
-    echo 'Language file for Plugin Loader not found!' . tag('br') . 'File: ' . $pluginloader_cfg['file_language'] . tag('br') . 'Current Path: ' . $_SERVER['PHP_SELF'] . tag('hr');
+if (!file_exists($pluginloader_cfg['file_language']) && !file_exists($pluginloader_cfg['folder_languages'] . 'default.php')) {
+    die('Language file ' . $pluginloader_cfg['file_language'] . ' missing');
 }
 
 /**
