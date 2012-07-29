@@ -862,9 +862,9 @@ function xh_debug($errno, $errstr, $errfile, $errline, $context)
         break;
     case E_USER_DEPRECATED:
         $errtype = 'XH-DEPRECATED';
-        break;
-    case E_ERROR:
-        $errtype = 'ERROR';
+        $backtrace = debug_backtrace(FALSE);
+        $errfile = $backtrace[2]['file'];
+        $errline = $backtrace[2]['line'];
         break;
     case E_WARNING:
         $errtype = 'WARNING';
@@ -881,6 +881,10 @@ function xh_debug($errno, $errstr, $errfile, $errline, $context)
     
     $errors[] = "<b>$errtype:</b> $errstr" . tag('br') . "$errfile:$errline"
         . tag('br') . "\n";
+    
+    if ($errno === E_USER_ERROR) {
+        die($errors[count($errors) - 1]);
+    }
     
   //  error_log($error, 3, CMS_DIR .'errors.log');
     /* Don't execute PHP internal error handler */
