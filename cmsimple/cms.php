@@ -64,6 +64,13 @@ define('CMSIMPLE_XH_DATE', '2012-03-19');
 
 if (preg_match('/cms.php/i', sv('PHP_SELF')))
     die('Access Denied');
+    
+if (!defined('E_DEPRECATED')) {
+    define('E_DEPRECATED', 8192);
+}
+if (!defined('E_USER_DEPRECATED')) {
+    define('E_USER_DEPRECATED', 16384);
+}
 
 $pth['file']['execute'] = './index.php';
 $pth['folder']['content'] = './content/';
@@ -845,38 +852,36 @@ function xh_debug($errno, $errstr, $errfile, $errline, $context)
 
     switch ($errno) {
     case E_USER_ERROR:
-        $errors[] = "<b>XH-ERROR:</b> [$errno] $errstr <br /> $errfile:$errline<br />\n";
+        $errtype = 'XH-ERROR';
         break;
-
     case E_USER_WARNING:
-        echo "<b>XH WARNING:</b>  $errstr <br /> $errfile: $errline<br />\n";
+        $errtype = 'XH-WARNING';
         break;
-
     case E_USER_NOTICE:
-        $errors[] = "<b>XH-NOTICE:</b> [$errno] $errstr <br />$errfile:$errline<br />\n";
+        $errtype = 'XH-NOTICE';
         break;
-
-    case E_WARNING:
-         $errors[] = "<b>WARNING:</b> $errno $errstr <br />$errfile:$errline<br />\n";
-         break;
-
-
-
-
-    case E_NOTICE:
-        $errors[] = "<b>NOTICE:</b> $errstr <br />$errfile:$errline<br />\n";
+    case E_USER_DEPRECATED:
+        $errtype = 'XH-DEPRECATED';
         break;
-
-
     case E_ERROR:
-         $errors[] = "<b>ERROR:</b> $errstr <br />$errfile:$errline<br />\n";
-         break;
-
-    default:
-        echo "Unknown error type: [$errno] $errstr<br />$errfile:$errline<br />\n";
+        $errtype = 'ERROR';
         break;
+    case E_WARNING:
+        $errtype = 'WARNING';
+        break;
+    case E_NOTICE:
+        $errtype = 'NOTICE';
+        break;
+    case E_DEPRECATED:
+        $errtype = 'DEPRECATED';
+        break;
+    default:
+        $errtype = "Unknow error type [$errno]";
     }
-
+    
+    $errors[] = "<b>$errtype:</b> $errstr" . tag('br') . "$errfile:$errline"
+        . tag('br') . "\n";
+    
   //  error_log($error, 3, CMS_DIR .'errors.log');
     /* Don't execute PHP internal error handler */
 
