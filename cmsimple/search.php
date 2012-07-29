@@ -62,7 +62,7 @@ if ($search != '') {
 	
 	$words = (implode( ",", $words));
         foreach($ta as $i){
-            $cms_searchresults .= "\n\t" . '<li><a href="' . $sn . '?' . $u[$i] . amp() . 'search=' . urlencode($words) .'">' . $h[$i] . '</a></li>';
+            $cms_searchresults .= "\n\t" . '<li><a href="' . $sn . '?' . $u[$i] . '&amp;search=' . urlencode($words) .'">' . $h[$i] . '</a></li>';
         }
         $cms_searchresults .= "\n" . '</ul>' . "\n";
     }

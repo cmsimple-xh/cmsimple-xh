@@ -541,6 +541,8 @@ function PluginPrepareConfigData($var_name='', $data=ARRAY(), $plugin='') {
  * @return string Returns the prepared data for saving.
  */
 function PluginPrepareTextData($data) {
+    trigger_error('Function PluginPrepareTextData() is deprecated', E_USER_DEPRECATED);
+    
     return (get_magic_quotes_gpc() === 1) ? stripslashes($data) : $data;
 }
 
@@ -821,7 +823,7 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
                 global $pluginloader_cfg;
                 $config_data[$key] = $_POST[$pluginloader_cfg['form_namespace'] . $key];
             }
-            $save_data = PluginPrepareConfigData($var_name, $config_data, $plugin);
+            $save_data = stsl($var_name, $config_data, $plugin);
         }
         if ($action == 'plugin_textsave') {
             $text_data = $_POST[$var_name];
@@ -848,7 +850,7 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
 function PluginDebugger($error=FALSE, $caller=FALSE, $varname=FALSE, $value=FALSE) {
     global $pluginloader_tx;
     
-    trigger_error('Function PluginDebugger() is deprecated', E_USER_NOTICE);
+    trigger_error('Function PluginDebugger() is deprecated', E_USER_DEPRECATED);
     
     $debug = '';
     $debug .= $pluginloader_tx['error']['plugin_error'] . '';

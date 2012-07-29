@@ -155,11 +155,11 @@ if ($adm) {
 
         if ($sl == $cf['language']['default']) {
             foreach (array('config', 'langconfig', 'language') as $i) {
-                $o .= '<li><a href="' . $sn . '?file=' . $i . amp() . 'action=array">' . ucfirst($tx['action']['edit']) . ' ' . $tx['filetype'][$i] . '</a></li>' . "\n";
+                $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=array">' . ucfirst($tx['action']['edit']) . ' ' . $tx['filetype'][$i] . '</a></li>' . "\n";
             }
         } else {
             foreach (array('langconfig', 'language') as $i) {
-                $o .= '<li><a href="' . $sn . '?file=' . $i . amp() . 'action=array">' . ucfirst($tx['action']['edit']) . ' ' . $tx['filetype'][$i] . '</a></li>' . "\n";
+                $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=array">' . ucfirst($tx['action']['edit']) . ' ' . $tx['filetype'][$i] . '</a></li>' . "\n";
             }
         }
 
@@ -167,9 +167,9 @@ if ($adm) {
 
 
         foreach (array('stylesheet', 'template') as $i)
-            $o .= '<li><a href="' . $sn . '?file=' . $i . amp() . 'action=edit">' . ucfirst($tx['action']['edit']) . ' ' . $tx['filetype'][$i] . '</a></li>' . "\n";
+            $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=edit">' . ucfirst($tx['action']['edit']) . ' ' . $tx['filetype'][$i] . '</a></li>' . "\n";
         foreach (array('log') as $i)
-            $o .= '<li><a href="' . $sn . '?file=' . $i . amp() . 'action=view">' . ucfirst($tx['action']['view']) . ' ' . $tx['filetype'][$i] . '</a></li>' . "\n";
+            $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=view">' . ucfirst($tx['action']['view']) . ' ' . $tx['filetype'][$i] . '</a></li>' . "\n";
         $o .= ''
                 //. '<li><a href="' . $sn . '?&amp;validate">' . ucfirst($tx['editmenu']['validate']) . '</a></li>' . "\n"
                 //. '<li><a href="' . $sn . '?&amp;sysinfo">' . ucfirst($tx['editmenu']['sysinfo']) . '</a></li>' . "\n"
@@ -180,12 +180,12 @@ if ($adm) {
 
         $o .= '<h4>' . $tx['settings']['backup'] . '</h4><p>' . $tx['settings']['backupexplain3'] . '</p>' . "\n" . '<ul>' . "\n";
         foreach (array('content', 'pagedata') as $i)
-            $o .= '<li>' . ucfirst($tx['filetype'][$i]) . ' <a href="' . $sn . '?file=' . $i . amp() . 'action=view">' . $tx['action']['view'] . '</a>' . ' <a href="' . $sn . '?file=' . $i . amp() . 'action=download">' . $tx['action']['download'] . '</a></li>' . "\n";
+            $o .= '<li>' . ucfirst($tx['filetype'][$i]) . ' <a href="' . $sn . '?file=' . $i . '&amp;action=view">' . $tx['action']['view'] . '</a>' . ' <a href="' . $sn . '?file=' . $i . '&amp;action=download">' . $tx['action']['download'] . '</a></li>' . "\n";
         $o .= '</ul>' . "\n" . tag('hr') . "\n" . '<p>' . $tx['settings']['backupexplain1'] . '</p>' . "\n" . '<p>' . $tx['settings']['backupexplain2'] . '</p>' . "\n" . '<ul>' . "\n";
         $fs = sortdir($pth['folder']['content']);
         foreach ($fs as $p)
             if (preg_match("/\d{3}_content\.htm|\d{3}_pagedata\.php/", $p))
-                $o .= '<li><a href="' . $sn . '?file=' . $p . amp() . 'action=view">' . $p . '</a> (' . (round((filesize($pth['folder']['content'] . '/' . $p)) / 102.4) / 10) . ' KB)</li>' . "\n";
+                $o .= '<li><a href="' . $sn . '?file=' . $p . '&amp;action=view">' . $p . '</a> (' . (round((filesize($pth['folder']['content'] . '/' . $p)) / 102.4) / 10) . ' KB)</li>' . "\n";
         $o .= '</ul>' . "\n";
     }
 // END modified backup-area (CMSimple_XH beta2)
@@ -372,7 +372,7 @@ if ($adm) {
 					$o .= '<p>' . "\n" . $tx['help']['subsite'] . "\n" .'</p>' . "\n";
 					$o .= '<p class="cmsimplecore_warning" style="text-align: center;">' . "\n" . $tx['help']['langconfig'] . "\n" .'</p>' . "\n";
 				}
-				$o .= '<form action="' . $sn . (isset($plugin) ? '?' . amp() . $plugin : '') . '" method="post">';
+				$o .= '<form action="' . $sn . (isset($plugin) ? '?&amp;' . $plugin : '') . '" method="post">';
                 if ($form == 'array') {
                     $o .= tag('input type="submit" class="submit" value="' . ucfirst($tx['action']['save']) . '"') . "\n";
                     $o .= '<table width="100%" cellpadding="1" cellspacing="0" border="0">' . "\n";

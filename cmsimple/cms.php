@@ -690,7 +690,7 @@ function ml($i) {
     global $f, $sn, $tx;
     $t = '';
     if ($f != $i)
-        $t .= '<a href="' . $sn . '?' . amp() . $i . '">';
+        $t .= '<a href="' . $sn . '?&amp;' . $i . '">';
     $t .= $tx['menu'][$i];
     if ($f != $i)
         $t .= '</a>';
@@ -747,6 +747,9 @@ function tag($s) {
 
 function amp() {
     global $cf;
+    
+    trigger_error('Function amp() is deprecated', E_USER_DEPRECATED);
+    
     if ($cf['xhtml']['amp'] == 'true')
         return '&amp;';
     else
@@ -1056,13 +1059,13 @@ function sitemaplink() {
 
 function printlink() {
     global $f, $search, $file, $sn, $tx;
-    $t = amp() . 'print';
+    $t = '&amp;print';
     if ($f == 'search')
-        $t .= amp() . 'function=search' . amp() . 'search=' . htmlspecialchars(stsl($search), ENT_COMPAT, 'UTF-8');
+        $t .= '&amp;function=search&amp;search=' . htmlspecialchars(stsl($search), ENT_COMPAT, 'UTF-8');
     else if ($f == 'file')
-        $t .= amp() . 'file=' . $file;
+        $t .= '&amp;file=' . $file;
     else if ($f != '' && $f != 'save')
-        $t .= amp() . $f;
+        $t .= '&amp;' . $f;
     else if (sv('QUERY_STRING') != '')
         $t = htmlspecialchars(sv('QUERY_STRING'), ENT_COMPAT, "UTF-8") . $t;
     return '<a href="' . $sn . '?' . $t . '">' . $tx['menu']['print'] . '</a>';
@@ -1078,6 +1081,8 @@ function mailformlink() {
 }
 
 function guestbooklink() {
+    trigger_error('Function guestbooklink() is deprecated', E_USER_DEPRECATED);
+    
     if (function_exists('gblink'))
         return gblink();
 }

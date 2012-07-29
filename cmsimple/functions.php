@@ -52,7 +52,10 @@ function geturlwp($u) {
 
 function autogallery($u) {
     global $su;
-    return preg_replace("/.*<!-- autogallery -->(.*)<!-- \/autogallery -->.*/is", "\\1", preg_replace("/(option value=\"\?)(p=)/is", "\\1" . $su . "&\\2", preg_replace("/(href=\"\?)/is", "\\1" . $su . amp(), preg_replace("/(src=\")(\.)/is", "\\1" . $u . "\\2", geturlwp($u)))));
+    
+    trigger_error('Function autogallery() is deprecated', E_USER_DEPRECATED);
+    
+    return preg_replace("/.*<!-- autogallery -->(.*)<!-- \/autogallery -->.*/is", "\\1", preg_replace("/(option value=\"\?)(p=)/is", "\\1" . $su . "&\\2", preg_replace("/(href=\"\?)/is", "\\1" . $su . '&amp;', preg_replace("/(src=\")(\.)/is", "\\1" . $u . "\\2", geturlwp($u)))));
 }
 
 // Other functions

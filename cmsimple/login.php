@@ -72,7 +72,7 @@ function lilink() {
         if ($cf['security']['type'] == 'javascript')
             return '<form id="login" action="' . $sn . '" method="post"><div id="loginlink">' . tag('input type="hidden" name="login" value="true"') . tag('input type="hidden" name="selected" value="' . $u[$s] . '"') . tag('input type="hidden" name="passwd" id="passwd" value=""') . '</div></form><a href="javascript:login()">' . $tx['menu']['login'] . '</a>';
         else
-            return a($s > -1 ? $s : 0, amp() . 'login') . $tx['menu']['login'] . '</a>';
+            return a($s > -1 ? $s : 0, '&amp;login') . $tx['menu']['login'] . '</a>';
     }
 }
 
