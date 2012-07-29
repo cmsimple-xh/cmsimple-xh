@@ -560,7 +560,6 @@ function chkdl($fl) {
 }
 
 function rf($fl) {
-    $fl = @rp($fl);
     if (!file_exists($fl))
         return;
     clearstatcache();
@@ -573,7 +572,7 @@ function rf($fl) {
 
 function chkfile($fl, $writable) {
     global $pth, $tx;
-    $t = @rp($pth['file'][$fl]);
+    $t = isset($pth['file'][$fl]) ? $pth['file'][$fl] : '';
     if ($t == '')
         e('undefined', 'file', $fl);
     else if (!file_exists($t))
@@ -705,6 +704,8 @@ function uenc($s) {
 }
 
 function rp($p) {
+    trigger_error('Function rp() is deprecated', E_USER_DEPRECATED);
+    
     if (@realpath($p) == '')
         return $p;
     else
