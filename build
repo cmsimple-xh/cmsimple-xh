@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# build script for CMSimple_XH
+# creates RELEASE.zip in the root of the working copy
+# version $Id$
+
+# define the relevant files
+README_FILES="readme.php"
+VI_FILES="\
+    cmsimple/adm.php\
+    cmsimple/cms.php\
+    cmsimple/functions.php\
+    cmsimple/login.php\
+    cmsimple/mailform.php\
+    cmsimple/search.php\
+    plugins/index.php\
+    plugins/filebrowser/admin.php\
+    plugins/pluginloader/page_data/index.php\
+    plugins/pluginloader/page_data/page_data_model.php\
+    plugins/pluginloader/page_data/page_data_router.php\
+    plugins/pluginloader/page_data/page_data_views.php\
+    plugins/tinymce/admin.php"
+
+# process command line arguments
+if [ "$1" = '' ]
+then
+    echo "usage: $0 <version> [daily-build]"
+    exit
+else
+    version=$1
+    if [ "$2" = '' ]
+    then
+        build=01
+    else
+        build=$2
+    fi
+fi
+
+# export working copy
+echo "exporting working copy..."
+svn export -q . cmsimplexh/
+cd cmsimplexh; rm build $README_FILES; cd ..
+
+# fix version info
+echo "fixing version info..."
+year=`date +%Y`
+month=`date +%m`
+day=`date +%d`
+
+CMSIMPLE_XH_VERSION="CMSimple_XH $version"
+CMSIMPLE_XH_BUILD=$year$month$day$build
+CMSIMPLE_XH_DATE=$year-$month-$day
+
+for i in $VI_FILES; do
+    sed -i "s/\\\$CMSIMPLE_XH_VERSION\\\$/$CMSIMPLE_XH_VERSION/" cmsimplexh/$i
+    sed -i "s/\\\$CMSIMPLE_XH_BUILD\\\$/$CMSIMPLE_XH_BUILD/" cmsimplexh/$i
+    sed -i "s/\\\$CMSIMPLE_XH_DATE\\\$/$CMSIMPLE_XH_DATE/" cmsimplexh/$i
+done
+
+# create zip file
+echo "zipping..."
+zip -rq RELEASE cmsimplexh/
+zip -q RELEASE $README_FILES
+
+# clean up
+echo "cleaning up..."
+rm -r cmsimplexh/
+
+# finish
+echo "ready!"
