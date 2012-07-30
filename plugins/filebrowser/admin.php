@@ -17,7 +17,7 @@ if ($filebrowser) {
     $plugin = basename(dirname(__FILE__), "/");
     $o = '<div class="plugintext">';
     $o .= '<div class="plugineditcaption">Filebrowser for CMSimple_xh</div>';
-    $o .= '<p>Version 1.0 beta 1</p>';
+    $o .= '<p>Version for $CMSIMPLE_XH_VERSION</p>';
 
 
 

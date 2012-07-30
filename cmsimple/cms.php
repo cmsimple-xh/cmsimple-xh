@@ -7,8 +7,8 @@
 /* utf8-marker = äöü */
 /*
   ======================================
-  CMSimple_XH 1.5.3
-  2012-03-19
+  $CMSIMPLE_XH_VERSION$
+  $CMSIMPLE_XH_DATE$
   based on CMSimple version 3.3 - December 31. 2009
   For changelog, downloads and information please see http://www.cmsimple-xh.com
   ======================================
@@ -61,9 +61,9 @@ $onload = '';
 //);
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
-define('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.5.3');
-define('CMSIMPLE_XH_BUILD', 2012031901);
-define('CMSIMPLE_XH_DATE', '2012-03-19');
+define('CMSIMPLE_XH_VERSION', '$CMSIMPLE_XH_VERSION$');
+define('CMSIMPLE_XH_BUILD', '$CMSIMPLE_XH_BUILD$');
+define('CMSIMPLE_XH_DATE', '$CMSIMPLE_XH_DATE$');
 //version-informations
 
 if (preg_match('/cms.php/i', sv('PHP_SELF')))

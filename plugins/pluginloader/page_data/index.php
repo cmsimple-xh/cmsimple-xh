@@ -2,7 +2,7 @@
 /* utf8-marker = äöüß */
 /**
  * Page-Data
- * Part of the Pluginloader V.2.1.x
+ * Part of the Pluginloader of $CMSIMPLE_XH_VERSION$
  *
  * Generates an array with an element for each
  * page, generated in CMSimple. This allows to

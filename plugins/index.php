@@ -2,9 +2,7 @@
 
 /* utf8-marker = äöüß */
 /**
- * Pluginloader Version 2.1 beta 12 (V.2.1.12)
- * For the usage in CMSimple up from version V.2.6 unto V.3.2
- * (actual release) including CMSimple-XH.
+ * Pluginloader of $CMSIMPLE_XH_VERSION$
  * Handles loading of pluginloader-2.0 and -2.1 compatible plugins.
  *
  * Created after discussion at CMSimpleforum.com with:
@@ -15,8 +13,6 @@
  * @version $Id$
  * @package pluginloader
  *
- * Download: http://www.cmsimplewiki.com/doku.php/pluginloader/start
- * 
  * Modified after a long discussion at CMSimple forum with Martin, mvwd, 
  * Till, johnjdoe, Holger and Gert (Mai 2009)
  * Changes:

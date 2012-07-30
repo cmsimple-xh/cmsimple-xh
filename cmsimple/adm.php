@@ -7,8 +7,8 @@
 /* utf8-marker = äöü */
 /*
   ======================================
-  CMSimple_XH 1.5.3
-  2012-03-19
+  $CMSIMPLE_XH_VERSION$
+  $CMSIMPLE_XH_DATE$
   based on CMSimple version 3.3 - December 31. 2009
   For changelog, downloads and information please see http://www.cmsimple-xh.com
   ======================================

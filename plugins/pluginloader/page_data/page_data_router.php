@@ -2,7 +2,7 @@
 /* utf8-marker = äöüß */
 /**
  * Page-Data - Module page_data_router
- * Part of the Pluginloader V.2.1.x
+ * Part of the Pluginloader of $CMSIMPLE_XH_VERSION$
  *
  * Handles all the data that has to be
  * collected to generate tha page-data-array.
