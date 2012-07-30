@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @version $Id$
+ */
+
 /* utf-8 marker: äöü */
 
 if (!$adm || $cf['filebrowser']['external'] /*|| $backend_hooks['filebrowser']*/) {

@@ -12,7 +12,7 @@
  * 
  * @author Developer-Team at CMSimpleforum.com
  * @link http://www.cmsimpleforum.com
- * @version 2.1.11
+ * @version $Id$
  * @package pluginloader
  *
  * Download: http://www.cmsimplewiki.com/doku.php/pluginloader/start

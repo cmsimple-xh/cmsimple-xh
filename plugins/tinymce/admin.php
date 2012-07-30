@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @version $Id$
+ */
+
 if (!$adm) {     return; }
 
 initvar('tinymce');

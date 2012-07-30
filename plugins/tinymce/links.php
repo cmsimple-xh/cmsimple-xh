@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @version $Id$
+ */
+
 function get_images($directory) {
 
     $files = array();

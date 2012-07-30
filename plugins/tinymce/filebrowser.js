@@ -1,3 +1,7 @@
+/**
+ * @version $Id$
+ */
+
 function wrFilebrowser (field_name, url, type, win) {
   poppedUpWin = win;
   inputField = field_name;
