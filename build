@@ -4,6 +4,9 @@
 # creates RELEASE.zip in the root of the working copy
 # version $Id$
 
+# exit on error
+set -e
+
 # define the relevant files
 README_FILES="readme.php"
 VI_FILES="\
@@ -21,21 +24,39 @@ VI_FILES="\
     plugins/pluginloader/page_data/page_data_views.php\
     plugins/tinymce/admin.php"
 
-# process command line arguments
-if [ "$1" = '' ]
-then
-    echo "usage: $0 <version> [daily-build]"
-    exit
-else
-    version=$1
-    if [ "$2" = '' ]
-    then
-        build=01
-    else
-        build=$2
-    fi
-fi
+# display usage info and exit with error
+function usage {
+    echo "usage: $0 [options] version"
+    echo "options:"
+    echo "  -b build    : daily build number (defaults to 01)"
+    echo "  -o filename : name of the created zip file (defaults to RELEASE.zip)"
+    exit 1
+}
 
+# process command line arguments
+build=01
+ofile=RELEASE
+while getopts ":b:o:" opt; do
+  case $opt in
+    b)
+        build=$OPTARG
+        ;;
+    o)
+        ofile=$OPTARG
+        ;;
+    \?)
+      echo "invalid option: -$OPTARG" >&2
+      usage
+      ;;
+  esac
+done
+version=${*:$OPTIND}
+if [ "$version" = '' ]
+then
+    echo "version missing"
+    usage
+fi
+    
 # export working copy
 echo "exporting working copy..."
 svn export -q . cmsimplexh/
@@ -43,14 +64,9 @@ cd cmsimplexh; rm build $README_FILES; cd ..
 
 # fix version info
 echo "fixing version info..."
-year=`date +%Y`
-month=`date +%m`
-day=`date +%d`
-
 CMSIMPLE_XH_VERSION="CMSimple_XH $version"
-CMSIMPLE_XH_BUILD=$year$month$day$build
-CMSIMPLE_XH_DATE=$year-$month-$day
-
+CMSIMPLE_XH_BUILD=`date +%Y%m%d`$build
+CMSIMPLE_XH_DATE=`date +%Y-%m-%d`
 for i in $VI_FILES; do
     sed -i "s/\\\$CMSIMPLE_XH_VERSION\\\$/$CMSIMPLE_XH_VERSION/" cmsimplexh/$i
     sed -i "s/\\\$CMSIMPLE_XH_BUILD\\\$/$CMSIMPLE_XH_BUILD/" cmsimplexh/$i
@@ -59,8 +75,8 @@ done
 
 # create zip file
 echo "zipping..."
-zip -rq RELEASE cmsimplexh/
-zip -q RELEASE $README_FILES
+zip -rq $ofile cmsimplexh/
+zip -q $ofile $README_FILES
 
 # clean up
 echo "cleaning up..."
