@@ -35,6 +35,7 @@ $tx['error']['cntlocateheading']="Keine Seite ausgewählt";
 $tx['error']['cntopen']="Nicht zu öffnen:";
 $tx['error']['cntsave']="Nicht abspeicherbar:";
 $tx['error']['cntwriteto']="Nicht schreibbar:";
+$tx['error']['headers']="Header-Information kann nicht geändert werden - die Header wurden bereits verschickt (die Ausgabe begann in {location})";
 $tx['error']['missing']="Fehlt";
 $tx['error']['notreadable']="Nicht lesbar";
 $tx['error']['notwritable']="Nicht schreibbar";
