@@ -123,7 +123,7 @@ class XHFileBrowserView {
                         <input type="text" size="25" name="renameFile" value="' . $file . '" onmouseout="hideRenameForm(\'' . $i . '\');"/>
                         <input type="hidden" name="oldName" value="' . $file . '" />
                     </form>
-                     <a style="position:relative" class="xhfbfile" href="#" id="file_' . $i . '" ondblclick="showRenameForm(\'' . $i . '\', \'' . $this->translate('prompt_rename', $file) . '\');">' . $file;
+                     <a style="position:relative" class="xhfbfile" href="javascript:void(0)" id="file_' . $i . '" ondblclick="showRenameForm(\'' . $i . '\', \'' . $this->translate('prompt_rename', $file) . '\');">' . $file;
 
             $usage = $fb->fileIsLinked($file);
             $usage = $usage !== FALSE
