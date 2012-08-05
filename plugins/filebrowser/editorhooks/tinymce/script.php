@@ -21,16 +21,13 @@ var FileBrowserDialogue = {
     submit : function (url) {
         var URL = url;
         var win = tinyMCEPopup.getWindowArg("window");
-
+        var input = win.document.getElementById(tinyMCEPopup.getWindowArg("input"));
         win.document.getElementById(tinyMCEPopup.getWindowArg("input")).value = URL;
 
+        input.value = URL;
+        if (input.onchange) input.onchange();
 
-        if (typeof(win.ImageDialog) != "undefined")
-        {
-            if (win.ImageDialog.getImageData) win.ImageDialog.getImageData();
-            if (win.ImageDialog.showPreviewImage) win.ImageDialog.showPreviewImage(URL);
-        }
-       tinyMCEPopup.close();
+        tinyMCEPopup.close();
     }
 }
 
