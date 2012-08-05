@@ -129,7 +129,7 @@ if ($login && !$adm) {
         $fl = array();
         $fd = @opendir($pth['folder']['content']);
         while (($p = @readdir($fd)) == true) {
-            if (preg_match("/\d{3}\_content.htm/", $p))
+            if (preg_match('/^\d{8}_\d{6}_content.htm$/', $p))
                 $fl[] = $p;
         }
         if ($fd == true)
@@ -155,7 +155,7 @@ if ($login && !$adm) {
             $fl = array();
             $fd = @opendir($pth['folder']['content']);
             while (($p = @readdir($fd)) == true) {
-                if (preg_match("/\d{3}\_pagedata.php/", $p))
+                if (preg_match('/^\d{8}_\d{6}_pagedata.php$/', $p))
                     $fl[] = $p;
             }
             if ($fd == true)

@@ -262,7 +262,7 @@ if ($adm) {
      */
 
     if ($f == 'file') {
-        if (preg_match("/\d{3}_content\.htm|\d{3}_pagedata\.php/", $file))
+        if (preg_match('/^\d{8}_\d{6}_(?:content.htm|pagedata.php)$/', $file))
             $pth['file'][$file] = $pth['folder']['content'] . '/' . $file;
         if ($pth['file'][$file] != '') {
             if ($action == 'view') {
