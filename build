@@ -8,7 +8,7 @@
 set -e
 
 # define the relevant files
-README_FILES="readme.php"
+README_FILES="README.txt LIESMICH.txt"
 VI_FILES="\
     cmsimple/adm.php\
     cmsimple/cms.php\
@@ -22,7 +22,8 @@ VI_FILES="\
     plugins/pluginloader/page_data/page_data_model.php\
     plugins/pluginloader/page_data/page_data_router.php\
     plugins/pluginloader/page_data/page_data_views.php\
-    plugins/tinymce/admin.php"
+    plugins/tinymce/admin.php\
+    $README_FILES"
 
 # display usage info and exit with error
 function usage {
@@ -60,7 +61,6 @@ fi
 # export working copy
 echo "exporting working copy..."
 svn export -q . cmsimplexh/
-cd cmsimplexh; rm build $README_FILES; cd ..
 
 # fix version info
 echo "fixing version info..."
@@ -73,14 +73,27 @@ for i in $VI_FILES; do
     sed -i "s/\\\$CMSIMPLE_XH_DATE\\\$/$CMSIMPLE_XH_DATE/" cmsimplexh/$i
 done
 
+# change file structure for release
+#for i in $README_FILES; do
+#    mv cmsimplexh/$i $i
+#done
+rm cmsimplexh/build
+
+ff=""
+for f in $README_FILES; do
+    ff="$ff cmsimplexh/$f"
+done
+echo $ff
+
+
 # create zip file
 echo "zipping..."
-zip -rq $ofile cmsimplexh/
-zip -q $ofile $README_FILES
+zip -rq $ofile cmsimplexh/ -x $ff
+zip -jlq $ofile $ff
 
 # clean up
 echo "cleaning up..."
-rm -r cmsimplexh/
+#rm -r cmsimplexh/
 
 # finish
 echo "ready!"

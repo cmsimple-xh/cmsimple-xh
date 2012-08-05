@@ -1,6 +1,6 @@
 ===============================================
-CMSimple_XH 1.5.2
-released 2012-03-15
+$CMSIMPLE_XH_VERSION$
+released $CMSIMPLE_XH_DATE$
 ===============================================
 
 PASSWORD for this installation:  
