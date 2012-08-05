@@ -73,27 +73,22 @@ for i in $VI_FILES; do
     sed -i "s/\\\$CMSIMPLE_XH_DATE\\\$/$CMSIMPLE_XH_DATE/" cmsimplexh/$i
 done
 
-# change file structure for release
-#for i in $README_FILES; do
-#    mv cmsimplexh/$i $i
-#done
+# remove files that shouldn't be included in release
 rm cmsimplexh/build
 
+# create zip file
+echo "zipping..."
 ff=""
 for f in $README_FILES; do
     ff="$ff cmsimplexh/$f"
 done
 echo $ff
-
-
-# create zip file
-echo "zipping..."
 zip -rq $ofile cmsimplexh/ -x $ff
 zip -jlq $ofile $ff
 
 # clean up
 echo "cleaning up..."
-#rm -r cmsimplexh/
+rm -r cmsimplexh/
 
 # finish
 echo "ready!"
