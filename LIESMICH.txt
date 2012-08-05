@@ -1,0 +1,68 @@
+===============================================
+CMSimple_XH 1.5.2
+released 2012-03-15
+===============================================
+
+PASSWORT für diese Installation:
+
+           test
+
+!!! Bitte ändern Sie dieses Passwort sofort !!!
+
+===============================================
+
+INSTALLATION
+
+Entpacken Sie den Download und laden Sie alle
+Dateien im Ordner cmsimplexh/ auf Ihren
+Webserver hoch.
+
+Auf vielen Servern müssen sie explizit
+Schreibrechte für einige Dateien vergeben,
+siehe
+http://www.cmsimple-xh.de/dokuwiki/doku.php/anwenderdokumentation:cmsimple:installation#datei-_und_ordnerrechte
+
+===============================================
+
+#########################
+!!! WICHTIGER HINWEIS !!!
+#########################
+
+Bitte ändern Sie das Standard Passwort NICHT
+direkt in der config.php mit einem Text Editor.
+Ändern Sie das Standard Passwort nach dem Login
+ONLINE !!! (Login mit dem Standard Passwort
+"test")
+
+Zur Bearbeitung der CMSimple_XH Systemdateien
+sollten Sie ausschliesslich einen Code Editor
+wie z. B. notepad++ benutzen, der die Codierung
+"utf-8 ohne BOM" (Byte Order Mark) erkennt, die
+Dateien so öffnet und auch wieder abspeichert.
+
+Wenn Sie die Systemdateien in einer anderen
+Codierung als "utf-8 ohne BOM" abspeichern,
+kann es zu Problemen mit verschiedenen
+Funktionen von CMSimple_XH kommen.
+
+=============================================== 
+
+Beschreibung:
+
+CMSimple_XH ist ein schnelles, kleines, leicht
+zu bedienendes und leicht zu installierendes
+modulares Content Management System (CMS), das
+keine Datenbank benötigt.
+
+Es ist freie Open Source Software unter der
+GPL3 Lizenz.
+
+CMSimple_XH speichert den Inhalt aller Seiten
+in einer einzigen HTML-Datei.
+
+In der Voreinstellung werden die Überschriften
+H1-H3 verwendet, um die content.htm Datei in
+einzelne Seiten aufzuteilen und das
+Navigationsmenü zu erzeugen, während die
+Überschriften H4-H6 für die normale semantische
+Gliederung innerhalb der Seite verbleiben.
