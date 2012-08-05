@@ -100,10 +100,12 @@ class XHFileBrowserView {
     }
 
     function fileList($files) {
-
+        global $tx;
+        
         $html = '<ul>';
         $i = 0;
         $class = 'even';
+        $fb = $_SESSION['xh_browser']; // FIXME: the view shouldn't know the model
         foreach ($files as $file) {
             if ($class == 'odd') {
                 $class = 'even';
@@ -123,6 +125,11 @@ class XHFileBrowserView {
                     </form>
                      <a style="position:relative" class="xhfbfile" href="#" id="file_' . $i . '" ondblclick="showRenameForm(\'' . $i . '\', \'' . $this->translate('prompt_rename', $file) . '\');">' . $file;
 
+            $usage = $fb->fileIsLinked($file);
+            $usage = $usage !== FALSE
+                ? '<strong>' . $tx['images']['usedin'] . ':</strong>' . tag('br')
+                    . implode(tag('br'), array_map('strip_tags', $usage))
+                : '';
 
             if (is_array(@getimagesize($this->basePath . $this->currentDirectory . $file))) {
                 $image = getimagesize($this->basePath . $this->currentDirectory . $file);
@@ -135,7 +142,7 @@ class XHFileBrowserView {
                 }
                 $html .= '<span style="position: relative;  z-index: 4; ">
                     <span style="font-weight: normal; border: none;">' . $image[0] . ' x ' . $image[1] . ' px</span><br />
-                    <img src="' . $this->basePath . $this->currentDirectory . $file . '" width="' . $width . 'px" height="' . $height . '" /></span>';
+                    <img src="' . $this->basePath . $this->currentDirectory . $file . '" width="' . $width . 'px" height="' . $height . '" />' . tag('br') . $usage . '</span>';
             }
             $html .= '</a> (' . round(filesize($this->basePath . $this->currentDirectory . $file) / 1024, 1) . ' kb) 
             </li>';
