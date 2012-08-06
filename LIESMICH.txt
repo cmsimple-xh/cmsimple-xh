@@ -24,15 +24,19 @@ http://www.cmsimple-xh.de/dokuwiki/doku.php/anwenderdokumentation:cmsimple:insta
 
 ===============================================
 
-#########################
-!!! WICHTIGER HINWEIS !!!
-#########################
+##########################################
+!!!  W I C H T I G E R  H I N W E I S  !!!
+##########################################
 
 Bitte ändern Sie das Standard Passwort NICHT
-direkt in der config.php mit einem Text Editor.
-Ändern Sie das Standard Passwort nach dem Login
-ONLINE !!! (Login mit dem Standard Passwort
-"test")
+mit einem Text Editor direkt in der config.php,
+da die config.php nur das verschlüsselte
+Password enthält. Ändern Sie das Standard 
+Passwort nach dem Login ONLINE !!! 
+(Login mit dem Standard Passwort "test")
+
+Dies ist die leichteste funktionierende Methode.
+
 
 Zur Bearbeitung der CMSimple_XH Systemdateien
 sollten Sie ausschliesslich einen Code Editor
@@ -45,9 +49,18 @@ Codierung als "utf-8 ohne BOM" abspeichern,
 kann es zu Problemen mit verschiedenen
 Funktionen von CMSimple_XH kommen.
 
+
+Falls Sie Ihr Passwort vergessen haben, können
+Sie das verschlüsselte Passwort "test", nämlich
+
+\$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1
+
+mittels ftp in die config.php eintragen und sich 
+mit dem Passwort "test" einloggen. 
+
 =============================================== 
 
-Beschreibung:
+S o f t w a r e b e s c h r e i b u n g :
 
 CMSimple_XH ist ein schnelles, kleines, leicht
 zu bedienendes und leicht zu installierendes
