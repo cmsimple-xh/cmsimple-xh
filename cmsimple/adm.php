@@ -489,7 +489,7 @@ if ($adm && $f == 'save') {
         if (count($matches) > 0) {
 
             $temp = explode($cf['uri']['seperator'], $selected);
-            array_splice($temp, -1, 1, uenc(rmnl(trim(strip_tags($matches[1])))));
+            array_splice($temp, -1, 1, uenc(trim(xh_rmws(strip_tags($matches[1])))));
             $su = implode($cf['uri']['seperator'], $temp);
         } else {
             $su = $u[max($s - 1, 0)];

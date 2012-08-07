@@ -171,7 +171,7 @@ class PL_Page_Data_Router{
 			$new_pages = array();
 			$current_page = $this -> find_page($index);
 			foreach($headings as $key => $heading){
-				$url = preg_replace('/\s+/isu', ' ', trim(strip_tags($heading)));
+				$url = trim(xh_rmws(strip_tags($heading)));
 				$url = uenc($url);
 
 				switch ($url) {
@@ -213,7 +213,7 @@ class PL_Page_Data_Router{
 			/**
 			 * The heading may have changed, stay up to date.
 			 */
-			$url = preg_replace('/\s+/isu', ' ', trim(strip_tags($headings[0])));
+			$url = trim(xh_rmws(strip_tags($headings[0])));
 			$params['url'] = uenc($url);
 			$params['last_edit'] = time();
 			$this -> update($index, $params);

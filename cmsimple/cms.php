@@ -515,6 +515,24 @@ function rmnl($t) {
     return preg_replace("/(\r\n|\r|\n)+/", "\n", $t);
 }
 
+/**
+ * Returns $str with all (consecutive) whitespaces replaced by a single space.
+ *
+ * @param   string $str
+ * @return  string
+ */
+function xh_rmws($str)
+{
+    $ws = '[\x09-\x0d\x20]'
+        . '|\xc2[\x85\xa0]'
+        . '|\xe1(\x9a\x80|\xa0\x8e)'
+        . '|\xe2\x80[\x80-\x8a\xa8\xa9\xaf]'
+        . '|\xe2\x81\x9f'
+        . '|\xe3\x80\x80';
+    return preg_replace('/(?:' . $ws . ')+/', ' ', $str);
+}
+
+
 function rmanl($t) {
     return preg_replace("/(\r\n|\r|\n)+/", "", $t);
 }
@@ -616,7 +634,7 @@ function rfc() {
         $c[] = $page;
         preg_match('~<h([1-' . $stop . ']).*>(.*)</h~isU', $page, $temp);
         $l[] = $temp[1];
-        $temp_h[] = preg_replace('/[ \f\n\r\t\xa0]+/isu', ' ', trim(strip_tags($temp[2])));
+        $temp_h[] = trim(xh_rmws(strip_tags($temp[2])));
     }
 
     $cl = count($c);
@@ -638,7 +656,7 @@ function rfc() {
      */
 
     foreach ($temp_h as $i => $heading) {
-        $temp = trim(strip_tags($heading));
+        $temp = $heading;
         if ($temp == '') {
             $empty++;
             $temp = $tx['toc']['empty'] . ' ' . $empty;
