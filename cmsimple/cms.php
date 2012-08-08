@@ -1243,7 +1243,7 @@ function content() {
     global $s, $o, $c, $edit, $adm, $cf;
     if (!($edit && $adm) && $s > -1) {
         if (isset($_GET['search'])) {
-            $words = explode(',', stsl($_GET['search']));
+            $words = explode(',', htmlspecialchars(stsl($_GET['search']), ENT_COMPAT, 'UTF-8'));
             $code = 'return "&" . preg_quote($w, "&") . "(?!([^<]+)?>)&isU";';
             $words = array_map(create_function('$w', $code), $words);
             $c[$s] = preg_replace($words, '<span class="highlight_search">$0</span>', $c[$s]);
