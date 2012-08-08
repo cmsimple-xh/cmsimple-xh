@@ -49,10 +49,10 @@ $t = '';
 
 if ($action == 'send')
 {
-    $msg = ($tx['mailform']['sendername'] . ": "
+    $msg = $tx['mailform']['sendername'] . ": "
         . stsl($sendername) . "\n"
-    . $tx['mailform']['senderphone'] . ": "
-    . stsl($senderphone) . "\n\n" . stsl($mailform));
+        . $tx['mailform']['senderphone'] . ": "
+        . stsl($senderphone) . "\n\n" . stsl($mailform);
 
 // echo ($msg);
     if ($getlast != $cap && trim($cf['mailform']['captcha']) == 'true')

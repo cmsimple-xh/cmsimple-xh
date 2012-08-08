@@ -94,7 +94,7 @@ class XHFileBrowser {
 
         foreach ($c as $page) {
 
-            if (preg_match('#<.*(src|href|download)=["|\'].*' . $file . '["|\'].*>#i', $page) > 0) {
+            if (preg_match('#<.*(?:src|href|download)=(["\']).*' . preg_quote($file, '#') . '\\1.*>#is', $page) > 0) {
                 $usages[] = '<a href="?' . $u[$i] . '">' . $h[$i] . '</a>';
             }
             $i++;

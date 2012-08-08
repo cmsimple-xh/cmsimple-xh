@@ -469,11 +469,11 @@ function final_clean_up($html) {
         }
         else {
              $style =' style="position: fixed; top: 0; left: 0; width: 100%; z-index: 99;"';
-	     $html = preg_replace('~</head>~','<style type="text/css">html {margin-top: ' . $margin . 'px;}</style>' ."\n" . '$0', $html, 1);
+	     $html = preg_replace('~</head>~i','<style type="text/css">html {margin-top: ' . $margin . 'px;}</style>' ."\n" . '$0', $html, 1);
 
         }
 
-        $html = preg_replace('~<body[^>]*>~',
+        $html = preg_replace('~<body[^>]*>~i',
                             '$0' . '<div' . $style . '>' . $debugHint. admin_menu($plugins, $debugMode) . '</div>' ."\n" .  $errorList,
                          $html, 1);
 
@@ -748,7 +748,7 @@ function sortdir($dir) {
 
 function cmscript($s, $i) {
     global $cf;
-    return preg_match(preg_replace("/\(\.\*\?\)/", $s, "/" . $cf['scripting']['regexp'] . "/is"), $i);
+    return preg_match(str_replace('(.*?)', $s, '/' . $cf['scripting']['regexp'] . '/is'), $i);
 }
 
 function hide($i) {
@@ -1242,14 +1242,14 @@ function admin_menu($plugins = array(), $debug = false)
 function content() {
     global $s, $o, $c, $edit, $adm, $cf;
     if (!($edit && $adm) && $s > -1) {
-    if (isset($_GET['search'])) {
-        $words = explode(',', stsl($_GET['search']));
-        $words = array_map(create_function('$w', 'return "&".$w."(?!([^<]+)?>)&isU";'), $words);
-        $c[$s] = preg_replace($words, '<span class="highlight_search">\\0</span>', $c[$s]);
-    }
+        if (isset($_GET['search'])) {
+            $words = explode(',', stsl($_GET['search']));
+            $code = 'return "&" . preg_quote($w, "&") . "(?!([^<]+)?>)&isU";';
+            $words = array_map(create_function('$w', $code), $words);
+            $c[$s] = preg_replace($words, '<span class="highlight_search">$0</span>', $c[$s]);
+        }
         return $o . preg_replace("/" . $cf['scripting']['regexp'] . "/is", "", $c[$s]);
-    }
-    else {
+    } else {
         return $o;
     }
 }

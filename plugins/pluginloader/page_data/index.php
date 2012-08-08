@@ -53,7 +53,7 @@ if ($adm) {
         /**
          * Collect the headings and pass them over to the router
          */
-        $text = preg_replace("/<h[1-" . $cf['menu']['levels'] . "][^>]*>(&nbsp;|&#160;|\xC2\xA0| )?<\/h[1-" . $cf['menu']['levels'] . "]>/isu", "", stsl($text));
+        $text = preg_replace("/<h[1-" . $cf['menu']['levels'] . "][^>]*>(&nbsp;|&#160;|\xC2\xA0| )?<\/h[1-" . $cf['menu']['levels'] . "]>/is", "", stsl($text));
         preg_match_all('/<h[1-' . $cf['menu']['levels'] . '].*>(.+)<\/h[1-' . $cf['menu']['levels'] . ']>/isU', $text, $matches);
         $pd_router->refresh_from_texteditor($matches[1], $s);
     }

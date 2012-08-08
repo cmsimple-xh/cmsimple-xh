@@ -35,7 +35,7 @@ function selectlist($fn, $regm, $regr) {
     if ($fd = @opendir($pth['folder'][$fn])) {
         while (($p = @readdir($fd)) == true) {
             if (preg_match($regm, $p)) {
-                $v = preg_replace($regr, "\\1", $p);
+                $v = preg_replace($regr, '$1', $p);
                 $options[$v] = ($v == $v2);
             }
         }
@@ -188,7 +188,7 @@ if ($adm) {
         $o .= '</ul>' . "\n" . tag('hr') . "\n" . '<p>' . $tx['settings']['backupexplain1'] . '</p>' . "\n" . '<p>' . $tx['settings']['backupexplain2'] . '</p>' . "\n" . '<ul>' . "\n";
         $fs = sortdir($pth['folder']['content']);
         foreach ($fs as $p)
-            if (preg_match("/\d{3}_content\.htm|\d{3}_pagedata\.php/", $p))
+            if (preg_match('/^\d{8}_\d{6}_(?:content.htm|pagedata.php)$/', $p))
                 $o .= '<li><a href="' . $sn . '?file=' . $p . '&amp;action=view">' . $p . '</a> (' . (round((filesize($pth['folder']['content'] . '/' . $p)) / 102.4) / 10) . ' KB)</li>' . "\n";
         $o .= '</ul>' . "\n";
     }
@@ -470,9 +470,13 @@ if ($adm && $f == 'save') {
 
     $c[$s] = $text;
 
-    if ($s == 0)
-        if (!preg_match("/^<h1[^>]*>.*<\/h1>/i", rmanl($c[0])) && !preg_match("/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/i", rmanl($c[0])))
+    if ($s == 0) {
+        if (!preg_match("/^<h1[^>]*>.*<\/h1>/i", rmanl($c[0]))
+            && !preg_match("/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/i", rmanl($c[0])))
+        {
             $c[0] = '<h1>' . $tx['toc']['missing'] . '</h1>' . "\n" . $c[0];
+        }
+    }
     $title = ucfirst($tx['filetype']['content']);
 
     if ($fh = @fopen($pth['file']['content'], "w")) {
@@ -483,23 +487,20 @@ if ($adm && $f == 'save') {
         fwrite($fh, '</body></html>');
         fclose($fh);
 
-        //preg_match('~<h[1-3][^>]*>(.+)</h[1-3]>~isu', $text, $matches);
         preg_match('~<h[1-'.$cf['menu']['levels'].'][^>]*>(.+?)</h[1-'.$cf['menu']['levels'].']>~isu', $c[$s], $matches);
-
         if (count($matches) > 0) {
-
             $temp = explode($cf['uri']['seperator'], $selected);
             array_splice($temp, -1, 1, uenc(trim(xh_rmws(strip_tags($matches[1])))));
             $su = implode($cf['uri']['seperator'], $temp);
         } else {
             $su = $u[max($s - 1, 0)];
         }
-        //  var_dump($_SERVER);
         header("Location: " . $sn . "?" . $su);
-        //rfc();
+        exit;
     }
-    else
+    else {
         e('cntwriteto', 'content', $pth['file']['content']);
+    }
     $title = '';
 }
 
@@ -563,7 +564,7 @@ function check_links() {
     global $c, $u, $h, $cl, $o;
     $checkedLinks = 0;
     for ($i = 0; $i < $cl; $i++) {
-        preg_match_all('/<a.*?href=["]*([^"]*)["]*.*?>(.*?)<\/a>/i', $c[$i], $pageLinks);
+        preg_match_all('/<a.*?href=["]?([^"]*)["]?.*?>(.*?)<\/a>/is', $c[$i], $pageLinks);
         if (count($pageLinks[1]) > 0) {
 
 

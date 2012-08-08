@@ -65,10 +65,11 @@ if(isset($pd_current['template'])
  */
 if(!$edit && $pd_current){
 	if($pd_current['show_heading'] == '1'){
+		$temp = '/(<h[1-'.$cf['menu']['levels'].'].*>).+(<\/h[1-'.$cf['menu']['levels'].']>)/isU';
 		if(trim($pd_current['heading']) == ''){
-			$c[$pd_s] = preg_replace('/(<h[1-'.$cf['menu']['levels'].'].*>).+(<\/h[1-'.$cf['menu']['levels'].']>)/isU', '', $c[$pd_s]);
+			$c[$pd_s] = preg_replace($temp, '', $c[$pd_s]);
 		}else{
-			$c[$pd_s]=preg_replace('/(<h[1-'.$cf['menu']['levels'].'].*>).+(<\/h[1-'.$cf['menu']['levels'].']>)/isU','\\1 '.(string)$pd_current['heading'].'\\2',$c[$pd_s]);
+			$c[$pd_s] = preg_replace($temp, '\\1 '.(string)$pd_current['heading'].'\\2',$c[$pd_s]);
 		}
 	}
 	if($pd_current['show_last_edit'] == '1' && $pd_current['last_edit'] !== ''){

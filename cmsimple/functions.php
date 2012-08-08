@@ -46,7 +46,7 @@ function geturl($u) {
 function geturlwp($u) {
     global $su;
     $t = '';
-    if ($fh = @fopen(($u . '?' . preg_replace("/^" . preg_replace("/\+/s", "\\\+", preg_replace("/\//s", "\\\/", $su)) . "(\&)?/s", "", sv('QUERY_STRING'))), "r")) {
+    if ($fh = @fopen($u . '?' . preg_replace("/^" . preg_quote($su, '/') . "(\&)?/s", "", sv('QUERY_STRING')), "r")) {
         while (!feof($fh))
             $t .= fread($fh, 1024);
         fclose($fh);
@@ -63,12 +63,6 @@ function autogallery($u) {
 }
 
 // Other functions
-/*
-function newsbox($b) {
-	global $c, $cl, $h, $cf;
-	for($i = 0; $i < $cl; $i++)if($h[$i] == $b)return preg_replace("/".$cf['scripting']['regexp']."/is", "", preg_replace("/.*<\/h[1-".$cf['menu']['levels']."]>/i", "", $c[$i]));
-}
-*/
 
 function h($n) {
     global $h;
@@ -89,7 +83,7 @@ function l($n) {
  * @return string
  */
 function evaluate_cmsimple_scripting($__text, $__compat = TRUE) {
-	global $output;
+    global $output;
     foreach ($GLOBALS as $__name => $__dummy) {global $$__name;}
 
     $__scope_before = NULL; // just that it exists
@@ -102,9 +96,9 @@ function evaluate_cmsimple_scripting($__text, $__compat = TRUE) {
         foreach ($__scripts[1] as $__script) {
             if (strtolower($__script) !== 'hide' && strtolower($__script) !== 'remove') {
                 $__script = preg_replace(
-                        array("'&(quot|#34);'i", "'&(amp|#38);'i", "'&(apos|#39);'i", "'&(lt|#60);'i", "'&(gt|#62);'i", "'&(nbsp|#160);'i"),
-                        array("\"", "&", "'", "<", ">", " "),
-                        $__script);
+		    array("'&(quot|#34);'i", "'&(amp|#38);'i", "'&(apos|#39);'i", "'&(lt|#60);'i", "'&(gt|#62);'i", "'&(nbsp|#160);'i"),
+		    array("\"", "&", "'", "<", ">", " "),
+		    $__script);
 		$__scope_before = array_keys(get_defined_vars());
                 eval($__script);
 		$__scope_after = array_keys(get_defined_vars());
@@ -113,9 +107,9 @@ function evaluate_cmsimple_scripting($__text, $__compat = TRUE) {
 		if ($__compat) {break;}
             }
         }
-		$eval_script_output = $output;
-		$output = '';
-		return $eval_script_output;
+	$eval_script_output = $output;
+	$output = '';
+	return $eval_script_output;
     }
     return $__text;
 }
@@ -151,11 +145,12 @@ function evaluate_plugincall($__text) {
 		    global $$var;
 		}
 	    }
-	    $__text = str_replace($replace,
-		    ($fnct
-			? eval(str_replace('{{%1}}', $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]))
-			: str_replace('{{%1}}', $regex . $fd_calls[$regex][1][$call_nr], $error)),
-		    $__text); //replace PL-CALLS (String only!!)
+	    $__text = str_replace(
+		$replace,
+		$fnct
+		    ? eval(str_replace('{{%1}}', $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]))
+		    : str_replace('{{%1}}', $regex . $fd_calls[$regex][1][$call_nr], $error),
+		$__text); //replace PL-CALLS (String only!!)
 	}
     }
     return $__text;
@@ -187,7 +182,7 @@ function newsbox($heading) {
 
     for ($i = 0; $i < $cl; $i++) {
 	if ($h[$i] == $heading) {
-	    $body = preg_replace("/.*<\/h[1-".$cf['menu']['levels']."]>/isu", "", $c[$i]);
+	    $body = preg_replace("/.*<\/h[1-".$cf['menu']['levels']."]>/is", "", $c[$i]);
 	    return $edit ? $body : preg_replace("/".$cf['scripting']['regexp']."/is", "", evaluate_scripting($body, FALSE));
 	}
     }
