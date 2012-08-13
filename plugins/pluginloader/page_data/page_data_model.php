@@ -258,14 +258,14 @@ class PL_Page_Data_Model{
 		global $pluginloader_tx, $o, $adm, $cl;
 		if(!file_exists(PL_PAGE_DATA_FILE)){
 			if($adm){
-				$o .= '<div class = "pluginerror">'.$pluginloader_tx['error']['cntopen'].PL_PAGE_DATA_FILE.'</div>';
+				e('cntopen', 'pagedata', PL_PAGE_DATA_FILE);
 			}
 			return;
 		}
 
 		if(!is_writeable(PL_PAGE_DATA_FILE)){
 			if($adm){
-				$o .= '<div class = "pluginerror">'.$pluginloader_tx['error']['cntwriteto'].PL_PAGE_DATA_FILE.'</div>';
+				e('cntwriteto', 'pagedata', PL_PAGE_DATA_FILE);
 			}
 			return;
 		}
