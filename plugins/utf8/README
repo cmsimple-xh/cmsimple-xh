@@ -1,0 +1,42 @@
+PHP UTF-8 Library -- Tools for working with UTF-8 in PHP
+Version 0.5.2
+
+Copyright (c) 2006-2007  Harry Fuecks
+Copyright (c) 2012       Christoph M. Becker
+
+Parts of the code in this library come from other places, under different
+licenses. The authors involved have been contacted (see below). Attribution for
+which code came from elsewhere can be found in the source code itself.
+
+* Andreas Gohr / Chris Smith - Dokuwiki: there was a fair degree of
+  collaboration/exchange of ideas and code beteen Dokuwiki's UTF-8 library
+  (https://www.dokuwiki.org/devel:utf-8) and phputf8. Although Dokuwiki is
+  released under GPL, its UTF-8 library is released under LGPL, hence no
+  conflict with phputf8.
+
+* Henri Sivonen (http://hsivonen.iki.fi/php-utf8/) has also given permission for
+  his code to be released under the terms of the LGPL. He ported a Unicode /
+  UTF-8 converter from the Mozilla codebase to PHP, which is re-used in phputf8.
+
+This library is free software; you can redistribute it and/or modify it under
+the terms of the GNU Lesser General Public License as published by the Free
+Software Foundation; either version 3.0 of the License, or (at your option) any
+later version.
+
+This library is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along
+with this library (see LICENSE).
+
+DOCUMENTATION
+
+Developer documentation can be accessed through docs/index.html. The
+documentation is not contained in the SVN repository -- only in the download
+packages.
+
+BUGS / SUPPORT / FEATURE REQUESTS
+
+As phputf8lib is hosted on SourceForge, these should be created as tickets on
+https://sourceforge.net/p/phputf8lib/tickets/
