@@ -49,6 +49,8 @@ $t = '';
 
 if ($action == 'send')
 {
+    include_once UTF8 . '/wordwrap.php';
+    
     $msg = $tx['mailform']['sendername'] . ": "
         . stsl($sendername) . "\n"
         . $tx['mailform']['senderphone'] . ": "
@@ -134,13 +136,33 @@ else $o .= $t;
 
 $o .= '</div>' . "\n";
 
+
+/**
+ * Sends a UTF-8 encoded mail.
+ *
+ * @param   string $to  Receiver, or receivers of the mail.
+ * @param   string $subject  Subject of the email to be sent.
+ * @param   string $message  Message to be sent.
+ * @param   string $header  String to be inserted at the end of the email header.
+ * @return  bool  Whether the mail was accepted for delivery.
+ */
 function mail_utf8($to, $subject = '(No Subject)', $message = '', $header = '')
 {
-    $header_ = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n";
-    if(mail($to, '=?UTF-8?B?'.base64_encode($subject).'?=', $message, $header_ . $header))
-    {
-        return true;
-    }
-    return false;
+    $header = 'MIME-Version: 1.0' . "\r\n"
+        . 'Content-type: text/plain; charset=UTF-8' . "\r\n"
+        . $header;
+    $subject = '=?UTF-8?B?'
+        . base64_encode(utf8_substr($subject, 0, 45)) . '?=';
+        
+    // word wrap the message giving preference to already existing line breaks
+    $message = strtr(rtrim($message), array("\r\n" => "\n", "\r" => "\n"));
+    $lines = explode("\n", $message);
+    array_walk($lines,
+               create_function('&$v, $i',
+                               '$v = utf8_wordwrap($v, 72, "\n", true);'));
+    $message = implode("\r\n", $lines);
+    
+    return mail($to, $subject, $message, $header);
 }
+
 ?>

@@ -226,6 +226,8 @@ $pth['file']['adm'] = $pth['folder']['cmsimple'] . 'adm.php';
 $pth['file']['search'] = $pth['folder']['cmsimple'] . 'search.php';
 $pth['file']['mailform'] = $pth['folder']['cmsimple'] . 'mailform.php';
 
+require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
+
 $adm = 0;
 $f = '';
 if (!@include($pth['file']['login']))
