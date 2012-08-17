@@ -184,6 +184,18 @@ else
 
 $pth['folder']['plugins'] = $pth['folder']['base'] . $cf['plugins']['folder'] . '/';
 
+require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
+require_once UTF8 . '/utils/validation.php';
+
+foreach (array('_GET', '_POST', '_COOKIE') as $i) {
+    foreach ($$i as $j) {
+        if (!utf8_is_valid($j)) {
+            header('HTTP/1.0 400 Bad Request'); // TODO: use "Status:" for FastCGI?
+            exit('Malformed UTF-8 detected!');
+        }
+    }
+}
+
 $iis = strpos(sv('SERVER_SOFTWARE'), "IIS");
 $cgi = (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi');
 
@@ -225,8 +237,6 @@ $pth['file']['adm'] = $pth['folder']['cmsimple'] . 'adm.php';
 
 $pth['file']['search'] = $pth['folder']['cmsimple'] . 'search.php';
 $pth['file']['mailform'] = $pth['folder']['cmsimple'] . 'mailform.php';
-
-require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 
 $adm = 0;
 $f = '';
