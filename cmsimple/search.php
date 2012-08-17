@@ -31,23 +31,27 @@ if (strpos('search.php', strtolower(sv('PHP_SELF')))) {
 $title = $tx['title']['search'];
 $ta = array();
 if ($search != '') {
-    $search = utf8_strtolower(trim(stsl($search)), 'utf-8');
+    $search = utf8_strtolower(trim(stsl($search)));
     $words = explode(' ', $search);
 
-    foreach ($c as $i => $pagexyz) {
+    foreach ($c as $i => $temp) {
         if (!hide($i) || $cf['hidden']['pages_search'] == 'true') {
             $found  = true;
-	    $pagexyz = evaluate_plugincall($pagexyz, TRUE);
-            $pagexyz = utf8_strtolower(strip_tags($pagexyz), 'utf-8');
-            $pagexyz = html_entity_decode($pagexyz, ENT_QUOTES, 'utf-8');
+	    $temp = evaluate_plugincall($temp, true);
+            $temp = utf8_strtolower(strip_tags($temp));
+            //$temp = html_entity_decode($temp, ENT_QUOTES, 'utf-8');
             foreach ($words as $word) {
-                if (strpos($pagexyz, trim($word)) === false) {
+                if (strpos($temp,
+			   htmlspecialchars(trim($word), ENT_NOQUOTES, 'UTF-8'))
+		    === false)
+		{
                     $found = false;
                     break;
                 }
             }
-            if (!$found) {continue;}
-            $ta[] = $i;
+            if ($found) {
+		$ta[] = $i;
+	    }
         }
     }
     
