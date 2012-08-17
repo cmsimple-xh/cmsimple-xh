@@ -69,10 +69,10 @@ $tx['help']['editor_external']="If you want to use an external editor, install i
 $tx['help']['filebrowser_external']="If you want to use an external file browser, e.g. hi_kcfinder, install the plugin and enter its name here";
 $tx['help']['functions_file']="Please do not change";
 
-$tx['help']['hidden_path_locator']="<p><b>true</b> shows the path of the hidden page in the locator.</p>";
-$tx['help']['hidden_pages_search']="<p><b>true</b> shows hidden pages in the results of the internal search function.</p>";
-$tx['help']['hidden_pages_sitemap']="<p><b>true</b> shows hidden pages in the sitemap.</p>";
-$tx['help']['hidden_pages_toc']="<p><b>true</b> shows hidden pages in the toc (navigation menu), if they are called (for example called by link).</p>";
+$tx['help']['show_hidden_path_locator']="<p><b>true</b> shows the path of the hidden page in the locator.</p>";
+$tx['help']['show_hidden_pages_search']="<p><b>true</b> shows hidden pages in the results of the internal search function.</p>";
+$tx['help']['show_hidden_pages_sitemap']="<p><b>true</b> shows hidden pages in the sitemap.</p>";
+$tx['help']['show_hidden_pages_toc']="<p><b>true</b> shows hidden pages in the toc (navigation menu), if they are called (for example called by link).</p>";
 
 $tx['help']['images_maxsize']="Maximum size of uploaded images in Byte";
 $tx['help']['language_default']="The primary language of your site";

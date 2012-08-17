@@ -35,7 +35,7 @@ if ($search != '') {
     $words = explode(' ', $search);
 
     foreach ($c as $i => $temp) {
-        if (!hide($i) || $cf['hidden']['pages_search'] == 'true') {
+        if (!hide($i) || $cf['show_hidden']['pages_search'] == 'true') {
             $found  = true;
 	    $temp = evaluate_plugincall($temp, true);
             $temp = utf8_strtolower(strip_tags($temp));

@@ -300,7 +300,7 @@ if ($f == 'sitemap') {
     $ta = array();
     $o .= '<h1>' . $title . '</h1>' . "\n";
     for ($i = 0; $i < $cl; $i++)
-        if (!hide($i) || $cf['hidden']['pages_sitemap'] == 'true')
+        if (!hide($i) || $cf['show_hidden']['pages_sitemap'] == 'true')
             $ta[] = $i;
     $o .= li($ta, 'sitemaplevel');
 }
@@ -309,7 +309,7 @@ if ($f == 'sitemap') {
 $si = -1;
 $hc = array();
 for ($i = 0; $i < $cl; $i++) {
-    if (!hide($i) || ($i == $s && $cf['hidden']['pages_toc'] == 'true'))
+    if (!hide($i) || ($i == $s && $cf['show_hidden']['pages_toc'] == 'true'))
         $hc[] = $i;
     if ($i == $s)
         $si = count($hc);
@@ -986,7 +986,7 @@ function toc($start = NULL, $end = NULL, $li = 'li') { // changed by LM CMSimple
         $tl = $l[$s];
         for ($i = $s; $i > -1; $i--) {
             if ($l[$i] <= $tl && $l[$i] >= $start && $l[$i] <= $end)
-                if (!hide($i) || ($i == $s && $cf['hidden']['pages_toc'] == 'true'))
+                if (!hide($i) || ($i == $s && $cf['show_hidden']['pages_toc'] == 'true'))
                     $ta[] = $i;
             if ($l[$i] < $tl)
                 $tl = $l[$i];
@@ -1144,7 +1144,7 @@ function legallink() {
 
 function locator() {
     global $title, $h, $s, $f, $c, $l, $tx, $txc, $cf;
-    if (hide($s) && $cf['hidden']['path_locator'] != 'true')
+    if (hide($s) && $cf['show_hidden']['path_locator'] != 'true')
         return $h[$s];
     if ($title != '' && (!isset($h[$s]) || $h[$s] != $title))
         return $title;

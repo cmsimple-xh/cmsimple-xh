@@ -69,10 +69,10 @@ $tx['help']['editor_external']="Wenn Sie einen externen Editor nutzen wollen, in
 $tx['help']['filebrowser_external']="Wenn Sie einen externen Datei-Browser verwenden möchten, z.B. hi_kcfinder, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['functions_file']="Bitte nicht ändern";
 
-$tx['help']['hidden_path_locator']="<p><b>true</b> zeigt den Pfad einer versteckten Seite im Locator (Breadcrumb Navigation).</p>";
-$tx['help']['hidden_pages_search']="<p><b>true</b> zeigt versteckte Seiten in den Ergebnissen der internen Suchfunktion an.</p>";
-$tx['help']['hidden_pages_sitemap']="<p><b>true</b> zeigt versteckte Seiten im Inhaltsverzeichnis.</p>";
-$tx['help']['hidden_pages_toc']="<p><b>true</b> zeigt versteckte Seiten im Navigationsmenü, wenn sie aufgerufen sind (z. B. aufgerufen per Link).</p>";
+$tx['help']['show_hidden_path_locator']="<p><b>true</b> zeigt den Pfad einer versteckten Seite im Locator (Breadcrumb Navigation).</p>";
+$tx['help']['show_hidden_pages_search']="<p><b>true</b> zeigt versteckte Seiten in den Ergebnissen der internen Suchfunktion an.</p>";
+$tx['help']['show_hidden_pages_sitemap']="<p><b>true</b> zeigt versteckte Seiten im Inhaltsverzeichnis.</p>";
+$tx['help']['show_hidden_pages_toc']="<p><b>true</b> zeigt versteckte Seiten im Navigationsmenü, wenn sie aufgerufen sind (z. B. aufgerufen per Link).</p>";
 
 $tx['help']['images_maxsize']="Maximale Größe für das Hochladen von Bildern in Byte";
 $tx['help']['language_default']="Die Hauptsprache der Website";
