@@ -35,7 +35,7 @@ class XHFileBrowserView {
     function folderList($folders) {
         global $tx, $plugin_tx;
         //     $title = $this->baseLink === 'images' ? 'Bilder' : 'Downloads';
-        $title = ucfirst($tx['title'][$this->baseLink]) ? $tx['title'][$this->baseLink] : ucfirst($this->baseLink . ' ' . $this->translate('folder')); // für Editorbrowser
+        $title = isset($tx['title'][$this->baseLink]) ? utf8_ucfirst($tx['title'][$this->baseLink]) : ucfirst($this->baseLink . ' ' . $this->translate('folder')); // für Editorbrowser
         $html = '
            <ul>
               <li class="openFolder">

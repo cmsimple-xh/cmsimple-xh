@@ -27,28 +27,18 @@ if (strpos('search.php', strtolower(sv('PHP_SELF')))) {
     die('Access Denied');
 }
 
-if(!function_exists('mb_strtolower')) {
-    function mb_strtolower($string, $charset = null) {
-        $string = utf8_decode($string);
-        $string = strtolower($string);
-        $string = utf8_encode($string);
-        return $string;
-    }
-}
-
-
 
 $title = $tx['title']['search'];
 $ta = array();
 if ($search != '') {
-    $search = mb_strtolower(trim(stsl($search)), 'utf-8');
+    $search = utf8_strtolower(trim(stsl($search)), 'utf-8');
     $words = explode(' ', $search);
 
     foreach ($c as $i => $pagexyz) {
         if (!hide($i) || $cf['hidden']['pages_search'] == 'true') {
             $found  = true;
 	    $pagexyz = evaluate_plugincall($pagexyz, TRUE);
-            $pagexyz = mb_strtolower(strip_tags($pagexyz), 'utf-8');
+            $pagexyz = utf8_strtolower(strip_tags($pagexyz), 'utf-8');
             $pagexyz = html_entity_decode($pagexyz, ENT_QUOTES, 'utf-8');
             foreach ($words as $word) {
                 if (strpos($pagexyz, trim($word)) === false) {

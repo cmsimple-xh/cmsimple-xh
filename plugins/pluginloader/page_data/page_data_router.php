@@ -246,7 +246,7 @@ class PL_Page_Data_Router{
 				 */
 				$params = array();
 				$title = trim(strip_tags($infos[2]));
-				$url = uenc(strip_tags($title));
+				$url = uenc($title);
 				$params['url'] = $url;
 				$new_data[] = $this -> new_page($params);
 			} else{

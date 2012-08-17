@@ -1171,74 +1171,70 @@ function editmenu() {
 
 function admin_menu($plugins = array(), $debug = false)
 {
-	global $adm, $edit, $s, $u, $sn, $tx, $sl, $cf, $su;
+    global $adm, $edit, $s, $u, $sn, $tx, $sl, $cf, $su;
 
-	if ($adm)
-	{
-		$pluginMenu = '';
-		if ((bool) $plugins)
-		{
-			sort($plugins, SORT_STRING);
-			$pluginMenu .= '<li><a href="javascript:void(0);">' . ucfirst($tx['editmenu']['plugins']) . "</a>\n    <ul>";
-			foreach ($plugins as $plugin)
-			{
-				if($plugin === 'filebrowser')
-				{
-				//   continue;
-				}
-				$pluginMenu .= "\n" .
-					'     <li><a href="?' . $plugin . '&amp;normal">' . ucwords($plugin) . '</a></li>';
-			}
+    if ($adm)
+    {
+        $pluginMenu = '';
+        if ((bool) $plugins)
+        {
+            sort($plugins, SORT_STRING);
+            $pluginMenu .= '<li><a href="javascript:void(0);">' . utf8_ucfirst($tx['editmenu']['plugins']) . "</a>\n    <ul>";
+            foreach ($plugins as $plugin)
+            {
+                $pluginMenu .= "\n" .
+                    '     <li><a href="?' . $plugin . '&amp;normal">' . ucfirst($plugin) . '</a></li>';
+            }
 
-			$pluginMenu .= "\n    </ul>";
-		}
+            $pluginMenu .= "\n    </ul>";
+        }
 
 
-		$t .= "\n" . '<div id="editmenu">';
+        $t .= "\n" . '<div id="editmenu">';
 
-		$t .= "\n" . '<ul id="edit_menu">' . "\n";
+        $t .= "\n" . '<ul id="edit_menu">' . "\n";
 
-		if ($s < 0)
-		{
-			$su = $u[0];
-		}
-		$changeMode = $edit ? 'normal' : 'edit';
-		$changeText = $edit ? $tx['editmenu']['normal'] : $tx['editmenu']['edit'];
-		$t .= '<li><a href="' . $sn . '?' . $su . '&' . $changeMode . '">' . $changeText . '</a></li>' . "\n";
-		$t .= '<li><a href="' . $sn . '?&amp;normal&amp;xhpages" class="">' . ucfirst($tx['editmenu']['pagemanager']) . '</a></li>' . "\n";
-		$t .= '<li><a href="javascript:void(0);" class="">' . ucfirst($tx['editmenu']['files']) . '</a>' ."\n";
-		$t .= '    <ul>' . "\n";
-		$t .= '    <li><a href="' . $sn . '?&amp;normal&amp;images">' . ucfirst($tx['editmenu']['images']) . '</a></li>' . "\n";
-		$t .= '    <li><a href="' . $sn . '?&amp;normal&amp;downloads">' . ucfirst($tx['editmenu']['downloads']) . '</a></li>' . "\n";
-		$t .= '    <li><a href="' . $sn . '?&amp;normal&amp;media">' . ucfirst($tx['editmenu']['media']) . '</a></li>' . "\n";
-		$t .= '    <li><a href="' . $sn . '?&amp;normal&amp;userfiles">' . ucfirst($tx['editmenu']['userfiles']) . '</a></li>' . "\n";
-		$t .= '    </ul>' . "\n";
-		$t .= '</li>' ."\n";
-		$t .= '<li><a href="' . $sn . '?&amp;settings">' . ucfirst($tx['editmenu']['settings']) . '</a>' ."\n"
-					. '    <ul>' ."\n";
+        if ($s < 0)
+        {
+            $su = $u[0];
+        }
+        $changeMode = $edit ? 'normal' : 'edit';
+        $changeText = $edit ? $tx['editmenu']['normal'] : $tx['editmenu']['edit'];
+        $t .= '<li><a href="' . $sn . '?' . $su . '&' . $changeMode . '">' . $changeText . '</a></li>' . "\n";
+        $t .= '<li><a href="' . $sn . '?&amp;normal&amp;xhpages" class="">' . utf8_ucfirst($tx['editmenu']['pagemanager']) . '</a></li>' . "\n";
+        $t .= '<li><a href="javascript:void(0);" class="">' . utf8_ucfirst($tx['editmenu']['files']) . '</a>' ."\n";
+        $t .= '    <ul>' . "\n";
+        $t .= '    <li><a href="' . $sn . '?&amp;normal&amp;images">' . utf8_ucfirst($tx['editmenu']['images']) . '</a></li>' . "\n";
+        $t .= '    <li><a href="' . $sn . '?&amp;normal&amp;downloads">' . utf8_ucfirst($tx['editmenu']['downloads']) . '</a></li>' . "\n";
+        $t .= '    <li><a href="' . $sn . '?&amp;normal&amp;media">' . utf8_ucfirst($tx['editmenu']['media']) . '</a></li>' . "\n";
+        $t .= '    <li><a href="' . $sn . '?&amp;normal&amp;userfiles">' . utf8_ucfirst($tx['editmenu']['userfiles']) . '</a></li>' . "\n";
+        $t .= '    </ul>' . "\n";
+        $t .= '</li>' ."\n";
+        $t .= '<li><a href="' . $sn . '?&amp;settings">' . utf8_ucfirst($tx['editmenu']['settings']) . '</a>' ."\n"
+                    . '    <ul>' ."\n";
 
-		if($sl == $cf['language']['default'])
-		{
-			$t .='    <li><a href="?file=config&amp;action=array">' . ucfirst($tx['editmenu']['configuration']) . '</a></li>' . "\n";
-		}
+        if($sl == $cf['language']['default'])
+        {
+            $t .='    <li><a href="?file=config&amp;action=array">' . utf8_ucfirst($tx['editmenu']['configuration']) . '</a></li>' . "\n";
+        }
 
-		$t .='    <li><a href="?file=langconfig&amp;action=array">' . ucfirst($tx['editmenu']['langconfig']) . '</a></li>' . "\n"
-		. '    <li><a href="?file=language&amp;action=array">' . ucfirst($tx['editmenu']['language']) . '</a></li>' . "\n"
-		. '    <li><a href="?file=template&amp;action=edit">' . ucfirst($tx['editmenu']['template']) . '</a></li>' . "\n"
-		. '    <li><a href="?file=stylesheet&amp;action=edit">' . ucfirst($tx['editmenu']['stylesheet']) . '</a></li>' . "\n"
-		. '    <li><a href="?file=log&amp;action=view" target="_blank">' . ucfirst($tx['editmenu']['log']) . '</a></li>' . "\n"
-		. '    <li><a href="' . $sn . '?&amp;validate">' . ucfirst($tx['editmenu']['validate']) . '</a></li>' . "\n"
-		. '    <li><a href="' . $sn . '?&amp;sysinfo">' . ucfirst($tx['editmenu']['sysinfo']) . '</a></li>' . "\n"
-		. '    </ul>' . "\n"
-		. '</li>' . "\n"
-		. $pluginMenu . "\n"
-		. '</li>' . "\n";
-		$t .= '</ul>' . "\n" . '<ul id="editmenu_logout">' . "\n";
-		$t .= '<li id="edit_menu_logout"><a href="?&logout">' . ucfirst($tx['editmenu']['logout']) . '</a></li>' . "\n";
-		$t .= '</ul>' . "\n";
+        $t .='    <li><a href="?file=langconfig&amp;action=array">' . utf8_ucfirst($tx['editmenu']['langconfig']) . '</a></li>' . "\n"
+        . '    <li><a href="?file=language&amp;action=array">' . utf8_ucfirst($tx['editmenu']['language']) . '</a></li>' . "\n"
+        . '    <li><a href="?file=template&amp;action=edit">' . utf8_ucfirst($tx['editmenu']['template']) . '</a></li>' . "\n"
+        . '    <li><a href="?file=stylesheet&amp;action=edit">' . utf8_ucfirst($tx['editmenu']['stylesheet']) . '</a></li>' . "\n"
+        . '    <li><a href="?file=log&amp;action=view" target="_blank">' . utf8_ucfirst($tx['editmenu']['log']) . '</a></li>' . "\n"
+        . '    <li><a href="' . $sn . '?&amp;validate">' . utf8_ucfirst($tx['editmenu']['validate']) . '</a></li>' . "\n"
+        . '    <li><a href="' . $sn . '?&amp;sysinfo">' . utf8_ucfirst($tx['editmenu']['sysinfo']) . '</a></li>' . "\n"
+        . '    </ul>' . "\n"
+        . '</li>' . "\n"
+        . $pluginMenu . "\n"
+        . '</li>' . "\n";
+        $t .= '</ul>' . "\n" . '<ul id="editmenu_logout">' . "\n";
+        $t .= '<li id="edit_menu_logout"><a href="?&logout">' . utf8_ucfirst($tx['editmenu']['logout']) . '</a></li>' . "\n";
+        $t .= '</ul>' . "\n";
 
-		return $t . '<div style="float:none;clear:both;padding:0;margin:0;width:100%;height:0px;"></div>' . "\n" . '</div>' . "\n";
-	}
+        return $t . '<div style="float:none;clear:both;padding:0;margin:0;width:100%;height:0px;"></div>' . "\n" . '</div>' . "\n";
+    }
 }
 
 function content() {
@@ -1298,29 +1294,29 @@ function top() {
 // title-tags for flag-gifs - by GE 09-10-07 (CMSimple_XH 1.0rc2)
 
 function languagemenu() {
-	global $pth, $cf, $sl;
-	if(!file_exists('./cmsimplesubsite.htm')){  // for subsites
-		$t = '';
-		$r = array();
-		$fd = @opendir($pth['folder']['base']);
-		while (($p = @readdir($fd)) == true ) {
-			if (@is_dir($pth['folder']['base'].$p)) {
-				if (preg_match('/^[A-z]{2}$/', $p))$r[] = $p;
-			}
-		}
-		if ($fd == true)closedir($fd); if(count($r) == 0)return ''; if($cf['language']['default'] != $sl)$t .= '<a href="'.$pth['folder']['base'].'">'.tag('img src="'.$pth['folder']['flags'].$cf['language']['default'].'.gif" alt="'.$cf['language']['default'].'" title="&nbsp;'.$cf['language']['default'].'&nbsp;" class="flag"').'</a> '; $v = count($r); for($i = 0;
-		$i < $v;
-		$i++) {
-			if ($sl != $r[$i]) {
-				if (is_file($pth['folder']['flags'].'/'.$r[$i].'.gif')) {
-					$t .= '<a href="'.$pth['folder']['base'].$r[$i].'/">'.tag('img src="'.$pth['folder']['flags'].$r[$i].'.gif" alt="'.$r[$i].'" title="&nbsp;'.$r[$i].'&nbsp;" class="flag"').'</a> ';
-				} else {
-					$t .= '<a href="'.$pth['folder']['base'].$r[$i].'/">['.$r[$i].']</a> ';
-				}
-			}
-		}
-		return ''.$t.'';
-	} // for subsites
+    global $pth, $cf, $sl;
+    if(!file_exists('./cmsimplesubsite.htm')){  // for subsites
+        $t = '';
+        $r = array();
+        $fd = @opendir($pth['folder']['base']);
+        while (($p = @readdir($fd)) == true ) {
+            if (@is_dir($pth['folder']['base'].$p)) {
+                if (preg_match('/^[A-z]{2}$/', $p))$r[] = $p;
+            }
+        }
+        if ($fd == true)closedir($fd); if(count($r) == 0)return ''; if($cf['language']['default'] != $sl)$t .= '<a href="'.$pth['folder']['base'].'">'.tag('img src="'.$pth['folder']['flags'].$cf['language']['default'].'.gif" alt="'.$cf['language']['default'].'" title="&nbsp;'.$cf['language']['default'].'&nbsp;" class="flag"').'</a> '; $v = count($r); for($i = 0;
+        $i < $v;
+        $i++) {
+            if ($sl != $r[$i]) {
+                if (is_file($pth['folder']['flags'].'/'.$r[$i].'.gif')) {
+                    $t .= '<a href="'.$pth['folder']['base'].$r[$i].'/">'.tag('img src="'.$pth['folder']['flags'].$r[$i].'.gif" alt="'.$r[$i].'" title="&nbsp;'.$r[$i].'&nbsp;" class="flag"').'</a> ';
+                } else {
+                    $t .= '<a href="'.$pth['folder']['base'].$r[$i].'/">['.$r[$i].']</a> ';
+                }
+            }
+        }
+        return ''.$t.'';
+    } // for subsites
 }
 // END modified function languagemenu() - by GE 09-06-26 (CMSimple_XH beta3)
 ?>

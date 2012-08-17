@@ -181,7 +181,7 @@ if ($adm) {
         if ($firstgetkey == $plugin) {
             $pluginloader_plugin_selectbox .= ' selected="selected"';
         }
-        $pluginloader_plugin_selectbox .= '>' . ucwords($plugin) . '</option>' . "\n";
+        $pluginloader_plugin_selectbox .= '>' . ucfirst($plugin) . '</option>' . "\n";
     }
     $pluginloader_plugin_selectbox .= '</select>' . "\n" . '</form>' . "\n";
 
@@ -604,7 +604,7 @@ function PluginSaveForm($form, $style=ARRAY(), $data=ARRAY(), $hint=ARRAY()) {
                 }
                 $saveform .= '<tr>' . "\n" . '<td ' . $style['tdconfig'] . '>' . $var_name . '</td>' . "\n" . '<td>';
                 $style_textarea = $style['input'];
-                if (strlen($value) > 50) {
+                if (utf8_strlen($value) > 50) {
                     $style_textarea = $style['inputmax'];
                 }
                 $saveform .= '<textarea ' . $style_textarea . ' name="' . $pluginloader_cfg['form_namespace'] . $key . '" rows="1" cols="40">' . $value . '</textarea>';
@@ -772,7 +772,7 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
         $form['action'] = $sn . '?&amp;' . $plugin;
         $form['method'] = 'POST';
         $form['value_admin'] = $admin;
-        $form['value_submit'] = ucfirst($tx['action']['save']);
+        $form['value_submit'] = utf8_ucfirst($tx['action']['save']);
         $form['caption'] = ucfirst(str_replace("_", " ", $plugin));
         $form['errormsg'] = $error_msg;
 

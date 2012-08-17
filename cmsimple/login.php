@@ -104,6 +104,10 @@ function loginforms() {
 
 $adm = (gc('status') == 'adm' && logincheck());
 
+if ($adm) {
+    include_once UTF8 . '/ucfirst.php';
+}
+
 if ($cf['security']['type'] == 'page' && $login && $passwd == '' && !$adm) {
     $login = null;
     $f = 'login';
@@ -125,7 +129,7 @@ if ($login && !$adm) {
     $backupDate = date("Ymd_His");
     $fn = $backupDate . '_content.htm';
     if (@copy($pth['file']['content'], $pth['folder']['content'] . $fn)) {
-        $o .= '<p>' . ucfirst($tx['filetype']['backup']) . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
+        $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup']) . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
         $fl = array();
         $fd = @opendir($pth['folder']['content']);
         while (($p = @readdir($fd)) == true) {
@@ -138,7 +142,7 @@ if ($login && !$adm) {
         $v = count($fl) - $cf['backup']['numberoffiles'];
         for ($i = 0; $i < $v; $i++) {
             if (@unlink($pth['folder']['content'] . '/' . $fl[$i]))
-                $o .= '<p>' . ucfirst($tx['filetype']['backup']) . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
+                $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup']) . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
             else
                 e('cntdelete', 'backup', $fl[$i]);
         }
@@ -151,7 +155,7 @@ if ($login && !$adm) {
     if (file_exists($pth['folder']['content'] . 'pagedata.php')) {
         $fn = $backupDate . '_pagedata.php';
         if (@copy($pth['file']['pagedata'], $pth['folder']['content'] . $fn)) {
-            $o .= '<p>' . ucfirst($tx['filetype']['backup']) . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
+            $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup']) . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
             $fl = array();
             $fd = @opendir($pth['folder']['content']);
             while (($p = @readdir($fd)) == true) {
@@ -164,7 +168,7 @@ if ($login && !$adm) {
             $v = count($fl) - $cf['backup']['numberoffiles'];
             for ($i = 0; $i < $v; $i++) {
                 if (@unlink($pth['folder']['content'] . $fl[$i]))
-                    $o .= '<p>' . ucfirst($tx['filetype']['backup']) . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
+                    $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup']) . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
                 else
                     e('cntdelete', 'backup', $fl[$i]);
             }
