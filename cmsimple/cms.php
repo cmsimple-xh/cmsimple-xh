@@ -185,6 +185,7 @@ else
 $pth['folder']['plugins'] = $pth['folder']['base'] . $cf['plugins']['folder'] . '/';
 
 require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
+require_once UTF8 . '/ucfirst.php';
 require_once UTF8 . '/utils/validation.php';
 
 foreach (array('_GET', '_POST', '_COOKIE') as $i) {

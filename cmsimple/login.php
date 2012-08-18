@@ -104,10 +104,6 @@ function loginforms() {
 
 $adm = (gc('status') == 'adm' && logincheck());
 
-if ($adm) {
-    include_once UTF8 . '/ucfirst.php';
-}
-
 if ($cf['security']['type'] == 'page' && $login && $passwd == '' && !$adm) {
     $login = null;
     $f = 'login';
