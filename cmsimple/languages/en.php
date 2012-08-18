@@ -69,10 +69,10 @@ $tx['help']['editor_external']="If you want to use an external editor, install i
 $tx['help']['filebrowser_external']="If you want to use an external file browser, e.g. hi_kcfinder, install the plugin and enter its name here";
 $tx['help']['functions_file']="Please do not change";
 
-$tx['help']['show_hidden_path_locator']="<p><b>true</b> shows the path of the hidden page in the locator.</p>";
-$tx['help']['show_hidden_pages_search']="<p><b>true</b> shows hidden pages in the results of the internal search function.</p>";
-$tx['help']['show_hidden_pages_sitemap']="<p><b>true</b> shows hidden pages in the sitemap.</p>";
-$tx['help']['show_hidden_pages_toc']="<p><b>true</b> shows hidden pages in the toc (navigation menu), if they are called (for example called by link).</p>";
+$tx['help']['show_hidden_path_locator']="<b>true</b> shows the path of the hidden page in the locator.";
+$tx['help']['show_hidden_pages_search']="<b>true</b> shows hidden pages in the results of the internal search function.";
+$tx['help']['show_hidden_pages_sitemap']="<b>true</b> shows hidden pages in the sitemap.";
+$tx['help']['show_hidden_pages_toc']="<b>true</b> shows hidden pages in the toc (navigation menu), if they are called (for example called by link).";
 
 $tx['help']['images_maxsize']="Maximum size of uploaded images in Byte";
 $tx['help']['language_default']="The primary language of your site";
@@ -83,10 +83,11 @@ $tx['help']['mailform_email']="If set the mailform will be enabled";
 $tx['help']['menu_color']="Not used by CMSimple_XH core";
 $tx['help']['menu_highlightcolor']="Not used by CMSimple_XH core";
 $tx['help']['menu_levels']="Possible settings are 1 to 6";
+$tx['help']['menu_sdoc']="Leave it empty or enter \"parent\", which gives the class \"sdocs\" to higher level navigation links when lower pages of that branch are selected.";
 $tx['help']['pagemanager_external']="If you want to use an external page manager, install the plugin and enter its name here";
 $tx['help']['plugins_folder']="Please do not change";
 $tx['help']['scripting_regexp']="Please do not change";
-$tx['help']['security_password']="<p>Default password of the site. Can be substituted in subsites, like secondary language pages etc. under:</p><p><b>Settings => CMSimple => Website</b></p>";
+$tx['help']['security_password']="Default password of the site. Can be substituted in subsites, like secondary language pages etc. under:<br><b>Settings => CMSimple => Website</b><br><br>What you see here is the encrypted version of your password. To change the password, just enter the new one (unencrypted).";
 $tx['help']['site_template']="<p>Default template of the site. Can be substituted in subsites, like secondary language pages etc. under:</p><p><b>Settings => CMSimple => Website</b></p>";
 $tx['help']['subsite']="<b>Subsite:</b> second language or an additional independent website, operated with the same CMSimple_XH installation.";
 $tx['help']['uri_seperator']="The character which separates names of pages and sub pages in the URL.";

@@ -69,10 +69,10 @@ $tx['help']['editor_external']="Wenn Sie einen externen Editor nutzen wollen, in
 $tx['help']['filebrowser_external']="Wenn Sie einen externen Datei-Browser verwenden möchten, z.B. hi_kcfinder, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['functions_file']="Bitte nicht ändern";
 
-$tx['help']['show_hidden_path_locator']="<p><b>true</b> zeigt den Pfad einer versteckten Seite im Locator (Breadcrumb Navigation).</p>";
-$tx['help']['show_hidden_pages_search']="<p><b>true</b> zeigt versteckte Seiten in den Ergebnissen der internen Suchfunktion an.</p>";
-$tx['help']['show_hidden_pages_sitemap']="<p><b>true</b> zeigt versteckte Seiten im Inhaltsverzeichnis.</p>";
-$tx['help']['show_hidden_pages_toc']="<p><b>true</b> zeigt versteckte Seiten im Navigationsmenü, wenn sie aufgerufen sind (z. B. aufgerufen per Link).</p>";
+$tx['help']['show_hidden_path_locator']="<b>true</b> zeigt den Pfad einer versteckten Seite im Locator (Breadcrumb Navigation).";
+$tx['help']['show_hidden_pages_search']="<b>true</b> zeigt versteckte Seiten in den Ergebnissen der internen Suchfunktion an.";
+$tx['help']['show_hidden_pages_sitemap']="<b>true</b> zeigt versteckte Seiten im Inhaltsverzeichnis.";
+$tx['help']['show_hidden_pages_toc']="<b>true</b> zeigt versteckte Seiten im Navigationsmenü, wenn sie aufgerufen sind (z. B. aufgerufen per Link).";
 
 $tx['help']['images_maxsize']="Maximale Größe für das Hochladen von Bildern in Byte";
 $tx['help']['language_default']="Die Hauptsprache der Website";
@@ -83,10 +83,11 @@ $tx['help']['mailform_email']="Falls gesetzt, wird das Kontakt-Formular aktivier
 $tx['help']['menu_color']="Nicht von CMSimple_XH Systemfunktionen genutzt";
 $tx['help']['menu_highlightcolor']="Nicht von CMSimple_XH Systemfunktionen genutzt";
 $tx['help']['menu_levels']="Einstellungen von 1 bis 6 Menü-Niveaus sind möglich.";
+$tx['help']['menu_sdoc']="Leer lassen oder \"parent\" eintragen, was Oberseiten der aktuellen Seite die Klasse \"sdocs\" zuweist.";
 $tx['help']['pagemanager_external']="Wenn Sie einen externen Seiten-Manager verwenden möchten, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['plugins_folder']="Bitte nicht ändern";
 $tx['help']['scripting_regexp']="Bitte nicht ändern";
-$tx['help']['security_password']="<p>Standard-Passwort für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:</p><p><b>Einstellungen => CMSimple => Website</b></p>";
+$tx['help']['security_password']="Standard-Passwort für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:<br><b>Einstellungen => CMSimple => Website</b><br><br>Was Sie hier sehen, ist das verschlüsselte Passwort. Um es zu ändern, geben Sie einfach das neue ein (unverschlüsselt).";
 $tx['help']['site_template']="<p>Standard-Template für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:</p><p><b>Einstellungen => CMSimple => Website</b></p></p>";
 $tx['help']['subsite']="<b>Subsite:</b> Zweitsprache oder eine weitere unabhängige Website, die mit der gleichen Installation von CMSimple_XH betrieben wird.";
 $tx['help']['uri_seperator']="Das Zeichen, das die Namen von Seiten und Unterseiten in der URL trennt.";
