@@ -62,7 +62,7 @@ $tx['filetype']['template']="Template-Datei";
 $tx['heading']['error']="FEHLER";
 $tx['heading']['warning']="FEHLER–HINWEIS";
 
-$tx['help']['downloads_maxsize']="Maximale Größe für das Hochladen von Datein in den Downloads-Ordner in Byte";
+$tx['help']['downloads_maxsize']="Maximale Größe für das Hochladen von Datein in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
 $tx['help']['editmenu_scroll']="Bei <b>true</b> scrollt das Admin Menü mit";
 $tx['help']['editor_height']="Integer oder JavaScript-Ausdruck, der einen Integer liefert für die Editorhöhe in Pixel.";
 $tx['help']['editor_external']="Wenn Sie einen externen Editor nutzen wollen, installieren Sie ihn als Plugin und tragen Sie seinen Namen hier ein.";
@@ -74,7 +74,7 @@ $tx['help']['show_hidden_pages_search']="<b>true</b> zeigt versteckte Seiten in 
 $tx['help']['show_hidden_pages_sitemap']="<b>true</b> zeigt versteckte Seiten im Inhaltsverzeichnis.";
 $tx['help']['show_hidden_pages_toc']="<b>true</b> zeigt versteckte Seiten im Navigationsmenü, wenn sie aufgerufen sind (z. B. aufgerufen per Link).";
 
-$tx['help']['images_maxsize']="Maximale Größe für das Hochladen von Bildern in Byte";
+$tx['help']['images_maxsize']="Maximale Größe für das Hochladen von Bildern in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
 $tx['help']['language_default']="Die Hauptsprache der Website";
 $tx['help']['langconfig']="Die Einstellungen von <b>Template</b> und <b>Password</b> <br />ersetzen die Einstellungen in der CMS Konfiguration!";
 $tx['help']['locator_show_homepage']="<b>true</b> erzeugt am Anfang des Locators einen Link zur Startseite";

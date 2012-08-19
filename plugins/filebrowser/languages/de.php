@@ -4,7 +4,7 @@ $plugin_tx['filebrowser']['help'] = "Listen Sie die in jedem Ordner erlaubten Da
 
 $plugin_tx['filebrowser']['error_not_deleted']="<b>%s</b> wurde nicht gelöscht.";
 $plugin_tx['filebrowser']['error_file_is_used']="Die Datei wird auf folgenden Seiten verwendet:";
-$plugin_tx['filebrowser']['error_file_too_big']="Die Datei ist zu groß (%s kb). In diesem Ordner sind nur %s erlaubt. Diese Einstellung kann unter <b>Einstellungen->CMSimple->CMS</b> geändert werden.";
+$plugin_tx['filebrowser']['error_file_too_big']="Die Datei ist zu groß (%s kb). In diesem Ordner sind nur %s erlaubt. Diese Einstellung kann in der CMS-Konfiguration geändert werden.";
 $plugin_tx['filebrowser']['error_folder_not_empty']="Der Ordner ist nicht leer.";
 $plugin_tx['filebrowser']['error_not_writeable']="Der Ordner <b>%s</b> ist nicht beschreibbar. Bitte ändern Sie die Dateirechte.";
 $plugin_tx['filebrowser']['error_unknown']="Irgendetwas hat nicht geklappt.";

@@ -62,7 +62,7 @@ $tx['filetype']['template']="template";
 $tx['heading']['error']="ERROR";
 $tx['heading']['warning']="ERROR / WARNING";
 
-$tx['help']['downloads_maxsize']="Maximum size of downloads in Byte";
+$tx['help']['downloads_maxsize']="Maximum size of uploaded files in Byte. This must neither exceed the limit set for upload_max_filesize nor post_max_size in the PHP configuration.";
 $tx['help']['editmenu_scroll']="If set to <b>true</b> the admin menu will be scrolled with your webpage";
 $tx['help']['editor_height']="Integer or JavaScript expression returning an integer for editor hight in pixels.";
 $tx['help']['editor_external']="If you want to use an external editor, install it as a plugin and enter its name here.";
@@ -74,7 +74,7 @@ $tx['help']['show_hidden_pages_search']="<b>true</b> shows hidden pages in the r
 $tx['help']['show_hidden_pages_sitemap']="<b>true</b> shows hidden pages in the sitemap.";
 $tx['help']['show_hidden_pages_toc']="<b>true</b> shows hidden pages in the toc (navigation menu), if they are called (for example called by link).";
 
-$tx['help']['images_maxsize']="Maximum size of uploaded images in Byte";
+$tx['help']['images_maxsize']="Maximum size of uploaded images in Byte. This must neither exceed the limit set for upload_max_filesize nor post_max_size in the PHP configuration.";
 $tx['help']['language_default']="The primary language of your site";
 $tx['help']['langconfig']="The settings of <b>Template</b> and <b>Password</b><br />will substitute your settings of the CMS Configuration!";
 $tx['help']['locator_show_homepage']="<b>true</b> shows a link to the homepage at the start of the locator";
