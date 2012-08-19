@@ -624,7 +624,7 @@ function e($et, $ft, $fn) {
 }
 
 function rfc() {
-    global $c, $cl, $h, $u, $l, $su, $s, $pth, $tx, $edit, $adm, $cf;
+    global $c, $cl, $h, $u, $l, $su, $s, $pth, $tx, $edit, $adm, $cf, $e;
 
     $c = array();
     $h = array();
@@ -678,6 +678,10 @@ function rfc() {
         $ancestors[$l[$i] - 1] = uenc($temp);
         $ancestors = array_slice($ancestors, 0, $l[$i]);
         $url = implode($cf['uri']['seperator'], $ancestors);
+        if ($adm && strlen($url) > $cf['uri']['length']) {
+            $e .= '<li><b>' . $tx['uri']['toolong'] . '</b>' . tag('br')
+                . '<a href="' . $url . '">' . $temp . '</a>' . '</li>';
+        }
         $u[] = substr($url, 0, $cf['uri']['length']);
     }
 

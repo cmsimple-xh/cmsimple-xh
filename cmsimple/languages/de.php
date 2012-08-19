@@ -91,6 +91,7 @@ $tx['help']['security_password']="Standard-Passwort für die Website, kann für 
 $tx['help']['site_template']="<p>Standard-Template für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:</p><p><b>Einstellungen => CMSimple => Website</b></p></p>";
 $tx['help']['subsite']="<b>Subsite:</b> Zweitsprache oder eine weitere unabhängige Website, die mit der gleichen Installation von CMSimple_XH betrieben wird.";
 $tx['help']['uri_seperator']="Das Zeichen, das die Namen von Seiten und Unterseiten in der URL trennt.";
+$tx['help']['uri_length']="Die URLs der Seiten werden ab dieser Länge abgeschnitten. Das könnte sich in einer zukünftigen Version ändern, so dass es das Beste ist, kürzere Seitenüberschriften zu verwenden (z.B. durch die Verwendung von Seite&rarr;Andere Seitenüberschrift).";
 $tx['help']['xhtml_amp']="<b>true</b> konvertiert <b>&</b> zu <b>&amp;amp;</b> im Inhalt. Änderung nicht empfohlen.";
 $tx['help']['xhtml_endtags']="<b>true</b> erzeugt im Inhalt die für bestimmte XHTML-Auszeichnungselemente erforderlichen Abschluss-Schrägstriche, wie &lt;br /&gt; etc.";
 
@@ -203,6 +204,8 @@ $tx['toc']['dupl']="DOPPELTE ÜBERSCHRIFT";
 $tx['toc']['empty']="LEERE ÜBERSCHRIFT";
 $tx['toc']['missing']="FEHLENDE ÜBERSCHRIFT";
 $tx['toc']['newpage']="NEUE SEITE";
+
+$tx['uri']['toolong']="Gemäß Einstellungen&rarr;CMS&rarr;Uri&rarr;Length ist die URL zu lang:";
 
 $tx['urichar']['new']="";
 $tx['urichar']['org']="";
