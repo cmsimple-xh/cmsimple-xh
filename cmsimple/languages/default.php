@@ -171,6 +171,13 @@ $tx['settings']['warning']="Only change settings when you understand the effect 
 
 $tx['submenu']['heading']="Submenu";
 
+$tx['syscheck']['encoding']="Encoding 'UTF-8' configured";
+$tx['syscheck']['extension']="Extension '%s' loaded";
+$tx['syscheck']['writable']="'%s' writable";
+$tx['syscheck']['magic_quotes']="Magic quotes runtime off";
+$tx['syscheck']['phpversion']="PHP version ≥ %s";
+$tx['syscheck']['title']="System check";
+
 $tx['sysinfo']['helplinks']="Info and Help Links";
 $tx['sysinfo']['php_version']="PHP-Version";
 $tx['sysinfo']['phpinfo_hint']="(opens in a new window or tab)";

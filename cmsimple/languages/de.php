@@ -171,6 +171,13 @@ $tx['settings']['warning']="Bitte hier nur solche Änderungen durchführen, bei 
 
 $tx['submenu']['heading']="weiter zu:";
 
+$tx['syscheck']['encoding']="UTF-8-Kodierung eingestellt";
+$tx['syscheck']['extension']="Erweiterung '%s' geladen";
+$tx['syscheck']['writable']="'%s' schreibbar";
+$tx['syscheck']['magic_quotes']="'Magic quotes runtime' aus";
+$tx['syscheck']['phpversion']="PHP-Version ≥ %s";
+$tx['syscheck']['title']="System-Prüfung";
+
 $tx['sysinfo']['helplinks']="Hilfe und Informationen";
 $tx['sysinfo']['php_version']="PHP-Version";
 $tx['sysinfo']['phpinfo_hint']="(wird in einem neuen Fenster oder Tab geöffnet)";
