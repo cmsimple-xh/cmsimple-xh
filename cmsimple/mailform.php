@@ -84,7 +84,6 @@ if ($t == '' || $e != '')
 //    if (@$tx['mailform']['message'] != '')$o .= '<p>'.$tx['mailform']['message'].'</p>';
 
 // JB+ add captcha
-    srand((double)microtime()*1000000);
     $random=rand(10000,99999);
 
     $o .= '<form action="'.$sn.'" method="post">' . "\n";
