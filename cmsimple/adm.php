@@ -197,7 +197,7 @@ if ($adm) {
             $pth['file'][$file] = $pth['folder']['content'] . '/' . $file;
         if ($pth['file'][$file] != '') {
             if ($action == 'view') {
-                header('Content-Type: text/plain');
+                header('Content-Type: text/plain; charset=utf-8');
                 echo rmnl(rf($pth['file'][$file]));
                 exit;
             }
