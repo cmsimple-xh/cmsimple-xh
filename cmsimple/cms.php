@@ -678,11 +678,11 @@ function rfc() {
         $ancestors[$l[$i] - 1] = uenc($temp);
         $ancestors = array_slice($ancestors, 0, $l[$i]);
         $url = implode($cf['uri']['seperator'], $ancestors);
+        $u[] = substr($url, 0, $cf['uri']['length']);
         if ($adm && strlen($url) > $cf['uri']['length']) {
             $e .= '<li><b>' . $tx['uri']['toolong'] . '</b>' . tag('br')
-                . '<a href="' . $url . '">' . $temp . '</a>' . '</li>';
+                . '<a href="?' . $u[count($u) - 1] . '">' . $temp . '</a>' . '</li>';
         }
-        $u[] = substr($url, 0, $cf['uri']['length']);
     }
 
     foreach ($u as $i => $url) {
