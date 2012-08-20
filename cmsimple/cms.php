@@ -1316,7 +1316,11 @@ function languagemenu() {
         $fd = @opendir($pth['folder']['base']);
         while (($p = @readdir($fd)) == true ) {
             if (@is_dir($pth['folder']['base'].$p)) {
-                if (preg_match('/^[A-z]{2}$/', $p))$r[] = $p;
+                if (preg_match('/^[A-z]{2}$/', $p)
+                    && !file_exists($pth['folder']['base'] . $p . '/cmsimplesubsite.htm'))
+                {
+                    $r[] = $p;
+                }
             }
         }
         if ($fd == true)closedir($fd); if(count($r) == 0)return ''; if($cf['language']['default'] != $sl)$t .= '<a href="'.$pth['folder']['base'].'">'.tag('img src="'.$pth['folder']['flags'].$cf['language']['default'].'.gif" alt="'.$cf['language']['default'].'" title="&nbsp;'.$cf['language']['default'].'&nbsp;" class="flag"').'</a> '; $v = count($r); for($i = 0;
