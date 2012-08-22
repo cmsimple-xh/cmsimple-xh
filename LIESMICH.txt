@@ -3,11 +3,11 @@ $CMSIMPLE_XH_VERSION$
 released $CMSIMPLE_XH_DATE$
 ===============================================
 
-PASSWORT für diese Installation:
+PASSWORT fÃ¼r diese Installation:
 
            test
 
-!!! Bitte ändern Sie dieses Passwort sofort !!!
+!!! Bitte Ã¤ndern Sie dieses Passwort sofort !!!
 
 ===============================================
 
@@ -17,8 +17,8 @@ Entpacken Sie den Download und laden Sie alle
 Dateien im Ordner cmsimplexh/ auf Ihren
 Webserver hoch.
 
-Auf vielen Servern müssen sie explizit
-Schreibrechte für einige Dateien vergeben,
+Auf vielen Servern mÃ¼ssen sie explizit
+Schreibrechte fÃ¼r einige Dateien vergeben,
 siehe
 http://www.cmsimple-xh.de/dokuwiki/doku.php/anwenderdokumentation:cmsimple:installation#datei-_und_ordnerrechte
 
@@ -28,10 +28,10 @@ http://www.cmsimple-xh.de/dokuwiki/doku.php/anwenderdokumentation:cmsimple:insta
 !!!  W I C H T I G E R  H I N W E I S  !!!
 ##########################################
 
-Bitte ändern Sie das Standard Passwort NICHT
+Bitte Ã¤ndern Sie das Standard Passwort NICHT
 mit einem Text Editor direkt in der config.php,
-da die config.php nur das verschlüsselte
-Password enthält. Ändern Sie das Standard 
+da die config.php nur das verschlÃ¼sselte
+Password enthÃ¤lt. Ã„ndern Sie das Standard 
 Passwort nach dem Login ONLINE !!! 
 (Login mit dem Standard Passwort "test")
 
@@ -42,7 +42,7 @@ Zur Bearbeitung der CMSimple_XH Systemdateien
 sollten Sie ausschliesslich einen Code Editor
 wie z. B. notepad++ benutzen, der die Codierung
 "utf-8 ohne BOM" (Byte Order Mark) erkennt, die
-Dateien so öffnet und auch wieder abspeichert.
+Dateien so Ã¶ffnet und auch wieder abspeichert.
 
 Wenn Sie die Systemdateien in einer anderen
 Codierung als "utf-8 ohne BOM" abspeichern,
@@ -50,8 +50,8 @@ kann es zu Problemen mit verschiedenen
 Funktionen von CMSimple_XH kommen.
 
 
-Falls Sie Ihr Passwort vergessen haben, können
-Sie das verschlüsselte Passwort "test", nämlich
+Falls Sie Ihr Passwort vergessen haben, kÃ¶nnen
+Sie das verschlÃ¼sselte Passwort "test", nÃ¤mlich
 
 \$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1
 
@@ -65,7 +65,7 @@ S o f t w a r e b e s c h r e i b u n g :
 CMSimple_XH ist ein schnelles, kleines, leicht
 zu bedienendes und leicht zu installierendes
 modulares Content Management System (CMS), das
-keine Datenbank benötigt.
+keine Datenbank benÃ¶tigt.
 
 Es ist freie Open Source Software unter der
 GPL3 Lizenz.
@@ -73,9 +73,9 @@ GPL3 Lizenz.
 CMSimple_XH speichert den Inhalt aller Seiten
 in einer einzigen HTML-Datei.
 
-In der Voreinstellung werden die Überschriften
+In der Voreinstellung werden die Ãœberschriften
 H1-H3 verwendet, um die content.htm Datei in
 einzelne Seiten aufzuteilen und das
-Navigationsmenü zu erzeugen, während die
-Überschriften H4-H6 für die normale semantische
+NavigationsmenÃ¼ zu erzeugen, wÃ¤hrend die
+Ãœberschriften H4-H6 fÃ¼r die normale semantische
 Gliederung innerhalb der Seite verbleiben.
