@@ -172,7 +172,7 @@ class XHFileBrowserView {
             //     $html .= '<a href="#" class="xhfbfile" onclick="window.setLink(\''.$prefix.  $file.'\'); return false;">'.$file;
             $html .= '<a href="#" class="xhfbfile" onclick="window.setLink(\'' . $prefix . $file . '\',' . $is_image . '); return false;">' . $file;
 
-            if (strpos($this->linkParams, 'type=images') === 0 && getimagesize($dir . $file)) {
+            if (strpos($this->linkParams, 'type=images') !== false && getimagesize($dir . $file)) {
                 $image = getimagesize($dir . $file);
                 $width = $image[0];
                 $height = $image[1];
