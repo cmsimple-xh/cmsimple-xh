@@ -806,11 +806,11 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
                 global $pluginloader_cfg;
                 $config_data[$key] = $_POST[$pluginloader_cfg['form_namespace'] . $key];
             }
-            $save_data = stsl($var_name, $config_data, $plugin);
+            $save_data = PluginPrepareConfigData($var_name, $config_data, $plugin);
         }
         if ($action == 'plugin_textsave') {
             $text_data = $_POST[$var_name];
-            $save_data = PluginPrepareTextData($text_data);
+            $save_data = stsl($text_data);
         }
         $is_saved = PluginWriteFile($pth['file'][$admin], $save_data);
         $t .= tag('br') . '<b>' . $is_saved['msg'] . '</b>' . tag('br');
