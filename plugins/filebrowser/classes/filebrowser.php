@@ -86,15 +86,17 @@ class XHFileBrowser {
         $this->allowedExtensions['media'] = $media_extensions;
     }
 
-    function fileIsLinked($file) {
+    function fileIsLinked($file, $searchImagesOnly = false) {
         global $h, $c, $u;
         $i = 0;
         $usages = array();
-
+        // TODO: improve regex for better performance
+        $regex = $searchImagesOnly
+            ? '#<img.*(?:src|href|download)=(["\']).*' . preg_quote($file, '#') . '\\1.*>#is'
+            : '#<.*(?:src|href|download)=(["\']).*' . preg_quote($file, '#') . '\\1.*>#is';
 
         foreach ($c as $page) {
-
-            if (preg_match('#<.*(?:src|href|download)=(["\']).*' . preg_quote($file, '#') . '\\1.*>#is', $page) > 0) {
+            if (preg_match($regex, $page) > 0) {
                 $usages[] = '<a href="?' . $u[$i] . '">' . $h[$i] . '</a>';
             }
             $i++;

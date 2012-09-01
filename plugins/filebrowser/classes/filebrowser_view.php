@@ -125,7 +125,7 @@ class XHFileBrowserView {
                     </form>
                      <a style="position:relative" class="xhfbfile" href="javascript:void(0)" id="file_' . $i . '" ondblclick="showRenameForm(\'' . $i . '\', \'' . $this->translate('prompt_rename', $file) . '\');">' . $file;
 
-            $usage = $fb->fileIsLinked($file);
+            $usage = $fb->fileIsLinked($file, true);
             $usage = $usage !== FALSE
                 ? '<strong>' . $tx['images']['usedin'] . ':</strong>' . tag('br')
                     . implode(tag('br'), array_map('strip_tags', $usage))
