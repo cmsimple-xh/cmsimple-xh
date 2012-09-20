@@ -28,6 +28,7 @@ $tx['editmenu']['userfiles']="Userfiles";
 $tx['editmenu']['validate']="Validate links";
 
 $tx['error']['401']="Error 401: Unauthorized";
+$tx['error']['403']="Error 403: Forbidden";
 $tx['error']['404']="Error 404: Not found";
 $tx['error']['alreadyexists']="Already exists";
 $tx['error']['cntdelete']="Could not delete";

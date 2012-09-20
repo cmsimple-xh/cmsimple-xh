@@ -798,9 +798,11 @@ function amp() {
 
 function shead($s) {
     global $iis, $cgi, $tx, $txc, $title, $o;
-    if ($s == '401')
+    if ($s == '401') {
         header(($cgi || $iis) ? 'status: 401 Unauthorized' : 'HTTP/1.0 401 Unauthorized');
-    if ($s == '404') {
+    } elseif ($s == '403') {
+        header(($cgi || $iis) ? 'status: 403 Forbidden' : 'HTTP/1.0 403 Forbidden');
+    } elseif ($s == '404') {
 	if (function_exists('custom_404')) {
 	    custom_404();
 	} else {

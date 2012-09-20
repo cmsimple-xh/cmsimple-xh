@@ -28,6 +28,7 @@ $tx['editmenu']['userfiles']="Andere";
 $tx['editmenu']['validate']="Links prüfen";
 
 $tx['error']['401']="Fehler 401: Nicht erlaubt";
+$tx['error']['403']="Error 403: Verboten";
 $tx['error']['404']="Fehler 404: Nicht gefunden";
 $tx['error']['alreadyexists']="Existiert bereits";
 $tx['error']['cntdelete']="Nicht löschbar:";
