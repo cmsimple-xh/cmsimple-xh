@@ -444,8 +444,10 @@ if ($handle) {
 
 
 if (!include($pth['file']['template'])) {
-
-    echo '<html><head><title>' . $tx['heading']['error'] . '</title></head><body>Template nicht gefunden.(' . $pth['file']['template'] . ')</body></html>';
+    header('HTTP/1.0 500 Internal Server Error');
+    header('Content-Type: text/plain; charset=utf-8');
+    echo $tx['error']['missing'], ' ', $tx['filetype']['template'], "\n", $pth['file']['template'];
+    exit;
 }
 
 function final_clean_up($html) {
