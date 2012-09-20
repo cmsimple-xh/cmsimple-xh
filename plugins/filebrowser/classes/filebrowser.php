@@ -213,7 +213,7 @@ function foldersArray($all = true) {
 
     function deleteFile($file) {
 
-        $file = $this->currentDirectory . basename($file);
+        $file = $this->browseBase . $this->currentDirectory . basename($file);
 
         if (is_array($this->fileIsLinked($file))) {
             $this->view->error('error_not_deleted', $file);
@@ -300,7 +300,7 @@ function foldersArray($all = true) {
     }
 
     function deleteFolder() {
-        $folder = $folder = $this->browseBase . $this->currentDirectory . basename($_POST['folder']);
+        $folder = $this->browseBase . $this->currentDirectory . basename($_POST['folder']);
         if (!rmdir($folder)) {
             $this->view->error('error_not_deleted', basename($folder));
             return;
