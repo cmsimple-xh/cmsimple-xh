@@ -145,8 +145,10 @@ if (file_exists($pluginloader_cfg['folder_languages'] . 'default.php')) {
 }
 
 // include Plugin Loader language file
-if (!file_exists($pluginloader_cfg['file_language']) && !file_exists($pluginloader_cfg['folder_languages'] . 'default.php')) {
-    die('Language file ' . $pluginloader_cfg['file_language'] . ' missing');
+if (is_readable($pluginloader_cfg['file_language'])) {
+    include $pluginloader_cfg['file_language'];
+} else {
+    e('cntopen', 'language', $pluginloader_cfg['file_language']);
 }
 
 /**
