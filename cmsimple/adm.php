@@ -326,7 +326,7 @@ if ($adm) {
                                     if (!is_array($v2)) {
                                         $o .= '<tr>' . "\n" . '<td valign="top">';
                                         if (isset($tx['help'][$k1 . '_' . $k2]) && ($a == 'cf' || $a == 'txc'))
-                                            $o .= '<a href="#" class="pl_tooltip">' . tag('img src = "' . $pluginloader_cfg['folder_pluginloader'] . '/css/help_icon.png" alt="" class="helpicon"') . '<span>' . $tx['help'][$k1 . '_' . $k2] . '</span></a>' . "\n";
+                                            $o .= '<a href="#" onclick="return false" class="pl_tooltip">' . tag('img src = "' . $pluginloader_cfg['folder_pluginloader'] . '/css/help_icon.png" alt="" class="helpicon"') . '<span>' . $tx['help'][$k1 . '_' . $k2] . '</span></a>' . "\n";
                                         $o .= "\n" . ucfirst($k2) . ':</td>' . "\n" . '<td>';
                                         if (($k1 == 'security' || $k1 == 'subsite') && $k2 == 'password') {
                                             $o .= tag('input type="hidden" name="' . $k1 . '_' . $k2 . '_old" value="' . $v2 . '"');
