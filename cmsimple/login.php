@@ -187,6 +187,11 @@ define('XH_ADM', $adm);
 // SETTING FUNCTIONS AS PERMITTED
 
 if ($adm) {
+    $o .= '<script type="text/javascript">/* <![CDATA[ */'
+	. 'if (document.cookie.indexOf(\'status=adm\') == -1)'
+	. ' document.write(\'<div class="cmsimplecore_warning">' . $tx['error']['nocookies'] . '</div>\')'
+	. '/* ]]> */</script>'
+	. '<noscript><div class="cmsimplecore_warning">' . $tx['error']['nojs'] . '</div></noscript>';
     if ($edit)
         setcookie('mode', 'edit', 0, CMSIMPLE_ROOT);
     if ($normal)
