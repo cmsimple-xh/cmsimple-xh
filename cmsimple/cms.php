@@ -723,7 +723,7 @@ function meta($n) {
     global $cf, $print;
     $exclude = array('robots', 'keywords', 'description');
     if ($cf['meta'][$n] != '' && !($print && in_array($n, $exclude)))
-        return tag('meta name="' . $n . '" content="' . $cf['meta'][$n] . '"') . "\n";
+        return tag('meta name="' . $n . '" content="' . htmlspecialchars($cf['meta'][$n], ENT_COMPAT, 'UTF-8') . '"') . "\n";
 }
 
 function ml($i) {
@@ -950,10 +950,12 @@ function xh_debug($errno, $errstr, $errfile, $errline, $context)
 
 function head() {
     global $title, $cf, $pth, $tx, $txc, $hjs;
-    if (isset($cf['site']['title']) && $cf['site']['title'] != '')
-        $t = $cf['site']['title'] . ' - ' . $title; // changed by LM CMSimple_XH 1.1
-    else
+    if (!empty($cf['site']['title'])) {
+        $t = htmlspecialchars($cf['site']['title'], ENT_COMPAT, 'UTF-8')
+            . " \xe2\x80\x93 " . $title;
+    } else {
         $t = $title;
+    }
     $t = '<title>' . strip_tags($t) . '</title>' . "\n";
     foreach ($cf['meta'] as $i => $k)
         $t .= meta($i);
@@ -967,12 +969,16 @@ function head() {
 
 function sitename() {
     global $txc;
-    return isset($txc['site']['title']) ? $txc['site']['title'] : ''; // changed by GE CMSimple_XH 1.2
+    return isset($txc['site']['title'])
+        ? htmlspecialchars($txc['site']['title'], ENT_NOQUOTES, 'UTF-8')
+        : '';
 }
 
-function pagename() { // changed by GE CMSimple_XH 1.2
+function pagename() {
     global $cf;
-    return isset($cf['site']['title']) ? $cf['site']['title'] : ''; // changed by LM CMSimple_XH 1.1
+    return isset($cf['site']['title'])
+        ? htmlspecialchars($cf['site']['title'], ENT_NOQUOTES, 'UTF-8')
+        : '';
 }
 
 function onload() {
