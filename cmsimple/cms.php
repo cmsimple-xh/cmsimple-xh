@@ -81,11 +81,8 @@ $pth['folder']['content'] = './content/';
 $pth['file']['content'] = $pth['folder']['content'] . 'content.htm';
 $pth['file']['pagedata'] = $pth['folder']['content'] . 'pagedata.php';
 
-if (@is_dir('./cmsimple/'))
-    $pth['folder']['base'] = './';
-else
-    $pth['folder']['base'] = './../';
-
+$pth['folder']['base'] = is_dir('./cmsimple') ? './' : '../'; 
+ 
 $pth['folder']['cmsimple'] = $pth['folder']['base'] . 'cmsimple/';
 
 $pth['file']['log'] = $pth['folder']['cmsimple'] . 'log.txt';
