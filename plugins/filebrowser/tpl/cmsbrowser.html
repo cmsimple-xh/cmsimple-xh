@@ -22,14 +22,14 @@ global $tx;
     <div id="subfolders">
         <div style="clear: both; margin: 0px 0;"><b><?php echo $tx['filetype']['folder']; ?>:</b> <?php echo $this->currentDirectory; ?></div>
         <div style="text-align: right;">
-        <a href="javascript:void();" onClick="window.showxhfbForm('xhfbCreateDir');" /><?php echo $this->translate('create_folder'); ?></a>
+        <a href="#" onclick="window.showxhfbForm('xhfbCreateDir'); return false" /><?php echo $this->translate('create_folder'); ?></a>
        
         </div>
 
         
  
         <fieldset id="xhfbCreateDir" class="xhfbform">
-            <legend><?php echo $this->translate('create_subfolder_in', $this->currentDirectory); ?> <a href="javascript:window.closexhfbForm('xhfbCreateDir');">[x]</a></legend>
+            <legend><?php echo $this->translate('create_subfolder_in', $this->currentDirectory); ?> <a href="#" onclick="window.closexhfbForm('xhfbCreateDir'); return false">[x]</a></legend>
             <div style="padding: 3em;">
 
                 <form method="POST" action="">
@@ -47,10 +47,10 @@ global $tx;
     <div id="files">
         <span  style="font-weight:900">
          <div style="text-align: right;">
-                <a href="javascript:window.showxhfbForm('xhfbUploadFile');"  /><?php echo $this->translate('upload_file'); ?></a>
+                <a href="#" onclick="window.showxhfbForm('xhfbUploadFile'); return false" /><?php echo $this->translate('upload_file'); ?></a>
         </div>
                <fieldset id="xhfbUploadFile" class="xhfbform">
-            <legend><?php echo $this->translate('upload_file_to', $this->currentDirectory); ?> <a href="javascript:window.closexhfbForm('xhfbUploadFile');">[x]</a></legend>
+            <legend><?php echo $this->translate('upload_file_to', $this->currentDirectory); ?> <a href="#" onclick="window.closexhfbForm('xhfbUploadFile'); return false">[x]</a></legend>
             <div style="padding: 3em;">
 
                 <form method="POST" action="" enctype="multipart/form-data">

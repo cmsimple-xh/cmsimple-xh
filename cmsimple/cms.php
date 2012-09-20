@@ -1201,7 +1201,7 @@ function admin_menu($plugins = array(), $debug = false)
         if ((bool) $plugins)
         {
             sort($plugins, SORT_STRING);
-            $pluginMenu .= '<li><a href="javascript:void(0);">' . utf8_ucfirst($tx['editmenu']['plugins']) . "</a>\n    <ul>";
+            $pluginMenu .= '<li><a href="#" onclick="return false">' . utf8_ucfirst($tx['editmenu']['plugins']) . "</a>\n    <ul>";
             foreach ($plugins as $plugin)
             {
                 $pluginMenu .= "\n" .
@@ -1224,7 +1224,7 @@ function admin_menu($plugins = array(), $debug = false)
         $changeText = $edit ? $tx['editmenu']['normal'] : $tx['editmenu']['edit'];
         $t .= '<li><a href="' . $sn . '?' . $su . '&' . $changeMode . '">' . $changeText . '</a></li>' . "\n";
         $t .= '<li><a href="' . $sn . '?&amp;normal&amp;xhpages" class="">' . utf8_ucfirst($tx['editmenu']['pagemanager']) . '</a></li>' . "\n";
-        $t .= '<li><a href="javascript:void(0);" class="">' . utf8_ucfirst($tx['editmenu']['files']) . '</a>' ."\n";
+        $t .= '<li><a href="#" onclick="return false" class="">' . utf8_ucfirst($tx['editmenu']['files']) . '</a>' ."\n";
         $t .= '    <ul>' . "\n";
         $t .= '    <li><a href="' . $sn . '?&amp;normal&amp;images">' . utf8_ucfirst($tx['editmenu']['images']) . '</a></li>' . "\n";
         $t .= '    <li><a href="' . $sn . '?&amp;normal&amp;downloads">' . utf8_ucfirst($tx['editmenu']['downloads']) . '</a></li>' . "\n";

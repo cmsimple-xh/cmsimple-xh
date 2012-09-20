@@ -33,7 +33,7 @@ if ($filebrowser) {
 
 
     $o .= '<div><form method="post" action="' . $sn . '?&amp;' . $plugin . '">';
-    $o .= '<p><a class="pl_tooltip" href="javascript:void();">
+    $o .= '<p><a class="pl_tooltip" href="#" onclick="return false">
              <img class="helpicon" alt="help" src="' . $pth['folder']['plugins'] . 'pluginloader/css/help_icon.png" />
              <span>' . sprintf($plugin_tx[$plugin]['help'], $pth['folder']['plugins'] . $plugin . '/inits') . '</span></a></p>';
     $o .= '<table>
