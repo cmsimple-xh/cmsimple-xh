@@ -86,14 +86,12 @@ class XHFileBrowser {
         $this->allowedExtensions['media'] = $media_extensions;
     }
 
-    function fileIsLinked($file, $searchImagesOnly = false) {
+    function fileIsLinked($file) {
         global $h, $c, $u;
         $i = 0;
         $usages = array();
         // TODO: improve regex for better performance
-        $regex = $searchImagesOnly
-            ? '#<img.*(?:src|href|download)=(["\']).*' . preg_quote($file, '#') . '\\1.*>#is'
-            : '#<.*(?:src|href|download)=(["\']).*' . preg_quote($file, '#') . '\\1.*>#is';
+        $regex = '#<.*(?:src|href|download)=(["\']).*' . preg_quote($file, '#') . '\\1.*>#is';
 
         foreach ($c as $page) {
             if (preg_match($regex, $page) > 0) {
@@ -108,6 +106,29 @@ class XHFileBrowser {
         return false;
     }
 
+    function usedImages()
+    {
+        global $c, $h, $cl;
+        
+        $images = array();
+        for ($i = 0; $i < $cl; $i++) {
+            preg_match_all('/<img.*?src=(["\'])(.*?)\\1.*?>/is', $c[$i], $m);
+            foreach ($m[2] as $fn) {
+                if ($fn{0} == '.' && $fn{1} == '/') {
+                    $fn = substr($fn, 2);
+                }
+                if (array_key_exists($fn, $images)) {
+                    if (!in_array($h[$i], $images[$fn])) {
+                        $images[$fn][] = $h[$i];
+                    }
+                } else {
+                    $images[$fn] = array($h[$i]);
+                }
+            }
+        }
+        return $images;
+    }
+ 
     function readDirectory() {
         $dir = $this->browseBase . $this->currentDirectory;
         $this->files = array();
@@ -214,12 +235,12 @@ function foldersArray($all = true) {
     function deleteFile($file) {
 
         $file = $this->browseBase . $this->currentDirectory . basename($file);
-
-        if (is_array($this->fileIsLinked($file))) {
+        $pages = $this->fileIsLinked($file);
+        if (is_array($pages)) {
             $this->view->error('error_not_deleted', $file);
             $this->view->error('error_file_is_used', $file);
 
-            foreach ($this->fileIsLinked($file) as $page) {
+            foreach ($pages as $page) {
                 $this->view->message .= '<li>' . $page . '</li>';
             }
             $this->view->message .= '</ul>';
@@ -311,9 +332,6 @@ function foldersArray($all = true) {
 
     function renameFile() {
 
-
-
-
         $newName = str_replace(array('..', '<', '>', ':', '?', ' '), '', basename($_POST['renameFile']));
         $oldName = $_POST['oldName'];
         if ($oldName == $newName) {
@@ -327,12 +345,12 @@ function foldersArray($all = true) {
             $this->view->error('error_file_already_exists', $newName);
             return;
         }
-
-        if (is_array($this->fileIsLinked($oldName))) {
+        $pages = $this->fileIsLinked($oldName);
+        if (is_array($pages)) {
             $this->view->error('error_cant_rename', $oldName);
             $this->view->error('error_file_is_used', $oldName);
 
-            foreach ($this->fileIsLinked($oldName) as $page) {
+            foreach ($pages as $page) {
                 $this->view->message .= '<li>' . $page . '</li>';
             }
             $this->view->message .= '</ul>';

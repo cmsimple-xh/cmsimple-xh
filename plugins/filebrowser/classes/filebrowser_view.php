@@ -106,6 +106,11 @@ class XHFileBrowserView {
         $i = 0;
         $class = 'even';
         $fb = $_SESSION['xh_browser']; // FIXME: the view shouldn't know the model
+        $imgs = $fb->usedImages();
+        $base = $fb->browseBase;
+        if ($base{0} == '.' && $base{1} == '/') {
+            $base = substr($base, 2);
+        }
         foreach ($files as $file) {
             if ($class == 'odd') {
                 $class = 'even';
@@ -125,10 +130,10 @@ class XHFileBrowserView {
                     </form>
                      <a style="position:relative" class="xhfbfile" href="#" onclick="return false" id="file_' . $i . '" ondblclick="showRenameForm(\'' . $i . '\', \'' . $this->translate('prompt_rename', $file) . '\');">' . $file;
 
-            $usage = $fb->fileIsLinked($file, true);
-            $usage = $usage !== FALSE
-                ? '<strong>' . $tx['images']['usedin'] . ':</strong>' . tag('br')
-                    . implode(tag('br'), array_map('strip_tags', $usage))
+            $ffn = $base . $fb->currentDirectory . $file;
+            $usage = array_key_exists($ffn, $imgs)
+                ? '<strong>' . $tx['images']['usedin'] . ':</strong>'
+                    . tag('br') . implode(tag('br'), $imgs[$ffn])
                 : '';
 
             if (is_array(@getimagesize($this->basePath . $this->currentDirectory . $file))) {
