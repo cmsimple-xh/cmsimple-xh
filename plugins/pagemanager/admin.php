@@ -16,7 +16,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('PAGEMANAGER_VERSION', '1pl6');
+define('PAGEMANAGER_VERSION', '1pl7');
 
 
 /**
@@ -200,7 +200,7 @@ function pagemanager_edit() {
 
     $swo = '<div id="pagemanager-structure-warning" class="cmsimplecore_warning"><p>'
 	    .$plugin_tx['pagemanager']['error_structure_warning']
-	    .'</p><p><a href="javascript:pagemanager_confirmStructureWarning();">'
+	    .'</p><p><a href="#" onclick="pagemanager_confirmStructureWarning();return false">'
 	    .$plugin_tx['pagemanager']['error_structure_confirmation']
 	    .'</a></div>'."\n";
 

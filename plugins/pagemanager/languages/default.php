@@ -1,7 +1,7 @@
 <?php
 
 $plugin_tx['pagemanager']['cf_verbose']="<p>Show information and confirmation dialogs? <b>true</b> or <b>false</b></p><p><strong><b>true</b> is strongly recommended</strong>, unless you are a power user <strong>and</strong> are accustomed to Pagemanager_XH.</p>";
-$plugin_tx['pagemanager']['cf_toolbar_show']="<p>Sould the toolbar be shown? <b>true</b> or <b>false</b></p>";
+$plugin_tx['pagemanager']['cf_toolbar_show']="<p>Should the toolbar be shown? <b>true</b> or <b>false</b></p>";
 $plugin_tx['pagemanager']['cf_toolbar_vertical']="<p>Should the toolbar be displayed vertically? <b>true</b> or <b>false</b></p><p>This option is for power users, who can adjust the layout in Plugin Stylesheet.</p>";
 $plugin_tx['pagemanager']['cf_pagedata_attribute']="<p>The yes/no (with default yes) pagedata attribute for the checkboxes, e.g. <b>published</b> or <b>linked_to_menu</b>.</p><p><strong>Caution:</strong> If you choose an inappropriate attribute, you will mess up your pagedata.php!</p>";
 $plugin_tx['pagemanager']['cf_treeview_theme']="<p>Theme of tree view widget: <b>cmsimple</b></p><p>Other themes are available from http://3-magi.net/?CMSimple_XH/Pagemanager_XH.</p>";

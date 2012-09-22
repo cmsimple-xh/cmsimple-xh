@@ -1,0 +1,7 @@
+Version 1.1:
+    rewrite code
+    improve performance
+    implement "edit page"
+    
+Version 2:
+    add 2site/2lang (Termin,Erdo)
