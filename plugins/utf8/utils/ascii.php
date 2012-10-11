@@ -1,7 +1,7 @@
 <?php
 /**
 * Tools to help with ASCII in UTF-8
-* @version $Id: ascii.php 8 2012-08-11 13:46:41Z cmb69 $
+* @version $Id: ascii.php 27 2012-10-10 19:54:08Z cmb69 $
 * @package utf8
 * @subpackage ascii
 */
@@ -55,17 +55,15 @@ function utf8_is_ascii_ctrl($str) {
 * @see utf8_strip_non_ascii_ctrl
 */
 function utf8_strip_non_ascii($str) {
-    ob_start();
+    $result = '';
     while ( preg_match(
         '/^([\x00-\x7F]+)|([^\x00-\x7F]+)/S',
             $str, $matches) ) {
         if ( !isset($matches[2]) ) {
-            echo $matches[0];
+            $result .= $matches[0];
         }
         $str = substr($str, strlen($matches[0]));
     }
-    $result = ob_get_contents();
-    ob_end_clean();
     return $result;
 }
 
@@ -80,17 +78,15 @@ function utf8_strip_non_ascii($str) {
 * @return string control codes removed
 */
 function utf8_strip_ascii_ctrl($str) {
-    ob_start();
+    $result = '';
     while ( preg_match(
         '/^([^\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+)|([\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+)/S',
             $str, $matches) ) {
         if ( !isset($matches[2]) ) {
-            echo $matches[0];
+            $result .= $matches[0];
         }
         $str = substr($str, strlen($matches[0]));
     }
-    $result = ob_get_contents();
-    ob_end_clean();
     return $result;
 }
 
@@ -104,17 +100,15 @@ function utf8_strip_ascii_ctrl($str) {
 * @return boolean TRUE if it's all ASCII
 */
 function utf8_strip_non_ascii_ctrl($str) {
-    ob_start();
+    $result = '';
     while ( preg_match(
         '/^([\x09\x0A\x0D\x20-\x7E]+)|([^\x09\x0A\x0D\x20-\x7E]+)/S',
             $str, $matches) ) {
         if ( !isset($matches[2]) ) {
-            echo $matches[0];
+            $result .= $matches[0];
         }
         $str = substr($str, strlen($matches[0]));
     }
-    $result = ob_get_contents();
-    ob_end_clean();
     return $result;
 }
 

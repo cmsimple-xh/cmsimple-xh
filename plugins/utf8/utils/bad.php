@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: bad.php 4 2012-08-07 21:08:48Z cmb69 $
+* @version $Id: bad.php 27 2012-10-10 19:54:08Z cmb69 $
 * Tools for locating / replacing bad bytes in UTF-8 strings
 * The Original Code is Mozilla Communicator client code.
 * The Initial Developer of the Original Code is
@@ -111,15 +111,13 @@ function utf8_bad_strip($str) {
     '|[\xF1-\xF3][\x80-\xBF]{3}'.            # planes 4-15
     '|\xF4[\x80-\x8F][\x80-\xBF]{2}'.        # plane 16
     '|(.{1}))';                              # invalid byte
-    ob_start();
+    $result = '';
     while (preg_match('/'.$UTF8_BAD.'/S', $str, $matches)) {
         if ( !isset($matches[2])) {
-            echo $matches[0];
+            $result .= $matches[0];
         }
         $str = substr($str,strlen($matches[0]));
     }
-    $result = ob_get_contents();
-    ob_end_clean();
     return $result;
 }
 
@@ -146,17 +144,15 @@ function utf8_bad_replace($str, $replace = '?') {
     '|[\xF1-\xF3][\x80-\xBF]{3}'.            # planes 4-15
     '|\xF4[\x80-\x8F][\x80-\xBF]{2}'.        # plane 16
     '|(.{1}))';                              # invalid byte
-    ob_start();
+    $result = '';
     while (preg_match('/'.$UTF8_BAD.'/S', $str, $matches)) {
         if ( !isset($matches[2])) {
-            echo $matches[0];
+            $result .= $matches[0];
         } else {
-            echo $replace;
+            $result .= $replace;
         }
         $str = substr($str,strlen($matches[0]));
     }
-    $result = ob_get_contents();
-    ob_end_clean();
     return $result;
 }
 

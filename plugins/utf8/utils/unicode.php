@@ -1,6 +1,6 @@
 <?php
 /**
-* @version $Id: unicode.php 4 2012-08-07 21:08:48Z cmb69 $
+* @version $Id: unicode.php 27 2012-10-10 19:54:08Z cmb69 $
 * Tools for conversion between UTF-8 and unicode
 * The Original Code is Mozilla Communicator client code.
 * The Initial Developer of the Original Code is
@@ -189,8 +189,7 @@ function utf8_to_unicode($str) {
 * Returns false if the input array contains ints that represent 
 * surrogates or are outside the Unicode range
 * and raises a PHP error at level E_USER_WARNING
-* Note: this function has been modified slightly in this library to use
-* output buffering to concatenate the UTF-8 string (faster) as well as
+* Note: this function has been modified slightly in this library to
 * reference the array by it's keys
 * @param array of unicode code points representing a string
 * @return mixed UTF-8 string or FALSE if array contains invalid code points
@@ -199,20 +198,20 @@ function utf8_to_unicode($str) {
 * @see http://hsivonen.iki.fi/php-utf8/
 */
 function utf8_from_unicode($arr) {
-    ob_start();
+    $result = '';
     
     foreach (array_keys($arr) as $k) {
         
         # ASCII range (including control chars)
         if ( ($arr[$k] >= 0) && ($arr[$k] <= 0x007f) ) {
             
-            echo chr($arr[$k]);
+            $result .= chr($arr[$k]);
         
         # 2 byte sequence
         } else if ($arr[$k] <= 0x07ff) {
             
-            echo chr(0xc0 | ($arr[$k] >> 6));
-            echo chr(0x80 | ($arr[$k] & 0x003f));
+            $result .= chr(0xc0 | ($arr[$k] >> 6));
+            $result .= chr(0x80 | ($arr[$k] & 0x003f));
         
         # Byte order mark (skip)
         } else if($arr[$k] == 0xFEFF) {
@@ -234,17 +233,17 @@ function utf8_from_unicode($arr) {
         # 3 byte sequence
         } else if ($arr[$k] <= 0xffff) {
             
-            echo chr(0xe0 | ($arr[$k] >> 12));
-            echo chr(0x80 | (($arr[$k] >> 6) & 0x003f));
-            echo chr(0x80 | ($arr[$k] & 0x003f));
+            $result .= chr(0xe0 | ($arr[$k] >> 12));
+            $result .= chr(0x80 | (($arr[$k] >> 6) & 0x003f));
+            $result .= chr(0x80 | ($arr[$k] & 0x003f));
         
         # 4 byte sequence
         } else if ($arr[$k] <= 0x10ffff) {
             
-            echo chr(0xf0 | ($arr[$k] >> 18));
-            echo chr(0x80 | (($arr[$k] >> 12) & 0x3f));
-            echo chr(0x80 | (($arr[$k] >> 6) & 0x3f));
-            echo chr(0x80 | ($arr[$k] & 0x3f));
+            $result .= chr(0xf0 | ($arr[$k] >> 18));
+            $result .= chr(0x80 | (($arr[$k] >> 12) & 0x3f));
+            $result .= chr(0x80 | (($arr[$k] >> 6) & 0x3f));
+            $result .= chr(0x80 | ($arr[$k] & 0x3f));
             
         } else {
             
@@ -259,7 +258,5 @@ function utf8_from_unicode($arr) {
         }
     }
     
-    $result = ob_get_contents();
-    ob_end_clean();
     return $result;
 }

@@ -1,5 +1,5 @@
 PHP UTF-8 Library -- Tools for working with UTF-8 in PHP
-Version 0.5.2
+Version 0.5.3
 
 Copyright (c) 2006-2007  Harry Fuecks
 Copyright (c) 2012       Christoph M. Becker
@@ -30,13 +30,12 @@ PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License along
 with this library (see LICENSE).
 
-DOCUMENTATION
+INSTALLATION
 
-Developer documentation can be accessed through docs/index.html. The
-documentation is not contained in the SVN repository -- only in the download
-packages.
+The installation is done as with many other CMSimple_XH plugins. See the CMSimple_XH wiki
+<http://www.cmsimple-xh.com/wiki/doku.php/manuals:users_manual:plugins:installation>
+for further details.
 
-BUGS / SUPPORT / FEATURE REQUESTS
-
-As phputf8lib is hosted on SourceForge, these should be created as tickets on
-https://sourceforge.net/p/phputf8lib/tickets/
+1. Backup the data on your server.
+2. Unzip the distribution on your computer.
+3. Upload the whole directory utf8/ to your server into the CMSimple_XH plugins directory.
