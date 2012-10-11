@@ -20,10 +20,6 @@
  * Check if PLUGINLOADER is calling and die if not
  */
 if(!defined('PLUGINLOADER_VERSION')){die('Plugin '. basename(dirname(__FILE__)) . ' requires a newer version of the Pluginloader. No direct access.');}
-/**
- * Include language package
- */
-include_once "languages/".$sl.'.php';
 
 /**
  * Add used interests to router

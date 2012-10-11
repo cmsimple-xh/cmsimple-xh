@@ -5,8 +5,8 @@
  */
 
 /* utf-8 marker: äöü */
-require_once 'classes/filebrowser_view.php';
-require_once 'classes/filebrowser.php';
+require_once './classes/filebrowser_view.php';
+require_once './classes/filebrowser.php';
 
 if (!isset($_SESSION)) {     session_start(); }
 
@@ -114,7 +114,7 @@ if ($fb_type && array_key_exists($fb_type, $browser->baseDirectories)) {
 
 
 
-    $jsFile = 'editorhooks/' . basename($_GET['editor']) . '/script.php';
+    $jsFile = './editorhooks/' . basename($_GET['editor']) . '/script.php';
 
     $script = '';
     if (file_exists($jsFile)) {
