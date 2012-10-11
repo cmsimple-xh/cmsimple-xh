@@ -185,14 +185,9 @@ require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
 require_once UTF8 . '/utils/validation.php';
 
-foreach (array('_GET', '_POST', '_COOKIE') as $i) {
-    foreach ($$i as $j) {
-        if (!utf8_is_valid($j)) {
-            header('HTTP/1.0 400 Bad Request'); // TODO: use "Status:" for FastCGI?
-            exit('Malformed UTF-8 detected!');
-        }
-    }
-}
+// don't check cookies, as these might be set from non UTF-8 scripts on the domain
+// TODO: what about the variable names? what about other input (e.g. $_SERVER)?
+XH_checkValidUtf8(array($_GET, $_POST));
 
 $iis = strpos(sv('SERVER_SOFTWARE'), "IIS");
 $cgi = (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi');
@@ -1345,4 +1340,28 @@ function languagemenu() {
     } // for subsites
 }
 // END modified function languagemenu() - by GE 09-06-26 (CMSimple_XH beta3)
+
+
+/**
+ * Checks $arr recursively for valid UTF-8. Otherwise it exists the script.
+ *
+ * This is useful for checking user input.
+ *
+ * @since   1.5.5
+ * 
+ * @param   array $arr
+ * @return  void
+ */
+function XH_checkValidUtf8($arr)
+{
+    foreach ($arr as $elt) {
+        if (is_array($elt)) {
+            XH_checkValidUtf8($elt);
+        } elseif (!utf8_is_valid($elt)) {
+            header('HTTP/1.0 400 Bad Request'); // TODO: use "Status:" for FastCGI?
+            exit('Malformed UTF-8 detected!');
+        }
+    }
+}
+
 ?>
