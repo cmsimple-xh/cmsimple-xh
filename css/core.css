@@ -1,8 +1,20 @@
 /* EDITMENU */
 
+#editmenu_scrolling {
+    z-index: 999;
+}
+
+#editmenu_fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}
+
 #editmenu {
     width: 100%;
-	min-width: 760px;
+    min-width: 760px;
     background-color: #2e3436;
     font-size: 14px;
     padding: 0;
@@ -14,7 +26,7 @@
 
 #editmenu ul {
     height: 36px;
-	list-style-type: none !important;
+    list-style-type: none !important;
     list-style-image: none;
     font-family: arial, sans-serif;
     font-style: normal;
@@ -29,10 +41,10 @@
     position: relative;
     width: 125px;
     background-color: #2e3436;
-	text-align: center;
+    text-align: center;
     color: #d3d7cf;
     padding: 8px 0 0 0;
-	margin: 0;
+    margin: 0;
 }
 
 #editmenu li a:hover, #editmenu li:hover {
@@ -62,62 +74,62 @@
 #editmenu ul ul li {
     background: #4f5456;
     height: 26px;
-	padding: 3px 0 0 0;
+    padding: 3px 0 0 0;
     margin: 0;
 }
 
 #editmenu ul ul li a {
     height: 16px;
-	padding: 3px 0 0 0;
-	margin: 0;
+    padding: 3px 0 0 0;
+    margin: 0;
 }
 
 #editmenu ul ul li:hover {
     height: 26px;
-	padding: 3px 0 0 0;
+    padding: 3px 0 0 0;
     background: #c50;
 }
 
 #editmenu ul ul li a:hover {
     background: #c50;
-	height: 20px;
-	padding: 3px 0 0 0;
-	margin: 0;
+    height: 20px;
+    padding: 3px 0 0 0;
+    margin: 0;
 }
 
 #editmenu ul ul ul {
     left: 100%;
     top: 0px; 
     visibility: hidden;
-	padding: 0;
+    padding: 0;
     margin: 0;
 }
 
 #editmenu ul ul ul li {
     background: #c50;
     height: 26px;
-	padding: 3px 0 0 0;
-	margin: 0;
+    padding: 3px 0 0 0;
+    margin: 0;
 }
 
 #editmenu ul ul ul li a {
     height: 26px;
-	padding: 3px 0 0 0;
-	margin: 0;
+    padding: 3px 0 0 0;
+    margin: 0;
 }
 
 #editmenu ul ul ul li:hover {
     background: #e70;
     height: 26px;
-	padding: 3px 0 0 0;
-	margin: 0;
+    padding: 3px 0 0 0;
+    margin: 0;
 }
 
 #editmenu ul ul ul li a:hover {
     background: #e70;
     height: 20px;
-	padding: 3px 0 0 0;
-	margin: 0;
+    padding: 3px 0 0 0;
+    margin: 0;
 }
 
 #editmenu li:hover > ul {
@@ -129,19 +141,19 @@ div#admin-content-container{
 }
 
 #edit_menu {
-width: 660px; 
-float: left;
+    width: 660px; 
+    float: left;
 }
 
 #editmenu_logout {
-width: 98px; 
-float: right;
+    width: 98px; 
+    float: right;
 }
 
 #edit_menu_logout {
-min-width: 100%; 
-max-width: 100%; 
-text-align: center;
+    min-width: 100%; 
+    max-width: 100%; 
+    text-align: center;
 }
 
 /* ENDE EDITMENU */

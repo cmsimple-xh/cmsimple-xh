@@ -449,7 +449,6 @@ function final_clean_up($html) {
         $debugHint = '';
         $errorList = '';
         $margin = 34;
-        $style = '';
 
         if ($debugMode) {
             $debugHint .= '<div class="cmsimplecore_debug">' . "\n" . '<b>Notice:</b> Debug-Mode is enabled!' . "\n" . '</div>' . "\n";
@@ -471,17 +470,17 @@ function final_clean_up($html) {
             $errorList .= '</ul></div>';
         }
         if (isset($cf['editmenu']['scroll']) && $cf['editmenu']['scroll'] == 'true'){
-            $style = ' style="z-index: 99;"';
+            $id = ' id="editmenu_scrolling"';
             $margin = 0;
         }
         else {
-             $style =' style="position: fixed; top: 0; left: 0; width: 100%; z-index: 99;"';
+             $id =' id="editmenu_fixed"';
 	     $html = preg_replace('~</head>~i','<style type="text/css">html {margin-top: ' . $margin . 'px;}</style>' ."\n" . '$0', $html, 1);
 
         }
 
         $html = preg_replace('~<body[^>]*>~i',
-                            '$0' . '<div' . $style . '>' . $debugHint. admin_menu($plugins, $debugMode) . '</div>' ."\n" .  $errorList,
+                            '$0' . '<div' . $id . '>' . $debugHint. admin_menu($plugins, $debugMode) . '</div>' ."\n" .  $errorList,
                          $html, 1);
 
 
