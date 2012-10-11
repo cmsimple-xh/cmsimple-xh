@@ -120,7 +120,7 @@ if ($login && !$adm) {
 	writelog(date("Y-m-d H:i:s") . " from " . sv('REMOTE_ADDR') . " logged_in\n");
     }
     else
-	shead('401');
+	shead('403');
 } else if ($logout && $adm) {
     $backupDate = date("Ymd_His");
     $fn = $backupDate . '_content.htm';
