@@ -42,6 +42,7 @@ $tx['error']['nocookies']="Please enable Cookies!";
 $tx['error']['nojs']="Please enable Javascript!";
 $tx['error']['notreadable']="Not readable";
 $tx['error']['notwritable']="Not writeable";
+$tx['error']['plugin_error']="Plugin error: ";
 $tx['error']['tolarge']="is too large! Maximum size is set to";
 $tx['error']['undefined']="Undefined";
 $tx['error']['wrongext']="Wrong file extension in";
@@ -143,10 +144,17 @@ $tx['mailform']['sender']="Your e-mail (required)";
 $tx['mailform']['sendername']="Your name";
 $tx['mailform']['senderphone']="Your phone number";
 
+$tx['menu']['available_plugins']="Plugins: ";
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Mailform";
 $tx['menu']['print']="Print view";
+$tx['menu']['select_plugin']="Select plugin ...";
 $tx['menu']['sitemap']="Sitemap";
+$tx['menu']['tab_main']="Main Settings";
+$tx['menu']['tab_css']="Stylesheet";
+$tx['menu']['tab_config']="Config";
+$tx['menu']['tab_language']="Language";
+$tx['menu']['tab_help']="Help";
 
 $tx['meta']['codepage']="utf-8";
 
@@ -174,6 +182,8 @@ $tx['settings']['systemfiles']="System files";
 $tx['settings']['warning']="Only change settings when you understand the effect your changes will have!";
 
 $tx['submenu']['heading']="Submenu";
+
+$tx['success']['saved'] = "File saved: ";
 
 $tx['syscheck']['encoding']="Encoding 'UTF-8' configured";
 $tx['syscheck']['extension']="Extension '%s' loaded";

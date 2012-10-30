@@ -255,7 +255,7 @@ class PL_Page_Data_Model{
 	 * @return
 	 */
 	function save(){
-		global $pluginloader_tx, $o, $adm, $cl;
+		global $o, $adm, $cl;
 		if(!file_exists(PL_PAGE_DATA_FILE)){
 			if($adm){
 				e('cntopen', 'pagedata', PL_PAGE_DATA_FILE);

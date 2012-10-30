@@ -106,7 +106,6 @@ if (function_exists('xh_debugmode')) {
  */
 global $pluginloader_cfg;
 $pluginloader_cfg = array();
-$pluginloader_tx = array();
 
 if (!isset($hjs)) {
     $hjs = '';
@@ -121,31 +120,8 @@ $pluginloader_cfg['folder_down'] = $pth['folder']['base'];
 $pluginloader_cfg['language'] = $sl;
 $pluginloader_cfg['foldername_pluginloader'] = 'pluginloader';
 $pluginloader_cfg['folder_pluginloader'] = $pluginloader_cfg['folder_down'] . $cf['plugins']['folder'] . '/' . $pluginloader_cfg['foldername_pluginloader'] . '/';
-$pluginloader_cfg['folder_languages'] = $pluginloader_cfg['folder_pluginloader'] . 'languages/';
-$pluginloader_cfg['file_language'] = $pluginloader_cfg['folder_languages'] . $pluginloader_cfg['language'] . '.php';
 $pluginloader_cfg['form_namespace'] = 'PL3bbeec384_';
 
-
-// if pluginloader language is missing, copy default.php or en.php
-if (!file_exists($pluginloader_cfg['file_language'])) {
-    if (file_exists($pluginloader_cfg['folder_languages'] . 'default.php')) {
-        copy($pluginloader_cfg['folder_languages'] . 'default.php', $pluginloader_cfg['file_language']);
-    } elseif (file_exists($pluginloader_cfg['folder_languages'] . 'en.php')) {
-        copy($pluginloader_cfg['folder_languages'] . 'en.php', $pluginloader_cfg['file_language']);
-    }
-} 
-
-// Load default plugin language
-if (file_exists($pluginloader_cfg['folder_languages'] . 'default.php')) {
-    include $pluginloader_cfg['folder_languages'] . 'default.php';
-}
-
-// include Plugin Loader language file
-if (is_readable($pluginloader_cfg['file_language'])) {
-    include $pluginloader_cfg['file_language'];
-} else {
-    e('cntopen', 'language', $pluginloader_cfg['file_language']);
-}
 
 /**
  * If admin is logged in create a select box with all available plugins.
@@ -153,10 +129,10 @@ if (is_readable($pluginloader_cfg['file_language'])) {
 if ($adm) {
     $i = 0;
     $pluginloader_plugin_selectbox = '';
-    $pluginloader_plugin_selectbox .= "\n" . '<b>' . $pluginloader_tx['menu']['available_plugins'] . '</b>';
+    $pluginloader_plugin_selectbox .= "\n" . '<b>' . $tx['menu']['available_plugins'] . '</b>';
     $pluginloader_plugin_selectbox .= "\n" . '<form style="display: inline; margin-bottom: 0px;">' . "\n";
     $pluginloader_plugin_selectbox .= "\n" . '<select name="Plugins" onchange="location.href=this.options[this.selectedIndex].value">' . "\n";
-    $pluginloader_plugin_selectbox .= '<option value="?&amp;normal">' . $pluginloader_tx['menu']['select_plugin'] . '</option>' . "\n";
+    $pluginloader_plugin_selectbox .= '<option value="?&amp;normal">' . $tx['menu']['select_plugin'] . '</option>' . "\n";
     $handle = opendir($pth['folder']['plugins']);
     $found_plugins = false;
 
@@ -247,7 +223,7 @@ while (FALSE !== ($plugin = readdir($handle))) {
 
         // Load plugin index.php or die
         if (file_exists($pth['file']['plugin_index']) AND !include($pth['file']['plugin_index'])) {
-            die($pluginloader_tx['error']['plugin_error'] . $pluginloader_tx['error']['cntopen'] . $pth['file']['plugin_index']);
+            die($tx['error']['plugin_error'] . $tx['error']['cntopen'] . $pth['file']['plugin_index']);
         }
 
         // Add plugin css to the header of CMSimple/Template
@@ -264,7 +240,7 @@ while (FALSE !== ($plugin = readdir($handle))) {
 if ($adm) {
     // Load common plugin admin functions or die
     //if(!include($pth['folder']['plugins'].'/admin_common.php')) {
-    //	die($pluginloader_tx['error']['plugin_error'].$pluginloader_tx['error']['cntopen'].$pth['folder']['plugins'].'/admin_common.php');
+    //	die($tx['error']['plugin_error'].$tx['error']['cntopen'].$pth['folder']['plugins'].'/admin_common.php');
     //}
     if ($found_plugins == true) {
         foreach ($admin_plugins as $plugin) {
@@ -414,7 +390,7 @@ function PluginMenu($add='', $link='', $target='', $text='', $style=ARRAY()) {
  * @return array If succesfull, return an array with data and success-message.
  */
 function PluginReadFile($file='') {
-    global $pluginloader_tx;
+    global $tx;
 
     $is_read = ARRAY();
     $is_read['success'] = FALSE;
@@ -422,17 +398,17 @@ function PluginReadFile($file='') {
     $is_read['content'] = '';
 
     if (!file_exists($file)) {
-        $is_read['msg'] = $pluginloader_tx['error']['cntopen'] . $file;
+        $is_read['msg'] = $tx['error']['cntopen'] . $file;
     } else {
         if (!is_readable($file)) {
-            $is_read['msg'] = $pluginloader_tx['error']['notreadable'] . $file;
+            $is_read['msg'] = $tx['error']['notreadable'] . $file;
         } else {
             if ($fh = fopen($file, "rb")) {
                 $is_read['content'] = fread($fh, filesize($file));
                 fclose($fh);
                 $is_read['content'] = str_replace("\r\n", "\n", $is_read['content']);
                 $is_read['content'] = str_replace("\r", "\n", $is_read['content']);
-                $is_read['msg'] = $pluginloader_tx['success']['saved'] . $file;
+                $is_read['msg'] = $tx['success']['saved'] . $file;
                 $is_read['success'] = TRUE;
             }
         }
@@ -444,7 +420,7 @@ function PluginReadFile($file='') {
  * Function PluginWriteFile()
  * Write content to a given file.
  *
- * @global array $pluginloader_tx Plugin-loader's text-array
+ //* @global array $tx text-array
  *
  * @param string $file Name of the file to write.
  * @param string $content Content, that will be written in the file.
@@ -454,7 +430,7 @@ function PluginReadFile($file='') {
  * @return array If succesfull, return an array with success-message.
  */
 function PluginWriteFile($file='', $content='', $exists=FALSE, $append=FALSE) {
-    global $pluginloader_tx;
+    global $tx;
 
     if ($append == TRUE) {
         $write_mode = 'a+b';
@@ -470,19 +446,19 @@ function PluginWriteFile($file='', $content='', $exists=FALSE, $append=FALSE) {
 
     if (!file_exists($file) AND $exists == TRUE) {
         $do_write = FALSE;
-        $is_written['msg'] = $pluginloader_tx['error']['cntopen'] . $file;
+        $is_written['msg'] = $tx['error']['cntopen'] . $file;
     }
 
     if (file_exists($file) AND !is_writeable($file)) {
         $do_write = FALSE;
-        $is_written['msg'] = '<div class="pluginerror">' . $pluginloader_tx['error']['cntwriteto'] . $file . '</div>';
+        $is_written['msg'] = '<div class="pluginerror">' . $tx['error']['cntwriteto'] . $file . '</div>';
     }
 
     if ($do_write == TRUE) {
         if ($fh = fopen($file, $write_mode)) {
             fwrite($fh, $content);
             fclose($fh);
-            $is_written['msg'] = $pluginloader_tx['success']['saved'] . $file;
+            $is_written['msg'] = $tx['success']['saved'] . $file;
             $is_written['success'] = TRUE;
         }
     }
@@ -536,8 +512,6 @@ function PluginPrepareTextData($data) {
  * indexes are not shown, but text information.
  * (e.g. for index 'my_name' -> $plugin_tx['example_plugin']['cf_my_name'])
  *
- * @global array $pluginloader_tx Plugin-loader's text-array
- *
  * @param array $form Array, that contains data how the form will be created.
  * @param array $style Array, that contains style-data for the div and the form.
  * @param array $data Data, that will be shown in the form (in a textarea or in input-fields).
@@ -546,7 +520,7 @@ function PluginPrepareTextData($data) {
  * @return string Returns the created form.
  */
 function PluginSaveForm($form, $style=ARRAY(), $data=ARRAY(), $hint=ARRAY()) {
-    global $pth, $pluginloader_tx;
+    global $pth;
     $saveform = '';
 
     if ($form['type'] != 'TEXT' AND $form['type'] != 'CONFIG') {
@@ -631,7 +605,7 @@ function PluginSaveForm($form, $style=ARRAY(), $data=ARRAY(), $hint=ARRAY()) {
 function print_plugin_admin($main) {
 
     global $sn, $plugin, $pth, $sl, $cf;
-    global $pluginloader_tx, $plugin_tx;
+    global $tx, $plugin_tx;
 
     initvar('plugin_text');
     initvar('action');
@@ -665,43 +639,38 @@ function print_plugin_admin($main) {
     /**
      *  Use preset texts for the menu, if the plugin itself did not define text for the menu
      */
-    if (isset($plugin_tx[$plugin]['menu_main']) AND !empty($plugin_tx[$plugin]['menu_main'])) {
-        $pluginloader_tx['menu']['tab_main'] = $plugin_tx[$plugin]['menu_main'];
-    }
-    if (isset($plugin_tx[$plugin]['menu_css']) AND !empty($plugin_tx[$plugin]['menu_css'])) {
-        $pluginloader_tx['menu']['tab_css'] = $plugin_tx[$plugin]['menu_css'];
-    }
-    if (isset($plugin_tx[$plugin]['menu_config']) AND !empty($plugin_tx[$plugin]['menu_config'])) {
-        $pluginloader_tx['menu']['tab_config'] = $plugin_tx[$plugin]['menu_config'];
-    }
-    if (isset($plugin_tx[$plugin]['menu_language']) AND !empty($plugin_tx[$plugin]['menu_language'])) {
-        $pluginloader_tx['menu']['tab_language'] = $plugin_tx[$plugin]['menu_language'];
-    }
-    if (isset($plugin_tx[$plugin]['menu_help']) AND !empty($plugin_tx[$plugin]['menu_help'])) {
-        $pluginloader_tx['menu']['tab_help'] = $plugin_tx[$plugin]['menu_help'];
-    }
+    $tx_main = empty($plugin_tx[$plugin]['menu_main'])
+	? $tx['menu']['tab_main'] : $plugin_tx[$plugin]['menu_main'];
+    $tx_css = empty($plugin_tx[$plugin]['menu_css'])
+	? $tx['menu']['tab_css'] : $plugin_tx[$plugin]['menu_css'];
+    $tx_config = empty($plugin_tx[$plugin]['menu_config'])
+	? $tx['menu']['tab_config'] : $plugin_tx[$plugin]['menu_config'];
+    $tx_language = empty($plugin_tx[$plugin]['menu_language'])
+	? $tx['menu']['tab_language'] : $plugin_tx[$plugin]['menu_language'];
+    $tx_help = empty($plugin_tx[$plugin]['menu_help'])
+	? $tx['menu']['tab_help'] : $plugin_tx[$plugin]['menu_help'];
 
     $plugin_menu_style = ARRAY();
 
     PluginMenu('ROW', '', '', '', $plugin_menu_style);
 
     if ($main == 'ON') {
-        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_main&amp;action=plugin_text', '', $pluginloader_tx['menu']['tab_main'], $plugin_menu_style);
+        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_main&amp;action=plugin_text', '', $tx_main, $plugin_menu_style);
     }
 
     if($css == 'ON') {
-        PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_stylesheet&amp;action=plugin_text', '', $pluginloader_tx['menu']['tab_css'], $plugin_menu_style);	
+        PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_stylesheet&amp;action=plugin_text', '', $tx_css, $plugin_menu_style);	
     }
 
     if($config == 'ON') { 
-        PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_config&amp;action=plugin_edit', '', $pluginloader_tx['menu']['tab_config'], ''); 
+        PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_config&amp;action=plugin_edit', '', $tx_config, ''); 
     }
 
     if ($language == 'ON') {
-        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_language&amp;action=plugin_edit', '', $pluginloader_tx['menu']['tab_language'], '');
+        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_language&amp;action=plugin_edit', '', $tx_language, '');
     }
     if ($help == 'ON') {
-        PluginMenu('TAB', $pth['file']['plugin_help'], 'target="_blank"', $pluginloader_tx['menu']['tab_help'], '');
+        PluginMenu('TAB', $pth['file']['plugin_help'], 'target="_blank"', $tx_help, '');
     }
 
     $t .= PluginMenu('SHOW');
@@ -726,7 +695,6 @@ function print_plugin_admin($main) {
  * @global string $plugin Name of the plugin, that called this function
  * @global string $pth CMSimple's configured pathes in an array
  * @global string $tx CMSimple's text-array
- * @global string $pluginloader_tx Plugin-Loader's text-array
  * @global string $plugin_tx Plugin's text-array
  * @global string $plugin_cf Plugin's config-array
  *
@@ -735,7 +703,7 @@ function print_plugin_admin($main) {
 function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
 
     global $sn, $action, $admin, $plugin, $pth, $tx;
-    global $pluginloader_tx, $plugin_tx, $plugin_cf;
+    global $plugin_tx, $plugin_cf;
 
     $data = '';
     $t = '';
@@ -824,17 +792,17 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
  * @param bool $varname The called varname
  * @param bool $value The value of the var
  *
- * @global array $pluginloader_tx Plugin-loader's text-array
+ * @global array $tx text-array
  *
  * @return string Returns result of debugging as text
  */
 function PluginDebugger($error=FALSE, $caller=FALSE, $varname=FALSE, $value=FALSE) {
-    global $pluginloader_tx;
+    global $tx;
     
     trigger_error('Function PluginDebugger() is deprecated', E_USER_DEPRECATED);
     
     $debug = '';
-    $debug .= $pluginloader_tx['error']['plugin_error'] . '';
+    $debug .= $tx['error']['plugin_error'] . '';
     switch ($error) {
         case 'empty': $debug .= 'empty/no data (' . $varname . ')';
             break;

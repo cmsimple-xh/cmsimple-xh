@@ -42,6 +42,7 @@ $tx['error']['nocookies']="Bitte Cookies aktivieren!";
 $tx['error']['nojs']="Bitte Javascript aktivieren!";
 $tx['error']['notreadable']="Nicht lesbar";
 $tx['error']['notwritable']="Nicht schreibbar";
+$tx['error']['plugin_error']="Plugin Fehler: ";
 $tx['error']['tolarge']="ist zu groß! Die Maximalgröße ist";
 $tx['error']['undefined']="Undefiniert";
 $tx['error']['wrongext']="Falsche Dateierweiterung in";
@@ -143,10 +144,17 @@ $tx['mailform']['sender']="E-Mail-Adresse (erforderlich)";
 $tx['mailform']['sendername']="Name";
 $tx['mailform']['senderphone']="Telefon-Nr.";
 
+$tx['menu']['available_plugins']="Plugins";
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Kontakt-Formular";
 $tx['menu']['print']="Druckansicht";
+$tx['menu']['select_plugin']="Plugin wählen ...";
 $tx['menu']['sitemap']="Inhaltsverzeichnis";
+$tx['menu']['tab_main']="Einstellungen";
+$tx['menu']['tab_css']="Stylesheet";
+$tx['menu']['tab_config']="Konfiguration";
+$tx['menu']['tab_language']="Sprache";
+$tx['menu']['tab_help']="Hilfe";
 
 $tx['meta']['codepage']="utf-8";
 
@@ -174,6 +182,8 @@ $tx['settings']['systemfiles']="Systemdateien";
 $tx['settings']['warning']="Bitte hier nur solche Änderungen durchführen, bei denen Sie genau wissen, was diese bewirken!";
 
 $tx['submenu']['heading']="weiter zu:";
+
+$tx['success']['saved']="Datei gespeichert: ";
 
 $tx['syscheck']['encoding']="UTF-8-Kodierung eingestellt";
 $tx['syscheck']['extension']="Erweiterung '%s' geladen";
