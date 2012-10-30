@@ -17,7 +17,6 @@
  */
 define('PL_PAGE_DATA_FOLDER', $pth['folder']['plugins'] . $pluginloader_cfg['foldername_pluginloader'] . '/page_data/');
 define('PL_PAGE_DATA_FILE', $pth['folder']['content'] . 'pagedata.php');
-define('PL_PAGE_DATA_STYLESHEET', PL_PAGE_DATA_FOLDER . 'css/stylesheet.css');
 define('PL_URI_SEPARATOR', $cf['uri']['seperator']);
 
 require_once(PL_PAGE_DATA_FOLDER . 'page_data_router.php');

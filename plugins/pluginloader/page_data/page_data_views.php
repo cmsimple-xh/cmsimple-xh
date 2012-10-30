@@ -40,7 +40,6 @@ class PL_Page_Data_View{
 	 */
 	function pd_forms(){
 		global $h, $plugin_tx, $sn, $su, $hjs;
-		$hjs .= tag('link rel="stylesheet" href="'.PL_PAGE_DATA_STYLESHEET.'" type="text/css"');
 		
 		$view = "\n". '<div id = "pd_tabs">';
 		

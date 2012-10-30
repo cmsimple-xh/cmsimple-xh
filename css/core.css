@@ -436,3 +436,77 @@ a.pl_tooltip img {
 img.helpicon {
     background: none;
 }
+
+/* Pagedata */
+
+#pd_tabs {
+    font-weight: normal;
+    margin-top: 10px;
+    color: #000;
+}
+
+#pd_tabs a:hover {
+    color: red;
+    cursor: pointer;
+}
+
+#pd_tabs a {
+    padding:2px 2px 2px 4px;
+    margin-right:2px;
+    background: url(tab_inactive.gif) top left;
+}
+
+#pd_tabs a span {
+    padding:2px 4px 2px 0;
+    margin:-2px -4px -2px 0;
+    background: url(tab_inactive.gif) top right;
+    border:0px solid red;
+}
+
+#pd_tabs a:hover {
+    background: url(tab_hover.gif) top left;
+}
+
+#pd_tabs a:hover span {
+    background: url(tab_hover.gif) top right;
+}
+
+#pd_tabs a.active_tab {
+    padding-top:4px;
+    padding-bottom:3px;
+    background: url(tab_active.gif) top left;
+}
+
+#pd_tabs a.active_tab span {
+    padding-top:4px;
+    padding-bottom:3px;
+    margin-top:-4px;
+    margin-bottom:-3px;
+    background: url(tab_active.gif) top right;
+}
+
+#pd_views {
+    background:#fff;
+}
+
+#pd_views a#pd_editor_toggle {
+    width: 20px;
+    height: 20px;
+    float: right;
+    background:url(cross.gif) no-repeat top right;
+    cursor: pointer;
+}
+
+#pd_views .active_view {
+    display: block;
+    padding: 1.5ex 3ex;
+    border: 1px solid #808080;
+}
+
+#pd_views .inactive_view {
+    display: none;
+    display: block;
+    padding: 1.5ex 3ex;
+    border: 1px solid #808080;
+    display: none;
+}
