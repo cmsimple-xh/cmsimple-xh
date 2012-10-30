@@ -121,14 +121,10 @@ $pluginloader_cfg['folder_down'] = $pth['folder']['base'];
 $pluginloader_cfg['language'] = $sl;
 $pluginloader_cfg['foldername_pluginloader'] = 'pluginloader';
 $pluginloader_cfg['folder_pluginloader'] = $pluginloader_cfg['folder_down'] . $cf['plugins']['folder'] . '/' . $pluginloader_cfg['foldername_pluginloader'] . '/';
-$pluginloader_cfg['folder_css'] = $pluginloader_cfg['folder_pluginloader'] . 'css/';
 $pluginloader_cfg['folder_languages'] = $pluginloader_cfg['folder_pluginloader'] . 'languages/';
-$pluginloader_cfg['file_css'] = $pluginloader_cfg['folder_css'] . 'stylesheet.css';
 $pluginloader_cfg['file_language'] = $pluginloader_cfg['folder_languages'] . $pluginloader_cfg['language'] . '.php';
 $pluginloader_cfg['form_namespace'] = 'PL3bbeec384_';
 
-// include Plugin Loader stylesheet and add it to CMSimple
-$hjs .= "\n" . tag('link rel="stylesheet" href="' . $pluginloader_cfg['file_css'] . '" type="text/css"') . "\n";
 
 // if pluginloader language is missing, copy default.php or en.php
 if (!file_exists($pluginloader_cfg['file_language'])) {
