@@ -77,19 +77,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 define('PLUGINLOADER', TRUE);
 define('PLUGINLOADER_VERSION', 2.111);
 
-/**
- * Debug-Mode
- * - first: turn off for compatibility with the "original" CMSimple
- * - second: call xh_debugmode(), which checks if debug was activated
- * @author Holger
- * @since V.2.1.09
- */
-ini_set('display_errors', 0);
-error_reporting(0);
-if (function_exists('xh_debugmode')) {
-    xh_debugmode();
-}
-
 
 if (!isset($hjs)) {
     $hjs = '';
