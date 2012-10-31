@@ -340,9 +340,11 @@ class PL_Page_Data_Router{
 	 * @param mixed $url
 	 * @return
 	 */
-	function check_temp($url){
+	function check_temp($url){ // FIXME: seems to be never used!!!
+		global $cf;
+		
 		$temp = $this -> model -> find_key('temp');
-		$test = explode(PL_URI_SEPARATOR, $url);
+		$test = explode($cf['uri']['seperator'], $url);
 		if($test[count($test)-1] == $temp['url']){
 			$params = array();
 			foreach($temp as $field => $value){

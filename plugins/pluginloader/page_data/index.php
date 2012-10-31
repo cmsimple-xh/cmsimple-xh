@@ -16,8 +16,6 @@
  * @subpackage page_data
  */
 define('PL_PAGE_DATA_FOLDER', $pth['folder']['plugins'] . $pluginloader_cfg['foldername_pluginloader'] . '/page_data/');
-define('PL_PAGE_DATA_FILE', $pth['folder']['content'] . 'pagedata.php');
-define('PL_URI_SEPARATOR', $cf['uri']['seperator']);
 
 require_once(PL_PAGE_DATA_FOLDER . 'page_data_router.php');
 require_once(PL_PAGE_DATA_FOLDER . 'page_data_model.php');
@@ -27,20 +25,20 @@ require_once(PL_PAGE_DATA_FOLDER . 'page_data_views.php');
  * Check if page-data-file exists, if not: try to
  * create a new one with basic data-fields.
  */
-if (!file_exists(PL_PAGE_DATA_FILE)) {
-    if ($fh = fopen(PL_PAGE_DATA_FILE, 'w')) {
+if (!file_exists($pth['file']['pagedata'])) {
+    if ($fh = fopen($pth['file']['pagedata'], 'w')) {
         fwrite($fh, '<?php' . "\n" . '$page_data_fields[] = \'url\';' . "\n" . '$page_data_fields[] = \'last_edit\';' . "\n" . '?>');
-        chmod(PL_PAGE_DATA_FILE, 0666);
+        chmod($pth['file']['pagedata'], 0666);
         fclose($fh);
     } else {
-        e('cntwriteto', 'file', PL_PAGE_DATA_FILE);
+        e('cntwriteto', 'file', $pth['file']['pagedata']);
     }
 }
 
 /**
  * Create an instance of PL_Page_Data_Router
  */
-$pd_router = new PL_Page_Data_Router(PL_PAGE_DATA_FILE, $h);
+$pd_router = new PL_Page_Data_Router($pth['file']['pagedata'], $h);
 
 if ($adm) {
 

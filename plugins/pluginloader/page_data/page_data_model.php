@@ -30,8 +30,10 @@ class PL_Page_Data_Model{
 	 * @return
 	 */
 	function PL_Page_Data_Model($h){
+		global $pth;
+		
 		$this -> headings = $h;
-		include_once(PL_PAGE_DATA_FILE);
+		include_once($pth['file']['pagedata']);
 		$this -> params = $page_data_fields;
 		$this -> data = $page_data;
 		$this -> temp_data = isset($temp_data) ? $temp_data : array();
@@ -255,17 +257,18 @@ class PL_Page_Data_Model{
 	 * @return
 	 */
 	function save(){
-		global $o, $adm, $cl;
-		if(!file_exists(PL_PAGE_DATA_FILE)){
+		global $o, $adm, $cl, $pth;
+		
+		if(!file_exists($pth['file']['pagedata'])){
 			if($adm){
-				e('cntopen', 'pagedata', PL_PAGE_DATA_FILE);
+				e('cntopen', 'pagedata', $pth['file']['pagedata']);
 			}
 			return;
 		}
 
-		if(!is_writeable(PL_PAGE_DATA_FILE)){
+		if(!is_writeable($pth['file']['pagedata'])){
 			if($adm){
-				e('cntwriteto', 'pagedata', PL_PAGE_DATA_FILE);
+				e('cntwriteto', 'pagedata', $pth['file']['pagedata']);
 			}
 			return;
 		}
@@ -295,7 +298,7 @@ class PL_Page_Data_Model{
 		}
 		$data_string .= "?>";
 
-		$fh = fopen(PL_PAGE_DATA_FILE, "w");
+		$fh = fopen($pth['file']['pagedata'], "w");
 		fwrite($fh,$data_string);
 		fclose($fh);
 		return;
