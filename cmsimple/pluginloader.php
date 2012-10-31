@@ -67,12 +67,10 @@
  *          Install plugins in an extra subfolder per plugin within the folder "plugins"
  */
 
-/**
+/*
  * Deny direct access of Plugin Loader file
  */
-$pluginloader_backtrace = debug_backtrace();
-$pluginloader_caller = $pluginloader_backtrace[0]['file'];
-if ((!function_exists('content')) OR ($pluginloader_caller !== realpath($pth['file']['cms']))) {
+if (!defined('CMSIMPLE_XH_VERSION')) {
     die('access denied');
 }
 
