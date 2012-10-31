@@ -101,21 +101,13 @@ if (function_exists('xh_debugmode')) {
     xh_debugmode();
 }
 
-/**
- * @global array $pluginloader_cfg Plugin-Loader's Config-Array
- */
-global $pluginloader_cfg;
-$pluginloader_cfg = array();
 
 if (!isset($hjs)) {
     $hjs = '';
 }
 
 
-
-$pluginloader_cfg['folder_down'] = $pth['folder']['base'];
-$pluginloader_cfg['language'] = $sl;
-$pluginloader_cfg['form_namespace'] = 'PL3bbeec384_';
+define('XH_FORM_NAMESPACE', 'PL3bbeec384_');
 
 
 /**
@@ -340,12 +332,10 @@ unset($plugin);
  * @global array $cf CMSimple's Config-Array
  * @global string $pth CMSimple's configured pathes in an array
  * @global string $sl CMSimple's selected language
- * @global array $pluginloader_cfg Plugin-Loader's Config-Array
  */
 function PluginFiles($plugin) {
 
     global $cf, $pth, $sl;
-    global $pluginloader_cfg;
 
     $pth['folder']['plugin'] = $pth['folder']['plugins'] . $plugin . '/';
     $pth['folder']['plugin_classes'] = $pth['folder']['plugins'] . $plugin . '/classes/';
@@ -365,7 +355,7 @@ function PluginFiles($plugin) {
     $pth['file']['plugin_config'] = $pth['folder']['plugin_config'] . 'config.php';
     $pth['file']['plugin_stylesheet'] = $pth['folder']['plugin_css'] . 'stylesheet.css';
 
-    $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help_' . strtolower($pluginloader_cfg['language']) . '.htm';
+    $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help_' . strtolower($sl) . '.htm';
     if (!file_exists($pth['file']['plugin_help'])) {
         $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help_en.htm';
     }
@@ -626,7 +616,6 @@ function PluginSaveForm($form, $style=ARRAY(), $data=ARRAY(), $hint=ARRAY()) {
             $last_cap = '';
             ksort($data);
             foreach ($data as $key => $value) {
-                global $pluginloader_cfg;
                 $var_name = '';
                 $val_cap = explode('_', $key);
 
@@ -646,7 +635,7 @@ function PluginSaveForm($form, $style=ARRAY(), $data=ARRAY(), $hint=ARRAY()) {
                 if (utf8_strlen($value) > 50) {
                     $style_textarea = $style['inputmax'];
                 }
-                $saveform .= '<textarea ' . $style_textarea . ' name="' . $pluginloader_cfg['form_namespace'] . $key . '" rows="1" cols="40">' . htmlspecialchars($value, ENT_NOQUOTES, 'UTF-8') . '</textarea>';
+                $saveform .= '<textarea ' . $style_textarea . ' name="' . XH_FORM_NAMESPACE . $key . '" rows="1" cols="40">' . htmlspecialchars($value, ENT_NOQUOTES, 'UTF-8') . '</textarea>';
                 $saveform .= '</td>' . "\n" . '</tr>' . "\n";
             }
             $saveform .= '</table>' . "\n" . "\n";
@@ -836,8 +825,7 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
         if ($action == 'plugin_save') {
             $config_data = ARRAY();
             foreach ($data as $key => $value) {
-                global $pluginloader_cfg;
-                $config_data[$key] = $_POST[$pluginloader_cfg['form_namespace'] . $key];
+                $config_data[$key] = $_POST[XH_FORM_NAMESPACE . $key];
             }
             $save_data = PluginPrepareConfigData($var_name, $config_data, $plugin);
         }

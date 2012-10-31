@@ -42,7 +42,7 @@ if ($tinymce) {
          $o .= '<a class="pl_tooltip" href="#" onclick="return false">
              <img class="helpicon" alt="help" src="' . $pth['folder']['flags'] . 'help_icon.png" />
              <span>' . sprintf($plugin_tx[$plugin]['help'], $pth['folder']['plugins'] . $plugin . '/inits') . '</span></a>';
-        $o .= 'Toolbar: <select name="' . $pluginloader_cfg['form_namespace'] . 'init">';
+        $o .= 'Toolbar: <select name="' . XH_FORM_NAMESPACE . 'init">';
         $selected_init = $plugin_cf[$plugin]['init'];
         foreach ($options as $option) {
             $selected = $option == $selected_init ? ' selected="selected"' : '';

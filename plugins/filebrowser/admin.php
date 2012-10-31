@@ -39,19 +39,19 @@ if ($filebrowser) {
     $o .= '<table>
              <tr>
                  <td>' . $tx['title']['images'] . ':</td>
-                 <td><input size="50" type="text" name="' . $pluginloader_cfg['form_namespace'] . 'extensions_images" value="' . $plugin_cf[$plugin]['extensions_images'] . '"></td>
+                 <td><input size="50" type="text" name="' . XH_FORM_NAMESPACE . 'extensions_images" value="' . $plugin_cf[$plugin]['extensions_images'] . '"></td>
               </tr>
               <tr>
                  <td>' . $tx['title']['downloads'] . ':</td>
-                 <td><input size="50" type="text" name="' . $pluginloader_cfg['form_namespace'] . 'extensions_downloads" value="' . $plugin_cf[$plugin]['extensions_downloads'] . '"></td>
+                 <td><input size="50" type="text" name="' . XH_FORM_NAMESPACE . 'extensions_downloads" value="' . $plugin_cf[$plugin]['extensions_downloads'] . '"></td>
               </tr>
               <tr>
                  <td>' . $tx['title']['userfiles'] . ':</td>
-                 <td><input size="50" type="text" name="' . $pluginloader_cfg['form_namespace'] . 'extensions_userfiles" value="' . $plugin_cf[$plugin]['extensions_userfiles'] . '"></td>
+                 <td><input size="50" type="text" name="' . XH_FORM_NAMESPACE . 'extensions_userfiles" value="' . $plugin_cf[$plugin]['extensions_userfiles'] . '"></td>
               </tr>
               <tr>
                  <td>' . $tx['title']['media'] . ':</td>
-                 <td><input size="50" type="text" name="' . $pluginloader_cfg['form_namespace'] . 'extensions_media" value="' . $plugin_cf[$plugin]['extensions_media'] . '"></td>
+                 <td><input size="50" type="text" name="' . XH_FORM_NAMESPACE . 'extensions_media" value="' . $plugin_cf[$plugin]['extensions_media'] . '"></td>
               </tr>
               </table>
               '
