@@ -115,8 +115,6 @@ if (!isset($hjs)) {
 
 $pluginloader_cfg['folder_down'] = $pth['folder']['base'];
 $pluginloader_cfg['language'] = $sl;
-$pluginloader_cfg['foldername_pluginloader'] = 'pluginloader';
-$pluginloader_cfg['folder_pluginloader'] = $pluginloader_cfg['folder_down'] . 'plugins/' . $pluginloader_cfg['foldername_pluginloader'] . '/';
 $pluginloader_cfg['form_namespace'] = 'PL3bbeec384_';
 
 
@@ -246,7 +244,7 @@ $pd_current = $pd_router->find_page($pd_s);
  */
 $handle = opendir($pth['folder']['plugins']);
 while (FALSE !== ($plugin = readdir($handle))) {
-    if ($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'] . $plugin)) {
+    if ($plugin != "." AND $plugin != ".." AND is_dir($pth['folder']['plugins'] . $plugin)) {
         PluginFiles($plugin);
 
         // Load plugin required_classes
@@ -260,7 +258,7 @@ rewinddir($handle);
 while (FALSE !== ($plugin = readdir($handle))) {
 
 
-    if ($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'] . $plugin)) {
+    if ($plugin != "." AND $plugin != ".." AND is_dir($pth['folder']['plugins'] . $plugin)) {
 
         PluginFiles($plugin);
 

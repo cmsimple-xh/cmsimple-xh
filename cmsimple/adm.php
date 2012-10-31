@@ -120,7 +120,6 @@ if ($adm) {
             $o .= '<ul>' . "\n";
             while (($plugin1 = readdir($handle1)) !== false) {
                 if (strpos($plugin1, '.') === false
-                    && $plugin1 != $pluginloader_cfg['foldername_pluginloader']
                     && is_dir($pth['folder']['plugins'] . $plugin1))
                 {
                     $o .= '<li>' . ucfirst($plugin1) . '</li>' . "\n";
