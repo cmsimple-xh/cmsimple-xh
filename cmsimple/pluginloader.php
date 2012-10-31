@@ -66,15 +66,6 @@
  * Step 4 - Installation is done and you should be ready to install plugins
  *          Install plugins in an extra subfolder per plugin within the folder "plugins"
  */
-/**
- * Catch all neccessary CMSimple-Variables as global
- *
- * @global array $cf CMSimple's Config-Array
- * @global string $hjs CMSimple's head-/javascript-section
- * @global string $sl CMSimple's selected language
- * @global string $sn CMSimple's script-name (relative adress including $_GET)
- */
-global $cf, $hjs, $sl, $sn;
 
 /**
  * Deny direct access of Plugin Loader file
