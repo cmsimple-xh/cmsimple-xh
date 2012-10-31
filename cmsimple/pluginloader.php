@@ -112,14 +112,11 @@ if (!isset($hjs)) {
 }
 
 
-if (!isset($cf['plugins']['folder']) OR empty($cf['plugins']['folder']) OR !is_dir($cf['plugins']['folder'])) {
-    $cf['plugins']['folder'] = 'plugins';
-}
 
 $pluginloader_cfg['folder_down'] = $pth['folder']['base'];
 $pluginloader_cfg['language'] = $sl;
 $pluginloader_cfg['foldername_pluginloader'] = 'pluginloader';
-$pluginloader_cfg['folder_pluginloader'] = $pluginloader_cfg['folder_down'] . $cf['plugins']['folder'] . '/' . $pluginloader_cfg['foldername_pluginloader'] . '/';
+$pluginloader_cfg['folder_pluginloader'] = $pluginloader_cfg['folder_down'] . 'plugins/' . $pluginloader_cfg['foldername_pluginloader'] . '/';
 $pluginloader_cfg['form_namespace'] = 'PL3bbeec384_';
 
 

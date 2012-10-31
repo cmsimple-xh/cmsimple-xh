@@ -180,7 +180,8 @@ else
 
 // END for subsite solution - GE 20011-02
 
-$pth['folder']['plugins'] = $pth['folder']['base'] . $cf['plugins']['folder'] . '/';
+$pth['folder']['plugins'] = $pth['folder']['base'] . 'plugins/';
+$pth['file']['pluginloader'] = $pth['folder']['cmsimple'] . 'pluginloader.php';
 
 require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
@@ -282,8 +283,8 @@ if (strcasecmp($tx['meta']['codepage'], 'UTF-8') != 0) {
 if ($function == 'save') {
     $edit = true;
 }
-if ($cf['plugins']['folder'] != "")
-    include($pth['folder']['cmsimple'] . 'pluginloader.php');
+
+include($pth['file']['pluginloader']);
 
 if ($f == 'search')
     @include($pth['file']['search']);
