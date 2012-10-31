@@ -17,9 +17,9 @@
  */
 define('PL_PAGE_DATA_FOLDER', $pth['folder']['plugins'] . $pluginloader_cfg['foldername_pluginloader'] . '/page_data/');
 
-require_once(PL_PAGE_DATA_FOLDER . 'page_data_router.php');
-require_once(PL_PAGE_DATA_FOLDER . 'page_data_model.php');
-require_once(PL_PAGE_DATA_FOLDER . 'page_data_views.php');
+require_once($pth['folder']['classes'] . 'page_data_router.php');
+require_once($pth['folder']['classes'] . 'page_data_model.php');
+require_once($pth['folder']['classes'] . 'page_data_views.php');
 
 /**
  * Check if page-data-file exists, if not: try to

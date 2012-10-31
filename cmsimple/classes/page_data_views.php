@@ -9,7 +9,7 @@
  *
  * @author Martin Damken
  * @link http://www.zeichenkombinat.de
- * @version $Id$
+ * @version $Id: page_data_views.php 314 2012-10-30 23:43:19Z cmb69 $
  * @package pluginloader
  * @subpackage page_data
  */
