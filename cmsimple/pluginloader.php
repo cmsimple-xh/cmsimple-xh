@@ -10,7 +10,7 @@
  * 
  * @author Developer-Team at CMSimpleforum.com
  * @link http://www.cmsimpleforum.com
- * @version $Id$
+ * @version $Id: index.php 317 2012-10-31 00:21:59Z cmb69 $
  * @package pluginloader
  *
  * Modified after a long discussion at CMSimple forum with Martin, mvwd, 

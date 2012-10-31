@@ -283,7 +283,7 @@ if ($function == 'save') {
     $edit = true;
 }
 if ($cf['plugins']['folder'] != "")
-    include($pth['folder']['plugins'] . 'index.php');
+    include($pth['folder']['cmsimple'] . 'pluginloader.php');
 
 if ($f == 'search')
     @include($pth['file']['search']);
