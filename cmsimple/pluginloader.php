@@ -281,7 +281,6 @@ function PluginFiles($plugin) {
 }
 
 /**
- * Function PluginMenu()
  * Create menu of plugin (add row, add tab), constructed as a table.
  *
  * @param string $add Add a ROW, a TAB or DATA (Userdefineable content). SHOW will return the menu.
@@ -290,13 +289,12 @@ function PluginFiles($plugin) {
  * @param string $text Description of the TAB.
  * @param array $style Array with style-data for the containing table-cell
  */
-function PluginMenu($add='', $link='', $target='', $text='', $style=ARRAY()) {
-
+function PluginMenu($add = '', $link = '', $target = '', $text = '', $style = array())
+{
+    static $menu = '';
+    
     $add = strtoupper($add);
 
-    if (!isset($GLOBALS['pluginloader']['plugin_menu'])) {
-        $GLOBALS['pluginloader']['plugin_menu'] = '';
-    }
     if (!isset($style['row'])) {
         $style['row'] = 'class="edit" style="width: 100%;"';
     }
@@ -310,18 +308,17 @@ function PluginMenu($add='', $link='', $target='', $text='', $style=ARRAY()) {
         $style['data'] = '';
     }
 
-    $menu_row = '<table {{STYLE_ROW}} cellpadding="1" cellspacing="0">' . "\n" . '<tr>' . "\n" . '{{TAB}}</tr>' . "\n" . '</table>' . "\n" . "\n";
+    $menu_row = '<table {{STYLE_ROW}} cellpadding="1" cellspacing="0">' . "\n"
+	. '<tr>' . "\n" . '{{TAB}}</tr>' . "\n" . '</table>' . "\n" . "\n";
     $menu_tab = '<td {{STYLE_TAB}}><a{{STYLE_LINK}} href="{{LINK}}" {{TARGET}}>{{TEXT}}</a></td>' . "\n";
     $menu_tab_data = '<td {{STYLE_DATA}}>{{TEXT}}</td>' . "\n";
 
-    // Add new row for menu of plugin (or Plugin Loader)
     if ($add == 'ROW') {
         $new_menu_row = $menu_row;
         $new_menu_row = str_replace('{{STYLE_ROW}}', $style['row'], $new_menu_row);
-        $GLOBALS['pluginloader']['plugin_menu'] .= $new_menu_row;
+        $menu .= $new_menu_row;
     }
 
-    // Add a new tab to the menu row
     if ($add == 'TAB') {
         $new_menu_tab = $menu_tab;
         $new_menu_tab = str_replace('{{STYLE_TAB}}', $style['tab'], $new_menu_tab);
@@ -329,28 +326,21 @@ function PluginMenu($add='', $link='', $target='', $text='', $style=ARRAY()) {
         $new_menu_tab = str_replace('{{LINK}}', $link, $new_menu_tab);
         $new_menu_tab = str_replace('{{TARGET}}', $target, $new_menu_tab);
         $new_menu_tab = str_replace('{{TEXT}}', $text, $new_menu_tab);
-
-        // Add tab to row
-        $GLOBALS['pluginloader']['plugin_menu'] = str_replace('{{TAB}}', $new_menu_tab . '{{TAB}}', $GLOBALS['pluginloader']['plugin_menu']);
+        $menu = str_replace('{{TAB}}', $new_menu_tab . '{{TAB}}', $menu);
     }
 
-    // Add a new tab to the menu row
-    // Here: user defineable data
     if ($add == 'DATA') {
         $new_menu_tab_data = $menu_tab_data;
         $new_menu_tab_data = str_replace('{{STYLE_DATA}}', $style['data'], $new_menu_tab_data);
         $new_menu_tab_data = str_replace('{{TEXT}}', $text, $new_menu_tab_data);
-
-        // Add tab to row
-        $GLOBALS['pluginloader']['plugin_menu'] = str_replace('{{TAB}}', $new_menu_tab_data . '{{TAB}}', $GLOBALS['pluginloader']['plugin_menu']);
+        $menu = str_replace('{{TAB}}', $new_menu_tab_data . '{{TAB}}', $menu);
     }
 
-    // Show complete menu
     if ($add == 'SHOW') {
-        $GLOBALS['pluginloader']['plugin_menu'] = str_replace('{{TAB}}', '', $GLOBALS['pluginloader']['plugin_menu']);
-        $menu = $GLOBALS['pluginloader']['plugin_menu'];
-        $GLOBALS['pluginloader']['plugin_menu'] = '';
-        return $menu;
+        $menu = str_replace('{{TAB}}', '', $menu);
+        $m = $menu;
+        $menu = '';
+        return $m;
     }
 }
 
@@ -603,11 +593,11 @@ function print_plugin_admin($main)
         PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_main&amp;action=plugin_text',
 		   '', $tx_main, array());
     }
-    if($css) {
+    if ($css) {
         PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_stylesheet&amp;action=plugin_text',
 		   '', $tx_css, array());	
     }
-    if($config) { 
+    if ($config) { 
         PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_config&amp;action=plugin_edit',
 		   '', $tx_config, ''); 
     }
