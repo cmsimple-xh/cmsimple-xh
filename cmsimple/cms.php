@@ -96,21 +96,13 @@ if (file_exists($pth['folder']['cmsimple'].'defaultconfig.php')) {
 if (!include($pth['file']['config']))
     die('Config file missing');
 
-//for compatibility XH with older versions
-if (!isset($cf['folders']['userfiles']))
-    $cf['folders']['userfiles'] = 'userfiles/';
-if (!isset($cf['folders']['downloads']))
-    $cf['folders']['downloads'] = 'downloads/';
-if (!isset($cf['folders']['images']))
-    $cf['folders']['images'] = 'images/';
-if (!isset($cf['folders']['media']))
-    $cf['folders']['media'] = 'downloads/';
+foreach (array('userfiles', 'downloads', 'images', 'media') as $temp) {
+    if (!isset($cf['folders'][$temp])) { // for compatibility with older version's config files
+	$cf['folders'][$temp] = $temp != 'media' ? "$temp/" : 'downloads/';
+    }
+    $pth['folder'][$temp] = $pth['folder']['base'] . $cf['folders'][$temp];
+}
 
-//new Userfiles-folder
-$pth['folder']['userfiles'] = $pth['folder']['base'] . $cf['folders']['userfiles'];
-$pth['folder']['downloads'] = $pth['folder']['base'] . $cf['folders']['downloads'];
-$pth['folder']['images'] = $pth['folder']['base'] . $cf['folders']['images'];
-$pth['folder']['media'] = $pth['folder']['base'] . $cf['folders']['media'];
 $pth['folder']['flags'] = $pth['folder']['images'] . 'flags/';
 
 //HI 2009-10-30 (CMSimple_XH 1.0rc3) debug-mode, enables error-reporting
