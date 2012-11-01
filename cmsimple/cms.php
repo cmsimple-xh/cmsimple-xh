@@ -397,8 +397,6 @@ if (!XH_ADM && $adm) {
 
 
 ob_start('final_clean_up');
-$debugMode = xh_debugmode();
-
 
 if (!include($pth['file']['template'])) {
     header('HTTP/1.0 500 Internal Server Error');
@@ -408,14 +406,14 @@ if (!include($pth['file']['template'])) {
 }
 
 function final_clean_up($html) {
-    global $adm, $s, $o, $debugMode, $errors, $cf, $bjs;
+    global $adm, $s, $o, $errors, $cf, $bjs;
 
     if ($adm === true) {
         $debugHint = '';
         $errorList = '';
         $margin = 34;
 
-        if ($debugMode) {
+        if ($debugMode = error_reporting() > 0) {
             $debugHint .= '<div class="cmsimplecore_debug">' . "\n" . '<b>Notice:</b> Debug-Mode is enabled!' . "\n" . '</div>' . "\n";
             $margin += 25;
         }
