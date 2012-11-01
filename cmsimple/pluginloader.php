@@ -86,48 +86,12 @@ if (!isset($hjs)) {
 define('XH_FORM_NAMESPACE', 'PL3bbeec384_');
 
 
-/**
- * If admin is logged in create a select box with all available plugins.
+/*
+ * If admin is logged, generate fake output to suppress later adjustment of $s.
  */
 if ($adm) {
-    $i = 0;
-    $pluginloader_plugin_selectbox = '';
-    $pluginloader_plugin_selectbox .= "\n" . '<b>' . $tx['menu']['available_plugins'] . '</b>';
-    $pluginloader_plugin_selectbox .= "\n" . '<form style="display: inline; margin-bottom: 0px;">' . "\n";
-    $pluginloader_plugin_selectbox .= "\n" . '<select name="Plugins" onchange="location.href=this.options[this.selectedIndex].value">' . "\n";
-    $pluginloader_plugin_selectbox .= '<option value="?&amp;normal">' . $tx['menu']['select_plugin'] . '</option>' . "\n";
-    $handle = opendir($pth['folder']['plugins']);
-    $found_plugins = false;
-
-    while (FALSE !== ($plugin = readdir($handle))) {
-        if ($plugin != '.' && $plugin != '..' && is_dir($pth['folder']['plugins'] . $plugin)) {
-            PluginFiles($plugin);
-            if (file_exists($pth['file']['plugin_admin'])) {
-                $admin_plugins[$i] = $plugin;
-                $found_plugins = true;
-                $i++;
-            }
-        }
-    }
-    natcasesort($admin_plugins);
-    foreach ($admin_plugins as $plugin) {
-        PluginFiles($plugin);
-        $pluginloader_plugin_selectbox .= '<option value="' . $sn . '?&amp;' . $plugin . '&amp;normal"';
-        reset($_GET);
-        list ($firstgetkey) = each($_GET);
-        if ($firstgetkey == $plugin) {
-            $pluginloader_plugin_selectbox .= ' selected="selected"';
-        }
-        $pluginloader_plugin_selectbox .= '>' . ucfirst($plugin) . '</option>' . "\n";
-    }
-    $pluginloader_plugin_selectbox .= '</select>' . "\n" . '</form>' . "\n";
-
- //   PluginMenu('ROW', '', '', '');
- //   PluginMenu('DATA', '', '', $pluginloader_plugin_selectbox);
-
- //   $o .= PluginMenu('SHOW');
     $o .= ' ';
-} // if($adm)
+}
 
 
 // BOF page_data
@@ -210,33 +174,23 @@ $pd_current = $pd_router->find_page($pd_s);
 /**
  * Include plugin (and plugin files)
  */
-$handle = opendir($pth['folder']['plugins']);
-while (FALSE !== ($plugin = readdir($handle))) {
-    if ($plugin != "." AND $plugin != ".." AND is_dir($pth['folder']['plugins'] . $plugin)) {
-        PluginFiles($plugin);
+foreach (XH_plugins() as $plugin) {
+    PluginFiles($plugin);
+    if (is_readable($pth['file']['plugin_classes'])) {
+	include($pth['file']['plugin_classes']);
+    }
+}
 
-        // Load plugin required_classes
-        if (file_exists($pth['file']['plugin_classes'])) {
-            include($pth['file']['plugin_classes']);
-        }
-    } // if($plugin)
-} // while (FALSE !== ($plugin = readdir($handle)))*/
-rewinddir($handle);
+foreach (XH_plugins() as $plugin) {
+    PluginFiles($plugin);
 
-while (FALSE !== ($plugin = readdir($handle))) {
-
-
-    if ($plugin != "." AND $plugin != ".." AND is_dir($pth['folder']['plugins'] . $plugin)) {
-
-        PluginFiles($plugin);
-
-        // Load plugin config
-	if (file_exists($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php')) {
-	    include($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php');
-	}
-        if (file_exists($pth['file']['plugin_config'])) {
-            include($pth['file']['plugin_config']);
-        }
+    // Load plugin config
+    if (file_exists($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php')) {
+	include($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php');
+    }
+    if (file_exists($pth['file']['plugin_config'])) {
+	include($pth['file']['plugin_config']);
+    }
     
     // If plugin language is missing, copy default.php or en.php
     if (!file_exists($pth['file']['plugin_language'])) {
@@ -251,39 +205,32 @@ while (FALSE !== ($plugin = readdir($handle))) {
     if (file_exists($pth['folder']['plugins'] . $plugin . '/languages/default.php')) {
          include $pth['folder']['plugins'] . $plugin . '/languages/default.php';
     }
-        // Load plugin language
-        if (file_exists($pth['file']['plugin_language'])) {
-            include($pth['file']['plugin_language']);
-        }
+    // Load plugin language
+    if (file_exists($pth['file']['plugin_language'])) {
+	include($pth['file']['plugin_language']);
+    }
 
-        // Load plugin index.php or die
-        if (file_exists($pth['file']['plugin_index']) AND !include($pth['file']['plugin_index'])) {
-            die($tx['error']['plugin_error'] . $tx['error']['cntopen'] . $pth['file']['plugin_index']);
-        }
+    // Load plugin index.php or die
+    if (file_exists($pth['file']['plugin_index']) AND !include($pth['file']['plugin_index'])) {
+	die($tx['error']['plugin_error'] . $tx['error']['cntopen'] . $pth['file']['plugin_index']);
+    }
 
-        // Add plugin css to the header of CMSimple/Template
-        if (file_exists($pth['file']['plugin_stylesheet'])) {
-            $hjs .= tag('link rel="stylesheet" href="' . $pth['file']['plugin_stylesheet'] . '" type="text/css"') . "\n";
-        }
-    } // if($plugin)
-} // while (FALSE !== ($plugin = readdir($handle)))
+    // Add plugin css to the header of CMSimple/Template
+    if (file_exists($pth['file']['plugin_stylesheet'])) {
+	$hjs .= tag('link rel="stylesheet" href="' . $pth['file']['plugin_stylesheet'] . '" type="text/css"') . "\n";
+    }
+}
 
 
 /**
  * Load admin functions (admin.php, if exists) of plugin
  */
 if ($adm) {
-    // Load common plugin admin functions or die
-    //if(!include($pth['folder']['plugins'].'/admin_common.php')) {
-    //	die($tx['error']['plugin_error'].$tx['error']['cntopen'].$pth['folder']['plugins'].'/admin_common.php');
-    //}
-    if ($found_plugins == true) {
-        foreach ($admin_plugins as $plugin) {
-            PluginFiles($plugin);
-            if (file_exists($pth['file']['plugin_admin'])) {
-                include($pth['file']['plugin_admin']);
-            }
-        }
+    foreach (XH_plugins(true) as $plugin) {
+	PluginFiles($plugin);
+	if (is_readable($pth['file']['plugin_admin'])) {
+	    include($pth['file']['plugin_admin']);
+	}
     }
     // ########## bridge to page data ##########
     $o .= $pd_router->create_tabs($s);
@@ -883,6 +830,43 @@ function preCallPlugins($pageIndex = -1) {
         }
 	$c[$as] = evaluate_plugincall($c[$as]);
     }
+}
+
+
+/**
+ * Returns a list of all installed plugins.
+ *
+ * @since 1.6
+ *
+ * @param   bool $admin  Whether to return only plugins with a admin.php
+ * @return  array
+ */
+function XH_plugins($admin = false)
+{ // TODO: might be optimized to set $admPlugins only when necessary
+    global $pth;
+    static $plugins = null;
+    static $admPlugins = null;
+    
+    if (!isset($plugins)) {
+	$plugins = array();
+	$admPlugins = array();
+	$dh = opendir($pth['folder']['plugins']); // TODO: error handling?
+	while (($fn = readdir($dh)) !== false) {
+	    if (strpos($fn, '.') !== 0  // ignore hidden directories
+		&& is_dir($pth['folder']['plugins'] . $fn))
+	    {
+		$plugins[] = $fn;
+		PluginFiles($fn);
+		if (is_file($pth['file']['plugin_admin'])) {
+		    $admPlugins[] = $fn;
+		}
+	    }
+	}
+	closedir($dh);
+	natcasesort($plugins);
+	natcasesort($admPlugins);
+    }    
+    return $admin ? $admPlugins : $plugins;
 }
 
 ?>

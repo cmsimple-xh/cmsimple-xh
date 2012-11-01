@@ -115,19 +115,11 @@ if ($adm) {
 
         $o .= '<p><b>' . $tx['sysinfo']['plugins'] . '</b></p>' . "\n" . "\n";
 
-        $handle1 = opendir($pth['folder']['plugins']);
-        if ($handle1) {
-            $o .= '<ul>' . "\n";
-            while (($plugin1 = readdir($handle1)) !== false) {
-                if (strpos($plugin1, '.') === false
-                    && is_dir($pth['folder']['plugins'] . $plugin1))
-                {
-                    $o .= '<li>' . ucfirst($plugin1) . '</li>' . "\n";
-                }
-            }
-            $o .= '</ul>' . "\n" . "\n";
-            closedir($handle1);
+        $o .= '<ul>' . "\n";
+        foreach (XH_plugins() as $temp) {
+            $o .= '<li>' . ucfirst($temp) . '</li>' . "\n";
         }
+        $o .= '</ul>' . "\n" . "\n";
 
         $o .= '<p><b>' . $tx['sysinfo']['php_version'] . '</b></p>' . "\n"
             . '<ul>' . "\n" . '<li>' . phpversion() . '</li>' . "\n"

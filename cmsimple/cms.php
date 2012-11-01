@@ -422,19 +422,6 @@ if (!XH_ADM && $adm) {
 
 ob_start('final_clean_up');
 $debugMode = xh_debugmode();
-$plugins = array();
-$handle = opendir($pth['folder']['plugins']);
-
-
-if ($handle) {
-    while ($plugin = readdir($handle)) {
-        if (strpos($plugin, '.') === false && file_exists($pth['folder']['plugins'] . $plugin . '/admin.php')) {
-
-            $plugins[] = $plugin;
-        }
-    }
-    closedir($handle);
-}
 
 
 if (!include($pth['file']['template'])) {
@@ -445,7 +432,7 @@ if (!include($pth['file']['template'])) {
 }
 
 function final_clean_up($html) {
-    global $adm, $s, $o, $debugMode, $plugins, $errors, $cf, $bjs;
+    global $adm, $s, $o, $debugMode, $errors, $cf, $bjs;
 
     if ($adm === true) {
         $debugHint = '';
@@ -482,7 +469,7 @@ function final_clean_up($html) {
         }
 
         $html = preg_replace('~<body[^>]*>~i',
-                            '$0' . '<div' . $id . '>' . $debugHint. admin_menu($plugins, $debugMode) . '</div>' ."\n" .  $errorList,
+                            '$0' . '<div' . $id . '>' . $debugHint. admin_menu(XH_plugins(true), $debugMode) . '</div>' ."\n" .  $errorList,
                          $html, 1);
 
 
@@ -1196,7 +1183,6 @@ function admin_menu($plugins = array(), $debug = false)
         $pluginMenu = '';
         if ((bool) $plugins)
         {
-            sort($plugins, SORT_STRING);
             $pluginMenu .= '<li><a href="#" onclick="return false">' . utf8_ucfirst($tx['editmenu']['plugins']) . "</a>\n    <ul>";
             foreach ($plugins as $plugin)
             {
