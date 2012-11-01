@@ -192,18 +192,11 @@ foreach (XH_plugins() as $plugin) {
 	include($pth['file']['plugin_config']);
     }
     
-    // If plugin language is missing, copy default.php or en.php
-    if (!file_exists($pth['file']['plugin_language'])) {
-        if (file_exists($pth['folder']['plugins'].$plugin.'/languages/default.php')) {
-        copy($pth['folder']['plugins'].$plugin.'/languages/default.php', $pth['file']['plugin_language']);
-        } elseif (file_exists($pth['folder']['plugins'].$plugin.'/languages/en.php')) {
-        copy($pth['folder']['plugins'].$plugin.'/languages/en.php', $pth['file']['plugin_language']);
-        }
-    }
+    XH_createLanguageFile($pth['file']['plugin_language']);
     
     // Load default plugin language
     if (file_exists($pth['folder']['plugins'] . $plugin . '/languages/default.php')) {
-         include $pth['folder']['plugins'] . $plugin . '/languages/default.php';
+        include $pth['folder']['plugins'] . $plugin . '/languages/default.php';
     }
     // Load plugin language
     if (file_exists($pth['file']['plugin_language'])) {

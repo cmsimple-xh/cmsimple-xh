@@ -137,23 +137,19 @@ $pth['file']['language'] = $pth['folder']['language'] . basename($sl) . '.php';
 $pth['file']['langconfig'] = $pth['folder']['language'] . basename($sl) . 'config.php';
 $pth['file']['corestyle'] = $pth['folder']['base'] . 'css/core.css';
 
-if (!file_exists($pth['file']['language'])) {
-    copy($pth['folder']['language'].'default.php', $pth['file']['language']);
-}
-if (!file_exists($pth['file']['langconfig'])) {
-    copy($pth['folder']['language'].'defaultconfig.php', $pth['file']['langconfig']);
-}
-
+XH_createLanguageFile($pth['file']['language']);
 if (!file_exists($pth['file']['language']) && !file_exists($pth['folder']['language'].'default.php')) {
     die('Language file ' . $pth['file']['language'] . ' missing');
 }
+
+XH_createLanguageFile($pth['file']['langconfig']);
 if (!file_exists($pth['file']['langconfig']) && !file_exists($pth['folder']['language'].'defaultconfig.php')) {
     die('Language config file ' . $pth['file']['langconfig'] . ' missing');
 }
 
 include $pth['folder']['language'] . 'default.php';
-include $pth['folder']['language'] . 'defaultconfig.php';
 include $pth['file']['language'];
+include $pth['folder']['language'] . 'defaultconfig.php';
 include $pth['file']['langconfig'];
 
 $pth['folder']['templates'] = $pth['folder']['base'] . 'templates/';
@@ -1349,6 +1345,30 @@ function XH_checkValidUtf8($arr)
             exit('Malformed UTF-8 detected!');
         }
     }
+}
+
+
+/**
+ * Copies default file, if actual language file is missing.
+ *
+ * @since 1.6
+ *
+ * @param   string $dst
+ */
+function XH_createLanguageFile($dst)
+{
+    $config = preg_match('/config.php$/', $dst) ? 'config' : '';
+    if (!file_exists($dst)) {
+        if (is_readable($src = dirname($dst) . "/default$config.php")) {
+            copy($src, $dst);
+        } elseif ($src = is_readable(dirname($dst) . "/en$config.php")) {
+            copy($src, $dst);
+        }
+    }
+    // TODO: error reporting???
+    //if (!file_exists($dst)) {
+    //    e('missing', 'file', $dst);
+    //}
 }
 
 ?>
