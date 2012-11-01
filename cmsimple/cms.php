@@ -114,14 +114,11 @@ $pth['folder']['langconfig'] = $pth['folder']['cmsimple'] . 'languages/';
 if (preg_match('/\/[A-z]{2}\/[^\/]*/', sv('PHP_SELF')))
     $sl = strtolower(preg_replace('/.*\/([A-z]{2})\/[^\/]*/', '\1', sv('PHP_SELF')));
 
-// for subsite solution - GE 2011-02
-
-$subsite_folder_array = explode('/',str_replace($_SERVER['QUERY_STRING'],'',$_SERVER['REQUEST_URI'])); // creates array
-$subsite_folder = array_pop($subsite_folder_array);  // removes last element of array
-$subsite_folder = end($subsite_folder_array);  // returns last element of array
-if(file_exists('./cmsimplesubsite.htm')){$sl = $subsite_folder;}
-
-// END for subsite solution - GE 2011-02
+$temp = explode('/', str_replace($_SERVER['QUERY_STRING'], '', $_SERVER['REQUEST_URI']));
+$temp = $temp[count($temp) - 2];
+if (is_file('./cmsimplesubsite.htm')) {
+    $sl = $temp;
+}
 
 if (!isset($sl))
     $sl = $cf['language']['default'];
