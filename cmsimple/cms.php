@@ -155,26 +155,14 @@ include $pth['file']['langconfig'];
 $pth['folder']['templates'] = $pth['folder']['base'] . 'templates/';
 $pth['folder']['template'] = $pth['folder']['templates'] . $cf['site']['template'] . '/';
 
-// for subsite solution - GE 20011-02
-
-if($txc['subsite']['template']=="")
-{
-	$pth['folder']['template'] = $pth['folder']['templates'].$cf['site']['template'].'/';
-	$pth['file']['template'] = $pth['folder']['template'].'template.htm';
-	$pth['file']['stylesheet'] = $pth['folder']['template'].'stylesheet.css';
-	$pth['folder']['menubuttons'] = $pth['folder']['template'].'menu/';
-	$pth['folder']['templateimages'] = $pth['folder']['template'].'images/';
-}
-else
-{
-	$pth['folder']['template'] = $pth['folder']['templates'].$txc['subsite']['template'].'/';
-	$pth['file']['template'] = $pth['folder']['template'].'template.htm';
-	$pth['file']['stylesheet'] = $pth['folder']['template'].'stylesheet.css';
-	$pth['folder']['menubuttons'] = $pth['folder']['template'].'menu/';
-	$pth['folder']['templateimages'] = $pth['folder']['template'].'images/';
-}
-
-// END for subsite solution - GE 20011-02
+$temp = $txc['subsite']['template'] == ''
+    ? $cf['site']['template']
+    : $txc['subsite']['template'];
+$pth['folder']['template'] = $pth['folder']['templates'] . $temp . '/';
+$pth['file']['template'] = $pth['folder']['template'] . 'template.htm';
+$pth['file']['stylesheet'] = $pth['folder']['template'] . 'stylesheet.css';
+$pth['folder']['menubuttons'] = $pth['folder']['template'] . 'menu/';
+$pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
 
 $pth['folder']['plugins'] = $pth['folder']['base'] . 'plugins/';
 $pth['file']['pluginloader'] = $pth['folder']['cmsimple'] . 'pluginloader.php';
