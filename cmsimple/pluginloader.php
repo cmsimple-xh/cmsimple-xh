@@ -567,50 +567,26 @@ function PluginSaveForm($form, $style=ARRAY(), $data=ARRAY(), $hint=ARRAY()) {
 }
 
 /**
- * Function print_plugin_admin()
  * Create plugin menu tabs.
  *
  * @param string $main Set to OFF, if menu is not needed.
  *
  * @return string Returns the created plugin-menu.
  */
-function print_plugin_admin($main) {
+function print_plugin_admin($main)
+{
+    global $sn, $plugin, $pth, $sl, $cf, $tx, $plugin_tx;
 
-    global $sn, $plugin, $pth, $sl, $cf;
-    global $tx, $plugin_tx;
-
-    initvar('plugin_text');
     initvar('action');
     initvar('admin');
-
-    $t = '';
-    $css = '';
-    $config = '';
-    $language = '';
-    $help = '';
-
-    $main = strtoupper($main);
-
     PluginFiles($plugin);
+    
+    $main = strtoupper($main) == 'ON';
+    $css = is_readable($pth['file']['plugin_stylesheet']);
+    $config = is_readable($pth['file']['plugin_config']);
+    $language = is_readable($pth['file']['plugin_language']);
+    $help = is_readable($pth['file']['plugin_help']);
 
-    if (file_exists($pth['file']['plugin_stylesheet'])) {
-        $css = 'ON';
-    }
-    if (file_exists($pth['file']['plugin_config'])) {
-        //include($pth['file']['plugin_config']);
-        $config = 'ON';
-    }
-    if (file_exists($pth['file']['plugin_language'])) {
-        //include($pth['file']['plugin_language']);
-        $language = 'ON';
-    }
-    if (file_exists($pth['file']['plugin_help'])) {
-        $help = 'ON';
-    }
-
-    /**
-     *  Use preset texts for the menu, if the plugin itself did not define text for the menu
-     */
     $tx_main = empty($plugin_tx[$plugin]['menu_main'])
 	? $tx['menu']['tab_main'] : $plugin_tx[$plugin]['menu_main'];
     $tx_css = empty($plugin_tx[$plugin]['menu_css'])
@@ -622,33 +598,30 @@ function print_plugin_admin($main) {
     $tx_help = empty($plugin_tx[$plugin]['menu_help'])
 	? $tx['menu']['tab_help'] : $plugin_tx[$plugin]['menu_help'];
 
-    $plugin_menu_style = ARRAY();
-
-    PluginMenu('ROW', '', '', '', $plugin_menu_style);
-
-    if ($main == 'ON') {
-        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_main&amp;action=plugin_text', '', $tx_main, $plugin_menu_style);
+    PluginMenu('ROW', '', '', '', array());
+    if ($main) {
+        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_main&amp;action=plugin_text',
+		   '', $tx_main, array());
     }
-
-    if($css == 'ON') {
-        PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_stylesheet&amp;action=plugin_text', '', $tx_css, $plugin_menu_style);	
+    if($css) {
+        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_stylesheet&amp;action=plugin_text',
+		   '', $tx_css, array());	
     }
-
-    if($config == 'ON') { 
-        PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_config&amp;action=plugin_edit', '', $tx_config, ''); 
+    if($config) { 
+        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_config&amp;action=plugin_edit',
+		   '', $tx_config, ''); 
     }
-
-    if ($language == 'ON') {
-        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_language&amp;action=plugin_edit', '', $tx_language, '');
+    if ($language) {
+        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_language&amp;action=plugin_edit',
+		   '', $tx_language, '');
     }
-    if ($help == 'ON') {
-        PluginMenu('TAB', $pth['file']['plugin_help'], 'target="_blank"', $tx_help, '');
+    if ($help) {
+        PluginMenu('TAB', $pth['file']['plugin_help'],
+		   'target="_blank"', $tx_help, '');
     }
-
-    $t .= PluginMenu('SHOW');
-
-    return $t;
+    return PluginMenu('SHOW');
 }
+
 
 /**
  * Function plugin_admin_common()
