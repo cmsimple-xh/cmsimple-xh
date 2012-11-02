@@ -174,25 +174,14 @@ if ($adm) {
         $o .= '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
             . '<h4>' . $tx['settings']['systemfiles'] . '</h4>' . "\n" . '<ul>' . "\n";
 
-
-        // for subsites - edit config.php only from the main site / default language
-
-        if ($sl == $cf['language']['default']) { // FIXME: simplify
-            foreach (array('config', 'langconfig', 'language') as $i) {
-                $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=array">'
-                    . utf8_ucfirst($tx['action']['edit']) . ' '
-                    . $tx['filetype'][$i] . '</a></li>' . "\n";
-            }
-        } else {
-            foreach (array('langconfig', 'language') as $i) {
-                $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=array">'
-                    . utf8_ucfirst($tx['action']['edit']) . ' '
-                    . $tx['filetype'][$i] . '</a></li>' . "\n";
-            }
+        $temp = $sl == $cf['language']['default']
+            ? array('config', 'langconfig', 'language')
+            : array('langconfig', 'language');
+        foreach ($temp as $i) {
+            $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=array">'
+                . utf8_ucfirst($tx['action']['edit']) . ' '
+                . $tx['filetype'][$i] . '</a></li>' . "\n";
         }
-
-        // END for subsites
-
 
         foreach (array('stylesheet', 'template') as $i) {
             $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=edit">'
@@ -205,7 +194,6 @@ if ($adm) {
                 . $tx['filetype'][$i] . '</a></li>' . "\n";
         }
         $o .= '</ul>' . "\n";
-
 
         $o .= '<h4>' . $tx['settings']['backup'] . '</h4><p>'
             . $tx['settings']['backupexplain3'] . '</p>' . "\n" . '<ul>' . "\n";
