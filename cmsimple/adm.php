@@ -66,26 +66,17 @@ if ($adm) {
         $o .= "\n\n" . '<h1>' . $title . '</h1>' . "\n";
     }
 
-// FIXME: change ifs to switch
-    
-    if ($f == 'sysinfo') {
+    switch ($f) {
+    case 'sysinfo':
         $o .= XH_sysinfo();
-    }
-
-// PHP Info - GE 2010-10-28
-
-    if ($f == 'phpinfo') {
+        break;
+    case 'phpinfo':
         phpinfo();
         exit;
-    }
-
-// SETTINGS
-
-    if ($f == 'settings') {
+    case 'settings':
         $o .= XH_settingsView();
-    }
-
-    if ($f == 'file') {
+        break;
+    case 'file':
         if (preg_match('/^\d{8}_\d{6}_(?:content.htm|pagedata.php)$/', $file)) {
             $pth['file'][$file] = $pth['folder']['content'] . '/' . $file;
         }
@@ -112,12 +103,10 @@ if ($adm) {
                 }
             }
         }
-    }
-
-    // new linkcheck
-
-    if ($f == 'validate') {
+        break;
+    case 'validate':
         $o .= check_links();
+        break;
     }
 }
 
