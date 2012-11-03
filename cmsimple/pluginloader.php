@@ -13,34 +13,6 @@
  * @version $Id: index.php 317 2012-10-31 00:21:59Z cmb69 $
  * @package pluginloader
  *
- * Modified after a long discussion at CMSimple forum with Martin, mvwd, 
- * Till, johnjdoe, Holger and Gert (Mai 2009)
- * Changes:
- * - The pluginloader contains a new subfolder "page_data" which holds 
- *   synchronised page based data for new plugins like the "meta_tags" 
- *   and "page_params" plugins, written by Martin
- * - OOP-written plugins can load a "required_classes.php" from a new 
- *   plugin subfolder "classes"
- * - Order of loading plugins changed: 1. classes, 2. config, 3. languages, 
- *   4. index, 5. css
- * - Direct access check changed (code mentioned by Martin & mvwd)
- * - For more security, a new constant "PLUGINLOADER_VERSION" included:
- *   Plugins can check the Pluginloader version for compatibility or to 
- *   perform a direct access check with code like below
- *       if(!defined('PLUGINLOADER_VERSION') or !constant('PLUGINLOADER_VERSION'))
- *        die('Direct access not allowed!');
- *       if(PLUGINLOADER_VERSION < 2.101) die('Your Pluginloader is outdated!');
- * - Plugin-Pre-Call: can be used for calling a plugin without CMSimple-Scripting.
- *   Comes with following improvements:
- *   - no limitations in size of page (instead of scripting gets not parsed in 
- *     pages >100kB).
- *   - checks if function is available, prints out an error-message (instead of 
- *     website is dying) or simply nothing.
- *   - use multiple plugins on one page (instead of just use one script per page).
- *   - place your plugin wherever you want in content (instead of plugins will be 
- *     returned by standard on bottom of page).
- *   - you can use the classic CMSimple-Scripting AND pluginPreCall.
- * 
  * Plugin Loader version 2.0 beta 11 for CMSimple v2.6, v2.7 . . . 3.0, 3.2 .....
  * Modified by Till after discussion in the German CMSimple forum with Holger and 
  * Gert (October 2008)
@@ -55,16 +27,6 @@
  * license in the CMSimple distrubution with permission by copyright holders.
  * 
  * For licence see notice in /cmsimple/cms.php and http://www.cmsimple.com/?Licence
- * 
- * 
- * Usage: This plugin loader will load compatible plugins avaliable under 
- *        the plugins folder into CMSimple.
- * Step 1 - Create a folder for the plugins (here we call it: "plugins")
- * Step 2 - Upload this pluginloader-package to the newly created folder. 
- * Step 3 - In /cmsimple/config.php set $cf['plugins']['folder']="plugins"; 
- *          (or set plugins_folder to plugins under CMSimple configuration settings)
- * Step 4 - Installation is done and you should be ready to install plugins
- *          Install plugins in an extra subfolder per plugin within the folder "plugins"
  */
 
 /*
@@ -344,217 +306,6 @@ function PluginMenu($add = '', $link = '', $target = '', $text = '', $style = ar
     }
 }
 
-/**
- * Function PluginReadFile()
- * Read content from a given file.
- *
- * @param string $file Name of the file to read.
- *
- * @return array If succesfull, return an array with data and success-message.
- */
-function PluginReadFile($file='') {
-    global $tx;
-
-    $is_read = ARRAY();
-    $is_read['success'] = FALSE;
-    $is_read['msg'] = '';
-    $is_read['content'] = '';
-
-    if (!file_exists($file)) {
-        $is_read['msg'] = $tx['error']['cntopen'] . $file;
-    } else {
-        if (!is_readable($file)) {
-            $is_read['msg'] = $tx['error']['notreadable'] . $file;
-        } else {
-            if ($fh = fopen($file, "rb")) {
-                $is_read['content'] = fread($fh, filesize($file));
-                fclose($fh);
-                $is_read['content'] = str_replace("\r\n", "\n", $is_read['content']);
-                $is_read['content'] = str_replace("\r", "\n", $is_read['content']);
-                $is_read['msg'] = $tx['success']['saved'] . $file;
-                $is_read['success'] = TRUE;
-            }
-        }
-    }
-    return $is_read;
-}
-
-/**
- * Function PluginWriteFile()
- * Write content to a given file.
- *
- //* @global array $tx text-array
- *
- * @param string $file Name of the file to write.
- * @param string $content Content, that will be written in the file.
- * @param string $exists If set to TRUE, the function returns error-message if file is not available.
- * @param string $append If set to TRUE, data will be appended to existing data in the file.
- *
- * @return array If succesfull, return an array with success-message.
- */
-function PluginWriteFile($file='', $content='', $exists=FALSE, $append=FALSE) {
-    global $tx;
-
-    if ($append == TRUE) {
-        $write_mode = 'a+b';
-    } else {
-        $write_mode = 'w+b';
-    }
-
-    $is_written = ARRAY();
-    $is_written['success'] = FALSE;
-    $is_written['msg'] = '';
-
-    $do_write = TRUE;
-
-    if (!file_exists($file) AND $exists == TRUE) {
-        $do_write = FALSE;
-        $is_written['msg'] = $tx['error']['cntopen'] . $file;
-    }
-
-    if (file_exists($file) AND !is_writeable($file)) {
-        $do_write = FALSE;
-        $is_written['msg'] = '<div class="pluginerror">' . $tx['error']['cntwriteto'] . $file . '</div>';
-    }
-
-    if ($do_write == TRUE) {
-        if ($fh = fopen($file, $write_mode)) {
-            fwrite($fh, $content);
-            fclose($fh);
-            $is_written['msg'] = $tx['success']['saved'] . $file;
-            $is_written['success'] = TRUE;
-        }
-    }
-
-    return $is_written;
-}
-
-/**
- * Function PluginPrepareConfigData()
- * Prepare config data for writing to file.
- *
- * @param string $var_name Name of the variable ($cf => $var_name = cf)
- * @param string $data Array of data, that will be converted to text for saving in (php-)textfile.
- * @param string $plugin If filled, the created variable will be extended by a sub-array with this index.
- *
- * @return string Returns the prepared data for saving.
- */
-function PluginPrepareConfigData($var_name='', $data=ARRAY(), $plugin='') {
-    $save_data = "<?php\n\n";
-    foreach ($data as $key => $value) {
-        $save_data .= "\t" . '$' . $var_name;
-        if (!empty($plugin)) {
-            $save_data .= '[\'' . $plugin . '\']';
-        }
-        $save_data .= '[\'' . $key . '\']="' . trim(str_replace("\\'", "'", ((get_magic_quotes_gpc() === 1) ? $value : addslashes($value)))) . '";' . "\n";
-    }
-    $save_data .= "\n?>";
-    return $save_data;
-}
-
-/**
- * Function PluginPrepareTextData()
- * Prepare text data for writing to file.
- *
- * @param string $data The text-data, that will be prepared for saving to file.
- *
- * @return string Returns the prepared data for saving.
- */
-function PluginPrepareTextData($data) {
-    trigger_error('Function PluginPrepareTextData() is deprecated', E_USER_DEPRECATED);
-    
-    return (get_magic_quotes_gpc() === 1) ? stripslashes($data) : $data;
-}
-
-
-/**
- * Function PluginSaveForm()
- * Creates form for config data.
- *
- * If $hint['mode_donotshowvarnames'] == TRUE, variable 
- * indexes are not shown, but text information.
- * (e.g. for index 'my_name' -> $plugin_tx['example_plugin']['cf_my_name'])
- *
- * @param array $form Array, that contains data how the form will be created.
- * @param array $style Array, that contains style-data for the div and the form.
- * @param array $data Data, that will be shown in the form (in a textarea or in input-fields).
- * @param array $hint Array with hints in popups for the config-variables.
- *
- * @return string Returns the created form.
- */
-function PluginSaveForm($form, $style=ARRAY(), $data=ARRAY(), $hint=ARRAY()) {
-    global $pth;
-    $saveform = '';
-
-    if ($form['type'] != 'TEXT' AND $form['type'] != 'CONFIG') {
-        trigger_error('invalid argument', E_USER_WARNING);
-    } elseif ($form['type'] == 'CONFIG' AND (!is_array($data) OR count($data) == 0)) {
-        trigger_error('empty', E_USER_WARNING);
-    } else {
-
-        $form_keys = ARRAY('action', 'caption', 'errormsg', 'method', 'value_action', 'value_admin', 'value_submit');
-        $style_keys = ARRAY('div', 'divcaption', 'form', 'submit', 'table', 'tdcaption', 'tdconfig', 'tdhint', 'textarea', 'input', 'inputmax');
-        foreach ($form_keys AS $key) {
-            if (!isset($form[$key])) {
-                $form[$key] = '';
-            }
-        }
-        foreach ($style_keys AS $key) {
-            if (!isset($style[$key])) {
-                $style[$key] = '';
-            }
-        }
-
-        $saveform .= $form['errormsg'];
-        $saveform .= '<div ' . $style['div'] . '>' . "\n";
-
-        $saveform .= '<form ' . $style['form'] . ' action="' . $form['action'] . '" method="' . $form['method'] . '">' . "\n";
-        if (!empty($form['caption'])) {
-            $saveform .= '<div ' . $style['divcaption'] . '>' . "\n" . $form['caption'] . "\n" . '</div>' . "\n";
-        }
-
-        if ($form['type'] == 'TEXT') {
-            $saveform .= '<textarea ' . $style['textarea'] . ' name="' . $form['textarea_name'] . '">' . $data . '</textarea>';
-        }
-
-        if ($form['type'] == 'CONFIG') {
-            $saveform .= '<table ' . $style['table'] . ' cellspacing="0" cellpadding="0">' . "\n";
-            $last_cap = '';
-            ksort($data);
-            foreach ($data as $key => $value) {
-                $var_name = '';
-                $val_cap = explode('_', $key);
-
-                if (!isset($hint['mode_donotshowvarnames']) OR $hint['mode_donotshowvarnames'] == FALSE) {
-                    if ($val_cap[0] != $last_cap) {
-                        $last_cap = $val_cap[0];
-                        $saveform .= '<tr>' . "\n" . '<td colspan="2" ' . $style['tdcaption'] . '>' . $last_cap . '</td>' . "\n" . '</tr>' . "\n";
-                    }
-                }
-                if (isset($hint['mode_donotshowvarnames']) AND $hint['mode_donotshowvarnames'] == TRUE AND isset($hint['cf_' . $key]) AND !empty($hint['cf_' . $key])) {
-                    $var_name = $hint['cf_' . $key];
-                } else {
-                    $var_name = (isset($hint['cf_' . $key]) AND !empty($hint['cf_' . $key])) ? '<a href="#" onclick="return false" class="pl_tooltip">' . tag('img src = "' . $pth['folder']['flags'] . 'help_icon.png" alt="" class="helpicon"') . '<span>' . $hint['cf_' . $key] . '</span></a> ' . str_replace("_", " ", $key) . ': ' : str_replace("_", " ", $key) . ':';
-                }
-                $saveform .= '<tr>' . "\n" . '<td ' . $style['tdconfig'] . '>' . $var_name . '</td>' . "\n" . '<td>';
-                $style_textarea = $style['input'];
-                if (utf8_strlen($value) > 50) {
-                    $style_textarea = $style['inputmax'];
-                }
-                $saveform .= '<textarea ' . $style_textarea . ' name="' . XH_FORM_NAMESPACE . $key . '" rows="1" cols="40">' . htmlspecialchars($value, ENT_NOQUOTES, 'UTF-8') . '</textarea>';
-                $saveform .= '</td>' . "\n" . '</tr>' . "\n";
-            }
-            $saveform .= '</table>' . "\n" . "\n";
-        } // if($form['type'] == 'CONFIG')
-
-        $saveform .= tag('input type="hidden" name="admin" value="' . $form['value_admin'] . '"') . "\n";
-        $saveform .= tag('input type="hidden" name="action" value="' . $form['value_action'] . '"') . "\n" . tag('br') . "\n" . tag('input type="submit" ' . $style['submit'] . ' name="plugin_submit" value="' . $form['value_submit'] . '"') . "\n";
-        $saveform .= '</form>' . "\n";
-    }
-    $saveform .= "\n" . '</div>' . "\n";
-
-    return $saveform;
-}
 
 /**
  * Create plugin menu tabs.
@@ -635,119 +386,38 @@ function print_plugin_admin($main)
  *
  * @return string Returns the created form or the result of saving the data
  */
-function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
-
-    global $sn, $action, $admin, $plugin, $pth, $tx;
-    global $plugin_tx, $plugin_cf;
-
-    $data = '';
-    $t = '';
-    $error_msg = ($admin == '' OR is_writeable($pth['file'][$admin])) ? '' : '<div class="pluginerror">' . "\n" . '<b>' . $tx['error']['notwritable'] . ':</b>' . "\n" . '</div>' . "\n" . '<ul>' . "\n" . '<li>' . $pth['file'][$admin] . '</li>' . "\n" . '</ul>' . "\n";
-
-    if ($admin == 'plugin_config') {
-        $var_name = 'plugin_cf';
-        $data = $plugin_cf[$plugin];
+function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY())
+{
+    // TODO: do something about the fake parameters
+    // TODO: note that $hint is ignored now
+    global $action, $admin, $plugin, $pth;
+    
+    require_once $pth['folder']['classes'] . 'FileEdit.php';
+    switch ($admin) {
+    case 'plugin_config':
+	$fileEdit = new XH_PluginConfigFileEdit();
+	break;
+    case 'plugin_language':
+	$fileEdit = new XH_PluginLanguageFileEdit();
+	break;
+    case 'plugin_stylesheet':
+	$fileEdit = new XH_PluginTextFileEdit();
+	break;
+    default:
+	return false;
     }
-    if ($admin == 'plugin_language') {
-        $var_name = 'plugin_tx';
-        $data = $plugin_tx[$plugin];
+    switch ($action) {
+    case 'plugin_edit':
+    case 'plugin_text':
+	return $fileEdit->form();
+    case 'plugin_save':
+    case 'plugin_textsave':
+	return $fileEdit->submit();
+    default:
+	return false;
     }
-    if ($admin == 'plugin_stylesheet') {
-        $var_name = 'plugin_text';
-    }
-    if ($admin == 'plugin_main') {
-        $var_name = 'plugin_text';
-    }
-
-    if ($action == 'plugin_text' OR $action == 'plugin_edit') {
-        if (isset($plugin_tx[$plugin])) {
-            $hint = array_merge($hint, $plugin_tx[$plugin]);
-        }
-        $form = ARRAY();
-        $style = ARRAY();
-
-        $style['form'] = 'class="plugineditform"';
-        $style['divcaption'] = 'class="plugineditcaption"';
-        $style['submit'] = 'class="submit"';
-
-        $form['action'] = $sn . '?&amp;' . $plugin;
-        $form['method'] = 'POST';
-        $form['value_admin'] = $admin;
-        $form['value_submit'] = utf8_ucfirst($tx['action']['save']);
-        $form['caption'] = ucfirst(str_replace("_", " ", $plugin));
-        $form['errormsg'] = $error_msg;
-
-        if ($action == 'plugin_text') {
-            $file_data = PluginReadFile($pth['file'][$admin]);
-            $data = $file_data['content'];
-            $form['type'] = 'TEXT';
-            $form['value_action'] = 'plugin_textsave';
-            $form['textarea_name'] = 'plugin_text';
-            $style['div'] = 'class="plugintext"';
-            $style['textarea'] = 'class="plugintextarea"';
-        }
-        if ($action == 'plugin_edit') {
-            $form['type'] = 'CONFIG';
-            $form['value_action'] = 'plugin_save';
-            $style['div'] = 'class="pluginedit"';
-            $style['table'] = 'class="pluginedittable"';
-            $style['tdcaption'] = 'class="plugincfcap"';
-            $style['tdhint'] = 'class="plugincfhint"';
-            $style['tdconfig'] = 'class="plugincf"';
-            $style['input'] = 'class="plugininput"';
-            $style['inputmax'] = 'class="plugininputmax"';
-        }
-        $t .= PluginSaveForm($form, $style, $data, $hint);
-    }
-
-    if ($action == 'plugin_save' OR $action == 'plugin_textsave') {
-        if ($action == 'plugin_save') {
-            $config_data = ARRAY();
-            foreach ($data as $key => $value) {
-                $config_data[$key] = $_POST[XH_FORM_NAMESPACE . $key];
-            }
-            $save_data = PluginPrepareConfigData($var_name, $config_data, $plugin);
-        }
-        if ($action == 'plugin_textsave') {
-            $text_data = $_POST[$var_name];
-            $save_data = stsl($text_data);
-        }
-        $is_saved = PluginWriteFile($pth['file'][$admin], $save_data);
-        $t .= tag('br') . '<b>' . $is_saved['msg'] . '</b>' . tag('br');
-    }
-    return $t;
 }
 
-/**
- * Function PluginDebugger()
- *
- * @param bool $error Possible values: 'empty' = Error: empty value detected
- * @param array $caller Array, that contains debug_backtrace()-data
- * @param bool $varname The called varname
- * @param bool $value The value of the var
- *
- * @global array $tx text-array
- *
- * @return string Returns result of debugging as text
- */
-function PluginDebugger($error=FALSE, $caller=FALSE, $varname=FALSE, $value=FALSE) {
-    global $tx;
-    
-    trigger_error('Function PluginDebugger() is deprecated', E_USER_DEPRECATED);
-    
-    $debug = '';
-    $debug .= $tx['error']['plugin_error'] . '';
-    switch ($error) {
-        case 'empty': $debug .= 'empty/no data (' . $varname . ')';
-            break;
-        default: $debug .= 'undefined error (' . $varname . ')';
-    }
-    $debug .= tag('br') . 'in' . tag('br');
-    foreach ($caller AS $call) {
-        $debug .= 'File: ' . $call['file'] . ' - ' . $call['function'] . ' - Line: ' . $call['line'] . tag('br');
-    }
-    return $debug;
-}
 
 /**
  * Function preCallPlugins() => Pre-Call of Plugins.

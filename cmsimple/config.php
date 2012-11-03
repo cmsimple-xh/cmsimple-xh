@@ -1,5 +1,5 @@
 <?php
-/* utf8-marker = äöüß */
+
 $cf['security']['password']="\$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1";
 $cf['security']['type']="page";
 $cf['site']['template']="cmsimplexh";
@@ -36,4 +36,5 @@ $cf['xhtml']['amp']="true";
 $cf['functions']['file']="functions.php";
 $cf['scripting']['regexp']="\\#CMSimple (.*?)\\#";
 $cf['editmenu']['scroll']="";
+
 ?>
