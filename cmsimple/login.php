@@ -36,12 +36,7 @@ if ($txc['subsite']['password'] != "") {
     $cf['security']['password'] = $txc['subsite']['password'];
 }
 
-if ($sl != $cf['language']['default']) {
-    $pth['folder']['content'] = $pth['folder']['base'] . $sl . '/content/';
-}
-
 // END for subsite solution - GE 20011-02
-// functions used for login
 
 
 
