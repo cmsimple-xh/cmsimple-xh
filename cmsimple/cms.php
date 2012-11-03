@@ -228,60 +228,8 @@ if ($login && !$adm) {
 	shead('403');
     }
 } elseif ($logout && $adm) {
-    $backupDate = date("Ymd_His");
-    $fn = $backupDate . '_content.htm';
-    if (@copy($pth['file']['content'], $pth['folder']['content'] . $fn)) {
-        $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup']) . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
-        $fl = array();
-        $fd = @opendir($pth['folder']['content']);
-        while (($p = @readdir($fd)) == true) {
-            if (preg_match('/^\d{8}_\d{6}_content.htm$/', $p))
-                $fl[] = $p;
-        }
-        if ($fd == true)
-            closedir($fd);
-        @sort($fl, SORT_STRING);
-        $v = count($fl) - $cf['backup']['numberoffiles'];
-        for ($i = 0; $i < $v; $i++) {
-            if (@unlink($pth['folder']['content'] . '/' . $fl[$i]))
-                $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup']) . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
-            else
-                e('cntdelete', 'backup', $fl[$i]);
-        }
-    }
-    else
-        e('cntsave', 'backup', $fn);
-
-// SAVE function for pagedata.php added - by MD 2009/09 (CMSimple_XH beta3.2)
-
-    if (file_exists($pth['folder']['content'] . 'pagedata.php')) {
-        $fn = $backupDate . '_pagedata.php';
-        if (@copy($pth['file']['pagedata'], $pth['folder']['content'] . $fn)) {
-            $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup']) . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
-            $fl = array();
-            $fd = @opendir($pth['folder']['content']);
-            while (($p = @readdir($fd)) == true) {
-                if (preg_match('/^\d{8}_\d{6}_pagedata.php$/', $p))
-                    $fl[] = $p;
-            }
-            if ($fd == true)
-                closedir($fd);
-            @sort($fl, SORT_STRING);
-            $v = count($fl) - $cf['backup']['numberoffiles'];
-            for ($i = 0; $i < $v; $i++) {
-                if (@unlink($pth['folder']['content'] . $fl[$i]))
-                    $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup']) . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
-                else
-                    e('cntdelete', 'backup', $fl[$i]);
-            }
-        }
-        else
-            e('cntsave', 'backup', $fn);
-    }
-
-// END save function for pagedata.php (CMSimple_XH beta3.2)
-
-
+    XH_backup('content');
+    XH_backup('pagedata');
     $adm = false;
     setcookie('status', '', 0, CMSIMPLE_ROOT);
     setcookie('passwd', '', 0, CMSIMPLE_ROOT);
