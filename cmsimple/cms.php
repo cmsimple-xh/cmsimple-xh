@@ -95,6 +95,10 @@ if (file_exists($pth['folder']['cmsimple'].'defaultconfig.php')) {
 }
 if (!include($pth['file']['config']))
     die('Config file missing');
+    
+if (!empty($cf['functions']['file'])) {
+    include_once $pth['folder']['cmsimple'] . $cf['functions']['file'];
+}
 
 foreach (array('userfiles', 'downloads', 'images', 'media') as $temp) {
     if (!isset($cf['folders'][$temp])) { // for compatibility with older version's config files
@@ -224,8 +228,6 @@ if ($sitemap)
 if ($xhpages)
     $f = 'xhpages';
 
-if ($cf['functions']['file'] != "")
-    include($pth['folder']['cmsimple'] . $cf['functions']['file']);
     
 // includes additional userfuncs.php - CMSimple_XH beta3
 if (is_readable($pth['folder']['cmsimple'] . 'userfuncs.php')) {
