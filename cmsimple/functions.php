@@ -1033,4 +1033,39 @@ function loginforms() {
         $s = -1;
     }
 }
+
+
+function XH_backup($file)
+{
+    static $date = null;
+    
+    !isset($date) and $date = date("Ymd_His");
+    if ($file != 'pagedata' || is_readable($pth['file']['pagedata'])) {
+        $fn = "${date}_$file.htm";
+        if (@copy($pth['file'][$file], $pth['folder']['content'] . $fn)) {
+            $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup'])
+                . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
+            $fl = array();
+            $fd = @opendir($pth['folder']['content']);
+            while (($p = @readdir($fd)) == true) {
+                if (preg_match('/^\d{8}_\d{6}_' . $file . '.htm$/', $p)) {
+                    $fl[] = $p;
+                }
+            }
+            $fd and closedir($fd);
+            sort($fl);
+            $v = count($fl) - $cf['backup']['numberoffiles'];
+            for ($i = 0; $i < $v; $i++) {
+                if (@unlink($pth['folder']['content'] . $fl[$i]))
+                    $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup'])
+                        . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
+                else
+                    e('cntdelete', 'backup', $fl[$i]);
+            }
+        } else {
+            e('cntsave', 'backup', $fn);
+        }
+    }
+}
+
 ?>
