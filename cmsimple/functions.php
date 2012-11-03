@@ -861,4 +861,122 @@ function XH_createLanguageFile($dst)
     //}
 }
 
+/**
+ * Function PluginFiles()
+ * Set plugin filenames.
+ *
+ * @param string $plugin Name of the plugin, the filenames 
+ * will be set for.
+ *
+ * @global array $cf CMSimple's Config-Array
+ * @global string $pth CMSimple's configured pathes in an array
+ * @global string $sl CMSimple's selected language
+ */
+function PluginFiles($plugin) {
+
+    global $cf, $pth, $sl;
+
+    $pth['folder']['plugin'] = $pth['folder']['plugins'] . $plugin . '/';
+    $pth['folder']['plugin_classes'] = $pth['folder']['plugins'] . $plugin . '/classes/';
+    $pth['folder']['plugin_config'] = $pth['folder']['plugins'] . $plugin . '/config/';
+    $pth['folder']['plugin_content'] = $pth['folder']['plugins'] . $plugin . '/content/';
+    $pth['folder']['plugin_css'] = $pth['folder']['plugins'] . $plugin . '/css/';
+    $pth['folder']['plugin_help'] = $pth['folder']['plugins'] . $plugin . '/help/';
+    $pth['folder']['plugin_includes'] = $pth['folder']['plugins'] . $plugin . '/includes/';
+    $pth['folder']['plugin_languages'] = $pth['folder']['plugins'] . $plugin . '/languages/';
+
+    $pth['file']['plugin_index'] = $pth['folder']['plugin'] . 'index.php';
+    $pth['file']['plugin_admin'] = $pth['folder']['plugin'] . 'admin.php';
+
+    $pth['file']['plugin_language'] = $pth['folder']['plugin_languages'] . strtolower($sl) . '.php';
+
+    $pth['file']['plugin_classes'] = $pth['folder']['plugin_classes'] . 'required_classes.php';
+    $pth['file']['plugin_config'] = $pth['folder']['plugin_config'] . 'config.php';
+    $pth['file']['plugin_stylesheet'] = $pth['folder']['plugin_css'] . 'stylesheet.css';
+
+    $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help_' . strtolower($sl) . '.htm';
+    if (!file_exists($pth['file']['plugin_help'])) {
+        $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help_en.htm';
+    }
+    if (!file_exists($pth['file']['plugin_help']) AND file_exists($pth['folder']['plugin_help'] . 'help.htm')) {
+        $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help.htm';
+    }
+}
+
+/**
+ * Function preCallPlugins() => Pre-Call of Plugins.
+ *
+ * All Plugins which are called through a function-call
+ * can use this. At the moment it is'nt possible to do
+ * this with class-based plugins. They need to be called
+ * through standard-CMSimple-Scripting.
+ *
+ * Call a plugin: place this in your code (example):
+ * {{{PLUGIN:pluginfunction('parameters');}}}
+ *
+ * Call a built-in function (at the moment only one for
+ * demonstration):
+ * {{{HOME}}} or: {{{HOME:name_of_Link}}}
+ * This creates a link to the first page of your CMSimple-
+ * Installation.
+ * 
+ * @param pageIndex - added for search
+ * @global bool $edit TRUE if edit-mode is active
+ * @global array $c Array containing all contents of all CMSimple-pages
+ * @global integer $s Pagenumber of active page
+ * @global array $u Array containing URLs to all CMSimple-pages
+ * 
+ * @author mvwd
+ * @since V.2.1.02
+ */
+function preCallPlugins($pageIndex = -1) {
+    global $edit, $c, $s, $u;
+
+    if (!$edit) {
+        if ((int) $pageIndex > - 1 && (int) $pageIndex < count($u)) {
+            $as = $pageIndex;
+        } else {
+            $as = $s < 0 ? 0 : $s;
+        }
+	$c[$as] = evaluate_plugincall($c[$as]);
+    }
+}
+
+
+/**
+ * Returns a list of all installed plugins.
+ *
+ * @since 1.6
+ *
+ * @param   bool $admin  Whether to return only plugins with a admin.php
+ * @return  array
+ */
+function XH_plugins($admin = false)
+{ // TODO: might be optimized to set $admPlugins only when necessary
+    global $pth;
+    static $plugins = null;
+    static $admPlugins = null;
+    
+    if (!isset($plugins)) {
+	$plugins = array();
+	$admPlugins = array();
+	$dh = opendir($pth['folder']['plugins']); // TODO: error handling?
+	while (($fn = readdir($dh)) !== false) {
+	    if (strpos($fn, '.') !== 0  // ignore hidden directories
+		&& is_dir($pth['folder']['plugins'] . $fn))
+	    {
+		$plugins[] = $fn;
+		PluginFiles($fn);
+		if (is_file($pth['file']['plugin_admin'])) {
+		    $admPlugins[] = $fn;
+		}
+	    }
+	}
+	closedir($dh);
+	natcasesort($plugins);
+	natcasesort($admPlugins);
+    }    
+    return $admin ? $admPlugins : $plugins;
+}
+
 ?>
