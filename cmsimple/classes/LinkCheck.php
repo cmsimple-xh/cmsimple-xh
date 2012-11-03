@@ -106,7 +106,7 @@ function check_internal_link($test) {
 
     if (isset($test['path'])) {
         $query = str_replace('/' . $lang . '/?', '', $query);
-        $content = read_content_file($lang);
+        $content = $this->read_content_file($lang);
         if (!$content) {
             return 'content not found';
         }
@@ -251,6 +251,60 @@ function linkcheck_message($checkedLinks, $hints) {
     }
     return $html;
 }
+
+
+// FIXME: this function should be merged with rfc()
+/**
+ *
+ * @global <array> $cf
+ * @param <string> $path
+ * @return <array> - contains <array> $urls, <array> $pages, <array> $headings, <array> $levels
+ */
+function read_content_file($path) {
+
+    global $cf, $sl;
+    $path = basename($path);
+    if ($sl == $cf['language']['default']) {
+        $path = './' . $path;
+    } else {
+        $path = '../' . $path;
+    }
+    $sep = $cf['uri']['seperator'];
+    $pattern = '/<h([1-' . $cf['menu']['levels'] . '])[^>]*>(.*)<\/h/i';
+
+    $content = file_get_contents($path . '/content/content.htm');
+    if (!$content) {
+        return false;
+    }
+    preg_match_all($pattern, $content, $matches); // LM CMSimple_XH 1.1
+
+    $headings = array();
+    $levels = array();
+    $urls = array();
+
+    if (count($matches[0]) == 0) {
+        return;
+    }
+    $ancestors = array();
+    foreach ($matches[1] as $level) {
+        $levels[] = (int) $level;
+    }
+    $i = 0;
+    foreach ($matches[2] as $chapter) {
+        $heading = trim(strip_tags($chapter));
+        $url = uenc($heading); //in cms.php: handles $tx['urichar']
+        $headings[] = $heading;
+        $level = $levels[$i];
+        $ancestors[$level] = $url;
+        $myself = array_slice($ancestors, 0, $level);
+        $urls[] = implode($sep, $myself);
+        $i++;
+    }
+    $pages = preg_split($pattern, $content);
+    $pages = array_slice($pages, 1); // $pages[0] is the header part - drop it!
+    return array($urls, $pages, $headings, $levels);
+}
+
 
 }
 
