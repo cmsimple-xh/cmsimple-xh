@@ -979,4 +979,58 @@ function XH_plugins($admin = false)
     return $admin ? $admPlugins : $plugins;
 }
 
+function gc($s) {
+    if (!isset($_COOKIE)) {
+        global $_COOKIE;
+        $_COOKIE = $GLOBALS['HTTP_COOKIE_VARS'];
+    }
+    if (isset($_COOKIE[$s]))
+        return $_COOKIE[$s];
+}
+
+function logincheck() {
+    global $cf;
+    
+    return (gc('passwd') == $cf['security']['password']);
+}
+
+function writelog($m) {
+    global $pth, $e;
+    if ($fh = @fopen($pth['file']['log'], "a")) {
+        fwrite($fh, $m);
+        fclose($fh);
+    } else {
+        e('cntwriteto', 'log', $pth['file']['log']);
+        chkfile('log', true);
+    }
+}
+
+function lilink() {
+    global $cf, $adm, $sn, $u, $s, $tx;
+    if (!$adm) {
+        if ($cf['security']['type'] == 'javascript')
+            return '<form id="login" action="' . $sn . '" method="post"><div id="loginlink">' . tag('input type="hidden" name="login" value="true"') . tag('input type="hidden" name="selected" value="' . $u[$s] . '"') . tag('input type="hidden" name="passwd" id="passwd" value=""') . '</div></form><a href="#" onclick="login(); return false">' . $tx['menu']['login'] . '</a>';
+        else
+            return a($s > -1 ? $s : 0, '&amp;login') . $tx['menu']['login'] . '</a>';
+    }
+}
+
+function loginforms() {
+    global $adm, $cf, $print, $hjs, $tx, $onload, $f, $o, $s, $sn, $u;
+    // Javascript placed in head section used for javascript login
+    if (!$adm && $cf['security']['type'] == 'javascript' && !$print) {
+        $hjs .= '<script type="text/javascript"><!--
+			function login(){var t=prompt("' . $tx['login']['warning'] . '","");if(t!=null&&t!=""){document.getElementById("passwd").value=t;document.getElementById("login").submit();}}
+			//-->
+			</script>';
+    }
+    if ($f == 'login') {
+
+        $cf['meta']['robots'] = "noindex";
+        $onload .= "self.focus();document.login.passwd.focus();";
+        $f = $tx['menu']['login'];
+        $o .= '<h1>' . $tx['menu']['login'] . '</h1><p><b>' . $tx['login']['warning'] . '</b></p><form id="login" name="login" action="' . $sn . '?' . $u[$s] . '" method="post"><div id="login">' . tag('input type="hidden" name="login" value="true"') . tag('input type="hidden" name="selected" value="' . @$u[$s] . '"') . tag('input type="password" name="passwd" id="passwd" value=""') . ' ' . tag('input type="submit" name="submit" id="submit" value="' . $tx['menu']['login'] . '"') . '</div></form>';
+        $s = -1;
+    }
+}
 ?>
