@@ -228,8 +228,7 @@ if ($login && !$adm) {
 	shead('403');
     }
 } elseif ($logout && $adm) {
-    XH_backup('content');
-    XH_backup('pagedata');
+    $o .= XH_backup('content') . XH_backup('pagedata');
     $adm = false;
     setcookie('status', '', 0, CMSIMPLE_ROOT);
     setcookie('passwd', '', 0, CMSIMPLE_ROOT);

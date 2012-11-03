@@ -1037,13 +1037,14 @@ function loginforms() {
 
 function XH_backup($file)
 {
+    global $pth, $cf, $tx;
     static $date = null;
     
     !isset($date) and $date = date("Ymd_His");
     if ($file != 'pagedata' || is_readable($pth['file']['pagedata'])) {
         $fn = "${date}_$file.htm";
         if (@copy($pth['file'][$file], $pth['folder']['content'] . $fn)) {
-            $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup'])
+            $o = '<p>' . utf8_ucfirst($tx['filetype']['backup'])
                 . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
             $fl = array();
             $fd = @opendir($pth['folder']['content']);
@@ -1066,6 +1067,7 @@ function XH_backup($file)
             e('cntsave', 'backup', $fn);
         }
     }
+    return $o;
 }
 
 ?>
