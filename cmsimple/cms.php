@@ -323,38 +323,6 @@ if (!($edit && $adm) && $s > -1) {
 }
 
 
-// CMSimple scripting with error message - MD 2009/10 (CMSimple_XH 1.0rc2)
-/*
-  if (!($edit && $adm) && $s > -1) {
-  $t = preg_replace("/^.*".$cf['scripting']['regexp'].".*$/is", "\\1", $c[$s]);
-  if ($t != '' && $t != $c[$s] && $t != 'remove' && $t != 'hide') {
-  $output = preg_replace("/".$cf['scripting']['regexp']."/is", "", $c[$s]);
-  preg_match('/'.$cf['scripting']['regexp'].'/is', $c[$s], $scripting);
-  preg_match_all('/([a-z0-9_]*)\(([^\)]*)[\"|\']*\)/is', $scripting[1], $snippets);
-  $evaluate = true;
-  foreach($snippets[1] as $function){
-  if(!function_exists($function) &&
-  !in_array($function, array('if', 'while', 'foreach', 'for', 'declare', 'switch'))
-  ){
-  $evaluate = false;
-  $o .= '<div style="background: #ff3; border: 3px solid #000; padding: 4px 10px; margin: 2px 0;">Error: Call to undefined function '. $function . '().</div>';
-  trigger_error('Call to undefined function '. $function . '() from CMSimple-Scripting on page ' . $h[$s], E_USER_WARNING);
-  }
-  }
-  if($evaluate){
-  if(is_bool(eval(preg_replace(array("'&(quot|#34);'i", "'&(amp|#38);'i", "'&(apos|#39);'i", "'&(lt|#60);'i", "'&(gt|#62);'i", "'&(nbsp|#160);'i"), array("\"", "&", "'", "<", ">", " "), $t)))){
-  trigger_error('Above parse error was evoked by CMSimple scripting  error on page ' . $h[$s], E_USER_WARNING);
-  }
-  }
-  $c[$s] = $output;
-  if (isset($keywords))$cf['meta']['keywords'] = $keywords;
-  if (isset($description))$cf['meta']['description'] = $description;
-  }
-  }
- */
-//END CMSimple scripting with error message - MD 2009/10 (CMSimple_XH 1.0rc2)
-
-
 if ($s == -1 && !$f && $o == '')
     shead('404');
 
