@@ -77,10 +77,21 @@ $pth['folder']['base'] = is_dir('./cmsimple') ? './' : '../';
  
 $pth['folder']['cmsimple'] = $pth['folder']['base'] . 'cmsimple/';
 $pth['folder']['classes'] = $pth['folder']['cmsimple'] . 'classes/';
+$pth['folder']['plugins'] = $pth['folder']['base'] . 'plugins/';
 
 $pth['file']['log'] = $pth['folder']['cmsimple'] . 'log.txt';
 $pth['file']['cms'] = $pth['folder']['cmsimple'] . 'cms.php';
 $pth['file']['config'] = $pth['folder']['cmsimple'] . 'config.php';
+
+require_once $pth['folder']['cmsimple'] . 'functions.php';
+require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
+require_once $pth['folder']['classes'] . 'PasswordHash.php';
+require_once $pth['folder']['classes'] . 'page_data_router.php';
+require_once $pth['folder']['classes'] . 'page_data_model.php';
+require_once $pth['folder']['classes'] . 'page_data_views.php';
+require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
+require_once UTF8 . '/ucfirst.php';
+require_once UTF8 . '/utils/validation.php';
 
 if (file_exists($pth['folder']['cmsimple'].'defaultconfig.php')) {
     include($pth['folder']['cmsimple'].'defaultconfig.php');
@@ -88,8 +99,6 @@ if (file_exists($pth['folder']['cmsimple'].'defaultconfig.php')) {
 if (!include($pth['file']['config']))
     die('Config file missing');
     
-require_once $pth['folder']['cmsimple'] . 'functions.php';
-
 foreach (array('userfiles', 'downloads', 'images', 'media') as $temp) {
     if (!isset($cf['folders'][$temp])) { // for compatibility with older version's config files
 	$cf['folders'][$temp] = $temp != 'media' ? "$temp/" : 'downloads/';
@@ -146,11 +155,6 @@ $pth['file']['stylesheet'] = $pth['folder']['template'] . 'stylesheet.css';
 $pth['folder']['menubuttons'] = $pth['folder']['template'] . 'menu/';
 $pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
 
-$pth['folder']['plugins'] = $pth['folder']['base'] . 'plugins/';
-
-require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
-require_once UTF8 . '/ucfirst.php';
-require_once UTF8 . '/utils/validation.php';
 
 // don't check cookies, as these might be set from non UTF-8 scripts on the domain
 // TODO: what about the variable names? what about other input (e.g. $_SERVER)?
@@ -198,7 +202,6 @@ $pth['file']['mailform'] = $pth['folder']['cmsimple'] . 'mailform.php';
 $adm = 0;
 $f = '';
 	
-require $pth['folder']['classes'] . 'PasswordHash.php';
 $xh_hasher = new PasswordHash(8, true);
 
 if ($txc['subsite']['password'] != "") {
@@ -308,7 +311,6 @@ if ($function == 'save') {
 }
 
 $adm and include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
-require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
 
 define('PLUGINLOADER', TRUE);
 define('PLUGINLOADER_VERSION', 2.111);
@@ -327,9 +329,6 @@ if ($adm) {
 
 // BOF page_data
 
-require_once $pth['folder']['classes'] . 'page_data_router.php';
-require_once $pth['folder']['classes'] . 'page_data_model.php';
-require_once $pth['folder']['classes'] . 'page_data_views.php';
 
 /*
  * Check if page-data-file exists, if not: try to
@@ -564,7 +563,7 @@ if ($adm) {
             if ($action == 'download') {
                 download($pth['file'][$file]);
             } else {
-                require_once $pth['folder']['classes'] . 'FileEdit.php';
+                include_once $pth['folder']['classes'] . 'FileEdit.php';
                 $temp = array('config' => 'XH_CoreConfigFileEdit',
                               'langconfig' => 'XH_CoreLangconfigFileEdit',
                               'language' => 'XH_CoreLangFileEdit',
@@ -580,7 +579,7 @@ if ($adm) {
         }
         break;
     case 'validate':
-        require_once $pth['folder']['classes'] . 'LinkCheck.php';
+        include_once $pth['folder']['classes'] . 'LinkCheck.php';
         $temp = new XH_LinkCheck();
         $o .= $temp->check_links();
         break;
