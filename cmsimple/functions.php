@@ -190,12 +190,6 @@ function newsbox($heading) {
 }
 
 
-// includes additional userfuncs.php - CMSimple_XH beta3
-if (file_exists($pth['folder']['cmsimple'] . 'userfuncs.php')) {
-    include($pth['folder']['cmsimple'] . 'userfuncs.php');
-}
-
-
 // EDITOR CALL
 
 function init_editor($elementClasses = array(),  $initFile = false){

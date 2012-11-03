@@ -226,6 +226,13 @@ if ($xhpages)
 
 if ($cf['functions']['file'] != "")
     include($pth['folder']['cmsimple'] . $cf['functions']['file']);
+    
+// includes additional userfuncs.php - CMSimple_XH beta3
+if (is_readable($pth['folder']['cmsimple'] . 'userfuncs.php')) {
+    include_once $pth['folder']['cmsimple'] . 'userfuncs.php';
+}
+
+
 
 // changes title, keywords and description from $tx to $cf - by MD 2009/08 (CMSimple_XH beta)
 
