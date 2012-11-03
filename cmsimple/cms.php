@@ -257,6 +257,8 @@ if ($function == 'save') {
     $edit = true;
 }
 
+$adm and include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
+
 include($pth['file']['pluginloader']);
 
 if ($f == 'search')
