@@ -158,7 +158,6 @@ $pth['folder']['menubuttons'] = $pth['folder']['template'] . 'menu/';
 $pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
 
 $pth['folder']['plugins'] = $pth['folder']['base'] . 'plugins/';
-$pth['file']['pluginloader'] = $pth['folder']['cmsimple'] . 'pluginloader.php';
 
 require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
@@ -268,7 +267,170 @@ if ($function == 'save') {
 $adm and include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
 require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
 
-include($pth['file']['pluginloader']);
+define('PLUGINLOADER', TRUE);
+define('PLUGINLOADER_VERSION', 2.111);
+
+
+if (!isset($hjs)) {
+    $hjs = '';
+}
+
+
+define('XH_FORM_NAMESPACE', 'PL3bbeec384_');
+
+
+/*
+ * If admin is logged, generate fake output to suppress later adjustment of $s.
+ */
+if ($adm) {
+    $o .= ' ';
+}
+
+
+// BOF page_data
+
+require_once($pth['folder']['classes'] . 'page_data_router.php');
+require_once($pth['folder']['classes'] . 'page_data_model.php');
+require_once($pth['folder']['classes'] . 'page_data_views.php');
+
+/**
+ * Check if page-data-file exists, if not: try to
+ * create a new one with basic data-fields.
+ */
+if (!file_exists($pth['file']['pagedata'])) {
+    if ($fh = fopen($pth['file']['pagedata'], 'w')) {
+        fwrite($fh, '<?php' . "\n" . '$page_data_fields[] = \'url\';' . "\n" . '$page_data_fields[] = \'last_edit\';' . "\n" . '?>');
+        chmod($pth['file']['pagedata'], 0666);
+        fclose($fh);
+    } else {
+        e('cntwriteto', 'file', $pth['file']['pagedata']);
+    }
+}
+
+/**
+ * Create an instance of PL_Page_Data_Router
+ */
+$pd_router = new PL_Page_Data_Router($pth['file']['pagedata'], $h);
+
+if ($adm) {
+
+    /**
+     * Check for any changes to handle
+     * First: check for changes from texteditor
+     */
+    if ($function == 'save') {
+        /**
+         * Collect the headings and pass them over to the router
+         */
+        $text = preg_replace("/<h[1-" . $cf['menu']['levels'] . "][^>]*>(&nbsp;|&#160;|\xC2\xA0| )?<\/h[1-" . $cf['menu']['levels'] . "]>/is", "", stsl($text));
+        preg_match_all('/<h[1-' . $cf['menu']['levels'] . '].*>(.+)<\/h[1-' . $cf['menu']['levels'] . ']>/isU', $text, $matches);
+        $pd_router->refresh_from_texteditor($matches[1], $s);
+    }
+
+    /**
+     * Second: check for changes from MenuManager
+     */
+    if (isset($menumanager) && $menumanager && $action == 'saverearranged' && (isset($text) ? strlen($text) : 0 ) > 0) {
+        $pd_router->refresh_from_menu_manager($text);
+    }
+
+    /**
+     * Finally check for some changed page infos
+     */
+    if ($s > -1 && isset($_POST['save_page_data'])) {
+        $params = $_POST;
+        if (get_magic_quotes_gpc() === 1) {
+            array_walk($params, create_function('&$data', '$data=stripslashes($data);'));
+        }
+        unset($params['save_page_data']);
+        $pd_router->update($s, $params);
+    }
+}
+/**
+ * Now we are up to date
+ * If no page has been selected yet, we
+ * are on the start page: Get its index
+ */
+if ($s == -1 && !$f && $o == '' && $su == '') {
+    $pd_s = 0;
+} else {
+    $pd_s = $s;
+}
+
+/**
+ * Get the infos about the current page
+ */
+$pd_current = $pd_router->find_page($pd_s);
+
+// EOF page_data
+
+/**
+ * Include plugin (and plugin files)
+ */
+foreach (XH_plugins() as $plugin) {
+    PluginFiles($plugin);
+    if (is_readable($pth['file']['plugin_classes'])) {
+	include($pth['file']['plugin_classes']);
+    }
+}
+
+foreach (XH_plugins() as $plugin) {
+    PluginFiles($plugin);
+
+    // Load plugin config
+    if (file_exists($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php')) {
+	include($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php');
+    }
+    if (file_exists($pth['file']['plugin_config'])) {
+	include($pth['file']['plugin_config']);
+    }
+    
+    XH_createLanguageFile($pth['file']['plugin_language']);
+    
+    // Load default plugin language
+    if (file_exists($pth['folder']['plugins'] . $plugin . '/languages/default.php')) {
+        include $pth['folder']['plugins'] . $plugin . '/languages/default.php';
+    }
+    // Load plugin language
+    if (file_exists($pth['file']['plugin_language'])) {
+	include($pth['file']['plugin_language']);
+    }
+
+    // Load plugin index.php or die
+    if (file_exists($pth['file']['plugin_index']) AND !include($pth['file']['plugin_index'])) {
+	die($tx['error']['plugin_error'] . $tx['error']['cntopen'] . $pth['file']['plugin_index']);
+    }
+
+    // Add plugin css to the header of CMSimple/Template
+    if (file_exists($pth['file']['plugin_stylesheet'])) {
+	$hjs .= tag('link rel="stylesheet" href="' . $pth['file']['plugin_stylesheet'] . '" type="text/css"') . "\n";
+    }
+}
+
+
+/**
+ * Load admin functions (admin.php, if exists) of plugin
+ */
+if ($adm) {
+    foreach (XH_plugins(true) as $plugin) {
+	PluginFiles($plugin);
+	if (is_readable($pth['file']['plugin_admin'])) {
+	    include($pth['file']['plugin_admin']);
+	}
+    }
+    // ########## bridge to page data ##########
+    $o .= $pd_router->create_tabs($s);
+    // #########################################
+}
+
+/**
+ * Pre-Call Plugins
+ */
+preCallPlugins();
+
+// Plugin functions
+unset($plugin);
+
 
 if ($f == 'search')
     @include($pth['file']['search']);
