@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @version $Id$
+ */
+
 // FIXME: class needs cleanup
 
 class XH_LinkCheck

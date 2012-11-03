@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @version $Id$
+ */
+
 class XH_FileEdit
 {
     var $params = array();
