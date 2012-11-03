@@ -46,6 +46,9 @@
   ======================================
  */
 
+if (preg_match('/cms.php/i', $_SERVER['PHP_SELF']))
+    die('Access Denied');
+    
 $title = '';
 $o = '';
 $e = '';
@@ -53,22 +56,11 @@ $hjs = '';
 $bjs = '';
 $onload = '';
 
-// added to make it possible to overwrite the backend plugins delivered with the core
 
-//$backend_hooks = array(
-//  'pagemanager' => false,
-//  'filebrowser' => false
-//);
-
-//HI 2009-10-30 (CMSimple_XH 1.0rc3) added version-informations
 define('CMSIMPLE_XH_VERSION', '$CMSIMPLE_XH_VERSION$');
 define('CMSIMPLE_XH_BUILD', '$CMSIMPLE_XH_BUILD$');
 define('CMSIMPLE_XH_DATE', '$CMSIMPLE_XH_DATE$');
-//version-informations
 
-if (preg_match('/cms.php/i', $_SERVER['PHP_SELF']))
-    die('Access Denied');
-    
 if (!defined('E_DEPRECATED')) {
     define('E_DEPRECATED', 8192);
 }
@@ -107,7 +99,6 @@ foreach (array('userfiles', 'downloads', 'images', 'media') as $temp) {
 
 $pth['folder']['flags'] = $pth['folder']['images'] . 'flags/';
 
-//HI 2009-10-30 (CMSimple_XH 1.0rc3) debug-mode, enables error-reporting
 xh_debugmode();
 $errors = array();
 
@@ -172,10 +163,9 @@ $sn = preg_replace('/([^\?]*)\?.*/', '\1', sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_U
 foreach (array('download', 'function', 'media', 'search', 'mailform', 'sitemap', 'text', 'selected', 'login', 'logout', 'settings', 'print', 'file', 'action', 'validate', 'images', 'downloads', 'edit', 'normal', 'stylesheet', 'passwd', 'userfiles', 'xhpages')as $i)
     initvar($i);
 
-//by GE 2009-10-14 (CMSimple_XH 1.0rc2)
 define('CMSIMPLE_ROOT', str_replace('index.php', '', str_replace('/' . $sl . '/', "/", $sn))); //for absolute references
-define('CMSIMPLE_BASE', (strtolower($cf['language']['default']) == $sl ? './' : './../')); //for relative references
-//END by GE 2009-10-14 (CMSimple_XH 1.0rc2)
+define('CMSIMPLE_BASE', $pth['folder']['base']); //for relative references
+
 // define su - selected url
 $su = '';
 if (sv('QUERY_STRING') != '') {
@@ -198,8 +188,9 @@ if ($stylesheet != '') {
     include($pth['file']['stylesheet']);
     exit;
 }
-if ($download != '')
+if ($download != '') {
     download($pth['folder']['downloads'] . basename($download));
+}
 
 $pth['file']['search'] = $pth['folder']['cmsimple'] . 'search.php';
 $pth['file']['mailform'] = $pth['folder']['cmsimple'] . 'mailform.php';
@@ -210,20 +201,14 @@ $f = '';
 require $pth['folder']['classes'] . 'PasswordHash.php';
 $xh_hasher = new PasswordHash(8, true);
 
-// for subsite solution - GE 20011-02
-
 if ($txc['subsite']['password'] != "") {
     $cf['security']['password'] = $txc['subsite']['password'];
 }
 
-// END for subsite solution - GE 20011-02
 
-
-
-// if(gc('status')!=''||$login){header('Cache-Control: no-cache');header('Pragma: no-cache');}
 // LOGIN & BACKUP
 
-$adm = (gc('status') == 'adm' && logincheck());
+$adm = gc('status') == 'adm' && logincheck();
 
 if ($cf['security']['type'] == 'page' && $login && $passwd == '' && !$adm) {
     $login = null;
@@ -239,10 +224,10 @@ if ($login && !$adm) {
 	$adm = true;
 	$edit = true;
 	writelog(date("Y-m-d H:i:s") . " from " . sv('REMOTE_ADDR') . " logged_in\n");
-    }
-    else
+    } else {
 	shead('403');
-} else if ($logout && $adm) {
+    }
+} elseif ($logout && $adm) {
     $backupDate = date("Ymd_His");
     $fn = $backupDate . '_content.htm';
     if (@copy($pth['file']['content'], $pth['folder']['content'] . $fn)) {
@@ -341,13 +326,9 @@ if ($sitemap)
 if ($xhpages)
     $f = 'xhpages';
 
-    
-// includes additional userfuncs.php - CMSimple_XH beta3
 if (is_readable($pth['folder']['cmsimple'] . 'userfuncs.php')) {
     include_once $pth['folder']['cmsimple'] . 'userfuncs.php';
 }
-
-
 
 // changes title, keywords and description from $tx to $cf - by MD 2009/08 (CMSimple_XH beta)
 
@@ -386,11 +367,6 @@ define('PLUGINLOADER', TRUE);
 define('PLUGINLOADER_VERSION', 2.111);
 
 
-if (!isset($hjs)) {
-    $hjs = '';
-}
-
-
 define('XH_FORM_NAMESPACE', 'PL3bbeec384_');
 
 
@@ -404,11 +380,11 @@ if ($adm) {
 
 // BOF page_data
 
-require_once($pth['folder']['classes'] . 'page_data_router.php');
-require_once($pth['folder']['classes'] . 'page_data_model.php');
-require_once($pth['folder']['classes'] . 'page_data_views.php');
+require_once $pth['folder']['classes'] . 'page_data_router.php';
+require_once $pth['folder']['classes'] . 'page_data_model.php';
+require_once $pth['folder']['classes'] . 'page_data_views.php';
 
-/**
+/*
  * Check if page-data-file exists, if not: try to
  * create a new one with basic data-fields.
  */
@@ -422,7 +398,7 @@ if (!file_exists($pth['file']['pagedata'])) {
     }
 }
 
-/**
+/*
  * Create an instance of PL_Page_Data_Router
  */
 $pd_router = new PL_Page_Data_Router($pth['file']['pagedata'], $h);
