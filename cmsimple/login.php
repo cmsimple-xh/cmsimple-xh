@@ -27,7 +27,7 @@
 if (preg_match('/login.php/i', sv('PHP_SELF')))
     die('Access Denied');
 
-require $pth['folder']['cmsimple'] . 'PasswordHash.php';
+require $pth['folder']['classes'] . 'PasswordHash.php';
 $xh_hasher = new PasswordHash(8, true);
 
 // for subsite solution - GE 20011-02
