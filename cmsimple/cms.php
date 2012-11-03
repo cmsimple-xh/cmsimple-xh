@@ -336,7 +336,8 @@ if ($adm) {
  */
 if (!file_exists($pth['file']['pagedata'])) {
     if ($fh = fopen($pth['file']['pagedata'], 'w')) {
-        fwrite($fh, '<?php' . "\n" . '$page_data_fields[] = \'url\';' . "\n" . '$page_data_fields[] = \'last_edit\';' . "\n" . '?>');
+        fwrite($fh, '<?php' . "\n" . '$page_data_fields[] = \'url\';' . "\n"
+	       . '$page_data_fields[] = \'last_edit\';' . "\n" . '?>');
         chmod($pth['file']['pagedata'], 0666);
         fclose($fh);
     } else {
@@ -359,15 +360,20 @@ if ($adm) {
         /**
          * Collect the headings and pass them over to the router
          */
-        $text = preg_replace("/<h[1-" . $cf['menu']['levels'] . "][^>]*>(&nbsp;|&#160;|\xC2\xA0| )?<\/h[1-" . $cf['menu']['levels'] . "]>/is", "", stsl($text));
-        preg_match_all('/<h[1-' . $cf['menu']['levels'] . '].*>(.+)<\/h[1-' . $cf['menu']['levels'] . ']>/isU', $text, $matches);
+	$temp = $cf['menu']['levels'];
+        $text = preg_replace("/<h[1-" . $temp . "][^>]*>(&nbsp;|&#160;|\xC2\xA0| )?<\/h[1-" . $temp . "]>/is",
+			     '', stsl($text));
+        preg_match_all('/<h[1-' . $temp . '].*>(.+)<\/h[1-' . $temp . ']>/isU',
+		       $text, $matches);
         $pd_router->refresh_from_texteditor($matches[1], $s);
     }
 
     /**
      * Second: check for changes from MenuManager
      */
-    if (isset($menumanager) && $menumanager && $action == 'saverearranged' && (isset($text) ? strlen($text) : 0 ) > 0) {
+    if (isset($menumanager) && $menumanager == 'true'
+	&& $action == 'saverearranged' && !empty($text))
+    {
         $pd_router->refresh_from_menu_manager($text);
     }
 
@@ -376,10 +382,8 @@ if ($adm) {
      */
     if ($s > -1 && isset($_POST['save_page_data'])) {
         $params = $_POST;
-        if (get_magic_quotes_gpc() === 1) {
-            array_walk($params, create_function('&$data', '$data=stripslashes($data);'));
-        }
         unset($params['save_page_data']);
+	$params = array_map('stsl', $params);
         $pd_router->update($s, $params);
     }
 }
@@ -388,16 +392,12 @@ if ($adm) {
  * If no page has been selected yet, we
  * are on the start page: Get its index
  */
-if ($s == -1 && !$f && $o == '' && $su == '') {
-    $pd_s = 0;
-} else {
-    $pd_s = $s;
-}
+$temp = $s == -1 && !$f && $o == '' && $su == '' ? 0 : $s;
 
 /**
  * Get the infos about the current page
  */
-$pd_current = $pd_router->find_page($pd_s);
+$pd_current = $pd_router->find_page($temp);
 
 // EOF page_data
 
