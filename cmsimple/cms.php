@@ -392,12 +392,12 @@ if ($adm) {
  * If no page has been selected yet, we
  * are on the start page: Get its index
  */
-$temp = $s == -1 && !$f && $o == '' && $su == '' ? 0 : $s;
+$pd_s = $s == -1 && !$f && $o == '' && $su == '' ? 0 : $s;
 
 /**
  * Get the infos about the current page
  */
-$pd_current = $pd_router->find_page($temp);
+$pd_current = $pd_router->find_page($pd_s);
 
 // EOF page_data
 
