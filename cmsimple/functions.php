@@ -1070,4 +1070,21 @@ function XH_backup($file)
     return $o;
 }
 
+
+/**
+ * Writes $contents to the file $filename.
+ *
+ * @since   1.6
+ *
+ * @param   string $filename
+ * @param   string $contents
+ * @return  int  The number of bytes written, or FALSE on failure.
+ */
+function XH_writeFile($filename, $contents)
+{
+    $res = ($fh = fopen($filename, 'wb')) && fwrite($fh, $contents);
+    $fh and fclose($fh);
+    return $res;
+}
+
 ?>

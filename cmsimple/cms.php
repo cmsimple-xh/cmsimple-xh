@@ -335,13 +335,13 @@ if ($adm) {
  * create a new one with basic data-fields.
  */
 if (!file_exists($pth['file']['pagedata'])) {
-    if ($fh = fopen($pth['file']['pagedata'], 'w')) {
-        fwrite($fh, '<?php' . "\n" . '$page_data_fields[] = \'url\';' . "\n"
-	       . '$page_data_fields[] = \'last_edit\';' . "\n" . '?>');
-        chmod($pth['file']['pagedata'], 0666);
-        fclose($fh);
+    $temp = XH_writeFile($pth['file']['pagedata'],
+			 '<?php' . "\n" . '$page_data_fields[] = \'url\';' . "\n"
+			 . '$page_data_fields[] = \'last_edit\';' . "\n" . '?>');
+    if ($temp !== false) {
+	chmod($pth['file']['pagedata'], 0666);
     } else {
-        e('cntwriteto', 'file', $pth['file']['pagedata']);
+	e('cntsave', 'pagedata', $pth['file']['pagedata']);
     }
 }
 
