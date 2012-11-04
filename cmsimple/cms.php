@@ -129,12 +129,12 @@ $pth['file']['langconfig'] = $pth['folder']['language'] . basename($sl) . 'confi
 $pth['file']['corestyle'] = $pth['folder']['base'] . 'css/core.css';
 
 XH_createLanguageFile($pth['file']['language']);
-if (!file_exists($pth['file']['language']) && !file_exists($pth['folder']['language'].'default.php')) {
+if (!is_readable($pth['file']['language']) && !is_readable($pth['folder']['language'].'default.php')) {
     die('Language file ' . $pth['file']['language'] . ' missing');
 }
 
 XH_createLanguageFile($pth['file']['langconfig']);
-if (!file_exists($pth['file']['langconfig']) && !file_exists($pth['folder']['language'].'defaultconfig.php')) {
+if (!is_readable($pth['file']['langconfig']) && !is_readable($pth['folder']['language'].'defaultconfig.php')) {
     die('Language config file ' . $pth['file']['langconfig'] . ' missing');
 }
 
@@ -407,7 +407,7 @@ $pd_current = $pd_router->find_page($temp);
 foreach (XH_plugins() as $plugin) {
     PluginFiles($plugin);
     if (is_readable($pth['file']['plugin_classes'])) {
-	include($pth['file']['plugin_classes']);
+	include_once $pth['file']['plugin_classes'];
     }
 }
 
@@ -415,32 +415,31 @@ foreach (XH_plugins() as $plugin) {
     PluginFiles($plugin);
 
     // Load plugin config
-    if (file_exists($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php')) {
-	include($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php');
+    if (is_readable($pth['folder']['plugin_config'] . 'defaultconfig.php')) {
+	include $pth['folder']['plugin_config'] . 'defaultconfig.php';
     }
-    if (file_exists($pth['file']['plugin_config'])) {
-	include($pth['file']['plugin_config']);
+    if (is_readable($pth['file']['plugin_config'])) {
+	include $pth['file']['plugin_config'];
     }
     
-    XH_createLanguageFile($pth['file']['plugin_language']);
-    
-    // Load default plugin language
-    if (file_exists($pth['folder']['plugins'] . $plugin . '/languages/default.php')) {
-        include $pth['folder']['plugins'] . $plugin . '/languages/default.php';
-    }
     // Load plugin language
-    if (file_exists($pth['file']['plugin_language'])) {
-	include($pth['file']['plugin_language']);
+    XH_createLanguageFile($pth['file']['plugin_language']);
+    if (is_readable($pth['folder']['plugin_languages'] . 'default.php')) {
+        include $pth['folder']['plugin_languages'] . 'default.php';
+    }
+    if (is_readable($pth['file']['plugin_language'])) {
+	include $pth['file']['plugin_language'];
     }
 
-    // Load plugin index.php or die
-    if (file_exists($pth['file']['plugin_index']) AND !include($pth['file']['plugin_index'])) {
-	die($tx['error']['plugin_error'] . $tx['error']['cntopen'] . $pth['file']['plugin_index']);
+    // Load plugin index.php
+    if (is_readable($pth['file']['plugin_index'])) {
+	include $pth['file']['plugin_index'];
     }
 
     // Add plugin css to the header of CMSimple/Template
-    if (file_exists($pth['file']['plugin_stylesheet'])) {
-	$hjs .= tag('link rel="stylesheet" href="' . $pth['file']['plugin_stylesheet'] . '" type="text/css"') . "\n";
+    if (is_file($pth['file']['plugin_stylesheet'])) {
+	$hjs .= tag('link rel="stylesheet" href="' . $pth['file']['plugin_stylesheet']
+		    . '" type="text/css"') . "\n";
     }
 }
 
@@ -452,51 +451,55 @@ if ($adm) {
     foreach (XH_plugins(true) as $plugin) {
 	PluginFiles($plugin);
 	if (is_readable($pth['file']['plugin_admin'])) {
-	    include($pth['file']['plugin_admin']);
+	    include $pth['file']['plugin_admin'];
 	}
     }
-    // ########## bridge to page data ##########
     $o .= $pd_router->create_tabs($s);
-    // #########################################
 }
 
 /**
  * Pre-Call Plugins
  */
-preCallPlugins();
+preCallPlugins(); // TODO: when is CMSimple scripting evaluated?
 
-// Plugin functions
 unset($plugin);
 
 
-if ($f == 'search')
-    @include($pth['file']['search']);
-if ($f == 'mailform' && $cf['mailform']['email'] != '')
-    include($pth['file']['mailform']);
+if ($f == 'search') {
+    @include $pth['file']['search'];
+}
+if ($f == 'mailform' && !empty($cf['mailform']['email'])) {
+    include $pth['file']['mailform'];
+}
 if ($f == 'sitemap') {
     $title = $tx['title'][$f];
     $ta = array();
     $o .= '<h1>' . $title . '</h1>' . "\n";
-    for ($i = 0; $i < $cl; $i++)
-        if (!hide($i) || $cf['show_hidden']['pages_sitemap'] == 'true')
+    for ($i = 0; $i < $cl; $i++) {
+        if (!hide($i) || $cf['show_hidden']['pages_sitemap'] == 'true') {
             $ta[] = $i;
+        }
+    }
     $o .= li($ta, 'sitemaplevel');
 }
 
-// Compatibility for DHTML menus, moved from functions.php to cms.php - by MD 2009/09 (CMSimple_XH 1.0rc1)
+// Compatibility for DHTML menus
 $si = -1;
 $hc = array();
 for ($i = 0; $i < $cl; $i++) {
-    if (!hide($i) || ($i == $s && $cf['show_hidden']['pages_toc'] == 'true'))
+    if (!hide($i) || ($i == $s && $cf['show_hidden']['pages_toc'] == 'true')) {
         $hc[] = $i;
-    if ($i == $s)
+    }
+    if ($i == $s) {
         $si = count($hc);
+    }
 }
 $hl = count($hc);
-//END Compatibility for DHTML menus, moved from functions.php to cms.php - by MD 2009/09 (CMSimple_XH 1.0rc1)
-// LEGAL NOTICES - no needed under GPL3
-if (@$cf['menu']['legal'] == '')
+
+// LEGAL NOTICES - not needed under GPL3
+if (@$cf['menu']['legal'] == '') {
     $cf['menu']['legal'] = 'CMSimple Legal Notices';
+}
 if ($su == uenc($cf['menu']['legal'])) {
     $f = $title = $cf['menu']['legal'];
     $s = -1;
@@ -504,12 +507,11 @@ if ($su == uenc($cf['menu']['legal'])) {
 }
 
 if ($adm) {
-    
     if ($validate) {
-        $f = 'validate';
+	$f = 'validate';
     }
     if ($settings) {
-        $f = 'settings';
+	$f = 'settings';
     }
     if (isset($sysinfo)) { // FIXME: why isset() here and not in the other ifs?
         $f = 'sysinfo';
@@ -520,6 +522,8 @@ if ($adm) {
     if ($file) {
         $f = 'file';
     }
+    // FIXME: handling of userfiles, images and download probably not necessary,
+    //		as this should already be handled by the filebrowser
     if ($userfiles) {
         $f = 'userfiles';
     }
@@ -569,7 +573,7 @@ if ($adm) {
                               'language' => 'XH_CoreLangFileEdit',
                               'template' => 'XH_CoreTextFileEdit',
                               'stylesheet' => 'XH_CoreTextFileEdit');
-                $temp = array_key_exists($file) ? $temp[$file] : null;
+                $temp = array_key_exists($file, $temp) ? $temp[$file] : null;
                 if ($action == 'save') {
                     $o .= $temp->submit();
                 } else {
@@ -660,6 +664,7 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
     }
 }
 
+// FIXME: isset() probably not necessary
 if ($adm && ((isset($images) && $images)
              || (isset($downloads) && $downloads)
              || (isset($userfiles) && $userfiles)
@@ -689,21 +694,28 @@ if (!($edit && $adm) && $s > -1) {
 }
 
 
-if ($s == -1 && !$f && $o == '')
+if ($s == -1 && !$f && $o == '') {
     shead('404');
+}
 
-if (function_exists('loginforms'))
+if (function_exists('loginforms')) // FIXME: why should loginforms() not exist?
     loginforms();
 
-foreach (array('content', 'pagedata', 'config', 'language', 'langconfig', 'stylesheet', 'template', 'log') as $i)
+// FIXME: why so late? Why at all?
+foreach (array('content', 'pagedata', 'config', 'language', 'langconfig', 'stylesheet', 'template', 'log') as $i) {
     chkfile($i, (($login || $settings) && $adm));
-if ($e)
-    $o = '<div class="cmsimplecore_warning cmsimplecore_center">' . "\n" . '<b>' . $tx['heading']['warning'] . '</b>' . "\n" . '</div>' . "\n" . '<ul>' . "\n" . $e . '</ul>' . "\n" . $o;
+}
+if ($e) {
+    $o = '<div class="cmsimplecore_warning cmsimplecore_center">' . "\n"
+	. '<b>' . $tx['heading']['warning'] . '</b>' . "\n" . '</div>' . "\n"
+	. '<ul>' . "\n" . $e . '</ul>' . "\n" . $o;
+}
 if ($title == '') {
-    if ($s > -1)
+    if ($s > -1) {
         $title = $h[$s];
-    else if ($f != '')
+    } elseif ($f != '') {
         $title = ucfirst($f);
+    }
 }
 
 if (!headers_sent($tempFile, $tempLine)) {
@@ -730,7 +742,7 @@ if ($print) {
 }
 
 
-if (!XH_ADM && $adm) {
+if (!XH_ADM && $adm) { // somebody has manipulated $adm!!!
     $s = -1;
     $adm = $edit = false;
     $o = '';
@@ -741,7 +753,7 @@ if (!XH_ADM && $adm) {
 
 ob_start('final_clean_up');
 
-if (!include($pth['file']['template'])) {
+if (!include $pth['file']['template']) {
     header('HTTP/1.0 500 Internal Server Error');
     header('Content-Type: text/plain; charset=utf-8');
     echo $tx['error']['missing'], ' ', $tx['filetype']['template'], "\n", $pth['file']['template'];
