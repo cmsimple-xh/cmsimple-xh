@@ -304,4 +304,36 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY())
 }
 
 
+/**
+ * Returns the (X)HTML for the content editor and activates it.
+ *
+ * @since 1.6
+ */
+function XH_contentEditor()
+{
+    global $sn, $su, $s, $u, $c, $e, $cf, $tx;
+    
+    $su = $u[$s]; // TODO: changing of $su correct?
+
+    $editor = $cf['editor']['external'] == '' || init_editor();
+    if (!$editor) {
+        $e .= '<li>' . sprintf('External editor %s missing', $cf['editor']['external'])
+            . '</li>' . "\n"; // FIXME: i18n
+    }
+    $o = '<form method="POST" id="ta" action="' . $sn . '">'
+            . tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
+            . tag('input type="hidden" name="function" value="save"')
+            . '<textarea name="text" id="text" class="xh-editor" style="height: '
+            . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
+            . htmlspecialchars($c[$s], ENT_COMPAT, 'UTF-8')
+            . '</textarea>';
+    if ($cf['editor']['external'] == '' || !$editor) {
+        $o .= tag('input type="submit" value="'
+                  . utf8_ucfirst($tx['action']['save']) . '"');
+    }
+    $o .= '</form>';
+    return $o;
+}
+
+
 ?>

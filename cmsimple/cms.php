@@ -793,23 +793,7 @@ if ($adm && $f == 'save') {
 
 if ($adm && $edit && (!$f || $f == 'save') && !$download) {
     if ($s > -1) {
-        $su = $u[$s];
-
-        $editor = $cf['editor']['external'] == '' || init_editor();
-        if (!$editor) {
-            $e .= '<li>'.sprintf('External editor %s missing', $cf['editor']['external']).'</li>'."\n";
-        }
-        $o .= '<form method="post" id="ta" action="' . $sn . '">'
-                . tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
-                . tag('input type="hidden" name="function" value="save"')
-                . '<textarea name="text" id="text" class="xh-editor" style="height: '
-                . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
-                . htmlspecialchars($c[$s], ENT_COMPAT, 'UTF-8')
-                . '</textarea>';
-        if ($cf['editor']['external'] == '' || !$editor) {
-            $o .= tag('input type="submit" value="' . utf8_ucfirst($tx['action']['save']) . '"');
-        }
-        $o .= '</form>';
+        $o .= XH_contentEditor();
     } else {
         $o .= '<p>' . $tx['error']['cntlocateheading'] . '</p>' . "\n";
     }
