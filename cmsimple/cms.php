@@ -274,9 +274,10 @@ if (sv('QUERY_STRING') != '') {
         $su = $rq[0];
     }
     $v = count($rq);
-    for ($i = 0; $i < $v; $i++)
-        if (!strpos($rq[$i], '='))
-            $GLOBALS[$rq[$i]] = 'true';
+    foreach ($rq as $i) {
+        if (!strpos($i, '='))
+            $GLOBALS[$i] = 'true';
+    }
 }
 else
     $su = $selected;
