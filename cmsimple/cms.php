@@ -275,21 +275,34 @@ if (sv('QUERY_STRING') != '') {
     }
     $v = count($rq);
     foreach ($rq as $i) {
-        if (!strpos($i, '='))
+        if (!strpos($i, '=')) {
             $GLOBALS[$i] = 'true';
+        }
     }
-}
-else
+} else {
     $su = $selected;
-if (!isset($cf['uri']['length']))
+}
+if (!isset($cf['uri']['length'])) {
     $cf['uri']['length'] = 200;
+}
 $su = substr($su, 0, $cf['uri']['length']);
 
+/**
+ * Requests the stylesheet.
+ *
+ * @global mixed $stylesheet
+ */
 if ($stylesheet != '') {
     header("Content-type: text/css");
     include($pth['file']['stylesheet']);
     exit;
 }
+
+/**
+ * Requests a file download.
+ *
+ * @global string $download
+ */
 if ($download != '') {
     download($pth['folder']['downloads'] . basename($download));
 }
@@ -297,9 +310,25 @@ if ($download != '') {
 $pth['file']['search'] = $pth['folder']['cmsimple'] . 'search.php';
 $pth['file']['mailform'] = $pth['folder']['cmsimple'] . 'mailform.php';
 
+/**
+ * Whether the user is in admin mode.
+ *
+ * @global bool $adm
+ */
 $adm = 0;
+
+/**
+ * The requested function.
+ *
+ * @global string $f
+ */
 $f = '';
-	
+
+/**
+ * The password hasher.
+ *
+ * @global object $xh_hasher
+ */
 $xh_hasher = new PasswordHash(8, true);
 
 if ($txc['subsite']['password'] != "") {
@@ -349,56 +378,69 @@ if ($adm) {
 	. ' document.write(\'<div class="cmsimplecore_warning">' . $tx['error']['nocookies'] . '</div>\')'
 	. '/* ]]> */</script>'
 	. '<noscript><div class="cmsimplecore_warning">' . $tx['error']['nojs'] . '</div></noscript>';
-    if ($edit)
+    if ($edit) {
         setcookie('mode', 'edit', 0, CMSIMPLE_ROOT);
-    if ($normal)
+    }
+    if ($normal) {
         setcookie('mode', '', 0, CMSIMPLE_ROOT);
-    if (gc('mode') == 'edit' && !$normal)
+    }
+    if (gc('mode') == 'edit' && !$normal) {
         $edit = true;
+    }
 } else {
-    if (gc('status') != '')
+    if (gc('status') != '') {
         setcookie('status', '', 0, CMSIMPLE_ROOT);
-    if (gc('passwd') != '')
+    }
+    if (gc('passwd') != '') {
         setcookie('passwd', '', 0, CMSIMPLE_ROOT);
-    if (gc('mode') == 'edit')
+    }
+    if (gc('mode') == 'edit') {
         setcookie('mode', '', 0, CMSIMPLE_ROOT);
+    }
 }
 
-
+/**
+ * The number of pages.
+ *
+ * @global int $cl
+ */
 $cl = 0;
 rfc(); // Here content is loaded
 
-if ($function == 'search')
+if ($function == 'search') {
     $f = 'search';
-if ($mailform || $function == 'mailform')
+}
+if ($mailform || $function == 'mailform') {
     $f = 'mailform';
-if ($sitemap)
+}
+if ($sitemap) {
     $f = 'sitemap';
-if ($xhpages)
+}
+if ($xhpages) {
     $f = 'xhpages';
+}
 
 if (is_readable($pth['folder']['cmsimple'] . 'userfuncs.php')) {
     include_once $pth['folder']['cmsimple'] . 'userfuncs.php';
 }
 
-// changes title, keywords and description from $tx to $cf - by MD 2009/08 (CMSimple_XH beta)
+// copies title, keywords and description from $txc to $cf
 
-foreach ($txc['meta'] as $key => $param) {
-    if (strlen(trim($param)) > 0 && $key != 'codepage') {
-        $cf['meta'][$key] = $param;
+foreach ($txc['meta'] as $i => $j) {
+    if (strlen(trim($j)) > 0 && $i != 'codepage') {
+        $cf['meta'][$i] = $j;
     }
 }
-foreach ($txc['site'] as $key => $param) {
-    if (strlen(trim($param)) > 0) {
-        $cf['site'][$key] = $param;
+foreach ($txc['site'] as $i => $j) {
+    if (strlen(trim($j)) > 0) {
+        $cf['site'][$i] = $j;
     }
 }
-foreach ($txc['mailform'] as $key => $param) {
-    if (strlen(trim($param)) > 0) {
-        $cf['mailform'][$key] = $param;
+foreach ($txc['mailform'] as $i => $j) {
+    if (strlen(trim($j)) > 0) {
+        $cf['mailform'][$i] = $j;
     }
 }
-// END of code added for (CMSimple_XH beta)
 
 if (strcasecmp($tx['meta']['codepage'], 'UTF-8') != 0) {
     $e .= '<li>' . sprintf('<b>UTF-8 encoding required, but codepage %s found!</b>', $tx['meta']['codepage']) . tag('br')
@@ -411,9 +453,17 @@ if ($function == 'save') {
     $edit = true;
 }
 
-$adm and include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
+if ($adm) {
+    include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
+}
 
+/**
+ * For compatibility with plugins.
+ */
 define('PLUGINLOADER', TRUE);
+/**
+ * For compatibility with plugins.
+ */
 define('PLUGINLOADER_VERSION', 2.111);
 
 
@@ -423,9 +473,7 @@ define('PLUGINLOADER_VERSION', 2.111);
 define('XH_FORM_NAMESPACE', 'PL3bbeec384_');
 
 
-/*
- * If admin is logged, generate fake output to suppress later adjustment of $s.
- */
+// If admin is logged in, generate fake output to suppress later adjustment of $s.
 if ($adm) {
     $o .= ' ';
 }
@@ -449,8 +497,10 @@ if (!file_exists($pth['file']['pagedata'])) {
     }
 }
 
-/*
- * Create an instance of PL_Page_Data_Router
+/**
+ * The page data router.
+ *
+ * @global object $pd_router
  */
 $pd_router = new PL_Page_Data_Router($pth['file']['pagedata'], $h);
 
@@ -485,27 +535,29 @@ if ($adm) {
      * Finally check for some changed page infos
      */
     if ($s > -1 && isset($_POST['save_page_data'])) {
-        $params = $_POST;
-        unset($params['save_page_data']);
-	$params = array_map('stsl', $params);
-        $pd_router->update($s, $params);
+        $temp = $_POST;
+        unset($temp['save_page_data']);
+	$temp = array_map('stsl', $temp);
+        $pd_router->update($s, $temp);
     }
 }
 /**
- * Now we are up to date
- * If no page has been selected yet, we
- * are on the start page: Get its index
+ * The number of the currently selected page.
+ *
+ * @global int $pd_s
  */
 $pd_s = $s == -1 && !$f && $o == '' && $su == '' ? 0 : $s;
 
 /**
- * Get the infos about the current page
+ * The infos about the current page.
+ *
+ * @global $pd_current
  */
 $pd_current = $pd_router->find_page($pd_s);
 
 // EOF page_data
 
-/**
+/*
  * Include plugin (and plugin files)
  */
 foreach (XH_plugins() as $plugin) {
@@ -548,7 +600,7 @@ foreach (XH_plugins() as $plugin) {
 }
 
 
-/**
+/*
  * Load admin functions (admin.php, if exists) of plugin
  */
 if ($adm) {
@@ -561,7 +613,7 @@ if ($adm) {
     $o .= $pd_router->create_tabs($s);
 }
 
-/**
+/*
  * Pre-Call Plugins
  */
 preCallPlugins(); // TODO: when is CMSimple scripting evaluated?
@@ -601,7 +653,7 @@ for ($i = 0; $i < $cl; $i++) {
 $hl = count($hc);
 
 // LEGAL NOTICES - not needed under GPL3
-if (@$cf['menu']['legal'] == '') {
+if (empty($cf['menu']['legal'])) {
     $cf['menu']['legal'] = 'CMSimple Legal Notices';
 }
 if ($su == uenc($cf['menu']['legal'])) {
@@ -617,10 +669,10 @@ if ($adm) {
     if ($settings) {
 	$f = 'settings';
     }
-    if (isset($sysinfo)) { // FIXME: why isset() here and not in the other ifs?
+    if (isset($sysinfo)) {
         $f = 'sysinfo';
     }
-    if (isset($phpinfo)) { // FIXME: why isset() here and not in the other ifs?
+    if (isset($phpinfo)) {
         $f = 'phpinfo';
     }
     if ($file) {
@@ -695,6 +747,7 @@ if ($adm) {
 }
 
 
+// fix $s
 if ($s == -1 && !$f && $o == '' && $su == '') {
     $s = 0;
     $hs = 0;
@@ -703,7 +756,6 @@ if ($s == -1 && !$f && $o == '' && $su == '') {
 // SAVE
 
 if ($adm && $f == 'save') {
-    $ss = $s;
     $c[$s] = $text;
 
     if ($s == 0) {
@@ -740,11 +792,6 @@ if ($adm && $f == 'save') {
 }
 
 if ($adm && $edit && (!$f || $f == 'save') && !$download) {
-    if (isset($ss)) {
-        if ($s < 0 && $ss < $cl) {
-            $s = $ss;
-        }
-    }
     if ($s > -1) {
         $su = $u[$s];
 
@@ -791,10 +838,12 @@ if ($adm && $f == 'xhpages') {
 // CMSimple scripting
 if (!($edit && $adm) && $s > -1) {
     $c[$s] = evaluate_cmsimple_scripting($c[$s]);
-    if (isset($keywords))
+    if (isset($keywords)) {
 	$cf['meta']['keywords'] = $keywords;
-    if (isset($description))
+    }
+    if (isset($description)) {
 	$cf['meta']['description'] = $description;
+    }
 }
 
 
@@ -802,8 +851,7 @@ if ($s == -1 && !$f && $o == '') {
     shead('404');
 }
 
-if (function_exists('loginforms')) // FIXME: why should loginforms() not exist?
-    loginforms();
+loginforms();
 
 // FIXME: why so late? Why at all?
 foreach (array('content', 'pagedata', 'config', 'language', 'langconfig', 'stylesheet', 'template', 'log') as $i) {
@@ -818,14 +866,14 @@ if ($title == '') {
     if ($s > -1) {
         $title = $h[$s];
     } elseif ($f != '') {
-        $title = ucfirst($f);
+        $title = ucfirst($f); // FIXME: check for duplication
     }
 }
 
-if (!headers_sent($tempFile, $tempLine)) {
+if (!headers_sent($temp, $i)) {
     header('Content-Type: text/html; charset=' . $tx['meta']['codepage']);
 } else {
-    $temp = $tempFile . ':' . $tempLine;
+    $temp .= ':' . $$i;
     exit(str_replace('{location}', $temp, $tx['error']['headers']));
 }
 
