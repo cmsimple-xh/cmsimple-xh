@@ -117,7 +117,21 @@ function evaluate_cmsimple_scripting($__text, $__compat = TRUE) {
 
 /**
  * Returns $__text with all plugin calls evaluatated.
- * see plugins/index.php preCallPlugins()
+ *
+ * All Plugins which are called through a function-call
+ * can use this. At the moment it is'nt possible to do
+ * this with class-based plugins. They need to be called
+ * through standard-CMSimple-Scripting. Alternatively one
+ * can offer a functional wrapper.
+ *
+ * Call a plugin: place this in your code (example):
+ * {{{PLUGIN:pluginfunction('parameters');}}}
+ *
+ * Call a built-in function (at the moment only one for
+ * demonstration):
+ * {{{HOME}}} or: {{{HOME:name_of_Link}}}
+ * This creates a link to the first page of your CMSimple-
+ * Installation.
  *
  * @param string $__text
  * @return string
@@ -928,9 +942,12 @@ function PluginFiles($plugin) {
  * 
  * @author mvwd
  * @since V.2.1.02
+ * @deprecated since 1.6
  */
 function preCallPlugins($pageIndex = -1) {
     global $edit, $c, $s, $u;
+    
+    trigger_error('Function preCallPlugins() is deprecated', E_USER_DEPRECATED);
 
     if (!$edit) {
         if ((int) $pageIndex > - 1 && (int) $pageIndex < count($u)) {
