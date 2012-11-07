@@ -505,23 +505,14 @@ if (!file_exists($pth['file']['pagedata'])) {
 $pd_router = new PL_Page_Data_Router($pth['file']['pagedata'], $h);
 
 if ($adm) {
-
-    /*
-     * Check for pagedata changes to handle
-     */
-
-    /*
-     * Second: check for changes from MenuManager
-     */
+    // check for pagedata changes from MenuManager
     if (isset($menumanager) && $menumanager == 'true'
 	&& $action == 'saverearranged' && !empty($text))
     {
         $pd_router->refresh_from_menu_manager($text);
     }
 
-    /**
-     * Finally check for some changed page infos
-     */
+    // check for some changed page infos
     if ($s > -1 && isset($_POST['save_page_data'])) {
         $temp = $_POST;
         unset($temp['save_page_data']);
@@ -529,6 +520,7 @@ if ($adm) {
         $pd_router->update($s, $temp);
     }
 }
+
 /**
  * The number of the currently selected page.
  *
