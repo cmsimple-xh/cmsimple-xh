@@ -336,4 +336,63 @@ function XH_contentEditor()
 }
 
 
+/**
+ * Saves content.htm and pagedata.php after submitting changes from the content editor.
+ *
+ * @since 1.6
+ *
+ * @return void
+ */
+function XH_saveContents($text)
+{
+    global $pth, $cf, $tx, $pd_router, $c, $s, $u, $selected;
+    
+    $hot = '<h[1-' . $cf['menu']['levels'] . '][^>]*>';
+    $hct = '<\/h[1-' . $cf['menu']['levels'] . ']>'; // TODO: use $1 ?
+    $text = stsl($text); // this might be done before the plugins are loaded for backward compatibility
+    // remove empty headings
+    $text = preg_replace("/$hot(&nbsp;|&#160;|\xC2\xA0| )?$hct/isu", '', $text);
+    
+    // handle missing heading on the first page
+    if ($s == 0) {
+        if (!preg_match('/^<h1[^>]*>.*<\/h1>/isu', $text)
+            && !preg_match('/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/isu', $text))
+        {
+            $text = '<h1>' . $tx['toc']['missing'] . '</h1>' . "\n" . $text;
+        }
+    }
+    $title = utf8_ucfirst($tx['filetype']['content']);
+    preg_match_all("/$hot(.+?)$hct/isu", $text, $matches);
+    $c[$s] = $text;
+
+    // TODO: use XH_writeFile()?
+    if ($fh = @fopen($pth['file']['content'], 'w')) {
+        // write content.htm
+        fwrite($fh, "<html><head><title>$title</title></head><body>\n");
+        foreach ($c as $page) {
+            fwrite($fh, rmnl($page . "\n"));
+        }
+        fwrite($fh, '</body></html>');
+        fclose($fh);
+        
+        // write pagedata.php
+        $pd_router->refresh_from_texteditor($matches[1], $s);
+
+        // redirect to get back in sync (+ implements PRG pattern)
+        if (count($matches[1]) > 0) {
+            // page heading might have changed
+            $urlParts = explode($cf['uri']['seperator'], $selected);
+            array_splice($urlParts, -1, 1, uenc(trim(xh_rmws(strip_tags($matches[1][0])))));
+            $su = implode($cf['uri']['seperator'], $urlParts);
+        } else {
+            // page was deleted; go to previous page
+            $su = $u[max($s - 1, 0)];
+        }
+        header("Location: " . $sn . "?" . $su);
+        exit;
+    } else {
+        e('cntwriteto', 'content', $pth['file']['content']);
+    }
+}
+
 ?>

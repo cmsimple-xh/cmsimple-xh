@@ -506,23 +506,11 @@ $pd_router = new PL_Page_Data_Router($pth['file']['pagedata'], $h);
 
 if ($adm) {
 
-    /**
-     * Check for any changes to handle
-     * First: check for changes from texteditor
+    /*
+     * Check for pagedata changes to handle
      */
-    if ($function == 'save') {
-        /**
-         * Collect the headings and pass them over to the router
-         */
-	$temp = $cf['menu']['levels'];
-        $text = preg_replace("/<h[1-" . $temp . "][^>]*>(&nbsp;|&#160;|\xC2\xA0| )?<\/h[1-" . $temp . "]>/is",
-			     '', stsl($text));
-        preg_match_all('/<h[1-' . $temp . '].*>(.+)<\/h[1-' . $temp . ']>/isU',
-		       $text, $matches);
-        $pd_router->refresh_from_texteditor($matches[1], $s);
-    }
 
-    /**
+    /*
      * Second: check for changes from MenuManager
      */
     if (isset($menumanager) && $menumanager == 'true'
@@ -756,39 +744,51 @@ if ($s == -1 && !$f && $o == '' && $su == '') {
 // SAVE
 
 if ($adm && $f == 'save') {
-    $c[$s] = $text;
-
-    if ($s == 0) {
-        if (!preg_match("/^<h1[^>]*>.*<\/h1>/i", rmanl($c[0]))
-            && !preg_match("/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/i", rmanl($c[0])))
-        {
-            $c[0] = '<h1>' . $tx['toc']['missing'] . '</h1>' . "\n" . $c[0];
-        }
-    }
-    $title = utf8_ucfirst($tx['filetype']['content']);
-
-    if ($fh = @fopen($pth['file']['content'], "w")) {
-        fwrite($fh, '<html><head><title>Content</title></head><body>' . "\n");
-        foreach ($c as $i) {
-            fwrite($fh, rmnl($i . "\n"));
-        }
-        fwrite($fh, '</body></html>');
-        fclose($fh);
-
-        preg_match('~<h[1-'.$cf['menu']['levels'].'][^>]*>(.+?)</h[1-'.$cf['menu']['levels'].']>~isu', $c[$s], $matches);
-        if (count($matches) > 0) {
-            $temp = explode($cf['uri']['seperator'], $selected);
-            array_splice($temp, -1, 1, uenc(trim(xh_rmws(strip_tags($matches[1])))));
-            $su = implode($cf['uri']['seperator'], $temp);
-        } else {
-            $su = $u[max($s - 1, 0)];
-        }
-        header("Location: " . $sn . "?" . $su);
-        exit;
-    } else {
-        e('cntwriteto', 'content', $pth['file']['content']);
-    }
-    $title = '';
+    XH_saveContents($text);
+//    /*
+//     * Collect the headings and pass them over to the router
+//     */
+//    $temp = $cf['menu']['levels'];
+//    $text = preg_replace("/<h[1-" . $temp . "][^>]*>(&nbsp;|&#160;|\xC2\xA0| )?<\/h[1-" . $temp . "]>/is",
+//			 '', stsl($text));
+//    preg_match_all('/<h[1-' . $temp . '].*>(.+)<\/h[1-' . $temp . ']>/isU',
+//		   $text, $matches);
+//    $pd_router->refresh_from_texteditor($matches[1], $s);
+//    
+//    
+//    $c[$s] = $text;
+//
+//    if ($s == 0) {
+//        if (!preg_match("/^<h1[^>]*>.*<\/h1>/i", rmanl($c[0]))
+//            && !preg_match("/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/i", rmanl($c[0])))
+//        {
+//            $c[0] = '<h1>' . $tx['toc']['missing'] . '</h1>' . "\n" . $c[0];
+//        }
+//    }
+//    $title = utf8_ucfirst($tx['filetype']['content']);
+//
+//    if ($fh = @fopen($pth['file']['content'], "w")) {
+//        fwrite($fh, '<html><head><title>Content</title></head><body>' . "\n");
+//        foreach ($c as $i) {
+//            fwrite($fh, rmnl($i . "\n"));
+//        }
+//        fwrite($fh, '</body></html>');
+//        fclose($fh);
+//
+//        preg_match('~<h[1-'.$cf['menu']['levels'].'][^>]*>(.+?)</h[1-'.$cf['menu']['levels'].']>~isu', $c[$s], $matches);
+//        if (count($matches) > 0) {
+//            $temp = explode($cf['uri']['seperator'], $selected);
+//            array_splice($temp, -1, 1, uenc(trim(xh_rmws(strip_tags($matches[1])))));
+//            $su = implode($cf['uri']['seperator'], $temp);
+//        } else {
+//            $su = $u[max($s - 1, 0)];
+//        }
+//        header("Location: " . $sn . "?" . $su);
+//        exit;
+//    } else {
+//        e('cntwriteto', 'content', $pth['file']['content']);
+//    }
+//    $title = '';
 }
 
 if ($adm && $edit && (!$f || $f == 'save') && !$download) {
