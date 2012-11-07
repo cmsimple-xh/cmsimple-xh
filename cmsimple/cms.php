@@ -5,8 +5,8 @@
  *
  * @package	XH
  * @version	$CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_DATE$
- * @copyright	1999-2009 Peter Andreas Harteg <peter@harteg.dk>
- * @copyright	2010-2012 The CMSimple_XH developers <http://cmsimple-xh.com/?The_Team>
+ * @copyright	1999-2009 <http://cmsimple.org/>
+ * @copyright	2009-2012 The CMSimple_XH developers <http://cmsimple-xh.com/?The_Team>
  * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3 
  * @version	$Id$
  * @link	http://cmsimple-xh.com
@@ -551,7 +551,7 @@ $pd_s = $s == -1 && !$f && $o == '' && $su == '' ? 0 : $s;
 /**
  * The infos about the current page.
  *
- * @global $pd_current
+ * @global object $pd_current
  */
 $pd_current = $pd_router->find_page($pd_s);
 
@@ -799,21 +799,16 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
     }
 }
 
-// FIXME: isset() probably not necessary
-if ($adm && ((isset($images) && $images)
-             || (isset($downloads) && $downloads)
-             || (isset($userfiles) && $userfiles)
-             || (isset($media) && $media)
-             || $edit && (!$f || $f == 'save') && !$download))
+if ($adm && ($images || $downloads || $userfiles || $media || $edit && (!$f || $f == 'save') && !$download))
 {
     if ($cf['filebrowser']['external'] && !file_exists($pth['folder']['plugins'] . $cf['filebrowser']['external'])) {
-        $e .= '<li>' . sprintf('External filebrowser %s missing', $cf['filebrowser']['external']) . '</li>' . "\n";
+        $e .= '<li>' . sprintf('External filebrowser %s missing', $cf['filebrowser']['external']) . '</li>' . "\n"; // FIXME: i18n
     }
 }
 
 if ($adm && $f == 'xhpages') {
     if ($cf['pagemanager']['external'] && !file_exists($pth['folder']['plugins'] . $cf['pagemanager']['external'])) {
-        $e .= '<li>' . sprintf('External pagemanager %s missing', $cf['pagemanager']['external']) . '</li>' . "\n";
+        $e .= '<li>' . sprintf('External pagemanager %s missing', $cf['pagemanager']['external']) . '</li>' . "\n"; // FIXME: i18n
     }
 }
 
@@ -864,21 +859,22 @@ if (!headers_sent($temp, $i)) {
 if ($print) {
     if ($cf['xhtml']['endtags'] == 'true') {
         echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"',
-        ' "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' . "\n" .
-        '<html xmlns="http://www.w3.org/1999/xhtml">' . "\n";
+	    ' "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">', "\n",
+	    '<html xmlns="http://www.w3.org/1999/xhtml">', "\n";
     } else {
         echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"',
-        ' "http://www.w3.org/TR/html4/loose.dtd">' . "\n" . '<html>' . "\n";
+	    ' "http://www.w3.org/TR/html4/loose.dtd">', "\n", '<html>', "\n";
     }
-    echo '<head>' . "\n" . head(),
-    '<meta name="robots" content="noindex">' . "\n" .
-    '</head>' . "\n" . '<body class="print"', onload(), '>' . "\n" .
-    content(), '</body>' . "\n" . '</html>' . "\n";
+    echo '<head>', "\n" . head(),
+	'<meta name="robots" content="noindex">', "\n",
+	'</head>', "\n", '<body class="print"', onload(), '>', "\n",
+	content(), '</body>', "\n", '</html>', "\n";
     exit;
 }
 
 
 if (!XH_ADM && $adm) { // somebody has manipulated $adm!!!
+    // TODO: better redirect to login page?
     $s = -1;
     $adm = $edit = false;
     $o = '';
@@ -886,13 +882,13 @@ if (!XH_ADM && $adm) { // somebody has manipulated $adm!!!
     loginforms();
 }
 
-
 ob_start('final_clean_up');
 
 if (!include $pth['file']['template']) {
     header('HTTP/1.0 500 Internal Server Error');
     header('Content-Type: text/plain; charset=utf-8');
-    echo $tx['error']['missing'], ' ', $tx['filetype']['template'], "\n", $pth['file']['template'];
+    echo $tx['error']['missing'], ' ', $tx['filetype']['template'], "\n",
+	$pth['file']['template'];
     exit;
 }
 

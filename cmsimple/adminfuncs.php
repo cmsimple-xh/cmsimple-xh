@@ -313,7 +313,7 @@ function XH_contentEditor()
 {
     global $sn, $su, $s, $u, $c, $e, $cf, $tx;
     
-    $su = $u[$s]; // TODO: changing of $su correct?
+    $su = $u[$s]; // TODO: is changing of $su correct here???
 
     $editor = $cf['editor']['external'] == '' || init_editor();
     if (!$editor) {
