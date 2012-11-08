@@ -38,19 +38,20 @@ class PL_Page_Data_View{
 	 * 
 	 * @return string $view Returns created view
 	 */
-	function pd_forms(){
+	function pd_forms()
+	{
 		global $h, $plugin_tx, $sn, $su, $hjs;
 		
 		$view = "\n". '<div id = "pd_tabs">';
 		
 		foreach($this -> tabs as $title => $code){
-			$view .= "\n\t".'<a class="inactive_tab" id="tab_'.$title.'" onclick="toggle_tab(\''.$title.'\');"><span>'.$title.'</span></a>';
+			$view .= "\n\t".'<a class="inactive_tab" id="tab_'.$title.'" onclick="xh.toggleTab(\''.$title.'\');"><span>'.$title.'</span></a>';
 		}
 		
 		$view .= "\n</div>\n".'<div id="pd_views">';
 
 		foreach($this -> tabs as $title => $file){
-			$view .= "\n".'<div id="PLTab_'.$title.'" class="inactive_view">'. "\n\t".'<a id="pd_editor_toggle" class="pd_open" onclick="toggle_tab(\''.$title.'\');">&nbsp;</a>'; 
+			$view .= "\n".'<div id="PLTab_'.$title.'" class="inactive_view">'. "\n\t".'<a id="pd_editor_toggle" class="pd_open" onclick="xh.toggleTab(\''.$title.'\');">&nbsp;</a>'; 
 			if(file_exists($file)){
 				include_once($file);
 				$function = explode('.',basename($file));
@@ -63,31 +64,6 @@ class PL_Page_Data_View{
 		}
 		$view .= "\n".'</div>';
 		
-		$hjs .=   "\n".'<script type="text/javascript">
-		/* <![CDATA[ */
-		function toggle_tab(tabID) {
-			var curr_view = document.getElementById("PLTab_" + tabID);
-			var curr_tab = document.getElementById("tab_" + tabID);
-			if(curr_tab.className == "active_tab") {
-				curr_view.className = "inactive_view";
-				curr_tab.className = "inactive_tab";
-				return;
-			}
-			var views = document.getElementById("pd_views").getElementsByTagName("div");
-			var tabs = document.getElementById("pd_tabs").getElementsByTagName("a");
-			for (i = 0; i < views.length; i++) {
-				if(views[i].id.substr(0, 6) == "PLTab_") {
-					views[i].className = "inactive_view";
-				}
-			}
-			for (i = 0; i < tabs.length; i++) {
-				tabs[i].className = "inactive_tab";
-			}
-			curr_tab.className = "active_tab";
-			curr_view.className = "active_view";
-			return;
-		}
-		/* ]]> */'."\n".'</script>'."\n";
 		return $view;
 	}
 }

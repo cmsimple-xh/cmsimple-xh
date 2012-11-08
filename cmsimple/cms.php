@@ -193,6 +193,7 @@ if (!isset($sl)) {
 $pth['file']['language'] = $pth['folder']['language'] . basename($sl) . '.php';
 $pth['file']['langconfig'] = $pth['folder']['language'] . basename($sl) . 'config.php';
 $pth['file']['corestyle'] = $pth['folder']['base'] . 'css/core.css';
+$pth['file']['adminjs'] = $pth['folder']['base'] . 'javascript/admin.js';
 
 XH_createLanguageFile($pth['file']['language']);
 if (!is_readable($pth['file']['language']) && !is_readable($pth['folder']['language'].'default.php')) {
@@ -811,6 +812,10 @@ if ($print) {
 	'</head>', "\n", '<body class="print"', onload(), '>', "\n",
 	content(), '</body>', "\n", '</html>', "\n";
     exit;
+}
+
+if (XH_ADM) {
+    $bjs .= '<script type="text/javascript" src="' . $pth['file']['adminjs'] . '"></script>';
 }
 
 
