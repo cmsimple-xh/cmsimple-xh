@@ -1,14 +1,15 @@
 <?php
 
+// $Id$
+
 /**
  * The main file of CMSimple_XH.
  *
  * @package	XH
- * @version	$CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_DATE$
+ * @version	$CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
  * @copyright	1999-2009 <http://cmsimple.org/>
  * @copyright	2009-2012 The CMSimple_XH developers <http://cmsimple-xh.com/?The_Team>
  * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3 
- * @version	$Id$
  * @link	http://cmsimple-xh.com
  */
 
@@ -54,6 +55,7 @@
   ======================================
  */
 
+// prevent direct access
 if (preg_match('/cms.php/i', $_SERVER['PHP_SELF']))
     die('Access Denied');
 
@@ -99,9 +101,38 @@ $bjs = '';
  */
 $onload = '';
 
+/**
+ * Used for temporary variables in the global scope.
+ *
+ * @global mixed $temp
+ */
+$temp = null;
 
+/**
+ * Used for temporary loop variables in the global scope.
+ *
+ * @global mixed $i
+ */
+$i = null;
+
+/**
+ * Used for temporary loop variables in the global scope.
+ *
+ * @global mixed $j
+ */
+$j = null;
+
+/**
+ * The version in textual representation, e.g. CMSimple_XH 1.6
+ */
 define('CMSIMPLE_XH_VERSION', '$CMSIMPLE_XH_VERSION$');
+/**
+ * The build number as integer: YYYYMMDDBB
+ */
 define('CMSIMPLE_XH_BUILD', '$CMSIMPLE_XH_BUILD$');
+/**
+ * The release date in ISO 8601 format: YYYY-MM-DD
+ */
 define('CMSIMPLE_XH_DATE', '$CMSIMPLE_XH_DATE$');
 
 if (!defined('E_DEPRECATED')) {
@@ -137,6 +168,7 @@ $pth['file']['log'] = $pth['folder']['cmsimple'] . 'log.txt';
 $pth['file']['cms'] = $pth['folder']['cmsimple'] . 'cms.php';
 $pth['file']['config'] = $pth['folder']['cmsimple'] . 'config.php';
 
+// include general utility functions and classes
 require_once $pth['folder']['cmsimple'] . 'functions.php';
 require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
 require_once $pth['folder']['classes'] . 'PasswordHash.php';
@@ -250,7 +282,8 @@ $sn = preg_replace('/([^\?]*)\?.*/', '\1', sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_U
 foreach (array('action', 'download', 'downloads', 'edit', 'file', 'function',
 	       'images', 'login', 'logout', 'mailform', 'media', 'normal',
 	       'passwd', 'print', 'search', 'selected', 'settings', 'sitemap',
-	       'stylesheet', 'text', 'userfiles', 'validate', 'xhpages') as $i) {
+	       'stylesheet', 'text', 'userfiles', 'validate', 'xhpages') as $i)
+{
     initvar($i);
 }
 
@@ -270,11 +303,10 @@ define('CMSIMPLE_BASE', $pth['folder']['base']);
  */
 $su = '';
 if (sv('QUERY_STRING') != '') {
-    $rq = explode('&', sv('QUERY_STRING'));
+    $rq = explode('&', sv('QUERY_STRING')); // $rq should be $temp, but its used at least in tg_popup
     if (!strpos($rq[0], '=')) {
         $su = $rq[0];
     }
-    $v = count($rq);
     foreach ($rq as $i) {
         if (!strpos($i, '=')) {
             $GLOBALS[$i] = 'true';
@@ -363,7 +395,8 @@ if ($login && !$adm) {
     $adm = false;
     setcookie('status', '', 0, CMSIMPLE_ROOT);
     setcookie('passwd', '', 0, CMSIMPLE_ROOT);
-    $o .= '<p class="cmsimplecore_warning" style="text-align: center; font-weight: 900; padding: 8px;">' . $tx['login']['loggedout'] . '</p>';
+    $o .= '<p class="cmsimplecore_warning" style="text-align: center; font-weight: 900; padding: 8px;">'
+	. $tx['login']['loggedout'] . '</p>';
 }
 
 /**
@@ -376,9 +409,11 @@ define('XH_ADM', $adm);
 if ($adm) {
     $o .= '<script type="text/javascript">/* <![CDATA[ */'
 	. 'if (document.cookie.indexOf(\'status=adm\') == -1)'
-	. ' document.write(\'<div class="cmsimplecore_warning">' . $tx['error']['nocookies'] . '</div>\')'
+	. ' document.write(\'<div class="cmsimplecore_warning">'
+	. $tx['error']['nocookies'] . '</div>\')'
 	. '/* ]]> */</script>'
-	. '<noscript><div class="cmsimplecore_warning">' . $tx['error']['nojs'] . '</div></noscript>';
+	. '<noscript><div class="cmsimplecore_warning">'
+	. $tx['error']['nojs'] . '</div></noscript>';
     if ($edit) {
         setcookie('mode', 'edit', 0, CMSIMPLE_ROOT);
     }
@@ -479,10 +514,6 @@ if ($adm) {
     $o .= ' ';
 }
 
-
-// BOF page_data
-
-
 /*
  * Check if page-data-file exists, if not: try to
  * create a new one with basic data-fields.
@@ -535,8 +566,6 @@ $pd_s = $s == -1 && !$f && $o == '' && $su == '' ? 0 : $s;
  * @global object $pd_current
  */
 $pd_current = $pd_router->find_page($pd_s);
-
-// EOF page_data
 
 /*
  * Include plugin (and plugin files)
