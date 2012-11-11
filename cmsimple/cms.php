@@ -634,14 +634,14 @@ if ($f == 'mailform' && !empty($cf['mailform']['email'])) {
 }
 if ($f == 'sitemap') {
     $title = $tx['title'][$f];
-    $ta = array();
+    $temp = array();
     $o .= '<h1>' . $title . '</h1>' . "\n";
     for ($i = 0; $i < $cl; $i++) {
         if (!hide($i) || $cf['show_hidden']['pages_sitemap'] == 'true') {
-            $ta[] = $i;
+            $temp[] = $i;
         }
     }
-    $o .= li($ta, 'sitemaplevel');
+    $o .= li($temp, 'sitemaplevel');
 }
 
 // Compatibility for DHTML menus
