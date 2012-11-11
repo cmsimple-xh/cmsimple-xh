@@ -734,7 +734,7 @@ if ($adm) {
                               'language' => 'XH_CoreLangFileEdit',
                               'template' => 'XH_CoreTextFileEdit',
                               'stylesheet' => 'XH_CoreTextFileEdit');
-                $temp = array_key_exists($file, $temp) ? $temp[$file] : null;
+                $temp = array_key_exists($file, $temp) ? new $temp[$file] : null;
                 if ($action == 'save') {
                     $o .= $temp->submit();
                 } else {
