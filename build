@@ -10,18 +10,18 @@ set -e
 # define the relevant files
 README_FILES="README.txt LIESMICH.txt CITAJ.txt CTIMNE.txt README_RU.txt"
 VI_FILES="\
-    cmsimple/adm.php\
+    cmsimple/adminfuncs.php\
     cmsimple/cms.php\
     cmsimple/functions.php\
-    cmsimple/login.php\
     cmsimple/mailform.php\
     cmsimple/search.php\
-    plugins/index.php\
+    cmsimple/tplfuncs.php\
+    cmsimple/classes/FileEdit.php\
+    cmsimple/classes/LinkCheck.php\
+    cmsimple/classes/page_data_model.php\
+    cmsimple/classes/page_data_router.php\
+    cmsimple/classes/page_data_views.php\
     plugins/filebrowser/admin.php\
-    plugins/pluginloader/page_data/index.php\
-    plugins/pluginloader/page_data/page_data_model.php\
-    plugins/pluginloader/page_data/page_data_router.php\
-    plugins/pluginloader/page_data/page_data_views.php\
     plugins/tinymce/admin.php\
     $README_FILES"
 
