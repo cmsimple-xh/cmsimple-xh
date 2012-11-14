@@ -17,7 +17,7 @@ var xh = {
         var views = document.getElementById("pd_views").getElementsByTagName("div");
         var tabs = document.getElementById("pd_tabs").getElementsByTagName("a");
         for (i = 0; i < views.length; i++) {
-                if (views[i].id.indexOf("PLTab_" == 0)) {
+                if (views[i].id.indexOf("PLTab_") == 0) {
                         views[i].className = "inactive_view";
                 }
         }
