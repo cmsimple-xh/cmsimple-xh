@@ -156,7 +156,6 @@ if (!defined('E_USER_DEPRECATED')) {
 $pth['file']['execute'] = './index.php';
 $pth['folder']['content'] = './content/';
 $pth['file']['content'] = $pth['folder']['content'] . 'content.htm';
-$pth['file']['pagedata'] = $pth['folder']['content'] . 'pagedata.php';
 
 $pth['folder']['base'] = is_dir('./cmsimple') ? './' : '../'; 
  
@@ -391,7 +390,7 @@ if ($login && !$adm) {
 	shead('403');
     }
 } elseif ($logout && $adm) {
-    $o .= XH_backup('content') . XH_backup('pagedata');
+    $o .= XH_backup();
     $adm = false;
     setcookie('status', '', 0, CMSIMPLE_ROOT);
     setcookie('passwd', '', 0, CMSIMPLE_ROOT);
@@ -441,6 +440,14 @@ if ($adm) {
  * @global int $cl
  */
 $cl = 0;
+
+/**
+ * The page data router.
+ *
+ * @global object $pd_router
+ */
+$pd_router = null; 
+
 rfc(); // Here content is loaded
 
 if ($function == 'search') {
@@ -514,27 +521,6 @@ if ($adm) {
     $o .= ' ';
 }
 
-/*
- * Check if page-data-file exists, if not: try to
- * create a new one with basic data-fields.
- */
-if (!file_exists($pth['file']['pagedata'])) {
-    $temp = XH_writeFile($pth['file']['pagedata'],
-			 '<?php' . "\n" . '$page_data_fields[] = \'url\';' . "\n"
-			 . '$page_data_fields[] = \'last_edit\';' . "\n" . '?>');
-    if ($temp !== false) {
-	chmod($pth['file']['pagedata'], 0666);
-    } else {
-	e('cntsave', 'pagedata', $pth['file']['pagedata']);
-    }
-}
-
-/**
- * The page data router.
- *
- * @global object $pd_router
- */
-$pd_router = new PL_Page_Data_Router($pth['file']['pagedata'], $h);
 
 if ($adm) {
     // check for pagedata changes from MenuManager
@@ -716,7 +702,7 @@ if ($adm) {
         $o .= XH_settingsView();
         break;
     case 'file':
-        if (preg_match('/^\d{8}_\d{6}_(?:content.htm|pagedata.php)$/', $file)) {
+        if (preg_match('/^\d{8}_\d{6}_content.htm$/', $file)) {
             $pth['file'][$file] = $pth['folder']['content'] . '/' . $file;
         }
         if ($pth['file'][$file] != '') {
@@ -732,6 +718,7 @@ if ($adm) {
                 $temp = array('config' => 'XH_CoreConfigFileEdit',
                               'langconfig' => 'XH_CoreLangconfigFileEdit',
                               'language' => 'XH_CoreLangFileEdit',
+			      'content' => 'XH_CoreTextFileEdit',
                               'template' => 'XH_CoreTextFileEdit',
                               'stylesheet' => 'XH_CoreTextFileEdit');
                 $temp = array_key_exists($file, $temp) ? new $temp[$file] : null;
@@ -759,7 +746,7 @@ if ($s == -1 && !$f && $o == '' && $su == '') {
 }
 
 if ($adm && $f == 'save') {
-    XH_saveContents($text);
+    XH_saveEditorContents($text);
 }
 
 if ($adm && $edit && (!$f || $f == 'save') && !$download) {
@@ -804,8 +791,8 @@ if ($s == -1 && !$f && $o == '') {
 loginforms();
 
 // FIXME: why so far down? Why at all? Don't we check these files when accessing them? And we have the system check!
-foreach (array('content', 'pagedata', 'config', 'language', 'langconfig', 'stylesheet', 'template', 'log') as $i) {
-    chkfile($i, (($login || $settings) && $adm));
+foreach (array('content', 'config', 'language', 'langconfig', 'stylesheet', 'template', 'log') as $i) {
+    chkfile($i, ($login || $settings) && $adm);
 }
 if ($e) {
     $o = '<div class="cmsimplecore_warning cmsimplecore_center">' . "\n"

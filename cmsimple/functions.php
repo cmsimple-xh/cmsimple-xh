@@ -510,7 +510,7 @@ function e($et, $ft, $fn) {
 }
 
 function rfc() {
-    global $c, $cl, $h, $u, $l, $su, $s, $pth, $tx, $edit, $adm, $cf, $e;
+    global $c, $cl, $h, $u, $l, $su, $s, $pth, $tx, $edit, $adm, $cf, $e, $pd_router;
 
     $c = array();
     $h = array();
@@ -527,7 +527,7 @@ function rfc() {
     $content = preg_split('~</body>~i', $content);
     $content = preg_replace('~<h[1-' . $stop . ']~i', $split_token . '$0', $content[0]);
     $content = explode($split_token, $content);
-    array_shift($content);
+    $contentHead = array_shift($content);
 
     foreach ($content as $page) {
         $c[] = $page;
@@ -545,6 +545,7 @@ function rfc() {
         $u[] = uenc($h[0]);
         $l[] = 1;
         $s = 0;
+	$pd_router = new PL_Page_Data_Router($h, $contentHead);
         return;
     }
 
@@ -591,6 +592,7 @@ function rfc() {
             }
         }
     }
+    $pd_router = new PL_Page_Data_Router($h, $contentHead);
 }
 
 function a($i, $x) {
@@ -1052,37 +1054,35 @@ function loginforms() {
 }
 
 
-function XH_backup($file)
+function XH_backup()
 {
     global $pth, $cf, $tx;
     static $date = null;
     
     !isset($date) and $date = date("Ymd_His");
-    if ($file != 'pagedata' || is_readable($pth['file']['pagedata'])) {
-        $fn = "${date}_$file.htm";
-        if (@copy($pth['file'][$file], $pth['folder']['content'] . $fn)) {
-            $o = '<p>' . utf8_ucfirst($tx['filetype']['backup'])
-                . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
-            $fl = array();
-            $fd = @opendir($pth['folder']['content']);
-            while (($p = @readdir($fd)) == true) {
-                if (preg_match('/^\d{8}_\d{6}_' . $file . '.htm$/', $p)) {
-                    $fl[] = $p;
-                }
-            }
-            $fd and closedir($fd);
-            sort($fl);
-            $v = count($fl) - $cf['backup']['numberoffiles'];
-            for ($i = 0; $i < $v; $i++) {
-                if (@unlink($pth['folder']['content'] . $fl[$i]))
-                    $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup'])
-                        . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
-                else
-                    e('cntdelete', 'backup', $fl[$i]);
-            }
-        } else {
-            e('cntsave', 'backup', $fn);
-        }
+    $fn = "${date}_content.htm";
+    if (@copy($pth['file']['content'], $pth['folder']['content'] . $fn)) {
+	$o = '<p>' . utf8_ucfirst($tx['filetype']['backup'])
+	    . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
+	$fl = array();
+	$fd = @opendir($pth['folder']['content']);
+	while (($p = @readdir($fd)) == true) {
+	    if (preg_match('/^\d{8}_\d{6}_content.htm$/', $p)) {
+		$fl[] = $p;
+	    }
+	}
+	$fd and closedir($fd);
+	sort($fl);
+	$v = count($fl) - $cf['backup']['numberoffiles'];
+	for ($i = 0; $i < $v; $i++) {
+	    if (@unlink($pth['folder']['content'] . $fl[$i]))
+		$o .= '<p>' . utf8_ucfirst($tx['filetype']['backup'])
+		    . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
+	    else
+		e('cntdelete', 'backup', $fl[$i]);
+	}
+    } else {
+	e('cntsave', 'backup', $fn);
     }
     return $o;
 }
@@ -1102,6 +1102,28 @@ function XH_writeFile($filename, $contents)
     $res = ($fh = fopen($filename, 'wb')) && fwrite($fh, $contents);
     $fh and fclose($fh);
     return $res;
+}
+
+
+/**
+ * Saves the current contents (including the page data).
+ *
+ * @return bool  Whether that succeeded
+ */
+function XH_saveContents()
+{
+    global $c, $pth, $tx, $pd_router;
+
+    $title = utf8_ucfirst($tx['filetype']['content']);
+    $cnts = "<html><head><title>$title</title>\n"
+	. $pd_router->headAsPHP()
+	. '</head><body>' . "\n";
+    foreach ($c as $j => $i) {
+	$cnts .= rmnl($i . "\n")
+	    . $pd_router->pageAsPHP($j);
+    }
+    $cnts .= '</body></html>';
+    return XH_writeFile($pth['file']['content'], $cnts) !== false;
 }
 
 ?>

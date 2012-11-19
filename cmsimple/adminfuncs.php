@@ -59,7 +59,7 @@ function XH_sysinfo()
     }
     foreach (
         array('config', 'log', 'language', 'langconfig', 'content',
-            'pagedata', 'template', 'stylesheet') as $i)
+            'template', 'stylesheet') as $i)
     {
         $temp['writable'][] = $pth['file'][$i];
     }
@@ -85,39 +85,38 @@ function XH_settingsView()
         ? array('config', 'langconfig', 'language')
         : array('langconfig', 'language');
     foreach ($temp as $i) {
-        $o .= '<li><a href="' . '?file=' . $i . '&amp;action=array">'
+        $o .= '<li><a href="?file=' . $i . '&amp;action=array">'
             . utf8_ucfirst($tx['action']['edit']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
 
     foreach (array('stylesheet', 'template') as $i) {
-        $o .= '<li><a href="' . '?file=' . $i . '&amp;action=edit">'
+        $o .= '<li><a href="?file=' . $i . '&amp;action=edit">'
             . utf8_ucfirst($tx['action']['edit']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
     foreach (array('log') as $i) {
-        $o .= '<li><a href="' . '?file=' . $i . '&amp;action=view">'
+        $o .= '<li><a href="?file=' . $i . '&amp;action=view">'
             . utf8_ucfirst($tx['action']['view']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
     $o .= '</ul>' . "\n";
 
-    $o .= '<h4>' . $tx['settings']['backup'] . '</h4><p>'
-        . $tx['settings']['backupexplain3'] . '</p>' . "\n" . '<ul>' . "\n";
-    foreach (array('content', 'pagedata') as $i) {
-        $o .= '<li>' . utf8_ucfirst($tx['filetype'][$i]) . ' <a href="'
-            . '?file=' . $i . '&amp;action=view">'
-            . $tx['action']['view'] . '</a>' . ' <a href="' . '?file='
-            . $i . '&amp;action=download">' . $tx['action']['download']
-            . '</a></li>' . "\n";
-    }
+    $o .= '<h4>' . $tx['settings']['backup'] . '</h4>'
+        . "\n" . '<ul>' . "\n";
+    $o .= '<li>' . utf8_ucfirst($tx['filetype']['content']) . ' <a href="'
+        . '?file=content&amp;action=view">'
+        . $tx['action']['view'] . '</a>' . ' <a href="?file=content">'
+        . $tx['action']['edit'] . '</a>' . ' <a href="'
+        . '?file=content&amp;action=download">' . $tx['action']['download']
+        . '</a></li>' . "\n";
     $o .= '</ul>' . "\n" . tag('hr') . "\n" . '<p>'
         . $tx['settings']['backupexplain1'] . '</p>' . "\n" . '<p>'
         . $tx['settings']['backupexplain2'] . '</p>' . "\n" . '<ul>' . "\n";
     $fs = sortdir($pth['folder']['content']);
     foreach ($fs as $p) {
-        if (preg_match('/^\d{8}_\d{6}_(?:content.htm|pagedata.php)$/', $p)) {
-            $o .= '<li><a href="' . $sn . '?file=' . $p . '&amp;action=view">'
+        if (preg_match('/^\d{8}_\d{6}_content.htm$/', $p)) {
+            $o .= '<li><a href="?file=' . $p . '&amp;action=view">'
                 . $p . '</a> ('
                 . (round((filesize($pth['folder']['content'] . '/' . $p)) / 102.4) / 10)
                 . ' KB)</li>' . "\n";
@@ -343,7 +342,7 @@ function XH_contentEditor()
  *
  * @return void
  */
-function XH_saveContents($text)
+function XH_saveEditorContents($text)
 {
     global $pth, $cf, $tx, $pd_router, $c, $s, $u, $selected;
     
@@ -361,24 +360,20 @@ function XH_saveContents($text)
             $text = '<h1>' . $tx['toc']['missing'] . '</h1>' . "\n" . $text;
         }
     }
-    $title = utf8_ucfirst($tx['filetype']['content']);
-    preg_match_all("/$hot(.+?)$hct/isu", $text, $matches);
-    $c[$s] = $text;
+    $c[$s] = $text; // keep editor contents, if saving fails
 
-    // TODO: use XH_writeFile()?
-    if ($fh = @fopen($pth['file']['content'], 'w')) {
-        // write content.htm
-        fwrite($fh, "<html><head><title>$title</title></head><body>\n");
-        foreach ($c as $page) {
-            fwrite($fh, rmnl($page . "\n"));
-        }
-        fwrite($fh, '</body></html>');
-        fclose($fh);
+    if (is_writable($pth['file']['content'])) {
+        // insert $text to $c
+        $text = preg_replace('/<h[1-' . $cf['menu']['levels'] . ']/i', "\x00" . '$0', $text);
+        $pages = explode("\x00", $text);
+        array_shift($pages);
+        array_splice($c, $s, 1, $pages);
         
-        // write pagedata.php
+        // delegate changes to $pd_router
+        preg_match_all("/$hot(.+?)$hct/isu", $text, $matches);
         $pd_router->refresh_from_texteditor($matches[1], $s);
-
-        // redirect to get back in sync (+ implements PRG pattern)
+        
+        // redirect to get back in sync (+ implement PRG pattern)
         if (count($matches[1]) > 0) {
             // page heading might have changed
             $urlParts = explode($cf['uri']['seperator'], $selected);
@@ -391,7 +386,7 @@ function XH_saveContents($text)
         header("Location: " . $sn . "?" . $su);
         exit;
     } else {
-        e('cntwriteto', 'content', $pth['file']['content']);
+        e('notwritable', 'content', $pth['file']['content']);
     }
 }
 

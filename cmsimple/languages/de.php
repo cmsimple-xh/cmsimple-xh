@@ -59,7 +59,6 @@ $tx['filetype']['folder']="Ordner";
 $tx['filetype']['langconfig']="Website Konfiguration";
 $tx['filetype']['language']="Sprach-Datei";
 $tx['filetype']['log']="Log-Datei";
-$tx['filetype']['pagedata']="Pagedata-Datei";
 $tx['filetype']['stylesheet']="CSS-Datei";
 $tx['filetype']['template']="Template-Datei";
 
@@ -176,7 +175,6 @@ $tx['search']['result']="Suchergebnis";
 $tx['settings']['backup']="Sicherheitskopien";
 $tx['settings']['backupexplain1']="Beim Logout wird eine Sicherheitskopie des Inhalts angelegt. Die älteste Kopie wird gelöscht.";
 $tx['settings']['backupexplain2']="Sicherheitskopie-Namen beginnen mit Datum und Uhrzeit der Erstellung: YYYYMMDD_HHMMSS .";
-$tx['settings']['backupexplain3']="Bitte Content-Datei und Pagedata-Datei immer zusammen sichern!";
 $tx['settings']['ftp']="Bitte FTP zur Dateiverwaltung benutzen.";
 $tx['settings']['systemfiles']="Systemdateien";
 $tx['settings']['warning']="Bitte hier nur solche Änderungen durchführen, bei denen Sie genau wissen, was diese bewirken!";

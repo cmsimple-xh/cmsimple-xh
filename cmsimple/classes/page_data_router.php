@@ -29,8 +29,8 @@ class PL_Page_Data_Router{
 	 * @param mixed $h
 	 * @return
 	 */
-	function PL_Page_Data_Router($data_file, $h){
-		$this -> model = new PL_Page_Data_Model($h);
+	function PL_Page_Data_Router($h, $contentHead){
+		$this -> model = new PL_Page_Data_Model($h, $contentHead);
 
 	}
 
@@ -358,5 +358,42 @@ class PL_Page_Data_Router{
 		}
 		return FALSE;
 	}
+	
+	
+	function headAsPHP()
+	{
+		$flds = array();
+		foreach ($this->model->params as $param) {
+			$flds[] = "'" . addcslashes($param, '\'\\') . "'";
+		}
+		$o = "<?php\n\$page_data_fields=array("
+			. implode(',', $flds)
+			. ");\n";
+		$flds = array();
+		foreach ($this->model->temp_data as $key => $val) {
+			$escval = addcslashes($val, '\'\\');
+			$flds[] = "'$key'=>'$escval'";
+		}
+		$o .= "\$temp_data=array(\n"
+			. implode(",\n", $flds)
+			. "\n);\n?>\n";
+		return $o;
+	}
+	
+	
+	function pageAsPHP($id)
+	{
+		$data = $this->find_page($id);
+		$flds = array();
+		foreach ($data as $key => $val) {
+			$escval = addcslashes($val, '\'\\');
+			$flds[] = "'$key'=>'$escval'";
+		}
+		$o = "<?php\n\$page_data[]=array(\n"
+			. implode(",\n", $flds)
+			. "\n);\n?>\n";
+		return $o;
+	}
+
 }
 ?>

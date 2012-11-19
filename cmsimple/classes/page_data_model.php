@@ -29,14 +29,26 @@ class PL_Page_Data_Model{
 	 * @param mixed $h CMSimple's headings-array
 	 * @return
 	 */
-	function PL_Page_Data_Model($h){
-		global $pth;
+	function PL_Page_Data_Model($h, $contentHead)
+	{
+		global $pth, $c;
 		
 		$this -> headings = $h;
-		include_once($pth['file']['pagedata']);
-		$this -> params = $page_data_fields;
-		$this -> data = $page_data;
+		if (preg_match('/<\?php(.*?)\?>/isu', $contentHead, $m)) {
+			eval($m[1]);
+		}
+		$this -> params = isset($page_data_fields)
+			? $page_data_fields
+			: array('url', 'last_edit');
 		$this -> temp_data = isset($temp_data) ? $temp_data : array();
+		$page_data = array();
+		foreach ($c as $i => $j) {
+			if (preg_match('/<\?php(.*?)\?>/is', $j, $m)) {
+				eval($m[1]);
+				$c[$i] = preg_replace('/<\?php.*?\?>/is', '', $j);
+			}
+		}
+		$this -> data = $page_data;
 		$this -> read();
 	}
 	
@@ -47,22 +59,17 @@ class PL_Page_Data_Model{
 	 */
 	function read(){
 		foreach($this -> headings as $id => $value){
-			$needs_save = false;
 			foreach($this -> params as $param){
 				if(!isset($this -> data[$id][$param])){
-					$needs_save = true;
-
 					switch ($param) {
-						case 'url': $this -> data[$id][$param] = uenc(strip_tags($value));
+					case 'url':
+						$this -> data[$id][$param] = uenc(strip_tags($value));
 						break;
-						default:$this -> data[$id][$param] = '';
-						break;
+					default:
+						$this -> data[$id][$param] = '';
 					}
 				}
 			}
-		}
-		if($needs_save){
-			$this -> save();
 		}
 	}
 
@@ -257,51 +264,7 @@ class PL_Page_Data_Model{
 	 * @return
 	 */
 	function save(){
-		global $o, $adm, $cl, $pth;
-		
-		if(!file_exists($pth['file']['pagedata'])){
-			if($adm){
-				e('cntopen', 'pagedata', $pth['file']['pagedata']);
-			}
-			return;
-		}
-
-		if(!is_writeable($pth['file']['pagedata'])){
-			if($adm){
-				e('cntwriteto', 'pagedata', $pth['file']['pagedata']);
-			}
-			return;
-		}
-
-		$data_string = "<?php \n";
-                $data_string.= "/* utf8-marker = äöüß */ \n";
-		$data_string .= "################## Data fields ############\n";
-		foreach($this -> params as $param){
-			$data_string .= "\$page_data_fields[] = '". $param ."';\n";
-		}
-
-		$data_string .= "\n################## Recently deleted ############\n";
-		foreach($this -> temp_data as $key => $value){
-			$data_string .= "\$temp_data['".$key."'] = '". str_replace('\"', '"', addslashes($value)) ."';\n";
-		}
-
-		$data_string .= "\n################## Page Data ############\n";
-
-                ksort($this->data, SORT_NUMERIC);
-		$i = 0;
-		foreach($this -> data as $key => $values){			
-                    foreach($values as $value_key => $value){
-                        $data_string .= "\$page_data[".$i."]['".$value_key."'] = '". str_replace('\"', '"', addslashes($value)) ."';\n";
-                    }
-                    $data_string .= "\n//----------\n";
-                    $i++;
-		}
-		$data_string .= "?>";
-
-		$fh = fopen($pth['file']['pagedata'], "w");
-		fwrite($fh,$data_string);
-		fclose($fh);
-		return;
+		XH_saveContents();
 	}
 }
 ?>

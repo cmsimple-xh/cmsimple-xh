@@ -59,7 +59,6 @@ $tx['filetype']['folder']="folder";
 $tx['filetype']['langconfig']="Website configuration";
 $tx['filetype']['language']="language file";
 $tx['filetype']['log']="log";
-$tx['filetype']['pagedata']="pagedata file";
 $tx['filetype']['stylesheet']="stylesheet";
 $tx['filetype']['template']="template";
 
@@ -176,7 +175,6 @@ $tx['search']['result']="Result of your search";
 $tx['settings']['backup']="Backup";
 $tx['settings']['backupexplain1']="On logout content is backed up and the oldest backup file will be deleted.";
 $tx['settings']['backupexplain2']="Backup file names start with date and time of backup as: YYYYMMDD_HHMMSS";
-$tx['settings']['backupexplain3']="Please save Content file and Pagedata file always together!";
 $tx['settings']['ftp']="Use FTP for remote file management";
 $tx['settings']['systemfiles']="System files";
 $tx['settings']['warning']="Only change settings when you understand the effect your changes will have!";

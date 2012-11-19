@@ -7,16 +7,13 @@
  */
 
 
-// utf-8-marker: äöüß
-
-
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
 }
 
 
-define('PAGEMANAGER_VERSION', '1pl7');
+define('PAGEMANAGER_VERSION', '1.1dev1');
 
 
 /**
@@ -300,7 +297,6 @@ function pagemanager_start_element_handler($parser, $name, $attribs) {
 		? '' : preg_replace('/(copy_)?pagemanager-([0-9]*)/', '$2', $attribs['ID']);
 	$pagemanager_state['title'] = htmlspecialchars($attribs['TITLE'], ENT_NOQUOTES, 'UTF-8');
 	$pagemanager_state['pdattr'] = $attribs['PDATTR'];
-	$pagemanager_state['num']++;
     }
 }
 
@@ -323,7 +319,7 @@ function pagemanager_end_element_handler($parser, $name) {
  * @return void
  */
 function pagemanager_cdata_handler($parser, $data) {
-    global $c, $h, $cf, $pagemanager_fp, $pagemanager_state, $pagemanager_pd,
+    global $c, $h, $cf, $pagemanager_state, $pagemanager_c, $pagemanager_pd,
 	    $pd_router, $plugin_cf;
     $data = htmlspecialchars($data, ENT_NOQUOTES, 'UTF-8');
     if (isset($c[$pagemanager_state['id']])) {
@@ -332,10 +328,10 @@ function pagemanager_cdata_handler($parser, $data) {
 		.'((<[^>]*>)*)[^<]*((<[^>]*>)*)<\/h[1-'.$cf['menu']['levels'].']([^>]*)>/i',
 		'<h'.$pagemanager_state['level'].'$1>${2}'.$pagemanager_state['title'].'$4'
 		.'</h'.$pagemanager_state['level'].'$6>', $cnt, 1);
-	fwrite($pagemanager_fp, rmnl($cnt."\n"));
+	$pagemanager_c[] = $cnt;
     } else {
-	fwrite($pagemanager_fp, '<h'.$pagemanager_state['level'].'>'.$pagemanager_state['title']
-		.'</h'.$pagemanager_state['level'].'>'."\n");
+	$pagemanager_c[] = '<h'.$pagemanager_state['level'].'>'.$pagemanager_state['title']
+		.'</h'.$pagemanager_state['level'].'>';
     }
 
     if ($pagemanager_state['id'] == '') {
@@ -350,25 +346,22 @@ function pagemanager_cdata_handler($parser, $data) {
 
 
 /**
- * Saves content.htm manually and
- * pagedata.php via $pd_router->model->refresh().
+ * Saves modified content.
  *
  * @return void
  */
 function pagemanager_save($xml) {
-    global $pth, $tx, $pd_router, $pagemanager_state, $pagemanager_fp, $pagemanager_pd;
-    $pagemanager_pd = array();
-    $parser = xml_parser_create('UTF-8');
-    xml_set_element_handler($parser, 'pagemanager_start_element_handler',
-	    'pagemanager_end_element_handler');
-    xml_set_character_data_handler($parser, 'pagemanager_cdata_handler');
-    $pagemanager_state['level'] = 0;
-    $pagemanager_state['num'] = -1;
-    if ($pagemanager_fp = fopen($pth['file']['content'], 'w')) {
-	fputs($pagemanager_fp, '<html><head><title>Content</title></head><body>'."\n");
+    global $c, $pth, $tx, $pd_router, $pagemanager_state, $pagemanager_c, $pagemanager_pd;
+    if (is_writable($pth['file']['content'])) {
+	$parser = xml_parser_create('UTF-8');
+	xml_set_element_handler($parser, 'pagemanager_start_element_handler',
+		'pagemanager_end_element_handler');
+	xml_set_character_data_handler($parser, 'pagemanager_cdata_handler');
+	$pagemanager_state['level'] = 0;
+	$pagemanager_c = array();
+	$pagemanager_pd = array();
 	xml_parse($parser, $xml, TRUE);
-	fputs($pagemanager_fp, '</body></html>');
-	fclose($pagemanager_fp);
+	$c = $pagemanager_c;
 	$pd_router->model->refresh($pagemanager_pd);
     } else
 	e('cntwriteto', 'content', $pth['file']['content']);
