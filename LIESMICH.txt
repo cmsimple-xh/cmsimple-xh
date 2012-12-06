@@ -22,6 +22,9 @@ Schreibrechte für einige Dateien vergeben,
 siehe
 http://www.cmsimple-xh.de/dokuwiki/doku.php/anwenderdokumentation:cmsimple:installation#datei-_und_ordnerrechte
 
+Ausführliche UPDATE Instruktionen sind verfügbar im  [CMSimple forum](http://www.cmsimpleforum.com/viewtopic.php?f=4&t=4868).
+
+
 ===============================================
 
 ##########################################
