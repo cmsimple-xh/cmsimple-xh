@@ -20,6 +20,8 @@ On many servers you have to set writing
 permissions for some files, see
 http://www.cmsimple-xh.com/wiki/doku.php/manuals:users_manual:cmsimple:installation#assigning_file_and_folder_permissions
 
+Detailed UPDATE instructions are avaiable in the [CMSimple forum](http://www.cmsimpleforum.com/viewtopic.php?f=4&t=4868).
+
 ===============================================
 
 #########################################
