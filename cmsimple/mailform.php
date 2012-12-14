@@ -149,6 +149,7 @@ function mail_utf8($to, $subject = '(No Subject)', $message = '', $header = '')
 {
     $header = 'MIME-Version: 1.0' . "\r\n"
         . 'Content-type: text/plain; charset=UTF-8' . "\r\n"
+        . 'Content-Transfer-Encoding: base64' . "\r\n"
         . $header;
     $subject = '=?UTF-8?B?'
         . base64_encode(utf8_substr($subject, 0, 45)) . '?=';
@@ -160,6 +161,7 @@ function mail_utf8($to, $subject = '(No Subject)', $message = '', $header = '')
                create_function('&$v, $i',
                                '$v = utf8_wordwrap($v, 72, "\n", true);'));
     $message = implode("\r\n", $lines);
+    $message = chunk_split(base64_encode($message));
 
     return mail($to, $subject, $message, $header);
 }
