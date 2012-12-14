@@ -10,7 +10,7 @@
   $CMSIMPLE_XH_VERSION$
   $CMSIMPLE_XH_DATE$
   based on CMSimple version 3.3 - December 31. 2009
-  For changelog, downloads and information please see http://www.cmsimple-xh.com
+  For changelog, downloads and information please see http://www.cmsimple-xh.org
   ======================================
   -- COPYRIGHT INFORMATION START --
   Based on CMSimple version 3.3 - December 31. 2009
@@ -50,7 +50,7 @@ $t = '';
 if ($action == 'send')
 {
     include_once UTF8 . '/wordwrap.php';
-    
+
     $msg = $tx['mailform']['sendername'] . ": "
         . stsl($sendername) . "\n"
         . $tx['mailform']['senderphone'] . ": "
@@ -152,7 +152,7 @@ function mail_utf8($to, $subject = '(No Subject)', $message = '', $header = '')
         . $header;
     $subject = '=?UTF-8?B?'
         . base64_encode(utf8_substr($subject, 0, 45)) . '?=';
-        
+
     // word wrap the message giving preference to already existing line breaks
     $message = strtr(rtrim($message), array("\r\n" => "\n", "\r" => "\n"));
     $lines = explode("\n", $message);
@@ -160,7 +160,7 @@ function mail_utf8($to, $subject = '(No Subject)', $message = '', $header = '')
                create_function('&$v, $i',
                                '$v = utf8_wordwrap($v, 72, "\n", true);'));
     $message = implode("\r\n", $lines);
-    
+
     return mail($to, $subject, $message, $header);
 }
 

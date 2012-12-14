@@ -10,7 +10,7 @@
   $CMSIMPLE_XH_VERSION$
   $CMSIMPLE_XH_DATE$
   based on CMSimple version 3.3 - December 31. 2009
-  For changelog, downloads and information please see http://www.cmsimple-xh.com
+  For changelog, downloads and information please see http://www.cmsimple-xh.org
   ======================================
   -- COPYRIGHT INFORMATION START --
 
@@ -68,7 +68,7 @@ define('CMSIMPLE_XH_DATE', '$CMSIMPLE_XH_DATE$');
 
 if (preg_match('/cms.php/i', sv('PHP_SELF')))
     die('Access Denied');
-    
+
 if (!defined('E_DEPRECATED')) {
     define('E_DEPRECATED', 8192);
 }
@@ -81,8 +81,8 @@ $pth['folder']['content'] = './content/';
 $pth['file']['content'] = $pth['folder']['content'] . 'content.htm';
 $pth['file']['pagedata'] = $pth['folder']['content'] . 'pagedata.php';
 
-$pth['folder']['base'] = is_dir('./cmsimple') ? './' : '../'; 
- 
+$pth['folder']['base'] = is_dir('./cmsimple') ? './' : '../';
+
 $pth['folder']['cmsimple'] = $pth['folder']['base'] . 'cmsimple/';
 
 $pth['file']['log'] = $pth['folder']['cmsimple'] . 'log.txt';
@@ -485,7 +485,7 @@ function final_clean_up($html) {
 
 
     }
-    
+
     if (!empty($bjs)) {
         $html = preg_replace('/(<\/body\s*>)/isu', $bjs . "\n" . '$1', $html);
     }
@@ -737,7 +737,7 @@ function uenc($s) {
 
 function rp($p) {
     trigger_error('Function rp() is deprecated', E_USER_DEPRECATED);
-    
+
     if (@realpath($p) == '')
         return $p;
     else
@@ -780,9 +780,9 @@ function tag($s) {
 
 function amp() {
     global $cf;
-    
+
     trigger_error('Function amp() is deprecated', E_USER_DEPRECATED);
-    
+
     if ($cf['xhtml']['amp'] == 'true')
         return '&amp;';
     else
@@ -916,14 +916,14 @@ function xh_debug($errno, $errstr, $errfile, $errline, $context)
     default:
         $errtype = "Unknow error type [$errno]";
     }
-    
+
     $errors[] = "<b>$errtype:</b> $errstr" . tag('br') . "$errfile:$errline"
         . tag('br') . "\n";
-    
+
     if ($errno === E_USER_ERROR) {
         die($errors[count($errors) - 1]);
     }
-    
+
   //  error_log($error, 3, CMS_DIR .'errors.log');
     /* Don't execute PHP internal error handler */
 
@@ -952,7 +952,7 @@ function head() {
         $t .= meta($i);
     if ($tx['meta']['codepage'] != '')
         $t = tag('meta http-equiv="content-type" content="text/html;charset=' . $tx['meta']['codepage'] . '"') . "\n" . $t;
-    return $t . tag('meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' ' . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.de"') . "\n" . tag('link rel="stylesheet" href="' . $pth['file']['corestyle'] . '" type="text/css"') . "\n" . tag('link rel="stylesheet" href="' . $pth['file']['stylesheet'] . '" type="text/css"') . "\n" . $hjs;
+    return $t . tag('meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' ' . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org"') . "\n" . tag('link rel="stylesheet" href="' . $pth['file']['corestyle'] . '" type="text/css"') . "\n" . tag('link rel="stylesheet" href="' . $pth['file']['stylesheet'] . '" type="text/css"') . "\n" . $hjs;
 }
 
 // END new function head() (CMSimple_XH)
@@ -1123,7 +1123,7 @@ function mailformlink() {
 
 function guestbooklink() {
     trigger_error('Function guestbooklink() is deprecated', E_USER_DEPRECATED);
-    
+
     if (function_exists('gblink'))
         return gblink();
 }
@@ -1347,7 +1347,7 @@ function languagemenu() {
  * This is useful for checking user input.
  *
  * @since   1.5.5
- * 
+ *
  * @param   array $arr
  * @return  void
  */

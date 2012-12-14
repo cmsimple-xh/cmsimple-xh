@@ -10,7 +10,7 @@
   $CMSIMPLE_XH_VERSION$
   $CMSIMPLE_XH_DATE$
   based on CMSimple version 3.3 - December 31. 2009
-  For changelog, downloads and information please see http://www.cmsimple-xh.com
+  For changelog, downloads and information please see http://www.cmsimple-xh.org
   ======================================
   -- COPYRIGHT INFORMATION START --
   Based on CMSimple version 3.3 - December 31. 2009
@@ -56,9 +56,9 @@ function geturlwp($u) {
 
 function autogallery($u) {
     global $su;
-    
+
     trigger_error('Function autogallery() is deprecated', E_USER_DEPRECATED);
-    
+
     return preg_replace("/.*<!-- autogallery -->(.*)<!-- \/autogallery -->.*/is", "\\1", preg_replace("/(option value=\"\?)(p=)/is", "\\1" . $su . "&\\2", preg_replace("/(href=\"\?)/is", "\\1" . $su . '&amp;', preg_replace("/(src=\")(\.)/is", "\\1" . $u . "\\2", geturlwp($u)))));
 }
 
@@ -265,23 +265,23 @@ function editor_replace($elementID = false, $config = ''){
 function XH_systemCheck($data)
 {
     global $pth, $tx;
-    
+
     $stx = $tx['syscheck'];
-    
+
     foreach (array('ok', 'warning', 'failure') as $img) {
 	$txt = ucfirst($img);
 	$imgs[$img] = tag('img src="' . $pth['folder']['flags'] . $img . '.gif" alt="'
 	    . $txt . '" title="' . $txt . '" width="16" height="16"');
     }
-    
+
     $o = "<h4>$stx[title]</h4>\n<ul id=\"xh_system_check\">\n";
-    
+
     if (key_exists('phpversion', $data)) {
 	$ok = version_compare(PHP_VERSION, $data['phpversion']) >= 0;
 	$o .= '<li>' . $imgs[$ok ? 'ok' : 'fail']
 	    . sprintf($stx['phpversion'], $data['phpversion']) . "</li>\n";
     }
-    
+
     if (key_exists('extensions', $data)) {
 	$cat = ' class="xh_system_check_cat_start"';
 	foreach ($data['extensions'] as $ext) {
@@ -296,7 +296,7 @@ function XH_systemCheck($data)
 	    $cat = '';
 	}
     }
-    
+
     if (key_exists('writable', $data)) {
 	$cat = ' class="xh_system_check_cat_start"';
 	foreach ($data['writable'] as $file) {
@@ -311,7 +311,7 @@ function XH_systemCheck($data)
 	    $cat = '';
 	}
     }
-    
+
     if (key_exists('other', $data)) {
 	$cat = ' class="xh_system_check_cat_start"';
 	foreach ($data['other'] as $check) {
@@ -321,9 +321,9 @@ function XH_systemCheck($data)
 	    $cat = '';
 	}
     }
-    
+
     $o .= "</ul>\n";
-    
+
     return $o;
 }
 

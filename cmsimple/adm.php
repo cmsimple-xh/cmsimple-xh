@@ -10,7 +10,7 @@
   $CMSIMPLE_XH_VERSION$
   $CMSIMPLE_XH_DATE$
   based on CMSimple version 3.3 - December 31. 2009
-  For changelog, downloads and information please see http://www.cmsimple-xh.com
+  For changelog, downloads and information please see http://www.cmsimple-xh.org
   ======================================
   -- COPYRIGHT INFORMATION START --
   Based on CMSimple version 3.3 - December 31. 2009
@@ -111,7 +111,7 @@ if ($adm) {
 
         $o.='<h4>' . $tx['sysinfo']['helplinks'] . '</h4>' . "\n" . "\n";
         $o.='<ul>
-<li><a href="http://www.cmsimple-xh.com/">cmsimple-xh.com &raquo;</a></li>
+<li><a href="http://www.cmsimple-xh.org/">cmsimple-xh.org &raquo;</a></li>
 <li><a href="http://www.cmsimple.org/">cmsimple.org &raquo;</a></li>
 <li><a href="http://www.cmsimpleforum.com/">cmsimpleforum.com &raquo;</a></li>
 <li><a href="http://www.cmsimplewiki.com/">cmsimplewiki.com &raquo;</a></li>
@@ -349,7 +349,7 @@ if ($adm) {
                                             selectlist('templates', "/^[^\.]*$/i", "/^([^\.]*)$/i"); // for subsites
 
 // use input fields only in CMS config
-                                        
+
                                         else if ($a == 'cf')
                                         {
                                             $o .= tag('input type="text" class="text" name="'.$k1.'_'.$k2.'" value="'.htmlspecialchars($v2, ENT_COMPAT, 'UTF-8').'" size="30"')."\n";

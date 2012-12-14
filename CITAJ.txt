@@ -74,7 +74,7 @@ pre normálne sémantické štrukturovanie v rámci stránok.
 
 CMSimple fórum (anglicky): http://www.cmsimpleforum.com/
 
-CMSimple_XH WIKI (anglicky): http://www.cmsimple-xh.com/wiki/
+CMSimple_XH WIKI (anglicky): http://www.cmsimple-xh.org/wiki/
 
 Čeština pro CMSimple_XH, rady a návody (česky): http://oldnema.compsys.cz/
 

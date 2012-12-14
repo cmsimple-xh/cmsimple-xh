@@ -3,7 +3,7 @@ $CMSIMPLE_XH_VERSION$
 released $CMSIMPLE_XH_DATE$
 ===============================================
 
-HESLO pro tuto instalaci je:  
+HESLO pro tuto instalaci je:
 
            test
 
@@ -11,14 +11,14 @@ HESLO pro tuto instalaci je:
 
 ===============================================
 
-INSTALACE 
+INSTALACE
 
 Rozbalte stažený soubor a uploadujte všechny soubory
 z adresáře cmsimplexh/ na váš webserver.
 
 Na mnoha serverech budete muset nastavit oprávnění
 k zápisu a čtení pro některé soubory, viz:
-http://www.cmsimple-xh.com/wiki/doku.php/manuals:users_manual:cmsimple:installation#assigning_file_and_folder_permissions
+http://www.cmsimple-xh.org/wiki/doku.php/installation
 
 ===============================================
 
@@ -71,13 +71,11 @@ a generuje navigační menu. Hlavičky H4-H6 zůstávají
 pro normální sémantické strukturování v rámci stránek.
 
 ################################################
-       U Ž I T E Č N É    O D K A Z Y 
+       U Ž I T E Č N É    O D K A Z Y
 ################################################
 
 CMSimple fórum (anglicky): http://www.cmsimpleforum.com/
 
-CMSimple_XH WIKI (anglicky): http://www.cmsimple-xh.com/wiki/
+CMSimple_XH WIKI (anglicky): http://www.cmsimple-xh.org/wiki/
 
 Čeština pro CMSimple_XH, rady a návody (česky): http://oldnema.compsys.cz/
-
-

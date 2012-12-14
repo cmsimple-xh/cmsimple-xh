@@ -19,7 +19,7 @@ $CMSIMPLE_XH_VERSION$
 На большинстве серверов Вы должны указать
 разрешение на запись для отдельных файлов,
 подробности читайте на странице
-http://www.cmsimple-xh.com/wiki/doku.php/manuals:users_manual:cmsimple:installation#assigning_file_and_folder_permissions
+http://www.cmsimple-xh.org/wiki/doku.php/installation
 
 ===============================================
 
