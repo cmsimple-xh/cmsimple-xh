@@ -7,61 +7,61 @@
  *
  * Created after discussion at CMSimpleforum.com with:
  * Martin, mvwd, Till, johnjdoe, Holger and Gert in May 2009.
- * 
+ *
  * @author Developer-Team at CMSimpleforum.com
  * @link http://www.cmsimpleforum.com
  * @version $Id$
  * @package pluginloader
  *
- * Modified after a long discussion at CMSimple forum with Martin, mvwd, 
+ * Modified after a long discussion at CMSimple forum with Martin, mvwd,
  * Till, johnjdoe, Holger and Gert (Mai 2009)
  * Changes:
- * - The pluginloader contains a new subfolder "page_data" which holds 
- *   synchronised page based data for new plugins like the "meta_tags" 
+ * - The pluginloader contains a new subfolder "page_data" which holds
+ *   synchronised page based data for new plugins like the "meta_tags"
  *   and "page_params" plugins, written by Martin
- * - OOP-written plugins can load a "required_classes.php" from a new 
+ * - OOP-written plugins can load a "required_classes.php" from a new
  *   plugin subfolder "classes"
- * - Order of loading plugins changed: 1. classes, 2. config, 3. languages, 
+ * - Order of loading plugins changed: 1. classes, 2. config, 3. languages,
  *   4. index, 5. css
  * - Direct access check changed (code mentioned by Martin & mvwd)
  * - For more security, a new constant "PLUGINLOADER_VERSION" included:
- *   Plugins can check the Pluginloader version for compatibility or to 
+ *   Plugins can check the Pluginloader version for compatibility or to
  *   perform a direct access check with code like below
  *       if(!defined('PLUGINLOADER_VERSION') or !constant('PLUGINLOADER_VERSION'))
  *        die('Direct access not allowed!');
  *       if(PLUGINLOADER_VERSION < 2.101) die('Your Pluginloader is outdated!');
  * - Plugin-Pre-Call: can be used for calling a plugin without CMSimple-Scripting.
  *   Comes with following improvements:
- *   - no limitations in size of page (instead of scripting gets not parsed in 
+ *   - no limitations in size of page (instead of scripting gets not parsed in
  *     pages >100kB).
- *   - checks if function is available, prints out an error-message (instead of 
+ *   - checks if function is available, prints out an error-message (instead of
  *     website is dying) or simply nothing.
  *   - use multiple plugins on one page (instead of just use one script per page).
- *   - place your plugin wherever you want in content (instead of plugins will be 
+ *   - place your plugin wherever you want in content (instead of plugins will be
  *     returned by standard on bottom of page).
  *   - you can use the classic CMSimple-Scripting AND pluginPreCall.
- * 
+ *
  * Plugin Loader version 2.0 beta 11 for CMSimple v2.6, v2.7 . . . 3.0, 3.2 .....
- * Modified by Till after discussion in the German CMSimple forum with Holger and 
+ * Modified by Till after discussion in the German CMSimple forum with Holger and
  * Gert (October 2008)
- * 
- * Edited by © Jan Neugebauer (December, 1st 2006) 
+ *
+ * Edited by © Jan Neugebauer (December, 1st 2006)
  * http://www.internet-setup.de/cmsimple/
- * 
- * Based on original script by © Michael Svarrer 
+ *
+ * Based on original script by © Michael Svarrer
  * http://cmsimpleplugins.svarrer.dk
- * 
- * Updated 22. September 2006 by Peter Andreas Harteg and released under the CMSimple 
+ *
+ * Updated 22. September 2006 by Peter Andreas Harteg and released under the CMSimple
  * license in the CMSimple distrubution with permission by copyright holders.
- * 
+ *
  * For licence see notice in /cmsimple/cms.php and http://www.cmsimple.com/?Licence
- * 
- * 
- * Usage: This plugin loader will load compatible plugins avaliable under 
+ *
+ *
+ * Usage: This plugin loader will load compatible plugins avaliable under
  *        the plugins folder into CMSimple.
  * Step 1 - Create a folder for the plugins (here we call it: "plugins")
- * Step 2 - Upload this pluginloader-package to the newly created folder. 
- * Step 3 - In /cmsimple/config.php set $cf['plugins']['folder']="plugins"; 
+ * Step 2 - Upload this pluginloader-package to the newly created folder.
+ * Step 3 - In /cmsimple/config.php set $cf['plugins']['folder']="plugins";
  *          (or set plugins_folder to plugins under CMSimple configuration settings)
  * Step 4 - Installation is done and you should be ready to install plugins
  *          Install plugins in an extra subfolder per plugin within the folder "plugins"
@@ -137,7 +137,7 @@ if (!file_exists($pluginloader_cfg['file_language'])) {
     } elseif (file_exists($pluginloader_cfg['folder_languages'] . 'en.php')) {
         copy($pluginloader_cfg['folder_languages'] . 'en.php', $pluginloader_cfg['file_language']);
     }
-} 
+}
 
 // Load default plugin language
 if (file_exists($pluginloader_cfg['folder_languages'] . 'default.php')) {
@@ -230,7 +230,7 @@ while (FALSE !== ($plugin = readdir($handle))) {
         if (file_exists($pth['file']['plugin_config'])) {
             include($pth['file']['plugin_config']);
         }
-    
+
     // If plugin language is missing, copy default.php or en.php
     if (!file_exists($pth['file']['plugin_language'])) {
         if (file_exists($pth['folder']['plugins'].$plugin.'/languages/default.php')) {
@@ -239,7 +239,7 @@ while (FALSE !== ($plugin = readdir($handle))) {
         copy($pth['folder']['plugins'].$plugin.'/languages/en.php', $pth['file']['plugin_language']);
         }
     }
-    
+
     // Load default plugin language
     if (file_exists($pth['folder']['plugins'] . $plugin . '/languages/default.php')) {
          include $pth['folder']['plugins'] . $plugin . '/languages/default.php';
@@ -295,7 +295,7 @@ unset($plugin);
  * Function PluginFiles()
  * Set plugin filenames.
  *
- * @param string $plugin Name of the plugin, the filenames 
+ * @param string $plugin Name of the plugin, the filenames
  * will be set for.
  *
  * @global array $cf CMSimple's Config-Array
@@ -511,7 +511,7 @@ function PluginPrepareConfigData($var_name='', $data=ARRAY(), $plugin='') {
         if (!empty($plugin)) {
             $save_data .= '[\'' . $plugin . '\']';
         }
-        $save_data .= '[\'' . $key . '\']="' . trim(str_replace("\\'", "'", ((get_magic_quotes_gpc() === 1) ? $value : addslashes($value)))) . '";' . "\n";
+        $save_data .= '[\'' . $key . '\']="' . trim(addcslashes($value, "\0..\37\"\$\\")) . '";' . "\n";
     }
     $save_data .= "\n?>";
     return $save_data;
@@ -527,7 +527,7 @@ function PluginPrepareConfigData($var_name='', $data=ARRAY(), $plugin='') {
  */
 function PluginPrepareTextData($data) {
     trigger_error('Function PluginPrepareTextData() is deprecated', E_USER_DEPRECATED);
-    
+
     return (get_magic_quotes_gpc() === 1) ? stripslashes($data) : $data;
 }
 
@@ -536,7 +536,7 @@ function PluginPrepareTextData($data) {
  * Function PluginSaveForm()
  * Creates form for config data.
  *
- * If $hint['mode_donotshowvarnames'] == TRUE, variable 
+ * If $hint['mode_donotshowvarnames'] == TRUE, variable
  * indexes are not shown, but text information.
  * (e.g. for index 'my_name' -> $plugin_tx['example_plugin']['cf_my_name'])
  *
@@ -694,11 +694,11 @@ function print_plugin_admin($main) {
     }
 
     if($css == 'ON') {
-        PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_stylesheet&amp;action=plugin_text', '', $pluginloader_tx['menu']['tab_css'], $plugin_menu_style);	
+        PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_stylesheet&amp;action=plugin_text', '', $pluginloader_tx['menu']['tab_css'], $plugin_menu_style);
     }
 
-    if($config == 'ON') { 
-        PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_config&amp;action=plugin_edit', '', $pluginloader_tx['menu']['tab_config'], ''); 
+    if($config == 'ON') {
+        PluginMenu('TAB', $sn.'?&amp;'.$plugin.'&amp;admin=plugin_config&amp;action=plugin_edit', '', $pluginloader_tx['menu']['tab_config'], '');
     }
 
     if ($language == 'ON') {
@@ -806,13 +806,13 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
             $config_data = ARRAY();
             foreach ($data as $key => $value) {
                 global $pluginloader_cfg;
-                $config_data[$key] = $_POST[$pluginloader_cfg['form_namespace'] . $key];
+                $config_data[$key] = stsl($_POST[$pluginloader_cfg['form_namespace'] . $key]);
             }
             $save_data = PluginPrepareConfigData($var_name, $config_data, $plugin);
         }
         if ($action == 'plugin_textsave') {
-            $text_data = $_POST[$var_name];
-            $save_data = stsl($text_data);
+            $text_data = stsl($_POST[$var_name]);
+            $save_data = $text_data;
         }
         $is_saved = PluginWriteFile($pth['file'][$admin], $save_data);
         $t .= tag('br') . '<b>' . $is_saved['msg'] . '</b>' . tag('br');
@@ -834,9 +834,9 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
  */
 function PluginDebugger($error=FALSE, $caller=FALSE, $varname=FALSE, $value=FALSE) {
     global $pluginloader_tx;
-    
+
     trigger_error('Function PluginDebugger() is deprecated', E_USER_DEPRECATED);
-    
+
     $debug = '';
     $debug .= $pluginloader_tx['error']['plugin_error'] . '';
     switch ($error) {
@@ -867,13 +867,13 @@ function PluginDebugger($error=FALSE, $caller=FALSE, $varname=FALSE, $value=FALS
  * {{{HOME}}} or: {{{HOME:name_of_Link}}}
  * This creates a link to the first page of your CMSimple-
  * Installation.
- * 
+ *
  * @param pageIndex - added for search
  * @global bool $edit TRUE if edit-mode is active
  * @global array $c Array containing all contents of all CMSimple-pages
  * @global integer $s Pagenumber of active page
  * @global array $u Array containing URLs to all CMSimple-pages
- * 
+ *
  * @author mvwd
  * @since V.2.1.02
  */
