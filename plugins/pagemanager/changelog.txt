@@ -1,3 +1,6 @@
+Version 1pl10 - released 2012-12-22
+cmb     fixed bug, where redirect after save didn't work for HTTPS and non default ports (reported by Tata)
+
 Version 1pl9 - released 2012-12-22
 cmb     fixed broken links
 cmb     added Dutch translation (contributed by roze)
