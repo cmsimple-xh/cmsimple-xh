@@ -16,14 +16,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('PAGEMANAGER_VERSION', '1pl10');
-
-
-define('PAGEMANAGER_URL', 'http'
-   . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
-   . '://' . $_SERVER['SERVER_NAME']
-   . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
-   . preg_replace('/index.php$/', '', $_SERVER['SCRIPT_NAME']));
+define('PAGEMANAGER_VERSION', '1pl9');
 
 
 /**
@@ -427,7 +420,7 @@ if (isset($pagemanager)) {
 	    if ($action == 'plugin_save') {
 		pagemanager_save(stsl($_POST['xml']));
 		if (!headers_sent()) {
-		    header('Location: ' . PAGEMANAGER_URL
+		    header('Location: http://'.$_SERVER['SERVER_NAME'].$sn
 			    .(isset($_GET['pagemanager-xhpages'])
 			    ? '?&normal&xhpages'
 			    : '?&pagemanager&normal&admin=plugin_main'));
