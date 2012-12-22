@@ -16,7 +16,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('PAGEMANAGER_VERSION', '1pl7');
+define('PAGEMANAGER_VERSION', '1pl9');
 
 
 /**
@@ -89,7 +89,7 @@ function pagemanager_version() {
 	    .'<p>Copyright &copy; 2011-2012 <a href="http://3-magi.net">Christoph M. Becker</a></p>'."\n"
 	    .'<p><a href="http://3-magi.net/?CMSimple_XH/Pagemanager_XH">'
 	    .'Pagemanager_XH</a> is powered by '
-	    .'<a href="http://www.cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple">'
+	    .'<a href="http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple">'
 	    .'jQuery4CMSimple</a>'
 	    .' and <a href="http://www.jstree.com/">jsTree</a>.</p>'."\n"
 	    .'<p style="text-align: justify">This program is free software: you can redistribute it and/or modify'
@@ -409,7 +409,7 @@ if (isset($pagemanager)) {
 
     include_once $pth['folder']['plugins'] . 'utf8/utf8.php';
     include_once UTF8 . '/ucfirst.php';
-    
+
     initvar('admin');
     initvar('action');
 
