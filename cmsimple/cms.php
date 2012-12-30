@@ -387,6 +387,9 @@ if ($title == '') {
 
 if (!headers_sent($tempFile, $tempLine)) {
     header('Content-Type: text/html; charset=' . $tx['meta']['codepage']);
+    if (strlen($sl) == 2) {
+        header("Content-Language: $sl");
+    }
 } else {
     $temp = $tempFile . ':' . $tempLine;
     exit(str_replace('{location}', $temp, $tx['error']['headers']));
