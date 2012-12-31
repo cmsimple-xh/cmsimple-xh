@@ -1,13 +1,17 @@
 <?php
 
 /**
- * Functions that are used in admin mode only.
- * 
- * @version $Id$
+ * Admin only functions.
+ *
+ * @package	XH
+ * @copyright	1999-2009 <http://cmsimple.org/>
+ * @copyright	2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version	$CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
+ * @version     $Id$
+ * @link	http://cmsimple-xh.org/
  */
 
- 
-// no direct access protection necessary as only functions are defined
 
 /**
  * Returns the system information view.
@@ -19,7 +23,7 @@
 function XH_sysinfo()
 {
     global $pth, $tx;
-    
+
     $o = '<p><b>' . $tx['sysinfo']['version'] . '</b></p>' . "\n";
     $o .= '<ul>' . "\n" . '<li>' . CMSIMPLE_XH_VERSION . '&nbsp;&nbsp;Released: '
         . CMSIMPLE_XH_DATE . '</li>' . "\n" . '</ul>' . "\n" . "\n";
@@ -47,19 +51,18 @@ function XH_sysinfo()
         . '</ul>' . "\n" . "\n";
 
     $temp = array('phpversion' => '4.3',
-        'extensions' => array(
-            array('date', false),
-            'pcre',
-            array('session', false),
-            array('xml', false)),
-        'writable' => array(),
-        'other' => array());
+                  'extensions' => array(array('date', false),
+                                        'pcre',
+                                        array('session', false),
+                                        array('xml', false)),
+                  'writable' => array(),
+                  'other' => array());
     foreach (array('content', 'images', 'downloads', 'userfiles', 'media') as $i) {
         $temp['writable'][] = $pth['folder'][$i];
     }
-    foreach (
-        array('config', 'log', 'language', 'langconfig', 'content',
-            'template', 'stylesheet') as $i)
+    foreach (array('config', 'log', 'language', 'langconfig', 'content',
+                   'template', 'stylesheet')
+             as $i)
     {
         $temp['writable'][] = $pth['file'][$i];
     }
@@ -74,10 +77,19 @@ function XH_sysinfo()
 }
 
 
+/**
+ * Returns the general settings view.
+ *
+ * @since   1.6
+ *
+ * @return string  The (X)HTML.
+ */
 function XH_settingsView()
 {
     global $sl, $pth, $cf, $tx;
-    
+
+    // TODO: add $sn to links
+
     $o = '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
         . '<h4>' . $tx['settings']['systemfiles'] . '</h4>' . "\n" . '<ul>' . "\n";
 
@@ -102,8 +114,7 @@ function XH_settingsView()
     }
     $o .= '</ul>' . "\n";
 
-    $o .= '<h4>' . $tx['settings']['backup'] . '</h4>'
-        . "\n" . '<ul>' . "\n";
+    $o .= '<h4>' . $tx['settings']['backup'] . '</h4>' . "\n" . '<ul>' . "\n";
     $o .= '<li>' . utf8_ucfirst($tx['filetype']['content']) . ' <a href="'
         . '?file=content&amp;action=view">'
         . $tx['action']['view'] . '</a>' . ' <a href="?file=content">'
@@ -126,6 +137,7 @@ function XH_settingsView()
     return $o;
 }
 
+
 /**
  * Create menu of plugin (add row, add tab), constructed as a table.
  *
@@ -138,7 +150,7 @@ function XH_settingsView()
 function PluginMenu($add = '', $link = '', $target = '', $text = '', $style = array())
 {
     static $menu = '';
-    
+
     $add = strtoupper($add);
 
     if (!isset($style['row'])) {
@@ -192,11 +204,10 @@ function PluginMenu($add = '', $link = '', $target = '', $text = '', $style = ar
 
 
 /**
- * Create plugin menu tabs.
+ * Returns the plugin menu.
  *
- * @param string $main Set to OFF, if menu is not needed.
- *
- * @return string Returns the created plugin-menu.
+ * @param string $main  Whether the main setting menu item should be shown ('ON'/'OFF').
+ * @return string (X)HTML.
  */
 function print_plugin_admin($main)
 {
@@ -205,7 +216,7 @@ function print_plugin_admin($main)
     initvar('action');
     initvar('admin');
     PluginFiles($plugin);
-    
+
     $main = strtoupper($main) == 'ON';
     $css = is_readable($pth['file']['plugin_stylesheet']);
     $config = is_readable($pth['file']['plugin_config']);
@@ -230,11 +241,11 @@ function print_plugin_admin($main)
     }
     if ($css) {
         PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_stylesheet&amp;action=plugin_text',
-		   '', $tx_css, array());	
+		   '', $tx_css, array());
     }
-    if ($config) { 
+    if ($config) {
         PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_config&amp;action=plugin_edit',
-		   '', $tx_config, ''); 
+		   '', $tx_config, '');
     }
     if ($language) {
         PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_language&amp;action=plugin_edit',
@@ -249,10 +260,7 @@ function print_plugin_admin($main)
 
 
 /**
- * Function plugin_admin_common()
- *
- * Handles reading and writing of plugin files
- * (e.g. en.php, config.php, stylesheet.css)
+ * Handles reading and writing of plugin files (e.g. en.php, config.php, stylesheet.css).
  *
  * @param bool $action Possible values: 'empty' = Error: empty value detected
  * @param array $admin Array, that contains debug_backtrace()-data
@@ -270,12 +278,12 @@ function print_plugin_admin($main)
  *
  * @return string Returns the created form or the result of saving the data
  */
-function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY())
+function plugin_admin_common($action, $admin, $plugin, $hint=array())
 {
     // TODO: do something about the fake parameters
     // TODO: note that $hint is ignored now
     global $action, $admin, $plugin, $pth;
-    
+
     require_once $pth['folder']['classes'] . 'FileEdit.php';
     switch ($admin) {
     case 'plugin_config':
@@ -304,14 +312,16 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY())
 
 
 /**
- * Returns the (X)HTML for the content editor and activates it.
+ * Returns the content editor and activates it.
  *
  * @since 1.6
+ *
+ * @return string  The (X)HTML.
  */
 function XH_contentEditor()
 {
     global $sn, $su, $s, $u, $c, $e, $cf, $tx;
-    
+
     $su = $u[$s]; // TODO: is changing of $su correct here???
 
     $editor = $cf['editor']['external'] == '' || init_editor();
@@ -320,12 +330,12 @@ function XH_contentEditor()
             . '</li>' . "\n"; // FIXME: i18n
     }
     $o = '<form method="POST" id="ta" action="' . $sn . '">'
-            . tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
-            . tag('input type="hidden" name="function" value="save"')
-            . '<textarea name="text" id="text" class="xh-editor" style="height: '
-            . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
-            . htmlspecialchars($c[$s], ENT_COMPAT, 'UTF-8')
-            . '</textarea>';
+        . tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
+        . tag('input type="hidden" name="function" value="save"')
+        . '<textarea name="text" id="text" class="xh-editor" style="height: '
+        . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
+        . htmlspecialchars($c[$s], ENT_COMPAT, 'UTF-8')
+        . '</textarea>';
     if ($cf['editor']['external'] == '' || !$editor) {
         $o .= tag('input type="submit" value="'
                   . utf8_ucfirst($tx['action']['save']) . '"');
@@ -345,13 +355,13 @@ function XH_contentEditor()
 function XH_saveEditorContents($text)
 {
     global $pth, $cf, $tx, $pd_router, $c, $s, $u, $selected;
-    
+
     $hot = '<h[1-' . $cf['menu']['levels'] . '][^>]*>';
     $hct = '<\/h[1-' . $cf['menu']['levels'] . ']>'; // TODO: use $1 ?
     $text = stsl($text); // this might be done before the plugins are loaded for backward compatibility
     // remove empty headings
     $text = preg_replace("/$hot(&nbsp;|&#160;|\xC2\xA0| )?$hct/isu", '', $text);
-    
+
     // handle missing heading on the first page
     if ($s == 0) {
         if (!preg_match('/^<h1[^>]*>.*<\/h1>/isu', $text)
@@ -368,12 +378,12 @@ function XH_saveEditorContents($text)
         $pages = explode("\x00", $text);
         array_shift($pages);
         array_splice($c, $s, 1, $pages);
-        
+
         // delegate changes to $pd_router
         preg_match_all("/$hot(.+?)$hct/isu", $text, $matches);
         $pd_router->refresh_from_texteditor($matches[1], $s);
-        
-        // redirect to get back in sync (+ implement PRG pattern)
+
+        // redirect to get back in sync
         if (count($matches[1]) > 0) {
             // page heading might have changed
             $urlParts = explode($cf['uri']['seperator'], $selected);

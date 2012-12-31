@@ -1,7 +1,15 @@
 <?php
 
 /**
- * @version $Id$
+ * General functions.
+ *
+ * @package	XH
+ * @copyright	1999-2009 <http://cmsimple.org/>
+ * @copyright	2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version	$CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
+ * @version 	$Id$
+ * @link	http://cmsimple-xh.org/
  */
 
 /* utf8-marker = äöü */
@@ -24,53 +32,96 @@
  */
 
 
-if (preg_match('/functions.php/i', sv('PHP_SELF')))
-    die('Access Denied');
-
-// Backward compatibility for DHTML menus - moved from functions.php to cms.php (CMSimple_XH 1.0)
-
-
-
-// #CMSimple functions to use within content
-
-function geturl($u) {
+/**
+ * Returns the inner HTML of the body element of the given URL.
+ *
+ * @param  string $u  The URL.
+ * @return string  The (X)HTML.
+ * */
+function geturl($u)
+{
     $t = '';
     if ($fh = @fopen(preg_replace("/\&amp;/is", "&", $u), "r")) {
-        while (!feof($fh))
+        while (!feof($fh)) {
             $t .= fread($fh, 1024);
+        }
         fclose($fh);
         return preg_replace("/.*<body[^>]*>(.*)<\/body>.*/is", "\\1", $t);
     }
 }
 
-function geturlwp($u) {
+
+/**
+ * Returns the contents of the given URL adding all current GET parameters.
+ *
+ * @param  string $u  The URL.
+ * @return string  The (X)HTML.
+ */
+function geturlwp($u)
+{
     global $su;
+
     $t = '';
-    if ($fh = @fopen($u . '?' . preg_replace("/^" . preg_quote($su, '/') . "(\&)?/s", "", sv('QUERY_STRING')), "r")) {
-        while (!feof($fh))
+    $qs = preg_replace("/^" . preg_quote($su, '/') . "(\&)?/s",
+		       "", sv('QUERY_STRING'));
+    if ($fh = @fopen($u . '?' . $qs, "r")) {
+        while (!feof($fh)) {
             $t .= fread($fh, 1024);
+        }
         fclose($fh);
         return $t;
     }
 }
 
-function autogallery($u) {
+
+/**
+ * Returns the code to display a photogallery.
+ *
+ * @deprecated since 1.5.4. Use a gallery plugin instead.
+ * @param      string $url  Autogallery's installation folder.
+ * @return     string  The (X)HTML.
+ */
+function autogallery($u)
+{
     global $su;
-    
+
     trigger_error('Function autogallery() is deprecated', E_USER_DEPRECATED);
-    
-    return preg_replace("/.*<!-- autogallery -->(.*)<!-- \/autogallery -->.*/is", "\\1", preg_replace("/(option value=\"\?)(p=)/is", "\\1" . $su . "&\\2", preg_replace("/(href=\"\?)/is", "\\1" . $su . '&amp;', preg_replace("/(src=\")(\.)/is", "\\1" . $u . "\\2", geturlwp($u)))));
+
+    return preg_replace("/.*<!-- autogallery -->(.*)<!-- \/autogallery -->.*/is", "\\1",
+			preg_replace("/(option value=\"\?)(p=)/is", "\\1" . $su . "&\\2",
+				     preg_replace("/(href=\"\?)/is", "\\1" . $su . '&amp;',
+						  preg_replace("/(src=\")(\.)/is", "\\1" . $u . "\\2", geturlwp($u)))));
 }
 
 // Other functions
 
-function h($n) {
+
+/**
+ * Returns the page heading.
+ *
+ * @see	   $h
+ * @param  int $n  The index of the page.
+ * @return string  The heading.
+ */
+function h($n)
+{
     global $h;
+
     return $h[$n];
 }
 
-function l($n) {
+
+/**
+ * Returns the page's menu level.
+ *
+ * @see     $l
+ * @param  int $n  The index of the page.
+ * @return int $l
+ */
+function l($n)
+{
     global $l;
+
     return $l[$n];
 }
 
@@ -78,15 +129,19 @@ function l($n) {
 /**
  * Returns $__text with CMSimple scripting evaluated.
  *
- * @param string $__text
- * @param bool $__compat  Wether only last CMSimple script should be evaluated.
+ * @since  1.5
+ * @param  string $__text
+ * @param  bool $__compat  Whether only last CMSimple script should be evaluated.
  * @return string
  */
-function evaluate_cmsimple_scripting($__text, $__compat = TRUE) {
+function evaluate_cmsimple_scripting($__text, $__compat = true)
+{
     global $output;
-    foreach ($GLOBALS as $__name => $__dummy) {global $$__name;}
+    foreach ($GLOBALS as $__name => $__dummy) {
+	global $$__name;
+    }
 
-    $__scope_before = NULL; // just that it exists
+    $__scope_before = null; // just that it exists
     $__scripts = array();
     preg_match_all('~'.$cf['scripting']['regexp'].'~is', $__text, $__scripts);
     if (count($__scripts[1]) > 0) {
@@ -103,8 +158,12 @@ function evaluate_cmsimple_scripting($__text, $__compat = TRUE) {
                 eval($__script);
 		$__scope_after = array_keys(get_defined_vars());
 		$__diff = array_diff($__scope_after, $__scope_before);
-		foreach ($__diff as $__var) {$GLOBALS[$__var] = $$__var;}
-		if ($__compat) {break;}
+		foreach ($__diff as $__var) {
+		    $GLOBALS[$__var] = $$__var;
+		}
+		if ($__compat) {
+		    break;
+		}
             }
         }
 	$eval_script_output = $output;
@@ -133,10 +192,12 @@ function evaluate_cmsimple_scripting($__text, $__compat = TRUE) {
  * This creates a link to the first page of your CMSimple-
  * Installation.
  *
- * @param string $__text
+ * @since  1.5
+ * @param  string $__text
  * @return string
  */
-function evaluate_plugincall($__text) {
+function evaluate_plugincall($__text)
+{
     global $u;
 
     $error = ' <span style="color:#5b0000; font-size:14px;">{{CALL TO:<span style="color:#c10000;">{{%1}}</span> FAILED}}</span> '; //use this for debugging of failed plugin-calls
@@ -147,12 +208,12 @@ function evaluate_plugincall($__text) {
 	'HOME' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode($u[0]) . '">' . urldecode($u[0]) . '</a>\');'
     );
     $fd_calls = array();
-    foreach ($pl_calls AS $regex => $call) {
+    foreach ($pl_calls as $regex => $call) {
 	preg_match_all(str_replace("RGX:CALL", $regex, $pl_regex), $__text, $fd_calls[$regex]); //catch all PL-CALLS
 	foreach ($fd_calls[$regex][0] AS $call_nr => $replace) {
 	    $call = str_replace("{{%1}}", $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]);
 	    $fnct_call = preg_replace('"(?:(?:return)\s)*(.*?)\(.*?\);"is', '$1', $call);
-	    $fnct = function_exists($fnct_call) ? TRUE : FALSE; //without object-calls; functions-only!!
+	    $fnct = function_exists($fnct_call) ? true : false; //without object-calls; functions-only!!
 	    if ($fnct) {
 		preg_match_all("/\\$([a-z_0-9]*)/i", $call, $matches);
 		foreach ($matches[1] as $var) {
@@ -174,11 +235,13 @@ function evaluate_plugincall($__text) {
 /**
  * Returns $text with CMSimple scripting and plugin calls evaluated.
  *
- * @param string $text
- * @param bool $compat  Wheter only last CMSimple script will be evaluated.
+ * @since  1.5
+ * @param  string $text
+ * @param  bool $compat  Wheter only last CMSimple script will be evaluated.
  * @return void
  */
-function evaluate_scripting($text, $compat = TRUE) {
+function evaluate_scripting($text, $compat = true)
+{
     return evaluate_cmsimple_scripting(evaluate_plugincall($text), $compat);
 }
 
@@ -186,32 +249,47 @@ function evaluate_scripting($text, $compat = TRUE) {
 /**
  * Returns content of the first CMSimple page with the heading $heading
  * with the heading removed and all scripting evaluated.
- * Returns FALSE, if the page doesn't exist.
+ * Returns false, if the page doesn't exist.
  *
- * @param string $heading
- * @return mixed
+ * @param  string $heading
+ * @return string  The (X)HTML.
  */
-function newsbox($heading) {
+function newsbox($heading)
+{
     global $c, $cl, $h, $cf, $edit;
 
     for ($i = 0; $i < $cl; $i++) {
 	if ($h[$i] == $heading) {
 	    $body = preg_replace("/.*<\/h[1-".$cf['menu']['levels']."]>/is", "", $c[$i]);
-	    return $edit ? $body : preg_replace("/".$cf['scripting']['regexp']."/is", "", evaluate_scripting($body, FALSE));
+	    return $edit
+		? $body
+		: preg_replace("/".$cf['scripting']['regexp']."/is", "", evaluate_scripting($body, false));
 	}
     }
-    return FALSE;
+    return false;
 }
 
 
 // EDITOR CALL
 
-function init_editor($elementClasses = array(),  $initFile = false){
+
+/**
+ * Calls init_* of the configured editor. Returns whether that succeeded.
+ *
+ * @since  1.5
+ * @link   http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#the_editor_integrator
+ * @param  array $elementClasses
+ * @return bool
+ */
+function init_editor($elementClasses = array(),  $initFile = false)
+{
     global $pth, $cf;
-    if (!file_exists($pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php')) {
+
+    $fn = $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
+    if (!file_exists($fn)) {
          return false;
     }
-    include_once $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
+    include_once $fn;
     $function = 'init_' . $cf['editor']['external'];
 
     if (!function_exists($function)){
@@ -223,12 +301,23 @@ function init_editor($elementClasses = array(),  $initFile = false){
     return true;
 }
 
-function include_editor(){
+
+/**
+ * Calls include_* of the configured editor. Returns whether that succeeded.
+ *
+ * @since  1.5
+ * @link   http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#the_editor_integrator
+ * @return bool
+ */
+function include_editor()
+{
     global $pth, $cf;
-    if (!file_exists($pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php')) {
+
+    $fn = $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
+    if (!file_exists($fn)) {
          return false;
     }
-    include_once $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
+    include_once $fn;
     $function = 'include_' . $cf['editor']['external'];
 
     if (!function_exists($function)){
@@ -240,7 +329,19 @@ function include_editor(){
     return true;
 }
 
-function editor_replace($elementID = false, $config = ''){
+
+/**
+ * Returns the result of calling *_replace of the configured editor.
+ *
+ * Returns false on failure.
+ *
+ * @since  1.5
+ * @link   http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#the_editor_integrator
+ * @param  string $elementID
+ * @param  string $config
+ */
+function editor_replace($elementID = false, $config = '')
+{
     global $pth, $cf;
 
     if(!$elementID) {
@@ -248,10 +349,11 @@ function editor_replace($elementID = false, $config = ''){
         return false;
     }
 
-    if (!file_exists($pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php')) {
+    $fn = $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
+    if (!file_exists($fn)) {
          return false;
     }
-    include_once $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
+    include_once $fn;
     $function = $cf['editor']['external'] . '_replace';
 
     if (!function_exists($function)){
@@ -266,30 +368,31 @@ function editor_replace($elementID = false, $config = ''){
  * Returns the result view of the system check.
  *
  * @access public
- * @since 1.5.4
- * @param array $data
+ * @since  1.5.4
+ * @link   http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#system_check
+ * @param  array $data
  * @return string  The (X)HTML.
  */
 function XH_systemCheck($data)
 {
     global $pth, $tx;
-    
+
     $stx = $tx['syscheck'];
-    
+
     foreach (array('ok', 'warning', 'failure') as $img) {
 	$txt = ucfirst($img);
 	$imgs[$img] = tag('img src="' . $pth['folder']['flags'] . $img . '.gif" alt="'
 	    . $txt . '" title="' . $txt . '" width="16" height="16"');
     }
-    
+
     $o = "<h4>$stx[title]</h4>\n<ul id=\"xh_system_check\">\n";
-    
+
     if (key_exists('phpversion', $data)) {
 	$ok = version_compare(PHP_VERSION, $data['phpversion']) >= 0;
 	$o .= '<li>' . $imgs[$ok ? 'ok' : 'fail']
 	    . sprintf($stx['phpversion'], $data['phpversion']) . "</li>\n";
     }
-    
+
     if (key_exists('extensions', $data)) {
 	$cat = ' class="xh_system_check_cat_start"';
 	foreach ($data['extensions'] as $ext) {
@@ -304,7 +407,7 @@ function XH_systemCheck($data)
 	    $cat = '';
 	}
     }
-    
+
     if (key_exists('writable', $data)) {
 	$cat = ' class="xh_system_check_cat_start"';
 	foreach ($data['writable'] as $file) {
@@ -319,7 +422,7 @@ function XH_systemCheck($data)
 	    $cat = '';
 	}
     }
-    
+
     if (key_exists('other', $data)) {
 	$cat = ' class="xh_system_check_cat_start"';
 	foreach ($data['other'] as $check) {
@@ -329,13 +432,25 @@ function XH_systemCheck($data)
 	    $cat = '';
 	}
     }
-    
+
     $o .= "</ul>\n";
-    
+
     return $o;
 }
 
-function final_clean_up($html) {
+
+/**
+ * Callback for output buffering. Returns the postprocessed (X)HTML.
+ *
+ * Currently debug information and admin menu are prepended,
+ * and $bjs is appended to the body element.
+ *
+ * @since  1.5
+ * @param  string $html
+ * @return string
+ */
+function final_clean_up($html)
+{
     global $adm, $s, $o, $errors, $cf, $bjs;
 
     if ($adm === true) {
@@ -344,10 +459,11 @@ function final_clean_up($html) {
         $margin = 34;
 
         if ($debugMode = error_reporting() > 0) {
-            $debugHint .= '<div class="cmsimplecore_debug">' . "\n" . '<b>Notice:</b> Debug-Mode is enabled!' . "\n" . '</div>' . "\n";
+            $debugHint .= '<div class="cmsimplecore_debug">' . "\n"
+		. '<b>Notice:</b> Debug-Mode is enabled!' . "\n"
+		. '</div>' . "\n";
             $margin += 25;
         }
-
 
         global $errors;
         if(count($errors) > 0){
@@ -362,7 +478,7 @@ function final_clean_up($html) {
             }
             $errorList .= '</ul></div>';
         }
-        if (isset($cf['editmenu']['scroll']) && $cf['editmenu']['scroll'] == 'true'){
+        if (isset($cf['editmenu']['scroll']) && $cf['editmenu']['scroll'] == 'true') {
             $id = ' id="editmenu_scrolling"';
             $margin = 0;
         }
@@ -375,10 +491,8 @@ function final_clean_up($html) {
         $html = preg_replace('~<body[^>]*>~i',
                             '$0' . '<div' . $id . '>' . $debugHint. admin_menu(XH_plugins(true), $debugMode) . '</div>' ."\n" .  $errorList,
                          $html, 1);
-
-
     }
-    
+
     if (!empty($bjs)) {
         $html = preg_replace('/(<\/body\s*>)/isu', $bjs . "\n" . '$1', $html);
     }
@@ -388,35 +502,65 @@ function final_clean_up($html) {
 
 // GLOBAL INTERNAL FUNCTIONS
 
-function initvar($name) {
+
+/**
+ * Initializes a global variable according to a GET or POST parameter.
+ *
+ * @param  string $name  The name of the global variable.
+ * @return void
+ */
+function initvar($name)
+{
     if (!isset($GLOBALS[$name])) {
-        if (isset($_GET[$name]))
+        if (isset($_GET[$name])) {
             $GLOBALS[$name] = $_GET[$name];
-        else if (isset($_POST[$name]))
+        } elseif (isset($_POST[$name])) {
             $GLOBALS[$name] = $_POST[$name];
-        else
+        } else {
             $GLOBALS[$name] = @preg_replace("/.*?(" . $name . "=([^\&]*))?.*?/i", "\\2", sv('QUERY_STRING'));
+        }
     }
 }
 
-function sv($s) {
+
+/**
+ * Returns the value of a $_SERVER key.
+ *
+ * Has fallback to $HTTP_SERVER_VARS for PHP < 4.1.0. ;-)
+ *
+ * @param  string $s  The key.
+ * @return string
+ */
+function sv($s)
+{
     if (!isset($_SERVER)) {
         global $_SERVER;
         $_SERVER = $GLOBALS['HTTP_SERVER_VARS'];
     }
-    if (isset($_SERVER[$s]))
+    if (isset($_SERVER[$s])) {
         return $_SERVER[$s];
-    else
-        return'';
+    } else {
+        return '';
+    }
 }
 
-function rmnl($t) {
+
+/**
+ * Returns $t with all (consecutive) line endings replaced by a single newline.
+ *
+ * @param  string $t
+ * @return string
+ */
+function rmnl($t)
+{
     return preg_replace("/(\r\n|\r|\n)+/", "\n", $t);
 }
+
 
 /**
  * Returns $str with all (consecutive) whitespaces replaced by a single space.
  *
+ * @since   1.5.4
  * @param   string $str
  * @return  string
  */
@@ -432,18 +576,45 @@ function xh_rmws($str)
 }
 
 
-function rmanl($t) {
+/**
+ * Returns $t with all line endings removed.
+ *
+ * @param  string $temp
+ * @return string
+ */
+function rmanl($t)
+{
     return preg_replace("/(\r\n|\r|\n)+/", "", $t);
 }
 
-function stsl($t) {
-    if (get_magic_quotes_gpc())
-        return stripslashes($t); else
-        return $t;
+
+/**
+ * Returns the un-quoted $t, i.e. reverses the effect of magic_quotes_gpc/magic_quotes_sybase.
+ *
+ * If in doubt, use on all user input.
+ *
+ * @param  string $t
+ * @return string *
+ */
+function stsl($t)
+{
+    return get_magic_quotes_gpc() ? stripslashes($t) : $t;
 }
 
-function download($fl) {
+
+/**
+ * Makes the file available for download.
+ *
+ * If the file can't be downloaded, an HTTP 404 Not found response will be generated.
+ *
+ * @param  string $fl  The file name.
+ * @return void
+ */
+function download($fl)
+{
     global $sn, $download, $tx;
+
+    // TODO: for security better set $fl = basename($fl) here.
     if (!is_readable($fl) || ($download != '' && !chkdl($sn . '?download=' . basename($fl)))) {
         global $o, $text_title;
         shead('404');
@@ -454,61 +625,121 @@ function download($fl) {
         header('Content-Disposition: attachment; filename="' . basename($fl) . '"');
         header('Content-Length:' . filesize($fl));
         header('Content-Transfer-Encoding: binary');
-        if ($fh = @fopen($fl, "rb")) {
-            while (!feof($fh))
+        if ($fh = @fopen($fl, "rb")) { // TODO: why not readfile() instead?
+            while (!feof($fh)) {
                 echo fread($fh, filesize($fl));
+            }
             fclose($fh);
         }
         exit;
     }
 }
 
-function chkdl($fl) {
+
+/**
+ * Returns whether the file exists in the download folder and is available for download.
+ *
+ * @param  string $fl  The download URL, e.g. ?download=file.ext
+ * @return bool
+ */
+function chkdl($fl)
+{
     global $pth, $sn;
+
     $m = false;
     if (@is_dir($pth['folder']['downloads'])) {
         $fd = @opendir($pth['folder']['downloads']);
         while (($p = @readdir($fd)) == true) {
             if (preg_match("/.+\..+$/", $p)) {
-                if ($fl == $sn . '?download=' . $p)
+                if ($fl == $sn . '?download=' . $p) {
                     $m = true;
+                }
             }
         }
-        if ($fd == true)
+        if ($fd == true) {
             closedir($fd);
+        }
     }
     return $m;
 }
 
-function rf($fl) {
-    if (!file_exists($fl))
+
+/**
+ * Returns the content of file $filename, if it does exist, null otherwise.
+ *
+ * @todo   Should be deprecated. Use file_get_contents instead.
+ * @param  string $fl  The file name.
+ * @return string
+ */
+function rf($fl)
+{
+    if (!file_exists($fl)) {
         return;
-    clearstatcache();
-    if (function_exists('file_get_contents'))
+    }
+    clearstatcache(); // TODO: remove this?
+    if (function_exists('file_get_contents')) {  // TODO: remove unnecessary fallback for PHP < 4.3
         return file_get_contents($fl);
-    else {
-        return join("\n", file($fl));
+    } else {
+        return join("\n", file($fl)); // this would double the line endings.
     }
 }
 
-function chkfile($fl, $writable) {
+
+/**
+ * Checks wether the file exists, is readable, and if $writeable is true, is writeable.
+ *
+ * Appends an according message to $e otherwise.
+ *
+ * @param  string $fl  A key of $pth['file'].
+ * @param  bool $writable
+ * @return bool
+ */
+function chkfile($fl, $writable)
+{
     global $pth, $tx;
+
     $t = isset($pth['file'][$fl]) ? $pth['file'][$fl] : '';
-    if ($t == '')
+    if ($t == '') {
         e('undefined', 'file', $fl);
-    else if (!file_exists($t))
+    } elseif (!file_exists($t)) {
         e('missing', $fl, $t);
-    else if (!is_readable($t))
+    } elseif (!is_readable($t)) {
         e('notreadable', $fl, $t);
-    else if (!is_writable($t) && $writable)
+    } elseif (!is_writable($t) && $writable) {
         e('notwritable', $fl, $t);
+    }
 }
 
-function e($et, $ft, $fn) {
+
+/**
+ * Appends an error message about the file to $e.
+ *
+ * @global string
+ * @global array
+ * @param  string $et  A key in $tx['error'].
+ * @param  string $ft  A key in $tx['filetype'].
+ * @param  string $fn  The file name.
+ * @return void.
+ */
+function e($et, $ft, $fn)
+{
     global $e, $tx;
-    $e .= '<li><b>' . $tx['error'][$et] . ' ' . $tx['filetype'][$ft] . '</b>' . tag('br') . $fn . '</li>' . "\n";
+
+    $e .= '<li><b>' . $tx['error'][$et] . ' ' . $tx['filetype'][$ft] . '</b>'
+	. tag('br') . $fn . '</li>' . "\n";
 }
 
+
+/**
+ * Reads and parses the content file and sets global variables accordingly.
+ *
+ * @global array
+ * @global int
+ * @global array
+ * @global array
+ * @global array
+ * @return void.
+ */
 function rfc() {
     global $c, $cl, $h, $u, $l, $su, $s, $pth, $tx, $edit, $adm, $cf, $e, $pd_router;
 
@@ -595,97 +826,212 @@ function rfc() {
     $pd_router = new PL_Page_Data_Router($h, $contentHead);
 }
 
-function a($i, $x) {
+
+/**
+ * Returns an opening a tag as link to a page.
+ *
+ * @param  int $i  The page index.
+ * @param  string $x  Arbitrary appendix of the URL.
+ * @return string  The (X)HTML.
+ */
+function a($i, $x)
+{
     global $sn, $u, $cf, $adm;
+
     if ($i == 0 && !$adm) {
         if ($x == '' && $cf['locator']['show_homepage'] == 'true') {
             return '<a href="' . $sn . '?' . $u[0] . '">';
         }
     }
-    return isset($u[$i]) ? '<a href="' . $sn . '?' . $u[$i] . $x . '">' : '<a href="' . $sn . '?' . $x . '">'; // changed by LM CMSimple_XH 1.1
+    return isset($u[$i])
+	? '<a href="' . $sn . '?' . $u[$i] . $x . '">'
+	: '<a href="' . $sn . '?' . $x . '">';
 }
 
-function meta($n) {
+
+/**
+ * Returns the meta element for name, if defined in $cf['meta']; null otherwise.
+ *
+ * @param  string $n  The name attribute.
+ * @return string  The (X)HTML.
+ */
+function meta($n)
+{
     global $cf, $print;
+
     $exclude = array('robots', 'keywords', 'description');
-    if ($cf['meta'][$n] != '' && !($print && in_array($n, $exclude)))
-        return tag('meta name="' . $n . '" content="' . htmlspecialchars($cf['meta'][$n], ENT_COMPAT, 'UTF-8') . '"') . "\n";
+    if ($cf['meta'][$n] != '' && !($print && in_array($n, $exclude))) {
+        return tag('meta name="' . $n . '" content="'
+		   . htmlspecialchars($cf['meta'][$n], ENT_COMPAT, 'UTF-8')
+		   . '"') . "\n";
+    }
 }
 
-function ml($i) {
+
+/**
+ * Returns the link to a special CMSimple_XH page, e.g. sitemap.
+ *
+ * @param  string $i  A key of $tx['menu'].
+ * @return string  The (X)HTML.
+ */
+function ml($i)
+{
     global $f, $sn, $tx;
+
     $t = '';
-    if ($f != $i)
+    if ($f != $i) {
         $t .= '<a href="' . $sn . '?&amp;' . $i . '">';
+    }
     $t .= $tx['menu'][$i];
-    if ($f != $i)
+    if ($f != $i) {
         $t .= '</a>';
+    }
     return $t;
 }
 
-function uenc($s) {
+
+/**
+ * Returns a percent encoded URL.
+ *
+ * All character sequences in $tx['urichar']['org'] will be replaced
+ * by their according character sequences in $tx['urichar']['new'].
+ *
+ * @param  string $s  The URL.
+ * @return string
+ */
+function uenc($s)
+{
     global $tx;
-    if (isset($tx['urichar']['org']) && isset($tx['urichar']['new']))
-        $s = str_replace(explode(",", $tx['urichar']['org']), explode(",", $tx['urichar']['new']), $s);
+
+    if (isset($tx['urichar']['org']) && isset($tx['urichar']['new'])) {
+        $s = str_replace(explode(",", $tx['urichar']['org']),
+			 explode(",", $tx['urichar']['new']), $s);
+    }
     return str_replace('+', '_', urlencode($s));
 }
 
-function rp($p) {
+
+/**
+ * Returns the canonicalized absolute pathname on success. Otherwise returns its input.
+ *
+ * @deprecated since 1.5.4. Use realpath() instead.
+ * @param  string $p  The file name.
+ * @return string
+ */
+function rp($p)
+{
     trigger_error('Function rp() is deprecated', E_USER_DEPRECATED);
-    
+
     if (@realpath($p) == '')
         return $p;
     else
         return realpath($p);
 }
 
-function sortdir($dir) {
+
+/**
+ * Returns the alphabetically sorted content of a directory.
+ *
+ * Caveat: the result includes '.' and '..'.
+ *
+ * @param  string $dir.
+ * @return array
+ */
+function sortdir($dir)
+{
     $fs = array();
     $fd = @opendir($dir);
     while (false !== ($fn = @readdir($fd))) {
         $fs[] = $fn;
     }
-    if ($fd == true)
+    if ($fd == true) {
         closedir($fd);
+    }
     @sort($fs, SORT_STRING);
     return $fs;
 }
 
-function cmscript($s, $i) {
+
+/**
+ * Returns the number of times a CMSimple script is found.
+ *
+ *
+ * @param  string $s  The needle.
+ * @param  string $i  The haystack.
+ * @return int
+ */
+function cmscript($s, $i)
+{
     global $cf;
-    return preg_match(str_replace('(.*?)', $s, '/' . $cf['scripting']['regexp'] . '/is'), $i);
+
+    return preg_match(str_replace('(.*?)', $s,
+				  '/' . $cf['scripting']['regexp'] . '/is'), $i);
 }
 
-function hide($i) {
+
+/**
+ * Returns whether a page is hidden.
+ *
+ * @param  int $i  The page index.
+ * @return bool
+ */
+function hide($i)
+{
     global $c, $edit, $adm;
+
     if ($i < 0) {
         return false;
     }
     return (!($edit && $adm) && cmscript('hide', $c[$i]));
 }
 
-// For valid XHTML
-function tag($s) {
+/**
+ * Returns an (X)HTML compliant stand alone tag according to the settings of $cf['xhtml']['endtags'].
+ *
+ * @param  string $s  The contents of the tag.
+ * @return string  The (X)HTML.
+ */
+function tag($s)
+{
     global $cf;
     $t = '';
-    if ($cf['xhtml']['endtags'] == 'true')
+    if ($cf['xhtml']['endtags'] == 'true') {
         $t = ' /';
+    }
     return '<' . $s . $t . '>';
 }
 
-function amp() {
+
+/**
+ * Returns '&' or '&amp;' according to the setting of $cf['xhtml']['amp'].
+ *
+ * @deprecated since 1.5.4. Use '&amp;' instead.
+ * @return string  The (X)HTML.
+ */
+function amp()
+{
     global $cf;
-    
+
     trigger_error('Function amp() is deprecated', E_USER_DEPRECATED);
-    
-    if ($cf['xhtml']['amp'] == 'true')
+
+    if ($cf['xhtml']['amp'] == 'true') {
         return '&amp;';
-    else
-        return('&');
+    } else {
+	return '&';
+    }
 }
 
-function shead($s) {
+
+/**
+ * Sends error header and sets $title and $o accordingly.
+ *
+ * @param  int $s  The HTTP status response code (401, 403, 404).
+ * @return void.
+ */
+function shead($s)
+{
     global $iis, $cgi, $tx, $txc, $title, $o;
+
     if ($s == '401') {
         header(($cgi || $iis) ? 'status: 401 Unauthorized' : 'HTTP/1.0 401 Unauthorized');
     } elseif ($s == '403') {
@@ -700,6 +1046,7 @@ function shead($s) {
     $title = $tx['error'][$s];
     $o = '<h1>' . $title . '</h1>' . $o;
 }
+
 
 /**
  * Debug-Mode
@@ -720,11 +1067,13 @@ function shead($s) {
  * @author Holger
  * @since CMSimple_XH V.1.0rc3 / Pluginloader V.2.1 beta 9
  *
- * @global array $pth CMSimple's pathes
+ * @global array CMSimple's pathes
  * @return boolean Returns true/false if error_reporting was enabled or not
  */
-function xh_debugmode() {
+function xh_debugmode()
+{
     global $pth;
+
     $dbglevel = '';
 
     # possible values of $dbglevel:
@@ -743,22 +1092,22 @@ function xh_debugmode() {
             set_error_handler('xh_debug');
 
             switch ($dbglevel) {
-                case 0: error_reporting(0);
-                    break;
-                case 1: error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
-                    break;
-                case 2: error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE);
-                    break;
-                case 3: error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE | E_NOTICE);
-                    break;
-                case 4: error_reporting(E_ALL ^ (E_NOTICE | E_WARNING | E_USER_WARNING));
-                    break;
-                case 5: error_reporting(E_ALL ^ E_NOTICE);
-                    break;
-                case 6: error_reporting(E_ALL);
-                    break;
-                default:
-                    error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
+	    case 0: error_reporting(0);
+		break;
+	    case 1: error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
+		break;
+	    case 2: error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE);
+		break;
+	    case 3: error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE | E_NOTICE);
+		break;
+	    case 4: error_reporting(E_ALL ^ (E_NOTICE | E_WARNING | E_USER_WARNING));
+		break;
+	    case 5: error_reporting(E_ALL ^ E_NOTICE);
+		break;
+	    case 6: error_reporting(E_ALL);
+		break;
+	    default:
+		error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
             }
         } else {
             error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
@@ -774,6 +1123,17 @@ function xh_debugmode() {
     }
 }
 
+
+/**
+ * Writes all recoverable PHP errors to $e.
+ *
+ * @param  int $errno
+ * @param  string $errstr
+ * @param  string $errfile
+ * @param  int $errline
+ * @param  array $context
+ * @return void.
+ */
 function xh_debug($errno, $errstr, $errfile, $errline, $context)
 {
     global $errors;
@@ -811,24 +1171,18 @@ function xh_debug($errno, $errstr, $errfile, $errline, $context)
     default:
         $errtype = "Unknow error type [$errno]";
     }
-    
+
     $errors[] = "<b>$errtype:</b> $errstr" . tag('br') . "$errfile:$errline"
         . tag('br') . "\n";
-    
+
     if ($errno === E_USER_ERROR) {
         die($errors[count($errors) - 1]);
     }
-    
+
   //  error_log($error, 3, CMS_DIR .'errors.log');
     /* Don't execute PHP internal error handler */
-
     return true;
 }
-
-
-
-
-
 
 
 /**
@@ -837,7 +1191,7 @@ function xh_debug($errno, $errstr, $errfile, $errline, $context)
  * This is useful for checking user input.
  *
  * @since   1.5.5
- * 
+ *
  * @param   array $arr
  * @return  void
  */
@@ -860,6 +1214,7 @@ function XH_checkValidUtf8($arr)
  * @since 1.6
  *
  * @param   string $dst
+ * @return  void
  */
 function XH_createLanguageFile($dst)
 {
@@ -877,19 +1232,16 @@ function XH_createLanguageFile($dst)
     //}
 }
 
-/**
- * Function PluginFiles()
- * Set plugin filenames.
- *
- * @param string $plugin Name of the plugin, the filenames 
- * will be set for.
- *
- * @global array $cf CMSimple's Config-Array
- * @global string $pth CMSimple's configured pathes in an array
- * @global string $sl CMSimple's selected language
- */
-function PluginFiles($plugin) {
 
+/**
+ * Set plugin paths.
+ *
+ * @global string
+ * @param  string $plugin  The name of the plugin.
+ * @return void
+ */
+function PluginFiles($plugin)
+{
     global $cf, $pth, $sl;
 
     $pth['folder']['plugin'] = $pth['folder']['plugins'] . $plugin . '/';
@@ -914,10 +1266,11 @@ function PluginFiles($plugin) {
     if (!file_exists($pth['file']['plugin_help'])) {
         $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help_en.htm';
     }
-    if (!file_exists($pth['file']['plugin_help']) AND file_exists($pth['folder']['plugin_help'] . 'help.htm')) {
+    if (!file_exists($pth['file']['plugin_help']) && file_exists($pth['folder']['plugin_help'] . 'help.htm')) {
         $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help.htm';
     }
 }
+
 
 /**
  * Function preCallPlugins() => Pre-Call of Plugins.
@@ -935,20 +1288,20 @@ function PluginFiles($plugin) {
  * {{{HOME}}} or: {{{HOME:name_of_Link}}}
  * This creates a link to the first page of your CMSimple-
  * Installation.
- * 
- * @param pageIndex - added for search
- * @global bool $edit TRUE if edit-mode is active
- * @global array $c Array containing all contents of all CMSimple-pages
- * @global integer $s Pagenumber of active page
- * @global array $u Array containing URLs to all CMSimple-pages
- * 
+ *
+ * @param int pageIndex
+ * @global bool  Whether edit-mode is active.
+ * @global array Contents of all pages.
+ * @global integer  Index of active page.
+ * @global array  URLs of all pages.
+ *
  * @author mvwd
  * @since V.2.1.02
  * @deprecated since 1.6
  */
 function preCallPlugins($pageIndex = -1) {
     global $edit, $c, $s, $u;
-    
+
     trigger_error('Function preCallPlugins() is deprecated', E_USER_DEPRECATED);
 
     if (!$edit) {
@@ -975,7 +1328,7 @@ function XH_plugins($admin = false)
     global $pth;
     static $plugins = null;
     static $admPlugins = null;
-    
+
     if (!isset($plugins)) {
 	$plugins = array();
 	$admPlugins = array();
@@ -994,27 +1347,55 @@ function XH_plugins($admin = false)
 	closedir($dh);
 	natcasesort($plugins);
 	natcasesort($admPlugins);
-    }    
+    }
     return $admin ? $admPlugins : $plugins;
 }
 
+
+/**
+ * Returns the value of a cookie, or null if the cookie doesn't exist.
+ *
+ * Has fallback to $HTTP_COOKIE_VARS for PHP < 4.1.0. ;-)
+ *
+ * @param  string $s  The name of the cookie.
+ * @return string
+ */
 function gc($s) {
     if (!isset($_COOKIE)) {
         global $_COOKIE;
         $_COOKIE = $GLOBALS['HTTP_COOKIE_VARS'];
     }
-    if (isset($_COOKIE[$s]))
+    if (isset($_COOKIE[$s])) {
         return $_COOKIE[$s];
+    }
 }
 
-function logincheck() {
+
+/**
+ * Returns wether the user is logged in.
+ *
+ * @return bool.
+ */
+function logincheck()
+{
     global $cf;
-    
-    return (gc('passwd') == $cf['security']['password']);
+
+    return gc('passwd') == $cf['security']['password'];
 }
 
-function writelog($m) {
+
+/**
+ * Appends a message to the logfile.
+ *
+ * On failure an according message is appended to $e.
+ *
+ * @param  string $m  The log message.
+ * @return void
+ */
+function writelog($m)
+{
     global $pth, $e;
+
     if ($fh = @fopen($pth['file']['log'], "a")) {
         fwrite($fh, $m);
         fclose($fh);
@@ -1024,42 +1405,85 @@ function writelog($m) {
     }
 }
 
-function lilink() {
+
+/**
+ * Returns the login link.
+ *
+ * @return string  The (X)HTML.
+ */
+function lilink()
+{
     global $cf, $adm, $sn, $u, $s, $tx;
+
     if (!$adm) {
-        if ($cf['security']['type'] == 'javascript')
-            return '<form id="login" action="' . $sn . '" method="post"><div id="loginlink">' . tag('input type="hidden" name="login" value="true"') . tag('input type="hidden" name="selected" value="' . $u[$s] . '"') . tag('input type="hidden" name="passwd" id="passwd" value=""') . '</div></form><a href="#" onclick="login(); return false">' . $tx['menu']['login'] . '</a>';
-        else
+        if ($cf['security']['type'] == 'javascript') {
+            return '<form id="login" action="' . $sn . '" method="post">'
+		. '<div id="loginlink">'
+		. tag('input type="hidden" name="login" value="true"')
+		. tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
+		. tag('input type="hidden" name="passwd" id="passwd" value=""')
+		. '</div></form>'
+		. '<a href="#" onclick="login(); return false">'
+		. $tx['menu']['login'] . '</a>';
+        } else {
             return a($s > -1 ? $s : 0, '&amp;login') . $tx['menu']['login'] . '</a>';
+        }
     }
 }
 
-function loginforms() {
+
+/**
+ * Returns the login form.
+ *
+ * @return string  The (X)HTML.
+ */
+function loginforms()
+{
     global $adm, $cf, $print, $hjs, $tx, $onload, $f, $o, $s, $sn, $u;
-    // Javascript placed in head section used for javascript login
+
+    // JavaScript placed in head section used for javascript login
     if (!$adm && $cf['security']['type'] == 'javascript' && !$print) {
         $hjs .= '<script type="text/javascript"><!--
-			function login(){var t=prompt("' . $tx['login']['warning'] . '","");if(t!=null&&t!=""){document.getElementById("passwd").value=t;document.getElementById("login").submit();}}
-			//-->
-			</script>';
+	    function login(){var t=prompt("' . $tx['login']['warning'] . '","");
+	    if(t!=null&&t!=""){document.getElementById("passwd").value=t;document.getElementById("login").submit();}}
+	    //-->
+	    </script>';
     }
     if ($f == 'login') {
-
         $cf['meta']['robots'] = "noindex";
         $onload .= "self.focus();document.login.passwd.focus();";
         $f = $tx['menu']['login'];
-        $o .= '<h1>' . $tx['menu']['login'] . '</h1><p><b>' . $tx['login']['warning'] . '</b></p><form id="login" name="login" action="' . $sn . '?' . $u[$s] . '" method="post"><div id="login">' . tag('input type="hidden" name="login" value="true"') . tag('input type="hidden" name="selected" value="' . @$u[$s] . '"') . tag('input type="password" name="passwd" id="passwd" value=""') . ' ' . tag('input type="submit" name="submit" id="submit" value="' . $tx['menu']['login'] . '"') . '</div></form>';
+        $o .= '<h1>' . $tx['menu']['login'] . '</h1>'
+	    . '<p><b>' . $tx['login']['warning'] . '</b></p>'
+	    . '<form id="login" name="login" action="' . $sn . '?' . $u[$s] . '" method="post">'
+	    . '<div id="login">' // FIXME: duplicate id as containing form element; why having a single div in a form at all?
+	    . tag('input type="hidden" name="login" value="true"')
+	    . tag('input type="hidden" name="selected" value="' . @$u[$s] . '"')
+	    . tag('input type="password" name="passwd" id="passwd" value=""') . ' '
+	    . tag('input type="submit" name="submit" id="submit" value="' . $tx['menu']['login'] . '"')
+	    . '</div></form>';
         $s = -1;
     }
 }
 
 
+/**
+ * Creates a backup of the contents file.
+ *
+ * Surplus old backups will be deleted. Returns an appropriate message.
+ *
+ * @since  1.6
+ *
+ * @return string  The (X)HTML.
+ */
 function XH_backup()
 {
     global $pth, $cf, $tx;
-    static $date = null;
-    
-    !isset($date) and $date = date("Ymd_His");
+    static $date = null; // TODO: probably not necessary since wedding
+
+    if (!isset($date)) {
+	$date = date("Ymd_His");
+    }
     $fn = "${date}_content.htm";
     if (@copy($pth['file']['content'], $pth['folder']['content'] . $fn)) {
 	$o = '<p>' . utf8_ucfirst($tx['filetype']['backup'])
@@ -1071,15 +1495,18 @@ function XH_backup()
 		$fl[] = $p;
 	    }
 	}
-	$fd and closedir($fd);
+	if ($fd) {
+	    closedir($fd);
+	}
 	sort($fl);
 	$v = count($fl) - $cf['backup']['numberoffiles'];
 	for ($i = 0; $i < $v; $i++) {
-	    if (@unlink($pth['folder']['content'] . $fl[$i]))
+	    if (@unlink($pth['folder']['content'] . $fl[$i])) {
 		$o .= '<p>' . utf8_ucfirst($tx['filetype']['backup'])
 		    . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
-	    else
+	    } else {
 		e('cntdelete', 'backup', $fl[$i]);
+	    }
 	}
     } else {
 	e('cntsave', 'backup', $fn);
@@ -1095,12 +1522,14 @@ function XH_backup()
  *
  * @param   string $filename
  * @param   string $contents
- * @return  int  The number of bytes written, or FALSE on failure.
+ * @return  int  The number of bytes written, or false on failure.
  */
 function XH_writeFile($filename, $contents)
 {
     $res = ($fh = fopen($filename, 'wb')) && fwrite($fh, $contents);
-    $fh and fclose($fh);
+    if ($fh) {
+	fclose($fh);
+    }
     return $res;
 }
 
