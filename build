@@ -8,7 +8,7 @@
 set -e
 
 # define the relevant files
-README_FILES="README.txt LIESMICH.txt CITAJ.txt CTIMNE.txt README_RU.txt"
+README_FILES="CITAJ.txt CTIMNE.txt LAESMIG.txt LIESMICH.txt README.txt README_RU.txt"
 VI_FILES="\
     cmsimple/adm.php\
     cmsimple/cms.php\
@@ -57,7 +57,7 @@ then
     echo "version missing"
     usage
 fi
-    
+
 # export working copy
 echo "exporting working copy..."
 svn export -q . cmsimplexh/
