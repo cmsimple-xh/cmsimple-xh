@@ -1,45 +1,154 @@
 <?php
 
 /**
- * @version $Id$
+ * Classes for online editing of text and config files.
+ *
+ * @package	XH
+ * @copyright	1999-2009 <http://cmsimple.org/>
+ * @copyright	2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version	$CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
+ * @version 	$Id$
+ * @link	http://cmsimple-xh.org/
  */
 
+
+/**
+ * The abstract base class for editing of text and config files.
+ *
+ * @package	XH
+ * @abstract
+ */
 class XH_FileEdit
 {
+    /**
+     * Additional POST parameters.
+     *
+     * @access protected
+     * @var    array
+     */
     var $params = array();
+
+    /**
+     * The name of the plugin.
+     *
+     * @access protected
+     * @var    string
+     */
     var $plugin = null;
+
+    /**
+     * @var string
+     */
     var $caption = null;
+
+    /**
+     * The name of the file to edit.
+     *
+     * @access protected
+     * @var    string
+     */
     var $filename = null;
+
+    /**
+     * URL for redirecting after successful submission (PRG pattern).
+     *
+     * @access protected
+     * @var    string
+     */
     var $redir = null;
-    
-    
+
+    /**
+     * Saves the file. Returns whether that succeeded.
+     *
+     * @access protected
+     * @return bool
+     */
     function save()
     {
+	// TODO: use XH_writeFile()
         $ok = is_writable($this->filename)
 	    && ($fh = fopen($this->filename, 'w'))
 	    && fwrite($fh, $this->asString()) !== false;
-        !empty($fh) and fclose($fh);
+        if (!empty($fh)) {
+	    fclose($fh);
+        }
 	return $ok;
     }
+
+    /**
+     * Returns the form to edit the file contents.
+     *
+     * @abstract
+     * @access public
+     * @return string  (X)HTML.
+     */
+    function form() {}
+
+    /**
+     * Handles the form submission.
+     *
+     * If file could be successfully saved, triggers a redirect.
+     * Otherwise writes error message to $e, and returns the edit form.
+     *
+     * @abstract
+     * @access public
+     * @return mixed  The (X)HTML resp. void.
+     */
+    function submit() {}
+
+    /**
+     * Returns the the file contents as string for saving.
+     *
+     * @abstract
+     * @access protected
+     * @return string
+     */
+    function asString() {}
 }
 
 
+/**
+ * The abstract base class for editing of text files.
+ *
+ * @package	XH
+ * @abstract
+ */
 class XH_TextFileEdit extends XH_FileEdit
 {
+    /**
+     * The name of the textarea.
+     *
+     * @var string
+     */
     var $textareaName = null;
+
+    /**
+     * The contents of the file.
+     *
+     * @var string
+     */
     var $text = null;
-    
-    
+
+    /**
+     *
+     */
     function XH_TextFileEdit()
     {
+	// TODO: error handling
 	$this->text = file_get_contents($this->filename);
     }
-    
-    
+
+    /**
+     * Returns the form to edit the file contents.
+     *
+     * @access public
+     * @return string  (X)HTML.
+     */
     function form()
     {
         global $tx;
-        
+
 	$action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
 	$o = '<h1>' . ucfirst($this->caption) . '</h1>'
 	    . '<form action="' . $action . '" method="POST">'
@@ -55,8 +164,16 @@ class XH_TextFileEdit extends XH_FileEdit
 	    . '</form>';
 	return $o;
     }
-    
-    
+
+    /**
+     * Handles the form submission.
+     *
+     * If file could be successfully saved, triggers a redirect.
+     * Otherwise writes error message to $e, and returns the edit form.
+     *
+     * @access public
+     * @return mixed
+     */
     function submit()
     {
 	$this->text = stsl($_POST[$this->textareaName]);
@@ -68,22 +185,34 @@ class XH_TextFileEdit extends XH_FileEdit
 	    return $this->form();
 	}
     }
-    
-    
+
+    /**
+     * Returns the the file contents as string for saving.
+     *
+     * @access protected
+     * @return string
+     */
     function asString()
     {
 	return $this->text;
     }
-    
 }
 
 
+/**
+ * Editing of core text files.
+ *
+ * @package	XH
+ */
 class XH_CoreTextFileEdit extends XH_TextFileEdit
 {
+    /**
+     *
+     */
     function XH_CoreTextFileEdit()
     {
         global $pth, $file;
-        
+
         $this->filename = $pth['file'][$file];
         $this->params = array('file' => $file, 'action' => 'save');
 	$this->redir = "?file=$file&action=edit";
@@ -93,12 +222,15 @@ class XH_CoreTextFileEdit extends XH_TextFileEdit
 }
 
 
+/**
+ * @package	XH
+ */
 class XH_PluginTextFileEdit extends XH_TextFileEdit
 {
     function XH_PluginTextFileEdit()
     {
         global $pth, $plugin;
-        
+
         $this->plugin = $plugin;
         $this->filename = $pth['file']['plugin_stylesheet'];
         $this->params = array('admin' => 'plugin_stylesheet',
@@ -111,7 +243,12 @@ class XH_PluginTextFileEdit extends XH_TextFileEdit
 }
 
 
-
+/**
+ * The abstract base class for editing of config files.
+ *
+ * @package	XH
+ * @abstract
+ */
 class XH_ArrayFileEdit extends XH_FileEdit
 {
     var $cfg = null;
@@ -119,7 +256,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
     //var $admin = null;
     //var $action = null;
     //var $plugin = null;
-    
+
+    // TODO: constructor should probably be abstract
     function XH_ArrayFileEdit()
     {
         $this->cfg = array(
@@ -150,16 +288,31 @@ class XH_ArrayFileEdit extends XH_FileEdit
             )
         );
     }
-    
-    
+
+    /**
+     * Returns a key split to category and rest.
+     *
+     * @access protected
+     * @param  string $key
+     * @return array
+     */
     function splitKey($key)
     {
+	// TODO: use explode()'s $limit
         $parts = explode('_', $key);
         $first = array_shift($parts);
         return array($first, implode('_', $parts));
     }
-    
-    
+
+    /**
+     * Returns a form field.
+     *
+     * @access private
+     * @param  string $cat  The category.
+     * @param  string $name  The name.
+     * @param  array $opt  The field options.
+     * @return string  The (X)HTML.
+     */
     function formField($cat, $name, $opt)
     {
         $iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
@@ -197,12 +350,19 @@ class XH_ArrayFileEdit extends XH_FileEdit
             return $o;
         }
     }
-    
-    
+
+    /**
+     * Returns the form to edit the file contents.
+     *
+     * @access public
+     * @global array
+     * @global array
+     * @return string  (X)HTML.
+     */
     function form()
     {
-        global $tx, $pth;
-    
+        global $pth, $tx;
+
         $action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
 	$o = '<h1>' . ucfirst($this->caption) . '</h1>'
 	    . '<form action="' . $action . '" method="POST" accept-charset="UTF-8">'
@@ -229,12 +389,20 @@ class XH_ArrayFileEdit extends XH_FileEdit
             . '</form>';
         return $o;
     }
-    
-    
+
+    /**
+     * Handles the form submission.
+     *
+     * If file could be successfully saved, triggers a redirect.
+     * Otherwise writes error message to $e, and returns the edit form.
+     *
+     * @access public
+     * @return mixed
+     */
     function submit()
     {
 	global $xh_hasher;
-	
+
         foreach ($this->cfg as $cat => $opts) {
             foreach ($opts as $name => $opt) {
 		$iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
@@ -255,22 +423,37 @@ class XH_ArrayFileEdit extends XH_FileEdit
 	    return $this->form();
 	}
     }
-    
-    
 }
 
+
+/**
+ * The abstract base class for editing of core config and text files.
+ *
+ * @package	XH
+ * @abstract
+ */
 class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
 {
+    /**
+     * @global string
+     * @global string
+     * @global array
+     */
     function XH_CoreArrayFileEdit()
     {
 	global $pth, $file, $tx;
-	
+
 	$this->filename = $pth['file'][$file];
 	$this->caption = utf8_ucfirst($tx['action']['edit']) . ' '
 	    . (isset($tx['filetype'][$file]) ? $tx['filetype'][$file] : $file);
     }
 
-
+    /**
+     * Returns the the file contents as string for saving.
+     *
+     * @access protected
+     * @return string
+     */
     function asString()
     {
         $o = "<?php\n\n";
@@ -283,12 +466,12 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
         $o .= "\n?>\n";
         return $o;
     }
-    
-    
+
+
     function selectOptions($fn, $regex)
     {
 	global $pth;
-	
+
 	$options = array();
 	if ($dh = opendir($pth['folder'][$fn])) {
 	    while (($p = readdir($dh)) !== false) {
@@ -304,12 +487,23 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
 }
 
 
+/**
+ * Editing of core config files.
+ *
+ * @package	XH
+ *
+ */
 class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
 {
+    /**
+     * @global array
+     * @global array
+     * @global array
+     */
     function XH_CoreConfigFileEdit()
     {
         global $cf, $txc, $tx;
-    
+
 	parent::XH_CoreArrayFileEdit();
 	$this->varName = 'cf';
 	$this->params = array('form' => 'array', 'file' => 'config', 'action' => 'save');
@@ -343,12 +537,23 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
 }
 
 
+/**
+ * Editing of core langconfig files.
+ *
+ * @package	XH
+ */
 class XH_CoreLangconfigFileEdit extends XH_CoreArrayFileEdit
 {
+    /**
+     * @global array
+     * @global array
+     * @global array
+     * @global string
+     */
     function XH_CoreLangconfigFileEdit()
     {
         global $cf, $txc, $tx, $sl;
-    
+
 	parent::XH_CoreArrayFileEdit();
 	$this->varName = 'txc';
 	$this->params = array('form' => 'array', 'file' => 'langconfig', 'action' => 'save');
@@ -377,12 +582,20 @@ class XH_CoreLangconfigFileEdit extends XH_CoreArrayFileEdit
 }
 
 
+/**
+ * Editing of core language files.
+ *
+ * @package	XH
+ */
 class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
 {
+    /**
+     * @global array
+     */
     function XH_CoreLangFileEdit()
     {
         global $tx;
-    
+
 	parent::XH_CoreArrayFileEdit();
 	$this->varName = 'tx';
 	$this->params = array('form' => 'array', 'file' => 'language', 'action' => 'save');
@@ -400,19 +613,40 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
 }
 
 
+/**
+ * The abstract base class for plugin config file editing.
+ *
+ * @package	XH
+ * @abstract
+ */
 class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
 {
+    /**
+     * The name of the config array variable.
+     *
+     * @access protected
+     * @var    string
+     */
     var $varName = null;
-    
+
+    /**
+     * @global array
+     * @global string
+     */
     function XH_PluginArrayFileEdit()
     {
 	global $pth, $plugin;
-	
+
         $this->plugin = $plugin;
 	$this->caption = $plugin;
     }
 
-
+    /**
+     * Returns the the file contents as string for saving.
+     *
+     * @access protected
+     * @return string
+     */
     function asString()
     {
         $o = "<?php\n\n";
@@ -429,12 +663,24 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
     }
 }
 
+
+/**
+ * Editing of plugin config files.
+ *
+ * @package	XH
+ */
 class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
 {
+    /**
+     * @global array
+     * @global string
+     * @global array
+     * @global array
+     */
     function XH_PluginConfigFileEdit()
     {
         global $pth, $plugin, $plugin_cf, $plugin_tx;
-        
+
 	parent::XH_PluginArrayFileEdit();
 	$this->filename = $pth['file']['plugin_config'];
 	$this->params = array('admin' => 'plugin_config',
@@ -453,12 +699,23 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
     }
 }
 
+
+/**
+ * Editing of plugin language files.
+ *
+ * @package	XH
+ */
 class XH_PluginLanguageFileEdit extends XH_PluginArrayFileEdit
 {
+    /**
+     * @global array
+     * @global string
+     * @global array
+     */
     function XH_PluginLanguageFileEdit()
     {
         global $pth, $plugin, $plugin_tx;
-        
+
 	parent::XH_PluginArrayFileEdit();
 	$this->filename = $pth['file']['plugin_language'];
 	$this->params = array('admin' => 'plugin_language',
