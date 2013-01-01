@@ -2,69 +2,90 @@
 /* utf8-marker = äöüß */
 /**
  * Page-Data - Module page_data_views
+ *
  * Part of the Pluginloader of $CMSIMPLE_XH_VERSION$
  *
- * Provides an interface for plugins to
- * handle the page_data.
- *
- * @author Martin Damken
- * @link http://www.zeichenkombinat.de
- * @version $Id: page_data_views.php 314 2012-10-30 23:43:19Z cmb69 $
- * @package pluginloader
- * @subpackage page_data
+ * @package   XH
+ * @copyright 1999-2009 <http://cmsimple.org/>
+ * @copyright 2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   $CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
+ * @version   $Id: page_data_views.php 314 2012-10-30 23:43:19Z cmb69 $
+ * @link      http://cmsimple-xh.org/
+ * @author    Martin Damken
+ * @link      http://www.zeichenkombinat.de/
  */
+
 
 /**
- * PL_Page_Data_View
- * 
- * @access public
+ * Provides an interface for plugins to handle the page_data.
+ *
+ * @package XH
+ * @access  public
  */
-class PL_Page_Data_View{
-	var $page, $tabs;
-	/**
-	 * PL_Page_Data_View::PL_Page_Data_View()
-	 * 
-	 * @param mixed $page
-	 * @param mixed $tabs
-	 * @return
-	 */
-	function PL_Page_Data_View($page, $tabs = null){
-		$this->page = $page;
-		$this -> tabs = $tabs;
-	}
-	
-	/**
-	 * PL_Page_Data_View::pd_forms()
-	 * 
-	 * @return string $view Returns created view
-	 */
-	function pd_forms()
-	{
-		global $h, $plugin_tx, $sn, $su, $hjs;
-		
-		$view = "\n". '<div id = "pd_tabs">';
-		
-		foreach($this -> tabs as $title => $code){
-			$view .= "\n\t".'<a class="inactive_tab" id="tab_'.$title.'" onclick="xh.toggleTab(\''.$title.'\');"><span>'.$title.'</span></a>';
-		}
-		
-		$view .= "\n</div>\n".'<div id="pd_views">';
+class PL_Page_Data_View
+{
+    /**
+     * The current page.
+     *
+     * @var int
+     */
+    var $page;
 
-		foreach($this -> tabs as $title => $file){
-			$view .= "\n".'<div id="PLTab_'.$title.'" class="inactive_view">'. "\n\t".'<a id="pd_editor_toggle" class="pd_open" onclick="xh.toggleTab(\''.$title.'\');">&nbsp;</a>'; 
-			if(file_exists($file)){
-				include_once($file);
-				$function = explode('.',basename($file));
-				$function = $function[0];
-				
-				$view .= $function($this -> page);
-			}
-			else {$view .= "Could not find ". $file;}
-			$view .= "\n"."</div>\n";
-		}
-		$view .= "\n".'</div>';
-		
-		return $view;
-	}
+    /**
+     *
+     */
+    var $tabs;
+
+    /**
+     * @param  int $page  The index of the page.
+     * @param  array $tabs  The filenames of the views of page data tabs.
+     * @return void
+     */
+    function PL_Page_Data_View($page, $tabs = null)
+    {
+        $this->page = $page;
+        $this -> tabs = $tabs;
+    }
+
+    /**
+     * Returns the page data tabs.
+     *
+     * @return string  The (X)HTML.
+     */
+    function pd_forms()
+    {
+        $view = "\n" . '<div id = "pd_tabs">';
+
+        foreach ($this->tabs as $title => $code) {
+            $view .= "\n\t" . '<a class="inactive_tab" id="tab_' . $title
+                . '" onclick="xh.toggleTab(\'' . $title . '\');"><span>'
+                . $title . '</span></a>';
+        }
+
+        $view .= "\n</div>\n" . '<div id="pd_views">';
+
+        foreach ($this->tabs as $title => $file) {
+            $view .= "\n" . '<div id="PLTab_' . $title . '" class="inactive_view">'
+                . "\n\t" . '<a id="pd_editor_toggle" class="pd_open"'
+                . ' onclick="xh.toggleTab(\'' . $title . '\');">&nbsp;</a>';
+            if (file_exists($file)) {
+                include_once $file;
+                // TODO: use explode()'s $limit parameter
+                $function = explode('.', basename($file));
+                $function = $function[0];
+
+                $view .= $function($this->page);
+            } else {
+                // TODO: i18n; or probably better: use $e
+                $view .= "Could not find " . $file;
+            }
+            $view .= "\n" . "</div>\n";
+        }
+        $view .= "\n" . '</div>';
+
+        return $view;
+    }
 }
+
 ?>
