@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @version $Id$
+ */
+
 function get_images($directory) {
 
     $files = array();
@@ -9,7 +13,7 @@ function get_images($directory) {
     $i = 0;
 
         while (false !== ($file = readdir($handle))) {
-            if (preg_match("/(\.jpg$|\.gif$|\.png$|\.jpeg$)/", $file)) {
+            if (preg_match("/(\.jpg$|\.gif$|\.png$|\.jpeg$)/i", $file)) {
                 $files[$i]['name'] = $file;
                 $files[$i]['path'] = $directory . "" . $file;
                 $i++;

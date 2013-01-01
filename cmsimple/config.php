@@ -1,6 +1,6 @@
 <?php
-/* utf8-marker = äöüß */
-$cf['security']['password']="uz/Dg!K?";
+
+$cf['security']['password']="\$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1";
 $cf['security']['type']="page";
 $cf['site']['template']="cmsimplexh";
 $cf['language']['default']="en";
@@ -13,10 +13,10 @@ $cf['folders']['downloads']="downloads/";
 $cf['folders']['images']="images/";
 $cf['folders']['media']="downloads/";
 $cf['backup']['numberoffiles']="10";
-$cf['hidden']['pages_toc']="";
-$cf['hidden']['pages_search']="";
-$cf['hidden']['pages_sitemap']="";
-$cf['hidden']['path_locator']="";
+$cf['show_hidden']['pages_toc']="";
+$cf['show_hidden']['pages_search']="";
+$cf['show_hidden']['pages_sitemap']="";
+$cf['show_hidden']['path_locator']="";
 $cf['images']['maxsize']="150000";
 $cf['downloads']['maxsize']="1000000";
 $cf['editor']['external']="tinymce";
@@ -33,8 +33,7 @@ $cf['uri']['seperator']=":";
 $cf['uri']['length']="200";
 $cf['xhtml']['endtags']="";
 $cf['xhtml']['amp']="true";
-$cf['plugins']['folder']="plugins";
-$cf['functions']['file']="functions.php";
-$cf['scripting']['regexp']="\#CMSimple (.*?)\#";
+$cf['scripting']['regexp']="\\#CMSimple (.*?)\\#";
 $cf['editmenu']['scroll']="";
+
 ?>

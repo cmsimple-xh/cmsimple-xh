@@ -7,10 +7,10 @@
  * to enable jQuery, jQueryUI 
  * and other jQuery-based plugins
  *
- * @author Holger Irmler
+  * @author Holger Irmler
  * @link http://cmsimple.holgerirmler.de
- * @version 1.3 - 2011-07-27
- * @build 2011072701
+ * @version 1.3.2 - 2012-08-21
+ * @build 2012082101
  * @package jQuery
  **/
 

@@ -8,7 +8,7 @@
  *
  * @author Martin Damken
  * @link http://www.zeichenkombinat.de
- * @version 1.0.06
+ * @version $Id$
  * @package pluginloader
  * @subpackage page_params
  */
@@ -143,7 +143,7 @@ function page_params_view($page){
     $view .= "\n\t\t".tag('input type="radio" name="show_last_edit" value="0" id="last_edit_no"'.$checked). '<label for="last_edit_no">'.$lang['no'].'</label>' .tag('br');
 	
 	if($page['last_edit'] !== ''){
-		$view .= "\n\t\t".'&nbsp;&nbsp;('.$lang['last_edit'];
+		$view .= "\n\t\t" . '&nbsp;&nbsp;('.$lang['last_edit'] . ' ';
 		$view .=  date($tx['lastupdate']['dateformat'],(int)$page['last_edit']).')';
 	}
 	$view .= "\n\t".tag('hr');

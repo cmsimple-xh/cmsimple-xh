@@ -4,7 +4,7 @@ $plugin_tx['filebrowser']['help'] = "Listen Sie die in jedem Ordner erlaubten Da
 
 $plugin_tx['filebrowser']['error_not_deleted']="<b>%s</b> wurde nicht gelöscht.";
 $plugin_tx['filebrowser']['error_file_is_used']="Die Datei wird auf folgenden Seiten verwendet:";
-$plugin_tx['filebrowser']['error_file_too_big']="Die Datei ist zu groß (%s kb). In diesem Ordner sind nur %s kb erlaubt. Diese Einstellung kann unter <b>Einstellungen->CMSimple->CMS</b> geändert werden.";
+$plugin_tx['filebrowser']['error_file_too_big']="Die Datei ist zu groß (%s kb). In diesem Ordner sind nur %s erlaubt. Diese Einstellung kann in der CMS-Konfiguration geändert werden.";
 $plugin_tx['filebrowser']['error_folder_not_empty']="Der Ordner ist nicht leer.";
 $plugin_tx['filebrowser']['error_not_writeable']="Der Ordner <b>%s</b> ist nicht beschreibbar. Bitte ändern Sie die Dateirechte.";
 $plugin_tx['filebrowser']['error_unknown']="Irgendetwas hat nicht geklappt.";
@@ -26,8 +26,8 @@ $plugin_tx['filebrowser']['create_subfolder_in']="Unterordner in <b>%s</b> anleg
 $plugin_tx['filebrowser']['upload_file']="Datei hochladen";
 $plugin_tx['filebrowser']['create_folder']="Unterordner anlegen";
 
-$plugin_tx['filebrowser']['confirm_delete']="<b>%s</b> wirklich löschen?";
-$plugin_tx['filebrowser']['prompt_rename']="<b>%s</b> umbenennen zu:";
+$plugin_tx['filebrowser']['confirm_delete']="%s wirklich löschen?";
+$plugin_tx['filebrowser']['prompt_rename']="%s umbenennen zu:";
 $plugin_tx['filebrowser']['cf_confirm_delete']="This text is used in javascript context: Do not use \" or \'";
 $plugin_tx['filebrowser']['cf_prompt_rename']="This text is used in javascript context: Do not use \" or \'";
 

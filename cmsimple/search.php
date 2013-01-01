@@ -1,10 +1,22 @@
 <?php
 
+/**
+ * The search function of CMSimple_XH.
+ *
+ * @package	XH
+ * @copyright	1999-2009 <http://cmsimple.org/>
+ * @copyright	2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version	$CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
+ * @version     $Id$
+ * @link	http://cmsimple-xh.org/
+ */
+
 /* utf8-marker = äöü */
 /*
   ======================================
-  CMSimple_XH 1.5.2
-  2012-02-24
+  $CMSIMPLE_XH_VERSION$
+  $CMSIMPLE_XH_DATE$
   based on CMSimple version 3.3 - December 31. 2009
   For changelog, downloads and information please see http://www.cmsimple-xh.com
   ======================================
@@ -23,62 +35,60 @@ if (strpos('search.php', strtolower(sv('PHP_SELF')))) {
     die('Access Denied');
 }
 
-if(!function_exists('mb_strtolower')) {
-    function mb_strtolower($string, $charset = null) {
-        $string = utf8_decode($string);
-        $string = strtolower($string);
-        $string = utf8_encode($string);
-        return $string;
-    }
-}
-
-
 
 $title = $tx['title']['search'];
 $ta = array();
 if ($search != '') {
-    $search = mb_strtolower(trim($search), 'utf-8');
+    $search = utf8_strtolower(trim(stsl($search)));
     $words = explode(' ', $search);
 
-    foreach ($c as $i => $pagexyz) {
-        if (!hide($i) || $cf['hidden']['pages_search'] == 'true') {
+    foreach ($c as $i => $temp) {
+        if (!hide($i) || $cf['show_hidden']['pages_search'] == 'true') {
             $found  = true;
-	    $pagexyz = evaluate_plugincall($pagexyz, TRUE);
-            $pagexyz = mb_strtolower(strip_tags($pagexyz), 'utf-8');
-            $pagexyz = html_entity_decode($pagexyz, ENT_QUOTES, 'utf-8');
+	    $temp = evaluate_plugincall($temp, true);
+            $temp = utf8_strtolower(strip_tags($temp));
+	    // TODO: better don't html_entity_decode() here; costs time and doesn't work reliably under PHP 4 for UTF-8
+            //$temp = html_entity_decode($temp, ENT_QUOTES, 'utf-8');
             foreach ($words as $word) {
-                if (strpos($pagexyz, trim($word)) === false) {
+                if (strpos($temp,
+			   htmlspecialchars(trim($word), ENT_NOQUOTES, 'UTF-8'))
+		    === false)
+		{
                     $found = false;
                     break;
                 }
             }
-            if (!$found) {continue;}
-            $ta[] = $i;
+            if ($found) {
+		$ta[] = $i;
+	    }
         }
     }
-    
-    if(count($ta) > 0){
+
+    if (count($ta) > 0) {
         $cms_searchresults = "\n" .'<ul>';
-	
-	$words = (implode( ",", $words));
+
+	$words = implode( ",", $words);
         foreach($ta as $i){
-            $cms_searchresults .= "\n\t" . '<li><a href="' . $sn . '?' . $u[$i] . amp() . 'search=' . urlencode($words) .'">' . $h[$i] . '</a></li>';
+            $cms_searchresults .= "\n\t"
+		. '<li><a href="' . $sn . '?' . $u[$i] . '&amp;search='
+		. urlencode($words) .'">' . $h[$i] . '</a></li>';
         }
         $cms_searchresults .= "\n" . '</ul>' . "\n";
     }
 }
 
-$o .= '<h1>' . $tx['search']['result'] . '</h1><p>"' . htmlspecialchars(stsl($search)) . '" ';
+$o .= '<h1>' . $tx['search']['result'] . '</h1><p>"'
+    . htmlspecialchars($search, ENT_COMPAT, 'UTF-8') . '" ';
 
 if (count($ta) == 0) {
     $o .= $tx['search']['notfound'] . '.</p>';
-}
-else {
+} else {
     $o .= $tx['search']['foundin'] . ' ' . count($ta) . ' ';
-    if (count($ta) > 1
-    )$o .= $tx['search']['pgplural'];
-    else
+    if (count($ta) > 1) {
+	$o .= $tx['search']['pgplural'];
+    } else {
         $o .= $tx['search']['pgsingular'];
+    }
     $o .= ':</p>' . $cms_searchresults;
 }
 

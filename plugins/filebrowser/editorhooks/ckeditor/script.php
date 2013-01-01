@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @version $Id$
+ */
+
 /* utf-8 marker: äöü */
 /* script.php build: 2011012801 */
 $script = '

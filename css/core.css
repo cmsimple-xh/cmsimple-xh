@@ -1,8 +1,20 @@
-/* EDITMENU */
+/* Adminmenu */
+
+#editmenu_scrolling {
+    z-index: 999;
+}
+
+#editmenu_fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}
 
 #editmenu {
     width: 100%;
-	min-width: 760px;
+    min-width: 760px;
     background-color: #2e3436;
     font-size: 14px;
     padding: 0;
@@ -14,7 +26,7 @@
 
 #editmenu ul {
     height: 36px;
-	list-style-type: none !important;
+    list-style-type: none !important;
     list-style-image: none;
     font-family: arial, sans-serif;
     font-style: normal;
@@ -29,10 +41,10 @@
     position: relative;
     width: 125px;
     background-color: #2e3436;
-	text-align: center;
+    text-align: center;
     color: #d3d7cf;
     padding: 8px 0 0 0;
-	margin: 0;
+    margin: 0;
 }
 
 #editmenu li a:hover, #editmenu li:hover {
@@ -62,62 +74,62 @@
 #editmenu ul ul li {
     background: #4f5456;
     height: 26px;
-	padding: 3px 0 0 0;
+    padding: 3px 0 0 0;
     margin: 0;
 }
 
 #editmenu ul ul li a {
     height: 16px;
-	padding: 3px 0 0 0;
-	margin: 0;
+    padding: 3px 0 0 0;
+    margin: 0;
 }
 
 #editmenu ul ul li:hover {
     height: 26px;
-	padding: 3px 0 0 0;
+    padding: 3px 0 0 0;
     background: #c50;
 }
 
 #editmenu ul ul li a:hover {
     background: #c50;
-	height: 20px;
-	padding: 3px 0 0 0;
-	margin: 0;
+    height: 20px;
+    padding: 3px 0 0 0;
+    margin: 0;
 }
 
 #editmenu ul ul ul {
     left: 100%;
     top: 0px; 
     visibility: hidden;
-	padding: 0;
+    padding: 0;
     margin: 0;
 }
 
 #editmenu ul ul ul li {
     background: #c50;
     height: 26px;
-	padding: 3px 0 0 0;
-	margin: 0;
+    padding: 3px 0 0 0;
+    margin: 0;
 }
 
 #editmenu ul ul ul li a {
     height: 26px;
-	padding: 3px 0 0 0;
-	margin: 0;
+    padding: 3px 0 0 0;
+    margin: 0;
 }
 
 #editmenu ul ul ul li:hover {
     background: #e70;
     height: 26px;
-	padding: 3px 0 0 0;
-	margin: 0;
+    padding: 3px 0 0 0;
+    margin: 0;
 }
 
 #editmenu ul ul ul li a:hover {
     background: #e70;
     height: 20px;
-	padding: 3px 0 0 0;
-	margin: 0;
+    padding: 3px 0 0 0;
+    margin: 0;
 }
 
 #editmenu li:hover > ul {
@@ -129,196 +141,372 @@ div#admin-content-container{
 }
 
 #edit_menu {
-width: 660px; 
-float: left;
+    width: 660px; 
+    float: left;
 }
 
 #editmenu_logout {
-width: 98px; 
-float: right;
+    width: 98px; 
+    float: right;
 }
 
 #edit_menu_logout {
-min-width: 100%; 
-max-width: 100%; 
-text-align: center;
+    min-width: 100%; 
+    max-width: 100%; 
+    text-align: center;
 }
 
 /* ENDE EDITMENU */
 
 
 input.cmsimplecore_settings {
-width: 90%;
-font-size: 14px;
-color: #333;
-padding: 2px 3px;
-margin: 3px 0;
-border: 1px solid #ccc;
-background: #fff;
+    width: 90%;
+    font-size: 14px;
+    color: #333;
+    padding: 2px 3px;
+    margin: 3px 0;
+    border: 1px solid #ccc;
+    background: #fff;
 }
 
 textarea.cmsimplecore_settings {
-width: 90%;
-height: 56px;
-font-size: 14px;
-color: #333;
-padding: 2px 3px;
-margin: 3px 0;
-border: 1px solid #ccc;
-background: #fff;
+    width: 90%;
+    height: 56px;
+    font-size: 14px;
+    color: #333;
+    padding: 2px 3px;
+    margin: 3px 0;
+    border: 1px solid #ccc;
+    background: #fff;
 }
 
 textarea.cmsimplecore_settings_short {
-height: 18px;
+    height: 18px;
 }
 
 .edit {
-font-family: arial, sans-serif;
-font-size: 14px;
-line-height: 1.2em;
-border: 1px solid;
-margin: 2px 0;
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.2em;
+    border: 1px solid;
+    margin: 2px 0;
 }
 
 .edit td {
-padding: 4px 6px;
+    padding: 4px 6px;
 }
 
 .cmsimplecore_version {
-font-family: arial, sans-serif; 
-font-size: 14px; 
-padding: 0 2px;
+    font-family: arial, sans-serif; 
+    font-size: 14px; 
+    padding: 0 2px;
 }
 
 /* Info and Help link, Notices and Warnings */
 
 .cmsimplecore_debug {
-height: 18px;
-background: #900; 
-font-family: arial, sans-serif; 
-font-size: 14px; 
-line-height: 14px;
-color: #fff; 
-text-align: center; 
-border: 0px solid #000; 
-padding: 2px 6px; 
-margin: auto;
+    height: 18px;
+    background: #900; 
+    font-family: arial, sans-serif; 
+    font-size: 14px; 
+    line-height: 14px;
+    color: #fff; 
+    text-align: center; 
+    border: 0px solid #000; 
+    padding: 2px 6px; 
+    margin: auto;
 }
 
 .cmsimplecore_warning {
-background: #fc0; 
-font-family: arial, sans-serif; 
-font-size: 14px; 
-color: #000; 
-border: 3px solid #000; 
-padding: 4px 6px; 
-margin: 4px 0;
+    background: #fc0; 
+    font-family: arial, sans-serif; 
+    font-size: 14px; 
+    color: #000; 
+    border: 3px solid #000; 
+    padding: 4px 6px; 
+    margin: 4px 0;
 }
 
-/* file edit textareas */
+/* File Edit Textareas */
 
 textarea.cmsimplecore_file_edit {
-width: 99%; 
-font-family: 'courier new', monospace;
-font-size: 14px;
-color: #333;
-padding: 0 !important;
+    width: 99%; 
+    font-family: 'courier new', monospace;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    padding: 0 !important;
 }
 
 
-/* MAILFORM */
+/* Mailform */
 
 #cmsimple_mailform div {
-width: 250px; 
-margin: 0 0 8px 0;
+    width: 250px; 
+    margin: 0 0 8px 0;
 }
 
 #cmsimple_mailform input.text {
-width: 90%; 
+    width: 90%; 
 }
 
 span.captcha_code {
-display: block; 
-float:left; 
-color: #fff; 
-text-decoration: none; 
-background-color: #000; 
-padding: 1px 5px 2px 5px; 
-margin: 0 4px;
+    display: block; 
+    float:left; 
+    color: #fff; 
+    text-decoration: none; 
+    background-color: #000; 
+    padding: 1px 5px 2px 5px; 
+    margin: 0 4px;
 }
 
 .text, .captchainput {
-font-family: arial, sans-serif;
-font-size: 14px;
-color: #444;
-padding: 2px 4px;
-margin: 0 0 2px 0;
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    color: #444;
+    padding: 2px 4px;
+    margin: 0 0 2px 0;
 }
 
 .captchainput  {
-float: left;
-width:6ex;
-border: 1px solid #666;
-margin: 0 0 10px 0;
+    float: left;
+    width:6ex;
+    border: 1px solid #666;
+    margin: 0 0 10px 0;
 }
 
 
 /* the rest */
 
 .cmsimplecore_center {
-text-align: center;
+    text-align: center;
 }
 
 .flag {border: 0;}
 
 span.highlight_search {
-background: #fd0;
-color: #000;
+    background: #fd0;
+    color: #000;
 }
 
 
-/* LINKFORMATIERUNG / LINKS for backend */
+/* System Check */
 
-/*
-.edit a:link, #cmsimplecore_pluginselect a:link {
-font-family: arial, sans-serif !important; 
-font-size: 14px !important; 
-color: #36a !important; 
-text-decoration: none !important; 
-font-style: normal !important;
+#xh_system_check {list-style: none;}
+#xh_system_check li {margin-left: 0}
+#xh_system_check img {padding-right: 1em;}
+li.xh_system_check_cat_start {margin-top: 1em}
+
+/* Pluginloader */
+
+div.pluginerror {
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    border: 3px solid #000;
+    background-color: #fc0;
+    color: #000;
+    padding: 4px 6px;
+    margin: 6px 0 0 0;
 }
 
-.edit a:visited, #cmsimplecore_pluginselect a:visited {
-font-family: arial, sans-serif !important; 
-font-size: 14px !important; 
-color: #36a !important; 
-text-decoration: none !important; 
-font-style: normal !important;
+textarea.plugininput {
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    background: #eee;
+    color: #555;
+    border: 1px solid;
+    height: 50px;
+    padding: 4px;
 }
 
-.edit a:hover, #cmsimplecore_pluginselect a:hover {
-font-family: arial, sans-serif !important; 
-font-size: 14px; color: #fff !important; 
-text-decoration: none !important; 
-background-color: #666 !important; 
-font-style: normal !important;
+textarea.plugininput:focus,.plugininputmax {
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    background: #eee;
+    color: #555;
+    border: 1px solid;
+    height: 50px;
+    padding: 4px;
 }
 
-.edit a:active, #cmsimplecore_pluginselect a:active {
-font-family: arial, sans-serif !important; 
-font-size: 14px !important; 
-color: #fff !important; 
-text-decoration: none !important; 
-background-color: #666 !important; 
-font-style: normal !important;
+textarea.plugintextarea {
+    background: #eee;
+    font-family: 'courier new', serif;
+    font-size: 14px;
+    color: #333;
+    width: 99%;
+    height: 300px;
+    padding: 0 !important;
 }
 
-.edit a:focus, #cmsimplecore_pluginselect a:focus {
-font-family: arial, sans-serif !important; 
-font-size: 14px !important; 
-color: #fff !important; 
-text-decoration: none !important; 
-background-color: #666 !important; 
-font-style: normal !important;
+div.pluginedit,div.plugintext {
+    border: 0px solid #828177;
+    padding: 4px 0;
 }
+
+form.plugineditform {
+}
+
+div.plugineditcaption {
+    font-family: arial, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 0;
+}
+
+table.pluginedittable {
+    width: 100%;
+    border: 0;
+}
+
+table.pluginedittable td {
+    border: 0px solid #828177;
+    padding: 4px 4px 4px 4px;
+    vertical-align: top;
+    font-size: 14px;
+    font-family: arial, sans-serif;
+}
+
+.pluginedittable td.plugincfcap,pluginedittable td.plugincfhint {
+    font-size: 15px;
+    border-top: 1px solid;
+    padding-top: 6px;
+}
+
+.pluginedittable td.plugincfcap {
+    font-weight: bold;
+}
+
+table.pluginedittable td.plugincf {
+        
+}
+
+/**
+ * Tooltips, if hint-texts are used within a plugin 
+ * e.g.: $plugin_tx['PluginName']['cf_var_name']='hint';
+ * Will display a span, when hovering var_name.
  */
+.pl_tooltip {
+    font-family: arial, sans-serif;
+    font-size: 14px;
+}
+ 
+a.pl_tooltip,
+a.pl_tooltip:link,
+a.pl_tooltip:visited,
+a.pl_tooltip:active {
+    position: relative;
+    text-decoration: none;
+    font-weight: normal;
+    border: 0;
+}
+
+a.pl_tooltip:hover {
+    /* IE needs some change for the a:hover to handle the a:hover span */
+    background-color: transparent;
+}
+
+a.pl_tooltip span {
+    display: none;
+}
+
+a.pl_tooltip span p {
+    width: auto !important;
+}
+
+a.pl_tooltip:hover span {
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 360px;
+    z-index: 10;
+    border: 1px dotted;
+    padding: 2px 10px 2px 10px;
+    background: #EEEEEE;
+    color: #333;
+    text-align: left;
+}
+
+a.pl_tooltip img {
+    border: 0;
+}
+
+img.helpicon {
+    background: none;
+}
+
+/* Pagedata */
+
+#pd_tabs {
+    font-weight: normal;
+    margin-top: 10px;
+    color: #000;
+}
+
+#pd_tabs a:hover {
+    color: red;
+    cursor: pointer;
+}
+
+#pd_tabs a {
+    padding:2px 2px 2px 4px;
+    margin-right:2px;
+    background: url(tab_inactive.gif) top left;
+}
+
+#pd_tabs a span {
+    padding:2px 4px 2px 0;
+    margin:-2px -4px -2px 0;
+    background: url(tab_inactive.gif) top right;
+    border:0px solid red;
+}
+
+#pd_tabs a:hover {
+    background: url(tab_hover.gif) top left;
+}
+
+#pd_tabs a:hover span {
+    background: url(tab_hover.gif) top right;
+}
+
+#pd_tabs a.active_tab {
+    padding-top:4px;
+    padding-bottom:3px;
+    background: url(tab_active.gif) top left;
+}
+
+#pd_tabs a.active_tab span {
+    padding-top:4px;
+    padding-bottom:3px;
+    margin-top:-4px;
+    margin-bottom:-3px;
+    background: url(tab_active.gif) top right;
+}
+
+#pd_views {
+    background:#fff;
+}
+
+#pd_views a#pd_editor_toggle {
+    width: 20px;
+    height: 20px;
+    float: right;
+    background:url(cross.gif) no-repeat top right;
+    cursor: pointer;
+}
+
+#pd_views .active_view {
+    display: block;
+    padding: 1.5ex 3ex;
+    border: 1px solid #808080;
+}
+
+#pd_views .inactive_view {
+    display: none;
+    display: block;
+    padding: 1.5ex 3ex;
+    border: 1px solid #808080;
+    display: none;
+}

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @version $Id$
+ */
+
 // utf-8-marker: äöüß
 
 /**

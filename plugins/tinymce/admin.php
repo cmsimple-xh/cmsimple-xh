@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @version $Id$
+ */
+
 if (!$adm) {     return; }
 
 initvar('tinymce');
@@ -7,8 +12,8 @@ if ($tinymce) {
     $plugin = basename(dirname(__FILE__), "/");
     $o = '<div class="plugintext">';
     $o .= '<div class="plugineditcaption">TinyMCE for CMSimple_XH</div>';
-    $o .= '<p>Version 1.1</p>';
-    $o .= '<p>TinyMCE version 3.4.5  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a></p>';
+    $o .= '<p>Version for $CMSIMPLE_XH_VERSION$</p>';
+    $o .= '<p>TinyMCE version 3.5.6  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a></p>';
     $o .= '<p>CMSimpe_xh & Filebrowser integration &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.zeichenkombinat.de/</a></p>';
 
 
@@ -34,10 +39,10 @@ if ($tinymce) {
     }
     if ((bool) $options) {
         $o .= '<div><form method="post" action="' . $sn . '?&amp;' . $plugin . '">';
-         $o .= '<a class="pl_tooltip" href="javascript:void();">
-             <img class="helpicon" alt="help" src="' . $pth['folder']['plugins'] . 'pluginloader/css/help_icon.png" />
+         $o .= '<a class="pl_tooltip" href="#" onclick="return false">
+             <img class="helpicon" alt="help" src="' . $pth['folder']['flags'] . 'help_icon.png" />
              <span>' . sprintf($plugin_tx[$plugin]['help'], $pth['folder']['plugins'] . $plugin . '/inits') . '</span></a>';
-        $o .= 'Toolbar: <select name="' . $pluginloader_cfg['form_namespace'] . 'init">';
+        $o .= 'Toolbar: <select name="' . XH_FORM_NAMESPACE . 'init">';
         $selected_init = $plugin_cf[$plugin]['init'];
         foreach ($options as $option) {
             $selected = $option == $selected_init ? ' selected="selected"' : '';

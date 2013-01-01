@@ -1,3 +1,7 @@
+/**
+ * @version $Id$
+ */
+
 function tinyMCE_getTextareasByClass(name) {
     var textareas = document.getElementsByTagName('textarea');
     var pattern = new RegExp('(^|\\s)' + name + '(\\s|$)');

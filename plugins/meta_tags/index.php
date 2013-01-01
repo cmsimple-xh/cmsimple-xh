@@ -11,7 +11,7 @@
  *
  * @author Martin Damken
  * @link http://www.zeichenkombinat.de
- * @version 1.0.00
+ * @version $Id$
  * @package pluginloader
  * @subpackage meta_tags
  */
@@ -21,10 +21,6 @@
 if(!defined('PLUGINLOADER')) {
 	die('Plugin '. basename(dirname(__FILE__)) . ' requires a newer version of the Pluginloader. No direct access.');
 }
-/**
- * Include language package
- */
-include_once "languages/".$sl.'.php';
 
 /**
  * Add used interests to router

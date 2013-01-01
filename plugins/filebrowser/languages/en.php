@@ -4,7 +4,7 @@ $plugin_tx['filebrowser']['help'] = "Fill in the file extensions you want to all
 
 $plugin_tx['filebrowser']['error_not_deleted']="<b>%s</b> was not deleted.";
 $plugin_tx['filebrowser']['error_file_is_used']="The file is used on these pages:";
-$plugin_tx['filebrowser']['error_file_too_big']="File size exceeds (%s kb) allowed limit (%s kb). You can increase the limit in your configuration.";
+$plugin_tx['filebrowser']['error_file_too_big']="File size (%s kb) exceeds allowed limit (%s). You can increase the limit in the CMS configuration.";
 $plugin_tx['filebrowser']['error_folder_not_empty']="Folder is not empty.";
 $plugin_tx['filebrowser']['error_not_writeable']="Folder <b>%s</b> is not writeable. Please change the file permission.";
 $plugin_tx['filebrowser']['error_unknown']="Something went wrong.";
@@ -26,8 +26,8 @@ $plugin_tx['filebrowser']['create_subfolder_in']="Create subfolder in <b>%s</b>"
 $plugin_tx['filebrowser']['upload_file']="Upload file";
 $plugin_tx['filebrowser']['create_folder']="Create subfolder";
 
-$plugin_tx['filebrowser']['confirm_delete']="Really delete <b>%s</b>?";
-$plugin_tx['filebrowser']['prompt_rename']="Rename <b>%s</b> to:";
+$plugin_tx['filebrowser']['confirm_delete']="Really delete %s?";
+$plugin_tx['filebrowser']['prompt_rename']="Rename %s to:";
 $plugin_tx['filebrowser']['cf_confirm_delete']="This text is used in javascript context: Do not use \" or \'";
 $plugin_tx['filebrowser']['cf_prompt_rename']="This text is used in javascript context: Do not use \" or \'";
 

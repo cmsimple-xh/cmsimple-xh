@@ -1,3 +1,7 @@
+/**
+ * @version $Id$
+ */
+
 var tinyMCEImageList;
 
 if(window.opener){

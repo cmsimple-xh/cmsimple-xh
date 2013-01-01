@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @version $Id$
+ */
+
 /* utf-8 marker: äöü */
 
 class XHFileBrowserView {
@@ -30,7 +35,7 @@ class XHFileBrowserView {
     function folderList($folders) {
         global $tx, $plugin_tx;
         //     $title = $this->baseLink === 'images' ? 'Bilder' : 'Downloads';
-        $title = ucfirst($tx['title'][$this->baseLink]) ? $tx['title'][$this->baseLink] : ucfirst($this->baseLink . ' ' . $this->translate('folder')); // für Editorbrowser
+        $title = isset($tx['title'][$this->baseLink]) ? utf8_ucfirst($tx['title'][$this->baseLink]) : ucfirst($this->baseLink . ' ' . $this->translate('folder')); // für Editorbrowser
         $html = '
            <ul>
               <li class="openFolder">
@@ -95,10 +100,17 @@ class XHFileBrowserView {
     }
 
     function fileList($files) {
-
+        global $tx;
+        
         $html = '<ul>';
         $i = 0;
         $class = 'even';
+        $fb = $_SESSION['xh_browser']; // FIXME: the view shouldn't know the model
+        $imgs = $fb->usedImages();
+        $base = $fb->browseBase;
+        if ($base{0} == '.' && $base{1} == '/') {
+            $base = substr($base, 2);
+        }
         foreach ($files as $file) {
             if ($class == 'odd') {
                 $class = 'even';
@@ -116,8 +128,13 @@ class XHFileBrowserView {
                         <input type="text" size="25" name="renameFile" value="' . $file . '" onmouseout="hideRenameForm(\'' . $i . '\');"/>
                         <input type="hidden" name="oldName" value="' . $file . '" />
                     </form>
-                     <a style="position:relative" class="xhfbfile" href="#" id="file_' . $i . '" ondblclick="showRenameForm(\'' . $i . '\', \'' . $this->translate('prompt_rename', $file) . '\');">' . $file;
+                     <a style="position:relative" class="xhfbfile" href="#" onclick="return false" id="file_' . $i . '" ondblclick="showRenameForm(\'' . $i . '\', \'' . $this->translate('prompt_rename', $file) . '\');">' . $file;
 
+            $ffn = $base . $fb->currentDirectory . $file;
+            $usage = array_key_exists($ffn, $imgs)
+                ? '<strong>' . $tx['images']['usedin'] . ':</strong>'
+                    . tag('br') . implode(tag('br'), $imgs[$ffn])
+                : '';
 
             if (is_array(@getimagesize($this->basePath . $this->currentDirectory . $file))) {
                 $image = getimagesize($this->basePath . $this->currentDirectory . $file);
@@ -130,7 +147,7 @@ class XHFileBrowserView {
                 }
                 $html .= '<span style="position: relative;  z-index: 4; ">
                     <span style="font-weight: normal; border: none;">' . $image[0] . ' x ' . $image[1] . ' px</span><br />
-                    <img src="' . $this->basePath . $this->currentDirectory . $file . '" width="' . $width . 'px" height="' . $height . '" /></span>';
+                    <img src="' . $this->basePath . $this->currentDirectory . $file . '" width="' . $width . 'px" height="' . $height . '" />' . tag('br') . $usage . '</span>';
             }
             $html .= '</a> (' . round(filesize($this->basePath . $this->currentDirectory . $file) / 1024, 1) . ' kb) 
             </li>';
@@ -145,6 +162,7 @@ class XHFileBrowserView {
         $html = '<ul>';
         $dir = $this->basePath . $this->currentDirectory;
         $is_image = (int) (strpos($this->linkParams, 'type=images') === 0);
+        $class = 'even';
         foreach ($files as $file) {
             $class = $class == 'odd' ? 'even' : 'odd';
 
@@ -159,7 +177,7 @@ class XHFileBrowserView {
             //     $html .= '<a href="#" class="xhfbfile" onclick="window.setLink(\''.$prefix.  $file.'\'); return false;">'.$file;
             $html .= '<a href="#" class="xhfbfile" onclick="window.setLink(\'' . $prefix . $file . '\',' . $is_image . '); return false;">' . $file;
 
-            if (strpos($this->linkParams, 'type=images') === 0 && getimagesize($dir . $file)) {
+            if (strpos($this->linkParams, 'type=images') !== false && getimagesize($dir . $file)) {
                 $image = getimagesize($dir . $file);
                 $width = $image[0];
                 $height = $image[1];

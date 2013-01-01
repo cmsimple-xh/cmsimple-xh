@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @version $Id$
+ */
+
 /* utf-8 marker: äöü */
 
 if (!$adm || $cf['filebrowser']['external'] /*|| $backend_hooks['filebrowser']*/) {
@@ -12,7 +17,7 @@ if ($filebrowser) {
     $plugin = basename(dirname(__FILE__), "/");
     $o = '<div class="plugintext">';
     $o .= '<div class="plugineditcaption">Filebrowser for CMSimple_xh</div>';
-    $o .= '<p>Version 1.0 beta 1</p>';
+    $o .= '<p>Version for $CMSIMPLE_XH_VERSION$</p>';
 
 
 
@@ -28,25 +33,25 @@ if ($filebrowser) {
 
 
     $o .= '<div><form method="post" action="' . $sn . '?&amp;' . $plugin . '">';
-    $o .= '<p><a class="pl_tooltip" href="javascript:void();">
-             <img class="helpicon" alt="help" src="' . $pth['folder']['plugins'] . 'pluginloader/css/help_icon.png" />
+    $o .= '<p><a class="pl_tooltip" href="#" onclick="return false">
+             <img class="helpicon" alt="help" src="' . $pth['folder']['flags'] . 'help_icon.png" />
              <span>' . sprintf($plugin_tx[$plugin]['help'], $pth['folder']['plugins'] . $plugin . '/inits') . '</span></a></p>';
     $o .= '<table>
              <tr>
                  <td>' . $tx['title']['images'] . ':</td>
-                 <td><input size="50" type="text" name="' . $pluginloader_cfg['form_namespace'] . 'extensions_images" value="' . $plugin_cf[$plugin]['extensions_images'] . '"></td>
+                 <td><input size="50" type="text" name="' . XH_FORM_NAMESPACE . 'extensions_images" value="' . $plugin_cf[$plugin]['extensions_images'] . '"></td>
               </tr>
               <tr>
                  <td>' . $tx['title']['downloads'] . ':</td>
-                 <td><input size="50" type="text" name="' . $pluginloader_cfg['form_namespace'] . 'extensions_downloads" value="' . $plugin_cf[$plugin]['extensions_downloads'] . '"></td>
+                 <td><input size="50" type="text" name="' . XH_FORM_NAMESPACE . 'extensions_downloads" value="' . $plugin_cf[$plugin]['extensions_downloads'] . '"></td>
               </tr>
               <tr>
                  <td>' . $tx['title']['userfiles'] . ':</td>
-                 <td><input size="50" type="text" name="' . $pluginloader_cfg['form_namespace'] . 'extensions_userfiles" value="' . $plugin_cf[$plugin]['extensions_userfiles'] . '"></td>
+                 <td><input size="50" type="text" name="' . XH_FORM_NAMESPACE . 'extensions_userfiles" value="' . $plugin_cf[$plugin]['extensions_userfiles'] . '"></td>
               </tr>
               <tr>
                  <td>' . $tx['title']['media'] . ':</td>
-                 <td><input size="50" type="text" name="' . $pluginloader_cfg['form_namespace'] . 'extensions_media" value="' . $plugin_cf[$plugin]['extensions_media'] . '"></td>
+                 <td><input size="50" type="text" name="' . XH_FORM_NAMESPACE . 'extensions_media" value="' . $plugin_cf[$plugin]['extensions_media'] . '"></td>
               </tr>
               </table>
               '
@@ -93,6 +98,12 @@ $browser->baseDirectory = $browser->baseDirectories[$f];
 $browser->currentDirectory =  rtrim($subdir, '/') . '/';
 $browser->linkType = $f;
 $browser->setLinkParams($f);
+
+if (isset($_SERVER['CONTENT_LENGTH']) && empty($_POST)) {
+    //$browser->view->error('error_not_uploaded', utf8_ucfirst($tx['filetype']['file']));
+    $browser->view->error('error_file_too_big',
+                          array('?', ini_get('post_max_size')));
+}
 
 if (isset($_POST['deleteFile']) && isset($_POST['file'])) {
     $browser->deleteFile($_POST['file']);

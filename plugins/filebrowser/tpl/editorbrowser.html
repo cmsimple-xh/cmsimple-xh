@@ -1,3 +1,10 @@
+<?php
+
+/**
+ * @version $Id$
+ */
+
+?>
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -26,7 +33,7 @@
                     <form method="POST" action="" enctype="multipart/form-data">
                         <input type="file" name="fbupload" />
                         <input type="hidden" name="upload" value="upload" />
-                        <input type="submit" class="submit" value="upload!" />
+                        <input type="submit" class="submit" value="<?php echo $this->translate('upload_file'); ?>" />
                     </form>
                 </div>
             </fieldset>
@@ -36,7 +43,7 @@
 
                     <form method="POST" action="">
                         <input type="text" name="createFolder" size="30" />
-                        <input type="submit" class="submit" value="create!" />
+                        <input type="submit" class="submit" value="<?php echo $this->translate('create_folder');?>" />
                     </form>
                 </div>
             </fieldset>

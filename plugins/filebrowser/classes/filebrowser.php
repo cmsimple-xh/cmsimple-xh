@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @version $Id$
+ */
+
 /* utf-8 marker: äöü */
 
 class XHFileBrowser {
@@ -85,11 +90,11 @@ class XHFileBrowser {
         global $h, $c, $u;
         $i = 0;
         $usages = array();
-
+        // TODO: improve regex for better performance
+        $regex = '#<.*(?:src|href|download)=(["\']).*' . preg_quote($file, '#') . '\\1.*>#is';
 
         foreach ($c as $page) {
-
-            if (preg_match('#<.*(src|href|download)=["|\'].*' . $file . '["|\'].*>#i', $page) > 0) {
+            if (preg_match($regex, $page) > 0) {
                 $usages[] = '<a href="?' . $u[$i] . '">' . $h[$i] . '</a>';
             }
             $i++;
@@ -101,6 +106,29 @@ class XHFileBrowser {
         return false;
     }
 
+    function usedImages()
+    {
+        global $c, $h, $cl;
+        
+        $images = array();
+        for ($i = 0; $i < $cl; $i++) {
+            preg_match_all('/<img.*?src=(["\'])(.*?)\\1.*?>/is', $c[$i], $m);
+            foreach ($m[2] as $fn) {
+                if ($fn{0} == '.' && $fn{1} == '/') {
+                    $fn = substr($fn, 2);
+                }
+                if (array_key_exists($fn, $images)) {
+                    if (!in_array($h[$i], $images[$fn])) {
+                        $images[$fn][] = $h[$i];
+                    }
+                } else {
+                    $images[$fn] = array($h[$i]);
+                }
+            }
+        }
+        return $images;
+    }
+ 
     function readDirectory() {
         $dir = $this->browseBase . $this->currentDirectory;
         $this->files = array();
@@ -206,13 +234,13 @@ function foldersArray($all = true) {
 
     function deleteFile($file) {
 
-        $file = $this->currentDirectory . basename($file);
-
-        if (is_array($this->fileIsLinked($file))) {
+        $file = $this->browseBase . $this->currentDirectory . basename($file);
+        $pages = $this->fileIsLinked($file);
+        if (is_array($pages)) {
             $this->view->error('error_not_deleted', $file);
             $this->view->error('error_file_is_used', $file);
 
-            foreach ($this->fileIsLinked($file) as $page) {
+            foreach ($pages as $page) {
                 $this->view->message .= '<li>' . $page . '</li>';
             }
             $this->view->message .= '</ul>';
@@ -230,36 +258,49 @@ function foldersArray($all = true) {
     function uploadFile() {
         $file = $_FILES['fbupload'];
         
-        $dir = explode('/',$this->currentDirectory);
-       
-        if (isset($this->maxFilesizes[$dir[0]])){
-           if ($file['size'] > $this->maxFilesizes[$dir[0]]) {
+        if ($file['error'] != 0) {
+            switch ($file['error']) {
+            case UPLOAD_ERR_INI_SIZE:
+                $this->view->error('error_not_uploaded', $file['name']);
+                $this->view->error('error_file_too_big', array('?',  ini_get('upload_max_filesize')));
+                return;
+            default:
+                $this->view->error('error_not_uploaded', $file['name']);
+                return;
+            }
+        }
+        
+        $type = @getimagesize($file['tmp_name']) !== FALSE ? 'images' : 'downloads';
+        // alternatively the following might be used:
+        // $type = $this->linkType == 'images' ? 'images' : 'downloads';
+        if (isset($this->maxFilesizes[$type])) {
+           if ($file['size'] > $this->maxFilesizes[$type]) {
                $this->view->error('error_not_uploaded', $file['name']);
-               $this->view->error('error_file_too_big', array(number_format($file['size']/1000, 2),  number_format($this->maxFilesizes[$dir[0]]/1000, 2)));
+               $this->view->error('error_file_too_big', array(number_format($file['size']/1000, 2),  number_format($this->maxFilesizes[$type]/1000, 2) . ' kb'));
                return;
            }
         }
         
-        if ($file['error'] != 0) {
-            $this->view->error('error_not_uploaded', $file['name']);
-            return;
-        }
-        $filename = $this->browseBase . $this->currentDirectory . basename($file['name']);
-        if (file_exists($filename)) {
-            $this->view->error('error_not_uploaded', $file['name']);
-            $this->view->error('error_file_already_exists', $filename);
-            return;
-        }
         if ($this->isAllowedFile($file['name']) == false) {
             $this->view->error('error_not_uploaded', $file['name']);
             $this->view->error('error_no_proper_extension', pathinfo($file['name'], PATHINFO_EXTENSION));
 
             return;
         }
+        
+        $filename = $this->browseBase . $this->currentDirectory . basename($file['name']);
+        if (file_exists($filename)) {
+            $this->view->error('error_not_uploaded', $file['name']);
+            $this->view->error('error_file_already_exists', $filename);
+            return;
+        }
+        
         if (move_uploaded_file($_FILES['fbupload']['tmp_name'], $filename)) {
+            chmod($filename, 0644);
             $this->view->success('success_uploaded', $file['name']);
             return;
         }
+        
         $this->view->error('error_not_uploaded', $file['name']);
     }
 
@@ -280,7 +321,7 @@ function foldersArray($all = true) {
     }
 
     function deleteFolder() {
-        $folder = $folder = $this->browseBase . $this->currentDirectory . basename($_POST['folder']);
+        $folder = $this->browseBase . $this->currentDirectory . basename($_POST['folder']);
         if (!rmdir($folder)) {
             $this->view->error('error_not_deleted', basename($folder));
             return;
@@ -290,9 +331,6 @@ function foldersArray($all = true) {
     }
 
     function renameFile() {
-
-
-
 
         $newName = str_replace(array('..', '<', '>', ':', '?', ' '), '', basename($_POST['renameFile']));
         $oldName = $_POST['oldName'];
@@ -307,12 +345,12 @@ function foldersArray($all = true) {
             $this->view->error('error_file_already_exists', $newName);
             return;
         }
-
-        if (is_array($this->fileIsLinked($oldName))) {
+        $pages = $this->fileIsLinked($oldName);
+        if (is_array($pages)) {
             $this->view->error('error_cant_rename', $oldName);
             $this->view->error('error_file_is_used', $oldName);
 
-            foreach ($this->fileIsLinked($oldName) as $page) {
+            foreach ($pages as $page) {
                 $this->view->message .= '<li>' . $page . '</li>';
             }
             $this->view->message .= '</ul>';

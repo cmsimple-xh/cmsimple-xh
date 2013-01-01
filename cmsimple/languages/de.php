@@ -28,6 +28,7 @@ $tx['editmenu']['userfiles']="Andere";
 $tx['editmenu']['validate']="Links prüfen";
 
 $tx['error']['401']="Fehler 401: Nicht erlaubt";
+$tx['error']['403']="Error 403: Verboten";
 $tx['error']['404']="Fehler 404: Nicht gefunden";
 $tx['error']['alreadyexists']="Existiert bereits";
 $tx['error']['cntdelete']="Nicht löschbar:";
@@ -35,9 +36,13 @@ $tx['error']['cntlocateheading']="Keine Seite ausgewählt";
 $tx['error']['cntopen']="Nicht zu öffnen:";
 $tx['error']['cntsave']="Nicht abspeicherbar:";
 $tx['error']['cntwriteto']="Nicht schreibbar:";
+$tx['error']['headers']="Header-Information kann nicht geändert werden - die Header wurden bereits verschickt (die Ausgabe begann in {location})";
 $tx['error']['missing']="Fehlt";
+$tx['error']['nocookies']="Bitte Cookies aktivieren!";
+$tx['error']['nojs']="Bitte Javascript aktivieren!";
 $tx['error']['notreadable']="Nicht lesbar";
 $tx['error']['notwritable']="Nicht schreibbar";
+$tx['error']['plugin_error']="Plugin Fehler: ";
 $tx['error']['tolarge']="ist zu groß! Die Maximalgröße ist";
 $tx['error']['undefined']="Undefiniert";
 $tx['error']['wrongext']="Falsche Dateierweiterung in";
@@ -54,26 +59,25 @@ $tx['filetype']['folder']="Ordner";
 $tx['filetype']['langconfig']="Website Konfiguration";
 $tx['filetype']['language']="Sprach-Datei";
 $tx['filetype']['log']="Log-Datei";
-$tx['filetype']['pagedata']="Pagedata-Datei";
 $tx['filetype']['stylesheet']="CSS-Datei";
 $tx['filetype']['template']="Template-Datei";
 
 $tx['heading']['error']="FEHLER";
 $tx['heading']['warning']="FEHLER–HINWEIS";
 
-$tx['help']['downloads_maxsize']="Maximale Größe für das Hochladen von Datein in den Downloads-Ordner in Byte";
+$tx['help']['downloads_maxsize']="Maximale Größe für das Hochladen von Datein in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
 $tx['help']['editmenu_scroll']="Bei <b>true</b> scrollt das Admin Menü mit";
 $tx['help']['editor_height']="Integer oder JavaScript-Ausdruck, der einen Integer liefert für die Editorhöhe in Pixel.";
 $tx['help']['editor_external']="Wenn Sie einen externen Editor nutzen wollen, installieren Sie ihn als Plugin und tragen Sie seinen Namen hier ein.";
 $tx['help']['filebrowser_external']="Wenn Sie einen externen Datei-Browser verwenden möchten, z.B. hi_kcfinder, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['functions_file']="Bitte nicht ändern";
 
-$tx['help']['hidden_path_locator']="<p><b>true</b> zeigt den Pfad einer versteckten Seite im Locator (Breadcrumb Navigation).</p>";
-$tx['help']['hidden_pages_search']="<p><b>true</b> zeigt versteckte Seiten in den Ergebnissen der internen Suchfunktion an.</p>";
-$tx['help']['hidden_pages_sitemap']="<p><b>true</b> zeigt versteckte Seiten im Inhaltsverzeichnis.</p>";
-$tx['help']['hidden_pages_toc']="<p><b>true</b> zeigt versteckte Seiten im Navigationsmenü, wenn sie aufgerufen sind (z. B. aufgerufen per Link).</p>";
+$tx['help']['show_hidden_path_locator']="<b>true</b> zeigt den Pfad einer versteckten Seite im Locator (Breadcrumb Navigation).";
+$tx['help']['show_hidden_pages_search']="<b>true</b> zeigt versteckte Seiten in den Ergebnissen der internen Suchfunktion an.";
+$tx['help']['show_hidden_pages_sitemap']="<b>true</b> zeigt versteckte Seiten im Inhaltsverzeichnis.";
+$tx['help']['show_hidden_pages_toc']="<b>true</b> zeigt versteckte Seiten im Navigationsmenü, wenn sie aufgerufen sind (z. B. aufgerufen per Link).";
 
-$tx['help']['images_maxsize']="Maximale Größe für das Hochladen von Bildern in Byte";
+$tx['help']['images_maxsize']="Maximale Größe für das Hochladen von Bildern in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
 $tx['help']['language_default']="Die Hauptsprache der Website";
 $tx['help']['langconfig']="Die Einstellungen von <b>Template</b> und <b>Password</b> <br />ersetzen die Einstellungen in der CMS Konfiguration!";
 $tx['help']['locator_show_homepage']="<b>true</b> erzeugt am Anfang des Locators einen Link zur Startseite";
@@ -82,13 +86,15 @@ $tx['help']['mailform_email']="Falls gesetzt, wird das Kontakt-Formular aktivier
 $tx['help']['menu_color']="Nicht von CMSimple_XH Systemfunktionen genutzt";
 $tx['help']['menu_highlightcolor']="Nicht von CMSimple_XH Systemfunktionen genutzt";
 $tx['help']['menu_levels']="Einstellungen von 1 bis 6 Menü-Niveaus sind möglich.";
+$tx['help']['menu_sdoc']="Leer lassen oder \"parent\" eintragen, was Oberseiten der aktuellen Seite die Klasse \"sdocs\" zuweist.";
 $tx['help']['pagemanager_external']="Wenn Sie einen externen Seiten-Manager verwenden möchten, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['plugins_folder']="Bitte nicht ändern";
 $tx['help']['scripting_regexp']="Bitte nicht ändern";
-$tx['help']['security_password']="<p>Standard-Passwort für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:</p><p><b>Einstellungen => CMSimple => Website</b></p>";
+$tx['help']['security_password']="Standard-Passwort für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:<br><b>Einstellungen => CMSimple => Website</b><br><br>Was Sie hier sehen, ist das verschlüsselte Passwort. Um es zu ändern, geben Sie einfach das neue ein (unverschlüsselt).";
 $tx['help']['site_template']="<p>Standard-Template für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:</p><p><b>Einstellungen => CMSimple => Website</b></p></p>";
 $tx['help']['subsite']="<b>Subsite:</b> Zweitsprache oder eine weitere unabhängige Website, die mit der gleichen Installation von CMSimple_XH betrieben wird.";
 $tx['help']['uri_seperator']="Das Zeichen, das die Namen von Seiten und Unterseiten in der URL trennt.";
+$tx['help']['uri_length']="Die URLs der Seiten werden ab dieser Länge abgeschnitten. Das könnte sich in einer zukünftigen Version ändern, so dass es das Beste ist, kürzere Seitenüberschriften zu verwenden (z.B. durch die Verwendung von Seite&rarr;Andere Seitenüberschrift).";
 $tx['help']['xhtml_amp']="<b>true</b> konvertiert <b>&</b> zu <b>&amp;amp;</b> im Inhalt. Änderung nicht empfohlen.";
 $tx['help']['xhtml_endtags']="<b>true</b> erzeugt im Inhalt die für bestimmte XHTML-Auszeichnungselemente erforderlichen Abschluss-Schrägstriche, wie &lt;br /&gt; etc.";
 
@@ -137,10 +143,17 @@ $tx['mailform']['sender']="E-Mail-Adresse (erforderlich)";
 $tx['mailform']['sendername']="Name";
 $tx['mailform']['senderphone']="Telefon-Nr.";
 
+$tx['menu']['available_plugins']="Plugins";
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Kontakt-Formular";
 $tx['menu']['print']="Druckansicht";
+$tx['menu']['select_plugin']="Plugin wählen ...";
 $tx['menu']['sitemap']="Inhaltsverzeichnis";
+$tx['menu']['tab_main']="Einstellungen";
+$tx['menu']['tab_css']="Stylesheet";
+$tx['menu']['tab_config']="Konfiguration";
+$tx['menu']['tab_language']="Sprache";
+$tx['menu']['tab_help']="Hilfe";
 
 $tx['meta']['codepage']="utf-8";
 
@@ -162,12 +175,20 @@ $tx['search']['result']="Suchergebnis";
 $tx['settings']['backup']="Sicherheitskopien";
 $tx['settings']['backupexplain1']="Beim Logout wird eine Sicherheitskopie des Inhalts angelegt. Die älteste Kopie wird gelöscht.";
 $tx['settings']['backupexplain2']="Sicherheitskopie-Namen beginnen mit Datum und Uhrzeit der Erstellung: YYYYMMDD_HHMMSS .";
-$tx['settings']['backupexplain3']="Bitte Content-Datei und Pagedata-Datei immer zusammen sichern!";
 $tx['settings']['ftp']="Bitte FTP zur Dateiverwaltung benutzen.";
 $tx['settings']['systemfiles']="Systemdateien";
 $tx['settings']['warning']="Bitte hier nur solche Änderungen durchführen, bei denen Sie genau wissen, was diese bewirken!";
 
 $tx['submenu']['heading']="weiter zu:";
+
+$tx['success']['saved']="Datei gespeichert: ";
+
+$tx['syscheck']['encoding']="UTF-8-Kodierung eingestellt";
+$tx['syscheck']['extension']="Erweiterung '%s' geladen";
+$tx['syscheck']['writable']="'%s' schreibbar";
+$tx['syscheck']['magic_quotes']="'Magic quotes runtime' aus";
+$tx['syscheck']['phpversion']="PHP-Version ≥ %s";
+$tx['syscheck']['title']="System-Prüfung";
 
 $tx['sysinfo']['helplinks']="Hilfe und Informationen";
 $tx['sysinfo']['php_version']="PHP-Version";
@@ -194,6 +215,8 @@ $tx['toc']['dupl']="DOPPELTE ÜBERSCHRIFT";
 $tx['toc']['empty']="LEERE ÜBERSCHRIFT";
 $tx['toc']['missing']="FEHLENDE ÜBERSCHRIFT";
 $tx['toc']['newpage']="NEUE SEITE";
+
+$tx['uri']['toolong']="Gemäß Einstellungen&rarr;CMS&rarr;Uri&rarr;Length ist die URL zu lang:";
 
 $tx['urichar']['new']="";
 $tx['urichar']['org']="";

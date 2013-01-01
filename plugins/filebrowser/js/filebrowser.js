@@ -1,3 +1,7 @@
+/**
+ * @version $Id$
+ */
+
 function confirmFileDelete(string)
 {
     return confirm(string);

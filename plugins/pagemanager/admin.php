@@ -7,16 +7,13 @@
  */
 
 
-// utf-8-marker: äöüß
-
-
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
 }
 
 
-define('PAGEMANAGER_VERSION', '1pl5');
+define('PAGEMANAGER_VERSION', '1.1dev1');
 
 
 /**
@@ -131,7 +128,7 @@ function pagemanager_toolbar($image_ext, $save_js) {
 		.tag('img class="'.$class.'" src="'.$img.'"'
 		    .($tool != 'help' ? ' onclick="pagemanager_do(\''.$tool.'\'); return false;"' : ''))
 		.($tool != 'separator'
-		    ? '<span>'.($tool == 'save' ? ucfirst($tx['action']['save'])
+		    ? '<span>'.($tool == 'save' ? utf8_ucfirst($tx['action']['save'])
 			    : $plugin_tx['pagemanager']['op_'.$tool]).'</span></a>'
 		    : '')
 		.($horizontal ? '' : tag('br'))."\n";
@@ -200,7 +197,7 @@ function pagemanager_edit() {
 
     $swo = '<div id="pagemanager-structure-warning" class="cmsimplecore_warning"><p>'
 	    .$plugin_tx['pagemanager']['error_structure_warning']
-	    .'</p><p><a href="javascript:pagemanager_confirmStructureWarning();">'
+	    .'</p><p><a href="#" onclick="pagemanager_confirmStructureWarning();return false">'
 	    .$plugin_tx['pagemanager']['error_structure_confirmation']
 	    .'</a></div>'."\n";
 
@@ -271,7 +268,7 @@ function pagemanager_edit() {
 	    .tag('input type="hidden" name="action" value="plugin_save"')."\n"
 	    .tag('input type="hidden" name="xml" id="pagemanager-xml" value=""')."\n"
 	    .tag('input id="pagemanager-submit" type="submit" class="submit" value="'
-		.ucfirst($tx['action']['save']).'"'
+		.utf8_ucfirst($tx['action']['save']).'"'
 		.' onclick="'.$save_js.'"'
 		.' style="display: none"')."\n"
 	    .'</form>'."\n"
@@ -298,9 +295,8 @@ function pagemanager_start_element_handler($parser, $name, $attribs) {
 	$pagemanager_state['level']++;
 	$pagemanager_state['id'] = $attribs['ID'] == ''
 		? '' : preg_replace('/(copy_)?pagemanager-([0-9]*)/', '$2', $attribs['ID']);
-	$pagemanager_state['title'] = htmlspecialchars($attribs['TITLE']);
+	$pagemanager_state['title'] = htmlspecialchars($attribs['TITLE'], ENT_NOQUOTES, 'UTF-8');
 	$pagemanager_state['pdattr'] = $attribs['PDATTR'];
-	$pagemanager_state['num']++;
     }
 }
 
@@ -323,19 +319,19 @@ function pagemanager_end_element_handler($parser, $name) {
  * @return void
  */
 function pagemanager_cdata_handler($parser, $data) {
-    global $c, $h, $cf, $pagemanager_fp, $pagemanager_state, $pagemanager_pd,
+    global $c, $h, $cf, $pagemanager_state, $pagemanager_c, $pagemanager_pd,
 	    $pd_router, $plugin_cf;
-    $data = htmlspecialchars($data);
+    $data = htmlspecialchars($data, ENT_NOQUOTES, 'UTF-8');
     if (isset($c[$pagemanager_state['id']])) {
 	$cnt = $c[$pagemanager_state['id']];
 	$cnt = preg_replace('/<h[1-'.$cf['menu']['levels'].']([^>]*)>'
 		.'((<[^>]*>)*)[^<]*((<[^>]*>)*)<\/h[1-'.$cf['menu']['levels'].']([^>]*)>/i',
 		'<h'.$pagemanager_state['level'].'$1>${2}'.$pagemanager_state['title'].'$4'
 		.'</h'.$pagemanager_state['level'].'$6>', $cnt, 1);
-	fwrite($pagemanager_fp, rmnl($cnt."\n"));
+	$pagemanager_c[] = $cnt;
     } else {
-	fwrite($pagemanager_fp, '<h'.$pagemanager_state['level'].'>'.$pagemanager_state['title']
-		.'</h'.$pagemanager_state['level'].'>'."\n");
+	$pagemanager_c[] = '<h'.$pagemanager_state['level'].'>'.$pagemanager_state['title']
+		.'</h'.$pagemanager_state['level'].'>';
     }
 
     if ($pagemanager_state['id'] == '') {
@@ -350,29 +346,25 @@ function pagemanager_cdata_handler($parser, $data) {
 
 
 /**
- * Saves content.htm manually and
- * pagedata.php via $pd_router->model->refresh().
+ * Saves modified content.
  *
  * @return void
  */
 function pagemanager_save($xml) {
-    global $pth, $tx, $pd_router, $pagemanager_state, $pagemanager_fp, $pagemanager_pd;
-    $pagemanager_pd = array();
-    $parser = xml_parser_create('UTF-8');
-    xml_set_element_handler($parser, 'pagemanager_start_element_handler',
-	    'pagemanager_end_element_handler');
-    xml_set_character_data_handler($parser, 'pagemanager_cdata_handler');
-    $pagemanager_state['level'] = 0;
-    $pagemanager_state['num'] = -1;
-    if ($pagemanager_fp = fopen($pth['file']['content'], 'w')) {
-	fputs($pagemanager_fp, '<html><head><title>Content</title></head><body>'."\n");
+    global $c, $pth, $tx, $pd_router, $pagemanager_state, $pagemanager_c, $pagemanager_pd;
+    if (is_writable($pth['file']['content'])) {
+	$parser = xml_parser_create('UTF-8');
+	xml_set_element_handler($parser, 'pagemanager_start_element_handler',
+		'pagemanager_end_element_handler');
+	xml_set_character_data_handler($parser, 'pagemanager_cdata_handler');
+	$pagemanager_state['level'] = 0;
+	$pagemanager_c = array();
+	$pagemanager_pd = array();
 	xml_parse($parser, $xml, TRUE);
-	fputs($pagemanager_fp, '</body></html>');
-	fclose($pagemanager_fp);
+	$c = $pagemanager_c;
 	$pd_router->model->refresh($pagemanager_pd);
     } else
 	e('cntwriteto', 'content', $pth['file']['content']);
-    rfc(); // is neccessary, if relocation fails!
 }
 
 
@@ -380,7 +372,10 @@ function pagemanager_save($xml) {
  * Hook into new edit menu of CMSimple_XH 1.5
  */
 if ($f === 'xhpages' && isset($cf['pagemanager']['external'])
-	&& in_array($cf['pagemanager']['external'], array('', 'pagemanager'))) {
+    && in_array($cf['pagemanager']['external'], array('', 'pagemanager')))
+{
+    include_once $pth['folder']['plugins'] . 'utf8/utf8.php';
+    include_once UTF8 . '/ucfirst.php';
     pagemanager_edit();
 }
 
@@ -399,10 +394,15 @@ if (isset($pagemanager)) {
     }
     if (!file_exists($pth['folder']['plugins'].'jquery/jquery.inc.php'))
 	$e .= '<li>'.$plugin_tx['pagemanager']['error_jquery'].'</li>'."\n";
+    if (!file_exists($pth['folder']['plugins'].'utf8/utf8.php'))
+	$e .= '<li>'.$plugin_tx['pagemanager']['error_utf8'].'</li>'."\n";
     if (strtolower($tx['meta']['codepage']) != 'utf-8') {
 	$e .= '<li>'.$plugin_tx['pagemanager']['error_encoding'].'</li>'."\n";
     }
 
+    include_once $pth['folder']['plugins'] . 'utf8/utf8.php';
+    include_once UTF8 . '/ucfirst.php';
+    
     initvar('admin');
     initvar('action');
 

@@ -1,3 +1,7 @@
+/**
+ * @version $Id$
+ */
+
 var tinyMCELinkList;
 
 if(window.opener){

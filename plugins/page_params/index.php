@@ -12,7 +12,7 @@
  *
  * @author Martin Damken
  * @link http://www.zeichenkombinat.de
- * @version 1.0.05
+ * @version $Id$
  * @package pluginloader
  * @subpackage page_params
  */
@@ -20,10 +20,6 @@
  * Check if PLUGINLOADER is calling and die if not
  */
 if(!defined('PLUGINLOADER_VERSION')){die('Plugin '. basename(dirname(__FILE__)) . ' requires a newer version of the Pluginloader. No direct access.');}
-/**
- * Include language package
- */
-include_once "languages/".$sl.'.php';
 
 /**
  * Add used interests to router
@@ -65,14 +61,16 @@ if(isset($pd_current['template'])
  */
 if(!$edit && $pd_current){
 	if($pd_current['show_heading'] == '1'){
+		$temp = '/(<h[1-'.$cf['menu']['levels'].'].*>).+(<\/h[1-'.$cf['menu']['levels'].']>)/isU';
 		if(trim($pd_current['heading']) == ''){
-			$c[$pd_s] = preg_replace('/(<h[1-'.$cf['menu']['levels'].'].*>).+(<\/h[1-'.$cf['menu']['levels'].']>)/isU', '', $c[$pd_s]);
+			$c[$pd_s] = preg_replace($temp, '', $c[$pd_s]);
 		}else{
-			$c[$pd_s]=preg_replace('/(<h[1-'.$cf['menu']['levels'].'].*>).+(<\/h[1-'.$cf['menu']['levels'].']>)/isU','\\1 '.(string)$pd_current['heading'].'\\2',$c[$pd_s]);
+			$c[$pd_s] = preg_replace($temp, '\\1 '.(string)$pd_current['heading'].'\\2',$c[$pd_s]);
 		}
 	}
 	if($pd_current['show_last_edit'] == '1' && $pd_current['last_edit'] !== ''){
-		$c[$pd_s] .= '<div id = "pp_last_update">'.$plugin_tx['page_params']['last_edit'].": ".date($tx['lastupdate']['dateformat'], $pd_current['last_edit']).'</div>';
+		$c[$pd_s] .= '<div id = "pp_last_update">' . $plugin_tx['page_params']['last_edit']
+                  .  ' ' . date($tx['lastupdate']['dateformat'], $pd_current['last_edit']) . '</div>';
 	}
 }
 
