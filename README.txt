@@ -1,9 +1,9 @@
-===============================================
+﻿===============================================
 $CMSIMPLE_XH_VERSION$
 released $CMSIMPLE_XH_DATE$
 ===============================================
 
-PASSWORD for this installation:  
+PASSWORD for this installation:
 
            test
 
@@ -11,14 +11,16 @@ PASSWORD for this installation:
 
 ===============================================
 
-INSTALLATION 
+INSTALLATION
 
 Unzip the download and upload all files of the
 folder cmsimplexh/ to your webserver.
 
 On many servers you have to set writing
 permissions for some files, see
-http://www.cmsimple-xh.com/wiki/doku.php/manuals:users_manual:cmsimple:installation#assigning_file_and_folder_permissions
+http://www.cmsimple-xh.org/wiki/doku.php/installation
+
+Detailed UPDATE instructions are available in the [CMSimple forum](http://www.cmsimpleforum.com/viewtopic.php?f=4&t=4868).
 
 ===============================================
 
@@ -30,7 +32,7 @@ Please DO NOT change the password directly in
 config.php by using a text editor, because the
 config.php only contains the encrypted password.
 Change the default password right away after
-login ONLINE !!! 
+login ONLINE !!!
 (Login with default password "test")
 
 This is the easiest and best working way.
@@ -45,7 +47,7 @@ If this condition is not fulfilled, you will
 damage your CMSimple installation.
 
 
-If you have forgotten your password, you can 
+If you have forgotten your password, you can
 enter the encrypted password "test", i.e.:
 
 \$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1
@@ -54,7 +56,7 @@ via ftp into config.php and login using "test".
 
 ===============================================
 
-D e s c r i p t i o n   o f   t h e  
+D e s c r i p t i o n   o f   t h e
 s o f t w a r e   p a c k a g e :
 
 CMSimple_XH is a fast, small, easy-to-use and
