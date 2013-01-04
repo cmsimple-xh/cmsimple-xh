@@ -3,8 +3,9 @@
 /**
  * @version $Id$
  */
+/* utf-8 marker: äöü */
 
-if (!$adm) {     return; }
+if (!XH_ADM) {     return; }
 
 initvar('tinymce');
 
@@ -17,11 +18,8 @@ if ($tinymce) {
     $o .= '<p>CMSimpe_xh & Filebrowser integration &ndash; <a href="http://www.pixolution.ch/" target="_blank">http://www.pixolution.ch/</a></p>';
     $o .= tag('br'). tag('br'). tag('br');
 
-
-
     $admin= isset($_POST['admin']) ? $_POST['admin'] : $admin = isset($_GET['admin']) ? $_GET['admin'] : 'plugin_config';
     $action= isset($_POST['action']) ? $_POST['action'] : $action = isset($_GET['action']) ? $_GET['action'] : 'plugin_edit';
-		
 		
 		if (tinymce_setOptions())
 		{
@@ -32,11 +30,6 @@ if ($tinymce) {
 function tinymce_setOptions()
 {
 	global $pth;
-/*
-	if ($action === 'plugin_save'){  // refresh
-			include $pth['folder']['plugins'] . $plugin . '/config/config.php';
-	}
-*/
 
 	$inits = glob($pth['folder']['plugins'] . 'tinymce/inits/*.js');
 	$options = array();
@@ -50,26 +43,6 @@ function tinymce_setOptions()
 	}
 	return (bool) $options;
 }
-/*		
-    if ((bool) $options) {
-        $o .= '<div><form method="post" action="' . $sn . '?&amp;' . $plugin . '">';
-         $o .= '<a class="pl_tooltip" href="#" onclick="return false">
-             <img class="helpicon" alt="help" src="' . $pth['folder']['flags'] . 'help_icon.png" />
-             <span>' . sprintf($plugin_tx[$plugin]['help'], $pth['folder']['plugins'] . $plugin . '/inits') . '</span></a>';
-        $o .= 'Toolbar: <select name="' . $pluginloader_cfg['form_namespace'] . 'init">';
-        $selected_init = $plugin_cf[$plugin]['init'];
-        foreach ($options as $option) {
-            $selected = $option == $selected_init ? ' selected="selected"' : '';
-            $o .= "<option$selected>$option</option>";
-        }
-
-
-        $o .= '</select>'
-                . tag('input type="hidden" name="admin" value="plugin_config"') . "\n"
-                . tag('input type="hidden" name="action" value="plugin_save"') . "\n"
-
-                .tag('input type="submit"  name="plugin_submit" value="' . $tx['action']['save'] . '"') . "\n"
-                . '</form></div>';
-    }
-    $o .= '</div>';
-*/
+/*
+ * EOF tinymce/admin.php
+ */
