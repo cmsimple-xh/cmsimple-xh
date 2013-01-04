@@ -20,7 +20,7 @@ On some servers you have to set writing
 permissions for some files, see
 http://www.cmsimple-xh.org/wiki/doku.php/installation
 
-Detailed UPDATE instructions are avaiable in the
+Detailed UPDATE instructions are available in the
 CMSimple forum
 http://www.cmsimpleforum.com/viewtopic.php?f=4&t=4868.
 
