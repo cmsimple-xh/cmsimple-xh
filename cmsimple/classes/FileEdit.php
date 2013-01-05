@@ -317,10 +317,6 @@ class XH_ArrayFileEdit extends XH_FileEdit
     {
         $iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
         switch ($opt['type']) {
-        case 'string':
-            return tag('input type="text" name="' . $iname . '" value="'
-                       . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8')
-                       . '" class="cmsimplecore_settings"');
         case 'password':
             return tag('input type="text" name="' . $iname . '" value="'
                        . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8')
@@ -348,6 +344,10 @@ class XH_ArrayFileEdit extends XH_FileEdit
             }
             $o .= '</select>';
             return $o;
+        default:
+            return tag('input type="text" name="' . $iname . '" value="'
+                       . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8')
+                       . '" class="cmsimplecore_settings"');
         }
     }
 
@@ -407,7 +407,9 @@ class XH_ArrayFileEdit extends XH_FileEdit
             foreach ($opts as $name => $opt) {
 		$iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
 		$val = stsl($_POST[$iname]);
-		if ($opt['type'] == 'password'
+		if ($opt['type'] == 'bool') {
+		    $val = isset($_POST[$iname]) ? 'true' : ''; // TODO: which values should be written back?
+		} elseif ($opt['type'] == 'password'
 		    && $_POST[$iname] != $_POST[$iname . '_OLD'])
 		{
 		    $val = $xh_hasher->HashPassword($val);
@@ -682,6 +684,11 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
         global $pth, $plugin, $plugin_cf, $plugin_tx;
 
 	parent::XH_PluginArrayFileEdit();
+	$fn = $pth['folder']['plugins'] . $plugin . '/config/metaconfig.php';
+	if (is_readable($fn)) {
+	    include $fn;
+	}
+	$mcf = isset($plugin_mcf[$plugin]) ? $plugin_mcf[$plugin] : array();
 	$this->filename = $pth['file']['plugin_config'];
 	$this->params = array('admin' => 'plugin_config',
 			      'action' => 'plugin_save');
@@ -690,7 +697,14 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
         $this->cfg = array();
         foreach ($plugin_cf[$plugin] as $key => $val) {
             list($cat, $name) = $this->splitKey($key);
-            $co = array('val' => $val, 'type' => 'string');
+	    $type = isset($mcf[$key]) ? $mcf[$key] : 'string';
+	    if (strpos($type, 'enum:') === 0) {
+		$vals = explode(',', substr($type, strlen('enum:')));
+		$type = 'enum';
+	    } else {
+		$vals = null;
+	    }
+            $co = array('val' => $val, 'type' => $type,  'vals' => $vals);
             if (isset($plugin_tx[$plugin]["cf_$key"])) {
                 $co['hint'] = $plugin_tx[$plugin]["cf_$key"];
             }
