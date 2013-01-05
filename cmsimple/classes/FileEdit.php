@@ -304,6 +304,16 @@ class XH_ArrayFileEdit extends XH_FileEdit
         return array($first, implode('_', $parts));
     }
 
+    function hasVisibleFields($options)
+    {
+	foreach ($options as $opt) {
+	    if ($opt['type'] != 'hidden') {
+		return true;
+	    }
+	}
+	return false;
+    }
+
     /**
      * Returns a form field.
      *
@@ -344,6 +354,9 @@ class XH_ArrayFileEdit extends XH_FileEdit
             }
             $o .= '</select>';
             return $o;
+	case 'hidden':
+            return tag('input type="hidden" name="' . $iname . '" value="'
+                       . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8') . '"');
         default:
             return tag('input type="text" name="' . $iname . '" value="'
                        . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8')
@@ -368,15 +381,23 @@ class XH_ArrayFileEdit extends XH_FileEdit
 	    . '<form action="' . $action . '" method="POST" accept-charset="UTF-8">'
             . '<table style="width: 100%">';
         foreach ($this->cfg as $category => $options) {
-            $o .= '<tr><td colspan="2"><h4>' . ucfirst($category) . '</h4></td></tr>';
+	    if ($this->hasVisibleFields($options)) {
+                $o .= '<tr><td colspan="2"><h4>' . ucfirst($category)
+		    . '</h4></td></tr>';
+	    }
             foreach ($options as $name => $opt) {
                 $info = isset($opt['hint'])
                     ? '<a href="#" class="pl_tooltip" onclick="return false">'
                         . tag('img src="' . $pth['folder']['flags'] . 'help_icon.png" alt=""')
                         . '<span>' . $opt['hint'] . '</span></a> '
                     : '';
-                $o .= '<tr><td>' . $info . ucfirst($name) . '</td><td>'
-                    . $this->formField($category, $name, $opt);
+		if ($opt['type'] == 'hidden') {
+		    $o .= '<tr><td colspan="2">'
+			. $this->formField($category, $name, $opt);
+		} else {
+		    $o .= '<tr><td>' . $info . ucfirst($name) . '</td><td>'
+			. $this->formField($category, $name, $opt);
+		}
 		$o .= '</td></tr>';
             }
         }
