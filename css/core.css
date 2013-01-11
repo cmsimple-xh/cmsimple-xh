@@ -65,7 +65,7 @@
     height: 0;
     left: 0;
     position: absolute;
-    top: 36px; 
+    top: 36px;
     margin: 0;
     z-index: 9999;
     visibility: hidden;
@@ -99,7 +99,7 @@
 
 #editmenu ul ul ul {
     left: 100%;
-    top: 0px; 
+    top: 0px;
     visibility: hidden;
     padding: 0;
     margin: 0;
@@ -141,18 +141,18 @@ div#admin-content-container{
 }
 
 #edit_menu {
-    width: 660px; 
+    width: 660px;
     float: left;
 }
 
 #editmenu_logout {
-    width: 98px; 
+    width: 98px;
     float: right;
 }
 
 #edit_menu_logout {
-    min-width: 100%; 
-    max-width: 100%; 
+    min-width: 100%;
+    max-width: 100%;
     text-align: center;
 }
 
@@ -197,8 +197,8 @@ textarea.cmsimplecore_settings_short {
 }
 
 .cmsimplecore_version {
-    font-family: arial, sans-serif; 
-    font-size: 14px; 
+    font-family: arial, sans-serif;
+    font-size: 14px;
     padding: 0 2px;
 }
 
@@ -206,31 +206,31 @@ textarea.cmsimplecore_settings_short {
 
 .cmsimplecore_debug {
     height: 18px;
-    background: #900; 
-    font-family: arial, sans-serif; 
-    font-size: 14px; 
+    background: #900;
+    font-family: arial, sans-serif;
+    font-size: 14px;
     line-height: 14px;
-    color: #fff; 
-    text-align: center; 
-    border: 0px solid #000; 
-    padding: 2px 6px; 
+    color: #fff;
+    text-align: center;
+    border: 0px solid #000;
+    padding: 2px 6px;
     margin: auto;
 }
 
 .cmsimplecore_warning {
-    background: #fc0; 
-    font-family: arial, sans-serif; 
-    font-size: 14px; 
-    color: #000; 
-    border: 3px solid #000; 
-    padding: 4px 6px; 
+    background: #fc0;
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    border: 3px solid #000;
+    padding: 4px 6px;
     margin: 4px 0;
 }
 
 /* File Edit Textareas */
 
 textarea.cmsimplecore_file_edit {
-    width: 99%; 
+    width: 99%;
     font-family: 'courier new', monospace;
     font-size: 14px;
     color: #333;
@@ -242,21 +242,21 @@ textarea.cmsimplecore_file_edit {
 /* Mailform */
 
 #cmsimple_mailform div {
-    width: 250px; 
+    width: 250px;
     margin: 0 0 8px 0;
 }
 
 #cmsimple_mailform input.text {
-    width: 90%; 
+    width: 90%;
 }
 
 span.captcha_code {
-    display: block; 
-    float:left; 
-    color: #fff; 
-    text-decoration: none; 
-    background-color: #000; 
-    padding: 1px 5px 2px 5px; 
+    display: block;
+    float:left;
+    color: #fff;
+    text-decoration: none;
+    background-color: #000;
+    padding: 1px 5px 2px 5px;
     margin: 0 4px;
 }
 
@@ -379,11 +379,11 @@ table.pluginedittable td {
 }
 
 table.pluginedittable td.plugincf {
-        
+
 }
 
-/**
- * Tooltips, if hint-texts are used within a plugin 
+/*
+ * Tooltips, if hint-texts are used within a plugin
  * e.g.: $plugin_tx['PluginName']['cf_var_name']='hint';
  * Will display a span, when hovering var_name.
  */
@@ -391,7 +391,7 @@ table.pluginedittable td.plugincf {
     font-family: arial, sans-serif;
     font-size: 14px;
 }
- 
+
 a.pl_tooltip,
 a.pl_tooltip:link,
 a.pl_tooltip:visited,
@@ -430,6 +430,55 @@ a.pl_tooltip:hover span {
 }
 
 a.pl_tooltip img {
+    border: 0;
+}
+
+/*
+ * New tooltip styling, which allows <p> elements in the help texts.
+ * TODO: change that everywhere, and get rid of the old styles
+ */
+div.pl_tooltip {
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    display: inline;
+}
+
+div.pl_tooltip {
+    position: relative;
+    text-decoration: none;
+    font-weight: normal;
+    border: 0;
+}
+
+div.pl_tooltip:hover {
+    /* IE needs some change for the a:hover to handle the a:hover span */
+    /* TODO: check if that's necessary for IE >= 7 */
+    background-color: transparent;
+}
+
+div.pl_tooltip > div {
+    display: none;
+}
+
+div.pl_tooltip > div p {
+    width: auto !important;
+}
+
+div.pl_tooltip:hover > div {
+    display: block;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 360px;
+    z-index: 10;
+    border: 1px dotted;
+    padding: 2px 10px 2px 10px;
+    background: #EEEEEE;
+    color: #333;
+    text-align: left;
+}
+
+div.pl_tooltip img {
     border: 0;
 }
 

@@ -450,9 +450,9 @@ EOS;
 	    }
             foreach ($options as $name => $opt) {
                 $info = isset($opt['hint'])
-                    ? '<a href="#" class="pl_tooltip" onclick="return false">'
+                    ? '<div class="pl_tooltip">'
                         . tag('img src="' . $pth['folder']['flags'] . 'help_icon.png" alt=""')
-                        . '<span>' . $opt['hint'] . '</span></a> '
+                        . '<div>' . $opt['hint'] . '</div></div> '
                     : '';
 		if ($opt['type'] == 'hidden') {
 		    $o .= '<tr><td colspan="2">'
