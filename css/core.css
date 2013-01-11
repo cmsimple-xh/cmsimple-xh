@@ -538,7 +538,7 @@ img.helpicon {
     background:#fff;
 }
 
-#pd_views a#pd_editor_toggle {
+#pd_views a.pd_editor_toggle {
     width: 20px;
     height: 20px;
     float: right;

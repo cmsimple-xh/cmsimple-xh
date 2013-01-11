@@ -67,7 +67,7 @@ class PL_Page_Data_View
 
         foreach ($this->tabs as $title => $file) {
             $view .= "\n" . '<div id="PLTab_' . $title . '" class="inactive_view">'
-                . "\n\t" . '<a id="pd_editor_toggle" class="pd_open"'
+                . "\n\t" . '<a class="pd_editor_toggle pd_open"'
                 . ' onclick="xh.toggleTab(\'' . $title . '\');">&nbsp;</a>';
             if (file_exists($file)) {
                 include_once $file;
