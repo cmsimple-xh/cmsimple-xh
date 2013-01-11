@@ -39,7 +39,7 @@ function page_params_view($page){
 	}
 
 	$lang = $plugin_tx['page_params'];
-	$help_icon = tag('img src = "'.$pth['folder']['plugins']. 'page_params/css/help_icon.png"');
+	$help_icon = tag('img src = "'.$pth['folder']['plugins']. 'page_params/css/help_icon.png" alt="' . $tx['editmenu']['help'] . '"');
 
 	$view ="\n".'<form action="'.$sn.'?'.$su.'" method="post" id = "page_params" name = "page_params">';
 	$view .= "\n\t".'<p><b>'.$lang['form_title'].'</b></p>';
