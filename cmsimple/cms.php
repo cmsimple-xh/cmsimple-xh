@@ -413,8 +413,8 @@ define('XH_ADM', $adm);
 if ($adm) {
     $o .= '<script type="text/javascript">/* <![CDATA[ */'
 	. 'if (document.cookie.indexOf(\'status=adm\') == -1)'
-	. ' document.write(\'<div class="cmsimplecore_warning">'
-	. $tx['error']['nocookies'] . '</div>\')'
+	. ' document.write(\'\u003Cdiv class="cmsimplecore_warning">'
+	. $tx['error']['nocookies'] . '\u003C/div>\')'
 	. '/* ]]> */</script>'
 	. '<noscript><div class="cmsimplecore_warning">'
 	. $tx['error']['nojs'] . '</div></noscript>';
