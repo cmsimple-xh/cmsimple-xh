@@ -12,11 +12,11 @@
  * @package pluginloader
  * @subpackage page_params
  */
- 
+
 /**
  * page_params_view()
- * 
- * @param array $page Gets cleaned of unallowed 
+ *
+ * @param array $page Gets cleaned of unallowed
  * doublequotes, that will destroy input-fields
  * @return string $view Returns the created view
  * @global string $sn Scriptname (base-directory)
@@ -28,7 +28,7 @@
  */
 function page_params_view($page){
 	global $sn, $su, $plugin_tx, $tx, $pth, $cf;
-	
+
 	$strChecked = ' checked';
 	$strDisabled = ' disabled';
 	$strSelected = ' selected';
@@ -37,18 +37,18 @@ function page_params_view($page){
 		$strDisabled .= '="disabled"';
 		$strSelected .= '="selected"';
 	}
-	
+
 	$lang = $plugin_tx['page_params'];
 	$help_icon = tag('img src = "'.$pth['folder']['plugins']. 'page_params/css/help_icon.png"');
 
-	$view ="\n".'<form action="'.$sn.'?'.$su.'" method="post" id = "page_params" name = "page_params">';	
+	$view ="\n".'<form action="'.$sn.'?'.$su.'" method="post" id = "page_params" name = "page_params">';
 	$view .= "\n\t".'<p><b>'.$lang['form_title'].'</b></p>';
 
-######## heading ########################## 
-	$view .= "\n\t".'<a class="pl_tooltip" href="#">'.$help_icon.'<span>'.$lang['hint_heading'].'</span></a>';
+######## heading ##########################
+	$view .= "\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_heading'].'</div></div>';
 	$view .= "\n\t".'<span class = "pp_label">'.$lang['heading'].'</span>'.tag('br');
 
-	
+
 	$checked = '';
 	if($page['show_heading'] == '1'){
 		$checked = $strChecked;
@@ -66,11 +66,11 @@ function page_params_view($page){
     $view .= "\n\t\t".tag('input type="radio" name="show_heading" value="0" id = "show_heading_no"'.$checked .$js). '<label for="show_heading_no">'.$lang['no'].'</label>' .tag('br');
 	$view .= "\n\t\t".tag('input type="text" size = "50" name="heading" id = "other_heading" value="'. str_replace('"', '&quot;', $page['heading']).'"'.$disabled).tag('br');
 	$view .= "\n\t".tag('hr');
-	
+
 #### published #####################
-	$view .= "\n\t".'<a class="pl_tooltip" href="#">'.$help_icon.'<span>'.$lang['hint_published'].'</span></a>';
+	$view .= "\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_published'].'</div></div>';
 	$view .= "\n\t".'<span class = "pp_label">'.$lang['published'] .'</span>'.tag('br');
-	
+
 	$checked = '';
 	if($page['published'] !== '0'){
 		$checked = $strChecked;
@@ -84,9 +84,9 @@ function page_params_view($page){
     $view .= "\n\t".tag('hr');
 
 #### linked to menu #####################
-	$view .= "\n\t".'<a class="pl_tooltip" href="#">'.$help_icon.'<span>'.$lang['hint_linked_to_menu'].'</span></a>';
+	$view .= "\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_linked_to_menu'].'</div></div>';
 	$view .= "\n\t".'<span class = "pp_label">'.$lang['linked_to_menu'] .'</span>'.tag('br');
-	
+
 	$checked = '';
 	if($page['linked_to_menu'] !== '0'){
 		$checked = $strChecked;
@@ -98,8 +98,8 @@ function page_params_view($page){
 	}
     $view .= "\n\t\t".tag('input type="radio" name="linked_to_menu" value="0" id = "linked_to_menu_no"'.$checked). '<label for="linked_to_menu_no">'.$lang['no'].'</label>' .tag('br');
     $view .= "\n\t".tag('hr');
-	
-### template chooser ############	
+
+### template chooser ############
 	if(isset($page['template']) && trim($page['template']) !== '') {
 		$selected = '';
 		$template = $page['template'];
@@ -123,12 +123,12 @@ function page_params_view($page){
 		$templates_select .= "\n\t".'<option value="'.$file.'"'. $selected.'>'.$file.'</option>';
         }
 	$templates_select .= "\n".'</select>';
-	$view .= "\n"."\n\t".'<a class="pl_tooltip" href="#">'.$help_icon.'<span>'.$lang['hint_template'].'</span></a>';
+	$view .= "\n"."\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_template'].'</div></div>';
 	$view .= "\n\t".'<span class="pp_label">'.$lang['template'].'</span>'.tag('br').$templates_select .tag('br');
 	$view .= "\n\t".tag('hr');
 
 ############# last edit ##################
-	$view .= "\n\t".'<a class="pl_tooltip" href="#">'.$help_icon.'<span>'.$lang['hint_last_edit'].'</span></a>';
+	$view .= "\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_last_edit'].'</div></div>';
 	$view .= "\n\t".'<span class="pp_label">'.$lang['show_last_edit'].'</span>';
 	$view .=  tag('br');
 	$checked = '';
@@ -141,7 +141,7 @@ function page_params_view($page){
 		$checked = $strChecked;
 	}
     $view .= "\n\t\t".tag('input type="radio" name="show_last_edit" value="0" id="last_edit_no"'.$checked). '<label for="last_edit_no">'.$lang['no'].'</label>' .tag('br');
-	
+
 	if($page['last_edit'] !== ''){
 		$view .= "\n\t\t" . '&nbsp;&nbsp;('.$lang['last_edit'] . ' ';
 		$view .=  date($tx['lastupdate']['dateformat'],(int)$page['last_edit']).')';
@@ -149,9 +149,9 @@ function page_params_view($page){
 	$view .= "\n\t".tag('hr');
 
 ############# header_location ##################
-	$view .= "\n\t".'<a class="pl_tooltip" href="#">'.$help_icon.'<span>'.$lang['hint_header_location'].'</span></a>';
+	$view .= "\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_header_location'].'</div></div>';
 	$view .= "\n\t".'<span class = "pp_label">'.$lang['header_location'].'</span>'.tag('br');
-	
+
 	$checked = '';
 	if($page['use_header_location'] == '1'){
 		$checked = $strChecked;
