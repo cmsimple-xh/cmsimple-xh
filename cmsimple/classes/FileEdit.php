@@ -315,9 +315,71 @@ class XH_ArrayFileEdit extends XH_FileEdit
     }
 
     /**
+     * Returns the "change password" dialog.
+     *
+     * @todo: finish up
+     * @todo: i18n
+     *
+     * @access private
+     *
+     * @global array  The pathes of system files and folders.
+     * @global string  Scripts to insert before the closing body tag.
+     * @param  string $name  The name of the password config option.
+     * @return string  The (X)HTML.
+     */
+    function passwordDialog($name)
+    {
+	global $pth, $bjs;
+
+	include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php';
+	include_jQuery();
+	include_jQueryUI();
+	$id = "xh_${name}_dialog";
+        $iname = XH_FORM_NAMESPACE . $name;
+	$o = '<div id="' . $id . '" title="Change Password" style="display:none">'
+	    . '<table>'
+	    . '<tr><td>Old Password</td><td>' . tag('input type="password"') . '</td></tr>'
+	    . '<tr><td>New Password</td><td>' . tag('input type="password"') . '</td></tr>'
+	    . '<tr><td>Confirmation</td><td>' . tag('input type="password"') . '</td></tr>'
+	    . '</table>'
+	    . '</div>';
+	$o .= '<button onclick="jQuery(\'#' . $id . '\').dialog(\'open\');return false">Change Password</button>';
+	$bjs .= <<<EOS
+<script>
+jQuery("#$id").dialog({
+    autoOpen: false,
+    modal: true,
+    width: 400,
+    buttons: {
+	"Change Password": function() {
+	    var inputs = jQuery(this).find("td:nth-child(2) input");
+	    var oldPW = inputs.get(0).value;
+	    var newPW = inputs.get(1).value;
+	    var confirm = inputs.get(2).value;
+	    // TODO: check old password!!!
+	    if (confirm != newPW) {
+		alert('New Passwords do not match!');
+	    } else {
+		var form = window.document.getElementById("xh_config_form");
+		form.elements["$iname"].value = newPW;
+		jQuery(this).dialog("close");
+	    }
+	},
+	"Cancel": function() {
+	    jQuery(this).dialog("close");
+	}
+    }
+})
+</script>
+EOS;
+	return $o;
+    }
+
+    /**
      * Returns a form field.
      *
      * @access private
+     *
      * @param  string $cat  The category.
      * @param  string $name  The name.
      * @param  array $opt  The field options.
@@ -328,7 +390,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
         $iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
         switch ($opt['type']) {
         case 'password':
-            return tag('input type="text" name="' . $iname . '" value="'
+            return $this->passwordDialog($cat . '_' . $name)
+		. tag('input type="hidden" name="' . $iname . '" value="'
                        . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8')
                        . '" class="cmsimplecore_settings"')
 		. tag('input type="hidden" name="' . $iname . '_OLD" value="'
@@ -378,7 +441,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
 
         $action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
 	$o = '<h1>' . ucfirst($this->caption) . '</h1>'
-	    . '<form action="' . $action . '" method="POST" accept-charset="UTF-8">'
+	    . '<form id="xh_config_form" action="' . $action . '" method="POST" accept-charset="UTF-8">'
             . '<table style="width: 100%">';
         foreach ($this->cfg as $category => $options) {
 	    if ($this->hasVisibleFields($options)) {
