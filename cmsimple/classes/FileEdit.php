@@ -345,7 +345,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
 	    . '</div>';
 	$o .= '<button onclick="jQuery(\'#' . $id . '\').dialog(\'open\');return false">Change Password</button>';
 	$bjs .= <<<EOS
-<script>
+<script type="text/javascript">
 jQuery("#$id").dialog({
     autoOpen: false,
     modal: true,
