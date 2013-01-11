@@ -148,7 +148,7 @@ function toc($start = null, $end = null, $li = 'li')
  * @param mixed $st  The menu level to start with or the type of menu.
  * @return string  The (X)HTML.
  */
-function li($ta, $st) 
+function li($ta, $st)
 {
 		global $s, $l, $h, $cl, $cf, $u;
 		$tl = count($ta);
@@ -192,7 +192,7 @@ function li($ta, $st)
 						$t .='<span>';      //EM+
 				$t .= $h[$ta[$i]];
 				if ($tf)
-						$t .= '</a>';   
+						$t .= '</a>';
 				else            			//EM+
 						$t .='</span>';   //EM+
 				if ($st == 'menulevel' || $st == 'sitemaplevel') {
@@ -437,7 +437,7 @@ function admin_menu($plugins = array(), $debug = false)
         }
         $changeMode = $edit ? 'normal' : 'edit';
         $changeText = $edit ? $tx['editmenu']['normal'] : $tx['editmenu']['edit'];
-        $t .= '<li><a href="' . $sn . '?' . $su . '&' . $changeMode . '">' . $changeText . '</a></li>' . "\n"
+        $t .= '<li><a href="' . $sn . '?' . $su . '&amp;' . $changeMode . '">' . $changeText . '</a></li>' . "\n"
             . '<li><a href="' . $sn . '?&amp;normal&amp;xhpages" class="">' . utf8_ucfirst($tx['editmenu']['pagemanager']) . '</a></li>' . "\n"
             . '<li><a href="#" onclick="return false" class="">' . utf8_ucfirst($tx['editmenu']['files']) . '</a>' ."\n"
             . '    <ul>' . "\n"
@@ -464,7 +464,7 @@ function admin_menu($plugins = array(), $debug = false)
             . $pluginMenu . "\n"
             . '</li>' . "\n"
             . '</ul>' . "\n" . '<ul id="editmenu_logout">' . "\n"
-            . '<li id="edit_menu_logout"><a href="?&logout">' . utf8_ucfirst($tx['editmenu']['logout']) . '</a></li>' . "\n"
+            . '<li id="edit_menu_logout"><a href="?&amp;logout">' . utf8_ucfirst($tx['editmenu']['logout']) . '</a></li>' . "\n"
             . '</ul>' . "\n";
         return $t . '<div style="float:none;clear:both;padding:0;margin:0;width:100%;height:0px;"></div>' . "\n" . '</div>' . "\n";
     }
