@@ -31,8 +31,7 @@ if ($tinymce) {
     $o .= '<p>Version for $CMSIMPLE_XH_VERSION$</p>';
     $o .= '<p>TinyMCE version 3.5.8  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a></p>';
     $o .= '<p>CMSimpe_xh & Filebrowser integration &ndash; <a href="http://www.pixolution.ch/" target="_blank">http://www.pixolution.ch/</a></p>';
-    $o .= '</div>';
-
+    $o .=tag('br');
 
     include $pth['folder']['classes'] . 'FileEdit.php';
 /**
@@ -40,57 +39,58 @@ if ($tinymce) {
  *
  * @package	XH
  */
-        class XH_TinyMceConfigFileEdit extends XH_PluginConfigFileEdit
+    class XH_TinyMceConfigFileEdit extends XH_PluginConfigFileEdit
+    {
+/**
+* Constructor 
+*/ 
+        function XH_TinyMceConfigFileEdit()
         {
+            parent::XH_PluginConfigFileEdit();
+        }
 /**
- * Constructor 
+* Controller 
+* @return string output|nothing parsed output or nothing
 */ 
-            function XH_TinyMceConfigFileEdit()
+        function edit()
+        {
+            global $action;
+            if ($this->setOptions('init'))
             {
-                parent::XH_PluginConfigFileEdit();
+                    if ($action!='plugin_save') 
+                        return $this->form();
+                    else
+                        return $this->submit();
             }
+        }
 /**
- * Controller 
- * @return string output|nothing parsed output or nothing
+* Establish option values from ./inits/init_.js files for select field
+* and affects cfg property
+* @param $field select field name to set the options for
+* @global array
+* @return true if options available
 */ 
-            function edit()
-            {
-                global $action;
-                if ($this->setOptions('init'))
-                {
-                        if ($action!='plugin_save') 
-                            return $this->form();
-                        else
-                            return $this->submit();
-                }
-            }
-/**
- * Establish option values from ./inits/init_.js files for select field
- * and affects cfg property
- * @param $field select field name to set the options for
- * @global array
- * @return true if options available
-*/ 
-            function setOptions($field)
-            {
-                global $pth;
+        function setOptions($field)
+        {
+            global $pth;
 
-                $inits = glob($pth['folder']['plugins'] . 'tinymce/inits/*.js');
-                $options = array();
-                foreach ($inits as $init) {
-                        $temp = explode('_', basename($init, '.js'));
-                        if (isset($temp[1])) {
-                                $options[] = $temp[1];
-                        }
-                }
-                (bool) $options && 
-                    $this->cfg[$field]['']['vals'] = $options; 
-                return (bool) $options;
+            $inits = glob($pth['folder']['plugins'] . 'tinymce/inits/*.js');
+            $options = array();
+            foreach ($inits as $init) {
+                    $temp = explode('_', basename($init, '.js'));
+                    if (isset($temp[1])) {
+                            $options[] = $temp[1];
+                    }
             }
-        }   // End of class XH_TinyMceConfigFileEdit
-        
-        $tiymceConfig = new XH_TinyMceConfigFileEdit();
-        $o .= $tiymceConfig->edit();
+            (bool) $options && 
+                $this->cfg[$field]['']['vals'] = $options; 
+            return (bool) $options;
+        }
+    }   // End of class XH_TinyMceConfigFileEdit
+    
+    $tiymceConfig = new XH_TinyMceConfigFileEdit();
+    $o .= $tiymceConfig->edit();
+    $o .= '</div>';
 }
 /*
  * EOF tinymce/admin.php
