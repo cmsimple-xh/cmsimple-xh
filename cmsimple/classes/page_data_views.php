@@ -57,7 +57,9 @@ class PL_Page_Data_View
     {
         $view = "\n" . '<div id = "pd_tabs">';
 
+        // TODO: $code should probably actually be $file; see the next foreach
         foreach ($this->tabs as $title => $code) {
+            // TODO: use something more appropriate than an anchor
             $view .= "\n\t" . '<a class="inactive_tab" id="tab_' . $title
                 . '" onclick="xh.toggleTab(\'' . $title . '\');"><span>'
                 . $title . '</span></a>';
@@ -66,6 +68,7 @@ class PL_Page_Data_View
         $view .= "\n</div>\n" . '<div id="pd_views">';
 
         foreach ($this->tabs as $title => $file) {
+            // TODO: use something more appropriate than an anchor
             $view .= "\n" . '<div id="PLTab_' . $title . '" class="inactive_view">'
                 . "\n\t" . '<a class="pd_editor_toggle pd_open"'
                 . ' onclick="xh.toggleTab(\'' . $title . '\');">&nbsp;</a>';
@@ -77,7 +80,7 @@ class PL_Page_Data_View
 
                 $view .= $function($this->page);
             } else {
-                // TODO: i18n; or probably better: use $e
+                // TODO: i18n; or probably better: use $e/e()
                 $view .= "Could not find " . $file;
             }
             $view .= "\n" . "</div>\n";
