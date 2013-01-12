@@ -18,49 +18,47 @@ global $tx;
 
 
     <div style="clear: both;"></div>
-    
+
     <div id="subfolders">
         <div style="clear: both; margin: 0px 0;"><b><?php echo $tx['filetype']['folder']; ?>:</b> <?php echo $this->currentDirectory; ?></div>
         <div style="text-align: right;">
-        <a href="#" onclick="window.showxhfbForm('xhfbCreateDir'); return false" /><?php echo $this->translate('create_folder'); ?></a>
-       
+        <a href="#" onclick="window.showxhfbForm('xhfbCreateDir'); return false"><?php echo $this->translate('create_folder'); ?></a>
+
         </div>
 
-        
- 
+
+
         <fieldset id="xhfbCreateDir" class="xhfbform">
             <legend><?php echo $this->translate('create_subfolder_in', $this->currentDirectory); ?> <a href="#" onclick="window.closexhfbForm('xhfbCreateDir'); return false">[x]</a></legend>
             <div style="padding: 3em;">
 
                 <form method="POST" action="">
-                    <input type="text" name="createFolder" size="30" />
-                    <input type="submit" class="submit" value="<?php echo $this->translate('create_folder'); ?>" />
+                    <?php echo tag('input type="text" name="createFolder" size="30"');?>
+                    <?php echo tag('input type="submit" class="submit" value="' . $this->translate('create_folder') . '"');?>
                 </form>
             </div>
         </fieldset>
-        
+
         %SUBFOLDERS%
 
     </div>
-	<hr />
+	<?php echo tag('hr');?>
 	<p class="xhfb_files"><?php echo $this->translate('files');?></p>
     <div id="files">
-        <span  style="font-weight:900">
-         <div style="text-align: right;">
-                <a href="#" onclick="window.showxhfbForm('xhfbUploadFile'); return false" /><?php echo $this->translate('upload_file'); ?></a>
+         <div style="text-align: right; font-weight: 900">
+                <a href="#" onclick="window.showxhfbForm('xhfbUploadFile'); return false"><?php echo $this->translate('upload_file'); ?></a>
         </div>
                <fieldset id="xhfbUploadFile" class="xhfbform">
             <legend><?php echo $this->translate('upload_file_to', $this->currentDirectory); ?> <a href="#" onclick="window.closexhfbForm('xhfbUploadFile'); return false">[x]</a></legend>
             <div style="padding: 3em;">
 
                 <form method="POST" action="" enctype="multipart/form-data">
-                    <input type="file" name="fbupload" />
-                    <input type="hidden" name="upload" value="upload" />
-                    <input type="submit" class="submit" value="<?php echo $this->translate('upload_file'); ?>" />
+                    <?php echo tag('input type="file" name="fbupload"');?>
+                    <?php echo tag('input type="hidden" name="upload" value="upload"');?>
+                    <?php echo tag('input type="submit" class="submit" value="' . $this->translate('upload_file') . '"');?>
                 </form>
             </div>
         </fieldset>
-        </span>
         %FILES%
 
     </div>
