@@ -39,28 +39,30 @@ class XHFileBrowserView {
         $html = '
            <ul>
               <li class="openFolder">
-                   <a href="?' . $this->linkParams . '">' . $title . ' ' . $plugin_tx['filebrowser']['folder'] . '</a>';  // für CMSbrowser
-        $html .= '            <ul>';
-        foreach ($folders as $folder => $data) {
-            if ($data['level'] == 2) {
-                $html .= $data['linkList'];
+                   <a href="?' . htmlspecialchars($this->linkParams, ENT_COMPAT, 'UTF-8') . '">' . $title . ' ' . $plugin_tx['filebrowser']['folder'] . '</a>';  // für CMSbrowser
+        if (!empty($folders)) {
+            $html .= '            <ul>';
+            foreach ($folders as $folder => $data) {
+                if ($data['level'] == 2) {
+                    $html .= $data['linkList'];
+                }
             }
+            $html .='
+                       </ul>';
         }
-        $html .='
-                   </ul>
-                </li>
+        $html .= '      </li>
             </ul>';
         return $html;
     }
 
     function folderLink($folder, $folders) {
-        $link = str_replace('index.php','',$_SERVER['PHP_SELF']);
+        $link = str_replace('index.php','',$_SERVER['PHP_SELF']); // TODO: might allow for XSS
         $class = 'folder';
         if (substr($this->currentDirectory, 0, strlen($folder)) == $folder) {
             $class = 'openFolder';
         }
         $temp = explode('/', $folder);
-        $html = '<li class="' . $class . '"><a href="' . $link . '?' . $this->linkParams . '&amp;subdir=' . $folder . '">' . end($temp) . '</a>';
+        $html = '<li class="' . $class . '"><a href="' . $link . '?' . htmlspecialchars($this->linkParams, ENT_COMPAT, 'UTF-8') . '&amp;subdir=' . $folder . '">' . end($temp) . '</a>';
         if (count($folders[$folder]['children']) > 0) {
             if (substr($this->currentDirectory, 0, strlen($folder)) !== $folder) {
                 $class = 'unseen';
@@ -91,6 +93,26 @@ class XHFileBrowserView {
                                 ' . tag('input type="image" src="' . $this->browserPath . 'css/icons/delete.gif" alt="delete" title="delete folder"') . '
                                 ' . tag('input type="hidden" name="deleteFolder"') . '
                                 ' . tag('input type="hidden" name="folder" value="' . $folder . '"') . '
+                              </form>
+                    <a href="?' . $this->linkParams . '&amp;subdir=' . $folder . '">' . $name . '</a></li>';
+            }
+            $html .= '</ul>';
+        }
+        return $html;
+    }
+
+    function subfolderListForEditor($folders) {
+
+        $html = '';
+        if (is_array($folders) && count($folders) > 0) {
+            $html = '<ul>';
+            foreach ($folders as $folder) {
+                $name = str_replace($this->currentDirectory, '', $folder);
+                $html .= '<li class="folder">
+                              <form style="display: inline;" method="POST" action="" onsubmit="return confirmFolderDelete(\'' . $this->translate('confirm_delete', $this->basePath . $folder) . '\');">
+                                <input type="image" src="' . $this->browserPath . 'css/icons/delete.gif" alt="delete" title="delete folder" />
+                                <input type="hidden" name="deleteFolder" />
+                                <input type="hidden" name="folder" value="' . $folder . '" />
                               </form>
                     <a href="?' . $this->linkParams . '&amp;subdir=' . $folder . '">' . $name . '</a></li>';
             }
@@ -162,6 +184,9 @@ class XHFileBrowserView {
 
     function fileListForEditor($files) {
 
+        if (empty($files)) {
+            return '';
+        }
         $html = '<ul>';
         $dir = $this->basePath . $this->currentDirectory;
         $is_image = (int) (strpos($this->linkParams, 'type=images') === 0);
@@ -191,8 +216,8 @@ class XHFileBrowserView {
                 }
 
                 $html .= '<span style="position: relative; z-index: 4;">
-                    <span style="font-weight: normal; border: none;">' . $image[0] . ' x ' . $image[1] . ' px</span>' . tag('br') . '
-                    ' . tag('img src="' . $this->basePath . $this->currentDirectory . $file . '" width="' . $width . 'px" height="' . $height . '"') . '</span>';
+                    <span style="font-weight: normal; border: none;">' . $image[0] . ' x ' . $image[1] . ' px</span><br />
+                    <img src="' . $this->basePath . $this->currentDirectory . $file . '" width="' . $width . 'px" height="' . $height . '"</span>';
             }
             $html .= '</a> (' . round(filesize($dir . $file) / 1024, 1) . ' kb)
             </li>';
@@ -209,11 +234,12 @@ class XHFileBrowserView {
         }
         $html = ob_get_clean();
         $this->partials['folders'] = $this->folderList($this->folders);
-        $this->partials['subfolders'] = $this->subFolderList($this->subfolders);
         if (basename($template) == 'cmsbrowser.html') {
+            $this->partials['subfolders'] = $this->subFolderList($this->subfolders);
             $this->partials['files'] = $this->fileList($this->files);
         }
         if (basename($template) == 'editorbrowser.html') {
+            $this->partials['subfolders'] = $this->subFolderListForEditor($this->subfolders);
             $this->partials['files'] = $this->fileListForEditor($this->files);
         }
         $this->partials['message'] = $this->message;
