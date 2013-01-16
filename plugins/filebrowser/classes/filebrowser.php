@@ -21,7 +21,7 @@ class XHFileBrowser {
     var $view;
     var $message = '';
     var $browserPath = '';
-    
+
 
     function XHFileBrowser() {
         global $pth, $plugin_cf, $cf;
@@ -109,7 +109,7 @@ class XHFileBrowser {
     function usedImages()
     {
         global $c, $h, $cl;
-        
+
         $images = array();
         for ($i = 0; $i < $cl; $i++) {
             preg_match_all('/<img.*?src=(["\'])(.*?)\\1.*?>/is', $c[$i], $m);
@@ -128,7 +128,7 @@ class XHFileBrowser {
         }
         return $images;
     }
- 
+
     function readDirectory() {
         $dir = $this->browseBase . $this->currentDirectory;
         $this->files = array();
@@ -238,12 +238,13 @@ function foldersArray($all = true) {
         $pages = $this->fileIsLinked($file);
         if (is_array($pages)) {
             $this->view->error('error_not_deleted', $file);
-            $this->view->error('error_file_is_used', $file);
-
+            $this->view->message .= '<div class="cmsimplecore_warning">'
+                . $this->view->translate('error_file_is_used', $file)
+                . '<ul>';
             foreach ($pages as $page) {
                 $this->view->message .= '<li>' . $page . '</li>';
             }
-            $this->view->message .= '</ul>';
+            $this->view->message .= '</ul></div>';
             return;
         }
 
@@ -257,7 +258,7 @@ function foldersArray($all = true) {
 
     function uploadFile() {
         $file = $_FILES['fbupload'];
-        
+
         if ($file['error'] != 0) {
             switch ($file['error']) {
             case UPLOAD_ERR_INI_SIZE:
@@ -269,7 +270,7 @@ function foldersArray($all = true) {
                 return;
             }
         }
-        
+
         $type = @getimagesize($file['tmp_name']) !== FALSE ? 'images' : 'downloads';
         // alternatively the following might be used:
         // $type = $this->linkType == 'images' ? 'images' : 'downloads';
@@ -280,27 +281,27 @@ function foldersArray($all = true) {
                return;
            }
         }
-        
+
         if ($this->isAllowedFile($file['name']) == false) {
             $this->view->error('error_not_uploaded', $file['name']);
             $this->view->error('error_no_proper_extension', pathinfo($file['name'], PATHINFO_EXTENSION));
 
             return;
         }
-        
+
         $filename = $this->browseBase . $this->currentDirectory . basename($file['name']);
         if (file_exists($filename)) {
             $this->view->error('error_not_uploaded', $file['name']);
             $this->view->error('error_file_already_exists', $filename);
             return;
         }
-        
+
         if (move_uploaded_file($_FILES['fbupload']['tmp_name'], $filename)) {
             chmod($filename, 0644);
             $this->view->success('success_uploaded', $file['name']);
             return;
         }
-        
+
         $this->view->error('error_not_uploaded', $file['name']);
     }
 
@@ -399,7 +400,7 @@ function foldersArray($all = true) {
     function setBrowserPath($path) {
         $this->view->browserPath = $path;
     }
-    
+
     function setMaxFileSize($folder = '', $bytes) {
         if (key_exists($folder, $this->baseDirectories)){
             $this->maxFilesizes[$folder] = (int) $bytes;
