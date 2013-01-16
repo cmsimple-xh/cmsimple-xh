@@ -3,7 +3,7 @@
 /**
  * Back-End of Pagemanager_XH.
  *
- * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2013 Christoph M. Becker (see license.txt)
  */
 
 
@@ -16,7 +16,14 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('PAGEMANAGER_VERSION', '1pl9');
+define('PAGEMANAGER_VERSION', '1pl11');
+
+
+define('PAGEMANAGER_URL', 'http'
+   . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
+   . '://' . $_SERVER['SERVER_NAME']
+   . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
+   . preg_replace('/index.php$/', '', $_SERVER['SCRIPT_NAME']));
 
 
 /**
@@ -189,7 +196,7 @@ function pagemanager_edit() {
     include_jQuery();
     include_jQueryUI();
     include_jQueryPlugin('jsTree', $pth['folder']['plugins']
-	    .'pagemanager/jstree/jquery.jstree.js');
+	    .'pagemanager/jstree/jquery.jstree.min.js');
 
     $image_ext = (file_exists($pth['folder']['plugins'].'pagemanager/images/help.png'))
 	    ? '.png' : '.gif';
@@ -420,7 +427,7 @@ if (isset($pagemanager)) {
 	    if ($action == 'plugin_save') {
 		pagemanager_save(stsl($_POST['xml']));
 		if (!headers_sent()) {
-		    header('Location: http://'.$_SERVER['SERVER_NAME'].$sn
+		    header('Location: ' . PAGEMANAGER_URL
 			    .(isset($_GET['pagemanager-xhpages'])
 			    ? '?&normal&xhpages'
 			    : '?&pagemanager&normal&admin=plugin_main'));
