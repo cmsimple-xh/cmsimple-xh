@@ -128,34 +128,37 @@ function evaluate_plugincall($__text) {
     $error = ' <span style="color:#5b0000; font-size:14px;">{{CALL TO:<span style="color:#c10000;">{{%1}}</span> FAILED}}</span> '; //use this for debugging of failed plugin-calls
     $pl_regex = '"{{{RGX:CALL(.*?)}}}"is'; //general CALL-RegEx (Placeholder: "RGX:CALL")
     $pl_calls = array(
-	'PLUGIN:' => 'return {{%1}}',
-	'HOME:' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode('{{%1}}') . '">' . urldecode('{{%1}}') . '</a>\');',
-	'HOME' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode($u[0]) . '">' . urldecode($u[0]) . '</a>\');'
+    'PLUGIN:' => 'return {{%1}}',
+    'HOME:' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode('{{%1}}') . '">' . urldecode('{{%1}}') . '</a>\');',
+    'HOME' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode($u[0]) . '">' . urldecode($u[0]) . '</a>\');'
     );
     $fd_calls = array();
     foreach ($pl_calls AS $regex => $call) {
-	preg_match_all(str_replace("RGX:CALL", $regex, $pl_regex), $__text, $fd_calls[$regex]); //catch all PL-CALLS
-	foreach ($fd_calls[$regex][0] AS $call_nr => $replace) {
-	    $call = str_replace("{{%1}}", $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]);
-	    $fnct_call = preg_replace('"(?:(?:return)\s)*(.*?)\(.*?\);"is', '$1', $call);
-	    $fnct = function_exists($fnct_call) ? TRUE : FALSE; //without object-calls; functions-only!!
-	    if ($fnct) {
-		preg_match_all("/\\$([a-z_0-9]*)/i", $call, $matches);
-		foreach ($matches[1] as $var) {
-		    global $$var;
-		}
-	    }
-	    $__text = str_replace(
-		$replace,
-		$fnct
-		    ? eval(str_replace('{{%1}}', $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]))
-		    : str_replace('{{%1}}', $regex . $fd_calls[$regex][1][$call_nr], $error),
-		$__text); //replace PL-CALLS (String only!!)
-	}
+    preg_match_all(str_replace("RGX:CALL", $regex, $pl_regex), $__text, $fd_calls[$regex]); //catch all PL-CALLS
+    foreach ($fd_calls[$regex][0] AS $call_nr => $replace) {
+        $call = str_replace("{{%1}}", $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]);
+        $call = preg_replace(
+        array("'&(quot|#34);'i", "'&(amp|#38);'i", "'&(apos|#39);'i", "'&(lt|#60);'i", "'&(gt|#62);'i", "'&(nbsp|#160);'i"),
+        array("\"", "&", "'", "<", ">", " "),
+        $call);
+        $fnct_call = preg_replace('"(?:(?:return)\s)*(.*?)\(.*?\);"is', '$1', $call);
+        $fnct = function_exists($fnct_call) ? TRUE : FALSE; //without object-calls; functions-only!!
+        if ($fnct) {
+        preg_match_all("/\\$([a-z_0-9]*)/i", $call, $matches);
+        foreach ($matches[1] as $var) {
+            global $$var;
+        }
+        }
+        $__text = str_replace(
+        $replace,
+        $fnct
+            ? eval($call)
+            : str_replace('{{%1}}', $regex . $fd_calls[$regex][1][$call_nr], $error),
+        $__text); //replace PL-CALLS (String only!!)
+    }
     }
     return $__text;
-}
-
+} 
 
 /**
  * Returns $text with CMSimple scripting and plugin calls evaluated.
