@@ -32,10 +32,7 @@ function head()
     foreach ($cf['meta'] as $i => $k) {
         $t .= meta($i);
     }
-    if ($tx['meta']['codepage'] != '') {
-        $t = tag('meta http-equiv="content-type" content="text/html;charset='
-                 . $tx['meta']['codepage'] . '"') . "\n" . $t;
-    }
+    $t = tag('meta http-equiv="content-type" content="text/html;charset=UTF-8"') . "\n" . $t;
     return $t
         . tag('meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' ' . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.de"') . "\n"
         . tag('link rel="stylesheet" href="' . $pth['file']['corestyle'] . '" type="text/css"') . "\n"

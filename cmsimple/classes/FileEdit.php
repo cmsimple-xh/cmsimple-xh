@@ -685,12 +685,16 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
 	parent::XH_CoreArrayFileEdit();
 	$this->varName = 'tx';
 	$this->params = array('form' => 'array', 'file' => 'language', 'action' => 'save');
-	$this->redir = '?file=langconfig&action=array';
+	$this->redir = '?file=language&action=array';
         $this->cfg = array();
         // TODO: sort?
         foreach ($tx as $cat => $opts) {
             $this->cfg[$cat] = array();
             foreach ($opts as $name => $val) {
+		// don't show or save the following
+		if ($cat == 'meta' && $name =='codepage') {
+		    continue;
+		}
                 $co = array('val' => $val, 'type' => 'text');
                 $this->cfg[$cat][$name] = $co;
             }

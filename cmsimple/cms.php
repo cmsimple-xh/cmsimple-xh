@@ -241,6 +241,9 @@ include $pth['file']['language'];
 include $pth['folder']['language'] . 'defaultconfig.php';
 include $pth['file']['langconfig'];
 
+// removed from the core in XH 1.6, but left for compatibility with plugins.
+$tx['meta']['codepage']='UTF-8';
+
 $pth['folder']['templates'] = $pth['folder']['base'] . 'templates/';
 $pth['folder']['template'] = $pth['folder']['templates'] . $cf['site']['template'] . '/';
 
@@ -482,7 +485,7 @@ if (is_readable($pth['folder']['cmsimple'] . 'userfuncs.php')) {
 // copies title, keywords and description from $txc to $cf
 
 foreach ($txc['meta'] as $i => $j) {
-    if (strlen(trim($j)) > 0 && $i != 'codepage') {
+    if (strlen(trim($j)) > 0 && $i != 'codepage') { // TODO: 'codepage' was never part of $txc
         $cf['meta'][$i] = $j;
     }
 }
@@ -495,12 +498,6 @@ foreach ($txc['mailform'] as $i => $j) {
     if (strlen(trim($j)) > 0) {
         $cf['mailform'][$i] = $j;
     }
-}
-
-if (strcasecmp($tx['meta']['codepage'], 'UTF-8') != 0) {
-    $e .= '<li>' . sprintf('<b>UTF-8 encoding required, but codepage %s found!</b>', $tx['meta']['codepage']) . tag('br')
-	. 'Please change that in Settings&rarr;Language&rarr;Meta&rarr;Codepage'
-	. ' and convert all files to UTF-8 without BOM, if not already done.</li>' . "\n";
 }
 
 // Plugin loading
@@ -822,7 +819,7 @@ if ($title == '') {
 }
 
 if (!headers_sent($temp, $i)) {
-    header('Content-Type: text/html; charset=' . $tx['meta']['codepage']);
+    header('Content-Type: text/html; charset=UTF-8');
 } else {
     $temp .= ':' . $$i;
     exit(str_replace('{location}', $temp, $tx['error']['headers']));

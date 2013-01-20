@@ -68,8 +68,6 @@ function XH_sysinfo()
     }
     $temp['writable'] = array_unique($temp['writable']);
     sort($temp['writable']);
-    $temp['other'][] = array(strtoupper($tx['meta']['codepage']) == 'UTF-8',
-                             true, $tx['syscheck']['encoding']);
     $temp['other'][] = array(!get_magic_quotes_runtime(),
                              false, $tx['syscheck']['magic_quotes']);
     $o .= XH_systemCheck($temp);

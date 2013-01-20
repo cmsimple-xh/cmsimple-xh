@@ -155,8 +155,6 @@ $tx['menu']['tab_config']="Config";
 $tx['menu']['tab_language']="Language";
 $tx['menu']['tab_help']="Help";
 
-$tx['meta']['codepage']="utf-8";
-
 $tx['navigator']['next']="next »";
 $tx['navigator']['previous']="« prev";
 $tx['navigator']['top']="top";
