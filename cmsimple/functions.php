@@ -143,9 +143,8 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
 
     $__scope_before = null; // just that it exists
     $__scripts = array();
-    preg_match_all('~'.$cf['scripting']['regexp'].'~is', $__text, $__scripts);
+    preg_match_all('~#CMSimple (.*?)#~is', $__text, $__scripts);
     if (count($__scripts[1]) > 0) {
-        //$output = preg_replace('~'.$cf['scripting']['regexp'].'~is', '', $__text);
 	$output = preg_replace('~#CMSimple (?!hide)(.*?)#~is', '', $__text);
 	if ($__compat) {$__scripts[1] = array_reverse($__scripts[1]);}
         foreach ($__scripts[1] as $__script) {
@@ -263,7 +262,7 @@ function newsbox($heading)
 	    $body = preg_replace("/.*<\/h[1-".$cf['menu']['levels']."]>/is", "", $c[$i]);
 	    return $edit
 		? $body
-		: preg_replace("/".$cf['scripting']['regexp']."/is", "", evaluate_scripting($body, false));
+		: preg_replace('/#CMSimple (.*?)#/is', '', evaluate_scripting($body, false));
 	}
     }
     return false;
@@ -965,7 +964,7 @@ function cmscript($s, $i)
     global $cf;
 
     return preg_match(str_replace('(.*?)', $s,
-				  '/' . $cf['scripting']['regexp'] . '/is'), $i);
+				  '/#CMSimple (.*?)#/is'), $i);
 }
 
 

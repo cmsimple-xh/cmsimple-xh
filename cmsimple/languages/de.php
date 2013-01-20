@@ -89,7 +89,6 @@ $tx['help']['menu_levels']="Einstellungen von 1 bis 6 Menü-Niveaus sind möglic
 $tx['help']['menu_sdoc']="Leer lassen oder \"parent\" eintragen, was Oberseiten der aktuellen Seite die Klasse \"sdocs\" zuweist.";
 $tx['help']['pagemanager_external']="Wenn Sie einen externen Seiten-Manager verwenden möchten, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['plugins_folder']="Bitte nicht ändern";
-$tx['help']['scripting_regexp']="Bitte nicht ändern";
 $tx['help']['security_password']="Standard-Passwort für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:<br><b>Einstellungen => CMSimple => Website</b><br><br>Was Sie hier sehen, ist das verschlüsselte Passwort. Um es zu ändern, geben Sie einfach das neue ein (unverschlüsselt).";
 $tx['help']['site_template']="<p>Standard-Template für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:</p><p><b>Einstellungen => CMSimple => Website</b></p></p>";
 $tx['help']['subsite']="<b>Subsite:</b> Zweitsprache oder eine weitere unabhängige Website, die mit der gleichen Installation von CMSimple_XH betrieben wird.";

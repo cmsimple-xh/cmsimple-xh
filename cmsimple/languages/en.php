@@ -89,7 +89,6 @@ $tx['help']['menu_levels']="Possible settings are 1 to 6";
 $tx['help']['menu_sdoc']="Leave it empty or enter \"parent\", which gives the class \"sdocs\" to higher level navigation links when lower pages of that branch are selected.";
 $tx['help']['pagemanager_external']="If you want to use an external page manager, install the plugin and enter its name here";
 $tx['help']['plugins_folder']="Please do not change";
-$tx['help']['scripting_regexp']="Please do not change";
 $tx['help']['security_password']="Default password of the site. Can be substituted in subsites, like secondary language pages etc. under:<br><b>Settings => CMSimple => Website</b><br><br>What you see here is the encrypted version of your password. To change the password, just enter the new one (unencrypted).";
 $tx['help']['site_template']="<p>Default template of the site. Can be substituted in subsites, like secondary language pages etc. under:</p><p><b>Settings => CMSimple => Website</b></p>";
 $tx['help']['subsite']="<b>Subsite:</b> second language or an additional independent website, operated with the same CMSimple_XH installation.";

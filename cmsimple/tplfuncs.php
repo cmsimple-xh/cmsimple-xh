@@ -484,7 +484,7 @@ function content()
             $words = array_map(create_function('$w', $code), $words);
             $c[$s] = preg_replace($words, '<span class="highlight_search">$0</span>', $c[$s]);
         }
-        return $o . preg_replace("/" . $cf['scripting']['regexp'] . "/is", "", $c[$s]);
+        return $o . preg_replace('/#CMSimple (.*?)#/is', '', $c[$s]);
     } else {
         return $o;
     }

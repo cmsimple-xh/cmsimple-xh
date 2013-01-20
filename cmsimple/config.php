@@ -33,7 +33,6 @@ $cf['uri']['seperator']=":";
 $cf['uri']['length']="200";
 $cf['xhtml']['endtags']="";
 $cf['xhtml']['amp']="true";
-$cf['scripting']['regexp']="\\#CMSimple (.*?)\\#";
 $cf['editmenu']['scroll']="";
 
 ?>

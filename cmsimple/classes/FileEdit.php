@@ -598,6 +598,9 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
         foreach ($cf as $cat => $opts) {
             $this->cfg[$cat] = array();
             foreach ($opts as $name => $val) {
+		if ($cat == 'scripting' && $name == 'regexp') {
+		    continue;
+		}
 		if (!isset($txc[$cat][$name])) {
 		    $co = array('val' => $val, 'type' => 'string');
 		    if (isset($tx['help']["${cat}_$name"])) {

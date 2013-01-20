@@ -181,8 +181,11 @@ require_once UTF8 . '/utils/validation.php';
 if (file_exists($pth['folder']['cmsimple'].'defaultconfig.php')) {
     include($pth['folder']['cmsimple'].'defaultconfig.php');
 }
-if (!include($pth['file']['config']))
+if (!include($pth['file']['config'])) {
     die('Config file missing');
+}
+// removed from the core in XH 1.6, but left for compatibility with plugins.
+$cf['scripting']['regexp']='#CMSimple (.*?)#';
 
 foreach (array('userfiles', 'downloads', 'images', 'media') as $temp) {
     if (!isset($cf['folders'][$temp])) { // for compatibility with older version's config files
