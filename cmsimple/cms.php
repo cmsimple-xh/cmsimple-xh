@@ -568,7 +568,7 @@ $pd_s = $s == -1 && !$f && $o == '' && $su == '' ? 0 : $s;
 $pd_current = $pd_router->find_page($pd_s);
 
 /*
- * Include plugin (and plugin files)
+ * Include required_classes of all plugins.
  */
 foreach (XH_plugins() as $plugin) {
     PluginFiles($plugin);
@@ -577,18 +577,17 @@ foreach (XH_plugins() as $plugin) {
     }
 }
 
+/*
+ * Include config and language files of all plugins.
+ */
 foreach (XH_plugins() as $plugin) {
     PluginFiles($plugin);
-
-    // Load plugin config
     if (is_readable($pth['folder']['plugin_config'] . 'defaultconfig.php')) {
 	include $pth['folder']['plugin_config'] . 'defaultconfig.php';
     }
     if (is_readable($pth['file']['plugin_config'])) {
 	include $pth['file']['plugin_config'];
     }
-
-    // Load plugin language
     XH_createLanguageFile($pth['file']['plugin_language']);
     if (is_readable($pth['folder']['plugin_languages'] . 'default.php')) {
         include $pth['folder']['plugin_languages'] . 'default.php';
@@ -597,12 +596,16 @@ foreach (XH_plugins() as $plugin) {
 	include $pth['file']['plugin_language'];
     }
 
-    // Load plugin index.php
+}
+
+/*
+ * Include index.php of all plugins, and add stylesheet to $hjs.
+ */
+foreach (XH_plugins() as $plugin) {
+    PluginFiles($plugin);
     if (is_readable($pth['file']['plugin_index'])) {
 	include $pth['file']['plugin_index'];
     }
-
-    // Add plugin css to the header of CMSimple/Template
     if (is_file($pth['file']['plugin_stylesheet'])) {
 	$hjs .= tag('link rel="stylesheet" href="' . $pth['file']['plugin_stylesheet']
 		    . '" type="text/css"') . "\n";
@@ -610,10 +613,10 @@ foreach (XH_plugins() as $plugin) {
 }
 
 
-/*
- * Load admin functions (admin.php, if exists) of plugin
- */
 if ($adm) {
+    /*
+     * Include admin.php of all plugins.
+     */
     foreach (XH_plugins(true) as $plugin) {
 	PluginFiles($plugin);
 	if (is_readable($pth['file']['plugin_admin'])) {
