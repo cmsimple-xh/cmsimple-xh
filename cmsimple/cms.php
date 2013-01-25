@@ -628,6 +628,8 @@ if ($adm) {
 
 unset($plugin);
 
+afterPluginLoading();
+
 
 if ($f == 'search') {
     @include $pth['file']['search'];

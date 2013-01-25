@@ -3,13 +3,13 @@
 /**
  * General functions.
  *
- * @package	XH
- * @copyright	1999-2009 <http://cmsimple.org/>
- * @copyright	2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version	$CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
- * @version 	$Id$
- * @link	http://cmsimple-xh.org/
+ * @package     XH
+ * @copyright   1999-2009 <http://cmsimple.org/>
+ * @copyright   2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license     http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version     $CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
+ * @version     $Id$
+ * @link        http://cmsimple-xh.org/
  */
 
 /* utf8-marker = äöü */
@@ -63,7 +63,7 @@ function geturlwp($u)
 
     $t = '';
     $qs = preg_replace("/^" . preg_quote($su, '/') . "(\&)?/s",
-		       "", sv('QUERY_STRING'));
+                       "", sv('QUERY_STRING'));
     if ($fh = @fopen($u . '?' . $qs, "r")) {
         while (!feof($fh)) {
             $t .= fread($fh, 1024);
@@ -88,9 +88,9 @@ function autogallery($u)
     trigger_error('Function autogallery() is deprecated', E_USER_DEPRECATED);
 
     return preg_replace("/.*<!-- autogallery -->(.*)<!-- \/autogallery -->.*/is", "\\1",
-			preg_replace("/(option value=\"\?)(p=)/is", "\\1" . $su . "&\\2",
-				     preg_replace("/(href=\"\?)/is", "\\1" . $su . '&amp;',
-						  preg_replace("/(src=\")(\.)/is", "\\1" . $u . "\\2", geturlwp($u)))));
+                        preg_replace("/(option value=\"\?)(p=)/is", "\\1" . $su . "&\\2",
+                                     preg_replace("/(href=\"\?)/is", "\\1" . $su . '&amp;',
+                                                  preg_replace("/(src=\")(\.)/is", "\\1" . $u . "\\2", geturlwp($u)))));
 }
 
 // Other functions
@@ -99,7 +99,7 @@ function autogallery($u)
 /**
  * Returns the page heading.
  *
- * @see	   $h
+ * @see    $h
  * @param  int $n  The index of the page.
  * @return string  The heading.
  */
@@ -138,36 +138,36 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
 {
     global $output;
     foreach ($GLOBALS as $__name => $__dummy) {
-	global $$__name;
+        global $$__name;
     }
 
     $__scope_before = null; // just that it exists
     $__scripts = array();
     preg_match_all('~#CMSimple (.*?)#~is', $__text, $__scripts);
     if (count($__scripts[1]) > 0) {
-	$output = preg_replace('~#CMSimple (?!hide)(.*?)#~is', '', $__text);
-	if ($__compat) {$__scripts[1] = array_reverse($__scripts[1]);}
+        $output = preg_replace('~#CMSimple (?!hide)(.*?)#~is', '', $__text);
+        if ($__compat) {$__scripts[1] = array_reverse($__scripts[1]);}
         foreach ($__scripts[1] as $__script) {
             if (strtolower($__script) !== 'hide' && strtolower($__script) !== 'remove') {
                 $__script = preg_replace(
-		    array("'&(quot|#34);'i", "'&(amp|#38);'i", "'&(apos|#39);'i", "'&(lt|#60);'i", "'&(gt|#62);'i", "'&(nbsp|#160);'i"),
-		    array("\"", "&", "'", "<", ">", " "),
-		    $__script);
-		$__scope_before = array_keys(get_defined_vars());
+                    array("'&(quot|#34);'i", "'&(amp|#38);'i", "'&(apos|#39);'i", "'&(lt|#60);'i", "'&(gt|#62);'i", "'&(nbsp|#160);'i"),
+                    array("\"", "&", "'", "<", ">", " "),
+                    $__script);
+                $__scope_before = array_keys(get_defined_vars());
                 eval($__script);
-		$__scope_after = array_keys(get_defined_vars());
-		$__diff = array_diff($__scope_after, $__scope_before);
-		foreach ($__diff as $__var) {
-		    $GLOBALS[$__var] = $$__var;
-		}
-		if ($__compat) {
-		    break;
-		}
+                $__scope_after = array_keys(get_defined_vars());
+                $__diff = array_diff($__scope_after, $__scope_before);
+                foreach ($__diff as $__var) {
+                    $GLOBALS[$__var] = $$__var;
+                }
+                if ($__compat) {
+                    break;
+                }
             }
         }
-	$eval_script_output = $output;
-	$output = '';
-	return $eval_script_output;
+        $eval_script_output = $output;
+        $output = '';
+        return $eval_script_output;
     }
     return $__text;
 }
@@ -202,30 +202,30 @@ function evaluate_plugincall($__text)
     $error = ' <span style="color:#5b0000; font-size:14px;">{{CALL TO:<span style="color:#c10000;">{{%1}}</span> FAILED}}</span> '; //use this for debugging of failed plugin-calls
     $pl_regex = '"{{{RGX:CALL(.*?)}}}"is'; //general CALL-RegEx (Placeholder: "RGX:CALL")
     $pl_calls = array(
-	'PLUGIN:' => 'return {{%1}}',
-	'HOME:' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode('{{%1}}') . '">' . urldecode('{{%1}}') . '</a>\');',
-	'HOME' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode($u[0]) . '">' . urldecode($u[0]) . '</a>\');'
+        'PLUGIN:' => 'return {{%1}}',
+        'HOME:' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode('{{%1}}') . '">' . urldecode('{{%1}}') . '</a>\');',
+        'HOME' => 'return trim(\'<a href="?' . $u[0] . '" title="' . urldecode($u[0]) . '">' . urldecode($u[0]) . '</a>\');'
     );
     $fd_calls = array();
     foreach ($pl_calls as $regex => $call) {
-	preg_match_all(str_replace("RGX:CALL", $regex, $pl_regex), $__text, $fd_calls[$regex]); //catch all PL-CALLS
-	foreach ($fd_calls[$regex][0] AS $call_nr => $replace) {
-	    $call = str_replace("{{%1}}", $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]);
-	    $fnct_call = preg_replace('"(?:(?:return)\s)*(.*?)\(.*?\);"is', '$1', $call);
-	    $fnct = function_exists($fnct_call) ? true : false; //without object-calls; functions-only!!
-	    if ($fnct) {
-		preg_match_all("/\\$([a-z_0-9]*)/i", $call, $matches);
-		foreach ($matches[1] as $var) {
-		    global $$var;
-		}
-	    }
-	    $__text = str_replace(
-		$replace,
-		$fnct
-		    ? eval(str_replace('{{%1}}', $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]))
-		    : str_replace('{{%1}}', $regex . $fd_calls[$regex][1][$call_nr], $error),
-		$__text); //replace PL-CALLS (String only!!)
-	}
+        preg_match_all(str_replace("RGX:CALL", $regex, $pl_regex), $__text, $fd_calls[$regex]); //catch all PL-CALLS
+        foreach ($fd_calls[$regex][0] AS $call_nr => $replace) {
+            $call = str_replace("{{%1}}", $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]);
+            $fnct_call = preg_replace('"(?:(?:return)\s)*(.*?)\(.*?\);"is', '$1', $call);
+            $fnct = function_exists($fnct_call) ? true : false; //without object-calls; functions-only!!
+            if ($fnct) {
+                preg_match_all("/\\$([a-z_0-9]*)/i", $call, $matches);
+                foreach ($matches[1] as $var) {
+                    global $$var;
+                }
+            }
+            $__text = str_replace(
+                $replace,
+                $fnct
+                    ? eval(str_replace('{{%1}}', $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]))
+                    : str_replace('{{%1}}', $regex . $fd_calls[$regex][1][$call_nr], $error),
+                $__text); //replace PL-CALLS (String only!!)
+        }
     }
     return $__text;
 }
@@ -258,12 +258,12 @@ function newsbox($heading)
     global $c, $cl, $h, $cf, $edit;
 
     for ($i = 0; $i < $cl; $i++) {
-	if ($h[$i] == $heading) {
-	    $body = preg_replace("/.*<\/h[1-".$cf['menu']['levels']."]>/is", "", $c[$i]);
-	    return $edit
-		? $body
-		: preg_replace('/#CMSimple (.*?)#/is', '', evaluate_scripting($body, false));
-	}
+        if ($h[$i] == $heading) {
+            $body = preg_replace("/.*<\/h[1-".$cf['menu']['levels']."]>/is", "", $c[$i]);
+            return $edit
+                ? $body
+                : preg_replace('/#CMSimple (.*?)#/is', '', evaluate_scripting($body, false));
+        }
     }
     return false;
 }
@@ -379,57 +379,57 @@ function XH_systemCheck($data)
     $stx = $tx['syscheck'];
 
     foreach (array('ok', 'warning', 'failure') as $img) {
-	$txt = ucfirst($img);
-	$imgs[$img] = tag('img src="' . $pth['folder']['flags'] . $img . '.gif" alt="'
-	    . $txt . '" title="' . $txt . '" width="16" height="16"');
+        $txt = ucfirst($img);
+        $imgs[$img] = tag('img src="' . $pth['folder']['flags'] . $img . '.gif" alt="'
+            . $txt . '" title="' . $txt . '" width="16" height="16"');
     }
 
     $o = "<h4>$stx[title]</h4>\n<ul id=\"xh_system_check\">\n";
 
     if (key_exists('phpversion', $data)) {
-	$ok = version_compare(PHP_VERSION, $data['phpversion']) >= 0;
-	$o .= '<li>' . $imgs[$ok ? 'ok' : 'fail']
-	    . sprintf($stx['phpversion'], $data['phpversion']) . "</li>\n";
+        $ok = version_compare(PHP_VERSION, $data['phpversion']) >= 0;
+        $o .= '<li>' . $imgs[$ok ? 'ok' : 'fail']
+            . sprintf($stx['phpversion'], $data['phpversion']) . "</li>\n";
     }
 
     if (key_exists('extensions', $data)) {
-	$cat = ' class="xh_system_check_cat_start"';
-	foreach ($data['extensions'] as $ext) {
-	    if (is_array($ext)) {
-		$notok = $ext[1] ? 'failure' : 'warning';
-		$ext = $ext[0];
-	    } else {
-		$notok = 'failure';
-	    }
-	    $o .= '<li' . $cat . '>' . $imgs[extension_loaded($ext) ? 'ok' : $notok]
-		. sprintf($stx['extension'], $ext) . "</li>\n";
-	    $cat = '';
-	}
+        $cat = ' class="xh_system_check_cat_start"';
+        foreach ($data['extensions'] as $ext) {
+            if (is_array($ext)) {
+                $notok = $ext[1] ? 'failure' : 'warning';
+                $ext = $ext[0];
+            } else {
+                $notok = 'failure';
+            }
+            $o .= '<li' . $cat . '>' . $imgs[extension_loaded($ext) ? 'ok' : $notok]
+                . sprintf($stx['extension'], $ext) . "</li>\n";
+            $cat = '';
+        }
     }
 
     if (key_exists('writable', $data)) {
-	$cat = ' class="xh_system_check_cat_start"';
-	foreach ($data['writable'] as $file) {
-	    if (is_array($file)) {
-		$notok = $file[1] ? 'failure' : 'warning';
-		$file = $file[0];
-	    } else {
-		$notok = 'warning';
-	    }
-	    $o .= '<li' . $cat . '>' . $imgs[is_writable($file) ? 'ok' : $notok]
-		. sprintf($stx['writable'], $file) . "</li>\n";
-	    $cat = '';
-	}
+        $cat = ' class="xh_system_check_cat_start"';
+        foreach ($data['writable'] as $file) {
+            if (is_array($file)) {
+                $notok = $file[1] ? 'failure' : 'warning';
+                $file = $file[0];
+            } else {
+                $notok = 'warning';
+            }
+            $o .= '<li' . $cat . '>' . $imgs[is_writable($file) ? 'ok' : $notok]
+                . sprintf($stx['writable'], $file) . "</li>\n";
+            $cat = '';
+        }
     }
 
     if (key_exists('other', $data)) {
-	$cat = ' class="xh_system_check_cat_start"';
-	foreach ($data['other'] as $check) {
-	    $notok = $check[1] ? 'failure' : 'warning';
-	    $o .= '<li' . $cat . '>' . $imgs[$check[0] ? 'ok' : $notok]
-		. $check[2] . "</li>\n";
-	    $cat = '';
-	}
+        $cat = ' class="xh_system_check_cat_start"';
+        foreach ($data['other'] as $check) {
+            $notok = $check[1] ? 'failure' : 'warning';
+            $o .= '<li' . $cat . '>' . $imgs[$check[0] ? 'ok' : $notok]
+                . $check[2] . "</li>\n";
+            $cat = '';
+        }
     }
 
     $o .= "</ul>\n";
@@ -459,8 +459,8 @@ function final_clean_up($html)
 
         if ($debugMode = error_reporting() > 0) {
             $debugHint .= '<div class="cmsimplecore_debug">' . "\n"
-		. '<b>Notice:</b> Debug-Mode is enabled!' . "\n"
-		. '</div>' . "\n";
+                . '<b>Notice:</b> Debug-Mode is enabled!' . "\n"
+                . '</div>' . "\n";
             $margin += 25;
         }
 
@@ -483,7 +483,7 @@ function final_clean_up($html)
         }
         else {
              $id =' id="editmenu_fixed"';
-	     $html = preg_replace('~</head>~i','<style type="text/css">html {margin-top: ' . $margin . 'px;}</style>' ."\n" . '$0', $html, 1);
+             $html = preg_replace('~</head>~i','<style type="text/css">html {margin-top: ' . $margin . 'px;}</style>' ."\n" . '$0', $html, 1);
 
         }
 
@@ -725,7 +725,7 @@ function e($et, $ft, $fn)
     global $e, $tx;
 
     $e .= '<li><b>' . $tx['error'][$et] . ' ' . $tx['filetype'][$ft] . '</b>'
-	. tag('br') . $fn . '</li>' . "\n";
+        . tag('br') . $fn . '</li>' . "\n";
 }
 
 
@@ -775,7 +775,7 @@ function rfc() {
         $u[] = uenc($h[0]);
         $l[] = 1;
         $s = 0;
-	$pd_router = new PL_Page_Data_Router($h, $contentHead);
+        $pd_router = new PL_Page_Data_Router($h, $contentHead);
         return;
     }
 
@@ -843,8 +843,8 @@ function a($i, $x)
         }
     }
     return isset($u[$i])
-	? '<a href="' . $sn . '?' . $u[$i] . $x . '">'
-	: '<a href="' . $sn . '?' . $x . '">';
+        ? '<a href="' . $sn . '?' . $u[$i] . $x . '">'
+        : '<a href="' . $sn . '?' . $x . '">';
 }
 
 
@@ -861,8 +861,8 @@ function meta($n)
     $exclude = array('robots', 'keywords', 'description');
     if ($cf['meta'][$n] != '' && !($print && in_array($n, $exclude))) {
         return tag('meta name="' . $n . '" content="'
-		   . htmlspecialchars($cf['meta'][$n], ENT_COMPAT, 'UTF-8')
-		   . '"') . "\n";
+                   . htmlspecialchars($cf['meta'][$n], ENT_COMPAT, 'UTF-8')
+                   . '"') . "\n";
     }
 }
 
@@ -904,7 +904,7 @@ function uenc($s)
 
     if (isset($tx['urichar']['org']) && isset($tx['urichar']['new'])) {
         $s = str_replace(explode(",", $tx['urichar']['org']),
-			 explode(",", $tx['urichar']['new']), $s);
+                         explode(",", $tx['urichar']['new']), $s);
     }
     return str_replace('+', '_', urlencode($s));
 }
@@ -964,7 +964,7 @@ function cmscript($s, $i)
     global $cf;
 
     return preg_match(str_replace('(.*?)', $s,
-				  '/#CMSimple (.*?)#/is'), $i);
+                                  '/#CMSimple (.*?)#/is'), $i);
 }
 
 
@@ -1016,7 +1016,7 @@ function amp()
     if ($cf['xhtml']['amp'] == 'true') {
         return '&amp;';
     } else {
-	return '&';
+        return '&';
     }
 }
 
@@ -1036,11 +1036,11 @@ function shead($s)
     } elseif ($s == '403') {
         header(($cgi || $iis) ? 'status: 403 Forbidden' : 'HTTP/1.0 403 Forbidden');
     } elseif ($s == '404') {
-	if (function_exists('custom_404')) {
-	    custom_404();
-	} else {
-	    header(($cgi || $iis) ? 'status: 404 Not Found' : 'HTTP/1.0 404 Not Found');
-	}
+        if (function_exists('custom_404')) {
+            custom_404();
+        } else {
+            header(($cgi || $iis) ? 'status: 404 Not Found' : 'HTTP/1.0 404 Not Found');
+        }
     }
     $title = $tx['error'][$s];
     $o = '<h1>' . $title . '</h1>' . $o;
@@ -1091,22 +1091,22 @@ function xh_debugmode()
             set_error_handler('xh_debug');
 
             switch ($dbglevel) {
-	    case 0: error_reporting(0);
-		break;
-	    case 1: error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
-		break;
-	    case 2: error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE);
-		break;
-	    case 3: error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE | E_NOTICE);
-		break;
-	    case 4: error_reporting(E_ALL ^ (E_NOTICE | E_WARNING | E_USER_WARNING));
-		break;
-	    case 5: error_reporting(E_ALL ^ E_NOTICE);
-		break;
-	    case 6: error_reporting(E_ALL);
-		break;
-	    default:
-		error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
+            case 0: error_reporting(0);
+                break;
+            case 1: error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
+                break;
+            case 2: error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE);
+                break;
+            case 3: error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE | E_NOTICE);
+                break;
+            case 4: error_reporting(E_ALL ^ (E_NOTICE | E_WARNING | E_USER_WARNING));
+                break;
+            case 5: error_reporting(E_ALL ^ E_NOTICE);
+                break;
+            case 6: error_reporting(E_ALL);
+                break;
+            default:
+                error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
             }
         } else {
             error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
@@ -1309,7 +1309,7 @@ function preCallPlugins($pageIndex = -1) {
         } else {
             $as = $s < 0 ? 0 : $s;
         }
-	$c[$as] = evaluate_plugincall($c[$as]);
+        $c[$as] = evaluate_plugincall($c[$as]);
     }
 }
 
@@ -1329,23 +1329,23 @@ function XH_plugins($admin = false)
     static $admPlugins = null;
 
     if (!isset($plugins)) {
-	$plugins = array();
-	$admPlugins = array();
-	$dh = opendir($pth['folder']['plugins']); // TODO: error handling?
-	while (($fn = readdir($dh)) !== false) {
-	    if (strpos($fn, '.') !== 0  // ignore hidden directories
-		&& is_dir($pth['folder']['plugins'] . $fn))
-	    {
-		$plugins[] = $fn;
-		PluginFiles($fn);
-		if (is_file($pth['file']['plugin_admin'])) {
-		    $admPlugins[] = $fn;
-		}
-	    }
-	}
-	closedir($dh);
-	natcasesort($plugins);
-	natcasesort($admPlugins);
+        $plugins = array();
+        $admPlugins = array();
+        $dh = opendir($pth['folder']['plugins']); // TODO: error handling?
+        while (($fn = readdir($dh)) !== false) {
+            if (strpos($fn, '.') !== 0  // ignore hidden directories
+                && is_dir($pth['folder']['plugins'] . $fn))
+            {
+                $plugins[] = $fn;
+                PluginFiles($fn);
+                if (is_file($pth['file']['plugin_admin'])) {
+                    $admPlugins[] = $fn;
+                }
+            }
+        }
+        closedir($dh);
+        natcasesort($plugins);
+        natcasesort($admPlugins);
     }
     return $admin ? $admPlugins : $plugins;
 }
@@ -1417,13 +1417,13 @@ function lilink()
     if (!$adm) {
         if ($cf['security']['type'] == 'javascript') {
             return '<form id="login" action="' . $sn . '" method="post">'
-		. '<div id="loginlink">'
-		. tag('input type="hidden" name="login" value="true"')
-		. tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
-		. tag('input type="hidden" name="passwd" id="passwd" value=""')
-		. '</div></form>'
-		. '<a href="#" onclick="login(); return false">'
-		. $tx['menu']['login'] . '</a>';
+                . '<div id="loginlink">'
+                . tag('input type="hidden" name="login" value="true"')
+                . tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
+                . tag('input type="hidden" name="passwd" id="passwd" value=""')
+                . '</div></form>'
+                . '<a href="#" onclick="login(); return false">'
+                . $tx['menu']['login'] . '</a>';
         } else {
             return a($s > -1 ? $s : 0, '&amp;login') . $tx['menu']['login'] . '</a>';
         }
@@ -1443,24 +1443,24 @@ function loginforms()
     // JavaScript placed in head section used for javascript login
     if (!$adm && $cf['security']['type'] == 'javascript' && !$print) {
         $hjs .= '<script type="text/javascript"><!--
-	    function login(){var t=prompt("' . $tx['login']['warning'] . '","");
-	    if(t!=null&&t!=""){document.getElementById("passwd").value=t;document.getElementById("login").submit();}}
-	    //-->
-	    </script>';
+            function login(){var t=prompt("' . $tx['login']['warning'] . '","");
+            if(t!=null&&t!=""){document.getElementById("passwd").value=t;document.getElementById("login").submit();}}
+            //-->
+            </script>';
     }
     if ($f == 'login') {
         $cf['meta']['robots'] = "noindex";
         $onload .= "self.focus();document.login.passwd.focus();";
         $f = $tx['menu']['login'];
         $o .= '<h1>' . $tx['menu']['login'] . '</h1>'
-	    . '<p><b>' . $tx['login']['warning'] . '</b></p>'
-	    . '<form id="login" name="login" action="' . $sn . '?' . $u[$s] . '" method="post">'
-	    . '<div id="login">' // FIXME: duplicate id as containing form element; why having a single div in a form at all?
-	    . tag('input type="hidden" name="login" value="true"')
-	    . tag('input type="hidden" name="selected" value="' . @$u[$s] . '"')
-	    . tag('input type="password" name="passwd" id="passwd" value=""') . ' '
-	    . tag('input type="submit" name="submit" id="submit" value="' . $tx['menu']['login'] . '"')
-	    . '</div></form>';
+            . '<p><b>' . $tx['login']['warning'] . '</b></p>'
+            . '<form id="login" name="login" action="' . $sn . '?' . $u[$s] . '" method="post">'
+            . '<div id="login">' // FIXME: duplicate id as containing form element; why having a single div in a form at all?
+            . tag('input type="hidden" name="login" value="true"')
+            . tag('input type="hidden" name="selected" value="' . @$u[$s] . '"')
+            . tag('input type="password" name="passwd" id="passwd" value=""') . ' '
+            . tag('input type="submit" name="submit" id="submit" value="' . $tx['menu']['login'] . '"')
+            . '</div></form>';
         $s = -1;
     }
 }
@@ -1481,34 +1481,34 @@ function XH_backup()
     static $date = null; // TODO: probably not necessary since wedding
 
     if (!isset($date)) {
-	$date = date("Ymd_His");
+        $date = date("Ymd_His");
     }
     $fn = "${date}_content.htm";
     if (@copy($pth['file']['content'], $pth['folder']['content'] . $fn)) {
-	$o = '<p>' . utf8_ucfirst($tx['filetype']['backup'])
-	    . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
-	$fl = array();
-	$fd = @opendir($pth['folder']['content']);
-	while (($p = @readdir($fd)) == true) {
-	    if (preg_match('/^\d{8}_\d{6}_content.htm$/', $p)) {
-		$fl[] = $p;
-	    }
-	}
-	if ($fd) {
-	    closedir($fd);
-	}
-	sort($fl);
-	$v = count($fl) - $cf['backup']['numberoffiles'];
-	for ($i = 0; $i < $v; $i++) {
-	    if (@unlink($pth['folder']['content'] . $fl[$i])) {
-		$o .= '<p>' . utf8_ucfirst($tx['filetype']['backup'])
-		    . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
-	    } else {
-		e('cntdelete', 'backup', $fl[$i]);
-	    }
-	}
+        $o = '<p>' . utf8_ucfirst($tx['filetype']['backup'])
+            . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
+        $fl = array();
+        $fd = @opendir($pth['folder']['content']);
+        while (($p = @readdir($fd)) == true) {
+            if (preg_match('/^\d{8}_\d{6}_content.htm$/', $p)) {
+                $fl[] = $p;
+            }
+        }
+        if ($fd) {
+            closedir($fd);
+        }
+        sort($fl);
+        $v = count($fl) - $cf['backup']['numberoffiles'];
+        for ($i = 0; $i < $v; $i++) {
+            if (@unlink($pth['folder']['content'] . $fl[$i])) {
+                $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup'])
+                    . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
+            } else {
+                e('cntdelete', 'backup', $fl[$i]);
+            }
+        }
     } else {
-	e('cntsave', 'backup', $fn);
+        e('cntsave', 'backup', $fn);
     }
     return $o;
 }
@@ -1527,7 +1527,7 @@ function XH_writeFile($filename, $contents)
 {
     $res = ($fh = fopen($filename, 'wb')) && fwrite($fh, $contents);
     if ($fh) {
-	fclose($fh);
+        fclose($fh);
     }
     return $res;
 }
@@ -1535,6 +1535,8 @@ function XH_writeFile($filename, $contents)
 
 /**
  * Saves the current contents (including the page data).
+ *
+ * @since  1.6
  *
  * @return bool  Whether that succeeded
  */
@@ -1544,14 +1546,35 @@ function XH_saveContents()
 
     $title = utf8_ucfirst($tx['filetype']['content']);
     $cnts = "<html><head><title>$title</title>\n"
-	. $pd_router->headAsPHP()
-	. '</head><body>' . "\n";
+        . $pd_router->headAsPHP()
+        . '</head><body>' . "\n";
     foreach ($c as $j => $i) {
-	$cnts .= rmnl($i . "\n")
-	    . $pd_router->pageAsPHP($j);
+        $cnts .= rmnl($i . "\n")
+            . $pd_router->pageAsPHP($j);
     }
     $cnts .= '</body></html>';
     return XH_writeFile($pth['file']['content'], $cnts) !== false;
+}
+
+
+/**
+ * Registers a callback for execution after all plugins were loaded,
+ * if $callback is given; otherwise executes these callbacks.
+ *
+ * @param  callable $callback
+ * @return void
+ */
+function afterPluginLoading($callback = null)
+{
+    static $callbacks = array();
+
+    if (isset($callback)) {
+        $callbacks[] = $callback;
+    } else {
+        foreach ($callbacks as $callback) {
+            call_user_func($callback);
+        }
+    }
 }
 
 ?>
