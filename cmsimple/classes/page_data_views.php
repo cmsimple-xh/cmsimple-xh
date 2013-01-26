@@ -58,7 +58,7 @@ class PL_Page_Data_View
         $view = "\n" . '<div id = "pd_tabs">';
 
         foreach ($this->tabs as $title => $file) {
-            list($function, $dummy) = explode('.', basename($file), 1);
+            list($function, $dummy) = explode('.', basename($file), 2);
             // TODO: use something more appropriate than an anchor
             $view .= "\n\t" . '<a class="inactive_tab" id="tab_' . $function
                 . '" onclick="xh.toggleTab(\'' . $function . '\');"><span>'
@@ -68,7 +68,7 @@ class PL_Page_Data_View
         $view .= "\n</div>\n" . '<div id="pd_views">';
 
         foreach ($this->tabs as $title => $file) {
-            list($function, $dummy) = explode('.', basename($file), 1);
+            list($function, $dummy) = explode('.', basename($file), 2);
             // TODO: use something more appropriate than an anchor
             $view .= "\n" . '<div id="PLTab_' . $function . '" class="inactive_view">'
                 . "\n\t" . '<a class="pd_editor_toggle pd_open"'
