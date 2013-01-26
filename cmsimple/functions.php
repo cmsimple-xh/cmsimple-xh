@@ -223,12 +223,13 @@ function evaluate_plugincall($__text)
                     global $$var;
                 }
             }
-            $__text = str_replace(
-                $replace,
+            $__text = substr_replace(
+                $__text,
                 $fnct
                     ? eval($call)
                     : str_replace('{{%1}}', $regex . $fd_calls[$regex][1][$call_nr], $error),
-                $__text); //replace PL-CALLS (String only!!)
+                strpos($__text, $replace),
+                strlen($replace)); //replace PL-CALLS (String only!!)
         }
     }
     return $__text;
