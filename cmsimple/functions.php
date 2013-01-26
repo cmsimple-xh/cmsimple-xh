@@ -211,6 +211,10 @@ function evaluate_plugincall($__text)
         preg_match_all(str_replace("RGX:CALL", $regex, $pl_regex), $__text, $fd_calls[$regex]); //catch all PL-CALLS
         foreach ($fd_calls[$regex][0] AS $call_nr => $replace) {
             $call = str_replace("{{%1}}", $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]);
+            $call = preg_replace(
+                array("'&(quot|#34);'i", "'&(amp|#38);'i", "'&(apos|#39);'i", "'&(lt|#60);'i", "'&(gt|#62);'i", "'&(nbsp|#160);'i"),
+                array("\"", "&", "'", "<", ">", " "),
+                $call);
             $fnct_call = preg_replace('"(?:(?:return)\s)*(.*?)\(.*?\);"is', '$1', $call);
             $fnct = function_exists($fnct_call) ? true : false; //without object-calls; functions-only!!
             if ($fnct) {
@@ -222,7 +226,7 @@ function evaluate_plugincall($__text)
             $__text = str_replace(
                 $replace,
                 $fnct
-                    ? eval(str_replace('{{%1}}', $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]))
+                    ? eval($call)
                     : str_replace('{{%1}}', $regex . $fd_calls[$regex][1][$call_nr], $error),
                 $__text); //replace PL-CALLS (String only!!)
         }
