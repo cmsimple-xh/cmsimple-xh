@@ -57,27 +57,24 @@ class PL_Page_Data_View
     {
         $view = "\n" . '<div id = "pd_tabs">';
 
-        // TODO: $code should probably actually be $file; see the next foreach
-        foreach ($this->tabs as $title => $code) {
+        foreach ($this->tabs as $title => $file) {
+            list($function, $_) = explode('.', basename($file));
             // TODO: use something more appropriate than an anchor
-            $view .= "\n\t" . '<a class="inactive_tab" id="tab_' . $title
-                . '" onclick="xh.toggleTab(\'' . $title . '\');"><span>'
+            $view .= "\n\t" . '<a class="inactive_tab" id="tab_' . $function
+                . '" onclick="xh.toggleTab(\'' . $function . '\');"><span>'
                 . $title . '</span></a>';
         }
 
         $view .= "\n</div>\n" . '<div id="pd_views">';
 
         foreach ($this->tabs as $title => $file) {
+            list($function, $_) = explode('.', basename($file));
             // TODO: use something more appropriate than an anchor
-            $view .= "\n" . '<div id="PLTab_' . $title . '" class="inactive_view">'
+            $view .= "\n" . '<div id="PLTab_' . $function . '" class="inactive_view">'
                 . "\n\t" . '<a class="pd_editor_toggle pd_open"'
-                . ' onclick="xh.toggleTab(\'' . $title . '\');">&nbsp;</a>';
+                . ' onclick="xh.toggleTab(\'' . $function . '\');">&nbsp;</a>';
             if (file_exists($file)) {
                 include_once $file;
-                // TODO: use explode()'s $limit parameter
-                $function = explode('.', basename($file));
-                $function = $function[0];
-
                 $view .= $function($this->page);
             } else {
                 // TODO: i18n; or probably better: use $e/e()
