@@ -353,9 +353,12 @@ function XH_saveEditorContents($text)
 
     $hot = '<h[1-' . $cf['menu']['levels'] . '][^>]*>';
     $hct = '<\/h[1-' . $cf['menu']['levels'] . ']>'; // TODO: use $1 ?
-    $text = stsl($text); // this might be done before the plugins are loaded for backward compatibility
+    $text = stsl($text); // TODO: this might be done before the plugins are loaded for backward compatibility
     // remove empty headings
     $text = preg_replace("/$hot(&nbsp;|&#160;|\xC2\xA0| )?$hct/isu", '', $text);
+    // replace "p" elements around plugin calls and scripting with "div"s
+    // TODO: keep an eye on changes regarding the plugin call
+    $text = preg_replace('/<p>({{{PLUGIN:.*?}}}|#CMSimple .*?#)<\/p>/is', '<div>$1</div>', $text);
 
     // handle missing heading on the first page
     if ($s == 0) {
