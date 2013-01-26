@@ -587,17 +587,12 @@ function languagemenu()
 
     // TODO: separate model (i.e. finding of languages) and view
 
-    if(file_exists('./cmsimplesubsite.htm')) { // skip for subsites
-        return '';
-    }
     $t = '';
     $r = array();
     $fd = @opendir($pth['folder']['base']);
     while (($p = @readdir($fd)) == true ) {
         if (@is_dir($pth['folder']['base'] . $p)) {
-            if (preg_match('/^[A-z]{2}$/', $p)
-                && !file_exists($pth['folder']['base'] . $p . '/cmsimplesubsite.htm'))
-            {
+            if (preg_match('/^[A-z]{2}$/', $p)) {
                 $r[] = $p;
             }
         }

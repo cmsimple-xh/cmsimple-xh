@@ -215,11 +215,6 @@ $pth['folder']['langconfig'] = $pth['folder']['cmsimple'] . 'languages/';
 if (preg_match('/\/[A-z]{2}\/[^\/]*/', sv('PHP_SELF'))) {
     $sl = strtolower(preg_replace('/.*\/([A-z]{2})\/[^\/]*/', '\1', sv('PHP_SELF')));
 }
-$temp = explode('/', str_replace($_SERVER['QUERY_STRING'], '', $_SERVER['REQUEST_URI']));
-$temp = $temp[count($temp) - 2];
-if (is_file('./cmsimplesubsite.htm')) {
-    $sl = $temp;
-}
 if (!isset($sl)) {
     $sl = $cf['language']['default'];
 }

@@ -91,10 +91,7 @@ function XH_settingsView()
     $o = '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
         . '<h4>' . $tx['settings']['systemfiles'] . '</h4>' . "\n" . '<ul>' . "\n";
 
-    $temp = $sl == $cf['language']['default']
-        ? array('config', 'langconfig', 'language')
-        : array('langconfig', 'language');
-    foreach ($temp as $i) {
+    foreach (array('config', 'langconfig', 'language') as $i) {
         $o .= '<li><a href="?file=' . $i . '&amp;action=array">'
             . utf8_ucfirst($tx['action']['edit']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
