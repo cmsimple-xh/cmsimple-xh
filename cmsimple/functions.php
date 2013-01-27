@@ -737,15 +737,25 @@ function e($et, $ft, $fn)
 /**
  * Reads and parses the content file and sets global variables accordingly.
  *
- * @global array
- * @global int
- * @global array
- * @global array
- * @global array
+ * @global array  The contents of the pages.
+ * @global int  The number of pages.
+ * @global array  The headings of the pages.
+ * @global array  The URLs of the pages.
+ * @global array  The levels of the pages.
+ * @global string  The URL of the current page.
+ * @global string  The index of the current page.
+ * @global array  Paths of system files and folders.
+ * @global array  The configuration of the core.
+ * @global array  The localization of the core.
+ * @global bool  Whether edit mode is active.
+ * @global bool  Whether admin mode is active.
+ * @global string  Error messages.
+ * @global object  The pagedata router.
  * @return void.
  */
-function rfc() {
-    global $c, $cl, $h, $u, $l, $su, $s, $pth, $tx, $edit, $adm, $cf, $e, $pd_router;
+function rfc()
+{
+    global $c, $cl, $h, $u, $l, $su, $s, $pth, $cf, $tx, $edit, $adm, $e, $pd_router;
 
     $c = array();
     $h = array();
@@ -753,6 +763,8 @@ function rfc() {
     $l = array();
     $empty = 0;
     $duplicate = 0;
+    $search = explode(',', $tx['urichar']['org']);
+    $replace = explode(',', $tx['urichar']['new']);
 
     $content = file_get_contents($pth['file']['content']);
     $stop = $cf['menu']['levels'];
@@ -777,7 +789,7 @@ function rfc() {
     if ($cl == 0) {
         $c[] = '<h1>' . $tx['toc']['newpage'] . '</h1>';
         $h[] = trim(strip_tags($tx['toc']['newpage']));
-        $u[] = uenc($h[0]);
+        $u[] = XH_uenc($h[0], $search, $replace);
         $l[] = 1;
         $s = 0;
         $pd_router = new PL_Page_Data_Router($h, $contentHead);
@@ -797,7 +809,7 @@ function rfc() {
             $temp = $tx['toc']['empty'] . ' ' . $empty;
         }
         $h[] = $temp;
-        $ancestors[$l[$i] - 1] = uenc($temp);
+        $ancestors[$l[$i] - 1] = XH_uenc($temp, $search, $replace);
         $ancestors = array_slice($ancestors, 0, $l[$i]);
         $url = implode($cf['uri']['seperator'], $ancestors);
         $u[] = substr($url, 0, $cf['uri']['length']);
@@ -816,7 +828,7 @@ function rfc() {
             if ($u[$j] == $u[$i]) {
                 $duplicate++;
                 $h[$j] = $tx['toc']['dupl'] . ' ' . $duplicate;
-                $u[$j] = uenc($h[$j]);
+                $u[$j] = XH_uenc($h[$j], $search, $replace);
             }
         }
     }
