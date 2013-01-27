@@ -895,12 +895,15 @@ function ml($i)
 
 
 /**
- * Returns a percent encoded URL.
+ * Returns a percent encoded URL component.
  *
- * All character sequences in $tx['urichar']['org'] will be replaced
+ * Additionally all character sequences in $tx['urichar']['org'] will be replaced
  * by their according character sequences in $tx['urichar']['new'].
  *
- * @param  string $s  The URL.
+ * @see    XH_uenc()
+ *
+ * @global array  The localization of the core.
+ * @param  string $s  The URL component.
  * @return string
  */
 function uenc($s)
@@ -908,9 +911,33 @@ function uenc($s)
     global $tx;
 
     if (isset($tx['urichar']['org']) && isset($tx['urichar']['new'])) {
-        $s = str_replace(explode(",", $tx['urichar']['org']),
-                         explode(",", $tx['urichar']['new']), $s);
+        $search = explode(",", $tx['urichar']['org']);
+        $replace = explode(",", $tx['urichar']['new']);
+    } else {
+        $search = $replace = array();
     }
+    return XH_uenc($s, $search, $replace);
+}
+
+
+/**
+ * Returns a percent encoded URL component.
+ *
+ * Additionally all character sequences in $search will be replaced
+ * by their according character sequences in $replace.
+ *
+ * @see    uenc()
+ *
+ * @since  1.6
+ *
+ * @param  string $s  The URL component.
+ * @param  array $search
+ * @param  array $replace
+ * @return string
+ */
+function XH_uenc($s, $search, $replace)
+{
+    $s = str_replace($search, $replace, $s);
     return str_replace('+', '_', urlencode($s));
 }
 
