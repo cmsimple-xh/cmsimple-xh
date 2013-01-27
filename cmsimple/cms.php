@@ -291,10 +291,23 @@ foreach (array('action', 'download', 'downloads', 'edit', 'file', 'function',
  * The absolute path of the root folder.
  */
 define('CMSIMPLE_ROOT', str_replace('index.php', '', str_replace('/' . $sl . '/', "/", $sn)));
+
 /**
  * The relative path of the root folder.
  */
 define('CMSIMPLE_BASE', $pth['folder']['base']);
+
+/**
+ * The fully qualified absolute URL of the installation (main or current language).
+ *
+ * @since 1.6
+ */
+define('CMSIMPLE_URL',
+       'http'
+       . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
+       . '://' . $_SERVER['SERVER_NAME']
+       . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
+       . preg_replace('/index.php$/', '', $_SERVER['SCRIPT_NAME']));
 
 /**
  * The current page's URL (selected URL).
