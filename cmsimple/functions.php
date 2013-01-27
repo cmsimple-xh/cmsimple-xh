@@ -804,6 +804,7 @@ function rfc()
  * 'levels': The menu levels of the pages.
  * 'pages': The contents of the pages.
  * 'pd_router': A page data router object.
+ * Returns FALSE, if file couldn't be read.
  *
  * @global array  Paths of system files and folders.
  * @global array  The configuration of the core.
@@ -833,7 +834,9 @@ function XH_readContents($language = null)
     $search = explode(',', $tx['urichar']['org']);
     $replace = explode(',', $tx['urichar']['new']);
 
-    $content = file_get_contents($contentFile);
+    if (($content = file_get_contents($contentFile)) === false) {
+        return false;
+    }
     $stop = $cf['menu']['levels'];
     $split_token = '#@CMSIMPLE_SPLIT@#';
 

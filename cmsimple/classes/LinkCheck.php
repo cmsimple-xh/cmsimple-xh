@@ -118,15 +118,15 @@ class XH_LinkCheck
         preg_match('/\/([A-z]{2})\/[^\/]*/', $test['path'], $lang);
         $lang = $lang[1];
 
-        if (isset($test['path'])) {
+        if (isset($lang)) {
             $query = str_replace('/' . $lang . '/?', '', $query);
-            $content = $this->read_content_file($lang);
+            $content = XH_readContents($lang);
             if (!$content) {
                 return 'content not found';
             }
-            $urls = $content[0];
-            $pages = $content[1];
-            $contentLength = count($urls);
+            $urls = $content['url'];
+            $pages = $content['pages'];
+            $contentLength = count($pages);
         } else {
             $urls = $u;
             $pages = $c;
@@ -200,7 +200,7 @@ class XH_LinkCheck
     }
 
     /**
-     * Returns thethe linkcheck results.
+     * Returns the linkcheck results.
      *
      * @todo internalization
      *
@@ -276,60 +276,6 @@ class XH_LinkCheck
         return $o;
     }
 
-    /**
-     * Read a content file and returns the essential information.
-     *
-     * @todo   Use the new rfc() instead.
-     * @global array  The config options.
-     * @global string  The current language.
-     * @param  string $path  The file path.
-     * @return array  The page URLs, contents, headings and levels.
-     */
-    function read_content_file($path)
-    {
-        global $cf, $sl;
-
-        $path = basename($path);
-        if ($sl == $cf['language']['default']) {
-            $path = './' . $path;
-        } else {
-            $path = '../' . $path;
-        }
-        $sep = $cf['uri']['seperator'];
-        $pattern = '/<h([1-' . $cf['menu']['levels'] . '])[^>]*>(.*)<\/h/i';
-
-        $content = file_get_contents($path . '/content/content.htm');
-        if (!$content) {
-            return false;
-        }
-        preg_match_all($pattern, $content, $matches);
-
-        $headings = array();
-        $levels = array();
-        $urls = array();
-
-        if (count($matches[0]) == 0) {
-            return;
-        }
-        $ancestors = array();
-        foreach ($matches[1] as $level) {
-            $levels[] = (int) $level;
-        }
-        $i = 0;
-        foreach ($matches[2] as $chapter) {
-            $heading = trim(strip_tags($chapter));
-            $url = uenc($heading);
-            $headings[] = $heading;
-            $level = $levels[$i];
-            $ancestors[$level] = $url;
-            $myself = array_slice($ancestors, 0, $level);
-            $urls[] = implode($sep, $myself);
-            $i++;
-        }
-        $pages = preg_split($pattern, $content);
-        $pages = array_slice($pages, 1); // $pages[0] is the header part - drop it!
-        return array($urls, $pages, $headings, $levels);
-    }
 }
 
 ?>
