@@ -741,13 +741,12 @@ function e($et, $ft, $fn)
  * @global int  The number of pages.
  * @global array  The headings of the pages.
  * @global array  The URLs of the pages.
- * @global array  The levels of the pages.
+ * @global array  The menu levels of the pages.
  * @global string  The URL of the current page.
  * @global string  The index of the current page.
  * @global array  Paths of system files and folders.
  * @global array  The configuration of the core.
  * @global array  The localization of the core.
- * @global bool  Whether edit mode is active.
  * @global bool  Whether admin mode is active.
  * @global string  Error messages.
  * @global object  The pagedata router.
@@ -755,21 +754,88 @@ function e($et, $ft, $fn)
  */
 function rfc()
 {
-    global $c, $cl, $h, $u, $l, $su, $s, $pth, $cf, $tx, $edit, $adm, $e, $pd_router;
+    global $c, $cl, $h, $u, $l, $su, $s, $pth, $cf, $tx, $adm, $e, $pd_router;
+
+    list($u, $tooLong, $h, $l, $c, $pd_router) = array_values(XH_readContents());
+    $duplicate = 0;
+
+    $cl = count($c);
+    $s = -1;
+
+    if ($cl == 0) {
+        $c[] = '<h1>' . $tx['toc']['newpage'] . '</h1>';
+        $h[] = trim(strip_tags($tx['toc']['newpage']));
+        $u[] = uenc($h[0]);
+        $l[] = 1;
+        $s = 0;
+        $pd_router->new_page();
+        return;
+    }
+
+    foreach ($tooLong as $i => $tl) {
+        if ($adm && $tl) {
+            $e .= '<li><b>' . $tx['uri']['toolong'] . '</b>' . tag('br')
+                . '<a href="?' . $u[$i] . '">' . $h[$i] . '</a>' . '</li>';
+        }
+    }
+
+    foreach ($u as $i => $url) {
+        if ($su == $u[$i] || $su == urlencode($u[$i])) {
+            $s = $i;
+        } // get index of selected page
+
+        for ($j = $i + 1; $j < $cl; $j++) {   //check for duplicate "urls"
+            if ($u[$j] == $u[$i]) {
+                $duplicate++;
+                $h[$j] = $tx['toc']['dupl'] . ' ' . $duplicate;
+                $u[$j] = uenc($h[$j]);
+            }
+        }
+    }
+}
+
+
+/**
+ * Reads and parses a content file and
+ * returns a dictionary containing the following information:
+ * 'urls': The URLs of the pages.
+ * 'too_long':  Flags, whether URLs were too long.
+ * 'headings': The headings of the pages.
+ * 'levels': The menu levels of the pages.
+ * 'pages': The contents of the pages.
+ * 'pd_router': A page data router object.
+ *
+ * @global array  Paths of system files and folders.
+ * @global array  The configuration of the core.
+ * @global bool  Whether edit mode is active.
+ * @global bool  Whether admin mode is active.
+ * @param  string $language  The language to read.
+ * @return array
+ */
+function XH_readContents($language = null)
+{
+    global $pth, $cf, $edit, $adm;
+
+    if (isset($language)) {
+        $contentFile = $pth['folder']['base'] . $language . '/content/content.htm';
+        include $pth['folder']['language'] . $language . '.php';
+    } else {
+        $contentFile = $pth['file']['content'];
+        global $tx;
+    }
 
     $c = array();
     $h = array();
     $u = array();
+    $tooLong = array();
     $l = array();
     $empty = 0;
-    $duplicate = 0;
     $search = explode(',', $tx['urichar']['org']);
     $replace = explode(',', $tx['urichar']['new']);
 
-    $content = file_get_contents($pth['file']['content']);
+    $content = file_get_contents($contentFile);
     $stop = $cf['menu']['levels'];
     $split_token = '#@CMSIMPLE_SPLIT@#';
-
 
     $content = preg_split('~</body>~i', $content);
     $content = preg_replace('~<h[1-' . $stop . ']~i', $split_token . '$0', $content[0]);
@@ -784,17 +850,6 @@ function rfc()
     }
 
     $cl = count($c);
-    $s = -1;
-
-    if ($cl == 0) {
-        $c[] = '<h1>' . $tx['toc']['newpage'] . '</h1>';
-        $h[] = trim(strip_tags($tx['toc']['newpage']));
-        $u[] = XH_uenc($h[0], $search, $replace);
-        $l[] = 1;
-        $s = 0;
-        $pd_router = new PL_Page_Data_Router($h, $contentHead);
-        return;
-    }
 
     $ancestors = array();  /* just a helper for the "url" construction:
      * will be filled like this [0] => "Page"
@@ -813,25 +868,9 @@ function rfc()
         $ancestors = array_slice($ancestors, 0, $l[$i]);
         $url = implode($cf['uri']['seperator'], $ancestors);
         $u[] = substr($url, 0, $cf['uri']['length']);
-        if ($adm && strlen($url) > $cf['uri']['length']) {
-            $e .= '<li><b>' . $tx['uri']['toolong'] . '</b>' . tag('br')
-                . '<a href="?' . $u[count($u) - 1] . '">' . $temp . '</a>' . '</li>';
-        }
+        $tooLong[] = strlen($url) > $cf['uri']['length'];
     }
 
-    foreach ($u as $i => $url) {
-        if ($su == $u[$i] || $su == urlencode($u[$i])) {
-            $s = $i;
-        } // get index of selected page
-
-        for ($j = $i + 1; $j < $cl; $j++) {   //check for duplicate "urls"
-            if ($u[$j] == $u[$i]) {
-                $duplicate++;
-                $h[$j] = $tx['toc']['dupl'] . ' ' . $duplicate;
-                $u[$j] = XH_uenc($h[$j], $search, $replace);
-            }
-        }
-    }
     if (!($edit && $adm)) {
         foreach ($c as $i => $j) {
             if (cmscript('remove', $j)) {
@@ -839,7 +878,27 @@ function rfc()
             }
         }
     }
-    $pd_router = new PL_Page_Data_Router($h, $contentHead);
+
+    $page_data_fields = $temp_data = array();
+    if (preg_match('/<\?php(.*?)\?>/isu', $contentHead, $m)) {
+        eval($m[1]);
+    }
+    $page_data = array();
+    foreach ($c as $i => $j) {
+        if (preg_match('/<\?php(.*?)\?>/is', $j, $m)) {
+            eval($m[1]);
+            $c[$i] = str_replace($m[1], '', $j);
+        }
+    }
+
+    $pd_router = new PL_Page_Data_Router($h, $page_data_fields, $temp_data, $page_data);
+
+    return array('urls' => $u,
+                 'too_long' => $tooLong,
+                 'headings' => $h,
+                 'levels' => $l,
+                 'pages' => $c,
+                 'pd_router' => $pd_router);
 }
 
 

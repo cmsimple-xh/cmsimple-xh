@@ -42,12 +42,14 @@ class PL_Page_Data_Router
 
     /**
      * @param  array $h  The page headings.
-     * @param  string $contentHead  The head element of the contents file.
+     * @param  array $pageDataFields  The page data fields.
+     * @param  array $tempData  The most recently deleted page data.
+     * @param  array $pageData  The page data.
      * @return void
      */
-    function PL_Page_Data_Router($h, $contentHead)
+    function PL_Page_Data_Router($h, $pageDataFields, $tempData, $pageData)
     {
-        $this->model = new PL_Page_Data_Model($h, $contentHead);
+        $this->model = new PL_Page_Data_Model($h, $pageDataFields, $tempData, $pageData);
     }
 
     /**

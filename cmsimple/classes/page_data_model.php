@@ -5,13 +5,13 @@
  *
  * Part of the Pluginloader of $CMSIMPLE_XH_VERSION$
  *
- * @package	  XH
+ * @package   XH
  * @copyright 1999-2009 <http://cmsimple.org/>
  * @copyright 2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license	  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version	  $CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   $CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
  * @version   $Id: page_data_model.php 315 2012-10-31 00:09:01Z cmb69 $
- * @link	  http://cmsimple-xh.org/
+ * @link      http://cmsimple-xh.org/
  * @author    Martin Damken
  * @link      http://www.zeichenkombinat.de/
  */
@@ -61,32 +61,20 @@ class PL_Page_Data_Model
     var $tabs;
 
     /**
-     * @global array
-     * @global array
      * @param  array $h  The page headings.
-     * @param  string $contentHead  The head element of the contents file.
+     * @param  array $pageDataFields  The page data fields.
+     * @param  array $tempData  The most recently deleted page data.
+     * @param  array $pageData  The page data.
      * @return void
      */
-    function PL_Page_Data_Model($h, $contentHead)
+    function PL_Page_Data_Model($h, $pageDataFields, $tempData, $pageData)
     {
-        global $pth, $c;
-
         $this->headings = $h;
-        if (preg_match('/<\?php(.*?)\?>/isu', $contentHead, $m)) {
-            eval($m[1]);
-        }
-        $this->params = isset($page_data_fields)
-            ? $page_data_fields
+        $this->params = !empty($pageDataFields)
+            ? $pageDataFields
             : array('url', 'last_edit');
-        $this->temp_data = isset($temp_data) ? $temp_data : array();
-        $page_data = array();
-        foreach ($c as $i => $j) {
-            if (preg_match('/<\?php(.*?)\?>/is', $j, $m)) {
-                eval($m[1]);
-                $c[$i] = preg_replace('/<\?php.*?\?>/is', '', $j);
-            }
-        }
-        $this->data = $page_data;
+        $this->temp_data = $tempData;
+        $this->data = $pageData;
         $this->read();
     }
 
