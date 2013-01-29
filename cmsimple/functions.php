@@ -1621,6 +1621,27 @@ function XH_backup()
 
 
 /**
+ * Restores a contents backup. The current content.htm is backed up before.
+ *
+ * @todo   Handle errors and success messages.
+ * @since  1.6
+ *
+ * @param  string $filename
+ * @return void
+ */
+function XH_restore($filename)
+{
+    global $pth, $o;
+    rename($file, $pth['folder']['content'] . 'restore.htm');
+    XH_backup();
+    rename($pth['folder']['content'] . 'restore.htm', $pth['file']['content']);
+    // the following relocation is necessary to cater for the changed content
+    header('Location: ' . CMSIMPLE_URL . '?&settings', true, 303);
+    exit;
+}
+
+
+/**
  * Writes $contents to the file $filename.
  *
  * @since   1.6

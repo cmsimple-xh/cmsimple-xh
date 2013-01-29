@@ -125,7 +125,13 @@ function XH_settingsView()
             $o .= '<li><a href="?file=' . $p . '&amp;action=view">'
                 . $p . '</a> ('
                 . (round((filesize($pth['folder']['content'] . '/' . $p)) / 102.4) / 10)
-                . ' KB)</li>' . "\n";
+                . ' KB)'
+                . '<form action="" method="post">'
+                . tag('input type="hidden" name="file" value="' . $p . '"')
+                . tag('input type="hidden" name="action" value="restore"')
+                . tag('input type="submit" class="submit" value="Restore"') // TODO: i18n
+                . '</form>'
+                . '</li>' . "\n";
         }
     }
     $o .= '</ul>' . "\n";

@@ -730,7 +730,7 @@ if ($adm) {
         break;
     case 'file':
         if (preg_match('/^\d{8}_\d{6}_content.htm$/', $file)) {
-            $pth['file'][$file] = $pth['folder']['content'] . '/' . $file;
+            $pth['file'][$file] = $pth['folder']['content'] . $file;
         }
         if ($pth['file'][$file] != '') {
             if ($action == 'view') {
@@ -740,6 +740,8 @@ if ($adm) {
             }
             if ($action == 'download') {
                 download($pth['file'][$file]);
+            } elseif ($action == 'restore') {
+                XH_restore($pth['file'][$file]);
             } else {
                 include_once $pth['folder']['classes'] . 'FileEdit.php';
                 $temp = array('config' => 'XH_CoreConfigFileEdit',
