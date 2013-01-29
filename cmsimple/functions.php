@@ -890,7 +890,7 @@ function XH_readContents($language = null)
     foreach ($c as $i => $j) {
         if (preg_match('/<\?php(.*?)\?>/is', $j, $m)) {
             eval($m[1]);
-            $c[$i] = str_replace($m[1], '', $j);
+            $c[$i] = str_replace($m[0], '', $j);
         }
     }
 
