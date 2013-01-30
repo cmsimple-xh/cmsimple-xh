@@ -521,7 +521,9 @@ function initvar($name)
         } elseif (isset($_POST[$name])) {
             $GLOBALS[$name] = $_POST[$name];
         } else {
-            $GLOBALS[$name] = @preg_replace("/.*?(" . $name . "=([^\&]*))?.*?/i", "\\2", sv('QUERY_STRING'));
+        // unnecessary (?) magic; see <http://www.cmsimpleforum.com/viewtopic.php?f=29&t=5315>
+        //    $GLOBALS[$name] = @preg_replace("/.*?(" . $name . "=([^\&]*))?.*?/i", "\\2", sv('QUERY_STRING'));
+            $GLOBALS[$name] = '';
         }
     }
 }
