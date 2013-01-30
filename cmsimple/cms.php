@@ -333,16 +333,6 @@ if (!isset($cf['uri']['length'])) {
 }
 $su = substr($su, 0, $cf['uri']['length']);
 
-/**
- * Requests the stylesheet.
- *
- * @global mixed $stylesheet
- */
-if ($stylesheet != '') {
-    header("Content-type: text/css");
-    include($pth['file']['stylesheet']);
-    exit;
-}
 
 /**
  * Requests a file download.
