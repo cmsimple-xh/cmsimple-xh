@@ -1085,12 +1085,17 @@ function cmscript($s, $i)
 function hide($i)
 {
     global $c, $edit, $adm;
+    static $hidden = array();
 
-    if ($i < 0) {
+    if ($i < 0 || $edit && $adm) {
         return false;
     }
-    return (!($edit && $adm) && cmscript('hide', $c[$i]));
+    if (!isset($hidden[$i])) {
+        $hidden[$i] = cmscript('hide', $c[$i]);
+    }
+    return $hidden[$i];
 }
+
 
 /**
  * Returns an (X)HTML compliant stand alone tag according to the settings of $cf['xhtml']['endtags'].
