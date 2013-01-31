@@ -281,7 +281,7 @@ $cgi = (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi');
 $sn = preg_replace('/([^\?]*)\?.*/', '\1', sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_URI')));
 foreach (array('action', 'download', 'downloads', 'edit', 'file', 'function',
 	       'images', 'login', 'logout', 'mailform', 'media', 'normal',
-	       'passwd', 'print', 'search', 'selected', 'settings', 'sitemap',
+	       'keycut', 'print', 'search', 'selected', 'settings', 'sitemap',
 	       'stylesheet', 'text', 'userfiles', 'validate', 'xhpages') as $i)
 {
     initvar($i);
@@ -377,17 +377,17 @@ if ($txc['subsite']['password'] != "") {
 
 $adm = gc('status') == 'adm' && logincheck();
 
-if ($cf['security']['type'] == 'page' && $login && $passwd == '' && !$adm) {
+if ($cf['security']['type'] == 'page' && $login && $keycut == '' && !$adm) {
     $login = null;
     $f = 'login';
 }
 
 if ($login && !$adm) {
-    if ($xh_hasher->CheckPassword($passwd, $cf['security']['password'])
+    if ($xh_hasher->CheckPassword($keycut, $cf['security']['password'])
 	&& ($cf['security']['type'] == 'page' || $cf['security']['type'] == 'javascript'))
     {
 	setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
-	setcookie('passwd', $cf['security']['password'], 0, CMSIMPLE_ROOT);
+	setcookie('keycut', $cf['security']['password'], 0, CMSIMPLE_ROOT);
 	$adm = true;
 	$edit = true;
 	writelog(date("Y-m-d H:i:s") . " from " . sv('REMOTE_ADDR') . " logged_in\n");
@@ -398,7 +398,7 @@ if ($login && !$adm) {
     $o .= XH_backup();
     $adm = false;
     setcookie('status', '', 0, CMSIMPLE_ROOT);
-    setcookie('passwd', '', 0, CMSIMPLE_ROOT);
+    setcookie('keycut', '', 0, CMSIMPLE_ROOT);
     $o .= '<p class="cmsimplecore_warning" style="text-align: center; font-weight: 900; padding: 8px;">'
 	. $tx['login']['loggedout'] . '</p>';
 }
@@ -435,8 +435,8 @@ if ($adm) {
     if (gc('status') != '') {
         setcookie('status', '', 0, CMSIMPLE_ROOT);
     }
-    if (gc('passwd') != '') {
-        setcookie('passwd', '', 0, CMSIMPLE_ROOT);
+    if (gc('keycut') != '') {
+        setcookie('keycut', '', 0, CMSIMPLE_ROOT);
     }
     if (gc('mode') == 'edit') {
         setcookie('mode', '', 0, CMSIMPLE_ROOT);

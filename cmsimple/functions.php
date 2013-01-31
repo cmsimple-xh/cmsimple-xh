@@ -1492,7 +1492,7 @@ function logincheck()
 {
     global $cf;
 
-    return gc('passwd') == $cf['security']['password'];
+    return gc('keycut') == $cf['security']['password'];
 }
 
 
@@ -1533,7 +1533,7 @@ function lilink()
                 . '<div id="loginlink">'
                 . tag('input type="hidden" name="login" value="true"')
                 . tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
-                . tag('input type="hidden" name="passwd" id="passwd" value=""')
+                . tag('input type="hidden" name="keycut" id="passwd" value=""')
                 . '</div></form>'
                 . '<a href="#" onclick="login(); return false">'
                 . $tx['menu']['login'] . '</a>';
@@ -1563,7 +1563,7 @@ function loginforms()
     }
     if ($f == 'login') {
         $cf['meta']['robots'] = "noindex";
-        $onload .= "self.focus();document.login.passwd.focus();";
+        $onload .= "self.focus();document.forms['login'].elements['keycut'].focus();";
         $f = $tx['menu']['login'];
         $o .= '<h1>' . $tx['menu']['login'] . '</h1>'
             . '<p><b>' . $tx['login']['warning'] . '</b></p>'
@@ -1571,7 +1571,7 @@ function loginforms()
             . '<div id="login">' // FIXME: duplicate id as containing form element; why having a single div in a form at all?
             . tag('input type="hidden" name="login" value="true"')
             . tag('input type="hidden" name="selected" value="' . @$u[$s] . '"')
-            . tag('input type="password" name="passwd" id="passwd" value=""') . ' '
+            . tag('input type="password" name="keycut" id="passwd" value=""') . ' '
             . tag('input type="submit" name="submit" id="submit" value="' . $tx['menu']['login'] . '"')
             . '</div></form>';
         $s = -1;
