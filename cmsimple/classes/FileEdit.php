@@ -322,56 +322,32 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @access private
      *
-     * @global array  The pathes of system files and folders.
-     * @global string  Scripts to insert before the closing body tag.
-     * @param  string $name  The name of the password config option.
+     * @param  string $iname  The base name of the password input.
      * @return string  The (X)HTML.
      */
-    function passwordDialog($name)
+    function passwordDialog($iname)
     {
-	global $pth, $bjs;
-
-	include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php';
-	include_jQuery();
-	include_jQueryUI();
-	$id = "xh_${name}_dialog";
-        $iname = XH_FORM_NAMESPACE . $name;
-	$o = '<div id="' . $id . '" title="Change Password" style="display:none">'
-	    . '<table>'
-	    . '<tr><td>Old Password</td><td>' . tag('input type="password"') . '</td></tr>'
-	    . '<tr><td>New Password</td><td>' . tag('input type="password"') . '</td></tr>'
-	    . '<tr><td>Confirmation</td><td>' . tag('input type="password"') . '</td></tr>'
+	$id = $iname . '_DLG';
+	$o = '<div id="' . $id . '" style="display:none">'
+	    . '<table style="width: 100%">'
+	    . '<tr><td>Old Password</td><td>'
+	    . tag('input type="password" name="' . $iname
+		  . '_OLD" value="" class="cmsimplecore_settings"')
+	    . '</td></tr>'
+	    . '<tr><td>New Password</td><td>'
+	    . tag('input type="password" name="' . $iname
+		  . '_NEW" value="" class="cmsimplecore_settings"')
+	    . '</td></tr>'
+	    . '<tr><td>Confirmation</td><td>'
+	    . tag('input type="password" name="' . $iname
+		  . '_CONFIRM" value="" class="cmsimplecore_settings"')
+	    . '</td></tr>'
 	    . '</table>'
 	    . '</div>';
-	$o .= '<button onclick="jQuery(\'#' . $id . '\').dialog(\'open\');return false">Change Password</button>';
-	$bjs .= <<<EOS
-<script type="text/javascript">
-jQuery("#$id").dialog({
-    autoOpen: false,
-    modal: true,
-    width: 400,
-    buttons: {
-	"Change Password": function() {
-	    var inputs = jQuery(this).find("td:nth-child(2) input");
-	    var oldPW = inputs.get(0).value;
-	    var newPW = inputs.get(1).value;
-	    var confirm = inputs.get(2).value;
-	    // TODO: check old password!!!
-	    if (confirm != newPW) {
-		alert('New Passwords do not match!');
-	    } else {
-		var form = window.document.getElementById("xh_config_form");
-		form.elements["$iname"].value = newPW;
-		jQuery(this).dialog("close");
-	    }
-	},
-	"Cancel": function() {
-	    jQuery(this).dialog("close");
-	}
-    }
-})
-</script>
-EOS;
+	$onclick = 'var dlg = document.getElementById(\'' . $id
+	    . '\'); xh.modalDialog(dlg, \'400px\', xh.validatePassword)';
+	$o .= '<button type="button" onclick="' . $onclick
+	    . '">Change Password</button>';
 	return $o;
     }
 
@@ -390,13 +366,7 @@ EOS;
         $iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
         switch ($opt['type']) {
         case 'password':
-            return $this->passwordDialog($cat . '_' . $name)
-		. tag('input type="hidden" name="' . $iname . '" value="'
-                       . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8')
-                       . '" class="cmsimplecore_settings"')
-		. tag('input type="hidden" name="' . $iname . '_OLD" value="'
-		      . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8')
-		      . '"');
+	    return $this->passwordDialog($iname);
         case 'text':
 	    $class = 'cmsimplecore_settings';
 	    if (utf8_strlen($opt['val']) < 30) {
@@ -477,31 +447,54 @@ EOS;
     /**
      * Handles the form submission.
      *
-     * If file could be successfully saved, triggers a redirect.
-     * Otherwise writes error message to $e, and returns the edit form.
+     * Triggers a redirect, if the submission was valid
+     * and the file could be successfully saved.
+     * Otherwise writes an error message to $e, and returns the edit form.
      *
      * @access public
-     * @return mixed
+     *
+     * @global string  Error messages.
+     * @global object  The password hasher.
+     * @return string  The (X)HTML.
      */
     function submit()
     {
-	global $xh_hasher;
+	global $e, $xh_hasher;
 
+	$errors = array();
         foreach ($this->cfg as $cat => $opts) {
             foreach ($opts as $name => $opt) {
 		$iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
-		$val = stsl($_POST[$iname]);
+		$val = isset($_POST[$iname]) ? stsl($_POST[$iname]) : '';
 		if ($opt['type'] == 'bool') {
 		    $val = isset($_POST[$iname]) ? 'true' : ''; // TODO: which values should be written back?
-		} elseif ($opt['type'] == 'password'
-		    && $_POST[$iname] != $_POST[$iname . '_OLD'])
-		{
-		    $val = $xh_hasher->HashPassword($val);
+		} elseif ($opt['type'] == 'password') {
+		    if (empty($_POST[$iname . '_OLD'])) {
+			$val = $opt['val'];
+		    } else {
+			$old = stsl($_POST[$iname . '_OLD']);
+			$new = stsl($_POST[$iname . '_NEW']);
+			$confirm = stsl($_POST[$iname . '_CONFIRM']);
+			if (!$xh_hasher->CheckPassword($old, $opt['val'])) {
+			    $errors[] = '<li>Wrong password</li>'; // TODO: i18n
+			} else {
+			    if (empty($new)) {
+				$errors[] = '<li>Password must not be empty</li>'; // TODO: i18n
+			    } elseif ($new != $confirm) {
+				$errors[] = '<li>Passwords do not match</li>'; // TODO: i18n
+			    } else {
+				$val = $xh_hasher->HashPassword($new);
+			    }
+			}
+		    }
 		}
                 $this->cfg[$cat][$name]['val'] = $val;
             }
         }
-	if ($this->save()) {
+	if (!empty($errors)) {
+	    $e .= implode('', $errors);
+	    return $this->form();
+	} elseif ($this->save()) {
 	    header('Location: ' . $this->redir, true, 303);
 	    exit;
 	} else {

@@ -372,7 +372,6 @@ if ($txc['subsite']['password'] != "") {
     $cf['security']['password'] = $txc['subsite']['password'];
 }
 
-
 // LOGIN & BACKUP
 
 $adm = gc('status') == 'adm' && logincheck();
@@ -411,6 +410,18 @@ if ($login && !$adm) {
  * @see   $adm
  */
 define('XH_ADM', $adm);
+
+
+/*
+ * Handle AJAX request to check the password.
+ */
+if (XH_ADM && isset($_GET['xh_check'])) {
+    header('Content-Type: text/plain');
+    echo intval($xh_hasher->CheckPassword(stsl($_GET['xh_check']),
+                                          $cf['security']['password']));
+    exit;
+}
+
 
 // SETTING FUNCTIONS AS PERMITTED
 

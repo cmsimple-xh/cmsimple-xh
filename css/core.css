@@ -559,3 +559,12 @@ img.helpicon {
     border: 1px solid #808080;
     display: none;
 }
+
+/*
+ * Modal dialogs.
+ */
+div.xh_modal_dialog_overlay {position: fixed; left: 0; top: 0; width: 100%; height: 100%; background: white; padding: 5em}
+div.xh_modal_dialog {background: white; margin: auto; border: 1px solid #ccc; padding: 1em}
+div.xh_modal_dialog_error {padding-top: 1em; color: red}
+div.xh_modal_dialog_buttons {text-align: right; padding-top: 0.5em}
+div.xh_modal_dialog_buttons button {width: 5em}
