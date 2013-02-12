@@ -644,7 +644,12 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
 		    continue;
 		}
                 $co = array('val' => $val, 'type' => 'text');
-                $this->cfg[$cat][$name] = $co;
+                if ($cat == 'subsite' && $name == 'template') {
+		    $co['type'] = 'enum';
+		    $co['vals'] = $this->selectOptions('templates', '/^([^\.]*)$/i');
+		    array_unshift($co['vals'], '');
+		}
+		$this->cfg[$cat][$name] = $co;
             }
         }
     }
