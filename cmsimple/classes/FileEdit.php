@@ -575,13 +575,12 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
 class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
 {
     /**
-     * @global array
-     * @global array
-     * @global array
+     * @global array  The configuration of the core.
+     * @global array  The localization of the core.
      */
     function XH_CoreConfigFileEdit()
     {
-        global $cf, $txc, $tx;
+        global $cf, $tx;
 
 	parent::XH_CoreArrayFileEdit();
 	$this->varName = 'cf';
@@ -594,71 +593,24 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
 		if ($cat == 'scripting' && $name == 'regexp') {
 		    continue;
 		}
-		if (!isset($txc[$cat][$name])) {
-		    $co = array('val' => $val, 'type' => 'string');
-		    if (isset($tx['help']["${cat}_$name"])) {
-			$co['hint'] = $tx['help']["${cat}_$name"];
-		    }
-		    if ($cat == 'language' && $name == 'default') {
-			$co['type'] = 'enum';
-			$co['vals'] = $this->selectOptions('language', '/^([a-z]{2})\.php$/i');
-		    } elseif ($cat == 'site' && $name == 'template') {
-			$co['type'] = 'enum';
-			$co['vals'] = $this->selectOptions('templates', '/^([^\.]*)$/i');
-		    } elseif ($cat == 'security' && $name == 'password') {
-			$co['type'] = 'password';
-		    }
-		    $this->cfg[$cat][$name] = $co;
+		$co = array('val' => $val, 'type' => 'string');
+		if (isset($tx['help']["${cat}_$name"])) {
+		    $co['hint'] = $tx['help']["${cat}_$name"];
 		}
+		if ($cat == 'language' && $name == 'default') {
+		    $co['type'] = 'enum';
+		    $co['vals'] = $this->selectOptions('language', '/^([a-z]{2})\.php$/i');
+		} elseif ($cat == 'site' && $name == 'template') {
+		    $co['type'] = 'enum';
+		    $co['vals'] = $this->selectOptions('templates', '/^([^\.]*)$/i');
+		} elseif ($cat == 'security' && $name == 'password') {
+		    $co['type'] = 'password';
+		}
+		$this->cfg[$cat][$name] = $co;
             }
 	    if (empty($this->cfg[$cat])) {
 		unset($this->cfg[$cat]);
 	    }
-        }
-    }
-}
-
-
-/**
- * Editing of core langconfig files.
- *
- * @package	XH
- */
-class XH_CoreLangconfigFileEdit extends XH_CoreArrayFileEdit
-{
-    /**
-     * @global array
-     * @global array
-     * @global array
-     * @global string
-     */
-    function XH_CoreLangconfigFileEdit()
-    {
-        global $cf, $txc, $tx, $sl;
-
-	parent::XH_CoreArrayFileEdit();
-	$this->varName = 'txc';
-	$this->params = array('form' => 'array', 'file' => 'langconfig', 'action' => 'save');
-	$this->redir = '?file=langconfig&action=array';
-        $this->cfg = array();
-        foreach ($txc as $cat => $opts) {
-	    if ($cat != 'subsite' || $sl != $cf['language']['default']) {
-		$this->cfg[$cat] = array();
-		foreach ($opts as $name => $val) {
-		    $co = array('val' => $val, 'type' => 'text');
-		    if (isset($tx['help']["${cat}_$name"])) {
-			$co['hint'] = $tx['help']["${cat}_$name"];
-		    }
-		    if ($cat == 'subsite' && $name == 'template') {
-			$co['type'] = 'enum';
-			$co['vals'] = $this->selectOptions('templates', '/^([^\.]*)$/i');
-			array_unshift($co['vals'], $tx['template']['default']);
-		    } elseif ($cat == 'subsite' && $name == 'password') {
-			$co['type'] = 'password';
-		    }
-		    $this->cfg[$cat][$name] = $co;
-		}
-            }
         }
     }
 }

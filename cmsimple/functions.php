@@ -1143,7 +1143,7 @@ function amp()
  */
 function shead($s)
 {
-    global $iis, $cgi, $tx, $txc, $title, $o;
+    global $iis, $cgi, $tx, $title, $o;
 
     if ($s == '401') {
         header(($cgi || $iis) ? 'status: 401 Unauthorized' : 'HTTP/1.0 401 Unauthorized');

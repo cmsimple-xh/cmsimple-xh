@@ -205,7 +205,6 @@ $errors = array();
 xh_debugmode();
 
 $pth['folder']['language'] = $pth['folder']['cmsimple'] . 'languages/';
-$pth['folder']['langconfig'] = $pth['folder']['cmsimple'] . 'languages/';
 
 /**
  * The current language.
@@ -220,7 +219,6 @@ if (!isset($sl)) {
 }
 
 $pth['file']['language'] = $pth['folder']['language'] . basename($sl) . '.php';
-$pth['file']['langconfig'] = $pth['folder']['language'] . basename($sl) . 'config.php';
 $pth['file']['corestyle'] = $pth['folder']['base'] . 'css/core.css';
 $pth['file']['adminjs'] = $pth['folder']['base'] . 'javascript/admin.js';
 
@@ -229,15 +227,8 @@ if (!is_readable($pth['file']['language']) && !is_readable($pth['folder']['langu
     die('Language file ' . $pth['file']['language'] . ' missing');
 }
 
-XH_createLanguageFile($pth['file']['langconfig']);
-if (!is_readable($pth['file']['langconfig']) && !is_readable($pth['folder']['language'].'defaultconfig.php')) {
-    die('Language config file ' . $pth['file']['langconfig'] . ' missing');
-}
-
 include $pth['folder']['language'] . 'default.php';
 include $pth['file']['language'];
-include $pth['folder']['language'] . 'defaultconfig.php';
-include $pth['file']['langconfig'];
 
 // removed from the core in XH 1.6, but left for compatibility with plugins.
 $tx['meta']['codepage']='UTF-8';
@@ -491,7 +482,6 @@ if (is_readable($pth['folder']['cmsimple'] . 'userfuncs.php')) {
     include_once $pth['folder']['cmsimple'] . 'userfuncs.php';
 }
 
-// copies title, keywords and description from $txc to $cf
 
 $cf['site']['title'] = $tx['site']['title']; // for backward compatibility
 
@@ -729,7 +719,6 @@ if ($adm) {
             } else {
                 include_once $pth['folder']['classes'] . 'FileEdit.php';
                 $temp = array('config' => 'XH_CoreConfigFileEdit',
-                              'langconfig' => 'XH_CoreLangconfigFileEdit',
                               'language' => 'XH_CoreLangFileEdit',
 			      'content' => 'XH_CoreTextFileEdit',
                               'template' => 'XH_CoreTextFileEdit',
@@ -804,7 +793,7 @@ if ($s == -1 && !$f && $o == '') {
 loginforms();
 
 // FIXME: why so far down? Why at all? Don't we check these files when accessing them? And we have the system check!
-foreach (array('content', 'config', 'language', 'langconfig', 'stylesheet', 'template', 'log') as $i) {
+foreach (array('content', 'config', 'language', 'stylesheet', 'template', 'log') as $i) {
     chkfile($i, ($login || $settings) && $adm);
 }
 if ($e) {

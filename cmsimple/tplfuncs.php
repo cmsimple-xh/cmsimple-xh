@@ -20,7 +20,7 @@
  */
 function head()
 {
-    global $title, $cf, $pth, $tx, $txc, $hjs;
+    global $title, $cf, $pth, $tx, $hjs;
 
     if (!empty($cf['site']['title'])) {
         $t = htmlspecialchars($cf['site']['title'], ENT_QUOTES, 'UTF-8')
@@ -354,7 +354,7 @@ function legallink()
  */
 function locator()
 {
-    global $title, $h, $s, $f, $c, $l, $tx, $txc, $cf;
+    global $title, $h, $s, $f, $c, $l, $tx, $cf;
 
     if (hide($s) && $cf['show_hidden']['path_locator'] != 'true') {
         return $h[$s];
@@ -449,8 +449,7 @@ function admin_menu($plugins = array(), $debug = false)
         if ($sl == $cf['language']['default']) {
             $t .='    <li><a href="?file=config&amp;action=array">' . utf8_ucfirst($tx['editmenu']['configuration']) . '</a></li>' . "\n";
         }
-        $t .= '    <li><a href="?file=langconfig&amp;action=array">' . utf8_ucfirst($tx['editmenu']['langconfig']) . '</a></li>' . "\n"
-            . '    <li><a href="?file=language&amp;action=array">' . utf8_ucfirst($tx['editmenu']['language']) . '</a></li>' . "\n"
+        $t .= '    <li><a href="?file=language&amp;action=array">' . utf8_ucfirst($tx['editmenu']['language']) . '</a></li>' . "\n"
             . '    <li><a href="?file=template&amp;action=edit">' . utf8_ucfirst($tx['editmenu']['template']) . '</a></li>' . "\n"
             . '    <li><a href="?file=stylesheet&amp;action=edit">' . utf8_ucfirst($tx['editmenu']['stylesheet']) . '</a></li>' . "\n"
             . '    <li><a href="?file=log&amp;action=view" target="_blank">' . utf8_ucfirst($tx['editmenu']['log']) . '</a></li>' . "\n"

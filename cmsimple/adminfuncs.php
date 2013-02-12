@@ -60,7 +60,7 @@ function XH_sysinfo()
     foreach (array('content', 'images', 'downloads', 'userfiles', 'media') as $i) {
         $temp['writable'][] = $pth['folder'][$i];
     }
-    foreach (array('config', 'log', 'language', 'langconfig', 'content',
+    foreach (array('config', 'log', 'language', 'content',
                    'template', 'stylesheet')
              as $i)
     {
@@ -91,7 +91,7 @@ function XH_settingsView()
     $o = '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
         . '<h4>' . $tx['settings']['systemfiles'] . '</h4>' . "\n" . '<ul>' . "\n";
 
-    foreach (array('config', 'langconfig', 'language') as $i) {
+    foreach (array('config', 'language') as $i) {
         $o .= '<li><a href="?file=' . $i . '&amp;action=array">'
             . utf8_ucfirst($tx['action']['edit']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
