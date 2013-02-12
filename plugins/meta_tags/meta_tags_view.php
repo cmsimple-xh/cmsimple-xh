@@ -20,28 +20,38 @@
  * doublequotes, that will destroy input-fields
  * @return string $view Returns the created view
  */
-function meta_tags_view($page){
-	global $sn, $su, $plugin_tx, $pth;
-	array_walk($page, create_function('&$data','$data=str_replace("\"", "&quot;", $data);'));
+function meta_tags_view($page)
+{
+    global $sn, $su, $plugin_tx, $pth;
+    array_walk($page, create_function('&$data','$data=str_replace("\"", "&quot;", $data);'));
 
-	$lang = $plugin_tx['meta_tags'];
-	$help_icon = tag('img src="'.$pth['folder']['plugins']. 'meta_tags/css/help_icon.png" alt="" class="helpicon"');
+    $lang = $plugin_tx['meta_tags'];
+    $help_icon = tag('img src="'.$pth['folder']['plugins']. 'meta_tags/css/help_icon.png" alt="" class="helpicon"');
 
-	$my_fields = array('title', 'description', 'keywords', 'robots');
+    $my_fields = array('title', 'description', 'keywords', 'robots');
 
-	$view ="\n".'<form action="'.$sn.'?'.$su.'" method="post" id="meta_tags">';
-	$view .= "\n\t".'<p><b>'.$lang['form_title'].'</b></p>';
+    $view ="\n".'<form action="'.$sn.'?'.$su.'" method="post" id="meta_tags">';
+    $view .= "\n\t".'<p><b>'.$lang['form_title'].'</b></p>';
 
-	foreach($my_fields as $field){
-		$view .= "\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_'.$field].'</div></div>';
-		$view .= "\n\t".'<label for = "'.$field.'"><span class = "mt_label">'.$lang[$field] .'</span></label>' .tag('br');
-		$view .= "\n\t\t".tag('input type="text" size="50" name="'.$field.'" id="'.$field.'" value="'. $page[$field].'"').tag('hr');
-	}
-	$view .= "\n\t".tag('input name="save_page_data" type="hidden"');
-	$view .= "\n\t".'<div style="text-align: right;">';
-	$view .= "\n\t\t".tag('input type="submit" value="'.$lang['submit'].'"').tag('br');
-	$view .= "\n\t".'</div>';
-	$view .= "\n".'</form>';
-	return $view;
+    foreach($my_fields as $field){
+        $element = $field == 'description' || $field == 'keywords'
+            ? '<textarea name="' . $field . '" id="' . $field
+                . '" rows="3" cols="30" class="cmsimplecore_settings">'
+				. htmlspecialchars($page[$field], ENT_QUOTES, 'UTF-8')
+				. '</textarea>'
+            : tag('input type="text" class="cmsimplecore_settings" size="50" name="'
+				  . $field . '" id="' . $field . '" value="'
+				  . htmlspecialchars($page[$field], ENT_QUOTES, 'UTF-8') . '"');
+        $view .= "\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_'.$field].'</div></div>';
+        $view .= "\n\t".'<label for = "'.$field.'"><span class = "mt_label">'.$lang[$field] .'</span></label>' .tag('br');
+        $view .= "\n\t\t" . $element . tag('hr');
+    }
+    $view .= "\n\t".tag('input name="save_page_data" type="hidden"');
+    $view .= "\n\t".'<div style="text-align: right;">';
+    $view .= "\n\t\t".tag('input type="submit" value="'.$lang['submit'].'"').tag('br');
+    $view .= "\n\t".'</div>';
+    $view .= "\n".'</form>';
+    return $view;
 }
+
 ?>
