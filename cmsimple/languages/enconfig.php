@@ -1,6 +1,5 @@
 <?php
 /* utf8-marker = äöüß */
-$txc['site']['title']="English Site Title";
 $txc['subsite']['template']="";
 $txc['subsite']['password']="";
 $txc['meta']['keywords']="Enter list of comma separated keywords here";

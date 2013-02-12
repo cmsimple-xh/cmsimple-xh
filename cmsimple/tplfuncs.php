@@ -48,10 +48,10 @@ function head()
  */
 function sitename()
 {
-    global $txc;
+    global $tx;
 
-    return isset($txc['site']['title'])
-        ? htmlspecialchars($txc['site']['title'], ENT_NOQUOTES, 'UTF-8')
+    return isset($tx['site']['title'])
+        ? htmlspecialchars($tx['site']['title'], ENT_QUOTES, 'UTF-8')
         : '';
 }
 
@@ -65,7 +65,7 @@ function pagename()
 {
     global $cf;
     return isset($cf['site']['title'])
-        ? htmlspecialchars($cf['site']['title'], ENT_NOQUOTES, 'UTF-8')
+        ? htmlspecialchars($cf['site']['title'], ENT_QUOTES, 'UTF-8')
         : '';
 }
 

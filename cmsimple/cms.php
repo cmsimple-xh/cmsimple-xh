@@ -501,11 +501,7 @@ foreach ($txc['meta'] as $i => $j) {
         $cf['meta'][$i] = $j;
     }
 }
-foreach ($txc['site'] as $i => $j) {
-    if (strlen(trim($j)) > 0) {
-        $cf['site'][$i] = $j;
-    }
-}
+$cf['site']['title'] = $tx['site']['title']; // for backward compatibility
 
 // Plugin loading
 if ($function == 'save') {
