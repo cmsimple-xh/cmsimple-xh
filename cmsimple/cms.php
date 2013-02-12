@@ -368,9 +368,6 @@ $f = '';
  */
 $xh_hasher = new PasswordHash(8, true);
 
-if ($txc['subsite']['password'] != "") {
-    $cf['security']['password'] = $txc['subsite']['password'];
-}
 
 // LOGIN & BACKUP
 
