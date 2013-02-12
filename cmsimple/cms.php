@@ -506,11 +506,6 @@ foreach ($txc['site'] as $i => $j) {
         $cf['site'][$i] = $j;
     }
 }
-foreach ($txc['mailform'] as $i => $j) {
-    if (strlen(trim($j)) > 0) {
-        $cf['mailform'][$i] = $j;
-    }
-}
 
 // Plugin loading
 if ($function == 'save') {

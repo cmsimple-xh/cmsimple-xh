@@ -275,9 +275,9 @@ function printlink()
  */
 function mailformlink()
 {
-    global $txc;
+    global $cf;
 
-    if ($txc['mailform']['email'] != '') {
+    if ($cf['mailform']['email'] != '') {
         return ml('mailform');
     }
 }
