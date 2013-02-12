@@ -208,7 +208,7 @@ $pth['folder']['language'] = $pth['folder']['cmsimple'] . 'languages/';
 $pth['folder']['langconfig'] = $pth['folder']['cmsimple'] . 'languages/';
 
 /**
- * The current language (or subsite).
+ * The current language.
  *
  * @global string $sl
  */
@@ -245,9 +245,9 @@ $tx['meta']['codepage']='UTF-8';
 $pth['folder']['templates'] = $pth['folder']['base'] . 'templates/';
 $pth['folder']['template'] = $pth['folder']['templates'] . $cf['site']['template'] . '/';
 
-$temp = $txc['subsite']['template'] == ''
+$temp = $tx['subsite']['template'] == ''
     ? $cf['site']['template']
-    : $txc['subsite']['template'];
+    : $tx['subsite']['template'];
 $pth['folder']['template'] = $pth['folder']['templates'] . $temp . '/';
 $pth['file']['template'] = $pth['folder']['template'] . 'template.htm';
 $pth['file']['stylesheet'] = $pth['folder']['template'] . 'stylesheet.css';
