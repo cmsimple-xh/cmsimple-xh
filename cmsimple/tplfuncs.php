@@ -23,7 +23,7 @@ function head()
     global $title, $cf, $pth, $tx, $txc, $hjs;
 
     if (!empty($cf['site']['title'])) {
-        $t = htmlspecialchars($cf['site']['title'], ENT_COMPAT, 'UTF-8')
+        $t = htmlspecialchars($cf['site']['title'], ENT_QUOTES, 'UTF-8')
             . " \xe2\x80\x93 " . $title;
     } else {
         $t = $title;
@@ -256,13 +256,13 @@ function printlink()
 
     $t = '&amp;print';
     if ($f == 'search') {
-        $t .= '&amp;function=search&amp;search=' . htmlspecialchars(stsl($search), ENT_COMPAT, 'UTF-8');
+        $t .= '&amp;function=search&amp;search=' . htmlspecialchars(stsl($search), ENT_QUOTES, 'UTF-8');
     } elseif ($f == 'file') {
         $t .= '&amp;file=' . $file;
     } elseif ($f != '' && $f != 'save') {
         $t .= '&amp;' . $f;
     } elseif (sv('QUERY_STRING') != '') {
-        $t = htmlspecialchars(sv('QUERY_STRING'), ENT_COMPAT, "UTF-8") . $t;
+        $t = htmlspecialchars(sv('QUERY_STRING'), ENT_QUOTES, 'UTF-8') . $t;
     }
     return '<a href="' . $sn . '?' . $t . '">' . $tx['menu']['print'] . '</a>';
 }
@@ -479,7 +479,7 @@ function content()
 
     if (!($edit && $adm) && $s > -1) {
         if (isset($_GET['search'])) {
-            $words = explode(',', htmlspecialchars(stsl($_GET['search']), ENT_COMPAT, 'UTF-8'));
+            $words = explode(',', htmlspecialchars(stsl($_GET['search']), ENT_QUOTES, 'UTF-8'));
             $code = 'return "&" . preg_quote($w, "&") . "(?!([^<]+)?>)&isU";';
             $words = array_map(create_function('$w', $code), $words);
             $c[$s] = preg_replace($words, '<span class="highlight_search">$0</span>', $c[$s]);

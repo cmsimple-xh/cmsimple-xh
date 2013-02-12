@@ -335,7 +335,7 @@ function XH_contentEditor()
         . tag('input type="hidden" name="function" value="save"')
         . '<textarea name="text" id="text" class="xh-editor" style="height: '
         . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
-        . htmlspecialchars($c[$s], ENT_COMPAT, 'UTF-8')
+        . htmlspecialchars($c[$s], ENT_QUOTES, 'UTF-8')
         . '</textarea>';
     if ($cf['editor']['external'] == '' || !$editor) {
         $o .= tag('input type="submit" value="'

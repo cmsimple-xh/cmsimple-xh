@@ -154,7 +154,7 @@ class XH_TextFileEdit extends XH_FileEdit
 	    . '<form action="' . $action . '" method="POST">'
 	    . '<textarea rows="25" cols="80" name="' . $this->textareaName
             . '" class="cmsimplecore_file_edit">'
-	    . htmlspecialchars($this->text, ENT_NOQUOTES, 'UTF-8')
+	    . htmlspecialchars($this->text, ENT_QUOTES, 'UTF-8')
 	    . '</textarea>';
 	foreach ($this->params as $param => $value) {
 	    $o .= tag('input type="hidden" name="' . $param . '" value="' . $value . '"');
@@ -374,7 +374,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
 	    }
             return '<textarea name="' . $iname . '" rows="3" cols="30"'
 		. ' class="' . $class . '">'
-                . htmlspecialchars($opt['val'], ENT_NOQUOTES, 'UTF-8')
+                . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8')
                 . '</textarea>';
         case 'bool':
             return tag('input type="checkbox" name="' . $iname . '"'

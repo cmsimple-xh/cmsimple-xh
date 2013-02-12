@@ -39,7 +39,7 @@ class XHFileBrowserView {
         $html = '
            <ul>
               <li class="openFolder">
-                   <a href="?' . htmlspecialchars($this->linkParams, ENT_COMPAT, 'UTF-8') . '">' . $title . ' ' . $plugin_tx['filebrowser']['folder'] . '</a>';  // für CMSbrowser
+                   <a href="?' . htmlspecialchars($this->linkParams, ENT_QUOTES, 'UTF-8') . '">' . $title . ' ' . $plugin_tx['filebrowser']['folder'] . '</a>';  // für CMSbrowser
         if (!empty($folders)) {
             $html .= '            <ul>';
             foreach ($folders as $folder => $data) {
@@ -62,7 +62,7 @@ class XHFileBrowserView {
             $class = 'openFolder';
         }
         $temp = explode('/', $folder);
-        $html = '<li class="' . $class . '"><a href="' . $link . '?' . htmlspecialchars($this->linkParams, ENT_COMPAT, 'UTF-8') . '&amp;subdir=' . $folder . '">' . end($temp) . '</a>';
+        $html = '<li class="' . $class . '"><a href="' . $link . '?' . htmlspecialchars($this->linkParams, ENT_QUOTES, 'UTF-8') . '&amp;subdir=' . $folder . '">' . end($temp) . '</a>';
         if (count($folders[$folder]['children']) > 0) {
             if (substr($this->currentDirectory, 0, strlen($folder)) !== $folder) {
                 $class = 'unseen';

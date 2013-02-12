@@ -942,7 +942,7 @@ function meta($n)
     $exclude = array('robots', 'keywords', 'description');
     if ($cf['meta'][$n] != '' && !($print && in_array($n, $exclude))) {
         return tag('meta name="' . $n . '" content="'
-                   . htmlspecialchars($cf['meta'][$n], ENT_COMPAT, 'UTF-8')
+                   . htmlspecialchars($cf['meta'][$n], ENT_QUOTES, 'UTF-8')
                    . '"') . "\n";
     }
 }
