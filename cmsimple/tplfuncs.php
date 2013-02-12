@@ -29,7 +29,7 @@ function head()
         $t = $title;
     }
     $t = '<title>' . strip_tags($t) . '</title>' . "\n";
-    foreach ($cf['meta'] as $i => $k) {
+    foreach (array_merge($cf['meta'], $tx['meta']) as $i => $k) {
         $t .= meta($i);
     }
     $t = tag('meta http-equiv="content-type" content="text/html;charset=UTF-8"') . "\n" . $t;

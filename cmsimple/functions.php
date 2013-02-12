@@ -937,12 +937,13 @@ function a($i, $x)
  */
 function meta($n)
 {
-    global $cf, $print;
+    global $cf, $tx, $print;
 
     $exclude = array('robots', 'keywords', 'description');
-    if ($cf['meta'][$n] != '' && !($print && in_array($n, $exclude))) {
+    $value = isset($tx['meta'][$n]) ? $tx['meta'][$n] : $cf['meta'][$n];
+    if ($n != 'codepage' && !empty($value) && !($print && in_array($n, $exclude))) {
         return tag('meta name="' . $n . '" content="'
-                   . htmlspecialchars($cf['meta'][$n], ENT_QUOTES, 'UTF-8')
+                   . htmlspecialchars($value, ENT_QUOTES, 'UTF-8')
                    . '"') . "\n";
     }
 }

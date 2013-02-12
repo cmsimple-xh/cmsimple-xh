@@ -496,11 +496,6 @@ if (is_readable($pth['folder']['cmsimple'] . 'userfuncs.php')) {
 
 // copies title, keywords and description from $txc to $cf
 
-foreach ($txc['meta'] as $i => $j) {
-    if (strlen(trim($j)) > 0 && $i != 'codepage') { // TODO: 'codepage' was never part of $txc
-        $cf['meta'][$i] = $j;
-    }
-}
 $cf['site']['title'] = $tx['site']['title']; // for backward compatibility
 
 // Plugin loading
@@ -797,10 +792,10 @@ if ($adm && $f == 'xhpages') {
 if (!($edit && $adm) && $s > -1) {
     $c[$s] = evaluate_scripting($c[$s]);
     if (isset($keywords)) {
-	$cf['meta']['keywords'] = $keywords;
+	$tx['meta']['keywords'] = $keywords;
     }
     if (isset($description)) {
-	$cf['meta']['description'] = $description;
+	$tx['meta']['description'] = $description;
     }
 }
 

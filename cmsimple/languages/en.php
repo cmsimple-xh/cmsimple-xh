@@ -2,6 +2,9 @@
 
 $tx['site']['title']="English Site Title";
 
+$tx['meta']['keywords']="Enter list of comma separated keywords here";
+$tx['meta']['description']="Enter website description for search engine results here";
+
 $tx['template']['text1']="Text 1 for templates requiring this text";
 $tx['template']['text2']="Text 2 for templates requiring this text";
 $tx['template']['text3']="Text 3 for templates requiring this text";
