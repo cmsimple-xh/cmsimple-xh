@@ -1,5 +1,9 @@
 <?php
 
+$tx['template']['text1']="Text 1 für entsprechend vorbereitete Templates";
+$tx['template']['text2']="Text 2 für entsprechend vorbereitete Templates";
+$tx['template']['text3']="Text 3 für entsprechend vorbereitete Templates";
+
 $tx['action']['delete']="löschen";
 $tx['action']['download']="download";
 $tx['action']['edit']="editieren";

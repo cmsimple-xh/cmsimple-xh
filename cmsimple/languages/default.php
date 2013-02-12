@@ -1,5 +1,9 @@
 <?php
 
+$tx['template']['text1']="text 1 for templates requiring this text";
+$tx['template']['text2']="text 2 for templates requiring this text";
+$tx['template']['text3']="text 3 for templates requiring this text";
+
 $tx['action']['delete']="delete";
 $tx['action']['download']="download";
 $tx['action']['edit']="edit";
