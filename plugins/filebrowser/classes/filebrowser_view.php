@@ -90,7 +90,7 @@ class XHFileBrowserView {
                 $name = str_replace($this->currentDirectory, '', $folder);
                 $html .= '<li class="folder">
                               <form style="display: inline;" method="POST" action="" onsubmit="return confirmFolderDelete(\'' . $this->translate('confirm_delete', $this->basePath . $folder) . '\');">
-                                ' . tag('input type="image" src="' . $this->browserPath . 'css/icons/delete.png" alt="delete" title="delete folder"') . '
+                                ' . tag('input type="image" src="' . $this->browserPath . 'css/icons/delete.png" alt="delete" title="' . $this->translate('delete_folder') . '"') . '
                                 ' . tag('input type="hidden" name="deleteFolder"') . '
                                 ' . tag('input type="hidden" name="folder" value="' . $folder . '"') . '
                               </form>
@@ -110,7 +110,7 @@ class XHFileBrowserView {
                 $name = str_replace($this->currentDirectory, '', $folder);
                 $html .= '<li class="folder">
                               <form style="display: inline;" method="POST" action="" onsubmit="return confirmFolderDelete(\'' . $this->translate('confirm_delete', $this->basePath . $folder) . '\');">
-                                <input type="image" src="' . $this->browserPath . 'css/icons/delete.png" alt="delete" title="delete folder" />
+                                <input type="image" src="' . $this->browserPath . 'css/icons/delete.png" alt="delete" title="' . $this->translate('delete_folder') . '" />
                                 <input type="hidden" name="deleteFolder" />
                                 <input type="hidden" name="folder" value="' . $folder . '" />
                               </form>
@@ -145,7 +145,7 @@ class XHFileBrowserView {
             $html .= '
                 <li style="white-space:nowrap;" class="' . $class . '">
                     <form style="display: inline;" method="POST" action="" onsubmit="return confirmFileDelete(\'' . $this->translate('confirm_delete', $this->currentDirectory . $file) . '\');">
-                        ' . tag('input type="image" src="' . $this->browserPath . 'css/icons/delete.png" alt="delete" title="delete file" style="width: 16px; height: 16px"') . '
+                        ' . tag('input type="image" src="' . $this->browserPath . 'css/icons/delete.png" alt="delete" title="' . $this->translate('delete_file') . '" style="width: 16px; height: 16px"') . '
                         ' . tag('input type="hidden" name="deleteFile"') . '
                         ' . tag('input type="hidden" name="file" value="' . $file . '"') . '
                     </form>
@@ -153,7 +153,7 @@ class XHFileBrowserView {
                         ' . tag('input type="text" size="25" name="renameFile" value="' . $file . '" onmouseout="hideRenameForm(\'' . $i . '\');"') . '
                         ' . tag('input type="hidden" name="oldName" value="' . $file . '"') . '
                     </form>
-                    <a style="position:relative" href="#" id="file_' . $i . '" onclick="showRenameForm(\'' . $i . '\', \'' . $this->translate('prompt_rename', $file) . '\');">' . tag('img src="' . $this->browserPath . 'css/icons/rename.png" alt="rename file" title="rename file" style="width: 16px; height: 16px"') . '</a>
+                    <a style="position:relative" href="#" id="file_' . $i . '" onclick="showRenameForm(\'' . $i . '\', \'' . $this->translate('prompt_rename', $file) . '\');">' . tag('img src="' . $this->browserPath . 'css/icons/rename.png" alt="' . $this->translate('rename_file') . '" title="' . $this->translate('rename_file') . '" style="width: 16px; height: 16px"') . '</a>
                     <a style="position:relative" class="xhfbfile" href="' . $this->currentDirectory . $file . '" target="_blank">' . $file;
 
             $ffn = $base . $fb->currentDirectory . $file;
