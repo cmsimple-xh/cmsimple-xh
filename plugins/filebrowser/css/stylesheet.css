@@ -54,11 +54,11 @@ display: none;
 }
 
 #xhFilebrowser li.openFolder, #xhFilebrowserMenu li.openFolder {
-list-style-image:url(icons/folder-open.png);
+list-style-image:url(icons/folder.png);
 padding: 2px 0 2px 5px;
 margin: 0 0 0 0;
 line-height: 1em;
-font-size: 14px; 
+font-size: 14px;
 font-weight: 900;
 }
 
@@ -67,7 +67,7 @@ list-style-image:url(icons/folder.png);
 padding: 2px 0 2px 5px;
 margin: 0 0 0 0;
 line-height: 1em;
-font-size: 13px; 
+font-size: 13px;
 font-weight: 300;
 }
 
@@ -132,7 +132,7 @@ a.xhfbfile:hover{
     cursor:pointer;
 }
 #xhFilebrowser #files li.odd{
-   
+
 }
 #xhFilebrowser #files ul li, #xhFilebrowser #files ul{
     margin-left: 0em;
