@@ -150,6 +150,8 @@ class XH_TextFileEdit extends XH_FileEdit
         global $tx;
 
 	$action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
+	$button = tag('input type="submit" class="submit" value="'
+		      . ucfirst($tx['action']['save']) . '"');
 	$o = '<h1>' . ucfirst($this->caption) . '</h1>'
 	    . '<form action="' . $action . '" method="POST">'
 	    . '<textarea rows="25" cols="80" name="' . $this->textareaName
@@ -159,9 +161,7 @@ class XH_TextFileEdit extends XH_FileEdit
 	foreach ($this->params as $param => $value) {
 	    $o .= tag('input type="hidden" name="' . $param . '" value="' . $value . '"');
 	}
-	$o .= tag('input type="submit" class="submit" value="'
-                  . ucfirst($tx['action']['save']) . '"')
-	    . '</form>';
+	$o .= $button . '</form>';
 	return $o;
     }
 
@@ -410,13 +410,16 @@ class XH_ArrayFileEdit extends XH_FileEdit
         global $pth, $tx;
 
         $action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
+	$button = tag('input type="submit" class="submit" value="'
+		      . ucfirst($tx['action']['save']) . '"');
 	$o = '<h1>' . ucfirst($this->caption) . '</h1>'
 	    . '<form id="xh_config_form" action="' . $action . '" method="POST" accept-charset="UTF-8">'
+	    . $button
             . '<table style="width: 100%">';
         foreach ($this->cfg as $category => $options) {
 	    if ($this->hasVisibleFields($options)) {
-                $o .= '<tr><td colspan="2"><h4>' . ucfirst($category)
-		    . '</h4></td></tr>';
+                $o .= '<tr><td colspan="2"><h6>' . ucfirst($category)
+		    . '</h6></td></tr>';
 	    }
             foreach ($options as $name => $opt) {
                 $info = isset($opt['hint'])
@@ -438,9 +441,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
         foreach ($this->params as $param => $value) {
             $o .= tag('input type="hidden" name="' . $param . '" value="' . $value . '"');
         }
-        $o .= tag('input type="submit" class="submit" value="'
-                  . ucfirst($tx['action']['save']) . '"')
-            . '</form>';
+        $o .= $button . '</form>';
         return $o;
     }
 
@@ -575,25 +576,40 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
 class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
 {
     /**
+     * @global array  The paths of system files and folders.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      */
     function XH_CoreConfigFileEdit()
     {
-        global $cf, $tx;
+        global $pth, $cf, $tx;
 
 	parent::XH_CoreArrayFileEdit();
 	$this->varName = 'cf';
 	$this->params = array('form' => 'array', 'file' => 'config', 'action' => 'save');
 	$this->redir = '?file=config&action=array';
         $this->cfg = array();
+	$fn = $pth['folder']['cmsimple'] . 'metaconfig.php';
+	if (is_readable($fn)) {
+	    include $fn;
+	}
         foreach ($cf as $cat => $opts) {
             $this->cfg[$cat] = array();
             foreach ($opts as $name => $val) {
-		if ($cat == 'scripting' && $name == 'regexp') {
+		// The following are there for backwards compatibility,
+		// and have to be suppressed in the config form.
+		if ($cat == 'scripting' && $name == 'regexp'
+		    || $cat == 'site' && $name == 'title') {
 		    continue;
 		}
-		$co = array('val' => $val, 'type' => 'string');
+		$type = isset($mcf[$cat][$name]) ? $mcf[$cat][$name] : 'string';
+		if (strpos($type, 'enum:') === 0) {
+		    $vals = explode(',', substr($type, strlen('enum:')));
+		    $type = 'enum';
+		} else {
+		    $vals = null;
+		}
+		$co = array('val' => $val, 'type' => $type, 'vals' => $vals);
 		if (isset($tx['help']["${cat}_$name"])) {
 		    $co['hint'] = $tx['help']["${cat}_$name"];
 		}
