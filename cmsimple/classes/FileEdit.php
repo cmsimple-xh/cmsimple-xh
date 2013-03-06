@@ -345,7 +345,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
 	    . '</table>'
 	    . '</div>';
 	$onclick = 'var dlg = document.getElementById(\'' . $id
-	    . '\'); xh.modalDialog(dlg, \'400px\', xh.validatePassword)';
+	    . '\'); xh.modalDialog(dlg, \'350px\', xh.validatePassword)';
 	$o .= '<button type="button" onclick="' . $onclick
 	    . '">Change Password</button>';
 	return $o;

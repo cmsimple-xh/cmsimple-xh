@@ -60,6 +60,9 @@ xh.modalDialog = function(contentElement, width, func) {
         document.body.removeChild(overlay);
     }
 
+    var center = document.createElement("div");
+    center.className = "xh_modal_dialog_center";
+
     var dialog = document.createElement("div");
     dialog.className = "xh_modal_dialog";
     dialog.style.width = width;
@@ -106,7 +109,9 @@ xh.modalDialog = function(contentElement, width, func) {
 
     dialog.appendChild(buttons);
 
-    overlay.appendChild(dialog);
+    center.appendChild(dialog);
+
+    overlay.appendChild(center);
 
     document.body.appendChild(overlay);
 }
