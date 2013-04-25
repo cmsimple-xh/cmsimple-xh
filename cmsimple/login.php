@@ -94,7 +94,7 @@ function loginforms() {
         $cf['meta']['robots'] = "noindex";
         $onload .= "self.focus();document.login.passwd.focus();";
         $f = $tx['menu']['login'];
-        $o .= '<h1>' . $tx['menu']['login'] . '</h1><p><b>' . $tx['login']['warning'] . '</b></p><form id="login" name="login" action="' . $sn . '?' . $u[$s] . '" method="post"><div id="login">' . tag('input type="hidden" name="login" value="true"') . tag('input type="hidden" name="selected" value="' . @$u[$s] . '"') . tag('input type="password" name="passwd" id="passwd" value=""') . ' ' . tag('input type="submit" name="submit" id="submit" value="' . $tx['menu']['login'] . '"') . '</div></form>';
+        $o .= '<h1>' . $tx['menu']['login'] . '</h1><p><b>' . $tx['login']['warning'] . '</b></p><form id="login" name="login" action="' . $sn . '?' . $u[$s] . '" method="post">' . tag('input type="hidden" name="login" value="true"') . tag('input type="hidden" name="selected" value="' . @$u[$s] . '"') . tag('input type="password" name="passwd" id="passwd" value=""') . ' ' . tag('input type="submit" name="submit" id="submit" value="' . $tx['menu']['login'] . '"') . '</form>';
         $s = -1;
     }
 }
