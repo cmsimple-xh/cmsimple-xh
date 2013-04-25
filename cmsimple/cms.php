@@ -120,7 +120,7 @@ $pth['folder']['language'] = $pth['folder']['cmsimple'] . 'languages/';
 $pth['folder']['langconfig'] = $pth['folder']['cmsimple'] . 'languages/';
 if (preg_match('/\/([A-z]{2})\/index.php$/', sv('SCRIPT_NAME'), $temp)) {
     $sl = strtolower($temp[1]);
-} 
+}
 // for subsite solution - GE 2011-02
 
 $subsite_folder_array = explode('/',str_replace($_SERVER['QUERY_STRING'],'',$_SERVER['REQUEST_URI'])); // creates array
@@ -325,6 +325,11 @@ if (!include($pth['file']['adm'])) {
         $s = 0;
 }
 
+
+/**
+ * Pre-Call Plugins
+ */
+preCallPlugins();
 
 // CMSimple scripting
 if (!($edit && $adm) && $s > -1) {

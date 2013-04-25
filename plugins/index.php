@@ -283,11 +283,6 @@ if ($adm) {
     // #########################################
 }
 
-/**
- * Pre-Call Plugins
- */
-preCallPlugins();
-
 // Plugin functions
 unset($plugin);
 
@@ -884,9 +879,11 @@ function preCallPlugins($pageIndex = -1) {
         if ((int) $pageIndex > - 1 && (int) $pageIndex < count($u)) {
             $as = $pageIndex;
         } else {
-            $as = $s < 0 ? 0 : $s;
+            $as = $s;
         }
-	$c[$as] = evaluate_plugincall($c[$as]);
+	if ($as >= 0) {
+            $c[$as] = evaluate_plugincall($c[$as]);
+	}
     }
 }
 
