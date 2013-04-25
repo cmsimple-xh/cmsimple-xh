@@ -77,14 +77,14 @@ done
 rm cmsimplexh/build
 
 # create zip file
-echo "zipping..."
-ff=""
-for f in $README_FILES; do
-    ff="$ff cmsimplexh/$f"
-done
-echo $ff
-zip -rq $ofile cmsimplexh/ -x $ff
-zip -jlq $ofile $ff
+#echo "zipping..."
+#ff=""
+#for f in $README_FILES; do
+#    ff="$ff cmsimplexh/$f"
+#done
+#echo $ff
+#zip -rq $ofile cmsimplexh/ -x $ff
+#zip -jlq $ofile $ff
 
 # clean up
 echo "cleaning up..."
