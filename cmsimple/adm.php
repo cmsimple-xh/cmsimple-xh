@@ -501,6 +501,7 @@ function check_links() {
 
 // First change for linkcheck page-internal anchors - by MD 2009-12 (CMSimple_XH 1.0)
             foreach ($pageLinks[1] as $link) {
+                $link = str_replace('&amp;', '&', $link);
                 if (strpos($link, '#') === 0) {
                     $hrefs[$i][] = '?' . $u[$i] . $link;
                 } else {
