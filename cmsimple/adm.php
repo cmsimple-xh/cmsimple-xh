@@ -426,7 +426,12 @@ if ($adm && $f == 'save') {
         } else {
             $su = $u[max($s - 1, 0)];
         }
-        header("Location: " . $sn . "?" . $su);
+        header('Location: http'
+            . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
+            . '://' . $_SERVER['SERVER_NAME']
+            . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
+            . preg_replace('/index.php$/', '', $_SERVER['SCRIPT_NAME'])
+            . "?" . $su, true, 303);
         exit;
     }
     else {
