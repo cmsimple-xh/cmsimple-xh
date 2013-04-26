@@ -1162,14 +1162,14 @@ function locator() {
     global $title, $h, $s, $f, $c, $l, $tx, $txc, $cf;
     if (hide($s) && $cf['show_hidden']['path_locator'] != 'true')
         return $h[$s];
-    if ($title != '' && (!isset($h[$s]) || $h[$s] != $title))
-        return $title;
-    $t = '';
     if ($s == 0)
         return $h[$s];
+    elseif ($title != '' && (isset($h[$s]) && $h[$s] != $title))
+        $t = $title;
     elseif ($f != '')
-        return ucfirst($f);
+        $t =  ucfirst($f);
     elseif ($s > 0) {
+        $t = '';
         $tl = $l[$s];
         if ($tl > 1) {
             for ($i = $s - 1; $i >= 0; $i--) {
@@ -1181,14 +1181,14 @@ function locator() {
                     break;
             }
         }
-        if ($cf['locator']['show_homepage'] == 'true') {
-            return a(0, '') . $tx['locator']['home'] . '</a> &gt; ' . $t . $h[$s];
-        } else {
-            return $t . $h[$s];
-        }
     }
     else
         return '&nbsp;';
+    if ($cf['locator']['show_homepage'] == 'true') {
+        return a(0, '') . $tx['locator']['home'] . '</a> &gt; ' . $t . ($s > 0 ? $h[$s] : '');
+    } else {
+        return $t . ($s > 0 ? $h[$s] : '');
+    }
 }
 
 function editmenu() {
