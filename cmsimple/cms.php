@@ -123,7 +123,10 @@ if (preg_match('/\/([A-z]{2})\/index.php$/', sv('SCRIPT_NAME'), $temp)) {
 }
 // for subsite solution - GE 2011-02
 
-$subsite_folder_array = explode('/',str_replace($_SERVER['QUERY_STRING'],'',$_SERVER['REQUEST_URI'])); // creates array
+$temp = isset($_SERVER['REQUEST_URI'])
+    ? str_replace($_SERVER['QUERY_STRING'],'',$_SERVER['REQUEST_URI'])
+    : $_SERVER['SCRIPT_NAME'];
+$subsite_folder_array = explode('/', $temp); // creates array
 $subsite_folder = array_pop($subsite_folder_array);  // removes last element of array
 $subsite_folder = end($subsite_folder_array);  // returns last element of array
 if(file_exists('./cmsimplesubsite.htm')){$sl = $subsite_folder;}
