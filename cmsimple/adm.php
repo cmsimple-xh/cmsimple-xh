@@ -371,7 +371,7 @@ if ($adm) {
                     $o .= '</table>' . "\n" . tag('input type="hidden" name="form" value="' . $form . '"') . "\n";
                 }
                 else
-                    $o .= '<textarea rows="25" cols="50" name="text" class="cmsimplecore_file_edit">' . rf($pth['file'][$file]) . '</textarea>';
+                    $o .= '<textarea rows="25" cols="50" name="text" class="cmsimplecore_file_edit">' . htmlspecialchars(rf($pth['file'][$file]), ENT_NOQUOTES, 'UTF-8') . '</textarea>';
 
                 if (isset($admin) && $admin)
                     $o .= tag('input type="hidden" name="admin" value="' . $admin . '"') . "\n";
