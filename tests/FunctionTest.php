@@ -10,6 +10,11 @@ include '../cmsimple/functions.php';
 
 class FunctionTest extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $_SERVER['SERVER_NAME'] = 'example.com';
+    }
+
     /**
      * @expectedException PHPUnit_Framework_Error_Deprecated
      */
@@ -77,6 +82,23 @@ class FunctionTest extends PHPUnit_Framework_TestCase
     public function testRp($filename, $expected)
     {
         $actual = @rp($filename); // suppress deprecated warning
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function dataForTestSv()
+    {
+        return array(
+            array('', ''),
+            array('SERVER_NAME', 'example.com')
+        );
+    }
+
+    /**
+     * @dataProvider dataForTestSv
+     */
+    public function testSv($key, $expected)
+    {
+        $actual = sv($key);
         $this->assertEquals($expected, $actual);
     }
 
