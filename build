@@ -57,7 +57,7 @@ then
     echo "version missing"
     usage
 fi
-    
+
 # export working copy
 echo "exporting working copy..."
 svn export -q . cmsimplexh/
@@ -74,7 +74,7 @@ for i in $VI_FILES; do
 done
 
 # remove files that shouldn't be included in release
-rm cmsimplexh/build
+rm cmsimplexh/build cmsimplexh/Makefile
 
 # create zip file
 echo "zipping..."
