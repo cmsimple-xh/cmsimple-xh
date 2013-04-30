@@ -59,7 +59,27 @@ class FunctionTest extends PHPUnit_Framework_TestCase
         global $cf;
 
         $cf['xhtml']['amp'] = $xhtmlAmp;
-        $actual = @amp();
+        $actual = @amp(); // suppress deprecated warning
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function dataForTestTag()
+    {
+        return array(
+            array('', 'br', '<br>'),
+            array('true', 'br', '<br />')
+        );
+    }
+
+    /**
+     * @dataProvider dataForTestTag
+     */
+    public function testTag($xhtmlEndtags, $str, $expected)
+    {
+        global $cf;
+
+        $cf['xhtml']['endtags'] = $xhtmlEndtags;
+        $actual = tag($str);
         $this->assertEquals($expected, $actual);
     }
 }
