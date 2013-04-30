@@ -16,6 +16,36 @@ class FunctionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @todo add more tests
+     */
+    public function dataForTestEvaluateCmsimpleScripting()
+    {
+        return array(
+            array('foo bar', true, 'foo bar'),
+            array('foo #CMSimple $output .= \'baz\';# bar', true, 'foo  barbaz'),
+            array('foo #CMSimple hide# bar', true, 'foo #CMSimple hide# bar')
+        );
+    }
+
+    /**
+     * @dataProvider dataForTestEvaluateCmsimpleScripting
+     */
+    public function testEvaluateCmsimpleScripting($str, $compat, $expected)
+    {
+        $actual = evaluate_cmsimple_scripting($str, $compat);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testEvaluateCmsimpleScriptingKeywords()
+    {
+        $str = 'foo #CMSimple $keywords = \'foo, bar\';# bar';
+        $expected = 'foo  bar';
+        $actual = evaluate_cmsimple_scripting($str, true);
+        $this->assertEquals($expected, $actual);
+        $this->assertEquals('foo, bar', $GLOBALS['keywords']);
+    }
+
+    /**
      * @expectedException PHPUnit_Framework_Error_Deprecated
      */
     public function testAmpIsDeprecated()
@@ -153,6 +183,29 @@ class FunctionTest extends PHPUnit_Framework_TestCase
 
         $cf['xhtml']['endtags'] = $xhtmlEndtags;
         $actual = tag($str);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function dataForTestEncodeMIMEFieldBody()
+    {
+        return array(
+            array('foo bar', 'foo bar'),
+            array(str_repeat('foo bar ', 20), str_repeat('foo bar ', 20)),
+            array("f\xC3\xB6o", '=?UTF-8?B?ZsO2bw==?='),
+            array(
+                str_repeat("\xC3\xA4\xC3\xB6\xC3\xBC", 10),
+                "=?UTF-8?B?w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6Q=?="
+                . "\r\n =?UTF-8?B?w7bDvMOkw7bDvMOkw7bDvA==?="
+            )
+        );
+    }
+
+    /**
+     * @dataProvider dataForTestEncodeMIMEFieldBody
+     */
+    public function testEncodeMIMEFieldBody($str, $expected)
+    {
+        $actual = XH_encodeMIMEFieldBody($str);
         $this->assertEquals($expected, $actual);
     }
 }
