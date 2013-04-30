@@ -63,7 +63,7 @@ if ($action == 'send')
     {
         $e .= '<li>' . $tx['mailform']['mustwritemessage'] . '</li>';
     }
-    if (!(preg_match('!^[^\r\n]+@[^\s]+$!', $sender)))
+    if (!XH_isValidEmail($sender))
     {
         $e .= '<li>' . $tx['mailform']['notaccepted'] . '</li>';
     }

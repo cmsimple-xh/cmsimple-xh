@@ -364,4 +364,22 @@ function XH_encodeMIMEFieldBody($text)
     }
 }
 
+/**
+ * Returns whether an email address is valid.
+ *
+ * For simplicity we are not aiming to validate according to RFC 5322,
+ * but rather to make a minimal check, if the email address may be valid.
+ * Furthermore, we make sure, that email header injection is not possible.
+ *
+ * @since 1.5.7
+ *
+ * @param  string $address
+ * @return bool
+ */
+function XH_isValidEmail($address)
+{
+    return !preg_match('/[^\x00-\x7F]/', $address)
+        && preg_match('!^[^\r\n]+@[^\s]+$!', $address);
+}
+
 ?>
