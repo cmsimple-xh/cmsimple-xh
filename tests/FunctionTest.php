@@ -43,10 +43,27 @@ class FunctionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function dataForTestRmanl()
+    {
+        return array(
+            array("\r\nFoo\r\n\n\rBar\rBaz\n", "FooBarBaz"),
+            array('Foo Bar', 'Foo Bar')
+        );
+    }
+
+    /**
+     * @dataProvider dataForTestRmanl
+     */
+    public function testRmanl($str, $expected)
+    {
+        $actual = rmanl($str);
+        $this->assertEquals($expected, $actual);
+    }
+
     public function dataForTestRmnl()
     {
         return array(
-            array("Foo\r\n\n\rBar", "Foo\nBar"),
+            array("\r\nFoo\r\n\n\rBar\rBaz\n", "\nFoo\nBar\nBaz\n"),
             array('Foo Bar', 'Foo Bar')
         );
     }
