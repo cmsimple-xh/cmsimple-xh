@@ -13,31 +13,6 @@ class FunctionTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error_Deprecated
      */
-    public function testRpIsDeprecated()
-    {
-        rp('');
-    }
-
-    public function dataForTestRp()
-    {
-        return array(
-            array('./FunctionTest.php', __FILE__),
-            array('./DoesNotExist', './DoesNotExist')
-        );
-    }
-
-    /**
-     * @dataProvider dataForTestRp
-     */
-    public function testRp($filename, $expected)
-    {
-        $actual = @rp($filename); // suppress deprecated warning
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testAmpIsDeprecated()
     {
         amp();
@@ -60,6 +35,48 @@ class FunctionTest extends PHPUnit_Framework_TestCase
 
         $cf['xhtml']['amp'] = $xhtmlAmp;
         $actual = @amp(); // suppress deprecated warning
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function dataForTestRmnl()
+    {
+        return array(
+            array("Foo\r\n\n\rBar", "Foo\nBar"),
+            array('Foo Bar', 'Foo Bar')
+        );
+    }
+
+    /**
+     * @dataProvider dataForTestRmnl
+     */
+    public function testRmnl($str, $expected)
+    {
+        $actual = rmnl($str);
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
+    public function testRpIsDeprecated()
+    {
+        rp('');
+    }
+
+    public function dataForTestRp()
+    {
+        return array(
+            array('./FunctionTest.php', __FILE__),
+            array('./DoesNotExist', './DoesNotExist')
+        );
+    }
+
+    /**
+     * @dataProvider dataForTestRp
+     */
+    public function testRp($filename, $expected)
+    {
+        $actual = @rp($filename); // suppress deprecated warning
         $this->assertEquals($expected, $actual);
     }
 
