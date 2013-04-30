@@ -208,6 +208,24 @@ class FunctionTest extends PHPUnit_Framework_TestCase
         $actual = XH_encodeMIMEFieldBody($str);
         $this->assertEquals($expected, $actual);
     }
+
+    public function dataForTestIsValidEmail()
+    {
+        return array(
+            array('post@example.com', true),
+            array("me@\xC3A4rger.de", false),
+            array("hacker@example.com\r\n\r\n", false)
+        );
+    }
+
+    /**
+     * @dataProvider dataForTestIsValidEmail
+     */
+    public function testIsValidEmail($address, $expected)
+    {
+        $actual = XH_isValidEmail($address);
+        $this->assertEquals($expected, $actual);
+    }
 }
 
 ?>

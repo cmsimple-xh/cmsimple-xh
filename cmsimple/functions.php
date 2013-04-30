@@ -1716,7 +1716,7 @@ function afterPluginLoading($callback = null)
  * Returns the body of an email header field as "encoded word" (RFC 2047)
  * with "folding" (RFC 5322), if necessary.
  *
- * @since XH 1.5.7
+ * @since 1.5.7
  *
  * @param  string $text
  * @return string
@@ -1743,6 +1743,25 @@ function XH_encodeMIMEFieldBody($text)
         $func = create_function('$l', 'return \'=?UTF-8?B?\' . base64_encode($l) . \'?=\';');
         return implode("\r\n ", array_map($func, $lines));
     }
+}
+
+
+/**
+ * Returns whether an email address is valid.
+ *
+ * For simplicity we are not aiming to validate according to RFC 5322,
+ * but rather to make a minimal check, if the email address may be valid.
+ * Furthermore, we make sure, that email header injection is not possible.
+ *
+ * @since 1.5.7
+ *
+ * @param  string $address
+ * @return bool
+ */
+function XH_isValidEmail($address)
+{
+    return !preg_match('/[^\x00-\x7F]/', $address)
+        && preg_match('!^[^\r\n]+@[^\s]+$!', $address);
 }
 
 ?>
