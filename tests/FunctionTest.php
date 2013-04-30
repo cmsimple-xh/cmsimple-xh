@@ -60,6 +60,23 @@ class FunctionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function dataForTestRmws()
+    {
+        return array(
+            array('  Foo  Bar ', ' Foo Bar '),
+            array("\t Foo \t Bar \t", ' Foo Bar ')
+        );
+    }
+
+    /**
+     * @dataProvider dataForTestRmws
+     */
+    public function testRmws($str, $expected)
+    {
+        $actual = xh_rmws($str);
+        $this->assertEquals($expected, $actual);
+    }
+
     public function dataForTestRmnl()
     {
         return array(
