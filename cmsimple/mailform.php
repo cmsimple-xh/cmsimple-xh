@@ -149,8 +149,7 @@ function mail_utf8($to, $subject = '(No Subject)', $message = '', $header = '')
         . 'Content-Type: text/plain; charset=UTF-8; format=flowed' . "\r\n"
         . 'Content-Transfer-Encoding: base64' . "\r\n"
         . $header;
-    $subject = '=?UTF-8?B?'
-        . base64_encode(utf8_substr($subject, 0, 45)) . '?=';
+    $subject = XH_encodeMIMEFieldBody($subject);
 
     $message = preg_replace('/(?:\r\n|\r|\n)/', "\r\n", trim($message));
     $message = chunk_split(base64_encode($message));

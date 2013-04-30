@@ -158,7 +158,7 @@ function evaluate_plugincall($__text) {
     }
     }
     return $__text;
-} 
+}
 
 /**
  * Returns $text with CMSimple scripting and plugin calls evaluated.
@@ -328,6 +328,40 @@ function XH_systemCheck($data)
     $o .= "</ul>\n";
 
     return $o;
+}
+
+
+/**
+ * Returns the body of an email header field as "encoded word" (RFC 2047)
+ * with "folding" (RFC 5322), if necessary.
+ *
+ * @since XH 1.5.7
+ *
+ * @param  string $text
+ * @return string
+ */
+function XH_encodeMIMEFieldBody($text)
+{
+    if (!preg_match('/(?:[^\x00-\x7F])/', $text)) { // ASCII only
+        return $text;
+    } else {
+        $lines = array();
+        do {
+            $i = 45;
+            if (strlen($text) > $i) {
+                while ((ord($text[$i]) & 0xc0) == 0x80) {
+                    $i--;
+                }
+                $lines[] = substr($text, 0, $i);
+                $text = substr($text, $i);
+            } else {
+                $lines[] = $text;
+                $text = '';
+            }
+        } while ($text != '');
+        $func = create_function('$l', 'return \'=?UTF-8?B?\' . base64_encode($l) . \'?=\';');
+        return implode("\r\n ", array_map($func, $lines));
+    }
 }
 
 ?>
