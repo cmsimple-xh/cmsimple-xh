@@ -892,7 +892,9 @@ function XH_readContents($language = null)
     foreach ($c as $i => $j) {
         if (preg_match('/<\?php(.*?)\?>/is', $j, $m)) {
             eval($m[1]);
-            $c[$i] = str_replace($m[0], '', $j);
+            $c[$i] = preg_replace('/<\?php(.*?)\?>/is', '', $j);
+        } else {
+            $page_data[] = array();
         }
     }
 
@@ -1677,15 +1679,18 @@ function XH_writeFile($filename, $contents)
  */
 function XH_saveContents()
 {
-    global $c, $pth, $tx, $pd_router;
+    global $c, $pth, $cf, $tx, $pd_router;
 
+    $hot = '<h[1-' . $cf['menu']['levels'] . '][^>]*>';
+    $hct = '<\/h[1-' . $cf['menu']['levels'] . ']>';
     $title = utf8_ucfirst($tx['filetype']['content']);
     $cnts = "<html><head><title>$title</title>\n"
         . $pd_router->headAsPHP()
         . '</head><body>' . "\n";
     foreach ($c as $j => $i) {
-        $cnts .= rmnl($i . "\n")
-            . $pd_router->pageAsPHP($j);
+        preg_match("/(.*?)($hot(.+?)$hct)(.*)/isu", $i, $matches);
+        $page = $matches[1] . $matches[2] . PHP_EOL . $pd_router->pageAsPHP($j) . $matches[4];
+        $cnts .= rmnl($page . "\n");
     }
     $cnts .= '</body></html>';
     return XH_writeFile($pth['file']['content'], $cnts) !== false;
