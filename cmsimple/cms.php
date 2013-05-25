@@ -3,19 +3,23 @@
 /**
  * The main file of CMSimple_XH.
  *
- * @package	XH
- * @copyright	1999-2009 <http://cmsimple.org/>
- * @copyright	2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version	$CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
- * @version     $Id$
- * @link	http://cmsimple-xh.org/
+ * PHP versions 4 and 5
+ *
+ * @category  CMSimple_XH
+ * @package   XH
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 <http://cmsimple.org/>
+ * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://cmsimple-xh.org/
  */
 
 /* utf8-marker = äöü */
 /*
   ======================================
-  $CMSIMPLE_XH_VERSION$
+  $CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
   $CMSIMPLE_XH_DATE$
   based on CMSimple version 3.3 - December 31. 2009
   For changelog, downloads and information please see http://www.cmsimple-xh.com
@@ -33,30 +37,45 @@
   CMSimple is available under four different licenses:
 
   1) GPL 3
-  From December 31. 2009 CMSimple is released under the GPL 3 licence with no link requirments. You may not remove copyright information from the files, and any modifications will fall under the copyleft conditions in the GPL 3.
+  From December 31. 2009 CMSimple is released under the GPL 3 licence with no
+  link requirments. You may not remove copyright information from the files, and
+  any modifications will fall under the copyleft conditions in the GPL 3.
 
   2) AGPL 3
-  You must keep a convenient and prominently visible feature on every generated page that displays the CMSimple Legal Notices. The required link to the CMSimple Legal Notices must be static, visible and readable, and the text in the CMSimple Legal Notices may not be altered.
-  See http://www.cmsimple.org/?Licence:CMSimple_Legal_Notices
+  You must keep a convenient and prominently visible feature on every generated
+  page that displays the CMSimple Legal Notices. The required link to the
+  CMSimple Legal Notices must be static, visible and readable, and the text in
+  the CMSimple Legal Notices may not be altered. See
+  http://www.cmsimple.org/?Licence:CMSimple_Legal_Notices
 
   3) Linkware / CMSimple Link Requirement Licence
-  Same as AGPL, but instead of keeping a link to the CMSimple Legal Notices, you must place a static, visible and readable link to www.cmsimple.org with the text or an image stating "Powered by CMSimple" on every generated page (place it in the template).
-  See http://www.cmsimple.org/?Licence:CMSimple_Link_Requirement_Licence
+  Same as AGPL, but instead of keeping a link to the CMSimple Legal Notices, you
+  must place a static, visible and readable link to www.cmsimple.org with the
+  text or an image stating "Powered by CMSimple" on every generated page (place
+  it in the template). See
+  http://www.cmsimple.org/?Licence:CMSimple_Link_Requirement_Licence
 
   4) Commercial Licence
-  This licence will allow you to remove the CMSimple Legal Notices / "Powered by CMSimple"-link at one specific domain. This licence will also protect your modifications against the copyleft requirements in AGPL 3 and give access to registering in user support forum.
+  This licence will allow you to remove the CMSimple Legal Notices / "Powered by
+  CMSimple"-link at one specific domain. This licence will also protect your
+  modifications against the copyleft requirements in AGPL 3 and give access to
+  registering in user support forum.
 
-  You may change this LICENCE TYPES SECTION to relevant information, if you have purchased a commercial licence, but then the files may not be distributed to any other domain not covered by a commercial licence.
+  You may change this LICENCE TYPES SECTION to relevant information, if you have
+  purchased a commercial licence, but then the files may not be distributed to
+  any other domain not covered by a commercial licence.
 
-  For further informaion about the licence types, please see http://www.cmsimple.org/?Licence and /cmsimple/legal.txt
+  For further informaion about the licence types, please see
+  http://www.cmsimple.org/?Licence and /cmsimple/legal.txt
 
   -- LICENCE TYPES SECTION END -
   ======================================
  */
 
 // prevent direct access
-if (preg_match('/cms.php/i', $_SERVER['PHP_SELF']))
+if (preg_match('/cms.php/i', $_SERVER['PHP_SELF'])) {
     die('Access Denied');
+}
 
 /**
  * The title of the current page.
@@ -179,17 +198,18 @@ require_once UTF8 . '/ucfirst.php';
 require_once UTF8 . '/utils/validation.php';
 
 if (file_exists($pth['folder']['cmsimple'].'defaultconfig.php')) {
-    include($pth['folder']['cmsimple'].'defaultconfig.php');
+    include $pth['folder']['cmsimple'].'defaultconfig.php';
 }
-if (!include($pth['file']['config'])) {
+if (!include $pth['file']['config']) {
     die('Config file missing');
 }
 // removed from the core in XH 1.6, but left for compatibility with plugins.
 $cf['scripting']['regexp']='#CMSimple (.*?)#';
 
 foreach (array('userfiles', 'downloads', 'images', 'media') as $temp) {
-    if (!isset($cf['folders'][$temp])) { // for compatibility with older version's config files
-	$cf['folders'][$temp] = $temp != 'media' ? "$temp/" : 'downloads/';
+    // for compatibility with older version's config files
+    if (!isset($cf['folders'][$temp])) {
+        $cf['folders'][$temp] = $temp != 'media' ? "$temp/" : 'downloads/';
     }
     $pth['folder'][$temp] = $pth['folder']['base'] . $cf['folders'][$temp];
 }
@@ -223,18 +243,21 @@ $pth['file']['corestyle'] = $pth['folder']['base'] . 'css/core.css';
 $pth['file']['adminjs'] = $pth['folder']['base'] . 'javascript/admin.js';
 
 XH_createLanguageFile($pth['file']['language']);
-if (!is_readable($pth['file']['language']) && !is_readable($pth['folder']['language'].'default.php')) {
+if (!is_readable($pth['file']['language'])
+    && !is_readable($pth['folder']['language'].'default.php')
+) {
     die('Language file ' . $pth['file']['language'] . ' missing');
 }
 
-include $pth['folder']['language'] . 'default.php';
-include $pth['file']['language'];
+require $pth['folder']['language'] . 'default.php';
+require $pth['file']['language'];
 
 // removed from the core in XH 1.6, but left for compatibility with plugins.
 $tx['meta']['codepage']='UTF-8';
 
 $pth['folder']['templates'] = $pth['folder']['base'] . 'templates/';
-$pth['folder']['template'] = $pth['folder']['templates'] . $cf['site']['template'] . '/';
+$pth['folder']['template'] = $pth['folder']['templates']
+    . $cf['site']['template'] . '/';
 
 $temp = $tx['subsite']['template'] == ''
     ? $cf['site']['template']
@@ -269,19 +292,27 @@ $cgi = (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi');
  *
  * @global string $sn
  */
-$sn = preg_replace('/([^\?]*)\?.*/', '\1', sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_URI')));
-foreach (array('action', 'download', 'downloads', 'edit', 'file', 'function',
-	       'images', 'login', 'logout', 'mailform', 'media', 'normal',
-	       'keycut', 'print', 'search', 'selected', 'settings', 'sitemap',
-	       'stylesheet', 'text', 'userfiles', 'validate', 'xhpages') as $i)
-{
+$sn = preg_replace(
+    '/([^\?]*)\?.*/', '\1',
+    sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_URI'))
+);
+$temp = array(
+    'action', 'download', 'downloads', 'edit', 'file', 'function',
+    'images', 'login', 'logout', 'mailform', 'media', 'normal',
+    'keycut', 'print', 'search', 'selected', 'settings', 'sitemap',
+    'stylesheet', 'text', 'userfiles', 'validate', 'xhpages'
+);
+foreach ($temp as $i) {
     initvar($i);
 }
 
 /**
  * The absolute path of the root folder.
  */
-define('CMSIMPLE_ROOT', str_replace('index.php', '', str_replace('/' . $sl . '/', "/", $sn)));
+define(
+    'CMSIMPLE_ROOT',
+    str_replace('index.php', '', str_replace('/' . $sl . '/', "/", $sn))
+);
 
 /**
  * The relative path of the root folder.
@@ -293,12 +324,14 @@ define('CMSIMPLE_BASE', $pth['folder']['base']);
  *
  * @since 1.6
  */
-define('CMSIMPLE_URL',
-       'http'
-       . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
-       . '://' . $_SERVER['SERVER_NAME']
-       . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
-       . preg_replace('/index.php$/', '', $_SERVER['SCRIPT_NAME']));
+define(
+    'CMSIMPLE_URL',
+    'http'
+    . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
+    . '://' . $_SERVER['SERVER_NAME']
+    . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
+    . preg_replace('/index.php$/', '', $_SERVER['SCRIPT_NAME'])
+);
 
 /**
  * The current page's URL (selected URL).
@@ -307,7 +340,8 @@ define('CMSIMPLE_URL',
  */
 $su = '';
 if (sv('QUERY_STRING') != '') {
-    $rq = explode('&', sv('QUERY_STRING')); // $rq should be $temp, but its used at least in tg_popup
+    // $rq should be $temp, but its used at least in tg_popup
+    $rq = explode('&', sv('QUERY_STRING'));
     if (!strpos($rq[0], '=')) {
         $su = $rq[0];
     }
@@ -371,23 +405,27 @@ if ($cf['security']['type'] == 'page' && $login && $keycut == '' && !$adm) {
 
 if ($login && !$adm) {
     if ($xh_hasher->CheckPassword($keycut, $cf['security']['password'])
-	&& ($cf['security']['type'] == 'page' || $cf['security']['type'] == 'javascript'))
-    {
-	setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
-	setcookie('keycut', $cf['security']['password'], 0, CMSIMPLE_ROOT);
-	$adm = true;
-	$edit = true;
-	writelog(date("Y-m-d H:i:s") . " from " . sv('REMOTE_ADDR') . " logged_in\n");
+        && ($cf['security']['type'] == 'page'
+        || $cf['security']['type'] == 'javascript')
+) {
+        setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
+        setcookie('keycut', $cf['security']['password'], 0, CMSIMPLE_ROOT);
+        $adm = true;
+        $edit = true;
+        writelog(
+            date("Y-m-d H:i:s") . " from " . sv('REMOTE_ADDR') . " logged_in\n"
+        );
     } else {
-	shead('403');
+        shead('403');
     }
 } elseif ($logout && $adm) {
     $o .= XH_backup();
     $adm = false;
     setcookie('status', '', 0, CMSIMPLE_ROOT);
     setcookie('keycut', '', 0, CMSIMPLE_ROOT);
-    $o .= '<p class="cmsimplecore_warning" style="text-align: center; font-weight: 900; padding: 8px;">'
-	. $tx['login']['loggedout'] . '</p>';
+    $o .= '<p class="cmsimplecore_warning"'
+        . ' style="text-align: center; font-weight: 900; padding: 8px;">'
+        . $tx['login']['loggedout'] . '</p>';
 }
 
 /**
@@ -405,8 +443,12 @@ define('XH_ADM', $adm);
  */
 if (XH_ADM && isset($_GET['xh_check'])) {
     header('Content-Type: text/plain');
-    echo intval($xh_hasher->CheckPassword(stsl($_GET['xh_check']),
-                                          $cf['security']['password']));
+    echo intval(
+        $xh_hasher->CheckPassword(
+            stsl($_GET['xh_check']),
+            $cf['security']['password']
+        )
+    );
     exit;
 }
 
@@ -415,12 +457,12 @@ if (XH_ADM && isset($_GET['xh_check'])) {
 
 if ($adm) {
     $o .= '<script type="text/javascript">/* <![CDATA[ */'
-	. 'if (document.cookie.indexOf(\'status=adm\') == -1)'
-	. ' document.write(\'\u003Cdiv class="cmsimplecore_warning">'
-	. $tx['error']['nocookies'] . '\u003C/div>\')'
-	. '/* ]]> */</script>'
-	. '<noscript><div class="cmsimplecore_warning">'
-	. $tx['error']['nojs'] . '</div></noscript>';
+        . 'if (document.cookie.indexOf(\'status=adm\') == -1)'
+        . ' document.write(\'\u003Cdiv class="cmsimplecore_warning">'
+        . $tx['error']['nocookies'] . '\u003C/div>\')'
+        . '/* ]]> */</script>'
+        . '<noscript><div class="cmsimplecore_warning">'
+        . $tx['error']['nojs'] . '</div></noscript>';
     if ($edit) {
         setcookie('mode', 'edit', 0, CMSIMPLE_ROOT);
     }
@@ -497,7 +539,8 @@ if ($adm) {
 /**
  * For compatibility with plugins.
  */
-define('PLUGINLOADER', TRUE);
+define('PLUGINLOADER', true);
+
 /**
  * For compatibility with plugins.
  */
@@ -521,8 +564,8 @@ if ($adm) {
 if ($adm) {
     // check for pagedata changes from MenuManager
     if (isset($menumanager) && $menumanager == 'true'
-	&& $action == 'saverearranged' && !empty($text))
-    {
+        && $action == 'saverearranged' && !empty($text)
+    ) {
         $pd_router->refresh_from_menu_manager($text);
     }
 
@@ -530,7 +573,7 @@ if ($adm) {
     if ($s > -1 && isset($_POST['save_page_data'])) {
         $temp = $_POST;
         unset($temp['save_page_data']);
-	$temp = array_map('stsl', $temp);
+        $temp = array_map('stsl', $temp);
         $pd_router->update($s, $temp);
     }
 }
@@ -555,7 +598,7 @@ $pd_current = $pd_router->find_page($pd_s);
 foreach (XH_plugins() as $plugin) {
     PluginFiles($plugin);
     if (is_readable($pth['file']['plugin_classes'])) {
-	include_once $pth['file']['plugin_classes'];
+        include_once $pth['file']['plugin_classes'];
     }
 }
 
@@ -565,17 +608,17 @@ foreach (XH_plugins() as $plugin) {
 foreach (XH_plugins() as $plugin) {
     PluginFiles($plugin);
     if (is_readable($pth['folder']['plugin_config'] . 'defaultconfig.php')) {
-	include $pth['folder']['plugin_config'] . 'defaultconfig.php';
+        include $pth['folder']['plugin_config'] . 'defaultconfig.php';
     }
     if (is_readable($pth['file']['plugin_config'])) {
-	include $pth['file']['plugin_config'];
+        include $pth['file']['plugin_config'];
     }
     XH_createLanguageFile($pth['file']['plugin_language']);
     if (is_readable($pth['folder']['plugin_languages'] . 'default.php')) {
         include $pth['folder']['plugin_languages'] . 'default.php';
     }
     if (is_readable($pth['file']['plugin_language'])) {
-	include $pth['file']['plugin_language'];
+        include $pth['file']['plugin_language'];
     }
 
 }
@@ -586,11 +629,13 @@ foreach (XH_plugins() as $plugin) {
 foreach (XH_plugins() as $plugin) {
     PluginFiles($plugin);
     if (is_readable($pth['file']['plugin_index'])) {
-	include $pth['file']['plugin_index'];
+        include $pth['file']['plugin_index'];
     }
     if (is_file($pth['file']['plugin_stylesheet'])) {
-	$hjs .= tag('link rel="stylesheet" href="' . $pth['file']['plugin_stylesheet']
-		    . '" type="text/css"') . "\n";
+        $hjs .= tag(
+            'link rel="stylesheet" href="' . $pth['file']['plugin_stylesheet']
+            . '" type="text/css"'
+        ) . "\n";
     }
 }
 
@@ -600,10 +645,10 @@ if ($adm) {
      * Include admin.php of all plugins.
      */
     foreach (XH_plugins(true) as $plugin) {
-	PluginFiles($plugin);
-	if (is_readable($pth['file']['plugin_admin'])) {
-	    include $pth['file']['plugin_admin'];
-	}
+        PluginFiles($plugin);
+        if (is_readable($pth['file']['plugin_admin'])) {
+            include $pth['file']['plugin_admin'];
+        }
     }
     $o .= $pd_router->create_tabs($s);
 }
@@ -656,10 +701,10 @@ if ($su == uenc($cf['menu']['legal'])) {
 
 if ($adm) {
     if ($validate) {
-	$f = 'validate';
+        $f = 'validate';
     }
     if ($settings) {
-	$f = 'settings';
+        $f = 'settings';
     }
     if (isset($sysinfo)) {
         $f = 'sysinfo';
@@ -686,8 +731,8 @@ if ($adm) {
     }
 
     if ($f == 'settings' || $f == 'images' || $f == 'downloads'
-        || $f == 'validate' || $f == 'sysinfo' || $f == 'phpinfo')
-    {
+        || $f == 'validate' || $f == 'sysinfo' || $f == 'phpinfo'
+    ) {
         $title = $tx['title'][$f];
         $o .= "\n\n" . '<h1>' . $title . '</h1>' . "\n";
     }
@@ -720,7 +765,7 @@ if ($adm) {
                 include_once $pth['folder']['classes'] . 'FileEdit.php';
                 $temp = array('config' => 'XH_CoreConfigFileEdit',
                               'language' => 'XH_CoreLangFileEdit',
-			      'content' => 'XH_CoreTextFileEdit',
+                              'content' => 'XH_CoreTextFileEdit',
                               'template' => 'XH_CoreTextFileEdit',
                               'stylesheet' => 'XH_CoreTextFileEdit');
                 $temp = array_key_exists($file, $temp) ? new $temp[$file] : null;
@@ -759,16 +804,29 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
     }
 }
 
-if ($adm && ($images || $downloads || $userfiles || $media || $edit && (!$f || $f == 'save') && !$download))
-{
-    if ($cf['filebrowser']['external'] && !file_exists($pth['folder']['plugins'] . $cf['filebrowser']['external'])) {
-        $e .= '<li>' . sprintf('External filebrowser %s missing', $cf['filebrowser']['external']) . '</li>' . "\n"; // FIXME: i18n
+if ($adm && ($images || $downloads || $userfiles || $media || $edit
+    && (!$f || $f == 'save') && !$download)
+) {
+    if ($cf['filebrowser']['external']
+        && !file_exists($pth['folder']['plugins'] . $cf['filebrowser']['external'])
+    ) {
+        // FIXME: i18n
+        $temp = sprintf(
+            'External filebrowser %s missing', $cf['filebrowser']['external']
+        );
+        $e .= '<li>' . $temp . '</li>' . "\n";
     }
 }
 
 if ($adm && $f == 'xhpages') {
-    if ($cf['pagemanager']['external'] && !file_exists($pth['folder']['plugins'] . $cf['pagemanager']['external'])) {
-        $e .= '<li>' . sprintf('External pagemanager %s missing', $cf['pagemanager']['external']) . '</li>' . "\n"; // FIXME: i18n
+    if ($cf['pagemanager']['external']
+        && !file_exists($pth['folder']['plugins'] . $cf['pagemanager']['external'])
+    ) {
+        // FIXME: i18n
+        $temp = sprintf(
+            'External pagemanager %s missing', $cf['pagemanager']['external']
+        );
+        $e .= '<li>' . $temp . '</li>' . "\n";
     }
 }
 
@@ -778,10 +836,10 @@ if ($adm && $f == 'xhpages') {
 if (!($edit && $adm) && $s > -1) {
     $c[$s] = evaluate_scripting($c[$s]);
     if (isset($keywords)) {
-	$tx['meta']['keywords'] = $keywords;
+        $tx['meta']['keywords'] = $keywords;
     }
     if (isset($description)) {
-	$tx['meta']['description'] = $description;
+        $tx['meta']['description'] = $description;
     }
 }
 
@@ -792,20 +850,22 @@ if ($s == -1 && !$f && $o == '') {
 
 loginforms();
 
-// FIXME: why so far down? Why at all? Don't we check these files when accessing them? And we have the system check!
-foreach (array('content', 'config', 'language', 'stylesheet', 'template', 'log') as $i) {
+// FIXME: Don't we check these files when accessing them? We have the system check!
+$temp = array('content', 'config', 'language', 'stylesheet', 'template', 'log');
+foreach ($temp as $i) {
     chkfile($i, ($login || $settings) && $adm);
 }
 if ($e) {
     $o = '<div class="cmsimplecore_warning cmsimplecore_center">' . "\n"
-	. '<b>' . $tx['heading']['warning'] . '</b>' . "\n" . '</div>' . "\n"
-	. '<ul>' . "\n" . $e . '</ul>' . "\n" . $o;
+        . '<b>' . $tx['heading']['warning'] . '</b>' . "\n" . '</div>' . "\n"
+        . '<ul>' . "\n" . $e . '</ul>' . "\n" . $o;
 }
 if ($title == '') {
     if ($s > -1) {
         $title = $h[$s];
     } elseif ($f != '') {
-        $title = ucfirst($f); // FIXME: check for duplication, i.e. isn't $title already set to $f?
+        // FIXME: check for duplication, i.e. isn't $title already set to $f?
+        $title = ucfirst($f);
     }
 }
 
@@ -819,21 +879,22 @@ if (!headers_sent($temp, $i)) {
 if ($print) {
     if ($cf['xhtml']['endtags'] == 'true') {
         echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"',
-	    ' "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">', "\n",
-	    '<html xmlns="http://www.w3.org/1999/xhtml">', "\n";
+            ' "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">', "\n",
+            '<html xmlns="http://www.w3.org/1999/xhtml">', "\n";
     } else {
         echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"',
-	    ' "http://www.w3.org/TR/html4/loose.dtd">', "\n", '<html>', "\n";
+            ' "http://www.w3.org/TR/html4/loose.dtd">', "\n", '<html>', "\n";
     }
     echo '<head>', "\n" . head(),
-	'<meta name="robots" content="noindex">', "\n",
-	'</head>', "\n", '<body class="print"', onload(), '>', "\n",
-	content(), '</body>', "\n", '</html>', "\n";
+        '<meta name="robots" content="noindex">', "\n",
+        '</head>', "\n", '<body class="print"', onload(), '>', "\n",
+        content(), '</body>', "\n", '</html>', "\n";
     exit;
 }
 
 if (XH_ADM) {
-    $bjs .= '<script type="text/javascript" src="' . $pth['file']['adminjs'] . '"></script>';
+    $bjs .= '<script type="text/javascript" src="' . $pth['file']['adminjs']
+        . '"></script>';
 }
 
 
@@ -852,7 +913,7 @@ if (!include $pth['file']['template']) {
     header('HTTP/1.0 500 Internal Server Error');
     header('Content-Type: text/plain; charset=utf-8');
     echo $tx['error']['missing'], ' ', $tx['filetype']['template'], "\n",
-	$pth['file']['template'];
+        $pth['file']['template'];
     exit;
 }
 
