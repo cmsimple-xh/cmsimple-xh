@@ -78,6 +78,13 @@ if (preg_match('/cms.php/i', $_SERVER['PHP_SELF'])) {
 }
 
 /**
+ * The separator for urichar_org/new.
+ *
+ * @since   1.6
+ */
+define('URICHAR_SEPARATOR', '|');
+
+/**
  * The title of the current page.
  *
  * @global  string $title
