@@ -36,5 +36,5 @@ $cf['uri']['length']="200";
 $cf['xhtml']['endtags']="";
 $cf['xhtml']['amp']="true";
 $cf['editmenu']['scroll']="";
-
+$cf['title']['format']="{SITE} &ndash; {PAGE}";
 ?>

@@ -22,9 +22,10 @@ function head()
 {
     global $title, $cf, $pth, $tx, $hjs;
 
-    if (!empty($cf['site']['title'])) {
-        $t = htmlspecialchars($cf['site']['title'], ENT_QUOTES, 'UTF-8')
-            . " \xe2\x80\x93 " . $title;
+    if ($cf['site']['title'] != '') {
+        $site = htmlspecialchars($cf['site']['title'], ENT_QUOTES, 'UTF-8');
+        $replacePairs = array('{SITE}' => $site, '{PAGE}' => $title);
+        $t = strtr($cf['title']['format'], $replacePairs);
     } else {
         $t = $title;
     }

@@ -98,6 +98,7 @@ $tx['help']['pagemanager_external']="If you want to use an external page manager
 $tx['help']['plugins_folder']="Please do not change";
 $tx['help']['security_password']="Default password of the site. Can be substituted in subsites, like secondary language pages etc. under:<br><b>Settings => CMSimple => Website</b><br><br>What you see here is the encrypted version of your password. To change the password, just enter the new one (unencrypted).";
 $tx['help']['site_template']="<p>Default template of the site. Can be substituted in subsites, like secondary language pages etc. under:</p><p><b>Settings => CMSimple => Website</b></p>";
+$tx['help']['title_format']="The format of the title of the page (&lt;title&gt;).";
 $tx['help']['uri_seperator']="The character which separates names of pages and sub pages in the URL.";
 $tx['help']['uri_length']="The URLs of the pages will be truncated at this length. This might change in a future release, so it's best to use shorter page headings (e.g. by using Page&rarr;Alternative heading).";
 $tx['help']['xhtml_amp']="<b>true</b> converts <b>&</b> to <b>&amp;amp;</b> in your content. Changing this setting is not recommended";
