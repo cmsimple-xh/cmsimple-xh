@@ -345,6 +345,9 @@ if (sv('QUERY_STRING') != '') {
     if (!strpos($rq[0], '=')) {
         $su = $rq[0];
     }
+    if ($su == '' && $selected != '') {
+        $su = $selected;
+    }
     foreach ($rq as $i) {
         if (!strpos($i, '=')) {
             $GLOBALS[$i] = 'true';
