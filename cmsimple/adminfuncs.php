@@ -3,13 +3,17 @@
 /**
  * Admin only functions.
  *
- * @package	XH
- * @copyright	1999-2009 <http://cmsimple.org/>
- * @copyright	2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version	$CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
- * @version     $Id$
- * @link	http://cmsimple-xh.org/
+ * PHP versions 4 and 5
+ *
+ * @category  CMSimple_XH
+ * @package   XH
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 <http://cmsimple.org/>
+ * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://cmsimple-xh.org/
  */
 
 
@@ -43,34 +47,40 @@ function XH_sysinfo()
         . $tx['sysinfo']['phpinfo_hint'] . '</li>' . "\n" . '</ul>' . "\n" . "\n";
 
     $o .= '<h4>' . $tx['sysinfo']['helplinks'] . '</h4>' . "\n" . "\n";
-    $o .= '<ul>'
-        . '<li><a href="http://www.cmsimple-xh.com/">cmsimple-xh.com &raquo;</a></li>'
-        . '<li><a href="http://www.cmsimple.org/">cmsimple.org &raquo;</a></li>'
-        . '<li><a href="http://www.cmsimpleforum.com/">cmsimpleforum.com &raquo;</a></li>'
-        . '<li><a href="http://www.cmsimplewiki.com/">cmsimplewiki.com &raquo;</a></li>'
-        . '</ul>' . "\n" . "\n";
+    $o .= <<<HTML
+<ul>
+<li><a href="http://www.cmsimple-xh.com/">cmsimple-xh.com &raquo;</a></li>
+<li><a href="http://www.cmsimple.org/">cmsimple.org &raquo;</a></li>
+<li><a href="http://www.cmsimpleforum.com/">cmsimpleforum.com &raquo;</a></li>
+<li><a href="http://www.cmsimplewiki.com/">cmsimplewiki.com &raquo;</a></li>
+</ul>
 
-    $temp = array('phpversion' => '4.3',
-                  'extensions' => array(array('date', false),
-                                        'pcre',
-                                        array('session', false),
-                                        array('xml', false)),
-                  'writable' => array(),
-                  'other' => array());
-    foreach (array('content', 'images', 'downloads', 'userfiles', 'media') as $i) {
-        $temp['writable'][] = $pth['folder'][$i];
+HTML;
+
+    $checks = array(
+        'phpversion' => '4.3',
+        'extensions' => array(
+            array('date', false),
+            'pcre',
+            array('session', false),
+            array('xml', false)
+        ),
+        'writable' => array(),
+        'other' => array()
+    );
+    $temp = array('content', 'images', 'downloads', 'userfiles', 'media');
+    foreach ($temp as $i) {
+        $checks['writable'][] = $pth['folder'][$i];
     }
-    foreach (array('config', 'log', 'language', 'content',
-                   'template', 'stylesheet')
-             as $i)
-    {
-        $temp['writable'][] = $pth['file'][$i];
+    $temp = array('config', 'log', 'language', 'content', 'template', 'stylesheet');
+    foreach ($temp as $i) {
+        $checks['writable'][] = $pth['file'][$i];
     }
-    $temp['writable'] = array_unique($temp['writable']);
-    sort($temp['writable']);
-    $temp['other'][] = array(!get_magic_quotes_runtime(),
+    $checks['writable'] = array_unique($checks['writable']);
+    sort($checks['writable']);
+    $checks['other'][] = array(!get_magic_quotes_runtime(),
                              false, $tx['syscheck']['magic_quotes']);
-    $o .= XH_systemCheck($temp);
+    $o .= XH_systemCheck($checks);
     return $o;
 }
 
@@ -122,14 +132,15 @@ function XH_settingsView()
     $fs = sortdir($pth['folder']['content']);
     foreach ($fs as $p) {
         if (preg_match('/^\d{8}_\d{6}_content.htm$/', $p)) {
+            $size = filesize($pth['folder']['content'] . '/' . $p);
+            $size = round(($size) / 102.4) / 10;
             $o .= '<li><a href="?file=' . $p . '&amp;action=view">'
-                . $p . '</a> ('
-                . (round((filesize($pth['folder']['content'] . '/' . $p)) / 102.4) / 10)
-                . ' KB)'
+                . $p . '</a> (' . $size . ' KB)'
                 . '<form action="" method="post">'
                 . tag('input type="hidden" name="file" value="' . $p . '"')
                 . tag('input type="hidden" name="action" value="restore"')
-                . tag('input type="submit" class="submit" value="Restore"') // TODO: i18n
+                // TODO: i18n
+                . tag('input type="submit" class="submit" value="Restore"')
                 . '</form>'
                 . '</li>' . "\n";
         }
@@ -142,14 +153,18 @@ function XH_settingsView()
 /**
  * Create menu of plugin (add row, add tab), constructed as a table.
  *
- * @param string $add Add a ROW, a TAB or DATA (Userdefineable content). SHOW will return the menu.
- * @param string $link The link, the TAB will lead to.
+ * @param string $add    Add a ROW, a TAB or DATA (Userdefineable content).
+ *                       SHOW will return the menu.
+ * @param string $link   The link, the TAB will lead to.
  * @param string $target Target of the link (with(!) 'target=').
- * @param string $text Description of the TAB.
- * @param array $style Array with style-data for the containing table-cell
+ * @param string $text   Description of the TAB.
+ * @param array  $style  Array with style-data for the containing table-cell
+ *
+ * @return mixed
  */
-function PluginMenu($add = '', $link = '', $target = '', $text = '', $style = array())
-{
+function pluginMenu($add = '', $link = '', $target = '', $text = '',
+    $style = array()
+) {
     static $menu = '';
 
     $add = strtoupper($add);
@@ -168,8 +183,9 @@ function PluginMenu($add = '', $link = '', $target = '', $text = '', $style = ar
     }
 
     $menu_row = '<table {{STYLE_ROW}} cellpadding="1" cellspacing="0">' . "\n"
-	. '<tr>' . "\n" . '{{TAB}}</tr>' . "\n" . '</table>' . "\n" . "\n";
-    $menu_tab = '<td {{STYLE_TAB}}><a{{STYLE_LINK}} href="{{LINK}}" {{TARGET}}>{{TEXT}}</a></td>' . "\n";
+        . '<tr>' . "\n" . '{{TAB}}</tr>' . "\n" . '</table>' . "\n" . "\n";
+    $menu_tab = '<td {{STYLE_TAB}}><a{{STYLE_LINK}} href="{{LINK}}"'
+        . ' {{TARGET}}>{{TEXT}}</a></td>' . "\n";
     $menu_tab_data = '<td {{STYLE_DATA}}>{{TEXT}}</td>' . "\n";
 
     if ($add == 'ROW') {
@@ -190,7 +206,9 @@ function PluginMenu($add = '', $link = '', $target = '', $text = '', $style = ar
 
     if ($add == 'DATA') {
         $new_menu_tab_data = $menu_tab_data;
-        $new_menu_tab_data = str_replace('{{STYLE_DATA}}', $style['data'], $new_menu_tab_data);
+        $new_menu_tab_data = str_replace(
+            '{{STYLE_DATA}}', $style['data'], $new_menu_tab_data
+        );
         $new_menu_tab_data = str_replace('{{TEXT}}', $text, $new_menu_tab_data);
         $menu = str_replace('{{TAB}}', $new_menu_tab_data . '{{TAB}}', $menu);
     }
@@ -207,10 +225,12 @@ function PluginMenu($add = '', $link = '', $target = '', $text = '', $style = ar
 /**
  * Returns the plugin menu.
  *
- * @param string $main  Whether the main setting menu item should be shown ('ON'/'OFF').
+ * @param string $main Whether the main setting menu item should be shown
+ *                     ('ON'/'OFF').
+ *
  * @return string (X)HTML.
  */
-function print_plugin_admin($main)
+function Print_Plugin_admin($main)
 {
     global $sn, $plugin, $pth, $sl, $cf, $tx, $plugin_tx;
 
@@ -225,48 +245,53 @@ function print_plugin_admin($main)
     $help = is_readable($pth['file']['plugin_help']);
 
     $tx_main = empty($plugin_tx[$plugin]['menu_main'])
-	? $tx['menu']['tab_main'] : $plugin_tx[$plugin]['menu_main'];
+        ? $tx['menu']['tab_main'] : $plugin_tx[$plugin]['menu_main'];
     $tx_css = empty($plugin_tx[$plugin]['menu_css'])
-	? $tx['menu']['tab_css'] : $plugin_tx[$plugin]['menu_css'];
+        ? $tx['menu']['tab_css'] : $plugin_tx[$plugin]['menu_css'];
     $tx_config = empty($plugin_tx[$plugin]['menu_config'])
-	? $tx['menu']['tab_config'] : $plugin_tx[$plugin]['menu_config'];
+        ? $tx['menu']['tab_config'] : $plugin_tx[$plugin]['menu_config'];
     $tx_language = empty($plugin_tx[$plugin]['menu_language'])
-	? $tx['menu']['tab_language'] : $plugin_tx[$plugin]['menu_language'];
+        ? $tx['menu']['tab_language'] : $plugin_tx[$plugin]['menu_language'];
     $tx_help = empty($plugin_tx[$plugin]['menu_help'])
-	? $tx['menu']['tab_help'] : $plugin_tx[$plugin]['menu_help'];
+        ? $tx['menu']['tab_help'] : $plugin_tx[$plugin]['menu_help'];
 
-    PluginMenu('ROW', '', '', '', array());
+    pluginMenu('ROW', '', '', '', array());
     if ($main) {
-        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_main&amp;action=plugin_text',
-		   '', $tx_main, array());
+        $link = $sn . '?&amp;' . $plugin
+            . '&amp;admin=plugin_main&amp;action=plugin_text';
+        pluginMenu('TAB', $link, '', $tx_main, array());
     }
     if ($css) {
-        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_stylesheet&amp;action=plugin_text',
-		   '', $tx_css, array());
+        $link = $sn . '?&amp;' . $plugin
+            . '&amp;admin=plugin_stylesheet&amp;action=plugin_text';
+        pluginMenu('TAB', $link, '', $tx_css, array());
     }
     if ($config) {
-        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_config&amp;action=plugin_edit',
-		   '', $tx_config, '');
+        $link = $sn . '?&amp;' . $plugin
+            . '&amp;admin=plugin_config&amp;action=plugin_edit';
+        pluginMenu('TAB', $link, '', $tx_config, '');
     }
     if ($language) {
-        PluginMenu('TAB', $sn . '?&amp;' . $plugin . '&amp;admin=plugin_language&amp;action=plugin_edit',
-		   '', $tx_language, '');
+        $link = $sn . '?&amp;' . $plugin
+            . '&amp;admin=plugin_language&amp;action=plugin_edit';
+        pluginMenu('TAB', $link, '', $tx_language, '');
     }
     if ($help) {
-        PluginMenu('TAB', $pth['file']['plugin_help'],
-		   'target="_blank"', $tx_help, '');
+        $link = $pth['file']['plugin_help'];
+        pluginMenu('TAB', $link, 'target="_blank"', $tx_help, '');
     }
-    return PluginMenu('SHOW');
+    return pluginMenu('SHOW');
 }
 
 
 /**
- * Handles reading and writing of plugin files (e.g. en.php, config.php, stylesheet.css).
+ * Handles reading and writing of plugin files
+ * (e.g. en.php, config.php, stylesheet.css).
  *
- * @param bool $action Possible values: 'empty' = Error: empty value detected
- * @param array $admin Array, that contains debug_backtrace()-data
- * @param bool $plugin The called varname
- * @param bool $hint Array with hints for the variables (will be shown as popup)
+ * @param bool  $action Possible values: 'empty' = Error: empty value detected
+ * @param array $admin  Array, that contains debug_backtrace()-data
+ * @param bool  $plugin The called varname
+ * @param bool  $hint   Array with hints for the variables (will be shown as popup)
  *
  * @global string $sn CMSimple's script-name (relative adress including $_GET)
  * @global string $action Ordered action
@@ -279,35 +304,35 @@ function print_plugin_admin($main)
  *
  * @return string Returns the created form or the result of saving the data
  */
-function plugin_admin_common($action, $admin, $plugin, $hint=array())
+function Plugin_Admin_common($action, $admin, $plugin, $hint=array())
 {
     // TODO: do something about the fake parameters
     // TODO: note that $hint is ignored now
     global $action, $admin, $plugin, $pth;
 
-    require_once $pth['folder']['classes'] . 'FileEdit.php';
+    include_once $pth['folder']['classes'] . 'FileEdit.php';
     switch ($admin) {
     case 'plugin_config':
-	$fileEdit = new XH_PluginConfigFileEdit();
-	break;
+        $fileEdit = new XH_PluginConfigFileEdit();
+        break;
     case 'plugin_language':
-	$fileEdit = new XH_PluginLanguageFileEdit();
-	break;
+        $fileEdit = new XH_PluginLanguageFileEdit();
+        break;
     case 'plugin_stylesheet':
-	$fileEdit = new XH_PluginTextFileEdit();
-	break;
+        $fileEdit = new XH_PluginTextFileEdit();
+        break;
     default:
-	return false;
+        return false;
     }
     switch ($action) {
     case 'plugin_edit':
     case 'plugin_text':
-	return $fileEdit->form();
+        return $fileEdit->form();
     case 'plugin_save':
     case 'plugin_textsave':
-	return $fileEdit->submit();
+        return $fileEdit->submit();
     default:
-	return false;
+        return false;
     }
 }
 
@@ -327,8 +352,9 @@ function XH_contentEditor()
 
     $editor = $cf['editor']['external'] == '' || init_editor();
     if (!$editor) {
-        $e .= '<li>' . sprintf('External editor %s missing', $cf['editor']['external'])
-            . '</li>' . "\n"; // FIXME: i18n
+         // FIXME: i18n
+        $msg = sprintf('External editor %s missing', $cf['editor']['external']);
+        $e .= '<li>' . $msg . '</li>' . "\n";
     }
     $o = '<form method="POST" id="ta" action="' . $sn . '">'
         . tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
@@ -338,8 +364,8 @@ function XH_contentEditor()
         . htmlspecialchars($c[$s], ENT_QUOTES, 'UTF-8')
         . '</textarea>';
     if ($cf['editor']['external'] == '' || !$editor) {
-        $o .= tag('input type="submit" value="'
-                  . utf8_ucfirst($tx['action']['save']) . '"');
+        $value = utf8_ucfirst($tx['action']['save']);
+        $o .= tag('input type="submit" value="' . $value . '"');
     }
     $o .= '</form>';
     return $o;
@@ -347,11 +373,14 @@ function XH_contentEditor()
 
 
 /**
- * Saves content.htm and pagedata.php after submitting changes from the content editor.
+ * Saves content.htm and pagedata.php after submitting changes
+ * from the content editor.
  *
- * @since 1.6
+ * @param string $text The text to save.
  *
  * @return void
+ *
+ * @since 1.6
  */
 function XH_saveEditorContents($text)
 {
@@ -359,18 +388,22 @@ function XH_saveEditorContents($text)
 
     $hot = '<h[1-' . $cf['menu']['levels'] . '][^>]*>';
     $hct = '<\/h[1-' . $cf['menu']['levels'] . ']>'; // TODO: use $1 ?
-    $text = stsl($text); // TODO: this might be done before the plugins are loaded for backward compatibility
+    // TODO: this might be done before the plugins are loaded
+    //       for backward compatibility
+    $text = stsl($text);
     // remove empty headings
     $text = preg_replace("/$hot(&nbsp;|&#160;|\xC2\xA0| )?$hct/isu", '', $text);
     // replace "p" elements around plugin calls and scripting with "div"s
     // TODO: keep an eye on changes regarding the plugin call
-    $text = preg_replace('/<p>({{{PLUGIN:.*?}}}|#CMSimple .*?#)<\/p>/is', '<div>$1</div>', $text);
+    $text = preg_replace(
+        '/<p>({{{PLUGIN:.*?}}}|#CMSimple .*?#)<\/p>/is', '<div>$1</div>', $text
+    );
 
     // handle missing heading on the first page
     if ($s == 0) {
         if (!preg_match('/^<h1[^>]*>.*<\/h1>/isu', $text)
-            && !preg_match('/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/isu', $text))
-        {
+            && !preg_match('/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/isu', $text)
+        ) {
             $text = '<h1>' . $tx['toc']['missing'] . '</h1>' . "\n" . $text;
         }
     }
@@ -378,7 +411,9 @@ function XH_saveEditorContents($text)
 
     if (is_writable($pth['file']['content'])) {
         // insert $text to $c
-        $text = preg_replace('/<h[1-' . $cf['menu']['levels'] . ']/i', "\x00" . '$0', $text);
+        $text = preg_replace(
+            '/<h[1-' . $cf['menu']['levels'] . ']/i', "\x00" . '$0', $text
+        );
         $pages = explode("\x00", $text);
         array_shift($pages);
         array_splice($c, $s, 1, $pages);
@@ -391,7 +426,9 @@ function XH_saveEditorContents($text)
         if (count($matches[1]) > 0) {
             // page heading might have changed
             $urlParts = explode($cf['uri']['seperator'], $selected);
-            array_splice($urlParts, -1, 1, uenc(trim(xh_rmws(strip_tags($matches[1][0])))));
+            array_splice(
+                $urlParts, -1, 1, uenc(trim(xh_rmws(strip_tags($matches[1][0]))))
+            );
             $su = implode($cf['uri']['seperator'], $urlParts);
         } else {
             // page was deleted; go to previous page
