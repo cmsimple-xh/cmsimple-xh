@@ -3,20 +3,24 @@
 /**
  * Template functions.
  *
- * @package	XH
- * @copyright	1999-2009 <http://cmsimple.org/>
- * @copyright	2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version	$CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
- * @version 	$Id$
- * @link	http://cmsimple-xh.org/
+ * PHP versions 4 and 5
+ *
+ * @category  CMSimple_XH
+ * @package   XH
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 <http://cmsimple.org/>
+ * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://cmsimple-xh.org/
  */
 
 
 /**
  * Returns the complete head element.
  *
- * @return string  The (X)HTML.
+ * @return string The (X)HTML.
  */
 function head()
 {
@@ -33,11 +37,21 @@ function head()
     foreach (array_merge($cf['meta'], $tx['meta']) as $i => $k) {
         $t .= meta($i);
     }
-    $t = tag('meta http-equiv="content-type" content="text/html;charset=UTF-8"') . "\n" . $t;
+    $t = tag('meta http-equiv="content-type" content="text/html;charset=UTF-8"')
+        . "\n" . $t;
     return $t
-        . tag('meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' ' . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.de"') . "\n"
-        . tag('link rel="stylesheet" href="' . $pth['file']['corestyle'] . '" type="text/css"') . "\n"
-        . tag('link rel="stylesheet" href="' . $pth['file']['stylesheet'] . '" type="text/css"') . "\n"
+        . tag(
+            'meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' '
+            . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.de"'
+        ) . "\n"
+        . tag(
+            'link rel="stylesheet" href="' . $pth['file']['corestyle']
+            . '" type="text/css"'
+        ) . "\n"
+        . tag(
+            'link rel="stylesheet" href="' . $pth['file']['stylesheet']
+            . '" type="text/css"'
+        ) . "\n"
         . $hjs;
 }
 
@@ -45,7 +59,7 @@ function head()
 /**
  * Returns the language dependend site title.
  *
- * @return string  The (X)HTML.
+ * @return string The (X)HTML.
  */
 function sitename()
 {
@@ -60,7 +74,7 @@ function sitename()
 /**
  * Returns the global site title.
  *
- * @return string  The (X)HTML.
+ * @return string The (X)HTML.
  */
 function pagename()
 {
@@ -74,7 +88,7 @@ function pagename()
 /**
  * Returns the onload attribute for the body element.
  *
- * @return string  The (X)HTML.
+ * @return string The (X)HTML.
  */
 function onload()
 {
@@ -87,10 +101,11 @@ function onload()
 /**
  * Returns the table of contents.
  *
- * @param int $start  The menu level to start with.
- * @param int $end  The menu level to end with.
- * @param callable $li
- * @return string  The (X)HTML.
+ * @param int      $start The menu level to start with.
+ * @param int      $end   The menu level to end with.
+ * @param callable $li    A callback.
+ *
+ * @return string The (X)HTML.
  */
 function toc($start = null, $end = null, $li = 'li')
 {
@@ -111,7 +126,9 @@ function toc($start = null, $end = null, $li = 'li')
         $tl = $l[$s];
         for ($i = $s; $i > -1; $i--) {
             if ($l[$i] <= $tl && $l[$i] >= $start && $l[$i] <= $end) {
-                if (!hide($i) || ($i == $s && $cf['show_hidden']['pages_toc'] == 'true')) {
+                if (!hide($i)
+                    || ($i == $s && $cf['show_hidden']['pages_toc'] == 'true')
+                ) {
                     $ta[] = $i;
                 }
             }
@@ -142,85 +159,106 @@ function toc($start = null, $end = null, $li = 'li')
 /**
  * Returns a menu structure of the pages.
  *
- * @param array $ta  The indexes of the pages.
- * @param mixed $st  The menu level to start with or the type of menu.
- * @return string  The (X)HTML.
+ * @param array $ta The indexes of the pages.
+ * @param mixed $st The menu level to start with or the type of menu.
+ *
+ * @return string The (X)HTML.
  */
 function li($ta, $st)
 {
-		global $s, $l, $h, $cl, $cf, $u;
-		$tl = count($ta);
-		if ($tl < 1)
-				return;
-		$t = '';
-		if ($st == 'submenu' || $st == 'search')
-				$t .= '<ul class="' . $st . '">' . "\n";
-		$b = 0;
-		if ($st > 0) {
-				$b = $st - 1;
-				$st = 'menulevel';
-		}
-		$lf = array();
-		for ($i = 0; $i < $tl; $i++) {
-				$tf = ($s != $ta[$i]);
-				if ($st == 'menulevel' || $st == 'sitemaplevel') {
-						for ($k = (isset($ta[$i - 1]) ? $l[$ta[$i - 1]] : $b); $k < $l[$ta[$i]]; $k++)
-								$t .= "\n" . '<ul class="' . $st . ($k + 1) . '">' . "\n";
-				}
-				$t .= '<li class="';
-				if (!$tf)
-						$t .= 's';
-				else if (@$cf['menu']['sdoc'] == "parent" && $s > -1) {
-						if ($l[$ta[$i]] < $l[$s]) {
-								if (@substr($u[$s], 0, 1 + strlen($u[$ta[$i]])) == $u[$ta[$i]] . $cf['uri']['seperator'])
-										$t .= 's';
-						}
-				}
-				$t .= 'doc';
-				for ($j = $ta[$i] + 1; $j < $cl; $j++)
-						if (!hide($j) && $l[$j] - $l[$ta[$i]] < 2 + $cf['menu']['levelcatch']) {
-								if ($l[$j] > $l[$ta[$i]])
-										$t .= 's';
-								break;
-						}
-				$t .= '">';
-				if ($tf)
-						$t .= a($ta[$i], '');
-				else            				//EM+
-						$t .='<span>';      //EM+
-				$t .= $h[$ta[$i]];
-				if ($tf)
-						$t .= '</a>';
-				else            			//EM+
-						$t .='</span>';   //EM+
-				if ($st == 'menulevel' || $st == 'sitemaplevel') {
-						if ((isset($ta[$i + 1]) ? $l[$ta[$i + 1]] : $b) > $l[$ta[$i]])
-								$lf[$l[$ta[$i]]] = true;
-						else {
-								$t .= '</li>' . "\n";
-								$lf[$l[$ta[$i]]] = false;
-						}
-						for ($k = $l[$ta[$i]]; $k > (isset($ta[$i + 1]) ? $l[$ta[$i + 1]] : $b); $k--) {
-								$t .= '</ul>' . "\n";
-								if (isset($lf[$k - 1]))
-										if ($lf[$k - 1]) {
-												$t .= '</li>' . "\n";
-												$lf[$k - 1] = false;
-										}
-						};
-				}
-				else
-						$t .= '</li>' . "\n";
-		}
-		if ($st == 'submenu' || $st == 'search')
-				$t .= '</ul>' . "\n";
-		return $t;
+    global $s, $l, $h, $cl, $cf, $u;
+    $tl = count($ta);
+    if ($tl < 1) {
+        return;
+    }
+    $t = '';
+    if ($st == 'submenu' || $st == 'search') {
+        $t .= '<ul class="' . $st . '">' . "\n";
+    }
+    $b = 0;
+    if ($st > 0) {
+        $b = $st - 1;
+        $st = 'menulevel';
+    }
+    $lf = array();
+    for ($i = 0; $i < $tl; $i++) {
+        $tf = ($s != $ta[$i]);
+        if ($st == 'menulevel' || $st == 'sitemaplevel') {
+            for ($k = (isset($ta[$i - 1]) ? $l[$ta[$i - 1]] : $b);
+                 $k < $l[$ta[$i]];
+                 $k++
+            ) {
+                $t .= "\n" . '<ul class="' . $st . ($k + 1) . '">' . "\n";
+            }
+        }
+        $t .= '<li class="';
+        if (!$tf) {
+            $t .= 's';
+        } elseif (@$cf['menu']['sdoc'] == "parent" && $s > -1) {
+            if ($l[$ta[$i]] < $l[$s]) {
+                $hasChildren = substr($u[$s], 0, 1 + strlen($u[$ta[$i]]))
+                    == $u[$ta[$i]] . $cf['uri']['seperator'];
+                if ($hasChildren) {
+                    $t .= 's';
+                }
+            }
+        }
+        $t .= 'doc';
+        for ($j = $ta[$i] + 1; $j < $cl; $j++) {
+            if (!hide($j)
+                && $l[$j] - $l[$ta[$i]] < 2 + $cf['menu']['levelcatch']
+            ) {
+                if ($l[$j] > $l[$ta[$i]]) {
+                    $t .= 's';
+                }
+                break;
+            }
+        }
+        $t .= '">';
+        if ($tf) {
+            $t .= a($ta[$i], '');
+        } else {
+            $t .='<span>';
+        }
+        $t .= $h[$ta[$i]];
+        if ($tf) {
+            $t .= '</a>';
+        } else {
+            $t .='</span>';
+        }
+        if ($st == 'menulevel' || $st == 'sitemaplevel') {
+            if ((isset($ta[$i + 1]) ? $l[$ta[$i + 1]] : $b) > $l[$ta[$i]]) {
+                $lf[$l[$ta[$i]]] = true;
+            } else {
+                $t .= '</li>' . "\n";
+                $lf[$l[$ta[$i]]] = false;
+            }
+            for ($k = $l[$ta[$i]];
+                $k > (isset($ta[$i + 1]) ? $l[$ta[$i + 1]] : $b);
+                $k--
+            ) {
+                $t .= '</ul>' . "\n";
+                if (isset($lf[$k - 1])) {
+                    if ($lf[$k - 1]) {
+                        $t .= '</li>' . "\n";
+                        $lf[$k - 1] = false;
+                    }
+                }
+            }
+        } else {
+            $t .= '</li>' . "\n";
+        }
+    }
+    if ($st == 'submenu' || $st == 'search') {
+        $t .= '</ul>' . "\n";
+    }
+    return $t;
 }
 
 /**
  * Returns the search form.
  *
- * @return string  The (X)HTML.
+ * @return string The (X)HTML.
  */
 function searchbox()
 {
@@ -230,7 +268,10 @@ function searchbox()
         . '<div id="searchbox">' . "\n"
         . tag('input type="text" class="text" name="search" size="12"') . "\n"
         . tag('input type="hidden" name="function" value="search"') . "\n" . ' '
-        . tag('input type="submit" class="submit" value="' . $tx['search']['button'] . '"') . "\n"
+        . tag(
+            'input type="submit" class="submit" value="'
+            . $tx['search']['button'] . '"'
+        ) . "\n"
         . '</div>' . "\n" . '</form>' . "\n";
 }
 
@@ -238,7 +279,7 @@ function searchbox()
 /**
  * Returns the sitemap link.
  *
- * @return string  The (X)HTML.
+ * @return string The (X)HTML.
  */
 function sitemaplink()
 {
@@ -249,7 +290,7 @@ function sitemaplink()
 /**
  * Returns the link for the print view.
  *
- * @return string  The (X)HTML.
+ * @return string The (X)HTML.
  */
 function printlink()
 {
@@ -257,7 +298,8 @@ function printlink()
 
     $t = '&amp;print';
     if ($f == 'search') {
-        $t .= '&amp;function=search&amp;search=' . htmlspecialchars(stsl($search), ENT_QUOTES, 'UTF-8');
+        $t .= '&amp;function=search&amp;search='
+            . htmlspecialchars(stsl($search), ENT_QUOTES, 'UTF-8');
     } elseif ($f == 'file') {
         $t .= '&amp;file=' . $file;
     } elseif ($f != '' && $f != 'save') {
@@ -272,7 +314,7 @@ function printlink()
 /**
  * Returns the link to the mail form.
  *
- * @return string  The (X)HTML.
+ * @return string The (X)HTML.
  */
 function mailformlink()
 {
@@ -287,8 +329,9 @@ function mailformlink()
 /**
  * Returns the link to the guestbook.
  *
+ * @return string The (X)HTML.
+ *
  * @deprecated since 1.5.4
- * @return string  The (X)HTML.
  */
 function guestbooklink()
 {
@@ -303,7 +346,7 @@ function guestbooklink()
 /**
  * Returns the link to the login form.
  *
- * @return string  The (X)HTML.
+ * @return string The (X)HTML.
  */
 function loginlink()
 {
@@ -316,9 +359,10 @@ function loginlink()
 /**
  * Returns the date of the last update of the site.
  *
- * @param bool $br  Whether to emit a br element between text and date.
- * @param int $hour  The time correction in hours.
- * @return string  The (X)HTML.
+ * @param bool $br   Whether to emit a br element between text and date.
+ * @param int  $hour The time correction in hours.
+ *
+ * @return string The (X)HTML.
  */
 function lastupdate($br = null, $hour = null)
 {
@@ -330,28 +374,32 @@ function lastupdate($br = null, $hour = null)
     } else {
         $t .= ' ';
     }
-    return $t . date($tx['lastupdate']['dateformat'],
-                     filemtime($pth['file']['content']) + (isset($hour) ? $hour * 3600 : 0));
+    return $t
+        . date(
+            $tx['lastupdate']['dateformat'],
+            filemtime($pth['file']['content']) + (isset($hour) ? $hour * 3600 : 0)
+        );
 }
 
 
 /**
  * Returns the link to the copyright and license informations.
  *
- * @return string  The (X)HTML.
+ * @return string The (X)HTML.
  */
 function legallink()
 {
     global $cf, $sn;
 
-    return '<a href="' . $sn . '?' . uenc($cf['menu']['legal']) . '">' . $cf['menu']['legal'] . '</a>';
+    return '<a href="' . $sn . '?' . uenc($cf['menu']['legal']) . '">'
+        . $cf['menu']['legal'] . '</a>';
 }
 
 
 /**
  * Returns the locator (breadcrumb navigation).
  *
- * @return string  The (X)HTML.
+ * @return string The (X)HTML.
  */
 function locator()
 {
@@ -398,9 +446,9 @@ function locator()
  * Returns an empty string since XH 1.5,
  * as the admin menu is automatically inserted to the template.
  *
- * @see admin_menu()
+ * @return string The (X)HTML.
  *
- * @return string  The (X)HTML.
+ * @see admin_menu()
  */
 function editmenu()
 {
@@ -411,8 +459,12 @@ function editmenu()
 /**
  * Returns the admin menu.
  *
- * @since  1.5
- * @return string  (X)HTML.
+ * @param array $plugins A list of plugins.
+ * @param bool  $debug   Whether the debug mode is enabled.
+ *
+ * @return string (X)HTML.
+ *
+ * @since 1.5
  */
 function admin_menu($plugins = array(), $debug = false)
 {
@@ -421,10 +473,12 @@ function admin_menu($plugins = array(), $debug = false)
     if ($adm) {
         $pluginMenu = '';
         if ((bool) $plugins) {
-            $pluginMenu .= '<li><a href="#" onclick="return false">' . utf8_ucfirst($tx['editmenu']['plugins']) . "</a>\n    <ul>";
-            foreach ($plugins as $plugin)  {
+            $pluginMenu .= '<li><a href="#" onclick="return false">'
+                . utf8_ucfirst($tx['editmenu']['plugins']) . "</a>\n    <ul>";
+            foreach ($plugins as $plugin) {
                 $pluginMenu .= "\n"
-                    . '     <li><a href="?' . $plugin . '&amp;normal">' . ucfirst($plugin) . '</a></li>';
+                    . '     <li><a href="?' . $plugin . '&amp;normal">'
+                    . ucfirst($plugin) . '</a></li>';
             }
             $pluginMenu .= "\n    </ul>";
         }
@@ -435,35 +489,53 @@ function admin_menu($plugins = array(), $debug = false)
         }
         $changeMode = $edit ? 'normal' : 'edit';
         $changeText = $edit ? $tx['editmenu']['normal'] : $tx['editmenu']['edit'];
-        $t .= '<li><a href="' . $sn . '?' . $su . '&amp;' . $changeMode . '">' . $changeText . '</a></li>' . "\n"
-            . '<li><a href="' . $sn . '?&amp;normal&amp;xhpages" class="">' . utf8_ucfirst($tx['editmenu']['pagemanager']) . '</a></li>' . "\n"
-            . '<li><a href="#" onclick="return false" class="">' . utf8_ucfirst($tx['editmenu']['files']) . '</a>' ."\n"
+        $t .= '<li><a href="' . $sn . '?' . $su . '&amp;' . $changeMode . '">'
+            . $changeText . '</a></li>' . "\n"
+            . '<li><a href="' . $sn . '?&amp;normal&amp;xhpages" class="">'
+            . utf8_ucfirst($tx['editmenu']['pagemanager']) . '</a></li>' . "\n"
+            . '<li><a href="#" onclick="return false" class="">'
+            . utf8_ucfirst($tx['editmenu']['files']) . '</a>' ."\n"
             . '    <ul>' . "\n"
-            . '    <li><a href="' . $sn . '?&amp;normal&amp;images">' . utf8_ucfirst($tx['editmenu']['images']) . '</a></li>' . "\n"
-            . '    <li><a href="' . $sn . '?&amp;normal&amp;downloads">' . utf8_ucfirst($tx['editmenu']['downloads']) . '</a></li>' . "\n"
-            . '    <li><a href="' . $sn . '?&amp;normal&amp;media">' . utf8_ucfirst($tx['editmenu']['media']) . '</a></li>' . "\n"
-            . '    <li><a href="' . $sn . '?&amp;normal&amp;userfiles">' . utf8_ucfirst($tx['editmenu']['userfiles']) . '</a></li>' . "\n"
+            . '    <li><a href="' . $sn . '?&amp;normal&amp;images">'
+            . utf8_ucfirst($tx['editmenu']['images']) . '</a></li>' . "\n"
+            . '    <li><a href="' . $sn . '?&amp;normal&amp;downloads">'
+            . utf8_ucfirst($tx['editmenu']['downloads']) . '</a></li>' . "\n"
+            . '    <li><a href="' . $sn . '?&amp;normal&amp;media">'
+            . utf8_ucfirst($tx['editmenu']['media']) . '</a></li>' . "\n"
+            . '    <li><a href="' . $sn . '?&amp;normal&amp;userfiles">'
+            . utf8_ucfirst($tx['editmenu']['userfiles']) . '</a></li>' . "\n"
             . '    </ul>' . "\n"
             . '</li>' ."\n"
-            . '<li><a href="' . $sn . '?&amp;settings">' . utf8_ucfirst($tx['editmenu']['settings']) . '</a>' ."\n"
+            . '<li><a href="' . $sn . '?&amp;settings">'
+            . utf8_ucfirst($tx['editmenu']['settings']) . '</a>' ."\n"
             . '    <ul>' ."\n";
         if ($sl == $cf['language']['default']) {
-            $t .='    <li><a href="?file=config&amp;action=array">' . utf8_ucfirst($tx['editmenu']['configuration']) . '</a></li>' . "\n";
+            $t .='    <li><a href="?file=config&amp;action=array">'
+                . utf8_ucfirst($tx['editmenu']['configuration']) . '</a></li>'
+                . "\n";
         }
-        $t .= '    <li><a href="?file=language&amp;action=array">' . utf8_ucfirst($tx['editmenu']['language']) . '</a></li>' . "\n"
-            . '    <li><a href="?file=template&amp;action=edit">' . utf8_ucfirst($tx['editmenu']['template']) . '</a></li>' . "\n"
-            . '    <li><a href="?file=stylesheet&amp;action=edit">' . utf8_ucfirst($tx['editmenu']['stylesheet']) . '</a></li>' . "\n"
-            . '    <li><a href="?file=log&amp;action=view" target="_blank">' . utf8_ucfirst($tx['editmenu']['log']) . '</a></li>' . "\n"
-            . '    <li><a href="' . $sn . '?&amp;validate">' . utf8_ucfirst($tx['editmenu']['validate']) . '</a></li>' . "\n"
-            . '    <li><a href="' . $sn . '?&amp;sysinfo">' . utf8_ucfirst($tx['editmenu']['sysinfo']) . '</a></li>' . "\n"
+        $t .= '    <li><a href="?file=language&amp;action=array">'
+            . utf8_ucfirst($tx['editmenu']['language']) . '</a></li>' . "\n"
+            . '    <li><a href="?file=template&amp;action=edit">'
+            . utf8_ucfirst($tx['editmenu']['template']) . '</a></li>' . "\n"
+            . '    <li><a href="?file=stylesheet&amp;action=edit">'
+            . utf8_ucfirst($tx['editmenu']['stylesheet']) . '</a></li>' . "\n"
+            . '    <li><a href="?file=log&amp;action=view" target="_blank">'
+            . utf8_ucfirst($tx['editmenu']['log']) . '</a></li>' . "\n"
+            . '    <li><a href="' . $sn . '?&amp;validate">'
+            . utf8_ucfirst($tx['editmenu']['validate']) . '</a></li>' . "\n"
+            . '    <li><a href="' . $sn . '?&amp;sysinfo">'
+            . utf8_ucfirst($tx['editmenu']['sysinfo']) . '</a></li>' . "\n"
             . '    </ul>' . "\n"
             . '</li>' . "\n"
             . $pluginMenu . "\n"
             . '</li>' . "\n"
             . '</ul>' . "\n" . '<ul id="editmenu_logout">' . "\n"
-            . '<li id="edit_menu_logout"><a href="?&amp;logout">' . utf8_ucfirst($tx['editmenu']['logout']) . '</a></li>' . "\n"
+            . '<li id="edit_menu_logout"><a href="?&amp;logout">'
+            . utf8_ucfirst($tx['editmenu']['logout']) . '</a></li>' . "\n"
             . '</ul>' . "\n";
-        return $t . '<div style="float:none;clear:both;padding:0;margin:0;width:100%;height:0px;"></div>' . "\n" . '</div>' . "\n";
+        return $t . '<div style="float:none;clear:both;padding:0;margin:0;'
+            . 'width:100%;height:0px;"></div>' . "\n" . '</div>' . "\n";
     }
 }
 
@@ -479,10 +551,12 @@ function content()
 
     if (!($edit && $adm) && $s > -1) {
         if (isset($_GET['search'])) {
-            $words = explode(',', htmlspecialchars(stsl($_GET['search']), ENT_QUOTES, 'UTF-8'));
+            $search = htmlspecialchars(stsl($_GET['search']), ENT_QUOTES, 'UTF-8');
+            $words = explode(',', $search);
             $code = 'return "&" . preg_quote($w, "&") . "(?!([^<]+)?>)&isU";';
             $words = array_map(create_function('$w', $code), $words);
-            $c[$s] = preg_replace($words, '<span class="highlight_search">$0</span>', $c[$s]);
+            $replacement = '<span class="highlight_search">$0</span>';
+            $c[$s] = preg_replace($words, $replacement, $c[$s]);
         }
         return $o . preg_replace('/#CMSimple (.*?)#/is', '', $c[$s]);
     } else {
@@ -517,7 +591,8 @@ function submenu()
             }
         }
         if (count($ta) != 0) {
-            return '<h4>' . $tx['submenu']['heading'] . '</h4>' . li($ta, 'submenu');
+            return '<h4>' . $tx['submenu']['heading'] . '</h4>'
+                . li($ta, 'submenu');
         }
     }
 }
@@ -526,9 +601,9 @@ function submenu()
 /**
  * Returns the link to the previous page.
  *
- * @see nextpage()
+ * @return string (X)HTML.
  *
- * @return string  (X)HTML.
+ * @see nextpage()
  */
 function previouspage()
 {
@@ -545,9 +620,9 @@ function previouspage()
 /**
  * Returns the link to the next page
  *
- * @see previouspage()
+ * @return string (X)HTML.
  *
- * @return string  (X)HTML.
+ * @see previouspage()
  */
 function nextpage()
 {
@@ -566,7 +641,7 @@ function nextpage()
  *
  * To work, an anchor TOP has to be defined in the template.
  *
- * @return string  (X)HTML.
+ * @return string (X)HTML.
  */
 function top()
 {
@@ -579,13 +654,13 @@ function top()
 /**
  * Returns the language menu.
  *
- * @return string  (X)HTML.
+ * @return string (X)HTML.
+ *
+ * @todo Separate model (i.e. finding of languages) and view.
  */
 function languagemenu()
 {
     global $pth, $cf, $sl;
-
-    // TODO: separate model (i.e. finding of languages) and view
 
     $t = '';
     $r = array();
@@ -606,18 +681,27 @@ function languagemenu()
     // TODO: unify img element construction
     if ($cf['language']['default'] != $sl) {
         $t .= '<a href="' . $pth['folder']['base'] . '">'
-            . tag('img src="' . $pth['folder']['flags'] . $cf['language']['default'] . '.gif" alt="' . $cf['language']['default'] . '" title="&nbsp;' . $cf['language']['default'] . '&nbsp;" class="flag"')
+            . tag(
+                'img src="' . $pth['folder']['flags'] . $cf['language']['default']
+                . '.gif" alt="' . $cf['language']['default'] . '" title="&nbsp;'
+                . $cf['language']['default'] . '&nbsp;" class="flag"'
+            )
             . '</a> ';
     }
     $v = count($r);
-    for($i = 0; $i < $v; $i++) {
+    for ($i = 0; $i < $v; $i++) {
         if ($sl != $r[$i]) {
             if (is_file($pth['folder']['flags'] . '/' . $r[$i] . '.gif')) {
                 $t .= '<a href="' . $pth['folder']['base'] . $r[$i] . '/">'
-                    . tag('img src="' . $pth['folder']['flags'] . $r[$i] . '.gif" alt="' . $r[$i] . '" title="&nbsp;' . $r[$i] . '&nbsp;" class="flag"')
+                    . tag(
+                        'img src="' . $pth['folder']['flags'] . $r[$i]
+                        . '.gif" alt="' . $r[$i] . '" title="&nbsp;' . $r[$i]
+                        . '&nbsp;" class="flag"'
+                    )
                     . '</a> ';
             } else {
-                $t .= '<a href="' . $pth['folder']['base'] . $r[$i] . '/">[' . $r[$i] . ']</a> ';
+                $t .= '<a href="' . $pth['folder']['base'] . $r[$i] . '/">['
+                    . $r[$i] . ']</a> ';
             }
         }
     }

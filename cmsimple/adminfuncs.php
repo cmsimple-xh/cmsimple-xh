@@ -236,7 +236,7 @@ function Print_Plugin_admin($main)
 
     initvar('action');
     initvar('admin');
-    PluginFiles($plugin);
+    pluginFiles($plugin);
 
     $main = strtoupper($main) == 'ON';
     $css = is_readable($pth['file']['plugin_stylesheet']);

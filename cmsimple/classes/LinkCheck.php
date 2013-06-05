@@ -3,48 +3,52 @@
 /**
  * The link checker.
  *
- * @package     XH
- * @copyright   1999-2009 <http://cmsimple.org/>
- * @copyright   2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license     http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version     $CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
- * @version     $Id$
- * @link        http://cmsimple-xh.org/
+ * PHP versions 4 and 5
+ *
+ * @category  CMSimple_XH
+ * @package   XH
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 <http://cmsimple.org/>
+ * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://cmsimple-xh.org/
  */
+
 
 /**
  * The link checker.
  *
- * @todo    needs fixing!
+ * @category CMSimple_XH
+ * @package  XH
+ * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @link     http://cmsimple-xh.org/
  *
- * @package XH
- * @access  public
+ * @access public
+ *
+ * @todo needs fixing!
  */
 class XH_LinkCheck
 {
     /**
-     *
-     */
-    function XH_LinkCheck()
-    {
-
-    }
-
-    /**
      * Checks all links and returns the result view.     *
      *
-     * @global array  The page contents.
-     * @global array  The page URLs.
-     * @global int  The number of pages.
-     * @return string  The (X)HTML.
+     * @global array The page contents.
+     * @global array The page URLs.
+     * @global int   The number of pages.
+     *
+     * @return string The (X)HTML.
      */
-    function check_links()
+    function checkLinks()
     {
         global $c, $u, $cl;
 
         $checkedLinks = 0;
         for ($i = 0; $i < $cl; $i++) {
-            preg_match_all('/<a.*?href=["]?([^"]*)["]?.*?>(.*?)<\/a>/is', $c[$i], $pageLinks);
+            $pattern = '/<a.*?href=["]?([^"]*)["]?.*?>(.*?)<\/a>/is';
+            preg_match_all($pattern, $c[$i], $pageLinks);
             if (count($pageLinks[1]) > 0) {
                 foreach ($pageLinks[1] as $link) {
                     if (strpos($link, '#') === 0) {
@@ -63,46 +67,58 @@ class XH_LinkCheck
             foreach ($currentLinks as $counter => $link) {
                 $parts = parse_url($link);
                 switch ($parts['scheme']) {
-                case 'http': $status = $this->check_external_link($parts);
+                case 'http':
+                    $status = $this->checkExternalLink($parts);
                     break;
-                case 'mailto': $status = 'mailto';
+                case 'mailto':
+                    $status = 'mailto';
                     break;
-                case '': $status = $this->check_internal_link($parts);
+                case '':
+                    $status = $this->checkInternalLink($parts);
                     break;
-                default: $status = 'unknown';
+                default:
+                    $status = 'unknown';
                 }
                 if ($status == '200') {
                     continue;
                 }
-                if ($status == '400' || $status == '404'
-                    || $status == '500' || $status == 'internalfail'
-                    || $status == 'externalfail' || $status == 'content not found'
-                    || $status == 'file not found')
-                {
-                    $hints[$index]['errors'][] = array($status, $link, $texts[$index][$counter]);
+                $failure = array(
+                    '400', '404', '500', 'internalfail', 'externalfail',
+                    'content not found', 'file not found'
+                );
+                if (in_array($status, $failure)) {
+                    $hints[$index]['errors'][] = array(
+                        $status, $link, $texts[$index][$counter]
+                    );
                     continue;
                 }
-                $hints[$index]['caveats'][] = array($status, $link, $texts[$index][$counter]);
+                $hints[$index]['caveats'][] = array(
+                    $status, $link, $texts[$index][$counter]
+                );
             }
             $i++;
         }
-        return $this->linkcheck_message($checkedLinks, $hints);
+        return $this->message($checkedLinks, $hints);
     }
 
     /**
      * Checks an internal link.
      *
-     * @param  array $test  The parsed(?) URL.
-     * @return mixed  200 on success; otherwise an error string.
+     * @param array $test The parsed(?) URL.
+     *
+     * @return mixed 200 on success; otherwise an error string.
+     *
+     * @access protected
      */
-    function check_internal_link($test)
+    function checkInternalLink($test)
     {
         global $c, $u, $cl, $sn, $pth, $sl, $cf, $pth;
 
-         // link to a file
+        // link to a file
+        $filename = dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $test['path'];
         if (isset($test['path']) && !isset($test['query'])
-            && file_exists(dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $test['path']))
-        {
+            && file_exists($filename)
+        ) {
             return 200;
         }
 
@@ -136,11 +152,13 @@ class XH_LinkCheck
                 if (!$test['fragment']) {
                     return 200;
                 }
-                if (preg_match('/<[^>]*[id|name]\s*=\s*"' . $test['fragment'] . '"/i', $pages[$i])) {
+                $pattern = '/<[^>]*[id|name]\s*=\s*"' . $test['fragment'] . '"/i';
+                if (preg_match($pattern, $pages[$i])) {
                     return 200;
                 }
                 // check for anchor in template
-                if (preg_match('/<[^>]*[id|name]\s*=\s*"' . $test['fragment'] . '"/i', $template)) {
+                $pattern = '/<[^>]*[id|name]\s*=\s*"' . $test['fragment'] . '"/i';
+                if (preg_match($pattern, $template)) {
                     return 200;
                 }
             }
@@ -148,9 +166,8 @@ class XH_LinkCheck
 
         $parts = explode('=', $test['query']);
 
-        if ($parts[0] == 'download' || $parts[0] == '&download'
-            || $parts[0] == '&amp;download')
-        {
+        $temp = array('download', '&download', '&amp;download');
+        if (in_array($parts[0], $temp)) {
             if (file_exists($pth['folder']['downloads'] . $parts[1])) {
                 return 200;
             } else {
@@ -158,9 +175,7 @@ class XH_LinkCheck
             }
         }
         $parts = explode('/', $test['path']);
-        if ($parts[1] == 'downloads' || $parts[1] == '&downloads'
-            || $parts[1] == '&amp;downloads')
-        {
+        if (in_array($parts[1], $temp)) {
             if (file_exists($pth['folder']['downloads'] . $parts[2])) {
                 return 200;
             } else {
@@ -173,10 +188,14 @@ class XH_LinkCheck
     /**
      * Checks an external link and returns the status code.
      *
-     * @param  array $parts  The parsed URL.
-     * @return string  The status code
+     * @param array $parts The parsed URL.
+     *
+     * @return string The status code
+     *
+     * @access protected
      */
-    function check_external_link($parts) {
+    function checkExternalLink($parts)
+    {
         set_time_limit(30);  // actually increase time limit
         $host = $parts['host'];
         $fh = fsockopen($parts['host'], 80, $errno, $errstr, 5);
@@ -188,8 +207,9 @@ class XH_LinkCheck
             if (isset($parts['query'])) {
                 $path .= "?" . $parts['query'];
             }
-            fwrite($fh, "GET " . $path . " HTTP/1.1\r\nHost: " . $host . "\r\n"
-                   . "User-Agent: CMSimple_XH Link-Checker\r\n\r\n");
+            $request = "GET $path HTTP/1.1\r\nHost: $host\r\n"
+                . "User-Agent: CMSimple_XH Link-Checker\r\n\r\n";
+            fwrite($fh, $request);
             // TODO: can't we just read 9 characters in the first place?
             $response = fread($fh, 12);
             $status = substr($response, 9);
@@ -202,16 +222,20 @@ class XH_LinkCheck
     /**
      * Returns the linkcheck results.
      *
-     * @todo internalization
+     * @param int   $checkedLinks The number of checked links.
+     * @param array $hints        The errors and warnings.
      *
-     * @global array  The localization.
-     * @global array  The page headings
-     * @global array  The page URLs.
-     * @param  int $checkedLinks  The number of checked links.
-     * @param  array $hints  The errors and warnings.
-     * @return string  The (X)HTML.
+     * @global array The localization of the core.
+     * @global array The page headings.
+     * @global array The page URLs.
+     *
+     * @return string The (X)HTML.
+     *
+     * @access protected
+     *
+     * @todo internalization
      */
-    function linkcheck_message($checkedLinks, $hints)
+    function message($checkedLinks, $hints)
     {
         global $tx, $h, $u;
 
@@ -226,41 +250,53 @@ class XH_LinkCheck
             $o .= tag('hr') . "\n\n" . '<h4>' . $tx['link']['page']
                 . '<a href="?' . $u[$page] . '">' . $h[$page] . '</a></h4>' . "\n";
             if (isset($problems['errors'])) {
-                $o .= '<h4>' . $tx['link']['errors'] . '</h4>' . "\n" . '<ul>' . "\n";
+                $o .= '<h4>' . $tx['link']['errors'] . '</h4>' . "\n"
+                    . '<ul>' . "\n";
                 foreach ($problems['errors'] as $error) {
                     $o .= '<li>' . "\n" . '<b>' . $tx['link']['link'] . '</b>'
-                        . '<a href="' . $error[1] . '">' . $error[2] . '</a>' . tag('br') . "\n";
-                    $o .= '<b>' . $tx['link']['linked_page'] . '</b>' . $error[1] . tag('br') . "\n";
+                        . '<a href="' . $error[1] . '">' . $error[2] . '</a>'
+                        . tag('br') . "\n";
+                    $o .= '<b>' . $tx['link']['linked_page'] . '</b>' . $error[1]
+                        . tag('br') . "\n";
                     if ((int) $error[0]) {
-                        $o .= '<b>' . $tx['link']['error'] . '</b>' . $tx['link']['ext_error_page'] . tag('br') . "\n";
-                        $o .= '<b>' . $tx['link']['returned_status'] . '</b>' . $error[0];
+                        $o .= '<b>' . $tx['link']['error'] . '</b>'
+                            . $tx['link']['ext_error_page'] . tag('br') . "\n"
+                            . '<b>' . $tx['link']['returned_status'] . '</b>'
+                            . $error[0];
                     }
                     // TODO: use a switch or elseifs
                     if ($error[0] == 'internalfail') {
-                        $o .= '<b>' . $tx['link']['error'] . '</b>' . $tx['link']['int_error'];
+                        $o .= '<b>' . $tx['link']['error'] . '</b>'
+                            . $tx['link']['int_error'];
                     }
                     if ($error[0] == 'externalfail') {
-                        $o .= '<b>' . $tx['link']['error'] . '</b>' . $tx['link']['ext_error_domain'];
+                        $o .= '<b>' . $tx['link']['error'] . '</b>'
+                            . $tx['link']['ext_error_domain'];
                     }
                     if ($error[0] == 'content not found') {
-                        $o .= '<b>' . $tx['link']['error'] . '</b>' . $tx['link']['int_error'];
+                        $o .= '<b>' . $tx['link']['error'] . '</b>'
+                            . $tx['link']['int_error'];
                     }
                     $o .= "\n" . '</li>' . "\n";
                 }
                 $o .= '</ul>' . "\n" . "\n";
             }
             if (isset($problems['caveats'])) {
-                $o .= '<h4>' . $tx['link']['hints'] . '</h4>' . "\n" . '<ul>' . "\n";
+                $o .= '<h4>' . $tx['link']['hints'] . '</h4>' . "\n"
+                    . '<ul>' . "\n";
                 foreach ($problems['caveats'] as $notice) {
                     $o .= '<li>' . "\n" . '<b>' . $tx['link']['link'] . '</b>'
-                        . '<a href="' . $notice[1] . '">' . $notice[2] . '</a>' . tag('br') . "\n";
-                    $o .= '<b>' . $tx['link']['linked_page'] . '</b>' . $notice[1] . tag('br') . "\n";
+                        . '<a href="' . $notice[1] . '">' . $notice[2] . '</a>'
+                        . tag('br') . "\n"
+                        . '<b>' . $tx['link']['linked_page'] . '</b>'
+                        . $notice[1] . tag('br') . "\n";
                     if ((int) $notice[0]) {
                         if ((int) $notice[0] >= 300 && (int) $notice[0] < 400) {
                             $o .= '<b>' . $tx['link']['error'] . '</b>'
                                 . $tx['link']['redirect'] . tag('br') . "\n";
                         }
-                        $o .= '<b>' . $tx['link']['returned_status'] . '</b>' . $notice[0] . "\n";
+                        $o .= '<b>' . $tx['link']['returned_status'] . '</b>'
+                            . $notice[0] . "\n";
                     } else {
                         if ($notice[0] == 'mailto') {
                             $o .= $tx['link']['email'] . "\n";

@@ -1,27 +1,34 @@
 <?php
-/* utf8-marker = äöüß */
 /**
  * Page-Data - Module page_data_router
  *
- * Part of the Pluginloader of $CMSIMPLE_XH_VERSION$
+ * PHP versions 4 and 5
  *
+ * @category  CMSimple_XH
  * @package   XH
+ * @author    Martin Damken <kontakt@zeichenkombinat.de>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   $CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
- * @version   $Id: page_data_router.php 315 2012-10-31 00:09:01Z cmb69 $
+ * @version   SVN: $Id: page_data_router.php 315 2012-10-31 00:09:01Z cmb69 $
  * @link      http://cmsimple-xh.org/
- * @author    Martin Damken
- * @link      http://www.zeichenkombinat.de/
  */
+
+
+/* utf8-marker = äöüß */
 
 
 /**
  * Handles all the data that has to be collected
  * to generate the page-data-array.
  *
- * @package XH
+ * @category CMSimple_XH
+ * @package  XH
+ * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @link     http://cmsimple-xh.org/
+ *
  * @access  public
  */
 class PL_Page_Data_Router
@@ -41,26 +48,32 @@ class PL_Page_Data_Router
     var $current_page;
 
     /**
-     * @param  array $h  The page headings.
-     * @param  array $pageDataFields  The page data fields.
-     * @param  array $tempData  The most recently deleted page data.
-     * @param  array $pageData  The page data.
+     * Constructs an instance.
+     *
+     * @param array $h              The page headings.
+     * @param array $pageDataFields The page data fields.
+     * @param array $tempData       The most recently deleted page data.
+     * @param array $pageData       The page data.
+     *
      * @return void
      */
     function PL_Page_Data_Router($h, $pageDataFields, $tempData, $pageData)
     {
-        $this->model = new PL_Page_Data_Model($h, $pageDataFields, $tempData, $pageData);
+        $this->model = new PL_Page_Data_Model(
+            $h, $pageDataFields, $tempData, $pageData
+        );
     }
 
     /**
      * Registers a field for the page data.
      *
-     * @param  string $field  The name of the page data field.
+     * @param string $field The name of the page data field.
+     *
      * @return void
      */
     function add_interest($field)
     {
-        if (!in_array($field, $this -> model -> params)) {
+        if (!in_array($field, $this->model->params)) {
             $this->model->add_param($field);
         }
     }
@@ -68,8 +81,9 @@ class PL_Page_Data_Router
     /**
      * Registers a page data tab.
      *
-     * @param  string $tab_name  The title of the tab.
-     * @param  string $tab_view  The filename of the view.
+     * @param string $tab_name The title of the tab.
+     * @param string $tab_view The filename of the view.
+     *
      * @return void
      */
     function add_tab($tab_name, $tab_view)
@@ -80,7 +94,8 @@ class PL_Page_Data_Router
     /**
      * Returns the page data of a single page.
      *
-     * @param  int $id  The page index.
+     * @param int $id The page index.
+     *
      * @return array
      */
     function find_page($id)
@@ -102,7 +117,8 @@ class PL_Page_Data_Router
     /**
      * Adds a new page and returns its page data.
      *
-     * @param  array $params  The page data of the page.
+     * @param array $params The page data of the page.
+     *
      * @return array
      */
     function new_page($params = null)
@@ -114,8 +130,9 @@ class PL_Page_Data_Router
     /**
      * Replaces the page data of a single page.
      *
-     * @param  array $pages  The new page data.
-     * @param  int $index  The index of the page.
+     * @param array $pages The new page data.
+     * @param int   $index The index of the page.
+     *
      * @return void
      */
     function insert($pages, $index)
@@ -126,7 +143,8 @@ class PL_Page_Data_Router
     /**
      * Deletes the page data of a single page.
      *
-     * @param  int $key  The index of the page.
+     * @param int $key The index of the page.
+     *
      * @return void
      */
     function destroy($key)
@@ -140,16 +158,18 @@ class PL_Page_Data_Router
      * If $separator is given the $field will be translated to an array
      *  - explode($separator, $value) - before the search.
      *
-     * @param  string $field  The name of the field.
-     * @param  string $value  The value to look for.
-     * @param  string $separator  The list item separator.
+     * @param string $field     The name of the field.
+     * @param string $value     The value to look for.
+     * @param string $separator The list item separator.
+     *
      * @return array
      */
     function find_field_value($field, $value, $separator = null)
     {
         if ($separator) {
-            $results = $this->model->find_arrayfield_value($field, $value,
-                                                           $separator);
+            $results = $this->model->find_arrayfield_value(
+                $field, $value, $separator
+            );
             return $results;
         }
         $results = $this->model->find_field_value($field, $value);
@@ -160,27 +180,29 @@ class PL_Page_Data_Router
      * Returns the sorted page data of all pages,
      * which contain a value in a (list) field.
      *
-     * @param  string $field  The name of the field.
-     * @param  string $value  The value to look for.
-     * @param  string $sort_key  The name of the field to sort by.
-     * @param  int $sort_flag  The sort options as for array_multisort().
-     * @param  string $separator  The list item separator.
+     * @param string $field     The name of the field.
+     * @param string $value     The value to look for.
+     * @param string $sort_key  The name of the field to sort by.
+     * @param int    $sort_flag The sort options as for array_multisort().
+     * @param string $separator The list item separator.
+     *
      * @return array
      */
     function find_field_value_sortkey($field, $value, $sort_key,
-                                      $sort_flag = null, $separator = null)
-    {
-        $results = $this->model->find_field_value_sortkey($field, $value,
-                                                          $sort_key, $sort_flag,
-                                                          $separator);
+        $sort_flag = null, $separator = null
+    ) {
+        $results = $this->model->find_field_value_sortkey(
+            $field, $value, $sort_key, $sort_flag, $separator
+        );
         return $results;
     }
 
     /**
      * Updates the page data according to changes from the online editor.
      *
-     * @param  array $headings  The page headings contained in the current edit.
-     * @param  int $index  The page index.
+     * @param array $headings The page headings contained in the current edit.
+     * @param int   $index    The page index.
+     *
      * @return void
      */
     function refresh_from_texteditor($headings, $index)
@@ -256,7 +278,8 @@ class PL_Page_Data_Router
     /**
      * Updates the page data according to changes from the menumanager plugin.
      *
-     * @param  string $changes
+     * @param string $changes The changed page structure.
+     *
      * @return void
      */
     function refresh_from_menu_manager($changes)
@@ -308,8 +331,9 @@ class PL_Page_Data_Router
     /**
      * Updates the page data of a single page.
      *
-     * @param  int $s  The index of the page.
-     * @param  array $params  The dictionary of fields to update.
+     * @param int   $s      The index of the page.
+     * @param array $params The dictionary of fields to update.
+     *
      * @return void
      */
     function update($s, $params)
@@ -324,10 +348,14 @@ class PL_Page_Data_Router
     }
 
     /**
-     * @todo   check this method; it can't work as it call PL_Page_Data_View::edit_view(), which doesn't exist!
+     * ???
      *
-     * @param  int $pd_s  The index of the page.
+     * @param int $pd_s The index of the page.
+     *
      * @return string  The (X)HTML.
+     *
+     * @todo check this method; it can't work as it calls
+     *       PL_Page_Data_View::edit_view(), which doesn't exist!
      */
     function edit($pd_s)
     {
@@ -339,18 +367,22 @@ class PL_Page_Data_Router
     /**
      * Returns the page data tab views.
      *
+     * @param int $s The index of the page.
+     *
      * @global bool
      * @global string
      * @global string
      * @global string
-     * @param  int $s  The index of the page.
+     *
      * @return string  The (X)HTML.
      */
     function create_tabs($s)
     {
         global $edit, $f, $o, $su;
 
-        if (is_array($this->model->tabs) && count($this->model->tabs) > 0 && $edit){
+        if (is_array($this->model->tabs)
+            && count($this->model->tabs) > 0 && $edit
+        ) {
             if ($s == -1 && !$f && $o == '' && $su == '') { // Argh! :(
                 $pd_s = 0;
             } else {
@@ -368,7 +400,8 @@ class PL_Page_Data_Router
     /**
      * Stores page data in the recycle bin.
      *
-     * @param  int $pd_s  The index of the page.
+     * @param int $pd_s The index of the page.
+     *
      * @return void
      */
     function keep_in_mind($pd_s)
@@ -380,11 +413,13 @@ class PL_Page_Data_Router
     /**
      * ???
      *
-     * @todo   seems to be never used! Must be double-checked.
+     * @param mixed $url ???
      *
      * @global array
-     * @param  mixed $url
+     *
      * @return bool
+     *
+     * @todo   seems to be never used! Must be double-checked.
      */
     function check_temp($url)
     {
@@ -409,9 +444,9 @@ class PL_Page_Data_Router
     /**
      * Returns the global page data arrays as a PHP tag.
      *
-     * @since  1.6
+     * @return string The PHP tag.
      *
-     * @return string  The PHP tag.
+     * @since  1.6
      */
     function headAsPHP()
     {
@@ -436,10 +471,11 @@ class PL_Page_Data_Router
     /**
      * Returns the page data of a single page as PHP tag.
      *
-     * @since  1.6
+     * @param int $id The index of the page.
      *
-     * @param  int $id  The index of the page.
-     * @return string  The PHP tag.
+     * @return string The PHP tag.
+     *
+     * @since 1.6
      */
     function pageAsPHP($id)
     {

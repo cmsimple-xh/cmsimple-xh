@@ -1,26 +1,34 @@
 <?php
-/* utf8-marker = äöüß */
+
 /**
  * Page-Data - Module page_data_model
  *
- * Part of the Pluginloader of $CMSIMPLE_XH_VERSION$
+ * PHP versions 4 and 5
  *
+ * @category  CMSimple_XH
  * @package   XH
+ * @author    Martin Damken <kontakt@zeichenkombinat.de>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   $CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
- * @version   $Id: page_data_model.php 315 2012-10-31 00:09:01Z cmb69 $
+ * @version   SVN: $Id: page_data_model.php 315 2012-10-31 00:09:01Z cmb69 $
  * @link      http://cmsimple-xh.org/
- * @author    Martin Damken
- * @link      http://www.zeichenkombinat.de/
  */
+
+
+/* utf8-marker = äöüß */
 
 
 /**
  * Handles the page-data-array including reading and writing of the files.
  *
- * @package XH
+ * @category CMSimple_XH
+ * @package  XH
+ * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @link     http://cmsimple-xh.org/
+ *
  * @access  public
  */
 class PL_Page_Data_Model
@@ -61,10 +69,13 @@ class PL_Page_Data_Model
     var $tabs;
 
     /**
-     * @param  array $h  The page headings.
-     * @param  array $pageDataFields  The page data fields.
-     * @param  array $tempData  The most recently deleted page data.
-     * @param  array $pageData  The page data.
+     * Constructs an instance.
+     *
+     * @param array $h              The page headings.
+     * @param array $pageDataFields The page data fields.
+     * @param array $tempData       The most recently deleted page data.
+     * @param array $pageData       The page data.
+     *
      * @return void
      */
     function PL_Page_Data_Model($h, $pageDataFields, $tempData, $pageData)
@@ -81,9 +92,9 @@ class PL_Page_Data_Model
     /**
      * Fixes the page data after reading.
      *
-     * @todo should better be renamed as it doesn't read the page data since XH 1.6
-     *
      * @return void
+     *
+     * @todo should better be renamed as it doesn't read the page data since XH 1.6
      */
     function read()
     {
@@ -105,12 +116,13 @@ class PL_Page_Data_Model
     /**
      * Replaces the existing page data.
      *
-     * @param  array $data  The new page data.
-     * @return bool  Whether $data was not null.
+     * @param array $data The new page data.
+     *
+     * @return bool Whether $data was not null.
      */
     function refresh($data = null)
     {
-        if (isset($data)){
+        if (isset($data)) {
             $this->data = $data;
             $this->save();
             return true;
@@ -121,7 +133,8 @@ class PL_Page_Data_Model
     /**
      * Registers a page data field.
      *
-     * @param  string $field
+     * @param string $field The page data field to add.
+     *
      * @return void
      */
     function add_param($field)
@@ -133,8 +146,9 @@ class PL_Page_Data_Model
     /**
      * Registers a page data tab.
      *
-     * @param  string $title  The title of the tab.
-     * @param  string $view_file  The filename of the view.
+     * @param string $title     The title of the tab.
+     * @param string $view_file The filename of the view.
+     *
      * @return void
      */
     function add_tab($title, $view_file)
@@ -145,7 +159,8 @@ class PL_Page_Data_Model
     /**
      * Returns the page data of a single page.
      *
-     * @param  int $key  The index of the page.
+     * @param int $key The index of the page.
+     *
      * @return array
      */
     function find_key($key)
@@ -156,8 +171,9 @@ class PL_Page_Data_Model
     /**
      * Returns the page data of all pages which contain a value in a field.
      *
-     * @param  string $field  The name of the field.
-     * @param  mixed $value  The value to look for.
+     * @param string $field The name of the field.
+     * @param mixed  $value The value to look for.
+     *
      * @return array
      */
     function find_field_value($field, $value)
@@ -175,9 +191,10 @@ class PL_Page_Data_Model
     /**
      * Returns the page data of all pages which contain a value in a list field.
      *
-     * @param  string $field  The name of the field.
-     * @param  string $value  The value to look for.
-     * @param  string $separator  The list item separator.
+     * @param string $field     The name of the field.
+     * @param string $value     The value to look for.
+     * @param string $separator The list item separator.
+     *
      * @return array
      */
     function find_arrayfield_value($field, $value, $separator)
@@ -199,16 +216,17 @@ class PL_Page_Data_Model
      * Returns the sorted page data of all pages,
      * which contain a value in a (list) field.
      *
-     * @param  string $field  The name of the field.
-     * @param  string $value  The value to look for.
-     * @param  string $sort_key  The name of the field to sort by.
-     * @param  int $sort_flag  The sort options as for array_multisort().
-     * @param  string $separator  The list item separator.
+     * @param string $field     The name of the field.
+     * @param string $value     The value to look for.
+     * @param string $sort_key  The name of the field to sort by.
+     * @param int    $sort_flag The sort options as for array_multisort().
+     * @param string $separator The list item separator.
+     *
      * @return array
      */
     function find_field_value_sortkey($field, $value, $sort_key, $sort_flag,
-                                      $separator)
-    {
+        $separator
+    ) {
         if ($separator) {
             $results = $this->find_arrayfield_value($field, $value, $separator);
         } else {
@@ -234,7 +252,8 @@ class PL_Page_Data_Model
     /**
      * Returns the page data for a new page.
      *
-     * @param  array $params  Default page data.
+     * @param array $params Default page data.
+     *
      * @return array
      */
     function create($params = null)
@@ -250,8 +269,9 @@ class PL_Page_Data_Model
     /**
      * Replaces the page data of a single page.
      *
-     * @param  array $pages  The new page data.
-     * @param  int $index  The index of the page.
+     * @param array $pages The new page data.
+     * @param int   $index The index of the page.
+     *
      * @return void
      */
     function replace($pages, $index)
@@ -264,7 +284,8 @@ class PL_Page_Data_Model
     /**
      * Stores page data in the recycle bin.
      *
-     * @param  array $page
+     * @param array $page The page data.
+     *
      * @return void
      */
     function store_temp($page)
@@ -279,7 +300,8 @@ class PL_Page_Data_Model
     /**
      * Deletes the page data of a single page.
      *
-     * @param  int $key  The index of the page.
+     * @param int $key The index of the page.
+     *
      * @return void
      */
     function delete($key)
@@ -291,8 +313,9 @@ class PL_Page_Data_Model
     /**
      * Updates the page data of a single page.
      *
-     * @param  int $key  The index of the page.
-     * @param  array $params  The dictionary of fields to update.
+     * @param int   $key    The index of the page.
+     * @param array $params The dictionary of fields to update.
+     *
      * @return void
      */
     function update_key($key, $params)

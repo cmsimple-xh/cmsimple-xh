@@ -606,7 +606,7 @@ $pd_current = $pd_router->find_page($pd_s);
  * Include required_classes of all plugins.
  */
 foreach (XH_plugins() as $plugin) {
-    PluginFiles($plugin);
+    pluginFiles($plugin);
     if (is_readable($pth['file']['plugin_classes'])) {
         include_once $pth['file']['plugin_classes'];
     }
@@ -616,7 +616,7 @@ foreach (XH_plugins() as $plugin) {
  * Include config and language files of all plugins.
  */
 foreach (XH_plugins() as $plugin) {
-    PluginFiles($plugin);
+    pluginFiles($plugin);
     if (is_readable($pth['folder']['plugin_config'] . 'defaultconfig.php')) {
         include $pth['folder']['plugin_config'] . 'defaultconfig.php';
     }
@@ -637,7 +637,7 @@ foreach (XH_plugins() as $plugin) {
  * Include index.php of all plugins, and add stylesheet to $hjs.
  */
 foreach (XH_plugins() as $plugin) {
-    PluginFiles($plugin);
+    pluginFiles($plugin);
     if (is_readable($pth['file']['plugin_index'])) {
         include $pth['file']['plugin_index'];
     }
@@ -655,7 +655,7 @@ if ($adm) {
      * Include admin.php of all plugins.
      */
     foreach (XH_plugins(true) as $plugin) {
-        PluginFiles($plugin);
+        pluginFiles($plugin);
         if (is_readable($pth['file']['plugin_admin'])) {
             include $pth['file']['plugin_admin'];
         }
@@ -665,7 +665,7 @@ if ($adm) {
 
 unset($plugin);
 
-afterPluginLoading();
+XH_afterPluginLoading();
 
 
 if ($f == 'search') {
@@ -790,7 +790,7 @@ if ($adm) {
     case 'validate':
         include_once $pth['folder']['classes'] . 'LinkCheck.php';
         $temp = new XH_LinkCheck();
-        $o .= $temp->check_links();
+        $o .= $temp->checkLinks();
         break;
     }
 }

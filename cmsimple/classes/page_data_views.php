@@ -1,26 +1,33 @@
 <?php
-/* utf8-marker = äöüß */
 /**
  * Page-Data - Module page_data_views
  *
- * Part of the Pluginloader of $CMSIMPLE_XH_VERSION$
+ * PHP versions 4 and 5
  *
+ * @category  CMSimple_XH
  * @package   XH
+ * @author    Martin Damken <kontakt@zeichenkombinat.de>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   $CMSIMPLE_XH_VERSION$, $CMSIMPLE_XH_BUILD$
- * @version   $Id: page_data_views.php 314 2012-10-30 23:43:19Z cmb69 $
+ * @version   SVN: $Id: page_data_views.php 314 2012-10-30 23:43:19Z cmb69 $
  * @link      http://cmsimple-xh.org/
- * @author    Martin Damken
- * @link      http://www.zeichenkombinat.de/
  */
+
+
+/* utf8-marker = äöüß */
 
 
 /**
  * Provides an interface for plugins to handle the page_data.
  *
- * @package XH
+ * @category CMSimple_XH
+ * @package  XH
+ * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @link     http://cmsimple-xh.org/
+
  * @access  public
  */
 class PL_Page_Data_View
@@ -33,13 +40,18 @@ class PL_Page_Data_View
     var $page;
 
     /**
+     * The page data tabs.
      *
+     * @var array
      */
     var $tabs;
 
     /**
-     * @param  int $page  The index of the page.
-     * @param  array $tabs  The filenames of the views of page data tabs.
+     * Constructs an instance.
+     *
+     * @param int   $page The index of the page.
+     * @param array $tabs The filenames of the views of page data tabs.
+     *
      * @return void
      */
     function PL_Page_Data_View($page, $tabs = null)
@@ -51,7 +63,7 @@ class PL_Page_Data_View
     /**
      * Returns the page data tabs.
      *
-     * @return string  The (X)HTML.
+     * @return string The (X)HTML.
      */
     function pd_forms()
     {
@@ -70,7 +82,8 @@ class PL_Page_Data_View
         foreach ($this->tabs as $title => $file) {
             list($function, $dummy) = explode('.', basename($file), 2);
             // TODO: use something more appropriate than an anchor
-            $view .= "\n" . '<div id="PLTab_' . $function . '" class="inactive_view">'
+            $view .= "\n" . '<div id="PLTab_' . $function
+                . '" class="inactive_view">'
                 . "\n\t" . '<a class="pd_editor_toggle pd_open"'
                 . ' onclick="xh.toggleTab(\'' . $function . '\');">&nbsp;</a>';
             if (file_exists($file)) {
