@@ -1090,7 +1090,7 @@ function meta($n)
     $exclude = array('robots', 'keywords', 'description');
     $value = isset($tx['meta'][$n]) ? $tx['meta'][$n] : $cf['meta'][$n];
     if ($n != 'codepage' && !empty($value) && !($print && in_array($n, $exclude))) {
-        $content = htmlspecialchars($value, ENT_QUOTES, 'UTF-8')
+        $content = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
         return tag('meta name="' . $n . '" content="' . $content . '"') . "\n";
     }
 }
