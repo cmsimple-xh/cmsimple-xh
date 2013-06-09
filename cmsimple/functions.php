@@ -271,11 +271,11 @@ function evaluate_plugincall($__text)
             if ($fnct) {
                 preg_match_all("/\\$([a-z_0-9]*)/i", $call, $matches);
                 foreach ($matches[1] as $var) {
-                    global /*ignore*/$$var;
+                    global $$var;
                 }
             }
             // replace PL-CALLS (String only!!)
-            $repacement = $fnct
+            $replacement = $fnct
                 ? eval($call)
                 : str_replace(
                     '{{%1}}', $regex . $fd_calls[$regex][1][$call_nr], $error
