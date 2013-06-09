@@ -26,8 +26,6 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  *
- * @access public
- *
  * @todo needs fixing!
  */
 class XH_LinkCheck
@@ -35,11 +33,13 @@ class XH_LinkCheck
     /**
      * Checks all links and returns the result view.     *
      *
+     * @return string The (X)HTML.
+     *
      * @global array The page contents.
      * @global array The page URLs.
      * @global int   The number of pages.
      *
-     * @return string The (X)HTML.
+     * @access public
      */
     function checkLinks()
     {
@@ -108,11 +108,16 @@ class XH_LinkCheck
      *
      * @return mixed 200 on success; otherwise an error string.
      *
+     * @global array  The content of the pages.
+     * @global array  The URLs of the pages.
+     * @global int    The number of pages.
+     * @global array  The paths of system files and folders.
+     *
      * @access protected
      */
     function checkInternalLink($test)
     {
-        global $c, $u, $cl, $sn, $pth, $sl, $cf, $pth;
+        global $c, $u, $cl, $pth;
 
         // link to a file
         $filename = dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $test['path'];
@@ -225,11 +230,11 @@ class XH_LinkCheck
      * @param int   $checkedLinks The number of checked links.
      * @param array $hints        The errors and warnings.
      *
+     * @return string The (X)HTML.
+     *
      * @global array The localization of the core.
      * @global array The page headings.
      * @global array The page URLs.
-     *
-     * @return string The (X)HTML.
      *
      * @access protected
      *

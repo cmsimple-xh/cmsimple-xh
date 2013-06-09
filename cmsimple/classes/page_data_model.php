@@ -37,6 +37,8 @@ class PL_Page_Data_Model
      * The page headings (a copy of $h).
      *
      * @var array
+     *
+     * @access protected
      */
     var $headings;
 
@@ -44,6 +46,8 @@ class PL_Page_Data_Model
      * The list of page data fields.
      *
      * @var array
+     *
+     * @access protected
      */
     var $params;
 
@@ -51,6 +55,8 @@ class PL_Page_Data_Model
      * The page data.
      *
      * @var array
+     *
+     * @access protected
      */
     var $data;
 
@@ -58,6 +64,8 @@ class PL_Page_Data_Model
      * The page data of the latest deleted page (recycle bin).
      *
      * @var array
+     *
+     * @access protected
      */
     var $temp_data;
 
@@ -65,6 +73,8 @@ class PL_Page_Data_Model
      * The filenames of the views of page data tabs.
      *
      * @var array
+     *
+     * @access protected
      */
     var $tabs;
 
@@ -77,6 +87,8 @@ class PL_Page_Data_Model
      * @param array $pageData       The page data.
      *
      * @return void
+     *
+     * @access public
      */
     function PL_Page_Data_Model($h, $pageDataFields, $tempData, $pageData)
     {
@@ -94,7 +106,9 @@ class PL_Page_Data_Model
      *
      * @return void
      *
-     * @todo should better be renamed as it doesn't read the page data since XH 1.6
+     * @access protected
+     *
+     * @todo should better be renamed as it doesn't read the page data since XH 1.6.
      */
     function read()
     {
@@ -119,6 +133,8 @@ class PL_Page_Data_Model
      * @param array $data The new page data.
      *
      * @return bool Whether $data was not null.
+     *
+     * @access public
      */
     function refresh($data = null)
     {
@@ -136,6 +152,8 @@ class PL_Page_Data_Model
      * @param string $field The page data field to add.
      *
      * @return void
+     *
+     * @access public
      */
     function add_param($field)
     {
@@ -150,6 +168,8 @@ class PL_Page_Data_Model
      * @param string $view_file The filename of the view.
      *
      * @return void
+     *
+     * @access public
      */
     function add_tab($title, $view_file)
     {
@@ -162,6 +182,8 @@ class PL_Page_Data_Model
      * @param int $key The index of the page.
      *
      * @return array
+     *
+     * @access public
      */
     function find_key($key)
     {
@@ -175,6 +197,8 @@ class PL_Page_Data_Model
      * @param mixed  $value The value to look for.
      *
      * @return array
+     *
+     * @access public
      */
     function find_field_value($field, $value)
     {
@@ -196,6 +220,8 @@ class PL_Page_Data_Model
      * @param string $separator The list item separator.
      *
      * @return array
+     *
+     * @access public
      */
     function find_arrayfield_value($field, $value, $separator)
     {
@@ -223,6 +249,8 @@ class PL_Page_Data_Model
      * @param string $separator The list item separator.
      *
      * @return array
+     *
+     * @access public
      */
     function find_field_value_sortkey($field, $value, $sort_key, $sort_flag,
         $separator
@@ -255,6 +283,8 @@ class PL_Page_Data_Model
      * @param array $params Default page data.
      *
      * @return array
+     *
+     * @access public
      */
     function create($params = null)
     {
@@ -273,6 +303,8 @@ class PL_Page_Data_Model
      * @param int   $index The index of the page.
      *
      * @return void
+     *
+     * @access public
      */
     function replace($pages, $index)
     {
@@ -287,6 +319,8 @@ class PL_Page_Data_Model
      * @param array $page The page data.
      *
      * @return void
+     *
+     * @access protected
      */
     function store_temp($page)
     {
@@ -303,6 +337,8 @@ class PL_Page_Data_Model
      * @param int $key The index of the page.
      *
      * @return void
+     *
+     * @access public
      */
     function delete($key)
     {
@@ -317,6 +353,8 @@ class PL_Page_Data_Model
      * @param array $params The dictionary of fields to update.
      *
      * @return void
+     *
+     * @access public
      */
     function update_key($key, $params)
     {
@@ -330,6 +368,8 @@ class PL_Page_Data_Model
      * Saves the page data.
      *
      * @return void
+     *
+     * @access public
      */
     function save()
     {

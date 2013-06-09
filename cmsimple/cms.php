@@ -121,7 +121,7 @@ $hjs = '';
 $bjs = '';
 
 /**
- * JS for the onload event of the <body> element.
+ * JavaScript for the onload attribute of the BODY element.
  *
  * @global string $onload
  */
@@ -317,11 +317,25 @@ $sn = preg_replace(
 );
 
 /**
+ * The name of a special file to be handled.
+ *
+ * @global string $file
+ */
+$file = null;
+
+/**
  * Whether print mode is active.
  *
  * @global bool $print
  */
 $print = null;
+
+/**
+ * The current search string.
+ *
+ * @global string $search
+ */
+$search = null;
 
 // TODO: document the following as global variables
 

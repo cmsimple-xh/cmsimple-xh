@@ -27,51 +27,56 @@
  * @link     http://cmsimple-xh.org/
 
  * @abstract
+ * @since 1.6
  */
 class XH_FileEdit
 {
     /**
      * Additional POST parameters.
      *
+     * @var array
      * @access protected
-     * @var    array
      */
     var $params = array();
 
     /**
      * The name of the plugin.
      *
+     * @var string
      * @access protected
-     * @var    string
      */
     var $plugin = null;
 
     /**
+     * The caption of the form.
+     *
      * @var string
+     * @access protected
      */
     var $caption = null;
 
     /**
      * The name of the file to edit.
      *
+     * @var string
      * @access protected
-     * @var    string
      */
     var $filename = null;
 
     /**
      * URL for redirecting after successful submission (PRG pattern).
      *
+     * @var string
      * @access protected
-     * @var    string
      */
     var $redir = null;
 
     /**
      * Saves the file. Returns whether that succeeded.
      *
-     * @access protected
      * @return bool
+     *
+     * @access protected
      */
     function save()
     {
@@ -88,9 +93,10 @@ class XH_FileEdit
     /**
      * Returns the form to edit the file contents.
      *
+     * @return string  (X)HTML.
+     *
      * @abstract
      * @access public
-     * @return string  (X)HTML.
      */
     function form()
     {
@@ -102,9 +108,10 @@ class XH_FileEdit
      * If file could be successfully saved, triggers a redirect.
      * Otherwise writes error message to $e, and returns the edit form.
      *
+     * @return mixed  The (X)HTML resp. void.
+     *
      * @abstract
      * @access public
-     * @return mixed  The (X)HTML resp. void.
      */
     function submit()
     {
@@ -113,9 +120,10 @@ class XH_FileEdit
     /**
      * Returns the the file contents as string for saving.
      *
+     * @return string
+     *
      * @abstract
      * @access protected
-     * @return string
      */
     function asString()
     {
@@ -133,6 +141,7 @@ class XH_FileEdit
  * @link     http://cmsimple-xh.org/
  *
  * @abstract
+ * @since 1.6
  */
 class XH_TextFileEdit extends XH_FileEdit
 {
@@ -140,6 +149,7 @@ class XH_TextFileEdit extends XH_FileEdit
      * The name of the textarea.
      *
      * @var string
+     * @access protected
      */
     var $textareaName = null;
 
@@ -147,11 +157,14 @@ class XH_TextFileEdit extends XH_FileEdit
      * The contents of the file.
      *
      * @var string
+     * @access protected
      */
     var $text = null;
 
     /**
      * Construct an instance.
+     *
+     * @access protected
      */
     function XH_TextFileEdit()
     {
@@ -162,8 +175,9 @@ class XH_TextFileEdit extends XH_FileEdit
     /**
      * Returns the form to edit the file contents.
      *
-     * @access public
      * @return string  (X)HTML.
+     *
+     * @access public
      */
     function form()
     {
@@ -193,8 +207,9 @@ class XH_TextFileEdit extends XH_FileEdit
      * If file could be successfully saved, triggers a redirect.
      * Otherwise writes error message to $e, and returns the edit form.
      *
-     * @access public
      * @return mixed
+     *
+     * @access public
      */
     function submit()
     {
@@ -211,8 +226,9 @@ class XH_TextFileEdit extends XH_FileEdit
     /**
      * Returns the the file contents as string for saving.
      *
-     * @access protected
      * @return string
+     *
+     * @access protected
      */
     function asString()
     {
@@ -229,11 +245,18 @@ class XH_TextFileEdit extends XH_FileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
+ *
+ * @since 1.6
  */
 class XH_CoreTextFileEdit extends XH_TextFileEdit
 {
     /**
      * Construct an instance.
+     *
+     * @global array  The paths of system files and folders.
+     * @global string The requested special file.
+     *
+     * @access public
      */
     function XH_CoreTextFileEdit()
     {
@@ -256,11 +279,18 @@ class XH_CoreTextFileEdit extends XH_TextFileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
+ *
+ * @since 1.6
  */
 class XH_PluginTextFileEdit extends XH_TextFileEdit
 {
     /**
      * Construct an instance.
+     *
+     * @global array The paths of system files and folders.
+     * @global string The name of the currently loading plugin.
+     *
+     * @access public
      */
     function XH_PluginTextFileEdit()
     {
@@ -288,9 +318,13 @@ class XH_PluginTextFileEdit extends XH_TextFileEdit
  * @link     http://cmsimple-xh.org/
  *
  * @abstract
+ * @since 1.6
  */
 class XH_ArrayFileEdit extends XH_FileEdit
 {
+    /**
+     *
+     */
     var $cfg = null;
     //var $file = null;
     //var $admin = null;
@@ -356,6 +390,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * @param array $options The list of options.
      *
      * @return bool
+     *
+     * @access protected
      */
     function hasVisibleFields($options)
     {
@@ -374,10 +410,10 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @return string  The (X)HTML.
      *
-     * @access private
+     * @access protected
      *
-     * @todo: finish up
-     * @todo: i18n
+     * @todo finish up
+     * @todo i18n
      */
     function passwordDialog($iname)
     {
@@ -420,7 +456,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @return string The (X)HTML.
      *
-     * @access private
+     * @access protected
      */
     function formField($cat, $name, $opt)
     {
@@ -467,10 +503,12 @@ class XH_ArrayFileEdit extends XH_FileEdit
     /**
      * Returns the form to edit the file contents.
      *
-     * @access public
-     * @global array
-     * @global array
      * @return string  (X)HTML.
+     *
+     * @global array The paths of system files and folders.
+     * @global array The localization of the core.
+     *
+     * @access public
      */
     function form()
     {
@@ -523,11 +561,12 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * and the file could be successfully saved.
      * Otherwise writes an error message to $e, and returns the edit form.
      *
-     * @access public
+     * @return string  The (X)HTML.
      *
      * @global string  Error messages.
      * @global object  The password hasher.
-     * @return string  The (X)HTML.
+     *
+     * @access public
      */
     function submit()
     {
@@ -590,6 +629,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
  * @link     http://cmsimple-xh.org/
  *
  * @abstract
+ * @since 1.6
  */
 class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
 {
@@ -599,6 +639,8 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
      * @global array  The paths of system files and folders.
      * @global string The key of the system file.
      * @global array  The localization of the plugins.
+     *
+     * @access protected
      */
     function XH_CoreArrayFileEdit()
     {
@@ -612,8 +654,9 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
     /**
      * Returns the the file contents as string for saving.
      *
-     * @access protected
      * @return string
+     *
+     * @access protected
      */
     function asString()
     {
@@ -634,9 +677,11 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
      * @param string $fn    The key of the system folder.
      * @param string $regex The regex the filename must match.
      *
+     * @return array
+     *
      * @global array The paths of system files and folders.
      *
-     * @return array
+     * @access protected
      */
     function selectOptions($fn, $regex)
     {
@@ -665,6 +710,8 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
+ *
+ * @since 1.6
  */
 class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
 {
@@ -674,6 +721,8 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
      * @global array  The paths of system files and folders.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
+     *
+     * @access public
      */
     function XH_CoreConfigFileEdit()
     {
@@ -744,6 +793,8 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
+ *
+ * @since 1.6
  */
 class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
 {
@@ -751,6 +802,8 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
      * Constructs an instance.
      *
      * @global array The localization of the core.
+     *
+     * @access public
      */
     function XH_CoreLangFileEdit()
     {
@@ -798,14 +851,16 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
  * @link     http://cmsimple-xh.org/
  *
  * @abstract
+ * @since 1.6
  */
 class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
 {
     /**
      * The name of the config array variable.
      *
-     * @access protected
      * @var    string
+     *
+     * @access protected
      */
     var $varName = null;
 
@@ -814,6 +869,8 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
      *
      * @global array  The paths of system files and folders.
      * @global string The name of the currently loading plugin.
+     *
+     * @access protected
      */
     function XH_PluginArrayFileEdit()
     {
@@ -826,8 +883,9 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
     /**
      * Returns the the file contents as string for saving.
      *
-     * @access protected
      * @return string
+     *
+     * @access protected
      */
     function asString()
     {
@@ -854,16 +912,20 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
+ *
+ * @since 1.6
  */
 class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
 {
     /**
      * Constructs an instance.
      *
-     * @global array
-     * @global string
-     * @global array
-     * @global array
+     * @global array  The paths of system files and folders.
+     * @global string The name of the currently loading plugin.
+     * @global array  The configuration of the plugins.
+     * @global array  The localization of the plugins.
+     *
+     * @access public
      */
     function XH_PluginConfigFileEdit()
     {
@@ -908,15 +970,19 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
+ *
+ * @since 1.6
  */
 class XH_PluginLanguageFileEdit extends XH_PluginArrayFileEdit
 {
     /**
      * Constructs an instance.
-     * 
-     * @global array
-     * @global string
-     * @global array
+     *
+     * @global array  The paths of system files and folders.
+     * @global string The name of the currently loading plugin.
+     * @global array  The localization of the plugins.
+     *
+     * @access public
      */
     function XH_PluginLanguageFileEdit()
     {

@@ -18,9 +18,15 @@
 
 
 /**
- * Returns the complete head element.
+ * Returns the complete HEAD element.
  *
  * @return string The (X)HTML.
+ *
+ * @global string The page title.
+ * @global array  The configuration of the core.
+ * @global array  The paths of system files and folders.
+ * @global array  The localization of the core.
+ * @global string (X)HTML to be inserted to the HEAD Element.
  */
 function head()
 {
@@ -60,6 +66,8 @@ function head()
  * Returns the language dependend site title.
  *
  * @return string The (X)HTML.
+ *
+ * @global array The localization of the core.
  */
 function sitename()
 {
@@ -75,10 +83,13 @@ function sitename()
  * Returns the global site title.
  *
  * @return string The (X)HTML.
+ *
+ * @global array The configuration of the core.
  */
 function pagename()
 {
     global $cf;
+
     return isset($cf['site']['title'])
         ? htmlspecialchars($cf['site']['title'], ENT_QUOTES, 'UTF-8')
         : '';
@@ -89,6 +100,8 @@ function pagename()
  * Returns the onload attribute for the body element.
  *
  * @return string The (X)HTML.
+ *
+ * @global string JavaScript for the onload attribute of the BODY element.
  */
 function onload()
 {
@@ -103,9 +116,15 @@ function onload()
  *
  * @param int      $start The menu level to start with.
  * @param int      $end   The menu level to end with.
- * @param callable $li    A callback.
+ * @param callable $li    A callback that actually creates the view.
  *
  * @return string The (X)HTML.
+ *
+ * @global array The content of the pages.
+ * @global int   The number of pages.
+ * @global int   The index of the current page.
+ * @global array The menu levels of the pages.
+ * @global array The configuration of the core.
  */
 function toc($start = null, $end = null, $li = 'li')
 {
@@ -163,10 +182,18 @@ function toc($start = null, $end = null, $li = 'li')
  * @param mixed $st The menu level to start with or the type of menu.
  *
  * @return string The (X)HTML.
+ *
+ * @global int   The index of the current page.
+ * @global array The menu levels of the pages.
+ * @global array The headings of the pages.
+ * @global int   The number of pages.
+ * @global array The configuration of the core.
+ * @global array The URLs of the pages.
  */
 function li($ta, $st)
 {
     global $s, $l, $h, $cl, $cf, $u;
+
     $tl = count($ta);
     if ($tl < 1) {
         return;
@@ -259,6 +286,9 @@ function li($ta, $st)
  * Returns the search form.
  *
  * @return string The (X)HTML.
+ *
+ * @global string The script name.
+ * @global array  The localization of the core.
  */
 function searchbox()
 {
@@ -291,6 +321,12 @@ function sitemaplink()
  * Returns the link for the print view.
  *
  * @return string The (X)HTML.
+ *
+ * @global string The requested special function.
+ * @global string The current search string.
+ * @global string The requested special file.
+ * @global string The script name.
+ * @global array  The localization of the core.
  */
 function printlink()
 {
@@ -315,6 +351,8 @@ function printlink()
  * Returns the link to the mail form.
  *
  * @return string The (X)HTML.
+ *
+ * @global array The configuration of the core.
  */
 function mailformlink()
 {
@@ -363,6 +401,9 @@ function loginlink()
  * @param int  $hour The time correction in hours.
  *
  * @return string The (X)HTML.
+ *
+ * @global array The localization of the core.
+ * @global array The paths of system files and folders.
  */
 function lastupdate($br = null, $hour = null)
 {
@@ -386,6 +427,9 @@ function lastupdate($br = null, $hour = null)
  * Returns the link to the copyright and license informations.
  *
  * @return string The (X)HTML.
+ *
+ * @global array  The configuration of the core.
+ * @global string The script name.
  */
 function legallink()
 {
@@ -400,6 +444,15 @@ function legallink()
  * Returns the locator (breadcrumb navigation).
  *
  * @return string The (X)HTML.
+ *
+ * @global string The title of the page.
+ * @global array  The headings of the pages.
+ * @global int    The index of the current page.
+ * @global string The requested special function.
+ * @global array  The content of the pages.
+ * @global array  The menu levels of the pages.
+ * @global array  The localization of the core.
+ * @global array  The configuration of the core.
  */
 function locator()
 {
@@ -463,6 +516,16 @@ function editmenu()
  * @param bool  $debug   Whether the debug mode is enabled.
  *
  * @return string (X)HTML.
+ *
+ * @global bool   Whether admin mode is active.
+ * @global bool   Whether edit mode is active.
+ * @global int    The index of the current page.
+ * @global array  The URLs of the pages.
+ * @global string The scipt name.
+ * @global array  The localization of the core.
+ * @global string The current language.
+ * @global array  The localization of the core.
+ * @global string The URL of the current page.
  *
  * @since 1.5
  */
@@ -544,6 +607,13 @@ function admin_menu($plugins = array(), $debug = false)
  * Returns the contents area.
  *
  * @return string (X)HTML.
+ *
+ * @global int    The index of the current page.
+ * @global string The output of the contents area.
+ * @global array  The content of the pages.
+ * @global bool   Whether edit mode is active.
+ * @global bool   Whether admin mode is active.
+ * @global array  The configuration of the core.
  */
 function content()
 {
@@ -569,6 +639,12 @@ function content()
  * Returns the submenu of a page.
  *
  * @return string (X)HTML.
+ *
+ * @global int   The index of the current page.
+ * @global int   The number of pages.
+ * @global array The menu levels of the pages.
+ * @global array The localization of the core.
+ * @global array The configuration of the core.
  */
 function submenu()
 {
@@ -603,6 +679,10 @@ function submenu()
  *
  * @return string (X)HTML.
  *
+ * @global int   The index of the current page.
+ * @global int   The number of pages.
+ * @global array The localization of the core.
+ *
  * @see nextpage()
  */
 function previouspage()
@@ -621,6 +701,10 @@ function previouspage()
  * Returns the link to the next page
  *
  * @return string (X)HTML.
+ *
+ * @global int   The index of the current page.
+ * @global int   The number of pages.
+ * @global array The localization of the core.
  *
  * @see previouspage()
  */
@@ -642,6 +726,8 @@ function nextpage()
  * To work, an anchor TOP has to be defined in the template.
  *
  * @return string (X)HTML.
+ *
+ * @global array The localization of the core.
  */
 function top()
 {
@@ -655,6 +741,10 @@ function top()
  * Returns the language menu.
  *
  * @return string (X)HTML.
+ *
+ * @global array  The paths of system files and folders.
+ * @global array  The configuration of the core.
+ * @global string The current language.
  *
  * @todo Separate model (i.e. finding of languages) and view.
  */

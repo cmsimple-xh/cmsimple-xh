@@ -27,8 +27,6 @@
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
-
- * @access  public
  */
 class PL_Page_Data_View
 {
@@ -36,6 +34,8 @@ class PL_Page_Data_View
      * The current page.
      *
      * @var int
+     *
+     * @access protected
      */
     var $page;
 
@@ -43,6 +43,8 @@ class PL_Page_Data_View
      * The page data tabs.
      *
      * @var array
+     *
+     * @access protected
      */
     var $tabs;
 
@@ -53,6 +55,8 @@ class PL_Page_Data_View
      * @param array $tabs The filenames of the views of page data tabs.
      *
      * @return void
+     *
+     * @access public
      */
     function PL_Page_Data_View($page, $tabs = null)
     {
@@ -64,6 +68,8 @@ class PL_Page_Data_View
      * Returns the page data tabs.
      *
      * @return string The (X)HTML.
+     *
+     * @access public
      */
     function pd_forms()
     {

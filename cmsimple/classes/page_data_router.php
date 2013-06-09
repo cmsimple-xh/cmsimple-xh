@@ -28,8 +28,6 @@
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
- *
- * @access  public
  */
 class PL_Page_Data_Router
 {
@@ -37,6 +35,8 @@ class PL_Page_Data_Router
      * The model.
      *
      * @var object
+     *
+     * @access protected
      */
     var $model;
 
@@ -44,6 +44,8 @@ class PL_Page_Data_Router
      * The page data of the current page.
      *
      * @var array
+     *
+     * @access protected
      */
     var $current_page;
 
@@ -56,6 +58,8 @@ class PL_Page_Data_Router
      * @param array $pageData       The page data.
      *
      * @return void
+     *
+     * @access public
      */
     function PL_Page_Data_Router($h, $pageDataFields, $tempData, $pageData)
     {
@@ -70,6 +74,8 @@ class PL_Page_Data_Router
      * @param string $field The name of the page data field.
      *
      * @return void
+     *
+     * @access public
      */
     function add_interest($field)
     {
@@ -85,6 +91,8 @@ class PL_Page_Data_Router
      * @param string $tab_view The filename of the view.
      *
      * @return void
+     *
+     * @access public
      */
     function add_tab($tab_name, $tab_view)
     {
@@ -97,6 +105,8 @@ class PL_Page_Data_Router
      * @param int $id The page index.
      *
      * @return array
+     *
+     * @access public
      */
     function find_page($id)
     {
@@ -108,6 +118,8 @@ class PL_Page_Data_Router
      * Returns the page data of all pages.
      *
      * @return array
+     *
+     * @access public
      */
     function find_all()
     {
@@ -120,6 +132,8 @@ class PL_Page_Data_Router
      * @param array $params The page data of the page.
      *
      * @return array
+     *
+     * @access public
      */
     function new_page($params = null)
     {
@@ -134,6 +148,8 @@ class PL_Page_Data_Router
      * @param int   $index The index of the page.
      *
      * @return void
+     *
+     * @access public
      */
     function insert($pages, $index)
     {
@@ -146,6 +162,8 @@ class PL_Page_Data_Router
      * @param int $key The index of the page.
      *
      * @return void
+     *
+     * @access public
      */
     function destroy($key)
     {
@@ -163,6 +181,8 @@ class PL_Page_Data_Router
      * @param string $separator The list item separator.
      *
      * @return array
+     *
+     * @access public
      */
     function find_field_value($field, $value, $separator = null)
     {
@@ -187,6 +207,8 @@ class PL_Page_Data_Router
      * @param string $separator The list item separator.
      *
      * @return array
+     *
+     * @access public
      */
     function find_field_value_sortkey($field, $value, $sort_key,
         $sort_flag = null, $separator = null
@@ -204,6 +226,8 @@ class PL_Page_Data_Router
      * @param int   $index    The page index.
      *
      * @return void
+     *
+     * @access public
      */
     function refresh_from_texteditor($headings, $index)
     {
@@ -281,6 +305,10 @@ class PL_Page_Data_Router
      * @param string $changes The changed page structure.
      *
      * @return void
+     *
+     * @access public
+     *
+     * @todo Remove sometimes in the future.
      */
     function refresh_from_menu_manager($changes)
     {
@@ -335,6 +363,8 @@ class PL_Page_Data_Router
      * @param array $params The dictionary of fields to update.
      *
      * @return void
+     *
+     * @access public
      */
     function update($s, $params)
     {
@@ -375,6 +405,8 @@ class PL_Page_Data_Router
      * @global string
      *
      * @return string  The (X)HTML.
+     *
+     * @access public
      */
     function create_tabs($s)
     {
@@ -403,6 +435,8 @@ class PL_Page_Data_Router
      * @param int $pd_s The index of the page.
      *
      * @return void
+     *
+     * @access protected
      */
     function keep_in_mind($pd_s)
     {
@@ -419,7 +453,7 @@ class PL_Page_Data_Router
      *
      * @return bool
      *
-     * @todo   seems to be never used! Must be double-checked.
+     * @todo Seems to be never used! Must be double-checked.
      */
     function check_temp($url)
     {
@@ -447,6 +481,8 @@ class PL_Page_Data_Router
      * @return string The PHP tag.
      *
      * @since  1.6
+     *
+     * @access public
      */
     function headAsPHP()
     {
@@ -474,6 +510,8 @@ class PL_Page_Data_Router
      * @param int $id The index of the page.
      *
      * @return string The PHP tag.
+     *
+     * @access public
      *
      * @since 1.6
      */
