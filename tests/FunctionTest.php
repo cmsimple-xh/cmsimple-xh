@@ -12,7 +12,10 @@ class FunctionTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        global $var;
+
         $_SERVER['SERVER_NAME'] = 'example.com';
+        $var = 'baz';
     }
 
     /**
@@ -23,6 +26,7 @@ class FunctionTest extends PHPUnit_Framework_TestCase
         return array(
             array('foo bar', true, 'foo bar'),
             array('foo #CMSimple $output .= \'baz\';# bar', true, 'foo  barbaz'),
+            array('foo #CMSimple $output .= $var;# bar', true, 'foo  barbaz'),
             array('foo #CMSimple hide# bar', true, 'foo #CMSimple hide# bar')
         );
     }
@@ -43,6 +47,33 @@ class FunctionTest extends PHPUnit_Framework_TestCase
         $actual = evaluate_cmsimple_scripting($str, true);
         $this->assertEquals($expected, $actual);
         $this->assertEquals('foo, bar', $GLOBALS['keywords']);
+    }
+
+    public function dataForTestEvaluatePluginCall()
+    {
+        return array(
+            array('foo bar','foo bar'),
+            array('foo {{{PLUGIN:trim(\'baz\');}}} bar', 'foo baz bar'),
+            array('foo {{{PLUGIN:trim($var);}}} bar', 'foo baz bar')
+        );
+    }
+
+    /**
+     * @dataProvider dataForTestEvaluatePluginCall
+     */
+    public function testEvaluatePluginCall($str, $expected)
+    {
+        $actual = evaluate_plugincall($str);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testEvaluatePluginCallKeywords()
+    {
+        $str = 'foo {{{PLUGIN:sscanf(\'baz\', \'%s\', $keywords);}}} bar';
+        $expected = 'foo 1 bar';
+        $actual = evaluate_plugincall($str, true);
+        $this->assertEquals($expected, $actual);
+        $this->assertEquals('baz', $GLOBALS['keywords']);
     }
 
     /**
