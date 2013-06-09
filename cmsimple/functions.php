@@ -149,6 +149,8 @@ function l($n)
 /**
  * Returns a text with CMSimple scripting evaluated.
  *
+ * Scripts are evaluated in the global scope.
+ *
  * @param string $__text   The text.
  * @param bool   $__compat Whether only last CMSimple script should be evaluated.
  *
@@ -162,7 +164,7 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
 {
     global $output;
     foreach ($GLOBALS as $__name => $__dummy) {
-        global $$__name;
+        $$__name = &$GLOBALS[$__name];
     }
 
     $__scope_before = null; // just that it exists
@@ -216,6 +218,8 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
  *
  * Call a plugin: place this in your code (example):
  * {{{PLUGIN:pluginfunction('parameters');}}}
+ *
+ * Scripts are evaluated in the global scope.
  *
  * Call a built-in function (at the moment only one for
  * demonstration):
@@ -271,7 +275,7 @@ function evaluate_plugincall($__text)
             if ($fnct) {
                 preg_match_all("/\\$([a-z_0-9]*)/i", $call, $matches);
                 foreach ($matches[1] as $var) {
-                    global $$var;
+                    $$var = &$GLOBALS[$var];
                 }
             }
             // replace PL-CALLS (String only!!)
