@@ -204,6 +204,12 @@ require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
 require_once UTF8 . '/utils/validation.php';
 
+/**
+ * The configuration of the core.
+ *
+ * @global array $cf
+ */
+$cf = null;
 if (file_exists($pth['folder']['cmsimple'].'defaultconfig.php')) {
     include $pth['folder']['cmsimple'].'defaultconfig.php';
 }
@@ -256,6 +262,12 @@ if (!is_readable($pth['file']['language'])
     die('Language file ' . $pth['file']['language'] . ' missing');
 }
 
+/**
+ * The localization of the core.
+ *
+ * @global array $tx
+ */
+$tx = null;
 require $pth['folder']['language'] . 'default.php';
 require $pth['file']['language'];
 
@@ -303,6 +315,16 @@ $sn = preg_replace(
     '/([^\?]*)\?.*/', '\1',
     sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_URI'))
 );
+
+/**
+ * Whether print mode is active.
+ *
+ * @global bool $print
+ */
+$print = null;
+
+// TODO: document the following as global variables
+
 $temp = array(
     'action', 'download', 'downloads', 'edit', 'file', 'function',
     'images', 'login', 'logout', 'mailform', 'media', 'normal',
@@ -382,12 +404,19 @@ $pth['file']['search'] = $pth['folder']['cmsimple'] . 'search.php';
 $pth['file']['mailform'] = $pth['folder']['cmsimple'] . 'mailform.php';
 
 /**
- * Whether the user is in admin mode.
+ * Whether admin mode is active.
  *
  * @global  bool $adm
  * @see     XH_ADM
  */
 $adm = 0;
+
+/**
+ * Whether edit mode is active.
+ *
+ * @global bool $edit
+ */
+$edit = null;
 
 /**
  * The requested function.
@@ -439,7 +468,7 @@ if ($login && !$adm) {
 }
 
 /**
- * Whether the user is in admin mode.
+ * Whether admin mode is active.
  *
  * @since 1.5.4
  * @link  http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#xh_adm
@@ -514,6 +543,38 @@ $pd_router = null;
  * @global int $s
  */
 $s = -1;
+
+/**
+ * The content of the pages.
+ *
+ * @global array $c
+ */
+$c = null;
+
+/**
+ * The headings of the pages.
+ *
+ * @global array $h
+ *
+ * @see h()
+ */
+$h = null;
+
+/**
+ * The URLs of the pages.
+ *
+ * @global array $u
+ */
+$u = null;
+
+/**
+ * The menu levels of the pages.
+ *
+ * @global array $l
+ *
+ * @see l()
+ */
+$l = null;
 
 rfc(); // Here content is loaded
 
@@ -617,12 +678,25 @@ foreach (XH_plugins() as $plugin) {
  */
 foreach (XH_plugins() as $plugin) {
     pluginFiles($plugin);
+    /**
+     * The configuration of the plugins.
+     *
+     * @global array $plugin_cf
+     */
+    $plugin_cf = null;
     if (is_readable($pth['folder']['plugin_config'] . 'defaultconfig.php')) {
         include $pth['folder']['plugin_config'] . 'defaultconfig.php';
     }
     if (is_readable($pth['file']['plugin_config'])) {
         include $pth['file']['plugin_config'];
     }
+
+    /**
+     * The localization of the plugins.
+     *
+     * @global array $plugin_tx
+     */
+    $plugin_tx = null;
     XH_createLanguageFile($pth['file']['plugin_language']);
     if (is_readable($pth['folder']['plugin_languages'] . 'default.php')) {
         include $pth['folder']['plugin_languages'] . 'default.php';
@@ -843,6 +917,12 @@ if ($adm && $f == 'xhpages') {
 
 
 // CMSimple scripting
+/**
+ * The output to be manipulated by CMSimple scripting.
+ *
+ * @global string $output
+ */
+$output = null;
 if (!($edit && $adm) && $s > -1) {
     $c[$s] = evaluate_scripting($c[$s]);
     if (isset($keywords)) {
