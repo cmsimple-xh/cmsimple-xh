@@ -50,7 +50,7 @@ if ($search != '') {
     foreach ($c as $i => $temp) {
         if (!hide($i) || $cf['show_hidden']['pages_search'] == 'true') {
             $found  = true;
-            $temp = evaluate_plugincall($temp, true);
+            $temp = evaluate_plugincall($temp);
             $temp = utf8_strtolower(strip_tags($temp));
             // TODO: better don't html_entity_decode() here;
             //       costs time and doesn't work reliably under PHP 4 for UTF-8
