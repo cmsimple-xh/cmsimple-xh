@@ -39,10 +39,10 @@
 /**
  * Returns the inner HTML of the body element of the given URL.
  *
- * @param string $u The URL.
+ * @param string $u A URL.
  *
  * @return string The (X)HTML.
- * */
+ */
 function geturl($u)
 {
     $t = '';
@@ -59,7 +59,7 @@ function geturl($u)
 /**
  * Returns the contents of the given URL adding all current GET parameters.
  *
- * @param string $u The URL.
+ * @param string $u A URL.
  *
  * @return string The (X)HTML.
  */
@@ -87,6 +87,8 @@ function geturlwp($u)
  *
  * @param string $u Autogallery's installation folder.
  *
+ * @global string The URL of the active page.
+ *
  * @return string The (X)HTML.
  *
  * @deprecated since 1.5.4. Use a gallery plugin instead.
@@ -109,15 +111,13 @@ function autogallery($u)
     );
 }
 
-// Other functions
-
 
 /**
- * Returns the page heading.
+ * Returns a page heading.
  *
  * @param int $n The index of the page.
  *
- * @return string The heading.
+ * @return string
  *
  * @see $h
  */
@@ -130,11 +130,11 @@ function h($n)
 
 
 /**
- * Returns the page's menu level.
+ * Returns a page's menu level.
  *
  * @param int $n The index of the page.
  *
- * @return int $l
+ * @return int
  *
  * @see $l
  */
@@ -147,10 +147,12 @@ function l($n)
 
 
 /**
- * Returns $__text with CMSimple scripting evaluated.
+ * Returns a text with CMSimple scripting evaluated.
  *
  * @param string $__text   The text.
  * @param bool   $__compat Whether only last CMSimple script should be evaluated.
+ *
+ * @global string The output.
  *
  * @return string
  *
@@ -204,10 +206,10 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
 
 
 /**
- * Returns $__text with all plugin calls evaluatated.
+ * Returns a text with all plugin calls evaluatated.
  *
  * All Plugins which are called through a function-call
- * can use this. At the moment it is'nt possible to do
+ * can use this. At the moment it is not possible to do
  * this with class-based plugins. They need to be called
  * through standard-CMSimple-Scripting. Alternatively one
  * can offer a functional wrapper.
@@ -222,6 +224,8 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
  * Installation.
  *
  * @param string $__text The text.
+ *
+ * @global array The URLs of the pages.
  *
  * @return string
  *
@@ -267,7 +271,7 @@ function evaluate_plugincall($__text)
             if ($fnct) {
                 preg_match_all("/\\$([a-z_0-9]*)/i", $call, $matches);
                 foreach ($matches[1] as $var) {
-                    global $$var;
+                    global /*ignore*/$$var;
                 }
             }
             // replace PL-CALLS (String only!!)
@@ -286,10 +290,10 @@ function evaluate_plugincall($__text)
 
 
 /**
- * Returns $text with CMSimple scripting and plugin calls evaluated.
+ * Returns a text with CMSimple scripting and plugin calls evaluated.
  *
  * @param string $text   The text.
- * @param bool   $compat Wheter only last CMSimple script will be evaluated.
+ * @param bool   $compat Whether only last CMSimple script will be evaluated.
  *
  * @return void
  *
@@ -302,11 +306,17 @@ function evaluate_scripting($text, $compat = true)
 
 
 /**
- * Returns content of the first CMSimple page with the heading $heading
+ * Returns content of the first page with the heading $heading
  * with the heading removed and all scripting evaluated.
  * Returns false, if the page doesn't exist.
  *
  * @param string $heading The page heading.
+ *
+ * @global array The content of the pages.
+ * @global int   The number of pages.
+ * @global array The headings of the pages.
+ * @global array The configuation of the core.
+ * @global bool  Whether edit mode is active.
  *
  * @return string The (X)HTML.
  */
@@ -329,10 +339,13 @@ function newsbox($heading)
 
 
 /**
- * Calls init_* of the configured editor. Returns whether that succeeded.
+ * Calls init_*() of the configured editor. Returns whether that succeeded.
  *
  * @param array $elementClasses Elements with these classes will become an editor.
  * @param mixed $initFile       The init file or configuration.
+ *
+ * @global array The paths of system files and folders.
+ * @global array The configuration of the core.
  *
  * @return bool
  *
@@ -362,7 +375,10 @@ function init_editor($elementClasses = array(),  $initFile = false)
 
 
 /**
- * Calls include_* of the configured editor. Returns whether that succeeded.
+ * Calls include_*() of the configured editor. Returns whether that succeeded.
+ *
+ * @global array The paths of system files and folders.
+ * @global array The configuration of the core.
  *
  * @return bool
  *
@@ -392,11 +408,14 @@ function include_editor()
 
 
 /**
- * Returns the result of calling *_replace of the configured editor.
+ * Returns the result of calling *_replace() of the configured editor.
  * Returns false on failure.
  *
  * @param string $elementID The element with this ID will become an editor.
  * @param string $config    The configuration.
+ *
+ * @global array The paths of system files and folders.
+ * @global array The configuration of the core.
  *
  * @return void
  *
@@ -433,9 +452,13 @@ function editor_replace($elementID = false, $config = '')
  *
  * @param array $data The data ;)
  *
+ * @global array The paths of system files and folders.
+ * @global array The localization of the core.
+ *
  * @return string The (X)HTML.
  *
  * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#system_check
+ *
  * @since 1.5.4
  */
 function XH_systemCheck($data)
@@ -514,6 +537,13 @@ function XH_systemCheck($data)
  *
  * @param string $html The (X)HTML generated so far.
  *
+ * @global bool   Whether admin mode is active.
+ * @global int    The index of the active page.
+ * @global string The (X)HTML of the contents area.
+ * @global array
+ * @global array  The configuration of the core.
+ * @global string (X)HTML to be preprended to the closing BODY tag.
+ *
  * @return string
  *
  * @since 1.5
@@ -534,7 +564,6 @@ function final_clean_up($html)
             $margin += 25;
         }
 
-        global $errors;
         if (count($errors) > 0) {
             $errorList .= '<div class="cmsimplecore_warning" style="margin: 0;'
                 . ' border-width: 0;"><ul>';
@@ -686,17 +715,19 @@ function stsl($t)
  *
  * @param string $fl The file name.
  *
+ * @global string The site name.
+ * @global string The file to download.
+ *
  * @return void
  */
 function download($fl)
 {
-    global $sn, $download, $tx;
+    global $sn, $download, $o;
 
     // TODO: for security better set $fl = basename($fl) here.
     if (!is_readable($fl)
         || ($download != '' && !chkdl($sn . '?download=' . basename($fl)))
     ) {
-        global $o, $text_title; // TODO: move global to top of function
         shead('404');
         $o .= '<p>File ' . $fl . '</p>';
         return;
@@ -722,6 +753,9 @@ function download($fl)
  * and is available for download.
  *
  * @param string $fl The download URL, e.g. ?download=file.ext
+ *
+ * @global array  The paths of system files and folders.
+ * @global string The site name.
  *
  * @return bool
  */
@@ -781,6 +815,9 @@ function rf($fl)
  * @param string $fl       A key of $pth['file'].
  * @param bool   $writable Whether the file has to writable.
  *
+ * @global array The paths of system files and folders.
+ * @global array The localization of the core.
+ *
  * @return bool
  */
 function chkfile($fl, $writable)
@@ -807,8 +844,8 @@ function chkfile($fl, $writable)
  * @param string $ft A key in $tx['filetype'].
  * @param string $fn The file name.
  *
- * @global string
- * @global array
+ * @global string Error messages as (X)HTML fragment consisting of LI Elements.
+ * @global array  The localization of the core.
  *
  * @return void
  */
@@ -831,18 +868,16 @@ function e($et, $ft, $fn)
  * @global array  The menu levels of the pages.
  * @global string The URL of the current page.
  * @global string The index of the current page.
- * @global array  Paths of system files and folders.
- * @global array  The configuration of the core.
  * @global array  The localization of the core.
  * @global bool   Whether admin mode is active.
- * @global string Error messages.
+ * @global string Error messages as (X)HTML fragment consisting of LI Elements.
  * @global object The pagedata router.
  *
  * @return void
  */
 function rfc()
 {
-    global $c, $cl, $h, $u, $l, $su, $s, $pth, $cf, $tx, $adm, $e, $pd_router;
+    global $c, $cl, $h, $u, $l, $su, $s, $tx, $adm, $e, $pd_router;
 
     list($u, $tooLong, $h, $l, $c, $pd_router) = array_values(XH_readContents());
     $duplicate = 0;
@@ -884,35 +919,38 @@ function rfc()
 
 
 /**
- * Reads and parses a content file and
- * returns a dictionary containing the following information:
- * 'urls': The URLs of the pages.
- * 'too_long':  Flags, whether URLs were too long.
- * 'headings': The headings of the pages.
- * 'levels': The menu levels of the pages.
- * 'pages': The contents of the pages.
- * 'pd_router': A page data router object.
- * Returns FALSE, if file couldn't be read.
+ * Reads and parses a content file.
+ *
+ * Returns an associative array containing the following information:
+ * - <var>urls</var>: The URLs of the pages.
+ * - <var>too_long</var>:  Flags, whether URLs were too long.
+ * - <var>headings</var>: The headings of the pages.
+ * - <var>levels</var>: The menu levels of the pages.
+ * - <var>pages</var>: The contents of the pages.
+ * - <var>pd_router</var>: A page data router object.
+ * Returns FALSE, if the file couldn't be read.
  *
  * @param string $language The language to read.
  *
- * @global array Paths of system files and folders.
+ * @global array The paths of system files and folders.
  * @global array The configuration of the core.
  * @global bool  Whether edit mode is active.
  * @global bool  Whether admin mode is active.
+ * @global array The localization of the core.
  *
  * @return array
+ *
+ * @since 1.6
  */
 function XH_readContents($language = null)
 {
-    global $pth, $cf, $edit, $adm;
+    global $pth, $cf, $edit, $adm, $tx;
 
     if (isset($language)) {
         $contentFile = $pth['folder']['base'] . $language . '/content/content.htm';
         include $pth['folder']['language'] . $language . '.php';
     } else {
         $contentFile = $pth['file']['content'];
-        global $tx;
     }
 
     $c = array();
@@ -1011,6 +1049,11 @@ function XH_readContents($language = null)
  * @param int    $i The page index.
  * @param string $x Arbitrary appendix of the URL.
  *
+ * @global string The site name.
+ * @global array  The URLs of the pages.
+ * @global array  The configuration of the core.
+ * @global bool   Whether admin mode is active.
+ *
  * @return string The (X)HTML.
  */
 function a($i, $x)
@@ -1029,9 +1072,14 @@ function a($i, $x)
 
 
 /**
- * Returns the meta element for name, if defined in $cf['meta']; null otherwise.
+ * Returns the meta element for name, if defined in <var>$cf['meta']</var>;
+ * <var>null</var> otherwise.
  *
  * @param string $n The name attribute.
+ *
+ * @global array The configuration of the core.
+ * @global array The localization of the core.
+ * @global bool  Whether print mode is active.
  *
  * @return string The (X)HTML.
  */
@@ -1042,11 +1090,8 @@ function meta($n)
     $exclude = array('robots', 'keywords', 'description');
     $value = isset($tx['meta'][$n]) ? $tx['meta'][$n] : $cf['meta'][$n];
     if ($n != 'codepage' && !empty($value) && !($print && in_array($n, $exclude))) {
-        return tag(
-            'meta name="' . $n . '" content="'
-            . htmlspecialchars($value, ENT_QUOTES, 'UTF-8')
-            . '"'
-        ) . "\n";
+        $content = htmlspecialchars($value, ENT_QUOTES, 'UTF-8')
+        return tag('meta name="' . $n . '" content="' . $content . '"') . "\n";
     }
 }
 
@@ -1055,6 +1100,10 @@ function meta($n)
  * Returns the link to a special CMSimple_XH page, e.g. sitemap.
  *
  * @param string $i A key of $tx['menu'].
+ *
+ * @global string The requested special function.
+ * @global string The site name.
+ * @global array  The localization of the core.
  *
  * @return string The (X)HTML.
  */
@@ -1174,17 +1223,19 @@ function sortdir($dir)
 /**
  * Returns the number of times a CMSimple script is found.
  *
- * @param string $s The needle.
- * @param string $i The haystack.
+ * @param string $script The needle.
+ * @param string $text   The haystack.
+ *
+ * @global array The configuration of the core.
  *
  * @return int
  */
-function cmscript($s, $i)
+function cmscript($script, $text)
 {
     global $cf;
 
-    $pattern = str_replace('(.*?)', $s, '/#CMSimple (.*?)#/is');
-    return preg_match($pattern, $i);
+    $pattern = str_replace('(.*?)', $script, '/#CMSimple (.*?)#/is');
+    return preg_match($pattern, $text);
 }
 
 
@@ -1192,6 +1243,10 @@ function cmscript($s, $i)
  * Returns whether a page is hidden.
  *
  * @param int $i The page index.
+ *
+ * @global array The content of the pages.
+ * @global bool  Whether edit mode is active.
+ * @global bool  Whether admin mode is active.
  *
  * @return bool
  */
@@ -1216,15 +1271,15 @@ function hide($i)
  *
  * @param string $s The contents of the tag.
  *
+ * @global array The configuration of the core.
+ *
  * @return string The (X)HTML.
  */
 function tag($s)
 {
     global $cf;
-    $t = '';
-    if ($cf['xhtml']['endtags'] == 'true') {
-        $t = ' /';
-    }
+
+    $t = $cf['xhtml']['endtags'] == 'true' ? ' /' : '';
     return '<' . $s . $t . '>';
 }
 
@@ -1233,6 +1288,8 @@ function tag($s)
  * Returns '&' or '&amp;' according to the setting of $cf['xhtml']['amp'].
  *
  * @return string The (X)HTML.
+ *
+ * @global array The configuration of the core.
  *
  * @deprecated since 1.5.4. Use '&amp;' instead.
  */
@@ -1254,6 +1311,12 @@ function amp()
  * Sends error header and sets $title and $o accordingly.
  *
  * @param int $s The HTTP status response code (401, 403, 404).
+ *
+ * @global bool   Whether the server is IIS.
+ * @global bool   Whether the API is CGI.
+ * @global array  The localization of the core.
+ * @global string The page title.
+ * @global string The (X)HTML of the contents area.
  *
  * @return void.
  */
@@ -1285,25 +1348,23 @@ function shead($s)
  * Debug-Mode
  *
  * Check if file "_XHdebug.txt" exists to turn on debug-mode
- * with default setting E_ERROR | E_USER_WARNING | E_PARSE.
- * Level of debug mode can be adjusted by placing an
+ * with default debug level 1.
+ * The level of the debug mode can be adjusted by placing an
  * integer-value within the file using following values:
- *
- * Possible values of $dbglevel:
- *   0 - Turn off all error reporting
- *   1 - Running errors except warnings
- *   2 - Running errors
- *   3 - Running errors + notices
- *   4 - All errors except notices and warnings
- *   5 - All errors except notices
- *   6 - All errors
+ * - 0: Turn off all error reporting
+ * - 1: Runtime errors except warnings
+ * - 2: Runtime errors
+ * - 3: Runtime errors + notices
+ * - 4: All errors except notices and warnings
+ * - 5: All errors except notices
+ * - 6: All errors
  *
  * @global array The paths of system files and folders.
  *
- * @return boolean Whether error_reporting was enabled.
+ * @return boolean Whether error_reporting is enabled.
  *
  * @author Holger
- * @since CMSimple_XH V.1.0rc3 / Pluginloader V.2.1 beta 9
+ * @since 1.0rc3
  */
 function XH_debugmode()
 {
@@ -1316,7 +1377,6 @@ function XH_debugmode()
         $dbglevel = rf($pth['folder']['downloads'] . '_XHdebug.txt');
         if (strlen($dbglevel) == 1) {
             set_error_handler('XH_debug');
-
             switch ($dbglevel) {
             case 0:
                 error_reporting(0);
@@ -1351,11 +1411,7 @@ function XH_debugmode()
         ini_set('display_errors', 0);
         error_reporting(0);
     }
-    if (error_reporting() > 0) {
-        return true;
-    } else {
-        return false;
-    }
+    return error_reporting() > 0;
 }
 
 
@@ -1367,6 +1423,8 @@ function XH_debugmode()
  * @param string $errfile Filename where error was raised.
  * @param int    $errline Line number where error was raised.
  * @param array  $context The error context.
+ *
+ * @global array The list of PHP errors formatted as (X)HTML fragment.
  *
  * @return void
  */
@@ -1421,9 +1479,9 @@ function XH_debug($errno, $errstr, $errfile, $errline, $context)
 
 
 /**
- * Checks $arr recursively for valid UTF-8. Otherwise it exists the script.
+ * Checks <var>$arr</var> recursively for valid UTF-8. Otherwise it exists the script.
  *
- * This is useful for checking user input.
+ * Useful for checking user input.
  *
  * @param array $arr Array to check.
  *
@@ -1475,7 +1533,9 @@ function XH_createLanguageFile($dst)
  *
  * @param string $plugin The name of the plugin.
  *
- * @global string
+ * @global array  The configuration of the core.
+ * @global array  The paths of system files and folders.
+ * @global string The active language.
  *
  * @return void
  */
@@ -1543,16 +1603,15 @@ function pluginFiles($plugin)
  * @param int $pageIndex The page index.
  *
  * @global bool  Whether edit-mode is active.
- * @global array Contents of all pages.
- * @global int   Index of active page.
- * @global array URLs of all pages.
+ * @global array The contents of all pages.
+ * @global int   The Index of the active page.
+ * @global array The URLs of all pages.
  *
  * @return void
  *
  * @author mvwd
  *
- * @since V.2.1.02
- *
+ * @since 1.0
  * @deprecated since 1.6
  */
 function preCallPlugins($pageIndex = -1)
@@ -1576,6 +1635,8 @@ function preCallPlugins($pageIndex = -1)
  * Returns a list of all installed plugins.
  *
  * @param bool $admin Whether to return only plugins with a admin.php
+ *
+ * @global array The paths of system files and folders.
  *
  * @return  array
  *
@@ -1613,7 +1674,7 @@ function XH_plugins($admin = false)
 
 
 /**
- * Returns the value of a cookie, or null if the cookie doesn't exist.
+ * Returns the value of a cookie, or <var>null</var> if the cookie doesn't exist.
  *
  * Has fallback to $HTTP_COOKIE_VARS for PHP < 4.1.0. ;-)
  *
@@ -1636,6 +1697,8 @@ function gc($s)
 /**
  * Returns wether the user is logged in.
  *
+ * @global array The configuration of the core.
+ *
  * @return bool.
  */
 function logincheck()
@@ -1652,6 +1715,9 @@ function logincheck()
  * On failure an according message is appended to $e.
  *
  * @param string $m The log message.
+ *
+ * @global array  The paths of system files and folders.
+ * @global string Error messages as (X)HTML fragment consisting of LI Elements.
  *
  * @return void
  */
@@ -1671,6 +1737,13 @@ function writelog($m)
 
 /**
  * Returns the login link.
+ *
+ * @global array  The configuration of the core.
+ * @global bool   Whether admin mode is active.
+ * @global string The site name.
+ * @global array  The URLs of the pages.
+ * @global int    The index of the requested page.
+ * @global array  The localization of the core.
  *
  * @return string The (X)HTML.
  */
@@ -1697,6 +1770,18 @@ function lilink()
 
 /**
  * Returns the login form.
+ *
+ * @global bool   Whether admin mode is active.
+ * @global array  The configuration of the core.
+ * @global bool   Whether print mode is active.
+ * @global string (X)HTML that will be inserted to the HEAD element.
+ * @global array  The localization of the core.
+ * @global string JavaScript for the onload event of the BODY element.
+ * @global string The requested special function.
+ * @global string The (X)HTML of the contents area.
+ * @global int    The index of the requested page.
+ * @global string The site name.
+ * @global array  The URLs of the pages.
  *
  * @return string The (X)HTML.
  */
@@ -1749,6 +1834,10 @@ HTML;
  *
  * @return string The (X)HTML.
  *
+ * @global array The paths of system files and folders.
+ * @global array The configuration of the core.
+ * @global array The localization of the core.
+ *
  * @since 1.6
  */
 function XH_backup()
@@ -1791,9 +1880,11 @@ function XH_backup()
 
 
 /**
- * Restores a contents backup. The current content.htm is backed up before.
+ * Restores a content backup. The current content.htm is backed up before.
  *
  * @param string $filename The filename.
+ *
+ * @global array  The paths of system files and folders.
  *
  * @return void
  *
@@ -1803,7 +1894,8 @@ function XH_backup()
  */
 function XH_restore($filename)
 {
-    global $pth, $o;
+    global $pth;
+
     rename($file, $pth['folder']['content'] . 'restore.htm');
     XH_backup();
     rename($pth['folder']['content'] . 'restore.htm', $pth['file']['content']);
@@ -1814,7 +1906,7 @@ function XH_restore($filename)
 
 
 /**
- * Writes $contents to the file $filename.
+ * Writes <var>$contents</var> to the file <var>$filename</var>.
  *
  * @param string $filename The filename.
  * @param string $contents The content to write.
@@ -1837,6 +1929,12 @@ function XH_writeFile($filename, $contents)
  * Saves the current contents (including the page data).
  *
  * @return bool Whether that succeeded
+ *
+ * @global array  The content of the pages.
+ * @global array  The paths of system files and folders.
+ * @global array  The configuration of the core.
+ * @global array  The localization of the core.
+ * @global object The page data router.
  *
  * @since 1.6
  */
@@ -1863,7 +1961,7 @@ function XH_saveContents()
 
 /**
  * Registers a callback for execution after all plugins were loaded,
- * if $callback is given; otherwise executes these callbacks.
+ * if <var>$callback</var> is given; otherwise executes these callbacks.
  *
  * @param callable $callback The callback.
  *
@@ -1925,7 +2023,7 @@ function XH_encodeMIMEFieldBody($text)
  * Returns whether an email address is valid.
  *
  * For simplicity we are not aiming to validate according to RFC 5322,
- * but rather to make a minimal check, if the email address may be valid.
+ * but rather to make a minimal check, if the email address <i>may</i> be valid.
  * Furthermore, we make sure, that email header injection is not possible.
  *
  * @param string $address An email address.

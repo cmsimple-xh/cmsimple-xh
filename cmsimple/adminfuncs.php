@@ -20,9 +20,12 @@
 /**
  * Returns the system information view.
  *
- * @since   1.6
+ * @global array The paths of system files and folders.
+ * @global array The localization of the core.
  *
- * @return  string  The (X)HTML.
+ * @return string The (X)HTML.
+ *
+ * @since 1.6
  */
 function XH_sysinfo()
 {
@@ -88,15 +91,20 @@ HTML;
 /**
  * Returns the general settings view.
  *
- * @since   1.6
+ * @global string The currently active language.
+ * @global array  The paths of system files and folders.
+ * @global array  The configuration of the core.
+ * @global array  The localization of the core.
  *
- * @return string  The (X)HTML.
+ * @return string The (X)HTML.
+ *
+ * @since 1.6
+ *
+ * @todo Add $sn to links.
  */
 function XH_settingsView()
 {
     global $sl, $pth, $cf, $tx;
-
-    // TODO: add $sn to links
 
     $o = '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
         . '<h4>' . $tx['settings']['systemfiles'] . '</h4>' . "\n" . '<ul>' . "\n";
@@ -151,7 +159,8 @@ function XH_settingsView()
 
 
 /**
- * Create menu of plugin (add row, add tab), constructed as a table.
+ * Creates the menu of a plugin (add row, add tab), constructed as a table.
+ * This is an object implemented with a procedural interface.
  *
  * @param string $add    Add a ROW, a TAB or DATA (Userdefineable content).
  *                       SHOW will return the menu.
@@ -228,9 +237,17 @@ function pluginMenu($add = '', $link = '', $target = '', $text = '',
  * @param string $main Whether the main setting menu item should be shown
  *                     ('ON'/'OFF').
  *
+ * @global string The sitename.
+ * @global string The name of the currently loading plugin.
+ * @global array  The paths of system files and folders.
+ * @global string The currently active language.
+ * @global array  The configuration of the core.
+ * @global array  The localization of the core.
+ * @global array  The localization of the plugins.
+ *
  * @return string (X)HTML.
  */
-function Print_Plugin_admin($main)
+function print_plugin_admin($main)
 {
     global $sn, $plugin, $pth, $sl, $cf, $tx, $plugin_tx;
 
@@ -288,26 +305,22 @@ function Print_Plugin_admin($main)
  * Handles reading and writing of plugin files
  * (e.g. en.php, config.php, stylesheet.css).
  *
- * @param bool  $action Possible values: 'empty' = Error: empty value detected
- * @param array $admin  Array, that contains debug_backtrace()-data
- * @param bool  $plugin The called varname
- * @param bool  $hint   Array with hints for the variables (will be shown as popup)
+ * @param bool  $action Unused.
+ * @param array $admin  Unused.
+ * @param bool  $plugin Unused.
+ * @param bool  $hint   Unused.
  *
- * @global string $sn CMSimple's script-name (relative adress including $_GET)
- * @global string $action Ordered action
- * @global string $admin Ordered admin-action
- * @global string $plugin Name of the plugin, that called this function
- * @global string $pth CMSimple's configured pathes in an array
- * @global string $tx CMSimple's text-array
- * @global string $plugin_tx Plugin's text-array
- * @global string $plugin_cf Plugin's config-array
+ * @global string The requested action.
+ * @global string The requested admin-action.
+ * @global string The name of the currently loading plugin.
+ * @global array  The paths of system files and folders.
  *
- * @return string Returns the created form or the result of saving the data
+ * @return string Returns the created form or the result of saving the data.
+ *
+ * @todo Deprecated unused parameters.
  */
-function Plugin_Admin_common($action, $admin, $plugin, $hint=array())
+function plugin_admin_common($action, $admin, $plugin, $hint=array())
 {
-    // TODO: do something about the fake parameters
-    // TODO: note that $hint is ignored now
     global $action, $admin, $plugin, $pth;
 
     include_once $pth['folder']['classes'] . 'FileEdit.php';
@@ -340,9 +353,20 @@ function Plugin_Admin_common($action, $admin, $plugin, $hint=array())
 /**
  * Returns the content editor and activates it.
  *
- * @since 1.6
+ * @global string The site name.
+ * @global string The currently active page URL.
+ * @global int    The index of the currently active page.
+ * @global array  The URLs of the pages.
+ * @global array  The content of the pages.
+ * @global string Error messages as (X)HTML fragment consisting of LI Elements.
+ * @global array  The configuration of the core.
+ * @global array  The localization of the core.
  *
  * @return string  The (X)HTML.
+ *
+ * @since 1.6
+ *
+ * @todo Add internationalization for missing editor message.
  */
 function XH_contentEditor()
 {
@@ -352,7 +376,6 @@ function XH_contentEditor()
 
     $editor = $cf['editor']['external'] == '' || init_editor();
     if (!$editor) {
-         // FIXME: i18n
         $msg = sprintf('External editor %s missing', $cf['editor']['external']);
         $e .= '<li>' . $msg . '</li>' . "\n";
     }
@@ -377,6 +400,15 @@ function XH_contentEditor()
  * from the content editor.
  *
  * @param string $text The text to save.
+ *
+ * @global array  The paths of system files and folders.
+ * @global array  The configuation of the core.
+ * @global array  The localization of the core.
+ * @global object The page data router.
+ * @global array  The content of the pages.
+ * @global int    The index of the active page.
+ * @global array  The URLs of the pages.
+ * @global string The URL of the active page.
  *
  * @return void
  *
