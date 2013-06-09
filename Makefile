@@ -1,6 +1,6 @@
 # $Id$
 
-# required environment variables: PHPUNIT PHPDOC PHPCS
+# required environment variables: PHPUNIT PHPDOC PHPCS PHPCI
 
 PHPSOURCES=cmsimple/adminfuncs.php\
 	   cmsimple/cms.php\
