@@ -24,6 +24,7 @@
  *
  * @category CMSimple_XH
  * @package  XH
+ * @author   Martin Damken <kontakt@zeichenkombinat.de>
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
