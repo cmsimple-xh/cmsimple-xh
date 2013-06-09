@@ -87,21 +87,21 @@ define('URICHAR_SEPARATOR', '|');
 /**
  * The title of the current page.
  *
- * @global  string $title
+ * @global string $title
  */
 $title = '';
 
 /**
  * The (X)HTML for the contents area.
  *
- * @global  string $o
+ * @global string $o
  */
 $o = '';
 
 /**
  * The (X)HTML for the <li>s holding error messages.
  *
- * @global  string $e
+ * @global string $e
  */
 $e = '';
 
@@ -115,8 +115,9 @@ $hjs = '';
 /**
  * (X)HTML that will be inserted right before the </body> tag.
  *
- * @global  string $bjs
- * @since   1.5.4
+ * @global string $bjs
+ *
+ * @since 1.5.4
  */
 $bjs = '';
 
@@ -307,7 +308,7 @@ $iis = strpos(sv('SERVER_SOFTWARE'), "IIS");
 $cgi = (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi');
 
 /**
- * The relative path of the root folder, i.e. the site name.
+ * The relative path of the root folder, i.e. the script name.
  *
  * @global string $sn
  */
@@ -420,8 +421,9 @@ $pth['file']['mailform'] = $pth['folder']['cmsimple'] . 'mailform.php';
 /**
  * Whether admin mode is active.
  *
- * @global  bool $adm
- * @see     XH_ADM
+ * @global bool $adm
+ *
+ * @see XH_ADM
  */
 $adm = 0;
 
@@ -485,8 +487,8 @@ if ($login && !$adm) {
  * Whether admin mode is active.
  *
  * @since 1.5.4
- * @link  http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#xh_adm
- * @see   $adm
+ * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#xh_adm
+ * @see $adm
  */
 define('XH_ADM', $adm);
 
@@ -954,7 +956,8 @@ if ($s == -1 && !$f && $o == '') {
 
 loginforms();
 
-// FIXME: Don't we check these files when accessing them? We have the system check!
+// FIXME: Don't we check these files when accessing them?
+//        And we have the system check!
 $temp = array('content', 'config', 'language', 'stylesheet', 'template', 'log');
 foreach ($temp as $i) {
     chkfile($i, ($login || $settings) && $adm);

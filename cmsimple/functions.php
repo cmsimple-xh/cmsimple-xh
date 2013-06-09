@@ -719,7 +719,7 @@ function stsl($t)
  *
  * @param string $fl The file name.
  *
- * @global string The site name.
+ * @global string The script name.
  * @global string The file to download.
  *
  * @return void
@@ -759,7 +759,7 @@ function download($fl)
  * @param string $fl The download URL, e.g. ?download=file.ext
  *
  * @global array  The paths of system files and folders.
- * @global string The site name.
+ * @global string The script name.
  *
  * @return bool
  */
@@ -1053,7 +1053,7 @@ function XH_readContents($language = null)
  * @param int    $i The page index.
  * @param string $x Arbitrary appendix of the URL.
  *
- * @global string The site name.
+ * @global string The script name.
  * @global array  The URLs of the pages.
  * @global array  The configuration of the core.
  * @global bool   Whether admin mode is active.
@@ -1106,7 +1106,7 @@ function meta($n)
  * @param string $i A key of $tx['menu'].
  *
  * @global string The requested special function.
- * @global string The site name.
+ * @global string The script name.
  * @global array  The localization of the core.
  *
  * @return string The (X)HTML.
@@ -1744,7 +1744,7 @@ function writelog($m)
  *
  * @global array  The configuration of the core.
  * @global bool   Whether admin mode is active.
- * @global string The site name.
+ * @global string The script name.
  * @global array  The URLs of the pages.
  * @global int    The index of the requested page.
  * @global array  The localization of the core.
@@ -1784,7 +1784,7 @@ function lilink()
  * @global string The requested special function.
  * @global string The (X)HTML of the contents area.
  * @global int    The index of the requested page.
- * @global string The site name.
+ * @global string The script name.
  * @global array  The URLs of the pages.
  *
  * @return string The (X)HTML.

@@ -353,7 +353,7 @@ function plugin_admin_common($action, $admin, $plugin, $hint=array())
 /**
  * Returns the content editor and activates it.
  *
- * @global string The site name.
+ * @global string The script name.
  * @global string The currently active page URL.
  * @global int    The index of the currently active page.
  * @global array  The URLs of the pages.
