@@ -39,3 +39,7 @@ doc/php/index.html: $(PHPSOURCES)
 
 sniff:
 	$(PHPCS) $(PHPSOURCES)
+
+.PHONY: phpci
+phpci:
+	$(PHPCI) --dir cmsimple
