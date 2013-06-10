@@ -1,66 +1,141 @@
 <?php
 
 /**
- * @version $Id$
+ * Internal Filebrowser -- filebrowser.php
+ *
+ * PHP versions 4 and 5
+ *
+ * @category  CMSimple_XH
+ * @package   Filebrowser
+ * @author    Martin Damken <kontakt@zeichenkombinat.de>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://cmsimple-xh.org/
  */
 
 /* utf-8 marker: äöü */
 
-class XHFileBrowser {
-
+/**
+ * The file browser model.
+ *
+ * @category CMSimple_XH
+ * @package  Filebrowser
+ * @author   Martin Damken <kontakt@zeichenkombinat.de>
+ * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @link     http://cmsimple-xh.org/
+ *
+ * @todo Document meaning of properties.
+ * @todo Document @access for members.
+ */
+class XHFileBrowser
+{
+    /**
+     * @var string $linkPrefix
+     */
     var $linkPrefix = '';
-    var $browseBase = '';
-    var $baseDirectory;
-    var $currentDirectory;
-    var $linkType;
-    var $folders = array();
-    var $files = array();
-    var $baseDirectories = array();
-    var $allowedExtensions = array();
-    var $maxFilesizes = array();
-    var $view;
-    var $message = '';
-    var $browserPath = '';
-    
 
-    function XHFileBrowser() {
-        global $pth, $plugin_cf, $cf;
+    /**
+     * @var string $browseBase
+     */
+    var $browseBase = '';
+
+    /**
+     * @var string $baseDirectory
+     */
+    var $baseDirectory;
+
+    /**
+     * @var string $currentDirectory
+     */
+    var $currentDirectory;
+
+    /**
+     * @var string $linkType
+     */
+    var $linkType;
+
+    /**
+     * @var array $folders
+     */
+    var $folders = array();
+
+    /**
+     * @var array $files
+     */
+    var $files = array();
+
+    /**
+     * @var array baseDirectories
+     */
+    var $baseDirectories = array();
+
+    /**
+     * @var array $allowedExtensions
+     */
+    var $allowedExtensions = array();
+
+    /**
+     * @var array $maxFilesizes
+     */
+    var $maxFilesizes = array();
+
+    /**
+     * @var object $view
+     */
+    var $view;
+
+    /**
+     * @var string $message
+     */
+    var $message = '';
+
+    /**
+     * @var string $browserPath
+     */
+    var $browserPath = '';
+
+    /**
+     * Constructs an instance.
+     *
+     * @global array The paths of system files and folders.
+     * @global array The configuration of the core.
+     * @global array The configuration of the plugins.
+     *
+     * @todo DRY while setting up the allowed extensions.
+     */
+    function XHFileBrowser()
+    {
+        global $pth, $cf, $plugin_cf;
 
         $image_extensions = array();
         $temp = explode(',', $plugin_cf['filebrowser']['extensions_images']);
-
         foreach ($temp as $ext) {
             $extension = trim($ext, ' ./');
             if ((bool) $extension) {
                 $image_extensions[] = strtolower($extension);
             }
         }
-
         $download_extensions = array();
         $temp = explode(',', $plugin_cf['filebrowser']['extensions_downloads']);
-
         foreach ($temp as $ext) {
             $extension = trim($ext, ' ./');
             if ((bool) $extension) {
                 $download_extensions[] = strtolower($extension);
             }
         }
-
-
         $userfiles_extensions = array();
         $temp = explode(',', $plugin_cf['filebrowser']['extensions_userfiles']);
-
         foreach ($temp as $ext) {
             $extension = trim($ext, ' ./');
             if ((bool) $extension) {
                 $userfiles_extensions[] = strtolower($extension);
             }
         }
-
-
         $media_extensions = array();
         $temp = explode(',', $plugin_cf['filebrowser']['extensions_media']);
-
         foreach ($temp as $ext) {
             $extension = trim($ext, ' ./');
             if ((bool) $extension) {
@@ -68,17 +143,20 @@ class XHFileBrowser {
             }
         }
 
-
-        $this->browserPath = $pth['folder']['plugins'] . basename(dirname(dirname(__FILE__))) . '/';
-
+        $this->browserPath = $pth['folder']['plugins']
+            . basename(dirname(dirname(__FILE__))) . '/';
 
         $this->view = new XHFileBrowserView();
 
-        $this->baseDirectories['images'] = rtrim($cf['folders']['images'], '/') . '/';
-        $this->baseDirectories['downloads'] = rtrim($cf['folders']['downloads'], '/') . '/';
-        $this->baseDirectories['userfiles'] = rtrim($cf['folders']['userfiles'], '/') . '/';
-        $this->baseDirectories['media'] = rtrim($cf['folders']['media'], '/') . '/';
-
+        // TODO: shouldn't be $pth['folder'][...] be used?
+        $this->baseDirectories['images']
+            = rtrim($cf['folders']['images'], '/') . '/';
+        $this->baseDirectories['downloads']
+            = rtrim($cf['folders']['downloads'], '/') . '/';
+        $this->baseDirectories['userfiles']
+            = rtrim($cf['folders']['userfiles'], '/') . '/';
+        $this->baseDirectories['media']
+            = rtrim($cf['folders']['media'], '/') . '/';
 
         $this->allowedExtensions['images'] = $image_extensions;
         $this->allowedExtensions['downloads'] = $download_extensions;
@@ -86,12 +164,27 @@ class XHFileBrowser {
         $this->allowedExtensions['media'] = $media_extensions;
     }
 
-    function fileIsLinked($file) {
+    /**
+     * Returns an array of A elements linking to the pages
+     * where <var>$file</var> is used.
+     *
+     * @param string $file A file name.
+     *
+     * @global array The headings of the pages.
+     * @global array The content of the pages.
+     * @global array The URLs of the pages.
+     *
+     * @return array
+     */
+    function fileIsLinked($file)
+    {
         global $h, $c, $u;
+
         $i = 0;
         $usages = array();
         // TODO: improve regex for better performance
-        $regex = '#<.*(?:src|href|download)=(["\']).*' . preg_quote($file, '#') . '\\1.*>#is';
+        $regex = '#<.*(?:src|href|download)=(["\']).*' . preg_quote($file, '#')
+            . '\\1.*>#is';
 
         foreach ($c as $page) {
             if (preg_match($regex, $page) > 0) {
@@ -106,10 +199,20 @@ class XHFileBrowser {
         return false;
     }
 
+    /**
+     * Returns an associative array mapping from file names to page headings,
+     * where the images are used.
+     *
+     * @return array
+     *
+     * @global array The content of the pages.
+     * @global array The headings of the pages.
+     * @global int   The number of pages.
+     */
     function usedImages()
     {
         global $c, $h, $cl;
-        
+
         $images = array();
         for ($i = 0; $i < $cl; $i++) {
             preg_match_all('/<img.*?src=(["\'])(.*?)\\1.*?>/is', $c[$i], $m);
@@ -128,15 +231,21 @@ class XHFileBrowser {
         }
         return $images;
     }
- 
-    function readDirectory() {
+
+    /**
+     * Reads the current directory and fills <var>$this->folders</var> and
+     * <var>$this->files</var> with the results.
+     *
+     * @return void
+     */
+    function readDirectory()
+    {
         $dir = $this->browseBase . $this->currentDirectory;
         $this->files = array();
 
         $handle = opendir($dir);
         if ($handle) {
             while (false !== ($file = readdir($handle))) {
-
                 if (strpos($file, '.') === 0) {
                     continue;
                 }
@@ -144,7 +253,6 @@ class XHFileBrowser {
                     $this->folders[] = $this->currentDirectory . $file;
                     continue;
                 }
-
                 if ($this->isAllowedFile($file)) {
                     $this->files[] = $file;
                 }
@@ -155,13 +263,17 @@ class XHFileBrowser {
         }
     }
 
-    function getFolders($directory) {
-
-
+    /**
+     * Returns an array of subfolders of <var>$directory</var>.
+     * Recurses down the subfolders.
+     *
+     * @param string $directory A directory.
+     *
+     * @return array
+     */
+    function getFolders($directory)
+    {
         $folders = array();
-
-
-
         $handle = opendir($directory);
         if ($handle) {
             while (false !== ($file = readdir($handle))) {
@@ -169,8 +281,11 @@ class XHFileBrowser {
                     continue;
                 }
                 if (is_dir($directory . $file)) {
-                    $folders[] = str_replace($this->browseBase, '', $directory . $file);
-                    foreach ($this->getFolders($directory . $file . '/') as $subfolder) {
+                    $folders[] = str_replace(
+                        $this->browseBase, '', $directory . $file
+                    );
+                    $subfolders = $this->getFolders($directory . $file . '/');
+                    foreach ($subfolders as $subfolder) {
                         $folders[] = $subfolder;
                     }
                 }
@@ -181,19 +296,38 @@ class XHFileBrowser {
         return $folders;
     }
 
-    function isAllowedFile($file) {
+    /**
+     * Whether <var>$file</var> is allowed to be handled by the file browser.
+     *
+     * @param string $file A file name.
+     *
+     * @return bool
+     */
+    function isAllowedFile($file)
+    {
         $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
         if ($extension == $file) {
             return false;
         }
         if (!in_array($extension, $this->allowedExtensions[$this->linkType])
-                && !in_array('*', $this->allowedExtensions[$this->linkType])) {
+            && !in_array('*', $this->allowedExtensions[$this->linkType])
+        ) {
             return false;
         }
         return true;
     }
 
-function foldersArray($all = true) {
+    /**
+     * Returns an array of folders.
+     *
+     * @param bool $all ???
+     *
+     * @return array
+     *
+     * @todo Document the details.
+     */
+    function foldersArray($all = true)
+    {
         $folders = array();
 
         $temp = $this->getFolders($this->browseBase . $this->baseDirectory);
@@ -212,17 +346,30 @@ function foldersArray($all = true) {
             $linkList = '';
         }
         foreach ($folders as $folder => $data) {
-            $folders[$folder]['children'] = $this->gatherChildren($folder, $folders);
+            $folders[$folder]['children']
+                = $this->gatherChildren($folder, $folders);
         }
 
         $this->view->currentDirectory = $this->currentDirectory;
         foreach ($folders as $folder => $data) {
-            $folders[$folder]['linkList'] = $this->view->folderLink($folder, $folders);
+            $folders[$folder]['linkList']
+                = $this->view->folderLink($folder, $folders);
         }
         return $folders;
     }
 
-    function gatherChildren($parent, $folders) {
+    /**
+     * Returns an array.
+     *
+     * @param string $parent  ???
+     * @param array  $folders ???
+     *
+     * @return array
+     *
+     * @todo Document the details.
+     */
+    function gatherChildren($parent, $folders)
+    {
         $children = array();
         foreach ($folders as $key => $folder) {
             if ($folder['parent'] == $parent) {
@@ -232,22 +379,26 @@ function foldersArray($all = true) {
         return $children;
     }
 
-    function deleteFile($file) {
-
+    /**
+     * Deletes a file.
+     *
+     * @param string $file A file name.
+     *
+     * @return void
+     */
+    function deleteFile($file)
+    {
         $file = $this->browseBase . $this->currentDirectory . basename($file);
         $pages = $this->fileIsLinked($file);
         if (is_array($pages)) {
             $this->view->error('error_not_deleted', $file);
             $this->view->error('error_file_is_used', $file);
-
             foreach ($pages as $page) {
                 $this->view->message .= '<li>' . $page . '</li>';
             }
             $this->view->message .= '</ul>';
             return;
         }
-
-
         if (@unlink($file)) {
             $this->view->success('success_deleted', $file);
         } else {
@@ -255,59 +406,85 @@ function foldersArray($all = true) {
         }
     }
 
-    function uploadFile() {
+    /**
+     * Handles a file upload.
+     *
+     * @return void
+     */
+    function uploadFile()
+    {
         $file = $_FILES['fbupload'];
-        
+
         if ($file['error'] != 0) {
             switch ($file['error']) {
             case UPLOAD_ERR_INI_SIZE:
                 $this->view->error('error_not_uploaded', $file['name']);
-                $this->view->error('error_file_too_big', array('?',  ini_get('upload_max_filesize')));
+                $this->view->error(
+                    'error_file_too_big',
+                    array('?',  ini_get('upload_max_filesize'))
+                );
                 return;
             default:
                 $this->view->error('error_not_uploaded', $file['name']);
                 return;
             }
         }
-        
-        $type = @getimagesize($file['tmp_name']) !== FALSE ? 'images' : 'downloads';
+
         // alternatively the following might be used:
         // $type = $this->linkType == 'images' ? 'images' : 'downloads';
+        $type = @getimagesize($file['tmp_name']) !== false
+            ? 'images' : 'downloads';
         if (isset($this->maxFilesizes[$type])) {
-           if ($file['size'] > $this->maxFilesizes[$type]) {
-               $this->view->error('error_not_uploaded', $file['name']);
-               $this->view->error('error_file_too_big', array(number_format($file['size']/1000, 2),  number_format($this->maxFilesizes[$type]/1000, 2) . ' kb'));
-               return;
-           }
+            if ($file['size'] > $this->maxFilesizes[$type]) {
+                $this->view->error('error_not_uploaded', $file['name']);
+                $this->view->error(
+                    'error_file_too_big',
+                    array(
+                        number_format($file['size']/1000, 2),
+                        number_format($this->maxFilesizes[$type]/1000, 2) . ' kb'
+                    )
+                );
+                return;
+            }
         }
-        
+
         if ($this->isAllowedFile($file['name']) == false) {
             $this->view->error('error_not_uploaded', $file['name']);
-            $this->view->error('error_no_proper_extension', pathinfo($file['name'], PATHINFO_EXTENSION));
-
+            $this->view->error(
+                'error_no_proper_extension',
+                pathinfo($file['name'], PATHINFO_EXTENSION)
+            );
             return;
         }
-        
-        $filename = $this->browseBase . $this->currentDirectory . basename($file['name']);
+
+        $filename = $this->browseBase . $this->currentDirectory
+            . basename($file['name']);
         if (file_exists($filename)) {
             $this->view->error('error_not_uploaded', $file['name']);
             $this->view->error('error_file_already_exists', $filename);
             return;
         }
-        
+
         if (move_uploaded_file($_FILES['fbupload']['tmp_name'], $filename)) {
             chmod($filename, 0644);
             $this->view->success('success_uploaded', $file['name']);
             return;
         }
-        
+
         $this->view->error('error_not_uploaded', $file['name']);
     }
 
-    function createFolder() {
-
+    /**
+     * Handles creation of a folder.
+     *
+     * @return void
+     */
+    function createFolder()
+    {
         $folder = basename($_POST['createFolder']);
-        $folder = str_replace(array(':', '*', '?', '"', '<', '>', '|', ' '), '', $folder);
+        $folder = str_replace(
+            array(':', '*', '?', '"', '<', '>', '|', ' '), '', $folder
+        );
         $folder = $this->browseBase . $this->currentDirectory . $folder;
         if (is_dir($folder)) {
             $this->view->error('error_folder_already_exists', basename($folder));
@@ -317,31 +494,49 @@ function foldersArray($all = true) {
             $this->view->error('error_unknown');
         }
         $this->view->success('success_folder_created', basename($folder));
-        return;
     }
 
-    function deleteFolder() {
-        $folder = $this->browseBase . $this->currentDirectory . basename($_POST['folder']);
+    /**
+     * Handles deletion of a folder.
+     *
+     * @return void
+     */
+    function deleteFolder()
+    {
+        $folder = $this->browseBase . $this->currentDirectory
+            . basename($_POST['folder']);
         if (!rmdir($folder)) {
             $this->view->error('error_not_deleted', basename($folder));
             return;
         }
         $this->view->success('success_deleted', basename($folder));
-        return;
     }
 
-    function renameFile() {
-
-        $newName = str_replace(array('..', '<', '>', ':', '?', ' '), '', basename($_POST['renameFile']));
+    /**
+     * Handles renaming of a file
+     *
+     * @return void
+     *
+     * @todo Add i18n for errors.
+     */
+    function renameFile()
+    {
+        $newName = str_replace(
+            array('..', '<', '>', ':', '?', ' '), '', basename($_POST['renameFile'])
+        );
         $oldName = $_POST['oldName'];
         if ($oldName == $newName) {
             return;
         }
-        if (pathinfo($newName, PATHINFO_EXTENSION) !== pathinfo($oldName, PATHINFO_EXTENSION)) {
+        $newExtension = pathinfo($newName, PATHINFO_EXTENSION);
+        $oldExtension = pathinfo($oldName, PATHINFO_EXTENSION);
+        if ($newExtension !== $oldExtension) {
             $this->view->message = 'You can not change the file extension!';
             return;
         }
-        if (file_exists($this->browseBase . $this->currentDirectory . '/' . $newName)) {
+        $newPath = $this->browseBase . $this->currentDirectory . '/' . $newName;
+        $oldPath = $this->browseBase . $this->currentDirectory . '/' . $oldName;
+        if (file_exists($newPath)) {
             $this->view->error('error_file_already_exists', $newName);
             return;
         }
@@ -356,7 +551,7 @@ function foldersArray($all = true) {
             $this->view->message .= '</ul>';
             return;
         }
-        if (rename($this->browseBase . $this->currentDirectory . '/' . $oldName, $this->browseBase . $this->currentDirectory . '/' . $newName)) {
+        if (rename($oldPath, $newPath)) {
             $this->view->message = 'Renamed ' . $oldName . ' to ' . $newName . '!';
             return;
         }
@@ -364,46 +559,98 @@ function foldersArray($all = true) {
         return;
     }
 
-    function render($template) {
-
+    /**
+     * Returns the instantiated <var>$template</var>.
+     *
+     * @param string $template A template file name.
+     *
+     * @return string
+     *
+     * @todo i18n of error message (or probably make it an error)
+     */
+    function render($template)
+    {
         $template = str_replace(array('.', '/', '\\', '<', ' '), '', $template);
-
-
         if (!file_exists($this->browserPath . 'tpl/' . $template . '.html')) {
-            return "<p>XHFileBrowser::render() - Template not found: {$this->browserPath}tpl/$template.html'</p>";
+            return '<p>XHFileBrowser::render() - Template not found: '
+                . "{$this->browserPath}tpl/$template.html'</p>";
         }
         $this->view->baseDirectory = $this->baseDirectory;
-        //  $this->view->basePath = '';
         $this->view->baseLink = $this->linkType;
         $this->view->folders = $this->foldersArray();
         $this->view->subfolders = $this->folders;
         $this->view->files = $this->files;
 
-        return $this->view->loadTemplate($this->browserPath . 'tpl/' . $template . '.html');
+        return $this->view->loadTemplate(
+            $this->browserPath . 'tpl/' . $template . '.html'
+        );
     }
 
-    function setLinkParams($paramsString) {
+    /**
+     * Sets <var>$this->linkParams</var>.
+     *
+     * @param string $paramsString ???
+     *
+     * @return void
+     */
+    function setLinkParams($paramsString)
+    {
         $this->view->linkParams = $paramsString;
     }
 
-    function setLinkPrefix($prefix) {
+    /**
+     * Sets <var>$this->linkPrefix</var>.
+     *
+     * @param string $prefix ???
+     *
+     * @return void
+     */
+    function setLinkPrefix($prefix)
+    {
         $this->view->linkPrefix = $prefix;
     }
 
-    function setBrowseBase($path) {
+    /**
+     * Sets the browse path.
+     *
+     * @param string $path The new browse path.
+     *
+     * @return void
+     */
+    function setBrowseBase($path)
+    {
 
         $this->browseBase = $path;
         $this->view->basePath = $path;
     }
 
-    function setBrowserPath($path) {
+    /**
+     * Sets the browser path.
+     *
+     * @param string $path The new browser path.
+     *
+     * @return void
+     */
+    function setBrowserPath($path)
+    {
         $this->view->browserPath = $path;
     }
-    
-    function setMaxFileSize($folder = '', $bytes) {
-        if (key_exists($folder, $this->baseDirectories)){
+
+    /**
+     * Sets the maximum file size.
+     *
+     * @param string $folder ???
+     * @param int    $bytes  The maximum file size in bytes.
+     *
+     * @return void
+     */
+    function setMaxFileSize($folder, $bytes)
+    {
+        if (key_exists($folder, $this->baseDirectories)) {
             $this->maxFilesizes[$folder] = (int) $bytes;
         }
     }
-
 }
+
+?>
+

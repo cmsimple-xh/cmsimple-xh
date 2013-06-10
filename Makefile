@@ -15,7 +15,13 @@ PHPSOURCES=cmsimple/adminfuncs.php\
 	   cmsimple/classes/page_data_views.php\
 	   plugins/meta_tags/index.php\
 	   plugins/meta_tags/_admin.php\
-	   plugins/meta_tags/meta_tags_view.php
+	   plugins/meta_tags/meta_tags_view.php\
+	   plugins/filebrowser/index.php\
+	   plugins/filebrowser/admin.php\
+	   plugins/filebrowser/editorbrowser.php\
+	   plugins/filebrowser/classes/filebrowser.php\
+	   plugins/filebrowser/classes/filebrowser_view.php\
+	   plugins/filebrowser/classes/required_classes.php
 
 EMPTY=
 SPACE=$(EMPTY) $(EMPTY)
@@ -33,7 +39,7 @@ doc: doc/php/index.html
 
 doc/php/index.html: $(PHPSOURCES)
 	$(PHPDOC) --filename $(subst $(SPACE),$(COMMA),$(PHPSOURCES))\
-		  --target doc/php/\
+		  --target doc/php\
 		  --defaultcategoryname CMSimple_XH\
 		  --defaultpackagename XH
 
