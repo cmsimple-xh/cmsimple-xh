@@ -446,37 +446,6 @@ class PL_Page_Data_Router
     }
 
     /**
-     * ???
-     *
-     * @param mixed $url ???
-     *
-     * @global array
-     *
-     * @return bool
-     *
-     * @todo Seems to be never used! Must be double-checked.
-     */
-    function check_temp($url)
-    {
-        global $cf;
-
-        $temp = $this->model->find_key('temp');
-        $test = explode($cf['uri']['seperator'], $url);
-        if ($test[count($test)-1] == $temp['url']) {
-            $params = array();
-            foreach ($temp as $field => $value) {
-                if ($field !== 'url') {
-                    $params[$field] = $value;
-                }
-            }
-            $this->model->delete('temp');
-            $this->model->update_key($url, $params);
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Returns the global page data arrays as a PHP tag.
      *
      * @return string The PHP tag.
