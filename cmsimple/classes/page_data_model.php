@@ -99,7 +99,7 @@ class PL_Page_Data_Model
             : array('url', 'last_edit');
         $this->temp_data = $tempData;
         $this->data = $pageData;
-        $this->read();
+        $this->fixUp();
     }
 
     /**
@@ -108,10 +108,8 @@ class PL_Page_Data_Model
      * @return void
      *
      * @access protected
-     *
-     * @todo should better be renamed as it doesn't read the page data since XH 1.6.
      */
-    function read()
+    function fixUp()
     {
         foreach ($this->headings as $id => $value) {
             foreach ($this->params as $param) {
