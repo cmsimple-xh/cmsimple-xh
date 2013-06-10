@@ -452,15 +452,6 @@ $settings = null;
 $sitemap = null;
 
 /**
- * Whether the stylesheet is requested.
- *
- * @global string $stylesheet
- *
- * @todo Remove, as no longer needed.
- */
-$stylesheet = null;
-
-/**
  * The text of the editor on save.
  *
  * @global string $text
@@ -483,9 +474,8 @@ $xhpages = null;
 
 $temp = array(
     'action', 'download', 'downloads', 'edit', 'file', 'function', 'images',
-    'login', 'logout', 'keycut', 'mailform', 'media', 'normal', 'print',
-    'search', 'selected', 'settings', 'sitemap', 'stylesheet', 'text',
-    'userfiles', 'validate', 'xhpages'
+    'login', 'logout', 'keycut', 'mailform', 'media', 'normal', 'print', 'search',
+    'selected', 'settings', 'sitemap', 'text', 'userfiles', 'validate', 'xhpages'
 );
 foreach ($temp as $i) {
     initvar($i);
