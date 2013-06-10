@@ -318,18 +318,110 @@ $sn = preg_replace(
 );
 
 /**
+ * The requested action.
+ *
+ * @global string $action
+ */
+$action = null;
+
+/**
+ * The requested function
+ *
+ * @global string $function
+ */
+$function = null;
+
+/**
+ * Whether login is requested.
+ *
+ * @global string $login
+ */
+$login = null;
+
+/**
+ * The admin password. This variable was renamed from <var>$passwd</var>
+ * since CMSimple_XH 1.6 to avoid trouble with mod_security.
+ *
+ * @global string $keycut
+ */
+$keycut = null;
+
+/**
+ * Whether logout is requested.
+ *
+ * @global string $logout
+ */
+$logout = null;
+
+/**
+ * Whether the mailform is requested.
+ *
+ * @global string $mailform
+ */
+$mailform = null;
+
+/**
+ * The filename requested for download.
+ *
+ * @global string $download
+ */
+$download = null;
+
+/**
+ * Whether the file browser is requested to show the download folder.
+ *
+ * @global string $downloads
+ */
+$downloads = null;
+
+/**
+ * Whether the file browser is requested to show the image folder.
+ *
+ * @global string $images
+ */
+$images = null;
+
+/**
+ * Whether the file browser is requested to show the media folder.
+ *
+ * @global string $media
+ */
+$media = null;
+
+/**
+ * Whether the file browser is requested to show the userfiles folder.
+ *
+ * @global string $userfiles
+ */
+$userfiles = null;
+
+/**
+ * Whether edit mode is requested.
+ *
+ * @global string $edit
+ */
+$edit = null;
+
+/**
+ * Whether normal mode is requested.
+ *
+ * @global string $normal
+ */
+$normal = null;
+
+/**
+ * Whether print mode is requested.
+ *
+ * @global string $print
+ */
+$print = null;
+
+/**
  * The name of a special file to be handled.
  *
  * @global string $file
  */
 $file = null;
-
-/**
- * Whether print mode is active.
- *
- * @global bool $print
- */
-$print = null;
 
 /**
  * The current search string.
@@ -338,13 +430,62 @@ $print = null;
  */
 $search = null;
 
-// TODO: document the following as global variables
+/**
+ * The URL of the requested page.
+ *
+ * @global string $selected
+ */
+$selected = null;
+
+/**
+ * Whether the settings page is requested.
+ *
+ * @global string $settings
+ */
+$settings = null;
+
+/**
+ * Whether the sitemap is requested.
+ *
+ * @global string $sitemap
+ */
+$sitemap = null;
+
+/**
+ * Whether the stylesheet is requested.
+ *
+ * @global string $stylesheet
+ *
+ * @todo Remove, as no longer needed.
+ */
+$stylesheet = null;
+
+/**
+ * The text of the editor on save.
+ *
+ * @global string $text
+ */
+$text = null;
+
+/**
+ * Whether the link check is requested.
+ *
+ * @global string $validate
+ */
+$validate = null;
+
+/**
+ * Whether the page manager is requested.
+ *
+ * @global string $xhpages
+ */
+$xhpages = null;
 
 $temp = array(
-    'action', 'download', 'downloads', 'edit', 'file', 'function',
-    'images', 'login', 'logout', 'mailform', 'media', 'normal',
-    'keycut', 'print', 'search', 'selected', 'settings', 'sitemap',
-    'stylesheet', 'text', 'userfiles', 'validate', 'xhpages'
+    'action', 'download', 'downloads', 'edit', 'file', 'function', 'images',
+    'login', 'logout', 'keycut', 'mailform', 'media', 'normal', 'print',
+    'search', 'selected', 'settings', 'sitemap', 'stylesheet', 'text',
+    'userfiles', 'validate', 'xhpages'
 );
 foreach ($temp as $i) {
     initvar($i);
@@ -405,12 +546,6 @@ if (!isset($cf['uri']['length'])) {
 }
 $su = substr($su, 0, $cf['uri']['length']);
 
-
-/**
- * Requests a file download.
- *
- * @global string $download
- */
 if ($download != '') {
     download($pth['folder']['downloads'] . basename($download));
 }
@@ -426,13 +561,6 @@ $pth['file']['mailform'] = $pth['folder']['cmsimple'] . 'mailform.php';
  * @see XH_ADM
  */
 $adm = 0;
-
-/**
- * Whether edit mode is active.
- *
- * @global bool $edit
- */
-$edit = null;
 
 /**
  * The requested function.
