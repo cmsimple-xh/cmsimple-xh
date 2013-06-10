@@ -43,16 +43,8 @@ if ($meta_tags) {
         ? $_POST['action']
         : $action = isset($_GET['action']) ? $_GET['action'] : '';
     $plugin = basename(dirname(__FILE__), "/");
-    $o .= print_plugin_admin('off');
-    if ($admin <> 'plugin_main') {
-        $o .= plugin_admin_common($action, $admin, $plugin);
-    }
-    if ($admin == 'plugin_main') {
-        // TODO: where is $acturl used?
-        $acturl = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']
-            . "?&" . $plugin . "&admin=plugin_main&action=plugin_text";
-        $o .= plugin_admin_common($action, $admin, $plugin);
-    }
+    $o .= print_plugin_admin('off')
+        . plugin_admin_common($action, $admin, $plugin);
     if ($admin == '') {
         $o .= "\n" . '<div class="plugintext"><div class="plugineditcaption">'
             . ucfirst(str_replace('_', ' ', $plugin)) . '</div></div>' . tag('br');
