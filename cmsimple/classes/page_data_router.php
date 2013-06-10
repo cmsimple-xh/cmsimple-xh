@@ -379,23 +379,6 @@ class PL_Page_Data_Router
     }
 
     /**
-     * ???
-     *
-     * @param int $pd_s The index of the page.
-     *
-     * @return string  The (X)HTML.
-     *
-     * @todo check this method; it can't work as it calls
-     *       PL_Page_Data_View::edit_view(), which doesn't exist!
-     */
-    function edit($pd_s)
-    {
-        $page = $this->find_page($pd_s);
-        $view_provider = new PL_Page_Data_View($page, $this->model->tabs);
-        return $view_provider->edit_view($page);
-    }
-
-    /**
      * Returns the page data tab views.
      *
      * @param int $s The index of the page.
