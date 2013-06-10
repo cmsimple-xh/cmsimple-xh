@@ -689,17 +689,24 @@ foreach (XH_plugins() as $plugin) {
     }
 }
 
+/**
+ * The configuration of the plugins.
+ *
+ * @global array $plugin_cf
+ */
+$plugin_cf = null;
+/**
+ * The localization of the plugins.
+ *
+ * @global array $plugin_tx
+ */
+$plugin_tx = null;
+
 /*
  * Include config and language files of all plugins.
  */
 foreach (XH_plugins() as $plugin) {
     pluginFiles($plugin);
-    /**
-     * The configuration of the plugins.
-     *
-     * @global array $plugin_cf
-     */
-    $plugin_cf = null;
     if (is_readable($pth['folder']['plugin_config'] . 'defaultconfig.php')) {
         include $pth['folder']['plugin_config'] . 'defaultconfig.php';
     }
@@ -707,12 +714,6 @@ foreach (XH_plugins() as $plugin) {
         include $pth['file']['plugin_config'];
     }
 
-    /**
-     * The localization of the plugins.
-     *
-     * @global array $plugin_tx
-     */
-    $plugin_tx = null;
     XH_createLanguageFile($pth['file']['plugin_language']);
     if (is_readable($pth['folder']['plugin_languages'] . 'default.php')) {
         include $pth['folder']['plugin_languages'] . 'default.php';
