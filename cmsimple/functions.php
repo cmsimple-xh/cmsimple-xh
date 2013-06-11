@@ -1483,7 +1483,8 @@ function XH_debug($errno, $errstr, $errfile, $errline, $context)
 
 
 /**
- * Checks <var>$arr</var> recursively for valid UTF-8. Otherwise it exists the script.
+ * Checks <var>$arr</var> recursively for valid UTF-8.
+ * Otherwise it exists the script.
  *
  * Useful for checking user input.
  *
@@ -2040,6 +2041,99 @@ function XH_isValidEmail($address)
 {
     return !preg_match('/[^\x00-\x7F]/', $address)
         && preg_match('!^[^\r\n]+@[^\s]+$!', $address);
+}
+
+/**
+ * Returns the path of the combined plugin stylesheet.
+ * If necessary, this stylesheet will be created/updated.
+ *
+ * @return string
+ *
+ * @global array  The paths of system files and folders.
+ *
+ * @since 1.6
+ */
+function XH_pluginStylesheet()
+{
+    global $pth;
+
+    $plugins = XH_plugins();
+
+    $ofn = $pth['folder']['corestyle'] . 'plugins.css';
+    $expired = !file_exists($ofn);
+
+    // check for newly (un)installed plugins
+    if (!$expired) {
+        if (($ofp = fopen($ofn, 'r')) !== false
+            && fgets($ofp, 4096) && fgets($ofp, 4096)
+            && ($oldPlugins = fgets($ofp, 4096))
+        ) {
+            $oldPlugins = explode(',', trim($oldPlugins, " *\r\n"));
+            $expired = $plugins != $oldPlugins;
+        } else {
+            $expired = true;
+        }
+        if ($ofp !== false) {
+            fclose($ofp);
+        }
+    }
+
+    // check for changes in the individual plugin stylesheets
+    if (!$expired) {
+        foreach ($plugins as $plugin) {
+            $fn = $pth['folder']['plugins'] . $plugin . '/css/stylesheet.css';
+            if (file_exists($fn) && filemtime($fn) > filemtime($ofn)) {
+                $expired = true;
+                break;
+            }
+        }
+    }
+
+    // create combined plugin stylesheet
+    if ($expired) {
+        $o = array();
+        foreach ($plugins as $plugin) {
+            $fn = $pth['folder']['plugins'] . $plugin . '/css/stylesheet.css';
+            if (file_exists($fn)) {
+                $css = file_get_contents($fn);
+                $css = XH_adjustStylesheetURLs($plugin, $css);
+                $css = PHP_EOL
+                    . '/' . str_pad(' ' . $fn, 76, '*', STR_PAD_LEFT) . ' */'
+                    . PHP_EOL . PHP_EOL . $css;
+                $o[] = $css;
+            }
+        }
+        $o = '/*' . PHP_EOL
+            . ' * Automatically created by ' . CMSIMPLE_XH_VERSION
+            . '. DO NOT MODIFY!' . PHP_EOL
+            . ' * ' . implode(',', $plugins) . PHP_EOL
+            . ' */' . PHP_EOL . PHP_EOL
+            . implode(PHP_EOL . PHP_EOL, $o);
+        if (!XH_writeFile($ofn, $o)) {
+            e('cntwriteto', 'stylesheet', $ofn);
+        }
+    }
+
+    return $ofn;
+}
+
+/**
+ * Adjusts all relative url(...) in a stylesheet to be used
+ * in the combined plugin stylesheet.
+ *
+ * @param string $plugin The name of the plugin.
+ * @param string $css    The content of the stylesheet.
+ *
+ * @return string
+ *
+ * @since 1.6
+ */
+function XH_adjustStylesheetURLs($plugin, $css)
+{
+    return preg_replace(
+        '/url\(\s*(["\']?)(?!\s*["\']?\/|\s*["\']?http[s]?:)(.*?)(["\']?)\s*\)/su',
+        "url(\$1../plugins/$plugin/css/\$2\$3)", $css
+    );
 }
 
 ?>

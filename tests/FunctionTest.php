@@ -257,6 +257,42 @@ class FunctionTest extends PHPUnit_Framework_TestCase
         $actual = XH_isValidEmail($address);
         $this->assertEquals($expected, $actual);
     }
+
+    public function dataForTestAdjustStylesheetURLs()
+    {
+        return array(
+            array(
+                'pagemanager',
+                '#pagemanager {background-url: url(images/bg.jpg)}',
+                '#pagemanager {background-url: url(../plugins/pagemanager/css/'
+                . 'images/bg.jpg)}'
+            ),
+            array(
+                'filebrowser',
+                '.filebrowser {background-url: url("http://www.example.com/img.png")',
+                '.filebrowser {background-url: url("http://www.example.com/img.png")'
+            ),
+            array(
+                'plugin',
+                'div {whatever: url( \'/images/anim.gif\' )}',
+                'div {whatever: url( \'/images/anim.gif\' )}'
+            ),
+            array(
+                'test',
+                'body {background: url("./images/bg.jpg)}',
+                'body {background: url("../plugins/test/css/./images/bg.jpg)}'
+            )
+        );
+    }
+
+    /**
+     * @dataProvider dataForTestAdjustStylesheetURLs
+     */
+    public function testAdjustStylesheetURLs($plugin, $css, $expected)
+    {
+        $actual = XH_adjustStylesheetURLs($plugin, $css);
+        $this->assertEquals($expected, $actual);
+    }
 }
 
 ?>

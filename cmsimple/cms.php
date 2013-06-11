@@ -253,7 +253,8 @@ if (!isset($sl)) {
 }
 
 $pth['file']['language'] = $pth['folder']['language'] . basename($sl) . '.php';
-$pth['file']['corestyle'] = $pth['folder']['base'] . 'css/core.css';
+$pth['folder']['corestyle'] = $pth['folder']['base'] . 'css/';
+$pth['file']['corestyle'] = $pth['folder']['corestyle'] . 'core.css';
 $pth['file']['adminjs'] = $pth['folder']['base'] . 'javascript/admin.js';
 
 XH_createLanguageFile($pth['file']['language']);
@@ -843,21 +844,21 @@ foreach (XH_plugins() as $plugin) {
 }
 
 /*
- * Include index.php of all plugins, and add stylesheet to $hjs.
+ * Add LINK to combined plugin stylesheet.
+ */
+$hjs .= tag(
+    'link rel="stylesheet" href="' . XH_pluginStylesheet() . '" type="text/css"'
+    ) . PHP_EOL;
+
+/*
+ * Include index.php of all plugins.
  */
 foreach (XH_plugins() as $plugin) {
     pluginFiles($plugin);
     if (is_readable($pth['file']['plugin_index'])) {
         include $pth['file']['plugin_index'];
     }
-    if (is_file($pth['file']['plugin_stylesheet'])) {
-        $hjs .= tag(
-            'link rel="stylesheet" href="' . $pth['file']['plugin_stylesheet']
-            . '" type="text/css"'
-        ) . "\n";
-    }
 }
-
 
 if ($adm) {
     /*
