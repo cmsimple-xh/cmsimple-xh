@@ -597,3 +597,7 @@ div.xh_modal_dialog_buttons {
 div.xh_modal_dialog_buttons button {
     width: 5em;
 }
+
+form.xh_inline_form {
+    display: inline;
+}

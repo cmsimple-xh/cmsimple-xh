@@ -982,7 +982,12 @@ if ($adm) {
             if ($action == 'download') {
                 download($pth['file'][$file]);
             } elseif ($action == 'restore') {
+                // TODO: only backups!
                 XH_restore($pth['file'][$file]);
+            } elseif ($action == 'delete') {
+                if ($file = 'content') {
+                    XH_deleteContents();
+                }
             } else {
                 include_once $pth['folder']['classes'] . 'FileEdit.php';
                 $temp = array('config' => 'XH_CoreConfigFileEdit',

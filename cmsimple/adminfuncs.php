@@ -133,7 +133,16 @@ function XH_settingsView()
         . $tx['action']['view'] . '</a>' . ' <a href="?file=content">'
         . $tx['action']['edit'] . '</a>' . ' <a href="'
         . '?file=content&amp;action=download">' . $tx['action']['download']
-        . '</a></li>' . "\n";
+        . '</a>'
+        . ' <form action="" method="post" class="xh_inline_form">'
+        . tag('input type="hidden" name="file" value="content"')
+        . tag('input type="hidden" name="action" value="delete"')
+        . tag(
+            'input type="submit" class="submit" value="'
+            . $tx['action']['delete'] . '"'
+        )
+        . '</form>'
+        . '</li>' . "\n";
     $o .= '</ul>' . "\n" . tag('hr') . "\n" . '<p>'
         . $tx['settings']['backupexplain1'] . '</p>' . "\n" . '<p>'
         . $tx['settings']['backupexplain2'] . '</p>' . "\n" . '<ul>' . "\n";
@@ -470,6 +479,35 @@ function XH_saveEditorContents($text)
         exit;
     } else {
         e('notwritable', 'content', $pth['file']['content']);
+    }
+}
+
+/**
+ * Deletes all contents.
+ *
+ * @return void
+ *
+ * @global array  The content of the pages.
+ * @global int    The number of pages.
+ * @global array  The paths of system files and folders.
+ * @global object The pagedata router.
+ *
+ * @todo create backup and/or confirmation
+ */
+function XH_deleteContents()
+{
+    global $c, $cl, $pth, $pd_router;
+
+    $c = array();
+    for ($i = 0; $i < $cl; ++$i) {
+        $pd_router->destroy($i);
+    }
+    if (XH_saveContents()) {
+        // the following relocation is necessary to cater for the changed content
+        header('Location: ' . CMSIMPLE_URL . '?&settings', true, 303);
+        exit;
+    } else {
+        e('cntsave', 'content', $pth['file']['content']);
     }
 }
 
