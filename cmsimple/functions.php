@@ -1854,9 +1854,13 @@ function XH_backup()
         $date = date("Ymd_His");
     }
     $fn = "${date}_content.htm";
-    if (@copy($pth['file']['content'], $pth['folder']['content'] . $fn)) {
-        $o = '<p>' . utf8_ucfirst($tx['filetype']['backup'])
-            . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
+    if (empty($cf['backup']['numberoffiles'])
+        || copy($pth['file']['content'], $pth['folder']['content'] . $fn)
+    ) {
+        if (!empty($cf['backup']['numberoffiles'])) {
+            $o = '<p>' . utf8_ucfirst($tx['filetype']['backup'])
+                . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
+        }
         $fl = array();
         $fd = @opendir($pth['folder']['content']);
         while (($p = @readdir($fd)) == true) {
