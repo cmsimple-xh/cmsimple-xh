@@ -1812,8 +1812,8 @@ HTML;
     }
     if ($f == 'login') {
         $cf['meta']['robots'] = "noindex";
-        $onload .= "self.focus();'
-            . 'document.forms['login'].elements['keycut'].focus();";
+        $onload .= 'self.focus();'
+            . 'document.forms[\'login\'].elements[\'keycut\'].focus();';
         $f = $tx['menu']['login'];
         $o .= '<h1>' . $tx['menu']['login'] . '</h1>'
             . '<p><b>' . $tx['login']['warning'] . '</b></p>'
