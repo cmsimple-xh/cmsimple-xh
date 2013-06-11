@@ -634,8 +634,8 @@ if (XH_ADM && isset($_GET['xh_check'])) {
 if ($adm) {
     $o .= '<script type="text/javascript">/* <![CDATA[ */'
         . 'if (document.cookie.indexOf(\'status=adm\') == -1)'
-        . ' document.write(\'\u003Cdiv class="cmsimplecore_warning">'
-        . $tx['error']['nocookies'] . '\u003C/div>\')'
+        . ' document.write(\'<div class="cmsimplecore_warning">'
+        . $tx['error']['nocookies'] . '<\/div>\')'
         . '/* ]]> */</script>'
         . '<noscript><div class="cmsimplecore_warning">'
         . $tx['error']['nojs'] . '</div></noscript>';
