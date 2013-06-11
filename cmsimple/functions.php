@@ -1908,7 +1908,7 @@ function XH_restore($filename)
 {
     global $pth;
 
-    rename($file, $pth['folder']['content'] . 'restore.htm');
+    rename($filename, $pth['folder']['content'] . 'restore.htm');
     XH_backup();
     rename($pth['folder']['content'] . 'restore.htm', $pth['file']['content']);
     // the following relocation is necessary to cater for the changed content
