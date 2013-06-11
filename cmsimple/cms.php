@@ -593,7 +593,9 @@ if ($login && !$adm) {
         shead('403');
     }
 } elseif ($logout && $adm) {
-    $o .= XH_backup();
+    if ($logout != 'no_backup') {
+        $o .= XH_backup();
+    }
     $adm = false;
     setcookie('status', '', 0, CMSIMPLE_ROOT);
     setcookie('keycut', '', 0, CMSIMPLE_ROOT);
