@@ -13,6 +13,7 @@ $tx['template']['text3']="text 3 for templates requiring this text";
 $tx['action']['delete']="delete";
 $tx['action']['download']="download";
 $tx['action']['edit']="edit";
+$tx['action']['restore']="restore";
 $tx['action']['save']="save";
 $tx['action']['upload']="upload";
 $tx['action']['view']="view";

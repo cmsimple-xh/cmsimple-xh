@@ -153,11 +153,13 @@ function XH_settingsView()
             $size = round(($size) / 102.4) / 10;
             $o .= '<li><a href="?file=' . $p . '&amp;action=view">'
                 . $p . '</a> (' . $size . ' KB)'
-                . '<form action="" method="post">'
+                . ' <form action="" method="post" class="xh_inline_form">'
                 . tag('input type="hidden" name="file" value="' . $p . '"')
                 . tag('input type="hidden" name="action" value="restore"')
-                // TODO: i18n
-                . tag('input type="submit" class="submit" value="Restore"')
+                . tag(
+                    'input type="submit" class="submit" value="'
+                    . $tx['action']['restore'] . '"'
+                )
                 . '</form>'
                 . '</li>' . "\n";
         }
