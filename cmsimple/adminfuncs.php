@@ -492,14 +492,19 @@ function XH_saveEditorContents($text)
  * @global array  The content of the pages.
  * @global int    The number of pages.
  * @global array  The paths of system files and folders.
+ * @global array  A (X)HTML fragment with error messages.
  * @global object The pagedata router.
  *
- * @todo create backup and/or confirmation
+ * @todo handle success messages
  */
 function XH_deleteContents()
 {
-    global $c, $cl, $pth, $pd_router;
+    global $c, $cl, $pth, $e, $pd_router;
 
+    XH_backup();
+    if ($e) {
+        return;
+    }
     $c = array();
     for ($i = 0; $i < $cl; ++$i) {
         $pd_router->destroy($i);
