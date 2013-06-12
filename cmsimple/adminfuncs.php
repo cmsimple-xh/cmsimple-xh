@@ -128,6 +128,9 @@ function XH_settingsView()
     $o .= '</ul>' . "\n";
 
     $o .= '<h4>' . $tx['settings']['backup'] . '</h4>' . "\n" . '<ul>' . "\n";
+    if (isset($_GET['xh_success'])) {
+        $o .= XH_message('success', null, stsl($_GET['xh_success']));
+    }
     $o .= '<li>' . utf8_ucfirst($tx['filetype']['content']) . ' <a href="'
         . '?file=content&amp;action=view">'
         . $tx['action']['view'] . '</a>' . ' <a href="?file=content">'
@@ -494,8 +497,6 @@ function XH_saveEditorContents($text)
  * @global array  The paths of system files and folders.
  * @global array  An (X)HTML fragment with error messages.
  * @global object The pagedata router.
- *
- * @todo handle success messages
  */
 function XH_deleteContents()
 {
@@ -511,7 +512,8 @@ function XH_deleteContents()
     }
     if (XH_saveContents()) {
         // the following relocation is necessary to cater for the changed content
-        header('Location: ' . CMSIMPLE_URL . '?&settings', true, 303);
+        $url = CMSIMPLE_URL . '?&settings&xh_success=deleted';
+        header('Location: ' . $url, true, 303);
         exit;
     } else {
         e('cntsave', 'content', $pth['file']['content']);
@@ -583,8 +585,6 @@ function XH_backup()
  * @global array  An (X)HTML fragment with error messages.
  *
  * @since  1.6
- *
- * @todo Handle success messages.
  */
 function XH_restore($filename)
 {
@@ -607,7 +607,7 @@ function XH_restore($filename)
         return;
     }
     // the following relocation is necessary to cater for the changed content
-    header('Location: ' . CMSIMPLE_URL . '?&settings', true, 303);
+    header('Location: ' . CMSIMPLE_URL . '?&settings&xh_success=restored', true, 303);
     exit;
 }
 

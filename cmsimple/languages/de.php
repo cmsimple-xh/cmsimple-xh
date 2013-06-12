@@ -162,6 +162,9 @@ $tx['menu']['tab_config']="Konfiguration";
 $tx['menu']['tab_language']="Sprache";
 $tx['menu']['tab_help']="Hilfe";
 
+$tx['message']['deleted']="Der Content wurde erfolgreich gelöscht.";
+$tx['message']['restored']="Die Sicherung wurde erfolgreich wieder hergestellt.";
+
 $tx['navigator']['next']="nächste Seite »";
 $tx['navigator']['previous']="« vorige Seite";
 $tx['navigator']['top']="Seitenanfang";

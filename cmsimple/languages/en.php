@@ -162,6 +162,9 @@ $tx['menu']['tab_config']="Config";
 $tx['menu']['tab_language']="Language";
 $tx['menu']['tab_help']="Help";
 
+$tx['message']['deleted']="The content has been successfully deleted.";
+$tx['message']['restored']="The backup has been successfully restored.";
+
 $tx['navigator']['next']="next »";
 $tx['navigator']['previous']="« prev";
 $tx['navigator']['top']="top";
