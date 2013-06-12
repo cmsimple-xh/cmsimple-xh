@@ -1896,21 +1896,35 @@ function XH_backup()
  *
  * @param string $filename The filename.
  *
- * @global array  The paths of system files and folders.
- *
  * @return void
+ *
+ * @global array  The paths of system files and folders.
+ * @global array  An (X)HTML fragment with error messages.
  *
  * @since  1.6
  *
- * @todo Handle errors and success messages.
+ * @todo Handle success messages.
  */
 function XH_restore($filename)
 {
-    global $pth;
+    global $pth, $e;
 
-    rename($filename, $pth['folder']['content'] . 'restore.htm');
+    $tempFilename = $pth['folder']['content'] . 'restore.htm';
+    if (!rename($filename, $tempFilename)) {
+        e('cntsave', 'backup', $tempFilename);
+        return;
+    }
     XH_backup();
-    rename($pth['folder']['content'] . 'restore.htm', $pth['file']['content']);
+    if ($e) {
+        if (!unlink($tempFilename)) {
+            e('cntdelete', 'content', $tempFilename);
+        }
+        return;
+    }
+    if (!rename($tempFilename, $pth['file']['content'])) {
+        e('cntsave', 'content', $pth['file']['content']);
+        return;
+    }
     // the following relocation is necessary to cater for the changed content
     header('Location: ' . CMSIMPLE_URL . '?&settings', true, 303);
     exit;

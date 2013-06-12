@@ -492,7 +492,7 @@ function XH_saveEditorContents($text)
  * @global array  The content of the pages.
  * @global int    The number of pages.
  * @global array  The paths of system files and folders.
- * @global array  A (X)HTML fragment with error messages.
+ * @global array  An (X)HTML fragment with error messages.
  * @global object The pagedata router.
  *
  * @todo handle success messages
