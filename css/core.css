@@ -217,8 +217,38 @@ textarea.cmsimplecore_settings_short {
     margin: auto;
 }
 
+.cmsimplecore_success {
+    background: #4c4;
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    border: 3px solid #000;
+    padding: 4px 6px;
+    margin: 4px 0;
+}
+
+.cmsimplecore_info {
+    background: #66f;
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    border: 3px solid #000;
+    padding: 4px 6px;
+    margin: 4px 0;
+}
+
 .cmsimplecore_warning {
     background: #fc0;
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    border: 3px solid #000;
+    padding: 4px 6px;
+    margin: 4px 0;
+}
+
+.cmsimplecore_fail {
+    background: #a00;
     font-family: arial, sans-serif;
     font-size: 14px;
     color: #000;
