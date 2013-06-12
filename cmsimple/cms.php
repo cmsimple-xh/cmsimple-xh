@@ -982,8 +982,9 @@ if ($adm) {
             if ($action == 'download') {
                 download($pth['file'][$file]);
             } elseif ($action == 'restore') {
-                // TODO: only backups!
-                XH_restore($pth['file'][$file]);
+                if (preg_match('/^\d{8}_\d{6}_content.htm$/', $file)) {
+                    XH_restore($pth['file'][$file]);
+                }
             } elseif ($action == 'delete') {
                 if ($file = 'content') {
                     XH_deleteContents();
