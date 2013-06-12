@@ -517,7 +517,6 @@ function editmenu()
  *
  * @return string (X)HTML.
  *
- * @global bool   Whether admin mode is active.
  * @global bool   Whether edit mode is active.
  * @global int    The index of the current page.
  * @global array  The URLs of the pages.
@@ -531,77 +530,133 @@ function editmenu()
  */
 function admin_menu($plugins = array(), $debug = false)
 {
-    global $adm, $edit, $s, $u, $sn, $tx, $sl, $cf, $su;
+    global $edit, $s, $u, $sn, $tx, $sl, $cf, $su;
 
-    if ($adm) {
-        $pluginMenu = '';
-        if ((bool) $plugins) {
-            $pluginMenu .= '<li><a href="#" onclick="return false">'
-                . utf8_ucfirst($tx['editmenu']['plugins']) . "</a>\n    <ul>";
-            foreach ($plugins as $plugin) {
-                $pluginMenu .= "\n"
-                    . '     <li><a href="?' . $plugin . '&amp;normal">'
-                    . ucfirst($plugin) . '</a></li>';
-            }
-            $pluginMenu .= "\n    </ul>";
-        }
-        $t .= "\n" . '<div id="editmenu">';
-        $t .= "\n" . '<ul id="edit_menu">' . "\n";
-        if ($s < 0) {
-            $su = $u[0];
-        }
-        $changeMode = $edit ? 'normal' : 'edit';
-        $changeText = $edit ? $tx['editmenu']['normal'] : $tx['editmenu']['edit'];
-        $t .= '<li><a href="' . $sn . '?' . $su . '&amp;' . $changeMode . '">'
-            . $changeText . '</a></li>' . "\n"
-            . '<li><a href="' . $sn . '?&amp;normal&amp;xhpages" class="">'
-            . utf8_ucfirst($tx['editmenu']['pagemanager']) . '</a></li>' . "\n"
-            . '<li><a href="#" onclick="return false" class="">'
-            . utf8_ucfirst($tx['editmenu']['files']) . '</a>' ."\n"
-            . '    <ul>' . "\n"
-            . '    <li><a href="' . $sn . '?&amp;normal&amp;images">'
-            . utf8_ucfirst($tx['editmenu']['images']) . '</a></li>' . "\n"
-            . '    <li><a href="' . $sn . '?&amp;normal&amp;downloads">'
-            . utf8_ucfirst($tx['editmenu']['downloads']) . '</a></li>' . "\n"
-            . '    <li><a href="' . $sn . '?&amp;normal&amp;media">'
-            . utf8_ucfirst($tx['editmenu']['media']) . '</a></li>' . "\n"
-            . '    <li><a href="' . $sn . '?&amp;normal&amp;userfiles">'
-            . utf8_ucfirst($tx['editmenu']['userfiles']) . '</a></li>' . "\n"
-            . '    </ul>' . "\n"
-            . '</li>' ."\n"
-            . '<li><a href="' . $sn . '?&amp;settings">'
-            . utf8_ucfirst($tx['editmenu']['settings']) . '</a>' ."\n"
-            . '    <ul>' ."\n";
-        if ($sl == $cf['language']['default']) {
-            $t .='    <li><a href="?file=config&amp;action=array">'
-                . utf8_ucfirst($tx['editmenu']['configuration']) . '</a></li>'
-                . "\n";
-        }
-        $t .= '    <li><a href="?file=language&amp;action=array">'
-            . utf8_ucfirst($tx['editmenu']['language']) . '</a></li>' . "\n"
-            . '    <li><a href="?file=template&amp;action=edit">'
-            . utf8_ucfirst($tx['editmenu']['template']) . '</a></li>' . "\n"
-            . '    <li><a href="?file=stylesheet&amp;action=edit">'
-            . utf8_ucfirst($tx['editmenu']['stylesheet']) . '</a></li>' . "\n"
-            . '    <li><a href="?file=log&amp;action=view" target="_blank">'
-            . utf8_ucfirst($tx['editmenu']['log']) . '</a></li>' . "\n"
-            . '    <li><a href="' . $sn . '?&amp;validate">'
-            . utf8_ucfirst($tx['editmenu']['validate']) . '</a></li>' . "\n"
-            . '    <li><a href="' . $sn . '?&amp;sysinfo">'
-            . utf8_ucfirst($tx['editmenu']['sysinfo']) . '</a></li>' . "\n"
-            . '    </ul>' . "\n"
-            . '</li>' . "\n"
-            . $pluginMenu . "\n"
-            . '</li>' . "\n"
-            . '</ul>' . "\n" . '<ul id="editmenu_logout">' . "\n"
-            . '<li id="edit_menu_logout"><a href="?&amp;logout">'
-            . utf8_ucfirst($tx['editmenu']['logout']) . '</a></li>' . "\n"
-            . '</ul>' . "\n";
-        return $t . '<div style="float:none;clear:both;padding:0;margin:0;'
-            . 'width:100%;height:0px;"></div>' . "\n" . '</div>' . "\n";
+    if ($s < 0) {
+        $su = $u[0];
     }
+    $changeMode = $edit ? 'normal' : 'edit';
+    $changeText = $edit ? $tx['editmenu']['normal'] : $tx['editmenu']['edit'];
+
+    $filesMenu = array();
+    foreach (array('images', 'downloads', 'media', 'userfiles') as $item) {
+        $filesMenu[] =  array(
+            'label' => utf8_ucfirst($tx['editmenu'][$item]),
+            'url' => '?&amp;normal&amp;' . $item
+        );
+    }
+    $settingsMenu = array();
+    if ($sl == $cf['language']['default']) {
+        $settingsMenu[] = array(
+            'label' => utf8_ucfirst($tx['editmenu']['configuration']),
+            'url' => '?file=config&amp;action=array'
+        );
+    }
+    $settingsMenu[] = array(
+        'label' => utf8_ucfirst($tx['editmenu']['language']),
+        'url' => '?file=language&amp;action=array'
+    );
+    $settingsMenu[] = array(
+        'label' => utf8_ucfirst($tx['editmenu']['template']),
+        'url' => '?file=template&amp;action=edit'
+    );
+    $settingsMenu[] = array(
+        'label' => utf8_ucfirst($tx['editmenu']['stylesheet']),
+        'url' => '?file=stylesheet&amp;action=edit'
+    );
+    $settingsMenu[] = array(
+        'label' => utf8_ucfirst($tx['editmenu']['log']),
+        'url' => '?file=log&amp;action=view'
+    );
+    $settingsMenu[] = array(
+        'label' => utf8_ucfirst($tx['editmenu']['validate']),
+        'url' => '?&amp;validate'
+    );
+    $settingsMenu[] = array(
+        'label' => utf8_ucfirst($tx['editmenu']['sysinfo']),
+        'url' => '?&amp;sysinfo',
+        'children' => array(
+            array(
+                'label' => 'Test1'
+            )
+        )
+    );
+    $pluginMenu = array();
+    foreach ($plugins as $plugin) {
+        $pluginMenu[] = array(
+            'label' => ucfirst($plugin),
+            'url' => '?' . $plugin . '&amp;normal'
+        );
+    }
+    $menu = array(
+        array(
+            'label' => $changeText,
+            'url' => '?' . $su . '&amp;' . $changeMode,
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['pagemanager']),
+            'url' => '?&amp;normal&amp;xhpages'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['files']),
+            'children' => $filesMenu
+            ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['settings']),
+            'url' => '?&amp;settings',
+            'children' => $settingsMenu
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['plugins']),
+            'children' => $pluginMenu
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['logout']),
+            'url' => '?&amp;logout'
+        )
+    );
+
+    $t .= "\n" . '<div id="editmenu">';
+    $t .= "\n" . '<ul id="edit_menu">' . "\n";
+    foreach ($menu as $item) {
+        $t .= XH_adminMenuItem($item);
+    }
+    $t .= '</ul>' . "\n"
+        . '<div style="float:none;clear:both;padding:0;margin:0;'
+        . 'width:100%;height:0px;"></div>' . "\n" . '</div>' . "\n";
+    return $t;
 }
 
+/**
+ * Returns the LI element of an admin menu item.
+ *
+ * @param array $item  The menu item.
+ * @param int   $level The level of the menu item.
+ *
+ * @return string
+ *
+ * @since 1.6
+ */
+function XH_adminMenuItem($item, $level = 0)
+{
+    $indent = str_repeat('    ', $level);
+    $t .= $indent . '<li>';
+    if (isset($item['url'])) {
+        $t .= '<a href="' . $sn . $item['url'] . '">';
+    } else {
+        $t .= '<a href="#" onclick="return false">';
+    }
+    $t .= $item['label'] . '</a>';
+    if (isset($item['children'])) {
+        $t .= "\n" . $indent . '    <ul>' . "\n";
+        foreach ($item['children'] as $child) {
+            $t .= XH_adminMenuItem($child, $level + 1);
+        }
+        $t .= $indent . '    </ul>' . "\n" . $indent;
+    }
+    $t .= '</li>' . "\n";
+    return $t;
+}
 
 /**
  * Returns the contents area.
