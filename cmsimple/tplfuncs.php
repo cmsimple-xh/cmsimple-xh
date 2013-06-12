@@ -574,12 +574,7 @@ function admin_menu($plugins = array(), $debug = false)
     );
     $settingsMenu[] = array(
         'label' => utf8_ucfirst($tx['editmenu']['sysinfo']),
-        'url' => '?&amp;sysinfo',
-        'children' => array(
-            array(
-                'label' => 'Test1'
-            )
-        )
+        'url' => '?&amp;sysinfo'
     );
     $pluginMenu = array();
     foreach ($plugins as $plugin) {
