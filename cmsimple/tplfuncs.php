@@ -795,55 +795,38 @@ function top()
  * @global array  The paths of system files and folders.
  * @global array  The configuration of the core.
  * @global string The current language.
- *
- * @todo Separate model (i.e. finding of languages) and view.
  */
 function languagemenu()
 {
     global $pth, $cf, $sl;
 
-    $t = '';
     $r = array();
-    $fd = @opendir($pth['folder']['base']);
-    while (($p = @readdir($fd)) == true ) {
-        if (@is_dir($pth['folder']['base'] . $p)) {
-            if (preg_match('/^[A-z]{2}$/', $p)) {
-                $r[] = $p;
+    if (($fd = opendir($pth['folder']['base'])) !== false) {
+        while (($p = readdir($fd)) !== false) {
+            if (is_dir($pth['folder']['base'] . $p)) {
+                if (preg_match('/^[A-z]{2}$/', $p)) {
+                    $r[] = $p;
+                }
             }
         }
-    }
-    if ($fd == true) {
         closedir($fd);
     }
-    if (count($r) == 0) {
-        return '';
-    }
-    // TODO: unify img element construction
-    if ($cf['language']['default'] != $sl) {
-        $t .= '<a href="' . $pth['folder']['base'] . '">'
-            . tag(
-                'img src="' . $pth['folder']['flags'] . $cf['language']['default']
-                . '.gif" alt="' . $cf['language']['default'] . '" title="&nbsp;'
-                . $cf['language']['default'] . '&nbsp;" class="flag"'
+    array_unshift($r, $cf['language']['default']);
+    $i = array_search($sl, $r);
+    unset($r[$i]);
+
+    $t = '';
+    foreach ($r as $lang) {
+        $url = $pth['folder']['base']
+            . ($lang == $cf['language']['default'] ? '' : $lang . '/');
+        $img = $pth['folder']['flags'] . '/' . $lang . '.gif';
+        $el = file_exists($img)
+            ? tag(
+                'img src="' . $img . '" alt="' . $lang . '" title="&nbsp;'
+                . $lang . '&nbsp;" class="flag"'
             )
-            . '</a> ';
-    }
-    $v = count($r);
-    for ($i = 0; $i < $v; $i++) {
-        if ($sl != $r[$i]) {
-            if (is_file($pth['folder']['flags'] . '/' . $r[$i] . '.gif')) {
-                $t .= '<a href="' . $pth['folder']['base'] . $r[$i] . '/">'
-                    . tag(
-                        'img src="' . $pth['folder']['flags'] . $r[$i]
-                        . '.gif" alt="' . $r[$i] . '" title="&nbsp;' . $r[$i]
-                        . '&nbsp;" class="flag"'
-                    )
-                    . '</a> ';
-            } else {
-                $t .= '<a href="' . $pth['folder']['base'] . $r[$i] . '/">['
-                    . $r[$i] . ']</a> ';
-            }
-        }
+            : '[' . $lang . ']';
+        $t .= '<a href="' . $url . '">' . $el . '</a> ';
     }
     return $t;
 }
