@@ -572,6 +572,10 @@ $xh_hasher = new PasswordHash(8, true);
 
 $adm = gc('status') == 'adm' && logincheck();
 
+if ($adm) {
+    include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
+}
+
 if ($cf['security']['type'] == 'page' && $login && $keycut == '' && !$adm) {
     $login = null;
     $f = 'login';
@@ -738,10 +742,6 @@ $cf['site']['title'] = $tx['site']['title']; // for backward compatibility
 // Plugin loading
 if ($function == 'save') {
     $edit = true;
-}
-
-if ($adm) {
-    include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
 }
 
 /**
