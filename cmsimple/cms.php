@@ -850,7 +850,7 @@ foreach (XH_plugins() as $plugin) {
  */
 $hjs .= tag(
     'link rel="stylesheet" href="' . XH_pluginStylesheet() . '" type="text/css"'
-    ) . PHP_EOL;
+) . PHP_EOL;
 
 /*
  * Include index.php of all plugins.

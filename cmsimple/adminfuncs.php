@@ -607,7 +607,8 @@ function XH_restore($filename)
         return;
     }
     // the following relocation is necessary to cater for the changed content
-    header('Location: ' . CMSIMPLE_URL . '?&settings&xh_success=restored', true, 303);
+    $url = CMSIMPLE_URL . '?&settings&xh_success=restored';
+    header('Location: ' . $url, true, 303);
     exit;
 }
 

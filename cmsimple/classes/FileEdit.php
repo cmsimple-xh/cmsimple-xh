@@ -25,9 +25,9 @@
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
+ * @since    1.6
 
  * @abstract
- * @since 1.6
  */
 class XH_FileEdit
 {
@@ -139,9 +139,9 @@ class XH_FileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
+ * @since    1.6
  *
  * @abstract
- * @since 1.6
  */
 class XH_TextFileEdit extends XH_FileEdit
 {
@@ -245,8 +245,7 @@ class XH_TextFileEdit extends XH_FileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
- *
- * @since 1.6
+ * @since    1.6
  */
 class XH_CoreTextFileEdit extends XH_TextFileEdit
 {
@@ -279,8 +278,7 @@ class XH_CoreTextFileEdit extends XH_TextFileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
- *
- * @since 1.6
+ * @since    1.6
  */
 class XH_PluginTextFileEdit extends XH_TextFileEdit
 {
@@ -316,9 +314,9 @@ class XH_PluginTextFileEdit extends XH_TextFileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
+ * @since    1.6
  *
  * @abstract
- * @since 1.6
  */
 class XH_ArrayFileEdit extends XH_FileEdit
 {
@@ -627,9 +625,9 @@ class XH_ArrayFileEdit extends XH_FileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
+ * @since    1.6
  *
  * @abstract
- * @since 1.6
  */
 class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
 {
@@ -710,8 +708,7 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
- *
- * @since 1.6
+ * @since    1.6
  */
 class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
 {
@@ -793,8 +790,7 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
- *
- * @since 1.6
+ * @since    1.6
  */
 class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
 {
@@ -849,9 +845,9 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
+ * @since    1.6
  *
  * @abstract
- * @since 1.6
  */
 class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
 {
@@ -912,8 +908,7 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
- *
- * @since 1.6
+ * @since    1.6
  */
 class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
 {
@@ -970,8 +965,7 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
- *
- * @since 1.6
+ * @since    1.6
  */
 class XH_PluginLanguageFileEdit extends XH_PluginArrayFileEdit
 {
