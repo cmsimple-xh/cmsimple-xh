@@ -217,47 +217,6 @@ class FunctionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function dataForTestEncodeMIMEFieldBody()
-    {
-        return array(
-            array('foo bar', 'foo bar'),
-            array(str_repeat('foo bar ', 20), str_repeat('foo bar ', 20)),
-            array("f\xC3\xB6o", '=?UTF-8?B?ZsO2bw==?='),
-            array(
-                str_repeat("\xC3\xA4\xC3\xB6\xC3\xBC", 10),
-                "=?UTF-8?B?w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6Q=?="
-                . "\r\n =?UTF-8?B?w7bDvMOkw7bDvMOkw7bDvA==?="
-            )
-        );
-    }
-
-    /**
-     * @dataProvider dataForTestEncodeMIMEFieldBody
-     */
-    public function testEncodeMIMEFieldBody($str, $expected)
-    {
-        $actual = XH_encodeMIMEFieldBody($str);
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function dataForTestIsValidEmail()
-    {
-        return array(
-            array('post@example.com', true),
-            array("me@\xC3A4rger.de", false),
-            array("hacker@example.com\r\n\r\n", false)
-        );
-    }
-
-    /**
-     * @dataProvider dataForTestIsValidEmail
-     */
-    public function testIsValidEmail($address, $expected)
-    {
-        $actual = XH_isValidEmail($address);
-        $this->assertEquals($expected, $actual);
-    }
-
     public function dataForTestAdjustStylesheetURLs()
     {
         return array(

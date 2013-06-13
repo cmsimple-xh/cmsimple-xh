@@ -1916,61 +1916,6 @@ function XH_afterPluginLoading($callback = null)
 
 
 /**
- * Returns the body of an email header field as "encoded word" (RFC 2047)
- * with "folding" (RFC 5322), if necessary.
- *
- * @param string $text The body of the MIME field.
- *
- * @return string
- *
- * @since 1.5.7
- */
-function XH_encodeMIMEFieldBody($text)
-{
-    if (!preg_match('/(?:[^\x00-\x7F])/', $text)) { // ASCII only
-        return $text;
-    } else {
-        $lines = array();
-        do {
-            $i = 45;
-            if (strlen($text) > $i) {
-                while ((ord($text[$i]) & 0xc0) == 0x80) {
-                    $i--;
-                }
-                $lines[] = substr($text, 0, $i);
-                $text = substr($text, $i);
-            } else {
-                $lines[] = $text;
-                $text = '';
-            }
-        } while ($text != '');
-        $body = 'return \'=?UTF-8?B?\' . base64_encode($l) . \'?=\';';
-        $func = create_function('$l', $body);
-        return implode("\r\n ", array_map($func, $lines));
-    }
-}
-
-
-/**
- * Returns whether an email address is valid.
- *
- * For simplicity we are not aiming to validate according to RFC 5322,
- * but rather to make a minimal check, if the email address <i>may</i> be valid.
- * Furthermore, we make sure, that email header injection is not possible.
- *
- * @param string $address An email address.
- *
- * @return bool
- *
- * @since 1.5.7
- */
-function XH_isValidEmail($address)
-{
-    return !preg_match('/[^\x00-\x7F]/', $address)
-        && preg_match('!^[^\r\n]+@[^\s]+$!', $address);
-}
-
-/**
  * Returns the path of the combined plugin stylesheet.
  * If necessary, this stylesheet will be created/updated.
  *

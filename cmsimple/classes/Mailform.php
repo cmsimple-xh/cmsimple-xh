@@ -84,6 +84,8 @@ class XH_Mailform
 
     /**
      * Constructs an instance.
+     *
+     * @access public
      */
     function XH_Mailform()
     {
@@ -110,6 +112,8 @@ class XH_Mailform
      * @global string (X)HTML fragment of LI elements with error messages.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
+     *
+     * @access protected
      */
     function check()
     {
@@ -123,7 +127,7 @@ class XH_Mailform
         if ($this->mailform == '') {
             $e .= '<li>' . $tx['mailform']['mustwritemessage'] . '</li>';
         }
-        if (!(preg_match('!^[^\r\n]+@[^\s]+$!', $this->sender))) {
+        if (!$this->isValidEmail($this->sender)) {
             $e .= '<li>' . $tx['mailform']['notaccepted'] . '</li>';
         }
         return $e == '';
@@ -136,6 +140,8 @@ class XH_Mailform
      *
      * @global array The configuration of the core.
      * @global array The localization of the core.
+     *
+     * @access protected
      */
     function submit()
     {
@@ -166,6 +172,8 @@ class XH_Mailform
      * @global string The requested action.
      * @global string (X)HTML fragment of LI elements with error messages.
      * @global array  The localization of the core.
+     *
+     * @access public
      */
     function process()
     {
@@ -191,6 +199,8 @@ class XH_Mailform
      *
      * @global array The configuration of the core.
      * @global array The localization of the core.
+     *
+     * @access protected
      */
     function render()
     {
@@ -263,6 +273,9 @@ class XH_Mailform
      * @param string $header  String to be inserted at the end of the email header.
      *
      * @return bool Whether the mail was accepted for delivery.
+     *
+     * @static
+     * @access public
      */
     function sendMail($to, $subject = '(No Subject)', $message = '', $header = '')
     {
@@ -270,13 +283,72 @@ class XH_Mailform
             . 'Content-Type: text/plain; charset=UTF-8; format=flowed' . "\r\n"
             . 'Content-Transfer-Encoding: base64' . "\r\n"
             . $header;
-        $subject = XH_encodeMIMEFieldBody($subject);
+        $subject = $this->encodeMIMEFieldBody($subject);
 
         $message = preg_replace('/(?:\r\n|\r|\n)/', "\r\n", trim($message));
         $message = chunk_split(base64_encode($message));
 
         return mail($to, $subject, $message, $header);
     }
+
+    /**
+     * Returns the body of an email header field as "encoded word" (RFC 2047)
+     * with "folding" (RFC 5322), if necessary.
+     *
+     * @param string $text The body of the MIME field.
+     *
+     * @return string
+     *
+     * @static
+     * @access public
+     *
+     * @todo Don't we have to fold overlong pure ASCII texts also?
+     */
+    function encodeMIMEFieldBody($text)
+    {
+        if (!preg_match('/(?:[^\x00-\x7F])/', $text)) { // ASCII only
+            return $text;
+        } else {
+            $lines = array();
+            do {
+                $i = 45;
+                if (strlen($text) > $i) {
+                    while ((ord($text[$i]) & 0xc0) == 0x80) {
+                        $i--;
+                    }
+                    $lines[] = substr($text, 0, $i);
+                    $text = substr($text, $i);
+                } else {
+                    $lines[] = $text;
+                    $text = '';
+                }
+            } while ($text != '');
+            $body = 'return \'=?UTF-8?B?\' . base64_encode($l) . \'?=\';';
+            $func = create_function('$l', $body);
+            return implode("\r\n ", array_map($func, $lines));
+        }
+    }
+
+    /**
+     * Returns whether an email address is valid.
+     *
+     * For simplicity we are not aiming to validate according to RFC 5322,
+     * but rather to make a minimal check, if the email address <i>may</i> be valid.
+     * Furthermore, we make sure, that email header injection is not possible.
+     *
+     * @param string $address An email address.
+     *
+     * @return bool
+     *
+     * @static
+     * @access public
+     */
+    function isValidEmail($address)
+    {
+        return !preg_match('/[^\x00-\x7F]/', $address)
+            && preg_match('!^[^\r\n]+@[^\s]+$!', $address);
+    }
+
 }
 
 ?>
