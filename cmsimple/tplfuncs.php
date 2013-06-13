@@ -672,7 +672,7 @@ function content()
     if (!($edit && $adm) && $s > -1) {
         if (isset($_GET['search'])) {
             $search = htmlspecialchars(stsl($_GET['search']), ENT_QUOTES, 'UTF-8');
-            $words = explode(',', $search);
+            $words = explode(' ', $search);
             $code = 'return "&" . preg_quote($w, "&") . "(?!([^<]+)?>)&isU";';
             $words = array_map(create_function('$w', $code), $words);
             $replacement = '<span class="highlight_search">$0</span>';

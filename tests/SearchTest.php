@@ -27,7 +27,8 @@ class SearchTest extends PHPUnit_Framework_TestCase
         return array(
             array('cmsimple', array(0, 2)),
             array('wurstsuppe', array()),
-            array('cmsimple more', array(2))
+            array('cmsimple more', array(2)),
+            array(' ', array())
         );
     }
 

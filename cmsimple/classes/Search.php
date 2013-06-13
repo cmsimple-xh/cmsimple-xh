@@ -88,9 +88,13 @@ class XH_Search
         if (!isset($this->words)) {
             $search = utf8_strtolower($this->searchString);
             $words = explode(' ', $search);
-            $body = 'return htmlspecialchars(trim($w), ENT_QUOTES, \'UTF-8\');';
-            $func = create_function('$w', $body);
-            $this->words = array_map($func, $words);
+            $this->words = array();
+            foreach ($words as $word) {
+                $word = htmlspecialchars(trim($word), ENT_QUOTES, 'UTF-8');
+                if ($word != '') {
+                    $this->words[] = $word;
+                }
+            }
         }
         return $this->words;
     }
@@ -165,7 +169,7 @@ class XH_Search
             }
             $o .= ':</p>';
             $o .= "\n" .'<ul>';
-            $words = implode(',', $words);
+            $words = implode(' ', $words);
             foreach ($pages as $i) {
                 $o .= "\n\t"
                     . '<li><a href="' . $sn . '?' . $u[$i] . '&amp;search='

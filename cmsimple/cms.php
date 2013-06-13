@@ -888,7 +888,7 @@ if ($f == 'search') {
     } else {
         include_once $pth['folder']['classes'] . 'Search.php';
         $title = $tx['title']['search'];
-        $temp = new XH_Search(trim(stsl($search)));
+        $temp = new XH_Search(stsl($search));
         $o .= $temp->render();
     }
 }
