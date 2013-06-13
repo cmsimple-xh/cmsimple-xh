@@ -135,7 +135,7 @@ class XH_LinkCheck
         $pageLinks = array();
         $pageContents = array();
         $contentLength = $cl;
-        
+
         preg_match('/\/([A-z]{2})\/[^\/]*/', $test['path'], $matches);
         if (XH_isLanguageFolder($matches[1])) {
             $lang = $matches[1];
@@ -147,7 +147,7 @@ class XH_LinkCheck
             if (!$content) {
                 return 'content not found';
             }
-            $urls = $content['url'];
+            $urls = $content['urls'];
             $pages = $content['pages'];
             $contentLength = count($pages);
         } else {
