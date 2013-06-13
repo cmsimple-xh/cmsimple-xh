@@ -135,9 +135,11 @@ class XH_LinkCheck
         $pageLinks = array();
         $pageContents = array();
         $contentLength = $cl;
-
-        preg_match('/\/([A-z]{2})\/[^\/]*/', $test['path'], $lang);
-        $lang = $lang[1];
+        
+        preg_match('/\/([A-z]{2})\/[^\/]*/', $test['path'], $matches);
+        if (XH_isLanguageFolder($matches[1])) {
+            $lang = $matches[1];
+        }
 
         if (isset($lang)) {
             $query = str_replace('/' . $lang . '/?', '', $query);

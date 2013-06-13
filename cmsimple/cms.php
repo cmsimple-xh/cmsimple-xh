@@ -245,8 +245,10 @@ $pth['folder']['language'] = $pth['folder']['cmsimple'] . 'languages/';
  *
  * @global string $sl
  */
-if (preg_match('/\/([A-z]{2})\/index.php$/', sv('SCRIPT_NAME'), $temp)) {
-    $sl = strtolower($temp[1]);
+if (preg_match('/\/([A-z]{2})\/index.php$/', sv('SCRIPT_NAME'), $temp)
+    && XH_isLanguageFolder($temp = strtolower($temp[1]))
+) {
+    $sl = $temp;
 }
 if (!isset($sl)) {
     $sl = $cf['language']['default'];

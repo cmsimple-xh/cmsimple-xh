@@ -2144,4 +2144,24 @@ function XH_backup()
     return $o;
 }
 
+/**
+ * Returns whether <var>$name</var> is a language folder.
+ *
+ * @param string $name The name to check.
+ *
+ * @return bool
+ *
+ * @global array The paths of system files and folders.
+ *
+ * @since 1.6
+ */
+function XH_isLanguageFolder($name)
+{
+    global $pth;
+
+    $path = $pth['folder']['base'] . $name;
+    return is_dir($path) && preg_match('/^[A-z]{2}$/', $name)
+        && file_exists($path . '/.2lang');
+}
+
 ?>

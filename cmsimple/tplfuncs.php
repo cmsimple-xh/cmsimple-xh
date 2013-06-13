@@ -803,10 +803,8 @@ function languagemenu()
     $r = array();
     if (($fd = opendir($pth['folder']['base'])) !== false) {
         while (($p = readdir($fd)) !== false) {
-            if (is_dir($pth['folder']['base'] . $p)) {
-                if (preg_match('/^[A-z]{2}$/', $p)) {
-                    $r[] = $p;
-                }
+            if (XH_isLanguageFolder($p)) {
+                $r[] = $p;
             }
         }
         closedir($fd);
