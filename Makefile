@@ -6,13 +6,13 @@ PHPSOURCES=cmsimple/adminfuncs.php\
 	   cmsimple/cms.php\
 	   cmsimple/functions.php\
 	   cmsimple/mailform.php\
-	   cmsimple/search.php\
 	   cmsimple/tplfuncs.php\
 	   cmsimple/classes/FileEdit.php\
 	   cmsimple/classes/LinkCheck.php\
 	   cmsimple/classes/page_data_model.php\
 	   cmsimple/classes/page_data_router.php\
 	   cmsimple/classes/page_data_views.php\
+	   cmsimple/classes/Search.php\
 	   plugins/meta_tags/index.php\
 	   plugins/meta_tags/_admin.php\
 	   plugins/meta_tags/meta_tags_view.php\

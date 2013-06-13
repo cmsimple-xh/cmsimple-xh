@@ -543,7 +543,6 @@ if ($download != '') {
     download($pth['folder']['downloads'] . basename($download));
 }
 
-$pth['file']['search'] = $pth['folder']['cmsimple'] . 'search.php';
 $pth['file']['mailform'] = $pth['folder']['cmsimple'] . 'mailform.php';
 
 /**
@@ -882,7 +881,10 @@ XH_afterPluginLoading();
 
 
 if ($f == 'search') {
-    @include $pth['file']['search'];
+    include_once $pth['folder']['classes'] . 'Search.php';
+    $title = $tx['title']['search'];
+    $temp = new XH_Search(trim(stsl($search)));
+    $o .= $temp->render();
 }
 if ($f == 'mailform' && !empty($cf['mailform']['email'])) {
     include $pth['file']['mailform'];
