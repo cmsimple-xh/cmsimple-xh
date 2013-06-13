@@ -36,63 +36,145 @@
  */
 
 
-if (strpos('search.php', strtolower(sv('PHP_SELF')))) {
-    die('Access Denied');
-}
+/**
+ * The search class.
+ *
+ * @category CMSimple_XH
+ * @package  XH
+ * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @link     http://cmsimple-xh.org/
+ * @since    1.6
+ */
+class XH_Search
+{
+    /**
+     * The search String.
+     *
+     * @var string
+     *
+     * @access protected
+     */
+    var $searchString;
 
+    /**
+     * The search words.
+     *
+     * @var array
+     *
+     * @access protected
+     */
+    var $words;
 
-$title = $tx['title']['search'];
-$ta = array();
-if ($search != '') {
-    $search = utf8_strtolower(trim(stsl($search)));
-    $words = explode(' ', $search);
+    /**
+     * Constructs an instance.
+     *
+     * @param string $search String The search string.
+     */
+    function XH_Search($searchString)
+    {
+        $this->searchString = $searchString;
+    }
 
-    foreach ($c as $i => $temp) {
-        if (!hide($i) || $cf['show_hidden']['pages_search'] == 'true') {
-            $found  = true;
-            $temp = evaluate_plugincall($temp);
-            $temp = utf8_strtolower(strip_tags($temp));
-            // TODO: better don't html_entity_decode() here;
-            //       costs time and doesn't work reliably under PHP 4 for UTF-8
-            // $temp = html_entity_decode($temp, ENT_QUOTES, 'utf-8');
-            foreach ($words as $word) {
-                $word = htmlspecialchars(trim($word), ENT_QUOTES, 'UTF-8');
-                if (strpos($temp, $word) === false) {
-                    $found = false;
-                    break;
+    /**
+     * Returns the array of search words.
+     *
+     * @return array
+     *
+     * @access protected
+     */
+    function getWords()
+    {
+        if (!isset($this->words)) {
+            $search = utf8_strtolower($this->searchString);
+            $words = explode(' ', $search);
+            $body = 'return htmlspecialchars(trim($w), ENT_QUOTES, \'UTF-8\');';
+            $func = create_function('$w', $body);
+            $this->words = array_map($func, $words);
+        }
+        return $this->words;
+    }
+
+    /**
+     * Returns an array of page indexes
+     * where all words of the search string are contained.
+     *
+     * @return array
+     *
+     * @global array The content of the pages.
+     * @global array The configuration of the core.
+     */
+    function search()
+    {
+        global $c, $cf;
+
+        $result = array();
+        $words = $this->getWords();
+        if (empty($words)) {
+            return $result;
+        }
+        foreach ($c as $i => $content) {
+            if (!hide($i) || $cf['show_hidden']['pages_search'] == 'true') {
+                $found  = true;
+                $content = evaluate_plugincall($content);
+                $content = utf8_strtolower(strip_tags($content));
+                // TODO: better don't html_entity_decode() here;
+                //       costs time and doesn't work reliably under PHP 4 for UTF-8
+                // $content = html_entity_decode($content, ENT_QUOTES, 'utf-8');
+                foreach ($words as $word) {
+                    if (strpos($content, $word) === false) {
+                        $found = false;
+                        break;
+                    }
+                }
+                if ($found) {
+                    $result[] = $i;
                 }
             }
-            if ($found) {
-                $ta[] = $i;
+        }
+        return $result;
+    }
+
+    /**
+     * Returns the search results view.
+     *
+     * @return string (X)HTML
+     *
+     * @global array  The headings of the pages.
+     * @global array  The URLs of the pages.
+     * @global string The script name.
+     * @global array  The localization of the core.
+     */
+    function render()
+    {
+        global $h, $u, $sn, $tx;
+
+        $o .= '<h1>' . $tx['search']['result'] . '</h1><p>"'
+            . htmlspecialchars($this->searchString, ENT_QUOTES, 'UTF-8') . '" ';
+        $words = $this->getWords();
+        $pages = $this->search();
+        $count = count($pages);
+        if ($count == 0) {
+            $o .= $tx['search']['notfound'] . '.</p>';
+        } else {
+            $o .= $tx['search']['foundin'] . ' ' . $count . ' ';
+            if ($count > 1) {
+                $o .= $tx['search']['pgplural'];
+            } else {
+                $o .= $tx['search']['pgsingular'];
             }
+            $o .= ':</p>';
+            $o .= "\n" .'<ul>';
+            $words = implode(',', $words);
+            foreach ($pages as $i) {
+                $o .= "\n\t"
+                    . '<li><a href="' . $sn . '?' . $u[$i] . '&amp;search='
+                    . urlencode($words) .'">' . $h[$i] . '</a></li>';
+            }
+            $o .= "\n" . '</ul>' . "\n";
         }
+        return $o;
     }
-
-    if (count($ta) > 0) {
-        $cms_searchresults = "\n" .'<ul>';
-        $words = implode(',', $words);
-        foreach ($ta as $i) {
-            $cms_searchresults .= "\n\t"
-                . '<li><a href="' . $sn . '?' . $u[$i] . '&amp;search='
-                . urlencode($words) .'">' . $h[$i] . '</a></li>';
-        }
-        $cms_searchresults .= "\n" . '</ul>' . "\n";
-    }
-}
-
-$o .= '<h1>' . $tx['search']['result'] . '</h1><p>"'
-    . htmlspecialchars($search, ENT_QUOTES, 'UTF-8') . '" ';
-
-if (count($ta) == 0) {
-    $o .= $tx['search']['notfound'] . '.</p>';
-} else {
-    $o .= $tx['search']['foundin'] . ' ' . count($ta) . ' ';
-    if (count($ta) > 1) {
-        $o .= $tx['search']['pgplural'];
-    } else {
-        $o .= $tx['search']['pgsingular'];
-    }
-    $o .= ':</p>' . $cms_searchresults;
 }
 
 ?>
