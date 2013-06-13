@@ -938,12 +938,12 @@ function rfc()
  * Returns FALSE, if the file couldn't be read.
  *
  * @param string $language The language to read.
+ *                         <var>null</var> means the default language.
  *
  * @global array The paths of system files and folders.
  * @global array The configuration of the core.
  * @global bool  Whether edit mode is active.
  * @global bool  Whether admin mode is active.
- * @global array The localization of the core.
  *
  * @return array
  *
@@ -951,13 +951,14 @@ function rfc()
  */
 function XH_readContents($language = null)
 {
-    global $pth, $cf, $edit, $adm, $tx;
+    global $pth, $cf, $edit, $adm;
 
     if (isset($language)) {
         $contentFile = $pth['folder']['base'] . $language . '/content/content.htm';
         include $pth['folder']['language'] . $language . '.php';
     } else {
         $contentFile = $pth['file']['content'];
+        $tx = $GLOBALS['tx'];
     }
 
     $c = array();
