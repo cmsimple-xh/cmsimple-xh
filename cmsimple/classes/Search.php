@@ -12,7 +12,7 @@
  * @copyright 1999-2009 <http://cmsimple.org/>
  * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   SVN: $Id: search.php 607 2013-06-13 15:54:56Z cmb69 $
+ * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
  */
 
