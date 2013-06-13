@@ -174,10 +174,10 @@ $tx['result']['deleted']="gelöscht";
 $tx['result']['uploaded']="hochgeladen";
 
 $tx['search']['button']="Suchen";
-$tx['search']['foundin']="wurde gefunden auf";
-$tx['search']['notfound']="wurde nicht gefunden";
-$tx['search']['pgplural']="Seiten";
-$tx['search']['pgsingular']="Seite";
+$tx['search']['found_1']="\"%s\" wurde auf einer Seite gefunden:";
+$tx['search']['found_2-4']="\"%s\" wurde auf %d Seiten gefunden:";
+$tx['search']['found_5']="\"%s\" wurde auf %d Seiten gefunden:";
+$tx['search']['notfound']="\"%s\" wurde nicht gefunden.";
 $tx['search']['result']="Suchergebnis";
 
 $tx['settings']['backup']="Sicherheitskopien";

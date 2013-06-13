@@ -146,6 +146,34 @@ class XH_Search
     }
 
     /**
+     * Returns a message how often the search string was found.
+     *
+     * @param int $count How often the search string was found.
+     *
+     * @return string (X)HTML.
+     *
+     * @global array The localization of the core.
+     */
+    function foundMessage($count)
+    {
+        global $tx;
+
+        if ($count == 0) {
+            $key = 'notfound';
+        } elseif ($count == 1) {
+            $key = 'found_1';
+        } elseif (2 <= $count && $count <= 4) {
+            $key = 'found_2-4';
+        } else {
+            $key = 'found_5';
+        }
+        $message = sprintf($tx['search'][$key], $this->searchString, $count);
+        $message = htmlspecialchars($message, ENT_COMPAT, 'UTF-8');
+        $message = '<p>' . $message . '</p>';
+        return $message;
+    }
+
+    /**
      * Returns the search results view.
      *
      * @return string (X)HTML
@@ -159,29 +187,20 @@ class XH_Search
     {
         global $h, $u, $sn, $tx;
 
-        $o .= '<h1>' . $tx['search']['result'] . '</h1><p>"'
-            . htmlspecialchars($this->searchString, ENT_QUOTES, 'UTF-8') . '" ';
+        $o .= '<h1>' . $tx['search']['result'] . '</h1>';
         $words = $this->getWords();
         $pages = $this->search();
         $count = count($pages);
-        if ($count == 0) {
-            $o .= $tx['search']['notfound'] . '.</p>';
-        } else {
-            $o .= $tx['search']['foundin'] . ' ' . $count . ' ';
-            if ($count > 1) {
-                $o .= $tx['search']['pgplural'];
-            } else {
-                $o .= $tx['search']['pgsingular'];
-            }
-            $o .= ':</p>';
-            $o .= "\n" .'<ul>';
+        $o .= $this->foundMessage($count) . PHP_EOL;
+        if ($count > 0) {
+            $o .= '<ul>' . PHP_EOL;
             $words = implode(' ', $words);
             foreach ($pages as $i) {
-                $o .= "\n\t"
-                    . '<li><a href="' . $sn . '?' . $u[$i] . '&amp;search='
-                    . urlencode($words) .'">' . $h[$i] . '</a></li>';
+                $url = $sn . '?' . $u[$i] . '&amp;search=' . urlencode($words);
+                $o .= '    <li><a href="' . $url . '">' . $h[$i] . '</a></li>'
+                    . PHP_EOL;
             }
-            $o .= "\n" . '</ul>' . "\n";
+            $o .= '</ul>' . PHP_EOL;
         }
         return $o;
     }

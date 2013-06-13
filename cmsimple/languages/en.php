@@ -174,10 +174,10 @@ $tx['result']['deleted']="deleted";
 $tx['result']['uploaded']="uploaded";
 
 $tx['search']['button']="Search";
-$tx['search']['foundin']="found in";
-$tx['search']['notfound']="was not found";
-$tx['search']['pgplural']="pages";
-$tx['search']['pgsingular']="page";
+$tx['search']['found_1']="\"%s\" was found in one page:";
+$tx['search']['found_2-4']="\"%s\" was found in %d pages:";
+$tx['search']['found_5']="\"%s\" was found in %d pages:";
+$tx['search']['notfound']="\"%s\" was not found.";
 $tx['search']['result']="Result of your search";
 
 $tx['settings']['backup']="Backup";
