@@ -596,7 +596,7 @@ function final_clean_up($html)
     }
 
     if (!empty($bjs)) {
-        $html = preg_replace('/(<\/body\s*>)/isu', $bjs . "\n" . '$1', $html);
+        $html = str_replace('</body', "$bjs\n</body", $html);
     }
 
     return $html;
