@@ -5,10 +5,10 @@
 PHPSOURCES=cmsimple/adminfuncs.php\
 	   cmsimple/cms.php\
 	   cmsimple/functions.php\
-	   cmsimple/mailform.php\
 	   cmsimple/tplfuncs.php\
 	   cmsimple/classes/FileEdit.php\
 	   cmsimple/classes/LinkCheck.php\
+	   cmsimple/classes/Mailform.php\
 	   cmsimple/classes/page_data_model.php\
 	   cmsimple/classes/page_data_router.php\
 	   cmsimple/classes/page_data_views.php\
