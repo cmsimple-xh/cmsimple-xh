@@ -69,7 +69,7 @@ class XH_Search
     /**
      * Constructs an instance.
      *
-     * @param string $search String The search string.
+     * @param string $searchString String The search string.
      */
     function XH_Search($searchString)
     {
