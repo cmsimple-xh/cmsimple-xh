@@ -17,7 +17,8 @@ class SearchTest extends PHPUnit_Framework_TestCase
             '<h1>Welcome to CMSimple_XH</h1>',
             'Some arbitrary content',
             'More about CMSimple.',
-            '#CMSimple hide# CMSimple again'
+            '#CMSimple hide# CMSimple again',
+            'Bill &amp; Ted'
         );
         $cf['show_hidden']['pages_search'] == 'true';
     }
@@ -28,7 +29,8 @@ class SearchTest extends PHPUnit_Framework_TestCase
             array('cmsimple', array(0, 2)),
             array('wurstsuppe', array()),
             array('cmsimple more', array(2)),
-            array(' ', array())
+            array(' ', array()),
+            array('&', array(4))
         );
     }
 

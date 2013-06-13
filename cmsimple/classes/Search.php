@@ -90,7 +90,7 @@ class XH_Search
             $words = explode(' ', $search);
             $this->words = array();
             foreach ($words as $word) {
-                $word = htmlspecialchars(trim($word), ENT_QUOTES, 'UTF-8');
+                $word = trim($word);
                 if ($word != '') {
                     $this->words[] = $word;
                 }
@@ -122,9 +122,15 @@ class XH_Search
                 $found  = true;
                 $content = evaluate_plugincall($content);
                 $content = utf8_strtolower(strip_tags($content));
-                // TODO: better don't html_entity_decode() here;
-                //       costs time and doesn't work reliably under PHP 4 for UTF-8
-                // $content = html_entity_decode($content, ENT_QUOTES, 'utf-8');
+                // html_entity_decode() doesn't work reliably under PHP 4 for UTF-8
+                $decode = array(
+                    '&amp;' => '&',
+                    '&quot;' => '"',
+                    '&apos;' => '\'',
+                    '&lt;' => '<',
+                    '&gt;' => '>'
+                );
+                $content = strtr($content, $decode);
                 foreach ($words as $word) {
                     if (strpos($content, $word) === false) {
                         $found = false;
