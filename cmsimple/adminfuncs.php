@@ -521,60 +521,6 @@ function XH_deleteContents()
 }
 
 /**
- * Creates a backup of the contents file. Surplus old backups will be deleted.
- * Returns an appropriate message.
- *
- * @return string The (X)HTML.
- *
- * @global array The paths of system files and folders.
- * @global array The configuration of the core.
- * @global array The localization of the core.
- *
- * @since 1.6
- */
-function XH_backup()
-{
-    global $pth, $cf, $tx;
-    static $date = null; // TODO: probably not necessary since wedding
-
-    if (!isset($date)) {
-        $date = date("Ymd_His");
-    }
-    $fn = "${date}_content.htm";
-    if (empty($cf['backup']['numberoffiles'])
-        || copy($pth['file']['content'], $pth['folder']['content'] . $fn)
-    ) {
-        if (!empty($cf['backup']['numberoffiles'])) {
-            $o = '<p>' . utf8_ucfirst($tx['filetype']['backup'])
-                . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
-        }
-        $fl = array();
-        $fd = @opendir($pth['folder']['content']);
-        while (($p = @readdir($fd)) == true) {
-            if (preg_match('/^\d{8}_\d{6}_content.htm$/', $p)) {
-                $fl[] = $p;
-            }
-        }
-        if ($fd) {
-            closedir($fd);
-        }
-        sort($fl);
-        $v = count($fl) - $cf['backup']['numberoffiles'];
-        for ($i = 0; $i < $v; $i++) {
-            if (@unlink($pth['folder']['content'] . $fl[$i])) {
-                $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup'])
-                    . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
-            } else {
-                e('cntdelete', 'backup', $fl[$i]);
-            }
-        }
-    } else {
-        e('cntsave', 'backup', $fn);
-    }
-    return $o;
-}
-
-/**
  * Restores a content backup. The current content.htm is backed up before.
  *
  * @param string $filename The filename.

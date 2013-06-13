@@ -572,10 +572,6 @@ $xh_hasher = new PasswordHash(8, true);
 
 $adm = gc('status') == 'adm' && logincheck();
 
-if ($adm) {
-    include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
-}
-
 if ($cf['security']['type'] == 'page' && $login && $keycut == '' && !$adm) {
     $login = null;
     $f = 'login';
@@ -617,6 +613,9 @@ if ($login && !$adm) {
  */
 define('XH_ADM', $adm);
 
+if ($adm) {
+    include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
+}
 
 /*
  * Handle AJAX request to check the password.
