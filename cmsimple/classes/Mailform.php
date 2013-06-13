@@ -274,8 +274,7 @@ class XH_Mailform
      *
      * @return bool Whether the mail was accepted for delivery.
      *
-     * @static
-     * @access public
+     * @access protected
      */
     function sendMail($to, $subject = '(No Subject)', $message = '', $header = '')
     {
@@ -299,8 +298,7 @@ class XH_Mailform
      *
      * @return string
      *
-     * @static
-     * @access public
+     * @access protected
      *
      * @todo Don't we have to fold overlong pure ASCII texts also?
      */
@@ -340,8 +338,7 @@ class XH_Mailform
      *
      * @return bool
      *
-     * @static
-     * @access public
+     * @access protected
      */
     function isValidEmail($address)
     {
