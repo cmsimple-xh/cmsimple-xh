@@ -320,6 +320,7 @@ class XH_PluginTextFileEdit extends XH_TextFileEdit
  */
 class XH_ArrayFileEdit extends XH_FileEdit
 {
+
     /**
      *
      */
@@ -330,39 +331,46 @@ class XH_ArrayFileEdit extends XH_FileEdit
     //var $plugin = null;
 
     /**
-     * Construct an instance
+     * A dictionary which maps from config and languages keys
+     * to their localization.
      *
-     * @todo constructor should probably be abstract
+     * @var array
+     *
+     * @access protected
+     */
+    var $lang = null;
+
+    /**
+     * The path of the meta language file,
+     * which contains localization of config and language keys.
+     *
+     * @var string
+     *
+     * @access protected
+     */
+    var $metaLangFile;
+
+    /**
+     * Construct an instance
      */
     function XH_ArrayFileEdit()
     {
-        $this->cfg = array(
-            'general' => array(
-                'one' => array(
-                    'val' => 'hugo',
-                    'hint' => 'This is the first option',
-                    'type' => 'string'
-                ),
-                'two' => array(
-                    'val' => 'Peter, Paul and Mary ...',
-                    'hint' => 'This is the second option',
-                    'type' => 'text'
-                )
-            ),
-            'special' => array(
-                'three' => array(
-                    'val' => true,
-                    'hint' => 'This is the third option',
-                    'type' => 'bool'
-                ),
-                'four' => array(
-                    'val' => 'two',
-                    'hint' => 'This is the fourth option',
-                    'type' => 'enum',
-                    'vals' => array('one', 'two', 'three')
-                )
-            )
-        );
+        if (is_readable($this->metaLangFile)) {
+            include $this->metaLangFile;
+        }
+        $this->lang = $mtx;
+    }
+
+    /**
+     * Returns the localization of the given config or language key.
+     *
+     * @param string $key A config or language key.
+     *
+     * @return string
+     */
+    function translate($key)
+    {
+        return isset($this->lang[$key]) ? $this->lang[$key] : ucfirst($key);
     }
 
     /**
@@ -522,7 +530,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
             . '<table style="width: 100%">';
         foreach ($this->cfg as $category => $options) {
             if ($this->hasVisibleFields($options)) {
-                $o .= '<tr><td colspan="2"><h6>' . ucfirst($category)
+                $o .= '<tr><td colspan="2"><h6>' . $this->translate($category)
                     . '</h6></td></tr>';
             }
             foreach ($options as $name => $opt) {
@@ -536,7 +544,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
                     $o .= '<tr><td colspan="2">'
                         . $this->formField($category, $name, $opt);
                 } else {
-                    $o .= '<tr><td>' . $info . ucfirst($name) . '</td><td>'
+                    $o .= '<tr><td>' . $info . $this->translate($name) . '</td><td>'
                         . $this->formField($category, $name, $opt);
                 }
                 $o .= '</td></tr>';
@@ -635,6 +643,7 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
      * Constructs an instance.
      *
      * @global array  The paths of system files and folders.
+     * @global string The current language.
      * @global string The key of the system file.
      * @global array  The localization of the plugins.
      *
@@ -642,11 +651,13 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
      */
     function XH_CoreArrayFileEdit()
     {
-        global $pth, $file, $tx;
+        global $pth, $sl, $file, $tx;
 
         $this->filename = $pth['file'][$file];
         $this->caption = utf8_ucfirst($tx['action']['edit']) . ' '
             . (isset($tx['filetype'][$file]) ? $tx['filetype'][$file] : $file);
+        $this->metaLangFile = $pth['folder']['language'] . 'meta' . $sl . '.php';
+        parent::XH_ArrayFileEdit();
     }
 
     /**
@@ -864,16 +875,20 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
      * Constructs an instance.
      *
      * @global array  The paths of system files and folders.
+     * @global string The current language.
      * @global string The name of the currently loading plugin.
      *
      * @access protected
      */
     function XH_PluginArrayFileEdit()
     {
-        global $pth, $plugin;
+        global $pth, $sl, $plugin;
 
         $this->plugin = $plugin;
         $this->caption = $plugin;
+        $this->metaLangFile = $pth['folder']['plugins'] . $plugin
+            . '/languages/meta' . $sl . '.php';
+        parent::XH_ArrayFileEdit();
     }
 
     /**
