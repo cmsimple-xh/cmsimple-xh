@@ -10,6 +10,7 @@ $mcf['menu']['color']="hidden";
 $mcf['menu']['highlightcolor']="hidden";
 $mcf['menu']['levelcatch']="hidden";
 $mcf['menu']['legal']="hidden";
+$mcf['menu']['sdoc']="enum:,parent";
 $mcf['uri']['length']="hidden";
 $mcf['xhtml']['endtags']="bool";
 $mcf['xhtml']['amp']="hidden";
