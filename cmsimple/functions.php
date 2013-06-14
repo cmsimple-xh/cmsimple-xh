@@ -1261,15 +1261,11 @@ function cmscript($script, $text)
 function hide($i)
 {
     global $c, $edit, $adm;
-    static $hidden = array();
 
-    if ($i < 0 || $edit && $adm) {
+    if ($i < 0) {
         return false;
     }
-    if (!isset($hidden[$i])) {
-        $hidden[$i] = cmscript('hide', $c[$i]);
-    }
-    return $hidden[$i];
+    return (!($edit && $adm) && cmscript('hide', $c[$i]));
 }
 
 
