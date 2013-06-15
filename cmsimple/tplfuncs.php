@@ -32,13 +32,7 @@ function head()
 {
     global $title, $cf, $pth, $tx, $hjs;
 
-    if ($cf['site']['title'] != '') {
-        $site = htmlspecialchars($cf['site']['title'], ENT_QUOTES, 'UTF-8');
-        $replacePairs = array('{SITE}' => $site, '{PAGE}' => $title);
-        $t = strtr($cf['title']['format'], $replacePairs);
-    } else {
-        $t = $title;
-    }
+    $t = XH_title($title);
     $t = '<title>' . strip_tags($t) . '</title>' . "\n";
     foreach (array_merge($cf['meta'], $tx['meta']) as $i => $k) {
         $t .= meta($i);
