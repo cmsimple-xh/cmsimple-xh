@@ -256,6 +256,29 @@ class XH_Pages
         }
         return -1;
     }
+
+    /**
+     * Returns an array of pairs of heading/link of all pages. Can be used
+     * to build the internal link list for tinyMCE and CKEditor as well as
+     * respective selectboxes for other plugins.
+     *
+     * @param string $prefix       A prefix for every heading.
+     * @param bool   $ignoreHidden Whether hidden pages shall be ignored.
+     *
+     * @return array
+     */
+    function linkList($prefix = '', $ignoreHidden = true)
+    {
+        $result = array();
+        for ($i = 0; $i < $this->count; $i++) {
+            if (!$ignoreHidden || !$this->isHidden($i)) {
+                $indent = str_repeat("\xC2\xA0", 4 * ($this->level($i) - 1));
+                $heading = $prefix . $indent . $this->heading($i);
+                $result[] = array($heading, $this->url($i));
+            }
+        }
+        return $result;
+    }
 }
 
 ?>
