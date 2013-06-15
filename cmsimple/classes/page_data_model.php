@@ -346,12 +346,12 @@ class PL_Page_Data_Model
     }
 
     /**
-     * Updates the page data of a single page.
+     * Updates the page data of a single page and returns whether that succeeded.
      *
      * @param int   $key    The index of the page.
      * @param array $params The dictionary of fields to update.
      *
-     * @return void
+     * @return bool
      *
      * @access public
      */
@@ -360,19 +360,19 @@ class PL_Page_Data_Model
         foreach ($params as $field => $value) {
             $this->data[$key][$field] = $value;
         }
-        $this->save();
+        return $this->save();
     }
 
     /**
-     * Saves the page data.
+     * Saves the page data and returns whether that succeeded.
      *
-     * @return void
+     * @return bool
      *
      * @access public
      */
     function save()
     {
-        XH_saveContents();
+        return XH_saveContents();
     }
 }
 

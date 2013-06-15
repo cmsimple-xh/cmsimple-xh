@@ -358,12 +358,12 @@ class PL_Page_Data_Router
     }
 
     /**
-     * Updates the page data of a single page.
+     * Updates the page data of a single page and returns whether that succeeded.
      *
      * @param int   $s      The index of the page.
      * @param array $params The dictionary of fields to update.
      *
-     * @return void
+     * @return bool
      *
      * @access public
      */
@@ -375,7 +375,7 @@ class PL_Page_Data_Router
                 $update_params[$field] = $update;
             }
         }
-        $this->model->update_key($s, $params);
+        return $this->model->update_key($s, $params);
     }
 
     /**
