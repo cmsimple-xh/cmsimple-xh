@@ -182,10 +182,11 @@ class XH_Search
      * @global array  The URLs of the pages.
      * @global string The script name.
      * @global array  The localization of the core.
+     * @global object The page data router.
      */
     function render()
     {
-        global $h, $u, $sn, $tx;
+        global $h, $u, $sn, $tx, $pd_router;
 
         $o .= '<h1>' . $tx['search']['result'] . '</h1>';
         $words = $this->getWords();
@@ -196,9 +197,19 @@ class XH_Search
             $o .= '<ul>' . PHP_EOL;
             $words = implode(' ', $words);
             foreach ($pages as $i) {
+                $pageData = $pd_router->find_page($i);
+                $site = isset($pageData['title']) ? $pageData['title'] : '';
+                $title = XH_title($site, $h[$i]);
                 $url = $sn . '?' . $u[$i] . '&amp;search=' . urlencode($words);
-                $o .= '    <li><a href="' . $url . '">' . $h[$i] . '</a></li>'
-                    . PHP_EOL;
+                $o .= '    <li><a href="' . $url . '">' . $title . '</a>';
+                $description = isset($pageData['description'])
+                    ? $pageData['description'] : '';
+                if ($description != '') {
+                    $o .= '<div>'
+                        . htmlspecialchars($description, ENT_COMPAT, 'UTF-8')
+                        . '</div>';
+                }
+                $o .= '</li>' . PHP_EOL;
             }
             $o .= '</ul>' . PHP_EOL;
         }
