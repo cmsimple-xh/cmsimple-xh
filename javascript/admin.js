@@ -22,19 +22,21 @@ xh.toggleTab = function(tabID) {
     var currView = document.getElementById("PLTab_" + tabID);
     var currTab = document.getElementById("tab_" + tabID);
     if (currTab.className == "active_tab") {
-            currView.className = "inactive_view";
-            currTab.className = "inactive_tab";
-            return;
+        currView.className = "inactive_view";
+        currTab.className = "inactive_tab";
+        return;
     }
     var views = document.getElementById("pd_views").getElementsByTagName("div");
     var tabs = document.getElementById("pd_tabs").getElementsByTagName("a");
     for (i = 0; i < views.length; i++) {
-            if (views[i].id.indexOf("PLTab_") == 0) {
-                    views[i].className = "inactive_view";
-            }
+        if (views[i].id.indexOf("PLTab_") == 0) {
+            views[i].className = "inactive_view";
+            var status = xh.findPDTabStatus(views[i]);
+            status.getElementsByTagName("DIV")[0].innerHTML = "";
+        }
     }
     for (i = 0; i < tabs.length; i++) {
-            tabs[i].className = "inactive_tab";
+        tabs[i].className = "inactive_tab";
     }
     currTab.className = "active_tab";
     currView.className = "active_view";
@@ -149,3 +151,93 @@ xh.validatePassword = function(dialog) {
     }
     return true;
 }
+
+/**
+ * Returns the x-www-form-urlencoded data of a form.
+ */
+xh.serializeForm = function(form) {
+    var params = [],
+        els = form.elements, n = els.length, i, el,
+        name, value;
+
+    for (i = 0; i < n; ++i) {
+        el = els[i];
+        if (el.name && (!(el.type == "checkbox" || el.type == "radio") || el.checked)) {
+            name = encodeURIComponent(el.name);
+            value = encodeURIComponent(el.value);
+            params.push(name + "=" + value);
+        }
+    }
+    return params.join("&");
+}
+
+/**
+ * Returns the status element of a page data form resp. tab.
+ */
+xh.findPDTabStatus = function(formOrTab) {
+    var node;
+
+    if (formOrTab.nodeName == "FORM") {
+        node = formOrTab.parentNode;
+        while (typeof node.id == "undefined" || node.id.indexOf("PLTab_") !== 0) {
+            node = node.parentNode;
+        }
+    } else {
+        node = formOrTab;
+    }
+    node = node.lastChild;
+    while (typeof node.className == "undefined" || node.className != "pltab_status") {
+        node = node.previousSibling;
+    }
+    return node;
+}
+
+/**
+ * Submits a page data form via AJAX.
+ */
+xh.quickSubmit = function(form) {
+    var request = new XMLHttpRequest,
+        status, img, message;
+
+    request.open("POST", form.action + "&xh_pagedata_ajax");
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    status = xh.findPDTabStatus(form);
+    img = status.getElementsByTagName("IMG")[0];
+    message = status.getElementsByTagName("DIV")[0];
+    message.innerHTML = '';
+    img.style.display = "inline";
+    request.onreadystatechange = function() {
+        if (request.readyState == 4) {
+            img.style.display = "none";
+            message.innerHTML = request.responseText;
+            if (request.status != 200) {
+                form.onsubmit = null;
+            }
+        }
+    }
+    request.send(xh.serializeForm(form));
+}
+
+/**
+ * Initialize the quick submit of page data forms.
+ */
+xh.initQuickSubmit = function() {
+    var views = document.getElementById("pd_views"),
+        forms = views.getElementsByTagName("FORM"),
+        i, n = forms.length, form;
+
+    for (i = 0; i < n; ++i) {
+        form = forms[i];
+        if (!form.onsubmit) {
+            form.onsubmit = function() {
+                xh.quickSubmit(this);
+                return false;
+            }
+        }
+    }
+}
+
+/*
+ * Initialize the quick submit of page data forms.
+ */
+xh.initQuickSubmit();

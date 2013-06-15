@@ -74,6 +74,8 @@ class PL_Page_Data_View
      */
     function pd_forms()
     {
+        global $pth;
+
         $view = "\n" . '<div id = "pd_tabs">';
 
         foreach ($this->tabs as $title => $file) {
@@ -100,6 +102,13 @@ class PL_Page_Data_View
                 // TODO: i18n; or probably better: use $e/e()
                 $view .= "Could not find " . $file;
             }
+            $view .= '<div class="pltab_status">'
+                . tag(
+                    'img src="' . $pth['folder']['corestyle']
+                    . 'ajax-loader-bar.gif" style="display:none" alt="loading"'
+                )
+                . '<div></div>'
+                . '</div>';
             $view .= "\n" . "</div>\n";
         }
         $view .= "\n" . '</div>';

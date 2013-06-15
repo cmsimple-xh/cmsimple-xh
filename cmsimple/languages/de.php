@@ -163,6 +163,8 @@ $tx['menu']['tab_language']="Sprache";
 $tx['menu']['tab_help']="Hilfe";
 
 $tx['message']['deleted']="Der Content wurde erfolgreich gelöscht.";
+$tx['message']['pd_success']="Die seitenspezifischen Daten wurden erfolgreich gespeichert. Es kann allerdings sein, dass einige Einstellungen erst wirksam werden nachdem Sie die Seite aktualisieren oder zu einer anderen Seite wechseln.";
+$tx['message']['pd_fail']="Die seitenspezifischen Daten konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.";
 $tx['message']['restored']="Die Sicherung wurde erfolgreich wieder hergestellt.";
 
 $tx['navigator']['next']="nächste Seite »";

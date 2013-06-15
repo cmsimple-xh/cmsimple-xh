@@ -163,6 +163,8 @@ $tx['menu']['tab_language']="Language";
 $tx['menu']['tab_help']="Help";
 
 $tx['message']['deleted']="The content has been successfully deleted.";
+$tx['message']['pd_success']="The page data have been successfully saved. However, some settings will only become effective after you refresh the page or browse to another page.";
+$tx['message']['pd_fail']="The page data could not be saved. Please try again.";
 $tx['message']['restored']="The backup has been successfully restored.";
 
 $tx['navigator']['next']="next »";
