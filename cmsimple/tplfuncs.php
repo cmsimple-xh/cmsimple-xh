@@ -32,7 +32,7 @@ function head()
 {
     global $title, $cf, $pth, $tx, $hjs;
 
-    $t = XH_title($title);
+    $t = XH_title($cf['site']['title'], $title);
     $t = '<title>' . strip_tags($t) . '</title>' . "\n";
     foreach (array_merge($cf['meta'], $tx['meta']) as $i => $k) {
         $t .= meta($i);

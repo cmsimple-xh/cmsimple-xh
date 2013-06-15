@@ -2109,18 +2109,19 @@ function XH_isLanguageFolder($name)
 /**
  * Returns the text content for a TITLE element.
  *
+ * @param string $site     A site name.
  * @param string $subtitle A subtitle (e.g. the page heading).
  *
  * @return string
  *
  * @since 1.6
  */
-function XH_title($subtitle)
+function XH_title($site, $subtitle)
 {
     global $cf;
 
-    if ($cf['site']['title'] != '') {
-        $site = htmlspecialchars($cf['site']['title'], ENT_QUOTES, 'UTF-8');
+    if ($site != '') {
+        $site = htmlspecialchars($site, ENT_QUOTES, 'UTF-8');
         $replacePairs = array('{SITE}' => $site, '{PAGE}' => $subtitle);
         $title = strtr($cf['title']['format'], $replacePairs);
     } else {
