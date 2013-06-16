@@ -74,6 +74,15 @@ class XH_Mailform
     var $cap;
 
     /**
+     * The subject of the mail.
+     *
+     * @var string
+     *
+     * @access protected
+     */
+    var $subject;
+
+    /**
      * The message.
      *
      * @var string
@@ -89,6 +98,8 @@ class XH_Mailform
      */
     function XH_Mailform()
     {
+        global $tx;
+
         $this->sendername = isset($_POST['sendername'])
             ? stsl($_POST['sendername']) : '';
         $this->senderphone = isset($_POST['senderphone'])
@@ -99,6 +110,9 @@ class XH_Mailform
             ? stsl($_POST['getlast']) : '';
         $this->cap = isset($_POST['cap'])
             ? stsl($_POST['cap']) : '';
+        $this->subject = isset($_POST['subject'])
+            ? stsl($_POST['subject'])
+            : $tx['menu']['mailform'] . ' ' . sv('SERVER_NAME');
         $this->mailform = isset($_POST['mailform'])
             ? stsl($_POST['mailform']) : '';
     }
@@ -127,7 +141,7 @@ class XH_Mailform
         if ($this->mailform == '') {
             $e .= '<li>' . $tx['mailform']['mustwritemessage'] . '</li>';
         }
-        if (!$this->isValidEmail($this->sender)) {
+        if (!$this->isValidEmail($this->sender) || $this->subject == '') {
             $e .= '<li>' . $tx['mailform']['notaccepted'] . '</li>';
         }
         return $e == '';
@@ -148,13 +162,13 @@ class XH_Mailform
         global $cf, $tx;
 
         if ($this->check()) {
-            $body = $tx['mailform']['sendername'] . ": "
+            $body = $tx['mailform']['sendername']
                 . $this->sendername . "\n"
-                . $tx['mailform']['senderphone'] . ": "
+                . $tx['mailform']['senderphone']
                 . $this->senderphone . "\n\n" . $this->mailform;
             $sent = $this->sendMail(
                 $cf['mailform']['email'],
-                $tx['menu']['mailform'] . ' ' . sv('SERVER_NAME'), $body,
+                $this->subject, $body,
                 "From: " . $this->sender . "\r\n"
                 . "X-Remote: " . sv('REMOTE_ADDR') . "\r\n"
             );
@@ -219,24 +233,31 @@ class XH_Mailform
         $o .= tag('input type="hidden" name="action" value="send"') . "\n";
 
         // fields before textarea
-        $o .= '<div>' . "\n" . $tx['mailform']['sendername'].': ' . tag('br') . "\n"
+        $o .= '<div>' . "\n" . $tx['mailform']['sendername'] . tag('br') . "\n"
             . tag(
                 'input type="text" class="text" size="35" name="sendername" value="'
                 . htmlspecialchars($this->sendername, ENT_COMPAT, 'UTF-8').'"'
             ) . "\n"
             . '</div>' . "\n"
-            . '<div>' . "\n" . $tx['mailform']['senderphone'].': ' . tag('br') . "\n"
+            . '<div>' . "\n" . $tx['mailform']['senderphone'] . tag('br') . "\n"
             . tag(
                 'input type="text" class="text" size="35"name="senderphone" value="'
                 . htmlspecialchars($this->senderphone, ENT_COMPAT, 'UTF-8').'"'
             ) . "\n"
             . '</div>' . "\n"
-            . '<div>' . "\n" .  $tx['mailform']['sender'].': ' . tag('br') . "\n"
+            . '<div>' . "\n" . $tx['mailform']['sender'] . tag('br') . "\n"
             . tag(
                 'input type="text" class="text" size="35" name="sender" value="'
                 . htmlspecialchars($this->sender, ENT_COMPAT, 'UTF-8').'"'
             ) . "\n"
-            . '</div>' . "\n" . tag('br') . "\n";
+            . '</div>' . "\n"
+            . '<div>' . "\n" .  $tx['mailform']['subject'] . tag('br') . "\n"
+            . tag(
+                'input type="text" class="text" size="35" name="subject" value="'
+                . htmlspecialchars($this->subject, ENT_COMPAT, 'UTF-8').'"'
+            ) . "\n"
+            . '</div>' . "\n"
+            . tag('br') . "\n";
 
         // textarea
         $o .= '<textarea rows="12" cols="40" name="mailform">' . "\n";

@@ -146,9 +146,10 @@ $tx['mailform']['notaccepted']="Bitte erforderliche Felder ausfüllen";
 $tx['mailform']['notsend']="Die Nachricht konnte nicht versendet werden";
 $tx['mailform']['send']="Die Nachricht wurde versendet";
 $tx['mailform']['sendbutton']="Senden";
-$tx['mailform']['sender']="E-Mail-Adresse (erforderlich)";
-$tx['mailform']['sendername']="Name";
-$tx['mailform']['senderphone']="Telefon-Nr.";
+$tx['mailform']['sender']="E-Mail-Adresse (erforderlich): ";
+$tx['mailform']['sendername']="Name: ";
+$tx['mailform']['senderphone']="Telefon-Nr.: ";
+$tx['mailform']['subject']="Betreff (erforderlich): ";
 
 $tx['menu']['available_plugins']="Plugins";
 $tx['menu']['login']="Login";

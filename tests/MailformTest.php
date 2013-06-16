@@ -26,6 +26,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
                     'sender' => 'cmbecker69@gmx.de',
                     'getlast' => '12345',
                     'cap' => '12345',
+                    'subject' => 'Mailform localhost',
                     'mailform' => 'A message.'
                 ),
                 true
@@ -38,6 +39,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
                     'sender' => 'cmbecker69@gmx.de',
                     'getlast' => '12345',
                     'cap' => '54321',
+                    'subject' => 'Mailform localhost',
                     'mailform' => 'A message.'
                 ),
                 false
@@ -50,6 +52,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
                     'sender' => 'cmbecker69@gmx.de',
                     'getlast' => '12345',
                     'cap' => '12345',
+                    'subject' => 'Mailform localhost',
                     'mailform' => ''
                 ),
                 false
@@ -62,7 +65,21 @@ class MailformTest extends PHPUnit_Framework_TestCase
                     'sender' => 'cmbecker69gmx.de',
                     'getlast' => '12345',
                     'cap' => '12345',
+                    'subject' => 'Mailform localhost',
                     'mailform' => ''
+                ),
+                false
+            ),
+            // empty subject
+            array(
+                array(
+                    'sendername' => 'Christoph Becker',
+                    'senderphone' => '123456789',
+                    'sender' => 'cmbecker69@gmx.de',
+                    'getlast' => '12345',
+                    'cap' => '12345',
+                    'subject' => '',
+                    'mailform' => 'A message.'
                 ),
                 false
             )
