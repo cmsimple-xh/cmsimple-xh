@@ -96,6 +96,7 @@ $tx['help']['menu_highlightcolor']="Not used by CMSimple_XH core";
 $tx['help']['menu_levels']="Possible settings are 1 to 6";
 $tx['help']['menu_sdoc']="Leave it empty or enter \"parent\", which gives the class \"sdocs\" to higher level navigation links when lower pages of that branch are selected.";
 $tx['help']['pagemanager_external']="If you want to use an external page manager, install the plugin and enter its name here";
+$tx['help']['plugins_disabled']="A comma separated list of plugins which shall not be loaded. <strong>Caveat: if any of these plugins is actually in use on the site, you may not be able to access the site anymore, and would have to fix this option via FTP!</strong>";
 $tx['help']['plugins_folder']="Please do not change";
 $tx['help']['security_password']="Default password of the site. Can be substituted in subsites, like secondary language pages etc. under:<br><b>Settings => CMSimple => Website</b><br><br>What you see here is the encrypted version of your password. To change the password, just enter the new one (unencrypted).";
 $tx['help']['site_template']="<p>Default template of the site. Can be substituted in subsites, like secondary language pages etc. under:</p><p><b>Settings => CMSimple => Website</b></p>";

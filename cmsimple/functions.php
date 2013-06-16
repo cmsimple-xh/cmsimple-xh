@@ -1641,9 +1641,10 @@ function preCallPlugins($pageIndex = -1)
  *
  * @param bool $admin Whether to return only plugins with a admin.php
  *
- * @global array The paths of system files and folders.
- *
  * @return  array
+ *
+ * @global array The paths of system files and folders.
+ * @global array The configuration of the core.
  *
  * @since 1.6
  *
@@ -1651,17 +1652,20 @@ function preCallPlugins($pageIndex = -1)
  */
 function XH_plugins($admin = false)
 {
-    global $pth;
+    global $pth, $cf;
     static $plugins = null;
     static $admPlugins = null;
 
     if (!isset($plugins)) {
         $plugins = array();
         $admPlugins = array();
+        $disabledPlugins = explode(',', $cf['plugins']['disabled']);
+        $disabledPlugins = array_map('trim', $disabledPlugins);
         $dh = opendir($pth['folder']['plugins']); // TODO: error handling?
         while (($fn = readdir($dh)) !== false) {
             if (strpos($fn, '.') !== 0
                 && is_dir($pth['folder']['plugins'] . $fn)
+                && !in_array($fn, $disabledPlugins)
             ) {
                 $plugins[] = $fn;
                 pluginFiles($fn);

@@ -96,6 +96,7 @@ $tx['help']['menu_highlightcolor']="Nicht von CMSimple_XH Systemfunktionen genut
 $tx['help']['menu_levels']="Einstellungen von 1 bis 6 Menü-Niveaus sind möglich.";
 $tx['help']['menu_sdoc']="Leer lassen oder \"parent\" eintragen, was Oberseiten der aktuellen Seite die Klasse \"sdocs\" zuweist.";
 $tx['help']['pagemanager_external']="Wenn Sie einen externen Seiten-Manager verwenden möchten, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
+$tx['help']['plugins_disabled']="Eine durch Kommata getrennte Liste von Plugins, die nicht geladen werden sollen. <strong>Vorsicht: wenn eines dieser Plugins auf der Website verwendet wird, kann es sein, dass Sie auf die Website nicht mehr zugreifen können, und diese Option per FTP korrigieren müssen!</strong>";
 $tx['help']['plugins_folder']="Bitte nicht ändern";
 $tx['help']['security_password']="Standard-Passwort für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:<br><b>Einstellungen => CMSimple => Website</b><br><br>Was Sie hier sehen, ist das verschlüsselte Passwort. Um es zu ändern, geben Sie einfach das neue ein (unverschlüsselt).";
 $tx['help']['site_template']="<p>Standard-Template für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:</p><p><b>Einstellungen => CMSimple => Website</b></p></p>";
