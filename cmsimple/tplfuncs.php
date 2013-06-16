@@ -39,11 +39,13 @@ function head()
     }
     $t = tag('meta http-equiv="content-type" content="text/html;charset=UTF-8"')
         . "\n" . $t;
+    $plugins = implode(', ', XH_plugins());
     return $t
         . tag(
             'meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' '
             . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.de"'
         ) . "\n"
+        . '<!-- plugins: ' . $plugins . ' -->' . "\n"
         . tag(
             'link rel="stylesheet" href="' . $pth['file']['corestyle']
             . '" type="text/css"'
