@@ -229,7 +229,7 @@ textarea.cmsimplecore_settings_short {
 }
 
 .cmsimplecore_info {
-    background: #66f;
+    background: #8af;
     font-family: arial, sans-serif;
     font-size: 14px;
     color: #000;
@@ -249,7 +249,7 @@ textarea.cmsimplecore_settings_short {
 }
 
 .cmsimplecore_fail {
-    background: #a00;
+    background: #f66;
     font-family: arial, sans-serif;
     font-size: 14px;
     color: #000;
