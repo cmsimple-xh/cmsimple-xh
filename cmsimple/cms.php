@@ -1060,6 +1060,7 @@ if ($s == -1 && !$f && $o == '' && $su == '') {
 }
 
 if ($adm && $f == 'save') {
+    $_XH_CSRFProtection->check();
     XH_saveEditorContents($text);
 }
 

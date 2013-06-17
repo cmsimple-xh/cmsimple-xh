@@ -375,6 +375,7 @@ function plugin_admin_common($action, $admin, $plugin, $hint=array())
  * @global string Error messages as (X)HTML fragment consisting of LI Elements.
  * @global array  The configuration of the core.
  * @global array  The localization of the core.
+ * @global object The CSRF protection object.
  *
  * @return string  The (X)HTML.
  *
@@ -384,7 +385,7 @@ function plugin_admin_common($action, $admin, $plugin, $hint=array())
  */
 function XH_contentEditor()
 {
-    global $sn, $su, $s, $u, $c, $e, $cf, $tx;
+    global $sn, $su, $s, $u, $c, $e, $cf, $tx, $_XH_CSRFProtection;
 
     $su = $u[$s]; // TODO: is changing of $su correct here???
 
@@ -399,7 +400,8 @@ function XH_contentEditor()
         . '<textarea name="text" id="text" class="xh-editor" style="height: '
         . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
         . htmlspecialchars($c[$s], ENT_QUOTES, 'UTF-8')
-        . '</textarea>';
+        . '</textarea>'
+        . $_XH_CSRFProtection->tokenInput();
     if ($cf['editor']['external'] == '' || !$editor) {
         $value = utf8_ucfirst($tx['action']['save']);
         $o .= tag('input type="submit" value="' . $value . '"');
