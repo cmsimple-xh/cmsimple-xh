@@ -197,6 +197,7 @@ $pth['file']['config'] = $pth['folder']['cmsimple'] . 'config.php';
 // include general utility functions and classes
 require_once $pth['folder']['cmsimple'] . 'functions.php';
 require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
+require_once $pth['folder']['classes'] . 'CSRFProtection.php';
 require_once $pth['folder']['classes'] . 'PasswordHash.php';
 require_once $pth['folder']['classes'] . 'page_data_router.php';
 require_once $pth['folder']['classes'] . 'page_data_model.php';
@@ -575,6 +576,12 @@ $f = '';
  */
 $xh_hasher = new PasswordHash(8, true);
 
+/**
+ * The CRSF protection object.
+ *
+ * @global object $_XH_CSRFProtection
+ */
+$_XH_CSRFProtection = new XH_CSRFProtection();
 
 // LOGIN & BACKUP
 
@@ -1156,6 +1163,7 @@ if ($print) {
         '<meta name="robots" content="noindex">', "\n",
         '</head>', "\n", '<body class="print"', onload(), '>', "\n",
         content(), '</body>', "\n", '</html>', "\n";
+    $_XH_CSRFProtection->store();
     exit;
 }
 
@@ -1183,5 +1191,7 @@ if (!include $pth['file']['template']) {
         $pth['file']['template'];
     exit;
 }
+
+$_XH_CSRFProtection->store();
 
 ?>

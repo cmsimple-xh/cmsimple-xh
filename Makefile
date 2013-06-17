@@ -6,6 +6,7 @@ PHPSOURCES=cmsimple/adminfuncs.php\
 	   cmsimple/cms.php\
 	   cmsimple/functions.php\
 	   cmsimple/tplfuncs.php\
+	   cmsimple/classes/CSRFProtection.php\
 	   cmsimple/classes/FileEdit.php\
 	   cmsimple/classes/LinkCheck.php\
 	   cmsimple/classes/Mailform.php\
@@ -30,11 +31,11 @@ COMMA=,
 
 .PHONY: tests
 tests:
-	cd tests/; $(PHPUNIT) --colors .; cd ..
+	cd tests/; $(PHPUNIT) --bootstrap bootstrap.php --colors .; cd ..
 
 .PHONY: coverage
 coverage:
-	cd tests/; $(PHPUNIT) --coverage-html coverage/ .; cd ..
+	cd tests/; $(PHPUNIT) --bootstrap bootstrap.php --coverage-html coverage/ .; cd ..
 
 doc: doc/php/index.html
 
