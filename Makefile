@@ -25,6 +25,8 @@ PHPSOURCES=cmsimple/adminfuncs.php\
 	   plugins/filebrowser/classes/filebrowser_view.php\
 	   plugins/filebrowser/classes/required_classes.php
 
+TUTORIALS=tutorials/XH/CSRFProtection.cls
+
 EMPTY=
 SPACE=$(EMPTY) $(EMPTY)
 COMMA=,
@@ -39,8 +41,8 @@ coverage:
 
 doc: doc/php/index.html
 
-doc/php/index.html: $(PHPSOURCES)
-	$(PHPDOC) --filename $(subst $(SPACE),$(COMMA),$(PHPSOURCES))\
+doc/php/index.html: $(PHPSOURCES) $(TUTORIALS)
+	$(PHPDOC) --filename $(subst $(SPACE),$(COMMA),$(PHPSOURCES) $(TUTORIALS))\
 		  --target doc/php\
 		  --defaultcategoryname CMSimple_XH\
 		  --defaultpackagename XH
