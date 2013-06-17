@@ -20,7 +20,7 @@
         are stored in the user's session data. On form submission the tokens are
         compared, and if they are not equal, the form submission is rejected.
         The tokens are renewed for each relevant request, so an attacker who
-        wants to forge a form has to <em>guess</em> the currently expected
+        wants to forge a form has to <emphasis>guess</emphasis> the currently expected
         token, what makes the success of an attack highly unlikely.</para>
         <para>For now, the CSRF protection functionality is made available as a
         global object, {@link $_XH_csrfProtection}; this is quite likely to
