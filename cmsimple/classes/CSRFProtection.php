@@ -23,6 +23,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  * @since    1.6
+ * @tutorial XH/CSRFProtection.cls
  */
 class XH_CSRFProtection
 {
