@@ -579,9 +579,9 @@ $xh_hasher = new PasswordHash(8, true);
 /**
  * The CRSF protection object.
  *
- * @global object $_XH_CSRFProtection
+ * @global object $_XH_csrfProtection
  */
-$_XH_CSRFProtection = new XH_CSRFProtection();
+$_XH_csrfProtection = new XH_CSRFProtection();
 
 // LOGIN & BACKUP
 
@@ -1060,7 +1060,7 @@ if ($s == -1 && !$f && $o == '' && $su == '') {
 }
 
 if ($adm && $f == 'save') {
-    $_XH_CSRFProtection->check();
+    $_XH_csrfProtection->check();
     XH_saveEditorContents($text);
 }
 
@@ -1164,7 +1164,7 @@ if ($print) {
         '<meta name="robots" content="noindex">', "\n",
         '</head>', "\n", '<body class="print"', onload(), '>', "\n",
         content(), '</body>', "\n", '</html>', "\n";
-    $_XH_CSRFProtection->store();
+    $_XH_csrfProtection->store();
     exit;
 }
 
@@ -1193,6 +1193,6 @@ if (!include $pth['file']['template']) {
     exit;
 }
 
-$_XH_CSRFProtection->store();
+$_XH_csrfProtection->store();
 
 ?>
