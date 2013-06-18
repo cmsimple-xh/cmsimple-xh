@@ -585,6 +585,16 @@ $xh_hasher = new PasswordHash(8, true);
  */
 $_XH_csrfProtection = new XH_CSRFProtection();
 
+/*
+ * Include required_classes of all plugins.
+ */
+foreach (XH_plugins() as $plugin) {
+    pluginFiles($plugin);
+    if (is_readable($pth['file']['plugin_classes'])) {
+        include_once $pth['file']['plugin_classes'];
+    }
+}
+
 // LOGIN & BACKUP
 
 $adm = gc('status') == 'adm' && logincheck();
@@ -600,7 +610,10 @@ if ($login && !$adm) {
         || $cf['security']['type'] == 'javascript')
 ) {
         setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
-        setcookie('keycut', $cf['security']['password'], 0, CMSIMPLE_ROOT);
+        if (session_id() == '') {
+            session_start();
+        }
+        $_SESSION['xh_password'] = $cf['security']['password'];
         $adm = true;
         $edit = true;
         writelog(
@@ -615,7 +628,10 @@ if ($login && !$adm) {
     }
     $adm = false;
     setcookie('status', '', 0, CMSIMPLE_ROOT);
-    setcookie('keycut', '', 0, CMSIMPLE_ROOT);
+    if (session_id() == '') {
+        session_start();
+    }
+    unset($_SESSION['xh_password']);
     $o .= '<p class="cmsimplecore_warning"'
         . ' style="text-align: center; font-weight: 900; padding: 8px;">'
         . $tx['login']['loggedout'] . '</p>';
@@ -671,9 +687,6 @@ if ($adm) {
 } else {
     if (gc('status') != '') {
         setcookie('status', '', 0, CMSIMPLE_ROOT);
-    }
-    if (gc('keycut') != '') {
-        setcookie('keycut', '', 0, CMSIMPLE_ROOT);
     }
     if (gc('mode') == 'edit') {
         setcookie('mode', '', 0, CMSIMPLE_ROOT);
@@ -826,16 +839,6 @@ $pd_s = $s == -1 && !$f && $o == '' && $su == '' ? 0 : $s;
  * @global object $pd_current
  */
 $pd_current = $pd_router->find_page($pd_s);
-
-/*
- * Include required_classes of all plugins.
- */
-foreach (XH_plugins() as $plugin) {
-    pluginFiles($plugin);
-    if (is_readable($pth['file']['plugin_classes'])) {
-        include_once $pth['file']['plugin_classes'];
-    }
-}
 
 /**
  * The configuration of the plugins.

@@ -1714,7 +1714,11 @@ function logincheck()
 {
     global $cf;
 
-    return gc('keycut') == $cf['security']['password'];
+    if (session_id() == '') {
+        session_start();
+    }
+    return isset($_SESSION['xh_password'])
+        && $_SESSION['xh_password'] == $cf['security']['password'];
 }
 
 
