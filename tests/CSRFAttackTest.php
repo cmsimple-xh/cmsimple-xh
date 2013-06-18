@@ -106,6 +106,18 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
                     'action' => 'plugin_textsave'
                 ),
                 '&pagemanager'
+            ),
+            array( // content deletion
+                array(
+                    'file' => 'content',
+                    'action' => 'delete'
+                )
+            ),
+            array( // backup restoral
+                array(
+                    'file' => '20130618_192318_content.htm',
+                    'action' => 'restore'
+                )
             )
         );
     }

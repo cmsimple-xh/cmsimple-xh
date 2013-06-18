@@ -95,6 +95,7 @@ HTML;
  * @global array  The paths of system files and folders.
  * @global array  The configuration of the core.
  * @global array  The localization of the core.
+ * @global object The CSRF protection object.
  *
  * @return string The (X)HTML.
  *
@@ -104,7 +105,7 @@ HTML;
  */
 function XH_settingsView()
 {
-    global $sl, $pth, $cf, $tx;
+    global $sl, $pth, $cf, $tx, $_XH_csrfProtection;
 
     $o = '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
         . '<h4>' . $tx['settings']['systemfiles'] . '</h4>' . "\n" . '<ul>' . "\n";
@@ -144,6 +145,7 @@ function XH_settingsView()
             'input type="submit" class="submit" value="'
             . $tx['action']['delete'] . '"'
         )
+        . $_XH_csrfProtection->tokenInput()
         . '</form>'
         . '</li>' . "\n";
     $o .= '</ul>' . "\n" . tag('hr') . "\n" . '<p>'
@@ -163,6 +165,7 @@ function XH_settingsView()
                     'input type="submit" class="submit" value="'
                     . $tx['action']['restore'] . '"'
                 )
+                . $_XH_csrfProtection->tokenInput()
                 . '</form>'
                 . '</li>' . "\n";
         }

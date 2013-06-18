@@ -1023,10 +1023,12 @@ if ($adm) {
             if ($action == 'download') {
                 download($pth['file'][$file]);
             } elseif ($action == 'restore') {
+                $_XH_csrfProtection->check();
                 if (preg_match('/^\d{8}_\d{6}_content.htm$/', $file)) {
                     XH_restore($pth['file'][$file]);
                 }
             } elseif ($action == 'delete') {
+                $_XH_csrfProtection->check();
                 if ($file = 'content') {
                     XH_deleteContents();
                 }
@@ -1037,6 +1039,7 @@ if ($adm) {
                               'content' => 'XH_CoreTextFileEdit',
                               'template' => 'XH_CoreTextFileEdit',
                               'stylesheet' => 'XH_CoreTextFileEdit');
+                // TODO: is new $className compatible with PHP 4?
                 $temp = array_key_exists($file, $temp) ? new $temp[$file] : null;
                 if ($action == 'save') {
                     $o .= $temp->submit();
