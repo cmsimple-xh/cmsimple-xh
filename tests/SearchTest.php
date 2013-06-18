@@ -1,12 +1,41 @@
 <?php
 
 /**
- * @version $Id$
+ * Testing the search functionality.
+ *
+ * PHP version 5
+ *
+ * @category  Testing
+ * @package   XH
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://cmsimple-xh.org/
  */
 
+/**
+ * Helper functions.
+ *
+ * Might be stubbed.
+ */
 require_once '../plugins/utf8/utf8.php';
+
+/**
+ * The file under test.
+ */
 require_once '../cmsimple/classes/Search.php';
 
+/**
+ * A test case for the search functionality.
+ *
+ * @category Testing
+ * @package  XH
+ * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @link     http://cmsimple-xh.org/
+ * @since    1.6
+ */
 class SearchTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
