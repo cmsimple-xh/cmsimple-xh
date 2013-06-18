@@ -1,3 +1,0 @@
-utf-8 marker: äöü - please don't delete this line 
-2013-06-18 12:50:22 from 127.0.0.1 logged_in
-2013-06-18 13:24:10 from 127.0.0.1 logged_in
