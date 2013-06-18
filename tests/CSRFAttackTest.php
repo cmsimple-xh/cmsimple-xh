@@ -81,6 +81,31 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
                     'action' => 'plugin_save'
                 ),
                 '&pagemanager'
+            ),
+            array( // content
+                array(
+                    'file' => 'content',
+                    'action' => 'save'
+                )
+            ),
+            array( // template
+                array(
+                    'file' => 'template',
+                    'action' => 'save'
+                )
+            ),
+            array( // stylesheet
+                array(
+                    'file' => 'stylesheet',
+                    'action' => 'save'
+                )
+            ),
+            array( // pagemanager stylesheet
+                array(
+                    'admin' => 'plugin_stylesheet',
+                    'action' => 'plugin_textsave'
+                ),
+                '&pagemanager'
             )
         );
     }

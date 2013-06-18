@@ -177,11 +177,13 @@ class XH_TextFileEdit extends XH_FileEdit
      *
      * @return string  (X)HTML.
      *
+     * @global object The CSRF protection object.
+     *
      * @access public
      */
     function form()
     {
-        global $tx;
+        global $tx, $_XH_csrfProtection;
 
         $action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
         $value = ucfirst($tx['action']['save']); // TODO: ut8_ucfirst()
@@ -197,7 +199,8 @@ class XH_TextFileEdit extends XH_FileEdit
                 'input type="hidden" name="' . $param . '" value="' . $value . '"'
             );
         }
-        $o .= $button . '</form>';
+        $o .= $_XH_csrfProtection->tokenInput()
+            . $button . '</form>';
         return $o;
     }
 
@@ -209,10 +212,15 @@ class XH_TextFileEdit extends XH_FileEdit
      *
      * @return mixed
      *
+     * @global object The CSRF protection object.
+     *
      * @access public
      */
     function submit()
     {
+        global $_XH_csrfProtection;
+
+        $_XH_csrfProtection->check();
         $this->text = stsl($_POST[$this->textareaName]);
         if ($this->save()) {
             header('Location: ' . $this->redir, true, 303);
