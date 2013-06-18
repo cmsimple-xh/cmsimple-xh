@@ -53,6 +53,34 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
                     'function' => 'save',
                     'text' => '<h1>hacked</h1>'
                 )
+            ),
+            array( // core configuration
+                array(
+                    'form' => 'array',
+                    'file' => 'config',
+                    'action' => 'save'
+                )
+            ),
+            array( // core language configuration
+                array(
+                    'form' => 'array',
+                    'file' => 'language',
+                    'action' => 'save'
+                )
+            ),
+            array( // pagemanager configuration
+                array(
+                      'admin' => 'plugin_config',
+                      'action' => 'plugin_save'
+                ),
+                '&pagemanager'
+            ),
+            array( // pagemanager lanugage configuration
+                array(
+                    'admin' => 'plugin_language',
+                    'action' => 'plugin_save'
+                ),
+                '&pagemanager'
             )
         );
     }
@@ -60,9 +88,10 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider dataForAttack
      */
-    public function testAttack($fields)
+    public function testAttack($fields, $queryString = null)
     {
-        $this->curlHandle = curl_init($this->url);
+        $url = $this->url . (isset($queryString) ? '?' . $queryString : '');
+        $this->curlHandle = curl_init($url);
         $this->setCurlOptions($fields);
         curl_exec($this->curlHandle);
         $actual = curl_getinfo($this->curlHandle, CURLINFO_HTTP_CODE);

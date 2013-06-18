@@ -513,14 +513,15 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @return string  (X)HTML.
      *
-     * @global array The paths of system files and folders.
-     * @global array The localization of the core.
+     * @global array  The paths of system files and folders.
+     * @global array  The localization of the core.
+     * @global object The CSRF protection object.
      *
      * @access public
      */
     function form()
     {
-        global $pth, $tx;
+        global $pth, $tx, $_XH_csrfProtection;
 
         $action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
         $value = ucfirst($tx['action']['save']); // TODO: utf8_ucfirst()
@@ -558,6 +559,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
                 'input type="hidden" name="' . $param . '" value="' . $value . '"'
             );
         }
+        $o .= $_XH_csrfProtection->tokenInput();
         $o .= $button . '</form>';
         return $o;
     }
@@ -573,13 +575,15 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @global string  Error messages.
      * @global object  The password hasher.
+     * @global object  The CSRF protection object.
      *
      * @access public
      */
     function submit()
     {
-        global $e, $xh_hasher;
+        global $e, $xh_hasher, $_XH_csrfProtection;
 
+        $_XH_csrfProtection->check();
         $errors = array();
         foreach ($this->cfg as $cat => $opts) {
             foreach ($opts as $name => $opt) {
