@@ -385,7 +385,7 @@ function plugin_admin_common($action, $admin, $plugin, $hint=array())
  */
 function XH_contentEditor()
 {
-    global $sn, $su, $s, $u, $c, $e, $cf, $tx, $_XH_CSRFProtection;
+    global $sn, $su, $s, $u, $c, $e, $cf, $tx, $_XH_csrfProtection;
 
     $su = $u[$s]; // TODO: is changing of $su correct here???
 
@@ -401,7 +401,7 @@ function XH_contentEditor()
         . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
         . htmlspecialchars($c[$s], ENT_QUOTES, 'UTF-8')
         . '</textarea>'
-        . $_XH_CSRFProtection->tokenInput();
+        . $_XH_csrfProtection->tokenInput();
     if ($cf['editor']['external'] == '' || !$editor) {
         $value = utf8_ucfirst($tx['action']['save']);
         $o .= tag('input type="submit" value="' . $value . '"');
