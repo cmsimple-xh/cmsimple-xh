@@ -1039,8 +1039,7 @@ if ($adm) {
                               'content' => 'XH_CoreTextFileEdit',
                               'template' => 'XH_CoreTextFileEdit',
                               'stylesheet' => 'XH_CoreTextFileEdit');
-                // TODO: is new $className compatible with PHP 4?
-                $temp = array_key_exists($file, $temp) ? new $temp[$file] : null;
+                $temp = isset($temp[$file]) ? new $temp[$file]() : null;
                 if ($action == 'save') {
                     $o .= $temp->submit();
                 } else {
