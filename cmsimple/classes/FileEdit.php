@@ -357,8 +357,10 @@ class XH_ArrayFileEdit extends XH_FileEdit
     {
         if (is_readable($this->metaLangFile)) {
             include $this->metaLangFile;
+            $this->lang = $mtx;
+        } else {
+            $this->lang = array();
         }
-        $this->lang = $mtx;
     }
 
     /**
