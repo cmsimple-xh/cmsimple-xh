@@ -615,6 +615,7 @@ if ($login && !$adm) {
         }
         session_regenerate_id();
         $_SESSION['xh_password'] = $cf['security']['password'];
+        $_SESSION['xh_user_agent'] = md5($_SERVER['HTTP_USER_AGENT']);
         $adm = true;
         $edit = true;
         writelog(
@@ -634,6 +635,7 @@ if ($login && !$adm) {
     }
     session_regenerate_id();
     unset($_SESSION['xh_password']);
+    unset($_SESSION['xh_user_agent']);
     $o .= '<p class="cmsimplecore_warning"'
         . ' style="text-align: center; font-weight: 900; padding: 8px;">'
         . $tx['login']['loggedout'] . '</p>';
