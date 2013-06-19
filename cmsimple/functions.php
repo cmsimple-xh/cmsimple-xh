@@ -2138,4 +2138,31 @@ function XH_title($site, $subtitle)
     return $title;
 }
 
+/**
+ * Initializes a user session with a hopefully unique name,
+ * and optionally starts the session.
+ *
+ * Since version 1.6 CMSimple_XH uses named sessions to avoid clashes with
+ * additional installations in subfolders.
+ * @todo make tutorial about session handling for extensions
+ *
+ * @param bool start Whether to start the session.
+ *
+ * @return void
+ *
+ * @since 1.6
+ *
+ * @todo Improve (for external scripts) or remove.
+ */
+function XH_initSession($start = true)
+{
+    $name = 'XHSESSID' . preg_replace('/[^a-z0-9]/i', '', CMSIMPLE_ROOT);
+    if (session_name() != $name) {
+        session_name($name);
+    }
+    if ($start && session_id() == '') {
+        session_start();
+    }
+}
+
 ?>
