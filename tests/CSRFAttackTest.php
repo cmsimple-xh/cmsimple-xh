@@ -41,7 +41,7 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->url = 'http://localhost/' . getenv('CMSIMPLEDIR');
+        $this->url = 'http://localhost' . getenv('CMSIMPLEDIR');
         $this->cookieFile = tempnam(sys_get_temp_dir(), 'CC');
 
         $this->curlHandle = curl_init($this->url . '?&login=true&keycut=test');
@@ -57,7 +57,8 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $fields,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_COOKIEFILE => $this->cookieFile
+            CURLOPT_COOKIEFILE => $this->cookieFile,
+            //CURLOPT_COOKIEJAR => $this->cookieFile
         );
         curl_setopt_array($this->curlHandle, $options);
     }

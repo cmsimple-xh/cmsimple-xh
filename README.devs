@@ -1,0 +1,21 @@
+Information for CMSimple_XH developers
+======================================
+
+The Makefile
+------------
+
+The Makefile offers several useful targets for building documentation, running
+the test suite etc. For flexibility the names (and paths) of several executables
+have to be set as environment variables; an appropriate check for the required
+environment variables is included in the make rules.
+
+For running the tests you have to set the environment variable CMSIMPLEDIR to
+the absolute path of the folder of your working copy (e.g. / or /cmsimple_xh/).
+
+To run "make" on Windows, it's best to install Cygwin.
+
+The Build Script
+----------------
+
+The build script creates a releasable version of CMSimple_XH. During development
+you don't have to do this, as you can work with the sources directly.

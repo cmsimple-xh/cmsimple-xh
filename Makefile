@@ -1,7 +1,5 @@
 # $Id$
 
-# required environment variables: PHPUNIT PHPDOC PHPCS PHPCI
-
 PHPSOURCES=cmsimple/adminfuncs.php\
 	   cmsimple/cms.php\
 	   cmsimple/functions.php\
@@ -32,24 +30,38 @@ SPACE=$(EMPTY) $(EMPTY)
 COMMA=,
 
 .PHONY: tests
-tests:
+tests: check-phpunit check-cmsimpledir
 	cd tests/; $(PHPUNIT) --bootstrap bootstrap.php --colors .; cd ..
 
 .PHONY: coverage
-coverage:
+coverage: check-phpunit
 	cd tests/; $(PHPUNIT) --bootstrap bootstrap.php --coverage-html coverage/ .; cd ..
 
+.PHONY: doc
 doc: doc/php/index.html
 
-doc/php/index.html: $(PHPSOURCES) $(TUTORIALS)
+doc/php/index.html: check-phpdoc $(PHPSOURCES) $(TUTORIALS)
 	$(PHPDOC) --filename $(subst $(SPACE),$(COMMA),$(PHPSOURCES) $(TUTORIALS))\
 		  --target doc/php\
 		  --defaultcategoryname CMSimple_XH\
 		  --defaultpackagename XH
 
-sniff:
+.PHONY: sniff
+sniff: check-phpcs
 	$(PHPCS) $(PHPSOURCES)
 
 .PHONY: phpci
-phpci:
+phpci: check-phpci
 	$(PHPCI) --dir cmsimple
+
+.PHONY: check-phpunit check-phpdoc check-phpcs check-phpci check-cmsimpledir
+check-phpunit:
+	if test "$(PHPUNIT)" = "" ; then echo "PHPUNIT not set"; exit 1; fi
+check-phpdoc:
+	if test "$(PHPDOC)" = "" ; then echo "PHPDOC not set"; exit 1; fi
+check-phpcs:
+	if test "$(PHPCS)" = "" ; then echo "PHPCS not set"; exit 1; fi
+check-phpci:
+	if test "$(PHPCI)" = "" ; then echo "PHPCI not set"; exit 1; fi
+check-cmsimpledir:
+	if test "$(CMSIMPLEDIR)" = "" ; then echo "CMSIMPLEDIR not set"; exit 1; fi
