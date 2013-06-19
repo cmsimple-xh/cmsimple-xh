@@ -1754,9 +1754,6 @@ function writelog($m)
  * Returns the login link.
  *
  * @global array  The configuration of the core.
- * @global bool   Whether admin mode is active.
- * @global string The script name.
- * @global array  The URLs of the pages.
  * @global int    The index of the requested page.
  * @global array  The localization of the core.
  *
@@ -1764,21 +1761,10 @@ function writelog($m)
  */
 function lilink()
 {
-    global $cf, $adm, $sn, $u, $s, $tx;
+    global $adm, $s, $tx;
 
     if (!$adm) {
-        if ($cf['security']['type'] == 'javascript') {
-            return '<form id="login" action="' . $sn . '" method="post">'
-                . '<div id="loginlink">'
-                . tag('input type="hidden" name="login" value="true"')
-                . tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
-                . tag('input type="hidden" name="keycut" id="passwd" value=""')
-                . '</div></form>'
-                . '<a href="#" onclick="login(); return false">'
-                . $tx['menu']['login'] . '</a>';
-        } else {
-            return a($s > -1 ? $s : 0, '&amp;login') . $tx['menu']['login'] . '</a>';
-        }
+        return a($s > -1 ? $s : 0, '&amp;login') . $tx['menu']['login'] . '</a>';
     }
 }
 
@@ -1786,10 +1772,7 @@ function lilink()
 /**
  * Returns the login form.
  *
- * @global bool   Whether admin mode is active.
  * @global array  The configuration of the core.
- * @global bool   Whether print mode is active.
- * @global string (X)HTML that will be inserted to the HEAD element.
  * @global array  The localization of the core.
  * @global string JavaScript for the onload event of the BODY element.
  * @global string The requested special function.
@@ -1802,24 +1785,8 @@ function lilink()
  */
 function loginforms()
 {
-    global $adm, $cf, $print, $hjs, $tx, $onload, $f, $o, $s, $sn, $u;
+    global $cf, $tx, $onload, $f, $o, $s, $sn, $u;
 
-    // JavaScript placed in head section used for javascript login
-    if (!$adm && $cf['security']['type'] == 'javascript' && !$print) {
-        $hjs .= <<<HTML
-<script type="text/javascript">
-/* <![CDATA[ */
-function login() {
-    var t=prompt("{$tx['login']['warning']}","");
-    if (t != null && t != "") {
-        document.getElementById("passwd").value=t;
-        document.getElementById("login").submit();
-    }
-}
-/* ]]> */
-</script>
-HTML;
-    }
     if ($f == 'login') {
         $cf['meta']['robots'] = "noindex";
         $onload .= 'self.focus();'

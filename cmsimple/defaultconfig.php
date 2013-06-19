@@ -1,7 +1,6 @@
 <?php
 
 $cf['security']['password']="\$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1";
-$cf['security']['type']="page";
 $cf['site']['template']="cmsimplexh";
 $cf['language']['default']="en";
 $cf['meta']['robots']="index, follow";

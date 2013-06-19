@@ -768,7 +768,8 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
             foreach ($opts as $name => $val) {
                 // The following are there for backwards compatibility,
                 // and have to be suppressed in the config form.
-                if ($cat == 'scripting' && $name == 'regexp'
+                if ($cat == 'security' && $name == 'type'
+                    || $cat == 'scripting' && $name == 'regexp'
                     || $cat == 'site' && $name == 'title'
                 ) {
                     continue;

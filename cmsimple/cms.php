@@ -219,6 +219,7 @@ if (!include $pth['file']['config']) {
     die('Config file missing');
 }
 // removed from the core in XH 1.6, but left for compatibility with plugins.
+$cf['security']['type']='page';
 $cf['scripting']['regexp']='#CMSimple (.*?)#';
 
 foreach (array('userfiles', 'downloads', 'images', 'media') as $temp) {
@@ -599,16 +600,13 @@ foreach (XH_plugins() as $plugin) {
 
 $adm = gc('status') == 'adm' && logincheck();
 
-if ($cf['security']['type'] == 'page' && $login && $keycut == '' && !$adm) {
+if ($login && $keycut == '' && !$adm) {
     $login = null;
     $f = 'login';
 }
 
 if ($login && !$adm) {
-    if ($xh_hasher->CheckPassword($keycut, $cf['security']['password'])
-        && ($cf['security']['type'] == 'page'
-        || $cf['security']['type'] == 'javascript')
-) {
+    if ($xh_hasher->CheckPassword($keycut, $cf['security']['password'])) {
         setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
         if (session_id() == '') {
             session_start();
