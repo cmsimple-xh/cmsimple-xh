@@ -514,11 +514,11 @@ define(
     . preg_replace('/index.php$/', '', $_SERVER['SCRIPT_NAME'])
 );
 
-/*
- * Set a hopefully unique session name.
- */
-$temp = 'XHSESSID' . preg_replace('/[^a-z0-9]/i', '', CMSIMPLE_ROOT);
-session_name($temp);
+///*
+// * Set a hopefully unique session name.
+// */
+//$temp = 'XHSESSID' . preg_replace('/[^a-z0-9]/i', '', CMSIMPLE_ROOT);
+//session_name($temp);
 
 /**
  * The current page's URL (selected URL).
