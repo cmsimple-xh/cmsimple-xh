@@ -613,6 +613,7 @@ if ($login && !$adm) {
         if (session_id() == '') {
             session_start();
         }
+        session_regenerate_id();
         $_SESSION['xh_password'] = $cf['security']['password'];
         $adm = true;
         $edit = true;
@@ -631,6 +632,7 @@ if ($login && !$adm) {
     if (session_id() == '') {
         session_start();
     }
+    session_regenerate_id();
     unset($_SESSION['xh_password']);
     $o .= '<p class="cmsimplecore_warning"'
         . ' style="text-align: center; font-weight: 900; padding: 8px;">'
