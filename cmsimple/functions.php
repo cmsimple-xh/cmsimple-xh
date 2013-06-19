@@ -1792,7 +1792,8 @@ function loginforms()
         $onload .= 'self.focus();'
             . 'document.forms[\'login\'].elements[\'keycut\'].focus();';
         $f = $tx['menu']['login'];
-        $o .= '<h1>' . $tx['menu']['login'] . '</h1>'
+        $o .= '<div class="xh_login">'
+            . '<h1>' . $tx['menu']['login'] . '</h1>'
             . '<p><b>' . $tx['login']['warning'] . '</b></p>'
             . '<form id="login" name="login" action="' . $sn . '?' . $u[$s]
             . '" method="post">'
@@ -1804,7 +1805,7 @@ function loginforms()
                 'input type="submit" name="submit" id="submit" value="'
                 . $tx['menu']['login'] . '"'
             )
-            . '</div></form>';
+            . '</div></form></div>';
         $s = -1;
     }
 }
@@ -2132,6 +2133,36 @@ function XH_initSession($start = true)
     if ($start && session_id() == '') {
         session_start();
     }
+}
+
+/**
+ * A minimal built-in template for some special functions.
+ * Currently used for the print view and the login screen.
+ *
+ * @param string The CSS class of the BODY element.
+ *
+ * @return string (X)HTML.
+ *
+ * @since 1.6
+ */
+function XH_builtinTemplate($bodyClass)
+{
+    global $_XH_csrfProtection;
+
+    if ($cf['xhtml']['endtags'] == 'true') {
+        echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"',
+            ' "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">', "\n",
+            '<html xmlns="http://www.w3.org/1999/xhtml">', "\n";
+    } else {
+        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"',
+            ' "http://www.w3.org/TR/html4/loose.dtd">', "\n", '<html>', "\n";
+    }
+    echo '<head>', "\n" . head(),
+        '<meta name="robots" content="noindex">', "\n",
+        '</head>', "\n", '<body class="', $bodyClass,'"', onload(), '>', "\n",
+        content(), '</body>', "\n", '</html>', "\n";
+    $_XH_csrfProtection->store();
+    exit;
 }
 
 ?>

@@ -1161,20 +1161,9 @@ if (!headers_sent($temp, $i)) {
 }
 
 if ($print) {
-    if ($cf['xhtml']['endtags'] == 'true') {
-        echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"',
-            ' "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">', "\n",
-            '<html xmlns="http://www.w3.org/1999/xhtml">', "\n";
-    } else {
-        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"',
-            ' "http://www.w3.org/TR/html4/loose.dtd">', "\n", '<html>', "\n";
-    }
-    echo '<head>', "\n" . head(),
-        '<meta name="robots" content="noindex">', "\n",
-        '</head>', "\n", '<body class="print"', onload(), '>', "\n",
-        content(), '</body>', "\n", '</html>', "\n";
-    $_XH_csrfProtection->store();
-    exit;
+    XH_builtinTemplate('print');
+} elseif (strtolower($f) == 'login') {
+    XH_builtinTemplate('xh_login');
 }
 
 if (XH_ADM) {

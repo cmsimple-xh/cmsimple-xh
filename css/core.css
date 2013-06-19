@@ -632,3 +632,12 @@ div.xh_modal_dialog_buttons button {
 form.xh_inline_form {
     display: inline;
 }
+
+/**
+ * Styling of the login form.
+ */
+body.xh_login {}
+body.xh_login div.xh_login {
+    width: 30em;
+    margin: 2em auto 0 auto;
+}

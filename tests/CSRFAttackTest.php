@@ -3,9 +3,8 @@
 /**
  * Testing the CSRF protection.
  *
- * If CMSimple_XH is not installed directly in the web root,
- * the environment variable CMSIMPLEDIR has to be set to the installation folder
- * (e.g. cmsimple_xh/).
+ * The environment variable CMSIMPLEDIR has to be set to the installation folder
+ * (e.g. / or /cmsimple_xh/).
  *
  * PHP version 5
  *
