@@ -620,7 +620,9 @@ if ($login && !$adm) {
             date("Y-m-d H:i:s") . " from " . sv('REMOTE_ADDR') . " logged_in\n"
         );
     } else {
-        shead('403');
+        $login = null;
+        $f = 'login';
+        //shead('403');
     }
 } elseif ($logout && $adm) {
     if ($logout != 'no_backup') {
@@ -750,6 +752,9 @@ $l = null;
 
 rfc(); // Here content is loaded
 
+if ($function == 'forgotten') {
+    $f = 'forgotten';
+}
 if ($function == 'search') {
     $f = 'search';
 }
@@ -942,6 +947,11 @@ if ($f == 'sitemap') {
         }
     }
     $o .= li($temp, 'sitemaplevel');
+}
+if ($f == 'forgotten') {
+    include_once $pth['folder']['classes'] . 'PasswordForgotten.php';
+    $temp = new XH_PasswordForgotten();
+    $temp->dispatch();
 }
 
 // Compatibility for DHTML menus
@@ -1162,7 +1172,7 @@ if (!headers_sent($temp, $i)) {
 
 if ($print) {
     XH_builtinTemplate('print');
-} elseif (strtolower($f) == 'login') {
+} elseif (strtolower($f) == 'login' || $f == 'forgotten') {
     XH_builtinTemplate('xh_login');
 }
 

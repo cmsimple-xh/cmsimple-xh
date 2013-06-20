@@ -1805,7 +1805,11 @@ function loginforms()
                 'input type="submit" name="submit" id="submit" value="'
                 . $tx['menu']['login'] . '"'
             )
-            . '</div></form></div>';
+            . '</div></form>';
+        if (!empty($cf['mailform']['email'])) {
+            $o .= '<a href="' . $sn . '?&function=forgotten">' . 'Password forgotten' . '</a>';
+        }
+        $o .= ' </div>';
         $s = -1;
     }
 }
