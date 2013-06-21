@@ -52,6 +52,7 @@ $tx['error']['nocookies']="Bitte Cookies aktivieren!";
 $tx['error']['nojs']="Bitte Javascript aktivieren!";
 $tx['error']['notreadable']="Nicht lesbar";
 $tx['error']['notwritable']="Nicht schreibbar";
+$tx['error']['plugincall']="Funktion %s() ist nicht definiert!";
 $tx['error']['plugin_error']="Plugin Fehler: ";
 $tx['error']['tolarge']="ist zu groß! Die Maximalgröße ist";
 $tx['error']['undefined']="Undefiniert";

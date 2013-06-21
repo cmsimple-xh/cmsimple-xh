@@ -206,7 +206,6 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
     return $__text;
 }
 
-
 /**
  * Returns a text with all plugin calls evaluatated.
  *
@@ -216,80 +215,63 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
  * through standard-CMSimple-Scripting. Alternatively one
  * can offer a functional wrapper.
  *
- * Call a plugin: place this in your code (example):
- * {{{PLUGIN:pluginfunction('parameters');}}}
+ * To call a plugin, place the following on a CMSimple_XH page (example):
+ * {{{pluginfunction('parameters');}}}
  *
- * Scripts are evaluated in the global scope.
+ * About the scope rules see {@link XH_evaluateSinglePluginCall}.
  *
- * Call a built-in function (at the moment only one for
- * demonstration):
- * {{{HOME}}} or: {{{HOME:name_of_Link}}}
- * This creates a link to the first page of your CMSimple-
- * Installation.
- *
- * @param string $__text The text.
- *
- * @global array The URLs of the pages.
+ * @param string $text The text.
  *
  * @return string
  *
- * @since  1.5
+ * @global array The localization of the core.
+ *
+ * @since 1.5
  */
-function evaluate_plugincall($__text)
+function evaluate_plugincall($text)
 {
-    global $u;
+    global $tx;
 
-    // use this for debugging of failed plugin-calls
-    $error = ' <span style="color:#5b0000; font-size:14px;">'
-        . '{{CALL TO:<span style="color:#c10000;">{{%1}}</span> FAILED}}</span> ';
-    // general CALL-RegEx (Placeholder: "RGX:CALL")
-    $pl_regex = '"{{{RGX:CALL(.*?)}}}"is';
-    $pl_calls = array(
-        'PLUGIN:' => 'return {{%1}}',
-        'HOME:' => 'return trim(\'<a href="?' . $u[0] . '" title="'
-            . urldecode('{{%1}}') . '">' . urldecode('{{%1}}') . '</a>\');',
-        'HOME' => 'return trim(\'<a href="?' . $u[0] . '" title="'
-            . urldecode($u[0]) . '">' . urldecode($u[0]) . '</a>\');'
-    );
-    $fd_calls = array();
-    foreach ($pl_calls as $regex => $call) {
-        // catch all PL-CALLS
-        $pattern = str_replace("RGX:CALL", $regex, $pl_regex);
-        preg_match_all($pattern, $__text, $fd_calls[$regex]);
-        foreach ($fd_calls[$regex][0] AS $call_nr => $replace) {
-            $call = str_replace(
-                "{{%1}}", $fd_calls[$regex][1][$call_nr], $pl_calls[$regex]
-            );
-            $call = preg_replace(
-                array(
-                    "'&(quot|#34);'i", "'&(amp|#38);'i", "'&(apos|#39);'i",
-                    "'&(lt|#60);'i", "'&(gt|#62);'i", "'&(nbsp|#160);'i"
-                ),
-                array("\"", "&", "'", "<", ">", " "),
-                $call
-            );
-            $pattern = '"(?:(?:return)\s)*(.*?)\(.*?\);"is';
-            $fnct_call = preg_replace($pattern, '$1', $call);
-            // without object-calls; functions-only!!
-            $fnct = function_exists($fnct_call) ? true : false;
-            if ($fnct) {
-                preg_match_all("/\\$([a-z_0-9]*)/i", $call, $matches);
-                foreach ($matches[1] as $var) {
-                    $$var = &$GLOBALS[$var];
-                }
-            }
-            // replace PL-CALLS (String only!!)
-            $replacement = $fnct
-                ? eval($call)
-                : str_replace(
-                    '{{%1}}', $regex . $fd_calls[$regex][1][$call_nr], $error
-                );
-            $__text = substr_replace(
-                $__text, $replacement, strpos($__text, $replace), strlen($replace)
-            );
+    $message = '<span class="cmsimplecore_fail">' . $tx['error']['plugincall']
+        . '</span>';
+    $re = '/{{{(?:[^:]+:)?(([a-z_0-9]+)\([^\)]*\);)}}}/iu';
+    preg_match_all($re, $text, $calls, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
+    $calls = array_reverse($calls);
+    foreach ($calls as $call) {
+        $length = strlen($call[0][0]);
+        $offset = $call[0][1];
+        $expression = $call[1][0];
+        $function = $call[2][0];
+        if (function_exists($function)) {
+            $result = XH_evaluateSinglePluginCall($expression);
+        } else {
+            $result = sprintf($message, $function);
         }
+        XH_spliceString($text, $offset, $length, $result);
     }
-    return $__text;
+    return $text;
+}
+
+/**
+ * Returns the result of evaluating a single plugin call expression.
+ *
+ * The expression is evaluated as if it where in the global namespace.
+ * To avoid clashes with local variables of this function,
+ * these are prefixed with a triple underscore.
+ * Reference parameters of the function do <b>not</b> modify the global scope.
+ *
+ * @param string $___expression The expression to evaluate.
+ *
+ * @return srting
+ *
+ * @since 1.6
+ */
+function XH_evaluateSinglePluginCall($___expression)
+{
+    foreach ($GLOBALS as $___var => $___value) {
+        $$___var = $GLOBALS[$___var];
+    }
+    return eval('return ' . $___expression);
 }
 
 /**

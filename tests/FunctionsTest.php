@@ -43,10 +43,11 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        global $var;
+        global $var, $tx;
 
         $_SERVER['SERVER_NAME'] = 'example.com';
         $var = 'baz';
+        $tx['error']['plugincall']="Function %s() is not defined!";
     }
 
     /**
@@ -107,13 +108,12 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
             array('foo {{{PLUGIN:trim($var);}}} bar', 'foo baz bar'),
             array(
                 'foo {{{PLUGIN:counter();}}} bar {{{PLUGIN:counter();}}} baz',
-                'foo 1 bar 2 baz'
+                'foo 2 bar 1 baz'
             ),
             array( // function does not exist
                 'foo {{{PLUGIN:doesnotexist();}}} bar',
-                'foo  <span style="color:#5b0000; font-size:14px;">'
-                . '{{CALL TO:<span style="color:#c10000;">PLUGIN:doesnotexist();'
-                . '</span> FAILED}}</span>  bar'
+                'foo <span class="cmsimplecore_fail">Function doesnotexist()'
+                . ' is not defined!</span> bar'
             ),
             array('foo {{{PLUGIN:trim(\':\');}}} bar', 'foo : bar')
         );
@@ -134,7 +134,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $expected = 'foo 1 bar';
         $actual = evaluate_plugincall($str, true);
         $this->assertEquals($expected, $actual);
-        $this->assertEquals('baz', $GLOBALS['keywords']);
+        $this->assertFalse(isset($GLOBALS['keywords']));
     }
 
     /**
