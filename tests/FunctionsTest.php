@@ -29,7 +29,7 @@ include '../cmsimple/functions.php';
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class FunctionTest extends PHPUnit_Framework_TestCase
+class FunctionsTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
