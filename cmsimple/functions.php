@@ -292,6 +292,28 @@ function evaluate_plugincall($__text)
     return $__text;
 }
 
+/**
+ * Removes a portion of a string and replaces it with something else.
+ * This does basically the same to strings as array_splice() for arrays.
+ * Note that the behavior of negative values for <var>$offset</var>
+ * and <var>$length</var> is not defined.
+ *
+ * @param string $string      The string to manipulate.
+ * @param int    $offset      Offset of the string where to start the replacement.
+ * @param int    $length      The number of characters to be replaced.
+ * @param string $replacement The string to replace the removed characters.
+ *
+ * @return string The replaced characters.
+ *
+ * @since 1.6
+ */
+function XH_spliceString(&$string, $offset, $length = 0, $replacement = '')
+{
+    $result = substr($string, $offset, $length);
+    $string = substr($string, 0, $offset) . $replacement
+        . substr($string, $offset + $length);
+    return $result;
+}
 
 /**
  * Returns a text with CMSimple scripting and plugin calls evaluated.

@@ -70,6 +70,25 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo, bar', $GLOBALS['keywords']);
     }
 
+    public function dataForSpliceString()
+    {
+        return array(
+            array('foobarbaz', 3, 3, 'test', 'bar', 'footestbaz'),
+            array('foobarbaz', 3, 3, '', 'bar', 'foobaz'),
+            array('foobaz', 3, 0, 'bar', '', 'foobarbaz')
+        );
+    }
+
+    /**
+     * @dataProvider dataForSpliceString
+     */
+    public function testSpliceString($string, $offset, $length, $replacement, $expectedResult, $expectedString)
+    {
+        $actual = XH_spliceString($string,$offset, $length, $replacement);
+        $this->assertEquals($expectedResult, $actual);
+        $this->assertEquals($expectedString, $string);
+    }
+
     public function dataForTestEvaluatePluginCall()
     {
         return array(
