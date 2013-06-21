@@ -2181,16 +2181,21 @@ function XH_builtinTemplate($bodyClass)
  * @return string (X)HTML.
  *
  * @global array The paths of system files and folders.
+ * @global array The localization of the core.
  *
  * @since 1.6
+ *
+ * @todo Change the DIVs to SPANs and require the <var>$tooltip</var> to be an
+ *       inline fragment (requires block level elements to be removed from all
+ *       help texts--even $plugin_tx).
  */
 function XH_helpIcon($tooltip)
 {
-    global $pth;
+    global $pth, $tx;
 
     $src = $pth['folder']['flags'] . 'help_icon.png';
     $o = '<div class="pl_tooltip">'
-        . tag('img src="' . $src . '" alt="' . $tooltip . '"')
+        . tag('img src="' . $src . '" alt="' . $tx['editmenu']['help'] . '"')
         . '<div>' . $tooltip . '</div>'
         . '</div>';
     return $o;
