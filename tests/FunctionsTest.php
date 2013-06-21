@@ -187,7 +187,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function dataForTestRp()
     {
         return array(
-            array('./FunctionTest.php', __FILE__),
+            array('./FunctionsTest.php', __FILE__),
             array('./DoesNotExist', './DoesNotExist')
         );
     }
