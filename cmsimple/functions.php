@@ -2173,4 +2173,27 @@ function XH_builtinTemplate($bodyClass)
     exit;
 }
 
+/**
+ * Returns a help icon which displays a tooltip on hover.
+ *
+ * @param string A tooltip in (X)HTML.
+ *
+ * @return string (X)HTML.
+ *
+ * @global array The paths of system files and folders.
+ *
+ * @since 1.6
+ */
+function XH_helpIcon($tooltip)
+{
+    global $pth;
+
+    $src = $pth['folder']['flags'] . 'help_icon.png';
+    $o = '<div class="pl_tooltip">'
+        . tag('img src="' . $src . '" alt="' . $tooltip . '"')
+        . '<div>' . $tooltip . '</div>'
+        . '</div>';
+    return $o;
+}
+
 ?>
