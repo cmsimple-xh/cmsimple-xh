@@ -20,6 +20,16 @@
 include '../cmsimple/functions.php';
 
 /**
+ * A helper to test multiple evaluation of a function with side effects.
+ */
+function counter()
+{
+    static $count = 0;
+
+    return ++$count;
+}
+
+/**
  * A test case for the functions in functions.php.
  *
  * @category Testing
@@ -94,7 +104,18 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         return array(
             array('foo bar','foo bar'),
             array('foo {{{PLUGIN:trim(\'baz\');}}} bar', 'foo baz bar'),
-            array('foo {{{PLUGIN:trim($var);}}} bar', 'foo baz bar')
+            array('foo {{{PLUGIN:trim($var);}}} bar', 'foo baz bar'),
+            array(
+                'foo {{{PLUGIN:counter();}}} bar {{{PLUGIN:counter();}}} baz',
+                'foo 1 bar 2 baz'
+            ),
+            array( // function does not exist
+                'foo {{{PLUGIN:doesnotexist();}}} bar',
+                'foo  <span style="color:#5b0000; font-size:14px;">'
+                . '{{CALL TO:<span style="color:#c10000;">PLUGIN:doesnotexist();'
+                . '</span> FAILED}}</span>  bar'
+            ),
+            array('foo {{{PLUGIN:trim(\':\');}}} bar', 'foo : bar')
         );
     }
 
