@@ -309,16 +309,14 @@ class XHFileBrowserView
                 )
                 . tag('input type="hidden" name="oldName" value="' . $file . '"')
                 . '</form>'
-                . '<a style="position:relative" href="#" id="file_' . $i
-                . '" onclick="showRenameForm(\'' . $i . '\', \''
-                . $this->translate('prompt_rename', $file) . '\');">'
                 . tag(
                     'img src="' . $this->browserPath . 'css/icons/rename.png"'
                     . ' alt="' . $this->translate('rename_file') . '" title="'
                     . $this->translate('rename_file')
-                    . '" style="width: 16px; height: 16px"'
+                    . '" style="width: 16px; height: 16px; cursor: pointer"'
+                    . ' onclick="showRenameForm(\'' . $i . '\', \''
+                    . $this->translate('prompt_rename', $file) . '\');"'
                 )
-                . '</a>'
                 . '<a style="position:relative" class="xhfbfile" href="'
                 . $this->currentDirectory . $file . '" target="_blank">' . $file;
 
@@ -381,8 +379,8 @@ class XHFileBrowserView
                     array('../', './'), '', $this->currentDirectory
                 );
             }
-            $html .= '<a href="#" class="xhfbfile" onclick="window.setLink(\''
-                . $prefix . $file . '\',' . $is_image . '); return false;">'
+            $html .= '<span class="xhfbfile" onclick="window.setLink(\''
+                . $prefix . $file . '\',' . $is_image . ');">'
                 . $file;
 
             if (strpos($this->linkParams, 'type=images') !== false
@@ -403,7 +401,7 @@ class XHFileBrowserView
 <br /><img src="$src" width="$width" height="$height"></span>
 HTM;
             }
-            $html .= '</a> (' . round(filesize($dir . $file) / 1024, 1)
+            $html .= '</span> (' . round(filesize($dir . $file) / 1024, 1)
                 . ' kb)</li>';
         }
         $html .= '</ul>';

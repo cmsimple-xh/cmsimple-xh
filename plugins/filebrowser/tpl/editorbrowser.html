@@ -24,10 +24,10 @@
         <div id="xhFilebrowserMenu">
         %MESSAGE%
             <!--   <b><?php echo $tx['filetype']['folder']; ?>:</b> <?php echo $this->currentDirectory; ?> -->
-            <a href="#" onclick="window.showxhfbForm('xhfbCreateDir');"><?php echo $this->translate('create_folder'); ?></a> |
-            <a href="#" onclick="window.showxhfbForm('xhfbUploadFile');"><?php echo $this->translate('upload_file'); ?></a>
+            <button type="button" onclick="window.togglexhfbForm('xhfbCreateDir');"><?php echo $this->translate('create_folder'); ?></button>
+            <button type="button" onclick="window.togglexhfbForm('xhfbUploadFile');"><?php echo $this->translate('upload_file'); ?></button>
             <fieldset id="xhfbUploadFile" class="xhfbform">
-                <legend><?php echo $this->translate('upload_file_to', $this->currentDirectory); ?> <a href="#" onclick="window.closexhfbForm('xhfbUploadFile');">[x]</a></legend>
+                <legend><?php echo $this->translate('upload_file_to', $this->currentDirectory); ?></legend>
                 <div style="padding: 3em;">
 
                     <form method="post" action="" enctype="multipart/form-data">
@@ -38,7 +38,7 @@
                 </div>
             </fieldset>
             <fieldset id="xhfbCreateDir" class="xhfbform">
-                <legend><?php echo $this->translate('create_subfolder_in', $this->currentDirectory); ?> <a href="#" onclick="window.closexhfbForm('xhfbCreateDir');">[x]</a></legend>
+                <legend><?php echo $this->translate('create_subfolder_in', $this->currentDirectory); ?></legend>
                 <div style="padding: 3em;">
 
                     <form method="post" action="">

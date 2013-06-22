@@ -51,13 +51,17 @@
     background-color: #3f4446;
 }
 
-#editmenu  a, #editmenu a:visited {
+#editmenu  a, #editmenu a:visited, #editmenu span {
     display: block;
     color: #d3d7cf;
     height: 26px;
     padding: 2px 6px 0px 6px;
     text-decoration: none;
     font-style: normal;
+}
+
+#editmenu span {
+    cursor: default;
 }
 
 #editmenu ul ul {
@@ -78,7 +82,7 @@
     margin: 0;
 }
 
-#editmenu ul ul li a {
+#editmenu ul ul li a, #editmenu ul ul li span {
     height: 16px;
     padding: 3px 0 0 0;
     margin: 0;
@@ -90,7 +94,7 @@
     background: #c50;
 }
 
-#editmenu ul ul li a:hover {
+#editmenu ul ul li a:hover, #editmenu ul ul li span:hover {
     background: #c50;
     height: 20px;
     padding: 3px 0 0 0;
@@ -112,7 +116,7 @@
     margin: 0;
 }
 
-#editmenu ul ul ul li a {
+#editmenu ul ul ul li a, #editmenu ul ul ul li span {
     height: 26px;
     padding: 3px 0 0 0;
     margin: 0;
@@ -125,7 +129,7 @@
     margin: 0;
 }
 
-#editmenu ul ul ul li a:hover {
+#editmenu ul ul ul li a:hover, #editmenu ul ul ul li span:hover {
     background: #e70;
     height: 20px;
     padding: 3px 0 0 0;

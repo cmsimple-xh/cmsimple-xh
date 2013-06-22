@@ -635,9 +635,14 @@ function XH_adminMenuItem($item, $level = 0)
     if (isset($item['url'])) {
         $t .= '<a href="' . $sn . $item['url'] . '">';
     } else {
-        $t .= '<a href="#" onclick="return false">';
+        $t .= '<span>';
     }
-    $t .= $item['label'] . '</a>';
+    $t .= $item['label'];
+    if (isset($item['url'])) {
+        $t .= '</a>';
+    } else {
+        $t .= '</span>';
+    }
     if (isset($item['children'])) {
         $t .= "\n" . $indent . '    <ul>' . "\n";
         foreach ($item['children'] as $child) {
