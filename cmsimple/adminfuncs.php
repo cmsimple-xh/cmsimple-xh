@@ -563,4 +563,33 @@ function XH_restore($filename)
     exit;
 }
 
+/**
+ * Returns SCRIPT element containing the localization for admin.js.
+ *
+ * @return string (X)HTML
+ *
+ * @global array The localization of the core.
+ *
+ * @since 1.6
+ */
+function XH_adminJSLocalization()
+{
+    global $tx;
+
+    $keys = array(
+        'action' => array('cancel', 'ok'),
+        'error' => array('password_mismatch', 'password_wrong'),
+        'password' => array('fields_missing')
+    );
+    $l10n = array();
+    foreach ($keys as $category => $keys2) {
+        foreach ($keys2 as $key) {
+            $l10n[$category][$key] = $tx[$category][$key];
+        }
+    }
+    $o = '<script type="text/javascript">/* <![CDATA[ */xh.i18n = '
+        . json_encode($l10n) . '/* ]]> */</script>' . PHP_EOL;
+    return $o;
+}
+
 ?>

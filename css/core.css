@@ -638,6 +638,7 @@ div.xh_modal_dialog {
 div.xh_modal_dialog_error {
     padding-top: 1em;
     color: red;
+    font-weight: bold;
 }
 div.xh_modal_dialog_buttons {
     text-align: right;

@@ -89,7 +89,7 @@ xh.modalDialog = function(contentElement, width, func) {
     buttons.className = "xh_modal_dialog_buttons";
 
     var okButton = document.createElement("button");
-    okButton.appendChild(document.createTextNode("OK"));
+    okButton.appendChild(document.createTextNode(xh.i18n["action"]["ok"]));
     okButton.onclick = function() {
         var result = func(contentClone);
         if (result === true) {
@@ -103,7 +103,7 @@ xh.modalDialog = function(contentElement, width, func) {
     buttons.appendChild(okButton);
 
     var cancelButton = document.createElement("button");
-    cancelButton.appendChild(document.createTextNode("Cancel"));
+    cancelButton.appendChild(document.createTextNode(xh.i18n["action"]["cancel"]));
     cancelButton.onclick = function() {
         document.body.removeChild(overlay);
     }
@@ -135,10 +135,10 @@ xh.validatePassword = function(dialog) {
         request;
 
     if (oldPassword == "" || newPassword == "" || confirmation == "") {
-        return "Fill out all fields!";
+        return xh.i18n["password"]["fields_missing"];
     }
     if (newPassword != confirmation) {
-        return "New password and confirmation must match!";
+        return xh.i18n["error"]["password_mismatch"];
     }
     request = new XMLHttpRequest();
     request.open("GET", "?xh_check=" + encodeURIComponent(oldPassword), false);
@@ -147,7 +147,7 @@ xh.validatePassword = function(dialog) {
         return "Server error: " + request.statusText;
     }
     if (request.responseText != 1) {
-        return "Wrong password!";
+        return xh.i18n["error"]["password_wrong"];
     }
     return true;
 }

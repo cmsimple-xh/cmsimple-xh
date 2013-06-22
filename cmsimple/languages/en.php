@@ -10,13 +10,16 @@ $tx['template']['text1']="Text 1 for templates requiring this text";
 $tx['template']['text2']="Text 2 for templates requiring this text";
 $tx['template']['text3']="Text 3 for templates requiring this text";
 
+$tx['action']['cancel']="Cancel";
 $tx['action']['delete']="delete";
 $tx['action']['download']="download";
 $tx['action']['edit']="edit";
+$tx['action']['ok']="OK";
 $tx['action']['restore']="restore";
 $tx['action']['save']="save";
 $tx['action']['upload']="upload";
 $tx['action']['view']="view";
+
 $tx['editmenu']['configuration']="CMS";
 $tx['editmenu']['downloads']="Downloads";
 $tx['editmenu']['edit']="Edit mode";
@@ -179,6 +182,7 @@ $tx['navigator']['top']="top";
 
 $tx['password']['change']="Change password";
 $tx['password']['confirmation']="Confirmation";
+$tx['password']['fields_missing']="Fill out all fields.";
 $tx['password']['new']="New password";
 $tx['password']['old']="Old password";
 

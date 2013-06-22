@@ -1178,7 +1178,8 @@ if ($print) {
 
 if (XH_ADM) {
     $bjs .= '<script type="text/javascript" src="' . $pth['file']['adminjs']
-        . '"></script>';
+        . '"></script>' . PHP_EOL
+        . XH_adminJSLocalization();
 }
 
 
