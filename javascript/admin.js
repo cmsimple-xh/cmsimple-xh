@@ -222,16 +222,18 @@ xh.quickSubmit = function(form) {
  * Initialize the quick submit of page data forms.
  */
 xh.initQuickSubmit = function() {
-    var views = document.getElementById("pd_views"),
-        forms = views.getElementsByTagName("FORM"),
-        i, n = forms.length, form;
+    var views, forms, i, n, form;
 
-    for (i = 0; i < n; ++i) {
-        form = forms[i];
-        if (!form.onsubmit) {
-            form.onsubmit = function() {
-                xh.quickSubmit(this);
-                return false;
+    views = document.getElementById("pd_views");
+    if (views) {
+        forms = views.getElementsByTagName("FORM");
+        for (i = 0, n = forms.length; i < n; ++i) {
+            form = forms[i];
+            if (!form.onsubmit) {
+                form.onsubmit = function() {
+                    xh.quickSubmit(this);
+                    return false;
+                }
             }
         }
     }
