@@ -545,12 +545,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
                     . '</h6></td></tr>';
             }
             foreach ($options as $name => $opt) {
-                $filename = $pth['folder']['flags'] . 'help_icon.png';
-                $info = isset($opt['hint'])
-                    ? '<div class="pl_tooltip">'
-                        . tag('img src="' . $filename. '" alt=""')
-                        . '<div>' . $opt['hint'] . '</div></div> '
-                    : '';
+                $info = isset($opt['hint']) ? XH_helpIcon($opt['hint']) . ' ' : '';
                 if ($opt['type'] == 'hidden') {
                     $o .= '<tr><td colspan="2">'
                         . $this->formField($category, $name, $opt);

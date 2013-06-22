@@ -39,13 +39,12 @@ function page_params_view($page){
 	}
 
 	$lang = $plugin_tx['page_params'];
-	$help_icon = tag('img src = "'.$pth['folder']['plugins']. 'page_params/css/help_icon.png" alt="' . $tx['editmenu']['help'] . '"');
 
 	$view ="\n".'<form action="'.$sn.'?'.$su.'" method="post" id = "page_params" name = "page_params">';
 	$view .= "\n\t".'<p><b>'.$lang['form_title'].'</b></p>';
 
 ######## heading ##########################
-	$view .= "\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_heading'].'</div></div>';
+	$view .= "\n\t".XH_helpIcon($lang['hint_heading']);
 	$view .= "\n\t".'<span class = "pp_label">'.$lang['heading'].'</span>'.tag('br');
 
 
@@ -68,7 +67,7 @@ function page_params_view($page){
 	$view .= "\n\t".tag('hr');
 
 #### published #####################
-	$view .= "\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_published'].'</div></div>';
+	$view .= "\n\t".XH_helpIcon($lang['hint_published']);
 	$view .= "\n\t".'<span class = "pp_label">'.$lang['published'] .'</span>'.tag('br');
 
 	$checked = '';
@@ -84,7 +83,7 @@ function page_params_view($page){
     $view .= "\n\t".tag('hr');
 
 #### linked to menu #####################
-	$view .= "\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_linked_to_menu'].'</div></div>';
+	$view .= "\n\t".XH_helpIcon($lang['hint_linked_to_menu']);
 	$view .= "\n\t".'<span class = "pp_label">'.$lang['linked_to_menu'] .'</span>'.tag('br');
 
 	$checked = '';
@@ -123,12 +122,12 @@ function page_params_view($page){
 		$templates_select .= "\n\t".'<option value="'.$file.'"'. $selected.'>'.$file.'</option>';
         }
 	$templates_select .= "\n".'</select>';
-	$view .= "\n"."\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_template'].'</div></div>';
+	$view .= "\n"."\n\t".XH_helpIcon($lang['hint_template']);
 	$view .= "\n\t".'<span class="pp_label">'.$lang['template'].'</span>'.tag('br').$templates_select .tag('br');
 	$view .= "\n\t".tag('hr');
 
 ############# last edit ##################
-	$view .= "\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_last_edit'].'</div></div>';
+	$view .= "\n\t".XH_helpIcon($lang['hint_last_edit']);
 	$view .= "\n\t".'<span class="pp_label">'.$lang['show_last_edit'].'</span>';
 	$view .=  tag('br');
 	$checked = '';
@@ -149,7 +148,7 @@ function page_params_view($page){
 	$view .= "\n\t".tag('hr');
 
 ############# header_location ##################
-	$view .= "\n\t".'<div class="pl_tooltip">'.$help_icon.'<div>'.$lang['hint_header_location'].'</div></div>';
+	$view .= "\n\t".XH_helpIcon($lang['hint_header_location']);
 	$view .= "\n\t".'<span class = "pp_label">'.$lang['header_location'].'</span>'.tag('br');
 
 	$checked = '';

@@ -32,10 +32,7 @@ if ($filebrowser) {
     $o .= '<div class="plugintext">'
         . '<div class="plugineditcaption">Filebrowser for CMSimple_xh</div>'
         . '<p>Version for $CMSIMPLE_XH_VERSION$</p>'
-        . '<p><a class="pl_tooltip" href="#" onclick="return false">'
-        . '<img class="helpicon" alt="help" src="' . $pth['folder']['flags']
-        . 'help_icon.png" />'
-        . '<span>' . $temp . '</span></a></p>'
+	. '<p>' . XH_helpIcon($temp) . '</p>'
         . tag('br');
 
     $admin = isset($_POST['admin'])

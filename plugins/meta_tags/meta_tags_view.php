@@ -42,10 +42,6 @@ function meta_tags_view($page)
     array_walk($page, $func);
 
     $lang = $plugin_tx['meta_tags'];
-    $help_icon = tag(
-        'img src="' . $pth['folder']['plugins'] . 'meta_tags/css/help_icon.png"'
-        . ' alt="" class="helpicon"'
-    );
 
     $my_fields = array('title', 'description', 'keywords', 'robots');
 
@@ -63,8 +59,7 @@ function meta_tags_view($page)
                 . $field . '" id="' . $field . '" value="'
                 . htmlspecialchars($page[$field], ENT_QUOTES, 'UTF-8') . '"'
             );
-        $view .= "\n\t" . '<div class="pl_tooltip">' . $help_icon . '<div>'
-            . $lang['hint_' . $field] . '</div></div>'
+        $view .= "\n\t" . XH_helpIcon($lang['hint_' . $field])
             . "\n\t" . '<label for = "' . $field . '"><span class = "mt_label">'
             . $lang[$field] . '</span></label>' . tag('br')
             . "\n\t\t" . $element . tag('hr');
