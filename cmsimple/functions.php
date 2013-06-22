@@ -478,7 +478,7 @@ function XH_systemCheck($data)
     foreach (array('ok', 'warning', 'failure') as $img) {
         $txt = ucfirst($img);
         $imgs[$img] = tag(
-            'img src="' . $pth['folder']['flags'] . $img . '.gif" alt="'
+            'img src="' . $pth['folder']['corestyle'] . $img . '.gif" alt="'
             . $txt . '" title="' . $txt . '" width="16" height="16"'
         );
     }
@@ -2193,7 +2193,7 @@ function XH_helpIcon($tooltip)
 {
     global $pth, $tx;
 
-    $src = $pth['folder']['flags'] . 'help_icon.png';
+    $src = $pth['folder']['corestyle'] . 'help_icon.png';
     $o = '<div class="pl_tooltip">'
         . tag('img src="' . $src . '" alt="' . $tx['editmenu']['help'] . '"')
         . '<div>' . $tooltip . '</div>'
