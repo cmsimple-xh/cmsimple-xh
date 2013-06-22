@@ -166,7 +166,7 @@ div#admin-content-container{
 
 input.cmsimplecore_settings {
     width: 90%;
-    font-size: 14px;
+    /*font-size: 14px;*/
     color: #333;
     padding: 2px 3px;
     margin: 3px 0;
@@ -418,6 +418,19 @@ table.pluginedittable td.plugincf {
 }
 
 /*
+ * Configuration
+ */
+#xh_config_form fieldset {padding: 1em 0.5em; margin: 1em 0}
+#xh_config_form div.xh_label, #xh_config_form div.xh_field {
+    padding: 0; margin: 0; border: 0; float: left
+}
+#xh_config_form div.xh_label {width: 35%}
+#xh_config_form div.xh_field {width: 65%}
+#xh_config_form div.xh_label span.xh_label {display: inline-block; margin: 3px 0}
+#xh_config_form input[type="checkbox"] {margin: 0.3em 0}
+#xh_config_form br {clear: both}
+
+/*
  * Tooltips, if hint-texts are used within a plugin
  * e.g.: $plugin_tx['PluginName']['cf_var_name']='hint';
  * Will display a span, when hovering var_name.
@@ -515,6 +528,7 @@ div.pl_tooltip:hover > div {
 
 div.pl_tooltip img {
     border: 0;
+    /*vertical-align: text-top;*/
 }
 
 img.helpicon {

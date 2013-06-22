@@ -537,26 +537,31 @@ class XH_ArrayFileEdit extends XH_FileEdit
         $o = '<h1>' . ucfirst($this->caption) . '</h1>'
             . '<form id="xh_config_form" action="' . $action
             . '" method="POST" accept-charset="UTF-8">'
-            . $button
-            . '<table style="width: 100%">';
+            . $button;
         foreach ($this->cfg as $category => $options) {
-            if ($this->hasVisibleFields($options)) {
-                $o .= '<tr><td colspan="2"><h6>' . $this->translate($category)
-                    . '</h6></td></tr>';
+            $hasVisibleFields = $this->hasVisibleFields($options);
+            if ($hasVisibleFields) {
+                $o .= '<fieldset><legend>' . $this->translate($category)
+                    . '</legend>';
             }
             foreach ($options as $name => $opt) {
                 $info = isset($opt['hint']) ? XH_helpIcon($opt['hint']) . ' ' : '';
                 if ($opt['type'] == 'hidden') {
-                    $o .= '<tr><td colspan="2">'
-                        . $this->formField($category, $name, $opt);
+                    $o .= $this->formField($category, $name, $opt);
                 } else {
-                    $o .= '<tr><td>' . $info . $this->translate($name) . '</td><td>'
-                        . $this->formField($category, $name, $opt);
+                    $o .= '<div class="xh_label">'
+                        . $info . '<span class="xh_label">'
+                        . $this->translate($name) . '</span>'
+                        . '</div>'
+                        . '<div class="xh_field">'
+                        . $this->formField($category, $name, $opt) . '</div>'
+                        . tag('br');
                 }
-                $o .= '</td></tr>';
+            }
+            if ($hasVisibleFields) {
+                $o .= '</fieldset>';
             }
         }
-        $o .= '</table>';
         foreach ($this->params as $param => $value) {
             $o .= tag(
                 'input type="hidden" name="' . $param . '" value="' . $value . '"'
