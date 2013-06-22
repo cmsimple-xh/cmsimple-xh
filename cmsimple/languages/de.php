@@ -52,6 +52,9 @@ $tx['error']['nocookies']="Bitte Cookies aktivieren!";
 $tx['error']['nojs']="Bitte Javascript aktivieren!";
 $tx['error']['notreadable']="Nicht lesbar";
 $tx['error']['notwritable']="Nicht schreibbar";
+$tx['error']['password_invalid']="Das neue Kennwort ist ungültig.";
+$tx['error']['password_mismatch']="Das neue Kennwort stimmt nicht mit der Bestätigung überein.";
+$tx['error']['password_wrong']="Das alte Kennwort ist falsch.";
 $tx['error']['plugincall']="Funktion %s() ist nicht definiert!";
 $tx['error']['plugin_error']="Plugin Fehler: ";
 $tx['error']['tolarge']="ist zu groß! Die Maximalgröße ist";
@@ -173,6 +176,11 @@ $tx['message']['restored']="Die Sicherung wurde erfolgreich wieder hergestellt."
 $tx['navigator']['next']="nächste Seite »";
 $tx['navigator']['previous']="« vorige Seite";
 $tx['navigator']['top']="Seitenanfang";
+
+$tx['password']['change']="Kennwort ändern";
+$tx['password']['confirmation']="Bestätigung";
+$tx['password']['new']="Neues Kennwort";
+$tx['password']['old']="Altes Kennwort";
 
 $tx['result']['created']="angelegt";
 $tx['result']['deleted']="gelöscht";

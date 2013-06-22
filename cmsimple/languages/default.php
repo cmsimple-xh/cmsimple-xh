@@ -52,6 +52,9 @@ $tx['error']['nocookies']="Please enable Cookies!";
 $tx['error']['nojs']="Please enable Javascript!";
 $tx['error']['notreadable']="Not readable";
 $tx['error']['notwritable']="Not writeable";
+$tx['error']['password_invalid']="New password is invalid.";
+$tx['error']['password_mismatch']="New password and its confirmation do not match.";
+$tx['error']['password_wrong']="Old password is wrong.";
 $tx['error']['plugincall']="Function %s() is not defined!";
 $tx['error']['plugin_error']="Plugin error: ";
 $tx['error']['tolarge']="is too large! Maximum size is set to";
@@ -173,6 +176,11 @@ $tx['message']['restored']="The backup has been successfully restored.";
 $tx['navigator']['next']="next »";
 $tx['navigator']['previous']="« prev";
 $tx['navigator']['top']="top";
+
+$tx['password']['change']="Change password";
+$tx['password']['confirmation']="Confirmation";
+$tx['password']['new']="New password";
+$tx['password']['old']="Old password";
 
 $tx['result']['created']="created";
 $tx['result']['deleted']="deleted";

@@ -80,14 +80,7 @@ class XH_FileEdit
      */
     function save()
     {
-        // TODO: use XH_writeFile()
-        $ok = is_writable($this->filename)
-            && ($fh = fopen($this->filename, 'w'))
-            && fwrite($fh, $this->asString()) !== false;
-        if (!empty($fh)) {
-            fclose($fh);
-        }
-        return $ok;
+        return XH_writeFile($this->filename, $this->asString());
     }
 
     /**
@@ -162,14 +155,19 @@ class XH_TextFileEdit extends XH_FileEdit
     var $text = null;
 
     /**
-     * Construct an instance.
+     * Constructs an instance.
      *
      * @access protected
      */
     function XH_TextFileEdit()
     {
-        // TODO: error handling
-        $this->text = file_get_contents($this->filename);
+        $contents = file_get_contents($this->filename);
+        if ($contents !== false) {
+            $this->text = $contents;
+        } else {
+            e('cntopen', 'file', $this->filename);
+            $this->text = '';
+        }
     }
 
     /**
@@ -186,7 +184,7 @@ class XH_TextFileEdit extends XH_FileEdit
         global $tx, $_XH_csrfProtection;
 
         $action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
-        $value = ucfirst($tx['action']['save']); // TODO: ut8_ucfirst()
+        $value = utf8_ucfirst($tx['action']['save']);
         $button = tag('input type="submit" class="submit" value="' . $value . '"');
         $o = '<h1>' . ucfirst($this->caption) . '</h1>'
             . '<form action="' . $action . '" method="POST">'
@@ -429,29 +427,30 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @return string  The (X)HTML.
      *
-     * @access protected
+     * @global array The localization of the core.
      *
-     * @todo finish up
-     * @todo i18n
+     * @access protected
      */
     function passwordDialog($iname)
     {
+        global $tx;
+
         $id = $iname . '_DLG';
         $o = '<div id="' . $id . '" style="display:none">'
             . '<table style="width: 100%">'
-            . '<tr><td>Old Password</td><td>'
+            . '<tr><td>' . $tx['password']['old'] . '</td><td>'
             . tag(
                 'input type="password" name="' . $iname
                 . '_OLD" value="" class="cmsimplecore_settings"'
             )
             . '</td></tr>'
-            . '<tr><td>New Password</td><td>'
+            . '<tr><td>' . $tx['password']['new'] . '</td><td>'
             . tag(
                 'input type="password" name="' . $iname
                 . '_NEW" value="" class="cmsimplecore_settings"'
             )
             . '</td></tr>'
-            . '<tr><td>Confirmation</td><td>'
+            . '<tr><td>' . $tx['password']['confirmation'] . '</td><td>'
             . tag(
                 'input type="password" name="' . $iname
                 . '_CONFIRM" value="" class="cmsimplecore_settings"'
@@ -462,7 +461,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
         $onclick = 'var dlg = document.getElementById(\'' . $id
             . '\'); xh.modalDialog(dlg, \'350px\', xh.validatePassword)';
         $o .= '<button type="button" onclick="' . $onclick
-            . '">Change Password</button>';
+            . '">' . $tx['password']['change'] . '</button>';
         return $o;
     }
 
@@ -535,7 +534,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
         global $pth, $tx, $_XH_csrfProtection;
 
         $action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
-        $value = ucfirst($tx['action']['save']); // TODO: utf8_ucfirst()
+        $value = utf8_ucfirst($tx['action']['save']);
         $button = tag('input type="submit" class="submit" value="' . $value . '"');
         $o = '<h1>' . ucfirst($this->caption) . '</h1>'
             . '<form id="xh_config_form" action="' . $action
@@ -577,6 +576,47 @@ class XH_ArrayFileEdit extends XH_FileEdit
     }
 
     /**
+     * Handles the submission of a password field and returns the new password
+     * hash on success, <var>false</var> on failure to change the password.
+     *
+     * @param array $opt    An option record.
+     * @param string $iname The name of the INPUT element.
+     * @param array $errors A LI elements with an error message.
+     *
+     * @return string
+     *
+     * @global array   The localization of the core.
+     * @global object  The password hasher.
+     */
+    function submitPassword($opt, $iname, &$errors)
+    {
+        global $tx, $xh_hasher;
+
+        if ($_POST[$iname . '_OLD'] == '') {
+            $val = $opt['val'];
+        } else {
+            $val = false;
+            $old = stsl($_POST[$iname . '_OLD']);
+            $new = stsl($_POST[$iname . '_NEW']);
+            $confirm = stsl($_POST[$iname . '_CONFIRM']);
+            if (!$xh_hasher->CheckPassword($old, $opt['val'])) {
+                $errors[] = '<li>' . $tx['error']['password_wrong'] . '</li>';
+            } else {
+                if ($new == '') {
+                    $errors[] = '<li>' . $tx['error']['password_invalid']
+                        . '</li>';
+                } elseif ($new != $confirm) {
+                    $errors[] = '<li>' . $tx['error']['password_mismatch']
+                        . '</li>';
+                } else {
+                    $val = $xh_hasher->HashPassword($new);
+                }
+            }
+        }
+        return $val;
+    }
+
+    /**
      * Handles the form submission.
      *
      * Triggers a redirect, if the submission was valid
@@ -586,14 +626,13 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * @return string  The (X)HTML.
      *
      * @global string  Error messages.
-     * @global object  The password hasher.
      * @global object  The CSRF protection object.
      *
      * @access public
      */
     function submit()
     {
-        global $e, $xh_hasher, $_XH_csrfProtection;
+        global $e, $_XH_csrfProtection;
 
         $_XH_csrfProtection->check();
         $errors = array();
@@ -602,29 +641,9 @@ class XH_ArrayFileEdit extends XH_FileEdit
                 $iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
                 $val = isset($_POST[$iname]) ? stsl($_POST[$iname]) : '';
                 if ($opt['type'] == 'bool') {
-                    // TODO: which values should be written back?
                     $val = isset($_POST[$iname]) ? 'true' : '';
                 } elseif ($opt['type'] == 'password') {
-                    if (empty($_POST[$iname . '_OLD'])) {
-                        $val = $opt['val'];
-                    } else {
-                        $old = stsl($_POST[$iname . '_OLD']);
-                        $new = stsl($_POST[$iname . '_NEW']);
-                        $confirm = stsl($_POST[$iname . '_CONFIRM']);
-                        if (!$xh_hasher->CheckPassword($old, $opt['val'])) {
-                            $errors[] = '<li>Wrong password</li>'; // TODO: i18n
-                        } else {
-                            if (empty($new)) {
-                                // TODO: i18n
-                                $errors[] = '<li>Password must not be empty</li>';
-                            } elseif ($new != $confirm) {
-                                // TODO: i18n
-                                $errors[] = '<li>Passwords do not match</li>';
-                            } else {
-                                $val = $xh_hasher->HashPassword($new);
-                            }
-                        }
-                    }
+                    $val = $this->submitPassword($opt, $iname, $errors);
                 }
                 $this->cfg[$cat][$name]['val'] = $val;
             }
@@ -844,7 +863,6 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
         );
         $this->redir = '?file=language&action=array';
         $this->cfg = array();
-        // TODO: sort?
         foreach ($tx as $cat => $opts) {
             $this->cfg[$cat] = array();
             foreach ($opts as $name => $val) {
