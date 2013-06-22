@@ -578,8 +578,7 @@ function XH_adminJSLocalization()
 
     $keys = array(
         'action' => array('cancel', 'ok'),
-        'error' => array('password_mismatch', 'password_wrong'),
-        'password' => array('fields_missing')
+        'password' => array('fields_missing', 'mismatch', 'wrong')
     );
     $l10n = array();
     foreach ($keys as $category => $keys2) {

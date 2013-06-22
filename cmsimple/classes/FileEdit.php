@@ -600,14 +600,12 @@ class XH_ArrayFileEdit extends XH_FileEdit
             $new = stsl($_POST[$iname . '_NEW']);
             $confirm = stsl($_POST[$iname . '_CONFIRM']);
             if (!$xh_hasher->CheckPassword($old, $opt['val'])) {
-                $errors[] = '<li>' . $tx['error']['password_wrong'] . '</li>';
+                $errors[] = '<li>' . $tx['password']['wrong'] . '</li>';
             } else {
                 if ($new == '') {
-                    $errors[] = '<li>' . $tx['error']['password_invalid']
-                        . '</li>';
+                    $errors[] = '<li>' . $tx['password']['invalid'] . '</li>';
                 } elseif ($new != $confirm) {
-                    $errors[] = '<li>' . $tx['error']['password_mismatch']
-                        . '</li>';
+                    $errors[] = '<li>' . $tx['password']['mismatch'] . '</li>';
                 } else {
                     $val = $xh_hasher->HashPassword($new);
                 }

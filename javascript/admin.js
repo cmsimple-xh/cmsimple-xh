@@ -138,7 +138,7 @@ xh.validatePassword = function(dialog) {
         return xh.i18n["password"]["fields_missing"];
     }
     if (newPassword != confirmation) {
-        return xh.i18n["error"]["password_mismatch"];
+        return xh.i18n["password"]["mismatch"];
     }
     request = new XMLHttpRequest();
     request.open("GET", "?xh_check=" + encodeURIComponent(oldPassword), false);
@@ -147,7 +147,7 @@ xh.validatePassword = function(dialog) {
         return "Server error: " + request.statusText;
     }
     if (request.responseText != 1) {
-        return xh.i18n["error"]["password_wrong"];
+        return xh.i18n["password"]["wrong"];
     }
     return true;
 }
