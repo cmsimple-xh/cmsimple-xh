@@ -12,7 +12,7 @@ function confirmFolderDelete(string)
     return confirm(string);
 }
 
-function showxhfbForm(id)
+function togglexhfbForm(id)
 {
     var isOpen = document.getElementById(id).style.display == "block";
     var forms = document.getElementsByTagName('fieldset');
