@@ -1,7 +1,5 @@
 <?php
 
-$plugin_tx['filebrowser']['help'] = "Listen Sie die in jedem Ordner erlaubten Dateiendungen - voneinander durch Kommas getrennt - auf. <b>*</b> dient als Platzhalter für alle Dateiendungen";
-
 $plugin_tx['filebrowser']['error_not_deleted']="<b>%s</b> wurde nicht gelöscht.";
 $plugin_tx['filebrowser']['error_file_is_used']="Die Datei wird auf folgenden Seiten verwendet:";
 $plugin_tx['filebrowser']['error_file_too_big']="Die Datei ist zu groß (%s kb). In diesem Ordner sind nur %s erlaubt. Diese Einstellung kann in der CMS-Konfiguration geändert werden.";
@@ -38,5 +36,10 @@ $plugin_tx['filebrowser']['folder'] = "Ordner";
 $plugin_tx['filebrowser']['files'] = "Dateien:";
 
 $plugin_tx['filebrowser']['utf-8-marker']="äöü";
+
+$plugin_tx['filebrowser']['cf_extensions_images']="Listen Sie die im Bilder-Ordner erlaubten Dateiendungen - voneinander durch Kommas getrennt - auf. <b>*</b> dient als Platzhalter für alle Dateiendungen";
+$plugin_tx['filebrowser']['cf_extensions_downloads']="Listen Sie die im Downloads-Ordner erlaubten Dateiendungen - voneinander durch Kommas getrennt - auf. <b>*</b> dient als Platzhalter für alle Dateiendungen";
+$plugin_tx['filebrowser']['cf_extensions_userfiles']="Listen Sie die im  Anwenderdateien-Ordner erlaubten Dateiendungen - voneinander durch Kommas getrennt - auf. <b>*</b> dient als Platzhalter für alle Dateiendungen";
+$plugin_tx['filebrowser']['cf_extensions_media']="Listen Sie die im Media-Ordner erlaubten Dateiendungen - voneinander durch Kommas getrennt - auf. <b>*</b> dient als Platzhalter für alle Dateiendungen";
 
 ?>

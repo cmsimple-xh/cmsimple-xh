@@ -26,14 +26,9 @@ initvar('filebrowser');
 if ($filebrowser) {
     $plugin = basename(dirname(__FILE__));
     $plugin = basename(dirname(__FILE__), "/");
-    $temp = sprintf(
-        $plugin_tx[$plugin]['help'], $pth['folder']['plugins'] . $plugin . '/inits'
-    );
     $o .= '<div class="plugintext">'
-        . '<div class="plugineditcaption">Filebrowser for CMSimple_xh</div>'
-        . '<p>Version for $CMSIMPLE_XH_VERSION$</p>'
-	. '<p>' . XH_helpIcon($temp) . '</p>'
-        . tag('br');
+        . '<div class="plugineditcaption">Filebrowser for $CMSIMPLE_XH_VERSION$</div>'
+        . tag('hr');
 
     $admin = isset($_POST['admin'])
         ? $_POST['admin']

@@ -1,7 +1,5 @@
 <?php
 
-$plugin_tx['filebrowser']['help'] = "Fill in the file extensions you want to allow for each folder as comma separated list. <b>*</b> is a wildcard for all file extensions.";
-
 $plugin_tx['filebrowser']['error_not_deleted']="<b>%s</b> was not deleted.";
 $plugin_tx['filebrowser']['error_file_is_used']="The file is used on these pages:";
 $plugin_tx['filebrowser']['error_file_too_big']="File size (%s kb) exceeds allowed limit (%s). You can increase the limit in the CMS configuration.";
@@ -38,5 +36,10 @@ $plugin_tx['filebrowser']['folder'] = "Folder";
 $plugin_tx['filebrowser']['files'] = "Files:";
 
 $plugin_tx['filebrowser']['utf-8-marker']="äöü";
+
+$plugin_tx['filebrowser']['cf_extensions_images']="Fill in the file extensions you want to allow for the images folder as comma separated list. <b>*</b> is a wildcard for all file extensions.";
+$plugin_tx['filebrowser']['cf_extensions_downloads']="Fill in the file extensions you want to allow for the downloads folder as comma separated list. <b>*</b> is a wildcard for all file extensions.";
+$plugin_tx['filebrowser']['cf_extensions_userfiles']="Fill in the file extensions you want to allow for the userfiles folder as comma separated list. <b>*</b> is a wildcard for all file extensions.";
+$plugin_tx['filebrowser']['cf_extensions_media']="Fill in the file extensions you want to allow for the media folder as comma separated list. <b>*</b> is a wildcard for all file extensions.";
 
 ?>
