@@ -14,6 +14,7 @@ function confirmFolderDelete(string)
 
 function showxhfbForm(id)
 {
+    var isOpen = document.getElementById(id).style.display == "block";
     var forms = document.getElementsByTagName('fieldset');
     for(var i=0; i<forms.length; i++){
         var form = forms[i];
@@ -21,21 +22,10 @@ function showxhfbForm(id)
             form.style.display='none';
         }
     }
-    document.getElementById(id).style.display='block';
-    document.getElementById(id).getElementsByTagName('input')[0].focus();
-}
-
-function closexhfbForm(id)
-{
-    document.getElementById(id).style.display='none';
-}
-
-function oldshowRenameForm(id)
-{
-
-    document.getElementById("rename_" + id).style.display='inline';
-    document.getElementById("rename_" + id).renameFile.select();
-    document.getElementById("file_" + id).style.display='none';
+    if (!isOpen) {
+        document.getElementById(id).style.display='block';
+        document.getElementById(id).getElementsByTagName('input')[0].focus();
+    }
 }
 
 
