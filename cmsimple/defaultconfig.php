@@ -30,6 +30,7 @@ $cf['menu']['levels']="3";
 $cf['menu']['levelcatch']="10";
 $cf['menu']['sdoc']="parent";
 $cf['menu']['legal']="CMSimple Legal Notices";
+$cf['plugins']['disabled']="";
 $cf['uri']['seperator']=":";
 $cf['uri']['length']="200";
 $cf['xhtml']['endtags']="";
