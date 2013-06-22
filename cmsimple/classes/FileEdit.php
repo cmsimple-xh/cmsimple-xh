@@ -394,10 +394,13 @@ class XH_ArrayFileEdit extends XH_FileEdit
      */
     function splitKey($key)
     {
-        // TODO: use explode()'s $limit
-        $parts = explode('_', $key);
-        $first = array_shift($parts);
-        return array($first, implode('_', $parts));
+        if (strpos($key, '_') !== false) {
+            list($first, $rest) = explode('_', $key, 2);
+        } else {
+            $first = $key;
+            $rest = '';
+        }
+        return array($first, $rest);
     }
 
     /**
@@ -549,9 +552,10 @@ class XH_ArrayFileEdit extends XH_FileEdit
                 if ($opt['type'] == 'hidden') {
                     $o .= $this->formField($category, $name, $opt);
                 } else {
+                    $displayName = $name != '' ? $name : $category;
                     $o .= '<div class="xh_label">'
                         . $info . '<span class="xh_label">'
-                        . $this->translate($name) . '</span>'
+                        . $this->translate($displayName) . '</span>'
                         . '</div>'
                         . '<div class="xh_field">'
                         . $this->formField($category, $name, $opt) . '</div>'
