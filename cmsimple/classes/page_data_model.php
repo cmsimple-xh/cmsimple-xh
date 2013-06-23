@@ -203,7 +203,9 @@ class PL_Page_Data_Model
     {
         $results = array();
         foreach ($this->data as $id => $page) {
-            if (strpos($page[$field], $value) !== false) {
+            if (isset($page[$field])
+                && strpos($page[$field], $value) !== false
+            ) {
                 $results[$id] = $page;
             }
         }
@@ -342,6 +344,14 @@ class PL_Page_Data_Model
     {
         array_splice($this->data, $key, 1);
         $this->save();
+    }
+
+    function remove($keys)
+    {
+        foreach ($keys as $key) {
+            unset($this->data[$key]);
+        }
+        $this->data = array_values($this->data);
     }
 
     /**
