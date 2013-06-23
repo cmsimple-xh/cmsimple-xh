@@ -994,8 +994,6 @@ function XH_readContents($language = null)
         $temp_h[] = trim(xh_rmws(strip_tags($temp[2])));
     }
 
-    $cl = count($c);
-
     /*
      * just a helper for the "url" construction:
      * will be filled like this [0] => "Page"
@@ -1018,14 +1016,6 @@ function XH_readContents($language = null)
         $tooLong[] = strlen($url) > $cf['uri']['length'];
     }
 
-    if (!($edit && $adm)) {
-        foreach ($c as $i => $j) {
-            if (cmscript('remove', $j)) {
-                $c[$i] = '#CMSimple hide#';
-            }
-        }
-    }
-
     $page_data_fields = $temp_data = array();
     if (preg_match('/<\?php(.*?)\?>/isu', $contentHead, $m)) {
         eval($m[1]);
@@ -1043,6 +1033,29 @@ function XH_readContents($language = null)
     $pd_router = new PL_Page_Data_Router(
         $h, $page_data_fields, $temp_data, $page_data
     );
+
+    // remove unpublished pages
+    if (!($edit && $adm)) {
+        $removed = array_keys($pd_router->find_field_value('published', '0'));
+        foreach ($c as $i => $text) {
+            if (cmscript('remove', $text)) {
+                $removed[] = $i;
+            }
+        }
+        foreach ($removed as $i) {
+            unset($u[$i]);
+            unset($tooLong[$i]);
+            unset($h[$i]);
+            unset($l[$i]);
+            unset($c[$i]);
+        }
+        $u = array_values($u);
+        $tooLong = array_values($tooLong);
+        $h = array_values($h);
+        $l = array_values($l);
+        $c = array_values($c);
+        $pd_router->remove($removed);
+    }
 
     return array(
         'urls' => $u,
