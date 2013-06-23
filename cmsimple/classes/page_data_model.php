@@ -203,8 +203,7 @@ class PL_Page_Data_Model
     {
         $results = array();
         foreach ($this->data as $id => $page) {
-            // TODO: use strpos() here; it's faster
-            if (strstr($page[$field], $value)) {
+            if (strpos($page[$field], $value) !== false) {
                 $results[$id] = $page;
             }
         }
