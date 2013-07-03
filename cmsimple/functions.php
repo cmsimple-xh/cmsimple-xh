@@ -1735,7 +1735,8 @@ function logincheck()
         session_start();
     }
     return isset($_SESSION['xh_password'])
-        && $_SESSION['xh_password'] == $cf['security']['password']
+        && isset($_SESSION['xh_password'][CMSIMPLE_ROOT])
+        && $_SESSION['xh_password'][CMSIMPLE_ROOT] == $cf['security']['password']
         && isset($_SESSION['xh_user_agent'])
         && $_SESSION['xh_user_agent'] == md5($_SERVER['HTTP_USER_AGENT']);
 }
