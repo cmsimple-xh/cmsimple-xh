@@ -993,6 +993,9 @@ if ($adm) {
     if ($settings) {
         $f = 'settings';
     }
+    if (isset($xh_backups)) {
+        $f = 'xh_backups';
+    }
     if (isset($sysinfo)) {
         $f = 'sysinfo';
     }
@@ -1017,7 +1020,7 @@ if ($adm) {
         $f = 'save';
     }
 
-    if ($f == 'settings' || $f == 'images' || $f == 'downloads'
+    if ($f == 'settings' || $f == 'xh_backups' || $f == 'images' || $f == 'downloads'
         || $f == 'validate' || $f == 'sysinfo' || $f == 'phpinfo'
     ) {
         $title = $tx['title'][$f];
@@ -1033,6 +1036,9 @@ if ($adm) {
         exit;
     case 'settings':
         $o .= XH_settingsView();
+        break;
+    case 'xh_backups':
+        $o .= XH_backupsView();
         break;
     case 'file':
         if (preg_match('/^\d{8}_\d{6}_content.htm$/', $file)) {

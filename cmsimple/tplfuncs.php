@@ -569,6 +569,10 @@ function admin_menu($plugins = array(), $debug = false)
         'url' => '?&amp;validate'
     );
     $settingsMenu[] = array(
+        'label' => utf8_ucfirst($tx['editmenu']['backups']),
+        'url' => '?&amp;xh_backups'
+    );
+    $settingsMenu[] = array(
         'label' => utf8_ucfirst($tx['editmenu']['sysinfo']),
         'url' => '?&amp;sysinfo'
     );

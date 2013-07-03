@@ -124,7 +124,8 @@ function XH_settingsView()
     }
     $o .= '</ul>' . "\n";
 
-    $o .= XH_backupView();
+    $o .= '<h4>' . $tx['settings']['backup'] . '</h4>' . "\n";
+    $o .= XH_backupsView();
     return $o;
 }
 
@@ -141,11 +142,11 @@ function XH_settingsView()
  *
  * @todo Add $sn to links.
  */
-function XH_backupView()
+function XH_backupsView()
 {
     global $pth, $tx, $_XH_csrfProtection;
 
-    $o = '<h4>' . $tx['settings']['backup'] . '</h4>' . "\n" . '<ul>' . "\n";
+    $o = '<ul>' . "\n";
     if (isset($_GET['xh_success'])) {
         $o .= XH_message('success', null, stsl($_GET['xh_success']));
     }

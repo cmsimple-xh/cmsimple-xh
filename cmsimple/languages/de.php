@@ -20,6 +20,7 @@ $tx['action']['save']="sichern";
 $tx['action']['upload']="upload";
 $tx['action']['view']="ansehen";
 
+$tx['editmenu']['backups']="Sicherheitskopien";
 $tx['editmenu']['configuration']="CMS";
 $tx['editmenu']['downloads']="Downloads";
 $tx['editmenu']['edit']="Bearbeiten";
@@ -235,6 +236,7 @@ $tx['title']['sitemap']="Sitemap";
 $tx['title']['sysinfo']="System-Info";
 $tx['title']['userfiles']="Andere";
 $tx['title']['validate']="Links prüfen";
+$tx['title']['xh_backups']="Sicherheitskopien";
 
 $tx['toc']['dupl']="DOPPELTE ÜBERSCHRIFT";
 $tx['toc']['empty']="LEERE ÜBERSCHRIFT";
