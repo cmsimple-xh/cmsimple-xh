@@ -518,7 +518,6 @@ function editmenu()
  * @global array  The URLs of the pages.
  * @global string The scipt name.
  * @global array  The localization of the core.
- * @global string The current language.
  * @global array  The localization of the core.
  * @global string The URL of the current page.
  *
@@ -526,7 +525,7 @@ function editmenu()
  */
 function admin_menu($plugins = array(), $debug = false)
 {
-    global $edit, $s, $u, $sn, $tx, $sl, $cf, $su;
+    global $edit, $s, $u, $sn, $tx, $cf, $su;
 
     if ($s < 0) {
         $su = $u[0];
@@ -541,40 +540,39 @@ function admin_menu($plugins = array(), $debug = false)
             'url' => '?&amp;normal&amp;' . $item
         );
     }
-    $settingsMenu = array();
-    if ($sl == $cf['language']['default']) {
-        $settingsMenu[] = array(
+    $settingsMenu = array(
+        array(
             'label' => utf8_ucfirst($tx['editmenu']['configuration']),
             'url' => '?file=config&amp;action=array'
-        );
-    }
-    $settingsMenu[] = array(
-        'label' => utf8_ucfirst($tx['editmenu']['language']),
-        'url' => '?file=language&amp;action=array'
-    );
-    $settingsMenu[] = array(
-        'label' => utf8_ucfirst($tx['editmenu']['template']),
-        'url' => '?file=template&amp;action=edit'
-    );
-    $settingsMenu[] = array(
-        'label' => utf8_ucfirst($tx['editmenu']['stylesheet']),
-        'url' => '?file=stylesheet&amp;action=edit'
-    );
-    $settingsMenu[] = array(
-        'label' => utf8_ucfirst($tx['editmenu']['log']),
-        'url' => '?file=log&amp;action=view'
-    );
-    $settingsMenu[] = array(
-        'label' => utf8_ucfirst($tx['editmenu']['validate']),
-        'url' => '?&amp;validate'
-    );
-    $settingsMenu[] = array(
-        'label' => utf8_ucfirst($tx['editmenu']['backups']),
-        'url' => '?&amp;xh_backups'
-    );
-    $settingsMenu[] = array(
-        'label' => utf8_ucfirst($tx['editmenu']['sysinfo']),
-        'url' => '?&amp;sysinfo'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['language']),
+            'url' => '?file=language&amp;action=array'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['template']),
+            'url' => '?file=template&amp;action=edit'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['stylesheet']),
+            'url' => '?file=stylesheet&amp;action=edit'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['log']),
+            'url' => '?file=log&amp;action=view'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['validate']),
+            'url' => '?&amp;validate'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['backups']),
+            'url' => '?&amp;xh_backups'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['sysinfo']),
+            'url' => '?&amp;sysinfo'
+        )
     );
     $pluginMenu = array();
     foreach ($plugins as $plugin) {
