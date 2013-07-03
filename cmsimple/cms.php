@@ -1041,7 +1041,7 @@ if ($adm) {
         $o .= XH_backupsView();
         break;
     case 'file':
-        if (preg_match('/^\d{8}_\d{6}_content.htm$/', $file)) {
+        if (XH_isContentBackup($file)) {
             $pth['file'][$file] = $pth['folder']['content'] . $file;
         }
         if ($pth['file'][$file] != '') {
@@ -1054,7 +1054,7 @@ if ($adm) {
                 download($pth['file'][$file]);
             } elseif ($action == 'restore') {
                 $_XH_csrfProtection->check();
-                if (preg_match('/^\d{8}_\d{6}_content.htm$/', $file)) {
+                if (XH_isContentBackup($file)) {
                     XH_restore($pth['file'][$file]);
                 }
             } elseif ($action == 'delete') {

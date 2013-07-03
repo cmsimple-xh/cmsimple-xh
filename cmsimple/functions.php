@@ -2063,7 +2063,7 @@ function XH_backup()
         $fl = array();
         $fd = @opendir($pth['folder']['content']);
         while (($p = @readdir($fd)) == true) {
-            if (preg_match('/^\d{8}_\d{6}_content.htm$/', $p)) {
+            if (XH_isContentBackup($p)) {
                 $fl[] = $p;
             }
         }
@@ -2186,6 +2186,20 @@ function XH_helpIcon($tooltip)
         . '<div>' . $tooltip . '</div>'
         . '</div>';
     return $o;
+}
+
+/**
+ * Returns whether a file is a content backup by checking the filename.
+ *
+ * @param string $filename A filename.
+ *
+ * @return bool
+ *
+ * @since 1.6
+ */
+function XH_isContentBackup($filename)
+{
+    return preg_match('/^\d{8}_\d{6}_content.htm$/', $filename);
 }
 
 ?>

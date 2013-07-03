@@ -171,7 +171,7 @@ function XH_backupsView()
         . $tx['settings']['backupexplain2'] . '</p>' . "\n" . '<ul>' . "\n";
     $fs = sortdir($pth['folder']['content']);
     foreach ($fs as $p) {
-        if (preg_match('/^\d{8}_\d{6}_content.htm$/', $p)) {
+        if (XH_isContentBackup($p)) {
             $size = filesize($pth['folder']['content'] . '/' . $p);
             $size = round(($size) / 102.4) / 10;
             $o .= '<li><a href="?file=' . $p . '&amp;action=view">'
