@@ -91,11 +91,7 @@ HTML;
 /**
  * Returns the general settings view.
  *
- * @global string The currently active language.
- * @global array  The paths of system files and folders.
- * @global array  The configuration of the core.
  * @global array  The localization of the core.
- * @global object The CSRF protection object.
  *
  * @return string The (X)HTML.
  *
@@ -105,7 +101,7 @@ HTML;
  */
 function XH_settingsView()
 {
-    global $sl, $pth, $cf, $tx, $_XH_csrfProtection;
+    global $tx;
 
     $o = '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
         . '<h4>' . $tx['settings']['systemfiles'] . '</h4>' . "\n" . '<ul>' . "\n";
@@ -128,7 +124,28 @@ function XH_settingsView()
     }
     $o .= '</ul>' . "\n";
 
-    $o .= '<h4>' . $tx['settings']['backup'] . '</h4>' . "\n" . '<ul>' . "\n";
+    $o .= XH_backupView();
+    return $o;
+}
+
+/**
+ * Returns the backup view.
+ *
+ * @global array  The paths of system files and folders.
+ * @global array  The localization of the core.
+ * @global object The CSRF protection object.
+ *
+ * @return string The (X)HTML.
+ *
+ * @since 1.6
+ *
+ * @todo Add $sn to links.
+ */
+function XH_backupView()
+{
+    global $pth, $tx, $_XH_csrfProtection;
+
+    $o = '<h4>' . $tx['settings']['backup'] . '</h4>' . "\n" . '<ul>' . "\n";
     if (isset($_GET['xh_success'])) {
         $o .= XH_message('success', null, stsl($_GET['xh_success']));
     }
@@ -173,7 +190,6 @@ function XH_settingsView()
     $o .= '</ul>' . "\n";
     return $o;
 }
-
 
 /**
  * Creates the menu of a plugin (add row, add tab), constructed as a table.
