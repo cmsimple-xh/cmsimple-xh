@@ -23,6 +23,8 @@
  */
 require_once '../cmsimple/classes/CSRFProtection.php';
 
+define('CMSIMPLE_ROOT', '/test/');
+
 /**
  * A test case to simulate the CSRF protection.
  *
@@ -40,7 +42,6 @@ class CSRFProtectionTest extends PHPUnit_Framework_TestCase
         $protection = new XH_CSRFProtection();
         $protection->tokenInput();
         $protection->store();
-
         $_POST['xh_csrf_token'] = $protection->token;
         $protection->check();
     }
@@ -51,7 +52,7 @@ class CSRFProtectionTest extends PHPUnit_Framework_TestCase
     public function testCSRFAttack()
     {
         $protection = new XH_CSRFProtection();
-        $_SESSION['xh_csrf_token'] = '5dff45ce0e8db5e4ea2bf59cf0cb96dd';
+        $_SESSION['xh_csrf_token'][CMSIMPLE_ROOT] = '5dff45ce0e8db5e4ea2bf59cf0cb96dd';
         $_POST['xh_csrf_token'] = 'fd97a436f658ecc2178561898f8a6c9e';
         $protection->check();
 

@@ -69,8 +69,8 @@ class XH_CSRFProtection
         if (session_id() == '') {
             session_start();
         }
-        if (!isset($_SESSION['xh_csrf_token'])
-            || $submittedToken != $_SESSION['xh_csrf_token']
+        if (!isset($_SESSION['xh_csrf_token'][CMSIMPLE_ROOT])
+            || $submittedToken != $_SESSION['xh_csrf_token'][CMSIMPLE_ROOT]
         ) {
             header('HTTP/1.0 403 Forbidden');
             echo 'Invalid CSRF token!';
@@ -91,7 +91,7 @@ class XH_CSRFProtection
             if (session_id() == '') {
                 session_start();
             }
-            $_SESSION['xh_csrf_token'] = $this->token;
+            $_SESSION['xh_csrf_token'][CMSIMPLE_ROOT] = $this->token;
         }
     }
 }
