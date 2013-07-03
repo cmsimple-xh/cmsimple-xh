@@ -655,6 +655,15 @@ if ($adm) {
 }
 
 /*
+ * Handle AJAX request to keep the admin session alive.
+ */
+if (XH_ADM && isset($_GET['xh_keep_alive'])) {
+    session_start();
+    header('Content-Type: text/plain');
+    exit;
+}
+
+/*
  * Handle AJAX request to check the password.
  */
 if (XH_ADM && isset($_GET['xh_check'])) {
@@ -672,13 +681,20 @@ if (XH_ADM && isset($_GET['xh_check'])) {
 // SETTING FUNCTIONS AS PERMITTED
 
 if ($adm) {
+    $temp = 1000 * (ini_get('session.gc_maxlifetime') - 1);
     $o .= '<script type="text/javascript">/* <![CDATA[ */'
         . 'if (document.cookie.indexOf(\'status=adm\') == -1)'
         . ' document.write(\'<div class="cmsimplecore_warning">'
         . $tx['error']['nocookies'] . '<\/div>\')'
         . '/* ]]> */</script>'
         . '<noscript><div class="cmsimplecore_warning">'
-        . $tx['error']['nojs'] . '</div></noscript>';
+        . $tx['error']['nojs'] . '</div></noscript>'
+        . '<script type="text/javascript">/* <![CDATA[ */'
+        . 'setInterval(function() {'
+        . 'var request = new XMLHttpRequest();'
+        . 'request.open("GET", "?xh_keep_alive"); request.send(null);'
+        . '}, ' . $temp . ');'
+        . '/* ]]> */</script>';
     if ($edit) {
         setcookie('mode', 'edit', 0, CMSIMPLE_ROOT);
     }
