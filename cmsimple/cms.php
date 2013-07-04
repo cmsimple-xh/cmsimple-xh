@@ -544,7 +544,7 @@ if (!isset($cf['uri']['length'])) {
 $su = substr($su, 0, $cf['uri']['length']);
 
 if ($download != '') {
-    download($pth['folder']['downloads'] . basename($download));
+    download($pth['folder']['downloads'] . basename(stsl($download)));
 }
 
 $pth['file']['search'] = $pth['folder']['cmsimple'] . 'search.php';
@@ -593,6 +593,8 @@ foreach (XH_plugins() as $plugin) {
 // LOGIN & BACKUP
 
 $adm = gc('status') == 'adm' && logincheck();
+
+$keycut = stsl($keycut);
 
 if ($login && $keycut == '' && !$adm) {
     $login = null;

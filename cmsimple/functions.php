@@ -737,7 +737,7 @@ function download($fl)
         || ($download != '' && !chkdl($sn . '?download=' . basename($fl)))
     ) {
         shead('404');
-        $o .= '<p>File ' . $fl . '</p>';
+        $o .= '<p>File ' . htmlspecialchars($fl, ENT_NOQUOTES, 'UTF-8') . '</p>';
         return;
     } else {
         header('Content-Type: application/save-as');
