@@ -6,6 +6,8 @@ $tx['subsite']['template']="";
 $tx['meta']['keywords']="Enter list of comma separated keywords here";
 $tx['meta']['description']="Enter website description for search engine results here";
 
+$tx['locale']['all']="";
+
 $tx['template']['text1']="text 1 for templates requiring this text";
 $tx['template']['text2']="text 2 for templates requiring this text";
 $tx['template']['text3']="text 3 for templates requiring this text";
@@ -211,6 +213,8 @@ $tx['success']['saved'] = "File saved: ";
 
 $tx['syscheck']['encoding']="Encoding 'UTF-8' configured";
 $tx['syscheck']['extension']="Extension '%s' loaded";
+$tx['syscheck']['locale_available']="Locale '%s' available";
+$tx['syscheck']['locale_default']="Default locale in use";
 $tx['syscheck']['writable']="'%s' writable";
 $tx['syscheck']['magic_quotes']="Magic quotes runtime off";
 $tx['syscheck']['phpversion']="PHP version ≥ %s";

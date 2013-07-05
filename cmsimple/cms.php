@@ -279,6 +279,10 @@ $tx = null;
 require $pth['folder']['language'] . 'default.php';
 require $pth['file']['language'];
 
+if ($tx['locale']['all'] != '') {
+    setlocale(LC_ALL, $tx['locale']['all']);
+}
+
 // removed from the core in XH 1.6, but left for compatibility with plugins.
 $tx['meta']['codepage']='UTF-8';
 

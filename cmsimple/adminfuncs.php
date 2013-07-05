@@ -81,6 +81,14 @@ HTML;
     }
     $checks['writable'] = array_unique($checks['writable']);
     sort($checks['writable']);
+    if ($tx['locale']['all'] == '') {
+        $checks['other'][] = array(true, false, $tx['syscheck']['locale_default']);
+    } else {
+        $checks['other'][] = array(
+            setlocale(LC_ALL, $tx['locale']['all']), false,
+            sprintf($tx['syscheck']['locale_available'], $tx['locale']['all'])
+        );
+    }
     $checks['other'][] = array(!get_magic_quotes_runtime(),
                              false, $tx['syscheck']['magic_quotes']);
     $o .= XH_systemCheck($checks);
