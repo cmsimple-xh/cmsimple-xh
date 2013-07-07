@@ -156,6 +156,36 @@ function Pageparams_radioPair($name, $isYes, $toggles)
 }
 
 /**
+ * Returns the last edit radio group.
+ *
+ * @param int $value The current value.
+ *
+ * @return string (X)HTML
+ *
+ * @global array The localization of the plugins.
+ *
+ * @since 1.6
+ */
+function Pageparams_lastEditRadiogroup($value)
+{
+    global $plugin_tx;
+
+    $o = '';
+    foreach (array('top' => 2, 'bottom' => 1, 'no' => 0) as $string => $number) {
+        $id = 'show_last_edit_' . $string;
+        $checked = $value == $number ? ' checked="checked"' : '';
+        $radio = tag(
+            'input type="radio" name="show_last_edit" id="' . $id . '"'
+            . ' value="' . $number . '"' . $checked
+        );
+        $o .= "\n\t\t" . $radio . '<label for="' . $id . '">'
+            . $plugin_tx['page_params'][$string] . '</label>';
+    }
+    $o .= tag('br');
+    return $o;
+}
+
+/**
  * Returns an INPUT element.
  *
  * @param string $name     A name.
@@ -315,9 +345,7 @@ function page_params_view($page)
      * last edit
      */
     $view .= Pageparams_caption($lang['show_last_edit'], $lang['hint_last_edit']);
-    $view .= Pageparams_radioPair(
-        'show_last_edit', $page['show_last_edit'] == '1', array()
-    );
+    $view .= Pageparams_lastEditRadiogroup($page['show_last_edit']);
     if ($page['last_edit'] !== '') {
         $view .= "\n\t\t" . '&nbsp;&nbsp;(' . $lang['last_edit'] . ' '
             . date($tx['lastupdate']['dateformat'], $page['last_edit']) . ')';
