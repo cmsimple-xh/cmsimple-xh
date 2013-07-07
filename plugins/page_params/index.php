@@ -53,7 +53,7 @@ function Pageparams_handleRelocation($index, $data)
     $location = $data['header_location'];
     if ($data['use_header_location'] == '1' && trim($location) !== '' ) {
         $components = parse_url($location);
-        if (!$components || isset($components['scheme'])) {
+        if (!$components || !isset($components['scheme'])) {
             $location = 'http://' . $_SERVER['HTTP_HOST'] . $sn . $location;
         }
         if ($index == $s) {
