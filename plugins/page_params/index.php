@@ -104,6 +104,49 @@ function Pageparams_isPublished($pd_page)
     return true;
 }
 
+/**
+ * Switches the template if a page specific is defined. Page specific templates
+ * of super pages are inherited if not overridden.
+ *
+ * @param int $n Index of the current page.
+ *
+ * @return void
+ *
+ * @global array  The paths of system files and folders.
+ * @global array  The configuration of the core.
+ * @global object The page data router.
+ *
+ * @since 1.6
+ */
+function Pageparams_switchTemplate($n)
+{
+    global $pth, $cf, $pd_router;
+
+    include_once $pth['folder']['classes'] . 'Pages.php';
+    $pages = new XH_Pages();
+    while (true) {
+        $data = $pd_router->find_page($n);
+        if (isset($data['template']) && trim($data['template']) != ''
+            && is_dir($pth['folder']['templates'] . $data['template'])
+        ) {
+            break;
+        }
+        $n = $pages->parent($n);
+        if (!isset($n)) {
+            break;
+        }
+    }
+    if (isset($n) && $data['template'] != $cf['site']['template']) {
+        $cf['site']['template'] = $data['template'];
+        $dir = $pth['folder']['templates'] . $cf['site']['template'] . '/';
+        $pth['folder']['template'] = $dir;
+        $pth['file']['template'] = $dir . 'template.htm';
+        $pth['file']['stylesheet'] = $dir . 'stylesheet.css';
+        $pth['folder']['menubuttons'] = $dir . 'menu/';
+        $pth['folder']['templateimages'] = $dir . 'images/';
+    }
+}
+
 /*
  * Add used interests to router.
  */
@@ -127,24 +170,12 @@ $pd_router->add_tab(
 );
 
 /*
- * Set template, overwrite default.
+ * Switche the template if a page specific is defined.
  */
-if (isset($pd_current['template'])
-    && $pd_current['template'] !== $cf['site']['template']
-    && trim($pd_current['template']) !== ''
-    && is_dir($pth['folder']['templates'] . $pd_current['template'])
-) {
-    $cf['site']['template'] = $pd_current['template'];
-    $temp = $pth['folder']['templates'] . $cf['site']['template'] . '/';
-    $pth['folder']['template'] = $temp;
-    $pth['file']['template'] = $temp . 'template.htm';
-    $pth['file']['stylesheet'] = $temp . 'stylesheet.css';
-    $pth['folder']['menubuttons'] = $temp . 'menu/';
-    $pth['folder']['templateimages'] = $temp . 'images/';
-}
+Pageparams_switchTemplate($pd_s);
 
 /*
- * Overwrite defaults by page-parameters but only if not in edit-mode.
+ * Override defaults by page-parameters but only if not in edit-mode.
  */
 if (!$edit && $pd_current) {
     if ($pd_current['show_heading'] == '1') {
