@@ -8,7 +8,7 @@
  *
  * @author Martin Damken
  * @link http://www.zeichenkombinat.de
- * @version $Id$
+ * @version 1.0.03
  * @package pluginloader
  * @subpackage page_params
  */

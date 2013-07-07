@@ -12,7 +12,8 @@
  *
  * @author Martin Damken
  * @link http://www.zeichenkombinat.de
- * @version $Id$
+ * @maintenance Jerry Jakobsfeld http://simplesolutions.dk
+ * @version 1.1.0 December 2012
  * @package pluginloader
  * @subpackage page_params
  */
@@ -28,6 +29,8 @@ $pd_router -> add_interest('heading');
 $pd_router -> add_interest('show_heading');
 $pd_router -> add_interest('template');
 $pd_router -> add_interest('published');
+$pd_router -> add_interest('publication_date');  //extention by simpleSolutions
+$pd_router -> add_interest('expires');           //extention by simpleSolutions
 $pd_router -> add_interest('show_last_edit');
 $pd_router -> add_interest('linked_to_menu');
 $pd_router -> add_interest('header_location');
@@ -102,11 +105,36 @@ if(!$adm OR ($adm && !$edit))
 		{
 			$c[$key] = '#CMSimple hide#' . $c[$key];
 		}
-		if($values['published'] == '0')
-		{
-		$c[$key] = '#CMSimple hide#';
+		//changed by simplesolutions
+		else if(!pd_published($values)) {
+			$c[$key] = '#CMSimple hide#';
 		}
 	}
 }
 
+/************************************************************************
+* extention by simpleSolutions
+*************************************************************************/
+function pd_published($pd_page)
+{
+	global $plugin_tx;
+	
+	if ($pd_page['published'] == '0') {
+		return false;
+	}
+	$publication_date=isset($pd_page['publication_date'])?trim($pd_page['publication_date']):"";
+	$expires= isset($pd_page['expires'])?trim($pd_page['expires']):"";
+	if (($expires != "") || ($publication_date!="")) {
+		$timezone=(intval($plugin_tx['page_params']['time_zone']) + intval(date("I")))*60*60;	//GTM time correction and day saving time 
+		$current = intval(strtotime(gmstrftime ("%Y-%m-%d %H:%M")))+$timezone;	
+		if (!defined('PHP_INT_MAX'))
+			define('PHP_INT_MAX',intval('9223372036854775807'));
+		$int_publication_date= ($publication_date!="") ? strtotime($publication_date) : 0;
+		$int_expiration_date=  ($expires!="") ? strtotime($expires) : PHP_INT_MAX;
+		if (!($current>$int_publication_date && $current<$int_expiration_date)) {
+			return false;	
+		}
+	}
+	return true;
+}
 ?>

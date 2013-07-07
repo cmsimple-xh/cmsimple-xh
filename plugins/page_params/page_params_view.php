@@ -71,16 +71,53 @@ function page_params_view($page){
 	$view .= "\n\t".'<span class = "pp_label">'.$lang['published'] .'</span>'.tag('br');
 
 	$checked = '';
-	if($page['published'] !== '0'){
+	if($page['published'] == '1'){
 		$checked = $strChecked;
+		$disabled = "";
 	}
-	$view .= "\n\t\t".tag('input type="radio" name="published" value="1" id = "published_yes"'.$checked).'<label for="published_yes">'.$lang['yes'].'</label>';
+//publication period
+	$hjs.='<script type="text/javascript">
+	/* <![CDATA[ */
+
+	function page_params_date_check(field){
+		var datearr=field.value.split(" ");
+		if (datearr[0]=="" || datearr[0]==undefined)
+			datearr[0]="2099-12-31";
+		if (datearr[1]=="" || datearr[1]==undefined)
+			datearr[1]="00:00";
+		var dateformat = /^\d{4}[-](0?[1-9]|1[012])[-](0?[1-9]|[12][0-9]|3[01])$/
+		var timeformat = /^([01]?[0-9]|2[0-3)])[:]([0-5]?[0-9])$/
+	 	if (dateformat.test(datearr[0]) && timeformat.test(datearr[1]) ) {
+	 		field.style.backgroundColor ="#FFFFFF";
+		}
+		else {
+			field.style.backgroundColor ="#FFE4E1";
+		 	alert("Date must be in format \"yyyy-d-m [h:m]\" i.e 2099-12-31 or 2099-12-31 23:59");
+		}
+	}
+	/* ]]> */
+	</script>';
+
+	$js = " onclick=\"window.document.page_params.expires.disabled = false; window.document.page_params.publication_date.disabled = false; \"";
+	$view .= "\n\t\t".tag('input type="radio" name="published" value="1" id = "published_yes"'.$checked. $js).'<label for="published_yes">'.$lang['yes'].'</label>';
 	$checked = '';
 	if($page['published'] == '0'){
 		$checked = $strChecked;
+		$disabled = $strDisabled;
 	}
-    $view .= "\n\t\t".tag('input type="radio" name="published" value="0" id = "published_no"'.$checked). '<label for="published_no">'.$lang['no'].'</label>' .tag('br');
-    $view .= "\n\t".tag('hr');
+	$js = " onclick=\"window.document.page_params.expires.disabled = true; ";
+	$js .= " window.document.page_params.publication_date.disabled = true; \"";
+  $view .= "\n\t\t".tag('input type="radio" name="published" value="0" id = "published_no"'.$checked. $js). '<label for="published_no">'.$lang['no'].'</label>' .tag('br');
+  $view .= "\n\t".'<a class="pl_tooltip" href="#">'.$help_icon.'<span>'.$lang['hint_publication_period'].'</span></a>';
+ 	$view .= "\n\t\t".$plugin_tx['page_params']['publication_period'];
+
+	$view .= tag('input type="text" size="16" maxlength="16" name="publication_date" id = "publication_date" value="'. $page['publication_date'].'"'.$disabled.' onchange="page_params_date_check(window.document.page_params.publication_date)"');
+	$view .= 	" - ";
+	$view .= tag('input type="text" size="16" maxlength="16" name="expires" id = "expires" value="'. $page['expires'].'"'.$disabled.' onchange="page_params_date_check(window.document.page_params.expires)"');
+
+	$view .= tag('br');
+	//publication period end
+  $view .= "\n\t".tag('hr');
 
 #### linked to menu #####################
 	$view .= "\n\t".XH_helpIcon($lang['hint_linked_to_menu']);
