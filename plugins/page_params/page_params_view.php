@@ -278,7 +278,7 @@ function page_params_view($page)
      */
     $view .= Pageparams_caption($lang['published'], $lang['hint_published']);
     $view .= Pageparams_radioPair(
-        'published', $page['published'] == '1',
+        'published', $page['published'] != '0',
         array('expires', 'publication_date')
     );
     $view .= "\n\t" . XH_helpIcon($lang['hint_publication_period']);
