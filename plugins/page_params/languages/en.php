@@ -15,6 +15,7 @@ $plugin_tx['page_params']['time_zone']="+1";
 $plugin_tx['page_params']['linked_to_menu']="Show in menu?";
 $plugin_tx['page_params']['yes']="yes";
 $plugin_tx['page_params']['no']="no";
+$plugin_tx['page_params']['quick_select']="Quick select...";
 $plugin_tx['page_params']['submit']="save";
 $plugin_tx['page_params']['use_default_template']="default template";
 $plugin_tx['page_params']['hint_heading']="<p>You may choose a different heading to be displayed on the page.</p><p>The heading you insert in the text editor below will still be used for the menus.</p>";

@@ -58,6 +58,7 @@ function Pageparams_hjs()
     return <<<HTM
 <script type="text/javascript">
 /* <![CDATA[ */
+var PAGEPARAMS = PAGEPARAMS || {};
 
 function page_params_date_check(field) {
     var datearr = field.value.split(" ");
@@ -74,6 +75,12 @@ function page_params_date_check(field) {
         alert("Date must be in format \"yyyy-d-m [h:m]\""
             + " i.e 2099-12-31 or 2099-12-31 23:59");
     }
+}
+
+PAGEPARAMS.onLinkListChange = function(that) {
+    var input = document.forms["page_params"].elements["header_location"];
+
+    input.value = that.value ? "?" + that.value : "";
 }
 /* ]]> */
 </script>
@@ -266,6 +273,40 @@ function Pageparams_templateSelectbox($page)
 }
 
 /**
+ * Returns a quick select for site internal links.
+ *
+ * @param string $default  Default value of the redirect.
+ * @param bool   $disabled Whether the SELECT element is initially disabled.
+ *
+ * @return string (X)HTML
+ *
+ * @global array The paths of system files and folders.
+ * @global array The localization of the plugins.
+ *
+ * @since 1.6
+ */
+function Pageparams_linkList($default, $disabled)
+{
+    global $pth, $plugin_tx;
+
+    include_once $pth['folder']['classes'] . 'Pages.php';
+    $pages = new XH_Pages();
+    $disabled = $disabled ? ' disabled="disabled"' : '';
+    $onchange = ' onchange="PAGEPARAMS.onLinkListChange(this)"';
+    $o = '<select name="pageparams_linklist"' . $disabled . $onchange . '>';
+    $links = $pages->linkList();
+    array_unshift($links, array($plugin_tx['page_params']['quick_select'], ''));
+    foreach ($links as $link) {
+        list($heading, $url) = $link;
+        $selected = '?' . $url == $default ? ' selected="selected"' : '';
+        $o .= '<option value="' . $url . '"' . $selected . '>'
+            . $heading . '</option>';
+    }
+    $o .= '</select>';
+    return $o;
+}
+
+/**
  * Returns the editor tab view.
  *
  * @param array $page Page data of the current page.
@@ -360,11 +401,15 @@ function page_params_view($page)
     );
     $view .= Pageparams_radioPair(
         'use_header_location', $page['use_header_location'] == '1',
-        array('header_location')
+        array('header_location', 'pageparams_linklist')
     );
     $view .= Pageparams_input(
         'header_location', 'other_header_location', $page['header_location'],
         $page['use_header_location'] !== '1'
+    );
+    $view .= tag('br');
+    $view .= Pageparams_linkList(
+        $page['header_location'], $page['use_header_location'] !== '1'
     );
     $view .= tag('br') . "\n\t";
 

@@ -15,6 +15,7 @@ $plugin_tx['page_params']['time_zone']="+1";
 $plugin_tx['page_params']['linked_to_menu']="In der Navigation anzeigen?";
 $plugin_tx['page_params']['yes']="ja";
 $plugin_tx['page_params']['no']="nein";
+$plugin_tx['page_params']['quick_select']="Schnellauswahl...";
 $plugin_tx['page_params']['submit']="speichern";
 $plugin_tx['page_params']['use_default_template']="Standard-Template";
 $plugin_tx['page_params']['hint_heading']="<p>Mit der Überschrift im Texteditor bestimmen Sie, unter welchem Titel diese Seite im Menü verlinkt wird.</p><p>Wenn Sie auf der Seite selbst eine andere Überschrift (oder auch keine) anzeigen wollen, können Sie das hier festlegen. (Diese Änderung ist nur im Ansichtsmodus und im ausgeloggten Zustand sichtbar.)</p>";
