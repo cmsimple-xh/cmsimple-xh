@@ -16,6 +16,9 @@ PHPSOURCES=cmsimple/adminfuncs.php\
 	   plugins/meta_tags/index.php\
 	   plugins/meta_tags/_admin.php\
 	   plugins/meta_tags/meta_tags_view.php\
+           plugins/page_params/index.php\
+           plugins/page_params/_admin.php\
+           plugins/page_params/page_params_view.php\
 	   plugins/filebrowser/index.php\
 	   plugins/filebrowser/admin.php\
 	   plugins/filebrowser/editorbrowser.php\

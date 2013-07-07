@@ -1,6 +1,6 @@
 <html><head><title>Content file</title>
 <?php
-$page_data_fields=array('url','last_edit','description','keywords','title','robots','heading','show_heading','template','published','show_last_edit','linked_to_menu','header_location','use_header_location');
+$page_data_fields=array('url','last_edit','description','keywords','title','robots','heading','show_heading','template','published','show_last_edit','linked_to_menu','header_location','use_header_location','publication_date','expires');
 $temp_data=array(
 
 );
@@ -16,13 +16,15 @@ $page_data[]=array(
 'title'=>'',
 'robots'=>'',
 'heading'=>'',
-'show_heading'=>'',
-'template'=>'',
-'published'=>'',
-'show_last_edit'=>'',
+'show_heading'=>'0',
+'template'=>'0',
+'published'=>'0',
+'show_last_edit'=>'0',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>Congratulations on your new installation of CMSimple_XH. You can login now with the default password, which you will find in the readme.txt of the download. Delete the readme.txt on your webserver, if you have uploaded it.</p>
@@ -73,7 +75,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>Headings h1–h3 are used for splitting up the content file. An h1, h2 or h3 heading will dynamically split the document into new pages in the table of contents. An h4, h5 or h6 heading is used as a heading within a page.</p>
@@ -99,7 +103,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>An h2 heading splits into a new page.</p>
@@ -125,7 +131,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>An h3 heading splits into a new page.</p>
@@ -151,7 +159,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>An h3 heading splits into a new page.</p>
@@ -177,7 +187,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>An h3 heading splits into a new page.</p>
@@ -203,7 +215,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>An h2 heading splits into a new page.</p>
@@ -229,7 +243,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>An h3 heading splits into a new page.</p>
@@ -255,7 +271,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>An h3 heading splits into a new page.</p>
@@ -281,7 +299,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>An h3 heading splits into a new page.</p>
@@ -307,7 +327,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>An h2 heading splits into a new page.</p>
@@ -333,7 +355,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>An h3 heading splits into a new page.</p>
@@ -359,7 +383,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>An h3 heading splits into a new page.</p>
@@ -385,7 +411,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>An h3 heading splits into a new page.</p>
@@ -411,7 +439,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>Through the use of a different <strong>template</strong> you can give your pages a completely different look, and through <strong>plugins</strong> you can greatly enlarge the functionality of your CMSimple_XH website.</p>
@@ -438,7 +468,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'1',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <p>The standard download of CMSimple_XH from version 1.5 onwards comes with English and German language files only.</p>
@@ -461,7 +493,9 @@ $page_data[]=array(
 'show_last_edit'=>'0',
 'linked_to_menu'=>'0',
 'header_location'=>'',
-'use_header_location'=>'0'
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <h4>Newsbox News01</h4>
@@ -488,7 +522,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'0',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <h4>Newsbox News02</h4>
@@ -515,7 +551,9 @@ $page_data[]=array(
 'show_last_edit'=>'',
 'linked_to_menu'=>'0',
 'header_location'=>'',
-'use_header_location'=>''
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
 );
 ?>
 <h4>Newsbox News03</h4>
