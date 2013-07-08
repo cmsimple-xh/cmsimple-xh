@@ -1168,12 +1168,6 @@ if ($s == -1 && !$f && $o == '') {
 
 loginforms();
 
-// FIXME: Don't we check these files when accessing them?
-//        And we have the system check!
-$temp = array('content', 'config', 'language', 'stylesheet', 'template', 'log');
-foreach ($temp as $i) {
-    chkfile($i, ($login || $settings) && $adm);
-}
 if ($e) {
     $o = '<div class="cmsimplecore_warning cmsimplecore_center">' . "\n"
         . '<b>' . $tx['heading']['warning'] . '</b>' . "\n" . '</div>' . "\n"

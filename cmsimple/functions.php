@@ -827,10 +827,16 @@ function rf($fl)
  * @global array The localization of the core.
  *
  * @return bool
+ *
+ * @deprecated since 1.6.
  */
 function chkfile($fl, $writable)
 {
     global $pth, $tx;
+
+    trigger_error(
+        'Function '. __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
+    );
 
     $t = isset($pth['file'][$fl]) ? $pth['file'][$fl] : '';
     if ($t == '') {
@@ -1763,7 +1769,6 @@ function writelog($m)
         fclose($fh);
     } else {
         e('cntwriteto', 'log', $pth['file']['log']);
-        chkfile('log', true);
     }
 }
 
