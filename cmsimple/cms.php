@@ -227,7 +227,11 @@ foreach (array('userfiles', 'downloads', 'images', 'media') as $temp) {
     if (!isset($cf['folders'][$temp])) {
         $cf['folders'][$temp] = $temp != 'media' ? "$temp/" : 'downloads/';
     }
-    $pth['folder'][$temp] = $pth['folder']['base'] . $cf['folders'][$temp];
+    if ($temp == 'userfiles') {
+        $pth['folder'][$temp] = $pth['folder']['base'] . $cf['folders'][$temp];
+    } else {
+        $pth['folder'][$temp] = $pth['folder']['userfiles'] . $cf['folders'][$temp];
+    }
 }
 
 $pth['folder']['flags'] = $pth['folder']['images'] . 'flags/';

@@ -71,7 +71,7 @@ if ($fb_type && array_key_exists($fb_type, $browser->baseDirectories)) {
     $dst = implode('&', $dst);
     $browser->setlinkParams($dst);
 
-    $browser->baseDirectory = $browser->baseDirectories[$fb_type];
+    $browser->baseDirectory = $browser->baseDirectories['userfiles'];
     $browser->currentDirectory = $browser->baseDirectories[$fb_type];
 
     if (isset($_GET['subdir'])) {
@@ -79,7 +79,7 @@ if ($fb_type && array_key_exists($fb_type, $browser->baseDirectories)) {
             array('../', './', '?', '<', '>', ':'), '', $_GET['subdir']
         );
 
-        if (strpos($subdir, $browser->currentDirectory) === 0) {
+        if (strpos($subdir, $browser->baseDirectory) === 0) {
             $browser->currentDirectory = rtrim($subdir, '/') . '/';
         }
     }

@@ -113,6 +113,11 @@ $tx['help']['uri_length']="The URLs of the pages will be truncated at this lengt
 $tx['help']['xhtml_amp']="<b>true</b> converts <b>&</b> to <b>&amp;amp;</b> in your content. Changing this setting is not recommended";
 $tx['help']['xhtml_endtags']="<b>true</b> creates in the content XHTML required endslashes in standalone tags like &lt;br&gt; etc.";
 
+$tx['help']['folders_userfiles']="The base folder of all userfiles.";
+$tx['help']['folders_downloads']="A subfolder of userfiles.";
+$tx['help']['folders_images']="A subfolder of userfiles.";
+$tx['help']['folders_media']="A subfolder of userfiles.";
+
 $tx['images']['usedin']="Used in";
 
 $tx['languagemenu']['text']="select language: ";

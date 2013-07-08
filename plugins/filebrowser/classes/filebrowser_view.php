@@ -135,9 +135,9 @@ class XHFileBrowserView
     {
         global $tx, $plugin_tx;
 
-        $title = isset($tx['title'][$this->baseLink])
-            ? utf8_ucfirst($tx['title'][$this->baseLink])
-            : ucfirst($this->baseLink . ' ' . $this->translate('folder'));
+        $title = isset($tx['title']['userfiles'])
+            ? utf8_ucfirst($tx['title']['userfiles'])
+            : ucfirst('Userfiles ' . $this->translate('folder'));
         $html = '<ul><li class="openFolder"><a href="?'
             . htmlspecialchars($this->linkParams, ENT_QUOTES, 'UTF-8') . '">'
             . $title . ' ' . $plugin_tx['filebrowser']['folder'] . '</a>';

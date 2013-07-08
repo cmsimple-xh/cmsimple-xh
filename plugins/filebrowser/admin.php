@@ -63,13 +63,14 @@ $hjs .= '<script type="text/javascript" src="' . XHFB_PATH . 'js/filebrowser.js"
     . '</script>';
 
 $subdir = isset($_GET['subdir'])
-    ? str_replace(array('..', '.'), '', $_GET['subdir']) : '';
+    ? str_replace(array('..', '.'), '', $_GET['subdir'])
+    : ltrim($pth['folder'][$f], './');
 
-if (strpos($subdir, $browser->baseDirectories[$f]) !== 0) {
-    $subdir = $browser->baseDirectories[$f];
+$browser->baseDirectory = ltrim($pth['folder']['userfiles'], './');
+if (strpos($subdir, $browser->baseDirectory) !== 0) {
+    $subdir = $browser->baseDirectory;
 }
 
-$browser->baseDirectory = $browser->baseDirectories[$f];
 $browser->currentDirectory =  rtrim($subdir, '/') . '/';
 $browser->linkType = $f;
 $browser->setLinkParams($f);

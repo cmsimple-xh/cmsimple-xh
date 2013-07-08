@@ -113,6 +113,11 @@ $tx['help']['uri_length']="Die URLs der Seiten werden ab dieser Länge abgeschni
 $tx['help']['xhtml_amp']="<b>true</b> konvertiert <b>&</b> zu <b>&amp;amp;</b> im Inhalt. Änderung nicht empfohlen.";
 $tx['help']['xhtml_endtags']="<b>true</b> erzeugt im Inhalt die für bestimmte XHTML-Auszeichnungselemente erforderlichen Abschluss-Schrägstriche, wie &lt;br /&gt; etc.";
 
+$tx['help']['folders_userfiles']="Der Basisordner aller Benutzerdateien.";
+$tx['help']['folders_downloads']="Ein Unterordner der Benutzerdateien.";
+$tx['help']['folders_images']="Ein Unterordner der Benutzerdateien.";
+$tx['help']['folders_media']="Ein Unterordner der Benutzerdateien.";
+
 $tx['images']['usedin']="Benutzt in";
 
 $tx['languagemenu']['text']="Sprachauswahl: ";

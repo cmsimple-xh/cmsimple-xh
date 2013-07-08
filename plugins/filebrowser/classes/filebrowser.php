@@ -148,15 +148,9 @@ class XHFileBrowser
 
         $this->view = new XHFileBrowserView();
 
-        // TODO: shouldn't be $pth['folder'][...] be used?
-        $this->baseDirectories['images']
-            = rtrim($cf['folders']['images'], '/') . '/';
-        $this->baseDirectories['downloads']
-            = rtrim($cf['folders']['downloads'], '/') . '/';
-        $this->baseDirectories['userfiles']
-            = rtrim($cf['folders']['userfiles'], '/') . '/';
-        $this->baseDirectories['media']
-            = rtrim($cf['folders']['media'], '/') . '/';
+        foreach (array('images', 'downloads', 'userfiles', 'media') as $type) {
+            $this->baseDirectories[$type] = ltrim($pth['folder'][$type], './');
+        }
 
         $this->allowedExtensions['images'] = $image_extensions;
         $this->allowedExtensions['downloads'] = $download_extensions;
