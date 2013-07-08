@@ -27,8 +27,8 @@ if ($filebrowser) {
     $plugin = basename(dirname(__FILE__));
     $plugin = basename(dirname(__FILE__), "/");
     $o .= '<div class="plugintext">'
-        . '<div class="plugineditcaption">Filebrowser for $CMSIMPLE_XH_VERSION$</div>'
-        . tag('hr');
+        . '<div class="plugineditcaption">Filebrowser for $CMSIMPLE_XH_VERSION$'
+        . '</div>' . tag('hr');
 
     $admin = isset($_POST['admin'])
         ? $_POST['admin']

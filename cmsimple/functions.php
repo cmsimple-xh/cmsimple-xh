@@ -280,7 +280,7 @@ function XH_evaluateSinglePluginCall($___expression)
  * Note that the behavior of negative values for <var>$offset</var>
  * and <var>$length</var> is not defined.
  *
- * @param string $string      The string to manipulate.
+ * @param string &$string     The string to manipulate.
  * @param int    $offset      Offset of the string where to start the replacement.
  * @param int    $length      The number of characters to be replaced.
  * @param string $replacement The string to replace the removed characters.
@@ -1805,6 +1805,8 @@ function lilink()
  * @global array  The URLs of the pages.
  *
  * @return string The (X)HTML.
+ *
+ * @todo i18n (Password forgotten)
  */
 function loginforms()
 {
@@ -1830,7 +1832,8 @@ function loginforms()
             )
             . '</div></form>';
         if (!empty($cf['mailform']['email'])) {
-            $o .= '<a href="' . $sn . '?&function=forgotten">' . 'Password forgotten' . '</a>';
+            $o .= '<a href="' . $sn . '?&function=forgotten">'
+                . 'Password forgotten' . '</a>';
         }
         $o .= ' </div>';
         $s = -1;
@@ -2139,7 +2142,7 @@ function XH_title($site, $subtitle)
  * A minimal built-in template for some special functions.
  * Currently used for the print view and the login screen.
  *
- * @param string The CSS class of the BODY element.
+ * @param string $bodyClass The CSS class of the BODY element.
  *
  * @return string (X)HTML.
  *
@@ -2168,7 +2171,7 @@ function XH_builtinTemplate($bodyClass)
 /**
  * Returns a help icon which displays a tooltip on hover.
  *
- * @param string A tooltip in (X)HTML.
+ * @param string $tooltip A tooltip in (X)HTML.
  *
  * @return string (X)HTML.
  *
