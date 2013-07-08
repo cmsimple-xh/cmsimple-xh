@@ -181,8 +181,6 @@ if (!defined('E_USER_DEPRECATED')) {
  * @global array $pth
  */
 $pth['file']['execute'] = './index.php';
-$pth['folder']['content'] = './content/';
-$pth['file']['content'] = $pth['folder']['content'] . 'content.htm';
 
 $pth['folder']['base'] = is_dir('./cmsimple') ? './' : '../';
 
@@ -257,11 +255,13 @@ if (preg_match('/\/([A-z]{2})\/index.php$/', sv('SCRIPT_NAME'), $temp)
     && XH_isLanguageFolder($temp = strtolower($temp[1]))
 ) {
     $sl = $temp;
-}
-if (!isset($sl)) {
+    $pth['folder']['content'] = $pth['folder']['base'] . 'content/' . $sl . '/';
+} else {
     $sl = $cf['language']['default'];
+    $pth['folder']['content'] = $pth['folder']['base'] . 'content/';
 }
 
+$pth['file']['content'] = $pth['folder']['content'] . 'content.htm';
 $pth['file']['language'] = $pth['folder']['language'] . basename($sl) . '.php';
 $pth['folder']['corestyle'] = $pth['folder']['base'] . 'css/';
 $pth['file']['corestyle'] = $pth['folder']['corestyle'] . 'core.css';
