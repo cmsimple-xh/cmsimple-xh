@@ -197,9 +197,9 @@ require_once $pth['folder']['cmsimple'] . 'functions.php';
 require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
 require_once $pth['folder']['classes'] . 'CSRFProtection.php';
 require_once $pth['folder']['classes'] . 'PasswordHash.php';
-require_once $pth['folder']['classes'] . 'page_data_router.php';
-require_once $pth['folder']['classes'] . 'page_data_model.php';
-require_once $pth['folder']['classes'] . 'page_data_views.php';
+require_once $pth['folder']['classes'] . 'PageDataRouter.php';
+require_once $pth['folder']['classes'] . 'PageDataModel.php';
+require_once $pth['folder']['classes'] . 'PageDataViews.php';
 require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
 require_once UTF8 . '/utils/validation.php';
@@ -1211,7 +1211,7 @@ if (!XH_ADM && $adm) { // somebody has manipulated $adm!!!
     loginforms();
 }
 
-ob_start('final_clean_up');
+ob_start('XH_finalCleanUp');
 
 if (!include $pth['file']['template']) {
     header('HTTP/1.0 500 Internal Server Error');

@@ -166,7 +166,7 @@ $pd_router->add_interest('use_header_location');
  */
 $pd_router->add_tab(
     $plugin_tx['page_params']['tab'],
-    $pth['folder']['plugins'].'page_params/page_params_view.php'
+    $pth['folder']['plugins'] . 'page_params/Pageparams_view.php'
 );
 
 /*

@@ -312,7 +312,6 @@ function evaluate_scripting($text, $compat = true)
     return evaluate_cmsimple_scripting(evaluate_plugincall($text), $compat);
 }
 
-
 /**
  * Returns content of the first page with the heading $heading
  * with the heading removed and all scripting evaluated.
@@ -554,9 +553,9 @@ function XH_systemCheck($data)
  *
  * @return string
  *
- * @since 1.5
+ * @since 1.6
  */
-function final_clean_up($html)
+function XH_finalCleanUp($html)
 {
     global $adm, $s, $o, $errors, $cf, $bjs;
 
@@ -594,7 +593,7 @@ function final_clean_up($html)
         }
 
         $replacement = '$0' . '<div' . $id . '>' . $debugHint
-            . admin_menu(XH_plugins(true), $debugMode) . '</div>' ."\n"
+            . XH_adminMenu(XH_plugins(true), $debugMode) . '</div>' ."\n"
             . $errorList;
         $html = preg_replace('~<body[^>]*>~i', $replacement, $html, 1);
     }
@@ -1036,7 +1035,7 @@ function XH_readContents($language = null)
         }
     }
 
-    $pd_router = new PL_Page_Data_Router(
+    $pd_router = new XH_PageDataRouter(
         $h, $page_data_fields, $temp_data, $page_data
     );
 

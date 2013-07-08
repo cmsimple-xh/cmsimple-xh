@@ -18,9 +18,9 @@ VI_FILES="\
     cmsimple/tplfuncs.php\
     cmsimple/classes/FileEdit.php\
     cmsimple/classes/LinkCheck.php\
-    cmsimple/classes/page_data_model.php\
-    cmsimple/classes/page_data_router.php\
-    cmsimple/classes/page_data_views.php\
+    cmsimple/classes/PageDataModel.php\
+    cmsimple/classes/PageDataRouter.php\
+    cmsimple/classes/PageDataViews.php\
     plugins/filebrowser/admin.php\
     plugins/tinymce/admin.php\
     $README_FILES"

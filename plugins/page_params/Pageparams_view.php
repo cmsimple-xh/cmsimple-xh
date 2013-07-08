@@ -319,7 +319,7 @@ function Pageparams_linkList($default, $disabled)
  * @global array  The localization of the core.
  * @global array  The localization of the plugins.
  */
-function page_params_view($page)
+function Pageparams_view($page)
 {
     global $sn, $su, $hjs, $tx, $plugin_tx;
 

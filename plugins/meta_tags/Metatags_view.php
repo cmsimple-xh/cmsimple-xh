@@ -34,7 +34,7 @@
  * @global array  The localization of the plugins.
  * @global array  The paths of system files and folders.
  */
-function meta_tags_view($page)
+function Metatags_view($page)
 {
     global $sn, $su, $plugin_tx, $pth;
 

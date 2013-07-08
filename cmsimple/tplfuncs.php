@@ -497,7 +497,7 @@ function locator()
  *
  * @return string The (X)HTML.
  *
- * @see admin_menu()
+ * @see XH_adminMenu()
  */
 function editmenu()
 {
@@ -521,9 +521,9 @@ function editmenu()
  * @global array  The localization of the core.
  * @global string The URL of the current page.
  *
- * @since 1.5
+ * @since 1.6
  */
-function admin_menu($plugins = array(), $debug = false)
+function XH_adminMenu($plugins = array(), $debug = false)
 {
     global $edit, $s, $u, $sn, $tx, $cf, $su;
 

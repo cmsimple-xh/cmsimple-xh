@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Page-Data - Module page_data_model
+ * The page data model.
  *
  * PHP versions 4 and 5
  *
@@ -16,10 +16,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-
-/* utf8-marker = äöüß */
-
-
 /**
  * Handles the page-data-array including reading and writing of the files.
  *
@@ -32,7 +28,7 @@
  *
  * @access  public
  */
-class PL_Page_Data_Model
+class XH_PageDataModel
 {
     /**
      * The page headings (a copy of $h).
@@ -91,7 +87,7 @@ class PL_Page_Data_Model
      *
      * @access public
      */
-    function PL_Page_Data_Model($h, $pageDataFields, $tempData, $pageData)
+    function XH_PageDataModel($h, $pageDataFields, $tempData, $pageData)
     {
         $this->headings = $h;
         $this->params = !empty($pageDataFields)
@@ -154,7 +150,7 @@ class PL_Page_Data_Model
      *
      * @access public
      */
-    function add_param($field)
+    function addParam($field)
     {
         $this->params[] = $field;
         $this->save();
@@ -170,7 +166,7 @@ class PL_Page_Data_Model
      *
      * @access public
      */
-    function add_tab($title, $view_file)
+    function addTab($title, $view_file)
     {
         $this->tabs[$title] = $view_file;
     }
@@ -184,7 +180,7 @@ class PL_Page_Data_Model
      *
      * @access public
      */
-    function find_key($key)
+    function findKey($key)
     {
         return $key >= 0 ? $this->data[$key] : null;
     }
@@ -199,7 +195,7 @@ class PL_Page_Data_Model
      *
      * @access public
      */
-    function find_field_value($field, $value)
+    function findFieldValue($field, $value)
     {
         $results = array();
         foreach ($this->data as $id => $page) {
@@ -223,7 +219,7 @@ class PL_Page_Data_Model
      *
      * @access public
      */
-    function find_arrayfield_value($field, $value, $separator)
+    function findArrayfieldValue($field, $value, $separator)
     {
         $results = array();
         foreach ($this->data as $id => $page) {
@@ -242,31 +238,30 @@ class PL_Page_Data_Model
      * Returns the sorted page data of all pages,
      * which contain a value in a (list) field.
      *
-     * @param string $field     The name of the field.
-     * @param string $value     The value to look for.
-     * @param string $sort_key  The name of the field to sort by.
-     * @param int    $sort_flag The sort options as for array_multisort().
-     * @param string $separator The list item separator.
+     * @param string $field    The name of the field.
+     * @param string $value    The value to look for.
+     * @param string $sortKey  The name of the field to sort by.
+     * @param int    $sortFlag The sort options as for array_multisort().
+     * @param string $sep      The list item separator.
      *
      * @return array
      *
      * @access public
      */
-    function find_field_value_sortkey($field, $value, $sort_key, $sort_flag,
-        $separator
-    ) {
-        if ($separator) {
-            $results = $this->find_arrayfield_value($field, $value, $separator);
+    function findFieldValueSortkey($field, $value, $sortKey, $sortFlag, $sep)
+    {
+        if ($sep) {
+            $results = $this->findArrayfieldValue($field, $value, $sep);
         } else {
-            $results = $this->find_field_value($field, $value);
+            $results = $this->findFieldValue($field, $value);
         }
         $temp = array();
         $ids = array();
         foreach ($results as $key => $value) {
-            $temp[] = $value[$sort_key];
+            $temp[] = $value[$sortKey];
             $ids[] = $key;
         }
-        array_multisort($temp, $sort_flag, $ids);
+        array_multisort($temp, $sortFlag, $ids);
         $results = array();
         if (is_array($ids) && count($ids) > 0) {
             foreach ($ids as $id) {
@@ -322,7 +317,7 @@ class PL_Page_Data_Model
      *
      * @access protected
      */
-    function store_temp($page)
+    function storeTemp($page)
     {
         foreach ($page as $field => $value) {
             if (in_array($field, $this -> params)) {
@@ -374,7 +369,7 @@ class PL_Page_Data_Model
      *
      * @access public
      */
-    function update_key($key, $params)
+    function updateKey($key, $params)
     {
         foreach ($params as $field => $value) {
             $this->data[$key][$field] = $value;

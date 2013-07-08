@@ -45,7 +45,7 @@ $pd_router->add_interest('robots');
  */
 $pd_router->add_tab(
     $plugin_tx['meta_tags']['tab'],
-    $pth['folder']['plugins'].'meta_tags/meta_tags_view.php'
+    $pth['folder']['plugins'] . 'meta_tags/Metatags_view.php'
 );
 
 /*

@@ -1,6 +1,6 @@
 <?php
 /**
- * Page-Data - Module page_data_views
+ * The page data view.
  *
  * PHP versions 4 and 5
  *
@@ -15,10 +15,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-
-/* utf8-marker = äöüß */
-
-
 /**
  * Provides an interface for plugins to handle the page_data.
  *
@@ -29,7 +25,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  */
-class PL_Page_Data_View
+class XH_PageDataView
 {
     /**
      * The current page.
@@ -59,10 +55,10 @@ class PL_Page_Data_View
      *
      * @access public
      */
-    function PL_Page_Data_View($page, $tabs = null)
+    function XH_PageDataView($page, $tabs = null)
     {
         $this->page = $page;
-        $this -> tabs = $tabs;
+        $this->tabs = $tabs;
     }
 
     /**
@@ -72,7 +68,7 @@ class PL_Page_Data_View
      *
      * @access public
      */
-    function pd_forms()
+    function pdForms()
     {
         global $pth;
 

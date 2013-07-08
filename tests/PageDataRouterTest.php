@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-require_once '../cmsimple/classes/page_data_router.php';
+require_once '../cmsimple/classes/PageDataRouter.php';
 
 /**
  * A test case for the page data router.

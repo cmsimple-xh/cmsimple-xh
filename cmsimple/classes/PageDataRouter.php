@@ -1,6 +1,6 @@
 <?php
 /**
- * Page-Data - Module page_data_router
+ * The page data facade.
  *
  * PHP versions 4 and 5
  *
@@ -15,10 +15,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-
-/* utf8-marker = äöüß */
-
-
 /**
  * Handles all the data that has to be collected
  * to generate the page-data-array.
@@ -30,7 +26,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  */
-class PL_Page_Data_Router
+class XH_PageDataRouter
 {
     /**
      * The model.
@@ -62,9 +58,9 @@ class PL_Page_Data_Router
      *
      * @access public
      */
-    function PL_Page_Data_Router($h, $pageDataFields, $tempData, $pageData)
+    function XH_PageDataRouter($h, $pageDataFields, $tempData, $pageData)
     {
-        $this->model = new PL_Page_Data_Model(
+        $this->model = new XH_PageDataModel(
             $h, $pageDataFields, $tempData, $pageData
         );
     }
@@ -81,7 +77,7 @@ class PL_Page_Data_Router
     function add_interest($field)
     {
         if (!in_array($field, $this->model->params)) {
-            $this->model->add_param($field);
+            $this->model->addParam($field);
         }
     }
 
@@ -97,7 +93,7 @@ class PL_Page_Data_Router
      */
     function add_tab($tab_name, $tab_view)
     {
-        $this->model->add_tab($tab_name, $tab_view);
+        $this->model->addTab($tab_name, $tab_view);
     }
 
     /**
@@ -111,7 +107,7 @@ class PL_Page_Data_Router
      */
     function find_page($id)
     {
-        $page = $this->model->find_key($id);
+        $page = $this->model->findKey($id);
         return $page;
     }
 
@@ -203,12 +199,12 @@ class PL_Page_Data_Router
     function find_field_value($field, $value, $separator = null)
     {
         if ($separator) {
-            $results = $this->model->find_arrayfield_value(
+            $results = $this->model->findArrayfieldValue(
                 $field, $value, $separator
             );
             return $results;
         }
-        $results = $this->model->find_field_value($field, $value);
+        $results = $this->model->findFieldValue($field, $value);
         return $results;
     }
 
@@ -216,21 +212,21 @@ class PL_Page_Data_Router
      * Returns the sorted page data of all pages,
      * which contain a value in a (list) field.
      *
-     * @param string $field     The name of the field.
-     * @param string $value     The value to look for.
-     * @param string $sort_key  The name of the field to sort by.
-     * @param int    $sort_flag The sort options as for array_multisort().
-     * @param string $separator The list item separator.
+     * @param string $field    The name of the field.
+     * @param string $value    The value to look for.
+     * @param string $sortKey  The name of the field to sort by.
+     * @param int    $sortFlag The sort options as for array_multisort().
+     * @param string $sep      The list item separator.
      *
      * @return array
      *
      * @access public
      */
-    function find_field_value_sortkey($field, $value, $sort_key,
-        $sort_flag = null, $separator = null
+    function find_field_value_sortkey($field, $value, $sortKey,
+        $sortFlag = null, $sep = null
     ) {
-        $results = $this->model->find_field_value_sortkey(
-            $field, $value, $sort_key, $sort_flag, $separator
+        $results = $this->model->findFieldValueSortkey(
+            $field, $value, $sortKey, $sortFlag, $sep
         );
         return $results;
     }
@@ -390,7 +386,7 @@ class PL_Page_Data_Router
                 $update_params[$field] = $update;
             }
         }
-        return $this->model->update_key($s, $params);
+        return $this->model->updateKey($s, $params);
     }
 
     /**
@@ -421,8 +417,8 @@ class PL_Page_Data_Router
             }
             $page = $this->find_page($pd_s);
             if ($pd_s > -1) {
-                $view_provider = new PL_Page_Data_View($page, $this->model->tabs);
-                return $view_provider->pd_forms();
+                $view_provider = new XH_PageDataView($page, $this->model->tabs);
+                return $view_provider->pdForms();
             }
         }
         return '';
@@ -440,7 +436,7 @@ class PL_Page_Data_Router
     function keep_in_mind($pd_s)
     {
         $page = $this->find_page($pd_s);
-        $this->model->store_temp($page);
+        $this->model->storeTemp($page);
     }
 
     /**

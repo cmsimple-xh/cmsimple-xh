@@ -8,17 +8,17 @@ PHPSOURCES=cmsimple/adminfuncs.php\
 	   cmsimple/classes/FileEdit.php\
 	   cmsimple/classes/LinkCheck.php\
 	   cmsimple/classes/Mailform.php\
-	   cmsimple/classes/page_data_model.php\
-	   cmsimple/classes/page_data_router.php\
-	   cmsimple/classes/page_data_views.php\
+	   cmsimple/classes/PageDataModel.php\
+	   cmsimple/classes/PageDataRouter.php\
+	   cmsimple/classes/PageDataViews.php\
 	   cmsimple/classes/Pages.php\
 	   cmsimple/classes/Search.php\
 	   plugins/meta_tags/index.php\
 	   plugins/meta_tags/_admin.php\
-	   plugins/meta_tags/meta_tags_view.php\
+	   plugins/meta_tags/Metatags_view.php\
            plugins/page_params/index.php\
            plugins/page_params/_admin.php\
-           plugins/page_params/page_params_view.php\
+           plugins/page_params/Pageparams_view.php\
 	   plugins/filebrowser/index.php\
 	   plugins/filebrowser/admin.php\
 	   plugins/filebrowser/editorbrowser.php\
