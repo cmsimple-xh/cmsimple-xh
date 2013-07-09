@@ -1185,7 +1185,7 @@ if ($title == '') {
 if (!headers_sent($temp, $i)) {
     header('Content-Type: text/html; charset=UTF-8');
 } else {
-    $temp .= ':' . $$i;
+    $temp .= ':' . $i;
     exit(str_replace('{location}', $temp, $tx['error']['headers']));
 }
 
