@@ -2234,4 +2234,29 @@ function XH_templates()
     return $templates;
 }
 
+/**
+ * Returns an array of available languages (in cmsimple/languages/).
+ *
+ * @return array
+ *
+ * @global array The paths of system files and folders.
+ *
+ * @since 1.6
+ */
+function XH_availableLanguages()
+{
+    global $pth;
+
+    $handle = opendir($pth['folder']['language']);
+    $languages = array();
+    while (($file = readdir($handle)) !== false) {
+        if (preg_match('/^([a-z]{2})\.php$/i', $file, $m)) {
+            $languages[] = $m[1];
+        }
+    }
+    closedir($handle);
+    natcasesort($languages);
+    return $languages;
+}
+
 ?>

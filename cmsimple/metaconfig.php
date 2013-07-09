@@ -1,5 +1,8 @@
 <?php
 
+$mcf['security']['password']="password";
+$mcf['site']['template']="function:XH_templates";
+$mcf['language']['default']="function:XH_availableLanguages";
 $mcf['locator']['show_homepage']="bool";
 $mcf['show_hidden']['pages_toc']="bool";
 $mcf['show_hidden']['pages_search']="bool";

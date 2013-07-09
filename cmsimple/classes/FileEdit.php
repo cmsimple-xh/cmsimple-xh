@@ -673,6 +673,14 @@ class XH_ArrayFileEdit extends XH_FileEdit
         if (strpos($type, 'enum:') === 0) {
             $vals = explode(',', substr($type, strlen('enum:')));
             $type = 'enum';
+        } elseif (strpos($type, 'function:') === 0) {
+            $func = substr($type, strlen('function:'));
+            if (function_exists($func)) {
+                $vals = call_user_func($func);
+            } else {
+                $vals = array();
+            }
+            $type = 'enum';
         } else {
             $vals = null;
         }
@@ -823,21 +831,7 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
                 $omcf = isset($mcf[$cat][$name]) ? $mcf[$cat][$name] : null;
                 $hint = isset($tx['help']["${cat}_$name"])
                     ? $tx['help']["${cat}_$name"] : null;
-                $co = $this->option($omcf, $val, $hint);
-                if ($cat == 'language' && $name == 'default') {
-                    $co['type'] = 'enum';
-                    $co['vals'] = $this->selectOptions(
-                        'language', '/^([a-z]{2})\.php$/i'
-                    );
-                } elseif ($cat == 'site' && $name == 'template') {
-                    $co['type'] = 'enum';
-                    $co['vals'] = $this->selectOptions(
-                        'templates', '/^([^\.]*)$/i'
-                    );
-                } elseif ($cat == 'security' && $name == 'password') {
-                    $co['type'] = 'password';
-                }
-                $this->cfg[$cat][$name] = $co;
+                $this->cfg[$cat][$name] = $this->option($omcf, $val, $hint);
             }
             if (empty($this->cfg[$cat])) {
                 unset($this->cfg[$cat]);
