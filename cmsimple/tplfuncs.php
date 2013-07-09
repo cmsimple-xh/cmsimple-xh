@@ -516,8 +516,6 @@ function editmenu()
  * @global bool   Whether edit mode is active.
  * @global int    The index of the current page.
  * @global array  The URLs of the pages.
- * @global string The scipt name.
- * @global array  The localization of the core.
  * @global array  The localization of the core.
  * @global string The URL of the current page.
  *
@@ -525,7 +523,7 @@ function editmenu()
  */
 function XH_adminMenu($plugins = array(), $debug = false)
 {
-    global $edit, $s, $u, $sn, $tx, $cf, $su;
+    global $edit, $s, $u, $tx, $su;
 
     if ($s < 0) {
         $su = $u[0];
@@ -628,10 +626,14 @@ function XH_adminMenu($plugins = array(), $debug = false)
  *
  * @return string
  *
+ * @global string The scipt name.
+ * 
  * @since 1.6
  */
 function XH_adminMenuItem($item, $level = 0)
 {
+    global $sn;
+
     $indent = str_repeat('    ', $level);
     $t .= $indent . '<li>';
     if (isset($item['url'])) {
