@@ -657,6 +657,31 @@ class XH_ArrayFileEdit extends XH_FileEdit
             return $this->form();
         }
     }
+
+    /**
+     * Returns an option array.
+     *
+     * @param string $mcf  The meta config of the option.
+     * @param mixed  $val  The current value of the option.
+     * @param string $hint A hint for the option usage.
+     *
+     * @return array
+     */
+    function option($mcf, $val, $hint)
+    {
+        $type = isset($mcf) ? $mcf : 'string';
+        if (strpos($type, 'enum:') === 0) {
+            $vals = explode(',', substr($type, strlen('enum:')));
+            $type = 'enum';
+        } else {
+            $vals = null;
+        }
+        $co = array('val' => $val, 'type' => $type,  'vals' => $vals);
+        if (isset($hint)) {
+            $co['hint'] = $hint;
+        }
+        return $co;
+    }
 }
 
 
@@ -795,17 +820,10 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
                 ) {
                     continue;
                 }
-                $type = isset($mcf[$cat][$name]) ? $mcf[$cat][$name] : 'string';
-                if (strpos($type, 'enum:') === 0) {
-                    $vals = explode(',', substr($type, strlen('enum:')));
-                    $type = 'enum';
-                } else {
-                    $vals = null;
-                }
-                $co = array('val' => $val, 'type' => $type, 'vals' => $vals);
-                if (isset($tx['help']["${cat}_$name"])) {
-                    $co['hint'] = $tx['help']["${cat}_$name"];
-                }
+                $omcf = isset($mcf[$cat][$name]) ? $mcf[$cat][$name] : null;
+                $hint = isset($tx['help']["${cat}_$name"])
+                    ? $tx['help']["${cat}_$name"] : null;
+                $co = $this->option($omcf, $val, $hint);
                 if ($cat == 'language' && $name == 'default') {
                     $co['type'] = 'enum';
                     $co['vals'] = $this->selectOptions(
@@ -990,18 +1008,10 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
         $this->cfg = array();
         foreach ($plugin_cf[$plugin] as $key => $val) {
             list($cat, $name) = $this->splitKey($key);
-            $type = isset($mcf[$key]) ? $mcf[$key] : 'string';
-            if (strpos($type, 'enum:') === 0) {
-                $vals = explode(',', substr($type, strlen('enum:')));
-                $type = 'enum';
-            } else {
-                $vals = null;
-            }
-            $co = array('val' => $val, 'type' => $type,  'vals' => $vals);
-            if (isset($plugin_tx[$plugin]["cf_$key"])) {
-                $co['hint'] = $plugin_tx[$plugin]["cf_$key"];
-            }
-            $this->cfg[$cat][$name] = $co;
+            $omcf = isset($mcf[$key]) ? $mcf[$key] : null;
+            $hint = isset($plugin_tx[$plugin]["cf_$key"])
+                ? $plugin_tx[$plugin]["cf_$key"] : null;
+            $this->cfg[$cat][$name] = $this->option($omcf, $val, $hint);
         }
     }
 }
