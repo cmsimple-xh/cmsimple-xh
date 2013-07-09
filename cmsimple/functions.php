@@ -593,7 +593,7 @@ function XH_finalCleanUp($html)
         }
 
         $replacement = '$0' . '<div' . $id . '>' . $debugHint
-            . XH_adminMenu(XH_plugins(true), $debugMode) . '</div>' ."\n"
+            . XH_adminMenu(XH_plugins(true)) . '</div>' ."\n"
             . $errorList;
         $html = preg_replace('~<body[^>]*>~i', $replacement, $html, 1);
     }
@@ -2275,7 +2275,7 @@ function XH_availableLanguages()
  *
  * @since 1.6
  */
-function XH_adminMenu($plugins = array(), $debug = false)
+function XH_adminMenu($plugins = array())
 {
     global $edit, $s, $u, $tx, $su;
 
