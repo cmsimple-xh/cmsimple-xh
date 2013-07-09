@@ -2259,4 +2259,157 @@ function XH_availableLanguages()
     return $languages;
 }
 
+/**
+ * Returns the admin menu.
+ *
+ * @param array $plugins A list of plugins.
+ * @param bool  $debug   Whether the debug mode is enabled.
+ *
+ * @return string (X)HTML.
+ *
+ * @global bool   Whether edit mode is active.
+ * @global int    The index of the current page.
+ * @global array  The URLs of the pages.
+ * @global array  The localization of the core.
+ * @global string The URL of the current page.
+ *
+ * @since 1.6
+ */
+function XH_adminMenu($plugins = array(), $debug = false)
+{
+    global $edit, $s, $u, $tx, $su;
+
+    if ($s < 0) {
+        $su = $u[0];
+    }
+    $changeMode = $edit ? 'normal' : 'edit';
+    $changeText = $edit ? $tx['editmenu']['normal'] : $tx['editmenu']['edit'];
+
+    $filesMenu = array();
+    foreach (array('images', 'downloads', 'media', 'userfiles') as $item) {
+        $filesMenu[] =  array(
+            'label' => utf8_ucfirst($tx['editmenu'][$item]),
+            'url' => '?&amp;normal&amp;' . $item
+        );
+    }
+    $settingsMenu = array(
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['configuration']),
+            'url' => '?file=config&amp;action=array'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['language']),
+            'url' => '?file=language&amp;action=array'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['template']),
+            'url' => '?file=template&amp;action=edit'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['stylesheet']),
+            'url' => '?file=stylesheet&amp;action=edit'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['log']),
+            'url' => '?file=log&amp;action=view'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['validate']),
+            'url' => '?&amp;validate'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['backups']),
+            'url' => '?&amp;xh_backups'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['sysinfo']),
+            'url' => '?&amp;sysinfo'
+        )
+    );
+    $pluginMenu = array();
+    foreach ($plugins as $plugin) {
+        $pluginMenu[] = array(
+            'label' => ucfirst($plugin),
+            'url' => '?' . $plugin . '&amp;normal'
+        );
+    }
+    $menu = array(
+        array(
+            'label' => $changeText,
+            'url' => '?' . $su . '&amp;' . $changeMode,
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['pagemanager']),
+            'url' => '?&amp;normal&amp;xhpages'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['files']),
+            'children' => $filesMenu
+            ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['settings']),
+            'url' => '?&amp;settings',
+            'children' => $settingsMenu
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['plugins']),
+            'children' => $pluginMenu
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['logout']),
+            'url' => '?&amp;logout'
+        )
+    );
+
+    $t .= "\n" . '<div id="editmenu">';
+    $t .= "\n" . '<ul id="edit_menu">' . "\n";
+    foreach ($menu as $item) {
+        $t .= XH_adminMenuItem($item);
+    }
+    $t .= '</ul>' . "\n"
+        . '<div style="float:none;clear:both;padding:0;margin:0;'
+        . 'width:100%;height:0px;"></div>' . "\n" . '</div>' . "\n";
+    return $t;
+}
+
+/**
+ * Returns the LI element of an admin menu item.
+ *
+ * @param array $item  The menu item.
+ * @param int   $level The level of the menu item.
+ *
+ * @return string
+ *
+ * @global string The scipt name.
+ *
+ * @since 1.6
+ */
+function XH_adminMenuItem($item, $level = 0)
+{
+    global $sn;
+
+    $indent = str_repeat('    ', $level);
+    $t .= $indent . '<li>';
+    if (isset($item['url'])) {
+        $t .= '<a href="' . $sn . $item['url'] . '">';
+    } else {
+        $t .= '<span>';
+    }
+    $t .= $item['label'];
+    if (isset($item['url'])) {
+        $t .= '</a>';
+    } else {
+        $t .= '</span>';
+    }
+    if (isset($item['children'])) {
+        $t .= "\n" . $indent . '    <ul>' . "\n";
+        foreach ($item['children'] as $child) {
+            $t .= XH_adminMenuItem($child, $level + 1);
+        }
+        $t .= $indent . '    </ul>' . "\n" . $indent;
+    }
+    $t .= '</li>' . "\n";
+    return $t;
+}
+
 ?>
