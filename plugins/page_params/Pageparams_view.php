@@ -19,32 +19,6 @@
  */
 
 /**
- * Returns an array of installed templates.
- *
- * @return array
- *
- * @global array The paths of system files and folders.
- *
- * @since 1.6
- */
-function Pageparams_templates()
-{
-    global $pth;
-
-    $handle = opendir($pth['folder']['templates']);
-    $templates = array();
-    while (($file = readdir($handle)) !== false) {
-        if (is_dir($pth['folder']['templates'] . $file) && $file{0} != '.' ) {
-            $templates[] = $file;
-        }
-    }
-    closedir($handle);
-    natcasesort($templates);
-    return $templates;
-}
-
-
-/**
  * Returns a document fragment to be inserted to the HEAD element.
  *
  * @return (X)HTML.
@@ -262,7 +236,7 @@ function Pageparams_templateSelectbox($page)
     $o = "\n" . '<select name="template">';
     $o .= "\n\t" . '<option value="0"' . $selected . '>'
         . $plugin_tx['page_params']['use_default_template'] . '</option>';
-    $templates = Pageparams_templates();
+    $templates = XH_templates();
     foreach ($templates as $file) {
         $selected = ($file == $template) ? ' selected="selected"' : '';
         $o .= "\n\t" . '<option value="' . $file . '"' . $selected

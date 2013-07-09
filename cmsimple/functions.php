@@ -2209,4 +2209,29 @@ function XH_isContentBackup($filename)
     return preg_match('/^\d{8}_\d{6}_content.htm$/', $filename);
 }
 
+/**
+ * Returns an array of installed templates.
+ *
+ * @return array
+ *
+ * @global array The paths of system files and folders.
+ *
+ * @since 1.6
+ */
+function XH_templates()
+{
+    global $pth;
+
+    $handle = opendir($pth['folder']['templates']);
+    $templates = array();
+    while (($file = readdir($handle)) !== false) {
+        if (is_dir($pth['folder']['templates'] . $file) && $file{0} != '.' ) {
+            $templates[] = $file;
+        }
+    }
+    closedir($handle);
+    natcasesort($templates);
+    return $templates;
+}
+
 ?>
