@@ -83,6 +83,7 @@ $tx['heading']['warning']="FEHLER–HINWEIS";
 
 $tx['help']['downloads_maxsize']="Maximale Größe für das Hochladen von Datein in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
 $tx['help']['editmenu_scroll']="Bei <b>true</b> scrollt das Admin Menü mit";
+$tx['help']['editmenu_external']="Wenn Sie ein externes Admin-Menü nutzen wollen, installieren Sie es als Plugin und tragen Sie seinen Funktionsnamen hier ein.";
 $tx['help']['editor_height']="Integer oder JavaScript-Ausdruck, der einen Integer liefert für die Editorhöhe in Pixel.";
 $tx['help']['editor_external']="Wenn Sie einen externen Editor nutzen wollen, installieren Sie ihn als Plugin und tragen Sie seinen Namen hier ein.";
 $tx['help']['filebrowser_external']="Wenn Sie einen externen Datei-Browser verwenden möchten, z.B. hi_kcfinder, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";

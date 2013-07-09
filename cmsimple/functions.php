@@ -562,13 +562,20 @@ function XH_finalCleanUp($html)
     if ($adm === true) {
         $debugHint = '';
         $errorList = '';
-        $margin = 34;
+        $margin = 36;
 
         if ($debugMode = error_reporting() > 0) {
             $debugHint .= '<div class="cmsimplecore_debug">' . "\n"
                 . '<b>Notice:</b> Debug-Mode is enabled!' . "\n"
                 . '</div>' . "\n";
-            $margin += 25;
+            $margin += 22;
+        }
+
+        $adminMenuFunc = trim($cf['editmenu']['external']);
+        if ($adminMenuFunc != '' && function_exists($adminMenuFunc)) {
+            $margin -= 36;
+        } else {
+            $adminMenuFunc = 'XH_adminMenu';
         }
 
         if (count($errors) > 0) {
@@ -593,7 +600,7 @@ function XH_finalCleanUp($html)
         }
 
         $replacement = '$0' . '<div' . $id . '>' . $debugHint
-            . XH_adminMenu(XH_plugins(true)) . '</div>' ."\n"
+            . call_user_func($adminMenuFunc, XH_plugins(true)) . '</div>' ."\n"
             . $errorList;
         $html = preg_replace('~<body[^>]*>~i', $replacement, $html, 1);
     }
@@ -604,7 +611,6 @@ function XH_finalCleanUp($html)
 
     return $html;
 }
-
 
 /**
  * Initializes a global variable according to a GET or POST parameter.
