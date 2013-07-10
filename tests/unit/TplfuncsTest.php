@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-require_once '../cmsimple/tplfuncs.php';
+require_once '../../cmsimple/tplfuncs.php';
 
 /**
  * A test case for the functions in tplfuncs.php.

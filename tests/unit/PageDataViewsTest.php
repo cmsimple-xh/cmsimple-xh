@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Testing the page data router.
+ * Testing the page data views.
  *
  * PHP version 5
  *
@@ -17,10 +17,10 @@
 /**
  * The file under test.
  */
-require_once '../cmsimple/classes/PageDataRouter.php';
+require_once '../../cmsimple/classes/PageDataViews.php';
 
 /**
- * A test case for the page data router.
+ * A test case for the page data views.
  *
  * @category Testing
  * @package  XH
@@ -29,7 +29,7 @@ require_once '../cmsimple/classes/PageDataRouter.php';
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class PageDataRouterTest extends PHPUnit_Framework_TestCase
+class PageDataViewsTest extends PHPUnit_Framework_TestCase
 {
     public function testNothing()
     {

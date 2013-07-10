@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Testing the FileEdit classes.
+ * Testing the page data model.
  *
  * PHP version 5
  *
@@ -17,10 +17,10 @@
 /**
  * The file under test.
  */
-require_once '../cmsimple/classes/FileEdit.php';
+require '../../cmsimple/classes/PageDataModel.php';
 
 /**
- * A test case to for the FileEdit classes.
+ * A test case for the page data model.
  *
  * @category Testing
  * @package  XH
@@ -29,7 +29,7 @@ require_once '../cmsimple/classes/FileEdit.php';
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class FileEditTest extends PHPUnit_Framework_TestCase
+class PageDataModelTest extends PHPUnit_Framework_TestCase
 {
     public function testNothing()
     {

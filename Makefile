@@ -32,9 +32,14 @@ EMPTY=
 SPACE=$(EMPTY) $(EMPTY)
 COMMA=,
 
-.PHONY: tests
-tests: check-phpunit check-cmsimpledir
-	cd tests/; $(PHPUNIT) --bootstrap bootstrap.php --colors .; cd ..
+.PHONY: tests unit-tests attack-tests
+tests: unit-tests attack-tests
+
+unit-tests: check-phpunit
+	cd tests/unit; $(PHPUNIT) --bootstrap bootstrap.php --colors .; cd ../..
+
+attack-tests: check-phpunit check-cmsimpledir
+	cd tests/attack; $(PHPUNIT) --colors .; cd ../..
 
 .PHONY: coverage
 coverage: check-phpunit

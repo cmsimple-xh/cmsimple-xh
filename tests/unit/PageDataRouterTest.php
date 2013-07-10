@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Testing the page data model.
+ * Testing the page data router.
  *
  * PHP version 5
  *
@@ -17,10 +17,10 @@
 /**
  * The file under test.
  */
-require '../cmsimple/classes/PageDataModel.php';
+require_once '../../cmsimple/classes/PageDataRouter.php';
 
 /**
- * A test case for the page data model.
+ * A test case for the page data router.
  *
  * @category Testing
  * @package  XH
@@ -29,7 +29,7 @@ require '../cmsimple/classes/PageDataModel.php';
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class PageDataModelTest extends PHPUnit_Framework_TestCase
+class PageDataRouterTest extends PHPUnit_Framework_TestCase
 {
     public function testNothing()
     {

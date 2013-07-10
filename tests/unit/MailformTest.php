@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-require '../cmsimple/classes/Mailform.php';
+require '../../cmsimple/classes/Mailform.php';
 
 /**
  * A test case for the mailform.

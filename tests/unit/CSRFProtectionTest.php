@@ -21,7 +21,7 @@
 /**
  * The file under test.
  */
-require_once '../cmsimple/classes/CSRFProtection.php';
+require_once '../../cmsimple/classes/CSRFProtection.php';
 
 define('CMSIMPLE_ROOT', '/test/');
 

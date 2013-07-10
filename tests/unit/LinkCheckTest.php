@@ -17,10 +17,10 @@
 /**
  * The file under test.
  */
-require_once '../cmsimple/adminfuncs.php';
+require_once '../../cmsimple/classes/LinkCheck.php';
 
 /**
- * A test case for the functions in adminfuncs.php.
+ * A test case for the functions in functions.php.
  *
  * @category Testing
  * @package  XH
@@ -29,7 +29,7 @@ require_once '../cmsimple/adminfuncs.php';
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class AdminfuncsTest extends PHPUnit_Framework_TestCase
+class LinkCheckTest extends PHPUnit_Framework_TestCase
 {
     public function testNothing()
     {
