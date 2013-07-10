@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Testing the FileEdit classes.
+ * Testing the CoreTextFileEdit classe.
  *
  * PHP version 5
  *
@@ -20,7 +20,7 @@
 require_once '../../cmsimple/classes/FileEdit.php';
 
 /**
- * A test case to for the FileEdit classes.
+ * A test case for the CoreTextFileEdit class.
  *
  * @category Testing
  * @package  XH
@@ -29,10 +29,24 @@ require_once '../../cmsimple/classes/FileEdit.php';
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class FileEditTest extends PHPUnit_Framework_TestCase
+class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
 {
-    public function testNothing()
+    public function setUp()
     {
+        global $pth, $file;
+
+        $file = 'template';
+        $pth['file']['template'] = '../../templates/cmsimplexh/template.htm';
+        $this->editor = new XH_CoreTextFileEdit();
+    }
+
+    public function testAsString()
+    {
+        global $pth;
+
+        $expected = file_get_contents($pth['file']['template']);
+        $actual = $this->editor->asString();
+        $this->assertEquals($expected, $actual);
     }
 }
 
