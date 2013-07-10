@@ -43,7 +43,7 @@ attack-tests: check-phpunit check-cmsimpledir
 
 .PHONY: coverage
 coverage: check-phpunit
-	cd tests/; $(PHPUNIT) --bootstrap bootstrap.php --coverage-html coverage/ .; cd ..
+	cd tests/unit; $(PHPUNIT) --bootstrap bootstrap.php --coverage-html ../coverage .; cd ../..
 
 .PHONY: doc
 doc: doc/php/index.html
