@@ -132,7 +132,7 @@ class XH_PageDataRouter
      *
      * @access public
      */
-    function new_page($params = null)
+    function new_page($params = array())
     {
         $page = $this->model->create($params);
         return $page;

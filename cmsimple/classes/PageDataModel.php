@@ -181,7 +181,8 @@ class XH_PageDataModel
      */
     function findKey($key)
     {
-        return $key >= 0 ? $this->data[$key] : null;
+        return $key >= 0 && $key < count($this->data)
+            ? $this->data[$key] : null;
     }
 
     /**
@@ -280,7 +281,7 @@ class XH_PageDataModel
      *
      * @access public
      */
-    function create($params = null)
+    function create($params = array())
     {
         $clean = array();
         foreach ($this->params as $field) {
