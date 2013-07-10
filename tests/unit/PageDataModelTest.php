@@ -33,8 +33,6 @@ class PageDataModelTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        // $h, $pageDataFields, $tempData, $pageData
-
         $h = array('Welcome', 'News');
         $fields = array('url', 'foo', 'bar', 'list');
         $temp = array('url' => 'deleted', 'foo' => '', 'bar' => '');
