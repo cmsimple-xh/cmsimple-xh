@@ -139,32 +139,32 @@ class XH_PageDataRouter
     }
 
     /**
-     * Replaces the page data of a single page.
+     * Replaces the page data of a single page. Returns whether that succeeded.
      *
      * @param array $pages The new page data.
      * @param int   $index The index of the page.
      *
-     * @return void
+     * @return bool
      *
      * @access public
      */
     function insert($pages, $index)
     {
-        $this->model->replace($pages, $index);
+        return $this->model->replace($pages, $index);
     }
 
     /**
-     * Deletes the page data of a single page.
+     * Deletes the page data of a single page. Returns whether that succeeded.
      *
      * @param int $key The index of the page.
      *
-     * @return void
+     * @return bool
      *
      * @access public
      */
     function destroy($key)
     {
-        $this->model->delete($key);
+        return $this->model->delete($key);
     }
 
     /**
@@ -233,11 +233,12 @@ class XH_PageDataRouter
 
     /**
      * Updates the page data according to changes from the online editor.
+     * Returns whether that succeeded.
      *
      * @param array $headings The page headings contained in the current edit.
      * @param int   $index    The page index.
      *
-     * @return void
+     * @return bool
      *
      * @access public
      */
@@ -251,9 +252,8 @@ class XH_PageDataRouter
              * and remove it from the page infos
              */
             $this->keep_in_mind($index);
-            $this->destroy($index);
-        }
-        if (count($headings) > 1) {
+            return $this->destroy($index);
+        } elseif (count($headings) > 1) {
             /*
              * At least one page was inserted:
              * Create an array of the new pages
@@ -298,25 +298,25 @@ class XH_PageDataRouter
                 $new_pages[] = $params;
                 $params = array();
             }
-            $this->model->replace($new_pages, $index);
-        }
-        if (count($headings) == 1) {
+            return $this->model->replace($new_pages, $index);
+        } elseif (count($headings) == 1) {
             /*
              * The heading may have changed, stay up to date.
              */
             $url = trim(xh_rmws(strip_tags($headings[0])));
             $params['url'] = uenc($url);
             $params['last_edit'] = time();
-            $this->update($index, $params);
+            return $this->update($index, $params);
         }
     }
 
     /**
      * Updates the page data according to changes from the menumanager plugin.
+     * Returns whether that succeeded.
      *
      * @param string $changes The changed page structure.
      *
-     * @return void
+     * @return bool
      *
      * @access public
      *
@@ -365,7 +365,7 @@ class XH_PageDataRouter
         /*
          * Replace the old data with the new array
          */
-        $this->model->refresh($new_data);
+        return $this->model->refresh($new_data);
     }
 
     /**

@@ -127,7 +127,7 @@ class XH_PageDataModel
      *
      * @param array $data The new page data.
      *
-     * @return bool Whether $data was not null.
+     * @return bool Whether the page data have been refreshed.
      *
      * @access public
      */
@@ -135,8 +135,7 @@ class XH_PageDataModel
     {
         if (isset($data)) {
             $this->data = $data;
-            $this->save();
-            return true;
+            return $this->save();
         }
         return false;
     }
@@ -153,7 +152,7 @@ class XH_PageDataModel
     function addParam($field)
     {
         $this->params[] = $field;
-        $this->save();
+        $this->fixUp();
     }
 
     /**
@@ -292,19 +291,19 @@ class XH_PageDataModel
     }
 
     /**
-     * Replaces the page data of a single page.
+     * Replaces the page data of a single page. Returns whether that succeeded.
      *
      * @param array $pages The new page data.
      * @param int   $index The index of the page.
      *
-     * @return void
+     * @return bool
      *
      * @access public
      */
     function replace($pages, $index)
     {
         array_splice($this->data, $index, 1, $pages);
-        $this->save();
+        return $this->save();
     }
 
 
@@ -327,18 +326,18 @@ class XH_PageDataModel
     }
 
     /**
-     * Deletes the page data of a single page.
+     * Deletes the page data of a single page. Returns whether that succeeded.
      *
      * @param int $key The index of the page.
      *
-     * @return void
+     * @return bool
      *
      * @access public
      */
     function delete($key)
     {
         array_splice($this->data, $key, 1);
-        $this->save();
+        return $this->save();
     }
 
     /**

@@ -829,7 +829,9 @@ if ($adm) {
     if (isset($menumanager) && $menumanager == 'true'
         && $action == 'saverearranged' && !empty($text)
     ) {
-        $pd_router->refresh_from_menu_manager($text);
+        if (!$pd_router->refresh_from_menu_manager($text)) {
+            e('notwritable', 'content', $pth['file']['content']);
+        }
     }
 
     // check for some changed page infos

@@ -485,19 +485,17 @@ function XH_saveEditorContents($text)
     }
     $c[$s] = $text; // keep editor contents, if saving fails
 
-    if (is_writable($pth['file']['content'])) {
-        // insert $text to $c
-        $text = preg_replace(
-            '/<h[1-' . $cf['menu']['levels'] . ']/i', "\x00" . '$0', $text
-        );
-        $pages = explode("\x00", $text);
-        array_shift($pages);
-        array_splice($c, $s, 1, $pages);
+    // insert $text to $c
+    $text = preg_replace(
+        '/<h[1-' . $cf['menu']['levels'] . ']/i', "\x00" . '$0', $text
+    );
+    $pages = explode("\x00", $text);
+    array_shift($pages);
+    array_splice($c, $s, 1, $pages);
 
-        // delegate changes to $pd_router
-        preg_match_all("/$hot(.+?)$hct/isu", $text, $matches);
-        $pd_router->refresh_from_texteditor($matches[1], $s);
-
+    // delegate changes to $pd_router
+    preg_match_all("/$hot(.+?)$hct/isu", $text, $matches);
+    if ($pd_router->refresh_from_texteditor($matches[1], $s)) {
         // redirect to get back in sync
         if (count($matches[1]) > 0) {
             // page heading might have changed
