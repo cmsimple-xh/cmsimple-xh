@@ -31,8 +31,115 @@ require_once '../../cmsimple/tplfuncs.php';
  */
 class TplfuncsTest extends PHPUnit_Framework_TestCase
 {
-    public function testNothing()
+    public function setUp()
     {
+        global $cf, $tx, $onload;
+
+        include '../../cmsimple/config.php';
+        include '../../cmsimple/languages/en.php';
+        $onload = 'foo()';
+    }
+
+    public function testSitename()
+    {
+        $actual = sitename();
+        $this->assertNotEmpty($actual);
+    }
+
+    public function testPagename()
+    {
+        $actual = pagename();
+        $this->assertEmpty($actual);
+    }
+
+    public function testOnload()
+    {
+        $expected = ' onload="foo()"';
+        $actual = onload();
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testSearchbox()
+    {
+        $matcher = array(
+            'tag' => 'div',
+            'id' => 'searchbox',
+            'parent' => array(
+                'tag' => 'form',
+                'attributes' => array('method' => 'GET')
+            )
+        );
+        $actual = searchbox();
+        $this->assertTag($matcher, $actual);
+    }
+
+    public function testSitemaplink()
+    {
+        global $tx;
+
+        $matcher = array(
+            'tag' => 'a',
+            'content' => $tx['menu']['sitemap']
+        );
+        $actual = sitemaplink();
+        $this->assertTag($matcher, $actual);
+    }
+
+    public function testSitemaplinkActive()
+    {
+        global $tx, $f;
+
+        $f = 'sitemap';
+        $expected = $tx['menu']['sitemap'];
+        $actual = sitemaplink();
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testMailformlinkNoEmail()
+    {
+        $actual = mailformlink();
+        $this->assertEmpty($actual);
+    }
+
+    public function testMailformlink()
+    {
+        global $cf, $tx;
+
+        $cf['mailform']['email'] = 'me@example.com';
+        $matcher = array(
+            'tag' => 'a',
+            'content' => $tx['menu']['mailform']
+        );
+        $actual = mailformlink();
+        $this->assertTag($matcher, $actual);
+    }
+
+    public function testMailformlinkActive()
+    {
+        global $cf, $tx, $f;
+
+        $f = 'mailform';
+        $email = 'me@example.com';
+        $cf['mailform']['email'] = $email;
+        $expected = $tx['menu']['mailform'];
+        $actual = mailformlink();
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testEditmenu()
+    {
+        $actual = editmenu();
+        $this->assertEmpty($actual);
+    }
+
+    public function testTop()
+    {
+        $matcher = array(
+            'tag' => 'a',
+            'attributes' => array('href' => '#TOP')
+        );
+        $actual = top();
+        $this->assertTag($matcher, $actual);
     }
 }
 

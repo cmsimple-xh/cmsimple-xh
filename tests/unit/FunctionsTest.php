@@ -43,11 +43,20 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        global $var, $tx;
+        global $var, $cf, $tx;
 
+        include '../../cmsimple/config.php';
+        include '../../cmsimple/languages/en.php';
         $_SERVER['SERVER_NAME'] = 'example.com';
         $var = 'baz';
-        $tx['error']['plugincall']="Function %s() is not defined!";
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
+    public function testAutogalleryIsDeprecated()
+    {
+        autogallery('');
     }
 
     /**
@@ -311,6 +320,33 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testAdjustStylesheetURLs($plugin, $css, $expected)
     {
         $actual = XH_adjustStylesheetURLs($plugin, $css);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testMeta()
+    {
+        $matcher = array(
+            'tag' => 'meta',
+            'attributes' => array('name' => 'robots', 'content' => 'index, follow')
+        );
+        $actual = meta('robots');
+        $this->assertTag($matcher, $actual);
+    }
+
+    public function dataForIsContentBackup()
+    {
+        return array(
+            array('20130711_010203_content.htm', true),
+            array('2013-07-11-01-02-03-content.htm', false)
+        );
+    }
+
+    /**
+     * @dataProvider dataForIsContentBackup
+     */
+    public function testIsContentBackup($filename, $expected)
+    {
+        $actual = XH_isContentBackup($filename);
         $this->assertEquals($expected, $actual);
     }
 }
