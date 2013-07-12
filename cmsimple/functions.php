@@ -2292,7 +2292,7 @@ function XH_adminMenu($plugins = array())
     $changeText = $edit ? $tx['editmenu']['normal'] : $tx['editmenu']['edit'];
 
     $filesMenu = array();
-    foreach (array('images', 'downloads', 'media', 'userfiles') as $item) {
+    foreach (array('images', 'downloads', 'media') as $item) {
         $filesMenu[] =  array(
             'label' => utf8_ucfirst($tx['editmenu'][$item]),
             'url' => '?&amp;normal&amp;' . $item
@@ -2350,6 +2350,7 @@ function XH_adminMenu($plugins = array())
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['files']),
+            'url' => '?&amp;normal&amp;userfiles',
             'children' => $filesMenu
             ),
         array(
