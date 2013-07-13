@@ -1,46 +1,22 @@
 <?php
 
 // TODO: i18n
-// TODO: code file has to be writable
 // TODO: further error handling
 // TODO: use another email address than $cf[mailform][email]
 // TODO: use XH_Mailform::sendMail() instead of plain mail()
-// TODO: improve code uniquity
 
 class XH_PasswordForgotten
 {
     var $status;
 
-    var $codeFile;
-
-    function XH_PasswordForgotten()
-    {
-        global $pth;
-
-        $this->codeFile = $pth['folder']['cmsimple'] . 'password.code';
-    }
-
     function dispatch()
     {
         if (isset($_POST['xh_email'])) {
             $this->submit();
-        } elseif (isset($_GET['xh_code'])
-                  && time() <= filemtime($this->codeFile) + 1800
-                  && $_GET['xh_code'] == $this->readCode()
-        ) {
+        } elseif (isset($_GET['xh_code']) && $this->checkMac($_GET['xh_code'])) {
             $this->reset();
         }
         $this->render();
-    }
-
-    function saveCode($code)
-    {
-        return XH_writeFile($this->codeFile, $code);
-    }
-
-    function readCode()
-    {
-        return file_get_contents($this->codeFile);
     }
 
     function render()
@@ -65,16 +41,33 @@ class XH_PasswordForgotten
         }
     }
 
+    function mac($previous = false)
+    {
+        global $cf;
+
+        $email = $cf['mailform']['email'];
+        $date = date('Y-m-d h:00:00') . ($previous ? ' -1hour' : '');
+        $timestamp = strtotime($date);
+        $secret = $cf['security']['secret'];
+        $mac = md5($email . $timestamp . $secret);
+        return $mac;
+    }
+
+    function checkMac($mac)
+    {
+        return $mac == $this->mac() || $mac == $this->mac(true);
+    }
+
     function submit()
     {
         global $cf, $e;
 
         if ($_POST['xh_email'] == $cf['mailform']['email']) {
-            $code = uniqid();
-            $ok = $this->saveCode($code) && mail(
+            $ok = mail(
                 $cf['mailform']['email'], 'Password forgotten',
                 'click the following link to reset your password:'
-                . '<' . CMSIMPLE_URL . '?&function=forgotten&xh_code=' . $code . '>'
+                . '<' . CMSIMPLE_URL . '?&function=forgotten&xh_code='
+                . $this->mac() . '>'
             );
             $this->status = $ok ? 'sent' : '';
         } else {
@@ -87,7 +80,7 @@ class XH_PasswordForgotten
     {
         global $xh_hasher;
 
-        $password = uniqid();
+        $password = bin2hex($xh_hasher->get_random_bytes(8));
         $hash = $xh_hasher->HashPassword($password);
         $sent = mail(
             $cf['mailform']['email'], 'Password forgotten',
