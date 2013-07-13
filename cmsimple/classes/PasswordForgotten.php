@@ -195,12 +195,17 @@ class XH_PasswordForgotten
     {
         global $pth;
 
-        // TODO: write config in usual format
         include $pth['file']['config'];
         $cf['security']['password'] = $hash;
-        $config = '<?php' . PHP_EOL . '$cf = ' . var_export($cf, true) . PHP_EOL
-            . '?>';
-        return XH_writeFile($pth['file']['config'], $config);
+        $o = '<?php' . PHP_EOL . PHP_EOL;
+        foreach ($cf as $cat => $opts) {
+            foreach ($opts as $name => $opt) {
+                $opt = addcslashes($opt, "\0..\37\"\$\\");
+                $o .= "\$cf['$cat']['$name']=\"$opt\";" . PHP_EOL;
+            }
+        }
+        $o .= PHP_EOL . '?>' . PHP_EOL;
+        return XH_writeFile($pth['file']['config'], $o);
     }
 }
 
