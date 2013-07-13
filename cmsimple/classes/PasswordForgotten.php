@@ -24,7 +24,6 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  *
- * @todo further error handling
  * @todo use XH_Mailform::sendMail() instead of plain mail()
  * @todo add explicit From header
  */
@@ -131,7 +130,7 @@ class XH_PasswordForgotten
      */
     function submit()
     {
-        global $cf, $tx;
+        global $cf, $tx, $e;
 
         if ($_POST['xh_email'] == $cf['security']['email']) {
             $ok = mail(
@@ -140,7 +139,12 @@ class XH_PasswordForgotten
                 . '<' . CMSIMPLE_URL . '?&function=forgotten&xh_code='
                 . $this->mac() . '>'
             );
-            $this->status = $ok ? 'sent' : ''; // TODO error handling
+            if ($ok) {
+                $this->status = 'sent';
+            } else {
+                $this->status = '';
+                $e .= '<li>' . $tx['mailform']['notsend'] . '</li>';
+            }
         } else {
             $this->status = '';
         }
@@ -153,12 +157,13 @@ class XH_PasswordForgotten
      * @return void.
      *
      * @global object The password hasher.
+     * @global array  The paths of system files and folders.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      */
     function reset()
     {
-        global $xh_hasher, $cf, $tx;
+        global $xh_hasher, $pth, $cf, $tx;
 
         $password = bin2hex($xh_hasher->get_random_bytes(8));
         $hash = $xh_hasher->HashPassword($password);
@@ -167,7 +172,9 @@ class XH_PasswordForgotten
             $tx['password_forgotten']['email2_text'] . ' ' . $password
         );
         if ($sent) {
-            $this->saveNewPassword($hash); // TODO error handling
+            if (!$this->saveNewPassword($hash)) {
+                e('cntsave', 'config', $pth['file']['config']);
+            }
             $this->status = 'reset';
         } else {
             $this->status = '';
