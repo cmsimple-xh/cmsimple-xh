@@ -107,6 +107,7 @@ $tx['help']['pagemanager_external']="If you want to use an external page manager
 $tx['help']['plugins_disabled']="A comma separated list of plugins which shall not be loaded. <strong>Caveat: if any of these plugins is actually in use on the site, you may not be able to access the site anymore, and would have to fix this option via FTP!</strong>";
 $tx['help']['plugins_folder']="Please do not change";
 $tx['help']['security_password']="Default password of the site. Can be substituted in subsites, like secondary language pages etc. under:<br><b>Settings => CMSimple => Website</b><br><br>What you see here is the encrypted version of your password. To change the password, just enter the new one (unencrypted).";
+$tx['help']['security_email']="The email address for the password forgotten functionality. It is preferable to use an adress that is not publicly known.";
 $tx['help']['site_template']="<p>Default template of the site. Can be substituted in subsites, like secondary language pages etc. under:</p><p><b>Settings => CMSimple => Website</b></p>";
 $tx['help']['title_format']="The format of the title of the page (&lt;title&gt;).";
 $tx['help']['uri_seperator']="The character which separates names of pages and sub pages in the URL.";

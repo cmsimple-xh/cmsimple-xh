@@ -26,7 +26,6 @@
  *
  * @todo i18n
  * @todo further error handling
- * @todo use another email address than $cf[mailform][email]
  * @todo use XH_Mailform::sendMail() instead of plain mail()
  */
 class XH_PasswordForgotten
@@ -97,7 +96,7 @@ class XH_PasswordForgotten
     {
         global $cf;
 
-        $email = $cf['mailform']['email'];
+        $email = $cf['security']['email'];
         $date = date('Y-m-d h:00:00') . ($previous ? ' -1hour' : '');
         $timestamp = strtotime($date);
         $secret = $cf['security']['secret'];
@@ -130,9 +129,9 @@ class XH_PasswordForgotten
     {
         global $cf, $e;
 
-        if ($_POST['xh_email'] == $cf['mailform']['email']) {
+        if ($_POST['xh_email'] == $cf['security']['email']) {
             $ok = mail(
-                $cf['mailform']['email'], 'Password forgotten',
+                $cf['security']['email'], 'Password forgotten',
                 'click the following link to reset your password:'
                 . '<' . CMSIMPLE_URL . '?&function=forgotten&xh_code='
                 . $this->mac() . '>'
@@ -159,11 +158,11 @@ class XH_PasswordForgotten
         $password = bin2hex($xh_hasher->get_random_bytes(8));
         $hash = $xh_hasher->HashPassword($password);
         $sent = mail(
-            $cf['mailform']['email'], 'Password forgotten',
+            $cf['security']['email'], 'Password forgotten',
             'Your new password is: ' . $password
         );
         if ($sent) {
-            $this->saveNewPassword($hash);
+            $this->saveNewPassword($hash); // TODO error handling
             $this->status = 'reset';
         } else {
             $this->status = '';
