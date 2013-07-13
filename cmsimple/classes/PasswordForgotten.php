@@ -1,14 +1,48 @@
 <?php
 
-// TODO: i18n
-// TODO: further error handling
-// TODO: use another email address than $cf[mailform][email]
-// TODO: use XH_Mailform::sendMail() instead of plain mail()
+/**
+ * Handling of password forgotten functionality.
+ *
+ * PHP versions 4 and 5
+ *
+ * @category  CMSimple_XH
+ * @package   XH
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://cmsimple-xh.org/
+ */
 
+/**
+ * The password forgotten handling class.
+ *
+ * @category CMSimple_XH
+ * @package  XH
+ * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @link     http://cmsimple-xh.org/
+ * @since    1.6
+ *
+ * @todo i18n
+ * @todo further error handling
+ * @todo use another email address than $cf[mailform][email]
+ * @todo use XH_Mailform::sendMail() instead of plain mail()
+ */
 class XH_PasswordForgotten
 {
-    var $status;
+    /**
+     * The status of the password forgotten procedure.
+     *
+     * @var string
+     */
+    var $status = '';
 
+    /**
+     * Dispatches according to the request.
+     *
+     * @return void
+     */
     function dispatch()
     {
         if (isset($_POST['xh_email'])) {
@@ -19,6 +53,15 @@ class XH_PasswordForgotten
         $this->render();
     }
 
+    /**
+     * Renders the view.
+     *
+     * @return void
+     *
+     * @global string The page title.
+     * @global string The generated (X)HTML.
+     * @global string The script name.
+     */
     function render()
     {
         global $title, $o, $sn;
@@ -41,6 +84,15 @@ class XH_PasswordForgotten
         }
     }
 
+    /**
+     * Returns a MAC for the current or previous hour.
+     *
+     * @param bool $previous Whether to generate the MAC for the previous hour.
+     *
+     * @return string
+     *
+     * @global array The configuration of the core.
+     */
     function mac($previous = false)
     {
         global $cf;
@@ -53,11 +105,27 @@ class XH_PasswordForgotten
         return $mac;
     }
 
+    /**
+     * Returns whether a MAC is valid.
+     *
+     * @param string $mac A MAC.
+     *
+     * @return bool
+     */
     function checkMac($mac)
     {
         return $mac == $this->mac() || $mac == $this->mac(true);
     }
 
+    /**
+     * Handles the submission of the email address. If valid, sends an email
+     * with a link to reset the password.
+     *
+     * @return void
+     *
+     * @global array  The configuration of the core.
+     * @global string The LI elements containing error messages.
+     */
     function submit()
     {
         global $cf, $e;
@@ -76,6 +144,14 @@ class XH_PasswordForgotten
         }
     }
 
+    /**
+     * Resets the password to a randomly generated one and sends an appropriate
+     * info email.
+     *
+     * @return void.
+     *
+     * @global object The password hasher.
+     */
     function reset()
     {
         global $xh_hasher;
@@ -94,6 +170,16 @@ class XH_PasswordForgotten
         }
     }
 
+    /**
+     * Saves the new password in the configuration file, and returns
+     * whether that succeeded.
+     *
+     * @param string $hash A password hash.
+     *
+     * @return bool
+     *
+     * @global array The paths of system files and folders.
+     */
     function saveNewPassword($hash)
     {
         global $pth;
@@ -101,8 +187,9 @@ class XH_PasswordForgotten
         // TODO: write config in usual format
         include $pth['file']['config'];
         $cf['security']['password'] = $hash;
-        $config = '<?php' . PHP_EOL . '$cf = ' . var_export($cf, true) . PHP_EOL . '?>';
-        XH_writeFile($pth['file']['config'], $config);
+        $config = '<?php' . PHP_EOL . '$cf = ' . var_export($cf, true) . PHP_EOL
+            . '?>';
+        return XH_writeFile($pth['file']['config'], $config);
     }
 }
 

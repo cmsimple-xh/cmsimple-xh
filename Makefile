@@ -12,6 +12,7 @@ PHPSOURCES=cmsimple/adminfuncs.php\
 	   cmsimple/classes/PageDataRouter.php\
 	   cmsimple/classes/PageDataViews.php\
 	   cmsimple/classes/Pages.php\
+           cmsimple/classes/PasswordForgotten.php\
 	   cmsimple/classes/Search.php\
 	   plugins/meta_tags/index.php\
 	   plugins/meta_tags/_admin.php\
