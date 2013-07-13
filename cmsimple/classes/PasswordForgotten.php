@@ -25,7 +25,6 @@
  * @since    1.6
  *
  * @todo use XH_Mailform::sendMail() instead of plain mail()
- * @todo add explicit From header
  */
 class XH_PasswordForgotten
 {
@@ -133,12 +132,13 @@ class XH_PasswordForgotten
         global $cf, $tx, $e;
 
         if ($_POST['xh_email'] == $cf['security']['email']) {
-            $ok = mail(
-                $cf['security']['email'], $tx['title']['password_forgotten'],
-                $tx['password_forgotten']['email1_text'] . "\r\n"
+            $to = $cf['security']['email'];
+            $subject = $tx['title']['password_forgotten'];
+            $message = $tx['password_forgotten']['email1_text'] . "\r\n"
                 . '<' . CMSIMPLE_URL . '?&function=forgotten&xh_code='
-                . $this->mac() . '>'
-            );
+                . $this->mac() . '>';
+            $headers = 'From: ' . $to;
+            $ok = mail($to, $subject, $message, $headers);
             if ($ok) {
                 $this->status = 'sent';
             } else {
@@ -167,10 +167,11 @@ class XH_PasswordForgotten
 
         $password = bin2hex($xh_hasher->get_random_bytes(8));
         $hash = $xh_hasher->HashPassword($password);
-        $sent = mail(
-            $cf['security']['email'], $tx['title']['password_forgotten'],
-            $tx['password_forgotten']['email2_text'] . ' ' . $password
-        );
+        $to = $cf['security']['email'];
+        $subject = $tx['title']['password_forgotten'];
+        $message = $tx['password_forgotten']['email2_text'] . ' ' . $password;
+        $headers = 'From: ' . $to;
+        $sent = mail($to, $subject, $message, $headers);
         if ($sent) {
             if (!$this->saveNewPassword($hash)) {
                 e('cntsave', 'config', $pth['file']['config']);
