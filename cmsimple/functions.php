@@ -1836,9 +1836,9 @@ function loginforms()
                 . $tx['menu']['login'] . '"'
             )
             . '</div></form>';
-        if (!empty($cf['mailform']['email'])) {
+        if (!empty($cf['security']['email'])) {
             $o .= '<a href="' . $sn . '?&function=forgotten">'
-                . 'Password forgotten' . '</a>';
+                . $tx['title']['password_forgotten'] . '</a>';
         }
         $o .= ' </div>';
         $s = -1;

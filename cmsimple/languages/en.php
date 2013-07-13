@@ -196,6 +196,12 @@ $tx['password']['new']="New password";
 $tx['password']['old']="Old password";
 $tx['password']['wrong']="Old password is wrong.";
 
+$tx['password_forgotten']['email1_sent']="An email has been sent to the configured address with a link to reset the password. This link is valid for 1-2 hours.";
+$tx['password_forgotten']['email1_text']="You have requested to reset your password. Click the following link to reset your password:";
+$tx['password_forgotten']['email2_sent']="The password has been reset. An email with the new password has been sent to the configured address.";
+$tx['password_forgotten']['email2_text']="Your password has been reset. Your new password is:";
+$tx['password_forgotten']['request']="Confirm the configured email address to request instructions to reset the password.";
+
 $tx['result']['created']="created";
 $tx['result']['deleted']="deleted";
 $tx['result']['uploaded']="uploaded";
@@ -240,6 +246,7 @@ $tx['title']['downloads']="Downloads";
 $tx['title']['images']="Images";
 $tx['title']['mailform']="Mailform";
 $tx['title']['media']="Mediafiles";
+$tx['title']['password_forgotten']="Password forgotten";
 $tx['title']['phpinfo']="PHP Info";
 $tx['title']['search']="Search";
 $tx['title']['settings']="Settings";

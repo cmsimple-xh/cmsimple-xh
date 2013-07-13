@@ -196,6 +196,12 @@ $tx['password']['new']="Neues Kennwort";
 $tx['password']['old']="Altes Kennwort";
 $tx['password']['wrong']="Das alte Kennwort ist falsch.";
 
+$tx['password_forgotten']['email1_sent']="Eine E-Mail mit einem Link zum Zurücksetzen des Kennworts wurde an die hinterlegte Adresse verschickt. Dieser Link ist für 1-2 Stunden gültig.";
+$tx['password_forgotten']['email1_text']="Sie haben das Zurücksetzen Ihres Kennworts angefordert. Klicken Sie den folgenden Link an, um Ihr Kennwort zurückzusetzen.:";
+$tx['password_forgotten']['email2_sent']="Das Kennwort wurde zurückgesetzt. Eine E-Mail mit dem neuen Kennwort wurde an die hinterlegte Adresse versandt.";
+$tx['password_forgotten']['email2_text']="Ihr Kennwort wurde zurück gesetzt. Ihr neues Kennwort ist:";
+$tx['password_forgotten']['request']="Bestätigen Sie die hinterlegte E-Mail-Adresse um Anweisungen anzufordern, wie Sie das Kennwort zurück setzen.";
+
 $tx['result']['created']="angelegt";
 $tx['result']['deleted']="gelöscht";
 $tx['result']['uploaded']="hochgeladen";
@@ -240,6 +246,7 @@ $tx['title']['downloads']="Downloads";
 $tx['title']['images']="Bilder";
 $tx['title']['mailform']="Kontakt-Formular";
 $tx['title']['media']="Media-Dateien";
+$tx['title']['password_forgotten']="Kennwort vergessen";
 $tx['title']['phpinfo']="PHP-Info";
 $tx['title']['search']="Suchen";
 $tx['title']['settings']="Einstellungen";

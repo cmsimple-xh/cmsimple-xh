@@ -24,9 +24,9 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  *
- * @todo i18n
  * @todo further error handling
  * @todo use XH_Mailform::sendMail() instead of plain mail()
+ * @todo add explicit From header
  */
 class XH_PasswordForgotten
 {
@@ -60,26 +60,30 @@ class XH_PasswordForgotten
      * @global string The page title.
      * @global string The generated (X)HTML.
      * @global string The script name.
+     * @global array  The localization of the core.
+     * @global string JS for the onload attribute of the BODY element.
      */
     function render()
     {
-        global $title, $o, $sn;
+        global $title, $o, $sn, $tx, $onload;
 
-        $title = 'Password forgotten';
-        $o .= '<h1>' . 'Password forgotten' . '</h1>';
+        $title = $tx['title']['password_forgotten'];
+        $o .= '<h1>' . $title . '</h1>';
         switch ($this->status) {
         case 'sent':
-            $o .= '<p>' . 'Email sent' . '</p>';
+            $o .= '<p>' . $tx['password_forgotten']['email1_sent'] . '</p>';
             break;
         case 'reset':
-            $o .= '<p>' . 'Password reset; email sent' . '</p>';
+            $o .= '<p>' . $tx['password_forgotten']['email2_sent'] . '</p>';
             break;
         default:
-            $o .= '<p>' . 'You can request...' . '</p>'
-            . '<form action="' . $sn . '?&function=forgotten" method="post">'
+            $o .= '<p>' . $tx['password_forgotten']['request'] . '</p>'
+            . '<form name="xh_forgotten" action="' . $sn . '?&function=forgotten"'
+            . ' method="post">'
             . tag('input type="text" name="xh_email"')
-            . tag('input type="submit" value="Send Reminder"')
+            . tag('input type="submit" class="submit" value="Send Reminder"')
             . '</form>';
+            $onload .= 'document.forms[\'xh_forgotten\'].elements[\'xh_email\'].focus();';
         }
     }
 
@@ -123,23 +127,22 @@ class XH_PasswordForgotten
      * @return void
      *
      * @global array  The configuration of the core.
-     * @global string The LI elements containing error messages.
+     * @global array  The localization of the core.
      */
     function submit()
     {
-        global $cf, $e;
+        global $cf, $tx;
 
         if ($_POST['xh_email'] == $cf['security']['email']) {
             $ok = mail(
-                $cf['security']['email'], 'Password forgotten',
-                'click the following link to reset your password:'
+                $cf['security']['email'], $tx['title']['password_forgotten'],
+                $tx['password_forgotten']['email1_text'] . "\r\n"
                 . '<' . CMSIMPLE_URL . '?&function=forgotten&xh_code='
                 . $this->mac() . '>'
             );
-            $this->status = $ok ? 'sent' : '';
+            $this->status = $ok ? 'sent' : ''; // TODO error handling
         } else {
             $this->status = '';
-            $e .= '<li>' . 'Invalid email' . '</li>';
         }
     }
 
@@ -150,16 +153,18 @@ class XH_PasswordForgotten
      * @return void.
      *
      * @global object The password hasher.
+     * @global array  The configuration of the core.
+     * @global array  The localization of the core.
      */
     function reset()
     {
-        global $xh_hasher;
+        global $xh_hasher, $cf, $tx;
 
         $password = bin2hex($xh_hasher->get_random_bytes(8));
         $hash = $xh_hasher->HashPassword($password);
         $sent = mail(
-            $cf['security']['email'], 'Password forgotten',
-            'Your new password is: ' . $password
+            $cf['security']['email'], $tx['title']['password_forgotten'],
+            $tx['password_forgotten']['email2_text'] . ' ' . $password
         );
         if ($sent) {
             $this->saveNewPassword($hash); // TODO error handling
