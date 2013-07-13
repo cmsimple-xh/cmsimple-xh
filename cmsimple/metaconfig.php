@@ -1,6 +1,7 @@
 <?php
 
 $mcf['security']['password']="password";
+$mcf['security']['secret']="random";
 $mcf['site']['template']="function:XH_templates";
 $mcf['language']['default']="function:XH_availableLanguages";
 $mcf['locator']['show_homepage']="bool";

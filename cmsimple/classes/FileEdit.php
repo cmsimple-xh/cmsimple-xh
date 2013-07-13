@@ -413,7 +413,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
     function hasVisibleFields($options)
     {
         foreach ($options as $opt) {
-            if ($opt['type'] != 'hidden') {
+            if ($opt['type'] != 'hidden' && $opt['type'] != 'random') {
                 return true;
             }
         }
@@ -505,6 +505,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
             $o .= '</select>';
             return $o;
         case 'hidden':
+        case 'random':
             return tag(
                 'input type="hidden" name="' . $iname . '" value="'
                 . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8') . '"'
@@ -548,7 +549,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
             }
             foreach ($options as $name => $opt) {
                 $info = isset($opt['hint']) ? XH_helpIcon($opt['hint']) . ' ' : '';
-                if ($opt['type'] == 'hidden') {
+                if ($opt['type'] == 'hidden' || $opt['type'] == 'random') {
                     $o .= $this->formField($category, $name, $opt);
                 } else {
                     $displayName = $name != '' ? $name : $category;
@@ -623,14 +624,15 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @return string  The (X)HTML.
      *
-     * @global string  Error messages.
-     * @global object  The CSRF protection object.
+     * @global string Error messages.
+     * @global object The CSRF protection object.
+     * @global object The password hasher.
      *
      * @access public
      */
     function submit()
     {
-        global $e, $_XH_csrfProtection;
+        global $e, $_XH_csrfProtection, $xh_hasher;
 
         $_XH_csrfProtection->check();
         $errors = array();
@@ -642,6 +644,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
                     $val = isset($_POST[$iname]) ? 'true' : '';
                 } elseif ($opt['type'] == 'password') {
                     $val = $this->submitPassword($opt, $iname, $errors);
+                } elseif ($opt['type'] == 'random') {
+                    $val = bin2hex($xh_hasher->get_random_bytes(12));
                 }
                 $this->cfg[$cat][$name]['val'] = $val;
             }
