@@ -22,7 +22,7 @@
   $CMSIMPLE_XH_VERSION$
   $CMSIMPLE_XH_DATE$
   based on CMSimple version 3.3 - December 31. 2009
-  For changelog, downloads and information please see http://www.cmsimple-xh.com
+  For changelog, downloads and information please see http://www.cmsimple-xh.org/
   ======================================
   -- COPYRIGHT INFORMATION START --
   Based on CMSimple version 3.3 - December 31. 2009

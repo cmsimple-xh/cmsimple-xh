@@ -43,7 +43,7 @@ function head()
     return $t
         . tag(
             'meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' '
-            . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.de"'
+            . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org"'
         ) . "\n"
         . '<!-- plugins: ' . $plugins . ' -->' . "\n"
         . tag(

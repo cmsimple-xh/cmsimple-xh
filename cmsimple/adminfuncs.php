@@ -52,7 +52,7 @@ function XH_sysinfo()
     $o .= '<h4>' . $tx['sysinfo']['helplinks'] . '</h4>' . "\n" . "\n";
     $o .= <<<HTML
 <ul>
-<li><a href="http://www.cmsimple-xh.com/">cmsimple-xh.com &raquo;</a></li>
+<li><a href="http://www.cmsimple-xh.org/">cmsimple-xh.org &raquo;</a></li>
 <li><a href="http://www.cmsimple.org/">cmsimple.org &raquo;</a></li>
 <li><a href="http://www.cmsimpleforum.com/">cmsimpleforum.com &raquo;</a></li>
 <li><a href="http://www.cmsimplewiki.com/">cmsimplewiki.com &raquo;</a></li>
