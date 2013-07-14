@@ -386,11 +386,13 @@ class XHFileBrowser
         $pages = $this->fileIsLinked($file);
         if (is_array($pages)) {
             $this->view->error('error_not_deleted', $file);
-            $this->view->error('error_file_is_used', $file);
+            $this->view->message .= '<div class="cmsimplecore_warning">'
+                . $this->view->translate('error_file_is_used', $file)
+                . '<ul>';
             foreach ($pages as $page) {
                 $this->view->message .= '<li>' . $page . '</li>';
             }
-            $this->view->message .= '</ul>';
+            $this->view->message .= '</ul></div>';
             return;
         }
         if (@unlink($file)) {
