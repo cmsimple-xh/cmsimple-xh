@@ -609,7 +609,7 @@ function XH_adminJSLocalization()
             $l10n[$category][$key] = $tx[$category][$key];
         }
     }
-    $o = '<script type="text/javascript">/* <![CDATA[ */xh.i18n = '
+    $o = '<script type="text/javascript">/* <![CDATA[ */XH.i18n = '
         . json_encode($l10n) . '/* ]]> */</script>' . PHP_EOL;
     return $o;
 }

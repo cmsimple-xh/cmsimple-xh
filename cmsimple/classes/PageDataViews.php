@@ -78,7 +78,7 @@ class XH_PageDataView
             list($function, $dummy) = explode('.', basename($file), 2);
             // TODO: use something more appropriate than an anchor
             $view .= "\n\t" . '<a class="inactive_tab" id="tab_' . $function
-                . '" onclick="xh.toggleTab(\'' . $function . '\');"><span>'
+                . '" onclick="XH.toggleTab(\'' . $function . '\');"><span>'
                 . $title . '</span></a>';
         }
 
@@ -90,7 +90,7 @@ class XH_PageDataView
             $view .= "\n" . '<div id="PLTab_' . $function
                 . '" class="inactive_view">'
                 . "\n\t" . '<a class="pd_editor_toggle pd_open"'
-                . ' onclick="xh.toggleTab(\'' . $function . '\');">&nbsp;</a>';
+                . ' onclick="XH.toggleTab(\'' . $function . '\');">&nbsp;</a>';
             if (file_exists($file)) {
                 include_once $file;
                 $view .= $function($this->page);

@@ -5,44 +5,47 @@
  * @since   1.6
  */
 
-
 /**
  * The namespace object.
  */
-var xh = {}
-
+var XH = {}
 
 /**
  * Activates a tab above the contents editor.
  *
  * @param {String} tabID
+ *
  * @returns {undefined}
  */
-xh.toggleTab = function(tabID) {
+XH.toggleTab = function(tabID) {
     var currView = document.getElementById("PLTab_" + tabID);
     var currTab = document.getElementById("tab_" + tabID);
+    var views, view, tabs, i, n, status;
+
     if (currTab.className == "active_tab") {
         currView.className = "inactive_view";
         currTab.className = "inactive_tab";
         return;
     }
-    var views = document.getElementById("pd_views").getElementsByTagName("div");
-    var tabs = document.getElementById("pd_tabs").getElementsByTagName("a");
-    for (i = 0; i < views.length; i++) {
-        if (views[i].id.indexOf("PLTab_") == 0) {
-            views[i].className = "inactive_view";
-            var status = xh.findPDTabStatus(views[i]);
+
+    views = document.getElementById("pd_views").getElementsByTagName("div");
+    for (i = 0, n = views.length; i < n; ++i) {
+        view = views[i];
+        if (view.id.indexOf("PLTab_") == 0) {
+            view.className = "inactive_view";
+            status = XH.findPDTabStatus(view);
             status.getElementsByTagName("DIV")[0].innerHTML = "";
         }
     }
-    for (i = 0; i < tabs.length; i++) {
+
+    tabs = document.getElementById("pd_tabs").getElementsByTagName("a");
+    for (i = 0, n = tabs.length; i < n; ++i) {
         tabs[i].className = "inactive_tab";
     }
+
     currTab.className = "active_tab";
     currView.className = "active_view";
-    return;
 }
-
 
 /**
  * Displays a modal dialog.
@@ -50,25 +53,28 @@ xh.toggleTab = function(tabID) {
  * Requires .xh_modal_dialog_overlay to overlay the whole viewport.
  *
  * @param {HTMLElement} contentElement
- * @param {String} width  The width of the dialog as CSS width.
- * @param {Function} func
+ * @param {String}      width          The width of the dialog as CSS width.
+ * @param {Function}    func
+ *
  * @returns {undefined}
  */
-xh.modalDialog = function(contentElement, width, func) {
-    // TODO: i18n
-    var overlay = document.createElement("div");
+XH.modalDialog = function(contentElement, width, func) {
+    var overlay, center, dialog, contentClone, error, buttons, okButton,
+        cancelButton, text;
+
+    overlay = document.createElement("div");
     overlay.className = "xh_modal_dialog_overlay";
-    overlay.onclick = function() {
+    overlay.onclick = function () {
         document.body.removeChild(overlay);
     }
 
-    var center = document.createElement("div");
+    center = document.createElement("div");
     center.className = "xh_modal_dialog_center";
 
-    var dialog = document.createElement("div");
+    dialog = document.createElement("div");
     dialog.className = "xh_modal_dialog";
     dialog.style.width = width;
-    dialog.onclick = function(event) {
+    dialog.onclick = function (event) {
         if (event) {
             event.stopPropagation();
         } else {
@@ -76,24 +82,27 @@ xh.modalDialog = function(contentElement, width, func) {
         }
     }
 
-    var contentClone = contentElement.cloneNode(true);
+    contentClone = contentElement.cloneNode(true);
     contentClone.style.display = "block";
     dialog.appendChild(contentClone);
 
-    var error = document.createElement("div");
+    error = document.createElement("div");
     error.className = "xh_modal_dialog_error";
     error.appendChild(document.createTextNode(""));
     dialog.appendChild(error);
 
-    var buttons = document.createElement("div");
+    buttons = document.createElement("div");
     buttons.className = "xh_modal_dialog_buttons";
 
-    var okButton = document.createElement("button");
-    okButton.appendChild(document.createTextNode(xh.i18n["action"]["ok"]));
-    okButton.onclick = function() {
+    okButton = document.createElement("button");
+    text = document.createTextNode(XH.i18n["action"]["ok"]);
+    okButton.appendChild(text);
+    okButton.onclick = function () {
         var result = func(contentClone);
+
         if (result === true) {
-            contentElement.parentNode.replaceChild(contentClone, contentElement);
+            contentElement.parentNode.replaceChild(contentClone,
+                    contentElement);
             contentClone.style.display = "none";
             document.body.removeChild(overlay);
         } else {
@@ -102,32 +111,29 @@ xh.modalDialog = function(contentElement, width, func) {
     }
     buttons.appendChild(okButton);
 
-    var cancelButton = document.createElement("button");
-    cancelButton.appendChild(document.createTextNode(xh.i18n["action"]["cancel"]));
-    cancelButton.onclick = function() {
+    cancelButton = document.createElement("button");
+    text = document.createTextNode(XH.i18n["action"]["cancel"]);
+    cancelButton.appendChild(text);
+    cancelButton.onclick = function () {
         document.body.removeChild(overlay);
     }
     buttons.appendChild(cancelButton);
 
     dialog.appendChild(buttons);
-
     center.appendChild(dialog);
-
     overlay.appendChild(center);
-
     document.body.appendChild(overlay);
 }
-
 
 /**
  * Validates the `change password' dialog.
  * Returns `true', if everything is okay; an error message otherwise.
  *
  * @param {HTMLElement} dialog
+ *
  * @returns {mixed}
  */
-xh.validatePassword = function(dialog) {
-    // TODO: i18n
+XH.validatePassword = function(dialog) {
     var inputs = dialog.getElementsByTagName("input"),
         oldPassword = inputs[0].value,
         newPassword = inputs[1].value,
@@ -135,10 +141,10 @@ xh.validatePassword = function(dialog) {
         request;
 
     if (oldPassword == "" || newPassword == "" || confirmation == "") {
-        return xh.i18n["password"]["fields_missing"];
+        return XH.i18n["password"]["fields_missing"];
     }
     if (newPassword != confirmation) {
-        return xh.i18n["password"]["mismatch"];
+        return XH.i18n["password"]["mismatch"];
     }
     request = new XMLHttpRequest();
     request.open("GET", "?xh_check=" + encodeURIComponent(oldPassword), false);
@@ -147,22 +153,27 @@ xh.validatePassword = function(dialog) {
         return "Server error: " + request.statusText;
     }
     if (request.responseText != 1) {
-        return xh.i18n["password"]["wrong"];
+        return XH.i18n["password"]["wrong"];
     }
     return true;
 }
 
 /**
  * Returns the x-www-form-urlencoded data of a form.
+ *
+ * @param {HTMLElement} form
+ *
+ * @returns {String}
  */
-xh.serializeForm = function(form) {
+XH.serializeForm = function(form) {
     var params = [],
-        els = form.elements, n = els.length, i, el,
-        name, value;
+        els = form.elements,
+        n, i, el, name, value, checked;
 
-    for (i = 0; i < n; ++i) {
+    for (i = 0, n = els.length; i < n; ++i) {
         el = els[i];
-        if (el.name && (!(el.type == "checkbox" || el.type == "radio") || el.checked)) {
+        checked = !(el.type == "checkbox" || el.type == "radio") || el.checked;
+        if (el.name && checked) {
             name = encodeURIComponent(el.name);
             value = encodeURIComponent(el.value);
             params.push(name + "=" + value);
@@ -173,20 +184,26 @@ xh.serializeForm = function(form) {
 
 /**
  * Returns the status element of a page data form resp. tab.
+ *
+ * @params {HTMLElement} formOrTab
+ *
+ * @returns {HTMLElement}
  */
-xh.findPDTabStatus = function(formOrTab) {
+XH.findPDTabStatus = function(formOrTab) {
     var node;
 
     if (formOrTab.nodeName == "FORM") {
         node = formOrTab.parentNode;
-        while (typeof node.id == "undefined" || node.id.indexOf("PLTab_") !== 0) {
+        while (typeof node.id == "undefined" ||
+                node.id.indexOf("PLTab_") !== 0) {
             node = node.parentNode;
         }
     } else {
         node = formOrTab;
     }
     node = node.lastChild;
-    while (typeof node.className == "undefined" || node.className != "pltab_status") {
+    while (typeof node.className == "undefined" ||
+            node.className != "pltab_status") {
         node = node.previousSibling;
     }
     return node;
@@ -194,19 +211,24 @@ xh.findPDTabStatus = function(formOrTab) {
 
 /**
  * Submits a page data form via AJAX.
+ *
+ * @param {HTMLFormElement}
+ *
+ * @returns {undefined}
  */
-xh.quickSubmit = function(form) {
+XH.quickSubmit = function(form) {
     var request = new XMLHttpRequest,
         status, img, message;
 
     request.open("POST", form.action + "&xh_pagedata_ajax");
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    status = xh.findPDTabStatus(form);
+    request.setRequestHeader("Content-Type",
+            "application/x-www-form-urlencoded");
+    status = XH.findPDTabStatus(form);
     img = status.getElementsByTagName("IMG")[0];
     message = status.getElementsByTagName("DIV")[0];
     message.innerHTML = '';
     img.style.display = "inline";
-    request.onreadystatechange = function() {
+    request.onreadystatechange = function () {
         if (request.readyState == 4) {
             img.style.display = "none";
             message.innerHTML = request.responseText;
@@ -215,13 +237,15 @@ xh.quickSubmit = function(form) {
             }
         }
     }
-    request.send(xh.serializeForm(form));
+    request.send(XH.serializeForm(form));
 }
 
 /**
  * Initialize the quick submit of page data forms.
+ *
+ * @returns {undefined}
  */
-xh.initQuickSubmit = function() {
+XH.initQuickSubmit = function() {
     var views, forms, i, n, form;
 
     views = document.getElementById("pd_views");
@@ -230,8 +254,8 @@ xh.initQuickSubmit = function() {
         for (i = 0, n = forms.length; i < n; ++i) {
             form = forms[i];
             if (!form.onsubmit) {
-                form.onsubmit = function() {
-                    xh.quickSubmit(this);
+                form.onsubmit = function () {
+                    XH.quickSubmit(this);
                     return false;
                 }
             }
@@ -242,4 +266,4 @@ xh.initQuickSubmit = function() {
 /*
  * Initialize the quick submit of page data forms.
  */
-xh.initQuickSubmit();
+XH.initQuickSubmit();
