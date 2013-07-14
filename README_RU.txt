@@ -21,6 +21,10 @@ $CMSIMPLE_XH_VERSION$
 подробности читайте на странице
 http://www.cmsimple-xh.org/wiki/doku.php/installation
 
+Подробная ИНСТРУКЦИЯ ПО ОБНОВЛЕНИЮ доступна
+на форуме CMSimple
+http://www.cmsimpleforum.com/viewtopic.php?f=4&t=4868.
+
 ===============================================
 
 #########################################
