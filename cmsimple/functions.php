@@ -240,7 +240,14 @@ function evaluate_plugincall($text)
     foreach ($calls as $call) {
         $length = strlen($call[0][0]);
         $offset = $call[0][1];
-        $expression = $call[1][0];
+        $expression = preg_replace(
+            array(
+                '/&(quot|#34);/i', '/&(amp|#38);/i', '/&(apos|#39);/i',
+                '/&(lt|#60);/i', '/&(gt|#62);/i', '/&(nbsp|#160);/i'
+            ),
+            array('"', '&', '\'', '<', '>', ' '),
+            $call[1][0]
+        );
         $function = $call[2][0];
         if (function_exists($function)) {
             $result = XH_evaluateSinglePluginCall($expression);
