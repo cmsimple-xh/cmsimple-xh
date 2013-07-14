@@ -611,7 +611,7 @@ function XH_adminJSLocalization()
         }
     }
     $o = '<script type="text/javascript">/* <![CDATA[ */XH.i18n = '
-        . json_encode($l10n) . '/* ]]> */</script>' . PHP_EOL;
+        . XH_encodeJson($l10n) . '/* ]]> */</script>' . PHP_EOL;
     return $o;
 }
 
