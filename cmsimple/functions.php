@@ -2430,4 +2430,84 @@ function XH_adminMenuItem($item, $level = 0)
     return $t;
 }
 
+/**
+ * Returns the JSON string decoded as PHP value.
+ *
+ * @param string $string A JSON string.
+ *
+ * @return mixed
+ *
+ * @global array  The paths of system files and folders.
+ * @global object The JSON codec.
+ *
+ * @since 1.6
+ */
+function XH_decodeJson($string)
+{
+    global $pth, $_XH_json;
+
+    if (function_exists('json_decode')) {
+        return json_decode($string);
+    } else {
+        if (!isset($_XH_json)) {
+            include_once $pth['folder']['classes'] . 'JSON.php';
+            $_XH_json = new XH_JSON();
+        }
+        return $_XH_json->decode($string);
+    }
+}
+
+/**
+ * Returns the JSON representation of a value.
+ *
+ * @param mixed $value A PHP value.
+ *
+ * @return string
+ *
+ * @global array The paths of system files and folders.
+ * @global object The JSON codec.
+ *
+ * @since 1.6
+ */
+function XH_encodeJson($value)
+{
+    global $pth, $_XH_json;
+
+    if (function_exists('json_encode')) {
+        return json_encode($value);
+    } else {
+        if (!isset($_XH_json)) {
+            include_once $pth['folder']['classes'] . 'JSON.php';
+            $_XH_json = new XH_JSON();
+        }
+        return $_XH_json->encode($value);
+    }
+}
+
+/**
+ * Returns whether an error has occurred
+ * during the last {@link XH_decodeJSON()}.
+ *
+ * @return bool
+ *
+ * @global array The paths of system files and folders.
+ * @global object The JSON codec.
+ *
+ * @since 1.6
+ */
+function XH_lastJsonError()
+{
+    global $pth, $_XH_json;
+
+    if (function_exists('json_last_error')) {
+        return json_last_error();
+    } else {
+        if (!isset($_XH_json)) {
+            include_once $pth['folder']['classes'] . 'JSON.php';
+            $_XH_json = new XH_JSON();
+        }
+        return $_XH_json->lastError();
+    }
+}
+
 ?>
