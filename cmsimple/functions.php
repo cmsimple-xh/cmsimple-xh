@@ -1032,13 +1032,21 @@ function XH_readContents($language = null)
         eval($m[1]);
     }
     $page_data = array();
+    $hasPageData = false;
     foreach ($c as $i => $j) {
         if (preg_match('/<\?php(.*?)\?>/is', $j, $m)) {
             eval($m[1]);
             $c[$i] = preg_replace('/<\?php(.*?)\?>/is', '', $j);
+            $hasPageData = true;
         } else {
             $page_data[] = array();
         }
+    }
+
+    if (empty($page_data_fields) && empty($temp_data) && !$hasPageData
+        && is_readable($pth['file']['pagedata'])
+    ) {
+        include $pth['file']['pagedata'];
     }
 
     $pd_router = new XH_PageDataRouter(
