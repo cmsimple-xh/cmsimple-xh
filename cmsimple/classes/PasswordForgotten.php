@@ -23,8 +23,6 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  * @since    1.6
- *
- * @todo use XH_Mailform::sendMail() instead of plain mail()
  */
 class XH_PasswordForgotten
 {
@@ -124,12 +122,14 @@ class XH_PasswordForgotten
      *
      * @return void
      *
+     * @global array  The paths of system files and folders.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
+     * @global string LI elements to be emitted as error messages.
      */
     function submit()
     {
-        global $cf, $tx, $e;
+        global $pth, $cf, $tx, $e;
 
         if ($_POST['xh_email'] == $cf['security']['email']) {
             $to = $cf['security']['email'];
@@ -138,7 +138,9 @@ class XH_PasswordForgotten
                 . '<' . CMSIMPLE_URL . '?&function=forgotten&xh_code='
                 . $this->mac() . '>';
             $headers = 'From: ' . $to;
-            $ok = mail($to, $subject, $message, $headers);
+            include_once $pth['folder']['classes'] . 'Mailform.php';
+            $mailform = new XH_Mailform();
+            $ok = $mailform->sendMail($to, $subject, $message, $headers);
             if ($ok) {
                 $this->status = 'sent';
             } else {
@@ -171,7 +173,9 @@ class XH_PasswordForgotten
         $subject = $tx['title']['password_forgotten'];
         $message = $tx['password_forgotten']['email2_text'] . ' ' . $password;
         $headers = 'From: ' . $to;
-        $sent = mail($to, $subject, $message, $headers);
+        include_once $pth['folder']['classes'] . 'Mailform.php';
+        $mailform = new XH_Mailform();
+        $sent = $mailform->sendMail($to, $subject, $message, $headers);
         if ($sent) {
             if (!$this->saveNewPassword($hash)) {
                 e('cntsave', 'config', $pth['file']['config']);
