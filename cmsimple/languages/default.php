@@ -60,6 +60,7 @@ $tx['error']['notreadable']="Not readable";
 $tx['error']['notwritable']="Not writeable";
 $tx['error']['plugincall']="Function %s() is not defined!";
 $tx['error']['plugin_error']="Plugin error: ";
+$tx['error']['server']="Server error: %s";
 $tx['error']['tolarge']="is too large! Maximum size is set to";
 $tx['error']['undefined']="Undefined";
 $tx['error']['wrongext']="Wrong file extension in";

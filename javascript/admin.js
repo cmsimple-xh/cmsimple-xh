@@ -133,7 +133,7 @@ XH.modalDialog = function(contentElement, width, func) {
  *
  * @returns {mixed}
  */
-XH.validatePassword = function(dialog) { // TODO: i18n
+XH.validatePassword = function(dialog) {
     var inputs = dialog.getElementsByTagName("input"),
         oldPassword = inputs[0].value,
         newPassword = inputs[1].value,
@@ -150,7 +150,8 @@ XH.validatePassword = function(dialog) { // TODO: i18n
     request.open("GET", "?xh_check=" + encodeURIComponent(oldPassword), false);
     request.send(null);
     if (request.status != 200) {
-        return "Server error: " + request.statusText;
+        return XH.i18n["error"]["server"].replace("%s",
+                request.status + " " + request.statusText);
     }
     if (request.responseText != 1) {
         return XH.i18n["password"]["wrong"];
