@@ -1845,7 +1845,6 @@ function loginforms()
             . '<p><b>' . $tx['login']['warning'] . '</b></p>'
             . '<form id="login" name="login" action="' . $sn . '?' . $u[$s]
             . '" method="post">'
-            . '<div id="login">'
             . tag('input type="hidden" name="login" value="true"')
             . tag('input type="hidden" name="selected" value="' . @$u[$s] . '"')
             . tag('input type="password" name="keycut" id="passwd" value=""') . ' '
@@ -1853,7 +1852,7 @@ function loginforms()
                 'input type="submit" name="submit" id="submit" value="'
                 . $tx['menu']['login'] . '"'
             )
-            . '</div></form>';
+            . '</form>';
         if (!empty($cf['security']['email'])) {
             $o .= '<a href="' . $sn . '?&function=forgotten">'
                 . $tx['title']['password_forgotten'] . '</a>';
