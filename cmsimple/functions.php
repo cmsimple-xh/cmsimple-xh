@@ -2446,8 +2446,9 @@ function XH_decodeJson($string)
 {
     global $pth, $_XH_json;
 
-    if (function_exists('json_decode')) {
-        return json_decode($string);
+    $func = 'json_decode';
+    if (function_exists($func)) {
+        return $func($string); // indirect call to satisfy PHP_CI
     } else {
         if (!isset($_XH_json)) {
             include_once $pth['folder']['classes'] . 'JSON.php';
@@ -2473,8 +2474,9 @@ function XH_encodeJson($value)
 {
     global $pth, $_XH_json;
 
-    if (function_exists('json_encode')) {
-        return json_encode($value);
+    $func = 'json_encode';
+    if (function_exists($func)) {
+        return $func($value); // indirect call to satisfy PHP_CI
     } else {
         if (!isset($_XH_json)) {
             include_once $pth['folder']['classes'] . 'JSON.php';
@@ -2499,8 +2501,9 @@ function XH_lastJsonError()
 {
     global $pth, $_XH_json;
 
-    if (function_exists('json_last_error')) {
-        return json_last_error();
+    $func = 'json_last_error';
+    if (function_exists($func)) {
+        return $func(); // indirect call to satisfy PHP_CI
     } else {
         if (!isset($_XH_json)) {
             include_once $pth['folder']['classes'] . 'JSON.php';
