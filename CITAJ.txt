@@ -1,9 +1,9 @@
 ﻿===============================================
-CMSimple_XH 1.5.4
-released 2012-09-22
+$CMSIMPLE_XH_VERSION$
+released $CMSIMPLE_XH_DATE$
 ===============================================
 
-HESLO pre tüto inštaláciu je:  
+HESLO pre tüto inštaláciu je:
 
            test
 
@@ -11,14 +11,17 @@ HESLO pre tüto inštaláciu je:
 
 ===============================================
 
-INŠTALÁCIA 
+INŠTALÁCIA
 
 Rozbaľte stiahnutý súbor a uploadujte všetky súbory
 z adresára cmsimplexh/ na váš webserver.
 
 Na mnohých serveroch budete musieť nastaviť práva
 pre zápis a čítanie pre niektoré súbory, viac na:
-http://www.cmsimple-xh.com/wiki/doku.php/manuals:users_manual:cmsimple:installation#assigning_file_and_folder_permissions
+http://www.cmsimple-xh.org/wiki/doku.php/installation
+
+Detailné pokyny pre UPDATE nájdete na
+[CMSimple forum](http://www.cmsimpleforum.com/viewtopic.php?f=4&t=4868).
 
 ===============================================
 
@@ -66,7 +69,7 @@ a generuje navigačné menu. Hlavičky H4-H6 zostávajú
 pre normálne sémantické štrukturovanie v rámci stránok.
 
 ################################################
-       U Ž I T O Č N É    O D K A Z Y 
+       U Ž I T O Č N É    O D K A Z Y
 ################################################
 
 CMSimple fórum (anglicky): http://www.cmsimpleforum.com/
