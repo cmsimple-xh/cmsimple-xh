@@ -6,6 +6,7 @@ PHPSOURCES=cmsimple/adminfuncs.php\
 	   cmsimple/tplfuncs.php\
 	   cmsimple/classes/CSRFProtection.php\
 	   cmsimple/classes/FileEdit.php\
+	   cmsimple/classes/JSON.php\
 	   cmsimple/classes/LinkCheck.php\
 	   cmsimple/classes/Mailform.php\
 	   cmsimple/classes/PageDataModel.php\
