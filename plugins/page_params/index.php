@@ -43,8 +43,6 @@ if (!defined('PLUGINLOADER_VERSION')) {
  * @global array  The content of the pages.
  *
  * @since 1.6
- *
- * @todo use CMSIMPLE_URL for relocation
  */
 function Pageparams_handleRelocation($index, $data)
 {
@@ -54,7 +52,7 @@ function Pageparams_handleRelocation($index, $data)
     if ($data['use_header_location'] == '1' && trim($location) !== '' ) {
         $components = parse_url($location);
         if (!$components || !isset($components['scheme'])) {
-            $location = 'http://' . $_SERVER['HTTP_HOST'] . $sn . $location;
+            $location = CMSIMPLE_URL . $location;
         }
         if ($index == $s) {
             $c[$index] = '#CMSimple header("Location:'. $location .'"); exit; #';
