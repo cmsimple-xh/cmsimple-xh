@@ -8,7 +8,7 @@
 set -e
 
 # define the relevant files
-README_FILES="README.txt LIESMICH.txt CITAJ.txt CTIMNE.txt README_RU.txt"
+README_FILES="README.txt LAESMIG.txt LIESMICH.txt CITAJ.txt CTIMNE.txt README_RU.txt"
 VI_FILES="\
     cmsimple/adminfuncs.php\
     cmsimple/cms.php\
