@@ -34,7 +34,7 @@ XH.toggleTab = function(tabID) {
         if (view.id.indexOf("PLTab_") == 0) {
             view.className = "inactive_view";
             status = XH.findPDTabStatus(view);
-            status.getElementsByTagName("DIV")[0].innerHTML = "";
+            status.getElementsByTagName("div")[0].innerHTML = "";
         }
     }
 
@@ -133,7 +133,7 @@ XH.modalDialog = function(contentElement, width, func) {
  *
  * @returns {mixed}
  */
-XH.validatePassword = function(dialog) {
+XH.validatePassword = function(dialog) { // TODO: i18n
     var inputs = dialog.getElementsByTagName("input"),
         oldPassword = inputs[0].value,
         newPassword = inputs[1].value,
@@ -192,7 +192,7 @@ XH.serializeForm = function(form) {
 XH.findPDTabStatus = function(formOrTab) {
     var node;
 
-    if (formOrTab.nodeName == "FORM") {
+    if (formOrTab.nodeName.toLower() == "form") {
         node = formOrTab.parentNode;
         while (typeof node.id == "undefined" ||
                 node.id.indexOf("PLTab_") !== 0) {
@@ -224,8 +224,8 @@ XH.quickSubmit = function(form) {
     request.setRequestHeader("Content-Type",
             "application/x-www-form-urlencoded");
     status = XH.findPDTabStatus(form);
-    img = status.getElementsByTagName("IMG")[0];
-    message = status.getElementsByTagName("DIV")[0];
+    img = status.getElementsByTagName("img")[0];
+    message = status.getElementsByTagName("div")[0];
     message.innerHTML = '';
     img.style.display = "inline";
     request.onreadystatechange = function () {
@@ -250,7 +250,7 @@ XH.initQuickSubmit = function() {
 
     views = document.getElementById("pd_views");
     if (views) {
-        forms = views.getElementsByTagName("FORM");
+        forms = views.getElementsByTagName("form");
         for (i = 0, n = forms.length; i < n; ++i) {
             form = forms[i];
             if (!form.onsubmit) {
