@@ -969,10 +969,13 @@ function XH_readContents($language = null)
     global $pth, $cf, $edit, $adm;
 
     if (isset($language)) {
-        $contentFile = $pth['folder']['base'] . $language . '/content/content.htm';
+        $contentFolder = $pth['folder']['base'] . 'content/' . $language . '/';
+        $contentFile = $contentFolder . 'content.htm';
+        $pageDataFile = $contentFolder . 'pagedata.php';
         include $pth['folder']['language'] . $language . '.php';
     } else {
         $contentFile = $pth['file']['content'];
+        $pageDataFile = $pth['file']['pagedata'];
         $tx = $GLOBALS['tx'];
     }
 
@@ -1044,9 +1047,9 @@ function XH_readContents($language = null)
     }
 
     if (empty($page_data_fields) && empty($temp_data) && !$hasPageData
-        && is_readable($pth['file']['pagedata'])
+        && is_readable($pageDataFile)
     ) {
-        include $pth['file']['pagedata'];
+        include $pageDataFile;
     }
 
     $pd_router = new XH_PageDataRouter(
