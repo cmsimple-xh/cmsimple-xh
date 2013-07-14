@@ -29,6 +29,8 @@ PHPSOURCES=cmsimple/adminfuncs.php\
 
 TUTORIALS=tutorials/XH/CSRFProtection.cls
 
+JSSOURCES=javascript/admin.js
+
 EMPTY=
 SPACE=$(EMPTY) $(EMPTY)
 COMMA=,
@@ -47,13 +49,16 @@ coverage: check-phpunit
 	cd tests/unit; $(PHPUNIT) --bootstrap bootstrap.php --coverage-html ../coverage .; cd ../..
 
 .PHONY: doc
-doc: doc/php/index.html
+doc: check-phpdoc doc/php/index.html check-jsdoc doc/js/index.html
 
-doc/php/index.html: check-phpdoc $(PHPSOURCES) $(TUTORIALS)
+doc/php/index.html: $(PHPSOURCES) $(TUTORIALS)
 	$(PHPDOC) --filename $(subst $(SPACE),$(COMMA),$(PHPSOURCES) $(TUTORIALS))\
 		  --target doc/php\
 		  --defaultcategoryname CMSimple_XH\
 		  --defaultpackagename XH
+
+doc/js/index.html: $(JSSOURCES)
+	$(JSDOC) -d doc/js/ javascript/admin.js
 
 .PHONY: sniff
 sniff: check-phpcs
@@ -63,11 +68,13 @@ sniff: check-phpcs
 phpci: check-phpci
 	$(PHPCI) --dir cmsimple
 
-.PHONY: check-phpunit check-phpdoc check-phpcs check-phpci check-cmsimpledir
+.PHONY: check-phpunit check-phpdoc check-jsdoc check-phpcs check-phpci check-cmsimpledir
 check-phpunit:
 	if test "$(PHPUNIT)" = "" ; then echo "PHPUNIT not set"; exit 1; fi
 check-phpdoc:
 	if test "$(PHPDOC)" = "" ; then echo "PHPDOC not set"; exit 1; fi
+check-jsdoc:
+	if test "$(JSDOC)" = "" ; then echo "JSDOC not set"; exit 1; fi
 check-phpcs:
 	if test "$(PHPCS)" = "" ; then echo "PHPCS not set"; exit 1; fi
 check-phpci:
