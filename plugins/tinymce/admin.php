@@ -2,8 +2,8 @@
 /**
  * tinyMCE Editor - admin module
  *
- * Handles reading and writing of plugin files - init selectors are dynamically loaded from 
- * ./inits/ representation of init_.js files 
+ * Handles reading and writing of plugin files - init selectors are dynamically loaded from
+ * ./inits/ representation of init_.js files
  *
  * PHP version 4 and 5
  *
@@ -30,7 +30,7 @@ if ($tinymce) {
     $o .= '<div class="plugineditcaption">TinyMCE for CMSimple_XH</div>';
     $o .= '<p>Version for $CMSIMPLE_XH_VERSION$</p>';
     $o .= '<p>TinyMCE version 3.5.8  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a></p>';
-    $o .= '<p>CMSimpe_xh & Filebrowser integration &ndash; <a href="http://www.pixolution.ch/" target="_blank">http://www.pixolution.ch/</a></p>';
+    $o .= '<p>CMSimpe_XH & Filebrowser integration &ndash; <a href="http://www.pixolution.ch/" target="_blank">http://www.pixolution.ch/</a></p>';
     $o .=tag('br');
 
     include $pth['folder']['classes'] . 'FileEdit.php';
@@ -42,22 +42,22 @@ if ($tinymce) {
     class XH_TinyMceConfigFileEdit extends XH_PluginConfigFileEdit
     {
 /**
-* Constructor 
-*/ 
+* Constructor
+*/
         function XH_TinyMceConfigFileEdit()
         {
             parent::XH_PluginConfigFileEdit();
         }
 /**
-* Controller 
+* Controller
 * @return string output|nothing parsed output or nothing
-*/ 
+*/
         function edit()
         {
             global $action;
             if ($this->setOptions('init'))
             {
-                    if ($action!='plugin_save') 
+                    if ($action!='plugin_save')
                         return $this->form();
                     else
                         return $this->submit();
@@ -69,7 +69,7 @@ if ($tinymce) {
 * @param $field select field name to set the options for
 * @global array
 * @return true if options available
-*/ 
+*/
         function setOptions($field)
         {
             global $pth;
@@ -82,12 +82,12 @@ if ($tinymce) {
                             $options[] = $temp[1];
                     }
             }
-            (bool) $options && 
-                $this->cfg[$field]['']['vals'] = $options; 
+            (bool) $options &&
+                $this->cfg[$field]['']['vals'] = $options;
             return (bool) $options;
         }
     }   // End of class XH_TinyMceConfigFileEdit
-    
+
     $tiymceConfig = new XH_TinyMceConfigFileEdit();
     $o .= $tiymceConfig->edit();
     $o .= '</div>';
