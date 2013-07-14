@@ -1,25 +1,26 @@
 /**
- * JS for CMSimple_XH's admin mode
+ * The XH namespace.
  *
- * @version $Id$
- * @since   1.6
- */
-
-/**
- * The namespace object.
+ * @namespace
+ *
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 2009-2013 The CMSimple_XH developers (http://cmsimple-xh.org/?The_Team)
+ * @license   GNU GPLv3 (http://www.gnu.org/licenses/gpl-3.0.en.html)
+ * @version   $Id$
+ * @since     1.6
  */
 var XH = {}
 
 /**
- * Activates a tab above the contents editor.
+ * Toggles the visibility of a page data tab.
  *
- * @param {String} tabID
+ * @param {string} tabId
  *
  * @returns {undefined}
  */
-XH.toggleTab = function(tabID) {
-    var currView = document.getElementById("PLTab_" + tabID);
-    var currTab = document.getElementById("tab_" + tabID);
+XH.toggleTab = function(tabId) {
+    var currView = document.getElementById("PLTab_" + tabId);
+    var currTab = document.getElementById("tab_" + tabId);
     var views, view, tabs, i, n, status;
 
     if (currTab.className == "active_tab") {
@@ -53,10 +54,12 @@ XH.toggleTab = function(tabID) {
  * Requires .xh_modal_dialog_overlay to overlay the whole viewport.
  *
  * @param {HTMLElement} contentElement
- * @param {String}      width          The width of the dialog as CSS width.
+ * @param {string}      width          The width of the dialog as CSS width.
  * @param {Function}    func
  *
  * @returns {undefined}
+ *
+ * @since 1.6
  */
 XH.modalDialog = function(contentElement, width, func) {
     var overlay, center, dialog, contentClone, error, buttons, okButton,
@@ -132,6 +135,8 @@ XH.modalDialog = function(contentElement, width, func) {
  * @param {HTMLElement} dialog
  *
  * @returns {mixed}
+ *
+ * @since 1.6
  */
 XH.validatePassword = function(dialog) {
     var inputs = dialog.getElementsByTagName("input"),
@@ -162,9 +167,11 @@ XH.validatePassword = function(dialog) {
 /**
  * Returns the x-www-form-urlencoded data of a form.
  *
- * @param {HTMLElement} form
+ * @param {HTMLFormElement} form
  *
- * @returns {String}
+ * @returns {string}
+ *
+ * @since 1.6
  */
 XH.serializeForm = function(form) {
     var params = [],
@@ -189,6 +196,8 @@ XH.serializeForm = function(form) {
  * @params {HTMLElement} formOrTab
  *
  * @returns {HTMLElement}
+ *
+ * @since 1.6
  */
 XH.findPDTabStatus = function(formOrTab) {
     var node;
@@ -216,6 +225,8 @@ XH.findPDTabStatus = function(formOrTab) {
  * @param {HTMLFormElement}
  *
  * @returns {undefined}
+ *
+ * @since 1.6
  */
 XH.quickSubmit = function(form) {
     var request = new XMLHttpRequest,
@@ -245,6 +256,8 @@ XH.quickSubmit = function(form) {
  * Initialize the quick submit of page data forms.
  *
  * @returns {undefined}
+ *
+ * @since 1.6
  */
 XH.initQuickSubmit = function() {
     var views, forms, i, n, form;
