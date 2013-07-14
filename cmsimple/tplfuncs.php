@@ -290,7 +290,7 @@ function searchbox()
 {
     global $sn, $tx;
 
-    return '<form action="' . $sn . '" method="GET">' . "\n"
+    return '<form action="' . $sn . '" method="get">' . "\n"
         . '<div id="searchbox">' . "\n"
         . tag('input type="text" class="text" name="search" size="12"') . "\n"
         . tag('input type="hidden" name="function" value="search"') . "\n" . ' '
