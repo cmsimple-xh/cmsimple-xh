@@ -103,10 +103,15 @@ class XH_PageDataModel
      *
      * @return void
      *
+     * @global int   The index of the current page.
+     * @global array The page data of the current page.
+     *
      * @access protected
      */
     function fixUp()
     {
+        global $pd_s, $pd_current;
+
         foreach ($this->headings as $id => $value) {
             foreach ($this->params as $param) {
                 if (!isset($this->data[$id][$param])) {
@@ -119,6 +124,9 @@ class XH_PageDataModel
                     }
                 }
             }
+        }
+        if (isset($pd_current)) {
+            $pd_current = $this->data[$pd_s];
         }
     }
 
