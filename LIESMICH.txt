@@ -7,7 +7,7 @@ PASSWORT für diese Installation:
 
            test
 
-!!! Bitte ändern Sie dieses Passwort sofort !!!
+Bitte ändern Sie dieses Passwort sofort !
 
 ===============================================
 
@@ -17,25 +17,25 @@ Entpacken Sie den Download und laden Sie alle
 Dateien im Ordner cmsimplexh/ auf Ihren
 Webserver hoch.
 
-Auf vielen Servern müssen sie explizit
+Auf manchen Servern müssen sie explizit
 Schreibrechte für einige Dateien vergeben,
 siehe
 http://www.cmsimple-xh.org/wiki/doku.php/de:installation
 
-Ausführliche UPDATE Instruktionen sind verfügbar im  [CMSimple forum](http://www.cmsimpleforum.com/viewtopic.php?f=16&t=4895).
-
+Ausführliche UPDATE Instruktionen sind verfügbar im CMSimple forum
+(http://www.cmsimpleforum.com/viewtopic.php?f=16&t=4895).
 
 ===============================================
 
 ##########################################
-!!!  W I C H T I G E R  H I N W E I S  !!!
+     W I C H T I G E R  H I N W E I S
 ##########################################
 
 Bitte ändern Sie das Standard Passwort NICHT
 mit einem Text Editor direkt in der config.php,
 da die config.php nur das verschlüsselte
 Password enthält. Ändern Sie das Standard
-Passwort nach dem Login ONLINE !!!
+Passwort nach dem Login ONLINE !
 (Login mit dem Standard Passwort "test")
 
 Dies ist die leichteste funktionierende Methode.
