@@ -20,7 +20,14 @@
 
 /* utf-8 marker: äöü */
 
+/**
+ * The view class.
+ */
 require_once './classes/filebrowser_view.php';
+
+/**
+ * The model class.
+ */
 require_once './classes/filebrowser.php';
 
 if (!isset($_SESSION)) {

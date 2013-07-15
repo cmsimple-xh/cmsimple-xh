@@ -17,7 +17,14 @@
 
 /* utf-8 marker: äöü */
 
+/**
+ * The view class.
+ */
 require_once $pth['folder']['plugin_classes'] . 'filebrowser_view.php';
+
+/**
+ * The model class.
+ */
 require_once $pth['folder']['plugin_classes'] . 'filebrowser.php';
 
 ?>

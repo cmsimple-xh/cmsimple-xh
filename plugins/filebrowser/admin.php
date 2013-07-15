@@ -58,7 +58,12 @@ if ($media) {
 }
 
 $browser = $_SESSION['xh_browser'];
+
+/**
+ * The path of the filebrowser plugin folder.
+ */
 define('XHFB_PATH', $pth['folder']['plugins'] . 'filebrowser/');
+
 $hjs .= '<script type="text/javascript" src="' . XHFB_PATH . 'js/filebrowser.js">'
     . '</script>';
 
