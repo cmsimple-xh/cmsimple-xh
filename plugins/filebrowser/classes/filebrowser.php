@@ -15,8 +15,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-/* utf-8 marker: äöü */
-
 /**
  * The file browser model.
  *
@@ -101,61 +99,26 @@ class XHFileBrowser
      * Constructs an instance.
      *
      * @global array The paths of system files and folders.
-     * @global array The configuration of the core.
      * @global array The configuration of the plugins.
-     *
-     * @todo DRY while setting up the allowed extensions.
      */
     function XHFileBrowser()
     {
-        global $pth, $cf, $plugin_cf;
-
-        $image_extensions = array();
-        $temp = explode(',', $plugin_cf['filebrowser']['extensions_images']);
-        foreach ($temp as $ext) {
-            $extension = trim($ext, ' ./');
-            if ((bool) $extension) {
-                $image_extensions[] = strtolower($extension);
-            }
-        }
-        $download_extensions = array();
-        $temp = explode(',', $plugin_cf['filebrowser']['extensions_downloads']);
-        foreach ($temp as $ext) {
-            $extension = trim($ext, ' ./');
-            if ((bool) $extension) {
-                $download_extensions[] = strtolower($extension);
-            }
-        }
-        $userfiles_extensions = array();
-        $temp = explode(',', $plugin_cf['filebrowser']['extensions_userfiles']);
-        foreach ($temp as $ext) {
-            $extension = trim($ext, ' ./');
-            if ((bool) $extension) {
-                $userfiles_extensions[] = strtolower($extension);
-            }
-        }
-        $media_extensions = array();
-        $temp = explode(',', $plugin_cf['filebrowser']['extensions_media']);
-        foreach ($temp as $ext) {
-            $extension = trim($ext, ' ./');
-            if ((bool) $extension) {
-                $media_extensions[] = strtolower($extension);
-            }
-        }
+        global $pth, $plugin_cf;
 
         $this->browserPath = $pth['folder']['plugins']
             . basename(dirname(dirname(__FILE__))) . '/';
-
         $this->view = new XHFileBrowserView();
-
         foreach (array('images', 'downloads', 'userfiles', 'media') as $type) {
             $this->baseDirectories[$type] = ltrim($pth['folder'][$type], './');
+            $this->allowedExtensions[$type] = array();
+            $temp = explode(',', $plugin_cf['filebrowser']['extensions_' . $type]);
+            foreach ($temp as $ext) {
+                $extension = trim($ext, ' ./');
+                if ((bool) $extension) {
+                    $this->allowedExtensions[$type][] = strtolower($extension);
+                }
+            }
         }
-
-        $this->allowedExtensions['images'] = $image_extensions;
-        $this->allowedExtensions['downloads'] = $download_extensions;
-        $this->allowedExtensions['userfiles'] = $userfiles_extensions;
-        $this->allowedExtensions['media'] = $media_extensions;
     }
 
     /**
