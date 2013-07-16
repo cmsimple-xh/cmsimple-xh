@@ -202,7 +202,7 @@ XH.serializeForm = function(form) {
 XH.findPDTabStatus = function(formOrTab) {
     var node;
 
-    if (formOrTab.nodeName.toLower() == "form") {
+    if (formOrTab.nodeName.toLowerCase() == "form") {
         node = formOrTab.parentNode;
         while (typeof node.id == "undefined" ||
                 node.id.indexOf("PLTab_") !== 0) {
