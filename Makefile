@@ -28,7 +28,10 @@ PHPSOURCES=cmsimple/adminfuncs.php\
 	   plugins/filebrowser/classes/filebrowser_view.php\
 	   plugins/filebrowser/classes/required_classes.php
 
-TUTORIALS=tutorials/XH/CSRFProtection.cls
+TUTORIALS=tutorials/XH/XH.pkg\
+	  tutorials/XH/JavaScript.pkg\
+	  tutorials/XH/CSRFProtection.cls\
+	  tutorials/XH/FileEdit.cls
 
 JSSOURCES=javascript/admin.js
 
@@ -54,6 +57,7 @@ doc: check-phpdoc doc/php/index.html check-jsdoc doc/js/index.html
 
 doc/php/index.html: $(PHPSOURCES) $(TUTORIALS)
 	$(PHPDOC) --filename $(subst $(SPACE),$(COMMA),$(PHPSOURCES) $(TUTORIALS))\
+		  --title 'CMSimple_XH Developer Documentation'\
 		  --target doc/php\
 		  --defaultcategoryname CMSimple_XH\
 		  --defaultpackagename XH
