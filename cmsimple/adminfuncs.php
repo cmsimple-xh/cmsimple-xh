@@ -99,34 +99,33 @@ HTML;
 /**
  * Returns the general settings view.
  *
- * @global array  The localization of the core.
- *
  * @return string The (X)HTML.
  *
- * @since 1.6
+ * @global string The script name.
+ * @global array  The localization of the core.
  *
- * @todo Add $sn to links.
+ * @since 1.6
  */
 function XH_settingsView()
 {
-    global $tx;
+    global $sn, $tx;
 
     $o = '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
         . '<h4>' . $tx['settings']['systemfiles'] . '</h4>' . "\n" . '<ul>' . "\n";
 
     foreach (array('config', 'language') as $i) {
-        $o .= '<li><a href="?file=' . $i . '&amp;action=array">'
+        $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=array">'
             . utf8_ucfirst($tx['action']['edit']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
 
     foreach (array('stylesheet', 'template') as $i) {
-        $o .= '<li><a href="?file=' . $i . '&amp;action=edit">'
+        $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=edit">'
             . utf8_ucfirst($tx['action']['edit']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
     foreach (array('log') as $i) {
-        $o .= '<li><a href="?file=' . $i . '&amp;action=view">'
+        $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=view">'
             . utf8_ucfirst($tx['action']['view']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
@@ -140,29 +139,28 @@ function XH_settingsView()
 /**
  * Returns the backup view.
  *
+ * @return string The (X)HTML.
+ *
  * @global array  The paths of system files and folders.
+ * @global array  The script name.
  * @global array  The localization of the core.
  * @global object The CSRF protection object.
  *
- * @return string The (X)HTML.
- *
  * @since 1.6
- *
- * @todo Add $sn to links.
  */
 function XH_backupsView()
 {
-    global $pth, $tx, $_XH_csrfProtection;
+    global $pth, $sn, $tx, $_XH_csrfProtection;
 
     $o = '<ul>' . "\n";
     if (isset($_GET['xh_success'])) {
         $o .= XH_message('success', null, stsl($_GET['xh_success']));
     }
     $o .= '<li>' . utf8_ucfirst($tx['filetype']['content']) . ' <a href="'
-        . '?file=content&amp;action=view">'
-        . $tx['action']['view'] . '</a>' . ' <a href="?file=content">'
+        . $sn . '?file=content&amp;action=view">'
+        . $tx['action']['view'] . '</a>' . ' <a href="' . $sn . '?file=content">'
         . $tx['action']['edit'] . '</a>' . ' <a href="'
-        . '?file=content&amp;action=download">' . $tx['action']['download']
+        . $sn . '?file=content&amp;action=download">' . $tx['action']['download']
         . '</a>'
         . ' <form action="" method="post" class="xh_inline_form">'
         . tag('input type="hidden" name="file" value="content"')
@@ -182,7 +180,7 @@ function XH_backupsView()
         if (XH_isContentBackup($p)) {
             $size = filesize($pth['folder']['content'] . '/' . $p);
             $size = round(($size) / 102.4) / 10;
-            $o .= '<li><a href="?file=' . $p . '&amp;action=view">'
+            $o .= '<li><a href="' . $sn . '?file=' . $p . '&amp;action=view">'
                 . $p . '</a> (' . $size . ' KB)'
                 . ' <form action="" method="post" class="xh_inline_form">'
                 . tag('input type="hidden" name="file" value="' . $p . '"')
