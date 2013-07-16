@@ -52,6 +52,7 @@ $tx['error']['cntlocateheading']="Keine Seite ausgewählt";
 $tx['error']['cntopen']="Nicht zu öffnen:";
 $tx['error']['cntsave']="Nicht abspeicherbar:";
 $tx['error']['cntwriteto']="Nicht schreibbar:";
+$tx['error']['noeditor']="Der externe Editor %s fehlt!";
 $tx['error']['headers']="Header-Information kann nicht geändert werden - die Header wurden bereits verschickt (die Ausgabe begann in {location})";
 $tx['error']['missing']="Fehlt";
 $tx['error']['nocookies']="Bitte Cookies aktivieren!";

@@ -408,8 +408,6 @@ function plugin_admin_common($action, $admin, $plugin, $hint=array())
  * @return string  The (X)HTML.
  *
  * @since 1.6
- *
- * @todo Add internationalization for missing editor message.
  */
 function XH_contentEditor()
 {
@@ -419,7 +417,7 @@ function XH_contentEditor()
 
     $editor = $cf['editor']['external'] == '' || init_editor();
     if (!$editor) {
-        $msg = sprintf('External editor %s missing', $cf['editor']['external']);
+        $msg = sprintf($tx['error']['noeditor'], $cf['editor']['external']);
         $e .= '<li>' . $msg . '</li>' . "\n";
     }
     $o = '<form method="POST" id="ta" action="' . $sn . '">'
