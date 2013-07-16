@@ -24,11 +24,14 @@
  * @return (X)HTML.
  *
  * @since 1.6
- *
- * @todo i18n
  */
 function Pageparams_hjs()
 {
+    global $plugin_tx;
+
+    $message = addcslashes(
+        $plugin_tx['page_params']['error_date_format'], "\t\n\r\\/\""
+    );
     return <<<HTM
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -36,18 +39,20 @@ var PAGEPARAMS = PAGEPARAMS || {};
 
 function page_params_date_check(field) {
     var datearr = field.value.split(" ");
-    if (datearr[0] == "" || datearr[0] == undefined)
-        datearr[0] = "2099-12-31";
-    if (datearr[1] == "" || datearr[1] == undefined)
-        datearr[1] = "00:00";
     var dateformat = /^\d{4}[-](0?[1-9]|1[012])[-](0?[1-9]|[12][0-9]|3[01])$/;
     var timeformat = /^([01]?[0-9]|2[0-3)])[:]([0-5]?[0-9])$/;
+
+    if (datearr[0] == "" || datearr[0] == undefined) {
+        datearr[0] = "2099-12-31";
+    }
+    if (datearr[1] == "" || datearr[1] == undefined) {
+        datearr[1] = "00:00";
+    }
     if (dateformat.test(datearr[0]) && timeformat.test(datearr[1])) {
         field.style.backgroundColor ="#FFFFFF";
     } else {
         field.style.backgroundColor ="#FFE4E1";
-        alert("Date must be in format \"yyyy-d-m [h:m]\""
-            + " i.e 2099-12-31 or 2099-12-31 23:59");
+        alert("$message");
     }
 }
 

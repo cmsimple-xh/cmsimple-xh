@@ -18,6 +18,7 @@ $plugin_tx['page_params']['no']="nein";
 $plugin_tx['page_params']['quick_select']="Schnellauswahl...";
 $plugin_tx['page_params']['submit']="speichern";
 $plugin_tx['page_params']['use_default_template']="Standard-Template";
+$plugin_tx['page_params']['error_date_format']="Das Datum muss im Format \"jjjj-mm-tt [hh:mm]\" angegeben werden, z.B. 2099-12-31 oder 2099-12-31 23:59";
 $plugin_tx['page_params']['hint_heading']="<p>Mit der Überschrift im Texteditor bestimmen Sie, unter welchem Titel diese Seite im Menü verlinkt wird.</p><p>Wenn Sie auf der Seite selbst eine andere Überschrift (oder auch keine) anzeigen wollen, können Sie das hier festlegen. (Diese Änderung ist nur im Ansichtsmodus und im ausgeloggten Zustand sichtbar.)</p>";
 $plugin_tx['page_params']['hint_published']="<p>Legen Sie hier fest, ob Sie diese Seite (schon) Ihren Besuchern präsentieren wollen.</p>";
 $plugin_tx['page_params']['hint_publication_period']="<p>Sie können den Veröffentlichungszeitraum durch Angabe von Start- und Enddatum festlegen. Die Daten sind GMT und können in der Sprachdatei von page_params auf eine beliebige Zeitzone +/- 12 Stunden angepasst werden.</p><p>Das Datumsformat ist YYYY-MM-DD [hh:mm].</p><p>Wenn das Startdatum angegeben ist, wird die Seite nach Ablauf dieses Datums veröffentlicht. Wenn das Enddatum angegeben ist, wird die Seite nach Ablauf dieses Datums versteckt. Beide Felder können leer bleiben.</p><p>\"Veröffentlicht\" muss auf \"ja\" gestellt sein, damit der Veröffentlichungszeitraum wirksam ist.</p>";

@@ -18,6 +18,7 @@ $plugin_tx['page_params']['no']="no";
 $plugin_tx['page_params']['quick_select']="Quick select...";
 $plugin_tx['page_params']['submit']="save";
 $plugin_tx['page_params']['use_default_template']="default template";
+$plugin_tx['page_params']['error_date_format']="Date must be in format \"yyyy-mm-dd [hh:mm]\", e.g. 2099-12-31 or 2099-12-31 23:59";
 $plugin_tx['page_params']['hint_heading']="<p>You may choose a different heading to be displayed on the page.</p><p>The heading you insert in the text editor below will still be used for the menus.</p>";
 $plugin_tx['page_params']['hint_published']="<p>If you select \"no\" this page will be hidden from your visitors. Do not forget to change it to \"yes\" when you're ready.</p>";
 $plugin_tx['page_params']['hint_publication_period']="<p>You can specify the publication period by specifying the release and expirations dates. The date is GMT time and can be adjusted at any time zome +/- 12 hours in the page_params language file.</p><p>Date Format is: yyyy-m-d [h:m].</p><p>If the release date is set, the site will only be published when the publication date has passed. If the expiration date is specified the page will be hidden after the expiration date has passed. Both fields may be left empty.</p><p>Published must be set to \"yes\" to make the publication period effective.</p>";
