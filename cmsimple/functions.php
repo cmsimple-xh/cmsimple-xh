@@ -1828,8 +1828,6 @@ function lilink()
  * @global array  The URLs of the pages.
  *
  * @return string The (X)HTML.
- *
- * @todo i18n (Password forgotten)
  */
 function loginforms()
 {
