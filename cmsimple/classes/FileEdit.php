@@ -484,10 +484,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
             return $this->passwordDialog($iname);
         case 'text':
             $class = 'cmsimplecore_settings';
-            if (utf8_strlen($opt['val']) < 30) {
-                $class .= ' cmsimplecore_settings_short';
-            }
-            return '<textarea name="' . $iname . '" rows="3" cols="30"'
+            return '<textarea name="' . $iname . '" rows="1" cols="30"'
                 . ' class="' . $class . '">'
                 . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8')
                 . '</textarea>';
@@ -526,13 +523,14 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @global array  The paths of system files and folders.
      * @global array  The localization of the core.
+     * @global string JS for the onload attribute of the body element.
      * @global object The CSRF protection object.
      *
      * @access public
      */
     function form()
     {
-        global $pth, $tx, $_XH_csrfProtection;
+        global $pth, $tx, $onload, $_XH_csrfProtection;
 
         $action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
         $value = utf8_ucfirst($tx['action']['save']);
@@ -573,6 +571,9 @@ class XH_ArrayFileEdit extends XH_FileEdit
         }
         $o .= $_XH_csrfProtection->tokenInput();
         $o .= $button . '</form>';
+        $onload .= 'XH.makeTextareasAutosize(document.getElementById('
+            . '\'xh_config_form\'));';
+
         return $o;
     }
 

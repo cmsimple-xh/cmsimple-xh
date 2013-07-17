@@ -176,18 +176,19 @@ input.cmsimplecore_settings {
 
 textarea.cmsimplecore_settings {
     width: 90%;
-    height: 56px;
+    /*height: 56px;*/
+    height: 18px;
     font-size: 14px;
     color: #333;
     padding: 2px 3px;
     margin: 3px 0;
     border: 1px solid #ccc;
     background: #fff;
+    overflow: hidden;
 }
 
-textarea.cmsimplecore_settings_short {
-    height: 18px;
-}
+/*textarea.cmsimplecore_settings_short {*/
+/*}*/
 
 .edit {
     font-family: arial, sans-serif;

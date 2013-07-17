@@ -18,7 +18,7 @@ var XH = {}
  *
  * @returns {undefined}
  */
-XH.toggleTab = function(tabId) {
+XH.toggleTab = function (tabId) {
     var currView = document.getElementById("PLTab_" + tabId);
     var currTab = document.getElementById("tab_" + tabId);
     var views, view, tabs, i, n, status;
@@ -61,7 +61,7 @@ XH.toggleTab = function(tabId) {
  *
  * @since 1.6
  */
-XH.modalDialog = function(contentElement, width, func) {
+XH.modalDialog = function (contentElement, width, func) {
     var overlay, center, dialog, contentClone, error, buttons, okButton,
         cancelButton, text;
 
@@ -138,7 +138,7 @@ XH.modalDialog = function(contentElement, width, func) {
  *
  * @since 1.6
  */
-XH.validatePassword = function(dialog) {
+XH.validatePassword = function (dialog) {
     var inputs = dialog.getElementsByTagName("input"),
         oldPassword = inputs[0].value,
         newPassword = inputs[1].value,
@@ -173,7 +173,7 @@ XH.validatePassword = function(dialog) {
  *
  * @since 1.6
  */
-XH.serializeForm = function(form) {
+XH.serializeForm = function (form) {
     var params = [],
         els = form.elements,
         n, i, el, name, value, checked;
@@ -199,7 +199,7 @@ XH.serializeForm = function(form) {
  *
  * @since 1.6
  */
-XH.findPDTabStatus = function(formOrTab) {
+XH.findPDTabStatus = function (formOrTab) {
     var node;
 
     if (formOrTab.nodeName.toLowerCase() == "form") {
@@ -228,7 +228,7 @@ XH.findPDTabStatus = function(formOrTab) {
  *
  * @since 1.6
  */
-XH.quickSubmit = function(form) {
+XH.quickSubmit = function (form) {
     var request = new XMLHttpRequest,
         status, img, message;
 
@@ -259,7 +259,7 @@ XH.quickSubmit = function(form) {
  *
  * @since 1.6
  */
-XH.initQuickSubmit = function() {
+XH.initQuickSubmit = function () {
     var views, forms, i, n, form;
 
     views = document.getElementById("pd_views");
@@ -274,6 +274,92 @@ XH.initQuickSubmit = function() {
                 }
             }
         }
+    }
+}
+
+/**
+ * Makes a focused textarea autosizing according to its content.
+ *
+ * @param {HTMLTextareaElement} textarea A textarea.
+ *
+ * @returns {undefined}
+ *
+ * @since 1.6
+ */
+XH.makeAutosize = function (textarea) {
+    function resize(textarea) {
+        var border = textarea.offsetHeight - textarea.clientHeight;
+        var h0 = textarea.scrollHeight, h1;
+
+        // Several layout engines increase the scrollHeight
+        // after the following. Temporarily setting style.height="auto"
+        // seems to work around this issue.
+        textarea.style.height = (textarea.scrollHeight  + border ) + "px";
+        h1 = textarea.scrollHeight;
+        if (h0 != h1) {
+            textarea.style.height = "auto";
+            textarea.style.height = (textarea.scrollHeight  + border ) + "px";
+        }
+    }
+
+    function onResize(event) {
+        var ev = event || window.event;
+        var textarea = ev.target || ev.srcElement;
+
+        resize(textarea);
+    }
+
+    function onPropertyChange(event) {
+        var ev = event || window.event;
+        var textarea = ev.target || ev.srcElement;
+
+        if (ev.propertyName == "value") {
+            resize(textarea);
+        }
+    }
+
+    function onBlur(event) {
+        var ev = event || window.event;
+        var textarea = ev.target || ev.srcElement;
+
+        textarea.style.height = null;
+    }
+
+    if (typeof textarea.addEventListener != "undefined") {
+        textarea.addEventListener("focus", onResize, false);
+        textarea.addEventListener("blur", onBlur, false);
+        if (typeof textarea.oninput != "undefined") {
+            textarea.addEventListener("input", onResize, false);
+        } else if (typeof textarea.onpropertychange != "undefined") {
+            textarea.addEventListener("onpropertychange", onPropertyChange,
+                    false);
+        } else {
+            textarea.addEventListener("keypress", onResize, false);
+        }
+    } else {
+        textarea.attachEvent("onfocus", onResize);
+        textarea.attachEvent("onblur", onBlur);
+        textarea.attachEvent("onpropertychange", onPropertyChange);
+    }
+    //resize(textarea);
+}
+
+/**
+ * Makes all textareas which are descendends of a node autosizing according to
+ * their content, when they got the focus.
+ *
+ * @param {Node} node A DOM node.
+ *
+ * @returns {undefined}
+ *
+ * @since 1.6
+ */
+XH.makeTextareasAutosize = function (node) {
+    var textareas = node.getElementsByTagName("textarea");
+    var i, count;
+
+    for (i = 0, count = textareas.length; i < count; i++) {
+        XH.makeAutosize(textareas[i]);
     }
 }
 
