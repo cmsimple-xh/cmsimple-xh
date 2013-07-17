@@ -115,9 +115,9 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
             array('foo bar','foo bar'),
             array('foo {{{PLUGIN:trim(\'baz\');}}} bar', 'foo baz bar'),
             array('foo {{{PLUGIN:trim($var);}}} bar', 'foo baz bar'),
-            array(
+            array( // evaluation of plugin calls in order of their appearance
                 'foo {{{PLUGIN:counter();}}} bar {{{PLUGIN:counter();}}} baz',
-                'foo 2 bar 1 baz'
+                'foo 1 bar 2 baz'
             ),
             array( // function does not exist
                 'foo {{{PLUGIN:doesnotexist();}}} bar',

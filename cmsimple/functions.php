@@ -236,10 +236,8 @@ function evaluate_plugincall($text)
         . '</span>';
     $re = '/{{{(?:[^:]+:)?(([a-z_0-9]+)\([^\)]*\);)}}}/iu';
     preg_match_all($re, $text, $calls, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
-    $calls = array_reverse($calls);
+    $results = array();
     foreach ($calls as $call) {
-        $length = strlen($call[0][0]);
-        $offset = $call[0][1];
         $expression = preg_replace(
             array(
                 '/&(quot|#34);/i', '/&(amp|#38);/i', '/&(apos|#39);/i',
@@ -250,11 +248,17 @@ function evaluate_plugincall($text)
         );
         $function = $call[2][0];
         if (function_exists($function)) {
-            $result = XH_evaluateSinglePluginCall($expression);
+            $results[] = XH_evaluateSinglePluginCall($expression);
         } else {
-            $result = sprintf($message, $function);
+            $results[] = sprintf($message, $function);
         }
-        XH_spliceString($text, $offset, $length, $result);
+    }
+    $calls = array_reverse($calls);
+    $results = array_reverse($results);
+    foreach ($calls as $i => $call) {
+        $length = strlen($call[0][0]);
+        $offset = $call[0][1];
+        XH_spliceString($text, $offset, $length, $results[$i]);
     }
     return $text;
 }
