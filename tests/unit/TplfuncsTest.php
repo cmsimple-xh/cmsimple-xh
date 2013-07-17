@@ -66,7 +66,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
             'id' => 'searchbox',
             'parent' => array(
                 'tag' => 'form',
-                'attributes' => array('method' => 'GET')
+                'attributes' => array('method' => 'get')
             )
         );
         $actual = searchbox();
