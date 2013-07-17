@@ -351,9 +351,9 @@ class XH_Mailform
     /**
      * Returns whether an email address is valid.
      *
-     * For simplicity we are not aiming to validate according to RFC 5322,
-     * but rather to make a minimal check, if the email address <i>may</i> be valid.
-     * Furthermore, we make sure, that email header injection is not possible.
+     * For simplicity we are not aiming for full compliance with RFC 5322.
+     * The local-part must be a dot-atom-text. The domain is checked with
+     * gethostbyname() after applying idn_to_ascii(), if the latter is available.
      *
      * @param string $address An email address.
      *
@@ -363,8 +363,22 @@ class XH_Mailform
      */
     function isValidEmail($address)
     {
-        return !preg_match('/[^\x00-\x7F]/', $address)
-            && preg_match('!^[^\r\n]+@[^\s]+$!', $address);
+        $atext = '[!#-\'*+\-\/-9=?A-Z^-~]';
+        $dotAtomText = $atext . '(?:' . $atext . '|\.)*';
+        $pattern = '/^(' . $dotAtomText . ')@([^@]+)$/u';
+        if (!preg_match($pattern, $address, $matches)) {
+            return false;
+        }
+        $local = $matches[1];
+        $domain = $matches[2];
+        $func = 'idn_to_ascii';
+        if (function_exists($func)) {
+            $domain = $func($domain);
+        }
+        if (gethostbyname($domain) == $domain) {
+            return false;
+        }
+        return true;
     }
 
 }

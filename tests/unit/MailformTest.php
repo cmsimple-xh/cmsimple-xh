@@ -124,8 +124,13 @@ class MailformTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array('post@example.com', true),
-            array("me@\xC3A4rger.de", false),
-            array("hacker@example.com\r\n\r\n", false)
+            array('post.master@example.com', true),
+            array('post-master@example.com', true),
+            array('post,master@example.com', false),
+            array('post@master@example.com', false),
+            array("me@\xC3\xA4rger.de", function_exists('idn_to_ascii')),
+            array("hacker\r\n\r\n@example.com", false),
+            array("j\xC3\xBCrgen@example.com", false)
         );
     }
 
