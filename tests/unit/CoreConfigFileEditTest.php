@@ -67,24 +67,62 @@ class CoreConfigFileEditTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                'meta', 'robots', array('val' => 'index, follow', 'type' => 'string', 'vals' => null),
-                '<input type="text" name="meta_robots" value="index, follow" class="cmsimplecore_settings">'
+                'meta', 'robots',
+                array('val' => 'index, follow', 'type' => 'string', 'vals' => null),
+                array(
+                    'tag' => 'input',
+                    'attributes' => array(
+                        'type' => 'text',
+                        'name' => 'meta_robots',
+                        'value' => 'index, follow',
+                        'class' => 'cmsimplecore_settings'
+                    )
+                )
             ),
             array(
-                'meta', 'robots', array('val' => 'index, follow', 'type' => 'text', 'vals' => null),
-                '<textarea name="meta_robots" rows="3" cols="30" class="cmsimplecore_settings cmsimplecore_settings_short">index, follow</textarea>'
+                'meta', 'robots',
+                array('val' => 'index, follow', 'type' => 'text', 'vals' => null),
+                array(
+                    'tag' => 'textarea',
+                    'attributes' => array(
+                        'name' => 'meta_robots',
+                        'class' => 'cmsimplecore_settings'
+                    ),
+                    'content' => 'index, follow'
+                )
             ),
             array(
-                'meta', 'robots', array('val' => 'index, follow', 'type' => 'hidden', 'vals' => null),
-                '<input type="hidden" name="meta_robots" value="index, follow">'
+                'meta', 'robots',
+                array('val' => 'index, follow', 'type' => 'hidden', 'vals' => null),
+                array(
+                    'tag' => 'input',
+                    'attributes' => array(
+                        'type' => 'hidden',
+                        'name' => 'meta_robots',
+                        'value' => 'index, follow'
+                    )
+                )
             ),
             array(
-                'locator', 'show_homepage', array('val' => 'true', 'type' => 'bool', 'vals' => null),
-                '<input type="checkbox" name="locator_show_homepage" checked="checked">'
+                'locator', 'show_homepage',
+                array('val' => 'true', 'type' => 'bool', 'vals' => null),
+                array(
+                    'tag' => 'input',
+                    'attributes' => array(
+                        'type' => 'checkbox',
+                        'name' => 'locator_show_homepage',
+                        'checked' => 'checked'
+                    )
+                )
             ),
             array(
-                'language', 'default', array('val' => 'en', 'type' => 'enum', 'vals' => array('de', 'en')),
-                '<select name="language_default"><option>de</option><option selected="selected">en</option></select>'
+                'language', 'default',
+                array('val' => 'en', 'type' => 'enum', 'vals' => array('de', 'en')),
+                array(
+                    'tag' => 'select',
+                    'attributes' => array('name' => 'language_default'),
+                    'children' => array('count' => 2)
+                )
             )
         );
     }
@@ -92,10 +130,10 @@ class CoreConfigFileEditTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider dataForFormField
      */
-    public function testFormField($category, $name, $opt, $expected)
+    public function testFormField($category, $name, $opt, $matcher)
     {
         $actual = $this->editor->formField($category, $name, $opt);
-        $this->assertEquals($expected, $actual);
+        $this->assertTag($matcher, $actual);
     }
 }
 

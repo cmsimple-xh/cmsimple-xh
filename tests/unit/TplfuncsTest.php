@@ -132,6 +132,32 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
         $this->assertEmpty($actual);
     }
 
+    public function testPreviouspage()
+    {
+        global $tx, $s;
+
+        $s = 1;
+        $matcher = array(
+            'tag' => 'a',
+            'content' => $tx['navigator']['previous']
+        );
+        $actual = previouspage();
+        $this->assertTag($matcher, $actual);
+    }
+
+    public function testNextpage()
+    {
+        global $tx, $s, $cl;
+
+        $s = -1; $cl = 1;
+        $matcher = array(
+            'tag' => 'a'/*,
+            'content' => $tx['navigator']['next']*/
+        );
+        $actual = nextpage();
+        $this->assertTag($matcher, $actual);
+    }
+
     public function testTop()
     {
         $matcher = array(
