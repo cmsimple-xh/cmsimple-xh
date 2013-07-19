@@ -1167,7 +1167,7 @@ function locator() {
         return $h[$s];
     if ($s == 0)
         return $h[$s];
-    elseif ($title != '' && (isset($h[$s]) && $h[$s] != $title))
+    elseif ($title != '' && (!isset($h[$s]) || $h[$s] != $title))
         $t = $title;
     elseif ($f != '')
         $t =  ucfirst($f);
