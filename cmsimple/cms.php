@@ -1193,8 +1193,8 @@ if (!headers_sent($temp, $i)) {
 
 if ($print) {
     XH_builtinTemplate('print');
-} elseif (strtolower($f) == 'login' || $f == 'forgotten') {
-    XH_builtinTemplate('xh_login');
+//} elseif (strtolower($f) == 'login' || $f == 'forgotten') {
+//    XH_builtinTemplate('xh_login');
 }
 
 if (XH_ADM) {
