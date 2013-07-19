@@ -2,6 +2,7 @@
 
 # build script for CMSimple_XH
 # creates RELEASE.zip in the root of the working copy
+# CAVEAT: RELEASE.zip is not meant for distribution as it may contain file owner information
 # version $Id$
 
 # exit on error
@@ -77,14 +78,14 @@ done
 rm cmsimplexh/build cmsimplexh/Makefile
 
 # create zip file
-#echo "zipping..."
-#ff=""
-#for f in $README_FILES; do
-#    ff="$ff cmsimplexh/$f"
-#done
-#echo $ff
-#zip -rq $ofile cmsimplexh/ -x $ff
-#zip -jlq $ofile $ff
+echo "zipping..."
+ff=""
+for f in $README_FILES; do
+    ff="$ff cmsimplexh/$f"
+done
+echo $ff
+zip -rq $ofile cmsimplexh/ -x $ff
+zip -jlq $ofile $ff
 
 # clean up
 echo "cleaning up..."
