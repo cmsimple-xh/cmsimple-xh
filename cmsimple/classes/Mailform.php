@@ -211,18 +211,19 @@ class XH_Mailform
      *
      * @return string (X)HTML
      *
-     * @global array The configuration of the core.
-     * @global array The localization of the core.
+     * @global string The script name.
+     * @global array  The configuration of the core.
+     * @global array  The localization of the core.
      *
      * @access protected
      */
     function render()
     {
-        global $cf, $tx;
+        global $sn, $cf, $tx;
 
         $random = rand(10000, 99999);
 
-        $o .= '<form action="' . $sn . '" method="post">' . "\n";
+        $o = '<form action="' . $sn . '" method="post">' . "\n";
         $o .= tag('input type="hidden" name="function" value="mailform"') . "\n";
         if (isset($cf['mailform']['captcha'])
             && trim($cf['mailform']['captcha']) == 'true'
