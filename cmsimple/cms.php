@@ -652,7 +652,7 @@ if ($login && !$adm) {
  */
 define('XH_ADM', $adm);
 
-if ($adm) {
+if (XH_ADM) {
     include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
 }
 
@@ -682,7 +682,7 @@ if (XH_ADM && isset($_GET['xh_check'])) {
 
 // SETTING FUNCTIONS AS PERMITTED
 
-if ($adm) {
+if (XH_ADM) {
     $temp = 1000 * (ini_get('session.gc_maxlifetime') - 1);
     $o .= '<script type="text/javascript">/* <![CDATA[ */'
         . 'if (document.cookie.indexOf(\'status=adm\') == -1)'
@@ -818,12 +818,12 @@ define('XH_FORM_NAMESPACE', 'PL3bbeec384_');
 
 
 // If admin is logged in, generate fake output to suppress later adjustment of $s.
-if ($adm) {
+if (XH_ADM) {
     $o .= ' ';
 }
 
 
-if ($adm) {
+if (XH_ADM) {
     // check for pagedata changes from MenuManager
     if (isset($menumanager) && $menumanager == 'true'
         && $action == 'saverearranged' && !empty($text)
@@ -919,7 +919,7 @@ foreach (XH_plugins() as $plugin) {
     }
 }
 
-if ($adm) {
+if (XH_ADM) {
     /*
      * Include admin.php of all plugins.
      */
@@ -997,7 +997,7 @@ if ($su == uenc($cf['menu']['legal'])) {
     $o .= '<h1>' . $title . '</h1>' . rf($pth['folder']['cmsimple'] . 'legal.txt');
 }
 
-if ($adm) {
+if (XH_ADM) {
     if ($validate) {
         $f = 'validate';
     }
@@ -1104,12 +1104,12 @@ if ($s == -1 && !$f && $o == '' && $su == '') {
     $hs = 0;
 }
 
-if ($adm && $f == 'save') {
+if (XH_ADM && $f == 'save') {
     $_XH_csrfProtection->check();
     XH_saveEditorContents($text);
 }
 
-if ($adm && $edit && (!$f || $f == 'save') && !$download) {
+if (XH_ADM && $edit && (!$f || $f == 'save') && !$download) {
     if ($s > -1) {
         $o .= XH_contentEditor();
     } else {
@@ -1117,7 +1117,7 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
     }
 }
 
-if ($adm && ($images || $downloads || $userfiles || $media || $edit
+if (XH_ADM && ($images || $downloads || $userfiles || $media || $edit
     && (!$f || $f == 'save') && !$download)
 ) {
     if ($cf['filebrowser']['external']
@@ -1131,7 +1131,7 @@ if ($adm && ($images || $downloads || $userfiles || $media || $edit
     }
 }
 
-if ($adm && $f == 'xhpages') {
+if (XH_ADM && $f == 'xhpages') {
     if ($cf['pagemanager']['external']
         && !file_exists($pth['folder']['plugins'] . $cf['pagemanager']['external'])
     ) {
@@ -1152,7 +1152,7 @@ if ($adm && $f == 'xhpages') {
  * @global string $output
  */
 $output = null;
-if (!($edit && $adm) && $s > -1) {
+if (!($edit && XH_ADM) && $s > -1) {
     $c[$s] = evaluate_scripting($c[$s]);
     if (isset($keywords)) {
         $tx['meta']['keywords'] = $keywords;

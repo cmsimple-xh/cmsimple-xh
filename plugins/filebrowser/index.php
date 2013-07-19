@@ -17,7 +17,7 @@
 
 /* utf-8 marker: äöü */
 
-if (!$adm) {
+if (!XH_ADM) {
     return true;
 }
 

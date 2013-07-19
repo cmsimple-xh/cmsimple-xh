@@ -207,7 +207,7 @@ if (!$edit && $pd_current) {
  * (page-parameter 'linked_to_menu'=0). If page is unpublished ('published'=0)
  * content of this page will be overwritten with #CMSimple hide#.
  */
-if (!$adm || ($adm && !$edit)) {
+if (!(XH_ADM && $edit)) {
     $temp = $pd_router->find_all();
     foreach ($temp as $i => $j) {
         Pageparams_handleRelocation($i, $j);

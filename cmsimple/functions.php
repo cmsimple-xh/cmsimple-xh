@@ -555,7 +555,6 @@ function XH_systemCheck($data)
  *
  * @param string $html The (X)HTML generated so far.
  *
- * @global bool   Whether admin mode is active.
  * @global int    The index of the active page.
  * @global string The (X)HTML of the contents area.
  * @global array
@@ -568,9 +567,9 @@ function XH_systemCheck($data)
  */
 function XH_finalCleanUp($html)
 {
-    global $adm, $s, $o, $errors, $cf, $bjs;
+    global $s, $o, $errors, $cf, $bjs;
 
-    if ($adm === true) {
+    if (XH_ADM === true) {
         $debugHint = '';
         $errorList = '';
         $margin = 36;
@@ -899,7 +898,6 @@ function e($et, $ft, $fn)
  * @global string The URL of the current page.
  * @global string The index of the current page.
  * @global array  The localization of the core.
- * @global bool   Whether admin mode is active.
  * @global string Error messages as (X)HTML fragment consisting of LI Elements.
  * @global object The pagedata router.
  *
@@ -907,7 +905,7 @@ function e($et, $ft, $fn)
  */
 function rfc()
 {
-    global $c, $cl, $h, $u, $l, $su, $s, $tx, $adm, $e, $pd_router;
+    global $c, $cl, $h, $u, $l, $su, $s, $tx, $e, $pd_router;
 
     list($u, $tooLong, $h, $l, $c, $pd_router) = array_values(XH_readContents());
     $duplicate = 0;
@@ -929,7 +927,7 @@ function rfc()
     }
 
     foreach ($tooLong as $i => $tl) {
-        if ($adm && $tl) {
+        if (XH_ADM && $tl) {
             $e .= '<li><b>' . $tx['uri']['toolong'] . '</b>' . tag('br')
                 . '<a href="?' . $u[$i] . '">' . $h[$i] . '</a>' . '</li>';
         }
@@ -969,7 +967,6 @@ function rfc()
  * @global array The paths of system files and folders.
  * @global array The configuration of the core.
  * @global bool  Whether edit mode is active.
- * @global bool  Whether admin mode is active.
  *
  * @return array
  *
@@ -977,7 +974,7 @@ function rfc()
  */
 function XH_readContents($language = null)
 {
-    global $pth, $cf, $edit, $adm;
+    global $pth, $cf, $edit;
 
     if (isset($language)) {
         $contentFolder = $pth['folder']['base'] . 'content/' . $language . '/';
@@ -1068,7 +1065,7 @@ function XH_readContents($language = null)
     );
 
     // remove unpublished pages
-    if (!($edit && $adm)) {
+    if (!($edit && XH_ADM)) {
         $removed = array_keys($pd_router->find_field_value('published', '0'));
         foreach ($c as $i => $text) {
             if (cmscript('remove', $text)) {
@@ -1110,15 +1107,14 @@ function XH_readContents($language = null)
  * @global string The script name.
  * @global array  The URLs of the pages.
  * @global array  The configuration of the core.
- * @global bool   Whether admin mode is active.
  *
  * @return string The (X)HTML.
  */
 function a($i, $x)
 {
-    global $sn, $u, $cf, $adm;
+    global $sn, $u, $cf;
 
-    if ($i == 0 && !$adm) {
+    if ($i == 0 && !XH_ADM) {
         if ($x == '' && $cf['locator']['show_homepage'] == 'true') {
             return '<a href="' . $sn . '?' . $u[0] . '">';
         }
@@ -1304,18 +1300,17 @@ function cmscript($script, $text)
  *
  * @global array The content of the pages.
  * @global bool  Whether edit mode is active.
- * @global bool  Whether admin mode is active.
  *
  * @return bool
  */
 function hide($i)
 {
-    global $c, $edit, $adm;
+    global $c, $edit;
 
     if ($i < 0) {
         return false;
     }
-    return (!($edit && $adm) && cmscript('hide', $c[$i]));
+    return (!($edit && XH_ADM) && cmscript('hide', $c[$i]));
 }
 
 
@@ -1803,7 +1798,6 @@ function writelog($m)
 /**
  * Returns the login link.
  *
- * @global array  The configuration of the core.
  * @global int    The index of the requested page.
  * @global array  The localization of the core.
  *
@@ -1811,9 +1805,9 @@ function writelog($m)
  */
 function lilink()
 {
-    global $adm, $s, $tx;
+    global $s, $tx;
 
-    if (!$adm) {
+    if (!XH_ADM) {
         return a($s > -1 ? $s : 0, '&amp;login') . $tx['menu']['login'] . '</a>';
     }
 }

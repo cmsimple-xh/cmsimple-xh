@@ -513,14 +513,13 @@ function editmenu()
  * @global string The output of the contents area.
  * @global array  The content of the pages.
  * @global bool   Whether edit mode is active.
- * @global bool   Whether admin mode is active.
  * @global array  The configuration of the core.
  */
 function content()
 {
-    global $s, $o, $c, $edit, $adm, $cf;
+    global $s, $o, $c, $edit,  $cf;
 
-    if (!($edit && $adm) && $s > -1) {
+    if (!($edit && XH_ADM) && $s > -1) {
         if (isset($_GET['search'])) {
             $search = htmlspecialchars(stsl($_GET['search']), ENT_QUOTES, 'UTF-8');
             $words = explode(' ', $search);
