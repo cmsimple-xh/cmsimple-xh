@@ -1203,13 +1203,16 @@ if (XH_ADM) {
         . XH_adminJSLocalization();
 }
 
-
-if (!XH_ADM && $adm) { // somebody has manipulated $adm!!!
-    // TODO: better redirect to login page?
+/*
+ * Check if $adm was manipulated. If so, we present the login form.
+ * Redirecting would be cleaner, but may result in a loop, so we do it this way.
+ */
+if (!XH_ADM && $adm) {
     $s = -1;
     $adm = $edit = false;
     $o = '';
     $f = 'login';
+    $title = utf8_ucfirst($tx['menu']['login']);
     loginforms();
 }
 
