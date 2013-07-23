@@ -19,6 +19,8 @@ $plugin_tx['filebrowser']['success_uploaded']="<b>%s</b> hochgeladen.";
 $plugin_tx['filebrowser']['success_folder_created']="<b>%s</b> angelegt.";
 $plugin_tx['filebrowser']['success_renamed']="<b>%s</b> umbenannt zu <b>%s</b>.";
 
+$plugin_tx['filebrowser']['image_usedin']="Verwendet in:";
+
 $plugin_tx['filebrowser']['upload_file_to']="Datei in <b>%s</b> hochladen";
 $plugin_tx['filebrowser']['create_subfolder_in']="Unterordner in <b>%s</b> anlegen";
 $plugin_tx['filebrowser']['upload_file']="Datei hochladen";

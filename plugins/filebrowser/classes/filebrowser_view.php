@@ -322,7 +322,7 @@ class XHFileBrowserView
 
             $ffn = $base . $fb->currentDirectory . $file;
             $usage = array_key_exists($ffn, $imgs)
-                ? '<strong>' . $tx['images']['usedin'] . ':</strong>'
+                ? '<strong>' . $this->translate('image_usedin') . '</strong>'
                     . tag('br') . implode(tag('br'), $imgs[$ffn])
                 : '';
 
