@@ -743,33 +743,24 @@ function stsl($t)
  *
  * @return void
  */
-function download($fl)
-{
-    global $sn, $download, $o;
+function download($fl) {
+    global $download, $o;
 
-    // TODO: for security better set $fl = basename($fl) here.
     if (!is_readable($fl)
-        || ($download != '' && !chkdl($sn . '?download=' . basename($fl)))
+        || ($download != '' && !preg_match('/.+\..+$/', $fl))
     ) {
         shead('404');
-        $o .= '<p>File ' . htmlspecialchars($fl, ENT_NOQUOTES, 'UTF-8') . '</p>';
+        $o .= '<p>File ' . $fl . '</p>';
         return;
     } else {
         header('Content-Type: application/save-as');
         header('Content-Disposition: attachment; filename="' . basename($fl) . '"');
         header('Content-Length:' . filesize($fl));
         header('Content-Transfer-Encoding: binary');
-        // TODO: why not readfile() instead?
-        if ($fh = @fopen($fl, "rb")) {
-            while (!feof($fh)) {
-                echo fread($fh, filesize($fl));
-            }
-            fclose($fh);
-        }
+        readfile($fl);
         exit;
     }
 }
-
 
 /**
  * Returns whether the file exists in the download folder
@@ -777,14 +768,18 @@ function download($fl)
  *
  * @param string $fl The download URL, e.g. ?download=file.ext
  *
+ * @return bool
+ *
  * @global array  The paths of system files and folders.
  * @global string The script name.
  *
- * @return bool
+ * @deprecated since 1.6.
  */
 function chkdl($fl)
 {
     global $pth, $sn;
+
+    trigger_error('Function chkdl() is deprecated', E_USER_DEPRECATED);
 
     $m = false;
     if (@is_dir($pth['folder']['downloads'])) {

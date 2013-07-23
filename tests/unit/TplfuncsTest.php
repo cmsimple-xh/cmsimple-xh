@@ -19,6 +19,10 @@
  */
 require_once '../../cmsimple/tplfuncs.php';
 
+if (!defined('XH_ADM')) {
+    define('XH_ADM', false);
+}
+
 /**
  * A test case for the functions in tplfuncs.php.
  *

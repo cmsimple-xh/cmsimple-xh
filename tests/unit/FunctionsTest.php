@@ -267,6 +267,14 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
+    public function testChkdlIsDeprecated()
+    {
+        chkdl('dummy');
+    }
+
     public function dataForTestTag()
     {
         return array(
