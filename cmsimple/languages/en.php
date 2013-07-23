@@ -60,14 +60,8 @@ $tx['error']['nojs']="Please enable Javascript!";
 $tx['error']['notreadable']="Not readable";
 $tx['error']['notwritable']="Not writeable";
 $tx['error']['plugincall']="Function %s() is not defined!";
-$tx['error']['plugin_error']="Plugin error: ";
 $tx['error']['server']="Server error: %s";
-$tx['error']['tolarge']="is too large! Maximum size is set to";
 $tx['error']['undefined']="Undefined";
-$tx['error']['wrongext']="Wrong file extension in";
-
-$tx['files']['bytes']="bytes";
-$tx['files']['totalsize']="Total size";
 
 $tx['filetype']['backup']="backup";
 $tx['filetype']['config']="CMS configuration";
@@ -122,8 +116,6 @@ $tx['help']['folders_downloads']="A subfolder of userfiles.";
 $tx['help']['folders_images']="A subfolder of userfiles.";
 $tx['help']['folders_media']="A subfolder of userfiles.";
 
-$tx['images']['usedin']="Used in";
-
 $tx['languagemenu']['text']="select language: ";
 
 $tx['lastupdate']['dateformat']="F d, Y, H:i";
@@ -168,11 +160,9 @@ $tx['mailform']['sendername']="Your name: ";
 $tx['mailform']['senderphone']="Your phone number: ";
 $tx['mailform']['subject']="Subject (required): ";
 
-$tx['menu']['available_plugins']="Plugins: ";
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Mailform";
 $tx['menu']['print']="Print view";
-$tx['menu']['select_plugin']="Select plugin ...";
 $tx['menu']['sitemap']="Sitemap";
 $tx['menu']['tab_main']="Main Settings";
 $tx['menu']['tab_css']="Stylesheet";
@@ -206,7 +196,6 @@ $tx['password_forgotten']['request']="Confirm the configured email address to re
 
 $tx['result']['created']="created";
 $tx['result']['deleted']="deleted";
-$tx['result']['uploaded']="uploaded";
 
 $tx['search']['button']="Search";
 $tx['search']['found_1']="\"%s\" was found in one page:";
