@@ -223,44 +223,36 @@ textarea.cmsimplecore_settings {
     margin: auto;
 }
 
+.cmsimplecore_success, .cmsimplecore_info, .cmsimplecore_warning, .cmsimplecore_fail {
+    padding: 0.7em;
+    padding-left: 36px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+}
+
 .cmsimplecore_success {
-    background: #4c4;
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    color: #000;
-    border: 3px solid #000;
-    padding: 4px 6px;
-    margin: 4px 0;
+    background: #e1f8cb url("success.png") no-repeat 10px;
+    color: #37620d;
+    border: 1px solid #c6d880;
 }
 
 .cmsimplecore_info {
-    background: #8af;
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    color: #000;
-    border: 3px solid #000;
-    padding: 4px 6px;
-    margin: 4px 0;
+    background: #e9f5fb url("info.png") no-repeat 10px;
+    color: #16597a;
+    border: 1px solid #84c7e9;
 }
 
 .cmsimplecore_warning {
-    background: #fc0;
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    color: #000;
-    border: 3px solid #000;
-    padding: 4px 6px;
-    margin: 4px 0;
+    background: #ffffbb url("warning.png") no-repeat 10px;
+    color: #756730;
+    border: 1px solid #ffd324;
 }
 
 .cmsimplecore_fail {
-    background: #f66;
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    color: #000;
-    border: 3px solid #000;
-    padding: 4px 6px;
-    margin: 4px 0;
+    background: #fbe5e2 url("fail.png") no-repeat 10px;
+    color: #992213;
+    border: 1px solid #f2a197;
 }
 
 /* File Edit Textareas */
