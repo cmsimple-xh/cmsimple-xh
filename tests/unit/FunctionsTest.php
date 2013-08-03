@@ -357,6 +357,24 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $actual = XH_isContentBackup($filename);
         $this->assertEquals($expected, $actual);
     }
+
+    public function dataForHsc()
+    {
+        return array(
+            array("Fahrvergn\xC3\xBCgen", "Fahrvergn\xC3\xBCgen"),
+            array('<foo> & "bar"', '&lt;foo&gt; &amp; &quot;bar&quot;'),
+            array("Fahrverg\xFCgen", "Fahrverg\xEF\xBF\xBDgen")
+        );
+    }
+
+    /**
+     * @dataProvider dataForHsc
+     */
+    public function testHsc($string, $expected)
+    {
+        $actual = XH_hsc($string);
+        $this->assertEquals($expected, $actual);
+    }
 }
 
 ?>
