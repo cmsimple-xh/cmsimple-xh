@@ -2521,6 +2521,8 @@ function XH_lastJsonError()
  * @param string $string A string.
  *
  * @return string
+ *
+ * @since 1.5.8
  */
 function XH_hsc($string)
 {
