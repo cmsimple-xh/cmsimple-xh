@@ -604,7 +604,7 @@ function PluginSaveForm($form, $style=ARRAY(), $data=ARRAY(), $hint=ARRAY()) {
                 if (utf8_strlen($value) > 50) {
                     $style_textarea = $style['inputmax'];
                 }
-                $saveform .= '<textarea ' . $style_textarea . ' name="' . $pluginloader_cfg['form_namespace'] . $key . '" rows="1" cols="40">' . htmlspecialchars($value, ENT_NOQUOTES, 'UTF-8') . '</textarea>';
+                $saveform .= '<textarea ' . $style_textarea . ' name="' . $pluginloader_cfg['form_namespace'] . $key . '" rows="1" cols="40">' . XH_hsc($value) . '</textarea>';
                 $saveform .= '</td>' . "\n" . '</tr>' . "\n";
             }
             $saveform .= '</table>' . "\n" . "\n";

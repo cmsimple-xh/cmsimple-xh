@@ -382,4 +382,28 @@ function XH_isValidEmail($address)
         && preg_match('!^[^\r\n]+@[^\s]+$!', $address);
 }
 
+/**
+ * Converts special characters to HTML entities.
+ *
+ * Same as htmlspecialchars($string, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8'),
+ * but works for PHP < 5.4 as well.
+ *
+ * @param string $string A string.
+ *
+ * @return string
+ *
+ * @since 1.5.8
+ */
+function XH_hsc($string)
+{
+    if (!defined('ENT_SUBSTITUTE')) {
+        include_once UTF8 . '/utils/bad.php';
+        $string = utf8_bad_replace($string, "\xEF\xBF\xBD");
+        $string = htmlspecialchars($string, ENT_COMPAT, 'UTF-8');
+    } else {
+        $string = htmlspecialchars($string, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8');
+    }
+    return $string;
+}
+
 ?>

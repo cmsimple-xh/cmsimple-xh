@@ -42,7 +42,7 @@ if ($search != '') {
             //$temp = html_entity_decode($temp, ENT_QUOTES, 'utf-8');
             foreach ($words as $word) {
                 if (strpos($temp,
-			   htmlspecialchars(trim($word), ENT_NOQUOTES, 'UTF-8'))
+			   XH_hsc(trim($word)))
 		    === false)
 		{
                     $found = false;
@@ -66,7 +66,7 @@ if ($search != '') {
     }
 }
 
-$o .= '<h1>' . $tx['search']['result'] . '</h1><p>"' . htmlspecialchars($search, ENT_COMPAT, 'UTF-8') . '" ';
+$o .= '<h1>' . $tx['search']['result'] . '</h1><p>"' . XH_hsc($search) . '" ';
 
 if (count($ta) == 0) {
     $o .= $tx['search']['notfound'] . '.</p>';

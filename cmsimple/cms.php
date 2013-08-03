@@ -728,7 +728,7 @@ function meta($n) {
     global $cf, $print;
     $exclude = array('robots', 'keywords', 'description');
     if ($cf['meta'][$n] != '' && !($print && in_array($n, $exclude)))
-        return tag('meta name="' . $n . '" content="' . htmlspecialchars($cf['meta'][$n], ENT_COMPAT, 'UTF-8') . '"') . "\n";
+        return tag('meta name="' . $n . '" content="' . XH_hsc($cf['meta'][$n]) . '"') . "\n";
 }
 
 function ml($i) {
@@ -956,7 +956,7 @@ function xh_debug($errno, $errstr, $errfile, $errline, $context)
 function head() {
     global $title, $cf, $pth, $tx, $txc, $hjs;
     if (!empty($cf['site']['title'])) {
-        $t = htmlspecialchars($cf['site']['title'], ENT_COMPAT, 'UTF-8')
+        $t = XH_hsc($cf['site']['title'])
             . " \xe2\x80\x93 " . $title;
     } else {
         $t = $title;
@@ -975,14 +975,14 @@ function head() {
 function sitename() {
     global $txc;
     return isset($txc['site']['title'])
-        ? htmlspecialchars($txc['site']['title'], ENT_NOQUOTES, 'UTF-8')
+        ? XH_hsc($txc['site']['title'])
         : '';
 }
 
 function pagename() {
     global $cf;
     return isset($cf['site']['title'])
-        ? htmlspecialchars($cf['site']['title'], ENT_NOQUOTES, 'UTF-8')
+        ? XH_hsc($cf['site']['title'])
         : '';
 }
 
@@ -1116,13 +1116,13 @@ function printlink() {
     global $f, $search, $file, $sn, $tx;
     $t = '&amp;print';
     if ($f == 'search')
-        $t .= '&amp;function=search&amp;search=' . htmlspecialchars(stsl($search), ENT_COMPAT, 'UTF-8');
+        $t .= '&amp;function=search&amp;search=' . XH_hsc(stsl($search));
     else if ($f == 'file')
         $t .= '&amp;file=' . $file;
     else if ($f != '' && $f != 'save')
         $t .= '&amp;' . $f;
     else if (sv('QUERY_STRING') != '')
-        $t = htmlspecialchars(sv('QUERY_STRING'), ENT_COMPAT, "UTF-8") . $t;
+        $t = XH_hsc(sv('QUERY_STRING')) . $t;
     return '<a href="' . $sn . '?' . $t . '">' . $tx['menu']['print'] . '</a>';
 }
 
@@ -1271,7 +1271,7 @@ function content() {
     global $s, $o, $c, $edit, $adm, $cf;
     if (!($edit && $adm) && $s > -1) {
         if (isset($_GET['search'])) {
-            $words = explode(',', htmlspecialchars(stsl($_GET['search']), ENT_COMPAT, 'UTF-8'));
+            $words = explode(',', XH_hsc(stsl($_GET['search'])));
             $code = 'return "&" . preg_quote($w, "&") . "(?!([^<]+)?>)&isU";';
             $words = array_map(create_function('$w', $code), $words);
             $c[$s] = preg_replace($words, '<span class="highlight_search">$0</span>', $c[$s]);

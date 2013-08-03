@@ -97,20 +97,20 @@ if ($t == '' || $e != '')
 // fields before textarea
     $o .= '<div>' . "\n" . $tx['mailform']['sendername'].': ' . tag('br') . "\n"
        .  tag('input type="text" class="text" size="35" name="sendername" value="'
-       .  htmlspecialchars(stsl($sendername), ENT_COMPAT, 'UTF-8').'"') . "\n"
+       .  XH_hsc(stsl($sendername)).'"') . "\n"
        .  '</div>' . "\n"
        .  '<div>' . "\n" . $tx['mailform']['senderphone'].': ' . tag('br') . "\n"
        .  tag('input type="text" class="text" size="35"name="senderphone" value="'
-       .  htmlspecialchars(stsl($senderphone), ENT_COMPAT, 'UTF-8').'"') . "\n"
+       .  XH_hsc(stsl($senderphone)).'"') . "\n"
        .  '</div>' . "\n"
        .  '<div>' . "\n" .  $tx['mailform']['sender'].': ' . tag('br') . "\n"
        .  tag('input type="text" class="text" size="35" name="sender" value="'
-       .  htmlspecialchars(stsl($sender), ENT_COMPAT, 'UTF-8').'"') . "\n"
+       .  XH_hsc(stsl($sender)).'"') . "\n"
        .  '</div>' . "\n" . tag('br') . "\n";
 
 // textarea
     $o .= '<textarea rows="12" cols="40" name="mailform">' . "\n";
-    if ($mailform != 'true') $o .= htmlspecialchars(stsl($mailform), ENT_COMPAT, 'UTF-8') . "\n";
+    if ($mailform != 'true') $o .= XH_hsc(stsl($mailform)) . "\n";
     $o .= '</textarea>' . "\n";
 
 // captcha

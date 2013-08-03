@@ -352,17 +352,17 @@ if ($adm) {
 
                                         else if ($a == 'cf')
                                         {
-                                            $o .= tag('input type="text" class="text" name="'.$k1.'_'.$k2.'" value="'.htmlspecialchars($v2, ENT_COMPAT, 'UTF-8').'" size="30"')."\n";
+                                            $o .= tag('input type="text" class="text" name="'.$k1.'_'.$k2.'" value="'.XH_hsc($v2).'" size="30"')."\n";
                                         }
 
 //new in 1.5: single line input field or textarea depending on text length
                                         else if (utf8_strlen($v2) < 30)
                                         {
-                                            $o .= '<textarea rows="2" cols="30" class="cmsimplecore_settings cmsimplecore_settings_short" name="' . $k1 . '_' . $k2 . '">' . htmlspecialchars($v2, ENT_COMPAT, 'UTF-8') . "</textarea>\n";
+                                            $o .= '<textarea rows="2" cols="30" class="cmsimplecore_settings cmsimplecore_settings_short" name="' . $k1 . '_' . $k2 . '">' . XH_hsc($v2) . "</textarea>\n";
                                         }
                                         else
                                         {
-                                                $o .= '<textarea rows="2" cols="30" class="cmsimplecore_settings" name="' . $k1 . '_' . $k2 . '">' . htmlspecialchars($v2, ENT_COMPAT, 'UTF-8') . "</textarea>\n";
+                                                $o .= '<textarea rows="2" cols="30" class="cmsimplecore_settings" name="' . $k1 . '_' . $k2 . '">' . XH_hsc($v2) . "</textarea>\n";
                                         }
                                         $o .= '</td>' . "\n" . '</tr>' . "\n";
                                     }
@@ -371,7 +371,7 @@ if ($adm) {
                     $o .= '</table>' . "\n" . tag('input type="hidden" name="form" value="' . $form . '"') . "\n";
                 }
                 else
-                    $o .= '<textarea rows="25" cols="50" name="text" class="cmsimplecore_file_edit">' . htmlspecialchars(rf($pth['file'][$file]), ENT_NOQUOTES, 'UTF-8') . '</textarea>';
+                    $o .= '<textarea rows="25" cols="50" name="text" class="cmsimplecore_file_edit">' . XH_hsc(rf($pth['file'][$file])) . '</textarea>';
 
                 if (isset($admin) && $admin)
                     $o .= tag('input type="hidden" name="admin" value="' . $admin . '"') . "\n";
@@ -455,7 +455,7 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
                 . tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
                 . tag('input type="hidden" name="function" value="save"')
                 . '<textarea name="text" id="text" class="xh-editor" style="height: ' . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
-                . htmlspecialchars($c[$s], ENT_COMPAT, 'UTF-8')
+                . XH_hsc($c[$s])
                 . '</textarea>';
         if ($cf['editor']['external'] == '' || !$editor) {
             $o .= tag('input type="submit" value="' . utf8_ucfirst($tx['action']['save']) . '"');
