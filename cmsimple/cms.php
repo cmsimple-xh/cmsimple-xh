@@ -225,6 +225,7 @@ if ($stylesheet != '') {
     include($pth['file']['stylesheet']);
     exit;
 }
+$download = stsl($download);
 if ($download != '')
     download($pth['folder']['downloads'] . basename($download));
 

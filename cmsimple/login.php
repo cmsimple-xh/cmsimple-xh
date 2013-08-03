@@ -102,6 +102,8 @@ function loginforms() {
 // if(gc('status')!=''||$login){header('Cache-Control: no-cache');header('Pragma: no-cache');}
 // LOGIN & BACKUP
 
+$passwd = stsl($passwd);
+
 $adm = (gc('status') == 'adm' && logincheck());
 
 if ($cf['security']['type'] == 'page' && $login && $passwd == '' && !$adm) {
