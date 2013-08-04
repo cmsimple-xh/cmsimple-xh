@@ -174,6 +174,7 @@ if ($adm) {
             }
         }
     }
+    closedir($handle);
     natcasesort($admin_plugins);
     foreach ($admin_plugins as $plugin) {
         PluginFiles($plugin);
@@ -260,7 +261,7 @@ while (FALSE !== ($plugin = readdir($handle))) {
         }
     } // if($plugin)
 } // while (FALSE !== ($plugin = readdir($handle)))
-
+closedir($handle);
 
 /**
  * Load admin functions (admin.php, if exists) of plugin
