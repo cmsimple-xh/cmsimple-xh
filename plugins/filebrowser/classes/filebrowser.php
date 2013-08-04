@@ -263,7 +263,10 @@ function foldersArray($all = true) {
             switch ($file['error']) {
             case UPLOAD_ERR_INI_SIZE:
                 $this->view->error('error_not_uploaded', $file['name']);
-                $this->view->error('error_file_too_big', array('?',  ini_get('upload_max_filesize')));
+                $this->view->error(
+                    'error_file_too_big_php',
+                    array(ini_get('upload_max_filesize'), 'upload_max_filesize')
+                );
                 return;
             default:
                 $this->view->error('error_not_uploaded', $file['name']);
