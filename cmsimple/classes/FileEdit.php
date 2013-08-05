@@ -192,7 +192,7 @@ class XH_TextFileEdit extends XH_FileEdit
             $message = '';
         }
         $button = tag('input type="submit" class="submit" value="' . $value . '"');
-        $o = '<h1>' . utf8_ucfirst($this->caption) . '</h1>' . $message
+        $o = '<h1>' . $this->caption . '</h1>' . $message
             . '<form action="' . $action . '" method="POST">'
             . '<textarea rows="25" cols="80" name="' . $this->textareaName
             . '" class="cmsimplecore_file_edit">'
@@ -266,14 +266,16 @@ class XH_CoreTextFileEdit extends XH_TextFileEdit
      *
      * @global array  The paths of system files and folders.
      * @global string The requested special file.
+     * @global array  The localization of the core.
      *
      * @access public
      */
     function XH_CoreTextFileEdit()
     {
-        global $pth, $file;
+        global $pth, $file, $tx;
 
         $this->filename = $pth['file'][$file];
+        $this->caption = utf8_ucfirst($tx['filetype'][$file]);
         $this->params = array('file' => $file, 'action' => 'save');
         $this->redir = "?file=$file&action=edit&xh_success=$file";
         $this->textareaName = 'text';
@@ -297,14 +299,15 @@ class XH_PluginTextFileEdit extends XH_TextFileEdit
     /**
      * Construct an instance.
      *
-     * @global array The paths of system files and folders.
+     * @global array  The paths of system files and folders.
      * @global string The name of the currently loading plugin.
+     * @global array  The localization of the core.
      *
      * @access public
      */
     function XH_PluginTextFileEdit()
     {
-        global $pth, $plugin;
+        global $pth, $plugin, $tx;
 
         $this->plugin = $plugin;
         $this->filename = $pth['file']['plugin_stylesheet'];
@@ -313,7 +316,8 @@ class XH_PluginTextFileEdit extends XH_TextFileEdit
         $this->redir = '?&' . $plugin
             . '&admin=plugin_stylesheet&action=plugin_text&xh_success=stylesheet';
         $this->textareaName = 'plugin_text';
-        $this->caption = $plugin;
+        $this->caption = utf8_ucfirst($plugin) . ' &ndash; '
+            . utf8_ucfirst($tx['filetype']['stylesheet']);
         parent::XH_TextFileEdit();
     }
 }
@@ -548,7 +552,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
         } else {
             $message = '';
         }
-        $o = '<h1>' . utf8_ucfirst($this->caption) . '</h1>' . $message
+        $o = '<h1>' . $this->caption . '</h1>' . $message
             . '<form id="xh_config_form" action="' . $action
             . '" method="POST" accept-charset="UTF-8">'
             . $button;
@@ -740,8 +744,7 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
         global $pth, $sl, $file, $tx;
 
         $this->filename = $pth['file'][$file];
-        $this->caption = utf8_ucfirst($tx['action']['edit']) . ' '
-            . (isset($tx['filetype'][$file]) ? $tx['filetype'][$file] : $file);
+        $this->caption = utf8_ucfirst($tx['filetype'][$file]);
         $this->metaLangFile = $pth['folder']['language'] . 'meta' . $sl . '.php';
         parent::XH_ArrayFileEdit();
     }
@@ -950,7 +953,6 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
         global $pth, $sl, $plugin;
 
         $this->plugin = $plugin;
-        $this->caption = $plugin;
         $this->metaLangFile = $pth['folder']['plugins'] . $plugin
             . '/languages/meta' . $sl . '.php';
         parent::XH_ArrayFileEdit();
@@ -997,6 +999,7 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
      *
      * @global array  The paths of system files and folders.
      * @global string The name of the currently loading plugin.
+     * @global array  The localization of the core.
      * @global array  The configuration of the plugins.
      * @global array  The localization of the plugins.
      *
@@ -1004,9 +1007,11 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
      */
     function XH_PluginConfigFileEdit()
     {
-        global $pth, $plugin, $plugin_cf, $plugin_tx;
+        global $pth, $plugin, $tx, $plugin_cf, $plugin_tx;
 
         parent::XH_PluginArrayFileEdit();
+        $this->caption = ucfirst($plugin) . ' &ndash; '
+            . utf8_ucfirst($tx['filetype']['config']);
         $fn = $pth['folder']['plugins'] . $plugin . '/config/metaconfig.php';
         if (is_readable($fn)) {
             include $fn;
@@ -1047,15 +1052,18 @@ class XH_PluginLanguageFileEdit extends XH_PluginArrayFileEdit
      *
      * @global array  The paths of system files and folders.
      * @global string The name of the currently loading plugin.
+     * @global array  The localization of the core.
      * @global array  The localization of the plugins.
      *
      * @access public
      */
     function XH_PluginLanguageFileEdit()
     {
-        global $pth, $plugin, $plugin_tx;
+        global $pth, $plugin, $tx, $plugin_tx;
 
         parent::XH_PluginArrayFileEdit();
+        $this->caption = ucfirst($plugin) . ' &ndash; '
+            . utf8_ucfirst($tx['filetype']['language']);
         $this->filename = $pth['file']['plugin_language'];
         $this->params = array('admin' => 'plugin_language',
                               'action' => 'plugin_save');
