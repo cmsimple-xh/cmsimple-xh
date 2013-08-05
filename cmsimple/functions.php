@@ -1004,6 +1004,7 @@ function XH_readContents($language = null)
     $content = explode($split_token, $content);
     $contentHead = array_shift($content);
 
+    $temp_h = array();
     foreach ($content as $page) {
         $c[] = $page;
         preg_match('~<h([1-' . $stop . ']).*>(.*)</h~isU', $page, $temp);
