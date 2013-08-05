@@ -246,9 +246,9 @@ rfc(); // Here content is loaded
 
 if ($function == 'search')
     $f = 'search';
-if ($mailform || $function == 'mailform')
+if (($su == '' || $su == 'mailform') && ($mailform || $function == 'mailform'))
     $f = 'mailform';
-if ($sitemap)
+if (($su == '' || $su == 'sitemap') && $sitemap)
     $f = 'sitemap';
 if ($xhpages)
     $f = 'xhpages';
