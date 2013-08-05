@@ -816,7 +816,9 @@ function shead($s) {
 	    header(($cgi || $iis) ? 'status: 404 Not Found' : 'HTTP/1.0 404 Not Found');
 	}
     }
-    $title = $tx['error'][$s];
+    if ($title == '') {
+        $title = $tx['error'][$s];
+    }
     $o = '<h1>' . $title . '</h1>' . $o;
 }
 
