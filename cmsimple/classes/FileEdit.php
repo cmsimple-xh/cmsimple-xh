@@ -192,7 +192,7 @@ class XH_TextFileEdit extends XH_FileEdit
             $message = '';
         }
         $button = tag('input type="submit" class="submit" value="' . $value . '"');
-        $o = '<h1>' . ucfirst($this->caption) . '</h1>' . $message
+        $o = '<h1>' . utf8_ucfirst($this->caption) . '</h1>' . $message
             . '<form action="' . $action . '" method="POST">'
             . '<textarea rows="25" cols="80" name="' . $this->textareaName
             . '" class="cmsimplecore_file_edit">'
@@ -385,7 +385,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
      */
     function translate($key)
     {
-        return isset($this->lang[$key]) ? $this->lang[$key] : ucfirst($key);
+        return isset($this->lang[$key]) ? $this->lang[$key] : utf8_ucfirst($key);
     }
 
     /**
@@ -548,7 +548,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
         } else {
             $message = '';
         }
-        $o = '<h1>' . ucfirst($this->caption) . '</h1>' . $message
+        $o = '<h1>' . utf8_ucfirst($this->caption) . '</h1>' . $message
             . '<form id="xh_config_form" action="' . $action
             . '" method="POST" accept-charset="UTF-8">'
             . $button;
