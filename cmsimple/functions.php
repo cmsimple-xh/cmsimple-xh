@@ -1838,7 +1838,11 @@ function loginforms()
             . '" method="post">'
             . tag('input type="hidden" name="login" value="true"')
             . tag('input type="hidden" name="selected" value="' . @$u[$s] . '"')
-            . tag('input type="password" name="keycut" id="passwd" value=""') . ' '
+            . tag(
+                'input type="password" name="keycut" id="passwd" value=""'
+                . ' autocomplete="off"'
+            )
+            . ' '
             . tag(
                 'input type="submit" name="submit" id="submit" value="'
                 . $tx['menu']['login'] . '"'

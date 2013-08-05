@@ -440,20 +440,20 @@ class XH_ArrayFileEdit extends XH_FileEdit
             . '<table style="width: 100%">'
             . '<tr><td>' . $tx['password']['old'] . '</td><td>'
             . tag(
-                'input type="password" name="' . $iname
-                . '_OLD" value="" class="cmsimplecore_settings"'
+                'input type="password" name="' . $iname . '_OLD" value=""'
+                . ' autocomplete="off" class="cmsimplecore_settings"'
             )
             . '</td></tr>'
             . '<tr><td>' . $tx['password']['new'] . '</td><td>'
             . tag(
-                'input type="password" name="' . $iname
-                . '_NEW" value="" class="cmsimplecore_settings"'
+                'input type="password" name="' . $iname . '_NEW" value=""'
+                . ' autocomplete="off" class="cmsimplecore_settings"'
             )
             . '</td></tr>'
             . '<tr><td>' . $tx['password']['confirmation'] . '</td><td>'
             . tag(
-                'input type="password" name="' . $iname
-                . '_CONFIRM" value="" class="cmsimplecore_settings"'
+                'input type="password" name="' . $iname . '_CONFIRM" value=""'
+                . ' autocomplete="off" class="cmsimplecore_settings"'
             )
             . '</td></tr>'
             . '</table>'
