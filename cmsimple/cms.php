@@ -665,7 +665,10 @@ function rfc() {
         $h[] = trim(strip_tags($tx['toc']['newpage']));
         $u[] = uenc($h[0]);
         $l[] = 1;
-        $s = 0;
+        if ($su == $u[0]) {
+            $s = 0;
+        }
+        $cl = 1;
         return;
     }
 
