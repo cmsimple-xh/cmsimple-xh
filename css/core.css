@@ -223,6 +223,14 @@ textarea.cmsimplecore_settings {
     margin: auto;
 }
 
+.cmsimplecore_debug_warning {
+    background: #fc0;
+    font-family: arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    padding: 4px 6px;
+}
+
 .cmsimplecore_success, .cmsimplecore_info, .cmsimplecore_warning, .cmsimplecore_fail {
     padding: 0.7em;
     padding-left: 36px;

@@ -589,8 +589,7 @@ function XH_finalCleanUp($html)
         }
 
         if (count($errors) > 0) {
-            $errorList .= '<div class="cmsimplecore_warning" style="margin: 0;'
-                . ' border-width: 0;"><ul>';
+            $errorList .= '<div class="cmsimplecore_debug_warning"><ul>';
             $errors = array_unique($errors);
             foreach ($errors as $error) {
                 $errorList .= '<li>' . $error . '</li>';
