@@ -1,6 +1,6 @@
 <?php
 
-$tx['site']['title']="English site Title";
+$tx['site']['title']="English Site Title";
 $tx['subsite']['template']="";
 
 $tx['meta']['keywords']="Enter list of comma separated keywords here";
@@ -8,9 +8,9 @@ $tx['meta']['description']="Enter website description for search engine results 
 
 $tx['locale']['all']="";
 
-$tx['template']['text1']="text 1 for templates requiring this text";
-$tx['template']['text2']="text 2 for templates requiring this text";
-$tx['template']['text3']="text 3 for templates requiring this text";
+$tx['template']['text1']="Text 1 for templates requiring this text";
+$tx['template']['text2']="Text 2 for templates requiring this text";
+$tx['template']['text3']="Text 3 for templates requiring this text";
 
 $tx['action']['cancel']="Cancel";
 $tx['action']['delete']="delete";
@@ -174,6 +174,7 @@ $tx['message']['deleted']="The content has been successfully deleted.";
 $tx['message']['pd_success']="The page data have been successfully saved. However, some settings will only become effective after you refresh the page or browse to another page.";
 $tx['message']['pd_fail']="The page data could not be saved. Please try again.";
 $tx['message']['restored']="The backup has been successfully restored.";
+$tx['message']['saved']="%s successfully saved.";
 
 $tx['navigator']['next']="next »";
 $tx['navigator']['previous']="« prev";
@@ -212,8 +213,6 @@ $tx['settings']['systemfiles']="System files";
 $tx['settings']['warning']="Only change settings when you understand the effect your changes will have!";
 
 $tx['submenu']['heading']="Submenu";
-
-$tx['success']['saved'] = "File saved: ";
 
 $tx['syscheck']['encoding']="Encoding 'UTF-8' configured";
 $tx['syscheck']['extension']="Extension '%s' loaded";

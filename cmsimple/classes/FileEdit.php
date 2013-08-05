@@ -185,8 +185,14 @@ class XH_TextFileEdit extends XH_FileEdit
 
         $action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
         $value = utf8_ucfirst($tx['action']['save']);
+        if (isset($_GET['xh_success'])) {
+            $filetype = utf8_ucfirst($tx['filetype'][stsl($_GET['xh_success'])]);
+            $message =  XH_message('success', null, 'saved', $filetype);
+        } else {
+            $message = '';
+        }
         $button = tag('input type="submit" class="submit" value="' . $value . '"');
-        $o = '<h1>' . ucfirst($this->caption) . '</h1>'
+        $o = '<h1>' . ucfirst($this->caption) . '</h1>' . $message
             . '<form action="' . $action . '" method="POST">'
             . '<textarea rows="25" cols="80" name="' . $this->textareaName
             . '" class="cmsimplecore_file_edit">'
@@ -269,7 +275,7 @@ class XH_CoreTextFileEdit extends XH_TextFileEdit
 
         $this->filename = $pth['file'][$file];
         $this->params = array('file' => $file, 'action' => 'save');
-        $this->redir = "?file=$file&action=edit";
+        $this->redir = "?file=$file&action=edit&xh_success=$file";
         $this->textareaName = 'text';
         parent::XH_TextFileEdit();
     }
@@ -304,7 +310,8 @@ class XH_PluginTextFileEdit extends XH_TextFileEdit
         $this->filename = $pth['file']['plugin_stylesheet'];
         $this->params = array('admin' => 'plugin_stylesheet',
                               'action' => 'plugin_textsave');
-        $this->redir = "?&$plugin&admin=plugin_stylesheet&action=plugin_text";
+        $this->redir = '?&' . $plugin
+            . '&admin=plugin_stylesheet&action=plugin_text&xh_success=stylesheet';
         $this->textareaName = 'plugin_text';
         $this->caption = $plugin;
         parent::XH_TextFileEdit();
@@ -535,7 +542,13 @@ class XH_ArrayFileEdit extends XH_FileEdit
         $action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
         $value = utf8_ucfirst($tx['action']['save']);
         $button = tag('input type="submit" class="submit" value="' . $value . '"');
-        $o = '<h1>' . ucfirst($this->caption) . '</h1>'
+        if (isset($_GET['xh_success'])) {
+            $filetype = utf8_ucfirst($tx['filetype'][stsl($_GET['xh_success'])]);
+            $message = XH_message('success', null, 'saved', $filetype);
+        } else {
+            $message = '';
+        }
+        $o = '<h1>' . ucfirst($this->caption) . '</h1>' . $message
             . '<form id="xh_config_form" action="' . $action
             . '" method="POST" accept-charset="UTF-8">'
             . $button;
@@ -816,7 +829,7 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
             'file' => 'config',
             'action' => 'save'
         );
-        $this->redir = '?file=config&action=array';
+        $this->redir = '?file=config&action=array&xh_success=config';
         $this->cfg = array();
         $fn = $pth['folder']['cmsimple'] . 'metaconfig.php';
         if (is_readable($fn)) {
@@ -876,7 +889,7 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
             'file' => 'language',
             'action' => 'save'
         );
-        $this->redir = '?file=language&action=array';
+        $this->redir = '?file=language&action=array&xh_success=language';
         $this->cfg = array();
         foreach ($tx as $cat => $opts) {
             $this->cfg[$cat] = array();
@@ -1002,7 +1015,8 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
         $this->filename = $pth['file']['plugin_config'];
         $this->params = array('admin' => 'plugin_config',
                               'action' => 'plugin_save');
-        $this->redir = "?&$plugin&admin=plugin_config&action=plugin_edit";
+        $this->redir = '?&' . $plugin
+            . '&admin=plugin_config&action=plugin_edit&xh_success=config';
         $this->varName = 'plugin_cf';
         $this->cfg = array();
         foreach ($plugin_cf[$plugin] as $key => $val) {
@@ -1045,7 +1059,8 @@ class XH_PluginLanguageFileEdit extends XH_PluginArrayFileEdit
         $this->filename = $pth['file']['plugin_language'];
         $this->params = array('admin' => 'plugin_language',
                               'action' => 'plugin_save');
-        $this->redir = "?&$plugin&admin=plugin_language&action=plugin_edit";
+        $this->redir = '?&' . $plugin
+            . '&admin=plugin_language&action=plugin_edit&xh_success=language';
         $this->varName = 'plugin_tx';
         $this->cfg = array();
         foreach ($plugin_tx[$plugin] as $key => $val) {

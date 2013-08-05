@@ -174,6 +174,7 @@ $tx['message']['deleted']="Der Content wurde erfolgreich gelöscht.";
 $tx['message']['pd_success']="Die seitenspezifischen Daten wurden erfolgreich gespeichert. Es kann allerdings sein, dass einige Einstellungen erst wirksam werden nachdem Sie die Seite aktualisieren oder zu einer anderen Seite wechseln.";
 $tx['message']['pd_fail']="Die seitenspezifischen Daten konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.";
 $tx['message']['restored']="Die Sicherung wurde erfolgreich wieder hergestellt.";
+$tx['message']['saved']="%s erfolgreich gespeichert.";
 
 $tx['navigator']['next']="nächste Seite »";
 $tx['navigator']['previous']="« vorige Seite";
@@ -212,8 +213,6 @@ $tx['settings']['systemfiles']="Systemdateien";
 $tx['settings']['warning']="Bitte hier nur solche Änderungen durchführen, bei denen Sie genau wissen, was diese bewirken!";
 
 $tx['submenu']['heading']="weiter zu:";
-
-$tx['success']['saved']="Datei gespeichert: ";
 
 $tx['syscheck']['encoding']="UTF-8-Kodierung eingestellt";
 $tx['syscheck']['extension']="Erweiterung '%s' geladen";

@@ -174,6 +174,7 @@ $tx['message']['deleted']="The content has been successfully deleted.";
 $tx['message']['pd_success']="The page data have been successfully saved. However, some settings will only become effective after you refresh the page or browse to another page.";
 $tx['message']['pd_fail']="The page data could not be saved. Please try again.";
 $tx['message']['restored']="The backup has been successfully restored.";
+$tx['message']['saved']="%s successfully saved.";
 
 $tx['navigator']['next']="next »";
 $tx['navigator']['previous']="« prev";
@@ -212,8 +213,6 @@ $tx['settings']['systemfiles']="System files";
 $tx['settings']['warning']="Only change settings when you understand the effect your changes will have!";
 
 $tx['submenu']['heading']="Submenu";
-
-$tx['success']['saved'] = "File saved: ";
 
 $tx['syscheck']['encoding']="Encoding 'UTF-8' configured";
 $tx['syscheck']['extension']="Extension '%s' loaded";
