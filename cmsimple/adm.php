@@ -454,7 +454,8 @@ if ($adm && $edit && (!$f || $f == 'save') && !$download) {
                 . tag('input type="hidden" name="function" value="save"')
                 . '<textarea name="text" id="text" class="xh-editor" style="height: ' . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
                 . XH_hsc($c[$s])
-                . '</textarea>';
+                . '</textarea>'
+                . '<script type="text/javascript">/* <![CDATA[ */document.getElementById("text").style.height=(' . $cf['editor']['height'] . ') + "px";/* ]]> */</script>';
         if ($cf['editor']['external'] == '' || !$editor) {
             $o .= tag('input type="submit" value="' . utf8_ucfirst($tx['action']['save']) . '"');
         }
