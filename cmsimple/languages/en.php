@@ -64,7 +64,7 @@ $tx['error']['server']="Server error: %s";
 $tx['error']['undefined']="Undefined";
 
 $tx['filetype']['backup']="backup";
-$tx['filetype']['config']="CMS configuration";
+$tx['filetype']['config']="configuration";
 $tx['filetype']['content']="content file";
 $tx['filetype']['execute']="execute";
 $tx['filetype']['file']="file";
