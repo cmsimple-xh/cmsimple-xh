@@ -1208,12 +1208,32 @@ function admin_menu($plugins = array(), $debug = false)
         $pluginMenu = '';
         if ((bool) $plugins)
         {
-            sort($plugins, SORT_STRING);
-            $pluginMenu .= '<li><a href="#" onclick="return false">' . utf8_ucfirst($tx['editmenu']['plugins']) . "</a>\n    <ul>";
+            $total = count($plugins);
+            $rows = 12;
+            $columns = ceil($total / $rows);
+            $rows = ceil($total / $columns);
+            $width = 125 * $columns;
+            $marginLeft = min($width, 250) - $width;
+            natcasesort($plugins);
+            $plugins = array_values($plugins);
+            $orderedPlugins = array();
+            for ($j = 0; $j < $rows; ++$j) {
+                for ($i = 0; $i < $total; $i += $rows) {
+                    $orderedPlugins[] = isset($plugins[$i + $j]) ? $plugins[$i + $j] : '';
+                }
+            }
+            $plugins = $orderedPlugins;
+            $pluginMenu .= '<li><a href="#" onclick="return false">' . utf8_ucfirst($tx['editmenu']['plugins'])
+                . "</a>\n    <ul style=\"width:{$width}px; margin-left:{$marginLeft}px\">";
             foreach ($plugins as $plugin)
             {
-                $pluginMenu .= "\n" .
-                    '     <li><a href="?' . $plugin . '&amp;normal">' . ucfirst($plugin) . '</a></li>';
+                if ($plugin != '') {
+                    $pluginMenu .= "\n" .
+                        '     <li><a href="?' . $plugin . '&amp;normal">' . ucfirst($plugin) . '</a></li>';
+                } else {
+                    $pluginMenu .= "\n" .
+                        '     <li class="xh_dummy"></li>';
+                }
             }
 
             $pluginMenu .= "\n    </ul>";

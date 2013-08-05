@@ -65,7 +65,7 @@
     height: 0;
     left: 0;
     position: absolute;
-    top: 36px; 
+    top: 36px;
     margin: 0;
     z-index: 9999;
     visibility: hidden;
@@ -90,6 +90,10 @@
     background: #c50;
 }
 
+#editmenu ul ul li.xh_dummy:hover {
+    background: #4f5456;
+}
+
 #editmenu ul ul li a:hover {
     background: #c50;
     height: 20px;
@@ -99,7 +103,7 @@
 
 #editmenu ul ul ul {
     left: 100%;
-    top: 0px; 
+    top: 0px;
     visibility: hidden;
     padding: 0;
     margin: 0;
@@ -141,18 +145,18 @@ div#admin-content-container{
 }
 
 #edit_menu {
-    width: 660px; 
+    width: 660px;
     float: left;
 }
 
 #editmenu_logout {
-    width: 98px; 
+    width: 98px;
     float: right;
 }
 
 #edit_menu_logout {
-    min-width: 100%; 
-    max-width: 100%; 
+    min-width: 100%;
+    max-width: 100%;
     text-align: center;
 }
 
@@ -197,8 +201,8 @@ padding: 4px 6px;
 }
 
 .cmsimplecore_version {
-font-family: arial, sans-serif; 
-font-size: 14px; 
+font-family: arial, sans-serif;
+font-size: 14px;
 padding: 0 2px;
 }
 
@@ -206,31 +210,31 @@ padding: 0 2px;
 
 .cmsimplecore_debug {
 height: 18px;
-background: #900; 
-font-family: arial, sans-serif; 
-font-size: 14px; 
+background: #900;
+font-family: arial, sans-serif;
+font-size: 14px;
 line-height: 14px;
-color: #fff; 
-text-align: center; 
-border: 0px solid #000; 
-padding: 2px 6px; 
+color: #fff;
+text-align: center;
+border: 0px solid #000;
+padding: 2px 6px;
 margin: auto;
 }
 
 .cmsimplecore_warning {
-background: #fc0; 
-font-family: arial, sans-serif; 
-font-size: 14px; 
-color: #000; 
-border: 3px solid #000; 
-padding: 4px 6px; 
+background: #fc0;
+font-family: arial, sans-serif;
+font-size: 14px;
+color: #000;
+border: 3px solid #000;
+padding: 4px 6px;
 margin: 4px 0;
 }
 
 /* file edit textareas */
 
 textarea.cmsimplecore_file_edit {
-width: 99%; 
+width: 99%;
 font-family: 'courier new', monospace;
 font-size: 14px;
 color: #333;
@@ -242,21 +246,21 @@ padding: 0 !important;
 /* MAILFORM */
 
 #cmsimple_mailform div {
-width: 250px; 
+width: 250px;
 margin: 0 0 8px 0;
 }
 
 #cmsimple_mailform input.text {
-width: 90%; 
+width: 90%;
 }
 
 span.captcha_code {
-display: block; 
-float:left; 
-color: #fff; 
-text-decoration: none; 
-background-color: #000; 
-padding: 1px 5px 2px 5px; 
+display: block;
+float:left;
+color: #fff;
+text-decoration: none;
+background-color: #000;
+padding: 1px 5px 2px 5px;
 margin: 0 4px;
 }
 
@@ -300,44 +304,44 @@ li.xh_system_check_cat_start {margin-top: 1em}
 
 /*
 .edit a:link, #cmsimplecore_pluginselect a:link {
-font-family: arial, sans-serif !important; 
-font-size: 14px !important; 
-color: #36a !important; 
-text-decoration: none !important; 
+font-family: arial, sans-serif !important;
+font-size: 14px !important;
+color: #36a !important;
+text-decoration: none !important;
 font-style: normal !important;
 }
 
 .edit a:visited, #cmsimplecore_pluginselect a:visited {
-font-family: arial, sans-serif !important; 
-font-size: 14px !important; 
-color: #36a !important; 
-text-decoration: none !important; 
+font-family: arial, sans-serif !important;
+font-size: 14px !important;
+color: #36a !important;
+text-decoration: none !important;
 font-style: normal !important;
 }
 
 .edit a:hover, #cmsimplecore_pluginselect a:hover {
-font-family: arial, sans-serif !important; 
-font-size: 14px; color: #fff !important; 
-text-decoration: none !important; 
-background-color: #666 !important; 
+font-family: arial, sans-serif !important;
+font-size: 14px; color: #fff !important;
+text-decoration: none !important;
+background-color: #666 !important;
 font-style: normal !important;
 }
 
 .edit a:active, #cmsimplecore_pluginselect a:active {
-font-family: arial, sans-serif !important; 
-font-size: 14px !important; 
-color: #fff !important; 
-text-decoration: none !important; 
-background-color: #666 !important; 
+font-family: arial, sans-serif !important;
+font-size: 14px !important;
+color: #fff !important;
+text-decoration: none !important;
+background-color: #666 !important;
 font-style: normal !important;
 }
 
 .edit a:focus, #cmsimplecore_pluginselect a:focus {
-font-family: arial, sans-serif !important; 
-font-size: 14px !important; 
-color: #fff !important; 
-text-decoration: none !important; 
-background-color: #666 !important; 
+font-family: arial, sans-serif !important;
+font-size: 14px !important;
+color: #fff !important;
+text-decoration: none !important;
+background-color: #666 !important;
 font-style: normal !important;
 }
  */
