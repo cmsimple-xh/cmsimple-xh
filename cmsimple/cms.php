@@ -290,8 +290,13 @@ if ($cf['plugins']['folder'] != "")
 
 if ($f == 'search')
     @include($pth['file']['search']);
-if ($f == 'mailform' && $cf['mailform']['email'] != '')
-    include($pth['file']['mailform']);
+if ($f == 'mailform') {
+    if ($cf['mailform']['email'] != '') {
+        include($pth['file']['mailform']);
+    } else {
+        shead(404);
+    }
+}
 if ($f == 'sitemap') {
     $title = $tx['title'][$f];
     $ta = array();
