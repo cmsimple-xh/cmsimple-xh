@@ -2540,4 +2540,23 @@ function XH_hsc($string)
     return $string;
 }
 
+/**
+ * Handles a mailform embedded in a CMSimple_XH page.
+ *
+ * @return string (X)HTML.
+ *
+ * @global array The paths of system files and folders.
+ *
+ * @since 1.6
+ */
+function XH_mailform()
+{
+    global $pth;
+
+    include_once $pth['folder']['classes'] . 'Mailform.php';
+
+    $mailform = new XH_Mailform(true);
+    return $mailform->process();
+}
+
 ?>

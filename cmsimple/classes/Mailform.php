@@ -29,6 +29,13 @@
 class XH_Mailform
 {
     /**
+     * Whether the mailform is embedded on a CMSimple_XH page.
+     *
+     * @var bool
+     */
+    var $embedded;
+
+    /**
      * The name of the sender.
      *
      * @var string
@@ -94,12 +101,15 @@ class XH_Mailform
     /**
      * Constructs an instance.
      *
+     * @param bool $embedded Whether the mailform is embedded on a CMSimple_XH page.
+     *
      * @access public
      */
-    function XH_Mailform()
+    function XH_Mailform($embedded = false)
     {
         global $tx;
 
+        $this->embedded = $embedded;
         $this->sendername = isset($_POST['sendername'])
             ? stsl($_POST['sendername']) : '';
         $this->senderphone = isset($_POST['senderphone'])
@@ -113,8 +123,13 @@ class XH_Mailform
         $this->subject = isset($_POST['subject'])
             ? stsl($_POST['subject'])
             : $tx['menu']['mailform'] . ' ' . sv('SERVER_NAME');
-        $this->mailform = isset($_POST['mailform'])
-            ? stsl($_POST['mailform']) : '';
+        if ($embedded) {
+            $this->mailform = isset($_POST['xh_mailform'])
+                ? stsl($_POST['xh_mailform']) : '';
+        } else {
+            $this->mailform = isset($_POST['mailform'])
+                ? stsl($_POST['mailform']) : '';
+        }
     }
 
     /**
@@ -214,17 +229,20 @@ class XH_Mailform
      * @global string The script name.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
+     * @global string The current page URL.
      *
      * @access protected
      */
     function render()
     {
-        global $sn, $cf, $tx;
+        global $sn, $cf, $tx, $su;
 
         $random = rand(10000, 99999);
-
-        $o = '<form action="' . $sn . '" method="post">' . "\n";
-        $o .= tag('input type="hidden" name="function" value="mailform"') . "\n";
+        $url = $sn . ($this->embedded ? '?' . $su : '');
+        $o = '<form action="' . $url . '" method="post">' . "\n";
+        if (!$this->embedded) {
+            $o .= tag('input type="hidden" name="function" value="mailform"') . "\n";
+        }
         if (isset($cf['mailform']['captcha'])
             && trim($cf['mailform']['captcha']) == 'true'
         ) {
@@ -261,7 +279,8 @@ class XH_Mailform
             . tag('br') . "\n";
 
         // textarea
-        $o .= '<textarea rows="12" cols="40" name="mailform">' . "\n";
+        $name = $this->embedded ? 'xh_mailform' : 'mailform';
+        $o .= '<textarea rows="12" cols="40" name="' . $name . '">' . "\n";
         $o .= htmlspecialchars($this->mailform, ENT_COMPAT, 'UTF-8') . "\n";
         $o .= '</textarea>' . "\n";
 
