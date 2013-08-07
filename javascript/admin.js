@@ -327,7 +327,7 @@ XH.makeAutosize = function (textarea) {
 
     if (typeof textarea.addEventListener != "undefined") {
         textarea.addEventListener("focus", onResize, false);
-        textarea.addEventListener("blur", onBlur, false);
+        //textarea.addEventListener("blur", onBlur, false);
         if (typeof textarea.oninput != "undefined") {
             textarea.addEventListener("input", onResize, false);
         } else if (typeof textarea.onpropertychange != "undefined") {
@@ -338,9 +338,10 @@ XH.makeAutosize = function (textarea) {
         }
     } else {
         textarea.attachEvent("onfocus", onResize);
-        textarea.attachEvent("onblur", onBlur);
+        //textarea.attachEvent("onblur", onBlur);
         textarea.attachEvent("onpropertychange", onPropertyChange);
     }
+    // the following would be nice, but it's very slow for many textareas
     //resize(textarea);
 }
 

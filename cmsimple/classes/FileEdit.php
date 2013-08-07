@@ -495,6 +495,9 @@ class XH_ArrayFileEdit extends XH_FileEdit
             return $this->passwordDialog($iname);
         case 'text':
             $class = 'cmsimplecore_settings';
+            if (utf8_strlen($opt['val']) < 30) {
+                $class .= ' cmsimplecore_settings_short';
+            }
             return '<textarea name="' . $iname . '" rows="1" cols="30"'
                 . ' class="' . $class . '">'
                 . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8')
