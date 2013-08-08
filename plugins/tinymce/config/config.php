@@ -1,6 +1,6 @@
 <?php
 
 $plugin_cf['tinymce']['init']="full";
-$plugin_cf['tinymce']['utf8_marker']="";
+$plugin_cf['tinymce']['utf8_marker']="הצü";
 
 ?>
