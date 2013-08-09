@@ -1,0 +1,29 @@
+/*
+This file is part of a template, which was created by Torsten Behrens.
+Take a modern CMSimple XH version. www.cmsimple-xh.org www.cmsimple.name www.cmsimple.me www.cmsimple.eu
+
+Version 08.08.2013. Update for jQuery4CMSimple. 
+##################################################################################
+# Dies ist ein GPL3 Template von Torsten Behrens.                                #
+# Torsten Behrens                                                                #
+# Dorfstraße 2                                                                   #
+# D-24619 Tarbek                                                                 #
+# USt.ID-Nr. DE214080613                                                         #
+# http://torsten-behrens.de                                                      #
+# http://tbis.info                                                               #
+# http://tbis.net                                                                #
+# http://cmsimple-templates.de                                                   #
+# http://cmsimple-templates.com                                                  #
+##################################################################################
+*/
+
+
+input {
+	
+	border-color: #6A6A6A !important;
+	border-top-color: #6A6A6A;
+	border-right-color: #6A6A6A;
+	border-bottom-color: #6A6A6A;
+	border-left-color: #6A6A6A;
+	border-width: 1px !important;
+}
