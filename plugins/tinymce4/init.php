@@ -138,7 +138,7 @@ function tinymce4_config($rte_selector, $config) {
      * If you have a lot of classes that are of no use for text editing,
      * you might want to create a special editor.css.
      */
-    $temp = json_decode($temp);
+    $temp = XH_decodeJSON($temp);
     
     $temp -> content_css = $pth['folder']['template'] . 'stylesheet.css';
 
@@ -169,7 +169,7 @@ function tinymce4_config($rte_selector, $config) {
 //    $temp = str_replace("%FILEBROWSER_CALLBACK%", $_SESSION['tinymce_fb_callback'], $temp);
 //    $temp -> file_browser_callback = $_SESSION['tinymce_fb_callback'];
 
-    $temp = json_encode($temp);
+    $temp = XH_encodeJSON($temp);
     return $temp;
 }
 

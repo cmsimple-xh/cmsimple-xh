@@ -24,7 +24,7 @@ function get_images($directory) {
     foreach ($files as $i) {
         $list[] = array('title'=> $i['name'], 'value'=>$i['path']);
     }
-    return(json_encode($list));
+    return(XH_encodeJSON($list));
 }
 
 function get_internal_links($h, $u, $l, $sn, $downloads_path) {
@@ -45,5 +45,5 @@ function get_internal_links($h, $u, $l, $sn, $downloads_path) {
             }
         }
     }
-    return(json_encode($list));
+    return(XH_encodeJSON($list));
 }
