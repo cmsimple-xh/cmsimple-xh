@@ -1,0 +1,318 @@
+/*******************/
+/*      Start      */
+/*******************/
+
+body {
+    font: .8em/1.4 Verdana, Geneva, sans serif;
+    margin:0;
+}
+#body {
+    background:#eee;
+}
+a:hover  {
+    color:red !important;
+}
+
+
+/*******************/
+/*    Head Nav     */
+/*******************/
+
+.headnav {
+    margin:0 auto;
+    max-width: 70em;
+}
+.headnav p {
+    text-align:right;
+    white-space: nowrap;
+    margin:0;
+    font-size:.85em;
+    letter-spacing: .08em;
+    line-height: 1.7;
+}
+.headnav p a {
+    color:black;
+    text-decoration: none;
+}
+.headnav p img {
+    margin-left:.5em;
+}
+
+
+/***********************/
+/*      Container      */
+/***********************/
+
+.container {
+    margin:0 auto;
+    max-width: 70em;
+    box-shadow: 0 0 2em 1em #ccc;
+    padding: .4em;
+    background: white;
+}
+
+
+/***********************/
+/*       Head          */
+/***********************/
+
+.header {
+    background:URL(images/header.jpg) repeat-x  #006636;
+    padding:2em 2em 0 2em;
+    margin-bottom:.5em;
+    border-radius: .5em;
+}
+.header h1 {
+    float:left;
+    font: italic bold 300% Georgia, serif;
+    letter-spacing:.01em;
+    color:black;
+    position:relative;
+}
+.header h1 span {
+    position: absolute;
+    color:white;
+    top:-2px;
+    left:-2px;
+}
+.header form {
+    float:right;
+    text-align:right;
+    margin-top:1em;
+}
+.header form div#searchbox input.text {
+    width:10em;
+}
+.header p {
+    clear:right;
+    float:right;
+    text-align:right;
+    color:#afc;
+    font-size:.9em;
+    margin:0 0 .5em;
+}
+
+
+/**********************/
+/*    Navigation 1    */
+/**********************/
+
+.nav {
+    background:#e7e7e7;
+    padding:0 .4em;
+    border-radius: .5em;
+}
+.nav ul {
+    list-style-type: none;
+    margin:0;
+    padding:0;
+}
+.nav ul li {
+    display: inline;
+    line-height:2;
+    padding: .3em;
+    margin: 0;
+    background:#dfe;
+    white-space: nowrap;
+}
+.nav ul li a {
+    color:black;
+    text-decoration: none;
+    background:#e7e7e7;
+    margin:-.3em;
+    padding: .3em ;
+}
+.nav li.sdocs a {
+    text-decoration: underline;
+}
+
+
+/**********************/
+/*    Navigation 2    */
+/**********************/
+
+.nav2 {
+    float:right;
+    width: 19em;
+    clear:right;
+}
+.nav2 ul {
+    list-style-type: none;
+    padding:.3em 0 .01em 0;
+    margin:1em 0 1em 0;
+    border-radius: .5em;
+    background:#eaeaea;
+}
+.nav2 ul li {
+    margin: 0 .5em .6em .5em ;
+    background:#dfe;
+    padding: 0 .5em 0 .5em;
+    background:#dfe;
+}
+.nav2 ul li a {
+	color: black;
+    text-decoration:none;
+    margin: 0 -.6em 0 -.6em;
+    padding: 0 .5em 0 .6em;
+    background:#eaeaea;
+    display:block;
+}
+.nav2 ul li ul  {
+    margin:0 -1em 0 1em;
+    padding: .5em 0 0 0;
+    border-radius:0;
+}
+.nav2 ul li ul li {
+    padding-left: 1em;
+    margin-left:0;
+}
+.nav2 ul li ul li a {
+    margin-left:-1em;
+    padding-left: 1em;
+}
+
+
+/*************************/
+/*  Breadcrumbs-Locator  */
+/*************************/
+
+.locator {
+    max-width:50em;
+    min-width:50%;
+    float:left;
+    clear:left;
+    display:block;
+    margin-bottom:1em
+}
+.locator p  {
+    font-size:.7em;
+    letter-spacing: .1em;
+    margin-left:1em;
+}
+.locator a {
+    color: #b66;
+}
+
+.content {
+    clear:left;
+}
+
+
+/********************/
+/*     Content      */
+/********************/
+
+.content {
+    max-width:48em;
+    width:100%;
+    padding:1em 2%;
+    float:left;
+    margin:0;
+    clear:left;
+}
+h1, h2, h3, h4 {
+    font: normal normal 21px verdana;
+	color:#0a6;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 1.5em 0 .5em;
+}
+h1:first-child, h2:first-child,
+h3:first-child, h4:first-child,
+h5:first-child, h6:first-child {
+    margin-top:0;
+}
+
+h5, h6 {
+    letter-spacing: .05em;
+}
+h5 {
+    font: normal small-caps bold 19px/1.4 'Trebuchet MS', Verdana, sans-serif;
+}
+h6 {
+    font-size: 10pt;
+    font-weight:bold;
+    color:#086;
+}
+
+
+.submenu h4 {
+    font-size:14px;
+    margin-top:3em;
+}
+
+
+/*********************/
+/*     Sidebar      */
+/*********************/
+
+.sidebar {
+    float:right;
+    max-width: 18em;
+    border-left: 2px solid #ccc;
+    padding-left:1em;
+    margin-top:1em;
+    clear:right;
+}
+
+
+/*********************/
+/*    Newsbox 2+3    */
+/*********************/
+
+.newsbox2 {
+    width:46%;
+    padding:2% 1%;
+    float:left;
+    border-top:2px solid #ccc;
+    border-bottom:2px solid #ccc;
+    margin:1em 1%;
+}
+
+
+/**************************/
+/*    Subnavigation       */
+/**************************/
+
+.subnav {
+    width:100%;
+}
+.subnav td a {
+    text-decoration:none;
+    color:black;
+    display:block;
+    white-space: nowrap;
+    padding: 0;
+}
+.subnav td a:hover {
+    color:red;
+    background-color:#eee;
+}
+.previous {
+    width:33%;
+    text-align:left;
+}
+.top {
+    width:33%;
+    text-align:center;
+}
+.next  {
+    width:33%;
+    text-align:right
+}
+
+
+/**************************/
+/*  Copyright & Login     */
+/**************************/
+
+.copyright {
+    clear:both;
+    text-align:center;
+    font-size:x-small;
+    margin:1em 0;
+}
+.copyright a {
+    color:#777;
+    text-decoration:none;
+}
