@@ -1,0 +1,48 @@
+<?php if ($cf['xhtml']['endtags'] == 'true'):?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<?php else:?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<?php endif;?>
+<?php include $pth['folder']['template'] . 'xtoc.php';?>
+<head>
+    <?php echo head();?>
+</head>
+<body <?php echo onload();?>>
+    <div id="TOP"></div>
+    <div id="body">
+        <div id="languagemenu"><?php echo languagemenu();?></div>
+        <div id="sitename"><?php echo sitename();?></div>
+        <div id="header">
+            <div id="mainnav" class="dropdown"><?php echo xli($hc, 1);?></div>
+            <div id="header_content"><?php echo newsbox('News01');?></div>
+        </div>
+        <div id="sidebar">
+            <div id="specnav">
+                <?php echo printlink();?> &bull;
+                <?php echo sitemaplink();?>
+                <?php $tpl_mailformlink = mailformlink(); if (!empty($tpl_mailformlink)) {echo '&bull; ', $tpl_mailformlink;} ?>
+            </div>
+            <div id="searchform"><?php echo searchbox();?></div>
+            <?php echo newsbox('News02');?>
+
+        </div>
+        <div id="content">
+            <!--[if lte IE 6]><?php echo locator();?><![endif]-->
+            <?php echo editmenu();?>
+            <?php echo content();?>
+            <!--[if lte IE 6]><?php echo submenu();?><![endif]-->
+        </div>
+        <div id="footerbox"><?php echo newsbox('News03');?></div>
+        <div id="footer">
+            <?php echo lastupdate(false);?> &bull;
+            Powered by <a href="http://cmsimple-xh.org/">CMSimple_XH</a> &bull;
+            Design by <a href="http://3-magi.net/">cmb</a> &bull;
+            <?php echo loginlink();?>
+        </div>
+    </div>
+</body>
+</html>
