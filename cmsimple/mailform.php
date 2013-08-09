@@ -100,7 +100,7 @@ if ($t == '' || $e != '')
        .  XH_hsc(stsl($sendername)).'"') . "\n"
        .  '</div>' . "\n"
        .  '<div>' . "\n" . $tx['mailform']['senderphone'].': ' . tag('br') . "\n"
-       .  tag('input type="text" class="text" size="35"name="senderphone" value="'
+       .  tag('input type="text" class="text" size="35" name="senderphone" value="'
        .  XH_hsc(stsl($senderphone)).'"') . "\n"
        .  '</div>' . "\n"
        .  '<div>' . "\n" .  $tx['mailform']['sender'].': ' . tag('br') . "\n"
