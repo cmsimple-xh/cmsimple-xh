@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<?php echo head();?>
+<!--[if lt IE 9]>
+    <link rel="stylesheet" href="<?php echo $pth['folder']['template'];?>stylesheetie.css">
+<![endif]-->
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<?php include $pth['folder']['template'].'xtoc.php'; ?>
+</head>
+<body id="body" <?php echo onload();?>>
+<!-- utf-8 check: äöüß -->
+<div id="wrapper">
+    <div id="header">
+        <div id="headerin">
+        <?php
+if (file_exists($pth['folder']['templateimages'].'logo.jpg')){
+echo '<a href="./">'.tag('img src="'.$pth['folder']['templateimages'].'logo.jpg" class="logo" alt="Logo"').'</a>';
+}
+?>
+        <h1><?php echo sitename()?></h1>
+        <div id="slogan"><?php echo $txc['template']['text1'];?></div>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+    <div id="navi">
+        <div id="menu">
+        <div class="search"><?php echo searchbox();?></div>
+        <?php echo xtoc();?></div>
+        <div style="clear: both;"></div>
+        <div id="menu2">
+        <ul>
+            <li><?php echo printlink();?></li>
+            <li><?php echo sitemaplink();?></li>
+            <li><?php echo mailformlink();?></li>
+        </ul>
+
+        <div style="clear: both;"></div>
+        <div class="lastupdate"><?php echo lastupdate(false);?></div>
+        </div>
+        <div class="langmenu"><?php echo languagemenu();?></div>
+    </div>
+    <div id="content">
+       <div class="content_in">
+            <div id="locator"><?php echo $tx['locator']['text'];?><?php echo locator();?></div>
+            <?php echo editmenu();?>
+            <?php echo content();?>
+            <?php echo submenu();?>
+       </div>
+    </div>
+    <div id="boxs">
+        <div class="news">
+           <?php echo newsbox('News01');?>
+        </div>
+
+        <div class="news">
+            <?php echo newsbox('News01');?>
+        </div>
+        <div style="clear: both;"></div>
+        <div class="block">
+            <div class="blockin">
+                <?php echo Newsbox('News01');?>
+            </div>
+        </div>
+        <div class="block">
+            <div class="blockin">
+                <?php echo Newsbox('News02');?>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="footer_in">
+            <?php echo previouspage();?> | <?php echo top();?> | <?php echo nextpage();?><?php echo tag('br');?><?php echo tag('br');?>
+            <div style="clear: both;"></div>
+            <div class="copyright">Powered by <a target="_blank" href="http://www.cmsimple-xh.org/">CMSimple_XH</a> |
+            Template by <a target="_blank" href="http://oldnema.compsys.cz/en/?Demo_templates">Oldnema</a> |
+            <a target="_blank" href="http://validator.w3.org/check?uri=referer">test HTML5</a> |
+            <a target="_blank" href="http://jigsaw.w3.org/css-validator/check/referer">test css</a> |
+            <?php echo loginlink();?></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
