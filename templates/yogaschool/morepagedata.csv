@@ -1,0 +1,5 @@
+var=color1;type=color_picker;display=Hintergrundfarbe Menü;
+var=color2;type=color_picker;display=Highlightfarbe Menüauswahl;
+var=color3;type=color_picker;display=Hintergrundfarbe Inhaltsbereich
+var=headimage;type=template_image;display=Seitenkopf-Bild
+var=sideimages;type=slide_show;display=Dia-Show rechts vom Inhaltsbereich
