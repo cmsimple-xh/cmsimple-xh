@@ -1,0 +1,153 @@
+<?php
+//*** very_simple: template by Martin Sereday - (c) 2013 CMSimple.sk ***//
+?>
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!-- START: HTML5 FORK -->
+       <!--[if lt IE 9]>
+        <script src="html5shiv.js"></script>
+    <![endif]-->
+    <!-- END: HTML5 FORK -->
+    <!--[if lt IE 9]>
+        <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;_out">
+<link href='http://fonts.googleapis.com/css?family=Tauri' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Damion' rel='stylesheet' type='text/css'>
+<?php echo head();?>
+</head>
+<body <?php echo onload();?>>
+
+<div id="page_wrapper_out">
+    <div id="page_wrapper_in">
+        <div class="warning">
+            YOUR DISPLAY IS TO SMALL TO SHOW THIS PAGE
+        </div>
+        <div class="top_line">
+            <div class="left">
+                <div class="top_line_logo">
+                    <img src="<?php echo $pth['folder']['templateimages'];?>logo.png" alt="logo">
+                </div>
+                <div class="top_line_logo_text">
+                    <?php //echo $txc['template']['text1'];?>
+                </div>
+                <div class="break"><!-- BREAK --></div>
+            </div>
+            <div class="right">
+                <div class="function_links">
+                    <a href="./"><img src="<?php echo $pth['folder']['templateimages'];?>home.png" alt="home"></a>
+                    <a href="./?&amp;print"><img src="<?php echo $pth['folder']['templateimages'];?>print.png" alt="print"></a>
+                    <a href="./?&amp;sitemap"><img src="<?php echo $pth['folder']['templateimages'];?>sitemap.png" alt="sitemap"></a>
+                    <a href="./?&amp;mailform"><img src="<?php echo $pth['folder']['templateimages'];?>mailform.png" alt="mailform"></a>
+                </div>
+                <div class="slogan">
+                    <?php echo $txc['template']['text1'];?>
+                </div>
+                <div class="break"><!-- BREAK --></div>
+            </div>
+        </div>
+
+<div class="break"><!-- BREAK --></div>
+
+        <div class="banner_line">
+            <div class="banner">
+                <div class="banner_inner_border">
+                    <img src="<?php echo $pth['folder']['templateimages'];?>990px_transparent.gif" alt="transparent layer">
+                    <div class="banner_inner_line">
+                        <div class="banner_inner_line_text">
+                            <?php echo sitename();?>
+                        </div>
+                    </div>
+                    <div class="break"><!-- BREAK --></div>
+                </div>
+            </div>
+        </div>
+
+<div class="break"><!-- BREAK --></div>
+
+        <div class="navigation_line">
+            <div class="locator">
+                <?php echo locator();?>
+                <div class="break"><!-- BREAK --></div>
+            </div>
+            <div class="navigation">
+                <?php echo toc(1);?>
+                <div class="break"><!-- BREAK --></div>
+            </div>
+            <div class="subnavigation">
+                <?php echo submenu();?>
+                <div class="break"><!-- BREAK --></div>
+            </div>
+        </div>
+
+<div class="break"><!-- BREAK --></div>
+
+        <div class="content_line">
+            <div class="left_content">
+                <div class="content_inner">
+                    <?php echo editmenu();?>
+                    <?php echo content();?>
+                </div>
+                <div class="page_navigation">
+                    <?php echo previouspage();?> | <?php echo TOP();?> | <?php echo nextpage();?>
+                    <div class="break"><!-- BREAK --></div>
+                </div>
+                <div class="break"><!-- BREAK --></div>
+            </div>
+            <div class="right_content">
+                <div class="searchbox">
+                    <?php echo searchbox();?>
+                </div>
+                <div class="languagemenu">
+                    <?php echo languagemenu();?>
+                </div>
+
+                <div class="break"><!-- BREAK --></div>
+
+                <div class="newsbox1">
+                    <?php echo newsbox('News01');?>
+                </div>
+                <div class="break"><!-- BREAK --></div>
+            </div>
+            <div class="break"><!-- BREAK --></div>
+        </div>
+
+<div class="break"><!-- BREAK --></div>
+
+        <div class="newsbox_line">
+            <div class="left">
+                <div class="newsbox2-3">
+                    <?php echo newsbox('News02');?>
+                </div>
+                <div class="break"><!-- BREAK --></div>
+            </div>
+            <div class="left">
+                <div class="newsbox2-3">
+                    <?php echo newsbox('News03');?>
+                </div>
+                <div class="break"><!-- BREAK --></div>
+            </div>
+            <div class="break"><!-- BREAK --></div>
+        </div>
+
+        <div class="footer_line">
+            Powered by <a href="http://www.cmsimple-xh.org/">CMSimple_XH</a> |
+
+            <!-- If you use an original CMSimple_XH template, please leave the template-link at the bottom of the template: -->
+            Template by <a href="https://www.exohosting.sk/index.php?resid=tata55">CMSimple.sk</a> |
+            <!-- If you modify an original CMSimple_XH template, please leave the template-link at the bottom of the template, remove the comment chars and change the link of the following line: -->
+            <!-- modified by <a href="http://www.your-link.tld">your link</a> -->
+
+            <a href="http://validator.w3.org/check?uri=referer">(X)html</a> |
+            <a href="http://jigsaw.w3.org/css-validator/check/referer">css</a> |
+            <?php echo loginlink();?>
+        </div>
+        <div class="break"><!-- BREAK --></div>
+    </div>
+
+</div>
+<div class="break"><!-- BREAK --></div>
+
+</body>
+</html>
