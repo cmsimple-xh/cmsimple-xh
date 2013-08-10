@@ -13,8 +13,7 @@
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;_out">
-<link href='http://fonts.googleapis.com/css?family=Tauri' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Damion' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
 <?php echo head();?>
 </head>
 <body <?php echo onload();?>>
@@ -30,7 +29,7 @@
                     <img src="<?php echo $pth['folder']['templateimages'];?>logo.png" alt="logo">
                 </div>
                 <div class="top_line_logo_text">
-                    <?php //echo $txc['template']['text1'];?>
+                    <?php echo sitename();?>
                 </div>
                 <div class="break"><!-- BREAK --></div>
             </div>
@@ -41,11 +40,11 @@
                     <a href="./?&amp;sitemap"><img src="<?php echo $pth['folder']['templateimages'];?>sitemap.png" alt="sitemap"></a>
                     <a href="./?&amp;mailform"><img src="<?php echo $pth['folder']['templateimages'];?>mailform.png" alt="mailform"></a>
                 </div>
-                <div class="slogan">
-                    <?php echo $txc['template']['text1'];?>
-                </div>
-                <div class="break"><!-- BREAK --></div>
+                <blockquote>
+                    <?php echo newsbox('blockquote');?>
+                </blockquote>
             </div>
+            <div class="break"><!-- BREAK --></div>
         </div>
 
 <div class="break"><!-- BREAK --></div>
@@ -56,7 +55,7 @@
                     <img src="<?php echo $pth['folder']['templateimages'];?>990px_transparent.gif" alt="transparent layer">
                     <div class="banner_inner_line">
                         <div class="banner_inner_line_text">
-                            <?php echo sitename();?>
+                            <?php echo $txc['template']['text1'];?>
                         </div>
                     </div>
                     <div class="break"><!-- BREAK --></div>
@@ -67,6 +66,7 @@
 <div class="break"><!-- BREAK --></div>
 
         <div class="navigation_line">
+            <div class="locator_arrow"><!-- here the arrow is created or an image may be defined in stylesheet --></div>
             <div class="locator">
                 <?php echo locator();?>
                 <div class="break"><!-- BREAK --></div>
