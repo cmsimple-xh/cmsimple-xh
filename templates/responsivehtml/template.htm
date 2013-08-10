@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html>
 <head>
 <?php echo head();?>
 <!--[if lt IE 9]>
-    <link rel="stylesheet" href="<?php echo $pth['folder']['template'];?>stylesheetie.css">
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
+<!--[if IE 7]>
+    <link rel="stylesheet" href="./templates/responsivehtml/IE7.css">
 <![endif]-->
 <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 <?php include $pth['folder']['template'].'xtoc.php'; ?>
+<link rel="shortcut icon" href="<?=$pth['folder']['templateimages']?>favicon.ico">
 </head>
 <body id="body" <?php echo onload();?>>
 <!-- utf-8 check: äöüß -->
@@ -14,10 +17,10 @@
     <div id="header">
         <div id="headerin">
         <?php
-if (file_exists($pth['folder']['templateimages'].'logo.jpg')){
-echo '<a href="./">'.tag('img src="'.$pth['folder']['templateimages'].'logo.jpg" class="logo" alt="Logo"').'</a>';
-}
-?>
+            if (file_exists($pth['folder']['templateimages'].'logo.jpg')){
+            echo '<a href="./">'.tag('img src="'.$pth['folder']['templateimages'].'logo.jpg" class="logo" alt="Logo"').'</a>';
+            }
+        ?>
         <h1><?php echo sitename()?></h1>
         <div id="slogan"><?php echo $txc['template']['text1'];?></div>
         </div>
@@ -25,7 +28,7 @@ echo '<a href="./">'.tag('img src="'.$pth['folder']['templateimages'].'logo.jpg"
     <div style="clear: both;"></div>
     <div id="navi">
         <div id="menu">
-        <div class="search"><?php echo searchbox();?></div>
+        <div id="search"><?php echo searchbox();?><div id="iconmenu"><img src="<?=$pth['folder']['templateimages']?>menu.png" alt="MENU"></div></div>
         <?php echo xtoc();?></div>
         <div style="clear: both;"></div>
         <div id="menu2">
@@ -49,12 +52,12 @@ echo '<a href="./">'.tag('img src="'.$pth['folder']['templateimages'].'logo.jpg"
        </div>
     </div>
     <div id="boxs">
-        <div class="news">
+       <div class="news">
            <?php echo newsbox('News01');?>
-        </div>
+       </div>
 
         <div class="news">
-            <?php echo newsbox('News01');?>
+            <?php echo newsbox('News02');?>
         </div>
         <div style="clear: both;"></div>
         <div class="block">
@@ -70,7 +73,7 @@ echo '<a href="./">'.tag('img src="'.$pth['folder']['templateimages'].'logo.jpg"
     </div>
     <div id="footer">
         <div class="footer_in">
-            <?php echo previouspage();?> | <?php echo top();?> | <?php echo nextpage();?><?php echo tag('br');?><?php echo tag('br');?>
+            <div class="button"><?php echo top();?></div><?php echo tag('br');?><?php echo tag('br');?>
             <div style="clear: both;"></div>
             <div class="copyright">Powered by <a target="_blank" href="http://www.cmsimple-xh.org/">CMSimple_XH</a> |
             Template by <a target="_blank" href="http://oldnema.compsys.cz/en/?Demo_templates">Oldnema</a> |

@@ -1,9 +1,9 @@
 <?php
 /*
 XTOC28 version 1.0
-This is a modified version of the toc()function of Peter Harteg's CMSimple version 2.8 and higher (www.cmsimple.dk). It is not thought to be used in earlier versions of CMSimple (v.2.7 and lower) It has been modified by Till from NMuD (www.nmud.de).
+This is a modified version of the toc()function of Peter Harteg's CMSimple version 2.8 and higher (www.cmsimple.dk). It is not thought to be used in earlier versions of CMSimple (v.2.7 and lower) It has been modified by Till from NMuD (www.nmud.de). 
 It is called via the template.htm file. You call it by adding at the top of the template.htm file:
- - <?php include ($pth['folder']['template'].'xtoc.php'); ? > (remove the space between ? and >) -
+ - <?php include ($pth['folder']['template'].'xtoc.php'); ? > (remove the space between ? and >) - 
 The xtoc.php file is placed in the folder where the template resides. In the template you do not use "toc()" but "xtoc()" as menu function.
 While the xtoc()-function (see below) of this file always has to be active, only one of the li()-functions must be active. The other ones have to be outcommented or removed. The li()-functions offer the following:
 (1) turns a clicked button to a clickable button. Originally, a clicked button cannot be clicked again.
@@ -11,7 +11,7 @@ While the xtoc()-function (see below) of this file always has to be active, only
 
 //__________________________________________________________________________
 
-function xtoc($start = null, $end = null) {global $c, $cl, $s, $l, $cf;$ta = array();if (isset($start)) {if (!isset($end))$end = $start;}else $start = 1;if (!isset($end))$end = $cf['menu']['levels'];$ta = array();if ($s > -1) {$tl = $l[$s];for($i = $s; $i > -1; $i--) {	if ($l[$i] <= $tl && $l[$i] >= $start && $l[$i] <= $end)if(!hide($i))$ta[] = $i;if ($l[$i] < $tl)$tl = $l[$i];}@sort($ta);$tl = $l[$s];}else $tl = 0;$tl += 1+$cf['menu']['levelcatch'];for($i = $s+1; $i < $cl; $i++) {if ($l[$i] <= $tl && $l[$i] >= $start && $l[$i] <= $end)if(!hide($i))$ta[] = $i;	if ($l[$i] < $tl)$tl = $l[$i];}return xli($ta, $start);}
+function xtoc($start, $end) {global $c, $cl, $s, $l, $cf;$ta = array();if (isset($start)) {if (!isset($end))$end = $start;}else $start = 1;if (!isset($end))$end = $cf['menu']['levels'];$ta = array();if ($s > -1) {$tl = $l[$s];for($i = $s; $i > -1; $i--) {	if ($l[$i] <= $tl && $l[$i] >= $start && $l[$i] <= $end)if(!hide($i))$ta[] = $i;if ($l[$i] < $tl)$tl = $l[$i];}@sort($ta);$tl = $l[$s];}else $tl = 0;$tl += 1+$cf['menu']['levelcatch'];for($i = $s+1; $i < $cl; $i++) {if ($l[$i] <= $tl && $l[$i] >= $start && $l[$i] <= $end)if(!hide($i))$ta[] = $i;	if ($l[$i] < $tl)$tl = $l[$i];}return xli($ta, $start);}
 //
 //__________________________________________________________________________
 //
