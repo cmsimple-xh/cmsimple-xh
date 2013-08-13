@@ -1169,6 +1169,9 @@ function lastupdate($br = NULL, $hour = NULL) { // changed by LM CMSimple_XH 1.1
 
 function legallink() {
     global $cf, $sn; // changed by LM CMSimple_XH 1.1
+
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
+
     return '<a href="' . $sn . '?' . uenc($cf['menu']['legal']) . '">' . $cf['menu']['legal'] . '</a>';
 }
 
