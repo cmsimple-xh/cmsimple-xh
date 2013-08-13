@@ -130,6 +130,14 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
+    public function testLegallinkIsDeprecated()
+    {
+        legallink();
+    }
+
     public function testEditmenu()
     {
         $actual = editmenu();

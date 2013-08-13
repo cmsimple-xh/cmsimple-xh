@@ -426,11 +426,16 @@ function lastupdate($br = null, $hour = null)
  *
  * @global array  The configuration of the core.
  * @global string The script name.
+ *
+ * @deprecated since 1.5.9
  */
 function legallink()
 {
     global $cf, $sn;
 
+    trigger_error(
+        'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
+    );
     return '<a href="' . $sn . '?' . uenc($cf['menu']['legal']) . '">'
         . $cf['menu']['legal'] . '</a>';
 }
