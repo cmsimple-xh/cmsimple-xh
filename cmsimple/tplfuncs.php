@@ -369,8 +369,9 @@ function mailformlink()
  */
 function guestbooklink()
 {
-    trigger_error('Function guestbooklink() is deprecated', E_USER_DEPRECATED);
-
+    trigger_error(
+        'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
+    );
     if (function_exists('gblink')) {
         return gblink();
     }

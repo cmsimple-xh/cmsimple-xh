@@ -133,6 +133,14 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error_Deprecated
      */
+    public function testGuestbooklinkIsDeprecated()
+    {
+        guestbooklink();
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
     public function testLegallinkIsDeprecated()
     {
         legallink();
