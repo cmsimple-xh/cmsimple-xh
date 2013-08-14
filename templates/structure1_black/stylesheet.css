@@ -73,7 +73,7 @@ a:hover{text-decoration:underline;color:#F2C21E;}
                 .navigation{border-left:1em solid orange;background: rgba(145,145,145,0.4);min-height: 2.5em;}
                     .menulevel1 li{line-height: 2.5em;vertical-align: middle;margin-left: 2.5em;float: left;}
                     .subnavigation{border-left:1em solid orange;background: rgba(145,145,145,0.8);min-height: 0.1em;border-color: #ffecc1;padding-left: 2.5em;margin-bottom: 1em;}
-            .left_content{max-width:650px;float: left;}
+            .left_content{width:100%;max-width:650px;float: left;}
                 .page_navigation{text-align: right;border-top: 0.1em solid #ffffff;padding-top: 1em;margin: 2em 0 2em;}
             .right_content{width: 300px;float: right;}
                 .searchbox{width: 100%;float: right;text-align: right;}
@@ -94,7 +94,7 @@ a:hover{text-decoration:underline;color:#F2C21E;}
         .footer_line{width: 100%;min-height:1em;margin-bottom:0;}
             .left{width:50%;min-width: 280px;float: left;}
             .right{width:50%;min-width: 280px;float: right;}
-            .left_content{max-width:450px;float: left;}
+            .left_content{width:100%;max-width:450px;float: left;}
             .right_content{width: 300px;float: right;}
 }
 
