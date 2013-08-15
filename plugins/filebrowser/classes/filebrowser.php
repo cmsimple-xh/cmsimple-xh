@@ -379,8 +379,8 @@ class XHFileBrowser
             case UPLOAD_ERR_INI_SIZE:
                 $this->view->error('error_not_uploaded', $file['name']);
                 $this->view->error(
-                    'error_file_too_big',
-                    array('?',  ini_get('upload_max_filesize'))
+                    'error_file_too_big_php',
+                    array(ini_get('upload_max_filesize'), 'upload_max_filesize')
                 );
                 return;
             default:

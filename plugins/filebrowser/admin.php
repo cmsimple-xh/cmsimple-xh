@@ -80,9 +80,9 @@ $browser->currentDirectory =  rtrim($subdir, '/') . '/';
 $browser->linkType = $f;
 $browser->setLinkParams($f);
 
-if (isset($_SERVER['CONTENT_LENGTH']) && empty($_POST)) {
+if (!empty($_SERVER['CONTENT_LENGTH']) && empty($_POST)) {
     $browser->view->error(
-        'error_file_too_big', array('?', ini_get('post_max_size'))
+        'error_file_too_big_php', array(ini_get('post_max_size'), 'post_max_size')
     );
 }
 if (isset($_POST['deleteFile']) && isset($_POST['file'])) {
