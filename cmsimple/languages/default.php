@@ -80,7 +80,7 @@ $tx['heading']['warning']="ERROR / WARNING";
 $tx['help']['downloads_maxsize']="Maximum size of uploaded files in Byte. This must neither exceed the limit set for upload_max_filesize nor post_max_size in the PHP configuration.";
 $tx['help']['editmenu_scroll']="Whether the admin menu shall scroll with your webpage. Not checked = fixed admin menu.";
 $tx['help']['editmenu_external']="If you want to use an external admin menu, install it as a plugin and enter its function name here.";
-$tx['help']['editor_height']="Integer or JavaScript expression returning an integer for editor hight in pixels.";
+$tx['help']['editor_height']="Integer or JavaScript expression returning an integer for editor height in pixels.";
 $tx['help']['editor_external']="Enter here the name of the wanted editor, which has to be installed as a plugin. There is no internal editor.";
 $tx['help']['filebrowser_external']="If you want to use an external file browser, e.g. hi_kcfinder, install the plugin and enter its name here.";
 $tx['help']['functions_file']="Please do not change";
