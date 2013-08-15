@@ -425,6 +425,9 @@ function XH_contentEditor()
         . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
         . XH_hsc($c[$s])
         . '</textarea>'
+        . '<script type="text/javascript">/* <![CDATA[ */'
+        . 'document.getElementById("text").style.height=(' . $cf['editor']['height']
+        . ') + "px";/* ]]> */</script>'
         . $_XH_csrfProtection->tokenInput();
     if ($cf['editor']['external'] == '' || !$editor) {
         $value = utf8_ucfirst($tx['action']['save']);
