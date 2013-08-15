@@ -946,14 +946,18 @@ if ($f == 'search') {
         $o .= $temp->render();
     }
 }
-if ($f == 'mailform' && !empty($cf['mailform']['email'])) {
-    include_once $pth['folder']['classes'] . 'Mailform.php';
-    $temp = new XH_Mailform();
-    $title = $tx['title'][$f];
-    $o .= "\n" . '<div id="cmsimple_mailform">' . "\n";
-    $o .= '<h1>' . $title . '</h1>' . "\n";
-    $o .= $temp->process();
-    $o .= '</div>' . "\n";
+if ($f == 'mailform') {
+    if ($cf['mailform']['email'] != '') {
+        include_once $pth['folder']['classes'] . 'Mailform.php';
+        $temp = new XH_Mailform();
+        $title = $tx['title'][$f];
+        $o .= "\n" . '<div id="cmsimple_mailform">' . "\n";
+        $o .= '<h1>' . $title . '</h1>' . "\n";
+        $o .= $temp->process();
+        $o .= '</div>' . "\n";
+    } else {
+        shead(404);
+    }
 }
 if ($f == 'sitemap') {
     $title = $tx['title'][$f];
