@@ -393,7 +393,9 @@ class XH_Mailform
         $domain = $matches[2];
         $func = 'idn_to_ascii';
         if (function_exists($func)) {
-            $domain = $func($domain);
+            $domain = defined('INTL_IDNA_VARIANT_UTS46')
+                ? $func($domain, 0, INTL_IDNA_VARIANT_UTS46)
+                : $func($domain);
         }
         if (gethostbyname($domain) == $domain) {
             return false;
