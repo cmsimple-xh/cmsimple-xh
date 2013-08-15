@@ -187,7 +187,7 @@ function Pageparams_input($name, $id, $value, $disabled)
 {
     $input = tag(
         'input type="text" size="50" name="' . $name . '" id="' . $id . '"'
-        . ' value="' . htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '"'
+        . ' value="' . XH_hsc($value) . '"'
         . ($disabled ? ' disabled="disabled"' : '')
     );
     return "\n\t\t" . $input;

@@ -255,25 +255,25 @@ class XH_Mailform
         $o .= '<div>' . "\n" . $tx['mailform']['sendername'] . tag('br') . "\n"
             . tag(
                 'input type="text" class="text" size="35" name="sendername" value="'
-                . htmlspecialchars($this->sendername, ENT_COMPAT, 'UTF-8').'"'
+                . XH_hsc($this->sendername).'"'
             ) . "\n"
             . '</div>' . "\n"
             . '<div>' . "\n" . $tx['mailform']['senderphone'] . tag('br') . "\n"
             . tag(
                 'input type="text" class="text" size="35"name="senderphone" value="'
-                . htmlspecialchars($this->senderphone, ENT_COMPAT, 'UTF-8').'"'
+                . XH_hsc($this->senderphone).'"'
             ) . "\n"
             . '</div>' . "\n"
             . '<div>' . "\n" . $tx['mailform']['sender'] . tag('br') . "\n"
             . tag(
                 'input type="text" class="text" size="35" name="sender" value="'
-                . htmlspecialchars($this->sender, ENT_COMPAT, 'UTF-8').'"'
+                . XH_hsc($this->sender).'"'
             ) . "\n"
             . '</div>' . "\n"
             . '<div>' . "\n" .  $tx['mailform']['subject'] . tag('br') . "\n"
             . tag(
                 'input type="text" class="text" size="35" name="subject" value="'
-                . htmlspecialchars($this->subject, ENT_COMPAT, 'UTF-8').'"'
+                . XH_hsc($this->subject).'"'
             ) . "\n"
             . '</div>' . "\n"
             . tag('br') . "\n";
@@ -281,7 +281,7 @@ class XH_Mailform
         // textarea
         $name = $this->embedded ? 'xh_mailform' : 'mailform';
         $o .= '<textarea rows="12" cols="40" name="' . $name . '">' . "\n";
-        $o .= htmlspecialchars($this->mailform, ENT_COMPAT, 'UTF-8') . "\n";
+        $o .= XH_hsc($this->mailform) . "\n";
         $o .= '</textarea>' . "\n";
 
         // captcha

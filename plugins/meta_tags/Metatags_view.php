@@ -52,12 +52,12 @@ function Metatags_view($page)
         $element = $field == 'description' || $field == 'keywords'
             ? '<textarea name="' . $field . '" id="' . $field
                 . '" rows="3" cols="30" class="cmsimplecore_settings">'
-                . htmlspecialchars($page[$field], ENT_QUOTES, 'UTF-8')
+                . XH_hsc($page[$field])
                 . '</textarea>'
             : tag(
                 'input type="text" class="cmsimplecore_settings" size="50" name="'
                 . $field . '" id="' . $field . '" value="'
-                . htmlspecialchars($page[$field], ENT_QUOTES, 'UTF-8') . '"'
+                . XH_hsc($page[$field]) . '"'
             );
         $view .= "\n\t" . XH_helpIcon($lang['hint_' . $field])
             . "\n\t" . '<label for = "' . $field . '"><span class = "mt_label">'

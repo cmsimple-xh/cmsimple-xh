@@ -196,7 +196,7 @@ class XH_TextFileEdit extends XH_FileEdit
             . '<form action="' . $action . '" method="POST">'
             . '<textarea rows="25" cols="80" name="' . $this->textareaName
             . '" class="cmsimplecore_file_edit">'
-            . htmlspecialchars($this->text, ENT_QUOTES, 'UTF-8')
+            . XH_hsc($this->text)
             . '</textarea>';
         foreach ($this->params as $param => $value) {
             $o .= tag(
@@ -500,7 +500,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
             }
             return '<textarea name="' . $iname . '" rows="1" cols="50"'
                 . ' class="' . $class . '">'
-                . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8')
+                . XH_hsc($opt['val'])
                 . '</textarea>';
         case 'bool':
             return tag(
@@ -519,12 +519,12 @@ class XH_ArrayFileEdit extends XH_FileEdit
         case 'random':
             return tag(
                 'input type="hidden" name="' . $iname . '" value="'
-                . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8') . '"'
+                . XH_hsc($opt['val']) . '"'
             );
         default:
             return tag(
                 'input type="text" name="' . $iname . '" value="'
-                . htmlspecialchars($opt['val'], ENT_QUOTES, 'UTF-8')
+                . XH_hsc($opt['val'])
                 . '" class="cmsimplecore_settings"'
             );
         }

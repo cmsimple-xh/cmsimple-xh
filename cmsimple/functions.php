@@ -1139,7 +1139,7 @@ function meta($n)
     $exclude = array('robots', 'keywords', 'description');
     $value = isset($tx['meta'][$n]) ? $tx['meta'][$n] : $cf['meta'][$n];
     if ($n != 'codepage' && !empty($value) && !($print && in_array($n, $exclude))) {
-        $content = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        $content = XH_hsc($value);
         return tag('meta name="' . $n . '" content="' . $content . '"') . "\n";
     }
 }
@@ -2053,7 +2053,7 @@ function XH_message($type, $plugin, $key)
         ? $tx['message'][$key]
         : $plugin_tx[$plugin][$key];
     $string = vsprintf($format, $args);
-    $string = htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8');
+    $string = XH_hsc($string);
     return '<p class="' . $class . '">' . $string . '</p>';
 }
 
@@ -2146,7 +2146,7 @@ function XH_title($site, $subtitle)
     global $cf;
 
     if ($site != '') {
-        $site = htmlspecialchars($site, ENT_QUOTES, 'UTF-8');
+        $site = XH_hsc($site);
         $replacePairs = array('{SITE}' => $site, '{PAGE}' => $subtitle);
         $title = strtr($cf['title']['format'], $replacePairs);
     } else {

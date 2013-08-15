@@ -69,9 +69,7 @@ function sitename()
 {
     global $tx;
 
-    return isset($tx['site']['title'])
-        ? htmlspecialchars($tx['site']['title'], ENT_QUOTES, 'UTF-8')
-        : '';
+    return isset($tx['site']['title']) ? XH_hsc($tx['site']['title']) : '';
 }
 
 
@@ -86,9 +84,7 @@ function pagename()
 {
     global $cf;
 
-    return isset($cf['site']['title'])
-        ? htmlspecialchars($cf['site']['title'], ENT_QUOTES, 'UTF-8')
-        : '';
+    return isset($cf['site']['title']) ? XH_hsc($cf['site']['title']) : '';
 }
 
 
@@ -338,7 +334,7 @@ function printlink()
     } elseif (sv('QUERY_STRING') != '') {
         $t = sv('QUERY_STRING') . $t;
     }
-    $t = htmlspecialchars($t, ENT_COMPAT, 'UTF-8');
+    $t = XH_hsc($t);
     return '<a href="' . $sn . '?' . $t . '">' . $tx['menu']['print'] . '</a>';
 }
 
@@ -527,7 +523,7 @@ function content()
 
     if (!($edit && XH_ADM) && $s > -1) {
         if (isset($_GET['search'])) {
-            $search = htmlspecialchars(stsl($_GET['search']), ENT_QUOTES, 'UTF-8');
+            $search = XH_hsc(stsl($_GET['search']));
             $words = explode(' ', $search);
             $code = 'return "&" . preg_quote($w, "&") . "(?!([^<]+)?>)&isU";';
             $words = array_map(create_function('$w', $code), $words);

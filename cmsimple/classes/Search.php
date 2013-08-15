@@ -168,7 +168,7 @@ class XH_Search
             $key = 'found_5';
         }
         $message = sprintf($tx['search'][$key], $this->searchString, $count);
-        $message = htmlspecialchars($message, ENT_COMPAT, 'UTF-8');
+        $message = XH_hsc($message);
         $message = '<p>' . $message . '</p>';
         return $message;
     }
@@ -205,9 +205,7 @@ class XH_Search
                 $description = isset($pageData['description'])
                     ? $pageData['description'] : '';
                 if ($description != '') {
-                    $o .= '<div>'
-                        . htmlspecialchars($description, ENT_COMPAT, 'UTF-8')
-                        . '</div>';
+                    $o .= '<div>' . XH_hsc($description) . '</div>';
                 }
                 $o .= '</li>' . PHP_EOL;
             }
