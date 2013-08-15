@@ -82,7 +82,7 @@ if (preg_match('/cms.php/i', $_SERVER['PHP_SELF'])) {
  *
  * @since   1.6
  */
-define('URICHAR_SEPARATOR', '|');
+define('XH_URICHAR_SEPARATOR', '|');
 
 /**
  * The title of the current page.

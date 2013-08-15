@@ -987,8 +987,8 @@ function XH_readContents($language = null)
     $tooLong = array();
     $l = array();
     $empty = 0;
-    $search = explode(URICHAR_SEPARATOR, $tx['urichar']['org']);
-    $replace = explode(URICHAR_SEPARATOR, $tx['urichar']['new']);
+    $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
+    $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
 
     if (($content = file_get_contents($contentFile)) === false) {
         return false;
@@ -1191,8 +1191,8 @@ function uenc($s)
     global $tx;
 
     if (isset($tx['urichar']['org']) && isset($tx['urichar']['new'])) {
-        $search = explode(URICHAR_SEPARATOR, $tx['urichar']['org']);
-        $replace = explode(URICHAR_SEPARATOR, $tx['urichar']['new']);
+        $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
+        $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
     } else {
         $search = $replace = array();
     }
