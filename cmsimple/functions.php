@@ -1383,7 +1383,9 @@ function shead($s)
             );
         }
     }
-    $title = $tx['error'][$s];
+    if ($title == '') {
+        $title = $tx['error'][$s];
+    }
     $o = '<h1>' . $title . '</h1>' . $o;
 }
 
