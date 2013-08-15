@@ -2346,12 +2346,28 @@ function XH_adminMenu($plugins = array())
             'url' => '?&amp;sysinfo'
         )
     );
+    $total = count($plugins);
+    $rows = 12;
+    $columns = ceil($total / $rows);
+    $rows = ceil($total / $columns);
+    $width = 125 * $columns;
+    $marginLeft = min($width, 250) - $width;
+    natcasesort($plugins);
+    $plugins = array_values($plugins);
+    $orderedPlugins = array();
+    for ($j = 0; $j < $rows; ++$j) {
+        for ($i = 0; $i < $total; $i += $rows) {
+            $orderedPlugins[] = isset($plugins[$i + $j]) ? $plugins[$i + $j] : '';
+        }
+    }
+    $plugins = $orderedPlugins;
     $pluginMenu = array();
     foreach ($plugins as $plugin) {
-        $pluginMenu[] = array(
-            'label' => ucfirst($plugin),
-            'url' => '?' . $plugin . '&amp;normal'
-        );
+        $pluginMenuItem = array('label' => ucfirst($plugin));
+        if ($plugin != '') {
+            $pluginMenuItem['url'] = '?' . $plugin . '&amp;normal';
+        }
+        $pluginMenu[] = $pluginMenuItem;
     }
     $menu = array(
         array(
@@ -2374,7 +2390,8 @@ function XH_adminMenu($plugins = array())
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['plugins']),
-            'children' => $pluginMenu
+            'children' => $pluginMenu,
+            'style' => 'width:' . $width . 'px; margin-left: ' . $marginLeft . 'px'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['logout']),
@@ -2423,7 +2440,11 @@ function XH_adminMenuItem($item, $level = 0)
         $t .= '</span>';
     }
     if (isset($item['children'])) {
-        $t .= "\n" . $indent . '    <ul>' . "\n";
+        $t .= "\n" . $indent . '    <ul';
+        if (isset($item['style'])) {
+            $t .= ' style="' . $item['style'] . '"';
+        }
+        $t .= '>' . "\n";
         foreach ($item['children'] as $child) {
             $t .= XH_adminMenuItem($child, $level + 1);
         }
