@@ -29,7 +29,7 @@ $tx['editmenu']['edit']="Bearbeiten";
 $tx['editmenu']['files']="Dateien";
 $tx['editmenu']['help']="Hilfe";
 $tx['editmenu']['images']="Bilder";
-$tx['editmenu']['language']="Sprache";
+$tx['editmenu']['language']="Sprach-Datei";
 $tx['editmenu']['log']="Log-Datei";
 $tx['editmenu']['logout']="Logout";
 $tx['editmenu']['media']="Media";
@@ -78,38 +78,40 @@ $tx['heading']['error']="FEHLER";
 $tx['heading']['warning']="FEHLER–HINWEIS";
 
 $tx['help']['downloads_maxsize']="Maximale Größe für das Hochladen von Datein in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
-$tx['help']['editmenu_scroll']="Bei <b>true</b> scrollt das Admin Menü mit";
+$tx['help']['editmenu_scroll']="Angeklickt = das Admin Menü scrollt mit";
 $tx['help']['editmenu_external']="Wenn Sie ein externes Admin-Menü nutzen wollen, installieren Sie es als Plugin und tragen Sie seinen Funktionsnamen hier ein.";
 $tx['help']['editor_height']="Integer oder JavaScript-Ausdruck, der einen Integer liefert für die Editorhöhe in Pixel.";
-$tx['help']['editor_external']="Wenn Sie einen externen Editor nutzen wollen, installieren Sie ihn als Plugin und tragen Sie seinen Namen hier ein.";
+$tx['help']['editor_external']="Hier den Namen in Kleinbuchstaben des zu benutzenden Editors eintragen. Dieser muss als Plugin installiert sein (einen internen Editor gibt es nicht mehr). Vorinstalliert ist \"tinymce\".";
 $tx['help']['filebrowser_external']="Wenn Sie einen externen Datei-Browser verwenden möchten, z.B. hi_kcfinder, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['functions_file']="Bitte nicht ändern";
 
-$tx['help']['show_hidden_path_locator']="<b>true</b> zeigt den Pfad einer versteckten Seite im Locator (Breadcrumb Navigation).";
-$tx['help']['show_hidden_pages_search']="<b>true</b> zeigt versteckte Seiten in den Ergebnissen der internen Suchfunktion an.";
-$tx['help']['show_hidden_pages_sitemap']="<b>true</b> zeigt versteckte Seiten im Inhaltsverzeichnis.";
-$tx['help']['show_hidden_pages_toc']="<b>true</b> zeigt versteckte Seiten im Navigationsmenü, wenn sie aufgerufen sind (z. B. aufgerufen per Link).";
+$tx['help']['show_hidden_path_locator']="Angeklickt = Der Locator ('Sie sind hier'-Anzeige) zeigt auch den Pfad einer versteckten Seite.";
+$tx['help']['show_hidden_pages_search']="Angeklickt = Auch versteckte Seiten werden in den Ergebnissen der internen Suchfunktion angegeben.";
+$tx['help']['show_hidden_pages_sitemap']="Angecklickt = Auch versteckte Seiten erscheinen im Inhaltsverzeichnis (Sitemap).";
+$tx['help']['show_hidden_pages_toc']="Angeklickt = Wenn versteckte Seiten aufgerufen werden (z.B. durch Link), werden Sie im Navigationsmenü gezeigt.";
 
 $tx['help']['images_maxsize']="Maximale Größe für das Hochladen von Bildern in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
 $tx['help']['language_default']="Die Hauptsprache der Website";
-$tx['help']['locator_show_homepage']="<b>true</b> erzeugt am Anfang des Locators einen Link zur Startseite";
-$tx['help']['mailform_captcha']="<b>true</b> aktiviert den Spamschutz im Kontakt-Formular";
-$tx['help']['mailform_email']="Falls gesetzt, wird das Kontakt-Formular aktiviert";
+$tx['help']['locator_show_homepage']="Angeklickt = Der Locator ('Sie sind hier') beginnt mit einen Link zur Startseite.";
+$tx['help']['mailform_captcha']="Angeklickt = CAPTCHA-Spamschutz im Kontakt-Formular aktiviert";
+$tx['help']['mailform_email']="Erst wenn eine E-Mail-Adresse eingegeben wird, ist das Kontakt-Formular verfügbar.";
 $tx['help']['menu_color']="Nicht von CMSimple_XH Systemfunktionen genutzt";
 $tx['help']['menu_highlightcolor']="Nicht von CMSimple_XH Systemfunktionen genutzt";
 $tx['help']['menu_levels']="Einstellungen von 1 bis 6 Menü-Niveaus sind möglich.";
-$tx['help']['menu_sdoc']="Leer lassen oder \"parent\" eintragen, was Oberseiten der aktuellen Seite die Klasse \"sdocs\" zuweist.";
+$tx['help']['menu_sdoc']="Leer lassen oder \"parent\" einstellen, wodurch Oberseiten der aktuellen Seite die Stil-Klasse \"sdocs\" erhalten.";
+
+$tx['help']['meta_robots']="Standarteinstellung für alle Seiten. \"index,follow\" weist Suchroboter an, die Seite in den Suchindex aufzunehmen und allen Links zu folgen. \"noindex,nofollow\" weist das Gegenteil an.";
+
 $tx['help']['pagemanager_external']="Wenn Sie einen externen Seiten-Manager verwenden möchten, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['plugins_disabled']="Eine durch Kommata getrennte Liste von Plugins, die nicht geladen werden sollen. <strong>Vorsicht: wenn eines dieser Plugins auf der Website verwendet wird, kann es sein, dass Sie auf die Website nicht mehr zugreifen können, und diese Option per FTP korrigieren müssen!</strong>";
 $tx['help']['plugins_folder']="Bitte nicht ändern";
-$tx['help']['security_password']="Standard-Passwort für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:<br><b>Einstellungen => CMSimple => Website</b><br><br>Was Sie hier sehen, ist das verschlüsselte Passwort. Um es zu ändern, geben Sie einfach das neue ein (unverschlüsselt).";
-$tx['help']['security_email']="Die E-Mail-Adresse für die Kennwort vergessen Funktionalität. Am besten verwenden Sie eine Adresse, die nicht öffentlich bekannt ist.";
-$tx['help']['site_template']="<p>Standard-Template für die Website, kann für einzelne Sprachbereiche oder Subsites geändert werden unter:</p><p><b>Einstellungen => CMSimple => Website</b></p></p>";
-$tx['help']['title_format']="Das Format des Seitentitels (&lt;title&gt;).";
+$tx['help']['security_password']="Passwort für die Website einschließlich aller einzelnen Sprachbereiche";
+$tx['help']['security_email']="Die E-Mail-Adresse für die 'Kennwort vergessen'-Funktionalität. Am besten verwenden Sie eine Adresse, die nicht öffentlich bekannt ist.";
+$tx['help']['site_template']="Standard-Template für die Website";
+$tx['help']['title_format']="Das Format des Seitentitels (&lt;title&gt;) wie er normalerweise oben in den Seitenreitern des Browsers angezeigt wird.";
 $tx['help']['uri_seperator']="Das Zeichen, das die Namen von Seiten und Unterseiten in der URL trennt.";
 $tx['help']['uri_length']="Die URLs der Seiten werden ab dieser Länge abgeschnitten. Das könnte sich in einer zukünftigen Version ändern, so dass es das Beste ist, kürzere Seitenüberschriften zu verwenden (z.B. durch die Verwendung von Seite&rarr;Andere Seitenüberschrift).";
-$tx['help']['xhtml_amp']="<b>true</b> konvertiert <b>&</b> zu <b>&amp;amp;</b> im Inhalt. Änderung nicht empfohlen.";
-$tx['help']['xhtml_endtags']="<b>true</b> erzeugt im Inhalt die für bestimmte XHTML-Auszeichnungselemente erforderlichen Abschluss-Schrägstriche, wie &lt;br /&gt; etc.";
+$tx['help']['xhtml_endtags']="Anklicken wenn Sie XHTML-Ausgabe wünschen. Die für XHTML-Auszeichnungselemente erforderlichen Abschluss-Schrägstriche werden automatisch erzeugt.";
 
 $tx['help']['folders_userfiles']="Der Basisordner aller Benutzerdateien.";
 $tx['help']['folders_downloads']="Ein Unterordner der Benutzerdateien.";
