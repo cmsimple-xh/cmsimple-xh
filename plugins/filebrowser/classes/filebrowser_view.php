@@ -327,7 +327,7 @@ class XHFileBrowserView
                 : '';
 
             $path = $this->basePath . $this->currentDirectory . $file;
-            if (is_array(@getimagesize($path))) {
+            if (is_array(getimagesize($path))) {
                 $image = getimagesize($path);
                 $width = $image[0];
                 $height = $image[1];

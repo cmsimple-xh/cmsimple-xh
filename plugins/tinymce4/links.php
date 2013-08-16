@@ -36,7 +36,7 @@ function get_internal_links($h, $u, $l, $sn, $downloads_path) {
         }
         $list[] = array('title' => $spacer . html_entity_decode(addcslashes($h[$i], "\n\r\t\"\\")) , 'value' =>'?' . $u[$i]);
     }
-    if (@is_dir($downloads_path)) {
+    if (is_dir($downloads_path)) {
         $list[] = array('title' => 'DOWNLOADS:' , 'value' => " ");
         $fs = sortdir($downloads_path);
         foreach ($fs as $p) {

@@ -147,7 +147,7 @@ function toc($start = null, $end = null, $li = 'li')
                 $tl = $l[$i];
             }
         }
-        @sort($ta);
+        sort($ta);
         $tl = $l[$s];
     } else {
         $tl = 0;
@@ -213,7 +213,7 @@ function li($ta, $st)
         $t .= '<li class="';
         if (!$tf) {
             $t .= 's';
-        } elseif (@$cf['menu']['sdoc'] == "parent" && $s > -1) {
+        } elseif ($cf['menu']['sdoc'] == "parent" && $s > -1) {
             if ($l[$ta[$i]] < $l[$s]) {
                 $hasChildren = substr($u[$s], 0, 1 + strlen($u[$ta[$i]]))
                     == $u[$ta[$i]] . $cf['uri']['seperator'];

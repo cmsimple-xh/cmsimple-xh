@@ -358,7 +358,7 @@ class XHFileBrowser
             $this->view->message .= '</ul></div>';
             return;
         }
-        if (@unlink($file)) {
+        if (unlink($file)) {
             $this->view->success('success_deleted', $file);
         } else {
             $this->view->error('error_not_deleted', $file);
@@ -391,7 +391,7 @@ class XHFileBrowser
 
         // alternatively the following might be used:
         // $type = $this->linkType == 'images' ? 'images' : 'downloads';
-        $type = @getimagesize($file['tmp_name']) !== false
+        $type = getimagesize($file['tmp_name']) !== false
             ? 'images' : 'downloads';
         if (isset($this->maxFilesizes[$type])) {
             if ($file['size'] > $this->maxFilesizes[$type]) {

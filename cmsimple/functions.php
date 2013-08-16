@@ -46,7 +46,7 @@
 function geturl($u)
 {
     $t = '';
-    if ($fh = @fopen(preg_replace("/\&amp;/is", "&", $u), "r")) {
+    if ($fh = fopen(preg_replace("/\&amp;/is", "&", $u), "r")) {
         while (!feof($fh)) {
             $t .= fread($fh, 1024);
         }
@@ -72,7 +72,7 @@ function geturlwp($u)
         "/^" . preg_quote($su, '/') . "(\&)?/s",
         "", sv('QUERY_STRING')
     );
-    if ($fh = @fopen($u . '?' . $qs, "r")) {
+    if ($fh = fopen($u . '?' . $qs, "r")) {
         while (!feof($fh)) {
             $t .= fread($fh, 1024);
         }
@@ -781,9 +781,9 @@ function chkdl($fl)
     trigger_error('Function chkdl() is deprecated', E_USER_DEPRECATED);
 
     $m = false;
-    if (@is_dir($pth['folder']['downloads'])) {
-        $fd = @opendir($pth['folder']['downloads']);
-        while (($p = @readdir($fd)) == true) {
+    if (is_dir($pth['folder']['downloads'])) {
+        $fd = opendir($pth['folder']['downloads']);
+        while (($p = readdir($fd)) == true) {
             if (preg_match("/.+\..+$/", $p)) {
                 if ($fl == $sn . '?download=' . $p) {
                     $m = true;
@@ -1237,7 +1237,7 @@ function rp($p)
 {
     trigger_error('Function rp() is deprecated', E_USER_DEPRECATED);
 
-    if (@realpath($p) == '') {
+    if (realpath($p) == '') {
         return $p;
     } else {
         return realpath($p);
@@ -1257,14 +1257,14 @@ function rp($p)
 function sortdir($dir)
 {
     $fs = array();
-    $fd = @opendir($dir);
-    while (false !== ($fn = @readdir($fd))) {
+    $fd = opendir($dir);
+    while (false !== ($fn = readdir($fd))) {
         $fs[] = $fn;
     }
     if ($fd == true) {
         closedir($fd);
     }
-    @sort($fs, SORT_STRING);
+    sort($fs, SORT_STRING);
     return $fs;
 }
 
@@ -1783,7 +1783,7 @@ function writelog($m)
 {
     global $pth, $e;
 
-    if ($fh = @fopen($pth['file']['log'], "a")) {
+    if ($fh = fopen($pth['file']['log'], "a")) {
         fwrite($fh, $m);
         fclose($fh);
     } else {
@@ -1839,7 +1839,7 @@ function loginforms()
             . '<form id="login" name="login" action="' . $sn . '?' . $u[$s]
             . '" method="post">'
             . tag('input type="hidden" name="login" value="true"')
-            . tag('input type="hidden" name="selected" value="' . @$u[$s] . '"')
+            . tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
             . tag(
                 'input type="password" name="keycut" id="passwd" value=""'
                 . ' autocomplete="off"'
@@ -2088,8 +2088,8 @@ function XH_backup()
                 . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
         }
         $fl = array();
-        $fd = @opendir($pth['folder']['content']);
-        while (($p = @readdir($fd)) == true) {
+        $fd = opendir($pth['folder']['content']);
+        while (($p = readdir($fd)) == true) {
             if (XH_isContentBackup($p)) {
                 $fl[] = $p;
             }
@@ -2100,7 +2100,7 @@ function XH_backup()
         sort($fl);
         $v = count($fl) - $cf['backup']['numberoffiles'];
         for ($i = 0; $i < $v; $i++) {
-            if (@unlink($pth['folder']['content'] . $fl[$i])) {
+            if (unlink($pth['folder']['content'] . $fl[$i])) {
                 $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup'])
                     . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
             } else {

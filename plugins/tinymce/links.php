@@ -42,7 +42,7 @@ function get_internal_links($h, $u, $l, $sn, $downloads_path) {
         //$list.='["' . $spacer . substr(str_replace('"', '&quot;', $h[$i]), 0, 30) . '", "' . $sn . '?' . $u[$i] . '"],';
         $list.='["' . $spacer . addcslashes($h[$i], "\n\r\t\"\\") . '", "?' . $u[$i] . '"],';
     }
-    if (@is_dir($downloads_path)) {
+    if (is_dir($downloads_path)) {
         $list .= '["DOWNLOADS:",""],';
         $fs = sortdir($downloads_path);
         foreach ($fs as $p) {
