@@ -636,9 +636,7 @@ if ($login && !$adm) {
     }
     session_regenerate_id();
     unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
-    $o .= '<p class="cmsimplecore_warning"'
-        . ' style="text-align: center; font-weight: 900; padding: 8px;">'
-        . $tx['login']['loggedout'] . '</p>';
+    $o .= XH_message('success', $tx['login']['loggedout']);
 }
 
 /**

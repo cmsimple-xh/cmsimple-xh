@@ -295,7 +295,7 @@ class XH_Mailform
         }
 
         // send button
-        $o .= '<div style="clear: both;">' . "\n"
+        $o .= '<div class="xh_break">' . "\n"
             . tag(
                 'input type="submit" class="submit" value="'
                 .  $tx['mailform']['sendbutton'] . '"'

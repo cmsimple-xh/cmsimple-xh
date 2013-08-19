@@ -2067,6 +2067,7 @@ function XH_backup()
     global $pth, $cf, $tx;
     static $date = null; // TODO: probably not necessary since wedding
 
+    $o = '';
     if (!isset($date)) {
         $date = date("Ymd_His");
     }
@@ -2075,8 +2076,9 @@ function XH_backup()
         || copy($pth['file']['content'], $pth['folder']['content'] . $fn)
     ) {
         if (!empty($cf['backup']['numberoffiles'])) {
-            $o = '<p>' . utf8_ucfirst($tx['filetype']['backup'])
-                . ' ' . $fn . ' ' . $tx['result']['created'] . '</p>';
+            $message = utf8_ucfirst($tx['filetype']['backup']) . ' ' . $fn
+                . ' ' . $tx['result']['created'];
+            $o .= XH_message('info', $message);
         }
         $fl = array();
         $fd = opendir($pth['folder']['content']);
@@ -2092,8 +2094,9 @@ function XH_backup()
         $v = count($fl) - $cf['backup']['numberoffiles'];
         for ($i = 0; $i < $v; $i++) {
             if (unlink($pth['folder']['content'] . $fl[$i])) {
-                $o .= '<p>' . utf8_ucfirst($tx['filetype']['backup'])
-                    . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'] . '</p>';
+                $message = utf8_ucfirst($tx['filetype']['backup'])
+                    . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'];
+                $o .= XH_message('info', $message);
             } else {
                 e('cntdelete', 'backup', $fl[$i]);
             }
@@ -2398,8 +2401,7 @@ function XH_adminMenu($plugins = array())
         $t .= XH_adminMenuItem($item);
     }
     $t .= '</ul>' . "\n"
-        . '<div style="float:none;clear:both;padding:0;margin:0;'
-        . 'width:100%;height:0px;"></div>' . "\n" . '</div>' . "\n";
+        . '<div class="xh_break"></div>' . "\n" . '</div>' . "\n";
     return $t;
 }
 

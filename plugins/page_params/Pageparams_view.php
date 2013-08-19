@@ -49,9 +49,11 @@ function page_params_date_check(field) {
         datearr[1] = "00:00";
     }
     if (dateformat.test(datearr[0]) && timeformat.test(datearr[1])) {
-        field.style.backgroundColor ="#FFFFFF";
+        field.style.backgroundColor = "";
+        field.style.color = "";
     } else {
-        field.style.backgroundColor ="#FFE4E1";
+        field.style.backgroundColor ="#ffe4e1";
+        field.style.color = "#000";
         alert("$message");
     }
 }
