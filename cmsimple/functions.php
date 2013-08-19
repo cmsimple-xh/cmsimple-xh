@@ -2034,29 +2034,20 @@ function XH_adjustStylesheetURLs($plugin, $css)
 /**
  * Returns an (X)HTML element formatted as message.
  *
- * @param string $type   The type of message ('success', 'info', 'warning', 'fail').
- * @param string $plugin The name of the plugin (<var>null</var> for the core).
- * @param string $key    The key of the language string.
+ * @param string $type    The type of message ('success', 'info', 'warning', 'fail').
+ * @param string $message A message format to print in an printf() style.
  *
  * @return string
  *
- * @global array The localization of the core.
- * @global array The localization of the plugins.
- *
  * @since 1.6
  */
-function XH_message($type, $plugin, $key)
+function XH_message($type, $message)
 {
-    global $tx, $plugin_tx;
-
     $class = 'cmsimplecore_' . $type;
-    $args = array_slice(func_get_args(), 3);
-    $format = !isset($plugin)
-        ? $tx['message'][$key]
-        : $plugin_tx[$plugin][$key];
-    $string = vsprintf($format, $args);
-    $string = XH_hsc($string);
-    return '<p class="' . $class . '">' . $string . '</p>';
+    $args = array_slice(func_get_args(), 2);
+    $message = vsprintf($message, $args);
+    $message = XH_hsc($message);
+    return '<p class="' . $class . '">' . $message . '</p>';
 }
 
 /**

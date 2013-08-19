@@ -187,7 +187,7 @@ class XH_TextFileEdit extends XH_FileEdit
         $value = utf8_ucfirst($tx['action']['save']);
         if (isset($_GET['xh_success'])) {
             $filetype = utf8_ucfirst($tx['filetype'][stsl($_GET['xh_success'])]);
-            $message =  XH_message('success', null, 'saved', $filetype);
+            $message =  XH_message('success', $tx['message']['saved'], $filetype);
         } else {
             $message = '';
         }
@@ -551,7 +551,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
         $button = tag('input type="submit" class="submit" value="' . $value . '"');
         if (isset($_GET['xh_success'])) {
             $filetype = utf8_ucfirst($tx['filetype'][stsl($_GET['xh_success'])]);
-            $message = XH_message('success', null, 'saved', $filetype);
+            $message = XH_message('success', $tx['message']['saved'], $filetype);
         } else {
             $message = '';
         }

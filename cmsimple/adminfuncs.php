@@ -154,7 +154,7 @@ function XH_backupsView()
 
     $o = '<ul>' . "\n";
     if (isset($_GET['xh_success'])) {
-        $o .= XH_message('success', null, stsl($_GET['xh_success']));
+        $o .= XH_message('success', $tx['message'][stsl($_GET['xh_success'])]);
     }
     $o .= '<li>' . utf8_ucfirst($tx['filetype']['content']) . ' <a href="'
         . $sn . '?file=content&amp;action=view">'

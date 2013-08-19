@@ -839,10 +839,10 @@ if (XH_ADM) {
         $temp = $pd_router->update($s, $temp);
         if (isset($_GET['xh_pagedata_ajax'])) {
             if ($temp) {
-                echo XH_message('info', null, 'pd_success');
+                echo XH_message('info', $tx['message']['pd_success']);
             } else {
                 header('HTTP/1.0 500 Internal Server Error');
-                echo XH_message('fail', null, 'pd_fail');
+                echo XH_message('fail', $tx['message']['pd_fail']);
             }
             exit;
         } else {
