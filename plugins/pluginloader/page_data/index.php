@@ -33,6 +33,7 @@ if (!file_exists(PL_PAGE_DATA_FILE)) {
         fwrite($fh, '<?php' . "\n" . '$page_data_fields[] = \'url\';' . "\n" . '$page_data_fields[] = \'last_edit\';' . "\n" . '?>');
         chmod(PL_PAGE_DATA_FILE, 0666);
         fclose($fh);
+        $e .= '<li>' . $tx['filetype']['pagedata'] . ' ' . $tx['result']['created'] . '</li>';
     } else {
         e('cntwriteto', 'file', PL_PAGE_DATA_FILE);
     }
