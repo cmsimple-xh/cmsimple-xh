@@ -31,7 +31,9 @@ class PL_Page_Data_Model{
 	 */
 	function PL_Page_Data_Model($h){
 		$this -> headings = $h;
-		include_once(PL_PAGE_DATA_FILE);
+		if ((include_once(PL_PAGE_DATA_FILE)) === false) {
+			die('Couldn\'t read pagedata.php');
+		}
 		$this -> params = $page_data_fields;
 		$this -> data = $page_data;
 		$this -> temp_data = isset($temp_data) ? $temp_data : array();

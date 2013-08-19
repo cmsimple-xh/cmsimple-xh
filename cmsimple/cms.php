@@ -646,6 +646,9 @@ function rfc() {
     $duplicate = 0;
 
     $content = file_get_contents($pth['file']['content']);
+    if ($content === false) {
+        die('Couldn\'t read content.htm');
+    }
     $stop = $cf['menu']['levels'];
     $split_token = '#@CMSIMPLE_SPLIT@#';
 
