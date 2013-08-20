@@ -434,7 +434,7 @@ $page_data[24]['use_header_location'] = '0';
 
 //----------
 $page_data[25]['url'] = 'News04';
-$page_data[25]['last_edit'] = '1319015680';
+$page_data[25]['last_edit'] = '1376991713';
 $page_data[25]['description'] = '';
 $page_data[25]['keywords'] = '';
 $page_data[25]['title'] = '';
@@ -450,7 +450,7 @@ $page_data[25]['use_header_location'] = '0';
 
 //----------
 $page_data[26]['url'] = 'News05';
-$page_data[26]['last_edit'] = '1319015680';
+$page_data[26]['last_edit'] = '1376991722';
 $page_data[26]['description'] = '';
 $page_data[26]['keywords'] = '';
 $page_data[26]['title'] = '';
