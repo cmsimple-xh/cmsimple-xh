@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-require_once '../../cmsimple/classes/FileEdit.php';
+require_once './cmsimple/classes/FileEdit.php';
 
 define('XH_FORM_NAMESPACE', '');
 
@@ -44,9 +44,9 @@ class CoreConfigFileEditTest extends PHPUnit_Framework_TestCase
 
         $sl = 'en';
         $file = 'config';
-        $pth['folder']['cmsimple'] = '../../cmsimple/';
+        $pth['folder']['cmsimple'] = './cmsimple/';
         $pth['folder']['language'] = $pth['folder']['cmsimple'] . 'languages/';
-        $pth['folder']['templates'] = '../../templates/';
+        $pth['folder']['templates'] = './templates/';
         $pth['file']['config'] = $pth['folder']['cmsimple'] . 'config.php';
         $pth['file']['language'] = $pth['folder']['language'] . $sl . '.php';
         include $pth['file']['config'];

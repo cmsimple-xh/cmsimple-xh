@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-require_once '../../cmsimple/classes/LinkCheck.php';
+require_once './cmsimple/classes/LinkCheck.php';
 
 /**
  * A test case for the functions in functions.php.

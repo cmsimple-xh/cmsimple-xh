@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-require_once '../../cmsimple/tplfuncs.php';
+require_once './cmsimple/tplfuncs.php';
 
 if (!defined('XH_ADM')) {
     define('XH_ADM', false);
@@ -39,8 +39,8 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
     {
         global $cf, $tx, $onload;
 
-        include '../../cmsimple/config.php';
-        include '../../cmsimple/languages/en.php';
+        include './cmsimple/config.php';
+        include './cmsimple/languages/en.php';
         $onload = 'foo()';
     }
 

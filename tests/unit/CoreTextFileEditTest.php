@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-require_once '../../cmsimple/classes/FileEdit.php';
+require_once './cmsimple/classes/FileEdit.php';
 
 /**
  * A test case for the CoreTextFileEdit class.
@@ -36,7 +36,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
         global $pth, $file;
 
         $file = 'template';
-        $pth['file']['template'] = '../../templates/cmsimplexh/template.htm';
+        $pth['file']['template'] = './templates/cmsimplexh/template.htm';
         $this->editor = new XH_CoreTextFileEdit();
     }
 

@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-require_once '../../cmsimple/adminfuncs.php';
+require_once './cmsimple/adminfuncs.php';
 
 /**
  * A test case for the functions in adminfuncs.php.

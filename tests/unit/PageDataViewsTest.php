@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-require_once '../../cmsimple/classes/PageDataViews.php';
+require_once './cmsimple/classes/PageDataViews.php';
 
 /**
  * A test case for the page data views.

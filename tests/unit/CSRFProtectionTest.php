@@ -21,7 +21,7 @@
 /**
  * The file under test.
  */
-require_once '../../cmsimple/classes/CSRFProtection.php';
+require_once './cmsimple/classes/CSRFProtection.php';
 
 define('CMSIMPLE_ROOT', '/test/');
 
@@ -47,7 +47,7 @@ class CSRFProtectionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error_Warning
+     * @expectedException PHPUnit_Framework_Error
      */
     public function testCSRFAttack()
     {

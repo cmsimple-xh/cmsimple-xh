@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-require '../../cmsimple/classes/PageDataModel.php';
+require './cmsimple/classes/PageDataModel.php';
 
 /**
  * A test case for the page data model.

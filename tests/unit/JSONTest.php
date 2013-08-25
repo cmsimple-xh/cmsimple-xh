@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-require_once '../../cmsimple/classes/JSON.php';
+require_once './cmsimple/classes/JSON.php';
 
 /**
  * A test case for XH_JSON.
@@ -91,7 +91,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
     public function dataForTestDecode()
     {
         return array(
-            array(file_get_contents('./data/example.json')),
+            array(file_get_contents('./tests/unit/data/example.json')),
             array("\"\xC3\xA4\xC3\xB6\xC3\xBC\""),
             array('"\u0061\u00E4\uFEFC"')
         );
@@ -120,7 +120,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
 
     public function testEncodeAndDecode()
     {
-        $string = file_get_contents('./data/example.json');
+        $string = file_get_contents('./tests/unit/data/example.json');
         $value = json_decode($string, true);
         $new = $this->json->decode($this->json->encode($value));
         $this->assertEquals($value, $new);

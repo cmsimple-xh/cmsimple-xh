@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- $Id$ -->
+
+<project name="CMSimple_XH" default="sniff">
+
+    <property environment="env"></property>
+
+    <fileset id="php-sources" dir=".">
+        <include name="cmsimple/*.php"/>
+        <exclude name="cmsimple/*config.php"/>
+        <include name="cmsimple/classes/*.php"/>
+        <exclude name="cmsimple/classes/PasswordHash.php"/>
+        <include name="plugins/filebrowser/*.php"/>
+        <include name="plugins/filebrowser/classes/*.php"/>
+        <include name="plugins/meta_tags/*.php"/>
+        <include name="plugins/page_params/*.php"/>
+    </fileset>
+
+    <fileset id="tutorials" dir="tutorials">
+        <include name="XH/*.pkg"/>
+        <include name="XH/*.cls"/>
+    </fileset>
+
+    <target name="sniff">
+        <phpcodesniffer standard="PEAR">
+            <fileset refid="php-sources"/>
+        </phpcodesniffer>
+    </target>
+
+    <target name="unit-tests">
+        <phpunit bootstrap="tests/unit/bootstrap.php">
+            <formatter type="plain" usefile="false"/>
+            <batchtest>
+                <fileset dir="tests/unit">
+                    <include name="*Test.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+
+    <target name="validation-tests">
+        <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
+        <phpunit>
+            <formatter type="plain" usefile="false"/>
+            <batchtest>
+                <fileset dir="tests/validation">
+                    <include name="*Test.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+
+    <target name="attack-tests">
+        <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
+        <phpunit>
+            <formatter type="plain" usefile="false"/>
+            <batchtest>
+                <fileset dir="tests/attack">
+                    <include name="*Test.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+
+    <target name="all-tests" depends="unit-tests,validation-tests,attack-tests"/>
+
+    <target name="php-doc">
+        <phpdoc title="CMSimple_XH Developer Documentation" destdir="doc/php"
+                output="HTML:frames:default" defaultpackagename="XH"
+                defaultcategoryname="CMSimple_XH">
+            <fileset refid="php-sources"/>
+            <fileset refid="tutorials"/>
+        </phpdoc>
+    </target>
+
+    <target name="js-doc">
+        <exec command="jsdoc -d doc/js javascript/admin.js"/>
+    </target>
+
+    <target name="doc" depends="php-doc,js-doc"/>
+
+    <target name="compat">
+        <exec command="pci --dir cmsimple --tab 12,12,20 --summarize"
+              logoutput="true"/>
+    </target>
+
+    <target name="coverage">
+        <exec command="phpunit --bootstrap tests/unit/bootstrap.php --coverage-html tests/coverage tests/unit"/>
+    </target>
+
+</project>

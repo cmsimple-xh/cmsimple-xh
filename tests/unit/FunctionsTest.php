@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-include '../../cmsimple/functions.php';
+include './cmsimple/functions.php';
 
 /**
  * A helper to test multiple evaluation of a function with side effects.
@@ -45,8 +45,8 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     {
         global $var, $cf, $tx;
 
-        include '../../cmsimple/config.php';
-        include '../../cmsimple/languages/en.php';
+        include './cmsimple/config.php';
+        include './cmsimple/languages/en.php';
         $_SERVER['SERVER_NAME'] = 'example.com';
         $var = 'baz';
     }
@@ -236,7 +236,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function dataForTestRp()
     {
         return array(
-            array('./FunctionsTest.php', __FILE__),
+            array('./tests/unit/FunctionsTest.php', __FILE__),
             array('./DoesNotExist', './DoesNotExist')
         );
     }

@@ -74,7 +74,8 @@ class XH_CSRFProtection
         ) {
             header('HTTP/1.0 403 Forbidden');
             echo 'Invalid CSRF token!';
-            exit;
+            // the following should be exit/die, but that would break unit tests
+            trigger_error('Invalid CSRF token!', E_USER_ERROR);
         }
     }
 

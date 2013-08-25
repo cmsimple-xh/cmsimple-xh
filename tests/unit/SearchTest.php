@@ -19,12 +19,12 @@
  *
  * Might be stubbed.
  */
-require_once '../../plugins/utf8/utf8.php';
+require_once './plugins/utf8/utf8.php';
 
 /**
  * The file under test.
  */
-require_once '../../cmsimple/classes/Search.php';
+require_once './cmsimple/classes/Search.php';
 
 /**
  * A test case for the search functionality.
