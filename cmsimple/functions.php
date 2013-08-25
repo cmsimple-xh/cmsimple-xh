@@ -742,7 +742,8 @@ function stsl($t)
  *
  * @return void
  */
-function download($fl) {
+function download($fl)
+{
     global $download, $o;
 
     if (!is_readable($fl)
@@ -2279,7 +2280,6 @@ function XH_availableLanguages()
  * Returns the admin menu.
  *
  * @param array $plugins A list of plugins.
- * @param bool  $debug   Whether the debug mode is enabled.
  *
  * @return string (X)HTML.
  *
