@@ -507,7 +507,7 @@ function XH_saveEditorContents($text)
             // page was deleted; go to previous page
             $su = $u[max($s - 1, 0)];
         }
-        header("Location: " . CMSIMPLE_URL . "?" . $su);
+        header("Location: " . CMSIMPLE_URL . "?" . $su, true, 303);
         exit;
     } else {
         e('notwritable', 'content', $pth['file']['content']);
