@@ -4,7 +4,8 @@
 
 <project name="CMSimple_XH" default="sniff">
 
-    <property environment="env"></property>
+    <property environment="env"/>
+    <property name="build" value="01"/>
 
     <fileset id="php-sources" dir=".">
         <include name="cmsimple/*.php"/>
@@ -87,6 +88,47 @@
 
     <target name="coverage">
         <exec command="phpunit --bootstrap tests/unit/bootstrap.php --coverage-html tests/coverage tests/unit"/>
+    </target>
+
+    <target name="build">
+        <fail unless="version" message="version is not defined!"/>
+        <svnexport revision="" repositoryurl="." todir="dist"/>
+        <tstamp>
+            <format property="TODAY" pattern="%Y-%m-%d"/>
+        </tstamp>
+        <move todir="temp">
+            <fileset dir="dist">
+                <include name="README*.txt"/>
+                <include name="cmsimple/cms.php"/>
+                <include name="plugins/filebrowser/admin.php"/>
+                <include name="plugins/tinymce/admin.php"/>
+            </fileset>
+            <filterchain>
+                <replacetokens>
+                    <token key="CMSIMPLE_XH_VERSION" value="CMSimple_XH ${version}"/>
+                    <token key="CMSIMPLE_XH_BUILD" value="${DSTAMP}${build}"/>
+                    <token key="CMSIMPLE_XH_DATE" value="${TODAY}"/>
+                </replacetokens>
+            </filterchain>
+        </move>
+        <move todir="dist">
+            <fileset dir="temp">
+                <include name="README*.txt"/>
+                <include name="cmsimple/cms.php"/>
+                <include name="plugins/filebrowser/admin.php"/>
+                <include name="plugins/tinymce/admin.php"/>
+            </fileset>
+        </move>
+        <delete>
+            <fileset dir="dist">
+                <include name="build.xml"/>
+                <include name="README.devs"/>
+            </fileset>
+        </delete>
+        <delete dir="dist/tests" quiet="true" includeemptydirs="true"/>
+        <delete dir="dist/tutorials" quiet="true" includeemptydirs="true"/>
+        <zip destfile="CMSimple_XH_${version}.zip" basedir="dist"/>
+        <delete dir="dist" quiet="true" includeemptydirs="true"/>
     </target>
 
 </project>
