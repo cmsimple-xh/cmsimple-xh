@@ -1,6 +1,6 @@
 ﻿===============================================
-$CMSIMPLE_XH_VERSION$
-released $CMSIMPLE_XH_DATE$
+@CMSIMPLE_XH_VERSION@
+released @CMSIMPLE_XH_DATE@
 ===============================================
 
 HESLO pre tüto inštaláciu je:
