@@ -14,9 +14,11 @@ if ($tinymce) {
     $o .= '<div class="plugineditcaption">TinyMCE for CMSimple_XH</div>';
     $o .= '<p>Version for $CMSIMPLE_XH_VERSION$</p>';
     $o .= '<p>TinyMCE version 3.5.8  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a></p>';
-    $o .= '<p>CMSimple_XH & Filebrowser integration &ndash; <a href="http://www.pixolution.ch/" target="_blank">http://www.pixolution.ch/</a></p>';
-
-
+    $o .= '<p>CMSimpe_xh & Filebrowser integration';
+    $o .= tag('br');
+    $o .= 'up to version 1.5.6 &ndash; <a href="http://www.zeichenkombinat.de/" target="_blank">Zeichenkombinat.de</a>';
+    $o .= tag('br');
+    $o .= 'from &nbsp;version 1.5.7 &ndash; <a href="http://www.pixolution.ch/" target="_blank">pixolution.ch</a></p>';
 
     $admin= isset($_POST['admin']) ? $_POST['admin'] : $admin = isset($_GET['admin']) ? $_GET['admin'] : '';
     $action= isset($_POST['action']) ? $_POST['action'] : $action = isset($_GET['action']) ? $_GET['action'] : '';
