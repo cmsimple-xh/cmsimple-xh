@@ -16,14 +16,12 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('PAGEMANAGER_VERSION', '1pl11');
+define('PAGEMANAGER_VERSION', '1pl13');
 
 
 define('PAGEMANAGER_URL', 'http'
    . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
-   . '://' . $_SERVER['SERVER_NAME']
-   . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
-   . preg_replace('/index.php$/', '', $_SERVER['SCRIPT_NAME']));
+   . '://' . $_SERVER['HTTP_HOST'] . preg_replace('/index.php$/', '', $sn));
 
 
 /**
@@ -93,7 +91,7 @@ function pagemanager_rfc() {
 function pagemanager_version() {
     return tag('br').tag('hr').'<p><strong>Pagemanager_XH</strong></p>'.tag('hr')."\n"
 	    .'<p>Version: '.PAGEMANAGER_VERSION.'</p>'."\n"
-	    .'<p>Copyright &copy; 2011-2012 <a href="http://3-magi.net">Christoph M. Becker</a></p>'."\n"
+	    .'<p>Copyright &copy; 2011-2013 <a href="http://3-magi.net">Christoph M. Becker</a></p>'."\n"
 	    .'<p><a href="http://3-magi.net/?CMSimple_XH/Pagemanager_XH">'
 	    .'Pagemanager_XH</a> is powered by '
 	    .'<a href="http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple">'
@@ -216,7 +214,8 @@ function pagemanager_edit() {
 	    .' jQuery(\'#pagemanager\').jstree(\'get_xml\', \'nest\', -1,
 		new Array(\'id\', \'title\', \'pdattr\'))';
     $xhpages = isset($_GET['xhpages']) ? '&amp;pagemanager-xhpages' : '';
-    $bo .= '<form id="pagemanager-form" action="'.$sn.'?&amp;pagemanager&amp;edit'.$xhpages.'" method="post">'."\n";
+    $bo .= '<form id="pagemanager-form" action="'.$sn.'?&amp;pagemanager&amp;edit'
+	.$xhpages.'" method="post" accept-charset="UTF-8">'."\n";
     $bo .= strtolower($plugin_cf['pagemanager']['toolbar_show']) == 'true'
 	    ? pagemanager_toolbar($image_ext, $save_js) : '';
 
@@ -284,13 +283,11 @@ function pagemanager_edit() {
 	    .'</form>'."\n"
 	    .'<div id="pagemanager-footer">&nbsp;</div>'."\n";
 
-    $o .= '<div id="pagemanager-confirmation" title=\''
-	    .tag('img src="'.$pth['folder']['plugins'].'pagemanager/images/question'.$image_ext.'"')
-	    .'&nbsp;'.$plugin_tx['pagemanager']['message_confirm']
-	    .'\'></div>'."\n"
-	    .'<div id="pagemanager-alert" title=\''
-	    .tag('img src="'.$pth['folder']['plugins'].'pagemanager/images/problem'.$image_ext.'"')
-	    .'&nbsp;'.$plugin_tx['pagemanager']['message_information'].'\'></div>'."\n";
+    $o .= '<div id="pagemanager-confirmation" title="'
+	    .$plugin_tx['pagemanager']['message_confirm']
+	    .'"></div>'."\n"
+	    .'<div id="pagemanager-alert" title="'
+	    .$plugin_tx['pagemanager']['message_information'].'"></div>'."\n";
 }
 
 
@@ -337,7 +334,7 @@ function pagemanager_cdata_handler($parser, $data) {
 	$cnt = $c[$pagemanager_state['id']];
 	$cnt = preg_replace('/<h[1-'.$cf['menu']['levels'].']([^>]*)>'
 		.'((<[^>]*>)*)[^<]*((<[^>]*>)*)<\/h[1-'.$cf['menu']['levels'].']([^>]*)>/i',
-		'<h'.$pagemanager_state['level'].'$1>${2}'.$pagemanager_state['title'].'$4'
+		'<h'.$pagemanager_state['level'].'$1>${2}'.addcslashes($pagemanager_state['title'], '$\\').'$4'
 		.'</h'.$pagemanager_state['level'].'$6>', $cnt, 1);
 	fwrite($pagemanager_fp, rmnl($cnt."\n"));
     } else {
@@ -371,6 +368,8 @@ function pagemanager_save($xml) {
     xml_set_character_data_handler($parser, 'pagemanager_cdata_handler');
     $pagemanager_state['level'] = 0;
     $pagemanager_state['num'] = -1;
+    copy($pth['file']['content'], $pth['folder']['content'] . 'pagemanager_content.htm');
+    copy($pth['file']['pagedata'], $pth['folder']['content'] . 'pagemanager_pagedata.php');
     if ($pagemanager_fp = fopen($pth['file']['content'], 'w')) {
 	fputs($pagemanager_fp, '<html><head><title>Content</title></head><body>'."\n");
 	xml_parse($parser, $xml, TRUE);

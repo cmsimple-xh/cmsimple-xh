@@ -1,3 +1,14 @@
+Version 1pl13 - released 2013-08-06
+cmb     added creation of backup before saving the modified contents
+cmb     removed dependency on deprecated jQuery functions
+cmb     removed icons from dialog titles for compatibility with jQueryUI 1.10
+cmb     improved redirection after saving
+
+Version 1pl12 - released 2013-05-16
+cmb     fixed bug, where a dollar sign or a backslash immediately followed by a digit in a page heading was not properly handled
+cmb     fixed improper language declaration in help files
+cmb     added version.nfo
+
 Version 1pl11 - released 2013-01-05
 cmb     updated to jsTree 1.0 rc3
 cmb     extended copyright to 2013
