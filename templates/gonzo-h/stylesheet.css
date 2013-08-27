@@ -1,0 +1,39 @@
+/* gonzo-grid */
+
+/* typography.css */
+html {font-size:100.01%;}
+body {font-size:85%;color:#222;background:#fff;font-family: Garamond, Baskerville, Georgia, 'Times New Roman', Times, serif;line-height:1.2em;}
+#banner { background: url("images/demo_venezia.jpg") center repeat-x;height: 175px;}
+h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;}
+h1 {font-size:2em;}
+h2 {font-size:1.5em;}
+h3 {font-size:1em;}
+h4 {font-size:1.5em;line-height:1.25;}
+h5 {font-size:1.2em;font-weight:bold;}
+h6 {font-size:1em;font-weight:bold;}
+a{text-decoration:none;color:#111111;font-weight:inherit;font-style:inherit}
+a:focus{color:#c0c0c0}
+a:hover{text-decoration:underline;color:#000080}
+a:visited{color:#666}
+li{line-height:1.6em}
+ul,ol{margin-bottom:10px;list-style:none; text-align: left;padding: 10px 0px 5px 5px;}
+blockquote{font-style:italic;border-left:5px solid;padding:1px 0 1px 12px;margin:16px 0 16px 16px;color:#777;font-size:1.2em}
+p {text-align: justify;}
+
+
+/* Raster, das grid */
+.grid_1 { width:6.25%; }
+.grid_2 { width:14.583%; }
+.grid_3 { width:22.917%; }
+.grid_4 { width:31.25%; }
+.grid_5 { width:41.667%; }
+.grid_6 { width:47.917%; }
+.grid_7 { width:56.25%; }
+.grid_8 { width:64.583%; }
+.grid_9 { width:72.917%; }
+.grid_10 { width:81.25%; }
+.grid_11 { width:89.583%; }
+.grid_12 { width:97.917%; }
+.column { margin: 0 1.04%; overflow: hidden; float: left; }
+.column img {max-width:100%;}
+.row { min-width: 800px; max-width: 1200px; margin: 0 auto; overflow: hidden; }
