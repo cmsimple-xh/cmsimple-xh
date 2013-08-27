@@ -2,10 +2,14 @@
 
 <!-- $Id$ -->
 
-<project name="CMSimple_XH" default="sniff">
+<project name="CMSimple_XH" default="default">
+
+    <!-- Properties -->
 
     <property environment="env"/>
     <property name="build" value="01"/>
+
+    <!-- Filesets -->
 
     <fileset id="php-sources" dir=".">
         <include name="cmsimple/*.php"/>
@@ -23,11 +27,26 @@
         <include name="XH/*.cls"/>
     </fileset>
 
+    <!-- Dummy default -->
+
+    <target name="default">
+        <fail message="There's no default target"/>
+    </target>
+
+    <!-- Checks -->
+
     <target name="sniff">
         <phpcodesniffer standard="PEAR">
             <fileset refid="php-sources"/>
         </phpcodesniffer>
     </target>
+
+    <target name="compat">
+        <exec command="pci --dir cmsimple --tab 12,12,20 --summarize"
+              logoutput="true"/>
+    </target>
+
+    <!-- Tests -->
 
     <target name="unit-tests">
         <phpunit bootstrap="tests/unit/bootstrap.php">
@@ -66,6 +85,12 @@
 
     <target name="all-tests" depends="unit-tests,validation-tests,attack-tests"/>
 
+    <target name="coverage">
+        <exec command="phpunit --bootstrap tests/unit/bootstrap.php --coverage-html tests/coverage tests/unit"/>
+    </target>
+
+    <!-- Documentation -->
+
     <target name="php-doc">
         <phpdoc title="CMSimple_XH Developer Documentation" destdir="doc/php"
                 output="HTML:frames:default" defaultpackagename="XH"
@@ -81,14 +106,7 @@
 
     <target name="doc" depends="php-doc,js-doc"/>
 
-    <target name="compat">
-        <exec command="pci --dir cmsimple --tab 12,12,20 --summarize"
-              logoutput="true"/>
-    </target>
-
-    <target name="coverage">
-        <exec command="phpunit --bootstrap tests/unit/bootstrap.php --coverage-html tests/coverage tests/unit"/>
-    </target>
+    <!-- Build -->
 
     <target name="build">
         <fail unless="version" message="version is not defined!"/>
@@ -122,7 +140,6 @@
         <delete>
             <fileset dir="dist">
                 <include name="build.xml"/>
-                <include name="README.devs"/>
             </fileset>
         </delete>
         <delete dir="dist/tests" quiet="true" includeemptydirs="true"/>
