@@ -31,7 +31,7 @@ function tinymce4_filebrowser() {
     } else {
 
 	//default filebrowser
-//	$_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
+	$_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
 	$url =  CMSIMPLE_ROOT . 'plugins/filebrowser/editorbrowser.php?editor=tinymce4&prefix=' . CMSIMPLE_BASE . '&base=./';
 	$script = file_get_contents(dirname(__FILE__) . '/filebrowser.js');
 	$script = str_replace('%URL%',  $url, $script);
@@ -228,7 +228,7 @@ function tinymce4_config($rte_selector, $config) {
     if (tinyArgs.link_list) 
         tinyArgs.link_list = myLinkList;
     if (tinyArgs.file_browser) 
-        tinyArgs.file_browser_callback = wrFilebrowser;
+        tinyArgs.file_browser_callback = ' . $_SESSION['tinymce_fb_callback'] . ';
         tinyArgs.height = eval(tinyArgs.height);
         if (typeof tinyArgs.height !== "number") 
             delete tinyArgs.height;
