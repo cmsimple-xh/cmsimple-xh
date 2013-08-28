@@ -8,9 +8,9 @@
  * @return void
  */
 function tinymce4_filebrowser() {
-    global $adm, $cf;
+    global $adm, $cf, $edit;
 
-    if (!$adm) { return ''; }  // no filebrowser, if editor is called from front-end
+    if (!$adm || !$edit) { return ''; }  // no filebrowser, if editor is called from front-end
 
     $url = '';
     $script = ''; //holds the code of the callback-function
@@ -31,7 +31,7 @@ function tinymce4_filebrowser() {
     } else {
 
 	//default filebrowser
-	$_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
+//	$_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
 	$url =  CMSIMPLE_ROOT . 'plugins/filebrowser/editorbrowser.php?editor=tinymce4&prefix=' . CMSIMPLE_BASE . '&base=./';
 	$script = file_get_contents(dirname(__FILE__) . '/filebrowser.js');
 	$script = str_replace('%URL%',  $url, $script);
@@ -50,13 +50,13 @@ function tinymce4_filebrowser() {
  * @return void
  */
 function include_tinymce4() {
-    global $adm, $pth, $h, $u, $l, $sn, $hjs, $plugin_cf;
+    global $adm, $edit, $pth, $h, $u, $l, $sn, $hjs, $plugin_cf;
     static $again = FALSE;
 
     if ($again) {return;}
     $again = TRUE;
 
-    if ($adm) {
+    if ($adm && $edit) {
 	include_once $pth['folder']['plugins'] . 'tinymce4/' . 'links.php';
 	$imageList = 'var myImageList = '.get_images($pth['folder']['images']).';';
 	$linkList = 'var myLinkList = '.get_internal_links($h, $u, $l, $sn, $pth['folder']['downloads']).';';
@@ -91,7 +91,7 @@ function include_tinymce4() {
  * @return string
  */
 function tinymce4_config($rte_selector, $config) {
-    global $pth, $sl, $sn, $cf, $plugin_cf;
+    global $adm, $edit, $pth, $sl, $sn, $cf, $plugin_cf;
 
     if (!isset($plugin_cf['tinymce4'])) {
 	include_once $pth['folder']['plugins'] . 'tinymce4/config/config.php';
@@ -142,14 +142,7 @@ function tinymce4_config($rte_selector, $config) {
     
     $temp -> content_css = $pth['folder']['template'] . 'stylesheet.css';
 
-//    $temp = str_replace('%TINY_FOLDER%', $pth['folder']['plugins'] . 'tinymce4/', $temp);
-
     if ($tiny_language != 'en') $temp -> language = $tiny_language; //no tiny langfile for en
-
-    //$temp = str_replace('\'%IMAGES%\'', get_images($pth['folder']['images']), $temp);
-    //$temp = str_replace('\'%INTERNAL_LINKS%\'', get_internal_links($h, $u, $l, $sn, $pth['folder']['downloads']), $temp);
-
-//    $temp = str_replace('%BASE_URL%', $sn, $temp);
 
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
     $temp -> element_format = $elementFormat;
@@ -164,11 +157,15 @@ function tinymce4_config($rte_selector, $config) {
         $temp -> selector = $rte_selector;
         unset($temp -> height);
     }
-    //$temp = str_replace("%INIT_CLASSES%", $initClasses, $temp);
 
-//    $temp = str_replace("%FILEBROWSER_CALLBACK%", $_SESSION['tinymce_fb_callback'], $temp);
-//    $temp -> file_browser_callback = $_SESSION['tinymce_fb_callback'];
-
+//Inhibit filebrowser and image-/linkslists in frontend mode    
+    if (!$adm || !$edit){
+        unset($temp -> image_list);
+        unset($temp -> link_list);
+        unset($temp -> file_browser);
+        unset($temp -> file_browser_callback);
+    }
+    
     $temp = XH_encodeJSON($temp);
     return $temp;
 }
@@ -224,12 +221,17 @@ function tinymce4_config($rte_selector, $config) {
 	<script language="javascript" type="text/javascript">
 	/* <![CDATA[ */
     var tinyArgs = ' . $temp . ';
-    if (tinyArgs.image_list && myImageList.length > 0) 
+    if (tinyArgs.image_list && myImageList.length > 0 ) 
         tinyArgs.image_list = myImageList;
     else
         delete tinyArgs.image_list;
-    if (tinyArgs.link_list) tinyArgs.link_list = myLinkList;
-    if (tinyArgs.file_browser) tinyArgs.file_browser_callback = wrFilebrowser;
+    if (tinyArgs.link_list) 
+        tinyArgs.link_list = myLinkList;
+    if (tinyArgs.file_browser) 
+        tinyArgs.file_browser_callback = wrFilebrowser;
+        tinyArgs.height = eval(tinyArgs.height);
+        if (typeof tinyArgs.height !== "number") 
+            delete tinyArgs.height;
     tinymce.init(tinyArgs);
 	/* ]]> */
 	</script>

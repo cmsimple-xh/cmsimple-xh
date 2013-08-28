@@ -21,7 +21,11 @@
         {"title": "Table styles"},
         {"title": "Table row 1", "selector": "tr", "classes": "tablerow1"}
     ],
-    "file_browser": true, 
-    "image_list": true,
-    "link_list": true
+  "file_browser": true, 
+  "image_list": true,
+  "link_list": true,
+  "insertdate_formats": ["%H:%M:%S", "%d.%m.%Y", "%I:%M:%S %p", "%D"],
+  "relative_urls" : true,
+  "convert_urls" : false,
+  "entity_encoding" : "raw"
  }
