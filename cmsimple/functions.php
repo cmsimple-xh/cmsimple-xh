@@ -2288,12 +2288,13 @@ function XH_availableLanguages()
  * @global array  The URLs of the pages.
  * @global array  The localization of the core.
  * @global string The URL of the current page.
+ * @global array  The localization of the plugins.
  *
  * @since 1.6
  */
 function XH_adminMenu($plugins = array())
 {
-    global $edit, $s, $u, $tx, $su;
+    global $edit, $s, $u, $tx, $su, $plugin_tx;
 
     if ($s < 0) {
         $su = $u[0];
@@ -2359,7 +2360,10 @@ function XH_adminMenu($plugins = array())
     $plugins = $orderedPlugins;
     $pluginMenu = array();
     foreach ($plugins as $plugin) {
-        $pluginMenuItem = array('label' => ucfirst($plugin));
+        $label = isset($plugin_tx[$plugin]['menu_plugin'])
+            ? $plugin_tx[$plugin]['menu_plugin']
+            : ucfirst($plugin);
+        $pluginMenuItem = array('label' => $label);
         if ($plugin != '') {
             $pluginMenuItem['url'] = '?' . $plugin . '&amp;normal';
         }
