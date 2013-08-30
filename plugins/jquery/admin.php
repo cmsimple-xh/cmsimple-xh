@@ -1,6 +1,5 @@
 <?php
 
-/* utf8-marker = äöüß */
 /**
  * jQuery for CMSimple
  *
@@ -9,8 +8,8 @@
  *
  * @author Holger Irmler
  * @link http://cmsimple.holgerirmler.de
- * @version 1.3.3 - 2012-12-28
- * @build 2012082101
+ * @version 1.4 - 2013-03-30
+ * @build 2013033001
  * @package jQuery
  * */
 //initvar('jquery');
@@ -32,16 +31,24 @@ if (isset($_GET['jquery'])) {
     }
     if ($admin == '') {
         $o .= "\n" . '<div class="plugintext">';
-        $o .= "\n" . '<div class="plugineditcaption">jQuery for CMSimple v. 1.3.3 - 2012-12-28</div>';
-        $o .= '<p>&copy;2011-2012 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
+        $o .= "\n" . '<div class="plugineditcaption">jQuery for CMSimple v. 1.4 - 2013-03-30</div>';
+        $o .= '<p>&copy;2011-2013 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
         $o .= "\n" . '<p>';
         $o .= "\n" . 'jQuery Version: ';
-        $o .= '<script type="text/javascript">document.write(jQuery.fn.jquery)</script>';
+        $o .= '<script type="text/javascript">
+					var migrate = " & Migrate-Plugin";
+					if (typeof jQuery.migrateWarnings === \'undefined\') {
+						migrate = "";
+					}
+					document.write(jQuery.fn.jquery + migrate)
+			   </script>';
         $o .= "\n" . tag('br');
-        $o .= "\n" . 'jQuery UI Version: ';
+        $o .= "\n" . 'jQueryUI Version: ';
         $o .= '<script type="text/javascript">document.write(jQuery.ui.version)</script>';
         $o .= "\n" . '</p>';
         $o .= "\n" . '</div>';
+        if (@include_once $pth['folder']['plugins'].'hi_updatecheck/updatecheck.php')
+            $o .= hi_updateCheck($plugin);
     }
 }
 ?>
