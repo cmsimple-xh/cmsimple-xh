@@ -2325,7 +2325,8 @@ function XH_adminMenu($plugins = array())
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['log']),
-            'url' => '?file=log&amp;action=view'
+            'url' => '?file=log&amp;action=view',
+            'target' => '_blank'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['validate']),
@@ -2425,7 +2426,11 @@ function XH_adminMenuItem($item, $level = 0)
     $indent = str_repeat('    ', $level);
     $t .= $indent . '<li>';
     if (isset($item['url'])) {
-        $t .= '<a href="' . $sn . $item['url'] . '">';
+        $t .= '<a href="' . $sn . $item['url'] . '"';
+        if (isset($item['target'])) {
+            $t .= ' target="' . $item['target'] . '"';
+        }
+        $t .= '>';
     } else {
         $t .= '<span>';
     }
