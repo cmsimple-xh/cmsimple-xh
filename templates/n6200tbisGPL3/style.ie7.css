@@ -1,0 +1,140 @@
+/* Torsten Behrens Webtemplatedesign */
+
+
+/*
+This file is part of a template, which was created by Torsten Behrens.
+Take a modern CMSimple XH version. www.cmsimple-xh.org www.cmsimple.name www.cmsimple.me www.cmsimple.eu
+
+Version 08.08.2013. Update for jQuery4CMSimple. 
+##################################################################################
+# Dies ist ein GPL3 Template von Torsten Behrens.                                #
+# Torsten Behrens                                                                #
+# Dorfstraße 2                                                                   #
+# D-24619 Tarbek                                                                 #
+# USt.ID-Nr. DE214080613                                                         #
+# http://torsten-behrens.de                                                      #
+# http://tbis.info                                                               #
+# http://tbis.net                                                                #
+# http://cmsimple-templates.de                                                   #
+# http://cmsimple-templates.com                                                  #
+##################################################################################
+*/
+
+.tbisgpl3-header, #tbisgpl3-header-bg, .tbisgpl3-layout-cell, .tbisgpl3-layout-wrapper, .tbisgpl3-footer, .tbisgpl3-nav, #tbisgpl3-hmenu-bg, .tbisgpl3-sheet,
+.clearfix {
+   zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
+}
+
+.tbisgpl3-textblock > div {
+   display: block;
+   line-height: normal;
+   zoom: 1;
+}
+
+.tbisgpl3-hmenu>li, .tbisgpl3-hmenu>li>a
+{
+   display: inline !important;
+   zoom: 1;
+   float: none !important;
+   vertical-align: top;
+}
+ul.tbisgpl3-hmenu, ul.tbisgpl3-hmenu ul {
+   zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
+}
+#tbisgpl3-hmenu-bg 
+{
+   display: none;
+}
+
+ul.tbisgpl3-hmenu>li:first-child {
+   padding-right:12px;
+}
+
+ul.tbisgpl3-hmenu ul{
+   background-color: #F0DCC1 !important;
+}
+
+.tbisgpl3-header
+{
+   z-index: 1;
+   background-image: [headerimage];
+   background-position: [headerposition];
+}
+
+#tbisgpl3-header-bg 
+{
+   display: none;
+}
+
+.tbisgpl3-content-layout, .tbisgpl3-content-layout-row, .tbisgpl3-layout-cell 
+{
+   display: block;
+   zoom: 1;
+}
+.tbisgpl3-layout-cell
+{
+   position:relative;
+   float: left;
+   clear: right;
+}
+
+ul.tbisgpl3-vmenu, ul.tbisgpl3-vmenu ul, ul.tbisgpl3-vmenu li{
+   zoom: 1;
+}
+
+ul.tbisgpl3-vmenu ul 
+{
+   background-color: #737373;
+}
+
+input[type="text"]
+{
+   margin:0 0 0 -3px;
+   zoom:expression(runtimeStyle.zoom = 1, parentNode.insertBefore(document.createElement('div'), this).appendChild(this));
+}
+
+* html input[type="text"]
+{
+   margin :0;
+}
+
+form.tbisgpl3-search>input[type="text"]
+{
+   margin:0 0 0 -3px;
+   zoom:expression(runtimeStyle.zoom = 1, parentNode.insertBefore(document.createElement('div'), this).appendChild(this));
+}
+
+form.tbisgpl3-search div>input[type="text"]
+{
+   width: 100%;
+}
+
+* html form.tbisgpl3-search>input[type="text"] 
+{
+   margin :0;
+}
+
+.tbisgpl3-postmetadataheader{
+   zoom:1;
+}
+
+.tbisgpl3-postheadericons span{
+   zoom: 1;
+}
+.tbisgpl3-postcontent {
+   height: 1%;
+}
+
+.close-alt, .arrow-right-alt, .arrow-left-alt {
+   display: block !important;
+}
+.cw, .ccw {
+   display: none !important;
+}
+
+.tbisgpl3-sidebar2 
+{
+   width: auto;
+   float:none;
+}
+

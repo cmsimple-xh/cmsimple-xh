@@ -1,0 +1,39 @@
+@media screen and (max-width: 768px) {
+#header {padding:0;
+margin:0;
+border-top:5px solid #0080c0;
+height:100%;
+margin-bottom:1em;
+background:#fff}
+
+#headerin {width:97%;
+padding:0;
+margin:0 auto}
+
+#header h1 {float:left;
+clear:left;
+color:#0080c0;
+font-size:24px;
+line-height:1.2em;
+text-align:left;
+font-weight:100;
+margin:0;
+letter-spacing:1px;width:100%;}
+
+#header .logo {float:left;
+margin:0;
+border:0 solid #666;
+margin:5px}
+
+#slogan {float:left;
+clear:left;
+color:#0080c0;
+font-size:15px;
+line-height:1.2em;
+text-align:left;
+font-weight:100;
+margin:0;
+letter-spacing:1px;
+width: 100%;
+padding-left: 1em;}
+}

@@ -1,0 +1,107 @@
+@charset "utf-8";
+/* Responsive template "Responsive HTML" v3 2013-01-15 By Oldnema*/
+*{padding:0;margin:0}
+body{background:#fff;font:100% Arial}
+a{color:#369}
+#wrapper{max-width:1200px;margin:1em auto;background:#fff;padding: 10px;}
+#header{padding:0;margin:0;border-top:5px solid #0080c0;height:100px;margin-bottom:1em;background:#fff}
+#headerin{width:97%;padding:0;margin:0 auto}
+#header h1{width:auto;float:right;clear:right;color:#0080c0;font-size:24px;line-height:1.2em;text-align:right;font-weight:100;padding:0.5em;margin:0;letter-spacing:1px;}
+#header .logo{float:left;margin:0;border:0 solid #666;margin:5px;width:auto;}
+#slogan {width:auto;float:right;clear:right;color:#0080c0;font-size:15px;line-height:1.2em;text-align:right;font-weight:100;padding-bottom:10px;margin:0;letter-spacing:1px;}
+#content,#boxs{float:left;background:#fff;min-height:300px;overflow:auto}
+#navi{float:left;width:30%}
+#locator{font:70% Arial;color:#0080c0;}
+#content{width:70%;overflow:hidden;}
+.content_in{padding:0 1em 1em}
+.content_in textarea {width: 90%;}
+table.edit {background: #004080; font-size: 100%; line-height: 1.2em; margin: 1px 0;}
+table.edit td {padding: 3px;}
+table.edit a:link, table.edit a {color: #fff;}
+#boxs{width:100%;clear:both;margin-top:-1em}
+.news{font-size:90%;padding-top:0;margin-top:1em;padding:.6em;border-radius:5px;border:1px #0080c0 solid;background:#ecf5ff}
+#footer{color:#666;clear:both;margin:2em;border-bottom:5px solid #0080c0}
+.footer_in{text-align:center;min-height:3em;padding:1em 0;clear:both;width:100%}
+.copyright{font-size:80%}
+h1,h2,h3{margin:0;font-size:130%;color:#004090;padding-top:.5em;text-shadow:0 1px 1px gray}
+h4,h5,h6{margin:0;font-size:110%;padding:0;color:#004090;text-shadow:0 1px 1px gray}
+input[type="submit"]{background:#013F7F;color:#fff;display:inline-block;height:24px;position:relative;text-align:center;text-decoration:none;margin-left:5px;margin-top:11px;padding:2px 10px 10px;border-radius:5px;font-variant:normal;font-weight:normal;font-size:70%;}
+input[type="text"],input[type="text"]:focus,input[type="password"]:focus{border:#006432 inset 1px;border-radius:5px;font-size:70%;}
+#search{margin-bottom:.4em;border-radius:5px;border:1px #0080c0 solid;padding-left:1em;padding-bottom:.6em;background:#86c2f4;height:40px;}
+#iconmenu {float: right;margin-top: -25px;padding-right: 5px;}
+blockquote {font-family: Georgia, serif;font-size: 100%;font-style: italic;width: 80%;margin: 0.25em 0;padding: 0.25em 40px;line-height: 1.45;position: relative;color: #383838;}
+blockquote:before {display: block;content: "\201C";font-size: 80px;position: absolute;left: -5px;top: -20px;color: #7a7a7a;}
+blockquote a,blockquote a:visited{color:maroon;}
+blockquote a:after{content:"\00BB";}
+img{max-width:100%;height:auto;width: auto; /* 3 */}
+.video{position:relative;padding-bottom:56.25%;padding-top:30px;height:0;overflow:hidden}
+.video iframe,.video object,.video embed{position:absolute;top:0;left:0;width:100%;height:100%}
+p{margin:1em 0;line-height:1.3}
+ol{margin:6px 0}
+ol li{line-height:1.2;border:0;padding:0;margin:0 0 0 22px}
+ul{list-style-position:inside;margin:6px 0 6px 10px}
+ul li{line-height:1.2;border:0;padding:5px 0;margin:0 0 0 17px}
+#menu li,#menu ul{list-style-type:none;margin:0;padding:0}
+#menu a{display:block;color:#fff;text-decoration:none;line-height:200%;padding-left:1em;padding-right:1em;border-radius:5px;background:#004080;border:1px #fff solid}
+#menu a:hover{background:#0080ff}
+#menu{float:left;width:100%;font-size:90%;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.7)}
+#menu li{list-style-type:none;list-style-image:none;padding:0}
+#menu ul.menulevel1 li{line-height:1em;margin:1px 0}
+#menu ul.menulevel2{margin:1px 0}
+#menu ul.menulevel2 li{line-height:1em;margin:1px 0}
+#menu ul.menulevel2 li a{background:#069}
+#menu ul.menulevel2 li a:hover{background:#0080ff}
+#menu ul.menulevel3{margin:1px 0}
+#menu ul.menulevel3 li a{background:#08a}
+#menu ul.menulevel3 li a:hover{background:#0080ff}
+#menu ul ul.menulevel3 li{margin:1px 0}
+#menu2 {padding-top : 0px;padding-bottom : 5px;margin-top: -6px;padding-bottom: 3px;width: 100%;font-size:90%;}
+#menu2 li {list-style : none;padding : 0;display : block;text-decoration : none;line-height : 200%;padding-left : 1em;padding-right : 1em;border-radius : 5px;background : #004080;border : #fff solid 1px;margin-left: -10px;margin-bottom: 1px;font-size: 100%;}
+#menu2, #menu2 a {text-decoration : none;display : block;list-style : none;color: #fff;line-height : 200%;font-family: arial, sans-serif;}
+#menu2 li a:hover {color: #80ffff;}
+.lastupdate {font-size : 90%;border-top : 1px solid #0080c0;}
+.block {width: 48%;margin:0 1%;float: left;box-shadow: 0 8px 6px -6px black;border-top: 1em solid #0080c0;background-color: #f5f5f5;border-radius: 5px;margin-top: -3em;}
+.blockin {padding: 0.5em;font-size: 80%;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;}
+.lastupdate {color:#004080;font-size: 90%;padding: 0.5em;border-top: 2px #0080c0 solid;}
+.langmenu {padding-left: 0.5em;padding-top: 0.5em;}
+.button a {background: #004080;display: inline-block;padding: 5px 10px 6px;color: #fff;text-decoration: none;border-radius: 6px;box-shadow: 0 1px 3px rgba(0,0,0,0.6);text-shadow: 0 -1px 1px rgba(0,0,0,0.25);border-bottom: 1px solid rgba(0,0,0,0.25);position: relative;cursor: pointer; }
+.button a:after {display: inline;content: "  \2191";font-weight: bold;}
+
+@media screen and (max-width: 480px) {
+#content,#navi,#boxs{clear:both;width:100%}
+#menu2{visibility:hidden;height: 1px; overflow: hidden}
+.block{visibility:hidden;height: 1px; overflow: hidden}
+.news {visibility: visible;}
+#locator{visibility:hidden;height: 1px; overflow: hidden}
+ul.menulevel1 {display:none}
+#menu:hover ul.menulevel1 {display:block;}
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+#content,#navi,#boxs{clear:both;width:100%}
+#menu2{visibility:hidden;height: 1px; overflow: hidden}
+.news{visibility:hidden;height: 1px; overflow: hidden}
+.block {visibility: visible;}
+#locator{visibility:hidden;height: 1px; overflow: hidden}
+#locator{visibility:hidden;height: 1px; overflow: hidden}
+ul.menulevel1 {display:none}
+#menu:hover ul.menulevel1 {display:block}
+}
+
+@media screen and (min-width: 769px) and (max-width: 979px) {
+#navi{width:30%}
+#content{width:70%}
+.news{visibility:hidden;height: 1px; overflow: hidden}
+.block {visibility: visible;}
+#iconmenu {visibility:hidden;}
+#boxs{clear:none;width:100%}
+}
+
+@media screen and (min-width: 980px) {
+#iconmenu {visibility:hidden;}
+#navi{width:25%}
+#content{width:50%}
+#boxs{clear:none;width:25%;overflow: auto}
+.news {visibility: visible;overflow: auto}
+.block{visibility:hidden;height: 1px; overflow: hidden}
+}
