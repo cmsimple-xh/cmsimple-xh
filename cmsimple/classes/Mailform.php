@@ -260,7 +260,7 @@ class XH_Mailform
             . '</div>' . "\n"
             . '<div>' . "\n" . $tx['mailform']['senderphone'] . tag('br') . "\n"
             . tag(
-                'input type="text" class="text" size="35"name="senderphone" value="'
+                'input type="text" class="text" size="35" name="senderphone" value="'
                 . XH_hsc($this->senderphone).'"'
             ) . "\n"
             . '</div>' . "\n"
