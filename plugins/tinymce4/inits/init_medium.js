@@ -8,7 +8,7 @@
     "plugins": [
       "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
       "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-      "table contextmenu directionality emoticons template textcolor paste fullpage textcolor save"
+      "table contextmenu directionality emoticons template textcolor paste textcolor save"
     ],
     "toolbar1" : "save | fullscreen code formatselect fontselect fontsizeselect styleselect",
     "toolbar2" : "bold,italic,|,alignleft,aligncenter,alignright,alignjustify,outdent,indent,blockquote,hr,removeformat,|,bullist,numlist,|,charmap",

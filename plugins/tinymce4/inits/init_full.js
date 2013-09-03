@@ -2,13 +2,12 @@
     "selector": "textarea#text",
     "theme": "modern",
     "skin": "lightgray",
-    "menubar": false,
     "toolbar_items_size": "small",
     "height": 600,
     "plugins": [
       "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
       "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-      "table contextmenu directionality emoticons template textcolor paste fullpage textcolor save"
+      "table contextmenu directionality emoticons template textcolor paste textcolor save"
     ],
     "toolbar1" : "save | fullscreen code formatselect fontselect fontsizeselect styleselect",
     "toolbar2" : "bold italic underline strikethrough |,alignleft,aligncenter,alignright,alignjustify,cut,copy,paste,pastetext,pasteword,|,bullist,numlist,outdent,indent,blockquote",

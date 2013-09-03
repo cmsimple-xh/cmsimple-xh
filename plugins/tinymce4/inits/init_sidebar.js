@@ -18,9 +18,6 @@
         {"title": "Table styles"},
         {"title": "Table row 1", "selector": "tr", "classes": "tablerow1"}
     ],
-    "fullscreen_settings": [{
-    "toolbar": "save undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | preview media fullpage | forecolor backcolor emoticons"}
-    ],
   "file_browser": true, 
   "image_list": true,
   "link_list": true,
