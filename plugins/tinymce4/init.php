@@ -64,9 +64,6 @@ function include_tinymce4() {
 	$imageList = $linkList = '';
     }
     
-    $classicHack = $plugin_cf['tinymce4']['init'] !='classic' ? '
-    .mce-ico {margin: 2px auto !important;}/* EM+ Korr. html4 */' : '';
-    
     $hjs .='
         <script language="javascript" type="text/javascript" src="' . $pth['folder']['plugins'] . 'tinymce4/' . 'tinymce/tinymce.min.js"></script>
 	<script type="text/javascript">
@@ -77,9 +74,7 @@ function include_tinymce4() {
 	/* ]]> */
 	</script>
     <style type="text/css">
-        div.mce-fullscreen {z-index: 999;}
-    ' .$classicHack . '
-        .mce-ico.mce-i-save {margin: 0 auto !important;}
+        div.mce-fullscreen {z-index: 999;}  /*fullscreen overlays admin toolbar */
     </style>
 	';
 }
@@ -155,7 +150,6 @@ function tinymce4_config($rte_selector, $config) {
     else
     {
         $temp -> selector = $rte_selector;
-        unset($temp -> height);
     }
 
 //Inhibit filebrowser and image-/linkslists in frontend mode    
@@ -212,7 +206,7 @@ function tinymce4_config($rte_selector, $config) {
 
     $initClasses = 'xh-editor';
     if (is_array($classes) && (bool) $classes) {
-        $initClasses = implode(',', $classes);
+        $initClasses = '.' . implode(',.', $classes);
     }
     
     $temp = tinymce4_config($initClasses, $config);
@@ -229,9 +223,9 @@ function tinymce4_config($rte_selector, $config) {
         tinyArgs.link_list = myLinkList;
     if (tinyArgs.file_browser) 
         tinyArgs.file_browser_callback = ' . $_SESSION['tinymce_fb_callback'] . ';
-        tinyArgs.height = eval(tinyArgs.height);
-        if (typeof tinyArgs.height !== "number") 
-            delete tinyArgs.height;
+    tinyArgs.height = eval(tinyArgs.height);
+    if (typeof tinyArgs.height !== "number") 
+        delete tinyArgs.height;
     tinymce.init(tinyArgs);
 	/* ]]> */
 	</script>

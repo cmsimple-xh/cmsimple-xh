@@ -94,6 +94,14 @@ if ($tinymce4) {
     
     $tinymceConfig = new XH_TinyMceConfigFileEdit();
     $o .= $tinymceConfig->edit();
+    $o .= '<h2>Important Notice</h2>
+<p><strong>tinymce4 is optimized for html5 documents. If you want to run it with a html4/xhtml template and have the toolbar styled nicely, add this to your template style definition:</strong></p>
+<pre>
+ .mce-ico {margin: 2px auto !important;}
+ .mce-ico.mce-i-save {margin: 0 auto !important;}
+ </pre>
+ ';
+
     $o .= '</div>';
 }
 /*
