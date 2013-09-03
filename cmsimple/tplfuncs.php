@@ -424,7 +424,7 @@ function lastupdate($br = null, $hour = null)
  * @global array  The configuration of the core.
  * @global string The script name.
  *
- * @deprecated since 1.5.9
+ * @deprecated since 1.5.8
  */
 function legallink()
 {
