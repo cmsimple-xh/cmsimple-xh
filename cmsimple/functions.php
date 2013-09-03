@@ -902,7 +902,11 @@ function rfc()
 {
     global $c, $cl, $h, $u, $l, $su, $s, $tx, $e, $pd_router;
 
-    list($u, $tooLong, $h, $l, $c, $pd_router) = array_values(XH_readContents());
+    $contents = XH_readContents();
+    if ($contents === false) {
+        die('Couldn\'t read content.htm');
+    }
+    list($u, $tooLong, $h, $l, $c, $pd_router) = array_values($contents);
     $duplicate = 0;
 
     $cl = count($c);
