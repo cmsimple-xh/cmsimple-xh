@@ -26,7 +26,7 @@ initvar('tinymce');
 
 if ($tinymce) {
 
-    $o = '<div class="plugintext">';
+    $o .= '<div class="plugintext">';
     $o .= '<div class="plugineditcaption">TinyMCE for CMSimple_XH</div>';
     $o .= '<p>Version for @CMSIMPLE_XH_VERSION@</p>';
     $o .= '<p>TinyMCE version 3.5.8  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a></p>';
