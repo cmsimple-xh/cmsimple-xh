@@ -6,9 +6,9 @@
     "toolbar_items_size": "small",
     "height": 600,
     "plugins": [
-      "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
-      "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-      "table contextmenu directionality emoticons template textcolor paste textcolor save"
+      "advlist anchor autolink autosave charmap code contextmenu emoticons fullscreen hr",
+      "image insertdatetime link lists media nonbreaking paste",
+      "save searchreplace table textcolor visualblocks visualchars wordcount"
     ],
     "toolbar1" : "save | fullscreen code formatselect fontselect fontsizeselect styleselect",
     "toolbar2" : "bold,italic,|,alignleft,aligncenter,alignright,alignjustify,outdent,indent,blockquote,hr,removeformat,|,bullist,numlist,|,charmap",
