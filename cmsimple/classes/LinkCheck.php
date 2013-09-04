@@ -51,6 +51,7 @@ class XH_LinkCheck
             preg_match_all($pattern, $c[$i], $pageLinks);
             if (count($pageLinks[1]) > 0) {
                 foreach ($pageLinks[1] as $link) {
+                    $link = str_replace('&amp;', '&', $link);
                     if (strpos($link, '#') === 0) {
                         $hrefs[$i][] = '?' . $u[$i] . $link;
                     } else {
@@ -68,6 +69,7 @@ class XH_LinkCheck
                 $parts = parse_url($link);
                 switch ($parts['scheme']) {
                 case 'http':
+                case 'https':
                     $status = $this->checkExternalLink($parts);
                     break;
                 case 'mailto':
