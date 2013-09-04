@@ -9,6 +9,25 @@
  -> = deleted code
  x> = general changes
 
+------------------------------------------------------------------------------------------------------------------
+
+ Version 1.4 Build 2013033001
+
+ jQuery updated to version 1.9.1
+ jQuery UI updated to version 1.10.2
+ jQuery-migrate 1.1.1 added
+ jquery.inc.php: +> = global $hjs, $plugin_cf, $pth;
+ Constants not longer defined with version of jquery / jqueryUI
+ admin.php: code for update-check added
+
+ ------------------------------------------------------------------------------------------------------------------
+
+Version 1.3.3 Build 2012122801
+
+ jQuery updated to version 1.8.3
+ jQuery UI updated to version 1.9.2
+ x> admin.php
+
  ------------------------------------------------------------------------------------------------------------------
 
  Version 1.3.2 Build 2012082101

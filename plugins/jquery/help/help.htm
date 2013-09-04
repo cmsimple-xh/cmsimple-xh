@@ -52,10 +52,10 @@ jQueryUI to
 a CMSimple installation and make the libraries available to use with
 other CMSimple-Plugins. </p>
 
-<p class="additional">Version 1.3.1 - 2011-09-30<br>
+<p class="additional">Version 1.4 - 2013-03-30<br>
 
 <span class="additional">
-&copy; 2011 Holger Irmler, </span><a class="additional" target="_blank" href="http://cmsimple.holgerirmler.de">http://CMSimple.HolgerIrmler.de</a><span class="additional">.<br>
+&copy; 2011-2013 Holger Irmler, </span><a class="additional" target="_blank" href="http://cmsimple.holgerirmler.de">http://CMSimple.HolgerIrmler.de</a><span class="additional">.<br>
 
 </span></p>
 
@@ -64,29 +64,42 @@ other CMSimple-Plugins. </p>
 <br>
 
 <ol id="mozToc">
+
 <!--mozToc h2 1 h3 2 h4 3--><li><a href="#mozTocId43365">Installation</a></li>
+
   <li><a href="#mozTocId153175">Developers
 View</a>
     <ol>
+
       <li><a href="#mozTocId683226">How
 to use:</a></li>
+
       <li><a href="#mozTocId206541">Using
 other jQuery-based plugins / extensions</a></li>
+
       <li><a href="#mozTocId686597">Complete
-code-example:
-        </a></li>
-      <li><a href="#mozTocId335378">
-Where and how to put your own code?</a></li>
+code-example: </a></li>
+
+      <li><a href="#mozTocId335378">Where and how to
+put your own code?</a></li>
+
       <li><a href="#mozTocId191578">Other
 things to know...</a></li>
+
     </ol>
+
   </li>
+
   <li><a href="#mozTocId602111">Desingers
 View</a></li>
+
   <li><a href="#mozTocId830415">Advanced Usage</a></li>
+
   <li><a href="#mozTocId160751">Licenses</a></li>
+
   <li><a href="#mozTocId753693">Need
 help?</a></li>
+
 </ol>
 
 <br>
@@ -213,44 +226,35 @@ include-file. Have a look at the basic code example below:
 
 </ol>
 
-
 <script type="syntaxhighlighter" class="brush: php"><![CDATA[
 <?php
-
 function myplugin(){
-	global $pth, $plugin_cf; //be sure CMSimple variables are accessible in your function
-
-	$jqerror = '';
-	if(!file_exists($pth['folder']['plugins'].'jquery/jquery.inc.php')){
-		$jqerror = '<div class="cmsimplecore_warning">'.
-				   '<b>Ups!</b>'.tag('br').
-				   'Plugin '.ucfirst(basename(dirname(__FILE__))).
-				   ' requires jQuery4CMSimple - Plugin!'.tag('br').
-				   'Please download and install jQuery4CMSimple'.tag('br').
-				   'from <a href='.
-				   '"http://cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple">'.
-				   ' www.cmsimple-xh.com/wiki</a>.'.
-				   '</div>';
-		//drop the rest of the plugin-code
-		return($jqerror);
-	} else {
-	//load include-file from jQuery-plugin
-	//always use "include_once"!
-	include_once($pth['folder']['plugins'].'jquery/jquery.inc.php'); 
-
-	//include jQuery to the <head>
-	include_jQuery();
-
-	//include jQuery UI to the <head>, if you use it in your plugin
-	include_jQueryUI();
-
-	//....
-	//your other code ...
-	//....
-	
-	}
+global $hjs, $pth, $plugin_cf; //be sure CMSimple variables are accessible in your function
+$jqerror = '';
+if(!file_exists($pth['folder']['plugins'].'jquery/jquery.inc.php')){
+$jqerror = '<div class="cmsimplecore_warning">'.
+'<b>Ups!</b>'.tag('br').
+'Plugin '.ucfirst(basename(dirname(__FILE__))).
+' requires jQuery4CMSimple - Plugin!'.tag('br').
+'Please download and install jQuery4CMSimple'.tag('br').
+'from <a href='.
+'"http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple">'.
+' www.cmsimple-xh.org/wiki</a>.'.
+'</div>';
+//drop the rest of the plugin-code
+return($jqerror);
+} else {
+//load include-file from jQuery-plugin
+//always use "include_once"!
+include_once($pth['folder']['plugins'].'jquery/jquery.inc.php'); //include jQuery to the <head>
+include_jQuery();
+//include jQuery UI to the <head>, if you use it in your plugin
+include_jQueryUI();
+//....
+//your other code ...
+//....
 }
-
+}
 ?>
 ]]></script>
 <br>
@@ -269,9 +273,11 @@ for CMSimple is not available (Line 06 - 16)</li>
 for inclusion, otherwise the script will break with a fatal-error, if
 another plugin has included the file already</span></li>
 
-  <li>activate jQuery by calling the function include_jQuery() (Line 23)</li>
+  <li>activate jQuery by calling the function include_jQuery()
+(Line 23)</li>
 
-  <li>activate jQuery UI by calling the function include_jQueryUI() (Line 26)</li>
+  <li>activate jQuery UI by calling the function
+include_jQueryUI() (Line 26)</li>
 
 </ol>
 
@@ -310,8 +316,6 @@ For this purposes, a third function comes with jQuery for CMSimple:<br>
 <script type="syntaxhighlighter" class="brush: php"><![CDATA[
 include_jQueryPlugin($name, $path)
 ]]></script>
-
-
 where $name is the name of the jQuery-plugin and $path ist the full
 path and filename of the js-file to load.<br>
 
@@ -327,19 +331,16 @@ You need to include two additional lines to your plugin-code:<br>
 
 <script type="syntaxhighlighter" class="brush: php"><![CDATA[
 <?php
-
 include_jQueryPlugin('easing',
-	$pth['folder']['plugins'].'myplugin/jquery.easing-1.3.pack.js');
-
+$pth['folder']['plugins'].'myplugin/jquery.easing-1.3.pack.js');
 include_jQueryPlugin('mousewheel',
-	$pth['folder']['plugins'].'myplugin/jquery.mousewheel-3.0.4.pack.js');
-
+$pth['folder']['plugins'].'myplugin/jquery.mousewheel-3.0.4.pack.js');
 ?>
 ]]></script>
-
 Note: to be as much compatible as possible with other CMSimple-plugins,
 use only the real-name of the jQuery-plugin for the $name-parameter
 when calling the include_jQueryPlugin() - function:<br>
+
 use "<span style="font-style: italic; font-weight: bold;">easing</span>"
 <span style="text-decoration: underline;">and not</span><span style="font-weight: bold;"> </span>"<span style="font-style: italic; font-weight: bold;">easing-1.3</span>"
 etc. for $name.<br>
@@ -365,51 +366,40 @@ code-example:<br>
 
 <script type="syntaxhighlighter" class="brush: php"><![CDATA[
 <?php
-
 function myplugin(){
-	global $pth, $plugin_cf; //be sure CMSimple variables are accessible in your function
-
-	$jqerror ='';
-	if(!file_exists($pth['folder']['plugins'].'jquery/jquery.inc.php')){
-		$jqerror = '<div class="cmsimplecore_warning">'.
-				   '<b>Ups!</b>'.tag('br').
-				   'Plugin '.ucfirst(basename(dirname(__FILE__))).
-				   ' requires jQuery4CMSimple - Plugin!'.tag('br').
-				   'Please download and install jQuery4CMSimple'.tag('br').
-				   'from <a href='.
-				   '"http://cmsimple-xh.com/wiki/doku.php/plugins:jquery4cmsimple">'.
-				   ' www.cmsimple-xh.com/wiki</a>.'.
-				   '</div>';
-		//drop the rest of the plugin-code
-		return($jqerror);
-	} else {
-	//load inculde-file from jQuery-plugin
-	//always use "include_once"!
-	include_once($pth['folder']['plugins'].'jquery/jquery.inc.php'); 
-
-	//include jQuery to the <head>
-	include_jQuery();
-
-	//include jQuery UI to the <head>, if you use it in your plugin
-	include_jQueryUI();
-	
-	//include other jQuery plugins
-	include_jQueryPlugin('easing',
-		$pth['folder']['plugins'].'myplugin/jquery.easing-1.3.pack.js');
-	include_jQueryPlugin('mousewheel',
-		$pth['folder']['plugins'].'myplugin/jquery.mousewheel-3.0.4.pack.js');
-
-	//....
-	//your other code ...
-	//....
-	
-	}
+global $pth, $plugin_cf; //be sure CMSimple variables are accessible in your function
+$jqerror ='';
+if(!file_exists($pth['folder']['plugins'].'jquery/jquery.inc.php')){
+$jqerror = '<div class="cmsimplecore_warning">'.
+'<b>Ups!</b>'.tag('br').
+'Plugin '.ucfirst(basename(dirname(__FILE__))).
+' requires jQuery4CMSimple - Plugin!'.tag('br').
+'Please download and install jQuery4CMSimple'.tag('br').
+'from <a href='.
+'"http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple">'.
+' www.cmsimple-xh.org/wiki</a>.'.
+'</div>';
+//drop the rest of the plugin-code
+return($jqerror);
+} else {
+//load inculde-file from jQuery-plugin
+//always use "include_once"!
+include_once($pth['folder']['plugins'].'jquery/jquery.inc.php'); //include jQuery to the <head>
+include_jQuery();
+//include jQuery UI to the <head>, if you use it in your plugin
+include_jQueryUI();
+//include other jQuery plugins
+include_jQueryPlugin('easing',
+$pth['folder']['plugins'].'myplugin/jquery.easing-1.3.pack.js');
+include_jQueryPlugin('mousewheel',
+$pth['folder']['plugins'].'myplugin/jquery.mousewheel-3.0.4.pack.js');
+//....
+//your other code ...
+//....
 }
-
+}
 ?>
 ]]></script>
-
-
 <div style="text-align: right;"><a href="help.htm#mozToc">Back to toc</a><br>
 
 </div>
@@ -422,36 +412,54 @@ To include your own code, use the common CMSimple-way:<br>
 <br>
 
 If your script goes to the &lt;head&gt; - section, use <span style="font-weight: bold;">$hjs</span>:<br>
+
 <script type="syntaxhighlighter" class="brush: php"><![CDATA[
 $hjs .= '<script type="text/javascript">
-	        jQuery(document).ready(function(){...});
-         &lt;/script>';
+jQuery(document).ready(function(){...});
+&lt;/script>';
 ]]></script>
-
 If you need to put your code inside the content, do it the same way but
 use <span style="font-weight: bold;">$o</span>
 variable:<br>
+
 <script type="syntaxhighlighter" class="brush: php"><![CDATA[
 $o .= '<script type="text/javascript">
-	      jQuery("p.neat").addClass("ohmy").show("slow");
-	   &lt;/script>';
+jQuery("p.neat").addClass("ohmy").show("slow");
+&lt;/script>';
 ]]></script>
 <br>
 
 <p>
 With jQuery4CMSimple, jQuery will always the first loaded JS-Library.<br>
-That makes it easy to use other Frameworks, using the $ shorthand, together with jQuery.<br>
+
+That makes it easy to use other Frameworks, using the $ shorthand,
+together with jQuery.<br>
+
 To write your code as much compatible as possible
-<ul>
-<li>don't use '$' - use jQuery() or (function($) { /* your code in here might use $() */ })(jQuery))</li>
-<li>don't use jQuerys noConflict() in your plugins</li>
-<li>use the " .= " operator to append non-jQuery-libraries on right side of $hjs</li>
-<li>include other frameworks <u>in the template</u> always <u>after</u> the line "&lt;?php echo head();?&gt;"</li>
-</ul>
-For more informations refer to the  "Including jQuery before Other Libraries" chapter at the<br> 
-<a target="_blank" href="http://docs.jquery.com/Using_jQuery_with_Other_Libraries#Including_jQuery_before_Other_Libraries">jQuery-Documentation</a> 
-or have a look at the discussion at the <a target="_blank" href="http://www.cmsimpleforum.com/viewtopic.php?f=29&t=3209&st=0&sk=t&sd=a&start=20#p18077">Forum</a>.
 </p>
+
+<ul>
+
+  <li>don't use '$' - use jQuery() or (function($) { /* your code
+in here might use $() */ })(jQuery))</li>
+
+  <li>don't use jQuerys noConflict() in your plugins</li>
+
+  <li>use the " .= " operator to append non-jQuery-libraries on
+right side of $hjs</li>
+
+  <li>include other frameworks <u>in the template</u>
+always <u>after</u> the line "&lt;?php echo
+head();?&gt;"</li>
+
+</ul>
+
+For more informations refer to the "Including jQuery before Other
+Libraries" chapter at the<br>
+
+<a target="_blank" href="http://docs.jquery.com/Using_jQuery_with_Other_Libraries#Including_jQuery_before_Other_Libraries">jQuery-Documentation</a>
+or have a look at the discussion at the <a target="_blank" href="http://www.cmsimpleforum.com/viewtopic.php?f=29&amp;t=3209&amp;st=0&amp;sk=t&amp;sd=a&amp;start=20#p18077">Forum</a>.
+<p></p>
 
 <h3><a class="mozTocH3" name="mozTocId191578"></a>Other
 things to know...</h3>
@@ -470,7 +478,6 @@ functions with the path to the libraries:<br>
 <script type="syntaxhighlighter" class="brush: php"><![CDATA[
 include_jQuery('http://code.jquery.com/jquery-latest.min.js');
 ]]></script>
-
 You can use a local or an external path like in the example. Do it for
 jQueryUI the same way. But use this feature only in your development
 environment. <span style="text-decoration: underline;">Do
@@ -484,24 +491,31 @@ Your releases must always come without a parameter in the function-call.<br>
 <span style="font-weight: bold;">How to find out which
 version of jQuery / jQueryUI is installed:</span><br>
 
-We will keep the plugin up to date and provide from time to time a new
-download with&nbsp;new stable versions of the libraries.<br>
+<span style="color: rgb(255, 0, 0); font-weight: bold;">(Feature
+removed since version 1.4)</span><br>
 
-Anyway, jQuery for CMSimple defines two constants:<br>
+<span style="text-decoration: line-through;">We will keep
+the plugin up to date and provide from time to time a new
+download with&nbsp;new stable versions of the libraries.</span><br style="text-decoration: line-through;">
 
-<p class="code">define('JQUERY',
+<span style="text-decoration: line-through;">
+Anyway, jQuery for CMSimple defines two constants:</span><br style="text-decoration: line-through;">
+
+<p style="text-decoration: line-through;" class="code">define('JQUERY',
 $plugin_cf['jquery']['version_core']);</p>
 
-<p class="code">define('JQUERY_UI',
+<p style="text-decoration: line-through;" class="code">define('JQUERY_UI',
 $plugin_cf['jquery']['version_ui']);</p>
 
+<span style="text-decoration: line-through;">
 The constants are holding the version of the libraries in a format like
-<span style="font-style: italic;">1.6.1</span> for
+</span><span style="font-style: italic; text-decoration: line-through;">1.6.1</span><span style="text-decoration: line-through;"> for
 example. Note that the values come from the $plugin_cf - array which
-holds the entries&nbsp;in string-format.<br>
+holds the entries&nbsp;in string-format.</span><br style="text-decoration: line-through;">
 
+<span style="text-decoration: line-through;">
 You may include some code to make a version-check on your own, if you
-really need that.<br>
+really need that.</span><br>
 
 <div style="text-align: right;"><a href="help.htm#mozToc">Back to toc</a><br>
 
