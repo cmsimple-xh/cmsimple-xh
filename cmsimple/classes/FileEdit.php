@@ -570,7 +570,9 @@ class XH_ArrayFileEdit extends XH_FileEdit
                 if ($opt['type'] == 'hidden' || $opt['type'] == 'random') {
                     $o .= $this->formField($category, $name, $opt);
                 } else {
-                    $displayName = $name != '' ? $name : $category;
+                    $displayName = $name != ''
+                        ? str_replace('_', ' ', $name)
+                        : $category;
                     $o .= '<div class="xh_label">'
                         . $info . '<span class="xh_label">'
                         . $this->translate($displayName) . '</span>'
