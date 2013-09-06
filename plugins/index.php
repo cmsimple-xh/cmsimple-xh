@@ -811,6 +811,11 @@ function plugin_admin_common($action, $admin, $plugin, $hint=ARRAY()) {
             $save_data = $text_data;
         }
         $is_saved = PluginWriteFile($pth['file'][$admin], $save_data);
+        if (($admin == 'plugin_config' || $admin == 'plugin_language')
+            && function_exists('opcache_invalidate'))
+        {
+            opcache_invalidate($pth['file'][$admin], false);
+        }
         $t .= tag('br') . '<b>' . $is_saved['msg'] . '</b>' . tag('br');
     }
     return $t;

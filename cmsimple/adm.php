@@ -275,6 +275,9 @@ if ($adm) {
                     if ($fh = @fopen($pth['file'][$file], "w")) {
                         fwrite($fh, $text);
                         fclose($fh);
+                        if (function_exists('opcache_invalidate')) {
+                            opcache_invalidate($pth['file'][$file], false);
+                        }
                         if ($file == 'config' || $file == 'language' || $file == 'langconfig') {
                             if (!@include($pth['file'][$file]))
                                 e('cntopen', $file, $pth['file'][$file]);
