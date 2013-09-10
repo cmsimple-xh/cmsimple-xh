@@ -46,6 +46,10 @@
   ======================================
  */
 
+if (ini_get('opcache.enable')) {
+    ini_set('opcache.enable', 0);
+}
+
 $title = '';
 $o = '';
 $e = '';
