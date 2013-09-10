@@ -332,9 +332,6 @@ class PL_Page_Data_Model{
 		$fh = fopen(PL_PAGE_DATA_FILE, "w");
 		fwrite($fh,$data_string);
 		fclose($fh);
-		if (function_exists('opcache_invalidate')) {
-			opcache_invalidate(PL_PAGE_DATA_FILE, false);
-		}
 		return;
 	}
 }
