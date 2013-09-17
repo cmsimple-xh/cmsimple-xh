@@ -1031,7 +1031,9 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
         $this->cfg = array();
         foreach ($plugin_cf[$plugin] as $key => $val) {
             list($cat, $name) = $this->splitKey($key);
-            $omcf = isset($mcf[$key]) ? $mcf[$key] : null;
+            $omcf = isset($mcf[$key])
+                ? $mcf[$key]
+                : (utf8_strlen($val) <= 50 ? 'string' : 'text');
             $hint = isset($plugin_tx[$plugin]["cf_$key"])
                 ? $plugin_tx[$plugin]["cf_$key"] : null;
             $this->cfg[$cat][$name] = $this->option($omcf, $val, $hint);
