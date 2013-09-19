@@ -2235,6 +2235,8 @@ function XH_isContentBackup($filename)
  * @global array The paths of system files and folders.
  *
  * @since 1.6
+ *
+ * @todo Addtionally check for template.htm?
  */
 function XH_templates()
 {
