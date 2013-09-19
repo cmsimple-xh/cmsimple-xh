@@ -17,7 +17,21 @@
 <?php echo head();?>
 </head>
 <body <?php echo onload();?>>
-
+    <?php
+    function tpl_printurl() {
+        global $f, $search, $file, $sn, $tx;
+        $t = '&amp;print';
+        if ($f == 'search')
+            $t .= '&amp;function=search&amp;search=' . htmlspecialchars(stsl($search), ENT_COMPAT, 'UTF-8');
+        else if ($f == 'file')
+            $t .= '&amp;file=' . $file;
+        else if ($f != '' && $f != 'save')
+            $t .= '&amp;' . $f;
+        else if (sv('QUERY_STRING') != '')
+            $t = htmlspecialchars(sv('QUERY_STRING'), ENT_COMPAT, 'UTF-8') . $t;
+        return $sn . '?' . $t;
+    }
+    ?>
 <div id="page_wrapper_out">
     <div id="page_wrapper_in">
         <div class="warning">
@@ -36,7 +50,7 @@
             <div class="right">
                 <div class="function_links">
                     <a href="./"><img src="<?php echo $pth['folder']['templateimages'];?>home.png" alt="home"></a>
-                    <a href="./?&amp;print"><img src="<?php echo $pth['folder']['templateimages'];?>print.png" alt="print"></a>
+                    <a href="<?php echo tpl_printurl();?>"><?php echo tag('img src="' . $pth['folder']['templateimages'] . 'print.png" alt="' . $tx['menu']['print'] . '"');?></a>
                     <a href="./?&amp;sitemap"><img src="<?php echo $pth['folder']['templateimages'];?>sitemap.png" alt="sitemap"></a>
                     <a href="./?&amp;mailform"><img src="<?php echo $pth['folder']['templateimages'];?>mailform.png" alt="mailform"></a>
                 </div>
