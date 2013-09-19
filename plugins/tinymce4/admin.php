@@ -29,7 +29,7 @@ if ($tinymce4) {
     $o .= '<div class="plugintext">';
     $o .= '<div class="plugineditcaption">TinyMCE for CMSimple_XH</div>';
     $o .= '<p>Version for $CMSIMPLE_XH_VERSION$</p>';
-    $o .= '<p>TinyMCE version 4.0.5  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a></p>';
+    $o .= '<p>TinyMCE version 4.0.6  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a></p>';
     $o .= '<p>CMSimpe_xh & Filebrowser integration';
     $o .= tag('br');
     $o .= 'up to version 1.5.6 &ndash; <a href="http://www.zeichenkombinat.de/" target="_blank">Zeichenkombinat.de</a>';
@@ -96,6 +96,7 @@ if ($tinymce4) {
     $o .= $tinymceConfig->edit();
     $o .= '<h2>Important Notice</h2>
 <p><strong>tinymce4 is optimized for html5 documents. If you want to run it with a html4/xhtml template and have the toolbar styled nicely, add this to your template style definition:</strong></p>
+<p><strong>tinymce4 ist optimiert f&uuml;r html5 Dokumente. F&uuml;r die optimale Anzeige der Toolbar in html4/xhtml Templates , erg&auml;nze bitte den folgenden Code in den Stildefinitionen/stylesheet.css:</strong></p>
 <pre>
  .mce-ico {margin: 2px auto !important;}
  .mce-ico.mce-i-save {margin: 0 auto !important;}

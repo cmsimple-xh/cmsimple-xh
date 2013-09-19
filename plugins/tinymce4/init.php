@@ -1,16 +1,16 @@
 <?php
 
 // utf-8-marker: äöüß
-
+if (!defined('XH_ADM')) define('XH_ADM', $adm); 
 /**
  * Returns the JS to activate the configured filebrowser.
  *
  * @return void
  */
 function tinymce4_filebrowser() {
-    global $adm, $cf, $edit;
+    global $cf, $edit;
 
-    if (!$adm || !$edit) { return ''; }  // no filebrowser, if editor is called from front-end
+    if (!(XH_ADM && $edit)) { return ''; }  // no filebrowser, if editor is called from front-end
 
     $url = '';
     $script = ''; //holds the code of the callback-function
@@ -50,18 +50,18 @@ function tinymce4_filebrowser() {
  * @return void
  */
 function include_tinymce4() {
-    global $adm, $edit, $pth, $h, $u, $l, $sn, $hjs, $plugin_cf;
+    global $edit, $pth, $h, $u, $l, $sn, $hjs, $plugin_cf;
     static $again = FALSE;
 
     if ($again) {return;}
     $again = TRUE;
 
-    if ($adm && $edit) {
-	include_once $pth['folder']['plugins'] . 'tinymce4/' . 'links.php';
-	$imageList = 'var myImageList = '.get_images($pth['folder']['images']).';';
-	$linkList = 'var myLinkList = '.get_internal_links($h, $u, $l, $sn, $pth['folder']['downloads']).';';
+    if (XH_ADM && $edit) {
+        include_once $pth['folder']['plugins'] . 'tinymce4/' . 'links.php';
+        $imageList = 'var myImageList = '.get_images($pth['folder']['images']).';';
+        $linkList = 'var myLinkList = '.get_internal_links($h, $u, $l, $sn, $pth['folder']['downloads']).';';
     } else {
-	$imageList = $linkList = '';
+        $imageList = $linkList = '';
     }
     
     $hjs .='
@@ -85,8 +85,8 @@ function include_tinymce4() {
  *
  * @return string
  */
-function tinymce4_config($rte_selector, $config) {
-    global $adm, $edit, $pth, $sl, $sn, $cf, $plugin_cf;
+function tinymce4_config($xh_editor, $config, $selector) {
+    global $edit, $pth, $sl, $sn, $cf, $plugin_cf;
 
     if (!isset($plugin_cf['tinymce4'])) {
 	include_once $pth['folder']['plugins'] . 'tinymce4/config/config.php';
@@ -104,18 +104,18 @@ function tinymce4_config($rte_selector, $config) {
             $temp = explode('_', basename($init, '.js'));
 
             if (isset($temp[1]) && $temp[1] === $config) {
-		$tiny_mode = $config;
-		$isFile = false;
-		$initFile = $pth['folder']['plugins'] . 'tinymce4/' . 'inits/init_' . $tiny_mode . '.js';
-		break;
+                $tiny_mode = $config;
+                $isFile = false;
+                $initFile = $pth['folder']['plugins'] . 'tinymce4/' . 'inits/init_' . $tiny_mode . '.js';
+                break;
             }
         }
     }
 
     if ($initFile) {
-	$temp = file_get_contents($initFile);
+        $temp = file_get_contents($initFile);
     } else {
-	$temp = $config;
+        $temp = $config;
     }
 
     /*
@@ -142,18 +142,19 @@ function tinymce4_config($rte_selector, $config) {
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
     $temp -> element_format = $elementFormat;
     
-    if ($rte_selector == 'xh-editor')
+    if ($xh_editor)
     {
         if (!isset($temp -> selector)) $temp -> selector = 'textarea#text';
         $temp -> height = $cf['editor']['height'];
     }
     else
     {
-        $temp -> selector = $rte_selector;
+        unset($temp -> height);
+        if ($selector) $temp -> selector = $selector;
     }
 
 //Inhibit filebrowser and image-/linkslists in frontend mode    
-    if (!$adm || !$edit){
+    if (!XH_ADM || !$edit){
         unset($temp -> image_list);
         unset($temp -> link_list);
         unset($temp -> file_browser);
@@ -179,14 +180,12 @@ function tinymce4_config($rte_selector, $config) {
  * @return string  The JS to actually create the editor.
  */
  function tinymce4_replace($elementID = false, $config = '') {
-/*    if(!$elementID){
+    if(!$elementID){
         return '';
     }
-
-    $temp = tinymce_config(FALSE, $config);
-
-    return 'new tinymce.Editor("' . $elementID .'", ' . $temp . ').render();';
-*/    
+    $config = tinymce4_config(FALSE, $config, '#' . $elementID);
+   
+    return _setInit($config);
 }
 
 
@@ -200,21 +199,31 @@ function tinymce4_config($rte_selector, $config) {
  */
  function init_tinymce4($classes = array(), $config = false) {
     global $hjs;
-    static $run = 0;
 
     include_tinymce4();
+    
+    if (!is_array($classes) && (bool) $classes === false) return;
 
     $initClasses = 'xh-editor';
     if (is_array($classes) && (bool) $classes) {
         $initClasses = '.' . implode(',.', $classes);
     }
     
-    $temp = tinymce4_config($initClasses, $config);
+    $temp = tinymce4_config($initClasses == 'xh-editor', $config, $initClasses);
 
-    $hjs .= str_replace('tinyArgs','tinyArgs'.$run,'
+    $hjs .= '
 	<script language="javascript" type="text/javascript">
-	/* <![CDATA[ */
-    var tinyArgs = ' . $temp . ';
+	/* <![CDATA[ */' . _setInit($temp) . '
+	/* ]]> */
+	</script>
+	';
+    return;
+}
+
+function _setInit($config) {
+    static $run = 0;
+    $js = str_replace('tinyArgs','tinyArgs'.$run,'
+    var tinyArgs = ' . $config . ';
     if (tinyArgs.image_list && myImageList.length > 0 ) 
         tinyArgs.image_list = myImageList;
     else
@@ -227,14 +236,11 @@ function tinymce4_config($rte_selector, $config) {
     if (typeof tinyArgs.height !== "number") 
         delete tinyArgs.height;
     tinymce.init(tinyArgs);
-	/* ]]> */
-	</script>
-	');
-
+    ');
     $run++;
-    return;
+    return $js;
 }
 
 /*
- * End of file plugins/tinymce/tinymce.php
+ * End of file plugins/tinymce4/init.php
  */
