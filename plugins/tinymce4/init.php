@@ -134,18 +134,18 @@ function tinymce4_config($xh_editor, $config, $selector) {
      * you might want to create a special editor.css.
      */
     $temp = XH_decodeJSON($temp);
-    
+    $sysTemp =  (object) array();
     $temp -> content_css = $pth['folder']['template'] . 'stylesheet.css';
 
-    if ($tiny_language != 'en') $temp -> language = $tiny_language; //no tiny langfile for en
+    if ($tiny_language != 'en') $sysTemp -> language = $tiny_language; //no tiny langfile for en
 
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
-    $temp -> element_format = $elementFormat;
+    $sysTemp -> element_format = $elementFormat;
     
     if ($xh_editor)
     {
         if (!isset($temp -> selector)) $temp -> selector = 'textarea#text';
-        $temp -> height = $cf['editor']['height'];
+        $sysTemp -> height = $cf['editor']['height'];
     }
     else
     {
@@ -160,7 +160,7 @@ function tinymce4_config($xh_editor, $config, $selector) {
         unset($temp -> file_browser);
         unset($temp -> file_browser_callback);
     }
-    
+    $temp = (object) array_merge( (array) $sysTemp, (array) $temp );
     $temp = XH_encodeJSON($temp);
     return $temp;
 }
@@ -202,8 +202,6 @@ function tinymce4_config($xh_editor, $config, $selector) {
 
     include_tinymce4();
     
-    if (!is_array($classes) && (bool) $classes === false) return;
-
     $initClasses = 'xh-editor';
     if (is_array($classes) && (bool) $classes) {
         $initClasses = '.' . implode(',.', $classes);

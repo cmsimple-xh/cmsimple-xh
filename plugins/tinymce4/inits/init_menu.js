@@ -1,5 +1,4 @@
 {
-  "selector": "textarea#text",
   "theme": "modern",
   "height": 600,
   "plugins": [

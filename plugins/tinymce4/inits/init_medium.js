@@ -1,5 +1,4 @@
 {
-    "selector": "textarea#text",
     "theme": "modern",
     "skin": "lightgray",
     "menubar": false,
