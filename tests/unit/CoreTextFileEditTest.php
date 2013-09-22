@@ -36,7 +36,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
         global $pth, $file;
 
         $file = 'template';
-        $pth['file']['template'] = './templates/cmsimplexh/template.htm';
+        $pth['file']['template'] = './templates/mini1/template.htm';
         $this->editor = new XH_CoreTextFileEdit();
     }
 
