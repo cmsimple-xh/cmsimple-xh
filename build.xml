@@ -118,8 +118,11 @@
             <fileset dir="dist">
                 <include name="README*.txt"/>
                 <include name="cmsimple/cms.php"/>
+                <include name="cmsimple/functions.php"/>
+                <include name="cmsimple/classes/Search.php"/>
                 <include name="plugins/filebrowser/admin.php"/>
                 <include name="plugins/tinymce/admin.php"/>
+                <include name="plugins/tinymce4/admin.php"/>
             </fileset>
             <filterchain>
                 <replacetokens>

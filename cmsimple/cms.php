@@ -152,15 +152,15 @@ $j = null;
 /**
  * The version in textual representation, e.g. CMSimple_XH 1.6
  */
-define('CMSIMPLE_XH_VERSION', '$CMSIMPLE_XH_VERSION$');
+define('CMSIMPLE_XH_VERSION', '@CMSIMPLE_XH_VERSION@');
 /**
  * The build number as integer: YYYYMMDDBB
  */
-define('CMSIMPLE_XH_BUILD', '$CMSIMPLE_XH_BUILD$');
+define('CMSIMPLE_XH_BUILD', '@CMSIMPLE_XH_BUILD@');
 /**
  * The release date in ISO 8601 format: YYYY-MM-DD
  */
-define('CMSIMPLE_XH_DATE', '$CMSIMPLE_XH_DATE$');
+define('CMSIMPLE_XH_DATE', '@CMSIMPLE_XH_DATE@');
 
 if (!defined('E_DEPRECATED')) {
     /**
