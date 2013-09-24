@@ -174,6 +174,42 @@ function Pageparams_lastEditRadiogroup($value)
 }
 
 /**
+ * Returns the redirect radio group.
+ *
+ * @param int $value The current value.
+ *
+ * @return string (X)HTML
+ *
+ * @global array The localization of the plugins.
+ *
+ * @since 1.6
+ */
+function Pageparams_redirectRadiogroup($value)
+{
+    global $plugin_tx;
+
+    $o = '';
+    $onclick = '';
+    $options = array('yes_new' => 2, 'yes_same' => 1, 'no' => 0);
+    foreach ($options as $string => $number) {
+        $id = 'use_header_location' . $string;
+        $checked = $value == $number ? ' checked="checked"' : '';
+        foreach (array('header_location', 'pageparams_linklist') as $toggle) {
+            $onclick .= 'document.forms[\'page_params\'].elements[\'' . $toggle
+                . '\'].disabled=' . ($number > 0 ? 'false' : 'true') . ';';
+        }
+        $radio = tag(
+            'input type="radio" name="use_header_location" id="' . $id . '"'
+            . ' value="' . $number . '"' . $checked . ' onclick="' . $onclick . '"'
+        );
+        $o .= "\n\t\t" . $radio . '<label for="' . $id . '">'
+            . $plugin_tx['page_params'][$string] . '</label>';
+    }
+    $o .= tag('br');
+    return $o;
+}
+
+/**
  * Returns an INPUT element.
  *
  * @param string $name     A name.
@@ -380,17 +416,14 @@ function Pageparams_view($page)
     $view .= Pageparams_caption(
         $lang['header_location'], $lang['hint_header_location']
     );
-    $view .= Pageparams_radioPair(
-        'use_header_location', $page['use_header_location'] == '1',
-        array('header_location', 'pageparams_linklist')
-    );
+    $view .= Pageparams_redirectRadiogroup($page['use_header_location']);
     $view .= Pageparams_input(
         'header_location', 'other_header_location', $page['header_location'],
-        $page['use_header_location'] !== '1'
+        (int) $page['use_header_location'] === 0
     );
     $view .= tag('br');
     $view .= Pageparams_linkList(
-        $page['header_location'], $page['use_header_location'] !== '1'
+        $page['header_location'], (int) $page['use_header_location'] === 0
     );
     $view .= tag('br') . "\n\t";
 

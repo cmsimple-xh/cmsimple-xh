@@ -175,16 +175,18 @@ function toc($start = null, $end = null, $li = 'li')
  *
  * @return string The (X)HTML.
  *
- * @global int   The index of the current page.
- * @global array The menu levels of the pages.
- * @global array The headings of the pages.
- * @global int   The number of pages.
- * @global array The configuration of the core.
- * @global array The URLs of the pages.
+ * @global int    The index of the current page.
+ * @global array  The menu levels of the pages.
+ * @global array  The headings of the pages.
+ * @global int    The number of pages.
+ * @global array  The configuration of the core.
+ * @global array  The URLs of the pages.
+ * @global array  Whether we are in edit mode.
+ * @global object The page data router.
  */
 function li($ta, $st)
 {
-    global $s, $l, $h, $cl, $cf, $u;
+    global $s, $l, $h, $cl, $cf, $u, $edit, $pd_router;
 
     $tl = count($ta);
     if ($tl < 1) {
@@ -235,7 +237,10 @@ function li($ta, $st)
         }
         $t .= '">';
         if ($tf) {
-            $t .= a($ta[$i], '');
+            $pageData = $pd_router->find_page($ta[$i]);
+            $x = !(XH_ADM && $edit) && $pageData['use_header_location'] === '2'
+                ? '" target="_blank' : '';
+            $t .= a($ta[$i], $x);
         } else {
             $t .='<span>';
         }
