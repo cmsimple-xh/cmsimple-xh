@@ -205,7 +205,7 @@ class XHFileBrowserView
                 $name = str_replace($this->currentDirectory, '', $folder);
                 $html .= '<li class="folder">'
                     . '<form style="display: inline;" method="post" action=""'
-                    . ' onsubmit="return confirmFolderDelete(\''
+                    . ' onsubmit="return FILEBROWSER.confirmFolderDelete(\''
                     . $this->translate('confirm_delete', $this->basePath . $folder)
                     . '\');">'
                     . tag(
@@ -242,7 +242,7 @@ class XHFileBrowserView
                 $name = str_replace($this->currentDirectory, '', $folder);
                 $html .= '<li class="folder">'
                     . '<form style="display: inline;" method="post" action=""'
-                    . ' onsubmit="return confirmFolderDelete(\''
+                    . ' onsubmit="return FILEBROWSER.confirmFolderDelete(\''
                     . $this->translate('confirm_delete', $this->basePath . $folder)
                     . '\');">'
                     . '<input type="image" src="' . $this->browserPath
@@ -289,7 +289,7 @@ class XHFileBrowserView
             $class = $class == 'odd' ? 'even' : 'odd';
             $html .= '<li style="white-space:nowrap;" class="' . $class . '">'
                 . '<form style="display: inline;" method="post" action=""'
-                . ' onsubmit="return confirmFileDelete(\''
+                . ' onsubmit="return FILEBROWSER.confirmFileDelete(\''
                 . $this->translate('confirm_delete', $this->currentDirectory . $file)
                 . '\');">'
                 . tag(
@@ -305,7 +305,7 @@ class XHFileBrowserView
                 . ' id="rename_' . $i . '">'
                 . tag(
                     'input type="text" size="25" name="renameFile" value="'
-                    . $file . '" onmouseout="hideRenameForm(\'' . $i . '\');"'
+                    . $file . '" onmouseout="FILEBROWSER.hideRenameForm(\'' . $i . '\');"'
                 )
                 . tag('input type="hidden" name="oldName" value="' . $file . '"')
                 . '</form>'
@@ -314,7 +314,7 @@ class XHFileBrowserView
                     . ' alt="' . $this->translate('rename_file') . '" title="'
                     . $this->translate('rename_file')
                     . '" style="width: 16px; height: 16px; cursor: pointer"'
-                    . ' onclick="showRenameForm(\'' . $i . '\', \''
+                    . ' onclick="FILEBROWSER.showRenameForm(\'' . $i . '\', \''
                     . $this->translate('prompt_rename', $file) . '\');"'
                 )
                 . '<a style="position:relative" class="xhfbfile" href="'

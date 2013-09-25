@@ -1,49 +1,89 @@
 /**
- * @version $Id$
+ * The FILEBROWSER namespace.
+ *
+ * @namespace
+ *
+ * @author    Martin Damken <kontakt@zeichenkombinat.de>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 20011-2013 The CMSimple_XH developers (http://cmsimple-xh.org/?The_Team)
+ * @license   GNU GPLv3 (http://www.gnu.org/licenses/gpl-3.0.en.html)
+ * @version   @version $Id$
  */
+var FILEBROWSER = {}
 
-function confirmFileDelete(string)
-{
+/**
+ * Confirms the deletion of a file.
+ *
+ * @param {string} string
+ *
+ * @returns {string}
+ */
+FILEBROWSER.confirmFileDelete = function (string) {
     return confirm(string);
 }
 
-function confirmFolderDelete(string)
-{
+/**
+ * Confirms the deletion of a file.
+ *
+ * @param {string} string
+ *
+ * @returns {string}
+ */
+FILEBROWSER.confirmFolderDelete = function (string) {
     return confirm(string);
 }
 
-function togglexhfbForm(id)
-{
+/**
+ * Toggles the visibility of a form.
+ *
+ * @param {string} id
+ *
+ * @returns {undefined}
+ */
+FILEBROWSER.togglexhfbForm = function (id) {
     var isOpen = document.getElementById(id).style.display == "block";
-    var forms = document.getElementsByTagName('fieldset');
-    for(var i=0; i<forms.length; i++){
-        var form = forms[i];
-        if(form.className == "xhfbform"){
-            form.style.display='none';
+    var forms = document.getElementsByTagName("fieldset");
+    var i, form;
+
+    for(i = 0; i < forms.length; ++i) {
+        form = forms[i];
+        if (form.className == "xhfbform") {
+            form.style.display = "none";
         }
     }
     if (!isOpen) {
-        document.getElementById(id).style.display='block';
-        document.getElementById(id).getElementsByTagName('input')[0].focus();
+        document.getElementById(id).style.display = "block";
+        document.getElementById(id).getElementsByTagName("input")[0].focus();
     }
 }
 
-
-function showRenameForm(id, message)
-{  var oldName = document.getElementById("rename_" + id).renameFile.value;
+/**
+ * Shows the rename form.
+ *
+ * @param {string} id
+ * @param {string} messsage
+ *
+ * @returns {undefined}
+ */
+FILEBROWSER.showRenameForm = function (id, message) {
+    var renameForm = document.getElementById("rename_" + id);
+    var oldName = renameForm.renameFile.value;
     var newName = prompt(message, oldName);
 
     if(newName){
- //   document.getElementById("rename_" + id).style.display='inline';
-    document.getElementById("rename_" + id).renameFile.value=newName;
-    document.getElementById("rename_" + id).submit();
-
+        renameForm.renameFile.value = newName;
+        renameForm.submit();
+    }
 }
 
-}
-
-function hideRenameForm(id)
-{
-    document.getElementById("rename_" + id).style.display='none';
-    document.getElementById("file_" + id).style.display='inline';
+/**
+ * Hides the rename form.
+ *
+ * @param {string} id
+ *
+ * @returns {undefined}
+ */
+FILEBROWSER.hideRenameForm = function (id) {
+    document.getElementById("rename_" + id).style.display = "none";
+    document.getElementById("file_" + id).style.display = "inline";
 }

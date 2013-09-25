@@ -22,7 +22,7 @@ global $tx;
     <div id="subfolders">
         <div style="clear: both; margin: 0px 0;"><b><?php echo $tx['filetype']['folder']; ?>:</b> <?php echo $this->currentDirectory; ?></div>
         <div style="text-align: right;">
-        <button type="button" onclick="window.togglexhfbForm('xhfbCreateDir');"><?php echo $this->translate('create_folder'); ?></button>
+        <button type="button" onclick="FILEBROWSER.togglexhfbForm('xhfbCreateDir');"><?php echo $this->translate('create_folder'); ?></button>
 
         </div>
 
@@ -46,7 +46,7 @@ global $tx;
 	<p class="xhfb_files"><?php echo $this->translate('files');?></p>
     <div id="files">
          <div style="text-align: right; font-weight: 900">
-                <button type="button" onclick="window.togglexhfbForm('xhfbUploadFile');"><?php echo $this->translate('upload_file'); ?></button>
+                <button type="button" onclick="FILEBROWSER.togglexhfbForm('xhfbUploadFile');"><?php echo $this->translate('upload_file'); ?></button>
         </div>
                <fieldset id="xhfbUploadFile" class="xhfbform">
             <legend><?php echo $this->translate('upload_file_to', $this->currentDirectory); ?></legend>

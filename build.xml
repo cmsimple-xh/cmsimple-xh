@@ -101,7 +101,7 @@
     </target>
 
     <target name="js-doc">
-        <exec command="jsdoc -d doc/js javascript/admin.js"/>
+        <exec command="jsdoc --destination doc/js javascript/admin.js plugins/filebrowser/js/filebrowser.js"/>
     </target>
 
     <target name="doc" depends="php-doc,js-doc"/>

@@ -24,8 +24,8 @@
         <div id="xhFilebrowserMenu">
         %MESSAGE%
             <!--   <b><?php echo $tx['filetype']['folder']; ?>:</b> <?php echo $this->currentDirectory; ?> -->
-            <button type="button" onclick="window.togglexhfbForm('xhfbCreateDir');"><?php echo $this->translate('create_folder'); ?></button>
-            <button type="button" onclick="window.togglexhfbForm('xhfbUploadFile');"><?php echo $this->translate('upload_file'); ?></button>
+            <button type="button" onclick="FILEBROWSER.togglexhfbForm('xhfbCreateDir');"><?php echo $this->translate('create_folder'); ?></button>
+            <button type="button" onclick="FILEBROWSER.togglexhfbForm('xhfbUploadFile');"><?php echo $this->translate('upload_file'); ?></button>
             <fieldset id="xhfbUploadFile" class="xhfbform">
                 <legend><?php echo $this->translate('upload_file_to', $this->currentDirectory); ?></legend>
                 <div style="padding: 3em;">
