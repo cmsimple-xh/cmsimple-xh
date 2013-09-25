@@ -161,7 +161,7 @@ class XH_TextFileEdit extends XH_FileEdit
      */
     function XH_TextFileEdit()
     {
-        $contents = file_get_contents($this->filename);
+        $contents = XH_readFile($this->filename);
         if ($contents !== false) {
             $this->text = $contents;
         } else {

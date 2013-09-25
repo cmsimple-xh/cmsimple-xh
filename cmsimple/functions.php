@@ -55,7 +55,6 @@ function geturl($u)
     }
 }
 
-
 /**
  * Returns the contents of the given URL adding all current GET parameters.
  *
@@ -80,7 +79,6 @@ function geturlwp($u)
         return $t;
     }
 }
-
 
 /**
  * Returns the code to display a photogallery.
@@ -111,7 +109,6 @@ function autogallery($u)
     );
 }
 
-
 /**
  * Returns a page heading.
  *
@@ -128,7 +125,6 @@ function h($n)
     return $h[$n];
 }
 
-
 /**
  * Returns a page's menu level.
  *
@@ -144,7 +140,6 @@ function l($n)
 
     return $l[$n];
 }
-
 
 /**
  * Returns a text with CMSimple scripting evaluated.
@@ -355,7 +350,6 @@ function newsbox($heading)
     return false;
 }
 
-
 /**
  * Calls init_*() of the configured editor. Returns whether that succeeded.
  *
@@ -391,7 +385,6 @@ function init_editor($elementClasses = array(),  $initFile = false)
     return true;
 }
 
-
 /**
  * Calls include_*() of the configured editor. Returns whether that succeeded.
  *
@@ -423,7 +416,6 @@ function include_editor()
 
     return true;
 }
-
 
 /**
  * Returns the result of calling *_replace() of the configured editor.
@@ -463,7 +455,6 @@ function editor_replace($elementID = false, $config = '')
 
     return $function($elementID, $config);
 }
-
 
 /**
  * Returns the result view of the system check.
@@ -545,7 +536,6 @@ function XH_systemCheck($data)
 
     return $o;
 }
-
 
 /**
  * Callback for output buffering. Returns the postprocessed (X)HTML.
@@ -643,7 +633,6 @@ function initvar($name)
     }
 }
 
-
 /**
  * Returns the value of a $_SERVER key.
  *
@@ -666,7 +655,6 @@ function sv($s)
     }
 }
 
-
 /**
  * Returns $t with all (consecutive) line endings replaced by a single newline.
  *
@@ -678,7 +666,6 @@ function rmnl($t)
 {
     return preg_replace("/(\r\n|\r|\n)+/", "\n", $t);
 }
-
 
 /**
  * Returns $str with all (consecutive) whitespaces replaced by a single space.
@@ -700,7 +687,6 @@ function XH_rmws($str)
     return preg_replace('/(?:' . $ws . ')+/', ' ', $str);
 }
 
-
 /**
  * Returns $t with all line endings removed.
  *
@@ -712,7 +698,6 @@ function rmanl($t)
 {
     return preg_replace("/(\r\n|\r|\n)+/", "", $t);
 }
-
 
 /**
  * Returns the un-quoted $t, i.e. reverses the effect
@@ -728,7 +713,6 @@ function stsl($t)
 {
     return get_magic_quotes_gpc() ? stripslashes($t) : $t;
 }
-
 
 /**
  * Makes the file available for download.
@@ -798,7 +782,6 @@ function chkdl($fl)
     return $m;
 }
 
-
 /**
  * Returns the content of file $filename, if it does exist, null otherwise.
  *
@@ -822,7 +805,6 @@ function rf($fl)
         return join("\n", file($fl));
     }
 }
-
 
 /**
  * Checks wether the file exists, is readable,
@@ -860,7 +842,6 @@ function chkfile($fl, $writable)
     }
 }
 
-
 /**
  * Appends an error message about the file to $e.
  *
@@ -880,7 +861,6 @@ function e($et, $ft, $fn)
     $e .= '<li><b>' . $tx['error'][$et] . ' ' . $tx['filetype'][$ft] . '</b>'
         . tag('br') . $fn . '</li>' . "\n";
 }
-
 
 /**
  * Reads and parses the content file and sets global variables accordingly.
@@ -947,7 +927,6 @@ function rfc()
     }
 }
 
-
 /**
  * Reads and parses a content file.
  *
@@ -979,7 +958,7 @@ function XH_readContents($language = null)
         $contentFolder = $pth['folder']['base'] . 'content/' . $language . '/';
         $contentFile = $contentFolder . 'content.htm';
         $pageDataFile = $contentFolder . 'pagedata.php';
-        include $pth['folder']['language'] . $language . '.php';
+        XH_include($pth['folder']['language'] . $language . '.php', $tx, 'tx');
     } else {
         $contentFile = $pth['file']['content'];
         $pageDataFile = $pth['file']['pagedata'];
@@ -995,7 +974,7 @@ function XH_readContents($language = null)
     $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
     $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
 
-    if (($content = file_get_contents($contentFile)) === false) {
+    if (($content = XH_readFile($contentFile)) === false) {
         return false;
     }
     $stop = $cf['menu']['levels'];
@@ -1097,7 +1076,6 @@ function XH_readContents($language = null)
     );
 }
 
-
 /**
  * Returns an opening a tag as link to a page.
  *
@@ -1124,7 +1102,6 @@ function a($i, $x)
         : '<a href="' . $sn . '?' . $x . '">';
 }
 
-
 /**
  * Returns the meta element for name, if defined in <var>$cf['meta']</var>;
  * <var>null</var> otherwise.
@@ -1148,7 +1125,6 @@ function meta($n)
         return tag('meta name="' . $n . '" content="' . $content . '"') . "\n";
     }
 }
-
 
 /**
  * Returns the link to a special CMSimple_XH page, e.g. sitemap.
@@ -1175,7 +1151,6 @@ function ml($i)
     }
     return $t;
 }
-
 
 /**
  * Returns a percent encoded URL component.
@@ -1204,7 +1179,6 @@ function uenc($s)
     return XH_uenc($s, $search, $replace);
 }
 
-
 /**
  * Returns a percent encoded URL component.
  *
@@ -1227,7 +1201,6 @@ function XH_uenc($s, $search, $replace)
     return str_replace('+', '_', urlencode($s));
 }
 
-
 /**
  * Returns the canonicalized absolute pathname on success.
  * Otherwise returns its input.
@@ -1248,7 +1221,6 @@ function rp($p)
         return realpath($p);
     }
 }
-
 
 /**
  * Returns the alphabetically sorted content of a directory.
@@ -1273,7 +1245,6 @@ function sortdir($dir)
     return $fs;
 }
 
-
 /**
  * Returns the number of times a CMSimple script is found.
  *
@@ -1291,7 +1262,6 @@ function cmscript($script, $text)
     $pattern = str_replace('(.*?)', $script, '/#CMSimple (.*?)#/is');
     return preg_match($pattern, $text);
 }
-
 
 /**
  * Returns whether a page is hidden.
@@ -1313,7 +1283,6 @@ function hide($i)
     return (!($edit && XH_ADM) && cmscript('hide', $c[$i]));
 }
 
-
 /**
  * Returns an (X)HTML compliant stand alone tag
  * according to the settings of $cf['xhtml']['endtags'].
@@ -1331,7 +1300,6 @@ function tag($s)
     $t = $cf['xhtml']['endtags'] == 'true' ? ' /' : '';
     return '<' . $s . $t . '>';
 }
-
 
 /**
  * Returns '&' or '&amp;' according to the setting of $cf['xhtml']['amp'].
@@ -1354,7 +1322,6 @@ function amp()
         return '&';
     }
 }
-
 
 /**
  * Sends error header and sets $title and $o accordingly.
@@ -1393,7 +1360,6 @@ function shead($s)
     }
     $o = '<h1>' . $title . '</h1>' . $o;
 }
-
 
 /**
  * Debug-Mode
@@ -1465,7 +1431,6 @@ function XH_debugmode()
     return error_reporting() > 0;
 }
 
-
 /**
  * Writes all recoverable PHP errors to $e.
  *
@@ -1528,7 +1493,6 @@ function XH_debug($errno, $errstr, $errfile, $errline, $context)
     return true;
 }
 
-
 /**
  * Checks <var>$arr</var> recursively for valid UTF-8.
  * Otherwise it exists the script.
@@ -1552,7 +1516,6 @@ function XH_checkValidUtf8($arr)
         }
     }
 }
-
 
 /**
  * Copies default file, if actual language file is missing.
@@ -1578,7 +1541,6 @@ function XH_createLanguageFile($dst)
     //    e('missing', 'file', $dst);
     //}
 }
-
 
 /**
  * Set plugin paths.
@@ -1634,7 +1596,6 @@ function pluginFiles($plugin)
     }
 }
 
-
 /**
  * Function preCallPlugins() => Pre-Call of Plugins.
  *
@@ -1682,7 +1643,6 @@ function preCallPlugins($pageIndex = -1)
     }
 }
 
-
 /**
  * Returns a list of all installed plugins.
  *
@@ -1728,7 +1688,6 @@ function XH_plugins($admin = false)
     return $admin ? $admPlugins : $plugins;
 }
 
-
 /**
  * Returns the value of a cookie, or <var>null</var> if the cookie doesn't exist.
  *
@@ -1748,7 +1707,6 @@ function gc($s)
         return $_COOKIE[$s];
     }
 }
-
 
 /**
  * Returns wether the user is logged in.
@@ -1770,7 +1728,6 @@ function logincheck()
         && isset($_SESSION['xh_user_agent'])
         && $_SESSION['xh_user_agent'] == md5($_SERVER['HTTP_USER_AGENT']);
 }
-
 
 /**
  * Appends a message to the logfile.
@@ -1796,7 +1753,6 @@ function writelog($m)
     }
 }
 
-
 /**
  * Returns the login link.
  *
@@ -1813,7 +1769,6 @@ function lilink()
         return a($s > -1 ? $s : 0, '&amp;login') . $tx['menu']['login'] . '</a>';
     }
 }
-
 
 /**
  * Returns the login form.
@@ -1861,9 +1816,55 @@ function loginforms()
     }
 }
 
+/**
+ * Returns the remaining contents of a stream.
+ *
+ * @param resource $stream An open stream.
+ *
+ * @return string
+ *
+ * @since 1.6
+ */
+function XH_getStreamContents($stream)
+{
+    $func = 'stream_get_contents';
+    if (function_exists($func)) {
+        $contents = $func($stream);
+    } else {
+        ob_start();
+        fpassthru($stream);
+        $contents = ob_get_clean();
+    }
+    return $contents;
+}
+
+/**
+ * Reads a file and returns its contents; <var>false</var> on failure.
+ * During reading, the file is locked for shared access.
+ *
+ * @param string $filename A file path.
+ *
+ * @return string
+ *
+ * @since 1.6
+ */
+function XH_readFile($filename)
+{
+    $contents = false;
+    $stream = fopen($filename, 'rb');
+    if ($stream) {
+        if (flock($stream, LOCK_SH)) {
+            $contents = XH_getStreamContents($stream);
+            flock($stream, LOCK_UN);
+        }
+        fclose($stream);
+    }
+    return $contents;
+}
 
 /**
  * Writes <var>$contents</var> to the file <var>$filename</var>.
+ * During writing the file is locked exclusively.
  *
  * @param string $filename The filename.
  * @param string $contents The content to write.
@@ -1874,13 +1875,19 @@ function loginforms()
  */
 function XH_writeFile($filename, $contents)
 {
-    $res = ($fh = fopen($filename, 'wb')) && fwrite($fh, $contents);
-    if ($fh) {
-        fclose($fh);
+    $res = false;
+    $stream = fopen($filename, 'r+b');
+    if ($stream) {
+        if (flock($stream, LOCK_EX)) {
+            ftruncate($stream, 0);
+            $res = fwrite($stream, $contents);
+            fflush($stream);
+            flock($stream, LOCK_UN);
+        }
+        fclose($stream);
     }
     return $res;
 }
-
 
 /**
  * Saves the current contents (including the page data).
@@ -1915,7 +1922,6 @@ function XH_saveContents()
     return XH_writeFile($pth['file']['content'], $cnts) !== false;
 }
 
-
 /**
  * Registers a callback for execution after all plugins were loaded,
  * if <var>$callback</var> is given; otherwise executes these callbacks.
@@ -1938,7 +1944,6 @@ function XH_afterPluginLoading($callback = null)
         }
     }
 }
-
 
 /**
  * Returns the path of the combined plugin stylesheet.
@@ -2585,6 +2590,35 @@ function XH_mailform()
 
     $mailform = new XH_Mailform(true);
     return $mailform->process();
+}
+
+/**
+ * Includes a PHP file and returns whether that succeeded.
+ * During the inclusion, the file is locked for shared access.
+ *
+ * @param string $path    A file path.
+ * @param array  &$var    The variable to set from the included file.
+ * @param string $varname Name of the variable to set from the included file.
+ *
+ * @return bool
+ *
+ * @since 1.6
+ */
+function XH_include($path, &$var = null, $varname = null)
+{
+    if (isset($varname)) {
+        $$varname =& $var;
+    }
+    $res = false;
+    $stream = fopen($path, 'r');
+    if ($stream) {
+        if (flock($stream, LOCK_SH)) {
+            $res = include $path;
+            flock($stream, LOCK_UN);
+        }
+        fclose($stream);
+    }
+    return $res;
 }
 
 ?>
