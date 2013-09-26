@@ -455,7 +455,7 @@ HTM;
      */
     function error($message ='', $args = null)
     {
-        $this->message .= '<p style="width: auto;" class="cmsimplecore_warning">'
+        $this->message .= '<p class="cmsimplecore_fail">'
             . $this->translate($message, $args) . '</p>';
     }
 
@@ -469,7 +469,21 @@ HTM;
      */
     function success($message, $args = null)
     {
-        $this->message .= '<p style="width: auto;">'
+        $this->message .= '<p class="cmsimplecore_success">'
+            . $this->translate($message, $args) . '</p>';
+    }
+
+    /**
+     * Appends a localized info message to the message area of the view.
+     *
+     * @param string $message A message key.
+     * @param array  $args    The arguments.
+     *
+     * @return void
+     */
+    function info($message, $args = null)
+    {
+        $this->message .= '<p class="cmsimplecore_info">'
             . $this->translate($message, $args) . '</p>';
     }
 

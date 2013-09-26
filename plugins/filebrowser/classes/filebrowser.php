@@ -349,7 +349,7 @@ class XHFileBrowser
         $pages = $this->fileIsLinked($file);
         if (is_array($pages)) {
             $this->view->error('error_not_deleted', $file);
-            $this->view->message .= '<div class="cmsimplecore_warning">'
+            $this->view->message .= '<div class="cmsimplecore_info">'
                 . $this->view->translate('error_file_is_used', $file)
                 . '<ul>';
             foreach ($pages as $page) {
@@ -402,7 +402,7 @@ class XHFileBrowser
             switch ($file['error']) {
             case UPLOAD_ERR_INI_SIZE:
                 $this->view->error('error_not_uploaded', $file['name']);
-                $this->view->error(
+                $this->view->info(
                     'error_file_too_big_php',
                     array(ini_get('upload_max_filesize'), 'upload_max_filesize')
                 );
@@ -420,7 +420,7 @@ class XHFileBrowser
         if (isset($this->maxFilesizes[$type])) {
             if ($file['size'] > $this->maxFilesizes[$type]) {
                 $this->view->error('error_not_uploaded', $file['name']);
-                $this->view->error(
+                $this->view->info(
                     'error_file_too_big',
                     array(
                         number_format($file['size']/1000, 2),
@@ -433,7 +433,7 @@ class XHFileBrowser
 
         if ($this->isAllowedFile($file['name']) == false) {
             $this->view->error('error_not_uploaded', $file['name']);
-            $this->view->error(
+            $this->view->info(
                 'error_no_proper_extension',
                 pathinfo($file['name'], PATHINFO_EXTENSION)
             );
@@ -451,7 +451,7 @@ class XHFileBrowser
                 );
             } else {
                 $this->view->error('error_not_uploaded', $file['name']);
-                $this->view->error('error_file_already_exists', $filename);
+                $this->view->info('error_file_already_exists', $filename);
                 return;
             }
         }
@@ -522,7 +522,7 @@ class XHFileBrowser
         $newExtension = pathinfo($newName, PATHINFO_EXTENSION);
         $oldExtension = pathinfo($oldName, PATHINFO_EXTENSION);
         if ($newExtension !== $oldExtension) {
-            $this->view->message = 'You can not change the file extension!';
+            $this->view->error('error_cant_change_extension');
             return;
         }
         $newPath = $this->browseBase . $this->currentDirectory . '/' . $newName;
@@ -534,19 +534,20 @@ class XHFileBrowser
         $pages = $this->fileIsLinked($oldName);
         if (is_array($pages)) {
             $this->view->error('error_cant_rename', $oldName);
-            $this->view->error('error_file_is_used', $oldName);
-
+            $this->view->message .= '<div class="cmsimplecore_info">'
+                . $this->view->translate('error_file_is_used', $oldName)
+                . '<ul>';
             foreach ($pages as $page) {
                 $this->view->message .= '<li>' . $page . '</li>';
             }
-            $this->view->message .= '</ul>';
+            $this->view->message .= '</ul></div>';
             return;
         }
         if (rename($oldPath, $newPath)) {
-            $this->view->message = 'Renamed ' . $oldName . ' to ' . $newName . '!';
+            $this->view->success('success_renamed', array($oldName, $newName));
             return;
         }
-        $this->view->message = 'Something went wrong (XHFilebrowser::renameFile())';
+        $this->view->error('error_cant_rename', $oldName);
         return;
     }
 
