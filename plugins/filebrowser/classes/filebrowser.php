@@ -366,6 +366,30 @@ class XHFileBrowser
     }
 
     /**
+     * Returns a new unique filename.
+     *
+     * @param string $filename A filename.
+     *
+     * @return string
+     *
+     * @since 1.6
+     */
+    function newFilename($filename)
+    {
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $base = substr($filename, 0, -(strlen($ext) + 1));
+        $i = 1;
+        while (true) {
+            $res = $base . '_' . $i . '.' . $ext;
+            if (!file_exists($res)) {
+                break;
+            }
+            $i++;
+        }
+        return $res;
+    }
+
+    /**
      * Handles a file upload.
      *
      * @return void
@@ -419,9 +443,17 @@ class XHFileBrowser
         $filename = $this->browseBase . $this->currentDirectory
             . basename($file['name']);
         if (file_exists($filename)) {
-            $this->view->error('error_not_uploaded', $file['name']);
-            $this->view->error('error_file_already_exists', $filename);
-            return;
+            $newFilename = $this->newFilename($filename);
+            if (rename($filename, $newFilename)) {
+                $this->view->success(
+                    'success_renamed',
+                    array(basename($filename), basename($newFilename))
+                );
+            } else {
+                $this->view->error('error_not_uploaded', $file['name']);
+                $this->view->error('error_file_already_exists', $filename);
+                return;
+            }
         }
 
         if (move_uploaded_file($_FILES['fbupload']['tmp_name'], $filename)) {

@@ -30,7 +30,7 @@
                 <legend><?php echo $this->translate('upload_file_to', $this->currentDirectory); ?></legend>
                 <div style="padding: 3em;">
 
-                    <form method="post" action="" enctype="multipart/form-data">
+                    <form method="post" action="" enctype="multipart/form-data" onsubmit="return FILEBROWSER.checkUpload(this, '<?php echo $this->translate('confirm_upload');?>')">
                         <input type="file" name="fbupload" />
                         <input type="hidden" name="upload" value="upload" />
                         <input type="submit" class="submit" value="<?php echo $this->translate('upload_file'); ?>" />

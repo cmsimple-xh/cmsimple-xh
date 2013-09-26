@@ -15,8 +15,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-
-
 /**
  * The file browser view.
  *
@@ -305,7 +303,8 @@ class XHFileBrowserView
                 . ' id="rename_' . $i . '">'
                 . tag(
                     'input type="text" size="25" name="renameFile" value="'
-                    . $file . '" onmouseout="FILEBROWSER.hideRenameForm(\'' . $i . '\');"'
+                    . $file . '" onmouseout="FILEBROWSER.hideRenameForm(\''
+                    . $i . '\');"'
                 )
                 . tag('input type="hidden" name="oldName" value="' . $file . '"')
                 . '</form>'
