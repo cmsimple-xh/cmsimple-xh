@@ -259,6 +259,29 @@ class XHFileBrowserView
     }
 
     /**
+     * Returns whether a file is an image file.
+     *
+     * @param string $filename A file name.
+     *
+     * @return bool
+     */
+    function isImageFile($filename)
+    {
+        if (class_exists('finfo')) {
+            $finfo = new finfo(FILEINFO_MIME);
+            $mimeType = $finfo->file($filename);
+            return strpos($mimeType, 'image/') === 0;
+        } elseif (function_exists('mime_content_type')) {
+            $mimeType = mime_content_type($filename);
+            return strpos($mimeType, 'image/') === 0;
+        } else {
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+            $exts = array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'tiff', 'ico');
+            return in_array(strtolower($ext), $exts);
+        }
+    }
+
+    /**
      * Returns the file list view for the CMS browser.
      *
      * @param array $files An array of files.
@@ -297,7 +320,7 @@ class XHFileBrowserView
                     . '" style="width: 16px; height: 16px"'
                 )
                 . tag('input type="hidden" name="deleteFile"')
-                . tag('input type="hidden" name="file" value="' . $file . '"')
+                . tag('input type="hidden" name="filebrowser_file" value="' . $file . '"')
                 . '</form>'
                 . '<form method="post" style="display:none;" action=""'
                 . ' id="rename_' . $i . '">'
@@ -326,10 +349,8 @@ class XHFileBrowserView
                 : '';
 
             $path = $this->basePath . $this->currentDirectory . $file;
-            if (is_array(getimagesize($path))) {
-                $image = getimagesize($path);
-                $width = $image[0];
-                $height = $image[1];
+            if ($this->isImageFile($path) && ($image = getimagesize($path))) {
+                list($width, $height) = $image;
                 if ($width > 100) {
                     $ratio = $width / $height;
                     $width = 100;
@@ -337,7 +358,7 @@ class XHFileBrowserView
                 }
                 $html .= '<span style="position: relative;  z-index: 4; ">'
                     . '<span style="font-weight: normal; border: none;">'
-                    . $image[0] . ' x ' . $image[1] . ' px</span>' . tag('br')
+                    . $width . ' x ' . $height . ' px</span>' . tag('br')
                     . tag(
                         'img src="' . $path . '" width="' . $width . '" height="'
                         . $height . '" alt="' . $file . '"'
@@ -382,12 +403,11 @@ class XHFileBrowserView
                 . $prefix . $file . '\',' . $is_image . ');">'
                 . $file;
 
+            $path = $dir . $file;
             if (strpos($this->linkParams, 'type=images') !== false
-                && getimagesize($dir . $file)
+                && $this->isImageFile($path) && ($image = getimagesize($path))
             ) {
-                $image = getimagesize($dir . $file);
-                $width = $image[0];
-                $height = $image[1];
+                list($width, $height) = $image;
                 if ($width > 150) {
                     $ratio = $width / $height;
                     $width = 150;
@@ -396,11 +416,11 @@ class XHFileBrowserView
                 $src = $this->basePath . $this->currentDirectory . $file;
                 $html .= <<<HTM
 <span style="position: relative; z-index: 4;">
-<span style="font-weight: normal; border: none;">$image[0] x $image[1] px</span>
+<span style="font-weight: normal; border: none;">$width x $height px</span>
 <br /><img src="$src" width="$width" height="$height"></span>
 HTM;
             }
-            $html .= '</span> (' . round(filesize($dir . $file) / 1024, 1)
+            $html .= '</span> (' . round(filesize($path) / 1024, 1)
                 . ' kb)</li>';
         }
         $html .= '</ul>';
