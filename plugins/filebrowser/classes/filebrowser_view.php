@@ -320,7 +320,10 @@ class XHFileBrowserView
                     . '" style="width: 16px; height: 16px"'
                 )
                 . tag('input type="hidden" name="deleteFile"')
-                . tag('input type="hidden" name="filebrowser_file" value="' . $file . '"')
+                . tag(
+                    'input type="hidden" name="filebrowser_file" value="'
+                    . $file . '"'
+                )
                 . '</form>'
                 . '<form method="post" style="display:none;" action=""'
                 . ' id="rename_' . $i . '">'
