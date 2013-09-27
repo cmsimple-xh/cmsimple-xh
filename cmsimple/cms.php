@@ -213,7 +213,7 @@ $cf = null;
 if (file_exists($pth['folder']['cmsimple'].'defaultconfig.php')) {
     include $pth['folder']['cmsimple'].'defaultconfig.php';
 }
-if (!XH_include($pth['file']['config'], $cf, 'cf')) {
+if (!XH_includeGlobal($pth['file']['config'])) {
     die('Config file missing');
 }
 // removed from the core in XH 1.6, but left for compatibility with plugins.
@@ -280,7 +280,7 @@ if (!is_readable($pth['file']['language'])
  */
 $tx = null;
 require $pth['folder']['language'] . 'default.php';
-XH_include($pth['file']['language'], $tx, 'tx');
+XH_includeGlobal($pth['file']['language']);
 
 if ($tx['locale']['all'] != '') {
     setlocale(LC_ALL, $tx['locale']['all']);
@@ -885,7 +885,7 @@ foreach (XH_plugins() as $plugin) {
         include $pth['folder']['plugin_config'] . 'defaultconfig.php';
     }
     if (is_readable($pth['file']['plugin_config'])) {
-        XH_include($pth['file']['plugin_config'], $plugin_cf, 'plugin_cf');
+        XH_includeGlobal($pth['file']['plugin_config']);
     }
 
     XH_createLanguageFile($pth['file']['plugin_language']);
@@ -893,7 +893,7 @@ foreach (XH_plugins() as $plugin) {
         include $pth['folder']['plugin_languages'] . 'default.php';
     }
     if (is_readable($pth['file']['plugin_language'])) {
-        XH_include($pth['file']['plugin_language'], $plugin_tx, 'plugin_tx');
+        XH_includeGlobal($pth['file']['plugin_language']);
     }
 }
 
@@ -1217,7 +1217,7 @@ if (!XH_ADM && $adm) {
 
 ob_start('XH_finalCleanUp');
 
-if (!XH_include($pth['file']['template'])) {
+if (!XH_includeGlobal($pth['file']['template'])) {
     header('HTTP/1.0 500 Internal Server Error');
     header('Content-Type: text/plain; charset=utf-8');
     echo $tx['error']['missing'], ' ', $tx['filetype']['template'], "\n",

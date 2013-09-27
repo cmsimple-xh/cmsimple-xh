@@ -958,7 +958,7 @@ function XH_readContents($language = null)
         $contentFolder = $pth['folder']['base'] . 'content/' . $language . '/';
         $contentFile = $contentFolder . 'content.htm';
         $pageDataFile = $contentFolder . 'pagedata.php';
-        XH_include($pth['folder']['language'] . $language . '.php', $tx, 'tx');
+        $tx = XH_includeLocal($pth['folder']['language'] . $language . '.php', 'tx');
     } else {
         $contentFile = $pth['file']['content'];
         $pageDataFile = $pth['file']['pagedata'];
@@ -2593,32 +2593,68 @@ function XH_mailform()
 }
 
 /**
- * Includes a PHP file and returns whether that succeeded.
+ * Includes a PHP file as from the global scope and returns whether that succeeded.
  * During the inclusion, the file is locked for shared access.
  *
- * @param string $path    A file path.
- * @param array  &$var    The variable to set from the included file.
- * @param string $varname Name of the variable to set from the included file.
+ * @param string $_filename A filename.
  *
  * @return bool
  *
  * @since 1.6
  */
-function XH_include($path, &$var = null, $varname = null)
+function XH_includeGlobal($_filename)
 {
-    if (isset($varname)) {
-        $$varname =& $var;
+    $_superglobals = array(
+        'GLOBALS', '_SERVER', '_GET', '_POST', '_FILES', '_COOKIE', '_SESSION',
+        '_REQUEST', '_ENV'
+    );
+    $_globals = array_diff(array_keys($GLOBALS), $_superglobals);
+    foreach ($_globals as $_name) {
+        $$_name = &$GLOBALS[$_name];
     }
-    $res = false;
-    $stream = fopen($path, 'r');
-    if ($stream) {
-        if (flock($stream, LOCK_SH)) {
-            $res = include $path;
-            flock($stream, LOCK_UN);
+    $_scope0 = null;
+    $_res = false;
+    $_stream = fopen($_filename, 'r');
+    if ($_stream) {
+        if (flock($_stream, LOCK_SH)) {
+            $_scope0 = array_keys(get_defined_vars());
+            $_res = include $_path;
+            $_scope1 = array_keys(get_defined_vars());
+            $_diff = array_diff($_scope1, $_scope0);
+            foreach ($_diff as $_var) {
+                $GLOBALS[$_var] = $$_var;
+            }
+            flock($_stream, LOCK_UN);
         }
-        fclose($stream);
+        fclose($_stream);
     }
-    return $res;
+    return $_res;
+}
+
+/**
+ * Includes a PHP data file and returns the value of a variable.
+ * Returns <var>false</var>, if including failed.
+ * During the inclusion, the file is locked for shared access.
+ *
+ * @param string $_filename A filename.
+ * @param string $_varname  A variable name.
+ *
+ * @return mixed
+ *
+ * @since 1.6
+ */
+function XH_includeLocal($_filename, $_varname)
+{
+    $_res = false;
+    $_stream = fopen($_filename, 'r');
+    if ($_stream) {
+        if (flock($_stream, LOCK_SH)) {
+            $_res = include $_filename;
+            flock($_stream, LOCK_UN);
+        }
+        fclose($_stream);
+    }
+    return $_res !== false ? $$_varname : false;
 }
 
 ?>

@@ -375,6 +375,13 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $actual = XH_hsc($string);
         $this->assertEquals($expected, $actual);
     }
+
+    public function testIncludeLocal()
+    {
+        $filename = './cmsimple/languages/de.php';
+        $tx = XH_includeLocal($filename, 'tx');
+        $this->assertTrue(is_array($tx));
+    }
 }
 
 ?>
