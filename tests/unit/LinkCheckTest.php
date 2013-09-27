@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Testing the functions in adminfuncs.php.
+ * Testing the functions in link check.
  *
  * PHP version 5
  *
@@ -20,7 +20,7 @@
 require_once './cmsimple/classes/LinkCheck.php';
 
 /**
- * A test case for the functions in functions.php.
+ * A test case for the link check.
  *
  * @category Testing
  * @package  XH
