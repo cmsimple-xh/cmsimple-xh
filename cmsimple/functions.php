@@ -2618,7 +2618,7 @@ function XH_includeGlobal($_filename)
     if ($_stream) {
         if (flock($_stream, LOCK_SH)) {
             $_scope0 = array_keys(get_defined_vars());
-            $_res = include $_path;
+            $_res = include $_filename;
             $_scope1 = array_keys(get_defined_vars());
             $_diff = array_diff($_scope1, $_scope0);
             foreach ($_diff as $_var) {
