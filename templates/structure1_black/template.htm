@@ -2,7 +2,7 @@
 //*** very_simple: template by Martin Sereday - (c) 2013 CMSimple.sk ***//
 ?>
 <!DOCTYPE HTML>
-<html>
+<html <?php echo strlen($sl) == 2 ? 'lang="' . $sl . '"' : '';?>>
 <head>
     <!-- START: HTML5 FORK -->
        <!--[if lt IE 9]>

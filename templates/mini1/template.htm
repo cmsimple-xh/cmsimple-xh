@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html <?php echo strlen($sl) == 2 ? 'lang="' . $sl . '"' : '';?>>
 <head>
 <?php echo head();?>
 </head>
-  
+
 <body id="body" <?php echo onload();?>>
 
     <!--Head Navigation-->
     <div class="headnav">
         <p>
-            <?php echo mailformlink();?> &nbsp; 
-            <?php echo sitemaplink();?> &nbsp; 
-            <?php echo printlink();?> &nbsp; 
+            <?php echo mailformlink();?> &nbsp;
+            <?php echo sitemaplink();?> &nbsp;
+            <?php echo printlink();?> &nbsp;
             <?php echo languagemenu();?>
         </p>
     </div>
