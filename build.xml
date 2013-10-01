@@ -110,13 +110,24 @@
 
     <target name="build">
         <fail unless="version" message="version is not defined!"/>
-        <svnexport revision="" repositoryurl="." todir="dist"/>
+        <svnexport revision="" repositoryurl="." todir="export"/>
         <tstamp>
             <format property="TODAY" pattern="%Y-%m-%d"/>
         </tstamp>
-        <move todir="temp">
-            <fileset dir="dist">
+        <move todir="dist">
+            <fileset dir="export">
                 <include name="README*.txt"/>
+            </fileset>
+            <filterchain>
+                <replacetokens>
+                    <token key="CMSIMPLE_XH_VERSION" value="CMSimple_XH ${version}"/>
+                    <token key="CMSIMPLE_XH_BUILD" value="${DSTAMP}${build}"/>
+                    <token key="CMSIMPLE_XH_DATE" value="${TODAY}"/>
+                </replacetokens>
+            </filterchain>
+        </move>
+        <move todir="dist/cmsimplexh">
+            <fileset dir="export">
                 <include name="cmsimple/cms.php"/>
                 <include name="cmsimple/functions.php"/>
                 <include name="cmsimple/classes/Search.php"/>
@@ -132,23 +143,26 @@
                 </replacetokens>
             </filterchain>
         </move>
-        <move todir="dist">
-            <fileset dir="temp">
-                <include name="README*.txt"/>
-                <include name="cmsimple/cms.php"/>
-                <include name="plugins/filebrowser/admin.php"/>
-                <include name="plugins/tinymce/admin.php"/>
+        <move todir="dist/cmsimplexh">
+            <fileset dir="export">
+                <include name="cmsimple/functions.php"/>
+            </fileset>
+            <filterchain>
+                <stripwhitespace/>
+            </filterchain>
+        </move>
+        <move todir="dist/cmsimplexh">
+            <fileset dir="export">
+                <exclude name="build.xml"/>
+                <exclude name="2lang/.2lang"/>
+                <exclude name="tests/**"/>
+                <exclude name="tutorials/**"/>
             </fileset>
         </move>
-        <delete>
-            <fileset dir="dist">
-                <include name="build.xml"/>
-            </fileset>
-        </delete>
-        <delete dir="dist/tests" quiet="true" includeemptydirs="true"/>
-        <delete dir="dist/tutorials" quiet="true" includeemptydirs="true"/>
-        <zip destfile="CMSimple_XH_${version}.zip" basedir="dist"/>
-        <delete dir="dist" quiet="true" includeemptydirs="true"/>
+        <touch file="dist/cmsimplexh/2lang/.2lang"/>
+        <delete dir="export"/>
+       <zip destfile="CMSimple_XH_${version}.zip" basedir="dist"/>
+        <delete dir="dist" quiet="true"/>
     </target>
 
 </project>
