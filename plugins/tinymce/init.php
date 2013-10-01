@@ -11,39 +11,35 @@
  *
  * @return void
  */
-function tinymce_filebrowser() {
-    global $adm, $cf;
+    function tinymce_filebrowser() {
+        global $adm, $cf;
 
-    if (!$adm) { return ''; }  // no filebrowser, if editor is called from front-end
+        if (!$adm) { return ''; }  // no filebrowser, if editor is called from front-end
 
-    $url = '';
-    $script = ''; //holds the code of the callback-function
+        $url = '';
+        $script = ''; //holds the code of the callback-function
 
-    //Einbindung alternativer Filebrowser, gesteuert über $cf['filebrowser']['external']
-    //und den Namen des aufrufenden Editors
-    if ($cf['filebrowser']['external'] != FALSE) {
-	$fbConnector = CMSIMPLE_BASE . 'plugins/' . $cf['filebrowser']['external'] . '/connectors/tinymce/tinymce.php';
-	if (is_readable($fbConnector)) {
-	    include_once($fbConnector);
-	    $init_function = $cf['filebrowser']['external'] . '_tinymce_init';
-	    if (function_exists($init_function)) {
-		    $script = $init_function();
-	    }
-	return $script;
-	}
+        //Einbindung alternativer Filebrowser, gesteuert über $cf['filebrowser']['external']
+        //und den Namen des aufrufenden Editors
+        if ($cf['filebrowser']['external'] != FALSE) {
+            $fbConnector = CMSIMPLE_BASE . 'plugins/' . $cf['filebrowser']['external'] . '/connectors/tinymce/tinymce.php';
+            if (is_readable($fbConnector)) {
+                include_once($fbConnector);
+                $init_function = $cf['filebrowser']['external'] . '_tinymce_init';
+                if (function_exists($init_function)) {
+                    $script = $init_function();
+                    return $script;
+                }
+            }
+        }
 
-    } else {
-
-	//default filebrowser
-	$_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
-	$url =  CMSIMPLE_ROOT . 'plugins/filebrowser/editorbrowser.php?editor=tinymce&prefix=' . CMSIMPLE_BASE . '&base=./';
-	$script = file_get_contents(dirname(__FILE__) . '/filebrowser.js');
-	$script = str_replace('%URL%',  $url, $script);
-	return $script;
-
+        //default filebrowser
+        $_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
+        $url =  CMSIMPLE_ROOT . 'plugins/filebrowser/editorbrowser.php?editor=tinymce&prefix=' . CMSIMPLE_BASE . '&base=./';
+        $script = file_get_contents(dirname(__FILE__) . '/filebrowser.js');
+        $script = str_replace('%URL%',  $url, $script);
+        return $script;
     }
-}
-
 
 /**
  * Writes the basic JS of the editor to $hjs. No editors are actually created.
