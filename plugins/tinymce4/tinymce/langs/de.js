@@ -171,5 +171,9 @@ tinymce.addI18n('de',{
 "Tools": "Werkzeuge",
 "View": "Ansicht",
 "Table": "Tabelle",
-"Format": "Format"
+"Format": "Format",
+"#1 Level Pageheader":"1. Ebene Seitenkopf",
+"#2 Level Pageheader":"2. Ebene Seitenkopf",
+"#3 Level Pageheader":"3. Ebene Seitenkopf",
+"#4 Level Pageheader":"4. Ebene Seitenkopf"
 });

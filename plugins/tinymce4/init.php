@@ -138,14 +138,26 @@ function tinymce4_config($xh_editor, $config, $selector) {
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
     $sysTemp -> element_format = $elementFormat;
     
+    $_blockFormats = array();
+    for ( $i = $cf['menu']['levels'] + 1; $i <= 6; $i++ ) {
+        $_blockFormats[] = "Header $i=h$i";
+    };
+    
+    $_blockFormats[] = "Paragraph=p";
+    
+    for ( $i=1; $i <= $cf['menu']['levels'];$i++ ) {
+        $_blockFormats [] = "#$i Level Pageheader=h$i";
+    }
+    $sysTemp -> block_formats = implode(';',$_blockFormats);
+    unset($_blockFormats);
+    
     if ($xh_editor)
     {
         if (!isset($temp -> selector)) $temp -> selector = 'textarea#text';
-        $sysTemp -> height = $cf['editor']['height'];
+        $temp -> height = $cf['editor']['height'];
     }
     else
     {
-        unset($temp -> height);
         if ($selector) $temp -> selector = $selector;
     }
 
