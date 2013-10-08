@@ -671,15 +671,7 @@ function languagemenu()
 {
     global $pth, $cf, $sl;
 
-    $r = array();
-    if (($fd = opendir($pth['folder']['base'])) !== false) {
-        while (($p = readdir($fd)) !== false) {
-            if (XH_isLanguageFolder($p)) {
-                $r[] = $p;
-            }
-        }
-        closedir($fd);
-    }
+    $r = XH_secondLanguages();
     array_unshift($r, $cf['language']['default']);
     $i = array_search($sl, $r);
     unset($r[$i]);

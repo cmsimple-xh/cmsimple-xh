@@ -2268,7 +2268,7 @@ function XH_templates()
  *
  * @since 1.6
  */
-function XH_availableLanguages()
+function XH_availableLocalizations()
 {
     global $pth;
 
@@ -2282,6 +2282,35 @@ function XH_availableLanguages()
     closedir($handle);
     natcasesort($languages);
     return $languages;
+}
+
+/**
+ * Returns the installed second languages in alphabetic order.
+ *
+ * @return array
+ *
+ * @global array The paths of system files and folders.
+ *
+ * @since 1.6
+ */
+function XH_secondLanguages()
+{
+    global $pth;
+    static $langs;
+
+    if (!isset($langs)) {
+        $langs = array();
+        if (($dir = opendir($pth['folder']['base'])) !== false) {
+            while (($entry = readdir($dir)) !== false) {
+                if (XH_isLanguageFolder($entry)) {
+                    $langs[] = $entry;
+                }
+            }
+            closedir($dir);
+        }
+        sort($langs);
+    }
+    return $langs;
 }
 
 /**

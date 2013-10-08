@@ -358,6 +358,16 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testSecondLanguages()
+    {
+        global $pth;
+
+        $expected = array('de', 'fr');
+        $pth['folder']['base'] = './tests/unit/data/';
+        $actual = XH_secondLanguages();
+        $this->assertEquals($expected, $actual);
+    }
+
     public function dataForHsc()
     {
         return array(
