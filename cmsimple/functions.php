@@ -2336,8 +2336,7 @@ function XH_adminMenu($plugins = array())
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['log']),
-            'url' => '?file=log&amp;action=view',
-            'target' => '_blank'
+            'url' => '?file=log&amp;action=view'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['validate']),

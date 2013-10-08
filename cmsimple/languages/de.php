@@ -236,6 +236,7 @@ $tx['template']['default']="Standard Template";
 
 $tx['title']['downloads']="Downloads";
 $tx['title']['images']="Bilder";
+$tx['title']['log']="Log-Datei";
 $tx['title']['mailform']="Kontakt-Formular";
 $tx['title']['media']="Media-Dateien";
 $tx['title']['password_forgotten']="Kennwort vergessen";

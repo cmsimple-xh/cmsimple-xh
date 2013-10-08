@@ -136,6 +136,31 @@ function XH_settingsView()
 }
 
 /**
+ * Returns the log file view.
+ *
+ * @return string (X)HTML.
+ *
+ * @global array The paths of system files and folders.
+ * @global array The localization of the core.
+ *
+ * @since 1.6
+ */
+function XH_logFileView()
+{
+    global $pth, $tx;
+
+    return '<h1>' . $tx['title']['log'] . '</h1>'
+        . '<pre id="xh_logfile">' . XH_hsc(file_get_contents($pth['file']['log']))
+        . '</pre>'
+        . '<script type="text/javascript">/* <![CDATA[ */'
+        . '(function () {'
+        . 'var elt = document.getElementById("xh_logfile");'
+        . 'elt.scrollTop = elt.scrollHeight;'
+        . '}())'
+        . '/* ]]> */</script>';
+}
+
+/**
  * Returns the backup view.
  *
  * @return string The (X)HTML.

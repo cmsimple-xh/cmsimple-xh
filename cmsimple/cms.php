@@ -1056,11 +1056,14 @@ if (XH_ADM) {
         }
         if ($pth['file'][$file] != '') {
             if ($action == 'view') {
-                header('Content-Type: text/plain; charset=utf-8');
-                echo rmnl(rf($pth['file'][$file]));
-                exit;
-            }
-            if ($action == 'download') {
+                if ($file === 'log') {
+                    $o .= XH_logFileView();
+                } else {
+                    header('Content-Type: text/plain; charset=utf-8');
+                    echo rmnl(rf($pth['file'][$file]));
+                    exit;
+                }
+            } elseif ($action == 'download') {
                 download($pth['file'][$file]);
             } elseif ($action == 'restore') {
                 $_XH_csrfProtection->check();
