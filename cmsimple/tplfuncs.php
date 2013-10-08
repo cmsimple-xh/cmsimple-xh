@@ -319,15 +319,30 @@ function sitemaplink()
  *
  * @return string The (X)HTML.
  *
- * @global string The requested special function.
- * @global string The current search string.
- * @global string The requested special file.
- * @global string The script name.
  * @global array  The localization of the core.
  */
 function printlink()
 {
-    global $f, $search, $file, $sn, $tx;
+    global $tx;
+
+    return '<a href="' . XH_printUrl() . '">' . $tx['menu']['print'] . '</a>';
+}
+
+/**
+ * Returns the URL of the print view.
+ *
+ * @return string
+ *
+ * @global string The requested special function.
+ * @global string The current search string.
+ * @global string The requested special file.
+ * @global string The script name.
+ *
+ * @since 1.6
+ */
+function XH_printUrl()
+{
+    global $f, $search, $file, $sn;
 
     $t = '&print';
     if ($f == 'search') {
@@ -340,9 +355,8 @@ function printlink()
         $t = sv('QUERY_STRING') . $t;
     }
     $t = XH_hsc($t);
-    return '<a href="' . $sn . '?' . $t . '">' . $tx['menu']['print'] . '</a>';
+    return $sn . '?' . $t;
 }
-
 
 /**
  * Returns the link to the mail form.
