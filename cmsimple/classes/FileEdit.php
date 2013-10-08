@@ -882,13 +882,15 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
     /**
      * Constructs an instance.
      *
-     * @global array The localization of the core.
+     * @global string The current language.
+     * @global array  The configuration of the core.
+     * @global array  The localization of the core.
      *
      * @access public
      */
     function XH_CoreLangFileEdit()
     {
-        global $tx;
+        global $sl, $cf, $tx;
 
         parent::XH_CoreArrayFileEdit();
         $this->varName = 'tx';
@@ -908,11 +910,15 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
                 }
                 $co = array('val' => $val, 'type' => 'text');
                 if ($cat == 'subsite' && $name == 'template') {
-                    $co['type'] = 'enum';
-                    $co['vals'] = $this->selectOptions(
-                        'templates', '/^([^\.]*)$/i'
-                    );
-                    array_unshift($co['vals'], '');
+                    if ($sl === $cf['language']['default']) {
+                        $co['type'] = 'hidden';
+                    } else {
+                        $co['type'] = 'enum';
+                        $co['vals'] = $this->selectOptions(
+                            'templates', '/^([^\.]*)$/i'
+                        );
+                        array_unshift($co['vals'], '');
+                    }
                 }
                 $this->cfg[$cat][$name] = $co;
             }
