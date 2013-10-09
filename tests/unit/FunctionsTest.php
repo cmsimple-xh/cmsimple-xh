@@ -368,6 +368,83 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function dataForIsInternalPath()
+    {
+        return array(
+            array('./', 'en', true),
+            array('./fr', 'en', true),
+            array('../fr/', 'en', false),
+            array('index.php', 'en', true),
+            array('./', 'de', true),
+            array('./fr', 'de', false),
+            array('../fr/', 'de', true),
+            array('index.php', 'de', true)
+        );
+    }
+
+    /**
+     * @dataProvider dataForIsInternalPath()
+     */
+    public function testIsInternalPath($path, $language, $expected)
+    {
+        global $sl;
+
+        $sl = $language;
+        $actual = XH_isInternalPath($path);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function dataForIsInternalUrl()
+    {
+        return array(
+            array(
+                array(
+                    'scheme' => 'http',
+                    'host' => 'www.cmsimple-xh.org',
+                    'path' => '/'
+                ),
+                false
+            ),
+            array(array('path' =>'./', 'query' => 'Foo'), true),
+            array(array('path' => './index.php', 'query' => 'Foo'), true),
+            array(array('query' => 'Foo'), true),
+            array(array('query' => 'Foo', 'fragment' => 'Bar'), true),
+            array(array('path' => './foo.htm'), false)
+        );
+    }
+
+    /**
+     * @dataProvider dataForIsInternalUrl
+     */
+    public function testIsInternalUrl($url, $expected)
+    {
+        $actual = XH_isInternalUrl($url);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function dataForConvertPrintUrls()
+    {
+        return array(
+            array(
+                '<a href="">This Website</a> is powered by <a href="cmsimple-xh.org">CMSimple_XH</a>',
+                '<a href="?print">This Website</a> is powered by <a href="cmsimple-xh.org">CMSimple_XH</a>'
+            ),
+            array(
+                '<a href="?Welcome">This Website</a> is powered by <a href="cmsimple-xh.org">CMSimple_XH</a>',
+                '<a href="?Welcome&amp;print">This Website</a> is powered by <a href="cmsimple-xh.org">CMSimple_XH</a>'
+            )
+        );
+    }
+
+    /**
+     * @dataProvider dataForConvertPrintUrls
+     */
+    public function testConvertPrintUrls($pageContent, $expected)
+    {
+        $actual = XH_convertPrintUrls($pageContent);
+        $this->assertEquals($expected, $actual);
+    }
+
     public function dataForHsc()
     {
         return array(

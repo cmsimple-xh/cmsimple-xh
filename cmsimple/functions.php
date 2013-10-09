@@ -2182,10 +2182,11 @@ function XH_builtinTemplate($bodyClass)
             ' "http://www.w3.org/TR/html4/loose.dtd">', "\n", '<html',
             (strlen($sl) == 2 ? " lang=\"$sl\"" : ''), '>', "\n";
     }
+    $content = XH_convertPrintUrls(content());
     echo '<head>', "\n" . head(),
         tag('meta name="robots" content="noindex"'), "\n",
         '</head>', "\n", '<body class="', $bodyClass,'"', onload(), '>', "\n",
-        content(), '</body>', "\n", '</html>', "\n";
+        $content, '</body>', "\n", '</html>', "\n";
     $_XH_csrfProtection->store();
     exit;
 }
@@ -2311,6 +2312,106 @@ function XH_secondLanguages()
         sort($langs);
     }
     return $langs;
+}
+
+/**
+ * Returns whether a path refers to a CMSimple index.php.
+ *
+ * @param string $path A relative path.
+ *
+ * @return string
+ *
+ * @since 1.6
+ */
+function XH_isInternalPath($path)
+{
+    global $sl, $cf;
+
+    $parts = explode('/', $path);
+    $part0 = '';
+    if ($parts[0] === '.'
+        || $parts[0] === '..' && $sl !== $cf['language']['default']
+    ) {
+        $part0 = array_shift($parts);
+    }
+    if (empty($parts)) {
+        return true;
+    }
+    if (($sl === $cf['language']['default'] || $part0 === '..')
+        && array_search($parts[0], XH_secondLanguages())
+    ) {
+        array_shift($parts);
+    }
+    if (empty($parts)) {
+        return true;
+    }
+    if ($parts[0] === '' || $parts[0] === 'index.php') {
+        array_shift($parts);
+    }
+    return empty($parts);
+}
+
+/**
+ * Returns whether a URL points to this CMSimple installation.
+ *
+ * @param string $urlParts Parts of an URL.
+ *
+ * @return bool
+ *
+ * @since 1.6
+ */
+function XH_isInternalUrl($urlParts)
+{
+    $ok = !isset(
+        $urlParts['scheme'], $urlParts['host'], $urlParts['port'],
+        $urlParts['user'], $urlParts['pass']
+    );
+    $ok = $ok
+        && (!isset($urlParts['path']) || XH_isInternalPath($urlParts['path']));
+    return $ok;
+}
+
+/**
+ * Returns a single URL converted to a print URL, if appropriate.
+ * Serves as helper for @see XH_convertPrintUrls().
+ *
+ * @param array $matches The matches of a PREG.
+ *
+ * @return string
+ *
+ * @since 1.6
+ */
+function XH_convertToPrintUrl($matches)
+{
+    $url = $matches[3];
+    $parts = parse_url($url);
+    xdebug_break();
+    if (XH_isInternalUrl($parts)) {
+        $parts['query'] = (isset($parts['query']) ? $parts['query'] . '&amp;' : '');
+        $parts['query'] .= 'print';
+        $url = isset($parts['path']) ? $parts['path'] : '';
+        $url .= '?' . $parts['query'];
+        if (isset($parts['fragment'])) {
+            $url .= '#' . $parts['fragment'];
+        }
+    }
+    return $matches[1] . $url . $matches[2];
+}
+
+/**
+ * Convert all internal URLs in a text to print URLs.
+ *
+ * @param string $pageContent Some (X)HTML.
+ *
+ * @return string
+ *
+ * @since 1.6
+ */
+function XH_convertPrintUrls($pageContent)
+{xdebug_break();
+    $regex = '/(<a[^>]+href=(["\']))([^"\']*)\\2/iu';
+    $content = preg_replace_callback($regex, 'XH_convertToPrintUrl', $pageContent);
+    return $content;
 }
 
 /**
