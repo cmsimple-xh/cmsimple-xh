@@ -1125,9 +1125,8 @@ if (XH_ADM && ($images || $downloads || $userfiles || $media || $edit
     if ($cf['filebrowser']['external']
         && !file_exists($pth['folder']['plugins'] . $cf['filebrowser']['external'])
     ) {
-        // FIXME: i18n
         $temp = sprintf(
-            'External filebrowser %s missing', $cf['filebrowser']['external']
+            $tx['error']['nofilebrowser'], $cf['filebrowser']['external']
         );
         $e .= '<li>' . $temp . '</li>' . "\n";
     }
@@ -1137,9 +1136,8 @@ if (XH_ADM && $f == 'xhpages') {
     if ($cf['pagemanager']['external']
         && !file_exists($pth['folder']['plugins'] . $cf['pagemanager']['external'])
     ) {
-        // FIXME: i18n
         $temp = sprintf(
-            'External pagemanager %s missing', $cf['pagemanager']['external']
+            $tx['error']['nopagemanager'], $cf['pagemanager']['external']
         );
         $e .= '<li>' . $temp . '</li>' . "\n";
     }
