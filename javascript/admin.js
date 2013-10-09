@@ -364,6 +364,30 @@ XH.makeTextareasAutosize = function (node) {
     }
 }
 
+/**
+ * Prompts for a valid backup suffix. Returns whether to continue.
+ *
+ * @param {HTMLFormElement} form
+ *
+ * @returns {bool}
+ *
+ * @since 1.6
+ */
+XH.promptBackupName = function (form) {
+    var suffix, field;
+
+    field = form.elements["xh_suffix"];
+    suffix = field.value;
+    do {
+        suffix = prompt(XH.i18n["settings"]["backupsuffix"], suffix);
+        if (suffix === null) {
+            return false;
+        }
+    } while (!/^[a-z_0-9-]{1,20}$/i.test(suffix));
+    field.value = suffix;
+    return true;
+}
+
 /*
  * Initialize the quick submit of page data forms.
  */

@@ -2072,13 +2072,10 @@ function XH_message($type, $message)
 function XH_backup()
 {
     global $pth, $cf, $tx;
-    static $date = null; // TODO: probably not necessary since wedding
 
     $o = '';
-    if (!isset($date)) {
-        $date = date("Ymd_His");
-    }
-    $fn = "${date}_content.htm";
+    $date = date("Ymd_His");
+    $fn = $date . '_content.htm';
     if (empty($cf['backup']['numberoffiles'])
         || copy($pth['file']['content'], $pth['folder']['content'] . $fn)
     ) {
@@ -2222,15 +2219,17 @@ function XH_helpIcon($tooltip)
 /**
  * Returns whether a file is a content backup by checking the filename.
  *
- * @param string $filename A filename.
+ * @param string $filename    A filename.
+ * @param string $regularOnly Whether to check for regalur backup names only.
  *
  * @return bool
  *
  * @since 1.6
  */
-function XH_isContentBackup($filename)
+function XH_isContentBackup($filename, $regularOnly = true)
 {
-    return preg_match('/^\d{8}_\d{6}_content.htm$/', $filename);
+    $suffix = $regularOnly ? 'content' : '[^.]+';
+    return preg_match('/^\d{8}_\d{6}_' . $suffix . '.htm$/', $filename);
 }
 
 /**

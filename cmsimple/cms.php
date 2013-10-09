@@ -1051,7 +1051,7 @@ if (XH_ADM) {
         $o .= XH_backupsView();
         break;
     case 'file':
-        if (XH_isContentBackup($file)) {
+        if (XH_isContentBackup($file, false)) {
             $pth['file'][$file] = $pth['folder']['content'] . $file;
         }
         if ($pth['file'][$file] != '') {
@@ -1065,11 +1065,16 @@ if (XH_ADM) {
                 }
             } elseif ($action == 'download') {
                 download($pth['file'][$file]);
-            } elseif ($action == 'restore') {
+            } elseif ($action == 'backup') {
                 $_XH_csrfProtection->check();
-                if (XH_isContentBackup($file)) {
-                    XH_restore($pth['file'][$file]);
+                if ($file === 'content') {
+                    $temp = stsl($_POST['xh_suffix']);
+                    if (preg_match('/^[a-z_0-9-]{1,20}$/i', $temp)) {
+                        XH_extraBackup($temp);
+                    }
                 }
+            } elseif ($action == 'restore') {
+                XH_restore($pth['file'][$file]);
             } elseif ($action == 'delete') {
                 $_XH_csrfProtection->check();
                 if ($file = 'content') {

@@ -12,6 +12,7 @@ $tx['template']['text1']="Text 1 for templates requiring this text";
 $tx['template']['text2']="Text 2 for templates requiring this text";
 $tx['template']['text3']="Text 3 for templates requiring this text";
 
+$tx['action']['backup']="backup";
 $tx['action']['cancel']="Cancel";
 $tx['action']['delete']="delete";
 $tx['action']['download']="download";
@@ -174,6 +175,7 @@ $tx['menu']['tab_config']="Config";
 $tx['menu']['tab_language']="Language";
 $tx['menu']['tab_help']="Help";
 
+$tx['message']['backedup']="The content has been successfully backed up.";
 $tx['message']['deleted']="The content has been successfully deleted.";
 $tx['message']['pd_success']="The page data have been successfully saved. However, some settings will only become effective after you refresh the page or browse to another page.";
 $tx['message']['pd_fail']="The page data could not be saved. Please try again.";
@@ -212,6 +214,7 @@ $tx['search']['result']="Result of your search";
 $tx['settings']['backup']="Backup";
 $tx['settings']['backupexplain1']="On logout content is backed up and the oldest backup file will be deleted.";
 $tx['settings']['backupexplain2']="Backup file names start with date and time of backup as: YYYYMMDD_HHMMSS";
+$tx['settings']['backupsuffix']="Enter a filename (only a-z, 0-9, minus and underscore; at most 20 characters):";
 $tx['settings']['ftp']="Use FTP for remote file management";
 $tx['settings']['systemfiles']="System files";
 $tx['settings']['warning']="Only change settings when you understand the effect your changes will have!";

@@ -181,12 +181,24 @@ function XH_backupsView()
         $o .= XH_message('success', $tx['message'][stsl($_GET['xh_success'])]);
     }
     $o .= '<li>' . utf8_ucfirst($tx['filetype']['content']) . ' <a href="'
-        . $sn . '?file=content&amp;action=view">'
+        . $sn . '?file=content&amp;action=view" target="_blank">'
         . $tx['action']['view'] . '</a>' . ' <a href="' . $sn . '?file=content">'
         . $tx['action']['edit'] . '</a>' . ' <a href="'
         . $sn . '?file=content&amp;action=download">' . $tx['action']['download']
         . '</a>'
-        . ' <form action="" method="post" class="xh_inline_form">'
+        . ' <form action="' . $sn . '?&xh_backups" method="post"'
+        . ' class="xh_inline_form" onsubmit="return XH.promptBackupName(this)">'
+        . tag('input type="hidden" name="file" value="content"')
+        . tag('input type="hidden" name="action" value="backup"')
+        . tag('input type="hidden" name="xh_suffix" value="extra"')
+        . tag(
+            'input type="submit" class="submit" value="'
+            . $tx['action']['backup'] . '"'
+        )
+        . $_XH_csrfProtection->tokenInput()
+        . '</form>'
+        . ' <form action="' . $sn . '?&xh_backups" method="post"'
+        . ' class="xh_inline_form">'
         . tag('input type="hidden" name="file" value="content"')
         . tag('input type="hidden" name="action" value="delete"')
         . tag(
@@ -201,12 +213,14 @@ function XH_backupsView()
         . $tx['settings']['backupexplain2'] . '</p>' . "\n" . '<ul>' . "\n";
     $fs = sortdir($pth['folder']['content']);
     foreach ($fs as $p) {
-        if (XH_isContentBackup($p)) {
+        if (XH_isContentBackup($p, false)) {
             $size = filesize($pth['folder']['content'] . '/' . $p);
             $size = round(($size) / 102.4) / 10;
-            $o .= '<li><a href="' . $sn . '?file=' . $p . '&amp;action=view">'
+            $o .= '<li><a href="' . $sn . '?file=' . $p
+                . '&amp;action=view" target="_blank">'
                 . $p . '</a> (' . $size . ' KB)'
-                . ' <form action="" method="post" class="xh_inline_form">'
+                . ' <form action="' . $sn . '?&xh_backups" method="post"'
+                . ' class="xh_inline_form">'
                 . tag('input type="hidden" name="file" value="' . $p . '"')
                 . tag('input type="hidden" name="action" value="restore"')
                 . tag(
@@ -563,7 +577,7 @@ function XH_deleteContents()
     }
     if (XH_saveContents()) {
         // the following relocation is necessary to cater for the changed content
-        $url = CMSIMPLE_URL . '?&settings&xh_success=deleted';
+        $url = CMSIMPLE_URL . '?&xh_backups&xh_success=deleted';
         header('Location: ' . $url, true, 303);
         exit;
     } else {
@@ -604,9 +618,33 @@ function XH_restore($filename)
         return;
     }
     // the following relocation is necessary to cater for the changed content
-    $url = CMSIMPLE_URL . '?&settings&xh_success=restored';
+    $url = CMSIMPLE_URL . '?&xh_backups&xh_success=restored';
     header('Location: ' . $url, true, 303);
     exit;
+}
+
+/**
+ * Creates an extra backup of the contents file.
+ *
+ * @param string $suffix A suffix for the filename.
+ *
+ * @return void
+ *
+ * @since 1.6
+ */
+function XH_extraBackup($suffix)
+{
+    global $pth;
+
+    $date = date("Ymd_His");
+    $dest = $pth['folder']['content'] . $date . '_' . $suffix . '.htm';
+    if (!copy($pth['file']['content'], $dest)) {
+        e('cntsave', 'backup', $dest);
+    } else {
+        $url = CMSIMPLE_URL . '?&xh_backups&xh_success=backedup';
+        header('Location: ' . $url, true, 303);
+        exit;
+    }
 }
 
 /**
@@ -625,7 +663,8 @@ function XH_adminJSLocalization()
     $keys = array(
         'action' => array('cancel', 'ok'),
         'password' => array('fields_missing', 'mismatch', 'wrong'),
-        'error' => array('server')
+        'error' => array('server'),
+        'settings' => array('backupsuffix')
     );
     $l10n = array();
     foreach ($keys as $category => $keys2) {
