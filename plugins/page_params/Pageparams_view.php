@@ -82,64 +82,37 @@ HTM;
 function Pageparams_caption($label, $hint)
 {
     return "\n\t" . XH_helpIcon($hint)
-        . "\n\t" . '<span class="pp_label">' . $label . '</span>' . tag('br');
-}
-
- /**
-  * Returns a radio INPUT element.
-  *
-  * @param string $name    The name of the INPUT element.
-  * @param bool   $yes     Whether the yes or no radio.
-  * @param bool   $checked Whether the radio is checked.
-  * @param string $toggles An array of elements to en-/disable.
-  *
-  * @return string (X)HTML
-  *
-  * @global array The localization of the plugins.
-  *
-  * @since 1.6
-  */
-function Pageparams_radio($name, $yes, $checked, $toggles)
-{
-    global $plugin_tx;
-
-    $yesString = $yes ? 'yes' : 'no';
-    $value = intval($yes);
-    $id = $name . '_' . $yesString;
-    $checked = $checked ? ' checked="checked"' : '';
-    $onclick = '';
-    foreach ($toggles as $toggle) {
-        $onclick .= 'document.forms[\'page_params\'].elements[\'' . $toggle
-            . '\'].disabled=' . ($yes ? 'false' : 'true') . ';';
-    }
-    if ($onclick != '') {
-        $onclick = ' onclick="' . $onclick . '"';
-    }
-    $radio = tag(
-        'input type="radio" name="' . $name . '" value="'. $value
-        . '" id="' . $id . '"' . $checked . $onclick
-    );
-    $o = "\n\t\t" . $radio . '<label for="' . $id . '">'
-        . $plugin_tx['page_params'][$yesString] . '</label>';
-    return $o;
+        . "\n\t" . '<span class="pp_label">' . $label . '</span>';
 }
 
 /**
- * Returns a yes/no radio group.
+ * Returns a checkbox.
  *
- * @param string $name    A name for the group.
- * @param bool   $isYes   Whether "yes" is checked.
+ * @param string $name    Name of the checkbox.
+ * @param bool   $checked Whether the checkbox is checked.
  * @param array  $toggles An array of elements to en-/disable.
  *
  * @return string (X)HTML
  *
  * @since 1.6
  */
-function Pageparams_radioPair($name, $isYes, $toggles)
+function Pageparams_checkbox($name, $checked, $toggles)
 {
-    $o = Pageparams_radio($name, true, $isYes, $toggles)
-        . Pageparams_radio($name, false, !$isYes, $toggles)
-        . tag('br');
+    $checkedAttr = $checked ? ' checked="checked"' : '';
+    $onclick = '';
+    foreach ($toggles as $toggle) {
+        $onclick .= 'document.forms[\'page_params\'].elements[\'' . $toggle
+            . '\'].disabled=!document.forms[\'page_params\'].elements[\'' . $toggle
+            . '\'].disabled;';
+    }
+    if ($onclick != '') {
+        $onclick = ' onclick="' . $onclick . '"';
+    }
+    $o = "\n\t\t" . tag('input type="hidden" name="' . $name . '" value="0"')
+        . tag(
+            'input type="checkbox" name="' . $name . '" value="1"'
+            . $checkedAttr . $onclick
+        );
     return $o;
 }
 
@@ -352,9 +325,10 @@ function Pageparams_view($page)
      * heading
      */
     $view .= Pageparams_caption($lang['heading'], $lang['hint_heading']);
-    $view .= Pageparams_radioPair(
+    $view .= Pageparams_checkbox(
         'show_heading', $page['show_heading'] == '1', array('heading')
     );
+    $view .= tag('br');
     $view .= Pageparams_input(
         'heading', 'other_heading', $page['heading'],
         $page['show_heading'] !== '1'
@@ -365,10 +339,11 @@ function Pageparams_view($page)
      * published
      */
     $view .= Pageparams_caption($lang['published'], $lang['hint_published']);
-    $view .= Pageparams_radioPair(
+    $view .= Pageparams_checkbox(
         'published', $page['published'] != '0',
         array('expires', 'publication_date')
     );
+    $view .= tag('br');
     $view .= "\n\t" . XH_helpIcon($lang['hint_publication_period']);
     $view .= "\n\t\t" . $plugin_tx['page_params']['publication_period'];
     $view .= Pageparams_scheduleInput(
@@ -387,9 +362,10 @@ function Pageparams_view($page)
     $view .= Pageparams_caption(
         $lang['linked_to_menu'], $lang['hint_linked_to_menu']
     );
-    $view .= Pageparams_radioPair(
+    $view .= Pageparams_checkbox(
         'linked_to_menu', $page['linked_to_menu'] !== '0', array()
     );
+    $view .= tag('br');
     $view .= "\n\t" . tag('hr');
 
     /*
