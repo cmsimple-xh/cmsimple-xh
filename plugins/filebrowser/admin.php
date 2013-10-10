@@ -36,7 +36,8 @@ if ($filebrowser) {
     $action = isset($_POST['action'])
         ? $_POST['action']
         : $action = isset($_GET['action']) ? $_GET['action'] : 'plugin_edit';
-    $o .= plugin_admin_common($action, $admin, $plugin);
+    $o .= plugin_admin_common($action, $admin, $plugin)
+        . '</div>';
     return;
 }
 
