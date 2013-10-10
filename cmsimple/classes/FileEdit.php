@@ -342,10 +342,6 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      */
     var $cfg = null;
-    //var $file = null;
-    //var $admin = null;
-    //var $action = null;
-    //var $plugin = null;
 
     /**
      * A dictionary which maps from config and languages keys
@@ -378,6 +374,22 @@ class XH_ArrayFileEdit extends XH_FileEdit
         } else {
             $this->lang = array();
         }
+    }
+
+    /**
+     * Saves the file and returns whether that succeeded.
+     * Invalidates the cached file, if OPcache is enabled.
+     *
+     * @return bool
+     */
+    function save()
+    {
+        $ok = parent::save();
+        $func = 'opcache_invalidate';
+        if (function_exists($func)) {
+            $func($this->filename);
+        }
+        return $ok;
     }
 
     /**
