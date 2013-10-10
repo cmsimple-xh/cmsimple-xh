@@ -16,7 +16,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-/* utf8-marker = äöü */
 /*
   ======================================
   @CMSIMPLE_XH_VERSION@, @CMSIMPLE_XH_BUILD@
@@ -28,7 +27,7 @@
 
   CMSimple version 3.3 - December 31. 2009
   Small - simple - smart
-  © 1999-2009 Peter Andreas Harteg - peter@harteg.dk
+  (c) 1999-2009 Peter Andreas Harteg - peter@harteg.dk
 
   -- COPYRIGHT INFORMATION END --
 
@@ -943,7 +942,8 @@ if ($f == 'search') {
         $o .= $temp->render();
     }
 }
-if ($f == 'mailform') {
+switch ($f) {
+case 'mailform':
     if ($cf['mailform']['email'] != '') {
         include_once $pth['folder']['classes'] . 'Mailform.php';
         $temp = new XH_Mailform();
@@ -955,8 +955,8 @@ if ($f == 'mailform') {
     } else {
         shead(404);
     }
-}
-if ($f == 'sitemap') {
+    break;
+case 'sitemap':
     $title = $tx['title'][$f];
     $temp = array();
     $o .= '<h1>' . $title . '</h1>' . "\n";
@@ -966,11 +966,12 @@ if ($f == 'sitemap') {
         }
     }
     $o .= li($temp, 'sitemaplevel');
-}
-if ($f == 'forgotten') {
+    break;
+case 'forgotten':
     include_once $pth['folder']['classes'] . 'PasswordForgotten.php';
     $temp = new XH_PasswordForgotten();
     $temp->dispatch();
+    break;
 }
 
 // Compatibility for DHTML menus
@@ -1055,7 +1056,8 @@ if (XH_ADM) {
             $pth['file'][$file] = $pth['folder']['content'] . $file;
         }
         if ($pth['file'][$file] != '') {
-            if ($action == 'view') {
+            switch ($action) {
+            case 'view':
                 if ($file === 'log') {
                     $o .= XH_logFileView();
                 } else {
@@ -1063,9 +1065,11 @@ if (XH_ADM) {
                     echo rmnl(rf($pth['file'][$file]));
                     exit;
                 }
-            } elseif ($action == 'download') {
+                break;
+            case 'download':
                 download($pth['file'][$file]);
-            } elseif ($action == 'backup') {
+                break;
+            case 'backup':
                 $_XH_csrfProtection->check();
                 if ($file === 'content') {
                     $temp = stsl($_POST['xh_suffix']);
@@ -1073,14 +1077,17 @@ if (XH_ADM) {
                         XH_extraBackup($temp);
                     }
                 }
-            } elseif ($action == 'restore') {
+                break;
+            case 'restore':
                 XH_restore($pth['file'][$file]);
-            } elseif ($action == 'delete') {
+                break;
+            case 'delete':
                 $_XH_csrfProtection->check();
                 if ($file = 'content') {
                     XH_deleteContents();
                 }
-            } else {
+                break;
+            default:
                 include_once $pth['folder']['classes'] . 'FileEdit.php';
                 $temp = array('config' => 'XH_CoreConfigFileEdit',
                               'language' => 'XH_CoreLangFileEdit',
