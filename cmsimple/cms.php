@@ -1081,10 +1081,10 @@ if (XH_ADM) {
             case 'restore':
                 XH_restore($pth['file'][$file]);
                 break;
-            case 'delete':
+            case 'empty':
                 $_XH_csrfProtection->check();
                 if ($file = 'content') {
-                    XH_deleteContents();
+                    XH_emptyContents();
                 }
                 break;
             default:

@@ -200,10 +200,10 @@ function XH_backupsView()
         . ' <form action="' . $sn . '?&xh_backups" method="post"'
         . ' class="xh_inline_form">'
         . tag('input type="hidden" name="file" value="content"')
-        . tag('input type="hidden" name="action" value="delete"')
+        . tag('input type="hidden" name="action" value="empty"')
         . tag(
             'input type="submit" class="submit" value="'
-            . $tx['action']['delete'] . '"'
+            . $tx['action']['empty'] . '"'
         )
         . $_XH_csrfProtection->tokenInput()
         . '</form>'
@@ -553,7 +553,7 @@ function XH_saveEditorContents($text)
 }
 
 /**
- * Deletes all contents.
+ * Empties the contents.
  *
  * @return void
  *
@@ -563,7 +563,7 @@ function XH_saveEditorContents($text)
  * @global array  An (X)HTML fragment with error messages.
  * @global object The pagedata router.
  */
-function XH_deleteContents()
+function XH_emptyContents()
 {
     global $c, $cl, $pth, $e, $pd_router;
 
@@ -577,7 +577,7 @@ function XH_deleteContents()
     }
     if (XH_saveContents()) {
         // the following relocation is necessary to cater for the changed content
-        $url = CMSIMPLE_URL . '?&xh_backups&xh_success=deleted';
+        $url = CMSIMPLE_URL . '?&xh_backups&xh_success=emptied';
         header('Location: ' . $url, true, 303);
         exit;
     } else {
