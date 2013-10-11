@@ -1876,9 +1876,12 @@ function XH_readFile($filename)
 function XH_writeFile($filename, $contents)
 {
     $res = false;
-    $stream = fopen($filename, 'r+b');
+    // we can't use "cb" as it is available only since PHP 5.2.6
+    // we can't use "r+b" as it will fail if the file does not already exist
+    $stream = fopen($filename, 'a+b');
     if ($stream) {
         if (flock($stream, LOCK_EX)) {
+            fseek($stream, 0);
             ftruncate($stream, 0);
             $res = fwrite($stream, $contents);
             fflush($stream);
