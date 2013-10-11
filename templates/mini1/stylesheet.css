@@ -363,14 +363,18 @@ img.right_horizontal {
     float: right;
 }
 
-p.greybox, .greybox {
+p.small {
+    font-size:10px;
+}
+
+div.greybox {
     clear: both;
     background: #eee;
     padding: 1em 2em;
     border: .3em solid #c60;
 }
 
-p.redbox {
+div.redbox {
     clear: both;
     text-align: center;
     font-weight: 900;
@@ -378,6 +382,14 @@ p.redbox {
     color: #fff;
     padding: 1em;
     border: .3em solid #aaa;
+}
+
+.redbox p:first-child,
+.greybox p:first-child {
+    margin-top: 0;
+}
+.redbox p, .greybox p {
+    margin: 1em 0 0;
 }
 
 span.highlight {
