@@ -2001,6 +2001,9 @@ function XH_pluginStylesheet()
             $fn = $pth['folder']['plugins'] . $plugin . '/css/stylesheet.css';
             if (file_exists($fn)) {
                 $css = file_get_contents($fn);
+                if (substr($css, 0, 3) === "\xEF\xBB\xBF") {
+                    $css = substr($css, 3);
+                }
                 $css = XH_adjustStylesheetURLs($plugin, $css);
                 $css = PHP_EOL
                     . '/' . str_pad(' ' . $fn, 76, '*', STR_PAD_LEFT) . ' */'
