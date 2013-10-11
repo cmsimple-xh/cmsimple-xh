@@ -82,7 +82,7 @@ body {
     text-align:right;
     margin-top:1em;
 }
-.header form div#searchbox input.text {
+.header form div#searchbox .text {
     width:10em;
 }
 .header p {
@@ -334,4 +334,55 @@ h6 {
 .copyright a:hover {
     color:#090;
     background:white;
+}
+
+
+/**************************/
+/*     Content Styles     */
+/**************************/
+
+img.left {
+    margin: 0 5px 5px 0;
+    float: left;
+    clear: left;
+}
+
+img.right {
+    margin: 0 0 5px 5px;
+    float: right;
+    clear: right;
+}
+
+img.left_horizontal {
+    margin: 0 5px 5px 0;
+    float: left;
+}
+
+img.right_horizontal {
+    margin: 0 0 5px 5px;
+    float: right;
+}
+
+p.greybox, .greybox {
+    clear: both;
+    background: #eee;
+    padding: 1em 2em;
+    border: .3em solid #c60;
+}
+
+p.redbox {
+    clear: both;
+    text-align: center;
+    font-weight: 900;
+    background: #900;
+    color: #fff;
+    padding: 1em;
+    border: .3em solid #aaa;
+}
+
+span.highlight {
+    font-weight: 900;
+    letter-spacing: .06em;
+    background:#eef;
+    color:#022;
 }
