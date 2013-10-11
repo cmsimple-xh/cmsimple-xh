@@ -295,6 +295,20 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testWriteFile()
+    {
+        $filename = './tests/unit/data/temp';
+        $expected = 'foo';
+        XH_writeFile($filename, $expected);
+        $actual = file_get_contents($filename);
+        $this->assertEquals($expected, $actual);
+        $expected = 'bar';
+        XH_writeFile($filename, $expected);
+        $actual = file_get_contents($filename);
+        $this->assertEquals($expected, $actual);
+        unlink($filename);
+    }
+
     public function dataForTestAdjustStylesheetURLs()
     {
         return array(
