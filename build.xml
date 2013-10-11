@@ -49,7 +49,7 @@
     <!-- Tests -->
 
     <target name="unit-tests">
-        <phpunit bootstrap="tests/unit/bootstrap.php" haltonfailure="true">
+        <phpunit bootstrap="tests/unit/bootstrap.php" haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
                 <fileset dir="tests/unit">
@@ -61,7 +61,7 @@
 
     <target name="validation-tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
-        <phpunit haltonfailure="true">
+        <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
                 <fileset dir="tests/validation">
@@ -73,7 +73,7 @@
 
     <target name="attack-tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
-        <phpunit haltonfailure="true">
+        <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
                 <fileset dir="tests/attack">
