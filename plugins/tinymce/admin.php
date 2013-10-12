@@ -29,7 +29,9 @@ if ($tinymce) {
     $o .= '<div class="plugintext">';
     $o .= '<div class="plugineditcaption">TinyMCE for CMSimple_XH</div>';
     $o .= '<p>Version for @CMSIMPLE_XH_VERSION@</p>';
-    $o .= '<p>TinyMCE version 3.5.8  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a></p>';
+    $o .= '<p>TinyMCE version 3.5.9  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a>';
+    $o .= tag('br');
+    $o .= 'Available language packs: cs, da, de, en, et, fr, it, nl, pl, ru, sk tw, zh.</p>';
     $o .= '<p>CMSimple_XH & Filebrowser integration';
     $o .= tag('br');
     $o .= 'up to version 1.5.6 &ndash; <a href="http://www.zeichenkombinat.de/" target="_blank">Zeichenkombinat.de</a>';

@@ -5,6 +5,7 @@ tinymce.addI18n('de',{
 "Div": "Textblock",
 "Paste": "Einf\u00fcgen",
 "Close": "Schlie\u00dfen",
+"Font Family": "Schriftart",
 "Pre": "Vorformatierter Text",
 "Align right": "Rechtsb\u00fcndig ausrichten",
 "New document": "Neues Dokument",
@@ -22,6 +23,7 @@ tinymce.addI18n('de',{
 "Header 1": "\u00dcberschrift 1",
 "Superscript": "Hochgestellt",
 "Clear formatting": "Formatierung entfernen",
+"Font Sizes": "Schriftgr\u00f6\u00dfe",
 "Subscript": "Tiefgestellt",
 "Header 6": "\u00dcberschrift 6",
 "Redo": "Wiederholen",
@@ -171,9 +173,5 @@ tinymce.addI18n('de',{
 "Tools": "Werkzeuge",
 "View": "Ansicht",
 "Table": "Tabelle",
-"Format": "Format",
-"#1 Level Pageheader":"1. Ebene Seitenkopf",
-"#2 Level Pageheader":"2. Ebene Seitenkopf",
-"#3 Level Pageheader":"3. Ebene Seitenkopf",
-"#4 Level Pageheader":"4. Ebene Seitenkopf"
+"Format": "Format"
 });
