@@ -16,6 +16,38 @@
  * @link      http://cmsimple-xh.org/
  */
 
+/**
+ * Returns the readable version of a plugin.
+ *
+ * @param string $plugin Name of a plugin.
+ *
+ * @return string
+ *
+ * @global array The paths of system files and folders.
+ *
+ * @since 1.6
+ */
+function XH_pluginVersion($plugin)
+{
+    global $pth;
+
+    $internalPlugins = array(
+        'filebrowser', 'meta_tags', 'page_params', 'tinymce', 'tinymce4'
+    );
+    if (in_array($plugin, $internalPlugins)) {
+        $version = 'for ' . CMSIMPLE_XH_VERSION;
+    } else {
+        $filename = $pth['folder']['plugins'] . $plugin . '/version.nfo';
+        if (is_readable($filename)) {
+            $contents = file_get_contents($filename);
+            $contents = explode(',', $contents);
+            $version = $contents[2];
+        } else {
+            $version = '';
+        }
+    }
+    return $version;
+}
 
 /**
  * Returns the system information view.
@@ -39,7 +71,7 @@ function XH_sysinfo()
 
     $o .= '<ul>' . "\n";
     foreach (XH_plugins() as $temp) {
-        $o .= '<li>' . ucfirst($temp) . '</li>' . "\n";
+        $o .= '<li>' . ucfirst($temp) . ' ' . XH_pluginVersion($temp) . '</li>' . "\n";
     }
     $o .= '</ul>' . "\n" . "\n";
 
