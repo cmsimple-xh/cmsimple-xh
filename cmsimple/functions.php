@@ -880,11 +880,15 @@ function e($et, $ft, $fn)
  */
 function rfc()
 {
-    global $c, $cl, $h, $u, $l, $su, $s, $tx, $e, $pd_router;
+    global $c, $cl, $h, $u, $l, $su, $s, $tx, $e, $pth, $pd_router;
 
     $contents = XH_readContents();
     if ($contents === false) {
-        die('Couldn\'t read content.htm');
+        e('missing', 'content', $pth['file']['content']);
+        $contents = array(
+            array(), array(), array(), array(), array(),
+            new XH_PageDataRouter(array(), array(), array(), array())
+        );
     }
     list($u, $tooLong, $h, $l, $c, $pd_router) = array_values($contents);
     $duplicate = 0;
@@ -1922,6 +1926,9 @@ function XH_saveContents()
         $cnts .= rmnl($page . "\n");
     }
     $cnts .= '</body></html>';
+    if (!file_exists($pth['folder']['content'])) {
+        mkdir($pth['folder']['content'], true);
+    }
     return XH_writeFile($pth['file']['content'], $cnts) !== false;
 }
 
