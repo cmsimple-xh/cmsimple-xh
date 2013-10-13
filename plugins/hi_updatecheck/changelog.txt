@@ -1,0 +1,8 @@
+Version 1.1
+Fixed incompatibilities with non-jQuery frameworks
+Changed stylesheet for compatibility with XH 1.6
+Added metaconfig.php for compatibility with the new backend features of XH 1.6
+Minor changes in language files
+
+Version 1.0
+First public release
