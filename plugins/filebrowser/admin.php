@@ -24,18 +24,21 @@ if (!XH_ADM || $cf['filebrowser']['external']) {
 initvar('filebrowser');
 
 if ($filebrowser) {
-    $plugin = basename(dirname(__FILE__));
-    $plugin = basename(dirname(__FILE__), "/");
+
+    initvar('admin');
+    initvar('action');
+
+    $o .= print_plugin_admin('off');
+    
     $o .= '<div class="plugintext">'
         . '<div class="plugineditcaption">Filebrowser for @CMSIMPLE_XH_VERSION@'
         . '</div>' . tag('hr');
 
-    $admin = isset($_POST['admin'])
-        ? $_POST['admin']
-        : $admin = isset($_GET['admin']) ? $_GET['admin'] : 'plugin_config';
-    $action = isset($_POST['action'])
-        ? $_POST['action']
-        : $action = isset($_GET['action']) ? $_GET['action'] : 'plugin_edit';
+    !$admin &&
+        $admin = 'plugin_config';
+    !$action &&
+        $action = 'plugin_edit';
+        
     $o .= plugin_admin_common($action, $admin, $plugin)
         . '</div>';
     return;
