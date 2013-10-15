@@ -229,7 +229,7 @@ function evaluate_plugincall($text)
 
     $message = '<span class="cmsimplecore_fail">' . $tx['error']['plugincall']
         . '</span>';
-    $re = '/{{{(?:[^:]+:)?(([a-z_0-9]+)\([^\)]*\);)}}}/iu';
+    $re = '/{{{(?:[^:]+:)?(([a-z_0-9]+)\(.*?\);)}}}/iu';
     preg_match_all($re, $text, $calls, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
     $results = array();
     foreach ($calls as $call) {
