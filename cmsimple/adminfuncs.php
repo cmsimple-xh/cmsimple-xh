@@ -559,6 +559,10 @@ function XH_saveEditorContents($text)
         '/<h[1-' . $cf['menu']['levels'] . ']/i', "\x00" . '$0', $text
     );
     $pages = explode("\x00", $text);
+    // append everything before the first page heading to the previous page:
+    if ($s > 0) {
+        $c[$s - 1] .= $pages[0];
+    }
     array_shift($pages);
     array_splice($c, $s, 1, $pages);
 
