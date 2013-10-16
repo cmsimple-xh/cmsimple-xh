@@ -1,3 +1,70 @@
+/**************************/
+/*     Content Styles     */
+/**************************/
+
+img.left {
+    margin: 0 5px 5px 0;
+    float: left;
+    clear: left;
+}
+
+img.right {
+    margin: 0 0 5px 5px;
+    float: right;
+    clear: right;
+}
+
+img.left_horizontal {
+    margin: 0 5px 5px 0;
+    float: left;
+}
+
+img.right_horizontal {
+    margin: 0 0 5px 5px;
+    float: right;
+}
+
+p.small {
+    font-size:10px;
+}
+
+div.important, .important {
+    clear: both;
+    background: #eee;
+    padding: 1em 2em;
+    border: .3em solid #0b6;
+    margin: 1em 0;
+}
+
+div.warning, .warning {
+    clear: both;
+    text-align: center;
+    font-weight: 900;
+    background: #900;
+    color: #fff;
+    padding: 1em;
+    border: .3em solid #aaa;
+    margin: 1em 0;
+}
+.warning a {
+    color: #aaf;
+}
+
+.important p:first-child,
+.warning p:first-child {
+    margin-top: 0;
+}
+.important p, .warning p {
+    margin: 1em 0 0;
+}
+
+span.highlight {
+    font-weight: 900;
+    letter-spacing: .06em;
+    background:#dfd;
+}
+
+
 /*******************/
 /*      Start      */
 /*******************/
@@ -336,65 +403,3 @@ h6 {
     background:white;
 }
 
-
-/**************************/
-/*     Content Styles     */
-/**************************/
-
-img.left {
-    margin: 0 5px 5px 0;
-    float: left;
-    clear: left;
-}
-
-img.right {
-    margin: 0 0 5px 5px;
-    float: right;
-    clear: right;
-}
-
-img.left_horizontal {
-    margin: 0 5px 5px 0;
-    float: left;
-}
-
-img.right_horizontal {
-    margin: 0 0 5px 5px;
-    float: right;
-}
-
-p.small {
-    font-size:10px;
-}
-
-div.greybox {
-    clear: both;
-    background: #eee;
-    padding: 1em 2em;
-    border: .3em solid #c60;
-}
-
-div.redbox {
-    clear: both;
-    text-align: center;
-    font-weight: 900;
-    background: #900;
-    color: #fff;
-    padding: 1em;
-    border: .3em solid #aaa;
-}
-
-.redbox p:first-child,
-.greybox p:first-child {
-    margin-top: 0;
-}
-.redbox p, .greybox p {
-    margin: 1em 0 0;
-}
-
-span.highlight {
-    font-weight: 900;
-    letter-spacing: .06em;
-    background:#eef;
-    color:#022;
-}
