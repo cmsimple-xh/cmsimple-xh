@@ -161,7 +161,16 @@
         </move>
         <touch file="dist/cmsimplexh/2lang/.2lang"/>
         <delete dir="export"/>
-       <zip destfile="CMSimple_XH_${version}.zip" basedir="dist"/>
+
+        <!-- create defaultconfig.php and default.php files -->
+        <copy file="dist/cmsimplexh/cmsimple/config.php" tofile="dist/cmsimplexh/cmsimple/defaultconfig.php" preservelastmodified="true"/>
+        <copy file="dist/cmsimplexh/cmsimple/languages/en.php" tofile="dist/cmsimplexh/cmsimple/languages/default.php" preservelastmodified="true"/>
+        <copy file="dist/cmsimplexh/plugins/filebrowser/config/config.php" tofile="dist/cmsimplexh/plugins/filebrowser/config/defaultconfig.php" preservelastmodified="true"/>
+        <copy file="dist/cmsimplexh/plugins/filebrowser/languages/en.php" tofile="dist/cmsimplexh/plugins/filebrowser/languages/default.php" preservelastmodified="true"/>
+        <copy file="dist/cmsimplexh/plugins/meta_tags/languages/en.php" tofile="dist/cmsimplexh/plugins/meta_tags/languages/default.php" preservelastmodified="true"/>
+        <copy file="dist/cmsimplexh/plugins/page_params/languages/en.php" tofile="dist/cmsimplexh/plugins/page_params/languages/default.php" preservelastmodified="true"/>
+
+        <zip destfile="CMSimple_XH_${version}.zip" basedir="dist"/>
         <delete dir="dist" quiet="true"/>
     </target>
 
