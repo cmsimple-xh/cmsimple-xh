@@ -538,10 +538,9 @@ function XH_saveEditorContents($text)
     $text = stsl($text);
     // remove empty headings
     $text = preg_replace("/$hot(&nbsp;|&#160;|\xC2\xA0| )?$hct/isu", '', $text);
-    // replace "p" elements around plugin calls and scripting with "div"s
-    // TODO: keep an eye on changes regarding the plugin call
+    // replace P elements around plugin calls and scripting with DIVs
     $text = preg_replace(
-        '/<p>({{{PLUGIN:.*?}}}|#CMSimple .*?#)<\/p>/is', '<div>$1</div>', $text
+        '/<p>({{{.*?}}}|#CMSimple .*?#)<\/p>/isu', '<div>$1</div>', $text
     );
 
     // handle missing heading on the first page
