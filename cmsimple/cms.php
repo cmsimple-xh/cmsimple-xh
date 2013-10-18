@@ -209,7 +209,7 @@ require_once UTF8 . '/utils/validation.php';
  * @global array $cf
  */
 $cf = null;
-if (file_exists($pth['folder']['cmsimple'].'defaultconfig.php')) {
+if (is_readable($pth['folder']['cmsimple'].'defaultconfig.php')) {
     include $pth['folder']['cmsimple'].'defaultconfig.php';
 }
 if (!XH_includeGlobal($pth['file']['config'])) {
@@ -278,7 +278,9 @@ if (!is_readable($pth['file']['language'])
  * @global array $tx
  */
 $tx = null;
-require $pth['folder']['language'] . 'default.php';
+if (is_readable($pth['folder']['language'] . 'default.php')) {
+    include $pth['folder']['language'] . 'default.php';
+}
 XH_includeGlobal($pth['file']['language']);
 
 if ($tx['locale']['all'] != '') {
