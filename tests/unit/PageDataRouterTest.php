@@ -112,13 +112,6 @@ class PageDataRouterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testRemove()
-    {
-        $this->pd->remove(array(0));
-        $actual = $this->pd->find_page(1);
-        $this->assertNull($actual);
-    }
-
     public function testHeadAsPHP()
     {
         $expected = "<?php\n\$page_data_fields=array('url','foo','bar','list');\n"

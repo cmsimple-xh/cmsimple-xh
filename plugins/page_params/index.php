@@ -214,7 +214,7 @@ if (!(XH_ADM && $edit)) {
         if ($j['linked_to_menu'] == '0') {
             $c[$i] = '#CMSimple hide#' . $c[$i];
         } elseif (!Pageparams_isPublished($j)) {
-            $c[$i] = '#CMSimple hide#';
+            $c[$i] = '#CMSimple hide# #CMSimple shead(404);#';
         }
     }
 }

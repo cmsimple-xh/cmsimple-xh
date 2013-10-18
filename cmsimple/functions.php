@@ -1049,25 +1049,11 @@ function XH_readContents($language = null)
 
     // remove unpublished pages
     if (!($edit && XH_ADM)) {
-        $removed = array_keys($pd_router->find_field_value('published', '0'));
         foreach ($c as $i => $text) {
             if (cmscript('remove', $text)) {
-                $removed[] = $i;
+                $c[$i] = '#CMSimple hide# #CMSimple shead(404);#';
             }
         }
-        foreach ($removed as $i) {
-            unset($u[$i]);
-            unset($tooLong[$i]);
-            unset($h[$i]);
-            unset($l[$i]);
-            unset($c[$i]);
-        }
-        $u = array_values($u);
-        $tooLong = array_values($tooLong);
-        $h = array_values($h);
-        $l = array_values($l);
-        $c = array_values($c);
-        $pd_router->remove($removed);
     }
 
     return array(

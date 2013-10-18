@@ -350,24 +350,6 @@ class XH_PageDataModel
     }
 
     /**
-     * Temporarily removes the given keys from the page data. Used to implement
-     * #CMSimple remove# the classic way.
-     *
-     * @param array $keys The page indexes.
-     *
-     * @return void
-     *
-     * @since 1.6
-     */
-    function remove($keys)
-    {
-        foreach ($keys as $key) {
-            unset($this->data[$key]);
-        }
-        $this->data = array_values($this->data);
-    }
-
-    /**
      * Updates the page data of a single page and returns whether that succeeded.
      *
      * @param int   $key    The index of the page.

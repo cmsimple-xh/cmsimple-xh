@@ -101,13 +101,6 @@ class PageDataModelTest extends PHPUnit_Framework_TestCase
         $actual = $this->pd->create($params);
         $this->assertEquals($expected, $actual);
     }
-
-    public function testRemove()
-    {
-        $this->pd->remove(array(0));
-        $actual = $this->pd->findKey(1);
-        $this->assertNull($actual);
-    }
 }
 
 ?>

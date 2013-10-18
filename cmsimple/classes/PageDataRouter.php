@@ -168,21 +168,6 @@ class XH_PageDataRouter
     }
 
     /**
-     * Temporarily removes the given keys from the page data. Used to implement
-     * #CMSimple remove# the classic way.
-     *
-     * @param array $keys The page indexes.
-     *
-     * @return void
-     *
-     * @since 1.6
-     */
-    function remove($keys)
-    {
-        $this->model->remove($keys);
-    }
-
-    /**
      * Returns an array of all pages containing $value in $field.
      *
      * If $separator is given the $field will be translated to an array
