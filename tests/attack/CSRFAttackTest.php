@@ -128,7 +128,7 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
             array( // content deletion
                 array(
                     'file' => 'content',
-                    'action' => 'delete'
+                    'action' => 'empty'
                 )
             ),
             array( // backup restoral
