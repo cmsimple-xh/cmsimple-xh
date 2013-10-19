@@ -1081,6 +1081,7 @@ if (XH_ADM) {
                 }
                 break;
             case 'restore':
+                $_XH_csrfProtection->check();
                 XH_restore($pth['file'][$file]);
                 break;
             case 'empty':
