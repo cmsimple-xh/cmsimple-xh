@@ -1541,6 +1541,7 @@ function XH_createLanguageFile($dst)
 function pluginFiles($plugin)
 {
     global $cf, $pth, $sl;
+    static $helpFiles = array();
 
     $folders = array(
         'plugin' => '/',
@@ -1569,16 +1570,19 @@ function pluginFiles($plugin)
     $pth['file']['plugin_stylesheet'] = $pth['folder']['plugin_css']
         . 'stylesheet.css';
 
-    $pth['file']['plugin_help'] = $pth['folder']['plugin_help']
-        . 'help_' . strtolower($sl) . '.htm';
-    if (!file_exists($pth['file']['plugin_help'])) {
-        $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help_en.htm';
+    if (!isset($helpFiles[$plugin])) {
+        $helpFiles[$plugin] = $pth['folder']['plugin_help']
+            . 'help_' . strtolower($sl) . '.htm';
+        if (!file_exists($helpFiles[$plugin])) {
+            $helpFiles[$plugin] = $pth['folder']['plugin_help'] . 'help_en.htm';
+        }
+        if (!file_exists($helpFiles[$plugin])
+            && file_exists($pth['folder']['plugin_help'] . 'help.htm')
+        ) {
+            $helpFiles[$plugin] = $pth['folder']['plugin_help'] . 'help.htm';
+        }
     }
-    if (!file_exists($pth['file']['plugin_help'])
-        && file_exists($pth['folder']['plugin_help'] . 'help.htm')
-    ) {
-        $pth['file']['plugin_help'] = $pth['folder']['plugin_help'] . 'help.htm';
-    }
+    $pth['file']['plugin_help'] = $helpFiles[$plugin];
 }
 
 /**
