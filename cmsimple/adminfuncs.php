@@ -71,7 +71,8 @@ function XH_sysinfo()
 
     $o .= '<ul>' . "\n";
     foreach (XH_plugins() as $temp) {
-        $o .= '<li>' . ucfirst($temp) . ' ' . XH_pluginVersion($temp) . '</li>' . "\n";
+        $o .= '<li>' . ucfirst($temp) . ' ' . XH_pluginVersion($temp) . '</li>'
+            . "\n";
     }
     $o .= '</ul>' . "\n" . "\n";
 
