@@ -982,13 +982,8 @@ function XH_readContents($language = null)
         return false;
     }
     $stop = $cf['menu']['levels'];
-    $split_token = '#@CMSIMPLE_SPLIT@#';
-
-    $content = preg_split('~</body>~i', $content);
-    $content = preg_replace(
-        '~<h[1-' . $stop . ']~i', $split_token . '$0', $content[0]
-    );
-    $content = explode($split_token, $content);
+    $content = preg_split('/(?=<h[1-' . $stop . '])/i', $content);
+    $content[] = preg_replace('/(.*?)<\/body>.*/isu', '$1', array_pop($content));
     $contentHead = array_shift($content);
 
     $temp_h = array();
