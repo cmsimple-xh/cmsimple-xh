@@ -1,31 +1,27 @@
 {
-    "theme": "modern",
-    "skin": "lightgray",
-    "menubar": false,
-    "toolbar_items_size": "small",
-    "height": 600,
-    "plugins": [
-      "advlist anchor autolink autosave charmap code contextmenu emoticons fullscreen hr",
-      "image insertdatetime link lists media nonbreaking paste",
-      "save searchreplace table textcolor visualblocks visualchars wordcount"
-    ],
-    "toolbar1" : "save | fullscreen code formatselect fontselect fontsizeselect styleselect",
-    "toolbar2" : "bold,italic,|,alignleft,aligncenter,alignright,alignjustify,outdent,indent,blockquote,hr,removeformat,|,bullist,numlist,|,charmap",
-    "toolbar3" : "image,link,unlink,|,table",
-   "style_formats": [
-        {"title": "Bold text", "inline": "b"},
-        {"title": "Red text", "inline": "span", "styles": {"color": "#ff0000"}},
-        {"title": "Red header", "block": "h1", "styles": {"color": "#ff0000"}},
-        {"title": "Example 1", "inline": "span", "classes": "example1"},
-        {"title": "Example 2", "inline": "span", "classes": "example2"},
-        {"title": "Table styles"},
-        {"title": "Table row 1", "selector": "tr", "classes": "tablerow1"}
-    ],
-  "file_browser": true, 
-  "image_list": true,
-  "link_list": true,
-  "insertdate_formats": ["%H:%M:%S", "%d.%m.%Y", "%I:%M:%S %p", "%D"],
-  "relative_urls" : true,
-  "convert_urls" : false,
-  "entity_encoding" : "raw"
+  selector: "%SELECTOR%",
+  theme: "modern",
+  skin: "lightgray",
+  toolbar_items_size: "small",
+  height: "%EDITOR_HEIGHT%",
+  menubar: false,
+  plugins: [
+    "advlist anchor autolink autosave charmap code contextmenu emoticons fullscreen hr",
+    "image importcss insertdatetime link lists media nonbreaking paste",
+    "save searchreplace table textcolor visualblocks visualchars wordcount"
+  ],
+  toolbar1: "save | fullscreen code formatselect fontselect fontsizeselect styleselect | image link unlink",
+  toolbar2: "bold italic | alignleft aligncenter alignright alignjustify outdent indent blockquote hr removeformat | bullist numlist | charmap | table",
+  image_advtab: true,
+  file_browser_callback : "%FILEBROWSER_CALLBACK%",
+  content_css: "%STYLESHEET%",
+  importcss_append:true,
+  importcss_selector_filter: /(?:([a-z0-9\-_]+))(\.[a-z0-9_\-\.]+)$/i,
+  language: "%LANGUAGE%",
+  element_format: "%ELEMENT_FORMAT%",
+  block_formats: "%BLOCK_FORMATS%",
+  insertdatetime_formats: ["%H:%M:%S", "%d.%m.%Y", "%I:%M:%S %p", "%D"],
+  relative_urls: true,
+  convert_urls: false,
+  entity_encoding: "raw"
  }

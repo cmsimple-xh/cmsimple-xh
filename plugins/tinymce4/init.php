@@ -54,7 +54,7 @@ function include_tinymce4() {
 
     if (XH_ADM && $edit) {
         include_once $pth['folder']['plugins'] . 'tinymce4/' . 'links.php';
-        $imageList = 'var myImageList = '.get_images($pth['folder']['images']).';';
+        $imageList = 'myImageList = '.get_images($pth['folder']['images']).';';
         $linkList = 'var myLinkList = '.get_internal_links($h, $u, $l, $sn, $pth['folder']['downloads']).';';
     } else {
         $imageList = $linkList = '';
@@ -65,7 +65,9 @@ function include_tinymce4() {
 	<script type="text/javascript">
 	/* <![CDATA[ */
 	' . tinymce4_filebrowser() . '
+    var myImageList;
 	' . $imageList . '
+    var myLinkList;
 	' . $linkList . '
 	/* ]]> */
 	</script>
@@ -82,13 +84,16 @@ function include_tinymce4() {
  * @return string
  */
 function tinymce4_config($xh_editor, $config, $selector) {
-    global $edit, $pth, $sl, $sn, $cf, $plugin_cf;
+    global $edit, $e, $pth, $sl, $sn, $cf, $plugin_cf, $plugin_tx;
 
-    if (!isset($plugin_cf['tinymce4'])) {
+    $pcf = &$plugin_cf['tinymce4'];
+    $ptx = &$plugin_tx['tinymce4'];
+
+    if (!isset($pcf)) {
 	include_once $pth['folder']['plugins'] . 'tinymce4/config/config.php';
     }
 
-    $tiny_mode = isset($plugin_cf['tinymce']['init']) && file_exists($pth['folder']['plugins'] . 'tinymce4/' . 'inits/init_' . $plugin_cf['tinymce4']['init'] . '.js') ? $plugin_cf['tinymce4']['init'] : 'full';
+    $tiny_mode = isset($plugin_cf['tinymce']['init']) && file_exists($pth['folder']['plugins'] . 'tinymce4/' . 'inits/init_' . $pcf['init'] . '.js') ? $pcf['init'] : 'full';
     $initFile = $pth['folder']['plugins'] . 'tinymce4/' . 'inits/init_' . $tiny_mode . '.js';
     if ($config) {
         $initFile = false;
@@ -129,14 +134,13 @@ function tinymce4_config($xh_editor, $config, $selector) {
      * If you have a lot of classes that are of no use for text editing,
      * you might want to create a special editor.css.
      */
-    $temp = XH_decodeJSON($temp);
-    $sysTemp =  (object) array();
-    $temp -> content_css = $pth['folder']['template'] . 'stylesheet.css';
 
-    if ($tiny_language != 'en') $sysTemp -> language = $tiny_language; //no tiny langfile for en
+    $temp = str_replace('%STYLESHEET%', $pth['folder']['template'] . 'stylesheet.css', $temp);
+
+    $temp = str_replace('%LANGUAGE%', $tiny_language, $temp);
 
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
-    $sysTemp -> element_format = $elementFormat;
+    $temp = str_replace('%ELEMENT_FORMAT%', $elementFormat, $temp);
     
     $_blockFormats = array();
     for ( $i = $cf['menu']['levels'] + 1; $i <= 6; $i++ ) {
@@ -146,30 +150,16 @@ function tinymce4_config($xh_editor, $config, $selector) {
     $_blockFormats[] = "Paragraph=p";
     
     for ( $i=1; $i <= $cf['menu']['levels'];$i++ ) {
-        $_blockFormats [] = "#$i Level Pageheader=h$i";
+        $_blockFormats [] = sprintf($plugin_tx['tinymce4']['pageheader'],$i) . "=h$i";
     }
-    $sysTemp -> block_formats = implode(';',$_blockFormats);
+    $temp = str_replace('%BLOCK_FORMATS%', implode(';',$_blockFormats), $temp);
     unset($_blockFormats);
     
-    if ($xh_editor)
-    {
-        if (!isset($temp -> selector)) $temp -> selector = 'textarea#text';
-        $temp -> height = $cf['editor']['height'];
-    }
-    else
-    {
-        if ($selector) $temp -> selector = $selector;
-    }
+    $temp = str_replace('%SELECTOR%', $xh_editor? 'textarea#text': $selector, $temp);
+    
+    $temp = str_replace('"%EDITOR_HEIGHT%"', $cf['editor']['height'], $temp);
+    $temp = str_replace('"%FILEBROWSER_CALLBACK%"', $xh_editor? $_SESSION['tinymce_fb_callback']: '""', $temp);
 
-//Inhibit filebrowser and image-/linkslists in frontend mode    
-    if (!XH_ADM || !$edit){
-        unset($temp -> image_list);
-        unset($temp -> link_list);
-        unset($temp -> file_browser);
-        unset($temp -> file_browser_callback);
-    }
-    $temp = (object) array_merge( (array) $sysTemp, (array) $temp );
-    $temp = XH_encodeJSON($temp);
     return $temp;
 }
 
@@ -230,17 +220,12 @@ function _setInit($config) {
     static $run = 0;
     $js = str_replace('tinyArgs','tinyArgs'.$run,'
     var tinyArgs = ' . $config . ';
-    if (tinyArgs.image_list && myImageList.length > 0 ) 
+    if (myImageList && myImageList.length > 0 ) 
         tinyArgs.image_list = myImageList;
     else
         delete tinyArgs.image_list;
-    if (tinyArgs.link_list) 
+    if (myLinkList) 
         tinyArgs.link_list = myLinkList;
-    if (tinyArgs.file_browser) 
-        tinyArgs.file_browser_callback = ' . $_SESSION['tinymce_fb_callback'] . ';
-    tinyArgs.height = eval(tinyArgs.height);
-    if (typeof tinyArgs.height !== "number") 
-        delete tinyArgs.height;
     tinymce.init(tinyArgs);
     ');
     $run++;
