@@ -544,44 +544,38 @@ img.helpicon {
     color: #000;
 }
 
+#pd_tabs a {
+    border: 1px solid #888;
+    padding: 1px 3px 2px 3px;
+    background-color: #ddd;
+    background-image: -webkit-linear-gradient(top, #eee, #ccc);
+    background-image: -moz-linear-gradient(top, #eee, #ccc);
+    background-image: -ms-linear-gradient(top, #eee, #ccc);
+    background-image: -o-linear-gradient(top, #eee, #ccc);
+    background-image: linear-gradient(to bottom, #eee, #ccc);
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+}
+
 #pd_tabs a:hover {
     color: red;
     cursor: pointer;
+    background-color: #cde;
+    background-image: -webkit-linear-gradient(top, #def, #bcd);
+    background-image: -moz-linear-gradient(top, #def, #bcd);
+    background-image: -ms-linear-gradient(top, #def, #bcd);
+    background-image: -o-linear-gradient(top, #def, #bcd);
+    background-image: linear-gradient(to bottom, #def, #bcd);
 }
 
-#pd_tabs a {
-    padding:2px 2px 2px 4px;
-    margin-right:2px;
-    background: url(tab_inactive.gif) top left;
-}
-
-#pd_tabs a span {
-    padding:2px 4px 2px 0;
-    margin:-2px -4px -2px 0;
-    background: url(tab_inactive.gif) top right;
-    border:0px solid red;
-}
-
-#pd_tabs a:hover {
-    background: url(tab_hover.gif) top left;
-}
-
-#pd_tabs a:hover span {
-    background: url(tab_hover.gif) top right;
-}
-
-#pd_tabs a.active_tab {
-    padding-top:4px;
-    padding-bottom:3px;
-    background: url(tab_active.gif) top left;
-}
-
-#pd_tabs a.active_tab span {
-    padding-top:4px;
-    padding-bottom:3px;
-    margin-top:-4px;
-    margin-bottom:-3px;
-    background: url(tab_active.gif) top right;
+#pd_tabs a.active_tab, #pdtabs a.active_tab:hover {
+    background-color: #cdc;
+    background-image: -webkit-linear-gradient(bottom, #fff, #aba);
+    background-image: -moz-linear-gradient(bottom, #fff, #aba);
+    background-image: -ms-linear-gradient(bottom, #fff, #aba);
+    background-image: -o-linear-gradient(bottom, #fff, #aba);
+    background-image: linear-gradient(to top, #fff, #aba);
+    padding-top: 3px;
 }
 
 #pd_views {
