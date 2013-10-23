@@ -193,9 +193,13 @@ class XHFileBrowserView
      * @param array $folders An array of folders.
      *
      * @return string
+     *
+     * @global object The CRSF protection object.
      */
     function subfolderList($folders)
     {
+        global $_XH_csrfProtection;
+
         $html = '';
         if (is_array($folders) && count($folders) > 0) {
             $html = '<ul>';
@@ -215,6 +219,7 @@ class XHFileBrowserView
                     . tag(
                         'input type="hidden" name="folder" value="' . $folder . '"'
                     )
+                    . $_XH_csrfProtection->tokenInput()
                     . '</form>'
                     . '<a href="?' . $this->linkParams . '&amp;subdir=' . $folder
                     . '">' . $name . '</a></li>';
@@ -288,11 +293,12 @@ class XHFileBrowserView
      *
      * @return string
      *
-     * @global array The localization of the core.
+     * @global array  The localization of the core.
+     * @global object The CRSF protection object.
      */
     function fileList($files)
     {
-        global $tx;
+        global $tx, $_XH_csrfProtection;
 
         if (empty($files)) {
             return '';
@@ -324,6 +330,7 @@ class XHFileBrowserView
                     'input type="hidden" name="filebrowser_file" value="'
                     . $file . '"'
                 )
+                . $_XH_csrfProtection->tokenInput()
                 . '</form>'
                 . '<form method="post" style="display:none;" action=""'
                 . ' id="rename_' . $i . '">'
@@ -333,6 +340,7 @@ class XHFileBrowserView
                     . $i . '\');"'
                 )
                 . tag('input type="hidden" name="oldName" value="' . $file . '"')
+                . $_XH_csrfProtection->tokenInput()
                 . '</form>'
                 . tag(
                     'img src="' . $this->browserPath . 'css/icons/rename.png"'

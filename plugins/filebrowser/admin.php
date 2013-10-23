@@ -29,7 +29,7 @@ if ($filebrowser) {
     initvar('action');
 
     $o .= print_plugin_admin('off');
-    
+
     $o .= '<div class="plugintext">'
         . '<div class="plugineditcaption">Filebrowser for @CMSIMPLE_XH_VERSION@'
         . '</div>' . tag('hr');
@@ -38,7 +38,7 @@ if ($filebrowser) {
         $admin = 'plugin_config';
     !$action &&
         $action = 'plugin_edit';
-        
+
     $o .= plugin_admin_common($action, $admin, $plugin)
         . '</div>';
     return;
@@ -90,18 +90,23 @@ if (!empty($_SERVER['CONTENT_LENGTH']) && empty($_POST)) {
     );
 }
 if (isset($_POST['deleteFile']) && isset($_POST['filebrowser_file'])) {
+    $_XH_csrfProtection->check();
     $browser->deleteFile($_POST['filebrowser_file']);
 }
 if (isset($_POST['deleteFolder']) && isset($_POST['folder'])) {
+    $_XH_csrfProtection->check();
     $browser->deleteFolder($_POST['folder']);
 }
 if (isset($_POST['upload'])) {
+    $_XH_csrfProtection->check();
     $browser->uploadFile();
 }
 if (isset($_POST['createFolder'])) {
+    $_XH_csrfProtection->check();
     $browser->createFolder();
 }
 if (isset($_POST['renameFile'])) {
+    $_XH_csrfProtection->check();
     $browser->renameFile();
 }
 

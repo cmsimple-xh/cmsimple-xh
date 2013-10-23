@@ -56,8 +56,7 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $fields,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_COOKIEFILE => $this->cookieFile,
-            //CURLOPT_COOKIEJAR => $this->cookieFile
+            CURLOPT_COOKIEFILE => $this->cookieFile
         );
         curl_setopt_array($this->curlHandle, $options);
     }
@@ -136,6 +135,40 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
                     'file' => '20130618_192318_content.htm',
                     'action' => 'restore'
                 )
+            ),
+            array( // filebrowser: create folder
+                array(
+                    'createFolder' => 'test'
+                ),
+                '&media'
+            ),
+            array( // filebrowser: upload file
+                array(
+                    'fbupload' => '@' . realpath('./tests/attack/data/hack.txt'),
+                    'upload' => 'upload'
+                ),
+                '&downloads'
+            ),
+            array( // filebrowser: rename file
+                array(
+                    'oldName' => 'XHdebug.txt',
+                    'renameFile' => 'XHdebug1.txt'
+                ),
+                '&downloads'
+            ),
+            array( // filebrowser: delete folder
+                array(
+                    'deleteFolder' => '',
+                    'folder' => 'userfiles/images/flags'
+                ),
+                '&images'
+            ),
+            array( // filebrowser: delete file
+                array(
+                    'deleteFile' => '',
+                    'filebrowser_file' => 'XHdebug.txt'
+                ),
+                '&downloads'
             )
         );
     }
