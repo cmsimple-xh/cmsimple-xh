@@ -47,6 +47,15 @@ class XH_PageDataRouter
     var $current_page;
 
     /**
+     * The currently registered interests.
+     *
+     * @var array
+     *
+     * @access protected
+     */
+    var $currentInterests;
+
+    /**
      * Constructs an instance.
      *
      * @param array $h              The page headings.
@@ -66,6 +75,22 @@ class XH_PageDataRouter
     }
 
     /**
+     * Returns the currently registered interests.
+     *
+     * Must not be called before all plugins have been loaded.
+     *
+     * @return array
+     *
+     * @access public
+     *
+     * @since 1.6
+     */
+    function getCurrentInterests()
+    {
+        return $this->currentInterests;
+    }
+
+    /**
      * Registers a field for the page data.
      *
      * @param string $field The name of the page data field.
@@ -79,6 +104,7 @@ class XH_PageDataRouter
         if (!in_array($field, $this->model->params)) {
             $this->model->addParam($field);
         }
+        $this->currentInterests[] = $field;
     }
 
     /**
@@ -90,11 +116,17 @@ class XH_PageDataRouter
      * @return void
      *
      * @access public
+     *
+     * @since 1.6
      */
     function removeInterest($field)
     {
         if (in_array($field, $this->model->params)) {
             $this->model->removeParam($field);
+        }
+        $n = array_search($field, $this->currentInterests);
+        if ($n !== false) {
+            array_splice($this->currentInterests, $n, 1);
         }
     }
 
