@@ -587,7 +587,7 @@ img.helpicon {
     width: 20px;
     height: 20px;
     float: right;
-    background:url(cross.gif) no-repeat top right;
+    background:url(cross.png) no-repeat top right;
     cursor: pointer;
 }
 
