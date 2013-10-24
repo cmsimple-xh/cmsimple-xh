@@ -83,7 +83,7 @@ class XH_PageDataRouter
 
     /**
      * Unregisters a field for the page data. To permanently remove the field,
-     * one has to call {@link XH_saveContents()}.
+     * one has to call {@link XH_saveContents()} subsequently.
      *
      * @param string $field A page data field name.
      *
