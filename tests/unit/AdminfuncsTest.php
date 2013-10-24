@@ -31,8 +31,15 @@ require_once './cmsimple/adminfuncs.php';
  */
 class AdminfuncsTest extends PHPUnit_Framework_TestCase
 {
-    public function testNothing()
+    /**
+     * @expectedException PHPUnit_Framework_Error_Warning
+     */
+    public function testSaveContentsRequiresEditMode()
     {
+        global $edit;
+
+        $edit = false;
+        XH_saveContents();
     }
 }
 

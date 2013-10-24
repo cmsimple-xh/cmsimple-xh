@@ -508,6 +508,49 @@ function XH_contentEditor()
     return $o;
 }
 
+/**
+ * Saves the current contents (including the page data), if edit mode is active.
+ *
+ * @return bool Whether that succeeded
+ *
+ * @global array  The content of the pages.
+ * @global array  The paths of system files and folders.
+ * @global array  The configuration of the core.
+ * @global array  The localization of the core.
+ * @global array  Whether edit mode is active.
+ * @global object The page data router.
+ *
+ * @since 1.6
+ */
+function XH_saveContents()
+{
+    global $c, $pth, $cf, $tx, $edit, $pd_router;
+
+    if (!(XH_ADM && $edit)) {
+        trigger_error(
+            'Function ' . __FUNCTION__ . '() must not be called in view mode',
+            E_USER_WARNING
+        );
+        return false;
+    }
+    $hot = '<h[1-' . $cf['menu']['levels'] . '][^>]*>';
+    $hct = '<\/h[1-' . $cf['menu']['levels'] . ']>';
+    $title = utf8_ucfirst($tx['filetype']['content']);
+    $cnts = "<html><head><title>$title</title>\n"
+        . $pd_router->headAsPHP()
+        . '</head><body>' . "\n";
+    foreach ($c as $j => $i) {
+        preg_match("/(.*?)($hot(.+?)$hct)(.*)/isu", $i, $matches);
+        $page = $matches[1] . $matches[2] . PHP_EOL . $pd_router->pageAsPHP($j)
+            . $matches[4];
+        $cnts .= rmnl($page . "\n");
+    }
+    $cnts .= '</body></html>';
+    if (!file_exists($pth['folder']['content'])) {
+        mkdir($pth['folder']['content'], true);
+    }
+    return XH_writeFile($pth['file']['content'], $cnts) !== false;
+}
 
 /**
  * Saves content.htm and pagedata.php after submitting changes
