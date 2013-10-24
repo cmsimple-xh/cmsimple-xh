@@ -243,6 +243,10 @@ xh_debugmode();
 
 $pth['folder']['language'] = $pth['folder']['cmsimple'] . 'languages/';
 
+if (!isset($cf['folders']['content'])) {
+    $cf['folders']['content'] = 'content/';
+}
+
 /**
  * The current language.
  *
@@ -252,10 +256,11 @@ if (preg_match('/\/([A-z]{2})\/index.php$/', sv('SCRIPT_NAME'), $temp)
     && XH_isLanguageFolder($temp = strtolower($temp[1]))
 ) {
     $sl = $temp;
-    $pth['folder']['content'] = $pth['folder']['base'] . 'content/' . $sl . '/';
+    $pth['folder']['content']
+        = $pth['folder']['base'] . $cf['folders']['content'] . $sl . '/';
 } else {
     $sl = $cf['language']['default'];
-    $pth['folder']['content'] = $pth['folder']['base'] . 'content/';
+    $pth['folder']['content'] = $pth['folder']['base'] . $cf['folders']['content'];
 }
 
 $pth['file']['content'] = $pth['folder']['content'] . 'content.htm';

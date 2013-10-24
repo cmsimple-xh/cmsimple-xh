@@ -5,6 +5,7 @@ $mcf['security']['secret']="random";
 $mcf['site']['template']="function:XH_templates";
 $mcf['language']['default']="function:XH_availableLocalizations";
 $mcf['locator']['show_homepage']="bool";
+$mcf['folders']['content']="hidden";
 $mcf['show_hidden']['pages_toc']="bool";
 $mcf['show_hidden']['pages_search']="bool";
 $mcf['show_hidden']['pages_sitemap']="bool";
