@@ -175,7 +175,7 @@ class XH_PageDataModel
     function removeParam($field)
     {
         $n = array_search($field, $this->params);
-        unset($this->params[$n]);
+        array_splice($this->params, $n, 1);
         foreach ($this->headings as $id => $value) {
             unset($this->data[$id][$field]);
         }

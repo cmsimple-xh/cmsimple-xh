@@ -86,7 +86,7 @@ class PageDataModelTest extends PHPUnit_Framework_TestCase
         $this->pd->removeParam('bar');
 
         $expected = array('url' , 'foo', 'list');
-        $actual = array_values($this->pd->params);
+        $actual = $this->pd->params;
         $this->assertEquals($expected, $actual);
 
         $expected = array('url' => 'wrong', 'foo' => 'foo0', 'list' => '');
