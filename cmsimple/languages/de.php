@@ -224,12 +224,15 @@ $tx['submenu']['heading']="weiter zu:";
 
 $tx['syscheck']['encoding']="UTF-8-Kodierung eingestellt";
 $tx['syscheck']['extension']="Erweiterung '%s' geladen";
+$tx['syscheck']['fail']="Fehler";
 $tx['syscheck']['locale_available']="Locale '%s' verfügbar";
 $tx['syscheck']['locale_default']="Standard-Locale aktiv";
-$tx['syscheck']['writable']="'%s' schreibbar";
 $tx['syscheck']['magic_quotes']="'Magic quotes runtime' aus";
 $tx['syscheck']['phpversion']="PHP-Version ≥ %s";
+$tx['syscheck']['success']="OK";
 $tx['syscheck']['title']="System-Prüfung";
+$tx['syscheck']['warning']="Warnung";
+$tx['syscheck']['writable']="'%s' schreibbar";
 
 $tx['sysinfo']['helplinks']="Hilfe und Informationen";
 $tx['sysinfo']['php_version']="PHP-Version";

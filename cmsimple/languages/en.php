@@ -224,12 +224,15 @@ $tx['submenu']['heading']="Submenu";
 
 $tx['syscheck']['encoding']="Encoding 'UTF-8' configured";
 $tx['syscheck']['extension']="Extension '%s' loaded";
+$tx['syscheck']['fail']="Failure";
 $tx['syscheck']['locale_available']="Locale '%s' available";
 $tx['syscheck']['locale_default']="Default locale in use";
-$tx['syscheck']['writable']="'%s' writable";
 $tx['syscheck']['magic_quotes']="Magic quotes runtime off";
 $tx['syscheck']['phpversion']="PHP version ≥ %s";
+$tx['syscheck']['success']="OK";
 $tx['syscheck']['title']="System check";
+$tx['syscheck']['warning']="Warning";
+$tx['syscheck']['writable']="'%s' writable";
 
 $tx['sysinfo']['helplinks']="Info and Help Links";
 $tx['sysinfo']['php_version']="PHP-Version";

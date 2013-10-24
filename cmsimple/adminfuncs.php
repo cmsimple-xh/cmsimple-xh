@@ -50,6 +50,88 @@ function XH_pluginVersion($plugin)
 }
 
 /**
+ * Returns the result view of the system check.
+ *
+ * @param array $data The data ;)
+ *
+ * @global array The paths of system files and folders.
+ * @global array The localization of the core.
+ *
+ * @return string The (X)HTML.
+ *
+ * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#system_check
+ *
+ * @since 1.5.4
+ */
+function XH_systemCheck($data)
+{
+    global $pth, $tx;
+
+    $stx = $tx['syscheck'];
+
+    foreach (array('success', 'warning', 'fail') as $img) {
+        $txt = $stx[$img];
+        $imgs[$img] = tag(
+            'img src="' . $pth['folder']['corestyle'] . $img . '.png" alt="'
+            . $txt . '" title="' . $txt . '" width="16" height="16"'
+        );
+    }
+
+    $o = "<h4>$stx[title]</h4>\n<ul id=\"xh_system_check\">\n";
+
+    if (key_exists('phpversion', $data)) {
+        $ok = version_compare(PHP_VERSION, $data['phpversion']) >= 0;
+        $o .= '<li>' . $imgs[$ok ? 'success' : 'fail']
+            . sprintf($stx['phpversion'], $data['phpversion']) . "</li>\n";
+    }
+
+    if (key_exists('extensions', $data)) {
+        $cat = ' class="xh_system_check_cat_start"';
+        foreach ($data['extensions'] as $ext) {
+            if (is_array($ext)) {
+                $notok = $ext[1] ? 'fail' : 'warning';
+                $ext = $ext[0];
+            } else {
+                $notok = 'fail';
+            }
+            $o .= '<li' . $cat . '>'
+                . $imgs[extension_loaded($ext) ? 'success' : $notok]
+                . sprintf($stx['extension'], $ext) . "</li>\n";
+            $cat = '';
+        }
+    }
+
+    if (key_exists('writable', $data)) {
+        $cat = ' class="xh_system_check_cat_start"';
+        foreach ($data['writable'] as $file) {
+            if (is_array($file)) {
+                $notok = $file[1] ? 'fail' : 'warning';
+                $file = $file[0];
+            } else {
+                $notok = 'warning';
+            }
+            $o .= '<li' . $cat . '>' . $imgs[is_writable($file) ? 'success' : $notok]
+                . sprintf($stx['writable'], $file) . "</li>\n";
+            $cat = '';
+        }
+    }
+
+    if (key_exists('other', $data)) {
+        $cat = ' class="xh_system_check_cat_start"';
+        foreach ($data['other'] as $check) {
+            $notok = $check[1] ? 'fail' : 'warning';
+            $o .= '<li' . $cat . '>' . $imgs[$check[0] ? 'success' : $notok]
+                . $check[2] . "</li>\n";
+            $cat = '';
+        }
+    }
+
+    $o .= "</ul>\n";
+
+    return $o;
+}
+
+/**
  * Returns the system information view.
  *
  * @global array The paths of system files and folders.
