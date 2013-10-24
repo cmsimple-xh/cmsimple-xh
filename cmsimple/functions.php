@@ -1537,6 +1537,8 @@ function XH_createLanguageFile($dst)
  * @global string The active language.
  *
  * @return void
+ *
+ * @staticvar array The help filename cache.
  */
 function pluginFiles($plugin)
 {
@@ -1641,6 +1643,9 @@ function preCallPlugins($pageIndex = -1)
  *
  * @global array The paths of system files and folders.
  * @global array The configuration of the core.
+ *
+ * @staticvar array The plugin name cache.
+ * @staticvar array The admin plugin name cache.
  *
  * @since 1.6
  *
@@ -1888,6 +1893,8 @@ function XH_writeFile($filename, $contents)
  * @param callable $callback The callback.
  *
  * @return void
+ *
+ * @staticvar array The callbacks for later execution.
  *
  * @since 1.6
  */
@@ -2252,6 +2259,8 @@ function XH_availableLocalizations()
  * @return array
  *
  * @global array The paths of system files and folders.
+ *
+ * @staticvar array The language names cache.
  *
  * @since 1.6
  */

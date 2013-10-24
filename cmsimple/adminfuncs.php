@@ -281,6 +281,8 @@ function XH_backupsView()
  * @param array  $style  Array with style-data for the containing table-cell
  *
  * @return mixed
+ *
+ * @staticvar string The (X)HTML of the menu build so far.
  */
 function pluginMenu($add = '', $link = '', $target = '', $text = '',
     $style = array()
@@ -553,8 +555,7 @@ function XH_saveContents()
 }
 
 /**
- * Saves content.htm and pagedata.php after submitting changes
- * from the content editor.
+ * Saves content.htm after submitting changes from the content editor.
  *
  * @param string $text The text to save.
  *

@@ -68,7 +68,7 @@
             </itemizedlist>
         </refsect2>
     </refsect1>
-    <refsect1>
+    <refsect1 id="{@id usage}">
         <title>Usage</title>
         <para>
             To display the edit form ::form() has to be called; to handle the
