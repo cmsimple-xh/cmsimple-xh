@@ -164,6 +164,25 @@ class XH_PageDataModel
     }
 
     /**
+     * Removes a page data field.
+     *
+     * @param string $field A page data field to remove.
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function removeParam($field)
+    {
+        $n = array_search($field, $this->params);
+        unset($this->params[$n]);
+        foreach ($this->headings as $id => $value) {
+            unset($this->data[$id][$field]);
+        }
+        unset($this->temp_data[$field]);
+    }
+
+    /**
      * Registers a page data tab.
      *
      * @param string $title     The title of the tab.

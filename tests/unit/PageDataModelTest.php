@@ -31,6 +31,8 @@ require './cmsimple/classes/PageDataModel.php';
  */
 class PageDataModelTest extends PHPUnit_Framework_TestCase
 {
+    protected $pd;
+
     public function setUp()
     {
         $h = array('Welcome', 'News');
@@ -76,6 +78,23 @@ class PageDataModelTest extends PHPUnit_Framework_TestCase
         $expected = array('url' => 'wrong', 'foo' => 'foo0', 'bar' => 'bar0', 'list' => '', 'new' => '');
         $this->pd->addParam('new');
         $actual = $this->pd->findKey(0);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testRemoveParam()
+    {
+        $this->pd->removeParam('bar');
+
+        $expected = array('url' , 'foo', 'list');
+        $actual = array_values($this->pd->params);
+        $this->assertEquals($expected, $actual);
+
+        $expected = array('url' => 'wrong', 'foo' => 'foo0', 'list' => '');
+        $actual = $this->pd->findKey(0);
+        $this->assertEquals($expected, $actual);
+
+        $expected = array('url' => 'deleted', 'foo' => '');
+        $actual = $this->pd->temp_data;
         $this->assertEquals($expected, $actual);
     }
 

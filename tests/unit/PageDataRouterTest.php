@@ -31,6 +31,8 @@ require_once './cmsimple/classes/PageDataRouter.php';
  */
 class PageDataRouterTest extends PHPUnit_Framework_TestCase
 {
+    protected $pd;
+    
     public function setUp()
     {
         $h = array('Welcome', 'News');
@@ -85,6 +87,15 @@ class PageDataRouterTest extends PHPUnit_Framework_TestCase
     {
         $expected = array('url' => 'wrong', 'foo' => 'foo0', 'bar' => 'bar0', 'list' => '', 'new' => '');
         $this->pd->add_interest('new');
+        $actual = $this->pd->find_page(0);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testRemoveInterest()
+    {
+        $this->pd->removeInterest('bar');
+
+        $expected = array('url' => 'wrong', 'foo' => 'foo0', 'list' => '');
         $actual = $this->pd->find_page(0);
         $this->assertEquals($expected, $actual);
     }

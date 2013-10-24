@@ -82,6 +82,23 @@ class XH_PageDataRouter
     }
 
     /**
+     * Unregisters a field for the page data. To permanently remove the field,
+     * one has to call {@link XH_saveContents()}.
+     *
+     * @param string $field A page data field name.
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function removeInterest($field)
+    {
+        if (in_array($field, $this->model->params)) {
+            $this->model->removeParam($field);
+        }
+    }
+
+    /**
      * Registers a page data tab.
      *
      * @param string $tab_name The title of the tab.
