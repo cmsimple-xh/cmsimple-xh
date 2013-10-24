@@ -763,8 +763,9 @@ function chkdl($fl)
 {
     global $pth, $sn;
 
-    trigger_error('Function chkdl() is deprecated', E_USER_DEPRECATED);
-
+    trigger_error(
+        'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
+    );
     $m = false;
     if (is_dir($pth['folder']['downloads'])) {
         $fd = opendir($pth['folder']['downloads']);
@@ -789,21 +790,18 @@ function chkdl($fl)
  *
  * @return string
  *
- * @todo Should be deprecated. Use file_get_contents instead.
+ * @deprecated since 1.6
  */
 function rf($fl)
 {
+    trigger_error(
+        'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
+    );
     if (!file_exists($fl)) {
         return;
     }
-    clearstatcache(); // TODO: remove this?
-    // TODO: remove unnecessary fallback for PHP < 4.3
-    if (function_exists('file_get_contents')) {
-        return file_get_contents($fl);
-    } else {
-        // this would double the newlines.
-        return join("\n", file($fl));
-    }
+    clearstatcache();
+    return file_get_contents($fl);
 }
 
 /**
@@ -1373,10 +1371,10 @@ function XH_debugmode()
     global $pth;
 
     $dbglevel = '';
-
-    if (file_exists($pth['folder']['downloads'] . '_XHdebug.txt')) {
+    $filename = $pth['folder']['downloads'] . '_XHdebug.txt';
+    if (file_exists($filename)) {
         ini_set('display_errors', 1);
-        $dbglevel = rf($pth['folder']['downloads'] . '_XHdebug.txt');
+        $dbglevel = file_get_contents($filename);
         if (strlen($dbglevel) == 1) {
             set_error_handler('XH_debug');
             switch ($dbglevel) {

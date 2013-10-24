@@ -276,6 +276,14 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         chkdl('dummy');
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
+    public function testRfIsDeprecated()
+    {
+        rf('dummy');
+    }
+
     public function dataForTestTag()
     {
         return array(

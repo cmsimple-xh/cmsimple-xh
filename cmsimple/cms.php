@@ -1001,7 +1001,8 @@ if (empty($cf['menu']['legal'])) {
 if ($su == uenc($cf['menu']['legal'])) {
     $f = $title = $cf['menu']['legal'];
     $s = -1;
-    $o .= '<h1>' . $title . '</h1>' . rf($pth['folder']['cmsimple'] . 'legal.txt');
+    $o .= '<h1>' . $title . '</h1>'
+        . file_get_contents($pth['folder']['cmsimple'] . 'legal.txt');
 }
 
 if (XH_ADM) {
@@ -1069,7 +1070,7 @@ if (XH_ADM) {
                     $o .= XH_logFileView();
                 } else {
                     header('Content-Type: text/plain; charset=utf-8');
-                    echo rmnl(rf($pth['file'][$file]));
+                    echo rmnl(file_get_contents($pth['file'][$file]));
                     exit;
                 }
                 break;
