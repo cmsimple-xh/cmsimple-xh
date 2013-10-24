@@ -2272,7 +2272,6 @@ function XH_convertToPrintUrl($matches)
 {
     $url = $matches[3];
     $parts = parse_url($url);
-    xdebug_break();
     if (XH_isInternalUrl($parts)) {
         $parts['query'] = (isset($parts['query']) ? $parts['query'] . '&amp;' : '');
         $parts['query'] .= 'print';
@@ -2295,7 +2294,7 @@ function XH_convertToPrintUrl($matches)
  * @since 1.6
  */
 function XH_convertPrintUrls($pageContent)
-{xdebug_break();
+{
     $regex = '/(<a[^>]+href=(["\']))([^"\']*)\\2/iu';
     $content = preg_replace_callback($regex, 'XH_convertToPrintUrl', $pageContent);
     return $content;
