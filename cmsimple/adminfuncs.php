@@ -488,6 +488,10 @@ function XH_adminMenu($plugins = array())
             'url' => '?&amp;xh_backups'
         ),
         array(
+            'label' => utf8_ucfirst($tx['editmenu']['pagedata']),
+            'url' => '?&amp;xh_pagedata'
+        ),
+        array(
             'label' => utf8_ucfirst($tx['editmenu']['sysinfo']),
             'url' => '?&amp;sysinfo'
         )

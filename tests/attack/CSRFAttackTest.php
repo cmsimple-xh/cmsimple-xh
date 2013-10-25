@@ -136,6 +136,13 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
                     'action' => 'restore'
                 )
             ),
+            array( // page data editing
+                array(
+                    'xh_pagedata_delete' => 'delete',
+                    'description' => 'on'
+                ),
+                '&xh_pagedata'
+            ),
             array( // filebrowser: create folder
                 array(
                     'createFolder' => 'test'

@@ -1015,6 +1015,9 @@ if (XH_ADM) {
     if (isset($xh_backups)) {
         $f = 'xh_backups';
     }
+    if (isset($xh_pagedata)) {
+        $f = 'xh_pagedata';
+    }
     if (isset($sysinfo)) {
         $f = 'sysinfo';
     }
@@ -1058,6 +1061,11 @@ if (XH_ADM) {
         break;
     case 'xh_backups':
         $o .= XH_backupsView();
+        break;
+    case 'xh_pagedata':
+        include_once $pth['folder']['classes'] . 'PageDataEditor.php';
+        $temp = new XH_PageDataEditor();
+        $o .= $temp->process();
         break;
     case 'file':
         if (XH_isContentBackup($file, false)) {

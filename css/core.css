@@ -672,3 +672,7 @@ div.xh_break {
     overflow: auto;
     border: 1px solid #888;
 }
+
+#xh_pagedata ul {
+    list-style: none;
+}
