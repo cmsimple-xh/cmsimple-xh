@@ -37,12 +37,19 @@ class PageDataModelTest extends PHPUnit_Framework_TestCase
     {
         $h = array('Welcome', 'News');
         $fields = array('url', 'foo', 'bar', 'list');
-        $temp = array('url' => 'deleted', 'foo' => '', 'bar' => '');
+        $temp = array('url' => 'deleted', 'foo' => '', 'bar' => '', 'baz' => 42);
         $data = array(
             array('url' => 'wrong', 'foo' => 'foo0', 'bar' => 'bar0'),
-            array('foo' => 'foo1', 'list' => 'foo,bar,baz')
+            array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'snork' => true)
         );
         $this->pd = new XH_PageDataModel($h, $fields, $temp, $data);
+    }
+
+    public function testStoredFields()
+    {
+        $expected = array('url', 'foo', 'bar', 'list', 'baz', 'snork');
+        $actual = $this->pd->storedFields();
+        $this->assertEquals($expected, $actual);
     }
 
     public function testFindKey()
@@ -61,7 +68,7 @@ class PageDataModelTest extends PHPUnit_Framework_TestCase
 
     public function testFindArrayfieldValue()
     {
-        $expected = array(1 => array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'url' => 'News', 'bar' => ''));
+        $expected = array(1 => array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'url' => 'News', 'bar' => '', 'snork' => true));
         $actual = $this->pd->findArrayfieldValue('list', 'bar', ',');
         $this->assertEquals($expected, $actual);
     }
@@ -93,7 +100,7 @@ class PageDataModelTest extends PHPUnit_Framework_TestCase
         $actual = $this->pd->findKey(0);
         $this->assertEquals($expected, $actual);
 
-        $expected = array('url' => 'deleted', 'foo' => '');
+        $expected = array('url' => 'deleted', 'foo' => '', 'baz' => 42);
         $actual = $this->pd->temp_data;
         $this->assertEquals($expected, $actual);
     }

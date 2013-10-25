@@ -75,6 +75,18 @@ class XH_PageDataRouter
     }
 
     /**
+     * Returns all fields that are stored in the page data.
+     *
+     * @return array
+     *
+     * @since 1.6
+     */
+    function storedFields()
+    {
+        return $this->model->storedFields();
+    }
+
+    /**
      * Returns the currently registered interests.
      *
      * Must not be called before all plugins have been loaded.

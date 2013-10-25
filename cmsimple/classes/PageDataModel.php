@@ -99,6 +99,24 @@ class XH_PageDataModel
     }
 
     /**
+     * Returns all fields that are stored in the page data.
+     *
+     * @return array
+     *
+     * @since 1.6
+     */
+    function storedFields()
+    {
+        $fields = $this->params;
+        $fields = array_merge($fields, array_keys($this->temp_data));
+        foreach ($this->data as $page) {
+            $fields = array_merge($fields, array_keys($page));
+        }
+        $fields = array_values(array_unique($fields));
+        return $fields;
+    }
+
+    /**
      * Fixes the page data after reading.
      *
      * @return void

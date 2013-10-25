@@ -32,17 +32,24 @@ require_once './cmsimple/classes/PageDataRouter.php';
 class PageDataRouterTest extends PHPUnit_Framework_TestCase
 {
     protected $pd;
-    
+
     public function setUp()
     {
         $h = array('Welcome', 'News');
         $fields = array('url', 'foo', 'bar', 'list');
-        $temp = array('url' => 'deleted', 'foo' => '', 'bar' => '');
+        $temp = array('url' => 'deleted', 'foo' => '', 'bar' => '', 'baz' => 42);
         $data = array(
             array('url' => 'wrong', 'foo' => 'foo0', 'bar' => 'bar0'),
-            array('foo' => 'foo1', 'list' => 'foo,bar,baz')
+            array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'snork' => true)
         );
         $this->pd = new XH_PageDataRouter($h, $fields, $temp, $data);
+    }
+
+    public function testStoredFields()
+    {
+        $expected = array('url', 'foo', 'bar', 'list', 'baz', 'snork');
+        $actual = $this->pd->storedFields();
+        $this->assertEquals($expected, $actual);
     }
 
     public function testFindPage()
@@ -56,7 +63,7 @@ class PageDataRouterTest extends PHPUnit_Framework_TestCase
     {
         $expected = array(
             array('url' => 'wrong', 'foo' => 'foo0', 'bar' => 'bar0', 'list' => ''),
-            array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'url' => 'News', 'bar' => '')
+            array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'url' => 'News', 'bar' => '', 'snork' => true)
         );
         $actual = $this->pd->find_all();
         $this->assertEquals($expected, $actual);
@@ -71,7 +78,7 @@ class PageDataRouterTest extends PHPUnit_Framework_TestCase
 
     public function testFindFieldValueArray()
     {
-        $expected = array(1 => array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'url' => 'News', 'bar' => ''));
+        $expected = array(1 => array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'url' => 'News', 'bar' => '', 'snork' => true));
         $actual = $this->pd->find_field_value('list', 'bar', ',');
         $this->assertEquals($expected, $actual);
     }
@@ -126,7 +133,7 @@ class PageDataRouterTest extends PHPUnit_Framework_TestCase
     public function testHeadAsPHP()
     {
         $expected = "<?php\n\$page_data_fields=array('url','foo','bar','list');\n"
-            . "\$temp_data=array(\n'url'=>'deleted',\n'foo'=>'',\n'bar'=>''\n);\n?>\n";
+            . "\$temp_data=array(\n'url'=>'deleted',\n'foo'=>'',\n'bar'=>'',\n'baz'=>'42'\n);\n?>\n";
         $actual = $this->pd->headAsPHP();
         $this->assertEquals($expected, $actual);
     }
