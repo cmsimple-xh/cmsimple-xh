@@ -53,7 +53,7 @@ class XH_PageDataRouter
      *
      * @access protected
      */
-    var $currentInterests;
+    var $currentInterests = array();
 
     /**
      * Constructs an instance.
