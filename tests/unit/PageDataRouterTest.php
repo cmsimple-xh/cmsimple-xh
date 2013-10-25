@@ -100,10 +100,10 @@ class PageDataRouterTest extends PHPUnit_Framework_TestCase
 
     public function testRemoveInterest()
     {
-        $this->pd->removeInterest('bar');
+        $this->pd->removeInterest('snork');
 
-        $expected = array('url' => 'wrong', 'foo' => 'foo0', 'list' => '');
-        $actual = $this->pd->find_page(0);
+        $expected = array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'url' => 'News', 'bar' => '');
+        $actual = $this->pd->find_page(1);
         $this->assertEquals($expected, $actual);
     }
 

@@ -133,9 +133,7 @@ class XH_PageDataRouter
      */
     function removeInterest($field)
     {
-        if (in_array($field, $this->model->params)) {
-            $this->model->removeParam($field);
-        }
+        $this->model->removeParam($field);
         $n = array_search($field, $this->currentInterests);
         if ($n !== false) {
             array_splice($this->currentInterests, $n, 1);
