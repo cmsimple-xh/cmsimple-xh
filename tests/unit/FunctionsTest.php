@@ -304,6 +304,30 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
+    public function testWritelogIsDeprecated()
+    {
+        writelog('foo');
+    }
+
+    public function testLogMessage()
+    {
+        global $pth;
+
+        $filename = './tests/unit/data/log.txt';
+        if (file_exists($filename)) {
+            unlink($filename);
+        }
+        $pth['file']['log'] = $filename;
+        XH_logMessage('info', 'XH', 'test', 'testing');
+        $string = file_get_contents($filename);
+        $suffix = "info\tXH\ttest\ttesting" . PHP_EOL;
+        $this->assertStringEndsWith($suffix, $string);
+        unlink($filename);
+    }
+
     public function testWriteFile()
     {
         $filename = './tests/unit/data/temp';

@@ -1647,21 +1647,59 @@ function logincheck()
  *
  * @param string $m The log message.
  *
+ * @return void
+ *
  * @global array  The paths of system files and folders.
  * @global string Error messages as (X)HTML fragment consisting of LI Elements.
  *
- * @return void
+ * @deprecated since 1.6
  */
 function writelog($m)
 {
     global $pth, $e;
 
+    trigger_error(
+        'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
+    );
     if ($fh = fopen($pth['file']['log'], "a")) {
         fwrite($fh, $m);
         fclose($fh);
     } else {
         e('cntwriteto', 'log', $pth['file']['log']);
     }
+}
+
+/**
+ * Appends a message to the log file, and returns whether that succeeded.
+ *
+ * @param string $type        A message type ("info", "warning", "error").
+ * @param string $module      A module name ("XH" or plugin name).
+ * @param string $category    A category.
+ * @param string $description A description.
+ *
+ * @return bool
+ *
+ * @global array The paths of system files and folders.
+ *
+ * @since 1.6
+ */
+function XH_logMessage($type, $module, $category, $description)
+{
+    global $pth;
+
+    $timestamp = date('Y-m-d H:i:s');
+    $message = "$timestamp\t$type\t$module\t$category\t$description";
+    $ok = false;
+    $stream = fopen($pth['file']['log'], 'a');
+    if ($stream) {
+        if (flock($stream, LOCK_EX)) {
+            $ok = fwrite($stream, $message . PHP_EOL) !== false;
+            fflush($stream);
+            flock($stream, LOCK_UN);
+        }
+        fclose($stream);
+    }
+    return $ok;
 }
 
 /**

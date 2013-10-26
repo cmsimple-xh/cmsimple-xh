@@ -623,12 +623,18 @@ if ($login && !$adm) {
         $_SESSION['xh_user_agent'] = md5($_SERVER['HTTP_USER_AGENT']);
         $adm = true;
         $edit = true;
-        writelog(
-            date("Y-m-d H:i:s") . " from " . sv('REMOTE_ADDR') . " logged_in\n"
+        $temp = XH_logMessage(
+            'info', 'XH', 'login', 'login from ' . $_SERVER['REMOTE_ADDR']
         );
+        if (!$temp) {
+            e('cntwriteto', 'log', $pth['file']['log']);
+        }
     } else {
         $login = null;
         $f = 'login';
+        XH_logMessage(
+            'warning', 'XH', 'login', 'login failed from ' . $_SERVER['REMOTE_ADDR']
+        );
         //shead('403');
     }
 } elseif ($logout && $adm) {

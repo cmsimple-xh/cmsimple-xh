@@ -177,16 +177,17 @@ class XH_Mailform
         global $cf, $tx;
 
         if ($this->check()) {
-            $body = $tx['mailform']['sendername']
-                . $this->sendername . "\n"
-                . $tx['mailform']['senderphone']
-                . $this->senderphone . "\n\n" . $this->mailform;
+            $body = $tx['mailform']['sendername'] . $this->sendername . "\n"
+                . $tx['mailform']['senderphone'] . $this->senderphone . "\n\n"
+                . $this->mailform;
             $sent = $this->sendMail(
-                $cf['mailform']['email'],
-                $this->subject, $body,
+                $cf['mailform']['email'], $this->subject, $body,
                 "From: " . $this->sender . "\r\n"
                 . "X-Remote: " . sv('REMOTE_ADDR') . "\r\n"
             );
+            if (!$sent) {
+                XH_logMessage('error', 'XH', 'mailform', $this->sender);
+            }
         } else {
             $sent = false;
         }
