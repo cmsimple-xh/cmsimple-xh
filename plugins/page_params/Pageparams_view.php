@@ -8,7 +8,7 @@
  * PHP versions 4 and 5
  *
  * @category  CMSimple_XH
- * @package   Metatags
+ * @package   Pageparams
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    Jerry Jakobsfeld <mail@simplesolutions.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
