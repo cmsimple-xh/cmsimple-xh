@@ -133,13 +133,12 @@ function Pageparams_lastEditRadiogroup($value)
 
     $o = '';
     foreach (array('top' => 2, 'bottom' => 1, 'no' => 0) as $string => $number) {
-        $id = 'show_last_edit_' . $string;
         $checked = $value == $number ? ' checked="checked"' : '';
         $radio = tag(
-            'input type="radio" name="show_last_edit" id="' . $id . '"'
+            'input type="radio" name="show_last_edit"'
             . ' value="' . $number . '"' . $checked
         );
-        $o .= "\n\t\t" . $radio . '<label for="' . $id . '">'
+        $o .= "\n\t\t" . '<label>' . $radio
             . $plugin_tx['page_params'][$string] . '</label>';
     }
     $o .= tag('br');
@@ -165,17 +164,16 @@ function Pageparams_redirectRadiogroup($value)
     $onclick = '';
     $options = array('yes_new' => 2, 'yes_same' => 1, 'no' => 0);
     foreach ($options as $string => $number) {
-        $id = 'use_header_location' . $string;
         $checked = $value == $number ? ' checked="checked"' : '';
         foreach (array('header_location', 'pageparams_linklist') as $toggle) {
             $onclick .= 'document.forms[\'page_params\'].elements[\'' . $toggle
                 . '\'].disabled=' . ($number > 0 ? 'false' : 'true') . ';';
         }
         $radio = tag(
-            'input type="radio" name="use_header_location" id="' . $id . '"'
+            'input type="radio" name="use_header_location"'
             . ' value="' . $number . '"' . $checked . ' onclick="' . $onclick . '"'
         );
-        $o .= "\n\t\t" . $radio . '<label for="' . $id . '">'
+        $o .= "\n\t\t" . '<label>' . $radio
             . $plugin_tx['page_params'][$string] . '</label>';
     }
     $o .= tag('br');
@@ -186,7 +184,6 @@ function Pageparams_redirectRadiogroup($value)
  * Returns an INPUT element.
  *
  * @param string $name     A name.
- * @param string $id       An id.
  * @param string $value    A value.
  * @param bool   $disabled Whether the element is disabled.
  *
@@ -194,10 +191,10 @@ function Pageparams_redirectRadiogroup($value)
  *
  * @since 1.6
  */
-function Pageparams_input($name, $id, $value, $disabled)
+function Pageparams_input($name, $value, $disabled)
 {
     $input = tag(
-        'input type="text" size="50" name="' . $name . '" id="' . $id . '"'
+        'input type="text" size="50" name="' . $name . '"'
         . ' value="' . XH_hsc($value) . '"'
         . ($disabled ? ' disabled="disabled"' : '')
     );
@@ -222,7 +219,7 @@ function Pageparams_scheduleInput($name, $value, $disabled)
         . $name . '\'])';
     return tag(
         'input type="text" size="16" maxlength="16" name="' . $name . '"'
-        . ' id="' . $name . '" value="' . $value . '"' . $disabled
+        . ' value="' . $value . '"' . $disabled
         . ' onchange="page_params_date_check(' . $js .')"'
     );
 }
@@ -330,8 +327,7 @@ function Pageparams_view($page)
     );
     $view .= tag('br');
     $view .= Pageparams_input(
-        'heading', 'other_heading', $page['heading'],
-        $page['show_heading'] !== '1'
+        'heading', $page['heading'], $page['show_heading'] !== '1'
     );
     $view .= tag('br') . "\n\t" . tag('hr');
 
@@ -394,7 +390,7 @@ function Pageparams_view($page)
     );
     $view .= Pageparams_redirectRadiogroup($page['use_header_location']);
     $view .= Pageparams_input(
-        'header_location', 'other_header_location', $page['header_location'],
+        'header_location', $page['header_location'],
         (int) $page['use_header_location'] === 0
     );
     $view .= tag('br');

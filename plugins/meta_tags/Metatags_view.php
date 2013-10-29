@@ -50,19 +50,19 @@ function Metatags_view($page)
         . "\n\t" . '<p><b>' . $lang['form_title'] . '</b></p>';
     foreach ($my_fields as $field) {
         $element = $field == 'description' || $field == 'keywords'
-            ? '<textarea name="' . $field . '" id="' . $field
-                . '" rows="3" cols="30" class="cmsimplecore_settings">'
+            ? '<textarea name="' . $field . '" rows="3" cols="30"'
+                . ' class="cmsimplecore_settings">'
                 . XH_hsc($page[$field])
                 . '</textarea>'
             : tag(
-                'input type="text" class="cmsimplecore_settings" size="50" name="'
-                . $field . '" id="' . $field . '" value="'
+                'input type="text" class="cmsimplecore_settings" size="50"'
+                . ' name="' . $field . '" value="'
                 . XH_hsc($page[$field]) . '"'
             );
         $view .= "\n\t" . XH_helpIcon($lang['hint_' . $field])
-            . "\n\t" . '<label for = "' . $field . '"><span class = "mt_label">'
-            . $lang[$field] . '</span></label>' . tag('br')
-            . "\n\t\t" . $element . tag('hr');
+            . "\n\t" . '<label><span class = "mt_label">'
+            . $lang[$field] . '</span>' . tag('br')
+            . "\n\t\t" . $element . '</label>' . tag('hr');
     }
     $view .= "\n\t" . tag('input name="save_page_data" type="hidden"')
         . "\n\t" . '<div style="text-align: right;">'
