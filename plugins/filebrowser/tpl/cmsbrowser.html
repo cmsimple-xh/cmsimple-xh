@@ -32,7 +32,7 @@ global $tx;
             <legend><?php echo $this->translate('create_subfolder_in', $this->currentDirectory); ?></legend>
             <div style="padding: 3em;">
 
-                <form method="POST" action="">
+                <form method="POST" action="#">
                     <?php echo tag('input type="text" name="createFolder" size="30"');?>
                     <?php echo tag('input type="submit" class="submit" value="' . $this->translate('create_folder') . '"');?>
 		    <?php global $_XH_csrfProtection; echo $_XH_csrfProtection->tokenInput();?>
@@ -53,7 +53,7 @@ global $tx;
             <legend><?php echo $this->translate('upload_file_to', $this->currentDirectory); ?></legend>
             <div style="padding: 3em;">
 
-                <form method="POST" action="" enctype="multipart/form-data" onsubmit="return FILEBROWSER.checkUpload(this, '<?php echo $this->translate('confirm_upload');?>')">
+                <form method="POST" action="#" enctype="multipart/form-data" onsubmit="return FILEBROWSER.checkUpload(this, '<?php echo $this->translate('confirm_upload');?>')">
                     <?php echo tag('input type="file" name="fbupload"');?>
                     <?php echo tag('input type="hidden" name="upload" value="upload"');?>
                     <?php echo tag('input type="submit" class="submit" value="' . $this->translate('upload_file') . '"');?>

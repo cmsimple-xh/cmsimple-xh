@@ -206,7 +206,7 @@ class XHFileBrowserView
             foreach ($folders as $folder) {
                 $name = str_replace($this->currentDirectory, '', $folder);
                 $html .= '<li class="folder">'
-                    . '<form style="display: inline;" method="post" action=""'
+                    . '<form style="display: inline;" method="post" action="#"'
                     . ' onsubmit="return FILEBROWSER.confirmFolderDelete(\''
                     . $this->translate('confirm_delete', $this->basePath . $folder)
                     . '\');">'
@@ -244,7 +244,7 @@ class XHFileBrowserView
             foreach ($folders as $folder) {
                 $name = str_replace($this->currentDirectory, '', $folder);
                 $html .= '<li class="folder">'
-                    . '<form style="display: inline;" method="post" action=""'
+                    . '<form style="display: inline;" method="post" action="#"'
                     . ' onsubmit="return FILEBROWSER.confirmFolderDelete(\''
                     . $this->translate('confirm_delete', $this->basePath . $folder)
                     . '\');">'
@@ -315,7 +315,7 @@ class XHFileBrowserView
         foreach ($files as $file) {
             $class = $class == 'odd' ? 'even' : 'odd';
             $html .= '<li style="white-space:nowrap;" class="' . $class . '">'
-                . '<form style="display: inline;" method="post" action=""'
+                . '<form style="display: inline;" method="post" action="#"'
                 . ' onsubmit="return FILEBROWSER.confirmFileDelete(\''
                 . $this->translate('confirm_delete', $this->currentDirectory . $file)
                 . '\');">'
@@ -332,7 +332,7 @@ class XHFileBrowserView
                 )
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
-                . '<form method="post" style="display:none;" action=""'
+                . '<form method="post" style="display:none;" action="#"'
                 . ' id="rename_' . $i . '">'
                 . tag(
                     'input type="text" size="25" name="renameFile" value="'
@@ -428,7 +428,7 @@ class XHFileBrowserView
                 $html .= <<<HTM
 <span style="position: relative; z-index: 4;">
 <span style="font-weight: normal; border: none;">$width x $height px</span>
-<br /><img src="$src" width="$width" height="$height"></span>
+<br /><img src="$src" width="$width" height="$height" alt="$file"/></span>
 HTM;
             }
             $html .= '</span> (' . round(filesize($path) / 1024, 1)
