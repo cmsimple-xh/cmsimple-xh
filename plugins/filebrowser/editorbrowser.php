@@ -114,6 +114,7 @@ if ($fb_type && array_key_exists($fb_type, $browser->baseDirectories)) {
     $browser->view->partials['script'] = $script;
     $browser->view->partials['test'] = $test;
     $browser->browserPath = '';
+    header('Content-Type: text/html; charset=UTF-8');
     echo $browser->render('editorbrowser');
 }
 
