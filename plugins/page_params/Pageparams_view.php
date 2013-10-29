@@ -220,7 +220,7 @@ function Pageparams_scheduleInput($name, $value, $disabled)
     return tag(
         'input type="text" size="16" maxlength="16" name="' . $name . '"'
         . ' value="' . $value . '"' . $disabled
-        . ' onchange="page_params_date_check(' . $js .')"'
+        . ' onchange="' . $js .'"'
     );
 }
 
