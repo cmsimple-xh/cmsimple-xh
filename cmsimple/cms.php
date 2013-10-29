@@ -618,7 +618,7 @@ if ($login && !$adm) {
         if (session_id() == '') {
             session_start();
         }
-        session_regenerate_id();
+        session_regenerate_id(true);
         $_SESSION['xh_password'][CMSIMPLE_ROOT] = $cf['security']['password'];
         $_SESSION['xh_user_agent'] = md5($_SERVER['HTTP_USER_AGENT']);
         $adm = true;
@@ -646,7 +646,7 @@ if ($login && !$adm) {
     if (session_id() == '') {
         session_start();
     }
-    session_regenerate_id();
+    session_regenerate_id(true);
     unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
     $o .= XH_message('success', $tx['login']['loggedout']);
 }
