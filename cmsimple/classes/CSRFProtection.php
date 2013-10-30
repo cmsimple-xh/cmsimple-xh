@@ -23,10 +23,19 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  * @since    1.6
- * @tutorial XH/CSRFProtection.cls
+ * @tutorial XH/XH_CSRFProtection.cls
  */
 class XH_CSRFProtection
 {
+    /**
+     * The name of the session key and input name of the CSRF token.
+     *
+     * @var string
+     *
+     * @access protected
+     */
+    var $keyName;
+
     /**
      * The CSRF token for the following request.
      *
@@ -37,10 +46,22 @@ class XH_CSRFProtection
     var $token = null;
 
     /**
+     * Initializes a new object.
+     *
+     * @param string $keyName A key name.
+     */
+    function XH_CSRFProtection($keyName = 'xh_csrf_token')
+    {
+        $this->keyName = $keyName;
+    }
+
+    /**
      * Returns a hidden input field with the CSRF token
      * for inclusion in an (X)HTML form.
      *
      * @return string (X)HTML
+     *
+     * @todo Use cryptographically stronger token?
      */
     function tokenInput()
     {
@@ -48,7 +69,8 @@ class XH_CSRFProtection
             $this->token = md5(uniqid(rand(), true));
         }
         $o = tag(
-            'input type="hidden" name="xh_csrf_token" value="' . $this->token . '"'
+            'input type="hidden" name="' . $this->keyName . '" value="'
+            . $this->token . '"'
         );
         return $o;
     }
@@ -63,14 +85,14 @@ class XH_CSRFProtection
      */
     function check()
     {
-        $submittedToken = isset($_POST['xh_csrf_token'])
-            ? $_POST['xh_csrf_token']
-            : (isset($_GET['xh_csrf_token']) ? $_GET['xh_csrf_token'] : '');
+        $submittedToken = isset($_POST[$this->keyName])
+            ? $_POST[$this->keyName]
+            : (isset($_GET[$this->keyName]) ? $_GET[$this->keyName] : '');
         if (session_id() == '') {
             session_start();
         }
-        if (!isset($_SESSION['xh_csrf_token'][CMSIMPLE_ROOT])
-            || $submittedToken != $_SESSION['xh_csrf_token'][CMSIMPLE_ROOT]
+        if (!isset($_SESSION[$this->keyName][CMSIMPLE_ROOT])
+            || $submittedToken != $_SESSION[$this->keyName][CMSIMPLE_ROOT]
         ) {
             header('HTTP/1.0 403 Forbidden');
             echo 'Invalid CSRF token!';
@@ -92,7 +114,7 @@ class XH_CSRFProtection
             if (session_id() == '') {
                 session_start();
             }
-            $_SESSION['xh_csrf_token'][CMSIMPLE_ROOT] = $this->token;
+            $_SESSION[$this->keyName][CMSIMPLE_ROOT] = $this->token;
         }
     }
 }
