@@ -92,13 +92,12 @@ if ($fb_type && array_key_exists($fb_type, $browser->baseDirectories)) {
     }
 
     if (isset($_POST['upload'])) {
+        $browser->view->checkCSRFToken();
         $browser->uploadFile();
     }
     if (isset($_POST['createFolder'])) {
+        $browser->view->checkCSRFToken();
         $browser->createFolder();
-    }
-    if (isset($_POST['renameFile'])) {
-        $browser->renameFile();
     }
 
     $browser->readDirectory();

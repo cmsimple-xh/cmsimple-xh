@@ -193,6 +193,36 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
         curl_close($this->curlHandle);
         $this->assertEquals(403, $actual);
     }
+
+    public function dataForEditorbrowserAttack()
+    {
+        return array(
+            array( // editorbrowser: create folder
+                array('createFolder' => 'test')
+            ),
+            array( // editorbrowser: upload file
+                array(
+                    'fbupload' => '@' . realpath('./tests/attack/data/hack.txt'),
+                    'upload' => 'upload'
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider dataForEditorbrowserAttack
+     */
+    public function testEditorbrowserAttack($fields)
+    {
+        $url = $this->url . 'plugins/filebrowser/editorbrowser.php'
+            . '?editor=tinymce&prefix=./&base=./&type=downloads';
+        $this->curlHandle = curl_init($url);
+        $this->setCurlOptions($fields);
+        curl_exec($this->curlHandle);
+        $actual = curl_getinfo($this->curlHandle, CURLINFO_HTTP_CODE);
+        curl_close($this->curlHandle);
+        $this->assertEquals(403, $actual);
+    }
 }
 
 ?>

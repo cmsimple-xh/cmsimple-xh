@@ -98,6 +98,13 @@ class XHFileBrowserView
     var $lang = array();
 
     /**
+     * The CSRF token.
+     *
+     * @var string
+     */
+    var $csrfToken;
+
+    /**
      * Constructs an instance.
      *
      * @global string The current language.
@@ -436,6 +443,39 @@ HTM;
         }
         $html .= '</ul>';
         return $html;
+    }
+
+    /**
+     * Returns a CSRF token and stores it in the session.
+     *
+     * @return string
+     */
+    function getCSRFToken()
+    {
+        if (!isset($this->token)) {
+            $this->token = md5(uniqid(rand(), true));
+            $_SESSION['filebrowser_csrf_token'] = $this->token;
+        }
+        return $this->token;
+    }
+
+    /**
+     * Checks the submitted CSRF token against the one stored in the session.
+     * Exits the script with 403, if that failed.
+     *
+     * @return void
+     */
+    function checkCSRFToken()
+    {
+        $key = 'filebrowser_csrf_token';
+        $submittedToken = isset($_POST[$key]) ? $_POST[$key] : '';
+        $ok = isset($_SESSION[$key]) && $_SESSION[$key] === $_POST[$key];
+        if (!$ok) {
+            header('HTTP/1.0 403 Forbidden');
+            echo 'Invalid CSRF token!';
+            // the following should be exit/die, but that would break unit tests
+            trigger_error('Invalid CSRF token!', E_USER_ERROR);
+        }
     }
 
     /**
