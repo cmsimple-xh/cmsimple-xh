@@ -80,7 +80,6 @@ $tx['filetype']['stylesheet']="stylesheet";
 $tx['filetype']['template']="template";
 
 $tx['heading']['error']="ERROR";
-$tx['heading']['warning']="ERROR / WARNING";
 
 $tx['help']['downloads_maxsize']="Maximum size of uploaded files in Byte. This must neither exceed the limit set for upload_max_filesize nor post_max_size in the PHP configuration.";
 $tx['help']['editmenu_scroll']="Whether the admin menu shall scroll with your webpage. Not checked = fixed admin menu.";

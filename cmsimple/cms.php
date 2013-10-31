@@ -1206,8 +1206,8 @@ loginforms();
 
 if ($e) {
     $o = '<div class="xh_warning">' . "\n"
-        . '<b>' . $tx['heading']['warning'] . '</b>' . "\n" . '</div>' . "\n"
-        . '<ul>' . "\n" . $e . '</ul>' . "\n" . $o;
+        . '<ul>' . "\n" . $e . '</ul>' . "\n" . '</div>' . "\n"
+        . $o;
 }
 if ($title == '') {
     if ($s > -1) {
