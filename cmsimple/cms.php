@@ -961,7 +961,7 @@ case 'mailform':
         include_once $pth['folder']['classes'] . 'Mailform.php';
         $temp = new XH_Mailform();
         $title = $tx['title'][$f];
-        $o .= "\n" . '<div id="cmsimple_mailform">' . "\n";
+        $o .= "\n" . '<div id="xh_mailform">' . "\n";
         $o .= '<h1>' . $title . '</h1>' . "\n";
         $o .= $temp->process();
         $o .= '</div>' . "\n";

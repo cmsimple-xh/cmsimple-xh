@@ -290,8 +290,8 @@ class XH_Mailform
             && trim($cf['mailform']['captcha']) == 'true'
         ) {
             $o .= '<p>' .  $tx['mailform']['captcha'] . '</p>' . "\n"
-                .  tag('input type="text" name="cap" class="captchainput"') . "\n"
-                .  '<span class="captcha_code">' . "\n"
+                .  tag('input type="text" name="cap" class="xh_captcha_input"')
+                . "\n" .  '<span class="xh_captcha_code">' . "\n"
                 .  $random . '</span>' . "\n";
         }
 

@@ -101,6 +101,9 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
 
     public function testMailformlinkNoEmail()
     {
+        global $cf;
+
+        $cf['mailform']['email'] = '';
         $actual = mailformlink();
         $this->assertEmpty($actual);
     }

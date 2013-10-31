@@ -277,18 +277,17 @@ textarea.cmsimplecore_file_edit {
 
 /* Mailform */
 
-#cmsimple_mailform div {
+#xh_mailform div {
     width: 250px;
     margin: 0 0 8px 0;
 }
 
-#cmsimple_mailform input.text {
+#xh_mailform .text {
     width: 90%;
 }
 
-span.captcha_code {
-    display: block;
-    float:left;
+.xh_captcha_code {
+    float: left;
     color: #fff;
     text-decoration: none;
     background-color: #000;
@@ -296,7 +295,7 @@ span.captcha_code {
     margin: 0 4px;
 }
 
-.text, .captchainput {
+.text, .xh_captcha_input {
     font-family: arial, sans-serif;
     font-size: 14px;
     color: #444;
@@ -304,9 +303,9 @@ span.captcha_code {
     margin: 0 0 2px 0;
 }
 
-.captchainput  {
+.xh_captcha_input  {
     float: left;
-    width:6ex;
+    width: 5em;
     border: 1px solid #666;
     margin: 0 0 10px 0;
 }
