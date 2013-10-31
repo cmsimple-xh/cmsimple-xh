@@ -302,55 +302,12 @@ span.highlight_search {
 #xh_system_check img {padding-right: 1em;}
 li.xh_system_check_cat_start {margin-top: 1em}
 
-/* Pluginloader */
-
-div.pluginerror {
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    text-align: center;
-    border: 3px solid #000;
-    background-color: #fc0;
-    color: #000;
-    padding: 4px 6px;
-    margin: 6px 0 0 0;
-}
-
-textarea.plugininput {
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    background: #eee;
-    color: #555;
-    border: 1px solid;
-    height: 50px;
-    padding: 4px;
-}
-
-textarea.plugininput:focus,.plugininputmax {
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    background: #eee;
-    color: #555;
-    border: 1px solid;
-    height: 50px;
-    padding: 4px;
-}
-
-textarea.plugintextarea {
-    background: #eee;
-    font-family: 'courier new', serif;
-    font-size: 14px;
-    color: #333;
-    width: 99%;
-    height: 300px;
-    padding: 0 !important;
-}
-
-div.pluginedit,div.plugintext {
+/*
+ * Pluginloader
+ */
+div.pluginedit, div.plugintext {
     border: 0px solid #828177;
     padding: 4px 0;
-}
-
-form.plugineditform {
 }
 
 div.plugineditcaption {
@@ -358,33 +315,6 @@ div.plugineditcaption {
     font-size: 15px;
     font-weight: bold;
     padding: 6px 0;
-}
-
-table.pluginedittable {
-    width: 100%;
-    border: 0;
-}
-
-table.pluginedittable td {
-    border: 0px solid #828177;
-    padding: 4px 4px 4px 4px;
-    vertical-align: top;
-    font-size: 14px;
-    font-family: arial, sans-serif;
-}
-
-.pluginedittable td.plugincfcap,pluginedittable td.plugincfhint {
-    font-size: 15px;
-    border-top: 1px solid;
-    padding-top: 6px;
-}
-
-.pluginedittable td.plugincfcap {
-    font-weight: bold;
-}
-
-table.pluginedittable td.plugincf {
-
 }
 
 /*
