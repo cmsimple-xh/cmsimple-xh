@@ -546,7 +546,7 @@ function content()
             $words = explode(' ', $search);
             $code = 'return "&" . preg_quote($w, "&") . "(?!([^<]+)?>)&isU";';
             $words = array_map(create_function('$w', $code), $words);
-            $replacement = '<span class="highlight_search">$0</span>';
+            $replacement = '<span class="xh_find">$0</span>';
             $c[$s] = preg_replace($words, $replacement, $c[$s]);
         }
         return $o . preg_replace('/#CMSimple (.*?)#/is', '', $c[$s]);

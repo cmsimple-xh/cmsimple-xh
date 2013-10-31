@@ -289,7 +289,7 @@ textarea.xh_file_edit {
 
 .flag {border: 0;}
 
-span.highlight_search {
+.xh_find {
     background: #fd0;
     color: #000;
 }
