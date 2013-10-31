@@ -188,7 +188,7 @@ class XH_Search
     {
         global $h, $u, $sn, $tx, $pd_router;
 
-        $o .= '<h1>' . $tx['search']['result'] . '</h1>';
+        $o = '<h1>' . $tx['search']['result'] . '</h1>';
         $words = $this->getWords();
         $pages = $this->search();
         $count = count($pages);
