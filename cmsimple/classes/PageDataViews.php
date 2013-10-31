@@ -72,24 +72,24 @@ class XH_PageDataView
     {
         global $pth;
 
-        $view = "\n" . '<div id = "pd_tabs">';
+        $view = "\n" . '<div id = "xh_pdtabs">';
 
         foreach ($this->tabs as $title => $file) {
             list($function, $dummy) = explode('.', basename($file), 2);
             // TODO: use something more appropriate than an anchor
-            $view .= "\n\t" . '<a class="inactive_tab" id="tab_' . $function
+            $view .= "\n\t" . '<a class="xh_inactive_tab" id="xh_tab_' . $function
                 . '" onclick="XH.toggleTab(\'' . $function . '\');"><span>'
                 . $title . '</span></a>';
         }
 
-        $view .= "\n</div>\n" . '<div id="pd_views">';
+        $view .= "\n</div>\n" . '<div id="xh_pdviews">';
 
         foreach ($this->tabs as $title => $file) {
             list($function, $dummy) = explode('.', basename($file), 2);
             // TODO: use something more appropriate than an anchor
-            $view .= "\n" . '<div id="PLTab_' . $function
-                . '" class="inactive_view">'
-                . "\n\t" . '<a class="pd_editor_toggle pd_open"'
+            $view .= "\n" . '<div id="xh_view_' . $function
+                . '" class="xh_inactive_view">'
+                . "\n\t" . '<a class="xh_view_toggle"'
                 . ' onclick="XH.toggleTab(\'' . $function . '\');">&nbsp;</a>';
             if (file_exists($file)) {
                 include_once $file;
@@ -98,7 +98,7 @@ class XH_PageDataView
                 // TODO: i18n; or probably better: use $e/e()
                 $view .= "Could not find " . $file;
             }
-            $view .= '<div class="pltab_status">'
+            $view .= '<div class="xh_view_status">'
                 . tag(
                     'img src="' . $pth['folder']['corestyle']
                     . 'ajax-loader-bar.gif" style="display:none" alt="loading"'

@@ -254,8 +254,9 @@ textarea.cmsimplecore_file_edit {
 }
 
 
-/* Mailform */
-
+/*
+ * Mailform
+ */
 #xh_mailform div {
     width: 250px;
     margin: 0 0 8px 0;
@@ -514,15 +515,16 @@ img.helpicon {
     background: none;
 }
 
-/* Pagedata */
-
-#pd_tabs {
+/*
+ * Pagedata tabs and views.
+ */
+#xh_pdtabs {
     font-weight: normal;
     margin-top: 10px;
     color: #000;
 }
 
-#pd_tabs a {
+#xh_pdtabs a {
     border: 1px solid #888;
     padding: 1px 3px 2px 3px;
     background-color: #ddd;
@@ -535,7 +537,7 @@ img.helpicon {
     border-radius: 5px 5px 0 0;
 }
 
-#pd_tabs a:hover {
+#xh_pdtabs a:hover {
     color: red;
     cursor: pointer;
     background-color: #cde;
@@ -546,7 +548,7 @@ img.helpicon {
     background-image: linear-gradient(to bottom, #def, #bcd);
 }
 
-#pd_tabs a.active_tab, #pdtabs a.active_tab:hover {
+#xh_pdtabs .xh_active_tab, #pdtabs .xh_active_tab:hover {
     background-color: #cdc;
     background-image: -webkit-linear-gradient(bottom, #fff, #aba);
     background-image: -moz-linear-gradient(bottom, #fff, #aba);
@@ -556,26 +558,26 @@ img.helpicon {
     padding-top: 3px;
 }
 
-#pd_views {
+#xh_pdviews {
     background:#fff;
     color: #000;
 }
 
-#pd_views a.pd_editor_toggle {
+#xh_pdviews .xh_view_toggle {
     width: 20px;
     height: 20px;
     float: right;
-    background:url(cross.png) no-repeat top right;
+    background: url(cross.png) no-repeat top right;
     cursor: pointer;
 }
 
-#pd_views .active_view {
+#xh_pdviews .xh_active_view {
     display: block;
     padding: 1.5ex 3ex;
     border: 1px solid #808080;
 }
 
-#pd_views .inactive_view {
+#xh_pdviews .xh_inactive_view {
     display: none;
     display: block;
     padding: 1.5ex 3ex;

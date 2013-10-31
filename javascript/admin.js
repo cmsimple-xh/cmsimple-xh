@@ -19,33 +19,33 @@ var XH = {}
  * @returns {undefined}
  */
 XH.toggleTab = function (tabId) {
-    var currView = document.getElementById("PLTab_" + tabId);
-    var currTab = document.getElementById("tab_" + tabId);
+    var currView = document.getElementById("xh_view_" + tabId);
+    var currTab = document.getElementById("xh_tab_" + tabId);
     var views, view, tabs, i, n, status;
 
-    if (currTab.className == "active_tab") {
-        currView.className = "inactive_view";
-        currTab.className = "inactive_tab";
+    if (currTab.className == "xh_active_tab") {
+        currView.className = "xh_inactive_view";
+        currTab.className = "xh_inactive_tab";
         return;
     }
 
-    views = document.getElementById("pd_views").getElementsByTagName("div");
+    views = document.getElementById("xh_pdviews").getElementsByTagName("div");
     for (i = 0, n = views.length; i < n; ++i) {
         view = views[i];
-        if (view.id.indexOf("PLTab_") == 0) {
-            view.className = "inactive_view";
-            status = XH.findPDTabStatus(view);
+        if (view.id.indexOf("xh_view_") == 0) {
+            view.className = "xh_inactive_view";
+            status = XH.findViewStatus(view);
             status.getElementsByTagName("div")[0].innerHTML = "";
         }
     }
 
-    tabs = document.getElementById("pd_tabs").getElementsByTagName("a");
+    tabs = document.getElementById("xh_pdtabs").getElementsByTagName("a");
     for (i = 0, n = tabs.length; i < n; ++i) {
-        tabs[i].className = "inactive_tab";
+        tabs[i].className = "xh_inactive_tab";
     }
 
-    currTab.className = "active_tab";
-    currView.className = "active_view";
+    currTab.className = "xh_active_tab";
+    currView.className = "xh_active_view";
 }
 
 /**
@@ -199,13 +199,13 @@ XH.serializeForm = function (form) {
  *
  * @since 1.6
  */
-XH.findPDTabStatus = function (formOrTab) {
+XH.findViewStatus = function (formOrTab) {
     var node;
 
     if (formOrTab.nodeName.toLowerCase() == "form") {
         node = formOrTab.parentNode;
         while (typeof node.id == "undefined" ||
-                node.id.indexOf("PLTab_") !== 0) {
+                node.id.indexOf("xh_view_") !== 0) {
             node = node.parentNode;
         }
     } else {
@@ -213,7 +213,7 @@ XH.findPDTabStatus = function (formOrTab) {
     }
     node = node.lastChild;
     while (typeof node.className == "undefined" ||
-            node.className != "pltab_status") {
+            node.className != "xh_view_status") {
         node = node.previousSibling;
     }
     return node;
@@ -235,7 +235,7 @@ XH.quickSubmit = function (form) {
     request.open("POST", form.action + "&xh_pagedata_ajax");
     request.setRequestHeader("Content-Type",
             "application/x-www-form-urlencoded");
-    status = XH.findPDTabStatus(form);
+    status = XH.findViewStatus(form);
     img = status.getElementsByTagName("img")[0];
     message = status.getElementsByTagName("div")[0];
     message.innerHTML = '';
@@ -262,7 +262,7 @@ XH.quickSubmit = function (form) {
 XH.initQuickSubmit = function () {
     var views, forms, i, n, form;
 
-    views = document.getElementById("pd_views");
+    views = document.getElementById("xh_pdviews");
     if (views) {
         forms = views.getElementsByTagName("form");
         for (i = 0, n = forms.length; i < n; ++i) {
