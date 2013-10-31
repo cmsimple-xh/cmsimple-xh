@@ -552,8 +552,8 @@ function XH_adminMenu($plugins = array())
         )
     );
 
-    $t .= "\n" . '<div id="editmenu">';
-    $t .= "\n" . '<ul id="edit_menu">' . "\n";
+    $t .= "\n" . '<div id="xh_adminmenu">';
+    $t .= "\n" . '<ul>' . "\n";
     foreach ($menu as $item) {
         $t .= XH_adminMenuItem($item);
     }

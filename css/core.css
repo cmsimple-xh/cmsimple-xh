@@ -1,10 +1,10 @@
-/* Adminmenu */
+/* adminmenu */
 
-#editmenu_scrolling {
+#xh_adminmenu_scrolling {
     z-index: 999;
 }
 
-#editmenu_fixed {
+#xh_adminmenu_fixed {
     position: fixed;
     top: 0;
     left: 0;
@@ -12,7 +12,7 @@
     z-index: 999;
 }
 
-#editmenu {
+#xh_adminmenu {
     width: 100%;
     min-width: 760px;
     background-color: #2e3436;
@@ -24,7 +24,7 @@
     color: #d3d7cf;
 }
 
-#editmenu ul {
+#xh_adminmenu ul {
     height: 36px;
     list-style-type: none !important;
     list-style-image: none;
@@ -35,7 +35,7 @@
     background-color: #2e3436;
 }
 
-#editmenu li {
+#xh_adminmenu li {
     list-style-type: none !important;
     float: left;
     position: relative;
@@ -47,11 +47,11 @@
     margin: 0;
 }
 
-#editmenu li a:hover, #editmenu li:hover {
+#xh_adminmenu li a:hover, #xh_adminmenu li:hover {
     background-color: #3f4446;
 }
 
-#editmenu  a, #editmenu a:visited, #editmenu span {
+#xh_adminmenu  a, #xh_adminmenu a:visited, #xh_adminmenu span {
     display: block;
     color: #d3d7cf;
     height: 26px;
@@ -60,11 +60,11 @@
     font-style: normal;
 }
 
-#editmenu span {
+#xh_adminmenu span {
     cursor: default;
 }
 
-#editmenu ul ul {
+#xh_adminmenu ul ul {
     list-style-type: none !important;
     height: 0;
     left: 0;
@@ -75,33 +75,33 @@
     visibility: hidden;
 }
 
-#editmenu ul ul li {
+#xh_adminmenu ul ul li {
     background: #4f5456;
     height: 26px;
     padding: 3px 0 0 0;
     margin: 0;
 }
 
-#editmenu ul ul li a, #editmenu ul ul li span {
+#xh_adminmenu ul ul li a, #xh_adminmenu ul ul li span {
     height: 16px;
     padding: 3px 0 0 0;
     margin: 0;
 }
 
-#editmenu ul ul li:hover {
+#xh_adminmenu ul ul li:hover {
     height: 26px;
     padding: 3px 0 0 0;
     background: #c50;
 }
 
-#editmenu ul ul li a:hover, #editmenu ul ul li span:hover {
+#xh_adminmenu ul ul li a:hover, #xh_adminmenu ul ul li span:hover {
     background: #c50;
     height: 20px;
     padding: 3px 0 0 0;
     margin: 0;
 }
 
-#editmenu ul ul ul {
+#xh_adminmenu ul ul ul {
     left: 100%;
     top: 0px;
     visibility: hidden;
@@ -109,59 +109,38 @@
     margin: 0;
 }
 
-#editmenu ul ul ul li {
+#xh_adminmenu ul ul ul li {
     background: #c50;
     height: 26px;
     padding: 3px 0 0 0;
     margin: 0;
 }
 
-#editmenu ul ul ul li a, #editmenu ul ul ul li span {
+#xh_adminmenu ul ul ul li a, #xh_adminmenu ul ul ul li span {
     height: 26px;
     padding: 3px 0 0 0;
     margin: 0;
 }
 
-#editmenu ul ul ul li:hover {
+#xh_adminmenu ul ul ul li:hover {
     background: #e70;
     height: 26px;
     padding: 3px 0 0 0;
     margin: 0;
 }
 
-#editmenu ul ul ul li a:hover, #editmenu ul ul ul li span:hover {
+#xh_adminmenu ul ul ul li a:hover, #xh_adminmenu ul ul ul li span:hover {
     background: #e70;
     height: 20px;
     padding: 3px 0 0 0;
     margin: 0;
 }
 
-#editmenu li:hover > ul {
+#xh_adminmenu li:hover > ul {
     visibility: visible;
 }
 
-div#admin-content-container{
- /*   padding-top: 4ex; */
-}
-
-#edit_menu {
-    /*width: 660px;*/
-    width: 100%;
-    /*float: left;*/
-}
-
-#editmenu_logout {
-    width: 98px;
-    float: right;
-}
-
-#edit_menu_logout {
-    min-width: 100%;
-    max-width: 100%;
-    text-align: center;
-}
-
-/* ENDE EDITMENU */
+/* end of adminmenu */
 
 
 input.cmsimplecore_settings {

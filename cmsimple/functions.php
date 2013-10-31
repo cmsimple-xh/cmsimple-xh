@@ -508,10 +508,10 @@ function XH_finalCleanUp($html)
         if (isset($cf['editmenu']['scroll'])
             && $cf['editmenu']['scroll'] == 'true'
         ) {
-            $id = ' id="editmenu_scrolling"';
+            $id = ' id="xh_adminmenu_scrolling"';
             $margin = 0;
         } else {
-            $id =' id="editmenu_fixed"';
+            $id =' id="xh_adminmenu_fixed"';
             $replacement = '<style type="text/css">html {margin-top: ' . $margin
                 . 'px;}</style>' ."\n" . '$0';
             $html = preg_replace('~</head>~i', $replacement, $html, 1);
