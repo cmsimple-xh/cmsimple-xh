@@ -60,32 +60,19 @@ FILEBROWSER.togglexhfbForm = function (id) {
 /**
  * Shows the rename form.
  *
- * @param {string} id
+ * @param {string} renameForm
  * @param {string} messsage
  *
  * @returns {undefined}
  */
-FILEBROWSER.showRenameForm = function (id, message) {
-    var renameForm = document.getElementById("rename_" + id);
-    var oldName = renameForm.renameFile.value;
-    var newName = prompt(message, oldName);
+FILEBROWSER.promptNewName = function (renameForm, message) {
+    var oldNameInput = renameForm["renameFile"];
+    var newName = prompt(message, oldNameInput.value);
 
-    if(newName){
-        renameForm.renameFile.value = newName;
-        renameForm.submit();
+    if (newName) {
+        oldNameInput.value = newName;
     }
-}
-
-/**
- * Hides the rename form.
- *
- * @param {string} id
- *
- * @returns {undefined}
- */
-FILEBROWSER.hideRenameForm = function (id) {
-    document.getElementById("rename_" + id).style.display = "none";
-    document.getElementById("file_" + id).style.display = "inline";
+    return !!newName;
 }
 
 /**
@@ -94,9 +81,11 @@ FILEBROWSER.hideRenameForm = function (id) {
  * @param {string} filename A file name.
  *
  * @returns {bool}
+ *
+ * @todo Optimize with document.getElementsByClassName if available.
  */
 FILEBROWSER.fileExists = function (filename) {
-    var els = document.getElementById("files").getElementsByTagName("*");
+    var els = document.getElementById("filebrowser_files").getElementsByTagName("*");
     var i, el;
 
     for (i = 0; i < els.length; ++i) {

@@ -311,7 +311,6 @@ class XHFileBrowserView
             return '';
         }
         $html = '<ul>';
-        $i = 0;
         $class = 'even';
         $fb = $_SESSION['xh_browser']; // FIXME: the view shouldn't know the model
         $imgs = $fb->usedImages();
@@ -339,24 +338,23 @@ class XHFileBrowserView
                 )
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
-                . '<form method="post" style="display:none;" action="#"'
-                . ' id="rename_' . $i . '">'
+                . '<form method="post" style="display:inline;" action="#"'
+                . ' onsubmit="return FILEBROWSER.promptNewName(this, \''
+                . $this->translate('prompt_rename', $file) . '\');"'
+                . '>'
                 . tag(
-                    'input type="text" size="25" name="renameFile" value="'
-                    . $file . '" onmouseout="FILEBROWSER.hideRenameForm(\''
-                    . $i . '\');"'
+                    'input type="hidden" name="renameFile" value="'
+                    . $file . '"'
                 )
                 . tag('input type="hidden" name="oldName" value="' . $file . '"')
-                . $_XH_csrfProtection->tokenInput()
-                . '</form>'
                 . tag(
-                    'img src="' . $this->browserPath . 'css/icons/rename.png"'
+                    'input type="image" src="' . $this->browserPath . 'css/icons/rename.png"'
                     . ' alt="' . $this->translate('rename_file') . '" title="'
                     . $this->translate('rename_file')
-                    . '" style="width: 16px; height: 16px; cursor: pointer"'
-                    . ' onclick="FILEBROWSER.showRenameForm(\'' . $i . '\', \''
-                    . $this->translate('prompt_rename', $file) . '\');"'
+                    . '" style="width: 16px; height: 16px"'
                 )
+                . $_XH_csrfProtection->tokenInput()
+                . '</form>'
                 . '<a style="position:relative" class="xhfbfile" href="'
                 . $this->currentDirectory . $file . '" target="_blank">' . $file;
 
@@ -384,7 +382,6 @@ class XHFileBrowserView
             }
             $size = round(filesize($path) / 1024, 1);
             $html .= '</a> (' . $size . ' kb)</li>';
-            $i++;
         }
         $html .= '</ul>';
         return $html;

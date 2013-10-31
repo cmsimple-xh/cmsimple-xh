@@ -8,7 +8,7 @@ global $tx;
 ?>
 <!--utf-8 marker: äöü -->
 <div id="xhFilebrowserMenu">
-    <div id="folders">
+    <div id="filebrowser_folders">
         %MESSAGE%
         %FOLDERS%
     </div>
@@ -19,7 +19,7 @@ global $tx;
 
     <div style="clear: both;"></div>
 
-    <div id="subfolders">
+    <div id="filebrowser_subfolders">
         <div style="clear: both; margin: 0px 0;"><b><?php echo $tx['filetype']['folder']; ?>:</b> <?php echo $this->currentDirectory; ?></div>
         <div style="text-align: right;">
         <button type="button" onclick="FILEBROWSER.togglexhfbForm('xhfbCreateDir');"><?php echo $this->translate('create_folder'); ?></button>
@@ -45,7 +45,7 @@ global $tx;
     </div>
 	<?php echo tag('hr');?>
 	<p class="xhfb_files"><?php echo $this->translate('files');?></p>
-    <div id="files">
+    <div id="filebrowser_files">
          <div style="text-align: right; font-weight: 900">
                 <button type="button" onclick="FILEBROWSER.togglexhfbForm('xhfbUploadFile');"><?php echo $this->translate('upload_file'); ?></button>
         </div>

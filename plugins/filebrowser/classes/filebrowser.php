@@ -445,7 +445,7 @@ class XHFileBrowser
         if (file_exists($filename)) {
             $newFilename = $this->newFilename($filename);
             if (rename($filename, $newFilename)) {
-                $this->view->success(
+                $this->view->info(
                     'success_renamed',
                     array(basename($filename), basename($newFilename))
                 );
