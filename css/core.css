@@ -143,7 +143,7 @@
 /* end of adminmenu */
 
 
-input.cmsimplecore_settings {
+input.xh_setting, input.cmsimplecore_settings {
     width: 90%;
     /*font-size: 14px;*/
     color: #333;
@@ -153,7 +153,7 @@ input.cmsimplecore_settings {
     background: #fff;
 }
 
-textarea.cmsimplecore_settings {
+textarea.xh_setting, textarea.cmsimplecore_settings {
     width: 90%;
     height: 56px;
     font-size: 14px;
@@ -165,7 +165,7 @@ textarea.cmsimplecore_settings {
     overflow: hidden;
 }
 
-textarea.cmsimplecore_settings_short {
+textarea.xh_setting_short, textarea.cmsimplecore_settings_short {
     height: 18px;
 }
 
@@ -181,15 +181,9 @@ textarea.cmsimplecore_settings_short {
     padding: 4px 6px;
 }
 
-.cmsimplecore_version {
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    padding: 0 2px;
-}
-
 /* Info and Help link, Notices and Warnings */
 
-.cmsimplecore_debug {
+.xh_debug {
     height: 18px;
     background: #900;
     font-family: arial, sans-serif;
@@ -202,7 +196,7 @@ textarea.cmsimplecore_settings_short {
     margin: auto;
 }
 
-.cmsimplecore_debug_warning {
+.xh_debug_warnings {
     background: #fc0;
     font-family: arial, sans-serif;
     font-size: 14px;
@@ -210,7 +204,7 @@ textarea.cmsimplecore_settings_short {
     padding: 4px 6px;
 }
 
-.cmsimplecore_success, .cmsimplecore_info, .cmsimplecore_warning, .cmsimplecore_fail {
+.xh_success, .xh_info, .xh_warning, .xh_fail, .cmsimplecore_warning {
     padding: 0.7em;
     padding-left: 36px;
     -moz-border-radius: 7px;
@@ -218,25 +212,25 @@ textarea.cmsimplecore_settings_short {
     border-radius: 7px;
 }
 
-.cmsimplecore_success {
+.xh_success {
     background: #e1f8cb url("success.png") no-repeat 10px;
     color: #37620d;
     border: 1px solid #c6d880;
 }
 
-.cmsimplecore_info {
+.xh_info {
     background: #e9f5fb url("info.png") no-repeat 10px;
     color: #16597a;
     border: 1px solid #84c7e9;
 }
 
-.cmsimplecore_warning {
+.xh_warning, cmsimplecore_warning {
     background: #ffffbb url("warning.png") no-repeat 10px;
     color: #756730;
     border: 1px solid #ffd324;
 }
 
-.cmsimplecore_fail {
+.xh_fail {
     background: #fbe5e2 url("fail.png") no-repeat 10px;
     color: #992213;
     border: 1px solid #f2a197;
@@ -244,7 +238,7 @@ textarea.cmsimplecore_settings_short {
 
 /* File Edit Textareas */
 
-textarea.cmsimplecore_file_edit {
+textarea.xh_file_edit {
     width: 99%;
     font-family: 'courier new', monospace;
     font-size: 14px;
@@ -292,10 +286,6 @@ textarea.cmsimplecore_file_edit {
 
 
 /* the rest */
-
-.cmsimplecore_center {
-    text-align: center;
-}
 
 .flag {border: 0;}
 

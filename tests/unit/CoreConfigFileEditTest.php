@@ -75,7 +75,7 @@ class CoreConfigFileEditTest extends PHPUnit_Framework_TestCase
                         'type' => 'text',
                         'name' => 'meta_robots',
                         'value' => 'index, follow',
-                        'class' => 'cmsimplecore_settings'
+                        'class' => 'xh_setting'
                     )
                 )
             ),
@@ -86,7 +86,7 @@ class CoreConfigFileEditTest extends PHPUnit_Framework_TestCase
                     'tag' => 'textarea',
                     'attributes' => array(
                         'name' => 'meta_robots',
-                        'class' => 'cmsimplecore_settings'
+                        'class' => 'xh_setting'
                     ),
                     'content' => 'index, follow'
                 )

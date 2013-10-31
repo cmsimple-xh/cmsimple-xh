@@ -349,7 +349,7 @@ class XHFileBrowser
         $pages = $this->fileIsLinked($file);
         if (is_array($pages)) {
             $this->view->error('error_not_deleted', $file);
-            $this->view->message .= '<div class="cmsimplecore_info">'
+            $this->view->message .= '<div class="xh_info">'
                 . $this->view->translate('error_file_is_used', $file)
                 . '<ul>';
             foreach ($pages as $page) {
@@ -534,7 +534,7 @@ class XHFileBrowser
         $pages = $this->fileIsLinked($oldName);
         if (is_array($pages)) {
             $this->view->error('error_cant_rename', $oldName);
-            $this->view->message .= '<div class="cmsimplecore_info">'
+            $this->view->message .= '<div class="xh_info">'
                 . $this->view->translate('error_file_is_used', $oldName)
                 . '<ul>';
             foreach ($pages as $page) {

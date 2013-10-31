@@ -122,8 +122,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
             ),
             array( // function does not exist
                 'foo {{{PLUGIN:doesnotexist();}}} bar',
-                'foo <span class="cmsimplecore_fail">Function doesnotexist()'
-                . ' is not defined!</span> bar'
+                'foo <span class="xh_fail">Function doesnotexist() is not defined!</span> bar'
             ),
             array('foo {{{PLUGIN:trim(\':\');}}} bar', 'foo : bar')
         );

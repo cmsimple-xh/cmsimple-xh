@@ -227,7 +227,7 @@ function evaluate_plugincall($text)
 {
     global $tx;
 
-    $message = '<span class="cmsimplecore_fail">' . $tx['error']['plugincall']
+    $message = '<span class="xh_fail">' . $tx['error']['plugincall']
         . '</span>';
     $re = '/{{{(?:[^:]+:)?(([a-z_0-9]+)\(.*?\);)}}}/iu';
     preg_match_all($re, $text, $calls, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
@@ -484,8 +484,8 @@ function XH_finalCleanUp($html)
         $margin = 36;
 
         if ($debugMode = error_reporting() > 0) {
-            $debugHint .= '<div class="cmsimplecore_debug">' . "\n"
-                . '<b>Notice:</b> Debug-Mode is enabled!' . "\n"
+            $debugHint .= '<div class="xh_debug">' . "\n"
+                . '<b>Notice:</b> Debug-Mode is enabled!' . "\n" // TODO: i18n
                 . '</div>' . "\n";
             $margin += 22;
         }
@@ -498,7 +498,7 @@ function XH_finalCleanUp($html)
         }
 
         if (count($errors) > 0) {
-            $errorList .= '<div class="cmsimplecore_debug_warning"><ul>';
+            $errorList .= '<div class="xh_debug_warnings"><ul>';
             $errors = array_unique($errors);
             foreach ($errors as $error) {
                 $errorList .= '<li>' . $error . '</li>';
@@ -1974,7 +1974,7 @@ function XH_adjustStylesheetURLs($plugin, $css)
  */
 function XH_message($type, $message)
 {
-    $class = 'cmsimplecore_' . $type;
+    $class = 'xh_' . $type;
     $args = array_slice(func_get_args(), 2);
     $message = vsprintf($message, $args);
     $message = XH_hsc($message);

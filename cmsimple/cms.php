@@ -694,10 +694,10 @@ if (XH_ADM) {
     $temp = 1000 * (ini_get('session.gc_maxlifetime') - 1);
     $o .= '<script type="text/javascript">/* <![CDATA[ */'
         . 'if (document.cookie.indexOf(\'status=adm\') == -1)'
-        . ' document.write(\'<div class="cmsimplecore_warning">'
+        . ' document.write(\'<div class="xh_warning">'
         . $tx['error']['nocookies'] . '<\/div>\')'
         . '/* ]]> */</script>'
-        . '<noscript><div class="cmsimplecore_warning">'
+        . '<noscript><div class="xh_warning">'
         . $tx['error']['nojs'] . '</div></noscript>'
         . '<script type="text/javascript">/* <![CDATA[ */'
         . 'setInterval(function() {'
@@ -1205,7 +1205,7 @@ if ($s == -1 && !$f && $o == '') {
 loginforms();
 
 if ($e) {
-    $o = '<div class="cmsimplecore_warning cmsimplecore_center">' . "\n"
+    $o = '<div class="xh_warning">' . "\n"
         . '<b>' . $tx['heading']['warning'] . '</b>' . "\n" . '</div>' . "\n"
         . '<ul>' . "\n" . $e . '</ul>' . "\n" . $o;
 }

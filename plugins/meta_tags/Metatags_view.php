@@ -51,11 +51,11 @@ function Metatags_view($page)
     foreach ($my_fields as $field) {
         $element = $field == 'description' || $field == 'keywords'
             ? '<textarea name="' . $field . '" rows="3" cols="30"'
-                . ' class="cmsimplecore_settings">'
+                . ' class="xh_setting">'
                 . XH_hsc($page[$field])
                 . '</textarea>'
             : tag(
-                'input type="text" class="cmsimplecore_settings" size="50"'
+                'input type="text" class="xh_setting" size="50"'
                 . ' name="' . $field . '" value="'
                 . XH_hsc($page[$field]) . '"'
             );

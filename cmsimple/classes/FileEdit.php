@@ -195,7 +195,7 @@ class XH_TextFileEdit extends XH_FileEdit
         $o = '<h1>' . $this->caption . '</h1>' . $message
             . '<form action="' . $action . '" method="POST">'
             . '<textarea rows="25" cols="80" name="' . $this->textareaName
-            . '" class="cmsimplecore_file_edit">'
+            . '" class="xh_file_edit">'
             . XH_hsc($this->text)
             . '</textarea>';
         foreach ($this->params as $param => $value) {
@@ -464,19 +464,19 @@ class XH_ArrayFileEdit extends XH_FileEdit
             . '<tr><td>' . $tx['password']['old'] . '</td><td>'
             . tag(
                 'input type="password" name="' . $iname . '_OLD" value=""'
-                . ' autocomplete="off" class="cmsimplecore_settings"'
+                . ' autocomplete="off" class="xh_setting"'
             )
             . '</td></tr>'
             . '<tr><td>' . $tx['password']['new'] . '</td><td>'
             . tag(
                 'input type="password" name="' . $iname . '_NEW" value=""'
-                . ' autocomplete="off" class="cmsimplecore_settings"'
+                . ' autocomplete="off" class="xh_setting"'
             )
             . '</td></tr>'
             . '<tr><td>' . $tx['password']['confirmation'] . '</td><td>'
             . tag(
                 'input type="password" name="' . $iname . '_CONFIRM" value=""'
-                . ' autocomplete="off" class="cmsimplecore_settings"'
+                . ' autocomplete="off" class="xh_setting"'
             )
             . '</td></tr>'
             . '</table>'
@@ -506,9 +506,9 @@ class XH_ArrayFileEdit extends XH_FileEdit
         case 'password':
             return $this->passwordDialog($iname);
         case 'text':
-            $class = 'cmsimplecore_settings';
+            $class = 'xh_setting';
             if (utf8_strlen($opt['val']) < 50) {
-                $class .= ' cmsimplecore_settings_short';
+                $class .= ' xh_setting_short';
             }
             return '<textarea name="' . $iname . '" rows="1" cols="50"'
                 . ' class="' . $class . '">'
@@ -537,7 +537,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
             return tag(
                 'input type="text" name="' . $iname . '" value="'
                 . XH_hsc($opt['val'])
-                . '" class="cmsimplecore_settings"'
+                . '" class="xh_setting"'
             );
         }
     }

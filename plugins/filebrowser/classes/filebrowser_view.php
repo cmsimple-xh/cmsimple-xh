@@ -524,7 +524,7 @@ HTM;
      */
     function error($message ='', $args = null)
     {
-        $this->message .= '<p class="cmsimplecore_fail">'
+        $this->message .= '<p class="xh_fail">'
             . $this->translate($message, $args) . '</p>';
     }
 
@@ -538,7 +538,7 @@ HTM;
      */
     function success($message, $args = null)
     {
-        $this->message .= '<p class="cmsimplecore_success">'
+        $this->message .= '<p class="xh_success">'
             . $this->translate($message, $args) . '</p>';
     }
 
@@ -552,7 +552,7 @@ HTM;
      */
     function info($message, $args = null)
     {
-        $this->message .= '<p class="cmsimplecore_info">'
+        $this->message .= '<p class="xh_info">'
             . $this->translate($message, $args) . '</p>';
     }
 
