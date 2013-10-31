@@ -348,8 +348,9 @@ class XHFileBrowserView
                 )
                 . tag('input type="hidden" name="oldName" value="' . $file . '"')
                 . tag(
-                    'input type="image" src="' . $this->browserPath . 'css/icons/rename.png"'
-                    . ' alt="' . $this->translate('rename_file') . '" title="'
+                    'input type="image" src="' . $this->browserPath
+                    . 'css/icons/rename.png"' . ' alt="'
+                    . $this->translate('rename_file') . '" title="'
                     . $this->translate('rename_file')
                     . '" style="width: 16px; height: 16px"'
                 )
