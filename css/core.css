@@ -1,4 +1,6 @@
-/* adminmenu */
+/*
+ * Adminmenu
+ */
 
 #xh_adminmenu_scrolling {
     z-index: 999;
@@ -47,11 +49,14 @@
     margin: 0;
 }
 
-#xh_adminmenu li a:hover, #xh_adminmenu li:hover {
+#xh_adminmenu li a:hover,
+#xh_adminmenu li:hover {
     background-color: #3f4446;
 }
 
-#xh_adminmenu  a, #xh_adminmenu a:visited, #xh_adminmenu span {
+#xh_adminmenu a,
+#xh_adminmenu a:visited,
+#xh_adminmenu span {
     display: block;
     color: #d3d7cf;
     height: 26px;
@@ -82,7 +87,8 @@
     margin: 0;
 }
 
-#xh_adminmenu ul ul li a, #xh_adminmenu ul ul li span {
+#xh_adminmenu ul ul li a,
+#xh_adminmenu ul ul li span {
     height: 16px;
     padding: 3px 0 0 0;
     margin: 0;
@@ -94,7 +100,8 @@
     background: #c50;
 }
 
-#xh_adminmenu ul ul li a:hover, #xh_adminmenu ul ul li span:hover {
+#xh_adminmenu ul ul li a:hover,
+#xh_adminmenu ul ul li span:hover {
     background: #c50;
     height: 20px;
     padding: 3px 0 0 0;
@@ -116,7 +123,8 @@
     margin: 0;
 }
 
-#xh_adminmenu ul ul ul li a, #xh_adminmenu ul ul ul li span {
+#xh_adminmenu ul ul ul li a,
+#xh_adminmenu ul ul ul li span {
     height: 26px;
     padding: 3px 0 0 0;
     margin: 0;
@@ -129,7 +137,8 @@
     margin: 0;
 }
 
-#xh_adminmenu ul ul ul li a:hover, #xh_adminmenu ul ul ul li span:hover {
+#xh_adminmenu ul ul ul li a:hover,
+#xh_adminmenu ul ul ul li span:hover {
     background: #e70;
     height: 20px;
     padding: 3px 0 0 0;
@@ -140,34 +149,9 @@
     visibility: visible;
 }
 
-/* end of adminmenu */
-
-
-input.xh_setting, input.cmsimplecore_settings {
-    width: 90%;
-    /*font-size: 14px;*/
-    color: #333;
-    padding: 2px 3px;
-    margin: 3px 0;
-    border: 1px solid #ccc;
-    background: #fff;
-}
-
-textarea.xh_setting, textarea.cmsimplecore_settings {
-    width: 90%;
-    height: 56px;
-    font-size: 14px;
-    color: #333;
-    padding: 2px 3px;
-    margin: 3px 0;
-    border: 1px solid #ccc;
-    background: #fff;
-    overflow: hidden;
-}
-
-textarea.xh_setting_short, textarea.cmsimplecore_settings_short {
-    height: 18px;
-}
+/*
+ * Pluginmenu
+ */
 
 .edit {
     font-family: arial, sans-serif;
@@ -181,7 +165,9 @@ textarea.xh_setting_short, textarea.cmsimplecore_settings_short {
     padding: 4px 6px;
 }
 
-/* Info and Help link, Notices and Warnings */
+/*
+ * Debug mode
+ */
 
 .xh_debug {
     height: 18px;
@@ -204,7 +190,15 @@ textarea.xh_setting_short, textarea.cmsimplecore_settings_short {
     padding: 4px 6px;
 }
 
-.xh_success, .xh_info, .xh_warning, .xh_fail, .cmsimplecore_warning {
+/*
+ * Messages
+ */
+
+.xh_success,
+.xh_info,
+.xh_warning,
+.xh_fail,
+.cmsimplecore_warning {
     padding: 0.7em;
     padding-left: 36px;
     -moz-border-radius: 7px;
@@ -224,7 +218,8 @@ textarea.xh_setting_short, textarea.cmsimplecore_settings_short {
     border: 1px solid #84c7e9;
 }
 
-.xh_warning, cmsimplecore_warning {
+.xh_warning,
+.cmsimplecore_warning {
     background: #ffffbb url("warning.png") no-repeat 10px;
     color: #756730;
     border: 1px solid #ffd324;
@@ -236,21 +231,10 @@ textarea.xh_setting_short, textarea.cmsimplecore_settings_short {
     border: 1px solid #f2a197;
 }
 
-/* File Edit Textareas */
-
-textarea.xh_file_edit {
-    width: 99%;
-    font-family: 'courier new', monospace;
-    font-size: 14px;
-    color: #333;
-    background-color: #fff;
-    padding: 0 !important;
-}
-
-
 /*
  * Mailform
  */
+
 #xh_mailform div {
     width: 250px;
     margin: 0 0 8px 0;
@@ -284,28 +268,32 @@ textarea.xh_file_edit {
     margin: 0 0 10px 0;
 }
 
+/*
+ * System Check
+ */
 
-/* the rest */
-
-.flag {border: 0;}
-
-.xh_find {
-    background: #fd0;
-    color: #000;
+#xh_system_check {
+    list-style: none;
 }
 
+#xh_system_check li {
+    margin-left: 0;
+}
 
-/* System Check */
+#xh_system_check img {
+    padding-right: 1em;
+}
 
-#xh_system_check {list-style: none;}
-#xh_system_check li {margin-left: 0}
-#xh_system_check img {padding-right: 1em;}
-li.xh_system_check_cat_start {margin-top: 1em}
+li.xh_system_check_cat_start {
+    margin-top: 1em;
+}
 
 /*
  * Pluginloader
  */
-div.pluginedit, div.plugintext {
+
+div.pluginedit,
+div.plugintext {
     border: 0px solid #828177;
     padding: 4px 0;
 }
@@ -320,21 +308,74 @@ div.plugineditcaption {
 /*
  * Configuration
  */
-#xh_config_form fieldset {padding: 1em 0.5em; margin: 1em 0}
-#xh_config_form div.xh_label, #xh_config_form div.xh_field {
-    padding: 0; margin: 0; border: 0; float: left
+
+#xh_config_form fieldset {
+    padding: 1em 0.5em;
+    margin: 1em 0;
 }
-#xh_config_form div.xh_label {width: 35%}
-#xh_config_form div.xh_field {width: 65%}
-#xh_config_form div.xh_label span.xh_label {display: inline-block; margin: 3px 0}
-#xh_config_form input[type="checkbox"] {margin: 0.3em 0}
-#xh_config_form br {clear: both}
+
+#xh_config_form div.xh_label,
+#xh_config_form div.xh_field {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    float: left;
+}
+
+#xh_config_form div.xh_label {
+    width: 35%;
+}
+
+#xh_config_form div.xh_field {
+    width: 65%;
+}
+
+#xh_config_form div.xh_label span.xh_label {
+    display: inline-block;
+    margin: 3px 0;
+}
+
+#xh_config_form input[type="checkbox"] {
+    margin: 0.3em 0;
+}
+
+#xh_config_form br {
+    clear: both;
+}
+
+input.xh_setting,
+input.cmsimplecore_settings {
+    width: 90%;
+    /*font-size: 14px;*/
+    color: #333;
+    padding: 2px 3px;
+    margin: 3px 0;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+textarea.xh_setting,
+textarea.cmsimplecore_settings {
+    width: 90%;
+    height: 56px;
+    font-size: 14px;
+    color: #333;
+    padding: 2px 3px;
+    margin: 3px 0;
+    border: 1px solid #ccc;
+    background: #fff;
+    overflow: hidden;
+}
+
+textarea.xh_setting_short,
+textarea.cmsimplecore_settings_short {
+    height: 18px;
+}
 
 /*
- * Tooltips, if hint-texts are used within a plugin
- * e.g.: $plugin_tx['PluginName']['cf_var_name']='hint';
- * Will display a span, when hovering var_name.
+ * Tooltips
  */
+
 .pl_tooltip {
     font-family: arial, sans-serif;
     font-size: 14px;
@@ -383,8 +424,9 @@ a.pl_tooltip img {
 
 /*
  * New tooltip styling, which allows <p> elements in the help texts.
- * TODO: change that everywhere, and get rid of the old styles
+ * TODO: change that everywhere, and get rid of the old styles for XH 2.0
  */
+
 div.pl_tooltip {
     font-family: arial, sans-serif;
     font-size: 14px;
@@ -431,13 +473,10 @@ div.pl_tooltip img {
     /*vertical-align: text-top;*/
 }
 
-img.helpicon {
-    background: none;
-}
-
 /*
  * Pagedata tabs and views.
  */
+
 #xh_pdtabs {
     font-weight: normal;
     margin-top: 10px;
@@ -468,7 +507,8 @@ img.helpicon {
     background-image: linear-gradient(to bottom, #def, #bcd);
 }
 
-#xh_pdtabs .xh_active_tab, #pdtabs .xh_active_tab:hover {
+#xh_pdtabs .xh_active_tab,
+#pdtabs .xh_active_tab:hover {
     background-color: #cdc;
     background-image: -webkit-linear-gradient(bottom, #fff, #aba);
     background-image: -moz-linear-gradient(bottom, #fff, #aba);
@@ -506,8 +546,9 @@ img.helpicon {
 }
 
 /*
- * Modal dialogs.
+ * Modal dialogs
  */
+
 div.xh_modal_dialog_overlay {
     position: fixed;
     display: table;
@@ -519,10 +560,12 @@ div.xh_modal_dialog_overlay {
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 9999;
 }
+
 div.xh_modal_dialog_center {
     display: table-cell;
     vertical-align: middle;
 }
+
 div.xh_modal_dialog {
     overflow: auto;
     background: white;
@@ -531,15 +574,18 @@ div.xh_modal_dialog {
     border-radius: 10px;
     padding: 1em;
 }
+
 div.xh_modal_dialog_error {
     padding-top: 1em;
     color: red;
     font-weight: bold;
 }
+
 div.xh_modal_dialog_buttons {
     text-align: right;
     padding-top: 0.5em;
 }
+
 div.xh_modal_dialog_buttons button {
     width: 5em;
 }
@@ -548,10 +594,12 @@ form.xh_inline_form {
     display: inline;
 }
 
-/**
- * Styling of the login form.
+/*
+ * Login form
  */
+
 body.xh_login {}
+
 body.xh_login div.xh_login {
     width: 30em;
     margin: 2em auto 0 auto;
@@ -567,6 +615,10 @@ div.xh_break {
     height: 0;
 }
 
+/*
+ * Miscellaneous
+ */
+
 #xh_logfile {
     height: 40em;
     overflow: auto;
@@ -575,4 +627,26 @@ div.xh_break {
 
 #xh_pagedata ul {
     list-style: none;
+}
+
+textarea.xh_file_edit {
+    width: 99%;
+    font-family: 'courier new', monospace;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    padding: 0 !important;
+}
+
+.flag {
+    border: 0;
+}
+
+.xh_find {
+    background: #fd0;
+    color: #000;
+}
+
+img.helpicon {
+    background: none;
 }
