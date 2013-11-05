@@ -1,3 +1,54 @@
+Version 2.0beta1 - internally released 2013-11-05
+cmb     adapted for CMSimple_XH 1.6
+cmb     added possibility to suppress checkboxes by leaving pagedata_attribute empty and made that the default (suggested by Jerry)
+cmb     replaced "cmsimple" theme with original themes
+cmb     made system check implicit
+cmb     removed out-dated language files
+cmb     updated English and German manual, and removed others
+cmb     improved performance (especially, for many pages)
+cmb     added CSRF protection
+cmb     removed dependency on Utf8_XH plugin
+cmb     fixed invalid markup
+cmb     refactored PHP code to MVC
+cmb     refactored JS code to use namespace
+cmb     added unit tests and developer documentation
+
+Version 1pl15 - released 2013-10-29
+cmb     fixed bug, where modified jstree.js relied on $ (reported by johnjdoe)
+cmb     replaced plugin icon
+
+Version 1pl14 - released 2013-10-11
+cmb     fixed bug, where error message was suppressed when saving failed
+cmb     fixed issue with regard to some templates (reported by Torsten.Behrens)
+cmb     replaced deprecated preg_replace('//e') with preg_replace_callback()
+cmb     improved tooltip of help icon
+cmb     added phing build.xml
+
+Version 1pl13 - released 2013-08-06
+cmb     added creation of backup before saving the modified contents
+cmb     removed dependency on deprecated jQuery functions
+cmb     removed icons from dialog titles for compatibility with jQueryUI 1.10
+cmb     improved redirection after saving
+
+Version 1pl12 - released 2013-05-16
+cmb     fixed bug, where a dollar sign or a backslash immediately followed by a digit in a page heading was not properly handled
+cmb     fixed improper language declaration in help files
+cmb     added version.nfo
+
+Version 1pl11 - released 2013-01-05
+cmb     updated to jsTree 1.0 rc3
+cmb     extended copyright to 2013
+
+Version 1pl10 - released 2012-12-22
+cmb     fixed bug, where redirect after save didn't work for HTTPS and non default ports (reported by Tata)
+
+Version 1pl9 - released 2012-12-22
+cmb     fixed broken links
+cmb     added Dutch translation (contributed by roze)
+
+Version 1pl8 - released 2012-09-23
+cmb     updated Czech translation and added Czech README and manual (contributed by oldnema)
+
 Version 1pl7 - released 2012-09-20
 cmb     removed javascript: pseudo protocoll
 cmb     fixed typo in English language file
