@@ -183,9 +183,9 @@ class XH_PageDataRouter
     }
 
     /**
-     * Adds a new page and returns its page data.
+     * Returns the page data for a new page, without actually creating the page.
      *
-     * @param array $params The page data of the page.
+     * @param array $params Default data of the page.
      *
      * @return array
      *
@@ -195,6 +195,23 @@ class XH_PageDataRouter
     {
         $page = $this->model->create($params);
         return $page;
+    }
+
+    /**
+     * Appends a new page.
+     *
+     * @param array $params Default data of the page.
+     *
+     * @return void
+     *
+     * @access public
+     *
+     * @since 1.6
+     */
+    function appendNewPage($params = array())
+    {
+        $pageData = $this->model->create($params);
+        $this->model->appendPage($pageData);
     }
 
     /**

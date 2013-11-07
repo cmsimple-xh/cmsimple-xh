@@ -127,6 +127,25 @@ class PageDataModelTest extends PHPUnit_Framework_TestCase
         $actual = $this->pd->create($params);
         $this->assertEquals($expected, $actual);
     }
+
+    public function testCreateDoesntAppendPage()
+    {
+        $before = count($this->pd->data);
+        $pageData = $this->pd->create();
+        $after = count($this->pd->data);
+        $actual = $after - $before;
+        $this->assertEquals(0, $actual);
+    }
+
+    public function testAppendPage()
+    {
+        $pageData = $this->pd->create();
+        $before = count($this->pd->data);
+        $this->pd->appendPage($pageData);
+        $after = count($this->pd->data);
+        $actual = $after - $before;
+        $this->assertEquals(1, $actual);
+    }
 }
 
 ?>

@@ -318,7 +318,7 @@ class XH_PageDataModel
 
 
     /**
-     * Returns the page data for a new page.
+     * Returns the page data for a new page, without actually creating the page.
      *
      * @param array $params Default page data.
      *
@@ -334,6 +334,22 @@ class XH_PageDataModel
         }
         $page = array_merge($clean, $params);
         return $page;
+    }
+
+    /**
+     * Appends a new page.
+     *
+     * @param array $params Page data of the page.
+     *
+     * @return void
+     *
+     * @access public
+     *
+     * @since 1.6
+     */
+    function appendPage($params)
+    {
+        $this->data[] = $params;
     }
 
     /**

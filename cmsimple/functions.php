@@ -822,7 +822,7 @@ function rfc()
             $s = 0;
         }
         $cl = 1;
-        $pd_router->new_page();
+        $pd_router->appendNewPage();
         return;
     }
 

@@ -130,6 +130,22 @@ class PageDataRouterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testNewPageDoesntAppendPage()
+    {
+        $before = count($this->pd->find_all());
+        $this->pd->new_page();
+        $after = count($this->pd->find_all());
+        $this->assertEquals(0, $after - $before);
+    }
+
+    public function testAppendPage()
+    {
+        $before = count($this->pd->find_all());
+        $this->pd->appendNewPage();
+        $after = count($this->pd->find_all());
+        $this->assertEquals(1, $after - $before);
+    }
+
     public function testHeadAsPHP()
     {
         $expected = "<?php\n\$page_data_fields=array('url','foo','bar','list');\n"
