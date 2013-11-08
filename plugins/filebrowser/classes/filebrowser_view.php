@@ -338,9 +338,6 @@ class Filebrowser_View
             $finfo = new finfo(FILEINFO_MIME);
             $mimeType = $finfo->file($filename);
             return strpos($mimeType, 'image/') === 0;
-        } elseif (function_exists('mime_content_type')) {
-            $mimeType = mime_content_type($filename);
-            return strpos($mimeType, 'image/') === 0;
         } else {
             $ext = pathinfo($filename, PATHINFO_EXTENSION);
             $exts = array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'tiff', 'ico');
