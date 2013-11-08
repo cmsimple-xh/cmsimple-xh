@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Internal Filebrowser -- filebrowser_view.php
+ * The file browser view class.
  *
  * PHP versions 4 and 5
  *
@@ -16,7 +16,7 @@
  */
 
 /**
- * The file browser view.
+ * The file browser view class.
  *
  * @category CMSimple_XH
  * @package  Filebrowser
@@ -25,7 +25,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  */
-class XHFileBrowserView
+class Filebrowser_View
 {
     /**
      * (X)HTML fragments to insert in the templates.
@@ -163,7 +163,7 @@ class XHFileBrowserView
      *
      * @access public
      */
-    function XHFileBrowserView()
+    function Filebrowser_View()
     {
         global $plugin_tx;
 

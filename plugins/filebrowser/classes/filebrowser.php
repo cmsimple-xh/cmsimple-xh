@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Internal Filebrowser -- filebrowser.php
+ * The file browser controller.
  *
  * PHP versions 4 and 5
  *
@@ -16,7 +16,7 @@
  */
 
 /**
- * The file browser model.
+ * The file browser controller class.
  *
  * @category CMSimple_XH
  * @package  Filebrowser
@@ -28,7 +28,7 @@
  * @todo Document meaning of properties.
  * @todo Document @access for members.
  */
-class XHFileBrowser
+class Filebrowser_Controller
 {
     /**
      * @var string $linkPrefix
@@ -101,13 +101,13 @@ class XHFileBrowser
      * @global array The paths of system files and folders.
      * @global array The configuration of the plugins.
      */
-    function XHFileBrowser()
+    function Filebrowser_Controller()
     {
         global $pth, $plugin_cf;
 
         $this->browserPath = $pth['folder']['plugins']
             . basename(dirname(dirname(__FILE__))) . '/';
-        $this->view = new XHFileBrowserView();
+        $this->view = new Filebrowser_View();
         foreach (array('images', 'downloads', 'userfiles', 'media') as $type) {
             $this->baseDirectories[$type] = ltrim($pth['folder'][$type], './');
             $this->allowedExtensions[$type] = array();
@@ -564,7 +564,7 @@ class XHFileBrowser
     {
         $template = str_replace(array('.', '/', '\\', '<', ' '), '', $template);
         if (!file_exists($this->browserPath . 'tpl/' . $template . '.html')) {
-            return '<p>XHFileBrowser::render() - Template not found: '
+            return '<p>Filebrowser_Controller::render() - Template not found: '
                 . "{$this->browserPath}tpl/$template.html'</p>";
         }
         $this->view->baseDirectory = $this->baseDirectory;

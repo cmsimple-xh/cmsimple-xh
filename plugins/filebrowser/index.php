@@ -24,7 +24,7 @@ if (!isset($_SESSION)) {
 }
 
 $temp = trim($sn, "/") . '/';
-$xh_fb = new XHFileBrowser();
+$xh_fb = new Filebrowser_Controller();
 $xh_fb->setBrowseBase(CMSIMPLE_BASE);
 $xh_fb->setBrowserPath($pth['folder']['plugins'] . 'filebrowser/');
 $xh_fb->setMaxFileSize('images', $cf['images']['maxsize']);
