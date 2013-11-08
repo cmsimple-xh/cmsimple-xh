@@ -176,7 +176,7 @@ function XH_sysinfo()
 HTML;
 
     $checks = array(
-        'phpversion' => '4.3',
+        'phpversion' => '4.3.10',
         'extensions' => array(
             'pcre',
             array('session', false),
