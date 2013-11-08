@@ -1,17 +1,16 @@
 <?php
 
-/* utf-8 marker: äöü */
 $script = '
 <script language="javascript" type="text/javascript">
 
 
 var FileBrowserDialogue = {
-    
+
     init : function () {
         // Nothing to do
     },
 
-   
+
     submit : function (url) {
         var URL = url;
         var args = top.tinymce.activeEditor.windowManager.getParams();

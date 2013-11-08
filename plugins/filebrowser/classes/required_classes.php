@@ -15,8 +15,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-/* utf-8 marker: äöü */
-
 /**
  * The view class.
  */

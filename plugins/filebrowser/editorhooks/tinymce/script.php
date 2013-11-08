@@ -4,7 +4,6 @@
  * @version $Id$
  */
 
-/* utf-8 marker: äöü */
 $script = '
 <script type="text/javascript" src="./../tinymce/tiny_mce/tiny_mce_popup.js">
 </script>
@@ -12,12 +11,12 @@ $script = '
 <script language="javascript" type="text/javascript">
 
 var FileBrowserDialogue = {
-    
+
     init : function () {
         // Nothing to do
     },
 
-   
+
     submit : function (url) {
         var URL = url;
         var win = tinyMCEPopup.getWindowArg("window");
