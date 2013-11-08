@@ -1,9 +1,10 @@
 <?php
 
 $cf['security']['password']="\$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1";
-$cf['security']['secret']="9cea74b39684c8b92c95f1bb";
+$cf['security']['secret']="cf6055c67b190634cdc08658";
 $cf['security']['email']="";
 $cf['site']['template']="mini1";
+$cf['site']['timezone']="";
 $cf['language']['default']="en";
 $cf['meta']['robots']="index, follow";
 $cf['meta']['author']="";

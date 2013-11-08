@@ -203,8 +203,14 @@ HTML;
             sprintf($tx['syscheck']['locale_available'], $tx['locale']['all'])
         );
     }
-    $checks['other'][] = array(!get_magic_quotes_runtime(),
-                             false, $tx['syscheck']['magic_quotes']);
+    $func = 'date_default_timezone_get';
+    $checks['other'][] = array(
+        !function_exists($func) || $func() !== 'UTC',
+        false, $tx['syscheck']['timezone']
+    );
+    $checks['other'][] = array(
+        !get_magic_quotes_runtime(), false, $tx['syscheck']['magic_quotes']
+    );
     $o .= XH_systemCheck($checks);
     return $o;
 }

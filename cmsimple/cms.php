@@ -253,6 +253,11 @@ if (!isset($cf['folders']['content'])) {
     $cf['folders']['content'] = 'content/';
 }
 
+$temp = 'date_default_timezone_set';
+if ($cf['site']['timezone'] !== '' && function_exists($temp)) {
+    $temp($cf['site']['timezone']);
+}
+
 /**
  * The current language.
  *
