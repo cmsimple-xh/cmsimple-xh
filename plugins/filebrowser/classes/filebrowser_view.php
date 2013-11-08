@@ -375,7 +375,7 @@ class XHFileBrowserView
                 }
                 $html .= '<span style="position: relative;  z-index: 4; ">'
                     . '<span style="font-weight: normal; border: none;">'
-                    . $width . ' x ' . $height . ' px</span>' . tag('br')
+                    . $image[0] . ' x ' . $image[1] . ' px</span>' . tag('br')
                     . tag(
                         'img src="' . $path . '" width="' . $width . '" height="'
                         . $height . '" alt="' . $file . '"'
@@ -432,7 +432,7 @@ class XHFileBrowserView
                 $src = $this->basePath . $this->currentDirectory . $file;
                 $html .= <<<HTM
 <span style="position: relative; z-index: 4;">
-<span style="font-weight: normal; border: none;">$width x $height px</span>
+<span style="font-weight: normal; border: none;">$image[0] x $image[1] px</span>
 <br /><img src="$src" width="$width" height="$height" alt="$file"/></span>
 HTM;
             }
