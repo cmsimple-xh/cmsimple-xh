@@ -1377,6 +1377,9 @@ function XH_debug($errno, $errstr, $errfile, $errline, $context)
     case E_NOTICE:
         $errtype = 'NOTICE';
         break;
+    case E_STRICT:
+        $errtype = 'STRICT';
+        break;
     case E_DEPRECATED:
         $errtype = 'DEPRECATED';
         break;

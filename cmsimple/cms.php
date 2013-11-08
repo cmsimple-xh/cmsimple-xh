@@ -161,6 +161,12 @@ define('CMSIMPLE_XH_BUILD', '@CMSIMPLE_XH_BUILD@');
  */
 define('CMSIMPLE_XH_DATE', '@CMSIMPLE_XH_DATE@');
 
+if (!defined('E_STRICT')) {
+    /**
+     * @ignore
+     */
+    define('E_STRICT', 2048);
+}
 if (!defined('E_DEPRECATED')) {
     /**
      * @ignore
