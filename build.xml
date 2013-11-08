@@ -165,6 +165,7 @@
                 <exclude name="2lang/.2lang"/>
                 <exclude name="tests/**"/>
                 <exclude name="tutorials/**"/>
+                <exclude name="userfiles/images/test*.jpg"/>
             </fileset>
         </move>
         <touch file="dist/cmsimplexh/2lang/.2lang"/>
