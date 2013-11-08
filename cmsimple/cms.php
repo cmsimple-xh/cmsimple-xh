@@ -198,7 +198,7 @@ require_once $pth['folder']['classes'] . 'CSRFProtection.php';
 require_once $pth['folder']['classes'] . 'PasswordHash.php';
 require_once $pth['folder']['classes'] . 'PageDataRouter.php';
 require_once $pth['folder']['classes'] . 'PageDataModel.php';
-require_once $pth['folder']['classes'] . 'PageDataViews.php';
+require_once $pth['folder']['classes'] . 'PageDataView.php';
 require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
 require_once UTF8 . '/utils/validation.php';

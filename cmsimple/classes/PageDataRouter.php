@@ -479,7 +479,7 @@ class XH_PageDataRouter
             $page = $this->find_page($pd_s);
             if ($pd_s > -1) {
                 $view_provider = new XH_PageDataView($page, $this->model->tabs);
-                return $view_provider->pdForms();
+                return $view_provider->tabs() . $view_provider->views();
             }
         }
         return '';
