@@ -24,76 +24,126 @@
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
- *
- * @todo Document meaning of properties.
- * @todo Document @access for members.
  */
 class XHFileBrowserView
 {
     /**
-     * @var array $partials
+     * (X)HTML fragments to insert in the templates.
+     *
+     * @var array
+     *
+     * @access public
      */
     var $partials = array();
 
     /**
-     * @var string $browserPath
+     * Relative path of the filebrowser folder.
+     *
+     * @var string
+     *
+     * @access public
      */
     var $browserPath = '';
 
     /**
-     * @var string $basePath
+     * Relative path of the CMSimple installation folder.
+     *
+     * @var string
+     *
+     * @access public
      */
     var $basePath;
 
     /**
-     * @var string $baseDirectory
+     * Relative path of the userfiles folder.
+     *
+     * @var string
+     *
+     * @access public
      */
     var $baseDirectory;
 
     /**
-     * @var string $baseLink
+     * The type of the files to browse ("images", "downloads", "media" or
+     * "userfiles").
+     *
+     * @var string
+     *
+     * @access public
      */
     var $baseLink;
 
     /**
-     * @var string $currentDirectory
+     * The path of the current folder relative to the type's main folder.
+     *
+     * @var string
+     *
+     * @access public
      */
     var $currentDirectory;
 
     /**
-     * @var string $linkParams
+     * The (partial) query string.
+     *
+     * @var string
+     *
+     * @access public
      */
     var $linkParams;
 
     /**
-     * @var string $linkPrefix
+     * ???
+     *
+     * @var string
+     *
+     * @access public
+     *
+     * @todo Document description.
      */
     var $linkPrefix;
 
     /**
-     * @var array $folders
+     * An array of folders?
+     *
+     * @var array
+     *
+     * @access public
      */
     var $folders;
 
     /**
-     * @var array $subfolders
+     * An array of subfolders?
+     *
+     * @var array
+     *
+     * @access public
      */
     var $subfolders;
 
     /**
-     * @var array $files
+     * An array of files?
+     *
+     * @var array
+     *
+     * @access public
      */
     var $files;
 
     /**
-     * @var string $message
+     * The (X)HTML content of the message area.
+     *
+     * @var string
+     *
+     * @access protected
      */
     var $message = '';
 
     /**
      * The localization of the file browser.
      *
-     * @var array $lang
+     * @var array
+     *
+     * @access protected
      */
     var $lang = array();
 
@@ -101,13 +151,17 @@ class XHFileBrowserView
      * The CSRF token.
      *
      * @var string
+     *
+     * @access protected
      */
     var $csrfToken;
 
     /**
-     * Constructs an instance.
+     * Initializes a newly created instance.
      *
      * @global array  The localization of the plugins.
+     *
+     * @access public
      */
     function XHFileBrowserView()
     {
@@ -117,27 +171,26 @@ class XHFileBrowserView
     }
 
     /**
-     * Returns the folder list view for the file browser.
+     * Returns the folder list view.
      *
      * @param array $folders An array of folders.
      *
-     * @return string
+     * @return string (X)HTML.
      *
      * @global array The localization of the core.
-     * @global array The localization of the plugins.
      *
-     * @todo Remove global $plugin_tx; use $this->lang instead.
+     * @access protected
      */
     function folderList($folders)
     {
-        global $tx, $plugin_tx;
+        global $tx;
 
         $title = isset($tx['title']['userfiles'])
             ? utf8_ucfirst($tx['title']['userfiles'])
             : ucfirst('Userfiles ' . $this->translate('folder'));
         $html = '<ul><li class="openFolder"><a href="?'
             . htmlspecialchars($this->linkParams, ENT_QUOTES, 'UTF-8') . '">'
-            . $title . ' ' . $plugin_tx['filebrowser']['folder'] . '</a>';
+            . $title . ' ' . $this->lang['folder'] . '</a>';
         if (!empty($folders)) {
             $html .= '<ul>';
             foreach ($folders as $folder => $data) {
@@ -158,6 +211,10 @@ class XHFileBrowserView
      * @param array  $folders An array of folders.
      *
      * @return string
+     *
+     * @access public
+     *
+     * @todo What is this method for?
      */
     function folderLink($folder, $folders)
     {
@@ -187,13 +244,15 @@ class XHFileBrowserView
     }
 
     /**
-     * ???
+     * Returns the subfolder list view of the CMS browser.
      *
      * @param array $folders An array of folders.
      *
      * @return string
      *
      * @global object The CRSF protection object.
+     *
+     * @access protected
      */
     function subfolderList($folders)
     {
@@ -229,11 +288,13 @@ class XHFileBrowserView
     }
 
     /**
-     * ???
+     * Returns the subfolder list view of the editor browser.
      *
      * @param array $folders An array of folders.
      *
      * @return string
+     *
+     * @access protected
      */
     function subfolderListForEditor($folders)
     {
@@ -268,6 +329,8 @@ class XHFileBrowserView
      * @param string $filename A file name.
      *
      * @return bool
+     *
+     * @access protected
      */
     function isImageFile($filename)
     {
@@ -294,6 +357,8 @@ class XHFileBrowserView
      *
      * @global array  The localization of the core.
      * @global object The CRSF protection object.
+     *
+     * @access protected
      */
     function fileList($files)
     {
@@ -386,6 +451,8 @@ class XHFileBrowserView
      * @param array $files An array of files.
      *
      * @return string
+     *
+     * @access protected
      */
     function fileListForEditor($files)
     {
@@ -439,6 +506,8 @@ HTM;
      * Returns a CSRF token and stores it in the session.
      *
      * @return string
+     *
+     * @access protected
      */
     function getCSRFToken()
     {
@@ -454,6 +523,8 @@ HTM;
      * Exits the script with 403, if that failed.
      *
      * @return void
+     *
+     * @access public
      */
     function checkCSRFToken()
     {
@@ -473,14 +544,12 @@ HTM;
      *
      * @param string $template A template file name.
      *
-     * @return string
+     * @return string (X)HTML.
      *
-     * @global array The localization of the core.
+     * @access public
      */
     function loadTemplate($template)
     {
-        global $tx;
-
         if (file_exists($template)) {
             ob_start();
             include $template;
@@ -489,11 +558,11 @@ HTM;
         $this->partials['folders'] = $this->folderList($this->folders);
         if (basename($template) == 'cmsbrowser.html') {
             $this->partials['subfolders']
-                = $this->subFolderList($this->subfolders);
+                = $this->subfolderList($this->subfolders);
             $this->partials['files'] = $this->fileList($this->files);
         } elseif (basename($template) == 'editorbrowser.html') {
             $this->partials['subfolders']
-                = $this->subFolderListForEditor($this->subfolders);
+                = $this->subfolderListForEditor($this->subfolders);
             $this->partials['files'] = $this->fileListForEditor($this->files);
         }
         $this->partials['message'] = $this->message;
@@ -510,9 +579,11 @@ HTM;
      * Appends a localized error message to the message area of the view.
      *
      * @param string $message A message key.
-     * @param array  $args    The arguments.
+     * @param array  $args    Arguments.
      *
      * @return void
+     *
+     * @access public
      */
     function error($message ='', $args = null)
     {
@@ -527,6 +598,8 @@ HTM;
      * @param array  $args    The arguments.
      *
      * @return void
+     *
+     * @access public
      */
     function success($message, $args = null)
     {
@@ -541,6 +614,8 @@ HTM;
      * @param array  $args    The arguments.
      *
      * @return void
+     *
+     * @access public
      */
     function info($message, $args = null)
     {
@@ -555,7 +630,7 @@ HTM;
      *
      * @return void
      *
-     * @todo Deprecate? All messages should be localized.
+     * @access public
      */
     function message($message)
     {
@@ -569,6 +644,8 @@ HTM;
      * @param mixed  $args   A single argument or an array of arguments.
      *
      * @return string
+     *
+     * @access public
      */
     function translate($string = '', $args = null)
     {
