@@ -107,20 +107,12 @@ class XHFileBrowserView
     /**
      * Constructs an instance.
      *
-     * @global string The current language.
-     * @global array  The paths of system files and folders.
      * @global array  The localization of the plugins.
      */
     function XHFileBrowserView()
     {
-        global $sl, $pth, $plugin_tx;
+        global $plugin_tx;
 
-        $lang = array();
-        $langFile = $pth['folder']['plugins']
-            . basename(dirname(dirname(__FILE__))) . '/languages/';
-        $langFile .= file_exists($langFile . $sl . '.php')
-            ? $sl . '.php' : 'en.php';
-        include_once $langFile;
         $this->lang = $plugin_tx['filebrowser'];
     }
 
