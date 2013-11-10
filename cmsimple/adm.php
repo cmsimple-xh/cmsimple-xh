@@ -525,7 +525,7 @@ function check_links() {
         foreach ($currentLinks as $counter => $link) {
             $parts = parse_url($link);
             switch ($parts['scheme']) {
-                case 'http': case 'https': $status = check_external_link($parts);
+                case 'http': $status = check_external_link($parts);
                     break;
                 case 'mailto': $status = 'mailto';
                     break;
