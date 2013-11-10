@@ -19,7 +19,7 @@ require_once './cmsimple/functions.php';
 /**
  * The file under test.
  */
-require_once './cmsimple/classes/LinkCheck.php';
+require_once './cmsimple/classes/LinkChecker.php';
 
 /**
  * A test case for the link checker.
@@ -31,7 +31,7 @@ require_once './cmsimple/classes/LinkCheck.php';
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class LinkCheckTest extends PHPUnit_Framework_TestCase
+class LinkCheckerTest extends PHPUnit_Framework_TestCase
 {
     protected $linkChecker;
 
@@ -63,7 +63,7 @@ class LinkCheckTest extends PHPUnit_Framework_TestCase
             'mailform' => array('email' => 'devs@cmsimple-xh.org'),
             'xhtml' => array('endtags' => '1')
         );
-        $this->linkChecker = new XH_LinkCheck();
+        $this->linkChecker = new XH_LinkChecker();
     }
 
     public function testCheckLinks()

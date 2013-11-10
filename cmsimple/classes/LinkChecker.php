@@ -36,7 +36,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  */
-class XH_LinkCheck
+class XH_LinkChecker
 {
     /**
      * Checks all links and returns the result view.     *

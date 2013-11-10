@@ -1138,8 +1138,8 @@ if (XH_ADM) {
         }
         break;
     case 'validate':
-        include_once $pth['folder']['classes'] . 'LinkCheck.php';
-        $temp = new XH_LinkCheck();
+        include_once $pth['folder']['classes'] . 'LinkChecker.php';
+        $temp = new XH_LinkChecker();
         $o .= $temp->checkLinks();
         break;
     }
