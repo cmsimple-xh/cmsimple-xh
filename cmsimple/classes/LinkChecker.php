@@ -245,7 +245,7 @@ class XH_LinkChecker
             if (isset($parts['query'])) {
                 $path .= "?" . $parts['query'];
             }
-            $request = "GET $path HTTP/1.1\r\nHost: $host\r\n"
+            $request = "HEAD $path HTTP/1.1\r\nHost: $host\r\n"
                 . "User-Agent: CMSimple_XH Link-Checker\r\n\r\n";
             fwrite($fh, $request);
             $response = fread($fh, 12);
