@@ -163,7 +163,6 @@ class XH_LinkChecker
         if (isset($parts['scheme'])) {
             switch ($parts['scheme']) {
             case 'http':
-            case 'https':
                 $status = $this->checkExternalLink($parts);
                 break;
             case 'mailto':

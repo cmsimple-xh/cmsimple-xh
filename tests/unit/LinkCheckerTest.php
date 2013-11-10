@@ -129,7 +129,8 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             array('?mailform', '200'),
             // TODO: add checks for second languages, what is actually too cumbersome
 
-            // the following are current limitations
+            // the following are (current) limitations
+            array('https://bugs.php.net', 'unknown'), // no HTTPS protocol support
             array('./tests/unit/data/', 'internalfail'), // fails, even there's a index.(php|html)
             array('anotherxh/?Welcome', '200'), // erroneously checks the same installation
             array('anotherxh/?Welcome2', 'internalfail'), // fails, even if anotherxh/ would exist
