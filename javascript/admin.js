@@ -46,7 +46,7 @@ XH.toggleTab = function (tabId) {
 
     currTab.className = "xh_active_tab";
     currView.className = "xh_active_view";
-}
+};
 
 /**
  * Displays a modal dialog.
@@ -126,7 +126,7 @@ XH.modalDialog = function (contentElement, width, func) {
     center.appendChild(dialog);
     overlay.appendChild(center);
     document.body.appendChild(overlay);
-}
+};
 
 /**
  * Validates the `change password' dialog.
@@ -162,7 +162,7 @@ XH.validatePassword = function (dialog) {
         return XH.i18n["password"]["wrong"];
     }
     return true;
-}
+};
 
 /**
  * Returns the x-www-form-urlencoded data of a form.
@@ -188,7 +188,7 @@ XH.serializeForm = function (form) {
         }
     }
     return params.join("&");
-}
+};
 
 /**
  * Returns the status element of a page data form resp. tab.
@@ -217,7 +217,7 @@ XH.findViewStatus = function (formOrTab) {
         node = node.previousSibling;
     }
     return node;
-}
+};
 
 /**
  * Submits a page data form via AJAX.
@@ -250,7 +250,7 @@ XH.quickSubmit = function (form) {
         }
     }
     request.send(XH.serializeForm(form));
-}
+};
 
 /**
  * Initialize the quick submit of page data forms.
@@ -275,7 +275,7 @@ XH.initQuickSubmit = function () {
             }
         }
     }
-}
+};
 
 /**
  * Makes a focused textarea autosizing according to its content.
@@ -343,7 +343,7 @@ XH.makeAutosize = function (textarea) {
     }
     // the following would be nice, but it's very slow for many textareas
     //resize(textarea);
-}
+};
 
 /**
  * Makes all textareas which are descendends of a node autosizing according to
@@ -362,7 +362,7 @@ XH.makeTextareasAutosize = function (node) {
     for (i = 0, count = textareas.length; i < count; i++) {
         XH.makeAutosize(textareas[i]);
     }
-}
+};
 
 /**
  * Prompts for a valid backup suffix. Returns whether to continue.
@@ -386,7 +386,7 @@ XH.promptBackupName = function (form) {
     } while (!/^[a-z_0-9-]{1,20}$/i.test(suffix));
     field.value = suffix;
     return true;
-}
+};
 
 /*
  * Initialize the quick submit of page data forms.
