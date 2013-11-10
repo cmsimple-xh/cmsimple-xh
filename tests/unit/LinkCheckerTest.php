@@ -127,8 +127,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             array('./tests/unit/data/template.htm' , '200'),
             array('?sitemap', '200'),
             array('?mailform', '200'),
-            // TODO: mailform and sitemap
-            // TODO: add checks for second languages
+            // TODO: add checks for second languages, what is actually too cumbersome
 
             // the following are current limitations
             array('./tests/unit/data/', 'internalfail'), // fails, even there's a index.(php|html)
@@ -191,25 +190,14 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
                 'errors' => array(
                     array('internalfail', '?Welcome', 'Start Page')
                 ),
+                'caveats' => array(
+                    array('mailto', 'devs@cmsimple-xh.org', 'Developers')
+                )
             )
         );
         $actual = $this->linkChecker->message(7, $hints);
-        $matcher = array(
-            'tag' => 'h4',
-            'child' => array(
-                'tag' => 'a',
-                'attributes' => array('href' => '?Welcome')
-            )
-        );
-        $this->assertTag($matcher, $actual);
-        $matcher = array(
-            'tag' => 'h4',
-            'child' => array(
-                'tag' => 'a',
-                'attributes' => array('href' => '?Welcome:About')
-            )
-        );
-        $this->assertTag($matcher, $actual);
+        $this->assertSelectCount('h4', 2, $actual);
+        $this->assertSelectCount('h5', 3, $actual);
     }
 }
 
