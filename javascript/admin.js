@@ -388,6 +388,36 @@ XH.promptBackupName = function (form) {
     return true;
 };
 
+/**
+ * Triggers an XHR to check all links and inserts result into the DOM.
+ *
+ * @param {string} url XHR URL.
+ *
+ * @returns {undefined}
+ *
+ * @since 1.6
+ */
+XH.checkLinks = function (url) {
+    var request;
+
+    request = new XMLHttpRequest();
+    request.open("GET", url);
+    request.onreadystatechange = function () {
+        var div;
+
+        if (request.readyState == 4) {
+            div = document.getElementById("xh_linkchecker");
+            if (request.status == 200) {
+                div.innerHTML = request.responseText;
+            } else {
+                div.innerHTML = XH.i18n["error"]["server"].replace("%s",
+                    request.status + " " + request.statusText);
+            }
+        }
+    }
+    request.send(null);
+};
+
 /*
  * Initialize the quick submit of page data forms.
  */
