@@ -39,11 +39,53 @@
 class XH_LinkChecker
 {
     /**
-     * Checks all links and returns the result view.     *
+     * Prepares the link check.
+     *
+     * @return string (X)HTML.
+     *
+     * @global string The script name.
+     * @global array  The paths of system files and folders.
+     * @global array  The localization of the core.
+     * @global string The value of the onload attribute of the BODY element.
+     *
+     * @access public
+     */
+    function prepare()
+    {
+        global $sn, $pth, $tx, $onload;
+
+        $url = $sn . '?&amp;xh_do_validate';
+        $onload .= "XH.checkLinks('$url');";
+        $o = '<div id="xh_linkchecker">'
+            . tag(
+                'img src="' . $pth['folder']['corestyle']
+                . 'ajax-loader-bar.gif" width="128" height="15" alt="'
+                . $tx['link']['checking'] . '"'
+            )
+            . '</div>';
+        return $o;
+    }
+
+    /**
+     * Handles the actual link check request.
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function doCheck()
+    {
+        header('Content-Type: text/plain; charset=utf-8');
+        echo $this->checkLinks();
+        exit;
+    }
+
+    /**
+     * Checks all links and returns the result view.
      *
      * @return string The (X)HTML.
      *
-     * @access public
+     * @access protected
      */
     function checkLinks()
     {

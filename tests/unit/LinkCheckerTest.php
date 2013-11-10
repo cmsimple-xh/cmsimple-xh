@@ -37,7 +37,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        global $c, $u, $cl, $pth, $cf;
+        global $c, $u, $cl, $pth, $cf, $onload;
 
         $c = array(
             '<h1>Welcome</h1>'
@@ -56,14 +56,31 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
         );
         $cl = count($c);
         $pth = array(
-            'folder' => array('downloads' => './tests/unit/data/'),
+            'folder' => array(
+                'corestyle' => '',
+                'downloads' => './tests/unit/data/'
+            ),
             'file' => array('template' => './tests/unit/data/template.htm')
         );
         $cf = array(
             'mailform' => array('email' => 'devs@cmsimple-xh.org'),
             'xhtml' => array('endtags' => '1')
         );
+        $onload = '';
         $this->linkChecker = new XH_LinkChecker();
+    }
+
+    public function testPrepare()
+    {
+        global $onload;
+
+        $matcher = array(
+            'id' => 'xh_linkchecker',
+            'descendant' => array('tag' => 'img')
+        );
+        $actual = $this->linkChecker->prepare();
+        $this->assertTag($matcher, $actual);
+        $this->stringStartsWith('XH.checkLinks(', $onload);
     }
 
     public function testCheckLinks()

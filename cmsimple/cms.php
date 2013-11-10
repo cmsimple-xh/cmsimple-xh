@@ -1026,6 +1026,9 @@ if (XH_ADM) {
     if ($validate) {
         $f = 'validate';
     }
+    if (isset($xh_do_validate)) {
+        $f = 'do_validate';
+    }
     if ($settings) {
         $f = 'settings';
     }
@@ -1138,9 +1141,10 @@ if (XH_ADM) {
         }
         break;
     case 'validate':
+    case 'do_validate':
         include_once $pth['folder']['classes'] . 'LinkChecker.php';
         $temp = new XH_LinkChecker();
-        $o .= $temp->checkLinks();
+        $o .= ($f == 'validate') ? $temp->prepare() : $temp->doCheck();
         break;
     }
 }

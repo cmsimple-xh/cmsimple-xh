@@ -134,6 +134,7 @@ $tx['link']['check_ok']="Keine Fehler gefunden!";
 $tx['link']['checked_1']="%d Link wurde geprüft. ";
 $tx['link']['checked_2_4']="%d Links wurden geprüft. ";
 $tx['link']['checked_5']="%d Links wurden geprüft. ";
+$tx['link']['checking']="Link-Check läuft...";
 $tx['link']['email']="Ist diese E-Mail-Adresse noch aktuell?";
 $tx['link']['error']="Fehler: ";
 $tx['link']['errors']="Fehler: ";
