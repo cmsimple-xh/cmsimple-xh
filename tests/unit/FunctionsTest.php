@@ -515,6 +515,27 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $tx = XH_includeLocal($filename, 'tx');
         $this->assertTrue(is_array($tx));
     }
+
+    public function dataForNumberSuffix()
+    {
+        return array(
+            array(0, '_5'),
+            array(1, '_1'),
+            array(2, '_2_4'),
+            array(3, '_2_4'),
+            array(4, '_2_4'),
+            array(5, '_5')
+        );
+    }
+
+    /**
+     * @dataProvider dataForNumberSuffix
+     */
+    public function testNumberSuffix($count, $expected)
+    {
+        $actual = XH_numberSuffix($count);
+        $this->assertEquals($expected, $actual);
+    }
 }
 
 ?>

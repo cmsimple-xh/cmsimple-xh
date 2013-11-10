@@ -2532,4 +2532,26 @@ function XH_includeLocal($_filename, $_varname)
     return $_res !== false ? $$_varname : false;
 }
 
+/**
+ * Returns a suffix for a language string key according to the number
+ * (singular, paucal or plural).
+ *
+ * @param int $count Count of the items.
+ *
+ * @return string
+ *
+ * @since 1.6
+ */
+function XH_numberSuffix($count)
+{
+    if ($count == 1) {
+        $suffix = '_1';
+    } elseif ($count >= 2 && $count <= 4) {
+        $suffix = '_2_4';
+    } else {
+        $suffix = '_5';
+    }
+    return $suffix;
+}
+
 ?>
