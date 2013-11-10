@@ -14,10 +14,12 @@
  * @link      http://cmsimple-xh.org/
  */
 
+require_once './cmsimple/functions.php';
+
 /**
  * The file under test.
  */
-require './cmsimple/classes/PageDataModel.php';
+require_once './cmsimple/classes/PageDataModel.php';
 
 /**
  * A test case for the page data model.

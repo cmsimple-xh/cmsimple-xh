@@ -17,7 +17,7 @@
 /**
  * The file under test.
  */
-include './cmsimple/functions.php';
+require_once './cmsimple/functions.php';
 
 /**
  * A helper to test multiple evaluation of a function with side effects.

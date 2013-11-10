@@ -14,14 +14,14 @@
  * @link      http://cmsimple-xh.org/
  */
 
+require_once './cmsimple/functions.php';
+
 /**
  * The file under test.
  */
 require_once './cmsimple/tplfuncs.php';
 
-if (!defined('XH_ADM')) {
-    define('XH_ADM', false);
-}
+const XH_ADM = true;
 
 /**
  * A test case for the functions in tplfuncs.php.

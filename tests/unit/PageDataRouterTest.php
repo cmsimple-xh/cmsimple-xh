@@ -14,6 +14,9 @@
  * @link      http://cmsimple-xh.org/
  */
 
+require_once './cmsimple/functions.php';
+require_once './cmsimple/classes/PageDataModel.php';
+
 /**
  * The file under test.
  */

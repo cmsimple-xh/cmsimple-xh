@@ -14,11 +14,7 @@
  * @link      http://cmsimple-xh.org/
  */
 
-/**
- * Helper functions.
- *
- * Might be stubbed.
- */
+require_once './cmsimple/functions.php';
 require_once './plugins/utf8/utf8.php';
 
 /**

@@ -14,6 +14,10 @@
  * @link      http://cmsimple-xh.org/
  */
 
+require_once './cmsimple/functions.php';
+require_once './plugins/utf8/utf8.php';
+require_once UTF8 . '/ucfirst.php';
+
 /**
  * The file under test.
  */

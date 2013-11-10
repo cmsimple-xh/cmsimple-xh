@@ -18,12 +18,14 @@
  * @link      http://cmsimple-xh.org/
  */
 
+require_once './cmsimple/functions.php';
+
 /**
  * The file under test.
  */
 require_once './cmsimple/classes/CSRFProtection.php';
 
-define('CMSIMPLE_ROOT', '/test/');
+const CMSIMPLE_ROOT = '/test/';
 
 /**
  * A test case to simulate the CSRF protection.
@@ -57,6 +59,10 @@ class CSRFProtectionTest extends PHPUnit_Framework_TestCase
         $protection->check();
 
     }
+}
+
+if (session_id() === '') {
+    session_start();
 }
 
 ?>

@@ -14,17 +14,17 @@
  * @link      http://cmsimple-xh.org/
  */
 
+require_once './cmsimple/functions.php';
+require_once './plugins/utf8/utf8.php';
+require_once UTF8 . '/ucfirst.php';
+
 /**
  * The file under test.
  */
 require_once './cmsimple/classes/FileEdit.php';
 
-define('XH_FORM_NAMESPACE', '');
+const XH_FORM_NAMESPACE = '';
 
-function utf8_ucfirst($string)
-{
-    return $string;
-}
 
 /**
  * A test case to for the CoreConfigFileEdit classes.
