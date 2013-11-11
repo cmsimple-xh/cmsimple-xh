@@ -93,7 +93,7 @@
     <target name="all-tests" depends="unit-tests,validation-tests,attack-tests"/>
 
     <target name="coverage">
-        <exec command="phpunit --bootstrap tests/unit/bootstrap.php --coverage-html tests/coverage tests/unit"/>
+        <exec command="phpunit --coverage-html tests/coverage tests/unit"/>
     </target>
 
     <!-- Documentation -->
