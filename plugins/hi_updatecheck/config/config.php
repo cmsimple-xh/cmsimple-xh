@@ -1,6 +1,6 @@
 <?php
 
-$plugin_cf['hi_updatecheck']['autocheck']="true";
-$plugin_cf['hi_updatecheck']['ignore']="filebrowser,meta_tags,page_params,tinymce,tinymce4";
+	$plugin_cf['hi_updatecheck']['autocheck']="true";
+	$plugin_cf['hi_updatecheck']['ignore']="filebrowser,meta_tags,page_params,tinymce,tinymce4";
 
 ?>

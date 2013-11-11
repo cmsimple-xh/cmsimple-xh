@@ -1,3 +1,6 @@
+Version 1.1.1
+added new CSS-IDs of XH1.6RC
+
 Version 1.1
 Fixed incompatibilities with non-jQuery frameworks
 Changed stylesheet for compatibility with XH 1.6

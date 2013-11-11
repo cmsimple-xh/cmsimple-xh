@@ -8,8 +8,8 @@
  * ==================================================================
  * Update-Check-Plugin for CMSimple_XH
  * ==================================================================
- * Version:    1.1
- * Build:      2013092101
+ * Version:    1.1.1
+ * Build:      2013111001
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de

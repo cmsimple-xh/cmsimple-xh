@@ -1,15 +1,15 @@
 <?php
 
 /*
- * @version $Id: admin.php 157 2013-09-21 09:14:20Z hi $
+ * @version $Id: admin.php 202 2013-11-10 11:45:36Z hi $
  */
 
 /*
  * ==================================================================
  * Update-Check-Plugin for CMSimple_XH
  * ==================================================================
- * Version:    1.1
- * Build:      2013092101
+ * Version:    1.1.1
+ * Build:      2013111001
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -36,8 +36,8 @@ if (defined('CMSIMPLE_RELEASE')) {
     return;
 }
 
-define('UPD_VERSION', '1.1');
-define('UPD_DATE', '2013-09-21');
+define('UPD_VERSION', '1.1.1');
+define('UPD_DATE', '2013-11-10');
 
 //Path to core-Versioninfo
 define('CMSIMPLE_XH_VERSIONINFO', 'http://www.cmsimple-xh.org/downloads/versioninfo/cmsimple_xh-version.nfo');
@@ -59,7 +59,8 @@ if (isset($_SESSION['upd_available'])) {
     $o .= "\n";
     $o .= '<script type="text/javascript">
                     jQuery(document).ready(function($){
-                        $("#editmenu_update").css("display","block");
+                        $("#editmenu_update").css("display","block"); //before xh1.6
+                        $("#xh_adminmenu_update").css("display","block"); //sice xh1.6RC
                     });
             </script>' . "\n";
 
@@ -183,7 +184,8 @@ function upd_addMenuEntry() {
     $t .= '<script type="text/javascript">
                     jQuery(document).ready(function($){
 			//$("#editmenu_logout").after("<ul><li id=\"editmenu_update\"><a href=\"' . $href . '\">' . $imgtag . '<\/a></li></ul>");
-                        $("#edit_menu").append("<li id=\"editmenu_update\"><a href=\"' . $href . '\">' . $imgtag . '<\/a></li>");
+                        $("#edit_menu").append("<li id=\"editmenu_update\"><a href=\"' . $href . '\">' . $imgtag . '<\/a></li>");                   //before xh1.6
+                        $("#xh_adminmenu > ul").append("<li id=\"xh_adminmenu_update\"><a href=\"' . $href . '\">' . $imgtag . '<\/a></li>");       //since xh1.6RC
                     });
             </script>' . "\n";
     return $t;

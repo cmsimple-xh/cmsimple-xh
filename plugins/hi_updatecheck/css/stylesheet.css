@@ -112,16 +112,16 @@ img.upd_plugin_icon {display: block; float: left; margin: 0 20px 0 0}
 
 /* Editmenu-Notification */
 
-#editmenu_update {
+#editmenu_update, #xh_adminmenu_update {
     display: none;
 }
 
-li#editmenu_update {
+li#editmenu_update, li#xh_adminmenu_update {
     padding: 4px 0;
     width: 44px;
 }
 
-#editmenu_update img {
+#editmenu_update img, #xh_adminmenu_update img {
     border: 0 none;
 }
 
