@@ -11,7 +11,6 @@ $plugin_tx['page_params']['bottom']="unten";
 $plugin_tx['page_params']['show_last_edit']="Bearbeitungsdatum anzeigen?";
 $plugin_tx['page_params']['published']="Veröffentlicht? ";
 $plugin_tx['page_params']['publication_period']="Veröffentlichungszeitraum: ";
-$plugin_tx['page_params']['time_zone']="+1";
 $plugin_tx['page_params']['linked_to_menu']="In der Navigation anzeigen?";
 $plugin_tx['page_params']['yes']="ja";
 $plugin_tx['page_params']['no']="nein";

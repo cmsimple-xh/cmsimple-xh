@@ -84,10 +84,7 @@ function Pageparams_isPublished($pd_page)
         : '';
     $expires = isset($pd_page['expires']) ? trim($pd_page['expires']) : '';
     if ($expires != '' || $publication_date != '') {
-        // GMT time and daylight saving time correction
-        $timezone = (intval($plugin_tx['page_params']['time_zone'])
-            + intval(date("I"))) * 60 * 60;
-        $current = strtotime(gmstrftime('%Y-%m-%d %H:%M')) + $timezone;
+        $current = time();
         $maxInt = defined('PHP_INT_MAX') ? PHP_INT_MAX : 2147483647;
         $int_publication_date = ($publication_date != '')
             ? strtotime($publication_date) : 0;
