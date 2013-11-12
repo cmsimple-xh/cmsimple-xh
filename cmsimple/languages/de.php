@@ -198,7 +198,7 @@ $tx['pagedata']['deleted_5']="%s Page-Data Felder wurden gelöscht.";
 $tx['pagedata']['fail']="\"%s\" konnte nicht gespeichert werden!";
 $tx['pagedata']['info']="Die folgenden Page-Data Felder werden <em>derzeit</em> nicht verwendet, und können gelöscht werden.";
 $tx['pagedata']['nothing']="Keine Aktion erforderlich.";
-$tx['pagedata']['ok']="Keine überflüssigen oder fehlerhaften Page-Data-Felder gefunden.";
+$tx['pagedata']['ok']="Keine überflüssigen Page-Data-Felder gefunden.";
 
 $tx['password']['change']="Passwort ändern";
 $tx['password']['confirmation']="Bestätigung";

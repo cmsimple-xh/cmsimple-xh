@@ -198,7 +198,7 @@ $tx['pagedata']['deleted_5']="%s page data fields have been deleted.";
 $tx['pagedata']['fail']="Could not save \"%s\"!";
 $tx['pagedata']['info']="The following page data fields are <em>currently</em> unused, and may be deleted.";
 $tx['pagedata']['nothing']="No action necessary.";
-$tx['pagedata']['ok']="No superfluous or corrupted fields detected in page data.";
+$tx['pagedata']['ok']="No superfluous fields detected in page data.";
 
 $tx['password']['change']="Change password";
 $tx['password']['confirmation']="Confirmation";
