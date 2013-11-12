@@ -33,10 +33,40 @@ class PasswordForgottenTest extends PHPUnit_Framework_TestCase
 {
     protected $passwordForgotten;
 
-    public function testNothing()
+    public function setUp()
     {
-        $this->passwordForgotten = new XH_PasswordForgotten();
+        global $cf;
 
+        $cf = array(
+            'security' => array(
+                'email' => 'devs@cmsimple-xh.org',
+                'secret' => '0123456789abcdef'
+            )
+        );
+        $this->passwordForgotten = new XH_PasswordForgotten();
+    }
+
+    protected function currentMac()
+    {
+        global $cf;
+
+        return md5(
+            $cf['security']['email'] . strtotime(date('Y-m-d h:00:00')) . $cf['security']['secret']
+        );
+    }
+
+    public function testMac()
+    {
+        global $cf;
+
+        $actual = $this->passwordForgotten->mac();
+        $expected = $this->currentMac();
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testCheckMac()
+    {
+        $this->assertTrue($this->passwordForgotten->checkMac($this->currentMac()));
     }
 
 }
