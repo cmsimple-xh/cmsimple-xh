@@ -21,13 +21,13 @@ $plugin_tx['page_params']['quick_select']="Quick select...";
 $plugin_tx['page_params']['submit']="save";
 $plugin_tx['page_params']['use_default_template']="default template";
 $plugin_tx['page_params']['error_date_format']="Date must be in format \"yyyy-mm-dd [hh:mm]\", e.g. 2099-12-31 or 2099-12-31 23:59";
-$plugin_tx['page_params']['hint_heading']="<p>You may choose a different heading to be displayed on the page.</p><p>The heading you insert in the text editor below will still be used for the menus.</p>";
-$plugin_tx['page_params']['hint_published']="<p>If you select \"no\" this page will be hidden from your visitors. Do not forget to change it to \"yes\" when you're ready.</p>";
-$plugin_tx['page_params']['hint_publication_period']="<p>You can specify the publication period by specifying the release and expirations dates. The date is GMT time and can be adjusted at any time zome +/- 12 hours in the page_params language file.</p><p>Date Format is: yyyy-m-d [h:m].</p><p>If the release date is set, the page will only be published when the publication date has passed. If the expiration date is specified the page will be hidden after the expiration date has passed. Both fields may be left empty.</p><p>Published must be set to \"yes\" to make the publication period effective.</p>";
-$plugin_tx['page_params']['hint_linked_to_menu']="<p>Choose \"no\" to hide this page from the navigation.</p><p>The page content will still be available for newsboxes and direct links.</p>";
+$plugin_tx['page_params']['hint_heading']="<p>If you check here, you can enter a different heading or no heading, which will be displayed on the page.</p><p>The heading you enter here will only be visible in view mode or when logged out.</p><p>The normal page heading you have entered in the text editor below will be used for the menu as usual.</p>";
+$plugin_tx['page_params']['hint_published']="<p>If unchecked, this page will be hidden from your visitors. Trying to link to this page will return \"Error 404: Not found\".</p>";
+$plugin_tx['page_params']['hint_publication_period']="<p>You can specify the publication period by specifying the release and expirations dates.</p><p>Date Format is: yyyy-m-d [h:m].</p><p>If the release date is set, the page will only be published when the publication date has passed. If the expiration date is specified the page will be hidden after the expiration date has passed. Both fields may be left empty.</p><p>\"Published\" must be checked to make the publication period effective.</p>";
+$plugin_tx['page_params']['hint_linked_to_menu']="<p>If unchecked, this page will be hidden from the navigation.</p><p>The page content will still be available, e.g. for newsboxes and direct links.</p>";
 $plugin_tx['page_params']['hint_last_edit']="<p>Choose \"top\" or \"bottom\" to display the date of the last edit of this very page above resp. below the content. The Date format can be changed in the language settings, the look can be styled with the CSS selector <em>#pp_last_update</em>.</p>";
-$plugin_tx['page_params']['hint_template']="<p>Do you want to choose another template for this page?</p>";
-$plugin_tx['page_params']['hint_header_location']="<p>Here you can make this page redirect to another internal or external page.</p><p>External targets have to be noted completely including the protocol (e.g. http://)</p>";
+$plugin_tx['page_params']['hint_template']="<p>Here you can select a special template for this page. All subpages of the page will also have this template.</p>";
+$plugin_tx['page_params']['hint_header_location']="<p>Here you can redirect this page to another internal or external page.</p><p>External targets have to be noted including the protocol (e.g. http://)</p>";
 $plugin_tx['page_params']['utf-8_marker']="äöüß";
 
 ?>

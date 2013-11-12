@@ -1,6 +1,6 @@
 <html><head><title>Content file</title>
 <?php
-$page_data_fields=array('url','last_edit','description','keywords','title','robots','heading','show_heading','template','published','show_last_edit','linked_to_menu','header_location','use_header_location','publication_date','expires');
+$page_data_fields=array('keywords','title','robots','heading','show_heading','template','published','show_last_edit','linked_to_menu','header_location','use_header_location','publication_date','expires','description');
 $temp_data=array(
 'url'=>'WebLog',
 'last_edit'=>'1322055182',
@@ -23,7 +23,7 @@ $temp_data=array(
 <?php
 $page_data[]=array(
 'url'=>'Welcome_to_CMSimple_XH',
-'last_edit'=>'1384094627',
+'last_edit'=>'1384193881',
 'description'=>'',
 'keywords'=>'',
 'title'=>'',
@@ -42,13 +42,12 @@ $page_data[]=array(
 ?>
 <p>Congratulations on your new installation of CMSimple_XH. You can login now with the default password, which you will find in the readme.txt of the download. Delete the readme.txt on your webserver, if you have uploaded it.</p>
 <p>The login link can be found at the bottom of the page in the footer.</p>
-<div style="text-align: center; font-weight: 900; background: none repeat scroll 0% 0% #990000; color: #ffffff; padding: 4px 6px; border: 1px solid #333333;">
-<p>*** Remember to change the login password immediately ***</p>
-<p>Please read the readme.txt in the root folder of the download.</p>
+<div class="warning">
+<p>*** Remember to change the login password immediately ***<br><br>Please read the readme.txt in the root folder of the download.</p>
 </div>
 <p>Please read about file permissions and security settings in the <a href="http://www.cmsimple-xh.org/wiki/doku.php/installation">CMSimple_XH Wiki »</a></p>
 <p>About the terms of license you may have a look at <a href="http://www.cmsimple-xh.org/?CMSimple_XH:Terms_of_Licence">www.cmsimple-xh.org »</a></p>
-<div style="background: none repeat scroll 0% 0% #eeeeee; padding: 12px 24px; border: 3px solid #cc6600;">
+<div class="important">
 <p><img src="./userfiles/images/flags/en.gif" alt="English" width="18" height="12"> <strong>IMPORTANT ADVICE</strong></p>
 <p><strong>DO NOT</strong> change the password directly in config.php by using a text editor. Change the default password right away after login <strong>ONLINE</strong> (login with default password).</p>
 <p>This is the easiest and best working way.</p>
@@ -440,7 +439,7 @@ $page_data[]=array(
 <?php
 $page_data[]=array(
 'url'=>'Templates_%26amp%3B_Plugins',
-'last_edit'=>'1377626544',
+'last_edit'=>'1384194034',
 'description'=>'',
 'keywords'=>'',
 'title'=>'',
@@ -458,7 +457,7 @@ $page_data[]=array(
 );
 ?>
 <p>Through the use of a different <strong>template</strong> you can give your pages a completely different look, and through <strong>plugins</strong> you can greatly enlarge the functionality of your CMSimple_XH website.</p>
-<div style="text-align: center; font-weight: 900; background: #900; color: #fff; padding: 4px 6px; border: 1px solid #333;">
+<div class="warning">
 <p>While installing templates or plugins, <br> please respect the licensing conditions of the authors.</p>
 </div>
 <p>A list of templates and plugins for CMSimple_XH can be found in the <a href="http://www.cmsimple-xh.org/wiki/doku.php/extend:start">CMSimple_XH Wiki »</a></p>
@@ -468,7 +467,7 @@ $page_data[]=array(
 <?php
 $page_data[]=array(
 'url'=>'gonzo-h',
-'last_edit'=>'1377626995',
+'last_edit'=>'1384199767',
 'description'=>'',
 'keywords'=>'',
 'title'=>'',
@@ -486,7 +485,7 @@ $page_data[]=array(
 );
 ?>
 <p>A template with a slightly responsive grid layout. Have a look at the accompanying <a href="http://www.web57.ws/cms/?Mein_CMSimple:Template_fuer_CMSimple_erstellen">template tutorial</a> or its <a href="http://www.cmsimple-xh.org/wiki/doku.php/template_tutorial">English translation</a>.</p>
-<p>This template was contributed by <a href="http://web57.ws/cms/">snafu</a>.</p>
+<p>This template was contributed by <a href="http://web57.ws/cms/">snafu</a> (<em>composite photo by svasti</em>).</p>
 <h4>Heading h4</h4>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 <h5>Heading h5</h5>
@@ -506,7 +505,7 @@ $page_data[]=array(
 <?php
 $page_data[]=array(
 'url'=>'mini1',
-'last_edit'=>'1376996581',
+'last_edit'=>'1384252271',
 'description'=>'',
 'keywords'=>'',
 'title'=>'',
@@ -523,8 +522,15 @@ $page_data[]=array(
 'expires'=>''
 );
 ?>
-<p>A template with a fluid layout, a horizontal menu of the toplevel pages and a vertical menu of the subpages.</p>
-<p>This template was contributed by <a href="http://www.frankziesing.de/cmsimple/">svasti</a>.</p>
+<p>A template with a fluid layout, a horizontal menu of the toplevel pages and a vertical menu of the subpages. This template is meant as starting point for the development of other templates. It was contributed by <a href="http://www.frankziesing.de/cmsimple/">svasti</a>.</p>
+<p>The template has some format definitions, which can be applied via the "Formats" or "Styles" selection (designation depends on the editor). </p>
+<div class="warning">This is the paragraph format "warning".</div>
+<div class="important">This is the paragraph format "important".</div>
+<p class="small">This is the paragraph format "small"</p>
+<p>This is a standard paragraph with a <span class="highlight">highlighted</span> word.</p>
+<p><img class="left_horizontal" src="./userfiles/images/flags/cs.gif" alt="" width="18" height="12"><img class="left_horizontal" src="./userfiles/images/flags/es.gif" alt="" width="18" height="12"><img class="left_horizontal" src="./userfiles/images/flags/da.gif" alt="" width="18" height="12"><img class="left_horizontal" src="./userfiles/images/flags/de.gif" alt="" width="18" height="12">There are also 4 formats for left aligned or right aligned images. Here you see left aligned images formatted as "left_horizontal".</p>
+<p><img class="left" src="./userfiles/images/flags/cs.gif" alt="" width="18" height="12"><img class="left" src="./userfiles/images/flags/es.gif" alt="" width="18" height="12"><img class="left" src="./userfiles/images/flags/da.gif" alt="" width="18" height="12"><img class="left" src="./userfiles/images/flags/de.gif" alt="" width="18" height="12">Here <img class="right_horizontal" src="./userfiles/images/flags/es.gif" alt="" width="18" height="12"><img class="right_horizontal" src="./userfiles/images/flags/da.gif" alt="" width="18" height="12"><img class="right" src="./userfiles/images/flags/de.gif" alt="" width="18" height="12"><img class="right_horizontal" src="./userfiles/images/flags/cs.gif" alt="" width="18" height="12">on the left side the same images are formatted as left.</p>
+<p>With a mixture of left and left_horizontal you can group images for instance in 2 by 2, as here on the right side.</p>
 <h4>Heading h4</h4>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 <h5>Heading h5</h5>
@@ -545,7 +551,7 @@ $page_data[]=array(
 <?php
 $page_data[]=array(
 'url'=>'n6200tbisGPL3',
-'last_edit'=>'1377703932',
+'last_edit'=>'1384197407',
 'description'=>'',
 'keywords'=>'',
 'title'=>'',
@@ -563,7 +569,7 @@ $page_data[]=array(
 );
 ?>
 <p>A responsive template with a horizontal mega menu and an additional vertical menu.<span> This template's stylesheet contains some invalid CSS declarations, which are necessary for compatibility with different browsers.</span></p>
-<p>This template was contributed by <a href="http://torsten-behrens.de/">Torsten.Behrens</a>.</p>
+<p>This template was contributed by <a href="http://torsten-behrens.de/">Torsten.Behrens</a>. Check out his website for more templates.</p>
 <h4>Heading h4</h4>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 <h5>Heading h5</h5>
@@ -659,7 +665,7 @@ $page_data[]=array(
 <?php
 $page_data[]=array(
 'url'=>'responsivehtml',
-'last_edit'=>'1376996688',
+'last_edit'=>'1384197803',
 'description'=>'',
 'keywords'=>'',
 'title'=>'',
@@ -677,7 +683,7 @@ $page_data[]=array(
 );
 ?>
 <p>A responsive template with a vertical menu that collapses on small screens.</p>
-<p>This template was contributed by <a href="http://oldnema.compsys.cz/en/?Demo_templates">oldnema</a>.</p>
+<p>This template was contributed by <a href="http://oldnema.compsys.cz/en/?Demo_templates">oldnema</a>. Check out his website for more templates.</p>
 <h4>Heading h4</h4>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 <h5>Heading h5</h5>
