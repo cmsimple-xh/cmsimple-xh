@@ -306,6 +306,15 @@ if ($tx['locale']['all'] != '') {
 // removed from the core in XH 1.6, but left for compatibility with plugins.
 $tx['meta']['codepage']='UTF-8';
 
+/**
+ * The language configuration.
+ *
+ * @global array $txc
+ *
+ * @deprecated since 1.6 (use $cf resp. $tx instead).
+ */
+$txc = array('template' => $tx['template']);
+
 $pth['folder']['templates'] = $pth['folder']['base'] . 'templates/';
 $pth['folder']['template'] = $pth['folder']['templates']
     . $cf['site']['template'] . '/';
