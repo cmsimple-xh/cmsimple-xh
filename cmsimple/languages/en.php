@@ -227,7 +227,7 @@ $tx['search']['result']="Result of your search";
 
 $tx['settings']['backup']="Backup";
 $tx['settings']['backupexplain1']="On logout content is backed up and the oldest backup file will be deleted.";
-$tx['settings']['backupexplain2']="Backup file names start with date and time of backup as: YYYYMMDD_HHMMSS";
+$tx['settings']['backupexplain2']="Backup file names start with date and time of backup as: YYYYMMDD_HHMMSS.";
 $tx['settings']['backupsuffix']="Enter a filename (only a-z, 0-9, minus and underscore; at most 20 characters):";
 $tx['settings']['ftp']="Use FTP for remote file management";
 $tx['settings']['systemfiles']="System files";
