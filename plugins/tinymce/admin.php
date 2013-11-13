@@ -13,7 +13,7 @@ if ($tinymce) {
     $o .= '<div class="plugintext">';
     $o .= '<div class="plugineditcaption">TinyMCE for CMSimple_XH</div>';
     $o .= '<p>Version for $CMSIMPLE_XH_VERSION$</p>';
-    $o .= '<p>TinyMCE version 3.5.9  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a>';
+    $o .= '<p>TinyMCE version 3.5.10  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a>';
     $o .= tag('br');
     $o .= 'Available language packs: cs, da, de, en, et, fr, it, nl, pl, ru, sk tw, zh.</p>';
     $o .= '<p>CMSimpe_xh & Filebrowser integration';
