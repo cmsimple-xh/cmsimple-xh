@@ -45,7 +45,7 @@ if ($tinymce4) {
     }
     else {
         $o .= '<p>Version for @CMSIMPLE_XH_VERSION@</p>';
-        $o .= '<p>TinyMCE version 4.0.8  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a>';
+        $o .= '<p>TinyMCE version 4.0.10  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a>';
         $o .= tag('br');
         $o .= 'Available language packs: cs, da, de, en, et, fr, it, nl, pl, ru, sk tw, zh.</p>';
         $o .= '<p>CMSimple_XH & Filebrowser integration';
