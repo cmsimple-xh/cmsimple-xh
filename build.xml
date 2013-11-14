@@ -42,14 +42,7 @@
     </target>
 
     <target name="compat">
-        <!-- unelegant solution, that works on Windows only -->
-        <exec command="pci --dir cmsimple --ignore-constants pciconstants.txt --tab 12,12,20 --summarize"
-              logoutput="true"/>
-        <exec command="pci --dir plugins\filebrowser --ignore-constants pciconstants.txt --tab 12,12,20 --summarize"
-              logoutput="true"/>
-        <exec command="pci --dir plugins\meta_tags --ignore-constants pciconstants.txt --tab 12,12,20 --summarize"
-              logoutput="true"/>
-        <exec command="pci --dir plugins\page_params --ignore-constants pciconstants.txt --tab 12,12,20 --summarize"
+        <exec command="phpcompatinfo --configuration phpcompatinfo.xml print --exclude-pattern xh ."
               logoutput="true"/>
     </target>
 

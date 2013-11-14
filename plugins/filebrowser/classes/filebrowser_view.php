@@ -509,7 +509,7 @@ HTM;
     function getCSRFToken()
     {
         if (!isset($this->token)) {
-            $this->token = md5(uniqid(rand(), true));
+            $this->token = md5(uniqid(rand()));
             $_SESSION['filebrowser_csrf_token'] = $this->token;
         }
         return $this->token;
