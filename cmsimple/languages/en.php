@@ -112,7 +112,7 @@ $tx['help']['plugins_folder']="Please do not change";
 $tx['help']['security_password']="Password of the site and all secondary language pages";
 $tx['help']['security_email']="The email address for the password forgotten functionality. It is preferable to use an address that is not publicly known.";
 $tx['help']['site_template']="Default template of the site";
-$tx['help']['site_timezone']="A <a href=\"http://www.php.net/manual/en/timezones.php\">time zone</a> to override your server's setting. Works only with PHP 5.1.0 and higher.";
+$tx['help']['site_timezone']="Usually no entry necessary. Starting from PHP 5.1.0  a <a href=\"http://www.php.net/manual/en/timezones.php\">time zone</a> can be entered to override your server's setting (see http://www.php.net/manual/en/timezones.php).";
 $tx['help']['title_format']="The way the title of a page of your site (&lt;title&gt;) is shown in the tab of your browser.";
 $tx['help']['uri_seperator']="The character which separates names of pages and sub pages in the URL.";
 $tx['help']['uri_length']="The URLs of the pages will be truncated at this length. This might change in a future release, so it's best to use shorter page headings (e.g. by using Page&rarr;Alternative heading).";
