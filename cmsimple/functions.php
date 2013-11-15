@@ -688,15 +688,14 @@ function chkdl($fl)
     );
     $m = false;
     if (is_dir($pth['folder']['downloads'])) {
-        $fd = opendir($pth['folder']['downloads']);
-        while (($p = readdir($fd)) == true) {
-            if (preg_match("/.+\..+$/", $p)) {
-                if ($fl == $sn . '?download=' . $p) {
-                    $m = true;
+        if ($fd = opendir($pth['folder']['downloads'])) {
+            while (($p = readdir($fd)) == true) {
+                if (preg_match("/.+\..+$/", $p)) {
+                    if ($fl == $sn . '?download=' . $p) {
+                        $m = true;
+                    }
                 }
             }
-        }
-        if ($fd == true) {
             closedir($fd);
         }
     }
@@ -1137,11 +1136,10 @@ function rp($p)
 function sortdir($dir)
 {
     $fs = array();
-    $fd = opendir($dir);
-    while (false !== ($fn = readdir($fd))) {
-        $fs[] = $fn;
-    }
-    if ($fd == true) {
+    if ($fd = opendir($dir)) {
+        while (false !== ($fn = readdir($fd))) {
+            $fs[] = $fn;
+        }
         closedir($fd);
     }
     sort($fs, SORT_STRING);
@@ -1581,20 +1579,21 @@ function XH_plugins($admin = false)
         $admPlugins = array();
         $disabledPlugins = explode(',', $cf['plugins']['disabled']);
         $disabledPlugins = array_map('trim', $disabledPlugins);
-        $dh = opendir($pth['folder']['plugins']); // TODO: error handling?
-        while (($fn = readdir($dh)) !== false) {
-            if (strpos($fn, '.') !== 0
-                && is_dir($pth['folder']['plugins'] . $fn)
-                && !in_array($fn, $disabledPlugins)
-            ) {
-                $plugins[] = $fn;
-                pluginFiles($fn);
-                if (is_file($pth['file']['plugin_admin'])) {
-                    $admPlugins[] = $fn;
+        if ($dh = opendir($pth['folder']['plugins'])) {
+            while (($fn = readdir($dh)) !== false) {
+                if (strpos($fn, '.') !== 0
+                    && is_dir($pth['folder']['plugins'] . $fn)
+                    && !in_array($fn, $disabledPlugins)
+                ) {
+                    $plugins[] = $fn;
+                    pluginFiles($fn);
+                    if (is_file($pth['file']['plugin_admin'])) {
+                        $admPlugins[] = $fn;
+                    }
                 }
             }
+            closedir($dh);
         }
-        closedir($dh);
         natcasesort($plugins);
         natcasesort($admPlugins);
     }
@@ -2011,13 +2010,12 @@ function XH_backup()
             $o .= XH_message('info', $message);
         }
         $fl = array();
-        $fd = opendir($pth['folder']['content']);
-        while (($p = readdir($fd)) == true) {
-            if (XH_isContentBackup($p)) {
-                $fl[] = $p;
+        if ($fd = opendir($pth['folder']['content'])) {
+            while (($p = readdir($fd)) == true) {
+                if (XH_isContentBackup($p)) {
+                    $fl[] = $p;
+                }
             }
-        }
-        if ($fd) {
             closedir($fd);
         }
         sort($fl);
@@ -2173,14 +2171,15 @@ function XH_templates()
 {
     global $pth;
 
-    $handle = opendir($pth['folder']['templates']);
     $templates = array();
-    while (($file = readdir($handle)) !== false) {
-        if (is_dir($pth['folder']['templates'] . $file) && $file{0} != '.' ) {
-            $templates[] = $file;
+    if ($handle = opendir($pth['folder']['templates'])) {
+        while (($file = readdir($handle)) !== false) {
+            if (is_dir($pth['folder']['templates'] . $file) && $file{0} != '.' ) {
+                $templates[] = $file;
+            }
         }
+        closedir($handle);
     }
-    closedir($handle);
     natcasesort($templates);
     return $templates;
 }
@@ -2198,14 +2197,15 @@ function XH_availableLocalizations()
 {
     global $pth;
 
-    $handle = opendir($pth['folder']['language']);
     $languages = array();
-    while (($file = readdir($handle)) !== false) {
-        if (preg_match('/^([a-z]{2})\.php$/i', $file, $m)) {
-            $languages[] = $m[1];
+    if ($handle = opendir($pth['folder']['language'])) {
+        while (($file = readdir($handle)) !== false) {
+            if (preg_match('/^([a-z]{2})\.php$/i', $file, $m)) {
+                $languages[] = $m[1];
+            }
         }
+        closedir($handle);
     }
-    closedir($handle);
     natcasesort($languages);
     return $languages;
 }
@@ -2228,7 +2228,7 @@ function XH_secondLanguages()
 
     if (!isset($langs)) {
         $langs = array();
-        if (($dir = opendir($pth['folder']['base'])) !== false) {
+        if ($dir = opendir($pth['folder']['base'])) {
             while (($entry = readdir($dir)) !== false) {
                 if (XH_isLanguageFolder($entry)) {
                     $langs[] = $entry;
