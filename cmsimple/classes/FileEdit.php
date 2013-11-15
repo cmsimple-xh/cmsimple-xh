@@ -385,9 +385,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
     function save()
     {
         $ok = parent::save();
-        $func = 'opcache_invalidate';
-        if (function_exists($func)) {
-            $func($this->filename);
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($this->filename);
         }
         return $ok;
     }

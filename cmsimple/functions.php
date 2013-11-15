@@ -2412,9 +2412,8 @@ function XH_lastJsonError()
 {
     global $pth, $_XH_json;
 
-    $func = 'json_last_error';
-    if (function_exists($func)) {
-        return $func(); // indirect call to satisfy PHP_CI
+    if (function_exists('json_last_error')) {
+        return json_last_error();
     } else {
         if (!isset($_XH_json)) {
             include_once $pth['folder']['classes'] . 'JSON.php';

@@ -203,9 +203,9 @@ HTML;
             sprintf($tx['syscheck']['locale_available'], $tx['locale']['all'])
         );
     }
-    $func = 'date_default_timezone_get';
     $checks['other'][] = array(
-        !function_exists($func) || $func() !== 'UTC',
+        !function_exists('date_default_timezone_get')
+        || date_default_timezone_get() !== 'UTC',
         false, $tx['syscheck']['timezone']
     );
     $checks['other'][] = array(
