@@ -1280,7 +1280,15 @@ if (!XH_ADM && $adm) {
 
 ob_start('XH_finalCleanUp');
 
-if (!XH_includeGlobal($pth['file']['template'])) {
+$temp = fopen($pth['file']['template'], 'r');
+if ($temp) {
+    if (flock($temp, LOCK_SH)) {
+        $i = include $pth['file']['template'];
+        flock($temp, LOCK_UN);
+    }
+    fclose($temp);
+}
+if (!$i) {
     header('HTTP/1.0 500 Internal Server Error');
     header('Content-Type: text/plain; charset=utf-8');
     echo $tx['error']['missing'], ' ', $tx['filetype']['template'], "\n",

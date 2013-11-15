@@ -2469,45 +2469,6 @@ function XH_mailform()
 }
 
 /**
- * Includes a PHP file as from the global scope and returns whether that succeeded.
- * During the inclusion, the file is locked for shared access.
- *
- * @param string $_filename A filename.
- *
- * @return bool
- *
- * @since 1.6
- */
-function XH_includeGlobal($_filename)
-{
-    $_superglobals = array(
-        'GLOBALS', '_SERVER', '_GET', '_POST', '_FILES', '_COOKIE', '_SESSION',
-        '_REQUEST', '_ENV'
-    );
-    $_globals = array_diff(array_keys($GLOBALS), $_superglobals);
-    foreach ($_globals as $_name) {
-        $$_name = &$GLOBALS[$_name];
-    }
-    $_scope0 = null;
-    $_res = false;
-    $_stream = fopen($_filename, 'r');
-    if ($_stream) {
-        if (flock($_stream, LOCK_SH)) {
-            $_scope0 = array_keys(get_defined_vars());
-            $_res = include $_filename;
-            $_scope1 = array_keys(get_defined_vars());
-            $_diff = array_diff($_scope1, $_scope0);
-            foreach ($_diff as $_var) {
-                $GLOBALS[$_var] = $$_var;
-            }
-            flock($_stream, LOCK_UN);
-        }
-        fclose($_stream);
-    }
-    return $_res;
-}
-
-/**
  * Includes a PHP data file and returns the value of the variable.
  * Returns <var>false</var>, if including failed.
  * During the inclusion, the file is locked for shared access.
