@@ -16,13 +16,13 @@
  */
 
 /**
- * The view class.
+ * The controller class.
  */
-require_once $pth['folder']['plugin_classes'] . 'filebrowser_view.php';
+require_once $pth['folder']['plugin_classes'] . 'Filebrowser_Controller.php';
 
 /**
- * The model class.
+ * The view class.
  */
-require_once $pth['folder']['plugin_classes'] . 'filebrowser.php';
+require_once $pth['folder']['plugin_classes'] . 'Filebrowser_View.php';
 
 ?>

@@ -19,14 +19,14 @@
  */
 
 /**
- * The view class.
+ * The controller class.
  */
-require_once './classes/filebrowser_view.php';
+require_once './classes/Filebrowser_Controller.php';
 
 /**
- * The model class.
+ * The view class.
  */
-require_once './classes/filebrowser.php';
+require_once './classes/Filebrowser_View.php';
 
 if (!isset($_SESSION)) {
     session_start();
