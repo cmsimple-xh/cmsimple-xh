@@ -11,7 +11,8 @@
  * $Date: 2011-02-09 01:17:14 +0200 (ср, 09 февр 2011) $
  * $Revision: 236 $
  *
- * Removed dependency on $.fn.andSelf()
+ * - Removed dependency on $.fn.andSelf()
+ * - fixed XML Ajax loading for IE11
  * Copyright (c) 2013 Christoph M. Becker <http://3-magi.net/>
  */
 
@@ -3003,21 +3004,21 @@ function andSelf(jquery) {
 (function ($) {
 	$.vakata.xslt = function (xml, xsl, callback) {
 		var r = false, p, q, s;
-		// IE9
-		if(r === false && window.ActiveXObject) {
-			try {
-				r = new ActiveXObject("Msxml2.XSLTemplate");
-				q = new ActiveXObject("Msxml2.DOMDocument");
-				q.loadXML(xml);
-				s = new ActiveXObject("Msxml2.FreeThreadedDOMDocument");
-				s.loadXML(xsl);
-				r.stylesheet = s;
-				p = r.createProcessor();
-				p.input = q;
-				p.transform();
-				r = p.output;
-			}
-			catch (e) { }
+		// somewhat recent IE
+		try {
+			r = new ActiveXObject("Msxml2.XSLTemplate");
+			q = new ActiveXObject("Msxml2.DOMDocument");
+			q.loadXML(xml);
+			s = new ActiveXObject("Msxml2.FreeThreadedDOMDocument");
+			s.loadXML(xsl);
+			r.stylesheet = s;
+			p = r.createProcessor();
+			p.input = q;
+			p.transform();
+			r = p.output;
+		}
+		catch (e) {
+			r = false;
 		}
 		xml = $.parseXML(xml);
 		xsl = $.parseXML(xsl);

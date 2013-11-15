@@ -30,7 +30,7 @@ require_once $pth['folder']['plugin_classes'] . 'Controller.php';
 /**
  * Pagemanager version.
  */
-define('PAGEMANAGER_VERSION', '2.0beta1');
+define('PAGEMANAGER_VERSION', '2.0beta2');
 
 /**
  * Functional wrapper for Pagemananger_Model::themes().
