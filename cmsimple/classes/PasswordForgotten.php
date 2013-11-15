@@ -201,7 +201,7 @@ class XH_PasswordForgotten
     {
         global $pth;
 
-        include $pth['file']['config'];
+        $cf = XH_includeLocal($pth['file']['config'], 'cf');
         $cf['security']['password'] = $hash;
         $o = '<?php' . PHP_EOL . PHP_EOL;
         foreach ($cf as $cat => $opts) {
