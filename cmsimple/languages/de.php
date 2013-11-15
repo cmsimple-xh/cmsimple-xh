@@ -182,6 +182,7 @@ $tx['menu']['tab_language']="Sprache";
 $tx['menu']['tab_help']="Hilfe";
 
 $tx['message']['backedup']="Der Content wurde erfolgreich gesichert.";
+$tx['message']['debug_mode']="Debug-Modus ist aktiv!";
 $tx['message']['emptied']="Der Content wurde erfolgreich geleert.";
 $tx['message']['pd_success']="Die seitenspezifischen Daten wurden erfolgreich gespeichert. Es kann allerdings sein, dass einige Einstellungen erst wirksam werden nachdem Sie die Seite aktualisieren oder zu einer anderen Seite wechseln.";
 $tx['message']['pd_fail']="Die seitenspezifischen Daten konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.";

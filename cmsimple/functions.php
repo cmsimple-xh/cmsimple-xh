@@ -468,6 +468,7 @@ function editor_replace($elementID = false, $config = '')
  * @global string The (X)HTML of the contents area.
  * @global array
  * @global array  The configuration of the core.
+ * @global array  The localization of the core.
  * @global string (X)HTML to be preprended to the closing BODY tag.
  *
  * @return string
@@ -476,7 +477,7 @@ function editor_replace($elementID = false, $config = '')
  */
 function XH_finalCleanUp($html)
 {
-    global $s, $o, $errors, $cf, $bjs;
+    global $s, $o, $errors, $cf, $tx, $bjs;
 
     if (XH_ADM === true) {
         $debugHint = '';
@@ -485,7 +486,7 @@ function XH_finalCleanUp($html)
 
         if ($debugMode = error_reporting() > 0) {
             $debugHint .= '<div class="xh_debug">' . "\n"
-                . '<b>Notice:</b> Debug-Mode is enabled!' . "\n" // TODO: i18n
+                . $tx['message']['debug_mode'] . "\n"
                 . '</div>' . "\n";
             $margin += 22;
         }
@@ -1423,30 +1424,26 @@ function XH_checkValidUtf8($arr)
 }
 
 /**
- * Copies default file, if actual language file is missing.
+ * Copies default file, if actual language file is missing. Returns whether
+ * the language file exists afterwards.
  *
  * @param string $dst The destination filename.
  *
- * @return  void
+ * @return bool
  *
  * @since 1.6
- *
- * @todo add file locking
  */
 function XH_createLanguageFile($dst)
 {
     $config = preg_match('/config.php$/', $dst) ? 'config' : '';
     if (!file_exists($dst)) {
         if (is_readable($src = dirname($dst) . "/default$config.php")) {
-            copy($src, $dst);
+            return copy($src, $dst);
         } elseif ($src = is_readable(dirname($dst) . "/en$config.php")) {
-            copy($src, $dst);
+            return copy($src, $dst);
         }
     }
-    // TODO: error reporting???
-    //if (!file_exists($dst)) {
-    //    e('missing', 'file', $dst);
-    //}
+    return true;
 }
 
 /**
