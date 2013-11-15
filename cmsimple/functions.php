@@ -2164,8 +2164,6 @@ function XH_isContentBackup($filename, $regularOnly = true)
  * @global array The paths of system files and folders.
  *
  * @since 1.6
- *
- * @todo Addtionally check for template.htm?
  */
 function XH_templates()
 {
@@ -2174,7 +2172,10 @@ function XH_templates()
     $templates = array();
     if ($handle = opendir($pth['folder']['templates'])) {
         while (($file = readdir($handle)) !== false) {
-            if (is_dir($pth['folder']['templates'] . $file) && $file{0} != '.' ) {
+            $dir = $pth['folder']['templates'] . $file;
+            if ($file[0] != '.' && is_dir($dir)
+                && file_exists($dir . '/template.htm')
+            ) {
                 $templates[] = $file;
             }
         }
