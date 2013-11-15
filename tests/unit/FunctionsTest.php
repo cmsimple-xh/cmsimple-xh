@@ -509,10 +509,10 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testIncludeLocal()
+    public function testIncludeVar()
     {
         $filename = './cmsimple/languages/de.php';
-        $tx = XH_includeLocal($filename, 'tx');
+        $tx = XH_includeVar($filename, 'tx');
         $this->assertTrue(is_array($tx));
     }
 

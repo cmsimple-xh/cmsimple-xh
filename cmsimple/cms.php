@@ -218,7 +218,7 @@ $cf = null;
 if (is_readable($pth['folder']['cmsimple'].'defaultconfig.php')) {
     include $pth['folder']['cmsimple'].'defaultconfig.php';
 }
-if (!XH_includeGlobal($pth['file']['config'])) {
+if (($cf = XH_includeVar($pth['file']['config'], 'cf')) === false) {
     die('Config file missing');
 }
 // removed from the core in XH 1.6, but left for compatibility with plugins.
@@ -293,11 +293,12 @@ if (!is_readable($pth['file']['language'])
  *
  * @global array $tx
  */
-$tx = null;
+$tx = array();
 if (is_readable($pth['folder']['language'] . 'default.php')) {
     include $pth['folder']['language'] . 'default.php';
 }
-XH_includeGlobal($pth['file']['language']);
+$temp = XH_includeVar($pth['file']['language'], 'tx');
+$tx = (array) $temp + $tx;
 
 if ($tx['locale']['all'] != '') {
     setlocale(LC_ALL, $tx['locale']['all']);
@@ -900,13 +901,13 @@ $pd_current = $pd_router->find_page($pd_s);
  *
  * @global array $plugin_cf
  */
-$plugin_cf = null;
+$plugin_cf = array();
 /**
  * The localization of the plugins.
  *
  * @global array $plugin_tx
  */
-$plugin_tx = null;
+$plugin_tx = array();
 
 /*
  * Include config and language files of all plugins.
@@ -917,7 +918,8 @@ foreach (XH_plugins() as $plugin) {
         include $pth['folder']['plugin_config'] . 'defaultconfig.php';
     }
     if (is_readable($pth['file']['plugin_config'])) {
-        XH_includeGlobal($pth['file']['plugin_config']);
+        $temp = XH_includeVar($pth['file']['plugin_config'], 'plugin_cf');
+        $plugin_cf = (array) $temp + $plugin_cf;
     }
 
     XH_createLanguageFile($pth['file']['plugin_language']);
@@ -925,7 +927,8 @@ foreach (XH_plugins() as $plugin) {
         include $pth['folder']['plugin_languages'] . 'default.php';
     }
     if (is_readable($pth['file']['plugin_language'])) {
-        XH_includeGlobal($pth['file']['plugin_language']);
+        $temp = XH_includeVar($pth['file']['plugin_language'], 'plugin_tx');
+        $plugin_tx = (array) $temp + $plugin_tx;
     }
 }
 

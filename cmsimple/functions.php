@@ -879,7 +879,7 @@ function XH_readContents($language = null)
         $contentFolder = $pth['folder']['base'] . 'content/' . $language . '/';
         $contentFile = $contentFolder . 'content.htm';
         $pageDataFile = $contentFolder . 'pagedata.php';
-        $tx = XH_includeLocal($pth['folder']['language'] . $language . '.php', 'tx');
+        $tx = XH_includeVar($pth['folder']['language'] . $language . '.php', 'tx');
     } else {
         $contentFile = $pth['file']['content'];
         $pageDataFile = $pth['file']['pagedata'];
@@ -1430,6 +1430,8 @@ function XH_checkValidUtf8($arr)
  * @return  void
  *
  * @since 1.6
+ *
+ * @todo add file locking
  */
 function XH_createLanguageFile($dst)
 {
@@ -2506,7 +2508,7 @@ function XH_includeGlobal($_filename)
 }
 
 /**
- * Includes a PHP data file and returns the value of a variable.
+ * Includes a PHP data file and returns the value of the variable.
  * Returns <var>false</var>, if including failed.
  * During the inclusion, the file is locked for shared access.
  *
@@ -2517,7 +2519,7 @@ function XH_includeGlobal($_filename)
  *
  * @since 1.6
  */
-function XH_includeLocal($_filename, $_varname)
+function XH_includeVar($_filename, $_varname)
 {
     $_res = false;
     $_stream = fopen($_filename, 'r');
