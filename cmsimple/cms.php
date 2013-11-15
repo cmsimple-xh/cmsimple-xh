@@ -547,7 +547,7 @@ define(
     'CMSIMPLE_URL',
     'http'
     . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
-    . '://' . $_SERVER['HTTP_HOST'] . preg_replace('/index.php$/', '', $sn)
+    . '://' . $_SERVER['HTTP_HOST'] . $sn
 );
 
 /**
