@@ -154,7 +154,7 @@
         <move todir="dist/cmsimplexh">
             <fileset dir="export">
                 <exclude name="build.xml"/>
-                <exclude name="pci*.txt"/>
+                <exclude name="phpcompatinfo.xml"/>
                 <exclude name="2lang/.2lang"/>
                 <exclude name="tests/**"/>
                 <exclude name="tutorials/**"/>
