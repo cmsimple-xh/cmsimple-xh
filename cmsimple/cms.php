@@ -329,10 +329,13 @@ $pth['file']['stylesheet'] = $pth['folder']['template'] . 'stylesheet.css';
 $pth['folder']['menubuttons'] = $pth['folder']['template'] . 'menu/';
 $pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
 
-
-// don't check cookies, as these might be set from non UTF-8 scripts on the domain
-// TODO: what about the variable names? what about other input (e.g. $_SERVER)?
-XH_checkValidUtf8(array($_GET, $_POST));
+/*
+ * Additional security measure. However, we cannot check cookies,
+ * as these might be set from non UTF-8 scripts on the domain.
+ */
+XH_checkValidUtf8(
+    array($_GET, $_POST, $_SERVER, array_keys($_GET), array_keys($_POST))
+);
 
 /**
  * Whether the webserver is IIS.

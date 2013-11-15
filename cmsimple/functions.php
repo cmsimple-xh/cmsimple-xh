@@ -1415,7 +1415,7 @@ function XH_checkValidUtf8($arr)
         if (is_array($elt)) {
             XH_checkValidUtf8($elt);
         } elseif (!utf8_is_valid($elt)) {
-            header('HTTP/1.0 400 Bad Request'); // TODO: use "Status:" for FastCGI?
+            header('HTTP/1.0 400 Bad Request');
             exit('Malformed UTF-8 detected!');
         }
     }
