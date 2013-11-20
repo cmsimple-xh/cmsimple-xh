@@ -215,6 +215,9 @@ require_once UTF8 . '/utils/validation.php';
  * @global array $cf
  */
 $cf = XH_readConfiguration();
+if (!$cf) {
+    die("Config file {$pth['file']['config']} missing");
+}
 // removed from the core in XH 1.6, but left for compatibility with plugins.
 $cf['security']['type']='page';
 $cf['scripting']['regexp']='#CMSimple (.*?)#';
@@ -276,11 +279,6 @@ $pth['file']['corestyle'] = $pth['folder']['corestyle'] . 'core.css';
 $pth['file']['adminjs'] = $pth['folder']['base'] . 'javascript/admin.js';
 
 XH_createLanguageFile($pth['file']['language']);
-if (!is_readable($pth['file']['language'])
-    && !is_readable($pth['folder']['language'].'default.php')
-) {
-    die('Language file ' . $pth['file']['language'] . ' missing');
-}
 
 /**
  * The localization of the core.
@@ -288,7 +286,9 @@ if (!is_readable($pth['file']['language'])
  * @global array $tx
  */
 $tx = XH_readConfiguration(false, true);
-
+if (!$tx) {
+    die("Language file {$pth['file']['language']} missing");
+}
 if ($tx['locale']['all'] != '') {
     setlocale(LC_ALL, $tx['locale']['all']);
 }
