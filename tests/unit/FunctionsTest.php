@@ -366,6 +366,11 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
                 'test',
                 'body {background: url("./images/bg.jpg)}',
                 'body {background: url("../plugins/test/css/./images/bg.jpg)}'
+            ),
+            array( // invalid UTF-8
+                'test',
+                "body {background: url(\"./doppelg\xE4nger.jpg\")}",
+                "body {background: url(\"../plugins/test/css/./doppelg\xE4nger.jpg\")}"
             )
         );
     }
