@@ -2514,4 +2514,54 @@ function XH_numberSuffix($count)
     return $suffix;
 }
 
+/**
+ * Returns the configuration resp. language array of the core resp. a plugin.
+ *
+ * For plugins pluginFiles() has to be called before.
+ *
+ * @param bool $plugin   Whether to return plugin information (opposed to core).
+ * @param bool $language Whether to return the language array (opposed to config).
+ *
+ * @return array
+ *
+ * @global array The paths of system files and folders.
+ *
+ * @since 1.6
+ */
+function XH_readConfiguration($plugin = false, $language = false)
+{
+    global $pth;
+    
+    if (!$plugin) {
+        if (!$language) {
+            $varname = 'cf';
+            $defaultFilename = $pth['folder']['cmsimple'] . 'defaultconfig.php';
+            $filename = $pth['file']['config'];
+        } else {
+            $varname = 'tx';
+            $defaultFilename = $pth['folder']['language'] . 'default.php';
+            $filename = $pth['file']['language'];
+        }
+    } else {
+        if (!$language) {
+            $varname = 'plugin_cf';
+            $defaultFilename = $pth['folder']['plugin_config'] . 'defaultconfig.php';
+            $filename = $pth['file']['plugin_config'];
+        } else {
+            $varname = 'plugin_tx';
+            $defaultFilename = $pth['folder']['plugin_languages'] . 'default.php';
+            $filename = $pth['file']['plugin_language'];
+        }
+    }
+    if (is_readable($defaultFilename)) {
+        include $defaultFilename;
+    } else {
+        $$varname = array();
+    }
+    if (is_readable($filename)) {
+        $$varname = (array) XH_includeVar($filename, $varname) + (array) $$varname;
+    }
+    return $$varname;
+}
+
 ?>

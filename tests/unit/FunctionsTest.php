@@ -14,6 +14,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+require_once 'vfsStream/vfsStream.php';
+
 /**
  * The file under test.
  */
@@ -534,6 +536,46 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testNumberSuffix($count, $expected)
     {
         $actual = XH_numberSuffix($count);
+        $this->assertEquals($expected, $actual);
+    }
+    
+    public function dataForReadConfiguration()
+    {
+        return array(
+            array('cmsimple', 'defaultconfig.php', 'config', 'cf'),
+            array('language', 'default.php', 'language', 'tx', false, true),
+            array('plugin_config', 'defaultconfig.php', 'plugin_config', 'plugin_cf', true),
+            array('plugin_languages', 'default.php', 'plugin_language', 'plugin_tx', true, true)
+        );
+    }
+    
+    /**
+     * @dataProvider dataForReadConfiguration()
+     */
+    public function testReadConfiguration($folderKey, $filename, $fileKey, $varname, $plugin = false, $language = false)
+    {
+        global $pth;
+        
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
+        
+        $config = array('a' => 'b', 'c' => 'c');
+        $config = var_export($config, true);
+        $contents = "<?php \$$varname = $config;?>";
+        $filename = vfsStream::url("test/$filename");
+        file_put_contents($filename, $contents);
+        
+        $config = array('a' => 'a', 'b' => 'b');
+        $config = var_export($config, true);
+        $contents = "<?php \$$varname = $config;?>";
+        $filename = vfsStream::url('test/test.php');
+        file_put_contents($filename, $contents);
+        
+        $pth['folder'][$folderKey] = vfsStream::url('test/');
+        $pth['file'][$fileKey] = vfsStream::url('test/test.php');
+        
+        $expected = array('a' => 'a', 'b' => 'b', 'c' => 'c');
+        $actual = XH_readConfiguration($plugin, $language);
         $this->assertEquals($expected, $actual);
     }
 }

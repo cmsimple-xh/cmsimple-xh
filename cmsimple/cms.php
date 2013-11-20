@@ -214,13 +214,7 @@ require_once UTF8 . '/utils/validation.php';
  *
  * @global array $cf
  */
-$cf = null;
-if (is_readable($pth['folder']['cmsimple'].'defaultconfig.php')) {
-    include $pth['folder']['cmsimple'].'defaultconfig.php';
-}
-if (($cf = XH_includeVar($pth['file']['config'], 'cf')) === false) {
-    die('Config file missing');
-}
+$cf = XH_readConfiguration();
 // removed from the core in XH 1.6, but left for compatibility with plugins.
 $cf['security']['type']='page';
 $cf['scripting']['regexp']='#CMSimple (.*?)#';
@@ -293,12 +287,7 @@ if (!is_readable($pth['file']['language'])
  *
  * @global array $tx
  */
-$tx = array();
-if (is_readable($pth['folder']['language'] . 'default.php')) {
-    include $pth['folder']['language'] . 'default.php';
-}
-$temp = XH_includeVar($pth['file']['language'], 'tx');
-$tx = (array) $temp + $tx;
+$tx = XH_readConfiguration(false, true);
 
 if ($tx['locale']['all'] != '') {
     setlocale(LC_ALL, $tx['locale']['all']);
@@ -917,22 +906,11 @@ $plugin_tx = array();
  */
 foreach (XH_plugins() as $plugin) {
     pluginFiles($plugin);
-    if (is_readable($pth['folder']['plugin_config'] . 'defaultconfig.php')) {
-        include $pth['folder']['plugin_config'] . 'defaultconfig.php';
-    }
-    if (is_readable($pth['file']['plugin_config'])) {
-        $temp = XH_includeVar($pth['file']['plugin_config'], 'plugin_cf');
-        $plugin_cf = (array) $temp + $plugin_cf;
-    }
-
+    $temp = XH_readConfiguration(true, false);
+    $plugin_cf += $temp;
     XH_createLanguageFile($pth['file']['plugin_language']);
-    if (is_readable($pth['folder']['plugin_languages'] . 'default.php')) {
-        include $pth['folder']['plugin_languages'] . 'default.php';
-    }
-    if (is_readable($pth['file']['plugin_language'])) {
-        $temp = XH_includeVar($pth['file']['plugin_language'], 'plugin_tx');
-        $plugin_tx = (array) $temp + $plugin_tx;
-    }
+    $temp = XH_readConfiguration(true, true);
+    $plugin_tx += $temp;
 }
 
 /*
