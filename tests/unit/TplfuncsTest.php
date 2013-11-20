@@ -21,7 +21,9 @@ require_once './cmsimple/functions.php';
  */
 require_once './cmsimple/tplfuncs.php';
 
-const XH_ADM = true;
+if (!defined('XH_ADM')) {
+    define('XH_ADM', true);
+}
 
 /**
  * A test case for the functions in tplfuncs.php.

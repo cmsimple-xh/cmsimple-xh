@@ -19,7 +19,9 @@
  */
 require_once './cmsimple/adminfuncs.php';
 
-const XH_ADM = true;
+if (!defined('XH_ADM')) {
+    define('XH_ADM', true);
+}
 
 /**
  * A test case for the functions in adminfuncs.php.
