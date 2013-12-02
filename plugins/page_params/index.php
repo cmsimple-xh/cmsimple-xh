@@ -65,7 +65,7 @@ if(!$edit && $pd_current){
 		if(trim($pd_current['heading']) == ''){
 			$c[$pd_s] = preg_replace($temp, '', $c[$pd_s]);
 		}else{
-			$c[$pd_s] = preg_replace($temp, '\\1'.(string)$pd_current['heading'].'\\2',$c[$pd_s]);
+			$c[$pd_s] = preg_replace($temp, '${1}'.(string)$pd_current['heading'].'$2',$c[$pd_s]);
 		}
 	}
 	if($pd_current['show_last_edit'] == '1' && $pd_current['last_edit'] !== ''){
