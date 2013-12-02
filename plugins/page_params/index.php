@@ -180,7 +180,7 @@ if (!$edit && $pd_current) {
             $c[$pd_s] = preg_replace($temp, '', $c[$pd_s]);
         } else {
             $c[$pd_s] = preg_replace(
-                $temp, '\\1' . $pd_current['heading'] . '\\2', $c[$pd_s]
+                $temp, '${1}' . $pd_current['heading'] . '$2', $c[$pd_s]
             );
         }
     }
