@@ -496,10 +496,14 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @return string The (X)HTML.
      *
+     * @global array The localization of the core.
+     *
      * @access protected
      */
     function formField($cat, $name, $opt)
     {
+        global $tx;
+        
         $iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
         switch ($opt['type']) {
         case 'password':
@@ -521,8 +525,11 @@ class XH_ArrayFileEdit extends XH_FileEdit
         case 'enum':
             $o = '<select name="' . $iname . '">';
             foreach ($opt['vals'] as $val) {
-                $sel = $val == $opt['val'] ? ' selected="selected"' : '';
-                $o .= '<option' . $sel . '>' . $val . '</option>';
+                $sel = ($val == $opt['val']) ? ' selected="selected"' : '';
+                $label = ($val == '')
+                    ? ' label="' . $tx['label']['empty'] . '"'
+                    : '';
+                $o .= '<option' . $sel . $label . '>' . $val . '</option>';
             }
             $o .= '</select>';
             return $o;

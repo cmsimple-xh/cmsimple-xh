@@ -123,6 +123,8 @@ $tx['help']['folders_downloads']="A subfolder of userfiles.";
 $tx['help']['folders_images']="A subfolder of userfiles.";
 $tx['help']['folders_media']="A subfolder of userfiles.";
 
+$tx['label']['empty']="- EMPTY -";
+
 $tx['languagemenu']['text']="select language: ";
 
 $tx['lastupdate']['dateformat']="F d, Y, H:i";

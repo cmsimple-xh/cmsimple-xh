@@ -123,6 +123,8 @@ $tx['help']['folders_downloads']="Ein Unterordner der Benutzerdateien.";
 $tx['help']['folders_images']="Ein Unterordner der Benutzerdateien.";
 $tx['help']['folders_media']="Ein Unterordner der Benutzerdateien.";
 
+$tx['label']['empty']="- LEER -";
+
 $tx['languagemenu']['text']="Sprachauswahl: ";
 
 $tx['lastupdate']['dateformat']="d.m.Y, H:i";
