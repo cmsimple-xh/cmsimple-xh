@@ -564,13 +564,19 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
         
-        $config = array('a' => 'b', 'c' => 'c');
+        $config = array(
+            'foo' => array('a' => 'b', 'c' => 'c'),
+            'bar' => array('a' => 'b', 'c' => 'c')
+        );
         $config = var_export($config, true);
         $contents = "<?php \$$varname = $config;?>";
         $filename = vfsStream::url("test/$filename");
         file_put_contents($filename, $contents);
         
-        $config = array('a' => 'a', 'b' => 'b');
+        $config = array(
+            'foo' => array('a' => 'a', 'b' => 'b'),
+            'baz' => array('a' => 'b', 'c' => 'c')
+        );
         $config = var_export($config, true);
         $contents = "<?php \$$varname = $config;?>";
         $filename = vfsStream::url('test/test.php');
@@ -579,7 +585,11 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $pth['folder'][$folderKey] = vfsStream::url('test/');
         $pth['file'][$fileKey] = vfsStream::url('test/test.php');
         
-        $expected = array('a' => 'a', 'b' => 'b', 'c' => 'c');
+        $expected = array(
+            'foo' => array('a' => 'a', 'b' => 'b', 'c' => 'c'),
+            'bar' => array('a' => 'b', 'c' => 'c'),
+            'baz' => array('a' => 'b', 'c' => 'c')
+        );
         $actual = XH_readConfiguration($plugin, $language);
         $this->assertEquals($expected, $actual);
     }

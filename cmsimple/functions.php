@@ -2559,9 +2559,33 @@ function XH_readConfiguration($plugin = false, $language = false)
         $$varname = array();
     }
     if (is_readable($filename)) {
-        $$varname = (array) XH_includeVar($filename, $varname) + (array) $$varname;
+        $$varname = unionOf2DArrays(
+            (array) XH_includeVar($filename, $varname),
+            (array) $$varname
+        );
     }
     return $$varname;
+}
+
+/**
+ * Returns the union of two "2-dimensional" arrays in the same manner as the
+ * union operator (i.e. keys and subkeys in the first array have higher
+ * priority).
+ *
+ * @param array $array1 A "2-dimensional" array.
+ * @param array $array2 A "2-dimensional" array.
+ *
+ * @return array
+ *
+ * @since 1.6
+ */
+function unionOf2DArrays($array1, $array2)
+{
+    foreach ($array1 as $key => $subarray1) {
+        $subarray2 = isset($array2[$key]) ? $array2[$key] : array();
+        $array2[$key] = $subarray1 + $subarray2;
+    }
+    return $array2;
 }
 
 ?>
