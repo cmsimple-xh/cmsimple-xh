@@ -51,7 +51,7 @@ function geturl($u)
             $t .= fread($fh, 1024);
         }
         fclose($fh);
-        return preg_replace("/.*<body[^>]*>(.*)<\/body>.*/is", "\\1", $t);
+        return preg_replace("/.*<body[^>]*>(.*)<\/body>.*/is", '$1', $t);
     }
 }
 
@@ -98,12 +98,12 @@ function autogallery($u)
     trigger_error('Function autogallery() is deprecated', E_USER_DEPRECATED);
 
     return preg_replace(
-        "/.*<!-- autogallery -->(.*)<!-- \/autogallery -->.*/is", "\\1",
+        "/.*<!-- autogallery -->(.*)<!-- \/autogallery -->.*/is", '$1',
         preg_replace(
-            "/(option value=\"\?)(p=)/is", "\\1" . $su . "&\\2",
+            "/(option value=\"\?)(p=)/is", '${1}' . $su . '&$2',
             preg_replace(
-                "/(href=\"\?)/is", "\\1" . $su . '&amp;',
-                preg_replace("/(src=\")(\.)/is", "\\1" . $u . "\\2", geturlwp($u))
+                "/(href=\"\?)/is", '${1}' . $su . '&amp;',
+                preg_replace("/(src=\")(\.)/is", '${1}' . $u . '$2', geturlwp($u))
             )
         )
     );
@@ -518,9 +518,9 @@ function XH_finalCleanUp($html)
             $html = preg_replace('~</head>~i', $replacement, $html, 1);
         }
 
-        $replacement = '$0' . '<div' . $id . '>' . $debugHint
-            . call_user_func($adminMenuFunc, XH_plugins(true)) . '</div>' ."\n"
-            . $errorList;
+        $replacement = '$0' . '<div' . $id . '>' . addcslashes($debugHint, '$\\')
+            . addcslashes(call_user_func($adminMenuFunc, XH_plugins(true), '$\\'))
+            . '</div>' ."\n" . addcslashes($errorList, '$\\');
         $html = preg_replace('~<body[^>]*>~i', $replacement, $html, 1);
     }
 

@@ -346,7 +346,7 @@ $cgi = (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi');
  * @global string $sn
  */
 $sn = preg_replace(
-    '/([^\?]*)\?.*/', '\1',
+    '/([^\?]*)\?.*/', '$1',
     sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_URI'))
 );
 
