@@ -128,7 +128,7 @@ body {
 /***********************/
 
 .header {
-    background:URL(images/header.jpg) repeat-x  #006636;
+    background: URL(images/header.jpg) repeat-x  #5ea;
     padding:2em 2em 0 2em;
     margin-bottom:.5em;
     border-radius: .5em;
@@ -298,6 +298,7 @@ h1, h2, h3 {
 }
 h4, h5, h6 {
     margin: 1.5em 0 .5em;
+    clear:both;
 }
 h4:first-child,
 h5:first-child,
@@ -330,9 +331,9 @@ h6 {
 
 .sidebar {
     float:right;
-    max-width: 18em;
+    max-width: 17em;
     border-left: 2px solid #ccc;
-    padding-left:1em;
+    padding:0 1em;
     margin-top:1em;
     clear:right;
 }
@@ -363,6 +364,7 @@ h6 {
 
 .subnav {
     width:100%;
+    padding:0 1em;
 }
 .subnav td a {
     text-decoration:none;
