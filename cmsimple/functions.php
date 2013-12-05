@@ -518,8 +518,9 @@ function XH_finalCleanUp($html)
             $html = preg_replace('~</head>~i', $replacement, $html, 1);
         }
 
+        $adminMenu = call_user_func($adminMenuFunc, XH_plugins(true));
         $replacement = '$0' . '<div' . $id . '>' . addcslashes($debugHint, '$\\')
-            . addcslashes(call_user_func($adminMenuFunc, XH_plugins(true), '$\\'))
+            . addcslashes($adminMenu, '$\\')
             . '</div>' ."\n" . addcslashes($errorList, '$\\');
         $html = preg_replace('~<body[^>]*>~i', $replacement, $html, 1);
     }
