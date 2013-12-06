@@ -128,7 +128,7 @@ body {
 /***********************/
 
 .header {
-    background: URL(images/header.jpg) repeat-x  #5ea;
+    background: URL(images/header.jpg) repeat-x  #006636;
     padding:2em 2em 0 2em;
     margin-bottom:.5em;
     border-radius: .5em;
@@ -287,18 +287,17 @@ body {
     padding:1em 2%;
     float:left;
     margin:0;
-    clear:left;
 }
 h1, h2, h3, h4 {
     font: normal normal 21px verdana;
 	color:#0a6;
+    clear:both;
 }
 h1, h2, h3 {
     margin: 0 0 .5em;
 }
 h4, h5, h6 {
     margin: 1.5em 0 .5em;
-    clear:both;
 }
 h4:first-child,
 h5:first-child,
