@@ -954,7 +954,7 @@ function XH_restore($filename)
     global $pth, $e;
 
     $tempFilename = $pth['folder']['content'] . 'restore.htm';
-    if (!rename($filename, $tempFilename)) {
+    if (!XH_renameFile($filename, $tempFilename)) {
         e('cntsave', 'backup', $tempFilename);
         return;
     }
@@ -965,7 +965,7 @@ function XH_restore($filename)
         }
         return;
     }
-    if (!rename($tempFilename, $pth['file']['content'])) {
+    if (!XH_renameFile($tempFilename, $pth['file']['content'])) {
         e('cntsave', 'content', $pth['file']['content']);
         return;
     }

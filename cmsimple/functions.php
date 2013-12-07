@@ -2592,4 +2592,32 @@ function unionOf2DArrays($array1, $array2)
     return $array2;
 }
 
+/**
+ * Attempts to rename oldname to newname, and returns whether that succeeded.
+ *
+ * The file is moved between directories if necessary. If newname exists, it
+ * will be overwritten.
+ *
+ * This is a wrapper around {@link rename rename()}, which offers a fallback for
+ * the limitation of PHP < 5.3 on Windows that the rename operation fails, if
+ * <var>$newfile</var> already exists. Note, that the fallback solution is not
+ * atomic.
+ *
+ * @param string $oldname A filename.
+ * @param string $newname A filename.
+ *
+ * @return bool
+ *
+ * @since 1.6
+ */
+function XH_renameFile($oldname, $newname)
+{
+    if (strtoupper(substr(php_uname(), 0, 3)) == 'WIN'
+        && file_exists($newname)
+    ) {
+        unlink($newname);
+    }
+    return rename($oldname, $newname);
+}
+
 ?>

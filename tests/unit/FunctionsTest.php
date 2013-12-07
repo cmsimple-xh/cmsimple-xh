@@ -631,6 +631,18 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $actual = XH_readConfiguration($plugin, $language);
         $this->assertEquals($expected, $actual);
     }
+    
+    function testRenameFile()
+    {
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
+        $oldname = vfsStream::url('test/oldname.txt');
+        $newname = vfsStream::url('test/newname.txt');
+        file_put_contents($oldname, 'foo');
+        file_put_contents($newname, 'bar');
+        $actual = XH_renameFile($oldname, $newname);
+        $this->assertTrue($actual);
+    }
 
 }
 
