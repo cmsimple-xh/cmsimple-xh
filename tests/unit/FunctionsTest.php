@@ -593,6 +593,45 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $actual = XH_readConfiguration($plugin, $language);
         $this->assertEquals($expected, $actual);
     }
+    
+    
+    /**
+     * Tests reading an empty configuration/language file, where a default
+     * configuration/language file is there.
+     * 
+     * @dataProvider dataForReadConfiguration()
+     */
+    public function testReadEmptyConfiguration($folderKey, $filename, $fileKey, $varname, $plugin = false, $language = false)
+    {
+        global $pth;
+        
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
+        
+        $config = array(
+            'foo' => array('a' => 'b', 'c' => 'c'),
+            'bar' => array('a' => 'b', 'c' => 'c')
+        );
+        $config = var_export($config, true);
+        $contents = "<?php \$$varname = $config;?>";
+        $filename = vfsStream::url("test/$filename");
+        file_put_contents($filename, $contents);
+        
+        $contents = "<?php ?>";
+        $filename = vfsStream::url('test/test.php');
+        file_put_contents($filename, $contents);
+        
+        $pth['folder'][$folderKey] = vfsStream::url('test/');
+        $pth['file'][$fileKey] = vfsStream::url('test/test.php');
+        
+        $expected = array(
+            'foo' => array('a' => 'b', 'c' => 'c'),
+            'bar' => array('a' => 'b', 'c' => 'c')
+        );
+        $actual = XH_readConfiguration($plugin, $language);
+        $this->assertEquals($expected, $actual);
+    }
+
 }
 
 ?>

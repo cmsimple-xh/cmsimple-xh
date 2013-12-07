@@ -2490,6 +2490,9 @@ function XH_includeVar($_filename, $_varname)
         }
         fclose($_stream);
     }
+    if (!isset($$_varname)) {
+        $$_varname = array();
+    }
     return $_res !== false ? $$_varname : false;
 }
 
