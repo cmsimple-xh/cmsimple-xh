@@ -444,7 +444,7 @@ class Filebrowser_Controller
             . basename($file['name']);
         if (file_exists($filename)) {
             $newFilename = $this->newFilename($filename);
-            if (XH_renameFile($filename, $newFilename)) {
+            if (rename($filename, $newFilename)) {
                 $this->view->info(
                     'success_renamed',
                     array(basename($filename), basename($newFilename))
@@ -543,7 +543,7 @@ class Filebrowser_Controller
             $this->view->message .= '</ul></div>';
             return;
         }
-        if (XH_renameFile($oldPath, $newPath)) {
+        if (rename($oldPath, $newPath)) {
             $this->view->success('success_renamed', array($oldName, $newName));
             return;
         }
