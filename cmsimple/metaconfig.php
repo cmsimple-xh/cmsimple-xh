@@ -13,6 +13,7 @@ $mcf['show_hidden']['path_locator']="bool";
 $mcf['mailform']['captcha']="bool";
 $mcf['menu']['color']="hidden";
 $mcf['menu']['highlightcolor']="hidden";
+$mcf['menu']['levels']="enum:1,2,3,4,5,6";
 $mcf['menu']['levelcatch']="hidden";
 $mcf['menu']['legal']="hidden";
 $mcf['menu']['sdoc']="enum:,parent";

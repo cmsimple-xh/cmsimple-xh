@@ -101,7 +101,7 @@ $tx['help']['mailform_captcha']="Whether a CAPTCHA shall be used in the mailform
 $tx['help']['mailform_email']="The mailform will only be enabled when an email address is entered here.";
 $tx['help']['menu_color']="Not used by CMSimple_XH core";
 $tx['help']['menu_highlightcolor']="Not used by CMSimple_XH core";
-$tx['help']['menu_levels']="Possible settings are 1 to 6";
+$tx['help']['menu_levels']="The pages of your site can be organize in up to 6 levels, 3 being the default.";
 $tx['help']['menu_sdoc']="Leave it empty or enter \"parent\", which gives the class \"sdocs\" to higher level navigation links when lower pages of that branch are selected.";
 
 $tx['help']['meta_robots']="Default setting for all pages of your site. \"index,follow\" tells robots to list the present page in the seach index and to follow all links of the page.\"noindex,nofollow\" prevents this.";

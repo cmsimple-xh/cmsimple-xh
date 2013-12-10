@@ -328,6 +328,7 @@ div.plugineditcaption {
 
 #xh_config_form div.xh_field {
     width: 65%;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 #xh_config_form div.xh_label span.xh_label {
@@ -343,26 +344,22 @@ div.plugineditcaption {
 }
 
 input.xh_setting,
-input.cmsimplecore_settings {
+input.cmsimplecore_settings,
+textarea.xh_setting,
+textarea.cmsimplecore_settings {
     width: 90%;
-    /*font-size: 14px;*/
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 13px;
     color: #222;
-    padding: 1px 3px;
+    padding: 1px 2px;
     margin: 0 0 6px 0;
-    border: 1px solid #ccc;
+    border: 2px inset #ddd;
     background: #fff;
 }
 
 textarea.xh_setting,
 textarea.cmsimplecore_settings {
-    width: 90%;
-    height: 56px;
-    font-size: 14px;
-    color: #222;
-    padding: 1px 3px;
-    margin: 0 0 6px 0;
-    border: 1px solid #ccc;
-    background: #fff;
+    height: 49px;
     overflow: hidden;
 }
 
