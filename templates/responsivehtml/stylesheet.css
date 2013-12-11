@@ -105,3 +105,15 @@ ul.menulevel1 {display:none}
 .news {visibility: visible;overflow: auto}
 .block{visibility:hidden;height: 1px; overflow: hidden}
 }
+
+/* addition for XH 1.6 config forms */
+input.xh_setting,
+input.xh_setting:focus,
+input.cmsimplecore_settings,
+input.cmsimplecore_settings:focus,
+.xh_field select,
+.xh_field select:focus {
+    font-size: 13px;
+    border-radius: 0;
+    border: 1px solid #bbb;
+}

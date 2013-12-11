@@ -328,7 +328,21 @@ div.plugineditcaption {
 
 #xh_config_form div.xh_field {
     width: 65%;
+}
+
+.xh_field button {
+    margin: 0 0 6px 0;
+}
+
+.xh_field select,
+#xh_config_form div.xh_field {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.xh_field select {
+    border: 1px solid #bbb;
+    font-size: 13px;
+    margin: 0 0 6px 0;
 }
 
 #xh_config_form div.xh_label span.xh_label {
@@ -353,7 +367,7 @@ textarea.cmsimplecore_settings {
     color: #222;
     padding: 1px 2px;
     margin: 0 0 6px 0;
-    border: 2px inset #ddd;
+    border: 1px solid #bbb;
     background: #fff;
 }
 
