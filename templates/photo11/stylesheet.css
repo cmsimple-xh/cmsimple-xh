@@ -58,11 +58,3 @@ textarea{font-family: Arial, Helvetica, sans-serif;font-size:12px;color:#616161;
 .copyright {font-size:12px;color:#616161;font-weight:normal;}
 .copyright a,.copyright a:link,.copyright a:visited {color:#616161;font-weight:normal;text-decoration:none;}
 .copyright a:hover,.copyright a:active {color:#ACC42E;font-weight:normal;text-decoration:none;}
-
-/* addition for XH 1.6 config forms */
-input.xh_setting,
-input.cmsimplecore_settings,
-.xh_field select {
-    font-size: 13px;
-    border: 1px solid #bbb;
-}

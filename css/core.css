@@ -330,16 +330,16 @@ div.plugineditcaption {
     width: 65%;
 }
 
-.xh_field button {
+#xh_config_form .xh_field button {
     margin: 0 0 6px 0;
 }
 
-.xh_field select,
+#xh_config_form .xh_field select,
 #xh_config_form div.xh_field {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
-.xh_field select {
+#xh_config_form .xh_field select {
     border: 1px solid #bbb;
     font-size: 13px;
     margin: 0 0 6px 0;
@@ -347,6 +347,10 @@ div.plugineditcaption {
 
 #xh_config_form div.xh_label span.xh_label {
     margin: 3px 0;
+}
+
+#xh_config_form img {
+    margin: 0;
 }
 
 #xh_config_form input[type="checkbox"] {
@@ -357,10 +361,10 @@ div.plugineditcaption {
     clear: both;
 }
 
-input.xh_setting,
-input.cmsimplecore_settings,
-textarea.xh_setting,
-textarea.cmsimplecore_settings {
+#xh_config_form input.xh_setting,
+#xh_config_form input.cmsimplecore_settings,
+#xh_config_form textarea.xh_setting,
+#xh_config_form textarea.cmsimplecore_settings {
     width: 90%;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 13px;
@@ -369,16 +373,17 @@ textarea.cmsimplecore_settings {
     margin: 0 0 6px 0;
     border: 1px solid #bbb;
     background: #fff;
+    border-radius: 0;
 }
 
-textarea.xh_setting,
-textarea.cmsimplecore_settings {
+#xh_config_form textarea.xh_setting,
+#xh_config_form textarea.cmsimplecore_settings {
     height: 49px;
     overflow: hidden;
 }
 
-textarea.xh_setting_short,
-textarea.cmsimplecore_settings_short {
+#xh_config_form textarea.xh_setting_short,
+#xh_config_form textarea.cmsimplecore_settings_short {
     height: 18px;
 }
 

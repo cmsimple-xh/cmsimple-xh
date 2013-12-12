@@ -2892,22 +2892,3 @@ blockquote p,
 /* Begin Additional CSS Styles */
 
 /* End Additional CSS Styles */
-
-/* addition for XH 1.6 config forms */
-#xh_config_form img {
-    margin:0;
-}
-.xh_field select {
-    border: 1px solid #888;
-    margin: 0 0 6px 0;
-}
-input.xh_setting,
-input.cmsimplecore_settings,
-textarea.xh_setting,
-textarea.cmsimplecore_settings {
-    width: 90%;
-    padding: 1px 2px;
-    border: 1px solid #888;
-    margin: 0 0 6px 0;
-    background: #fff;
-}
