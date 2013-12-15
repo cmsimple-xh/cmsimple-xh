@@ -1741,8 +1741,7 @@ function loginforms()
 
     if ($f == 'login' || $f == 'xh_login_failed') {
         $cf['meta']['robots'] = "noindex";
-        $onload .= 'self.focus();'
-            . 'document.forms[\'login\'].elements[\'keycut\'].focus();';
+        $onload .= 'document.forms[\'login\'].elements[\'keycut\'].focus();';
         $message = ($f == 'xh_login_failed')
             ? XH_message('fail', $tx['login']['failure'])
             : '';
