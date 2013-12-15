@@ -158,6 +158,7 @@ $tx['locator']['text']="Sie sind hier: ";
 $tx['log']['dateformat']="Y-m-d H:i:s";
 $tx['log']['loggedin']="Eingeloggt";
 
+$tx['login']['failure']="Sie haben ein falsches Passwort eingegeben!";
 $tx['login']['loggedout']="Sie wurden ausgeloggt";
 $tx['login']['warning']="Administrationsbereich. Bitte Passwort eingeben";
 

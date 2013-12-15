@@ -644,7 +644,7 @@ if ($login && !$adm) {
         }
     } else {
         $login = null;
-        $f = 'login';
+        $f = 'xh_login_failed';
         XH_logMessage(
             'warning', 'XH', 'login', 'login failed from ' . $_SERVER['REMOTE_ADDR']
         );

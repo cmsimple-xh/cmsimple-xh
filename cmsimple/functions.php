@@ -1739,13 +1739,17 @@ function loginforms()
 {
     global $cf, $tx, $onload, $f, $o, $s, $sn, $u;
 
-    if ($f == 'login') {
+    if ($f == 'login' || $f == 'xh_login_failed') {
         $cf['meta']['robots'] = "noindex";
         $onload .= 'self.focus();'
             . 'document.forms[\'login\'].elements[\'keycut\'].focus();';
+        $message = ($f == 'xh_login_failed')
+            ? XH_message('fail', $tx['login']['failure'])
+            : '';
         $f = $tx['menu']['login'];
         $o .= '<div class="xh_login">'
             . '<h1>' . $tx['menu']['login'] . '</h1>'
+            . $message
             . '<p><b>' . $tx['login']['warning'] . '</b></p>'
             . '<form id="login" name="login" action="' . $sn . '?' . $u[$s]
             . '" method="post">'
@@ -2535,7 +2539,7 @@ function XH_numberSuffix($count)
 function XH_readConfiguration($plugin = false, $language = false)
 {
     global $pth;
-    
+
     if (!$plugin) {
         if (!$language) {
             $varname = 'cf';
