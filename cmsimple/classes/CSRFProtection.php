@@ -50,9 +50,17 @@ class XH_CSRFProtection
      *
      * @param string $keyName A key name.
      */
-    function XH_CSRFProtection($keyName = 'xh_csrf_token')
+    function XH_CSRFProtection($keyName = 'xh_csrf_token', $perRequest = false)
     {
         $this->keyName = $keyName;
+        if (!$perRequest) {
+            if (session_id() == '') {
+                session_start();
+            }
+            if (isset($_SESSION[$this->keyName][CMSIMPLE_ROOT])) {
+                $this->token = $_SESSION[$this->keyName][CMSIMPLE_ROOT];
+            }
+        }
     }
 
     /**

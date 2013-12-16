@@ -19,8 +19,8 @@
         128bit values (aka. tokens) which are placed on each respective form and
         are stored in the user's session data. On form submission the tokens are
         compared, and if they are not equal, the form submission is rejected.
-        The tokens are renewed for each relevant request, so an attacker who
-        wants to forge a form has to <emphasis>guess</emphasis> the currently expected
+        The tokens are renewed for each session, so an attacker who wants to
+        forge a form has to <emphasis>guess</emphasis> the currently expected
         token, what makes the success of an attack highly unlikely.</para>
         <para>For now, the CSRF protection functionality is made available as a
         global object, <literal>{@link $_XH_csrfProtection}</literal>; this is
@@ -62,38 +62,26 @@ if (isset($_POST['my_form'])) {
         by <literal>{@link plugin_admin_common()}</literal>. Other forms
         require to add CSRF protection in the way described above.</para>
     </refsect1>
-    <refsect1 id="{@id special cases}">
-        <title>Special Cases</title>
-        <refsect2 id="{@id ajax}">
-            <title>AJAX</title>
-            <para>AJAX requests which will respond with an (X)HTML fragment,
-            which is built with a call to <literal>{@link XH_CSRFProtection::tokenInput()
-            $_XH_csrfProtection->tokenInput()}</literal>, that will be inserted
-            in the document (for instance via the innerHTML property of an
-            element) will not work. Usually one can work around this limitation
-            by reusing the original form instead of replacing it. Alternatively,
-            it is possible to treat this situation as for separate
-            windows.</para>
-        </refsect2>
-        <refsect2 id="{@id separate-windows}">
-            <title>Separate Windows</title>
-            <para>Sometimes a plugin wants deliver an (X)HTML document in a
-            secondary browser window, while the primary window still should be
-            usable. An example is a filebrowser which allows to select an image
-            from a popup window to an editor in the main window. In this case
-            <literal>{@link XH_CSRFProtection::tokenInput()
-            $_XH_csrfProtection->tokenInput()}</literal> must not be called when
-            creating the (X)HTML for the secondary window, as that would
-            invalidate the form in the primary window.</para>
-            <para>In this case one may create his own <literal>{@link XH_CSRFProtection}
-            </literal> object and specify an own key name to
-            avoid clashes with <literal>{@link $_XH_csrfProtection}</literal>.
-            Additionally, one has to call <literal>{@link XH_CSRFProtection::store()}
-            </literal> to store the CSRF token in the
-            session variable. An outline:</para>
-            <programlisting><![CDATA[
+    <refsect1 id="{@id stronger-protection}">
+        <title>Stronger Protection</title>
+        <para>While a common token for each session gives reasonable protection
+        againgst CSRF attacks, a new token for each request is even more secure.
+        However, the latter has several limitations regarding Ajax, separate
+        windows and multiple browser tabs, as these might renew the token despite
+        the old token still being present on forms which should be submittable.
+        Therefore we have decided to stick with the more foolproof and flexible
+        approach to renew the token once per session.</para>
+        <para><literal>The {@link XH_CSRFProtection}</literal> class, however,
+        allows you to handle your own CSRF token and to choose whether this is
+        renewed once per session of per request. To do so create your own
+        instance of the class and pass it an own key name and whether you want a
+        new token for each request. In addition to the handling explained above,
+        one has to call <literal>{@link XH_CSRFProtection::store()} </literal>
+        to store the CSRF token in the session variable at the end of the
+        request. An outline:</para>
+        <programlisting><![CDATA[
 require_once $pth['folder']['classes'] . 'CSRFProtection.php';
-$myCsrfProtection = new XH_CSRFProtection('my_csrf_key');
+$myCsrfProtection = new XH_CSRFProtection('my_csrf_key', true);
 if (!isset($_POST[...])) {
     echo '<form ...>';
     // emit form input elements
@@ -105,9 +93,8 @@ if (!isset($_POST[...])) {
     // processing of form submission
 }
 ]]>
-            </programlisting>
-        </refsect2>
-        <refsect2 id="{@id external-scripts}">
+        </programlisting>
+        <refsect1 id="{@id external-scripts}">
             <title>External Scripts</title>
             <para>Sometimes a plugin requests an "external" script, i.e. does
             not request an index.php of the CMSimple_XH installation. In this
@@ -117,6 +104,6 @@ if (!isset($_POST[...])) {
             work properly, but the definition of the class might change in the
             next version. So you're better off to implement your own CSRF
             protection in this case.</para>
-        </refsect2>
+        </refsect1>
     </refsect1>
 </refentry>
