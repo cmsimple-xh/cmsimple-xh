@@ -1,12 +1,12 @@
 <?php
 
-$plugin_tx['pagemanager']['cf_verbose']="Ob Bestätigungs- und Informationsdialoge angezeigt werden sollen.";
-$plugin_tx['pagemanager']['cf_toolbar_show']="Ob die Werkzeugleiste angezeigt werden soll.";
-$plugin_tx['pagemanager']['cf_toolbar_vertical']="Ob die Werkzeugleiste vertikal angezeigt werden soll. Dies ist eine Option für Power User, die das Layout in Plugin-Stylesheet anpassen können.";
-$plugin_tx['pagemanager']['cf_pagedata_attribute']="Das ja/nein (mit Voreinstellung ja) Pagedata Attribut für die Checkboxen, z.B. \"published\" oder \"linked_to_menu\". <strong>Vorsicht:</strong> Wenn Sie ein ungeeignetes Attribut wählen, bringen Sie Ihre pagedata.php durcheinander.";
-$plugin_tx['pagemanager']['cf_treeview_theme']="Stil der Baumansicht. Andere Stile können von <a href=\"http://3-magi.net/?CMSimple_XH/Pagemanager_XH/Themes\">3-magi.net</a> herunter geladen werden.";
-$plugin_tx['pagemanager']['cf_treeview_animation']="Dauer der Öffnen/Schließen-Animation in ms. 0 bedeutet keine Animation.";
 $plugin_tx['pagemanager']['menu_main']="Seiten verwalten";
+$plugin_tx['pagemanager']['treeview_loading']="Laden...";
+$plugin_tx['pagemanager']['treeview_new']="Neue Seite";
+$plugin_tx['pagemanager']['button_delete']="Löschen";
+$plugin_tx['pagemanager']['button_ok']="OK";
+$plugin_tx['pagemanager']['button_cancel']="Abbrechen";
+$plugin_tx['pagemanager']['button_save']="Speichern";
 $plugin_tx['pagemanager']['op_expand']="Alle Seiten aufklappen";
 $plugin_tx['pagemanager']['op_collapse']="Alle Seiten einklappen";
 $plugin_tx['pagemanager']['op_create']="Seite erstellen (als Unterseite)";
@@ -18,12 +18,6 @@ $plugin_tx['pagemanager']['op_copy']="Kopieren";
 $plugin_tx['pagemanager']['op_paste']="Einfügen (als Unterseite)";
 $plugin_tx['pagemanager']['op_paste_after']="Einfügen (auf gleicher Ebene)";
 $plugin_tx['pagemanager']['op_help']="Sie können Seiten per drag&drop neu anordnen. Rechtsklick auf eine Seite öffnet das Kontextmenü. Detailierte Informationen zur Benutzung entnehmen Sie bitte der Plugin Hilfe, die Sie durch Anklicken dieses Hilfe-Icons öffnen können.";
-$plugin_tx['pagemanager']['treeview_loading']="Laden...";
-$plugin_tx['pagemanager']['treeview_new']="Neue Seite";
-$plugin_tx['pagemanager']['button_delete']="Löschen";
-$plugin_tx['pagemanager']['button_ok']="OK";
-$plugin_tx['pagemanager']['button_cancel']="Abbrechen";
-$plugin_tx['pagemanager']['button_save']="Speichern";
 $plugin_tx['pagemanager']['message_confirm']="Bestätigung";
 $plugin_tx['pagemanager']['message_confirm_deletion']="Die Seite mit all Ihren Unterseiten wird gelöscht!";
 $plugin_tx['pagemanager']['message_warning_leave']="Ihre Änderungen gehen verloren!";
@@ -39,7 +33,6 @@ $plugin_tx['pagemanager']['error_structure_warning']="<strong>Unregelmäßige Se
 $plugin_tx['pagemanager']['error_nesting']="Zu tiefe Verschachtelung der Seitenstruktur!";
 $plugin_tx['pagemanager']['error_cant_rename']="Diese Seite kann nicht umbenannt werden, da ihre Überschrift teilweise formatiert ist.";
 $plugin_tx['pagemanager']['error_offending_extension']="Kollision mit einer Erweiterung, die ihre eigene jQuery Bibliothek einbindet, festgestellt (siehe Handbuch, Abschnitt \"Beschränkungen\").";
-
 $plugin_tx['pagemanager']['syscheck_title']="System-Prüfung";
 $plugin_tx['pagemanager']['syscheck_phpversion']="PHP-Version &ge; %s";
 $plugin_tx['pagemanager']['syscheck_extension']="Erweiterung \"%s\" geladen";
@@ -48,5 +41,11 @@ $plugin_tx['pagemanager']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.o
 $plugin_tx['pagemanager']['syscheck_magic_quotes']="magic_quotes_runtime off";
 $plugin_tx['pagemanager']['syscheck_writable']="Ordner \"%s\" beschreibbar";
 $plugin_tx['pagemanager']['about']="Über Pagemanager_XH";
+$plugin_tx['pagemanager']['cf_verbose']="Ob Bestätigungs- und Informationsdialoge angezeigt werden sollen.";
+$plugin_tx['pagemanager']['cf_toolbar_show']="Ob die Werkzeugleiste angezeigt werden soll.";
+$plugin_tx['pagemanager']['cf_toolbar_vertical']="Ob die Werkzeugleiste vertikal angezeigt werden soll. Dies ist eine Option für Power User, die das Layout in Plugin-Stylesheet anpassen können.";
+$plugin_tx['pagemanager']['cf_pagedata_attribute']="Das Pagedata Attribut, das mit den Checkboxen bearbeitet werden kann: \"linked_to_menu\" (sichtbar im Menü) oder \"published\" (veröffentlicht). Leer lassen, um keine Checkboxen anzuzeigen.";
+$plugin_tx['pagemanager']['cf_treeview_theme']="Stil der Baumansicht.";
+$plugin_tx['pagemanager']['cf_treeview_animation']="Dauer der Öffnen/Schließen-Animation in ms. 0 bedeutet keine Animation.";
 
 ?>

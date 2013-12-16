@@ -10,7 +10,7 @@
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright 2011-2013 Christoph M. Becker <http://3-magi.net>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   SVN: $Id: Controller.php 150 2013-11-05 17:09:13Z Chistoph Becker $
+ * @version   SVN: $Id: Controller.php 159 2013-12-13 14:53:15Z cmb $
  * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
  */
 
@@ -217,7 +217,7 @@ class Pagemanager_Controller
                 . '" target="_blank" id="' . $id . '" title="' . $tooltip . '"></a>';
         }
         if (!$horizontal) {
-            $o .= tab('br');
+            $o .= tag('br');
         }
         $o .= "\n";
         return $o;

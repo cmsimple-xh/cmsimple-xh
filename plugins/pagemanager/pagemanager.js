@@ -7,7 +7,7 @@ if (!PAGEMANAGER) {
      * @author    Christoph M. Becker <cmbecker69@gmx.de>
      * @copyright 2011-2013 Christoph M. Becker (http://3-magi.net)
      * @license   GNU GPLv3 (http://www.gnu.org/licenses/gpl-3.0.en.html)
-     * @version   $Id: pagemanager.js 148 2013-11-05 14:50:47Z Chistoph Becker $
+     * @version   $Id: pagemanager.js 165 2013-12-16 15:50:23Z cmb $
      */
     PAGEMANAGER = {};
 }
@@ -193,13 +193,29 @@ PAGEMANAGER.submit = function () {
     status = jQuery(".pagemanager-status");
     status.css("display", "block");
     data = form.serialize();
-    jQuery.post(url, data, function (data, textStatus) {
-	status.css("display", "none");
-	status.after(data);
-	// TODO: optimization: fix structure instead of reloading
-	PAGEMANAGER.widget.destroy();
-	PAGEMANAGER.init();
-    });
+    var request = new XMLHttpRequest();
+    request.open("POST", url);
+    request.setRequestHeader("Content-Type",
+	    "application/x-www-form-urlencoded");
+    request.onreadystatechange = function () {
+	if (request.readyState == 4) {
+	    console.log(request.status);
+	    console.log(request.responseText);
+	    status.css("display", "none");
+	    if (request.status == 200) {
+		message = request.responseText;
+	    } else {
+		message = "<p class=\"xh_fail\"><strong>" + request.status +
+			" " + request.statusText + "</strong><br>" +
+			request.responseText + "</p>";
+	    }
+	    status.after(message);
+	    // TODO: optimization: fix structure instead of reloading
+	    PAGEMANAGER.widget.destroy();
+	    PAGEMANAGER.init();
+	}
+    }
+    request.send(data);
 }
 
 /**

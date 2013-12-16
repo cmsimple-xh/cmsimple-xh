@@ -1,3 +1,10 @@
+Version 2.0rc1 - internally released 2013-12-16
+cmb     fixed bug, where unexpected Ajax responses were not properly handled
+cmb     fixed regression bug (r122), where vertical toolbar crashed the plugin
+cmb     made config option pagedata_attribute an enumeration (suggested by manu)
+cmb     improved styling (partly suggested by manu)
+cmb     improved QA (PHP_CI 2)
+
 Version 2.0beta2 - internally released 2013-11-15
 cmb     fixed bug, where parsing of XML failed on IE11 (reported by Holger)
 

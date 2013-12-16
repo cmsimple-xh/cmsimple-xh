@@ -12,6 +12,10 @@
     overflow: scroll !important;
 }
 
+#pagemanager.pagemanager-vertical {
+    margin-left: 27px;
+}
+
 /*
  * Toolbar
  */
@@ -26,6 +30,7 @@
 
 #pagemanager-toolbar button,
 #pagemanager-toolbar a {
+    float: left;
     border: 0;
     padding: 0;
     width: 16px;
@@ -44,7 +49,7 @@
 #pagemanager-copy {background-position: 0 -32px}
 #pagemanager-paste {background-position: -16px -32px}
 #pagemanager-paste_after {background-position: -32px -32px}
-#pagemanager-help {background-position: -48px -32px; float: right}
+#pagemanager-help {background-position: -48px -32px}
 
 /*
  * horizontal toolbar
@@ -65,7 +70,7 @@
 
 #pagemanager-toolbar.pagemanager-horizontal button,
 #pagemanager-toolbar.pagemanager-horizontal a {
-    margin: 6px 2px;
+    margin: 6px 5px;
 }
 
 /*
@@ -76,7 +81,6 @@
  */
 
 #pagemanager-toolbar.pagemanager-vertical {
-    width: 25px;
     text-align: center;
     position: fixed;
     margin: 0 auto;
