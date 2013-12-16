@@ -240,7 +240,7 @@ class XH_Mailform
 
         $random = rand(10000, 99999);
         $url = $sn . ($this->embedded ? '?' . $su : '');
-        $o = '<form action="' . $url . '" method="post">' . "\n";
+        $o = '<form class="xh_mailform" action="' . $url . '" method="post">' . "\n";
         if (!$this->embedded) {
             $o .= tag('input type="hidden" name="function" value="mailform"') . "\n";
         }
