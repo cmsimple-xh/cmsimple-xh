@@ -84,7 +84,7 @@ function include_tinymce() {
  * @return string
  */
 function tinymce_config($xh_editor, $config) {
-    global $pth, $sl, $sn, $cf, $plugin_cf;
+    global $pth, $sl, $sn, $cf, $plugin_cf, $plugin_tx;
 
     if (!isset($plugin_cf['tinymce'])) {
 	include_once $pth['folder']['plugins'] . 'tinymce/config/config.php';
@@ -141,6 +141,19 @@ function tinymce_config($xh_editor, $config) {
 
     $temp = str_replace('%STYLESHEET%', $tiny_css, $temp);
     $temp = str_replace('%BASE_URL%', $sn, $temp);
+
+    $_blockFormats = array();
+    for ( $i = $cf['menu']['levels'] + 1; $i <= 6; $i++ ) {
+        $_blockFormats[] = "Header $i=h$i";
+    };
+
+    $_blockFormats[] = "Paragraph=p";
+
+    for ( $i=1; $i <= $cf['menu']['levels'];$i++ ) {
+        $_blockFormats [] = sprintf($plugin_tx['tinymce']['pageheader'],$i) . "=h$i";
+    }
+    $temp = str_replace('%BLOCK_FORMATS%', implode(';',$_blockFormats), $temp);
+    unset($_blockFormats);
 
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
     $temp = str_replace('%ELEMENT_FORMAT%', $elementFormat, $temp);
