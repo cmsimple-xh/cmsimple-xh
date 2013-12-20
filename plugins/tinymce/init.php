@@ -155,12 +155,12 @@ function tinymce_config($xh_editor, $config) {
                 $_blockFormats [] = sprintf($plugin_tx['tinymce']['pageheader'],$i) . "=h$i";
             }
         }
-        $_blockFormats[] = "dt=dt,dd=dd,code=code,pre=pre";
+        $_blockFormats[] = "div=div,dt=dt,dd=dd,code=code,pre=pre";
 
         $temp = str_replace('%BLOCK_FORMATS%', implode(';',$_blockFormats), $temp);
         unset($_blockFormats);
     } else {
-        $temp = str_replace('%BLOCK_FORMATS%', 'h1,h2,h3,h4,h5,h6,p,dt,dd,code,pre', $temp);
+        $temp = str_replace('%BLOCK_FORMATS%', 'h1,h2,h3,h4,h5,h6,p,div,dt,dd,code,pre', $temp);
     }
 
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
