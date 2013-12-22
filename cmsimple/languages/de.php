@@ -88,6 +88,10 @@ $tx['help']['editor_height']="Integer oder JavaScript-Ausdruck, der einen Intege
 $tx['help']['editor_external']="Hier den Namen in Kleinbuchstaben des zu benutzenden Editors eintragen. Dieser muss als Plugin installiert sein (einen internen Editor gibt es nicht mehr). Vorinstalliert ist \"tinymce\".";
 $tx['help']['filebrowser_external']="Wenn Sie einen externen Datei-Browser verwenden möchten, z.B. hi_kcfinder, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['functions_file']="Bitte nicht ändern";
+$tx['help']['meta_author']="(Kann-Eingabe) Hier für Suchmaschinen den Autor der Texte Ihrer Site eintragen.";
+$tx['help']['meta_publisher']="(Kann-Eingabe) Hier für Suchmaschinen den Herausgeber Ihrer Site eingeben, d.h. die verantwortliche Person oder Institution.";
+$tx['help']['backup_numberoffiles']="Nach jedem Ausloggen erzeugt das System eine Sicherungskopie der Content-Datei. Hier die Anzahl solcher Dateien eintragen, die das System automatisch aufbewahrt.";
+
 
 $tx['help']['show_hidden_path_locator']="Angeklickt = Der Locator ('Sie sind hier'-Anzeige) zeigt auch den Pfad einer versteckten Seite.";
 $tx['help']['show_hidden_pages_search']="Angeklickt = Auch versteckte Seiten werden in den Ergebnissen der internen Suchfunktion angegeben.";
