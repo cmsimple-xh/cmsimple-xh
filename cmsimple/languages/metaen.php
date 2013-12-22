@@ -1,0 +1,5 @@
+<?php
+
+$mtx['seperator']="Separator";
+
+?>
