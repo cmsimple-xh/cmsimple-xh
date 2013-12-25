@@ -503,9 +503,9 @@ function locator()
     }
     if ($cf['locator']['show_homepage'] == 'true') {
         return a(0, '') . $tx['locator']['home'] . '</a> &gt; ' . $t
-            . ($s > 0 ? $h[$s] : '');
+            . (($s > 0 && $h[$s] == $title) ? $h[$s] : '');
     } else {
-        return $t . ($s > 0 ? $h[$s] : '');
+        return $t . (($s > 0 && $h[$s] == $title) ? $h[$s] : '');
     }
 }
 
