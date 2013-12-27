@@ -142,26 +142,29 @@ function tinymce_config($xh_editor, $config) {
     $temp = str_replace('%STYLESHEET%', $tiny_css, $temp);
     $temp = str_replace('%BASE_URL%', $sn, $temp);
 
-    if($plugin_cf['tinymce']['headers_page_creating'] && $s >= 0 && $s < $cl) {
-        $_blockFormats = array();
-        for ( $i = $cf['menu']['levels'] + 1; $i <= 6; $i++ ) {
-            $_blockFormats[] = "h$i=h$i";
-        };
 
-        $_blockFormats[] = "p=p";
+    $_headers = array();
+    for ( $i = $cf['menu']['levels'] + 1; $i <= 6; $i++ ) {
+        $_headers[] = "h$i=h$i";
+    };
+    $temp = str_replace('%HEADERS%', implode(';',$_headers), $temp);
 
-        if($plugin_cf['tinymce']['headers_page_creating'] == 'show page level') {
-            for ( $i=1; $i <= $cf['menu']['levels'];$i++ ) {
-                $_blockFormats [] = sprintf($plugin_tx['tinymce']['pageheader'],$i) . "=h$i";
-            }
-        }
-        $_blockFormats[] = "div=div,dt=dt,dd=dd,code=code,pre=pre";
-
-        $temp = str_replace('%BLOCK_FORMATS%', implode(';',$_blockFormats), $temp);
-        unset($_blockFormats);
-    } else {
-        $temp = str_replace('%BLOCK_FORMATS%', 'h1,h2,h3,h4,h5,h6,p,div,dt,dd,code,pre', $temp);
+    $_pageheaders = array();
+    for ( $i=1; $i <= $cf['menu']['levels'];$i++ ) {
+        $_pageheaders [] = "h$i=h$i";
     }
+    $temp = str_replace('%PAGEHEADERS%', implode(';',$_pageheaders), $temp);
+
+    $_named_pageheaders = array();
+    for ( $i=1; $i <= $cf['menu']['levels'];$i++ ) {
+        $_named_pageheaders [] = sprintf($plugin_tx['tinymce']['pageheader'],$i) . "=h$i";
+    }
+    $temp = ($s >= 0 && $s < $cl)
+    ? str_replace('%NAMED_PAGEHEADERS%', implode(';',$_named_pageheaders), $temp)
+    : $temp = str_replace('%NAMED_PAGEHEADERS%', implode(';',$_pageheaders), $temp);
+
+    unset($_named_pageheaders,$_pageheaders,$_headers);
+
 
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
     $temp = str_replace('%ELEMENT_FORMAT%', $elementFormat, $temp);
