@@ -161,7 +161,7 @@ function tinymce_config($xh_editor, $config) {
     }
     $temp = ($s >= 0 && $s < $cl)
     ? str_replace('%NAMED_PAGEHEADERS%', implode(';',$_named_pageheaders), $temp)
-    : $temp = str_replace('%NAMED_PAGEHEADERS%', implode(';',$_pageheaders), $temp);
+    : str_replace('%NAMED_PAGEHEADERS%', implode(';',$_pageheaders), $temp);
 
     unset($_named_pageheaders,$_pageheaders,$_headers);
 
