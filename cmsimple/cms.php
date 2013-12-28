@@ -667,6 +667,7 @@ if ($login && !$adm) {
     session_regenerate_id(true);
     unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
     $o .= XH_message('success', $tx['login']['loggedout']);
+    $f = 'xh_loggedout';
 }
 
 /**
