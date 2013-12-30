@@ -163,8 +163,6 @@ function tinymce_config($xh_editor, $config) {
     ? str_replace('%NAMED_PAGEHEADERS%', implode(';',$_named_pageheaders), $temp)
     : str_replace('%NAMED_PAGEHEADERS%', implode(';',$_pageheaders), $temp);
 
-    unset($_named_pageheaders,$_pageheaders,$_headers);
-
 
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
     $temp = str_replace('%ELEMENT_FORMAT%', $elementFormat, $temp);
