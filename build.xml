@@ -165,14 +165,6 @@
         </move>
         <move todir="dist/cmsimplexh">
             <fileset dir="export">
-                <include name="cmsimple/functions.php"/>
-            </fileset>
-            <filterchain>
-                <stripwhitespace/>
-            </filterchain>
-        </move>
-        <move todir="dist/cmsimplexh">
-            <fileset dir="export">
                 <exclude name="build.xml"/>
                 <exclude name="phpcompatinfo.xml"/>
                 <exclude name="2lang/.2lang"/>
