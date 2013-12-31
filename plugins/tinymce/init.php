@@ -168,11 +168,11 @@ function tinymce_config($xh_editor, $config) {
     $temp = str_replace('%ELEMENT_FORMAT%', $elementFormat, $temp);
     if ($xh_editor)
     {
-	$temp = str_replace('"%EDITOR_HEIGHT%"', 'height : "'.$cf['editor']['height'].'",', $temp);
+	$temp = str_replace('%EDITOR_HEIGHT%', 'height : "'.$cf['editor']['height'].'",', $temp);
     }
     else
     {
-	$temp = str_replace('"%EDITOR_HEIGHT%"', '', $temp);
+	$temp = str_replace('%EDITOR_HEIGHT%', '', $temp);
     }
     //$temp = str_replace("%INIT_CLASSES%", $initClasses, $temp);
 
