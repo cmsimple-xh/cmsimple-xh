@@ -48,7 +48,9 @@ class XH_CSRFProtection
     /**
      * Initializes a new object.
      *
-     * @param string $keyName A key name.
+     * @param string $keyName    A key name.
+     * @param bool   $perRequest Whether a new token shall be generated for each
+     *                           request (otherwise once per session).
      */
     function XH_CSRFProtection($keyName = 'xh_csrf_token', $perRequest = false)
     {

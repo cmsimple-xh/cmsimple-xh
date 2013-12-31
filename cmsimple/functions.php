@@ -2566,7 +2566,7 @@ function XH_readConfiguration($plugin = false, $language = false)
         $$varname = array();
     }
     if (is_readable($filename)) {
-        $$varname = unionOf2DArrays(
+        $$varname = XH_unionOf2DArrays(
             (array) XH_includeVar($filename, $varname),
             (array) $$varname
         );
@@ -2586,7 +2586,7 @@ function XH_readConfiguration($plugin = false, $language = false)
  *
  * @since 1.6
  */
-function unionOf2DArrays($array1, $array2)
+function XH_unionOf2DArrays($array1, $array2)
 {
     foreach ($array1 as $key => $subarray1) {
         $subarray2 = isset($array2[$key]) ? $array2[$key] : array();
