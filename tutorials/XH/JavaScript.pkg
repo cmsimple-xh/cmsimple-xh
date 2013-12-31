@@ -11,7 +11,7 @@
             directly in the ECMAScript implementations of the browsers (i.e.
             no precompiled language such as CoffeeScript or TypeScript is used).
             This is documented in the separate
-            {@link http://www.cmsimple-xh.org/dev-doc/js/index.php JavaScript Documentation}.
+            {@link http://www.cmsimple-xh.org/dev-doc/js/index.html JavaScript Documentation}.
         </para>
     </refsect1>
     <refsect1 id="{@id jquery}">
