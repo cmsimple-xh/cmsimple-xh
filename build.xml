@@ -87,7 +87,7 @@
     <target name="all-tests" depends="unit-tests,validation-tests,attack-tests"/>
 
     <!-- Code coverage -->
-    
+
     <target name="coverage">
         <coverage-setup database="tests/coverage/coverage.db">
             <fileset dir=".">
@@ -109,9 +109,9 @@
             <report todir="tests/coverage" styledir="${styledir}"/>
         </coverage-report>
     </target>
-    
+
     <!-- Documentation -->
-    
+
     <target name="php-doc">
         <phpdoc title="CMSimple_XH Developer Documentation" destdir="doc/php"
                 output="HTML:frames:default" defaultpackagename="XH"
@@ -154,7 +154,6 @@
                 <include name="cmsimple/classes/Search.php"/>
                 <include name="plugins/filebrowser/admin.php"/>
                 <include name="plugins/tinymce/admin.php"/>
-                <include name="plugins/tinymce4/admin.php"/>
             </fileset>
             <filterchain>
                 <replacetokens>
@@ -177,6 +176,7 @@
                 <exclude name="build.xml"/>
                 <exclude name="phpcompatinfo.xml"/>
                 <exclude name="2lang/.2lang"/>
+                <exclude name="plugins/tinymce4/**"/>
                 <exclude name="tests/**"/>
                 <exclude name="tutorials/**"/>
                 <exclude name="userfiles/images/test*.jpg"/>
