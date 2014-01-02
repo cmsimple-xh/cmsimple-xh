@@ -1,23 +1,19 @@
 <?php
 
 /*
- * @version $Id: updatecheck.php 157 2013-09-21 09:14:20Z hi $
+ * @version $Id: updatecheck.php 236 2014-01-02 11:38:01Z hi $
  */
 
 /*
  * ==================================================================
  * Update-Check-Plugin for CMSimple_XH
  * ==================================================================
- * Version:    1.1.1
- * Build:      2013111001
+ * Version:    1.2
+ * Build:      2014010201
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
- *
- * Without written permission it is expressly prohibited to 
- * redistribute this software via the internet and to build, 
- * use and/or distribute modificated versions based on this software.
- * 
+ * License:    GPL3
  * ==================================================================
  */
 

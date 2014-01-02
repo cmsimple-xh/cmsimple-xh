@@ -1,3 +1,6 @@
+Version 1.2
+Changed licence to GPL3
+
 Version 1.1.1
 added new CSS-IDs of XH1.6RC
 

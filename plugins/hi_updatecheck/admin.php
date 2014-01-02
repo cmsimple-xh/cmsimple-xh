@@ -1,23 +1,19 @@
 <?php
 
 /*
- * @version $Id: admin.php 202 2013-11-10 11:45:36Z hi $
+ * @version $Id: admin.php 236 2014-01-02 11:38:01Z hi $
  */
 
 /*
  * ==================================================================
  * Update-Check-Plugin for CMSimple_XH
  * ==================================================================
- * Version:    1.1.1
- * Build:      2013111001
+ * Version:    1.2
+ * Build:      2014010201
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
- *
- * Without written permission it is expressly prohibited to 
- * redistribute this software and to build, use and/or distribute 
- * modificated versions based on this software.
- * 
+ * License:    GPL3
  * ==================================================================
  */
 
@@ -36,8 +32,8 @@ if (defined('CMSIMPLE_RELEASE')) {
     return;
 }
 
-define('UPD_VERSION', '1.1.1');
-define('UPD_DATE', '2013-11-10');
+define('UPD_VERSION', '1.2');
+define('UPD_DATE', '2014-01-02');
 
 //Path to core-Versioninfo
 define('CMSIMPLE_XH_VERSIONINFO', 'http://www.cmsimple-xh.org/downloads/versioninfo/cmsimple_xh-version.nfo');
@@ -103,14 +99,8 @@ function hi_updateVersion() {
     return '<h1>CMSimple_XH - Update-Check</h1>' . "\n"
             . tag('img src="' . $pth['folder']['plugins'] . 'hi_updatecheck/images/software-update-icon.png" class="upd_plugin_icon"')
             . '<p>Version: ' . UPD_VERSION . ' - ' . UPD_DATE . '</p>' . "\n"
-            . '<p>Copyright &copy;2013 <a href="http://cmsimple.holgerirmler.de/">Holger Irmler</a> - all rights reserved' . tag('br')
-            . '<p class="upd_license">Permission is hereby granted, free of charge, to any person obtaining a copy of'
-            . ' this unmodified software and associated documentation files (the "Software"), to use and copy'
-            . ' the software, subject to the following conditions:</p>' . "\n"
-            . '<p class="upd_license">The above copyright notice and this permission notice must be included in all'
-            . ' copies of the Software.</p>' . "\n"
-            . '<p class="upd_license">Without written permission it is expressly prohibited to redistribute this software'
-            . ' and to build, use and/or distribute modificated versions based on this software.</p>' . "\n"
+            . '<p>Copyright &copy;2013-2014 <a href="http://cmsimple.holgerirmler.de/">Holger Irmler</a> - all rights reserved' . tag('br')
+            . '<p class="upd_license">License: GPL3</p>' . "\n"
             . '<p class="upd_license">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR'
             . ' IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,'
             . ' FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE'
