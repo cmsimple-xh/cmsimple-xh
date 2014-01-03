@@ -168,7 +168,6 @@
                 <exclude name="build.xml"/>
                 <exclude name="phpcompatinfo.xml"/>
                 <exclude name="2lang/.2lang"/>
-                <exclude name="plugins/tinymce4/**"/>
                 <exclude name="tests/**"/>
                 <exclude name="tutorials/**"/>
                 <exclude name="userfiles/images/test*.jpg"/>
