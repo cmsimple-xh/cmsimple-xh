@@ -1,240 +1,257 @@
+Version 2.0 - released 2014-01-02
+* reordered language strings
+
 Version 2.0rc1 - internally released 2013-12-16
-cmb     fixed bug, where unexpected Ajax responses were not properly handled
-cmb     fixed regression bug (r122), where vertical toolbar crashed the plugin
-cmb     made config option pagedata_attribute an enumeration (suggested by manu)
-cmb     improved styling (partly suggested by manu)
-cmb     improved QA (PHP_CI 2)
+* fixed bug, where unexpected Ajax responses were not properly handled
+* fixed regression bug (r122), where vertical toolbar crashed the plugin
+* made config option pagedata_attribute an enumeration (suggested by manu)
+* improved styling (partly suggested by manu)
+* improved QA (PHP_CI 2)
 
 Version 2.0beta2 - internally released 2013-11-15
-cmb     fixed bug, where parsing of XML failed on IE11 (reported by Holger)
+* fixed bug, where parsing of XML failed on IE11 (reported by Holger)
 
 Version 2.0beta1 - internally released 2013-11-05
-cmb     adapted for CMSimple_XH 1.6
-cmb     added possibility to suppress checkboxes by leaving pagedata_attribute empty and made that the default (suggested by Jerry)
-cmb     replaced "cmsimple" theme with original themes
-cmb     made system check implicit
-cmb     removed out-dated language files
-cmb     updated English and German manual, and removed others
-cmb     improved performance (especially, for many pages)
-cmb     added CSRF protection
-cmb     removed dependency on Utf8_XH plugin
-cmb     fixed invalid markup
-cmb     refactored PHP code to MVC
-cmb     refactored JS code to use namespace
-cmb     added unit tests and developer documentation
+* adapted for CMSimple_XH 1.6
+* added possibility to suppress checkboxes by leaving pagedata_attribute empty
+  and made that the default (suggested by Jerry)
+* replaced "cmsimple" theme with original themes
+* made system check implicit
+* removed out-dated language files
+* updated English and German manual, and removed others
+* improved performance (especially, for many pages)
+* added CSRF protection
+* removed dependency on Utf8_XH plugin
+* fixed invalid markup
+* refactored PHP code to MVC
+* refactored JS code to use namespace
+* added unit tests and developer documentation
 
 Version 1pl15 - released 2013-10-29
-cmb     fixed bug, where modified jstree.js relied on $ (reported by johnjdoe)
-cmb     replaced plugin icon
+* fixed bug, where modified jstree.js relied on $ (reported by johnjdoe)
+* replaced plugin icon
 
 Version 1pl14 - released 2013-10-11
-cmb     fixed bug, where error message was suppressed when saving failed
-cmb     fixed issue with regard to some templates (reported by Torsten.Behrens)
-cmb     replaced deprecated preg_replace('//e') with preg_replace_callback()
-cmb     improved tooltip of help icon
-cmb     added phing build.xml
+* fixed bug, where error message was suppressed when saving failed
+* fixed issue with regard to some templates (reported by Torsten.Behrens)
+* replaced deprecated preg_replace('//e') with preg_replace_callback()
+* improved tooltip of help icon
+* added phing build.xml
 
 Version 1pl13 - released 2013-08-06
-cmb     added creation of backup before saving the modified contents
-cmb     removed dependency on deprecated jQuery functions
-cmb     removed icons from dialog titles for compatibility with jQueryUI 1.10
-cmb     improved redirection after saving
+* added creation of backup before saving the modified contents
+* removed dependency on deprecated jQuery functions
+* removed icons from dialog titles for compatibility with jQueryUI 1.10
+* improved redirection after saving
 
 Version 1pl12 - released 2013-05-16
-cmb     fixed bug, where a dollar sign or a backslash immediately followed by a digit in a page heading was not properly handled
-cmb     fixed improper language declaration in help files
-cmb     added version.nfo
+* fixed bug, where a dollar sign or a backslash immediately followed by a digit
+  in a page heading was not properly handled
+* fixed improper language declaration in help files
+* added version.nfo
 
 Version 1pl11 - released 2013-01-05
-cmb     updated to jsTree 1.0 rc3
-cmb     extended copyright to 2013
+* updated to jsTree 1.0 rc3
+* extended copyright to 2013
 
 Version 1pl10 - released 2012-12-22
-cmb     fixed bug, where redirect after save didn't work for HTTPS and non default ports (reported by Tata)
+* fixed bug, where redirect after save didn't work for HTTPS and non default
+  ports (reported by Tata)
 
 Version 1pl9 - released 2012-12-22
-cmb     fixed broken links
-cmb     added Dutch translation (contributed by roze)
+* fixed broken links
+* added Dutch translation (contributed by roze)
 
 Version 1pl8 - released 2012-09-23
-cmb     updated Czech translation and added Czech README and manual (contributed by oldnema)
+* updated Czech translation and added Czech README and manual (contributed by
+  oldnema)
 
 Version 1pl7 - released 2012-09-20
-cmb     removed javascript: pseudo protocoll
-cmb     fixed typo in English language file
-cmb     updated Russian language file (contributed by old)
+* removed javascript: pseudo protocoll
+* fixed typo in English language file
+* updated Russian language file (contributed by old)
 
 Version 1pl6 - released 2012-08-20
-cmb     added $encoding argument to htmlspecialchars() calls
-cmb     fixed potential problems with calls to ucfirst() by using Utf8_XH
-cmb     removed superfluous rfc() in pagemanager_save()
-cmb     updated manual with requirement of Utf8_XH
+* added $encoding argument to htmlspecialchars() calls
+* fixed potential problems with calls to ucfirst() by using Utf8_XH
+* removed superfluous rfc() in pagemanager_save()
+* updated manual with requirement of Utf8_XH
 
 Version 1pl5 - released 2012-02-22
-cmb	changed save routine to skip writing of head()
+* changed save routine to skip writing of head()
 
 Version 1pl4 - released 2012-02-06
-cmb	added check for offending extensions using their own jQuery library
+* added check for offending extensions using their own jQuery library
 
 Version 1pl3 - released 2012-01-24
-cmb	improved handling of relocation after saving
-cmb	added Polish translation (contributed by learnandcode)
-cmb	updated manual accordingly
+* improved handling of relocation after saving
+* added Polish translation (contributed by learnandcode)
+* updated manual accordingly
 
 Version 1pl2 - released 2012-01-21
-cmb	added plugin icon
-cmb	extended copyright to 2012
-cmb	fixed minor bug: save button in toolbar was not hidden, if irregular sitestructure was found
-cmb	inhibited renaming of page, if its heading is only partially formatted
-cmb	fixed minor bug in jstree: D&D inside a node didn't work
-cmb	made some minor cosmetic changes
-cmb	added Russian translation (contributed by Termin)
-cmb	updated manual accordingly
+* added plugin icon
+* extended copyright to 2012
+* fixed minor bug: save button in toolbar was not hidden, if irregular
+  sitestructure was found
+* inhibited renaming of page, if its heading is only partially formatted
+* fixed minor bug in jstree: D&D inside a node didn't work
+* made some minor cosmetic changes
+* added Russian translation (contributed by Termin)
+* updated manual accordingly
 
 Version 1pl1 - released 2011-12-16
-cmb	removed beta warning in manual
-cmb	cosmetic changes in manual
-cmb	added defaultconfig.php for CMSimple_XH 1.5
+* removed beta warning in manual
+* cosmetic changes in manual
+* added defaultconfig.php for CMSimple_XH 1.5
 
 Version 1 - released 2011-11-16
-cmb	added french language file (provided by Bob)
+* added french language file (provided by Bob)
 
 Version 1rc4 - released 2011-10-23
-cmb	made plugin administration available, even if another external pagemanager is configured
-cmb	changed YES/NO in configuration to true/false
-cmb	changed languages files accordingly
+* made plugin administration available, even if another external pagemanager is
+  configured
+* changed YES/NO in configuration to true/false
+* changed languages files accordingly
 
 Version 1rc3 - internally released 2011-10-14
-cmb	minimal cosmetic changes
-cmb	updated czech language file (provided by oldnema)
-cmb	updated danish language file
-cmb	added: resign if external pagemanager is configured in CMSimple_XH 1.5
+* minimal cosmetic changes
+* updated czech language file (provided by oldnema)
+* updated danish language file
+* added: resign if external pagemanager is configured in CMSimple_XH 1.5
 
 Version 1rc2 - released 2011-09-30
-cmb	minimal cosmetic changes
-cmb	added hook for new edit menu of CMSimple_XH 1.5
-cmb	updated jsTree to pre1.0fix1
+* minimal cosmetic changes
+* added hook for new edit menu of CMSimple_XH 1.5
+* updated jsTree to pre1.0fix1
 
 Version 1rc1 - released 2011-09-23
-cmb	minimal cosmetic changes and optimisations
-cmb	actually included danish translation
-cmb	updated language files
+* minimal cosmetic changes and optimisations
+* actually included danish translation
+* updated language files
 
 Version 1beta6 - released 2011-08-12
-cmb	fixed bug regarding page titles starting with a digit (reported by Ulrich)
+* fixed bug regarding page titles starting with a digit (reported by Ulrich)
 
 Version 1beta5 - released 2011-08-11
-cmb	added danish translation (provided by maeg)
-cmb	fixed bug with formatted headings (reported by bd0 and Gert)
+* added danish translation (provided by maeg)
+* fixed bug with formatted headings (reported by bd0 and Gert)
 
 Version 1beta4 - released 2011-08-10
-cmb	fixed bug with html special chars in page titles (reported by Gert)
-cmb	added czech translation (provided by oldnema)
+* fixed bug with html special chars in page titles (reported by Gert)
+* added czech translation (provided by oldnema)
 
 Version 1beta3 - released 2011-08-05
-cmb	added slovak translation (provided by Tata)
-cmb	added further security check
+* added slovak translation (provided by Tata)
+* added further security check
 
 Version 1beta2 - released 2011-07-29
-cmb	added old unload behaviour for Opera (inspired by Martin)
+* added old unload behaviour for Opera (inspired by Martin)
 
 Version 1beta1 - released 2011-07-27
-cmb	constrained with of treeview for better usability with table based layouts (solution provided by Gert)
-cmb	changed unload-event to confirm leaving the page
-cmb	extended requirements check
+* constrained with of treeview for better usability with table based layouts
+  (solution provided by Gert)
+* changed unload-event to confirm leaving the page
+* extended requirements check
 
 Version 0.9.2 - released 2011-07-19
-cmb	removed superfluous clear:both from #pagemanager style (reported by bca)
-cmb	changed default layout of vertical toolbar (solution provided by Tata)
-cmb	changed treeview to fixed height with scrollbars (solution provided by Gert)
-cmb	compressed jsTree (solution provided by Gert)
-cmb	added screenshot of drag&drop operations to documentation (inspired by Tata)
+* removed superfluous clear:both from #pagemanager style (reported by bca)
+* changed default layout of vertical toolbar (solution provided by Tata)
+* changed treeview to fixed height with scrollbars (solution provided by Gert)
+* compressed jsTree (solution provided by Gert)
+* added screenshot of drag&drop operations to documentation (inspired by Tata)
 
 Version 0.9.1 - released 2011-07-17
-cmb	fixed bug with save icon display in FF5 (reported by Tata)
-cmb	added option toolbar_vertical for power users (suggested by Tata)
+* fixed bug with save icon display in FF5 (reported by Tata)
+* added option toolbar_vertical for power users (suggested by Tata)
 
 Version 0.9 - released 2011-07-16
-cmb	changed opening postion of context menu to pointer (inspired by Ulrich)
-cmb	removed themeing support from base package to additional theme downloads
-cmb	changed default theme to cmsimple
-cmb	fixed bug: opening dialogs scrolls to top of page (reported by Ulrich)
-cmb	integrated save button to toolbar (suggested by Tata)
-cmb	added possibility to activate floating toolbar to stylesheet.css (inspired by Tata)
-cmb	added save confirmation to unload-event (suggested by Gert)
-cmb	updated documentation
+* changed opening postion of context menu to pointer (inspired by Ulrich)
+* removed themeing support from base package to additional theme downloads
+* changed default theme to cmsimple
+* fixed bug: opening dialogs scrolls to top of page (reported by Ulrich)
+* integrated save button to toolbar (suggested by Tata)
+* added possibility to activate floating toolbar to stylesheet.css (inspired by
+  Tata)
+* added save confirmation to unload-event (suggested by Gert)
+* updated documentation
 
 Version 0.8 - released 2011-07-15
-cmb	tree opens fully collapsed again (solution provided by Gert)
-cmb	adjusted display of toolbar (solution provided by Gert)
-cmb	changed pagedata_attribute to linked_to_menu by default (suggested by Gert)
-cmb	removed index.php (inspired by bjorn)
-cmb	added option toolbar_show (suggested by Gert)
-cmb	removed possibility to detach toolbar (inspired by Gert and Ulrich)
-cmb	added warning about no selection if using a tool that requires one (inspired by Gert and Ulrich)
-cmb	changed icons to gif-format (suggested by Gert)
-cmb	prohibited: deleting the last toplevel page
-cmb	updated documentation
+* tree opens fully collapsed again (solution provided by Gert)
+* adjusted display of toolbar (solution provided by Gert)
+* changed pagedata_attribute to linked_to_menu by default (suggested by Gert)
+* removed index.php (inspired by bjorn)
+* added option toolbar_show (suggested by Gert)
+* removed possibility to detach toolbar (inspired by Gert and Ulrich)
+* added warning about no selection if using a tool that requires one (inspired
+  by Gert and Ulrich)
+* changed icons to gif-format (suggested by Gert)
+* prohibited: deleting the last toplevel page
+* updated documentation
 
 Version 0.7 - released 2011-07-13
-cmb	added footer to make context menu fully visible (inspired by Martin)
-cmb	removed deprecated call-by-ref from caller (reported by Martin)
-cmb	go to page admin after save (suggested by Gert)
-cmb	display new pages differently (suggested by Gert)
-cmb	addded handling of duplicates (suggested by Gert)
-cmb	added (detachable) toolbar as alternative to right-click contextmenu (inspired by Martin)
-cmb	added toolbuttons to expand and collapse the treeview
-cmb	change short help to be a tooltip (suggested by Gert)
-cmb	added checkboxes to manipulate pagedata (published/linked_to_menu) (inspired by bca)
-cmb	tree opens fully expanded
-cmb	toggle node is now triggered on double click
-cmb	cleaned up code
-cmb	updated documentation
+* added footer to make context menu fully visible (inspired by Martin)
+* removed deprecated call-by-ref from caller (reported by Martin)
+* go to page admin after save (suggested by Gert)
+* display new pages differently (suggested by Gert)
+* addded handling of duplicates (suggested by Gert)
+* added (detachable) toolbar as alternative to right-click contextmenu (inspired
+  by Martin)
+* added toolbuttons to expand and collapse the treeview
+* change short help to be a tooltip (suggested by Gert)
+* added checkboxes to manipulate pagedata (published/linked_to_menu) (inspired
+  by bca)
+* tree opens fully expanded
+* toggle node is now triggered on double click
+* cleaned up code
+* updated documentation
 
 Version 0.6 - released 2011-07-10
-cmb	removed background for all themes
-cmb	fixed "paste after" operation
-cmb	feedback on illegal create and paste operations (suggested by Ulrich)
-cmb	escape offending characters in strings in $cf and $tx used in JS (reported by Ulrich)
-cmb	fixed bug with duplicate titles (reported by Gert)
-cmb	added icons to context menu
-cmb	updated manual
+* removed background for all themes
+* fixed "paste after" operation
+* feedback on illegal create and paste operations (suggested by Ulrich)
+* escape offending characters in strings in $cf and $tx used in JS (reported by
+  Ulrich)
+* fixed bug with duplicate titles (reported by Gert)
+* added icons to context menu
+* updated manual
 
 Version 0.5 - released 2011-07-07
-cmb	clicking a page title opens/closes the branch (inspired by Gert)
-cmb	cleaned up code of init.js and renamed to pagemanager.js
-cmb	changed to new stylesheet provided by Gert
-cmb	creating pages respects menu_levels (reported by Gert)
-cmb	changed to single selection only
-cmb	removing of pages requires confirmation (suggested by Gert and Holger)
-cmb	renamed 'remove' to 'delete'
-cmb	confirmations can be suppressed via config option (suggested by Ulrich)
-cmb	rearranged the context menu (suggested by Gert)
-cmb	updated documentation
+* clicking a page title opens/closes the branch (inspired by Gert)
+* cleaned up code of init.js and renamed to pagemanager.js
+* changed to new stylesheet provided by Gert
+* creating pages respects menu_levels (reported by Gert)
+* changed to single selection only
+* removing of pages requires confirmation (suggested by Gert and Holger)
+* renamed 'remove' to 'delete'
+* confirmations can be suppressed via config option (suggested by Ulrich)
+* rearranged the context menu (suggested by Gert)
+* updated documentation
 
 Version 0.4.3 - released 2011-07-06
-cmb	fixed severe bug which totally mixed up content of sites with more then 10 pages (reported by Ulrich and Gert)
+* fixed severe bug which totally mixed up content of sites with more then 10
+  pages (reported by Ulrich and Gert)
 
 Version 0.4.2 - released 2011-07-06
-cmb	changed $plugin_tx['pagemanager']['help'] (reported by Ulrich)
+* changed $plugin_tx['pagemanager']['help'] (reported by Ulrich)
 
 Version 0.4.1 - released 2011-07-06
-cmb	removed debug code which failed under certain browsers (reported by Gert)
+* removed debug code which failed under certain browsers (reported by Gert)
 
 Version 0.4 - released 2011-07-05
-cmb	added support for creating new toplevel pages and pasting to the toplevel
-cmb	short usage instruction added on top of the page
-cmb	put jsTree initialization code to init.js as template
-cmb	rearranging the page structure now respects $cf[menu_levels] (suggested by snafu)
-cmb	warn about irregularities in page structure
-cmb	clean up page structure on save
-cmb	changed default theme to classic (suggested by snafu)
-cmb	updated documentation
-cmb	cosmetic changes
+* added support for creating new toplevel pages and pasting to the toplevel
+* short usage instruction added on top of the page
+* put jsTree initialization code to init.js as template
+* rearranging the page structure now respects $cf[menu_levels] (suggested by
+  snafu)
+* warn about irregularities in page structure
+* clean up page structure on save
+* changed default theme to classic (suggested by snafu)
+* updated documentation
+* cosmetic changes
 
 Version 0.3 - released 2011-06-26
-cmb	updated to be used with jQuery4CMSimple
-cmb	cosmetic changes to code and documentation
+* updated to be used with jQuery4CMSimple
+* cosmetic changes to code and documentation
 
 Version 0.1 - released 2011-06-24
-cmb	initial release
+* initial release
