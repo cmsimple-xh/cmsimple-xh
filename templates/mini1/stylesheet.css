@@ -1,3 +1,72 @@
+/**************************/
+/*     Content Styles     */
+/**************************/
+
+img.left {
+    margin: 0 5px 5px 0;
+    float: left;
+    clear: left;
+}
+
+img.right {
+    margin: 0 0 5px 5px;
+    float: right;
+    clear: right;
+}
+
+img.left_horizontal {
+    margin: 0 5px 5px 0;
+    float: left;
+}
+
+img.right_horizontal {
+    margin: 0 0 5px 5px;
+    float: right;
+}
+
+p.small {
+    font-size:10px;
+}
+
+div.important, .important {
+    clear: both;
+    background: #eee;
+    padding: 1em 2em;
+    border: .3em solid #0b6;
+    margin: 1em 0;
+}
+
+div.warning, .warning {
+    clear: both;
+    text-align: center;
+    font-weight: 900;
+    background: #900;
+    color: #fff;
+    padding: 1em;
+    border: .3em solid #aaa;
+    margin: 1em 0;
+}
+.warning a {
+    color: #aaf;
+}
+
+.important p:first-child,
+.warning p:first-child {
+    margin-top: 0;
+}
+.important p, .warning p {
+    margin: 1em 0 0;
+}
+
+span.highlight {
+    font-weight: 900;
+    letter-spacing: .06em;
+    background:#dfd;
+}
+
+/* Marker for tinymce 3 */
+._-_-_-_-_-_-_-_ {}
+
 /*******************/
 /*      Start      */
 /*******************/
@@ -59,7 +128,7 @@ body {
 /***********************/
 
 .header {
-    background:URL(images/header.jpg) repeat-x  #006636;
+    background: URL(images/header.jpg) repeat-x  #006636;
     padding:2em 2em 0 2em;
     margin-bottom:.5em;
     border-radius: .5em;
@@ -82,7 +151,7 @@ body {
     text-align:right;
     margin-top:1em;
 }
-.header form div#searchbox input.text {
+.header form div#searchbox .text {
     width:10em;
 }
 .header p {
@@ -218,18 +287,21 @@ body {
     padding:1em 2%;
     float:left;
     margin:0;
-    clear:left;
 }
 h1, h2, h3, h4 {
     font: normal normal 21px verdana;
 	color:#0a6;
+    clear:both;
 }
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
+    margin: 0 0 .5em;
+}
+h4, h5, h6 {
     margin: 1.5em 0 .5em;
 }
-h1:first-child, h2:first-child,
-h3:first-child, h4:first-child,
-h5:first-child, h6:first-child {
+h4:first-child,
+h5:first-child,
+h6:first-child {
     margin-top:0;
 }
 
@@ -258,9 +330,9 @@ h6 {
 
 .sidebar {
     float:right;
-    max-width: 18em;
+    max-width: 17em;
     border-left: 2px solid #ccc;
-    padding-left:1em;
+    padding:0 1em;
     margin-top:1em;
     clear:right;
 }
@@ -291,6 +363,7 @@ h6 {
 
 .subnav {
     width:100%;
+    padding:0 1em;
 }
 .subnav td a {
     text-decoration:none;
@@ -335,3 +408,4 @@ h6 {
     color:#090;
     background:white;
 }
+

@@ -11,6 +11,15 @@
 
 ------------------------------------------------------------------------------------------------------------------
 
+ Version 1.4.1 Build 2013111001
+
+ jQuery updated to version 1.10.2
+ jQuery UI updated to version 1.10.3
+ jQuery-migrate updated to version 1.2.1
+ admin.php: code for update-check removed
+
+ ------------------------------------------------------------------------------------------------------------------
+
  Version 1.4 Build 2013033001
 
  jQuery updated to version 1.9.1

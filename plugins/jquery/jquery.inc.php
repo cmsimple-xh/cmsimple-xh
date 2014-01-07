@@ -1,4 +1,10 @@
 <?php
+
+/*
+ * @version $Id: jquery.inc.php 212 2013-11-10 21:19:33Z hi $
+ *
+ */
+
 /**
  * jQuery for CMSimple
  *
@@ -6,17 +12,16 @@
  * to enable jQuery, jQueryUI 
  * and other jQuery-based plugins
  *
- * @author Holger Irmler
- * @link http://cmsimple.holgerirmler.de
- * @version 1.4 - 2013-03-30
- * @build 2013032101
- * @package jQuery
+ * Version:    1.5
+ * Build:      2013111001
+ * Copyright:  Holger Irmler
+ * Email:      CMSimple@HolgerIrmler.de
+ * Website:    http://CMSimple.HolgerIrmler.de
  * */
-
 //be sure that all globals are accessible when called from another function
 global $hjs, $plugin_cf, $pth;
 
-//load plugin-configuration
+//load plugin-configuration for xh < 1.6
 require($pth['folder']['plugins'] . 'jquery/config/config.php');
 
 function include_jQuery($path = '') {
@@ -24,18 +29,23 @@ function include_jQuery($path = '') {
 
     if (!defined('JQUERY')) {
         if ($path == '') {
-            $path = $pth['folder']['plugins'] . 'jquery/lib/jquery/' . $plugin_cf['jquery']['file_core'];
+            $path = $pth['folder']['plugins'] . 'jquery/lib/jquery/' . $plugin_cf['jquery']['version_core'] . '/jquery.min.js';
             if (!is_file($path)) {
                 e('missing', 'file', $path);
                 return;
             }
         }
-		$js = '<script type="text/javascript" src="' . $path . '"></script>';
-		$migrate = $pth['folder']['plugins'] . 'jquery/lib/jquery/' . $plugin_cf['jquery']['file_migrate'];
-		if (is_file($migrate)) {
-			$js .= "\n" . '<script type="text/javascript" src="' . $migrate . '"></script>';
-		}
-        //$hjs .= "\n".'<script type="text/javascript" src="'.$path.'"></script>';
+        $js = '<script type="text/javascript" src="' . $path . '"></script>';
+        if ($plugin_cf['jquery']['load_migrate'] == 'true') {
+            $migrate = $pth['folder']['plugins'] . 'jquery/lib/migrate/' . $plugin_cf['jquery']['version_migrate'];
+            if (is_file($migrate)) {
+                $js .= "\n" . '<script type="text/javascript" src="' . $migrate . '"></script>';
+                $js .= "\n";
+            } else {
+                e('missing', 'file', $migrate);
+                return;
+            }
+        }
         $hjs = $js . $hjs;
         define('JQUERY', TRUE);
     }
@@ -46,7 +56,7 @@ function include_jQueryUI($path = '') {
 
     if (!defined('JQUERY_UI')) {
         if ($path == '') {
-            $path = $pth['folder']['plugins'] . 'jquery/lib/jquery_ui/' . $plugin_cf['jquery']['file_ui'];
+            $path = $pth['folder']['plugins'] . 'jquery/lib/jquery_ui/' . $plugin_cf['jquery']['version_ui'] .'/jquery-ui.min.js';
             if (!is_file($path)) {
                 e('missing', 'file', $path);
                 return;
@@ -62,12 +72,13 @@ function include_jQueryUI($path = '') {
         } else {
             //load the default theme
             $hjs .= "\n" . tag('link rel="stylesheet" type="text/css" media="screen" href="' . $pth['folder']['plugins']
-                            . 'jquery/lib/jquery_ui/css/' . $plugin_cf['jquery']['file_css'] . '"');
+                            . 'jquery/lib/jquery_ui/' . $plugin_cf['jquery']['version_ui'] . '/css/jquery-ui.min.css"');
+            $hjs .= "\n";
             //include a custom css-file to overwrite single selectors
             if (file_exists($pth['folder']['template'] . 'jquery_ui/stylesheet.css')) {
                 $hjs .= "\n" . tag('link rel="stylesheet" type="text/css" media="screen" href="'
                                 . $pth['folder']['template'] . 'jquery_ui/stylesheet.css"')
-								. "\n";
+                        . "\n";
             }
         }
     }

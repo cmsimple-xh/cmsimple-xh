@@ -2,7 +2,7 @@
 //*** very_simple: template by Martin Sereday - (c) 2013 CMSimple.sk ***//
 ?>
 <!DOCTYPE HTML>
-<html <?php echo strlen($sl) == 2 ? 'lang="' . $sl . '"' : '';?>>
+<html lang="<?php echo $sl;?>">
 <head>
     <!-- START: HTML5 FORK -->
        <!--[if lt IE 9]>
@@ -12,26 +12,12 @@
     <!--[if lt IE 9]>
         <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
     <![endif]-->
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;_out">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <link href='http://fonts.googleapis.com/css?family=Nixie+One' rel='stylesheet' type='text/css'>
 <?php echo head();?>
 </head>
 <body <?php echo onload();?>>
-    <?php
-    function tpl_printurl() {
-        global $f, $search, $file, $sn, $tx;
-        $t = '&amp;print';
-        if ($f == 'search')
-            $t .= '&amp;function=search&amp;search=' . htmlspecialchars(stsl($search), ENT_COMPAT, 'UTF-8');
-        else if ($f == 'file')
-            $t .= '&amp;file=' . $file;
-        else if ($f != '' && $f != 'save')
-            $t .= '&amp;' . $f;
-        else if (sv('QUERY_STRING') != '')
-            $t = htmlspecialchars(sv('QUERY_STRING'), ENT_COMPAT, 'UTF-8') . $t;
-        return $sn . '?' . $t;
-    }
-    ?>
+
 <div id="page_wrapper_out">
     <div id="page_wrapper_in">
         <div class="warning">
@@ -50,7 +36,7 @@
             <div class="right">
                 <div class="function_links">
                     <a href="./"><img src="<?php echo $pth['folder']['templateimages'];?>home.png" alt="home"></a>
-                    <a href="<?php echo tpl_printurl();?>"><?php echo tag('img src="' . $pth['folder']['templateimages'] . 'print.png" alt="' . $tx['menu']['print'] . '"');?></a>
+                    <a href="<?php echo XH_printUrl();?>"><img src="<?php echo $pth['folder']['templateimages'];?>print.png" alt="print"></a>
                     <a href="./?&amp;sitemap"><img src="<?php echo $pth['folder']['templateimages'];?>sitemap.png" alt="sitemap"></a>
                     <a href="./?&amp;mailform"><img src="<?php echo $pth['folder']['templateimages'];?>mailform.png" alt="mailform"></a>
                 </div>
@@ -69,7 +55,7 @@
                     <img src="<?php echo $pth['folder']['templateimages'];?>990px_transparent.gif" alt="transparent layer">
                     <div class="banner_inner_line">
                         <div class="banner_inner_line_text">
-                            <?php echo $txc['template']['text1'];?>
+                            <?php echo $tx['template']['text1'];?>
                         </div>
                     </div>
                     <div class="break"><!-- BREAK --></div>
@@ -162,6 +148,5 @@
 
 </div>
 <div class="break"><!-- BREAK --></div>
-
 </body>
 </html>

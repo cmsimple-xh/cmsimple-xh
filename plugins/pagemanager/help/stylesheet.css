@@ -1,6 +1,6 @@
 body {
     font-family: Verdana, sans-serif;
-    line-height: 150%;
+    line-height: 1.5;
     margin-left: 2em;
     margin-right: 2em;
     background: #ffffe1;
@@ -39,4 +39,16 @@ body {
 
 .toplink {
     text-align: right;
+}
+
+@media screen and (max-width: 50em) {
+
+    #body {
+        margin-left: 0;
+    }
+
+    #nav {
+        float: none;
+    }
+
 }

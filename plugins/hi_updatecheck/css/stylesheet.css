@@ -1,0 +1,131 @@
+#upd_list_container {
+    max-width: 500px;
+}
+.upd_container {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.upd_container p {
+    margin: 5px 0;
+}
+
+hr.upd_list {
+    background-color: #999999;
+    border: 0 none;
+    clear: both;
+    color: #999999;
+    height: 1px;
+}
+
+/*** Messageboxes ***/
+.upd_info, .upd_success, .upd_warning, .upd_error {
+    min-width: 220px;
+    max-width: 440px;
+    display: inline-block;
+    border: 1px solid;
+    margin: 10px 0px;
+    padding:15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    /*background-position: 10px center;*/
+    background-position: 10px 10px;
+    -moz-border-radius:4px; /* Firefox */
+    -webkit-border-radius:4px; /* Safari, Chrome */
+    -khtml-border-radius:4px; /* Konqueror */
+    border-radius:4px; /* CSS3 */
+}
+.upd_info {
+    color: #00529B;
+    background-color: #BDE5F8;
+    background-image: url('../images/info.png');
+}
+.upd_success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    background-image:url('../images/success.png');
+}
+.upd_warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    background-image: url('../images/warning.png');
+}
+.upd_error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('../images/error.png');
+}
+
+/*** Messages-List ***/
+
+ul.upd_list {
+	margin: 0;
+	padding: 0;
+    max-width: 600px;
+    list-style: none;
+    border-top: 1px solid #999;
+}
+
+ul.upd_list li {
+    border-bottom: 1px solid #999;
+    padding: 0;
+    margin: 0 0 0 0px;
+}
+
+.upd_info_list, .upd_success_list, .upd_warning_list, .upd_error_list, .upd_noinfo_list {
+    margin: 0;
+    padding:15px 10px 15px 50px;
+    border: 0px solid;
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+    /*background-position: 10px center;*/
+}
+.upd_info_list {
+    color: #00529B;
+    background-color: #BDE5F8;
+    background-image: url('../images/info.png');
+}
+.upd_success_list {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    background-image:url('../images/success.png');
+}
+.upd_warning_list {
+    color: #9F6000;
+    background-color: #FEEFB3;
+    background-image: url('../images/warning.png');
+}
+.upd_error_list {
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('../images/error.png');
+}
+.upd_noinfo_list {
+    color: #999;
+    border: 0px solid #CCC;
+    background-color: #FFF;
+    background-image: url('../images/warning_grey.png');
+}
+p.upd_license {
+    text-align: justify;
+}
+img.upd_plugin_icon {display: block; float: left; margin: 0 20px 0 0}
+
+/* Editmenu-Notification */
+
+#editmenu_update, #xh_adminmenu_update {
+    display: none;
+}
+
+li#editmenu_update, li#xh_adminmenu_update {
+    padding: 4px 0;
+    width: 44px;
+}
+
+#editmenu_update img, #xh_adminmenu_update img {
+    border: 0 none;
+}
+
+/* Fix for older (splitted) editmenu */
+#edit_menu {
+    width: auto;
+}

@@ -1,21 +1,60 @@
-<html><head><title>Content</title></head><body>
+<html><head><title>Content file</title>
+<?php
+$page_data_fields=array('keywords','title','robots','heading','show_heading','template','published','show_last_edit','linked_to_menu','header_location','use_header_location','publication_date','expires','description');
+$temp_data=array(
+'url'=>'WebLog',
+'last_edit'=>'1322055182',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>''
+);
+?>
+</head><body>
 <h1>Welcome to CMSimple_XH</h1>
+<?php
+$page_data[]=array(
+'url'=>'Welcome_to_CMSimple_XH',
+'last_edit'=>'1384193881',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'0',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>Congratulations on your new installation of CMSimple_XH. You can login now with the default password, which you will find in the readme.txt of the download. Delete the readme.txt on your webserver, if you have uploaded it.</p>
 <p>The login link can be found at the bottom of the page in the footer.</p>
-<div style="text-align: center; font-weight: 900; background: none repeat scroll 0% 0% #990000; color: #ffffff; padding: 4px 6px; border: 1px solid #333333;">
-<p>*** Remember to change the login password immediately ***</p>
-<p>Please read the readme.txt in the root folder of the download.</p>
+<div class="warning">
+<p>*** Remember to change the login password immediately ***<br><br>Please read the readme.txt in the root folder of the download.</p>
 </div>
 <p>Please read about file permissions and security settings in the <a href="http://www.cmsimple-xh.org/wiki/doku.php/installation">CMSimple_XH Wiki »</a></p>
 <p>About the terms of license you may have a look at <a href="http://www.cmsimple-xh.org/?CMSimple_XH:Terms_of_Licence">www.cmsimple-xh.org »</a></p>
-<div style="background: none repeat scroll 0% 0% #eeeeee; padding: 12px 24px; border: 3px solid #cc6600;">
-<p><img src="./images/flags/en.gif" alt="English" width="18" height="12"> <strong>IMPORTANT ADVICE</strong></p>
+<div class="important">
+<p><img src="./userfiles/images/flags/en.gif" alt="English" width="18" height="12"> <strong>IMPORTANT ADVICE</strong></p>
 <p><strong>DO NOT</strong> change the password directly in config.php by using a text editor. Change the default password right away after login <strong>ONLINE</strong> (login with default password).</p>
 <p>This is the easiest and best working way.</p>
 <p>For editing CMSimple_XH files it is essential to <strong>USE ONLY</strong> editors, capable of detecting, opening and saving files as "utf-8 without BOM" (Byte Order Mark), like <a href="http://notepad-plus-plus.org/">notepad++</a>.</p>
 <p>If this condition is not fulfilled, you will damage your CMSimple installation.</p>
 <hr>
-<p><img src="./images/flags/de.gif" alt="Deutsch" width="18" height="12"> <strong>WICHTIGER HINWEIS</strong></p>
+<p><img src="./userfiles/images/flags/de.gif" alt="Deutsch" width="18" height="12"> <strong>WICHTIGER HINWEIS</strong></p>
 <p>Bitte ändern Sie das Standard Passwort <strong>NICHT</strong> direkt in der config.php mit einem Text Editor. Ändern Sie das Standard Passwort nach dem Login <strong>ONLINE</strong>  (Login mit dem Standard Passwort).</p>
 <p>Zur Bearbeitung der CMSimple_XH Systemdateien sollten Sie ausschliesslich einen <strong>Code Editor</strong> wie z. B. <a href="http://notepad-plus-plus.org/">notepad++</a> benutzen, der die Codierung "utf-8 ohne BOM" (Byte Order Mark) erkennt, die Dateien entsprechend öffnet und auch wieder abspeichert.</p>
 <p>Wenn Sie die Systemdateien in einer anderen Codierung als "utf-8 ohne BOM" abspeichern, kann es zu Problemen mit verschiedenen Funktionen von CMSimple_XH kommen.</p>
@@ -31,16 +70,54 @@
 <ul>
 <li>Template by <a href="http://www.cmsimple-xh.org">CMSimple_XH</a> modified by <a href="http://www.cmsimple-xh.org">your link</a></li>
 </ul>
-<p>If you use another template inside a CMSimple_XH installation, we kindly ask that you link back to <a href="http://www.cmsimple-xh.org">www.cmsimple-xh.org</a> or <a href="http://www.cmsimple-xh.org/de">www.cmsimple-xh.org/de</a> in your template. This is a nice way to popularize the CMSimple_XH project, which will benefit in the long run all users.</p>
+<p>If you use another template inside a CMSimple_XH installation, we kindly ask that you link back to <a href="http://www.cmsimple-xh.org">www.cmsimple-xh.org</a> or <a href="http://www.cmsimple-xh.org/de/">www.cmsimple-xh.org/de</a> in your template. This is a nice way to popularize the CMSimple_XH project, which will benefit in the long run all users.</p>
 <h1>Menu Levels &amp; Headings</h1>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Levels_%26amp%3B_Headings',
+'last_edit'=>'1386262232',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'0',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>Headings h1–h3 are used for splitting up the content file. An h1, h2 or h3 heading will dynamically split the document into new pages in the table of contents. An h4, h5 or h6 heading is used as a heading within a page.</p>
-<div style="text-align: center; font-weight: 900; background: #900; color: #fff; padding: 4px 6px; border: 1px solid #333;">
-<p>Please use only h4–h6 in the content of your CMSimple pages, <br> because using h1–h3 will create a new page.</p>
-</div>
+<p class="warning">Please use only h4–h6 in the content of your CMSimple pages, <br> because using h1–h3 will create a new page.</p>
 <p>Starting with <strong>CMSimple_XH 1.5</strong> the plugin Pagemanager is included in the download. Pagemanager simplifies creating, renaming, moving and deleting of pages.</p>
 <p>Even complete folders with subfolders can be moved or deleted with Pagemanager.</p>
 <p>Thus it should be no problem to get rid of the contents of this standard download. Alternatively you could start with the present page structure, rename pages and overwrite the contents.</p>
 <h2>Menu Level 2 – Page 1</h2>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Level_2_%E2%80%93_Page_1',
+'last_edit'=>'1311879528',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>An h2 heading splits into a new page.</p>
 <h4>Heading h4</h4>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
@@ -49,6 +126,26 @@
 <h6>Heading h6</h6>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
 <h3>Menu Level 3 – Page 1</h3>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Level_3_%E2%80%93_Page_1',
+'last_edit'=>'1311881845',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>An h3 heading splits into a new page.</p>
 <h4>Heading h4</h4>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
@@ -57,6 +154,26 @@
 <h6>Heading h6</h6>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
 <h3>Menu Level 3 – Page 2</h3>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Level_3_%E2%80%93_Page_2',
+'last_edit'=>'1311883077',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>An h3 heading splits into a new page.</p>
 <h4>Heading h4</h4>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
@@ -65,6 +182,26 @@
 <h6>Heading h6</h6>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
 <h3>Menu Level 3 – Page 3</h3>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Level_3_%E2%80%93_Page_3',
+'last_edit'=>'1311881854',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>An h3 heading splits into a new page.</p>
 <h4>Heading h4</h4>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
@@ -73,6 +210,26 @@
 <h6>Heading h6</h6>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
 <h2>Menu Level 2 – Page 2</h2>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Level_2_%E2%80%93_Page_2',
+'last_edit'=>'1311879713',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>An h2 heading splits into a new page.</p>
 <h4>Heading h4</h4>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
@@ -81,6 +238,26 @@
 <h6>Heading h6</h6>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
 <h3>Menu Level 3 – Page 1</h3>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Level_3_%E2%80%93_Page_1',
+'last_edit'=>'1311882970',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>An h3 heading splits into a new page.</p>
 <h4>Heading h4</h4>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
@@ -89,6 +266,26 @@
 <h6>Heading h6</h6>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
 <h3>Menu Level 3 – Page 2</h3>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Level_3_%E2%80%93_Page_2',
+'last_edit'=>'1311883667',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>An h3 heading splits into a new page.</p>
 <h4>Heading h4</h4>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
@@ -97,6 +294,26 @@
 <h6>Heading h6</h6>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
 <h3>Menu Level 3 – Page 3</h3>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Level_3_%E2%80%93_Page_3',
+'last_edit'=>'1311882830',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>An h3 heading splits into a new page.</p>
 <h4>Heading h4</h4>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
@@ -105,6 +322,26 @@
 <h6>Heading h6</h6>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
 <h2>Menu Level 2 – Page 3</h2>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Level_2_%E2%80%93_Page_3',
+'last_edit'=>'1311879724',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>An h2 heading splits into a new page.</p>
 <h4>Heading h4</h4>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
@@ -113,6 +350,26 @@
 <h6>Heading h6</h6>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
 <h3>Menu Level 3 – Page 1</h3>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Level_3_%E2%80%93_Page_1',
+'last_edit'=>'1311882916',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>An h3 heading splits into a new page.</p>
 <h4>Heading h4</h4>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
@@ -121,6 +378,26 @@
 <h6>Heading h6</h6>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
 <h3>Menu Level 3 – Page 2</h3>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Level_3_%E2%80%93_Page_2',
+'last_edit'=>'1311882930',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>An h3 heading splits into a new page.</p>
 <h4>Heading h4</h4>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
@@ -129,6 +406,26 @@
 <h6>Heading h6</h6>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
 <h3>Menu Level 3 – Page 3</h3>
+<?php
+$page_data[]=array(
+'url'=>'Menu_Level_3_%E2%80%93_Page_3',
+'last_edit'=>'1311882941',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>An h3 heading splits into a new page.</p>
 <h4>Heading h4</h4>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
@@ -137,16 +434,56 @@
 <h6>Heading h6</h6>
 <p>Headings h4–h6 do not split the content into new pages, but serve as normal headings to structure your text semantically.</p>
 <h1>Templates &amp; Plugins</h1>
+<?php
+$page_data[]=array(
+'url'=>'Templates_%26amp%3B_Plugins',
+'last_edit'=>'1384194034',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>Through the use of a different <strong>template</strong> you can give your pages a completely different look, and through <strong>plugins</strong> you can greatly enlarge the functionality of your CMSimple_XH website.</p>
-<div style="text-align: center; font-weight: 900; background: #900; color: #fff; padding: 4px 6px; border: 1px solid #333;">
+<div class="warning">
 <p>While installing templates or plugins, <br> please respect the licensing conditions of the authors.</p>
 </div>
 <p>A list of templates and plugins for CMSimple_XH can be found in the <a href="http://www.cmsimple-xh.org/wiki/doku.php/extend:start">CMSimple_XH Wiki »</a></p>
 <p>How to install templates and plugins into CMSimple_XH is also explained in the CMSimple_XH Wiki under <a href="http://www.cmsimple-xh.org/wiki/doku.php/installation">user's manual »</a></p>
 <p>CMSimple_XH already comes bundled with several templates, which are shown on the following pages. All these templates are licensed under GPLv3, so they are free to use and modify even for commercial sites.</p>
 <h2>gonzo-h</h2>
+<?php
+$page_data[]=array(
+'url'=>'gonzo-h',
+'last_edit'=>'1384199767',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'gonzo-h',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>A template with a slightly responsive grid layout. Have a look at the accompanying <a href="http://www.web57.ws/cms/?Mein_CMSimple:Template_fuer_CMSimple_erstellen">template tutorial</a> or its <a href="http://www.cmsimple-xh.org/wiki/doku.php/template_tutorial">English translation</a>.</p>
-<p>This template was contributed by <a href="http://web57.ws/cms/">snafu</a>.</p>
+<p>This template was contributed by <a href="http://web57.ws/cms/">snafu</a> (<em>composite photo by svasti</em>).</p>
 <h4>Heading h4</h4>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 <h5>Heading h5</h5>
@@ -163,8 +500,35 @@
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
 </blockquote>
 <h2>mini1</h2>
-<p>A template with a fluid layout, a horizontal menu of the toplevel pages and a vertical menu of the subpages.</p>
-<p>This template was contributed by <a href="http://www.frankziesing.de/cmsimple/">svasti</a>.</p>
+<?php
+$page_data[]=array(
+'url'=>'mini1',
+'last_edit'=>'1384252271',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
+<p>A template with a fluid layout, a horizontal menu of the toplevel pages and a vertical menu of the subpages. This template is meant as starting point for the development of other templates. It was contributed by <a href="http://www.frankziesing.de/cmsimple/">svasti</a>.</p>
+<p>The template has some format definitions, which can be applied via the "Formats" or "Styles" selection (designation depends on the editor). </p>
+<div class="warning">This is the paragraph format "warning".</div>
+<div class="important">This is the paragraph format "important".</div>
+<p class="small">This is the paragraph format "small"</p>
+<p>This is a standard paragraph with a <span class="highlight">highlighted</span> word.</p>
+<p><img class="left_horizontal" src="./userfiles/images/flags/cs.gif" alt="" width="18" height="12"><img class="left_horizontal" src="./userfiles/images/flags/es.gif" alt="" width="18" height="12"><img class="left_horizontal" src="./userfiles/images/flags/da.gif" alt="" width="18" height="12"><img class="left_horizontal" src="./userfiles/images/flags/de.gif" alt="" width="18" height="12">There are also 4 formats for left aligned or right aligned images. Here you see left aligned images formatted as "left_horizontal".</p>
+<p><img class="left" src="./userfiles/images/flags/cs.gif" alt="" width="18" height="12"><img class="left" src="./userfiles/images/flags/es.gif" alt="" width="18" height="12"><img class="left" src="./userfiles/images/flags/da.gif" alt="" width="18" height="12"><img class="left" src="./userfiles/images/flags/de.gif" alt="" width="18" height="12">Here <img class="right_horizontal" src="./userfiles/images/flags/es.gif" alt="" width="18" height="12"><img class="right_horizontal" src="./userfiles/images/flags/da.gif" alt="" width="18" height="12"><img class="right" src="./userfiles/images/flags/de.gif" alt="" width="18" height="12"><img class="right_horizontal" src="./userfiles/images/flags/cs.gif" alt="" width="18" height="12">on the left side the same images are formatted as left.</p>
+<p>With a mixture of left and left_horizontal you can group images for instance in 2 by 2, as here on the right side.</p>
 <h4>Heading h4</h4>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 <h5>Heading h5</h5>
@@ -182,8 +546,28 @@
 </blockquote>
 <p> </p>
 <h2>n6200tbisGPL3</h2>
+<?php
+$page_data[]=array(
+'url'=>'n6200tbisGPL3',
+'last_edit'=>'1384197407',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'n6200tbisGPL3',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>A responsive template with a horizontal mega menu and an additional vertical menu.<span> This template's stylesheet contains some invalid CSS declarations, which are necessary for compatibility with different browsers.</span></p>
-<p>This template was contributed by <a href="http://torsten-behrens.de/">Torsten.Behrens</a>.</p>
+<p>This template was contributed by <a href="http://torsten-behrens.de/">Torsten.Behrens</a>. Check out his website for more templates.</p>
 <h4>Heading h4</h4>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 <h5>Heading h5</h5>
@@ -200,8 +584,28 @@
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
 </blockquote>
 <h2>photo11</h2>
+<?php
+$page_data[]=array(
+'url'=>'photo11',
+'last_edit'=>'1384287666',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'photo11',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>A template with fixed width table layout already prepared for 5 newsboxes.</p>
-<p>This template was contributed by <a href="http://www.cmsimple-xh-templates.de/">mikey</a>.</p>
+<p>This template was contributed by <a href="http://www.cmsimple.pw/">mikey</a>.</p>
 <h4>Heading h4</h4>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 <h5>Heading h5</h5>
@@ -218,6 +622,26 @@
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
 </blockquote>
 <h2>praia</h2>
+<?php
+$page_data[]=array(
+'url'=>'praia',
+'last_edit'=>'1377703914',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'praia',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>A fixed width template suitable for a small number of toplevel pages only. This template's stylesheet contains some invalid CSS declarations, which are necessary for compatibility with different browsers.</p>
 <p>This template was contributed by <a href="http://3-magi.net/">cmb</a>.</p>
 <h4>Heading h4</h4>
@@ -236,8 +660,28 @@
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
 </blockquote>
 <h2>responsivehtml</h2>
+<?php
+$page_data[]=array(
+'url'=>'responsivehtml',
+'last_edit'=>'1384197803',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'responsivehtml',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>A responsive template with a vertical menu that collapses on small screens.</p>
-<p>This template was contributed by <a href="http://oldnema.compsys.cz/en/?Demo_templates">oldnema</a>.</p>
+<p>This template was contributed by <a href="http://oldnema.compsys.cz/en/?Demo_templates">oldnema</a>. Check out his website for more templates.</p>
 <h4>Heading h4</h4>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 <h5>Heading h5</h5>
@@ -254,8 +698,28 @@
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
 </blockquote>
 <h2>structure1_black</h2>
+<?php
+$page_data[]=array(
+'url'=>'structure1_black',
+'last_edit'=>'1384124359',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'structure1_black',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>A responsive template with a dark background. The horizontal menu shows only the toplevel pages; subpages can be accessed via the submenu below the page content.</p>
-<p>This template was contributed by <a href="https://www.exohosting.sk/index.php?resid=tata55">Tata</a>.</p>
+<p>This template was contributed by <a href="http://cmsimple.sk/">Tata</a>.</p>
 <h4>Heading h4</h4>
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 <h5>Heading h5</h5>
@@ -272,11 +736,51 @@
 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam.</p>
 </blockquote>
 <h1>Languages</h1>
+<?php
+$page_data[]=array(
+'url'=>'Languages',
+'last_edit'=>'1329938196',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'',
+'template'=>'',
+'published'=>'',
+'show_last_edit'=>'',
+'linked_to_menu'=>'1',
+'header_location'=>'',
+'use_header_location'=>'',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <p>The standard download of CMSimple_XH from version 1.5 onwards comes with English and German language files only.</p>
 <p>Please don’t delete the "default" and "en" language files (default.php and en.php), as they serve as default fallback.</p>
 <p>German language files are included because the German language user’s community is by far the largest and practically all of the developer’s team is German speaking.</p>
 <p>Information and links to language files for other languages can be found <a href="http://www.cmsimple-xh.org/?Downloads:Language_Packs">here »</a></p>
 <h1>News01</h1>
+<?php
+$page_data[]=array(
+'url'=>'News01',
+'last_edit'=>'1316870463',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'0',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'0',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <h4>Newsbox News01</h4>
 <p>This box shows the content of the hidden page "News01".</p>
 <p>More information about newsboxes can be found here:</p>
@@ -286,6 +790,26 @@
 <p>Mehr Informationen zum Thema Newsboxen gibt es hier:</p>
 <p style="text-align: right;"><a href="http://www.cmsimple-xh.org/wiki/doku.php/de:newsboxes">CMSimple_XH Wiki »</a></p>
 <h1>News02</h1>
+<?php
+$page_data[]=array(
+'url'=>'News02',
+'last_edit'=>'1316870483',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'0',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'0',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <h4>Newsbox News02</h4>
 <p>This box shows the content of the hidden page "News02".</p>
 <p>More information about newsboxes can be found here:</p>
@@ -295,6 +819,26 @@
 <p>Mehr Informationen zum Thema Newsboxen gibt es hier:</p>
 <p style="text-align: right;"><a href="http://www.cmsimple-xh.org/wiki/doku.php/de:newsboxes">CMSimple_XH Wiki &raquo;</a></p>
 <h1>News03</h1>
+<?php
+$page_data[]=array(
+'url'=>'News03',
+'last_edit'=>'1319015680',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'0',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'0',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <h4>Newsbox News03</h4>
 <p>This box shows the content of the hidden page "News03".</p>
 <p>More information about newsboxes can be found here:</p>
@@ -304,6 +848,26 @@
 <p>Mehr Informationen zum Thema Newsboxen gibt es hier:</p>
 <p style="text-align: right;"><a href="http://www.cmsimple-xh.org/wiki/doku.php/de:newsboxes">CMSimple_XH Wiki »</a></p>
 <h1>News04</h1>
+<?php
+$page_data[]=array(
+'url'=>'News04',
+'last_edit'=>'1377011859',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'0',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'0',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <h4>Newsbox News04</h4>
 <p>This box shows the content of the hidden page "News04".</p>
 <p>More information about newsboxes can be found here:</p>
@@ -313,6 +877,26 @@
 <p>Mehr Informationen zum Thema Newsboxen gibt es hier:</p>
 <p style="text-align: right;"><a href="http://www.cmsimple-xh.org/wiki/doku.php/de:newsboxes">CMSimple_XH Wiki »</a></p>
 <h1>News05</h1>
+<?php
+$page_data[]=array(
+'url'=>'News05',
+'last_edit'=>'1377011870',
+'description'=>'',
+'keywords'=>'',
+'title'=>'',
+'robots'=>'',
+'heading'=>'',
+'show_heading'=>'0',
+'template'=>'0',
+'published'=>'1',
+'show_last_edit'=>'0',
+'linked_to_menu'=>'0',
+'header_location'=>'',
+'use_header_location'=>'0',
+'publication_date'=>'',
+'expires'=>''
+);
+?>
 <h4>Newsbox News05</h4>
 <p>This box shows the content of the hidden page "News05".</p>
 <p>More information about newsboxes can be found here:</p>

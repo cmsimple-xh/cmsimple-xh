@@ -35,7 +35,7 @@ if (is_readable($pth['folder']['plugins'].'jquery/jquery.inc.php')) {
 }
 ?>
 <!DOCTYPE html>
-<html <?php echo strlen($sl) == 2 ? 'lang="' . $sl . '"' : '';?>>
+<html lang="<?php echo $sl;?>">
 <head><link rel="shortcut icon" href="favicon.ico" >
 
 
@@ -116,7 +116,7 @@ if (is_readable($pth['folder']['plugins'].'jquery/jquery.inc.php')) {
                                         <div class="tbisgpl3-postcontent tbisgpl3-postcontent-0 clearfix">
 
                          <div class="tbisgpl3-content-layout">
-								<?php echo $txc['template']['text1']; ?>
+								<?php echo $tx['template']['text1']; ?>
 
 
 

@@ -1,65 +1,103 @@
 <?php
-
 /**
+ * tinyMCE Editor - admin module
+ *
+ * Handles reading and writing of plugin files - init selectors are dynamically loaded from
+ * ./inits/ representation of init_.js files
+ *
+ * PHP version 4 and 5
+ *
+ * @package tinymce
+ * @copyright	1999-2009 <http://cmsimple.org/>
+ * @copyright	2009-2012 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version	@CMSIMPLE_XH_VERSION@, @CMSIMPLE_XH_BUILD@
  * @version $Id$
+ * @link	http://cmsimple-xh.org/
+ * @since      File available since Release 1.6.0
+ * @author     manu <http://www.pixolution.ch/>
+ *
  */
+/* utf-8 marker: äöü */
 
-if (!$adm) {     return; }
+if (!XH_ADM) {     return; }
 
 initvar('tinymce');
 
 if ($tinymce) {
-    $plugin = basename(dirname(__FILE__), "/");
+
     $o .= '<div class="plugintext">';
     $o .= '<div class="plugineditcaption">TinyMCE for CMSimple_XH</div>';
-    $o .= '<p>Version for $CMSIMPLE_XH_VERSION$</p>';
+    $o .= '<p>Version for @CMSIMPLE_XH_VERSION@</p>';
     $o .= '<p>TinyMCE version 3.5.10  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a>';
     $o .= tag('br');
     $o .= 'Available language packs: cs, da, de, en, et, fr, it, nl, pl, ru, sk tw, zh.</p>';
-    $o .= '<p>CMSimpe_xh & Filebrowser integration';
+    $o .= '<p>CMSimple_XH & Filebrowser integration';
     $o .= tag('br');
     $o .= 'up to version 1.5.6 &ndash; <a href="http://www.zeichenkombinat.de/" target="_blank">Zeichenkombinat.de</a>';
     $o .= tag('br');
     $o .= 'from &nbsp;version 1.5.7 &ndash; <a href="http://www.pixolution.ch/" target="_blank">pixolution.ch</a></p>';
+    $o .=tag('br');
 
-    $admin= isset($_POST['admin']) ? $_POST['admin'] : $admin = isset($_GET['admin']) ? $_GET['admin'] : '';
-    $action= isset($_POST['action']) ? $_POST['action'] : $action = isset($_GET['action']) ? $_GET['action'] : '';
-    $o .= plugin_admin_common($action,$admin,$plugin);
-
-    if ($action === 'plugin_save'){  // refresh
-        include $pth['folder']['plugins'] . $plugin . '/config/config.php';
-    }
-
-
-    $inits = glob($pth['folder']['plugins'] . 'tinymce/inits/*.js');
-    $options = array();
-
-    foreach ($inits as $init) {
-        $temp = explode('_', basename($init, '.js'));
-
-        if (isset($temp[1])) {
-            $options[] = $temp[1];
+    include $pth['folder']['classes'] . 'FileEdit.php';
+/**
+ * Editing of tinymce plugin config file.
+ *
+ * @package	XH
+ */
+    class XH_TinyMceConfigFileEdit extends XH_PluginConfigFileEdit
+    {
+/**
+* Constructor
+*/
+        function XH_TinyMceConfigFileEdit()
+        {
+            parent::XH_PluginConfigFileEdit();
         }
-    }
-    if ((bool) $options) {
-        $o .= '<div><form method="post" action="' . $sn . '?&amp;' . $plugin . '">';
-         $o .= '<a class="pl_tooltip" href="#" onclick="return false">
-             <img class="helpicon" alt="help" src="' . $pth['folder']['plugins'] . 'pluginloader/css/help_icon.png" />
-             <span>' . sprintf($plugin_tx[$plugin]['help'], $pth['folder']['plugins'] . $plugin . '/inits') . '</span></a>';
-        $o .= 'Toolbar: <select name="' . $pluginloader_cfg['form_namespace'] . 'init">';
-        $selected_init = $plugin_cf[$plugin]['init'];
-        foreach ($options as $option) {
-            $selected = $option == $selected_init ? ' selected="selected"' : '';
-            $o .= "<option$selected>$option</option>";
+/**
+* Controller
+* @return string output|nothing parsed output or nothing
+*/
+        function edit()
+        {
+            global $action;
+            if ($this->setOptions('init'))
+            {
+                    if ($action!='plugin_save')
+                        return $this->form();
+                    else
+                        return $this->submit();
+            }
         }
+/**
+* Establish option values from ./inits/init_.js files for select field
+* and affects cfg property
+* @param $field select field name to set the options for
+* @global array
+* @return true if options available
+*/
+        function setOptions($field)
+        {
+            global $pth;
 
+            $inits = glob($pth['folder']['plugins'] . 'tinymce/inits/*.js');
+            $options = array();
+            foreach ($inits as $init) {
+                    $temp = explode('_', basename($init, '.js'));
+                    if (isset($temp[1])) {
+                            $options[] = $temp[1];
+                    }
+            }
+            (bool) $options &&
+                $this->cfg[$field]['']['vals'] = $options;
+            return (bool) $options;
+        }
+    }   // End of class XH_TinyMceConfigFileEdit
 
-        $o .= '</select>'
-                . tag('input type="hidden" name="admin" value="plugin_config"') . "\n"
-                . tag('input type="hidden" name="action" value="plugin_save"') . "\n"
-
-                .tag('input type="submit"  name="plugin_submit" value="' . $tx['action']['save'] . '"') . "\n"
-                . '</form></div>';
-    }
+    $tiymceConfig = new XH_TinyMceConfigFileEdit();
+    $o .= $tiymceConfig->edit();
     $o .= '</div>';
 }
+/*
+ * EOF tinymce/admin.php
+ */

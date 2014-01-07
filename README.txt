@@ -1,13 +1,13 @@
-===============================================
-$CMSIMPLE_XH_VERSION$
-released $CMSIMPLE_XH_DATE$
+﻿===============================================
+@CMSIMPLE_XH_VERSION@
+released @CMSIMPLE_XH_DATE@
 ===============================================
 
 PASSWORD for this installation:
 
            test
 
-Please change this password immediately !
+Please Change this password immediately !
 
 ===============================================
 
@@ -20,21 +20,20 @@ On some servers you have to set writing
 permissions for some files, see
 http://www.cmsimple-xh.org/wiki/doku.php/installation
 
-Detailed UPDATE instructions are available in the
-CMSimple forum
-http://www.cmsimpleforum.com/viewtopic.php?f=4&t=4868.
+Detailed UPDATE instructions are available in the CMSimple forum
+(http://www.cmsimpleforum.com/viewtopic.php?f=4&t=4868).
 
 ===============================================
 
 #########################################
-    I M P O R T A N T   N O T I C E
+     I M P O R T A N T   N O T I C E
 #########################################
 
 Please DO NOT change the password directly in
 config.php by using a text editor, because the
 config.php only contains the encrypted password.
 Change the default password right away after
-login ONLINE !!!
+login ONLINE !
 (Login with default password "test")
 
 This is the easiest and best working way.

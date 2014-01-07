@@ -1,0 +1,597 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  
+  <title>UpdateCheck for CMSimple_XH :: Help</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+  
+  <style>
+html, body {
+margin: 0;
+padding: 0;
+}
+body {
+font-family: verdana, arial, sans-serif;
+background-color: #e2e2e2;
+text-align: center;
+font-size: 0.9em;
+line-height: 1.3;
+}
+.additional{
+font-size: 90%;
+color: #666;
+line-height: 1.1;
+}
+p.code {font-family: Courier New; border: 1px solid #999; background: #eed; padding: 8px 12px;}
+  </style>
+  
+  <meta content="Holger Irmler" name="author">
+</head>
+
+
+<body>
+
+
+<div style="border: 1px solid rgb(187, 187, 187); margin: 0px auto auto; padding: 0pt 3em; text-align: left; width: 780px; background-color: rgb(255, 255, 255);">
+
+<h1><img style="width: 128px; height: 128px; float: left;" alt="" src="../images/software-update-icon.png"></h1>
+
+<h1><a class="mozTocH1" name="mozTocId902206"></a>UpdateCheck
+for CMSimple_XH<br>
+
+
+</h1>
+
+
+<p>A little CMSimple-Plugin to help&nbsp;to
+keep your CMSimple_XH installation up-tp-date </p>
+
+
+<p class="additional">Version 1.2<br>
+
+
+<span class="additional">
+&copy;&nbsp;2013-2014 Holger Irmler, </span><a class="additional" target="_blank" href="http://cmsimple.holgerirmler.de">http://CMSimple.HolgerIrmler.de</a><span class="additional">.<br>
+
+
+</span></p>
+
+
+<br>
+
+
+<h2><a class="mozTocH2" name="mozTocId43365"></a>Installation</h2>
+
+
+<ol>
+
+
+  <li> <b>Always make a backup of your installation</b>
+before adding a new plugin. </li>
+
+
+  <li>Unzip the archive and upload the files and folders into
+your
+plugins-folder. <span class="additional">
+    
+    <p>It should look like this: </p>
+
+
+    
+    <ul>
+
+
+      <li>[Root]
+        
+        <ul>
+
+
+          <li>[2lang]</li>
+
+
+          <li>[cmsimple]</li>
+
+
+          <li>...</li>
+
+
+          <li>[plugins]
+            
+            <ul>
+
+
+              <li>...</li>
+
+
+              <li>[pluginloader]</li>
+
+
+              <li><b>[hi_updatecheck]</b>
+                
+                <ul>
+
+
+                  <li><b>[config]</b></li>
+
+
+                  <li><span class="additional"><b>[css]</b></span></li>
+
+
+                  <li><span class="additional"><b>[help]</b></span></li>
+
+
+                  <li><span class="additional"><b>[languages]<br>
+
+
+                    </b></span></li>
+
+
+                  <li>admin.php</li>
+
+
+                  <li>index.php</li>
+
+
+                  <li>JSON.php</li>
+
+
+                  <li>updatecheck.php</li>
+
+
+                  <li>version.nfo</li>
+
+
+                
+                </ul>
+
+
+              </li>
+
+
+              <li>index.php</li>
+
+
+            
+            </ul>
+
+
+          </li>
+
+
+          <li>[...]</li>
+
+
+          <li>index.php</li>
+
+
+        
+        </ul>
+
+
+      </li>
+
+
+    
+    </ul>
+
+
+    </span> </li>
+
+
+  
+  <p>If you want to do the plugin-administration online, you must
+set write permissions for the folders&nbsp;'config', 'css' and
+'languages' and for the contained files.</p>
+
+
+  <li><span style="font-weight: bold;">Configuration
+    </span><br>
+
+
+The default configuration should be fine for the most users. You'll
+find hints for the configuration options if you hover over the blue questionmarks.</li>
+
+
+</ol>
+
+
+<h2><a class="mozTocH2" name="mozTocId571817"></a>Usage</h2>
+
+
+By default (config-setting "autocheck" = 1), the plugin performs a
+"silent quick-check" in the background immediately after you login to
+your CMSimple_XH installation. If time is enough until you do your
+next click in the backend, and updates are available, you'll find an
+info-icon next to the logout-button in the menubar.<br>
+
+
+Beside this, a notification is displayed on top of the "System Info"
+page ( Settings -&gt; Info ).<br>
+
+<br>
+
+<div style="text-align: center;"><img style="border: 1px solid ; width: 628px; height: 406px;" alt="" src="../images/updatecheck1.PNG"><br>
+
+</div>
+
+<div style="text-align: center;"><span class="additional">Info icon and notification at the "System Info" page</span></div>
+
+<br>
+
+<br>
+
+
+This "quick-check" is only done once per session.<br>
+
+Click the icon or the link at the System-Info page to start a complete update-check.<br>
+
+<br>
+
+<br>
+
+<div style="text-align: center;"><img style="border: 1px solid ; width: 627px; height: 609px;" alt="" src="../images/updatecheck2.PNG"><br>
+
+</div>
+
+
+<div style="text-align: center;"><span class="additional">Example Updatecheck Results</span><br>
+
+<span class="additional"></span></div>
+
+<span class="additional"><br>
+
+</span>
+<span style="font-weight: bold;"><br>
+
+From time to time you
+should check for updates by yourself: </span><br style="font-weight: bold;">
+
+
+go to Plugins -&gt; hi_updatecheck -&gt; Search for updates<br style="font-weight: bold;">
+
+
+<br>
+
+
+<h2><a class="mozTocH2" name="mozTocId508485"></a>Compatibility</h2>
+
+<span style="font-weight: bold;">
+Be warned!</span> This plugin will only work with the original CMSimple_XH from <a href="www.cmsimple-xh.org" target="_blank">www.cmsimple-xh.org</a>.<br>
+
+
+Using it under other versions / forks may result in errors and/or wrong
+informations!<br>
+
+
+<br>
+
+<br>
+
+<br>
+
+If you're not a developer, you can stop reading here. <br>
+
+Have fun and stay up to date ;-).<br>
+
+<br>
+
+<br>
+
+<br>
+
+<hr style="width: 100%; height: 2px;">
+<h2><a class="mozTocH2" name="mozTocId153175"></a>Developers
+View</h2>
+
+
+If you're a plugin developer, me - and hopefully all the CMSimple_XH -
+users - will be happy when you prepare your plugins to work together
+with this script.<br>
+
+
+<br>
+
+
+It's really simple and you must not made changes on your plugin-code.<br>
+
+
+All you need to do is to put a little file called "version.nfo" to the
+root-folder of your plugin and a renamed copy somewhere for the world
+readable on your server.<br>
+
+
+<br>
+
+<h3><a class="mozTocH3" name="mozTocId265868"></a>
+So how does it work?</h3>
+
+
+UpdateCheck looks for a version.nfo - file in every pluginfolder,
+extracts the contained informations and compares them with the
+informations on your server.<br>
+
+
+Depending on the result, the user will get informations about available
+updates, the link to the download page, critical updates or just a hint
+that the plugin is up to date. <br>
+
+
+<br>
+
+<h3><a class="mozTocH3" name="mozTocId502242"></a>
+Creating a version.nfo file</h3>
+
+
+The version.nfo is&nbsp;just a csv-file with exactly the following seven entries
+in one line:<br>
+
+
+<p class="code">Plugin_Name,Version,Readable_Version,Critical?,Additional_Infos,Download_Url,Url_to_remote_nfo</p>
+
+
+<span style="font-weight: bold;"><br>
+
+Field description:<br>
+
+</span>
+<table border="1" cellpadding="8" cellspacing="0">
+
+
+  <tbody>
+
+
+    <tr>
+
+
+      <td style="vertical-align: top;" class="additional">*Plugin_Name:</td>
+
+
+      <td class="additional">The
+readable name of your plugin, used for the info-messages in the
+(x)html-output<br>
+
+
+Example: Update-Check</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td style="vertical-align: top;" class="additional">*Version:</td>
+
+
+      <td class="additional">The version of the plugin.
+This entry is used to compare the versions.<br>
+
+
+Format: everything PHPs version_compare() can understand<br>
+
+
+Examples: 1.5.7 or 1.3.2 RC ... or Build(dates) like 2013051601,
+2013051602</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td style="vertical-align: top;" class="additional">*Readable
+Version:</td>
+
+
+      <td class="additional">This
+entry is displayed in the (x)html-output to the user<br>
+
+
+Examples: 1.5.3 - 2013-05-16 or just 1.5.2 or anything useful for you</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td style="vertical-align: top;" class="additional">Critical?</td>
+
+
+      <td class="additional">This
+field is used to inform the user about critical updates.<br>
+
+
+If you have released a version with a critical bug, give here it's
+version number and the user will notified with a warning message when
+his installed version is equal or older than given here.<br>
+
+
+Format: same as "Version" above.<br>
+
+
+NOTE: keep this entry in future releases too, if a user missed some
+former updates</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td style="vertical-align: top;" class="additional">Additional_Infos:</td>
+
+
+      <td class="additional">This
+entry is displayed in the (x)html-output to the user.<br>
+
+
+Normally keep this field empty. You can only give a short additional
+hint in only one language. Beside this, every script / html markup will
+be removed</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td style="vertical-align: top;" class="additional">*Download_Url</td>
+
+
+      <td class="additional">The
+full url to the downloadpage of the new version. This entry is used to
+build a link in the message displayed to the user.<br>
+
+
+Example: http://www.domain.tld?Plugins:Pluginname</td>
+
+
+    </tr>
+
+
+    <tr>
+
+
+      <td style="vertical-align: top;" class="additional">*Url_to_remote_nfo</td>
+
+
+      <td class="additional">Full
+url to the .nfo - file on your server with the latest version
+informations of the plugin. This file must be accessible over the
+internet.<br>
+
+
+Remember: this url should not change in the future!<br>
+
+
+Example:
+http://www.domain.tld/downloads/versioninfos/Pluginname_version.nfo</td>
+
+
+    </tr>
+
+
+  
+  </tbody>
+</table>
+
+
+<br>
+
+
+Note: fields marked with " * " must&nbsp;be not empty. <br>
+
+And don't forget the commas, if you leave fields blank! The plugin
+checks if exactly seven entries provided by the .nfo-file and ignore
+the plugin otherwise.<br>
+
+
+<br>
+
+<span style="font-weight: bold;">
+Complete Example from jQuery-Plugin:</span> <span class="additional"><br>
+
+(here I've used "Build" to compare
+the versions. "Critical?" and "Additional_Infos" is empty)</span>:<br>
+
+
+<textarea wrap="off" cols="95" rows="1" name="example">jQuery,2013033001,1.4,,,http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple,http://cmsimple.holgerirmler.de/downloads/versioninfo/jQuery4CMSimple_version.nfo</textarea><br>
+
+
+<br>
+
+
+
+Save a file with the informations above to the root-folder of your
+plugin - same level as index.php and admin.php. <span style="font-weight: bold;">The filename must be "version.nfo"</span>.<br>
+
+
+Then put a (renamed) copy of this file to your server, accessible by
+the url given in the last field "Url_to_remote_nfo".<br>
+
+<br>
+
+<span style="font-weight: bold;">That's all - beside updating the file(s) with every new version of your plugin.</span><br style="font-weight: bold;">
+
+
+<br>
+
+
+<h2><a class="mozTocH2" name="mozTocId185790"></a><span style="font-weight: bold;">Credits</span></h2>
+
+The design of the message boxes based on an article written by Janko Jovanovic.<br>
+
+The icons used for the messages were created and provided for free by Miles Ponson.<br>
+
+The plugin icon was created and provided for free by Alexandre Moore.<br>
+
+<br>
+
+Special thanks to <a href="http://3-magi.net" target="_blank">Christoph M. Becker</a> for checking my code, sharing ideas and giving constructive feedback regarding this plugin<br>
+<br>
+The danish translation is provided by Jens Maegaard - <a href="http://www.JmNet.dk" target="_blank">www.JmNet.dk</a> - <a href="http://www.CMSimple-xh.dk" target="_blank">www.CMSimple-xh.dk</a><br>
+
+<br>
+
+<span style="font-weight: bold;"></span>
+<ol>
+
+
+</ol>
+
+
+<h2><a class="mozTocH2" name="mozTocId160751"></a>Copyright &amp; License</h2>
+
+
+<ul>
+
+</ul>
+
+
+<p>Copyright &copy;2013-2014 <a href="http://cmsimple.holgerirmler.de/">Holger Irmler</a> - all rights reserved<br>
+
+</p>
+
+<p class="upd_license">License: GPL3</p>
+
+<p style="text-align: justify;" class="upd_license">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT 
+WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<p style="text-align: justify;" class="upd_license"></p>
+
+
+<ol>
+
+
+</ol>
+
+
+<h2><a class="mozTocH2" name="mozTocId753693"></a>Need
+help?</h2>
+
+
+<p>... visit <a target="_blank" href="http://www.cmsimpleforum.com">cmsimpleforum.com</a>.</p>
+
+
+<span style="font-weight: bold;">
+</span>
+<pre style="font-weight: bold; line-height: 1.2em; font-size: 90%; color: rgb(102, 102, 102);"><br> </pre>
+
+
+</div>
+
+
+</body>
+</html>

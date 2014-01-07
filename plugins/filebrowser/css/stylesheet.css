@@ -29,6 +29,10 @@ margin: 5px;
 display:none;
 }
 
+#xhFilebrowser fieldset legend, #xhFilebrowserMenu fieldset legend {
+   font-weight: bold;
+}
+
 
 /* FILEBROWSER LISTS */
 
@@ -54,11 +58,11 @@ display: none;
 }
 
 #xhFilebrowser li.openFolder, #xhFilebrowserMenu li.openFolder {
-list-style-image:url(icons/folder-open.png);
+list-style-image:url(icons/folder.png);
 padding: 2px 0 2px 5px;
 margin: 0 0 0 0;
 line-height: 1em;
-font-size: 14px; 
+font-size: 14px;
 font-weight: 900;
 }
 
@@ -67,7 +71,7 @@ list-style-image:url(icons/folder.png);
 padding: 2px 0 2px 5px;
 margin: 0 0 0 0;
 line-height: 1em;
-font-size: 13px; 
+font-size: 13px;
 font-weight: 300;
 }
 
@@ -77,75 +81,73 @@ font-weight: 300;
 
 /* FILEBROWSER FOLDERS */
 
-#xhFilebrowser #folders {
-float: left;
-overflow: auto;
+#xhFilebrowser #filebrowser_folders {
+    float: left;
+    width: 40%;
+    overflow: auto;
+
 }
 
-#xhFilebrowser div#subfolders {
-padding: 0 0 10px 0;
+#filebrowser_subfolders {
+    padding: 0 0 10px 0;
 }
 
-#xhFilebrowser div#subfolders li {
-font-size: 13px;
-font-weight: 900;
+#filebrowser_subfolders li {
+    font-size: 13px;
+    font-weight: 900;
 }
 
 
 /* FILEBROWSER FILES */
 
-#xhFilebrowser div#files {
-font-weight: 300;
-padding: 0 0 0 30px;
+#filebrowser_files {
+    font-weight: 300;
+    padding: 0 0 0 30px;
+    margin-bottom: 20px;
 }
 
-#xhFilebrowser div#files li {
-font-size: 13px;
-padding: 2px 0;
-margin: 0;
+#filebrowser_files li {
+    list-style-type: none;
+    font-size: 13px;
+    padding: 2px 0;
+    margin: 0;
 }
 
-#xhFilebrowser #files{
-   margin-bottom: 20px;
-}
-#xhFilebrowser #files li:hover {
-    background-color: #ccc;
+#filebrowser_files li:hover {
+   background-color: #ccc;
 }
 
-#xhFilebrowser #files ul li {
-list-style-type: none;
+#filebrowser_files li.odd {}
+
+#filebrowser_files ul, #filebrowser_files ul li {
+    margin-left: 0em;
+    padding-left: 0em;
 }
 
 #xhFilebrowser a { color: #333;}
-a.xhfbfile {padding: 0 2px 0 0; line-height: 1em;}
-a.xhfbfile img{border: none; margin: 6px;}
-a.xhfbfile span{display: none;}
-a.xhfbfile:hover span, #xhFilebrowser #files ul li:hover a.xhfbfile span{
+a.xhfbfile, span.xhfbfile {padding: 0 2px 0 0; line-height: 1em;}
+a.xhfbfile img, span.xhfbfile img {border: none; margin: 6px;}
+a.xhfbfile span, span.xhfbfile span {display: none;}
+a.xhfbfile:hover span, #filebrowser_files ul li:hover a.xhfbfile span,
+span.xhfbfile:hover span, #filebrowser_files ul li:hover span.xhfbfile span {
     display: block;
     float: right;
     border: #aaa 1px solid;
     padding: 2px;
     background-color: #ddd;
 }
-a.xhfbfile:hover{
+a.xhfbfile:hover, span.xhfbfile:hover {
     background-color: #ccc;
     cursor:pointer;
 }
-#xhFilebrowser #files li.odd{
-   
-}
-#xhFilebrowser #files ul li, #xhFilebrowser #files ul{
-    margin-left: 0em;
-    padding-left: 0em;
-}
-#xhFilebrowser div{
+#xhFilebrowser div {
     font-family: arial, sans-serif;
     padding: 0px;
     margin: 0px;
 }
 
 
-#xhFilebrowser #subfolders  fieldset legend {}
+#filebrowser_subfolders  fieldset legend {}
 
 #xhFilebrowser a:link {color: #222; text-decoration: none; font-style: normal;}
 #xhFilebrowser a:visited {color: #222; text-decoration: none; font-style: normal;}

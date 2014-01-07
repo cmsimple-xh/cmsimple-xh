@@ -1,66 +1,44 @@
 <?php
 
 /**
- * @version $Id$
+ * Internal Filebrowser -- admin.php
+ *
+ * PHP versions 4 and 5
+ *
+ * @category  CMSimple_XH
+ * @package   Filebrowser
+ * @author    Martin Damken <kontakt@zeichenkombinat.de>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://cmsimple-xh.org/
  */
 
-/* utf-8 marker: äöü */
-
-if (!$adm || $cf['filebrowser']['external'] /*|| $backend_hooks['filebrowser']*/) {
+if (!XH_ADM || $cf['filebrowser']['external']) {
     return true;
 }
 
 initvar('filebrowser');
 
 if ($filebrowser) {
-    $plugin = basename(dirname(__FILE__));
-    $plugin = basename(dirname(__FILE__), "/");
-    $o = '<div class="plugintext">';
-    $o .= '<div class="plugineditcaption">Filebrowser for CMSimple_xh</div>';
-    $o .= '<p>Version for $CMSIMPLE_XH_VERSION$</p>';
 
+    initvar('admin');
+    initvar('action');
 
+    $o .= print_plugin_admin('off');
 
-    $admin = isset($_POST['admin']) ? $_POST['admin'] : $admin = isset($_GET['admin']) ? $_GET['admin'] : '';
-    $action = isset($_POST['action']) ? $_POST['action'] : $action = isset($_GET['action']) ? $_GET['action'] : '';
-    $o .= plugin_admin_common($action, $admin, $plugin);
+    $o .= '<div class="plugintext">'
+        . '<div class="plugineditcaption">Filebrowser for @CMSIMPLE_XH_VERSION@'
+        . '</div>' . tag('hr');
 
-    if ($action === 'plugin_save') {  // refresh
-        include $pth['folder']['plugins'] . $plugin . '/config/config.php';
-    }
+    !$admin &&
+        $admin = 'plugin_config';
+    !$action &&
+        $action = 'plugin_edit';
 
-
-
-
-    $o .= '<div><form method="post" action="' . $sn . '?&amp;' . $plugin . '">';
-    $o .= '<p><a class="pl_tooltip" href="#" onclick="return false">
-             <img class="helpicon" alt="help" src="' . $pth['folder']['plugins'] . 'pluginloader/css/help_icon.png" />
-             <span>' . sprintf($plugin_tx[$plugin]['help'], $pth['folder']['plugins'] . $plugin . '/inits') . '</span></a></p>';
-    $o .= '<table>
-             <tr>
-                 <td>' . $tx['title']['images'] . ':</td>
-                 <td><input size="50" type="text" name="' . $pluginloader_cfg['form_namespace'] . 'extensions_images" value="' . $plugin_cf[$plugin]['extensions_images'] . '"></td>
-              </tr>
-              <tr>
-                 <td>' . $tx['title']['downloads'] . ':</td>
-                 <td><input size="50" type="text" name="' . $pluginloader_cfg['form_namespace'] . 'extensions_downloads" value="' . $plugin_cf[$plugin]['extensions_downloads'] . '"></td>
-              </tr>
-              <tr>
-                 <td>' . $tx['title']['userfiles'] . ':</td>
-                 <td><input size="50" type="text" name="' . $pluginloader_cfg['form_namespace'] . 'extensions_userfiles" value="' . $plugin_cf[$plugin]['extensions_userfiles'] . '"></td>
-              </tr>
-              <tr>
-                 <td>' . $tx['title']['media'] . ':</td>
-                 <td><input size="50" type="text" name="' . $pluginloader_cfg['form_namespace'] . 'extensions_media" value="' . $plugin_cf[$plugin]['extensions_media'] . '"></td>
-              </tr>
-              </table>
-              '
-            . tag('input type="hidden" name="admin" value="plugin_config"') . "\n"
-            . tag('input type="hidden" name="action" value="plugin_save"') . "\n"
-            . tag('input type="submit"  name="plugin_submit" value="' . $tx['action']['save'] . '"') . "\n"
-            . '</form>
-           </div>
-          </div>';
+    $o .= plugin_admin_common($action, $admin, $plugin)
+        . '</div>';
     return;
 }
 
@@ -71,30 +49,35 @@ if (!($images || $downloads || $userfiles || $media)) {
 if ($images) {
     $f = 'images';
 }
-
 if ($downloads) {
     $f = 'downloads';
 }
-
 if ($userfiles) {
     $f = 'userfiles';
 }
-
 if ($media) {
     $f = 'media';
 }
 
 $browser = $_SESSION['xh_browser'];
+
+/**
+ * The path of the filebrowser plugin folder.
+ */
 define('XHFB_PATH', $pth['folder']['plugins'] . 'filebrowser/');
-$hjs .= '<script type="text/javascript" src="' . XHFB_PATH . 'js/filebrowser.js"></script>';
 
-$subdir = isset($_GET['subdir']) ? str_replace(array('..', '.'), '', $_GET['subdir']) : '';
+$hjs .= '<script type="text/javascript" src="' . XHFB_PATH . 'js/filebrowser.js">'
+    . '</script>';
 
-if (strpos($subdir, $browser->baseDirectories[$f]) !== 0) {
-    $subdir = $browser->baseDirectories[$f];
+$subdir = isset($_GET['subdir'])
+    ? str_replace(array('..', '.'), '', $_GET['subdir'])
+    : ltrim($pth['folder'][$f], './');
+
+$browser->baseDirectory = ltrim($pth['folder']['userfiles'], './');
+if (strpos($subdir, $browser->baseDirectory) !== 0) {
+    $subdir = $browser->baseDirectory;
 }
 
-$browser->baseDirectory = $browser->baseDirectories[$f];
 $browser->currentDirectory =  rtrim($subdir, '/') . '/';
 $browser->linkType = $f;
 $browser->setLinkParams($f);
@@ -104,20 +87,24 @@ if (!empty($_SERVER['CONTENT_LENGTH']) && empty($_POST)) {
         'error_file_too_big_php', array(ini_get('post_max_size'), 'post_max_size')
     );
 }
-
-if (isset($_POST['deleteFile']) && isset($_POST['file'])) {
-    $browser->deleteFile($_POST['file']);
+if (isset($_POST['deleteFile']) && isset($_POST['filebrowser_file'])) {
+    $_XH_csrfProtection->check();
+    $browser->deleteFile($_POST['filebrowser_file']);
 }
 if (isset($_POST['deleteFolder']) && isset($_POST['folder'])) {
+    $_XH_csrfProtection->check();
     $browser->deleteFolder($_POST['folder']);
 }
 if (isset($_POST['upload'])) {
+    $_XH_csrfProtection->check();
     $browser->uploadFile();
 }
 if (isset($_POST['createFolder'])) {
+    $_XH_csrfProtection->check();
     $browser->createFolder();
 }
 if (isset($_POST['renameFile'])) {
+    $_XH_csrfProtection->check();
     $browser->renameFile();
 }
 
@@ -127,6 +114,5 @@ $o .= $browser->render('cmsbrowser');
 
 $f = 'filebrowser';
 $images = $downloads = $userfiles = $media = false;
-/*
- * EOF filebrowser/admin.php
- */
+
+?>

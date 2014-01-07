@@ -1,20 +1,61 @@
 <?php
 
+/*
+ * @version $Id: admin.php 213 2013-11-10 21:34:54Z hi $
+ *
+ */
+
 /**
  * jQuery for CMSimple
  *
  * Admin-interface for configuring the plugin
  * via the standard-functions of pluginloader.
  *
- * @author Holger Irmler
- * @link http://cmsimple.holgerirmler.de
- * @version 1.4 - 2013-03-30
- * @build 2013033001
- * @package jQuery
+ * Version:    1.5
+ * Build:      2013111001
+ * Copyright:  Holger Irmler
+ * Email:      CMSimple@HolgerIrmler.de
+ * Website:    http://CMSimple.HolgerIrmler.de
  * */
-//initvar('jquery');
-//if ($jquery) {
 if (isset($_GET['jquery'])) {
+
+    //Helper-functions
+    function jquery_getCoreVersions() {
+        global $pth;
+        $versions = array();
+        $handle = opendir($pth['folder']['plugins'] . 'jquery/lib/jquery/');
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != '.' && $entry != '..') {
+                $versions[] = $entry;
+            }
+        }
+        closedir($handle);
+        return $versions;
+    }
+
+    function jquery_getUiVersions() {
+        global $pth;
+        $versions = array();
+        $handle = opendir($pth['folder']['plugins'] . 'jquery/lib/jquery_ui/');
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != '.' && $entry != '..') {
+                $versions[] = $entry;
+            }
+        }
+        closedir($handle);
+        return $versions;
+    }
+
+    function jquery_getMigrateVersions() {
+        global $pth;
+        $temp = glob($pth['folder']['plugins'] . 'jquery/lib/migrate/*.js');
+        $versions = array();
+        foreach ($temp as $version) {
+            $versions[] = basename($version);
+        }
+        return $versions;
+    }
+
     $admin = isset($_POST['admin']) ? $_POST['admin'] : $admin = isset($_GET['admin']) ? $_GET['admin'] : '';
     $action = isset($_POST['action']) ? $_POST['action'] : $action = isset($_GET['action']) ? $_GET['action'] : '';
     $plugin = basename(dirname(__FILE__), "/");
@@ -30,9 +71,10 @@ if (isset($_GET['jquery'])) {
         $o .= plugin_admin_common($action, $admin, $plugin);
     }
     if ($admin == '') {
-        $o .= "\n" . '<div class="plugintext">';
-        $o .= "\n" . '<div class="plugineditcaption">jQuery for CMSimple v. 1.4 - 2013-03-30</div>';
-        $o .= '<p>&copy;2011-2013 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
+        $o .= "\n" . '<div>';
+        $o .= "\n" . '<h1>jQuery for CMSimple</h1>';
+        $o .= "\n" . '<p>Version 1.5 - 2013-11-10</p>';
+        $o .= "\n" . '<p>&copy;2011-2013 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
         $o .= "\n" . '<p>';
         $o .= "\n" . 'jQuery Version: ';
         $o .= '<script type="text/javascript">
@@ -47,8 +89,6 @@ if (isset($_GET['jquery'])) {
         $o .= '<script type="text/javascript">document.write(jQuery.ui.version)</script>';
         $o .= "\n" . '</p>';
         $o .= "\n" . '</div>';
-        if (@include_once $pth['folder']['plugins'].'hi_updatecheck/updatecheck.php')
-            $o .= hi_updateCheck($plugin);
     }
 }
 ?>

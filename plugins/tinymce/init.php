@@ -11,39 +11,35 @@
  *
  * @return void
  */
-function tinymce_filebrowser() {
-    global $adm, $cf;
+    function tinymce_filebrowser() {
+        global $adm, $cf;
 
-    if (!$adm) { return ''; }  // no filebrowser, if editor is called from front-end
+        if (!$adm) { return ''; }  // no filebrowser, if editor is called from front-end
 
-    $url = '';
-    $script = ''; //holds the code of the callback-function
+        $url = '';
+        $script = ''; //holds the code of the callback-function
 
-    //Einbindung alternativer Filebrowser, gesteuert über $cf['filebrowser']['external']
-    //und den Namen des aufrufenden Editors
-    if ($cf['filebrowser']['external'] != FALSE) {
-	$fbConnector = CMSIMPLE_BASE . 'plugins/' . $cf['filebrowser']['external'] . '/connectors/tinymce/tinymce.php';
-	if (is_readable($fbConnector)) {
-	    include_once($fbConnector);
-	    $init_function = $cf['filebrowser']['external'] . '_tinymce_init';
-	    if (function_exists($init_function)) {
-		    $script = $init_function();
-	    }
-	return $script;
-	}
+        //Einbindung alternativer Filebrowser, gesteuert über $cf['filebrowser']['external']
+        //und den Namen des aufrufenden Editors
+        if ($cf['filebrowser']['external'] != FALSE) {
+            $fbConnector = CMSIMPLE_BASE . 'plugins/' . $cf['filebrowser']['external'] . '/connectors/tinymce/tinymce.php';
+            if (is_readable($fbConnector)) {
+                include_once($fbConnector);
+                $init_function = $cf['filebrowser']['external'] . '_tinymce_init';
+                if (function_exists($init_function)) {
+                    $script = $init_function();
+                    return $script;
+                }
+            }
+        }
 
-    } else {
-
-	//default filebrowser
-	$_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
-	$url =  CMSIMPLE_ROOT . 'plugins/filebrowser/editorbrowser.php?editor=tinymce&prefix=' . CMSIMPLE_BASE . '&base=./';
-	$script = file_get_contents(dirname(__FILE__) . '/filebrowser.js');
-	$script = str_replace('%URL%',  $url, $script);
-	return $script;
-
+        //default filebrowser
+        $_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
+        $url =  CMSIMPLE_ROOT . 'plugins/filebrowser/editorbrowser.php?editor=tinymce&prefix=' . CMSIMPLE_BASE . '&base=./';
+        $script = file_get_contents(dirname(__FILE__) . '/filebrowser.js');
+        $script = str_replace('%URL%',  $url, $script);
+        return $script;
     }
-}
-
 
 /**
  * Writes the basic JS of the editor to $hjs. No editors are actually created.
@@ -88,7 +84,7 @@ function include_tinymce() {
  * @return string
  */
 function tinymce_config($xh_editor, $config) {
-    global $pth, $sl, $sn, $cf, $plugin_cf;
+    global $pth, $sl, $sn, $cf, $plugin_cf, $plugin_tx, $s, $cl;
 
     if (!isset($plugin_cf['tinymce'])) {
 	include_once $pth['folder']['plugins'] . 'tinymce/config/config.php';
@@ -146,15 +142,37 @@ function tinymce_config($xh_editor, $config) {
     $temp = str_replace('%STYLESHEET%', $tiny_css, $temp);
     $temp = str_replace('%BASE_URL%', $sn, $temp);
 
+
+    $_headers = array();
+    for ( $i = $cf['menu']['levels'] + 1; $i <= 6; $i++ ) {
+        $_headers[] = "h$i=h$i";
+    };
+    $temp = str_replace('%HEADERS%', implode(';',$_headers), $temp);
+
+    $_pageheaders = array();
+    for ( $i=1; $i <= $cf['menu']['levels'];$i++ ) {
+        $_pageheaders [] = "h$i=h$i";
+    }
+    $temp = str_replace('%PAGEHEADERS%', implode(';',$_pageheaders), $temp);
+
+    $_named_pageheaders = array();
+    for ( $i=1; $i <= $cf['menu']['levels'];$i++ ) {
+        $_named_pageheaders [] = sprintf($plugin_tx['tinymce']['pageheader'],$i) . "=h$i";
+    }
+    $temp = ($s >= 0 && $s < $cl)
+    ? str_replace('%NAMED_PAGEHEADERS%', implode(';',$_named_pageheaders), $temp)
+    : str_replace('%NAMED_PAGEHEADERS%', implode(';',$_pageheaders), $temp);
+
+
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
     $temp = str_replace('%ELEMENT_FORMAT%', $elementFormat, $temp);
     if ($xh_editor)
     {
-	$temp = str_replace('"%EDITOR_HEIGHT%"', 'height : "'.$cf['editor']['height'].'",', $temp);
+	$temp = str_replace('%EDITOR_HEIGHT%', 'height : "'.$cf['editor']['height'].'",', $temp);
     }
     else
     {
-	$temp = str_replace('"%EDITOR_HEIGHT%"', '', $temp);
+	$temp = str_replace('%EDITOR_HEIGHT%', '', $temp);
     }
     //$temp = str_replace("%INIT_CLASSES%", $initClasses, $temp);
 

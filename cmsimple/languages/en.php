@@ -1,23 +1,42 @@
 <?php
 
+$tx['site']['title']="English Site Title";
+$tx['subsite']['template']="";
+
+$tx['meta']['keywords']="Enter list of comma separated keywords here";
+$tx['meta']['description']="Enter website description for search engine results here";
+
+$tx['locale']['all']="";
+
+$tx['template']['text1']="Text 1 for templates requiring this text";
+$tx['template']['text2']="Text 2 for templates requiring this text";
+$tx['template']['text3']="Text 3 for templates requiring this text";
+
+$tx['action']['backup']="backup";
+$tx['action']['cancel']="Cancel";
 $tx['action']['delete']="delete";
 $tx['action']['download']="download";
 $tx['action']['edit']="edit";
+$tx['action']['empty']="empty";
+$tx['action']['ok']="OK";
+$tx['action']['restore']="restore";
 $tx['action']['save']="save";
 $tx['action']['upload']="upload";
 $tx['action']['view']="view";
+
+$tx['editmenu']['backups']="Backups";
 $tx['editmenu']['configuration']="CMS";
 $tx['editmenu']['downloads']="Downloads";
 $tx['editmenu']['edit']="Edit mode";
 $tx['editmenu']['files']="Files";
 $tx['editmenu']['help']="Help";
 $tx['editmenu']['images']="Images";
-$tx['editmenu']['langconfig']="Website";
 $tx['editmenu']['language']="Language";
 $tx['editmenu']['log']="Log file";
 $tx['editmenu']['logout']="Logout";
 $tx['editmenu']['media']="Media";
 $tx['editmenu']['normal']="View mode";
+$tx['editmenu']['pagedata']="Page Data";
 $tx['editmenu']['pagemanager']="Pages";
 $tx['editmenu']['plugins']="Plugins";
 $tx['editmenu']['settings']="Settings";
@@ -36,69 +55,78 @@ $tx['error']['cntlocateheading']="No page selected";
 $tx['error']['cntopen']="Could not open";
 $tx['error']['cntsave']="Could not save";
 $tx['error']['cntwriteto']="Could not write to";
+$tx['error']['noeditor']="External editor \"%s\" missing!";
+$tx['error']['nofilebrowser']="External filebrowser \"%s\" missing!";
+$tx['error']['nopagemanager']="External pagemanager \"%s\" missing!";
 $tx['error']['headers']="Cannot modify header information - headers already sent (output started at {location})";
 $tx['error']['missing']="Missing";
 $tx['error']['nocookies']="Please enable Cookies!";
 $tx['error']['nojs']="Please enable Javascript!";
 $tx['error']['notreadable']="Not readable";
 $tx['error']['notwritable']="Not writeable";
-$tx['error']['tolarge']="is too large! Maximum size is set to";
+$tx['error']['plugincall']="Function %s() is not defined!";
+$tx['error']['server']="Server error: %s";
 $tx['error']['undefined']="Undefined";
-$tx['error']['wrongext']="Wrong file extension in";
-
-$tx['files']['bytes']="bytes";
-$tx['files']['totalsize']="Total size";
 
 $tx['filetype']['backup']="backup";
-$tx['filetype']['config']="CMS configuration";
+$tx['filetype']['config']="configuration";
 $tx['filetype']['content']="content file";
 $tx['filetype']['execute']="execute";
 $tx['filetype']['file']="file";
 $tx['filetype']['folder']="folder";
-$tx['filetype']['langconfig']="Website configuration";
 $tx['filetype']['language']="language file";
 $tx['filetype']['log']="log";
-$tx['filetype']['pagedata']="pagedata file";
 $tx['filetype']['stylesheet']="stylesheet";
 $tx['filetype']['template']="template";
 
 $tx['heading']['error']="ERROR";
-$tx['heading']['warning']="ERROR / WARNING";
 
 $tx['help']['downloads_maxsize']="Maximum size of uploaded files in Byte. This must neither exceed the limit set for upload_max_filesize nor post_max_size in the PHP configuration.";
-$tx['help']['editmenu_scroll']="If set to <b>true</b> the admin menu will be scrolled with your webpage";
+$tx['help']['editmenu_scroll']="Whether the admin menu shall scroll with your webpage. Not checked = fixed admin menu.";
+$tx['help']['editmenu_external']="If you want to use an external admin menu, install it as a plugin and enter its function name here.";
 $tx['help']['editor_height']="Integer or JavaScript expression returning an integer for editor height in pixels.";
-$tx['help']['editor_external']="If you want to use an external editor, install it as a plugin and enter its name here.";
-$tx['help']['filebrowser_external']="If you want to use an external file browser, e.g. hi_kcfinder, install the plugin and enter its name here";
+$tx['help']['editor_external']="Enter here the name of the wanted editor, which has to be installed as a plugin. There is no internal editor.";
+$tx['help']['filebrowser_external']="If you want to use an external file browser, e.g. hi_kcfinder, install the plugin and enter its name here.";
 $tx['help']['functions_file']="Please do not change";
+$tx['help']['meta_author']="(Optional) Enter here for the benefit of search engines the name of the author of your pages.";
+$tx['help']['meta_publisher']="(Optional) Enter here for the benefit of search engines the publisher of your site, i.e. the person or institute responsable for the site.";
+$tx['help']['backup_numberoffiles']="After each logout a backup of the content file is generated. Enter the number of such files which the system automatically keeps.";
 
-$tx['help']['show_hidden_path_locator']="<b>true</b> shows the path of the hidden page in the locator.";
-$tx['help']['show_hidden_pages_search']="<b>true</b> shows hidden pages in the results of the internal search function.";
-$tx['help']['show_hidden_pages_sitemap']="<b>true</b> shows hidden pages in the sitemap.";
-$tx['help']['show_hidden_pages_toc']="<b>true</b> shows hidden pages in the toc (navigation menu), if they are called (for example called by link).";
+$tx['help']['show_hidden_path_locator']="Whether the path of the hidden page is shown in the locator.";
+$tx['help']['show_hidden_pages_search']="Whether hidden pages are shown in the results of the internal search function.";
+$tx['help']['show_hidden_pages_sitemap']="Whether hidden pages are shown in the sitemap.";
+$tx['help']['show_hidden_pages_toc']="Whether hidden pages are shown in the toc (navigation menu), if they are called (for example called by link).";
 
 $tx['help']['images_maxsize']="Maximum size of uploaded images in Byte. This must neither exceed the limit set for upload_max_filesize nor post_max_size in the PHP configuration.";
 $tx['help']['language_default']="The primary language of your site";
-$tx['help']['langconfig']="The settings of <b>Template</b> and <b>Password</b><br />will substitute your settings of the CMS Configuration!";
-$tx['help']['locator_show_homepage']="<b>true</b> shows a link to the homepage at the start of the locator";
-$tx['help']['mailform_captcha']="<b>true</b> enables the captcha in the mailform";
-$tx['help']['mailform_email']="If set the mailform will be enabled";
+$tx['help']['locator_show_homepage']="Whether the locator starts with a link to the first page (homepage) or not.";
+$tx['help']['mailform_captcha']="Whether a CAPTCHA shall be used in the mailform to prevent SPAM-mails.";
+$tx['help']['mailform_email']="The mailform will only be enabled when an email address is entered here.";
 $tx['help']['menu_color']="Not used by CMSimple_XH core";
 $tx['help']['menu_highlightcolor']="Not used by CMSimple_XH core";
-$tx['help']['menu_levels']="Possible settings are 1 to 6";
+$tx['help']['menu_levels']="The pages of your site can be organized in up to 6 levels, 3 being the default.";
 $tx['help']['menu_sdoc']="Leave it empty or enter \"parent\", which gives the class \"sdocs\" to higher level navigation links when lower pages of that branch are selected.";
+
+$tx['help']['meta_robots']="Default setting for all pages of your site. \"index,follow\" tells robots to list the present page in the seach index and to follow all links of the page.\"noindex,nofollow\" prevents this.";
+
 $tx['help']['pagemanager_external']="If you want to use an external page manager, install the plugin and enter its name here";
+$tx['help']['plugins_disabled']="A comma separated list of plugins which shall not be loaded. <strong>Caveat: if any of these plugins is actually in use on the site, you may not be able to access the site anymore, and would have to fix this option via FTP!</strong>";
 $tx['help']['plugins_folder']="Please do not change";
-$tx['help']['scripting_regexp']="Please do not change";
-$tx['help']['security_password']="Default password of the site. Can be substituted in subsites, like secondary language pages etc. under:<br><b>Settings => CMSimple => Website</b><br><br>What you see here is the encrypted version of your password. To change the password, just enter the new one (unencrypted).";
-$tx['help']['site_template']="<p>Default template of the site. Can be substituted in subsites, like secondary language pages etc. under:</p><p><b>Settings => CMSimple => Website</b></p>";
-$tx['help']['subsite']="<b>Subsite:</b> second language or an additional independent website, operated with the same CMSimple_XH installation.";
+$tx['help']['security_password']="Password of the site and all secondary language pages";
+$tx['help']['security_email']="The email address for the password forgotten functionality. It is preferable to use an address that is not publicly known.";
+$tx['help']['site_template']="Default template of the site";
+$tx['help']['site_timezone']="Usually no entry necessary. Starting from PHP 5.1.0  a <a href=\"http://www.php.net/manual/en/timezones.php\">time zone</a> can be entered to override your server's setting (see http://www.php.net/manual/en/timezones.php).";
+$tx['help']['title_format']="The way the title of a page of your site (&lt;title&gt;) is shown in the tab of your browser.";
 $tx['help']['uri_seperator']="The character which separates names of pages and sub pages in the URL.";
 $tx['help']['uri_length']="The URLs of the pages will be truncated at this length. This might change in a future release, so it's best to use shorter page headings (e.g. by using Page&rarr;Alternative heading).";
-$tx['help']['xhtml_amp']="<b>true</b> converts <b>&</b> to <b>&amp;amp;</b> in your content. Changing this setting is not recommended";
-$tx['help']['xhtml_endtags']="<b>true</b> creates in the content XHTML required endslashes in standalone tags like &lt;br&gt; etc.";
+$tx['help']['xhtml_endtags']="Check this, if you want XHTML-output. The required endslashes in standalone tags will be created automatically.";
 
-$tx['images']['usedin']="Used in";
+$tx['help']['folders_userfiles']="The base folder of all userfiles.";
+$tx['help']['folders_downloads']="A subfolder of userfiles.";
+$tx['help']['folders_images']="A subfolder of userfiles.";
+$tx['help']['folders_media']="A subfolder of userfiles.";
+
+$tx['label']['empty']="- EMPTY -";
 
 $tx['languagemenu']['text']="select language: ";
 
@@ -108,14 +136,18 @@ $tx['lastupdate']['text']="Last update";
 $tx['link']['check']="Please check: ";
 $tx['link']['check_errors']="Problems encountered: ";
 $tx['link']['check_ok']="No errors found";
-$tx['link']['checked']=" links have been checked. ";
-$tx['link']['email']="Is this e-mail address valid and still in use?";
+$tx['link']['checked_1']="%d link has been checked. ";
+$tx['link']['checked_2_4']="%d links have been checked. ";
+$tx['link']['checked_5']="%d links have been checked. ";
+$tx['link']['checking']="Link check in progress...";
+$tx['link']['email']="Is this email address valid and still in use?";
 $tx['link']['error']="Error: ";
 $tx['link']['errors']="Errors: ";
 $tx['link']['ext_error_domain']="faulty external Link, domain not reachable.";
 $tx['link']['ext_error_page']="faulty external Link, page not reachable.";
 $tx['link']['hints']="Hints:";
 $tx['link']['int_error']="faulty internal Link, page does not exist.";
+$tx['link']['int_error_fragment']="faulty internal Link, anchor does not exist.";
 $tx['link']['link']="Link: ";
 $tx['link']['linked_page']="Link target: ";
 $tx['link']['page']="Page: ";
@@ -129,46 +161,81 @@ $tx['locator']['text']="You are here: ";
 $tx['log']['dateformat']="Y-m-d H:i:s";
 $tx['log']['loggedin']="logged in";
 
+$tx['login']['failure']="You have entered a wrong password!";
 $tx['login']['loggedout']="You have been logged out";
 $tx['login']['warning']="Site administration. Please enter password.";
 
 $tx['mailform']['captcha']="Please enter this number (spam prevention)";
 $tx['mailform']['captchafalse']="Please enter anti-spam code";
 $tx['mailform']['mustwritemessage']="No message has been entered";
-$tx['mailform']['notaccepted']="This email address is not allowed";
+$tx['mailform']['notaccepted']="Please fill in the required fields";
 $tx['mailform']['notsend']="The message could not be sent";
 $tx['mailform']['send']="The message has been sent";
 $tx['mailform']['sendbutton']="Send";
-$tx['mailform']['sender']="Your e-mail (required)";
-$tx['mailform']['sendername']="Your name";
-$tx['mailform']['senderphone']="Your phone number";
+$tx['mailform']['sender']="Your email (required): ";
+$tx['mailform']['sendername']="Your name: ";
+$tx['mailform']['senderphone']="Your phone number: ";
+$tx['mailform']['subject']="Subject (required): ";
 
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Mailform";
 $tx['menu']['print']="Print view";
 $tx['menu']['sitemap']="Sitemap";
+$tx['menu']['tab_main']="Main Settings";
+$tx['menu']['tab_css']="Stylesheet";
+$tx['menu']['tab_config']="Config";
+$tx['menu']['tab_language']="Language";
+$tx['menu']['tab_help']="Help";
 
-$tx['meta']['codepage']="utf-8";
+$tx['message']['backedup']="The content has been successfully backed up.";
+$tx['message']['debug_mode']="Debug-Mode is enabled!";
+$tx['message']['emptied']="The content has been successfully emptied.";
+$tx['message']['pd_success']="Page data successfully saved. Some settings may only become effective after page refresh or browsing to another page.";
+$tx['message']['pd_fail']="The page data could not be saved. Please try again.";
+$tx['message']['restored']="The backup has been successfully restored.";
+$tx['message']['saved']="%s successfully saved.";
 
 $tx['navigator']['next']="next »";
 $tx['navigator']['previous']="« prev";
 $tx['navigator']['top']="top";
 
+$tx['pagedata']['deleted_1']="%s page data field has been deleted.";
+$tx['pagedata']['deleted_2_4']="%s page data fields have been deleted.";
+$tx['pagedata']['deleted_5']="%s page data fields have been deleted.";
+$tx['pagedata']['fail']="Could not save \"%s\"!";
+$tx['pagedata']['info']="The following page data fields are <em>currently</em> unused, and may be deleted.";
+$tx['pagedata']['nothing']="No action necessary.";
+$tx['pagedata']['ok']="No superfluous fields detected in page data.";
+
+$tx['password']['change']="Change password";
+$tx['password']['confirmation']="Confirmation";
+$tx['password']['fields_missing']="Fill out all fields.";
+$tx['password']['invalid']="New password is invalid.";
+$tx['password']['mismatch']="New password and its confirmation do not match.";
+$tx['password']['new']="New password";
+$tx['password']['old']="Old password";
+$tx['password']['wrong']="Old password is wrong.";
+
+$tx['password_forgotten']['email1_sent']="An email has been sent to the configured address with a link to reset the password. This link is valid for 1-2 hours.";
+$tx['password_forgotten']['email1_text']="You have requested to reset your password. Click the following link to reset your password:";
+$tx['password_forgotten']['email2_sent']="The password has been reset. An email with the new password has been sent to the configured address.";
+$tx['password_forgotten']['email2_text']="Your password has been reset. Your new password is:";
+$tx['password_forgotten']['request']="Confirm the configured email address to request instructions to reset the password.";
+
 $tx['result']['created']="created";
 $tx['result']['deleted']="deleted";
-$tx['result']['uploaded']="uploaded";
 
 $tx['search']['button']="Search";
-$tx['search']['foundin']="found in";
-$tx['search']['notfound']="was not found";
-$tx['search']['pgplural']="pages";
-$tx['search']['pgsingular']="page";
+$tx['search']['found_1']="\"%s\" was found in one page:";
+$tx['search']['found_2-4']="\"%s\" was found in %d pages:";
+$tx['search']['found_5']="\"%s\" was found in %d pages:";
+$tx['search']['notfound']="\"%s\" was not found.";
 $tx['search']['result']="Result of your search";
 
 $tx['settings']['backup']="Backup";
 $tx['settings']['backupexplain1']="On logout content is backed up and the oldest backup file will be deleted.";
 $tx['settings']['backupexplain2']="Backup file names start with date and time of backup as: YYYYMMDD_HHMMSS";
-$tx['settings']['backupexplain3']="Please save Content file and Pagedata file always together!";
+$tx['settings']['backupsuffix']="Enter a filename (only a-z, 0-9, minus and underscore; at most 20 characters):";
 $tx['settings']['ftp']="Use FTP for remote file management";
 $tx['settings']['systemfiles']="System files";
 $tx['settings']['warning']="Only change settings when you understand the effect your changes will have!";
@@ -177,10 +244,16 @@ $tx['submenu']['heading']="Submenu";
 
 $tx['syscheck']['encoding']="Encoding 'UTF-8' configured";
 $tx['syscheck']['extension']="Extension '%s' loaded";
-$tx['syscheck']['writable']="'%s' writable";
+$tx['syscheck']['fail']="Failure";
+$tx['syscheck']['locale_available']="Locale '%s' available";
+$tx['syscheck']['locale_default']="Default locale in use";
 $tx['syscheck']['magic_quotes']="Magic quotes runtime off";
 $tx['syscheck']['phpversion']="PHP version ≥ %s";
+$tx['syscheck']['success']="OK";
+$tx['syscheck']['timezone']="Time zone valid";
 $tx['syscheck']['title']="System check";
+$tx['syscheck']['warning']="Warning";
+$tx['syscheck']['writable']="'%s' writable";
 
 $tx['sysinfo']['helplinks']="Info and Help Links";
 $tx['sysinfo']['php_version']="PHP-Version";
@@ -193,8 +266,11 @@ $tx['template']['default']="default template";
 
 $tx['title']['downloads']="Downloads";
 $tx['title']['images']="Images";
+$tx['title']['log']="Log File";
 $tx['title']['mailform']="Mailform";
 $tx['title']['media']="Mediafiles";
+$tx['title']['pagedata']="Page Data Cleanup";
+$tx['title']['password_forgotten']="Password forgotten";
 $tx['title']['phpinfo']="PHP Info";
 $tx['title']['search']="Search";
 $tx['title']['settings']="Settings";
@@ -202,6 +278,7 @@ $tx['title']['sitemap']="Sitemap";
 $tx['title']['sysinfo']="System Info";
 $tx['title']['userfiles']="Userfiles";
 $tx['title']['validate']="Validate links";
+$tx['title']['xh_backups']="Backup";
 
 $tx['toc']['dupl']="DUPLICATE HEADING";
 $tx['toc']['empty']="EMPTY HEADING";
