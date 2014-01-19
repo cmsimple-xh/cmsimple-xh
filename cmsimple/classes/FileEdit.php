@@ -175,16 +175,17 @@ class XH_TextFileEdit extends XH_FileEdit
      *
      * @return string  (X)HTML.
      *
+     * @global string The script name.
+     * @global array  The localization of the core.
      * @global object The CSRF protection object.
      *
      * @access public
      */
     function form()
     {
-        global $tx, $_XH_csrfProtection;
+        global $sn, $tx, $_XH_csrfProtection;
 
-        $action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
-        $value = utf8_ucfirst($tx['action']['save']);
+        $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;        $value = utf8_ucfirst($tx['action']['save']);
         if (isset($_GET['xh_success'])) {
             $filetype = utf8_ucfirst($tx['filetype'][stsl($_GET['xh_success'])]);
             $message =  XH_message('success', $tx['message']['saved'], $filetype);
@@ -503,7 +504,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
     function formField($cat, $name, $opt)
     {
         global $tx;
-        
+
         $iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
         switch ($opt['type']) {
         case 'password':
@@ -553,6 +554,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @return string  (X)HTML.
      *
+     * @global string The script name.
      * @global array  The paths of system files and folders.
      * @global array  The localization of the core.
      * @global string JS for the onload attribute of the body element.
@@ -562,9 +564,9 @@ class XH_ArrayFileEdit extends XH_FileEdit
      */
     function form()
     {
-        global $pth, $tx, $onload, $_XH_csrfProtection;
+        global $sn, $pth, $tx, $onload, $_XH_csrfProtection;
 
-        $action = isset($this->plugin) ? '?&amp;' . $this->plugin : '.';
+        $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;
         $value = utf8_ucfirst($tx['action']['save']);
         $button = tag('input type="submit" class="submit" value="' . $value . '"');
         if (isset($_GET['xh_success'])) {
