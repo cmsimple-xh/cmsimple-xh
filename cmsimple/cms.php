@@ -602,13 +602,6 @@ $f = '';
  */
 $xh_hasher = new PasswordHash(8, true);
 
-/**
- * The CRSF protection object.
- *
- * @global object $_XH_csrfProtection
- */
-$_XH_csrfProtection = new XH_CSRFProtection();
-
 /*
  * Include required_classes of all plugins.
  */
@@ -618,6 +611,13 @@ foreach (XH_plugins() as $plugin) {
         include_once $pth['file']['plugin_classes'];
     }
 }
+
+/**
+ * The CRSF protection object.
+ *
+ * @global object $_XH_csrfProtection
+ */
+$_XH_csrfProtection = new XH_CSRFProtection();
 
 // LOGIN & BACKUP
 
