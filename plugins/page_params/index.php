@@ -203,16 +203,21 @@ if (!$edit && $pd_current) {
 /*
  * Add a #CMSimple hide# if page needs to be viewed eg. in Template as a newsbox
  * (page-parameter 'linked_to_menu'=0). If page is unpublished ('published'=0)
- * content of this page will be overwritten with #CMSimple hide#.
+ * content of this page will be overwritten with #CMSimple hide#; in case it's
+ * the currently requested page, a CMSimple script to show a 404 page is added.
  */
 if (!(XH_ADM && $edit)) {
     $temp = $pd_router->find_all();
     foreach ($temp as $i => $j) {
         Pageparams_handleRelocation($i, $j);
-        if ($j['linked_to_menu'] == '0') {
+        // unpublishing superseedes hiding:
+        if (!Pageparams_isPublished($j)) {
+            $c[$i] = '#CMSimple hide#';
+            if ($i == $pd_s) {
+                $c[$i] .= '#CMSimple shead(404);#';
+            }
+        } elseif ($j['linked_to_menu'] == '0') {
             $c[$i] = '#CMSimple hide#' . $c[$i];
-        } elseif (!Pageparams_isPublished($j)) {
-            $c[$i] = '#CMSimple hide# #CMSimple shead(404);#';
         }
     }
 }
