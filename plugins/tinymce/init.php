@@ -166,14 +166,7 @@ function tinymce_config($xh_editor, $config) {
 
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
     $temp = str_replace('%ELEMENT_FORMAT%', $elementFormat, $temp);
-    if ($xh_editor)
-    {
-	$temp = str_replace('%EDITOR_HEIGHT%', 'height : "'.$cf['editor']['height'].'",', $temp);
-    }
-    else
-    {
-	$temp = str_replace('%EDITOR_HEIGHT%', '', $temp);
-    }
+
     //$temp = str_replace("%INIT_CLASSES%", $initClasses, $temp);
 
     $temp = str_replace("%FILEBROWSER_CALLBACK%", $_SESSION['tinymce_fb_callback'], $temp);
