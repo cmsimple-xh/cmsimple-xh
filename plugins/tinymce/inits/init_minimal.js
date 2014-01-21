@@ -24,7 +24,6 @@
     theme_advanced_blockformats : "%HEADERS%,p=p,div=div,%PAGEHEADERS%",
     theme_advanced_font_sizes : "8px=8px,10px=10px,12px=12px,14px=14px,16px=16px,18px=18px,20px=20px,24px=24px,36px=36px",
 
-    // height : %EDITOR_HEIGHT%,
     content_css : "%STYLESHEET%",
 
     external_image_list_url : "%TINY_FOLDER%cms_image_list.js",
