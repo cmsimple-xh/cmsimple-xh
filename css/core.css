@@ -240,7 +240,7 @@
     margin: 0 0 8px 0;
 }
 
-#xh_mailform .text {
+#xh_mailform .text, .xh_mailform textarea {
     width: 90%;
 }
 
@@ -253,9 +253,9 @@
     margin: 0 4px;
 }
 
-.text, .xh_captcha_input {
-    font-family: arial, sans-serif;
-    font-size: 14px;
+.text, .xh_captcha_input, .xh_mailform textarea {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 13px;
     color: #222;
     padding: 2px 4px;
     margin: 0 0 2px 0;
@@ -634,6 +634,9 @@ div.xh_break {
     height: 40em;
     overflow: auto;
     border: 1px solid #888;
+    background:white;
+    color:black;
+    font: 12px/1.6 "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 #xh_pagedata ul {
@@ -642,7 +645,7 @@ div.xh_break {
 
 textarea.xh_file_edit {
     width: 99%;
-    font-family: 'courier new', monospace;
+    font-family: Consolas, 'courier new', monospace;
     font-size: 14px;
     color: #222;
     background-color: #fff;
