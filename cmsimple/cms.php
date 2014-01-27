@@ -281,7 +281,7 @@ $pth['file']['pagedata'] = $pth['folder']['content'] . 'pagedata.php';
 $pth['file']['language'] = $pth['folder']['language'] . basename($sl) . '.php';
 $pth['folder']['corestyle'] = $pth['folder']['base'] . 'css/';
 $pth['file']['corestyle'] = $pth['folder']['corestyle'] . 'core.css';
-$pth['file']['adminjs'] = $pth['folder']['base'] . 'javascript/admin.js';
+$pth['file']['adminjs'] = $pth['folder']['base'] . 'js/admin.js';
 
 XH_createLanguageFile($pth['file']['language']);
 
