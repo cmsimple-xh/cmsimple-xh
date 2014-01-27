@@ -1431,6 +1431,8 @@ function XH_checkValidUtf8($arr)
  * @return bool
  *
  * @since 1.6
+ *
+ * @todo Remove handling of LANGconfigs, unless they won't get reintroduced.
  */
 function XH_createLanguageFile($dst)
 {
