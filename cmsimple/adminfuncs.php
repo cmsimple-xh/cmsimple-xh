@@ -271,7 +271,7 @@ function XH_logFileView()
     global $pth, $tx;
 
     return '<h1>' . $tx['title']['log'] . '</h1>'
-        . '<pre id="xh_logfile">' . XH_hsc(file_get_contents($pth['file']['log']))
+        . '<pre id="xh_logfile">' . XH_hsc(XH_readFile($pth['file']['log']))
         . '</pre>'
         . '<script type="text/javascript">/* <![CDATA[ */'
         . '(function () {'
