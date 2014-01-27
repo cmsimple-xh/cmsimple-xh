@@ -1438,7 +1438,7 @@ function XH_createLanguageFile($dst)
     if (!file_exists($dst)) {
         if (is_readable($src = dirname($dst) . "/default$config.php")) {
             return copy($src, $dst);
-        } elseif ($src = is_readable(dirname($dst) . "/en$config.php")) {
+        } elseif (is_readable($src = dirname($dst) . "/en$config.php")) {
             return copy($src, $dst);
         }
     }
