@@ -243,6 +243,7 @@ $tx['settings']['warning']="Only change settings when you understand the effect 
 
 $tx['submenu']['heading']="Submenu";
 
+$tx['syscheck']['access_protected']="'%s' access protected";
 $tx['syscheck']['encoding']="Encoding 'UTF-8' configured";
 $tx['syscheck']['extension']="Extension '%s' loaded";
 $tx['syscheck']['fail']="Failure";
