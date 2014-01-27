@@ -122,7 +122,7 @@ class XH_Mailform
             ? stsl($_POST['cap']) : '';
         $this->subject = isset($_POST['subject'])
             ? stsl($_POST['subject'])
-            : $tx['menu']['mailform'] . ' ' . sv('SERVER_NAME');
+            : sprintf($tx['mailform']['subject_default'], sv('SERVER_NAME'));
         if ($embedded) {
             $this->mailform = isset($_POST['xh_mailform'])
                 ? stsl($_POST['xh_mailform']) : '';

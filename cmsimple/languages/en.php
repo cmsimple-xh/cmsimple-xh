@@ -176,6 +176,7 @@ $tx['mailform']['sender']="Your email (required): ";
 $tx['mailform']['sendername']="Your name: ";
 $tx['mailform']['senderphone']="Your phone number: ";
 $tx['mailform']['subject']="Subject (required): ";
+$tx['mailform']['subject_default']="Mailform on %s";
 
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Mailform";

@@ -177,6 +177,7 @@ $tx['mailform']['sender']="E-Mail-Adresse (erforderlich): ";
 $tx['mailform']['sendername']="Name: ";
 $tx['mailform']['senderphone']="Telefon-Nr.: ";
 $tx['mailform']['subject']="Betreff (erforderlich): ";
+$tx['mailform']['subject_default']="Kontaktformular auf %s";
 
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Kontakt-Formular";
