@@ -8,9 +8,9 @@
  * @category  CMSimple_XH
  * @package   Pagemanager
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2011-2013 Christoph M. Becker <http://3-magi.net>
+ * @copyright 2011-2014 Christoph M. Becker <http://3-magi.net>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   SVN: $Id: admin.php 127 2013-11-01 23:33:56Z Chistoph Becker $
+ * @version   SVN: $Id: admin.php 182 2014-01-28 20:21:21Z cmb $
  * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
  */
 
@@ -30,7 +30,7 @@ require_once $pth['folder']['plugin_classes'] . 'Controller.php';
 /**
  * Pagemanager version.
  */
-define('PAGEMANAGER_VERSION', '2.0');
+define('PAGEMANAGER_VERSION', '2.0.1');
 
 /**
  * Functional wrapper for Pagemananger_Model::themes().

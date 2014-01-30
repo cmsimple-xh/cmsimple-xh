@@ -5,9 +5,9 @@ if (!PAGEMANAGER) {
      * @namespace
      *
      * @author    Christoph M. Becker <cmbecker69@gmx.de>
-     * @copyright 2011-2013 Christoph M. Becker (http://3-magi.net)
+     * @copyright 2011-2014 Christoph M. Becker (http://3-magi.net)
      * @license   GNU GPLv3 (http://www.gnu.org/licenses/gpl-3.0.en.html)
-     * @version   $Id: pagemanager.js 165 2013-12-16 15:50:23Z cmb $
+     * @version   $Id: pagemanager.js 182 2014-01-28 20:21:21Z cmb $
      */
     PAGEMANAGER = {};
 }
@@ -170,7 +170,7 @@ PAGEMANAGER.restorePageHeadings = function (node) {
 PAGEMANAGER.beforeSubmit = function () {
     var attribs, xml;
 
-    attribs = ["id", "title", "data-pdattr"];
+    attribs = ["id", "title", "data-pdattr", "class"];
     xml = PAGEMANAGER.widget.get_xml("nest", -1, attribs);
     jQuery("#pagemanager-xml").val(xml);
 };
@@ -616,7 +616,10 @@ PAGEMANAGER.init = function () {
 	},
 	"xml_data": {
 	    "ajax": {
-		"url": PAGEMANAGER.config.dataURL
+		"url": PAGEMANAGER.config.dataURL,
+		"error": function (jqXHR, textStatus, errorThrown) {
+		    alert(errorThrown);
+		}
 	    },
 	    "xsl": "nest"
 	}
