@@ -1555,7 +1555,7 @@ function preCallPlugins($pageIndex = -1)
 }
 
 /**
- * Returns a list of all installed plugins.
+ * Returns a list of all active plugins.
  *
  * @param bool $admin Whether to return only plugins with a admin.php
  *
