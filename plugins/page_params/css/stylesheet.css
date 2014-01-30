@@ -1,3 +1,9 @@
 #page_params hr {
 	margin:8px 0;
 }
+#page_params input {
+    width: auto;
+}
+#page_params img {
+    margin:0;
+}
