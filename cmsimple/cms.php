@@ -279,9 +279,9 @@ if (preg_match('/\/([A-z]{2})\/index.php$/', sv('SCRIPT_NAME'), $temp)
 $pth['file']['content'] = $pth['folder']['content'] . 'content.htm';
 $pth['file']['pagedata'] = $pth['folder']['content'] . 'pagedata.php';
 $pth['file']['language'] = $pth['folder']['language'] . basename($sl) . '.php';
-$pth['folder']['corestyle'] = $pth['folder']['base'] . 'css/';
+$pth['folder']['corestyle'] = $pth['folder']['base'] . 'core/css/';
 $pth['file']['corestyle'] = $pth['folder']['corestyle'] . 'core.css';
-$pth['file']['adminjs'] = $pth['folder']['base'] . 'js/admin.js';
+$pth['file']['adminjs'] = $pth['folder']['base'] . 'core/js/admin.js';
 
 XH_createLanguageFile($pth['file']['language']);
 

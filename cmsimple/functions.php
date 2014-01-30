@@ -1965,7 +1965,7 @@ function XH_adjustStylesheetURLs($plugin, $css)
 {
     return preg_replace(
         '/url\(\s*(["\']?)(?!\s*["\']?\/|\s*["\']?http[s]?:)(.*?)(["\']?)\s*\)/s',
-        "url(\$1../plugins/$plugin/css/\$2\$3)", $css
+        "url(\$1../../plugins/$plugin/css/\$2\$3)", $css
     );
 }
 

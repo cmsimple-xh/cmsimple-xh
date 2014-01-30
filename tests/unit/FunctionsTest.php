@@ -349,7 +349,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
             array(
                 'pagemanager',
                 '#pagemanager {background-url: url(images/bg.jpg)}',
-                '#pagemanager {background-url: url(../plugins/pagemanager/css/'
+                '#pagemanager {background-url: url(../../plugins/pagemanager/css/'
                 . 'images/bg.jpg)}'
             ),
             array(
@@ -365,12 +365,12 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
             array(
                 'test',
                 'body {background: url("./images/bg.jpg)}',
-                'body {background: url("../plugins/test/css/./images/bg.jpg)}'
+                'body {background: url("../../plugins/test/css/./images/bg.jpg)}'
             ),
             array( // invalid UTF-8
                 'test',
                 "body {background: url(\"./doppelg\xE4nger.jpg\")}",
-                "body {background: url(\"../plugins/test/css/./doppelg\xE4nger.jpg\")}"
+                "body {background: url(\"../../plugins/test/css/./doppelg\xE4nger.jpg\")}"
             )
         );
     }
@@ -543,7 +543,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $actual = XH_numberSuffix($count);
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function dataForReadConfiguration()
     {
         return array(
@@ -553,17 +553,17 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
             array('plugin_languages', 'default.php', 'plugin_language', 'plugin_tx', true, true)
         );
     }
-    
+
     /**
      * @dataProvider dataForReadConfiguration()
      */
     public function testReadConfiguration($folderKey, $filename, $fileKey, $varname, $plugin = false, $language = false)
     {
         global $pth;
-        
+
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
-        
+
         $config = array(
             'foo' => array('a' => 'b', 'c' => 'c'),
             'bar' => array('a' => 'b', 'c' => 'c')
@@ -572,7 +572,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $contents = "<?php \$$varname = $config;?>";
         $filename = vfsStream::url("test/$filename");
         file_put_contents($filename, $contents);
-        
+
         $config = array(
             'foo' => array('a' => 'a', 'b' => 'b'),
             'baz' => array('a' => 'b', 'c' => 'c')
@@ -581,10 +581,10 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $contents = "<?php \$$varname = $config;?>";
         $filename = vfsStream::url('test/test.php');
         file_put_contents($filename, $contents);
-        
+
         $pth['folder'][$folderKey] = vfsStream::url('test/');
         $pth['file'][$fileKey] = vfsStream::url('test/test.php');
-        
+
         $expected = array(
             'foo' => array('a' => 'a', 'b' => 'b', 'c' => 'c'),
             'bar' => array('a' => 'b', 'c' => 'c'),
@@ -593,21 +593,21 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $actual = XH_readConfiguration($plugin, $language);
         $this->assertEquals($expected, $actual);
     }
-    
-    
+
+
     /**
      * Tests reading an empty configuration/language file, where a default
      * configuration/language file is there.
-     * 
+     *
      * @dataProvider dataForReadConfiguration()
      */
     public function testReadEmptyConfiguration($folderKey, $filename, $fileKey, $varname, $plugin = false, $language = false)
     {
         global $pth;
-        
+
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
-        
+
         $config = array(
             'foo' => array('a' => 'b', 'c' => 'c'),
             'bar' => array('a' => 'b', 'c' => 'c')
@@ -616,14 +616,14 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $contents = "<?php \$$varname = $config;?>";
         $filename = vfsStream::url("test/$filename");
         file_put_contents($filename, $contents);
-        
+
         $contents = "<?php ?>";
         $filename = vfsStream::url('test/test.php');
         file_put_contents($filename, $contents);
-        
+
         $pth['folder'][$folderKey] = vfsStream::url('test/');
         $pth['file'][$fileKey] = vfsStream::url('test/test.php');
-        
+
         $expected = array(
             'foo' => array('a' => 'b', 'c' => 'c'),
             'bar' => array('a' => 'b', 'c' => 'c')
@@ -631,7 +631,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $actual = XH_readConfiguration($plugin, $language);
         $this->assertEquals($expected, $actual);
     }
-    
+
     function testRenameFile()
     {
         vfsStreamWrapper::register();
