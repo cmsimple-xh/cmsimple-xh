@@ -177,6 +177,7 @@ $tx['mailform']['sender']="E-Mail-Adresse (erforderlich): ";
 $tx['mailform']['sendername']="Name: ";
 $tx['mailform']['senderphone']="Telefon-Nr.: ";
 $tx['mailform']['subject']="Betreff (erforderlich): ";
+$tx['mailform']['subject_default']="Kontaktformular auf %s";
 
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Kontakt-Formular";
@@ -243,6 +244,7 @@ $tx['settings']['warning']="Bitte hier nur solche Änderungen durchführen, bei 
 
 $tx['submenu']['heading']="weiter zu:";
 
+$tx['syscheck']['access_protected']="'%s' zugriffsgeschützt";
 $tx['syscheck']['encoding']="UTF-8-Kodierung eingestellt";
 $tx['syscheck']['extension']="Erweiterung '%s' geladen";
 $tx['syscheck']['fail']="Fehler";

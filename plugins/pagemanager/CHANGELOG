@@ -1,3 +1,10 @@
+Version 2.0.1 - released 2014-01-28
+* fixed bug, where most HTML entities in page headings broke loading of the page
+  structure (reported by bca)
+* added error reporting for loading of XML page structure
+* added Czech, Danish, Estonian, French, Italian and Slovak localizations
+  (contributed by oldnema, maeg, tanavots, Bob, milkodb resp. Tata)
+
 Version 2.0 - released 2014-01-02
 * reordered language strings
 

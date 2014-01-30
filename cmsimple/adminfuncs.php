@@ -10,7 +10,7 @@
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -132,6 +132,67 @@ function XH_systemCheck($data)
 }
 
 /**
+ * Returns the normalized absolute URL path.
+ *
+ * @param string $path A relative path.
+ *
+ * @return string
+ *
+ * @global string The script name.
+ *
+ * @since 1.6.1
+ */
+function XH_absoluteUrlPath($path)
+{
+    global $sn;
+
+    $base = preg_replace('/index\.php$/', '', $sn);
+    $parts = explode('/', $base . $path);
+    $i = 0;
+    while ($i < count($parts)) {
+        switch ($parts[$i]) {
+        case '.':
+            array_splice($parts, $i, 1);
+            break;
+        case '..':
+            array_splice($parts, $i - 1, 2);
+            $i--;
+            break;
+        default:
+            $i++;
+        }
+    }
+    $path = implode('/', $parts);
+    return $path;
+}
+
+/**
+ * Returns whether a resource is access protected.
+ *
+ * @param string $path A normalized absolute URL path.
+ *
+ * @return bool.
+ *
+ * @since 1.6.1
+ */
+function XH_isAccessProtected($path)
+{
+    $host = $_SERVER['HTTP_HOST'];
+    $stream = fsockopen($host, 80, $errno, $errstr, 5);
+    if ($stream) {
+        $request = "HEAD $path HTTP/1.1\r\nHost: $host\r\n"
+            . "User-Agent: CMSimple_XH\r\n\r\n";
+        fwrite($stream, $request);
+        $response = fread($stream, 12);
+        fclose($stream);
+        $status = substr($response, 9);
+        return $status[0] == '4' || $status[1] == '5';
+    } else {
+        return false;
+    }
+}
+
+/**
  * Returns the system information view.
  *
  * @global array The paths of system files and folders.
@@ -185,7 +246,7 @@ HTML;
         'writable' => array(),
         'other' => array()
     );
-    $temp = array('content', 'images', 'downloads', 'userfiles', 'media');
+    $temp = array('content', 'corestyle', 'images', 'downloads', 'userfiles', 'media');
     foreach ($temp as $i) {
         $checks['writable'][] = $pth['folder'][$i];
     }
@@ -195,6 +256,12 @@ HTML;
     }
     $checks['writable'] = array_unique($checks['writable']);
     sort($checks['writable']);
+    foreach (array($pth['file']['config'], $pth['file']['content']) as $file) {
+        $checks['other'][] = array(
+            XH_isAccessProtected($file), false,
+            sprintf($tx['syscheck']['access_protected'], $file)
+        );
+    }
     if ($tx['locale']['all'] == '') {
         $checks['other'][] = array(true, false, $tx['syscheck']['locale_default']);
     } else {
@@ -271,7 +338,7 @@ function XH_logFileView()
     global $pth, $tx;
 
     return '<h1>' . $tx['title']['log'] . '</h1>'
-        . '<pre id="xh_logfile">' . XH_hsc(file_get_contents($pth['file']['log']))
+        . '<pre id="xh_logfile">' . XH_hsc(XH_readFile($pth['file']['log']))
         . '</pre>'
         . '<script type="text/javascript">/* <![CDATA[ */'
         . '(function () {'

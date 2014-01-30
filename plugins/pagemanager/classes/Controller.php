@@ -8,9 +8,9 @@
  * @category  CMSimple_XH
  * @package   Pagemanager
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2011-2013 Christoph M. Becker <http://3-magi.net>
+ * @copyright 2011-2014 Christoph M. Becker <http://3-magi.net>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   SVN: $Id: Controller.php 159 2013-12-13 14:53:15Z cmb $
+ * @version   SVN: $Id: Controller.php 182 2014-01-28 20:21:21Z cmb $
  * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
  */
 

@@ -176,6 +176,7 @@ $tx['mailform']['sender']="Your email (required): ";
 $tx['mailform']['sendername']="Your name: ";
 $tx['mailform']['senderphone']="Your phone number: ";
 $tx['mailform']['subject']="Subject (required): ";
+$tx['mailform']['subject_default']="Mailform on %s";
 
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Mailform";
@@ -242,6 +243,7 @@ $tx['settings']['warning']="Only change settings when you understand the effect 
 
 $tx['submenu']['heading']="Submenu";
 
+$tx['syscheck']['access_protected']="'%s' access protected";
 $tx['syscheck']['encoding']="Encoding 'UTF-8' configured";
 $tx['syscheck']['extension']="Extension '%s' loaded";
 $tx['syscheck']['fail']="Failure";

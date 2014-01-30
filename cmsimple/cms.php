@@ -10,7 +10,7 @@
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -279,9 +279,9 @@ if (preg_match('/\/([A-z]{2})\/index.php$/', sv('SCRIPT_NAME'), $temp)
 $pth['file']['content'] = $pth['folder']['content'] . 'content.htm';
 $pth['file']['pagedata'] = $pth['folder']['content'] . 'pagedata.php';
 $pth['file']['language'] = $pth['folder']['language'] . basename($sl) . '.php';
-$pth['folder']['corestyle'] = $pth['folder']['base'] . 'css/';
+$pth['folder']['corestyle'] = $pth['folder']['base'] . 'core/css/';
 $pth['file']['corestyle'] = $pth['folder']['corestyle'] . 'core.css';
-$pth['file']['adminjs'] = $pth['folder']['base'] . 'javascript/admin.js';
+$pth['file']['adminjs'] = $pth['folder']['base'] . 'core/js/admin.js';
 
 XH_createLanguageFile($pth['file']['language']);
 

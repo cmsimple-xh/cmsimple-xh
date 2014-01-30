@@ -10,7 +10,7 @@
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -1431,6 +1431,8 @@ function XH_checkValidUtf8($arr)
  * @return bool
  *
  * @since 1.6
+ *
+ * @todo Remove handling of LANGconfigs, unless they won't get reintroduced.
  */
 function XH_createLanguageFile($dst)
 {
@@ -1438,7 +1440,7 @@ function XH_createLanguageFile($dst)
     if (!file_exists($dst)) {
         if (is_readable($src = dirname($dst) . "/default$config.php")) {
             return copy($src, $dst);
-        } elseif ($src = is_readable(dirname($dst) . "/en$config.php")) {
+        } elseif (is_readable($src = dirname($dst) . "/en$config.php")) {
             return copy($src, $dst);
         }
     }
@@ -1553,7 +1555,7 @@ function preCallPlugins($pageIndex = -1)
 }
 
 /**
- * Returns a list of all installed plugins.
+ * Returns a list of all active plugins.
  *
  * @param bool $admin Whether to return only plugins with a admin.php
  *
@@ -1963,7 +1965,7 @@ function XH_adjustStylesheetURLs($plugin, $css)
 {
     return preg_replace(
         '/url\(\s*(["\']?)(?!\s*["\']?\/|\s*["\']?http[s]?:)(.*?)(["\']?)\s*\)/s',
-        "url(\$1../plugins/$plugin/css/\$2\$3)", $css
+        "url(\$1../../plugins/$plugin/css/\$2\$3)", $css
     );
 }
 
