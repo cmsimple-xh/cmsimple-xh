@@ -122,6 +122,7 @@ $errors = array();
 
 $pth['folder']['language'] = $pth['folder']['cmsimple'] . 'languages/';
 $pth['folder']['langconfig'] = $pth['folder']['cmsimple'] . 'languages/';
+$sl = null;
 if (preg_match('/\/([A-z]{2})\/index.php$/', sv('SCRIPT_NAME'), $temp)) {
     $sl = strtolower($temp[1]);
 }
