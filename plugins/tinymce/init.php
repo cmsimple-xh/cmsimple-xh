@@ -22,28 +22,24 @@ function tinymce_filebrowser() {
     //Einbindung alternativer Filebrowser, gesteuert über $cf['filebrowser']['external']
     //und den Namen des aufrufenden Editors
     if ($cf['filebrowser']['external'] != FALSE) {
-	$fbConnector = CMSIMPLE_BASE . 'plugins/' . $cf['filebrowser']['external'] . '/connectors/tinymce/tinymce.php';
-	if (is_readable($fbConnector)) {
-	    include_once($fbConnector);
-	    $init_function = $cf['filebrowser']['external'] . '_tinymce_init';
-	    if (function_exists($init_function)) {
-		    $script = $init_function();
-	    }
-	return $script;
-	}
-
-    } else {
-
-	//default filebrowser
-	$_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
-	$url =  CMSIMPLE_ROOT . 'plugins/filebrowser/editorbrowser.php?editor=tinymce&prefix=' . CMSIMPLE_BASE . '&base=./';
-	$script = file_get_contents(dirname(__FILE__) . '/filebrowser.js');
-	$script = str_replace('%URL%',  $url, $script);
-	return $script;
-
+        $fbConnector = CMSIMPLE_BASE . 'plugins/' . $cf['filebrowser']['external'] . '/connectors/tinymce/tinymce.php';
+        if (is_readable($fbConnector)) {
+            include_once($fbConnector);
+            $init_function = $cf['filebrowser']['external'] . '_tinymce_init';
+            if (function_exists($init_function)) {
+                $script = $init_function();
+                return $script;
+            }
+        }
     }
-}
 
+    //default filebrowser
+    $_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
+    $url =  CMSIMPLE_ROOT . 'plugins/filebrowser/editorbrowser.php?editor=tinymce&prefix=' . CMSIMPLE_BASE . '&base=./';
+    $script = file_get_contents(dirname(__FILE__) . '/filebrowser.js');
+    $script = str_replace('%URL%',  $url, $script);
+    return $script;
+}
 
 /**
  * Writes the basic JS of the editor to $hjs. No editors are actually created.
@@ -88,8 +84,8 @@ function include_tinymce() {
  * @return string
  */
 function tinymce_config($xh_editor, $config) {
-    global $pth, $sl, $sn, $cf, $plugin_cf;
-
+    global $pth, $sl, $sn, $cf, $plugin_cf, $plugin_tx;
+    
     if (!isset($plugin_cf['tinymce'])) {
 	include_once $pth['folder']['plugins'] . 'tinymce/config/config.php';
     }
@@ -145,6 +141,20 @@ function tinymce_config($xh_editor, $config) {
 
     $temp = str_replace('%STYLESHEET%', $tiny_css, $temp);
     $temp = str_replace('%BASE_URL%', $sn, $temp);
+
+
+    $_blockFormats = array();
+    for ( $i = $cf['menu']['levels'] + 1; $i <= 6; $i++ ) {
+        $_blockFormats[] = "Header $i=h$i";
+    };
+
+    $_blockFormats[] = "Paragraph=p";
+
+    for ( $i=1; $i <= $cf['menu']['levels'];$i++ ) {
+        $_blockFormats [] = sprintf($plugin_tx['tinymce']['pageheader'],$i) . "=h$i";
+    }
+    $temp = str_replace('%BLOCK_FORMATS%', implode(';',$_blockFormats), $temp);
+    unset($_blockFormats);
 
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
     $temp = str_replace('%ELEMENT_FORMAT%', $elementFormat, $temp);

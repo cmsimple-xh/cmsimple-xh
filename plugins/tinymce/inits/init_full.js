@@ -22,7 +22,7 @@
     theme_advanced_toolbar_align : "left",
     theme_advanced_statusbar_location : "bottom",
     theme_advanced_resizing : true,
-    theme_advanced_blockformats : "h1,h2,h3,p,div,h4,h5,h6,blockquote,dt,dd,code",
+    theme_advanced_blockformats : "%BLOCK_FORMATS%",    
     theme_advanced_font_sizes : "8px=8px,10px=10px,12px=12px,14px=14px,16px=16px,18px=18px,20px=20px,24px=24px,36px=36px",
 
     content_css : "%STYLESHEET%",
