@@ -1,3 +1,7 @@
+Version 1.2.1
+Fixed parse error when running on PHP4 see: http://cmsimpleforum.com/viewtopic.php?f=16&p=39829#p39822
+Fixed wrong quoted id-selector "upd_list_container" in admin.php
+
 Version 1.2
 Changed licence to GPL3
 

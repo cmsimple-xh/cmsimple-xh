@@ -1,15 +1,15 @@
 <?php
 
 /*
- * @version $Id: admin.php 236 2014-01-02 11:38:01Z hi $
+ * @version $Id: admin.php 237 2014-02-05 22:31:24Z hi $
  */
 
 /*
  * ==================================================================
  * Update-Check-Plugin for CMSimple_XH
  * ==================================================================
- * Version:    1.2
- * Build:      2014010201
+ * Version:    1.2.1
+ * Build:      2014020601
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -32,8 +32,8 @@ if (defined('CMSIMPLE_RELEASE')) {
     return;
 }
 
-define('UPD_VERSION', '1.2');
-define('UPD_DATE', '2014-01-02');
+define('UPD_VERSION', '1.2.1');
+define('UPD_DATE', '2014-02-06');
 
 //Path to core-Versioninfo
 define('CMSIMPLE_XH_VERSIONINFO', 'http://www.cmsimple-xh.org/downloads/versioninfo/cmsimple_xh-version.nfo');
@@ -115,7 +115,7 @@ function hi_updateCheckAll() {
 
     unset($_SESSION['upd_available']); //reset notifications
     include_once $pth['folder']['plugins'] . 'hi_updatecheck/updatecheck.php';
-    $t = '<div "id=upd_list_container">';
+    $t = '<div id="upd_list_container">';
     $t .= $plugin_tx['hi_updatecheck']['heading_updatecheck'];
     $temp = explode(',', $plugin_cf['hi_updatecheck']['ignore']);
     if (!in_array('CMSimple_XH', $temp)) {
