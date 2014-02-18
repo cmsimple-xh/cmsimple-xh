@@ -25,78 +25,56 @@ if (!XH_ADM) {     return; }
 initvar('tinymce');
 
 if ($tinymce) {
+    if (!class_exists('XH_CSRFProtection')) {
+        $o.= XH_message('fail','needs CMSimple_XH Version 1.6 or higher!');
+        return;
+    }
 
-    $o .= '<div class="plugintext">';
-    $o .= '<div class="plugineditcaption">TinyMCE for CMSimple_XH</div>';
-    $o .= '<p>Version for @CMSIMPLE_XH_VERSION@</p>';
-    $o .= '<p>TinyMCE version 3.5.10  &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a>';
-    $o .= tag('br');
-    $o .= 'Available language packs: cs, da, de, en, et, fr, it, nl, pl, ru, sk tw, zh.</p>';
-    $o .= '<p>CMSimple_XH & Filebrowser integration';
-    $o .= tag('br');
-    $o .= 'up to version 1.5.6 &ndash; <a href="http://www.zeichenkombinat.de/" target="_blank">Zeichenkombinat.de</a>';
-    $o .= tag('br');
-    $o .= 'from &nbsp;version 1.5.7 &ndash; <a href="http://www.pixolution.ch/" target="_blank">pixolution.ch</a></p>';
-    $o .=tag('br');
-
-    include_once $pth['folder']['classes'] . 'FileEdit.php';
-/**
- * Editing of tinymce plugin config file.
- *
- * @package	XH
- */
-    class XH_TinyMceConfigFileEdit extends XH_PluginConfigFileEdit
-    {
-/**
-* Constructor
-*/
-        function XH_TinyMceConfigFileEdit()
-        {
-            parent::XH_PluginConfigFileEdit();
-        }
-/**
-* Controller
-* @return string output|nothing parsed output or nothing
-*/
-        function edit()
-        {
-            global $action;
-            if ($this->setOptions('init'))
-            {
-                    if ($action!='plugin_save')
-                        return $this->form();
-                    else
-                        return $this->submit();
+    //Helper-functions
+    function tinymce_getInits() {
+        global $pth;
+        $inits = glob($pth['folder']['plugins'] . 'tinymce/inits/*.js');
+        
+        $options = array();
+        foreach ($inits as $init) {
+            $temp = explode('_', basename($init, '.js'));
+            if (isset($temp[1])) {
+                $options[] = $temp[1];
             }
         }
-/**
-* Establish option values from ./inits/init_.js files for select field
-* and affects cfg property
-* @param $field select field name to set the options for
-* @global array
-* @return true if options available
-*/
-        function setOptions($field)
-        {
-            global $pth;
+        return $options;
+    }
 
-            $inits = glob($pth['folder']['plugins'] . 'tinymce/inits/*.js');
-            $options = array();
-            foreach ($inits as $init) {
-                    $temp = explode('_', basename($init, '.js'));
-                    if (isset($temp[1])) {
-                            $options[] = $temp[1];
-                    }
-            }
-            (bool) $options &&
-                $this->cfg[$field]['']['vals'] = $options;
-            return (bool) $options;
-        }
-    }   // End of class XH_TinyMceConfigFileEdit
+    initvar('admin');
+    initvar('action');
 
-    $tiymceConfig = new XH_TinyMceConfigFileEdit();
-    $o .= $tiymceConfig->edit();
-    $o .= '</div>';
+    $plugin = basename(dirname(__FILE__), "/");
+    
+    if ($admin == 'plugin_config' || $admin == 'plugin_language') {
+        $o .= print_plugin_admin('on');
+    } else {
+        $o .= print_plugin_admin('off');
+    }
+    
+    $o .= plugin_admin_common($action, $admin, $plugin);
+
+        
+    if ($admin == '' || $admin == 'plugin_main') {
+        $o .= '<script type="text/javascript" src="' . $pth['folder']['plugins'] . 'tinymce/tiny_mce/tiny_mce.js"></script>';
+        $tinymce_version = '<script type="text/javascript">document.write(tinymce.majorVersion + " (revision " + tinymce.minorVersion + ")");</script>';
+    
+        $o .= '<h1>TinyMCE for CMSimple_XH</h1>';
+        $o .= '<p>Version for @CMSIMPLE_XH_VERSION@</p>';
+        $o .= '<p>TinyMCE version '. $tinymce_version . ' &ndash; <a href="http://www.tinymce.com/" target="_blank">http://www.tinymce.com/</a>';
+        $o .= tag('br');
+        $o .= 'Available language packs: cs, da, de, en, et, fr, it, nl, pl, ru, sk tw, zh.</p>';
+        $o .= '<p>CMSimple_XH & Filebrowser integration';
+        $o .= tag('br');
+        $o .= 'up to version 1.5.6 &ndash; <a href="http://www.zeichenkombinat.de/" target="_blank">Zeichenkombinat.de</a>';
+        $o .= tag('br');
+        $o .= 'from &nbsp;version 1.5.7 &ndash; <a href="http://www.pixolution.ch/" target="_blank">pixolution.ch</a></p>';
+
+    }
 }
 /*
  * EOF tinymce/admin.php
