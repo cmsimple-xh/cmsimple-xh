@@ -39,7 +39,7 @@ if ($tinymce) {
     $o .= 'from &nbsp;version 1.5.7 &ndash; <a href="http://www.pixolution.ch/" target="_blank">pixolution.ch</a></p>';
     $o .=tag('br');
 
-    include $pth['folder']['classes'] . 'FileEdit.php';
+    include_once $pth['folder']['classes'] . 'FileEdit.php';
 /**
  * Editing of tinymce plugin config file.
  *
