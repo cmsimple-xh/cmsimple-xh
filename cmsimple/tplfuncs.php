@@ -680,7 +680,7 @@ function languagemenu()
     foreach ($r as $lang) {
         $url = $pth['folder']['base']
             . ($lang == $cf['language']['default'] ? '' : $lang . '/');
-        $img = $pth['folder']['flags'] . '/' . $lang . '.gif';
+        $img = $pth['folder']['flags'] . $lang . '.gif';
         $el = file_exists($img)
             ? tag(
                 'img src="' . $img . '" alt="' . $lang . '" title="&nbsp;'
