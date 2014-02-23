@@ -200,7 +200,7 @@ XH_checkValidUtf8(array($_GET, $_POST));
 $iis = strpos(sv('SERVER_SOFTWARE'), "IIS");
 $cgi = (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi');
 
-$sn = preg_replace('/([^\?]*)\?.*/', '\1', sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_URI')));
+$sn = preg_replace('/([^\?]*)\?.*/', '$1', sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_URI')));
 foreach (array('download', 'function', 'media', 'search', 'mailform', 'sitemap', 'text', 'selected', 'login', 'logout', 'settings', 'print', 'file', 'action', 'validate', 'images', 'downloads', 'edit', 'normal', 'stylesheet', 'passwd', 'userfiles', 'xhpages')as $i)
     initvar($i);
 
@@ -358,7 +358,7 @@ if (!($edit && $adm) && $s > -1) {
 // CMSimple scripting with error message - MD 2009/10 (CMSimple_XH 1.0rc2)
 /*
   if (!($edit && $adm) && $s > -1) {
-  $t = preg_replace("/^.*".$cf['scripting']['regexp'].".*$/is", "\\1", $c[$s]);
+  $t = preg_replace("/^.*".$cf['scripting']['regexp'].".*$/is", '$1', $c[$s]);
   if ($t != '' && $t != $c[$s] && $t != 'remove' && $t != 'hide') {
   $output = preg_replace("/".$cf['scripting']['regexp']."/is", "", $c[$s]);
   preg_match('/'.$cf['scripting']['regexp'].'/is', $c[$s], $scripting);
@@ -504,7 +504,7 @@ function final_clean_up($html) {
         }
 
         $html = preg_replace('~<body[^>]*>~i',
-                            '$0' . '<div' . $id . '>' . $debugHint. admin_menu($plugins, $debugMode) . '</div>' ."\n" .  $errorList,
+                            '$0' . '<div' . $id . '>' . addcslashes($debugHint. admin_menu($plugins, $debugMode), '$\\') . '</div>' ."\n" .  addcslashes($errorList, '$\\'),
                          $html, 1);
 
 
@@ -526,7 +526,7 @@ function initvar($name) {
         else if (isset($_POST[$name]))
             $GLOBALS[$name] = $_POST[$name];
         else
-            $GLOBALS[$name] = @preg_replace("/.*?(" . $name . "=([^\&]*))?.*?/i", "\\2", sv('QUERY_STRING'));
+            $GLOBALS[$name] = @preg_replace("/.*?(" . $name . "=([^\&]*))?.*?/i", '$2', sv('QUERY_STRING'));
     }
 }
 

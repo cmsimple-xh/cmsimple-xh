@@ -39,7 +39,7 @@ function geturl($u) {
         while (!feof($fh))
             $t .= fread($fh, 1024);
         fclose($fh);
-        return preg_replace("/.*<body[^>]*>(.*)<\/body>.*/is", "\\1", $t);
+        return preg_replace("/.*<body[^>]*>(.*)<\/body>.*/is", '$1', $t);
     }
 }
 
@@ -59,7 +59,7 @@ function autogallery($u) {
 
     trigger_error('Function autogallery() is deprecated', E_USER_DEPRECATED);
 
-    return preg_replace("/.*<!-- autogallery -->(.*)<!-- \/autogallery -->.*/is", "\\1", preg_replace("/(option value=\"\?)(p=)/is", "\\1" . $su . "&\\2", preg_replace("/(href=\"\?)/is", "\\1" . $su . '&amp;', preg_replace("/(src=\")(\.)/is", "\\1" . $u . "\\2", geturlwp($u)))));
+    return preg_replace("/.*<!-- autogallery -->(.*)<!-- \/autogallery -->.*/is", '$1', preg_replace("/(option value=\"\?)(p=)/is", '${1}' . $su . '&$2', preg_replace("/(href=\"\?)/is", '${1}' . $su . '&amp;', preg_replace("/(src=\")(\.)/is", '${1}' . $u . '$2', geturlwp($u)))));
 }
 
 // Other functions
