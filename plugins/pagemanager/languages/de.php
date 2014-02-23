@@ -18,7 +18,7 @@
 	$plugin_tx['pagemanager']['op_copy']="Kopieren";
 	$plugin_tx['pagemanager']['op_paste']="Einfügen (<em>als Unterseite</em>)";
 	$plugin_tx['pagemanager']['op_paste_after']="Einfügen (<em>auf gleicher Ebene - nach Unterseiten</em>)";
-	$plugin_tx['pagemanager']['op_help']="<p>Sie können Seiten per <em>drag&drop</em> neu anordnen. <em>Rechtsklick auf eine Seite</em> öffnet das Kontextmenü. Detailierte Informationen zur Benutzung entnehmen Sie bitte der Plugin Hilfe.</p>";
+	$plugin_tx['pagemanager']['op_help']="<p>Sie können Seiten per <em>drag&drop</em> neu anordnen. <em>Rechtsklick auf eine Seite</em> öffnet das Kontextmenü. Detailierte Informationen zur Benutzung entnehmen Sie bitte der Plugin Hilfe, die Sie durch Anklicken dieses Hilfe-Icons öffnen können.</p>";
 	$plugin_tx['pagemanager']['treeview_loading']="Laden...";
 	$plugin_tx['pagemanager']['treeview_new']="Neue Seite";
 	$plugin_tx['pagemanager']['button_delete']="Löschen";

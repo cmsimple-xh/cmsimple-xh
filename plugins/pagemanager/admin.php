@@ -16,7 +16,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('PAGEMANAGER_VERSION', '1pl13');
+define('PAGEMANAGER_VERSION', '1pl15');
 
 
 define('PAGEMANAGER_URL', 'http'
@@ -145,6 +145,43 @@ function pagemanager_toolbar($image_ext, $save_js) {
     return $res;
 }
 
+/**
+ * Returns an escaped plugin configuration option.
+ * Helper for @see{pagemanager_instanciateJS}.
+ *
+ * @param array $matches The matches of a preg_replace.
+ *
+ * @return string
+ *
+ * @since 1pl14
+ */
+function Pagemanager_replaceConfig($matches)
+{
+    global $plugin_cf;
+
+    $cf = $plugin_cf['pagemanager'][$matches[1]];
+    $cf = addcslashes($cf, "\0'\"\\\f\n\r\t\v");
+    return $cf;
+}
+
+/**
+ * Returns an escaped plugin language string.
+ * Helper for @see{pagemanager_instanciateJS}.
+ *
+ * @param array $matches The matches of a preg_replace.
+ *
+ * @return string
+ *
+ * @since 1pl14
+ */
+function Pagemanager_replaceLang($matches)
+{
+    global $plugin_tx;
+
+    $tx = $plugin_tx['pagemanager'][$matches[1]];
+    $tx = addcslashes($tx, "\0'\"\\\f\n\r\t\v");
+    return $tx;
+}
 
 /**
  * Instanciate the pagemanager.js template.
@@ -157,18 +194,8 @@ function pagemanager_instanciateJS($image_ext) {
 
     $js = rf($pth['folder']['plugins'].'pagemanager/pagemanager.js');
 
-    preg_match_all('/<<<PC_(.*)>>>/', $js, $options);
-    foreach ($options[1] as $opt) {
-	$pagemanager_cf[$opt] = addcslashes($plugin_cf['pagemanager'][$opt],
-		"\0'\"\\\f\n\r\t\v");
-    }
-    preg_match_all('/<<<PT_(.*)>>>/', $js, $options);
-    foreach ($options[1] as $opt)
-	$pagemanager_tx[$opt] = addcslashes($plugin_tx['pagemanager'][$opt],
-		"\0'\"\\\f\n\r\t\v");
-
-    $js = preg_replace('/<<<PC_(.*)>>>/e', '$pagemanager_cf["$1"]', $js);
-    $js = preg_replace('/<<<PT_(.*)>>>/e', '$pagemanager_tx["$1"]', $js);
+    $js = preg_replace_callback('/<<<PC_(.*)>>>/', 'Pagemanager_replaceConfig', $js);
+    $js = preg_replace_callback('/<<<PT_(.*)>>>/', 'Pagemanager_replaceLang', $js);
     $js = str_replace('<<<MENU_LEVELS>>>', $cf['menu']['levels'], $js);
     $js = str_replace('<<<TOC_DUPL>>>', $tx['toc']['dupl'], $js);
     $js = str_replace('<<<IMAGE_EXT>>>', $image_ext, $js);
@@ -354,10 +381,10 @@ function pagemanager_cdata_handler($parser, $data) {
 
 
 /**
- * Saves content.htm manually and
- * pagedata.php via $pd_router->model->refresh().
+ * Saves content.htm manually and pagedata.php via $pd_router->model->refresh().
+ * Returns whether that succeeded.
  *
- * @return void
+ * @return bool
  */
 function pagemanager_save($xml) {
     global $pth, $tx, $pd_router, $pagemanager_state, $pagemanager_fp, $pagemanager_pd;
@@ -376,8 +403,10 @@ function pagemanager_save($xml) {
 	fputs($pagemanager_fp, '</body></html>');
 	fclose($pagemanager_fp);
 	$pd_router->model->refresh($pagemanager_pd);
+	return true;
     } else
 	e('cntwriteto', 'content', $pth['file']['content']);
+	return false;
 }
 
 
@@ -424,14 +453,15 @@ if (isset($pagemanager)) {
     switch ($admin) {
 	case '':
 	    if ($action == 'plugin_save') {
-		pagemanager_save(stsl($_POST['xml']));
-		if (!headers_sent()) {
-		    header('Location: ' . PAGEMANAGER_URL
-			    .(isset($_GET['pagemanager-xhpages'])
-			    ? '?&normal&xhpages'
-			    : '?&pagemanager&normal&admin=plugin_main'));
+		if (pagemanager_save(stsl($_POST['xml']))) {
+		    if (!headers_sent()) {
+			header('Location: ' . PAGEMANAGER_URL
+				.(isset($_GET['pagemanager-xhpages'])
+				? '?&normal&xhpages'
+				: '?&pagemanager&normal&admin=plugin_main'));
+		    }
+		    exit();
 		}
-		exit();
 	    } else {
 		$o .= pagemanager_version();
 	    }

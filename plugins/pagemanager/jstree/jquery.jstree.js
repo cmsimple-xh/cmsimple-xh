@@ -25,7 +25,7 @@
 	var is_ie6 = false, is_ie7 = false, is_ff2 = false;
 
 function andSelf(jquery) {
-	if ($.fn.addBack) {
+	if (jQuery.fn.addBack) {
 		return jquery.addBack();
 	} else {
 		return jquery.andSelf();

@@ -1,3 +1,14 @@
+Version 1pl15 - released 2013-10-29
+cmb     fixed bug, where modified jstree.js relied on $ (reported by johnjdoe)
+cmb     replaced plugin icon
+
+Version 1pl14 - released 2013-10-11
+cmb     fixed bug, where error message was suppressed when saving failed
+cmb     fixed issue with regard to some templates (reported by Torsten.Behrens)
+cmb     replaced deprecated preg_replace('//e') with preg_replace_callback()
+cmb     improved tooltip of help icon
+cmb     added phing build.xml
+
 Version 1pl13 - released 2013-08-06
 cmb     added creation of backup before saving the modified contents
 cmb     removed dependency on deprecated jQuery functions

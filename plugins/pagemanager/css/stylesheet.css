@@ -35,6 +35,7 @@
     margin: 6px 0px 3px 0;
     list-style-image: none;
     width: 230px;
+    overflow: visible;
 }
 
 #pagemanager ul li a:link {
@@ -49,7 +50,7 @@
 /*
  * <h2>
  */
- 
+
 #pagemanager ul ul li {
     background: none;
     font-weight: 100;
@@ -70,7 +71,7 @@
 /*
  * <h3>
  */
- 
+
 #pagemanager ul ul ul li {
     background: none;
     border: 0px solid #666;
@@ -107,7 +108,7 @@ div#pagemanager-toolbar a:focus {
 /*
  * horizontal toolbar
  */
- 
+
 /* for floating horizontal toolbar: uncomment the following */
 /*
 div#pagemanager-toolbar.horizontal {
@@ -135,7 +136,7 @@ div#pagemanager-toolbar.horizontal img.separator {
  * The style should be adjusted to your needs.
  * Change top and left accordingly.
  */
- 
+
 div#pagemanager-toolbar.vertical {
     width: 25px;
     text-align: center;
@@ -187,10 +188,10 @@ div#pagemanager-footer {
 }
 
 div#vakata-contextmenu {
-    width: 400px; 
-    text-align: left; 
+    width: 400px;
+    text-align: left;
     padding: 9px 0;
-    font-family: arial; 
+    font-family: arial;
     font-size: 14px;
     /* the following line will open the context menu further to the right */
     /* margin-left: 100px; */
