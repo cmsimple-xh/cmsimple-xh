@@ -71,7 +71,11 @@ function tb_li_h($ta, $st) {
 		}*/
 		$t .= '">';
 		//if ($tf)
-		$prueflink=a($ta[$i], $isActive ? '" class="active' : '');
+		global $edit, $pd_router;
+		$pageData = $pd_router->find_page($ta[$i]);
+		$target = !(XH_ADM && $edit) && $pageData['use_header_location'] === '2'
+			? '" target="_blank' : '';
+		$prueflink=a($ta[$i], $isActive ? '" class="active' . $target : $target);
 		$t .= $prueflink;
 		if(!(($k>1 && strpos($prueflink,":")!==false)))
 			$t .= '';
