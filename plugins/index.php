@@ -365,7 +365,7 @@ function PluginMenu($add='', $link='', $target='', $text='', $style=ARRAY()) {
         $style['data'] = '';
     }
 
-    $menu_row = '<table {{STYLE_ROW}} cellpadding="1" cellspacing="0">' . "\n" . '<tr>' . "\n" . '{{TAB}}</tr>' . "\n" . '</table>' . "\n" . "\n";
+    $menu_row = '<table {{STYLE_ROW}}>' . "\n" . '<tr>' . "\n" . '{{TAB}}</tr>' . "\n" . '</table>' . "\n" . "\n";
     $menu_tab = '<td {{STYLE_TAB}}><a{{STYLE_LINK}} href="{{LINK}}" {{TARGET}}>{{TEXT}}</a></td>' . "\n";
     $menu_tab_data = '<td {{STYLE_DATA}}>{{TEXT}}</td>' . "\n";
 
