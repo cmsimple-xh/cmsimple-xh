@@ -119,7 +119,6 @@ if ($adm) {
 
         $temp = array('phpversion' => '4.3',
             'extensions' => array(
-                array('date', false),
                 'pcre',
                 array('session', false),
                 array('xml', false)),
