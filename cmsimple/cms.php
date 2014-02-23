@@ -777,11 +777,12 @@ function rp($p) {
 function sortdir($dir) {
     $fs = array();
     $fd = @opendir($dir);
-    while (false !== ($fn = @readdir($fd))) {
-        $fs[] = $fn;
-    }
-    if ($fd == true)
+    if ($fd) {
+        while (false !== ($fn = @readdir($fd))) {
+            $fs[] = $fn;
+        }
         closedir($fd);
+    }
     @sort($fs, SORT_STRING);
     return $fs;
 }

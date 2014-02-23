@@ -161,20 +161,22 @@ if ($adm) {
     $pluginloader_plugin_selectbox .= "\n" . '<form style="display: inline; margin-bottom: 0px;">' . "\n";
     $pluginloader_plugin_selectbox .= "\n" . '<select name="Plugins" onchange="location.href=this.options[this.selectedIndex].value">' . "\n";
     $pluginloader_plugin_selectbox .= '<option value="?&amp;normal">' . $pluginloader_tx['menu']['select_plugin'] . '</option>' . "\n";
-    $handle = opendir($pth['folder']['plugins']);
-    $found_plugins = false;
 
-    while (FALSE !== ($plugin = readdir($handle))) {
-        if ($plugin != '.' && $plugin != '..' && is_dir($pth['folder']['plugins'] . $plugin)) {
-            PluginFiles($plugin);
-            if (file_exists($pth['file']['plugin_admin'])) {
-                $admin_plugins[$i] = $plugin;
-                $found_plugins = true;
-                $i++;
+    $found_plugins = false;
+    $handle = opendir($pth['folder']['plugins']);
+    if ($handle) {
+        while (FALSE !== ($plugin = readdir($handle))) {
+            if ($plugin != '.' && $plugin != '..' && is_dir($pth['folder']['plugins'] . $plugin)) {
+                PluginFiles($plugin);
+                if (file_exists($pth['file']['plugin_admin'])) {
+                    $admin_plugins[$i] = $plugin;
+                    $found_plugins = true;
+                    $i++;
+                }
             }
         }
+        closedir($handle);
     }
-    closedir($handle);
     natcasesort($admin_plugins);
     foreach ($admin_plugins as $plugin) {
         PluginFiles($plugin);
@@ -205,63 +207,65 @@ require_once $pth['folder']['plugins'] . $pluginloader_cfg['foldername_pluginloa
  * Include plugin (and plugin files)
  */
 $handle = opendir($pth['folder']['plugins']);
-while (FALSE !== ($plugin = readdir($handle))) {
-    if ($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'] . $plugin)) {
-        PluginFiles($plugin);
+if ($handle) {
+    while (FALSE !== ($plugin = readdir($handle))) {
+        if ($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'] . $plugin)) {
+            PluginFiles($plugin);
 
-        // Load plugin required_classes
-        if (file_exists($pth['file']['plugin_classes'])) {
-            include($pth['file']['plugin_classes']);
-        }
-    } // if($plugin)
-} // while (FALSE !== ($plugin = readdir($handle)))*/
-rewinddir($handle);
+            // Load plugin required_classes
+            if (file_exists($pth['file']['plugin_classes'])) {
+                include($pth['file']['plugin_classes']);
+            }
+        } // if($plugin)
+    } // while (FALSE !== ($plugin = readdir($handle)))*/
+    rewinddir($handle);
 
-while (FALSE !== ($plugin = readdir($handle))) {
+    while (FALSE !== ($plugin = readdir($handle))) {
 
 
-    if ($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'] . $plugin)) {
+        if ($plugin != "." AND $plugin != ".." AND $plugin != $pluginloader_cfg['foldername_pluginloader'] AND is_dir($pth['folder']['plugins'] . $plugin)) {
 
-        PluginFiles($plugin);
+            PluginFiles($plugin);
 
-        // Load plugin config
-	if (file_exists($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php')) {
-	    include($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php');
-	}
-        if (file_exists($pth['file']['plugin_config'])) {
-            include($pth['file']['plugin_config']);
-        }
+            // Load plugin config
+            if (file_exists($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php')) {
+                include($pth['folder']['plugins'].$plugin.'/config/defaultconfig.php');
+            }
+            if (file_exists($pth['file']['plugin_config'])) {
+                include($pth['file']['plugin_config']);
+            }
 
-    // If plugin language is missing, copy default.php or en.php
-    if (!file_exists($pth['file']['plugin_language'])) {
-        if (file_exists($pth['folder']['plugins'].$plugin.'/languages/default.php')) {
-        copy($pth['folder']['plugins'].$plugin.'/languages/default.php', $pth['file']['plugin_language']);
-        } elseif (file_exists($pth['folder']['plugins'].$plugin.'/languages/en.php')) {
-        copy($pth['folder']['plugins'].$plugin.'/languages/en.php', $pth['file']['plugin_language']);
-        }
-    }
-
-    // Load default plugin language
-    if (file_exists($pth['folder']['plugins'] . $plugin . '/languages/default.php')) {
-         include $pth['folder']['plugins'] . $plugin . '/languages/default.php';
-    }
-        // Load plugin language
-        if (file_exists($pth['file']['plugin_language'])) {
-            include($pth['file']['plugin_language']);
+        // If plugin language is missing, copy default.php or en.php
+        if (!file_exists($pth['file']['plugin_language'])) {
+            if (file_exists($pth['folder']['plugins'].$plugin.'/languages/default.php')) {
+            copy($pth['folder']['plugins'].$plugin.'/languages/default.php', $pth['file']['plugin_language']);
+            } elseif (file_exists($pth['folder']['plugins'].$plugin.'/languages/en.php')) {
+            copy($pth['folder']['plugins'].$plugin.'/languages/en.php', $pth['file']['plugin_language']);
+            }
         }
 
-        // Load plugin index.php or die
-        if (file_exists($pth['file']['plugin_index']) AND !include($pth['file']['plugin_index'])) {
-            die($pluginloader_tx['error']['plugin_error'] . $pluginloader_tx['error']['cntopen'] . $pth['file']['plugin_index']);
+        // Load default plugin language
+        if (file_exists($pth['folder']['plugins'] . $plugin . '/languages/default.php')) {
+             include $pth['folder']['plugins'] . $plugin . '/languages/default.php';
         }
+            // Load plugin language
+            if (file_exists($pth['file']['plugin_language'])) {
+                include($pth['file']['plugin_language']);
+            }
 
-        // Add plugin css to the header of CMSimple/Template
-        if (file_exists($pth['file']['plugin_stylesheet'])) {
-            $hjs .= tag('link rel="stylesheet" href="' . $pth['file']['plugin_stylesheet'] . '" type="text/css"') . "\n";
-        }
-    } // if($plugin)
-} // while (FALSE !== ($plugin = readdir($handle)))
-closedir($handle);
+            // Load plugin index.php or die
+            if (file_exists($pth['file']['plugin_index']) AND !include($pth['file']['plugin_index'])) {
+                die($pluginloader_tx['error']['plugin_error'] . $pluginloader_tx['error']['cntopen'] . $pth['file']['plugin_index']);
+            }
+
+            // Add plugin css to the header of CMSimple/Template
+            if (file_exists($pth['file']['plugin_stylesheet'])) {
+                $hjs .= tag('link rel="stylesheet" href="' . $pth['file']['plugin_stylesheet'] . '" type="text/css"') . "\n";
+            }
+        } // if($plugin)
+    } // while (FALSE !== ($plugin = readdir($handle)))
+    closedir($handle);
+}
 
 /**
  * Load admin functions (admin.php, if exists) of plugin
