@@ -12,6 +12,11 @@
   based on CMSimple version 3.3 - December 31. 2009
   For changelog, downloads and information please see http://www.cmsimple-xh.org
   ======================================
+  [Please note: URLs in the following Copyright Notice are either void or
+  lead to different information as Mr. Harteg sold the code and website
+  in Nov. 2012.  Of the four mentioned licenses only the first (GPL 3)
+  applies to CMSimple_XH.]
+
   -- COPYRIGHT INFORMATION START --
 
   CMSimple version 3.3 - December 31. 2009

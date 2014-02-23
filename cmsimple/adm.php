@@ -112,7 +112,7 @@ if ($adm) {
         $o.='<h4>' . $tx['sysinfo']['helplinks'] . '</h4>' . "\n" . "\n";
         $o.='<ul>
 <li><a href="http://www.cmsimple-xh.org/">cmsimple-xh.org &raquo;</a></li>
-<li><a href="http://www.cmsimple.org/">cmsimple.org &raquo;</a></li>
+<li><a href="http://www.cmsimple-xh.org/wiki/">cmsimple-xh.org/wiki/ &raquo;</a></li>
 <li><a href="http://www.cmsimpleforum.com/">cmsimpleforum.com &raquo;</a></li>
 <li><a href="http://www.cmsimplewiki.com/">cmsimplewiki.com &raquo;</a></li>
 </ul>' . "\n" . "\n";
