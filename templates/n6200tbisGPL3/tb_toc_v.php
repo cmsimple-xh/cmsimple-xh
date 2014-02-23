@@ -4,7 +4,7 @@
 This file is part of a template, which was created by Torsten Behrens.
 Take a modern CMSimple XH version. www.cmsimple-xh.org www.cmsimple.name www.cmsimple.me www.cmsimple.eu
 
-Version 08.08.2013. Update for jQuery4CMSimple. 
+Version 08.08.2013. Update for jQuery4CMSimple.
 ##################################################################################
 # Dies ist ein GPL3 Template von Torsten Behrens.                                #
 # Torsten Behrens                                                                #
@@ -19,11 +19,11 @@ Version 08.08.2013. Update for jQuery4CMSimple.
 ##################################################################################
 */
 
-/* 
+/*
 This is a modified version of the toc()function of Peter Harteg's CMSimple (www.cmsimple.dk). It has been modified by Nikolai Bock
 for Torsten Behrens (www.torsten-behrens.de).
 It is called via the template.htm file. You call it by adding at the top of the template.htm file:
- - <?php include ($pth['folder']['template'].'tb_toc.php'); ? > (remove the space between ? and >) - 
+ - <?php include ($pth['folder']['template'].'tb_toc.php'); ? > (remove the space between ? and >) -
 The tb_toc.php file is placed in the folder where the template resides. In the template you do not use "toc()" but "tb_toc()" as menu function.
 The only different of the tb_toc to toc is that the function call the tb_li from this file and not the li-function from cms.php
 If you want to change the layout change this li-function and/or change the CSS-File.
@@ -71,7 +71,11 @@ function tb_li_v($ta, $st) {
 		}*/
 		$t .= '">';
 		//if ($tf)
-		$prueflink=a($ta[$i], $isActive ? '" class="active' : '');
+		global $edit, $pd_router;
+		$pageData = $pd_router->find_page($ta[$i]);
+		$target = !(XH_ADM && $edit) && $pageData['use_header_location'] === '2'
+			? '" target="_blank' : '';
+		$prueflink=a($ta[$i], $isActive ? '" class="active' . $target : $target);
 		$t .= $prueflink;
 		if(!(($k>1 && strpos($prueflink,":")!==false)))
 			$t .= '';
