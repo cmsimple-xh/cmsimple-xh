@@ -110,6 +110,10 @@
         </coverage-report>
     </target>
 
+    <target name="report">
+        <exec command="phpunit" logoutput="true"/>
+    </target>
+
     <!-- Documentation -->
 
     <target name="php-doc">
