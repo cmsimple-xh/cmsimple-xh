@@ -13,25 +13,24 @@ if (!$adm || $cf['filebrowser']['external'] /*|| $backend_hooks['filebrowser']*/
 initvar('filebrowser');
 
 if ($filebrowser) {
-    $plugin = basename(dirname(__FILE__));
-    $plugin = basename(dirname(__FILE__), "/");
-    $o = '<div class="plugintext">';
-    $o .= '<div class="plugineditcaption">Filebrowser for CMSimple_xh</div>';
-    $o .= '<p>Version for $CMSIMPLE_XH_VERSION$</p>';
 
+    initvar('admin');
+    initvar('action');
 
+    $o .= print_plugin_admin('off');
 
-    $admin = isset($_POST['admin']) ? $_POST['admin'] : $admin = isset($_GET['admin']) ? $_GET['admin'] : '';
-    $action = isset($_POST['action']) ? $_POST['action'] : $action = isset($_GET['action']) ? $_GET['action'] : '';
-    $o .= plugin_admin_common($action, $admin, $plugin);
+    $o .= '<div class="plugintext">'
+        . '<div class="plugineditcaption">Filebrowser for $CMSIMPLE_XH_VERSION$'
+        . '</div>' . tag('hr');
 
-    if ($action === 'plugin_save') {  // refresh
-        include $pth['folder']['plugins'] . $plugin . '/config/config.php';
+    if (!$admin) {
+        $admin = 'plugin_config';
+    }
+    if (!$action) {
+        $action = 'plugin_edit';
     }
 
-
-
-
+    if ($admin == 'plugin_config' && $action == 'plugin_edit') {
     $o .= '<div><form method="post" action="' . $sn . '?&amp;' . $plugin . '">';
     $o .= '<p><a class="pl_tooltip" href="#" onclick="return false">
              <img class="helpicon" alt="help" src="' . $pth['folder']['plugins'] . 'pluginloader/css/help_icon.png" />
@@ -59,8 +58,17 @@ if ($filebrowser) {
             . tag('input type="hidden" name="action" value="plugin_save"') . "\n"
             . tag('input type="submit"  name="plugin_submit" value="' . $tx['action']['save'] . '"') . "\n"
             . '</form>
-           </div>
-          </div>';
+           </div>';
+    } else {
+        $o .= plugin_admin_common($action, $admin, $plugin);
+    }
+
+    $o .= '</div>';
+
+    if ($action === 'plugin_save') {  // refresh
+        include $pth['folder']['plugins'] . $plugin . '/config/config.php';
+    }
+
     return;
 }
 
