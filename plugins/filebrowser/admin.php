@@ -32,10 +32,12 @@ if ($filebrowser) {
         . '<div class="plugineditcaption">Filebrowser for @CMSIMPLE_XH_VERSION@'
         . '</div>' . tag('hr');
 
-    !$admin &&
+    if (!$admin) {
         $admin = 'plugin_config';
-    !$action &&
+    }
+    if (!$action) {
         $action = 'plugin_edit';
+    }
 
     $o .= plugin_admin_common($action, $admin, $plugin)
         . '</div>';
