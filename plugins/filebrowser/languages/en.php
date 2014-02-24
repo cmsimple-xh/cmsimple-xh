@@ -29,8 +29,8 @@ $plugin_tx['filebrowser']['create_folder']="Create subfolder";
 
 $plugin_tx['filebrowser']['confirm_delete']="Really delete %s?";
 $plugin_tx['filebrowser']['prompt_rename']="Rename %s to:";
-$plugin_tx['filebrowser']['cf_confirm_delete']="This text is used in javascript context: Do not use \" or \'";
-$plugin_tx['filebrowser']['cf_prompt_rename']="This text is used in javascript context: Do not use \" or \'";
+$plugin_tx['filebrowser']['cf_confirm_delete']="This text is used in javascript context: Do not use \" or '";
+$plugin_tx['filebrowser']['cf_prompt_rename']="This text is used in javascript context: Do not use \" or '";
 
 $plugin_tx['filebrowser']['folder'] = "Folder";
 $plugin_tx['filebrowser']['files'] = "Files:";

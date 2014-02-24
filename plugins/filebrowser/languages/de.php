@@ -29,8 +29,8 @@ $plugin_tx['filebrowser']['create_folder']="Unterordner anlegen";
 
 $plugin_tx['filebrowser']['confirm_delete']="%s wirklich löschen?";
 $plugin_tx['filebrowser']['prompt_rename']="%s umbenennen zu:";
-$plugin_tx['filebrowser']['cf_confirm_delete']="This text is used in javascript context: Do not use \" or \'";
-$plugin_tx['filebrowser']['cf_prompt_rename']="This text is used in javascript context: Do not use \" or \'";
+$plugin_tx['filebrowser']['cf_confirm_delete']="This text is used in javascript context: Do not use \" or '";
+$plugin_tx['filebrowser']['cf_prompt_rename']="This text is used in javascript context: Do not use \" or '";
 
 $plugin_tx['filebrowser']['folder'] = "Ordner";
 $plugin_tx['filebrowser']['files'] = "Dateien:";
