@@ -101,7 +101,7 @@ class XHFileBrowserView {
 
     function fileList($files) {
         global $tx;
-        
+
         $html = '<ul>';
         $i = 0;
         $class = 'even';
@@ -122,7 +122,7 @@ class XHFileBrowserView {
                     <form style="display: inline;" method="POST" action="" onsubmit="return confirmFileDelete(\'' . $this->translate('confirm_delete', $this->currentDirectory . $file) . '\');">
                         <input type="image" src="' . $this->browserPath . 'css/icons/delete.gif" alt="delete" title="delete file" />
                         <input type="hidden" name="deleteFile" />
-                        <input type="hidden" name="file" value="' . $file . '" />
+                        <input type="hidden" name="filebrowser_file" value="' . $file . '" />
                     </form>
                     <form method="POST" style="display:none;" action="" id="rename_' . $i . '">
                         <input type="text" size="25" name="renameFile" value="' . $file . '" onmouseout="hideRenameForm(\'' . $i . '\');"/>
@@ -149,7 +149,7 @@ class XHFileBrowserView {
                     <span style="font-weight: normal; border: none;">' . $image[0] . ' x ' . $image[1] . ' px</span><br />
                     <img src="' . $this->basePath . $this->currentDirectory . $file . '" width="' . $width . 'px" height="' . $height . '" />' . tag('br') . $usage . '</span>';
             }
-            $html .= '</a> (' . round(filesize($this->basePath . $this->currentDirectory . $file) / 1024, 1) . ' kb) 
+            $html .= '</a> (' . round(filesize($this->basePath . $this->currentDirectory . $file) / 1024, 1) . ' kb)
             </li>';
             $i++;
         }

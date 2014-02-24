@@ -113,8 +113,8 @@ if (!empty($_SERVER['CONTENT_LENGTH']) && empty($_POST)) {
     );
 }
 
-if (isset($_POST['deleteFile']) && isset($_POST['file'])) {
-    $browser->deleteFile($_POST['file']);
+if (isset($_POST['deleteFile']) && isset($_POST['filebrowser_file'])) {
+    $browser->deleteFile($_POST['filebrowser_file']);
 }
 if (isset($_POST['deleteFolder']) && isset($_POST['folder'])) {
     $browser->deleteFolder($_POST['folder']);
