@@ -15,12 +15,12 @@ $fb_access = FALSE;
 
 
 if ($_SESSION['xh_session'] === session_id() && isset($_COOKIE['status']) && $_COOKIE['status'] === 'adm') {
-   
+
         $fb_access = TRUE;
-   
+
 }
 if ($fb_access === FALSE) {
-    
+
     die('Nope');
 }
 
@@ -65,10 +65,10 @@ if (isset($_GET['type'])) {
 
 if ($fb_type && array_key_exists($fb_type, $browser->baseDirectories)) {
     $browser->linkType = $fb_type;
-    
+
     $browser->setLinkPrefix($_GET['prefix']);
     $browser->linkType = $fb_type;
-    
+
     $src = $_GET;
     $src['type'] = $fb_type;
     unset($src['subdir']);
@@ -82,20 +82,20 @@ if ($fb_type && array_key_exists($fb_type, $browser->baseDirectories)) {
 
     $browser->baseDirectory    = $browser->baseDirectories[$fb_type];
     $browser->currentDirectory = $browser->baseDirectories[$fb_type];
-    
+
     if (isset($_GET['subdir'])) {
         $subdir = str_replace(array('../', './', '?', '<', '>', ':'), '', $_GET['subdir']);
-    
+
          if (strpos($subdir, $browser->currentDirectory) === 0) {
                 $browser->currentDirectory = rtrim($subdir, '/') . '/';
          }
-        
-        
+
+
     }
-    
-    
-    
-    
+
+
+
+
     if (isset($_POST['upload'])) {
         $browser->uploadFile();
     }
@@ -105,11 +105,11 @@ if ($fb_type && array_key_exists($fb_type, $browser->baseDirectories)) {
     if (isset($_POST['renameFile'])) {
         $browser->renameFile();
     }
-    
-    
-    
-    
-    
+
+
+
+
+
     $browser->readDirectory();
 
 
@@ -121,12 +121,13 @@ if ($fb_type && array_key_exists($fb_type, $browser->baseDirectories)) {
         include $jsFile;
     }
     $test = '';
-   
+
  //$test .= print_r($_SERVER, true);
 
     $browser->view->partials['script'] = $script;
     $browser->view->partials['test'] = $test;
     $browser->browserPath = '';
+    header('Content-Type: text/html; charset=UTF-8');
     echo $browser->render('editorbrowser');
 }
 
