@@ -89,7 +89,7 @@ zip -jlq $ofile $ff
 
 # clean up
 echo "cleaning up..."
-rm -r cmsimplexh/
+rm -f -r cmsimplexh/
 
 # finish
 echo "ready!"
