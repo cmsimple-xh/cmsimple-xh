@@ -246,7 +246,9 @@ HTML;
         'writable' => array(),
         'other' => array()
     );
-    $temp = array('content', 'corestyle', 'images', 'downloads', 'userfiles', 'media');
+    $temp = array(
+        'content', 'corestyle', 'images', 'downloads', 'userfiles', 'media'
+    );
     foreach ($temp as $i) {
         $checks['writable'][] = $pth['folder'][$i];
     }

@@ -37,7 +37,7 @@
     <!-- Checks -->
 
     <target name="sniff">
-        <phpcodesniffer standard="PEAR">
+        <phpcodesniffer standard="PEAR" format="full">
             <fileset refid="php-sources"/>
         </phpcodesniffer>
     </target>

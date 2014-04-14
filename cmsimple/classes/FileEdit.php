@@ -185,7 +185,8 @@ class XH_TextFileEdit extends XH_FileEdit
     {
         global $sn, $tx, $_XH_csrfProtection;
 
-        $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;        $value = utf8_ucfirst($tx['action']['save']);
+        $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;
+        $value = utf8_ucfirst($tx['action']['save']);
         if (isset($_GET['xh_success'])) {
             $filetype = utf8_ucfirst($tx['filetype'][stsl($_GET['xh_success'])]);
             $message =  XH_message('success', $tx['message']['saved'], $filetype);
