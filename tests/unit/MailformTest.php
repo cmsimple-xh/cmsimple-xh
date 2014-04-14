@@ -21,6 +21,11 @@ require_once './cmsimple/functions.php';
  */
 require './cmsimple/classes/Mailform.php';
 
+function getHostByNameStubForMailform($hostname)
+{
+    return '127.0.0.1';
+}
+
 /**
  * A test case for the mailform.
  *
@@ -38,6 +43,14 @@ class MailformTest extends PHPUnit_Framework_TestCase
         global $cf;
 
         $cf = array('mailform' => array('captcha' => 'true'));
+        runkit_function_rename('gethostbyname', 'gethostbyname_orig');
+        runkit_function_rename('getHostByNameStubForMailform', 'gethostbyname');
+    }
+
+    public function tearDown()
+    {
+        runkit_function_rename('gethostbyname', 'getHostByNameStubForMailform');
+        runkit_function_rename('gethostbyname_orig', 'gethostbyname');
     }
 
     public function dataForCheck()
@@ -130,7 +143,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
             array('post-master@example.com', true),
             array('post,master@example.com', false),
             array('post@master@example.com', false),
-            array("me@\xC3\xA4rger.de", function_exists('idn_to_ascii')),
+            array("me@\xC3\xA4rger.de", true),
             array("hacker\r\n\r\n@example.com", false),
             array("j\xC3\xBCrgen@example.com", false)
         );
