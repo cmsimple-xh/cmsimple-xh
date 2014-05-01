@@ -16,7 +16,6 @@
 
 require_once './cmsimple/functions.php';
 require_once './cmsimple/classes/PageDataRouter.php';
-require_once './cmsimple/classes/LiView.php';
 
 require_once './cmsimple/tplfuncs.php';
 
