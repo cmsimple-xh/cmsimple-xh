@@ -14,12 +14,16 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once 'vfsStream/vfsStream.php';
+require_once './vendor/autoload.php';
 
 /**
  * The file under test.
  */
 require_once './cmsimple/functions.php';
+
+use org\bovigo\vfs\vfsStreamWrapper;
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStream;
 
 /**
  * A helper to test multiple evaluation of a function with side effects.
