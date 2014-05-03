@@ -35,6 +35,8 @@ require_once './cmsimple/classes/Mailform.php';
  */
 class MailformTest extends PHPUnit_Framework_TestCase
 {
+    private $_goodPost;
+
     public function setUp()
     {
         global $cf;
@@ -45,95 +47,63 @@ class MailformTest extends PHPUnit_Framework_TestCase
                 'email' => 'devs@cmsimple-xh.org'
             )
         );
-    }
-
-    public function dataForCheck()
-    {
-        return array(
-            // okay
-            array(
-                array(
-                    'sendername' => 'Christoph Becker',
-                    'senderphone' => '123456789',
-                    'sender' => 'cmbecker69@gmx.de',
-                    'getlast' => '12345',
-                    'cap' => '12345',
-                    'subject' => 'Mailform localhost',
-                    'mailform' => 'A message.'
-                ),
-                true
-            ),
-            // wrong CAPTCHA code
-            array(
-                array(
-                    'sendername' => 'Christoph Becker',
-                    'senderphone' => '123456789',
-                    'sender' => 'cmbecker69@gmx.de',
-                    'getlast' => '12345',
-                    'cap' => '54321',
-                    'subject' => 'Mailform localhost',
-                    'mailform' => 'A message.'
-                ),
-                false
-            ),
-            // empty message
-            array(
-                array(
-                    'sendername' => 'Christoph Becker',
-                    'senderphone' => '123456789',
-                    'sender' => 'cmbecker69@gmx.de',
-                    'getlast' => '12345',
-                    'cap' => '12345',
-                    'subject' => 'Mailform localhost',
-                    'mailform' => ''
-                ),
-                false
-            ),
-            // invalid email address
-            array(
-                array(
-                    'sendername' => 'Christoph Becker',
-                    'senderphone' => '123456789',
-                    'sender' => 'cmbecker69gmx.de',
-                    'getlast' => '12345',
-                    'cap' => '12345',
-                    'subject' => 'Mailform localhost',
-                    'mailform' => ''
-                ),
-                false
-            ),
-            // empty subject
-            array(
-                array(
-                    'sendername' => 'Christoph Becker',
-                    'senderphone' => '123456789',
-                    'sender' => 'cmbecker69@gmx.de',
-                    'getlast' => '12345',
-                    'cap' => '12345',
-                    'subject' => '',
-                    'mailform' => 'A message.'
-                ),
-                false
-            )
+        $this->_goodPost = array(
+            'sendername' => 'Christoph Becker',
+            'senderphone' => '123456789',
+            'sender' => 'devs@cmsimple-xh.org',
+            'getlast' => '12345',
+            'cap' => '12345',
+            'subject' => 'Mailform localhost',
+            'mailform' => 'A message.'
         );
     }
 
-    /**
-     * @dataProvider dataForCheck
-     */
-    public function testCheck($post, $expected)
+    public function testCheckCorrectInput()
     {
-        $_POST = $post;
+        $_POST = $this->_goodPost;
         $mailform = new XH_Mailform();
-        $actual = $mailform->check();
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals('', $mailform->check());
     }
 
-    public function testSubmitSendsMailForValidInput()
+    public function testCheckWrongCaptchaCode()
     {
-        $mailform = $this->getMock('XH_Mailform', array('check', 'sendMail'));
-        $mailform->expects($this->once())->method('check')
-            ->will($this->returnValue(true));
+        $this->_testCheckInvalid('captchafalse', 'cap', '54321');
+    }
+
+    public function testCheckEmptyMessage()
+    {
+        $this->_testCheckInvalid('mustwritemessage', 'mailform', '');
+    }
+
+    public function testCheckInvalidEmailAddress()
+    {
+        $this->_testCheckInvalid('notaccepted', 'sender', 'devscmsimple-xh.org');
+    }
+
+    public function testCheckEmptySubject()
+    {
+        $this->_testCheckInvalid('notaccepted', 'subject', '');
+    }
+
+    private function _testCheckInvalid($langKey, $postKey, $postValue)
+    {
+        global $tx;
+
+        $tx['mailform'][$langKey] = 'foo bar';
+        $_POST = $this->_goodPost;
+        $_POST[$postKey] = $postValue;
+        $matcher = array(
+            'tag' => 'p',
+            'attributes' => array('class' => 'xh_warning'),
+            'content' => $tx['mailform'][$langKey]
+        );
+        $mailform = new XH_Mailform();
+        $this->assertTag($matcher, $mailform->check());
+    }
+
+    public function testSubmitSendsMailSuccess()
+    {
+        $mailform = $this->getMock('XH_Mailform', array('sendMail'));
         $mailform->expects($this->once())->method('sendMail')
             ->will($this->returnValue(true));
         $this->assertTrue($mailform->submit());
@@ -141,23 +111,13 @@ class MailformTest extends PHPUnit_Framework_TestCase
 
     public function testMailFailureIsLogged()
     {
-        $mailform = $this->getMock('XH_Mailform', array('check', 'sendMail'));
-        $mailform->expects($this->once())->method('check')
-            ->will($this->returnValue(true));
+        $mailform = $this->getMock('XH_Mailform', array('sendMail'));
         $mailform->expects($this->once())->method('sendMail')
             ->will($this->returnValue(false));
         $logMessageSpy = new PHPUnit_Extensions_MockFunction(
             'XH_logMessage', $mailform
         );
         $logMessageSpy->expects($this->once());
-        $this->assertFalse($mailform->submit());
-    }
-
-    public function testSubmitReturnsFalseForInvalidInput()
-    {
-        $mailform = $this->getMock('XH_Mailform', array('check'));
-        $mailform->expects($this->once())->method('check')
-            ->will($this->returnValue(false));
         $this->assertFalse($mailform->submit());
     }
 
@@ -176,9 +136,23 @@ class MailformTest extends PHPUnit_Framework_TestCase
         global $action;
 
         $action = 'send';
-        $mailform = $this->getMock('XH_Mailform', array('submit'));
+        $mailform = $this->getMock('XH_Mailform', array('check', 'submit'));
+        $mailform->expects($this->once())->method('check')
+            ->will($this->returnValue(''));
         $mailform->expects($this->once())->method('submit')
             ->will($this->returnValue(true));
+        $mailform->process();
+    }
+
+    public function testSendActionTriggersCheck()
+    {
+        global $action;
+
+        $action = 'send';
+        $mailform = $this->getMock('XH_Mailform', array('check', 'render'));
+        $mailform->expects($this->once())->method('check')
+            ->will($this->returnValue('some error message'));
+        $mailform->expects($this->any())->method('render');
         $mailform->process();
     }
 
@@ -187,7 +161,9 @@ class MailformTest extends PHPUnit_Framework_TestCase
         global $action;
 
         $action = 'send';
-        $mailform = $this->getMock('XH_Mailform', array('submit', 'render'));
+        $mailform = $this->getMock('XH_Mailform', array('check', 'submit', 'render'));
+        $mailform->expects($this->once())->method('check')
+            ->will($this->returnValue(''));
         $mailform->expects($this->once())->method('submit')
             ->will($this->returnValue(false));
         $mailform->expects($this->once())->method('render');
@@ -276,9 +252,12 @@ class MailformTest extends PHPUnit_Framework_TestCase
         global $action;
 
         $action = '';
-        $mailform = $this->getMock('XH_Mailform', array('render'));
+        $mailform = $this->getMock('XH_Mailform', array('render', 'check'));
+        $mailform->expects($this->any())->method('check')
+            ->will($this->returnValue('some error message'));
         $mailform->process();
         $mailform = $this->getMock('XH_Mailform', array('render'));
+        $mailform->expects($this->never())->method('check');
         $this->assertFalse($mailform->process());
     }
 }

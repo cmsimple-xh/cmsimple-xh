@@ -133,12 +133,10 @@ class XH_Mailform
     }
 
     /**
-     * Returns whether the submitted mailform is valid.
-     * Errors are reported to <var>$e</var>
+     * Returns error messages resp. an empty string if everything is okay.
      *
-     * @return bool
+     * @return string (X)HTML.
      *
-     * @global string (X)HTML fragment of LI elements with error messages.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      *
@@ -146,20 +144,21 @@ class XH_Mailform
      */
     function check()
     {
-        global $e, $cf, $tx;
+        global $cf, $tx;
 
+        $o = '';
         if ($this->getlast != $this->cap
             && trim($cf['mailform']['captcha']) == 'true'
         ) {
-            $e .= '<li>' . $tx['mailform']['captchafalse'] . '</li>';
+            $o .= XH_message('warning', $tx['mailform']['captchafalse']);
         }
         if ($this->mailform == '') {
-            $e .= '<li>' . $tx['mailform']['mustwritemessage'] . '</li>';
+            $o .= XH_message('warning', $tx['mailform']['mustwritemessage']);
         }
         if (!$this->isValidEmail($this->sender) || $this->subject == '') {
-            $e .= '<li>' . $tx['mailform']['notaccepted'] . '</li>';
+            $o .= XH_message('warning', $tx['mailform']['notaccepted']);
         }
-        return $e == '';
+        return $o;
     }
 
     /**
@@ -176,20 +175,16 @@ class XH_Mailform
     {
         global $cf, $tx;
 
-        if ($this->check()) {
-            $body = $tx['mailform']['sendername'] . $this->sendername . "\n"
-                . $tx['mailform']['senderphone'] . $this->senderphone . "\n\n"
-                . $this->mailform;
-            $sent = $this->sendMail(
-                $cf['mailform']['email'], $this->subject, $body,
-                "From: " . $this->sender . "\r\n"
-                . "X-Remote: " . sv('REMOTE_ADDR') . "\r\n"
-            );
-            if (!$sent) {
-                XH_logMessage('error', 'XH', 'mailform', $this->sender);
-            }
-        } else {
-            $sent = false;
+        $body = $tx['mailform']['sendername'] . $this->sendername . "\n"
+            . $tx['mailform']['senderphone'] . $this->senderphone . "\n\n"
+            . $this->mailform;
+        $sent = $this->sendMail(
+            $cf['mailform']['email'], $this->subject, $body,
+            "From: " . $this->sender . "\r\n"
+            . "X-Remote: " . sv('REMOTE_ADDR') . "\r\n"
+        );
+        if (!$sent) {
+            XH_logMessage('error', 'XH', 'mailform', $this->sender);
         }
         return $sent;
     }
@@ -200,19 +195,17 @@ class XH_Mailform
      * @return string (X)HTML
      *
      * @global string The requested action.
-     * @global string (X)HTML fragment of LI elements with error messages.
      * @global array  The localization of the core.
      *
      * @staticvar bool Whether any mailform is processed more than once.
      *
      * @access public
      *
-     * @todo Replace static function variable with static class variable
-     *       (requires PHP 5).
+     * @todo Remove static variable for better testability.
      */
     function process()
     {
-        global $action, $e, $tx;
+        global $action, $tx;
         static $again = false;
 
         if ($again) {
@@ -221,11 +214,12 @@ class XH_Mailform
         $again = true;
 
         if ($action == 'send') {
-            if ($this->submit()) {
-                $o = '<p>' . $tx['mailform']['send'] . '</p>' . "\n";
+            $o = $this->check();
+            if (!$o && $this->submit()) {
+                $o .= XH_message('success', $tx['mailform']['send']);
             } else {
-                $e .= '<li>' . $tx['mailform']['notsend'] . '</li>' . "\n";
-                $o = $this->render();
+                $o .= XH_message('fail', $tx['mailform']['notsend'])
+                    . $this->render();
             }
         } else {
             $o = $this->render();
