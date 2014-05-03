@@ -256,6 +256,9 @@ class MailformTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @see http://cmsimpleforum.com/viewtopic.php?f=29&t=7568
+     */
     public function testNoEmbeddedMailformIfEmailEmpty()
     {
         global $pth, $cf;
@@ -263,6 +266,20 @@ class MailformTest extends PHPUnit_Framework_TestCase
         $pth['folder']['classes'] = './cmsimple/classes/';
         $cf['mailform']['email'] = '';
         $this->assertFalse(XH_mailform());
+    }
+
+    /**
+     * @see http://cmsimpleforum.com/viewtopic.php?f=29&t=7568
+     */
+    public function testMailformClassCantBeProcessedTwice()
+    {
+        global $action;
+
+        $action = '';
+        $mailform = $this->getMock('XH_Mailform', array('render'));
+        $mailform->process();
+        $mailform = $this->getMock('XH_Mailform', array('render'));
+        $this->assertFalse($mailform->process());
     }
 }
 

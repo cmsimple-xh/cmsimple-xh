@@ -203,11 +203,22 @@ class XH_Mailform
      * @global string (X)HTML fragment of LI elements with error messages.
      * @global array  The localization of the core.
      *
+     * @staticvar bool Whether any mailform is processed more than once.
+     *
      * @access public
+     *
+     * @todo Replace static function variable with static class variable
+     *       (requires PHP 5).
      */
     function process()
     {
         global $action, $e, $tx;
+        static $again = false;
+
+        if ($again) {
+            return false;
+        }
+        $again = true;
 
         if ($action == 'send') {
             if ($this->submit()) {
