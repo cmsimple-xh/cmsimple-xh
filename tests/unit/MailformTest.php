@@ -14,17 +14,14 @@
  * @link      http://cmsimple-xh.org/
  */
 
+require_once './vendor/autoload.php';
+
 require_once './cmsimple/functions.php';
 
 /**
  * The file under test.
  */
-require './cmsimple/classes/Mailform.php';
-
-function getHostByNameStubForMailform($hostname)
-{
-    return '127.0.0.1';
-}
+require_once './cmsimple/classes/Mailform.php';
 
 /**
  * A test case for the mailform.
@@ -42,15 +39,12 @@ class MailformTest extends PHPUnit_Framework_TestCase
     {
         global $cf;
 
-        $cf = array('mailform' => array('captcha' => 'true'));
-        runkit_function_rename('gethostbyname', 'gethostbyname_orig');
-        runkit_function_rename('getHostByNameStubForMailform', 'gethostbyname');
-    }
-
-    public function tearDown()
-    {
-        runkit_function_rename('gethostbyname', 'getHostByNameStubForMailform');
-        runkit_function_rename('gethostbyname_orig', 'gethostbyname');
+        $cf = array(
+            'mailform' => array(
+                'captcha' => 'true',
+                'email' => 'devs@cmsimple-xh.org'
+            )
+        );
     }
 
     public function dataForCheck()
@@ -135,26 +129,105 @@ class MailformTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testSubmitSendsMailForValidInput()
+    {
+        $mailform = $this->getMock('XH_Mailform', array('check', 'sendMail'));
+        $mailform->expects($this->once())->method('check')
+            ->will($this->returnValue(true));
+        $mailform->expects($this->once())->method('sendMail')
+            ->will($this->returnValue(true));
+        $this->assertTrue($mailform->submit());
+    }
+
+    public function testMailFailureIsLogged()
+    {
+        $mailform = $this->getMock('XH_Mailform', array('check', 'sendMail'));
+        $mailform->expects($this->once())->method('check')
+            ->will($this->returnValue(true));
+        $mailform->expects($this->once())->method('sendMail')
+            ->will($this->returnValue(false));
+        $logMessageSpy = new PHPUnit_Extensions_MockFunction(
+            'XH_logMessage', $mailform
+        );
+        $logMessageSpy->expects($this->once());
+        $this->assertFalse($mailform->submit());
+    }
+
+    public function testSubmitReturnsFalseForInvalidInput()
+    {
+        $mailform = $this->getMock('XH_Mailform', array('check'));
+        $mailform->expects($this->once())->method('check')
+            ->will($this->returnValue(false));
+        $this->assertFalse($mailform->submit());
+    }
+
+    public function testDefaultActionRendersMailform()
+    {
+        global $action;
+
+        $action = '';
+        $mailform = $this->getMock('XH_Mailform', array('render'));
+        $mailform->expects($this->once())->method('render');
+        $mailform->process();
+    }
+
+    public function testSendActionSubmitsMailform()
+    {
+        global $action;
+
+        $action = 'send';
+        $mailform = $this->getMock('XH_Mailform', array('submit'));
+        $mailform->expects($this->once())->method('submit')
+            ->will($this->returnValue(true));
+        $mailform->process();
+    }
+
+    public function testSendActionRendersMailformOnFailedSubmission()
+    {
+        global $action;
+
+        $action = 'send';
+        $mailform = $this->getMock('XH_Mailform', array('submit', 'render'));
+        $mailform->expects($this->once())->method('submit')
+            ->will($this->returnValue(false));
+        $mailform->expects($this->once())->method('render');
+        $mailform->process();
+    }
+
+    public function testSendMailCallsMailOnce()
+    {
+        $mailform = new XH_Mailform();
+        $mailSpy = new PHPUnit_Extensions_MockFunction('mail', $mailform);
+        $mailSpy->expects($this->once());
+        $mailform->sendMail('devs@cmsimple-xh.org');
+    }
+
     public function dataForIsValidEmail()
     {
         return array(
-            array('post@example.com', true),
-            array('post.master@example.com', true),
-            array('post-master@example.com', true),
-            array('post,master@example.com', false),
-            array('post@master@example.com', false),
-            array("me@\xC3\xA4rger.de", true),
-            array("hacker\r\n\r\n@example.com", false),
-            array("j\xC3\xBCrgen@example.com", false)
+            array('post@example.com', '127.0.0.1', true),
+            array('post.master@example.com', '127.0.0.1', true),
+            array('post-master@example.com', '127.0.0.1', true),
+            array('post,master@example.com', '127.0.0.1', false),
+            array('post@master@example.com', '127.0.0.1', false),
+            array("me@\xC3\xA4rger.de", '127.0.0.1', true),
+            array("hacker\r\n\r\n@example.com", '127.0.0.1', false),
+            array("j\xC3\xBCrgen@example.com", '127.0.0.1', false),
+            array('foo@bar.invalid', 'bar.invalid', false)
         );
     }
 
     /**
      * @dataProvider dataForIsValidEmail
      */
-    public function testIsValidEmail($address, $expected)
+    public function testIsValidEmail($address, $ip, $expected)
     {
         $mailform = new XH_Mailform();
+        $getHostByNameStub = new PHPUnit_Extensions_MockFunction(
+            'gethostbyname', $mailform
+        );
+        $getHostByNameStub->expects($this->any())
+            ->will($this->returnValue($ip));
         $actual = $mailform->isValidEmail($address);
         $this->assertEquals($expected, $actual);
     }
