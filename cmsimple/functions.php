@@ -2464,10 +2464,13 @@ function XH_hsc($string)
  */
 function XH_mailform()
 {
-    global $pth;
+    global $pth, $cf;
+
+    if ($cf['mailform']['email'] == '') {
+        return false;
+    }
 
     include_once $pth['folder']['classes'] . 'Mailform.php';
-
     $mailform = new XH_Mailform(true);
     return $mailform->process();
 }

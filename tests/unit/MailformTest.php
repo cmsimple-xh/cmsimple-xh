@@ -255,6 +255,15 @@ class MailformTest extends PHPUnit_Framework_TestCase
         $actual = $mailform->encodeMIMEFieldBody($str);
         $this->assertEquals($expected, $actual);
     }
+
+    public function testNoEmbeddedMailformIfEmailEmpty()
+    {
+        global $pth, $cf;
+
+        $pth['folder']['classes'] = './cmsimple/classes/';
+        $cf['mailform']['email'] = '';
+        $this->assertFalse(XH_mailform());
+    }
 }
 
 ?>
