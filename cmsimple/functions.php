@@ -1992,53 +1992,19 @@ function XH_message($type, $message)
  * Creates a backup of the contents file. Surplus old backups will be deleted.
  * Returns an appropriate message.
  *
- * @return string The (X)HTML.
+ * @return string (X)HTML.
  *
  * @global array The paths of system files and folders.
- * @global array The configuration of the core.
- * @global array The localization of the core.
  *
  * @since 1.6
  */
 function XH_backup()
 {
-    global $pth, $cf, $tx;
+    global $pth;
 
-    $o = '';
-    $date = date("Ymd_His");
-    $fn = $date . '_content.htm';
-    if (empty($cf['backup']['numberoffiles'])
-        || copy($pth['file']['content'], $pth['folder']['content'] . $fn)
-    ) {
-        if (!empty($cf['backup']['numberoffiles'])) {
-            $message = utf8_ucfirst($tx['filetype']['backup']) . ' ' . $fn
-                . ' ' . $tx['result']['created'];
-            $o .= XH_message('info', $message);
-        }
-        $fl = array();
-        if ($fd = opendir($pth['folder']['content'])) {
-            while (($p = readdir($fd)) == true) {
-                if (XH_isContentBackup($p)) {
-                    $fl[] = $p;
-                }
-            }
-            closedir($fd);
-        }
-        sort($fl);
-        $v = count($fl) - $cf['backup']['numberoffiles'];
-        for ($i = 0; $i < $v; $i++) {
-            if (unlink($pth['folder']['content'] . $fl[$i])) {
-                $message = utf8_ucfirst($tx['filetype']['backup'])
-                    . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'];
-                $o .= XH_message('info', $message);
-            } else {
-                e('cntdelete', 'backup', $fl[$i]);
-            }
-        }
-    } else {
-        e('cntsave', 'backup', $fn);
-    }
-    return $o;
+    include_once $pth['folder']['classes'] . 'Backup.php';
+    $backup = new XH_Backup();
+    return $backup->execute();
 }
 
 /**
@@ -2159,7 +2125,7 @@ function XH_helpIcon($tooltip)
 function XH_isContentBackup($filename, $regularOnly = true)
 {
     $suffix = $regularOnly ? 'content' : '[^.]+';
-    return preg_match('/^\d{8}_\d{6}_' . $suffix . '.htm$/', $filename);
+    return (bool) preg_match('/^\d{8}_\d{6}_' . $suffix . '.htm$/', $filename);
 }
 
 /**

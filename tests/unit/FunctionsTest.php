@@ -398,23 +398,6 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertTag($matcher, $actual);
     }
 
-    public function dataForIsContentBackup()
-    {
-        return array(
-            array('20130711_010203_content.htm', true),
-            array('2013-07-11-01-02-03-content.htm', false)
-        );
-    }
-
-    /**
-     * @dataProvider dataForIsContentBackup
-     */
-    public function testIsContentBackup($filename, $expected)
-    {
-        $actual = XH_isContentBackup($filename);
-        $this->assertEquals($expected, $actual);
-    }
-
     public function testSecondLanguages()
     {
         global $pth;
