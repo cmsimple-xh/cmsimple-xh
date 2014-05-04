@@ -118,6 +118,7 @@ $tx['help']['site_template']="Standard-Template für die Website";
 $tx['help']['site_timezone']="Normalerweise keine Einstellung erforderlich. Ab PHP 5.1 kann eine vom Server abweichende <a href=\"http://www.php.net/manual/de/timezones.php\">Zeitzone</a> eingeben werden (siehe http://php.net/manual/de/timezones.php).";
 $tx['help']['title_format']="Das Format des Seitentitels (&lt;title&gt;) wie er normalerweise oben in den Seitenreitern des Browsers angezeigt wird.";
 $tx['help']['uri_seperator']="Das Zeichen, das die Namen von Seiten und Unterseiten in der URL trennt.";
+$tx['help']['uri_word_separator']="Das Zeichen, das Wörter in der URL trennt.";
 $tx['help']['uri_length']="Die URLs der Seiten werden ab dieser Länge abgeschnitten. Das könnte sich in einer zukünftigen Version ändern, so dass es das Beste ist, kürzere Seitenüberschriften zu verwenden (z.B. durch die Verwendung von Seite&rarr;Andere Seitenüberschrift).";
 $tx['help']['xhtml_endtags']="Anklicken wenn Sie XHTML-Ausgabe wünschen. Die für XHTML-Auszeichnungselemente erforderlichen Abschluss-Schrägstriche werden automatisch erzeugt.";
 

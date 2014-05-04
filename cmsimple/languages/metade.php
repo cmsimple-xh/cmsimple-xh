@@ -53,6 +53,7 @@ $mtx['type']="Typ";
 $mtx['uri']="URL";
 $mtx['urichar']="URL-Zeichen";
 $mtx['userfiles']="Benutzerdateien";
+$mtx['word separator']="Worttrennzeichen";
 $mtx['xhtml']="XHTML";
 
 ?>

@@ -398,6 +398,32 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertTag($matcher, $actual);
     }
 
+    /**
+     * @dataProvider dataForUenc
+     */
+    public function testUenc($uricharSep, $uricharOrg, $uricharNew, $wordSep, $expected)
+    {
+        global $cf, $tx;
+
+        if (!defined('XH_URICHAR_SEPARATOR')) {
+            define('XH_URICHAR_SEPARATOR', $uricharSep);
+        } else {
+            runkit_constant_redefine('XH_URICHAR_SEPARATOR', $uricharSep);
+        }
+        $cf['uri']['word_separator'] = $wordSep;
+        $tx['urichar']['org'] = $uricharOrg;
+        $tx['urichar']['new'] = $uricharNew;
+        $this->assertEquals($expected, uenc("\xC3\x9Cber uns"));
+    }
+
+    public function dataForUenc()
+    {
+        return array(
+            array('|', "\xC3\x84|\xC3\x96|\xC3\x9C", 'Ae|Oe|Ue', '_', 'Ueber_uns'),
+            array(',', "\xC3\x84,\xC3\x96,\xC3\x9C", 'Ae,Oe,Ue', '-', 'Ueber-uns')
+        );
+    }
+
     public function testSecondLanguages()
     {
         global $pth;

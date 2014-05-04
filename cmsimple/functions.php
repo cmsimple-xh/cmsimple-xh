@@ -1094,14 +1094,18 @@ function uenc($s)
  *
  * @return string
  *
+ * @global array The configuration of the core.
+ *
  * @see uenc()
  *
  * @since 1.6
  */
 function XH_uenc($s, $search, $replace)
 {
+    global $cf;
+
     $s = str_replace($search, $replace, $s);
-    return str_replace('+', '_', urlencode($s));
+    return str_replace('+', $cf['uri']['word_separator'], urlencode($s));
 }
 
 /**
