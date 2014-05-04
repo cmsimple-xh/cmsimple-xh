@@ -89,7 +89,6 @@ $tx['help']['editor_external']="Hier den Namen in Kleinbuchstaben des zu benutze
 $tx['help']['filebrowser_external']="Wenn Sie einen externen Datei-Browser verwenden möchten, z.B. hi_kcfinder, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['functions_file']="Bitte nicht ändern";
 $tx['help']['meta_author']="(Kann-Eingabe) Hier für Suchmaschinen den Autor der Texte Ihrer Site eintragen.";
-$tx['help']['meta_publisher']="(Kann-Eingabe) Hier für Suchmaschinen den Herausgeber Ihrer Site eingeben, d.h. die verantwortliche Person oder Institution.";
 $tx['help']['backup_numberoffiles']="Nach jedem Ausloggen erzeugt das System eine Sicherungskopie der Content-Datei. Hier die Anzahl solcher Dateien eintragen, die das System automatisch aufbewahrt.";
 
 

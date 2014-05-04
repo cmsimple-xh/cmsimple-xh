@@ -89,7 +89,6 @@ $tx['help']['editor_external']="Enter here the name of the wanted editor, which 
 $tx['help']['filebrowser_external']="If you want to use an external file browser, e.g. hi_kcfinder, install the plugin and enter its name here.";
 $tx['help']['functions_file']="Please do not change";
 $tx['help']['meta_author']="(Optional) Enter here for the benefit of search engines the name of the author of your pages.";
-$tx['help']['meta_publisher']="(Optional) Enter here for the benefit of search engines the publisher of your site, i.e. the person or institute responsable for the site.";
 $tx['help']['backup_numberoffiles']="After each logout a backup of the content file is generated. Enter the number of such files which the system automatically keeps.";
 
 $tx['help']['show_hidden_path_locator']="Whether the path of the hidden page is shown in the locator.";

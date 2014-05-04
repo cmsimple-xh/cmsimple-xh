@@ -38,7 +38,6 @@ $mtx['pages search']="in den Suchergebnissen";
 $mtx['pages sitemap']="im Inhaltsverzeichnis";
 $mtx['pages toc']="im Menü";
 $mtx['password']="Passwort";
-$mtx['publisher']="Herausgeber";
 $mtx['robots']="Suchroboter";
 $mtx['scroll']="Scrollen";
 $mtx['sdoc']="Ebenenhervorhebung";

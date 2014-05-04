@@ -8,7 +8,6 @@ $cf['site']['timezone']="";
 $cf['language']['default']="en";
 $cf['meta']['robots']="index, follow";
 $cf['meta']['author']="";
-$cf['meta']['publisher']="";
 $cf['locator']['show_homepage']="true";
 $cf['folders']['content']="content/";
 $cf['folders']['userfiles']="userfiles/";
