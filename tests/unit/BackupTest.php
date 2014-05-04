@@ -49,7 +49,7 @@ class BackupTest extends PHPUnit_Framework_TestCase
             'file' => array('content' => "{$this->_contentFolder}content.htm")
         );
         $cf = array(
-            'backup' => array('numberoffiles' => '2')
+            'backup' => array('numberoffiles' => '3')
         );
         $tx = array(
             'filetype' => array('backup' => 'backup'),
@@ -102,8 +102,24 @@ class BackupTest extends PHPUnit_Framework_TestCase
         error_reporting($errorReporting);
     }
 
-    public function testCreatesBackup()
+    public function testCreatesBackupWhenNoBackupIsThere()
     {
+        touch("{$this->_contentFolder}content.htm");
+        $this->_subject->execute();
+        $this->assertCount(2, scandir($this->_contentFolder));
+    }
+
+    public function testCreatesBackupWhenLatestBackupIsOutdated()
+    {
+        touch("{$this->_contentFolder}19700101_000102_content.htm");
+        file_put_contents("{$this->_contentFolder}content.htm", 'foo');
+        $this->_subject->execute();
+        $this->assertCount(3, scandir($this->_contentFolder));
+    }
+
+    public function testDoesntCreateBackupWhenLatestBackupIsUpToDate()
+    {
+        touch("{$this->_contentFolder}19700101_000102_content.htm");
         touch("{$this->_contentFolder}content.htm");
         $this->_subject->execute();
         $this->assertCount(2, scandir($this->_contentFolder));
@@ -120,23 +136,31 @@ class BackupTest extends PHPUnit_Framework_TestCase
         $this->assertTag($matcher, $this->_subject->execute());
     }
 
-    public function testDeletesTooOldBackup()
+    public function testDeletesTooOldBackups()
     {
-        touch("{$this->_contentFolder}content.htm");
+        file_put_contents("{$this->_contentFolder}content.htm", 'foo');
         touch("{$this->_contentFolder}19700101_000102_content.htm");
         touch("{$this->_contentFolder}19700102_000102_content.htm");
+        touch("{$this->_contentFolder}19700103_000102_content.htm");
+        touch("{$this->_contentFolder}19700104_000102_content.htm");
         $this->_subject->execute();
         $this->assertFileNotExists(
             "{$this->_contentFolder}19700101_000102_content.htm"
         );
+        $this->assertFileNotExists(
+            "{$this->_contentFolder}19700102_000102_content.htm"
+        );
     }
 
-    public function testKeepsYoungEnoughBackup()
+    public function testKeepsYoungEnoughBackups()
     {
-        touch("{$this->_contentFolder}content.htm");
+        file_put_contents("{$this->_contentFolder}content.htm", 'foo');
         touch("{$this->_contentFolder}19700101_000102_content.htm");
         touch("{$this->_contentFolder}19700102_000102_content.htm");
         $this->_subject->execute();
+        $this->assertFileExists(
+            "{$this->_contentFolder}19700101_000102_content.htm"
+        );
         $this->assertFileExists(
             "{$this->_contentFolder}19700102_000102_content.htm"
         );
@@ -144,9 +168,10 @@ class BackupTest extends PHPUnit_Framework_TestCase
 
     public function testReportsDeletionOfBackup()
     {
-        touch("{$this->_contentFolder}content.htm");
+        file_put_contents("{$this->_contentFolder}content.htm", 'foo');
         touch("{$this->_contentFolder}19700101_000102_content.htm");
         touch("{$this->_contentFolder}19700102_000102_content.htm");
+        touch("{$this->_contentFolder}19700103_000102_content.htm");
         $matcher = array(
             'tag' => 'p',
             'attributes' => array('class' => 'xh_info'),
@@ -161,9 +186,10 @@ class BackupTest extends PHPUnit_Framework_TestCase
         $eSpy->expects($this->once())->with(
             $this->equalTo('cntdelete'), $this->equalTo('backup')
         );
-        touch("{$this->_contentFolder}content.htm");
+        file_put_contents("{$this->_contentFolder}content.htm", 'foo');
         touch("{$this->_contentFolder}19700101_000102_content.htm");
         touch("{$this->_contentFolder}19700102_000102_content.htm");
+        touch("{$this->_contentFolder}19700103_000102_content.htm");
         $unlinkStub = new PHPUnit_Extensions_MockFunction(
             'unlink', $this->_subject
         );

@@ -74,8 +74,9 @@ class XH_Backup
     {
         $o = '';
         $filename = date("Ymd_His") . '_content.htm';
-        if ($this->_maxBackups <= 0 || $this->_backupFile($filename)) {
-            if ($this->_maxBackups > 0) {
+        $needsBackup = $this->_needsBackup();
+        if (!$needsBackup || $this->_backupFile($filename)) {
+            if ($needsBackup) {
                 $o .= $this->_renderCreationInfo($filename);
             }
             $deletions = $this->_deleteSurplusBackups();
@@ -104,6 +105,41 @@ class XH_Backup
         }
         sort($result);
         return $result;
+    }
+
+    /**
+     * Returns whether a backup is needed.
+     *
+     * @return bool
+     */
+    function _needsBackup()
+    {
+        if ($this->_maxBackups <= 0) {
+            return false;
+        }
+        $latestBackup = $this->_latestBackup();
+        if ($latestBackup) {
+            return md5_file($this->_contentFile) != md5_file($latestBackup);
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Returns the path of the latest backup file.
+     *
+     * If there is no backup file, <var>false</var> is returned.
+     *
+     * @return string
+     */
+    function _latestBackup()
+    {
+        $backups = $this->_findBackups();
+        if (!empty($backups)) {
+            return $this->_contentFolder . $backups[count($backups) - 1];
+        } else {
+            return false;
+        }
     }
 
     /**
