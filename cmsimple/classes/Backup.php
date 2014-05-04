@@ -30,6 +30,13 @@
 class XH_Backup
 {
     /**
+     * The paths of the content folders.
+     *
+     * @var array
+     */
+    private $_contentFolders;
+
+    /**
      * The path of the content folder.
      *
      * @var string
@@ -53,15 +60,15 @@ class XH_Backup
     /**
      * Initializes a new instance.
      *
-     * @global array The paths of system files and folders.
+     * @param array $contentFolders An array of foldernames.
+     *
      * @global array The configuration of the core.
      */
-    function __construct()
+    function __construct($contentFolders)
     {
-        global $pth, $cf;
+        global $cf;
 
-        $this->_contentFolder = $pth['folder']['content'];
-        $this->_contentFile = $pth['file']['content'];
+        $this->_contentFolders = $contentFolders;
         $this->_maxBackups = (int) $cf['backup']['numberoffiles'];
     }
 
@@ -72,23 +79,42 @@ class XH_Backup
      */
     function execute()
     {
-        $o = '';
-        $filename = date("Ymd_His") . '_content.htm';
-        $needsBackup = $this->_needsBackup();
-        if (!$needsBackup || $this->_backupFile($filename)) {
-            if ($needsBackup) {
-                $o .= $this->_renderCreationInfo($filename);
-            }
-            $deletions = $this->_deleteSurplusBackups();
-            $o .= $this->_renderDeletionResults($deletions);
-        } else {
-            e('cntsave', 'backup', $filename);
+        $result = '';
+        foreach ($this->_contentFolders as $folder) {
+            $result .= $this->backupSingleFolder($folder);
         }
-        return $o;
+        return $result;
     }
 
     /**
-     * Returns the filenames of all existing backups.
+     * Creates and deletes the backups of a single folder.
+     *
+     * @param string $folder A foldername.
+     *
+     * @return string (X)HTML.
+     */
+    function backupSingleFolder($folder)
+    {
+        $result = '';
+        $this->_contentFolder = $folder;
+        $this->_contentFile = $this->_contentFolder . 'content.htm';
+        $basename = date("Ymd_His") . '_content.htm';
+        $filename = $this->_contentFolder . $basename;
+        $needsBackup = $this->_needsBackup();
+        if (!$needsBackup || $this->_backupFile($basename)) {
+            if ($needsBackup) {
+                $result .= $this->_renderCreationInfo($filename);
+            }
+            $deletions = $this->_deleteSurplusBackups();
+            $result .= $this->_renderDeletionResults($deletions);
+        } else {
+            e('cntsave', 'backup', $filename);
+        }
+        return $result;
+    }
+
+    /**
+     * Returns the basenames of all existing backups.
      *
      * @return array
      */
@@ -145,13 +171,13 @@ class XH_Backup
     /**
      * Creates a backup of the content file.
      *
-     * @param string $filename The name of the backup.
+     * @param string $basename The name of the backup.
      *
      * @return bool
      */
-    function _backupFile($filename)
+    function _backupFile($basename)
     {
-        return copy($this->_contentFile, $this->_contentFolder . $filename);
+        return copy($this->_contentFile, $this->_contentFolder . $basename);
     }
 
     /**
@@ -162,11 +188,11 @@ class XH_Backup
     function _deleteSurplusBackups()
     {
         $result = array();
-        $filenames = $this->_findBackups();
-        $filenames = array_slice($filenames, 0, -$this->_maxBackups);
-        foreach ($filenames as $filename) {
-            $filepath = $this->_contentFolder . $filename;
-            $result[$filepath] = unlink($filepath);
+        $basenames = $this->_findBackups();
+        $basenames = array_slice($basenames, 0, -$this->_maxBackups);
+        foreach ($basenames as $basename) {
+            $filename = $this->_contentFolder . $basename;
+            $result[$filename] = unlink($filename);
         }
         return $result;
     }
@@ -174,7 +200,7 @@ class XH_Backup
     /**
      * Renders the backup creation info message.
      *
-     * @param string A filename.
+     * @param string $filename A filename.
      *
      * @return string (X)HTML.
      *
@@ -195,7 +221,7 @@ class XH_Backup
     /**
      * Renders the deletion results.
      *
-     * @param array A map of filenames => deletion success.
+     * @param array $deletions A map of filenames => deletion success.
      *
      * @return string (X)HTML.
      */
@@ -215,7 +241,7 @@ class XH_Backup
     /**
      * Renders the deletion info message.
      *
-     * @param string A filename.
+     * @param string $filename A filename.
      *
      * @return string (X)HTML.
      *

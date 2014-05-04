@@ -1989,8 +1989,9 @@ function XH_message($type, $message)
 }
 
 /**
- * Creates a backup of the contents file. Surplus old backups will be deleted.
- * Returns an appropriate message.
+ * Creates backups of all content files.
+ *
+ * Surplus old backups will be deleted. Returns an appropriate message.
  *
  * @return string (X)HTML.
  *
@@ -2003,7 +2004,12 @@ function XH_backup()
     global $pth;
 
     include_once $pth['folder']['classes'] . 'Backup.php';
-    $backup = new XH_Backup();
+    $languages = XH_secondLanguages();
+    $folders = array($pth['folder']['base'] . 'content/');
+    foreach ($languages as $language) {
+        $folders[] = $pth['folder']['base'] . 'content/' . $language . '/';
+    }
+    $backup = new XH_Backup($folders);
     return $backup->execute();
 }
 
