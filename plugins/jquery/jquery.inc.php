@@ -1,7 +1,7 @@
 <?php
 
 /*
- * @version $Id: jquery.inc.php 212 2013-11-10 21:19:33Z hi $
+ * @version $Id: jquery.inc.php 242 2014-05-06 20:20:18Z hi $
  *
  */
 
@@ -12,12 +12,17 @@
  * to enable jQuery, jQueryUI 
  * and other jQuery-based plugins
  *
- * Version:    1.5.1
- * Build:      2014020701
+ * Version:    1.5.2
+ * Build:      2014050601
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
  * */
+if (!defined('CMSIMPLE_XH_VERSION')) {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
+}
+
 //be sure that all globals are accessible when called from another function
 global $hjs, $plugin_cf, $pth;
 
@@ -56,7 +61,7 @@ function include_jQueryUI($path = '') {
 
     if (!defined('JQUERY_UI')) {
         if ($path == '') {
-            $path = $pth['folder']['plugins'] . 'jquery/lib/jquery_ui/' . $plugin_cf['jquery']['version_ui'] .'/jquery-ui.min.js';
+            $path = $pth['folder']['plugins'] . 'jquery/lib/jquery_ui/' . $plugin_cf['jquery']['version_ui'] . '/jquery-ui.min.js';
             if (!is_file($path)) {
                 e('missing', 'file', $path);
                 return;
