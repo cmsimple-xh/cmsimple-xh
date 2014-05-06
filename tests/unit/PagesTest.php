@@ -33,6 +33,8 @@ require_once './cmsimple/classes/Pages.php';
  */
 class PagesTest extends PHPUnit_Framework_TestCase
 {
+    private $_subject;
+
     public function setUp()
     {
         global $h, $u, $l, $c, $cf;
@@ -90,7 +92,7 @@ class PagesTest extends PHPUnit_Framework_TestCase
             '<h1>News</h1> #CMSimple hide#'
         );
         $cf['menu']['levelcatch'] = 10;
-        $this->pages = new XH_Pages();
+        $this->_subject = new XH_Pages();
     }
 
     public function dataForIsHidden()
@@ -106,7 +108,7 @@ class PagesTest extends PHPUnit_Framework_TestCase
      */
     public function testIsHidden($n, $expected)
     {
-        $actual = $this->pages->isHidden($n);
+        $actual = $this->_subject->isHidden($n);
         $this->assertEquals($expected, $actual);
     }
 
@@ -115,7 +117,7 @@ class PagesTest extends PHPUnit_Framework_TestCase
         global $c;
 
         $expected = count($c);
-        $actual = $this->pages->getCount();
+        $actual = $this->_subject->getCount();
         $this->assertEquals($expected, $actual);
     }
 
@@ -123,9 +125,9 @@ class PagesTest extends PHPUnit_Framework_TestCase
     {
         global $h;
 
-        for ($i = 0; $i < $this->pages->getCount(); ++$i) {
+        for ($i = 0; $i < $this->_subject->getCount(); ++$i) {
             $expected = $h[$i];
-            $actual = $this->pages->heading($i);
+            $actual = $this->_subject->heading($i);
             $this->assertEquals($expected, $actual);
         }
     }
@@ -134,9 +136,9 @@ class PagesTest extends PHPUnit_Framework_TestCase
     {
         global $u;
 
-        for ($i = 0; $i < $this->pages->getCount(); ++$i) {
+        for ($i = 0; $i < $this->_subject->getCount(); ++$i) {
             $expected = $u[$i];
-            $actual = $this->pages->url($i);
+            $actual = $this->_subject->url($i);
             $this->assertEquals($expected, $actual);
         }
     }
@@ -145,9 +147,9 @@ class PagesTest extends PHPUnit_Framework_TestCase
     {
         global $l;
 
-        for ($i = 0; $i < $this->pages->getCount(); ++$i) {
+        for ($i = 0; $i < $this->_subject->getCount(); ++$i) {
             $expected = $l[$i];
-            $actual = $this->pages->level($i);
+            $actual = $this->_subject->level($i);
             $this->assertEquals($expected, $actual);
         }
     }
@@ -156,9 +158,9 @@ class PagesTest extends PHPUnit_Framework_TestCase
     {
         global $c;
 
-        for ($i = 0; $i < $this->pages->getCount(); ++$i) {
+        for ($i = 0; $i < $this->_subject->getCount(); ++$i) {
             $expected = $c[$i];
-            $actual = $this->pages->content($i);
+            $actual = $this->_subject->content($i);
             $this->assertEquals($expected, $actual);
         }
     }
@@ -176,14 +178,14 @@ class PagesTest extends PHPUnit_Framework_TestCase
      */
     public function testToplevels($ignoreHidden, $expected)
     {
-        $actual = $this->pages->toplevels($ignoreHidden);
+        $actual = $this->_subject->toplevels($ignoreHidden);
         $this->assertEquals($expected, $actual);
     }
 
     public function testToplevelsDefaults()
     {
         $expected = array(0, 1, 8);
-        $actual = $this->pages->toplevels();
+        $actual = $this->_subject->toplevels();
         $this->assertEquals($expected, $actual);
     }
 
@@ -201,14 +203,14 @@ class PagesTest extends PHPUnit_Framework_TestCase
      */
     public function testChilren($n, $ignoreHidden, $expected)
     {
-        $actual = $this->pages->children($n, $ignoreHidden);
+        $actual = $this->_subject->children($n, $ignoreHidden);
         $this->assertEquals($expected, $actual);
     }
 
     public function testChildrenDefaults()
     {
         $expected = array(2, 6);
-        $actual = $this->pages->children(1);
+        $actual = $this->_subject->children(1);
         $this->assertEquals($expected, $actual);
     }
 
@@ -227,14 +229,14 @@ class PagesTest extends PHPUnit_Framework_TestCase
      */
     public function testParent($n, $ignoreHidden, $expected)
     {
-        $actual = $this->pages->parent($n, $ignoreHidden);
+        $actual = $this->_subject->parent($n, $ignoreHidden);
         $this->assertEquals($expected, $actual);
     }
 
     public function testParentDefaults()
     {
         $expected = 2;
-        $actual = $this->pages->parent(5);
+        $actual = $this->_subject->parent(5);
         $this->assertEquals($expected, $actual);
     }
 
@@ -252,8 +254,57 @@ class PagesTest extends PHPUnit_Framework_TestCase
      */
     public function testPageWithHeading($heading, $expected)
     {
-        $actual = $this->pages->pageWithHeading($heading);
+        $actual = $this->_subject->pageWithHeading($heading);
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testDefaultLinkList()
+    {
+        $indent = "\xC2\xA0\xC2\xA0\xC2\xA0\xC2\xA0";
+        $expected = array(
+            array('Welcome', '?Welcome'),
+            array('Blog', '?Blog'),
+            array("${indent}July", '?Blog:July'),
+            array("$indent${indent}Hot", '?Blog:July:Hot'),
+            array("$indent${indent}Visible", '?Blog:Hidden:Visible'),
+            array("${indent}January", '?Blog:January'),
+            array("$indent${indent}Cold", '?Blog:January:Cold'),
+            array("About", '?About'),
+            array("${indent}Contact", '?About:Contact'),
+        );
+        $this->assertEquals($expected, $this->_subject->linkList());
+    }
+
+    public function testCustomLinkList()
+    {
+        $indent = "\xC2\xA0\xC2\xA0\xC2\xA0\xC2\xA0";
+        $expected = array(
+            array('* Welcome', '?Welcome'),
+            array('* Blog', '?Blog'),
+            array("* ${indent}July", '?Blog:July'),
+            array("* $indent${indent}Hot", '?Blog:July:Hot'),
+            array("* ${indent}Hidden", '?Blog:Hidden'),
+            array("* $indent${indent}Visible", '?Blog:Hidden:Visible'),
+            array("* ${indent}January", '?Blog:January'),
+            array("* $indent${indent}Cold", '?Blog:January:Cold'),
+            array("* About", '?About'),
+            array("* ${indent}Contact", '?About:Contact'),
+            array('* News', '?News')
+        );
+        $this->assertEquals($expected, $this->_subject->linkList('* ', false));
+    }
+
+    public function testGetAncestorsOf()
+    {
+        $this->assertEquals(array(2, 1), $this->_subject->getAncestorsOf(5));
+    }
+
+    public function testGetAncestorsOfEvenIfHidden()
+    {
+        $this->assertEquals(
+            array(4, 1),
+            $this->_subject->getAncestorsOf(5, false)
+        );
     }
 }
 

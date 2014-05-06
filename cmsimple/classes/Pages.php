@@ -241,6 +241,30 @@ class XH_Pages
     }
 
     /**
+     * Returns the page indexes of all ancestors of a certain page.
+     *
+     * The order of the result is unspecified.
+     *
+     * @param int  $pageIndex    A page index.
+     * @param bool $ignoreHidden Whether hidden pages should be ignored.
+     *
+     * @return array
+     */
+    function getAncestorsOf($pageIndex, $ignoreHidden = true)
+    {
+        $result = array();
+        while (true) {
+            $parent = $this->parent($pageIndex, $ignoreHidden);
+            if ($parent === null) {
+                break;
+            }
+            $result[] = $parent;
+            $pageIndex = $parent;
+        }
+        return $result;
+    }
+
+    /**
      * Returns the index of the first page with the heading $heading.
      *
      * @param string $heading The heading of the page.
