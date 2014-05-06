@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Testing the li() function.
+ * Testing the menu functionality.
  *
  * PHP version 5
  *
@@ -14,40 +14,15 @@
  * @link      http://cmsimple-xh.org/
  */
 
+require_once './vendor/autoload.php';
+
 require_once './cmsimple/functions.php';
 require_once './cmsimple/classes/PageDataRouter.php';
 
 require_once './cmsimple/tplfuncs.php';
 
 /**
- * A stub for a().
- *
- * @param int    $pageIndex A page index.
- * @param string $suffix    An URL suffix.
- *
- * @return string (X)HTML.
- */
-function aStubForLi($pageIndex, $suffix)
-{
-    global $u;
-
-    return '<a href="?' . $u[$pageIndex] . $suffix . '">';
-}
-
-/**
- * A stub for hide().
- *
- * @param int $pageIndex A page index.
- *
- * @return bool
- */
-function hideStubForLi($pageIndex)
-{
-    return in_array($pageIndex, array(4, 5));
-}
-
-/**
- * Test case for the li() function.
+ * Test case for the menu functionality.
  *
  * @category Testing
  * @package  XH
@@ -55,7 +30,7 @@ function hideStubForLi($pageIndex)
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  */
-class LiTest extends PHPUnit_Framework_TestCase
+class MenuTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Sets up the default fixture.
@@ -134,7 +109,11 @@ class LiTest extends PHPUnit_Framework_TestCase
         $cf = array(
             'menu' => array(
                 'levelcatch' => '10',
+                'levels' => '3',
                 'sdoc' => 'parent'
+            ),
+            'show_hidden' => array(
+                'pages_toc' => 'true'
             ),
             'uri' => array(
                 'seperator' => ':'
@@ -195,35 +174,160 @@ class LiTest extends PHPUnit_Framework_TestCase
      */
     private function _setUpFunctionStubs()
     {
-        runkit_function_rename('a', 'a_orig');
-        runkit_function_rename('aStubForLi', 'a');
-        runkit_function_rename('hide', 'hide_orig');
-        runkit_function_rename('hideStubForLi', 'hide');
+        $liStub = new PHPUnit_Extensions_MockFunction('a', $this);
+        $liStub->expects($this->any())->will(
+            $this->returnCallback(
+                function ($pageIndex, $suffix) {
+                    global $u;
+
+                    return '<a href="?' . $u[$pageIndex] . $suffix . '">';
+                }
+            )
+        );
+        $hideStub = new PHPUnit_Extensions_MockFunction('hide', $this);
+        $hideStub->expects($this->any())->will(
+            $this->returnCallback(
+                function ($pageIndex) {
+                    return in_array($pageIndex, array(4, 5));
+                }
+            )
+        );
     }
 
     /**
-     * Tears down the default fixture.
+     * Returns the $pageIndexes argument.
      *
-     * @return void
+     * @param array $pageIndexes An array of page indexes.
+     * @param mixed $forOrFrom   A li() view kind or the start level.
+     *
+     * @return array
      */
-    public function tearDown()
+    public function li($pageIndexes, $forOrFrom)
     {
-        $this->_tearDownFunctionStubs();
+        return $pageIndexes;
     }
 
     /**
-     * Tears down the default function stubs.
+     * Tests that the default fixture is handled correctly.
+     *
+     * @param int   $start    A start menu level.
+     * @param int   $end      An end menu level.
+     * @param array $expected An expected result.
      *
      * @return void
+     *
+     * @global int The index of the selected page.
+     *
+     * @dataProvider dataForToc
      */
-    private function _tearDownFunctionStubs()
+    public function testToc($start, $end, $expected)
     {
-        runkit_function_rename('a', 'aStubForLi');
-        runkit_function_rename('a_orig', 'a');
-        runkit_function_rename('hide', 'hideStubForLi');
-        runkit_function_rename('hide_orig', 'hide');
+        global $s;
+
+        $s = 1;
+        $this->assertEquals($expected, toc($start, $end, array($this, 'li')));
     }
 
+    /**
+     * Provides data for testToc().
+     *
+     * @return array
+     */
+    public function dataForToc()
+    {
+        $pages1 = array(0, 1, 8, 10);
+        $pages2 = array(2, 6);
+        $pages3 = array(0, 1, 2, 6, 8, 10);
+        return array(
+            array(null, null, $pages3),
+            array(1, null, $pages1),
+            array(1, 1, $pages1),
+            array(1, 3, $pages3),
+            array(2, 2, $pages2),
+            array(2, 3, $pages2),
+            array(3, 3, array())
+        );
+    }
+
+    /**
+     * Tests that two menu levels have the expected result.
+     *
+     * @return void
+     *
+     * @global array The levels of the pages.
+     * @global int   The number of pages.
+     * @global int   The index of the selected page.
+     * @global array The configuration of the core.
+     */
+    public function testTwoMenuLevelsToc()
+    {
+        global $l, $cl, $s, $cf;
+
+        $s = 1;
+        $l = array(1, 1, 2, 2, 2, 1, 1);
+        $cl = count($l);
+        $cf['menu']['levels'] = 2;
+        $this->assertEquals(array(0, 1, 2, 3, 6), $this->_toc());
+    }
+
+    /**
+     * Tests that show_hidden->pages_toc has the expected result.
+     *
+     * @return void
+     *
+     * @global int   The index of the selected page.
+     * @global array The configuration of the core.
+     */
+    public function testTocShowHiddenPagesShowsHiddenPage()
+    {
+        global $s, $cf;
+
+        $s = 2;
+        $cf['show_hidden']['pages_toc'] = 'true';
+        $this->assertEquals(array(0, 1, 2, 3, 6, 8, 10), $this->_toc());
+    }
+
+    /**
+     * Tests that menu_levelcatch doesn't have a far subpage.
+     *
+     * @return void
+     *
+     * @global int   The index of the selected page.
+     * @global array The configuration of the core.
+     */
+    public function testLevelcatchDoesntFarSubpage()
+    {
+        global $s, $cf;
+
+        $s = 8;
+        $cf['menu']['levelcatch'] = '0';
+        $this->assertEquals(array(0, 1, 8, 10), $this->_toc());
+    }
+
+    /**
+     * Tests that no selected page has only toplevel pages.
+     *
+     * @return void
+     *
+     * @global int The index of the selected page.
+     */
+    public function testNoPageSelectedHasToplevelsOnly()
+    {
+        global $s;
+
+        $s = -1;
+        $this->assertEquals(array(0, 1, 8, 10), $this->_toc());
+    }
+
+    /**
+     * Returns the result of calling the default toc().
+     *
+     * @return array
+     */
+    private function _toc()
+    {
+        return toc(null, null, array($this, 'li'));
+    }
     /**
      * Tests that no menu items display nothing.
      *
