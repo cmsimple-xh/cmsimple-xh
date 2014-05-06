@@ -280,6 +280,49 @@ function li($ta, $st)
 }
 
 /**
+ * Sets global variables for CSS/DHTML menus.
+ *
+ * The most important variable is <var>$hc</var>, which is an array of page
+ * indexes of the pages of the menu. This is normally passed as first argument
+ * to li(), e.g. <code>li($hc)</code>. <var>$hl</var> holds the number of these
+ * pages. <var>$si</var> holds the index of the current page within
+ * <var>$hc</var>; it might be useful for advanced menus.
+ *
+ * @return void
+ *
+ * @global array The paths of system files and folders.
+ * @global int   The number of pages.
+ * @global int   The current page index.
+ * @global array The configuration of the core.
+ * @global int   The index of the current page.
+ * @global array The page indexes of the visible menu items.
+ * @global int   The number of menu items.
+ *
+ * @since 1.6.2
+ */
+function XH_buildHc()
+{
+    global $pth, $cl, $s, $cf, $si, $hc, $hl;
+
+    include_once $pth['folder']['classes'] . 'Pages.php';
+    $pages = new XH_Pages();
+    $si = -1;
+    $hc = array();
+    for ($i = 0; $i < $cl; $i++) {
+        if (!hide($i)
+            || $cf['show_hidden']['pages_toc'] == 'true'
+                && ($i == $s || in_array($i, $pages->getAncestorsOf($s, false)))
+        ) {
+            $hc[] = $i;
+        }
+        if ($i == $s) {
+            $si = count($hc);
+        }
+    }
+    $hl = count($hc);
+}
+
+/**
  * Returns the search form.
  *
  * @return string The (X)HTML.

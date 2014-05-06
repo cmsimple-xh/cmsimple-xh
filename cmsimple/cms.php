@@ -997,18 +997,7 @@ case 'forgotten':
     break;
 }
 
-// Compatibility for DHTML menus
-$si = -1;
-$hc = array();
-for ($i = 0; $i < $cl; $i++) {
-    if (!hide($i) || ($i == $s && $cf['show_hidden']['pages_toc'] == 'true')) {
-        $hc[] = $i;
-    }
-    if ($i == $s) {
-        $si = count($hc);
-    }
-}
-$hl = count($hc);
+XH_buildHc();
 
 // LEGAL NOTICES - not needed under GPL3
 if (empty($cf['menu']['legal'])) {

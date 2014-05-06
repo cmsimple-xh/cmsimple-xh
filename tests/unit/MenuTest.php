@@ -32,6 +32,10 @@ require_once './cmsimple/tplfuncs.php';
  */
 class MenuTest extends PHPUnit_Framework_TestCase
 {
+    private $_liStub;
+
+    private $_hideStub;
+
     /**
      * Sets up the default fixture.
      *
@@ -41,8 +45,9 @@ class MenuTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        global $s;
+        global $pth, $s;
 
+        $pth = array('folder' => array('classes' => './cmsimple/classes/'));
         $s = 0;
         $this->_setUpPageStructure();
         $this->_setUpConfiguration();
@@ -174,8 +179,8 @@ class MenuTest extends PHPUnit_Framework_TestCase
      */
     private function _setUpFunctionStubs()
     {
-        $liStub = new PHPUnit_Extensions_MockFunction('a', $this);
-        $liStub->expects($this->any())->will(
+        $this->_liStub = new PHPUnit_Extensions_MockFunction('a', $this);
+        $this->_liStub->expects($this->any())->will(
             $this->returnCallback(
                 function ($pageIndex, $suffix) {
                     global $u;
@@ -184,14 +189,20 @@ class MenuTest extends PHPUnit_Framework_TestCase
                 }
             )
         );
-        $hideStub = new PHPUnit_Extensions_MockFunction('hide', $this);
-        $hideStub->expects($this->any())->will(
+        $this->_hideStub = new PHPUnit_Extensions_MockFunction('hide', $this);
+        $this->_hideStub->expects($this->any())->will(
             $this->returnCallback(
                 function ($pageIndex) {
                     return in_array($pageIndex, array(4, 5));
                 }
             )
         );
+    }
+
+    public function tearDown()
+    {
+        $this->_liStub->restore();
+        $this->_hideStub->restore();
     }
 
     /**
@@ -760,6 +771,28 @@ class MenuTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->assertTag($matcher, li(array(2, 4, 6), 'submenu'));
+    }
+
+    public function testBuildHcForThirdPage()
+    {
+        global $s, $cf, $si, $hc, $hl;
+
+        $s = 3;
+        XH_buildHc();
+        $this->assertEquals(array(0, 1, 2, 3, 6, 7, 8, 9, 10), $hc);
+        $this->assertEquals(4, $si);
+        $this->assertEquals(9, $hl);
+    }
+
+    public function testBuildHcForFifthPage()
+    {
+        global $s, $cf, $si, $hc, $hl;
+
+        $s = 5;
+        XH_buildHc();
+        $this->assertEquals(array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), $hc);
+        $this->assertEquals(6, $si);
+        $this->assertEquals(11, $hl);
     }
 }
 
