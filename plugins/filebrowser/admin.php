@@ -15,8 +15,12 @@
  * @link      http://cmsimple-xh.org/
  */
 
-if (!XH_ADM || $cf['filebrowser']['external']) {
-    return true;
+/*
+ * Prevent direct access.
+ */
+if (!defined('CMSIMPLE_XH_VERSION')) {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
 }
 
 initvar('filebrowser');
