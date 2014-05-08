@@ -264,6 +264,8 @@ $tx['sysinfo']['phpinfo_hint']="(wird in einem neuen Fenster oder Tab geöffnet)
 $tx['sysinfo']['phpinfo_link']="PHP Info »";
 $tx['sysinfo']['plugins']="Installierte Plugins";
 $tx['sysinfo']['version']="Installierte CMSimple Version";
+$tx['sysinfo']['unknown']="Webserver konnte nicht ermittelt werden";
+$tx['sysinfo']['webserver']="Webserver";
 
 $tx['template']['default']="Standard Template";
 

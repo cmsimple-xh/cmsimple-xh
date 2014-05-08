@@ -219,6 +219,12 @@ function XH_sysinfo()
     }
     $o .= '</ul>' . "\n" . "\n";
 
+    $serverSoftware = !empty($_SERVER['SERVER_SOFTWARE'])
+        ? $_SERVER['SERVER_SOFTWARE']
+        : $tx['sysinfo']['unknown'];
+    $o .= '<p><b>' . $tx['sysinfo']['webserver'] . '</b></p>' . "\n"
+        . '<ul>' . "\n" . '<li>' . $serverSoftware . '</li>' . "\n"
+        . '</ul>' . "\n\n";
     $o .= '<p><b>' . $tx['sysinfo']['php_version'] . '</b></p>' . "\n"
         . '<ul>' . "\n" . '<li>' . phpversion() . '</li>' . "\n"
         . '<li><a href="./?&phpinfo" target="blank"><b>'

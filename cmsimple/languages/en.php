@@ -263,6 +263,8 @@ $tx['sysinfo']['phpinfo_hint']="(opens in a new window or tab)";
 $tx['sysinfo']['phpinfo_link']="PHP Info &raquo;";
 $tx['sysinfo']['plugins']="Installed Plugins";
 $tx['sysinfo']['version']="Installed CMSimple Version";
+$tx['sysinfo']['unknown']="Webserver could not be determined";
+$tx['sysinfo']['webserver']="Webserver";
 
 $tx['template']['default']="default template";
 
