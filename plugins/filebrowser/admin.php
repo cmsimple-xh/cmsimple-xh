@@ -87,6 +87,7 @@ if (strpos($subdir, $browser->baseDirectory) !== 0) {
 $browser->currentDirectory =  rtrim($subdir, '/') . '/';
 $browser->linkType = $f;
 $browser->setLinkParams($f);
+$browser->determineCurrentType();
 
 if (!empty($_SERVER['CONTENT_LENGTH']) && empty($_POST)) {
     $browser->view->error(
