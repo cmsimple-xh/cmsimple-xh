@@ -997,6 +997,27 @@ case 'forgotten':
     break;
 }
 
+/**
+ * The page indexes of the visible menu items.
+ *
+ * @global array $hc
+ */
+$hc = array();
+
+/**
+ * The length of {@link $hc}.
+ *
+ * @global int $hl
+ */
+$hl = -1;
+
+/**
+ * The index of the current page in {@link $hc}.
+ *
+ * @global int $si
+ */
+$si = -1;
+
 XH_buildHc();
 
 // LEGAL NOTICES - not needed under GPL3

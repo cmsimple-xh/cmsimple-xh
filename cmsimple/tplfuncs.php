@@ -284,7 +284,7 @@ function li($ta, $st)
  *
  * The most important variable is <var>$hc</var>, which is an array of page
  * indexes of the pages of the menu. This is normally passed as first argument
- * to li(), e.g. <code>li($hc)</code>. <var>$hl</var> holds the number of these
+ * to li(), e.g. <kbd>li($hc)</kbd>. <var>$hl</var> holds the number of these
  * pages. <var>$si</var> holds the index of the current page within
  * <var>$hc</var>; it might be useful for advanced menus.
  *
@@ -294,9 +294,9 @@ function li($ta, $st)
  * @global int   The number of pages.
  * @global int   The current page index.
  * @global array The configuration of the core.
- * @global int   The index of the current page.
+ * @global int   The index of the current page in {@link $hc}.
  * @global array The page indexes of the visible menu items.
- * @global int   The number of menu items.
+ * @global int   The length of {@link $hc}.
  *
  * @since 1.6.2
  */
@@ -310,8 +310,8 @@ function XH_buildHc()
     $hc = array();
     for ($i = 0; $i < $cl; $i++) {
         if (!hide($i)
-            || $cf['show_hidden']['pages_toc'] == 'true'
-                && ($i == $s || in_array($i, $pages->getAncestorsOf($s, false)))
+            || ($cf['show_hidden']['pages_toc'] == 'true'
+            && ($i == $s || in_array($i, $pages->getAncestorsOf($s, false))))
         ) {
             $hc[] = $i;
         }
