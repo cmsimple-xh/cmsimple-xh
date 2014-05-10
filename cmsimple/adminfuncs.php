@@ -639,7 +639,7 @@ function XH_adminMenu($plugins = array())
         )
     );
 
-    $t .= "\n" . '<div id="xh_adminmenu">';
+    $t = "\n" . '<div id="xh_adminmenu">';
     $t .= "\n" . '<ul>' . "\n";
     foreach ($menu as $item) {
         $t .= XH_adminMenuItem($item);
@@ -666,13 +666,9 @@ function XH_adminMenuItem($item, $level = 0)
     global $sn;
 
     $indent = str_repeat('    ', $level);
-    $t .= $indent . '<li>';
+    $t = $indent . '<li>';
     if (isset($item['url'])) {
-        $t .= '<a href="' . $sn . $item['url'] . '"';
-        if (isset($item['target'])) {
-            $t .= ' target="' . $item['target'] . '"';
-        }
-        $t .= '>';
+        $t .= '<a href="' . $sn . $item['url'] . '">';
     } else {
         $t .= '<span>';
     }
