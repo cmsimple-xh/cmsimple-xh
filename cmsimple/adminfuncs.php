@@ -178,15 +178,16 @@ function XH_absoluteUrlPath($path)
 function XH_isAccessProtected($path)
 {
     $host = $_SERVER['HTTP_HOST'];
-    $stream = fsockopen($host, 80, $errno, $errstr, 5);
+    $stream = fsockopen($host, $_SERVER['SERVER_PORT'], $errno, $errstr, 5);
     if ($stream) {
+        stream_set_timeout($stream, 5);
         $request = "HEAD $path HTTP/1.1\r\nHost: $host\r\n"
             . "User-Agent: CMSimple_XH\r\n\r\n";
         fwrite($stream, $request);
         $response = fread($stream, 12);
         fclose($stream);
         $status = substr($response, 9);
-        return $status[0] == '4' || $status[1] == '5';
+        return $status[0] == '4' || $status[0] == '5';
     } else {
         return false;
     }
