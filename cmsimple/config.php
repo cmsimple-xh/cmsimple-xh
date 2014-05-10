@@ -34,6 +34,7 @@ $cf['menu']['levelcatch']="10";
 $cf['menu']['sdoc']="parent";
 $cf['menu']['legal']="CMSimple Legal Notices";
 $cf['plugins']['disabled']="";
+$cf['plugins']['hidden']="";
 $cf['uri']['seperator']=":";
 $cf['uri']['word_separator']="_";
 $cf['uri']['length']="200";

@@ -173,6 +173,37 @@ class AdminMenuTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testShowsAllPluginItems()
+    {
+        $this->_plugins = range(1, 10);
+        $matcher = array(
+            'tag' => 'ul',
+            'attributes' => array('style' => 'width:125px; margin-left: 0px'),
+            'children' => array(
+                'count' => 10,
+                'only' => array('tag' => 'li')
+            )
+        );
+        $this->_assertMatches($matcher);
+    }
+
+    public function testShowsAllVisiblePluginItems()
+    {
+        global $cf;
+
+        $cf = array('plugins' => array('hidden' => '1, 5, 10'));
+        $this->_plugins = range(1, 10);
+        $matcher = array(
+            'tag' => 'ul',
+            'attributes' => array('style' => 'width:125px; margin-left: 0px'),
+            'children' => array(
+                'count' => 7,
+                'only' => array('tag' => 'li')
+            )
+        );
+        $this->_assertMatches($matcher);
+    }
+
     public function testEditModeLinksToStartPage()
     {
         global $s, $tx;

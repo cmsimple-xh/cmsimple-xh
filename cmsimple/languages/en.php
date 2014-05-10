@@ -110,6 +110,7 @@ $tx['help']['meta_robots']="Default setting for all pages of your site. \"index,
 
 $tx['help']['pagemanager_external']="If you want to use an external page manager, install the plugin and enter its name here";
 $tx['help']['plugins_disabled']="A comma separated list of plugins which shall not be loaded. <strong>Caveat: if any of these plugins is actually in use on the site, you may not be able to access the site anymore, and would have to fix this option via FTP!</strong>";
+$tx['help']['plugins_hidden']="A comma separated list of plugins which shall not be shown in the admin menu.";
 $tx['help']['plugins_folder']="Please do not change";
 $tx['help']['security_password']="Password of the site and all secondary language pages";
 $tx['help']['security_email']="The email address for the password forgotten functionality. It is preferable to use an address that is not publicly known.";

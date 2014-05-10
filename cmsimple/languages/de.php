@@ -111,6 +111,7 @@ $tx['help']['meta_robots']="Standarteinstellung für alle Seiten. \"index,follow
 
 $tx['help']['pagemanager_external']="Wenn Sie einen externen Seiten-Manager verwenden möchten, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['plugins_disabled']="Eine durch Kommata getrennte Liste von Plugins, die nicht geladen werden sollen. <strong>Vorsicht: wenn eines dieser Plugins auf der Website verwendet wird, kann es sein, dass Sie auf die Website nicht mehr zugreifen können, und diese Option per FTP korrigieren müssen!</strong>";
+$tx['help']['plugins_hidden']="Eine durch Kommata getrennte Liste von Plugins, die nicht im Admin-Menü angezeigt werden sollen.";
 $tx['help']['plugins_folder']="Bitte nicht ändern";
 $tx['help']['security_password']="Passwort für die Website einschließlich aller einzelnen Sprachbereiche";
 $tx['help']['security_email']="Die E-Mail-Adresse für die 'Kennwort vergessen'-Funktionalität. Am besten verwenden Sie eine Adresse, die nicht öffentlich bekannt ist.";

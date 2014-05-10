@@ -522,6 +522,7 @@ function pluginMenu($add = '', $link = '', $target = '', $text = '',
  * @global bool   Whether edit mode is active.
  * @global int    The index of the current page.
  * @global array  The URLs of the pages.
+ * @global array  The configuration of the core.
  * @global array  The localization of the core.
  * @global string The URL of the current page.
  * @global array  The localization of the plugins.
@@ -530,7 +531,7 @@ function pluginMenu($add = '', $link = '', $target = '', $text = '',
  */
 function XH_adminMenu($plugins = array())
 {
-    global $edit, $s, $u, $tx, $su, $plugin_tx;
+    global $edit, $s, $u, $cf, $tx, $su, $plugin_tx;
 
     if ($s < 0) {
         $su = $u[0];
@@ -583,6 +584,9 @@ function XH_adminMenu($plugins = array())
             'url' => '?&amp;sysinfo'
         )
     );
+    $hiddenPlugins = explode(',', $cf['plugins']['hidden']);
+    $hiddenPlugins = array_map('trim', $hiddenPlugins);
+    $plugins = array_diff($plugins, $hiddenPlugins);
     $total = count($plugins);
     $rows = 12;
     $columns = ceil($total / $rows);
