@@ -50,6 +50,11 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
     {
         global $pth, $sn, $file, $_XH_csrfProtection;
 
+        if (!defined('CMSIMPLE_URL')) {
+            define('CMSIMPLE_URL', 'http://example.com/xh/');
+        } else {
+            runkit_constant_redefine('CMSIMPLE_URL', 'http://example.com/xh/');
+        }
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
         $this->_testFile = vfsStream::url('test/template.htm');
@@ -164,8 +169,10 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
     {
         $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->_subject);
         $headerSpy->expects($this->once())->with(
-            // TODO: check for absolute URL
-            $this->equalTo('Location: ?file=template&action=edit&xh_success=template')
+            $this->equalTo(
+                'Location: ' . CMSIMPLE_URL
+                . '?file=template&action=edit&xh_success=template'
+            )
         );
         $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->_subject);
         $exitSpy->expects($this->once());

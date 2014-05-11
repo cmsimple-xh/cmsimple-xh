@@ -49,11 +49,8 @@ class PluginConfigFileEditTest extends PHPUnit_Framework_TestCase
     {
         global $sn, $pth, $file, $plugin;
 
-        if (!defined('XH_FORM_NAMESPACE')) {
-            define('XH_FORM_NAMESPACE', '');
-        } else {
-            runkit_constant_redefine('XH_FORM_NAMESPACE', '');
-        }
+        $this->_setConstant('CMSIMPLE_URL', 'http://example.com/xh/');
+        $this->_setConstant('XH_FORM_NAMESPACE', '');
         $plugin = 'pagemanager';
         $this->_setUpConfiguration();
         $this->_setUpMockery();
@@ -72,6 +69,15 @@ class PluginConfigFileEditTest extends PHPUnit_Framework_TestCase
         );
         $this->_setUpMetaConfig();
         $this->_subject = new XH_PluginConfigFileEdit();
+    }
+
+    private function _setConstant($name, $value)
+    {
+        if (!defined($name)) {
+            define($name, $value);
+        } else {
+            runkit_constant_redefine($name, $value);
+        }
     }
 
     private function _setUpConfiguration()
@@ -309,7 +315,12 @@ EOT;
         );
         $writeFileSpy->expects($this->once())->will($this->returnValue(true));
         $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->_subject);
-        $headerSpy->expects($this->once());
+        $headerSpy->expects($this->once())->with(
+            $this->equalTo(
+                'Location: ' . CMSIMPLE_URL . '?&pagemanager&admin=plugin_config'
+                . '&action=plugin_edit&xh_success=config'
+            )
+        );
         $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->_subject);
         $exitSpy->expects($this->once());
         $_POST = array(

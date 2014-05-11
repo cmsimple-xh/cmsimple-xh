@@ -50,6 +50,11 @@ class PluginTextFileEditTest extends PHPUnit_Framework_TestCase
     {
         global $pth, $sn, $plugin, $_XH_csrfProtection;
 
+        if (!defined('CMSIMPLE_URL')) {
+            define('CMSIMPLE_URL', 'http://example.com/xh/');
+        } else {
+            runkit_constant_redefine('CMSIMPLE_URL', 'http://example.com/xh/');
+        }
         $plugin = 'pagemanager';
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
@@ -162,9 +167,8 @@ class PluginTextFileEditTest extends PHPUnit_Framework_TestCase
     {
         $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->_subject);
         $headerSpy->expects($this->once())->with(
-            // TODO: check for absolute URL
             $this->equalTo(
-                'Location: ?&pagemanager&admin=plugin_stylesheet'
+                'Location: ' . CMSIMPLE_URL . '?&pagemanager&admin=plugin_stylesheet'
                 . '&action=plugin_text&xh_success=stylesheet'
             )
         );

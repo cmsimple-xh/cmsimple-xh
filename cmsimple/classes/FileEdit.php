@@ -229,7 +229,7 @@ class XH_TextFileEdit extends XH_FileEdit
         $_XH_csrfProtection->check();
         $this->text = stsl($_POST[$this->textareaName]);
         if ($this->save()) {
-            header('Location: ' . $this->redir, true, 303);
+            header('Location: ' . CMSIMPLE_URL . $this->redir, true, 303);
             XH_exit();
         } else {
             e('cntsave', 'file', $this->filename);
@@ -701,7 +701,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
             $e .= implode('', $errors);
             return $this->form();
         } elseif ($this->save()) {
-            header('Location: ' . $this->redir, true, 303);
+            header('Location: ' . CMSIMPLE_URL . $this->redir, true, 303);
             XH_exit();
         } else {
             e('cntsave', 'file', $this->filename);

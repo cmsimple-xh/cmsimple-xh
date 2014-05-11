@@ -49,11 +49,8 @@ class CoreLangFileEditTest extends PHPUnit_Framework_TestCase
     {
         global $sn, $pth, $file;
 
-        if (!defined('XH_FORM_NAMESPACE')) {
-            define('XH_FORM_NAMESPACE', '');
-        } else {
-            runkit_constant_redefine('XH_FORM_NAMESPACE', '');
-        }
+        $this->_setConstant('CMSIMPLE_URL', 'http://example.com/xh/');
+        $this->_setConstant('XH_FORM_NAMESPACE', '');
         $this->_setUpLanguage();
         $this->_setUpMockery();
         $sn = '/xh/';
@@ -71,6 +68,15 @@ class CoreLangFileEditTest extends PHPUnit_Framework_TestCase
         );
         //$this->_setUpMetaConfig();
         $this->_subject = new XH_CoreLangFileEdit();
+    }
+
+    private function _setConstant($name, $value)
+    {
+        if (!defined($name)) {
+            define($name, $value);
+        } else {
+            runkit_constant_redefine($name, $value);
+        }
     }
 
     private function _setUpLanguage()
@@ -197,7 +203,12 @@ class CoreLangFileEditTest extends PHPUnit_Framework_TestCase
         );
         $writeFileSpy->expects($this->once())->will($this->returnValue(true));
         $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->_subject);
-        $headerSpy->expects($this->once());
+        $headerSpy->expects($this->once())->with(
+            $this->equalTo(
+                'Location: ' . CMSIMPLE_URL
+                . '?file=language&action=array&xh_success=language'
+            )
+        );
         $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->_subject);
         $exitSpy->expects($this->once());
         $_POST = array(
