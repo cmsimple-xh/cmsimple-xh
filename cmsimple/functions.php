@@ -2604,4 +2604,18 @@ function XH_renameFile($oldname, $newname)
     return rename($oldname, $newname);
 }
 
+/**
+ * Exits the running script.
+ *
+ * Simple wrapper for exit for testing purposes.
+ *
+ * @return void
+ *
+ * @since 1.6.2
+ */
+function XH_exit()
+{
+    exit;
+}
+
 ?>

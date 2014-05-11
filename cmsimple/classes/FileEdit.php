@@ -195,7 +195,7 @@ class XH_TextFileEdit extends XH_FileEdit
         }
         $button = tag('input type="submit" class="submit" value="' . $value . '"');
         $o = '<h1>' . $this->caption . '</h1>' . $message
-            . '<form action="' . $action . '" method="POST">'
+            . '<form action="' . $action . '" method="post">'
             . '<textarea rows="25" cols="80" name="' . $this->textareaName
             . '" class="xh_file_edit">'
             . XH_hsc($this->text)
@@ -230,7 +230,7 @@ class XH_TextFileEdit extends XH_FileEdit
         $this->text = stsl($_POST[$this->textareaName]);
         if ($this->save()) {
             header('Location: ' . $this->redir, true, 303);
-            exit;
+            XH_exit();
         } else {
             e('cntsave', 'file', $this->filename);
             return $this->form();
@@ -578,7 +578,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
         }
         $o = '<h1>' . $this->caption . '</h1>' . $message
             . '<form id="xh_config_form" action="' . $action
-            . '" method="POST" accept-charset="UTF-8">'
+            . '" method="post" accept-charset="UTF-8">'
             . $button;
         foreach ($this->cfg as $category => $options) {
             $hasVisibleFields = $this->hasVisibleFields($options);
@@ -637,13 +637,16 @@ class XH_ArrayFileEdit extends XH_FileEdit
     {
         global $tx, $xh_hasher;
 
-        if ($_POST[$iname . '_OLD'] == '') {
+        if (!isset($_POST[$iname . '_OLD']) || $_POST[$iname . '_OLD'] == '') {
             $val = $opt['val'];
         } else {
             $val = false;
-            $old = stsl($_POST[$iname . '_OLD']);
-            $new = stsl($_POST[$iname . '_NEW']);
-            $confirm = stsl($_POST[$iname . '_CONFIRM']);
+            $old = isset($_POST[$iname . '_OLD'])
+                ? stsl($_POST[$iname . '_OLD']) : '';
+            $new = isset($_POST[$iname . '_NEW'])
+                ? stsl($_POST[$iname . '_NEW']) : '';
+            $confirm = isset($_POST[$iname . '_CONFIRM'])
+                ? stsl($_POST[$iname . '_CONFIRM']) : '';
             if (!$xh_hasher->CheckPassword($old, $opt['val'])) {
                 $errors[] = '<li>' . $tx['password']['wrong'] . '</li>';
             } else {
@@ -699,7 +702,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
             return $this->form();
         } elseif ($this->save()) {
             header('Location: ' . $this->redir, true, 303);
-            exit;
+            XH_exit();
         } else {
             e('cntsave', 'file', $this->filename);
             return $this->form();

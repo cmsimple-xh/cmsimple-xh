@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Testing the CoreConfigFileEdit class.
+ * Testing the PluginConfigFileEdit class.
  *
  * PHP version 5
  *
@@ -32,7 +32,7 @@ use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
 /**
- * A test case to for the CoreConfigFileEdit classes.
+ * A test case to for the PluginConfigFileEdit classes.
  *
  * @category Testing
  * @package  XH
@@ -41,53 +41,51 @@ use org\bovigo\vfs\vfsStream;
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class CoreConfigFileEditTest extends PHPUnit_Framework_TestCase
+class PluginConfigFileEditTest extends PHPUnit_Framework_TestCase
 {
     private $_subject;
 
     public function setUp()
     {
-        global $sn, $pth, $file;
+        global $sn, $pth, $file, $plugin;
 
         if (!defined('XH_FORM_NAMESPACE')) {
             define('XH_FORM_NAMESPACE', '');
         } else {
             runkit_constant_redefine('XH_FORM_NAMESPACE', '');
         }
+        $plugin = 'pagemanager';
         $this->_setUpConfiguration();
         $this->_setUpMockery();
         $sn = '/xh/';
-        $file = 'config';
+        $file = 'plugin_config';
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
         $pth = array(
             'folder' => array(
                 'cmsimple' => vfsStream::url('test/'),
-                'language' => vfsStream::url('test/')
+                'plugins' => vfsStream::url('test/')
             ),
             'file' => array(
-                'config' => vfsStream::url('test/config.php')
+                'plugin_config' => vfsStream::url('test/config.php')
             )
         );
         $this->_setUpMetaConfig();
-        $this->_subject = new XH_CoreConfigFileEdit();
+        $this->_subject = new XH_PluginConfigFileEdit();
     }
 
     private function _setUpConfiguration()
     {
-        global $cf;
+        global $plugin_cf;
 
-        $cf = array(
-            'locator' => array('show_homepage' => 'true'),
-            'menu' => array(
-                'levelcatch' => '10',
-                'levels' => '3'
-            ),
-            'meta' => array('robots' => 'index, follow'),
-            'scripting' => array('regexp' => '#CMSimple .*#'),
-            'security' => array(
-                'password' => 'bar',
-                'secret' => 'foo'
+        $plugin_cf = array(
+            'pagemanager' => array(
+                'test_bool' => 'true',
+                'test_enum' => 'one',
+                'test_hidden' => 'foo',
+                'test_string' => 'foo',
+                'test_password' => 'foo',
+                'test_random' => 'foo'
             )
         );
     }
@@ -110,17 +108,19 @@ class CoreConfigFileEditTest extends PHPUnit_Framework_TestCase
 
     private function _setUpMetaConfig()
     {
+        $filename = vfsStream::url('test/pagemanager/config/metaconfig.php');
+        mkdir(dirname($filename), 0777, true);
         $contents = <<<EOT
 <?php
-\$mcf['locator']['show_homepage']="bool";
-\$mcf['menu']['levelcatch']="hidden";
-\$mcf['menu']['levels']="enum:1,2,3,4,5,6";
-\$mcf['meta']['robots']="string";
-\$mcf['security']['password']="password";
-\$mcf['security']['secret']="random";
+\$plugin_mcf['pagemanager']['test_bool']="bool";
+\$plugin_mcf['pagemanager']['test_hidden']="hidden";
+\$plugin_mcf['pagemanager']['test_enum']="enum:one,two,three";
+\$plugin_mcf['pagemanager']['test_string']="string";
+\$plugin_mcf['pagemanager']['test_password']="password";
+\$plugin_mcf['pagemanager']['test_random']="random";
 ?>
 EOT;
-        file_put_contents(vfsStream::url('test/metaconfig.php'), $contents);
+        file_put_contents($filename, $contents);
     }
 
     public function tearDown()
@@ -134,7 +134,7 @@ EOT;
             'tag' => 'form',
             'id' => 'xh_config_form',
             'attributes' => array(
-                'action' => '/xh/',
+                'action' => '/xh/?&pagemanager',
                 'method' => 'post',
                 'accept-charset' => 'UTF-8'
             )
@@ -154,14 +154,14 @@ EOT;
         $this->_assertFormMatches($matcher);
     }
 
-    public function testFormContainsMetaRobotsField()
+    public function testFormContainsStringField()
     {
         $matcher = array(
             'tag' => 'input',
             'attributes' => array(
                 'type' => 'text',
-                'name' => 'meta_robots',
-                'value' => 'index, follow',
+                'name' => 'test_string',
+                'value' => 'foo',
                 'class' => 'xh_setting'
             ),
             'ancestor' => array('tag' => 'form')
@@ -169,57 +169,13 @@ EOT;
         $this->_assertFormMatches($matcher);
     }
 
-    public function testFormContainsMenuLevelcatchField()
+    public function testFormContainsHiddenField()
     {
         $matcher = array(
             'tag' => 'input',
             'attributes' => array(
                 'type' => 'hidden',
-                'name' => 'menu_levelcatch',
-                'value' => '10'
-            ),
-            'ancestor' => array('tag' => 'form')
-        );
-        $this->_assertFormMatches($matcher);
-    }
-
-    public function testFormContainsLocatorShowHomepageField()
-    {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'checkbox',
-                'name' => 'locator_show_homepage',
-                'checked' => 'checked'
-            ),
-            'ancestor' => array('tag' => 'form')
-        );
-        $this->_assertFormMatches($matcher);
-    }
-
-    public function testFormContainsMenuLevelsField()
-    {
-        $matcher = array(
-            'tag' => 'select',
-            'attributes' => array(
-                'name' => 'menu_levels'
-            ),
-            'children' => array(
-                'count' => 6,
-                'only' => array('tag' => 'option')
-            ),
-            'ancestor' => array('tag' => 'form')
-        );
-        $this->_assertFormMatches($matcher);
-    }
-
-    public function testFormContainsSecuritySecretField()
-    {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'hidden',
-                'name' => 'security_secret',
+                'name' => 'test_hidden',
                 'value' => 'foo'
             ),
             'ancestor' => array('tag' => 'form')
@@ -227,7 +183,51 @@ EOT;
         $this->_assertFormMatches($matcher);
     }
 
-    public function testFormContainsSecurityPasswordField()
+    public function testFormContainsBoolField()
+    {
+        $matcher = array(
+            'tag' => 'input',
+            'attributes' => array(
+                'type' => 'checkbox',
+                'name' => 'test_bool',
+                'checked' => 'checked'
+            ),
+            'ancestor' => array('tag' => 'form')
+        );
+        $this->_assertFormMatches($matcher);
+    }
+
+    public function testFormContainsEnumField()
+    {
+        $matcher = array(
+            'tag' => 'select',
+            'attributes' => array(
+                'name' => 'test_enum'
+            ),
+            'children' => array(
+                'count' => 3,
+                'only' => array('tag' => 'option')
+            ),
+            'ancestor' => array('tag' => 'form')
+        );
+        $this->_assertFormMatches($matcher);
+    }
+
+    public function testFormContainsRandomField()
+    {
+        $matcher = array(
+            'tag' => 'input',
+            'attributes' => array(
+                'type' => 'hidden',
+                'name' => 'test_random',
+                'value' => 'foo'
+            ),
+            'ancestor' => array('tag' => 'form')
+        );
+        $this->_assertFormMatches($matcher);
+    }
+
+    public function testFormContainsPasswordField()
     {
         $matcher = array(
             'tag' => 'button',
@@ -237,13 +237,13 @@ EOT;
         $this->_assertFormMatches($matcher);
     }
 
-    public function testFormContainsSecurityPasswordDialog()
+    public function testFormContainsPasswordDialog()
     {
         $matcher = array(
             'tag' => 'table',
             'parent' => array(
                 'tag' => 'div',
-                'id' => 'security_password_DLG'
+                'id' => 'test_password_DLG'
             ),
             'children' => array(
                 'count' => 3,
@@ -283,8 +283,8 @@ EOT;
     public function hiddenInputData()
     {
         return array(
-            array('file', 'config'),
-            array('action', 'save')
+            array('admin', 'plugin_config'),
+            array('action', 'plugin_save')
         );
     }
 
@@ -313,9 +313,9 @@ EOT;
         $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->_subject);
         $exitSpy->expects($this->once());
         $_POST = array(
-            'security_password_OLD' => 'foo',
-            'security_password_NEW' => 'bar',
-            'security_password_CONFIRM' => 'bar',
+            'test_password_OLD' => 'foo',
+            'test_password_NEW' => 'bar',
+            'test_password_CONFIRM' => 'bar',
         );
         $this->_subject->submit();
     }
@@ -327,9 +327,9 @@ EOT;
         $xh_hasher->expects($this->once())->method('CheckPassword')
             ->will($this->returnValue(false));
         $_POST = array(
-            'security_password_OLD' => 'foo',
-            'security_password_NEW' => 'bar',
-            'security_password_CONFIRM' => 'bar',
+            'test_password_OLD' => 'bar',
+            'test_password_NEW' => 'bar',
+            'test_password_CONFIRM' => 'bar',
         );
         $this->_subject->submit();
         $this->assertNotEmpty($e);
@@ -342,9 +342,9 @@ EOT;
         $xh_hasher->expects($this->once())->method('CheckPassword')
             ->will($this->returnValue(true));
         $_POST = array(
-            'security_password_OLD' => 'foo',
-            'security_password_NEW' => '',
-            'security_password_CONFIRM' => '',
+            'test_password_OLD' => 'foo',
+            'test_password_NEW' => '',
+            'test_password_CONFIRM' => '',
         );
         $this->_subject->submit();
         $this->assertNotEmpty($e);
@@ -357,9 +357,9 @@ EOT;
         $xh_hasher->expects($this->once())->method('CheckPassword')
             ->will($this->returnValue(true));
         $_POST = array(
-            'security_password_OLD' => 'foo',
-            'security_password_NEW' => 'bar',
-            'security_password_CONFIRM' => 'foo',
+            'test_password_OLD' => 'foo',
+            'test_password_NEW' => 'bar',
+            'test_password_CONFIRM' => 'foo',
         );
         $this->_subject->submit();
         $this->assertNotEmpty($e);

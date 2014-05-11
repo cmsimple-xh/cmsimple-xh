@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Testing the CoreTextFileEdit class.
+ * Testing the PluginTextFileEdit class.
  *
  * PHP version 5
  *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -31,7 +31,7 @@ use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
 /**
- * A test case for the CoreTextFileEdit class.
+ * A test case for the PluginTextFileEdit class.
  *
  * @category Testing
  * @package  XH
@@ -40,7 +40,7 @@ use org\bovigo\vfs\vfsStream;
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
+class PluginTextFileEditTest extends PHPUnit_Framework_TestCase
 {
     private $_subject;
 
@@ -48,19 +48,19 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        global $pth, $sn, $file, $_XH_csrfProtection;
+        global $pth, $sn, $plugin, $_XH_csrfProtection;
 
+        $plugin = 'pagemanager';
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
-        $this->_testFile = vfsStream::url('test/template.htm');
-        file_put_contents($this->_testFile, '<html>');
-        $file = 'template';
+        $this->_testFile = vfsStream::url('test/stylesheet.css');
+        file_put_contents($this->_testFile, 'body{}');
         $sn = '/xh/';
-        $pth['file']['template'] = $this->_testFile;
+        $pth['file']['plugin_stylesheet'] = $this->_testFile;
         $_XH_csrfProtection = $this->getMockBuilder('XH_CSRFProtection')
             ->disableOriginalConstructor()->getMock();
         $this->_setUpLocalization();
-        $this->_subject = new XH_CoreTextFileEdit();
+        $this->_subject = new XH_PluginTextFileEdit();
     }
 
     private function _setUpLocalization()
@@ -72,7 +72,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
                 'save' => 'save'
             ),
             'filetype' => array(
-                'template' => 'template'
+                'stylesheet' => 'stylesheet'
             ),
             'message' => array(
                 'saved' => 'Saved %s'
@@ -86,7 +86,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
             'tag' => 'form',
             'attributes' => array(
                 'method' => 'post',
-                'action' => '/xh/'
+                'action' => '/xh/?&pagemanager'
             )
         );
         $this->assertTag($matcher, $this->_subject->form());
@@ -97,10 +97,10 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
         $matcher = array(
             'tag' => 'textarea',
             'attributes' => array(
-                'name' => 'text',
+                'name' => 'plugin_text',
                 'class' => 'xh_file_edit'
             ),
-            'content' => '<html>',
+            'content' => 'body{}',
             'parent' => array('tag' => 'form')
         );
         $this->assertTag($matcher, $this->_subject->form());
@@ -121,16 +121,14 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
         $this->assertTag($matcher, $this->_subject->form());
     }
 
-    public function testFormContainsFileInput()
+    public function testFormContainsAdminInput()
     {
-        global $file;
-
         $matcher = array(
             'tag' => 'input',
             'attributes' => array(
                 'type' => 'hidden',
-                'name' => 'file',
-                'value' => $file
+                'name' => 'admin',
+                'value' => 'plugin_stylesheet'
             )
         );
         $this->assertTag($matcher, $this->_subject->form());
@@ -143,7 +141,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
             'attributes' => array(
                 'type' => 'hidden',
                 'name' => 'action',
-                'value' => 'save'
+                'value' => 'plugin_textsave'
             )
         );
         $this->assertTag($matcher, $this->_subject->form());
@@ -151,11 +149,11 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
 
     public function testSuccessMessage()
     {
-        $_GET['xh_success'] = 'template';
+        $_GET['xh_success'] = 'stylesheet';
         $matcher = array(
             'tag' => 'p',
             'attributes' => array('class' => 'xh_success'),
-            'content' => 'Saved Template'
+            'content' => 'Saved Stylesheet'
         );
         $this->assertTag($matcher, $this->_subject->form());
     }
@@ -165,11 +163,14 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
         $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->_subject);
         $headerSpy->expects($this->once())->with(
             // TODO: check for absolute URL
-            $this->equalTo('Location: ?file=template&action=edit&xh_success=template')
+            $this->equalTo(
+                'Location: ?&pagemanager&admin=plugin_stylesheet'
+                . '&action=plugin_text&xh_success=stylesheet'
+            )
         );
         $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->_subject);
         $exitSpy->expects($this->once());
-        $_POST = array('text' => '</html>');
+        $_POST = array('plugin_text' => 'body{}');
         $this->_subject->submit();
     }
 
@@ -184,7 +185,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
             $this->equalTo('cntsave'), $this->equalTo('file'),
             $this->equalTo($this->_testFile)
         );
-        $_POST = array('text' => '</html>');
+        $_POST = array('plugin_text' => 'body{}');
         $this->_subject->submit();
     }
 }
