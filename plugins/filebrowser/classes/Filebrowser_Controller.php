@@ -140,9 +140,8 @@ class Filebrowser_Controller
         $this->currentType = $this->linkType;
         $types = array('images', 'downloads', 'media', 'userfiles');
         foreach ($types as $type) {
-            if (strpos($this->currentDirectory, $this->baseDirectories[$type])
-                === 0
-            ) {
+            $pos = strpos($this->currentDirectory, $this->baseDirectories[$type]);
+            if ($pos === 0) {
                 $this->currentType = $type;
                 break;
             }
