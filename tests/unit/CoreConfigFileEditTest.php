@@ -354,8 +354,8 @@ EOT;
             ->will($this->returnValue(true));
         $_POST = array(
             'security_password_OLD' => 'foo',
-            'security_password_NEW' => '',
-            'security_password_CONFIRM' => '',
+            'security_password_NEW' => "\xC3\xA4",
+            'security_password_CONFIRM' => "\xC3\xA4",
         );
         $this->_subject->submit();
         $this->assertNotEmpty($e);

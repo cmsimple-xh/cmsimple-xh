@@ -148,6 +148,9 @@ XH.validatePassword = function (dialog) {
     if (oldPassword == "" || newPassword == "" || confirmation == "") {
         return XH.i18n["password"]["fields_missing"];
     }
+    if (!(/^[!-~]+$/.test(newPassword))) {
+        return XH.i18n.password.invalid;
+    }
     if (newPassword != confirmation) {
         return XH.i18n["password"]["mismatch"];
     }

@@ -650,7 +650,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
             if (!$xh_hasher->CheckPassword($old, $opt['val'])) {
                 $errors[] = '<li>' . $tx['password']['wrong'] . '</li>';
             } else {
-                if ($new == '') {
+                if (!preg_match('/^[!-~]+$/u', $new)) {
                     $errors[] = '<li>' . $tx['password']['invalid'] . '</li>';
                 } elseif ($new != $confirm) {
                     $errors[] = '<li>' . $tx['password']['mismatch'] . '</li>';

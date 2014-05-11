@@ -1096,7 +1096,7 @@ function XH_adminJSLocalization()
 
     $keys = array(
         'action' => array('cancel', 'ok'),
-        'password' => array('fields_missing', 'mismatch', 'wrong'),
+        'password' => array('fields_missing', 'invalid', 'mismatch', 'wrong'),
         'error' => array('server'),
         'settings' => array('backupsuffix')
     );
