@@ -31,11 +31,21 @@ require_once './cmsimple/classes/JSON.php';
  */
 class JSONTest extends PHPUnit_Framework_TestCase
 {
-    var $json;
+    private $_json;
 
     public function setUp()
     {
-        $this->json = new XH_JSON();
+        $this->_json = new XH_JSON();
+    }
+
+    /**
+     * @dataProvider dataForTestEncode
+     */
+    public function testEncode($value)
+    {
+        $expected = json_encode($value, JSON_UNESCAPED_UNICODE);
+        $actual = $this->_json->encode($value);
+        $this->assertEquals($expected, $actual);
     }
 
     public function dataForTestEncode()
@@ -64,37 +74,28 @@ class JSONTest extends PHPUnit_Framework_TestCase
             array($backslash),
             array($list),
             array($dict),
+            array((object) $dict),
             array(array($list, $dict, $list))
         );
     }
 
     /**
-     * @dataProvider dataForTestEncode
-     */
-    public function testEncode($value)
-    {
-        $expected = json_encode($value, JSON_UNESCAPED_UNICODE);
-        $actual = $this->json->encode($value);
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
      * @expectedException PHPUnit_Framework_Error_Warning
      */
-    public function testEncodeRessource()
+    public function testEncodeResourceTriggersWarning()
     {
-        $file = fopen('./JsonTest.php', 'r');
-        $this->json->encode($file);
-        fclose($f);
+        $file = fopen(__FILE__, 'r');
+        $this->_json->encode($file);
+        fclose($file);
     }
 
-    public function dataForTestDecode()
+    public function testEncodeResourceReturnsNull()
     {
-        return array(
-            array(file_get_contents('./tests/unit/data/example.json')),
-            array("\"\xC3\xA4\xC3\xB6\xC3\xBC\""),
-            array('"\u0061\u00E4\uFEFC"')
-        );
+        $errorReporting = error_reporting(0);
+        $stream = fopen(__FILE__, 'r');
+        $this->_json->encode($stream);
+        fclose($stream);
+        error_reporting($errorReporting);
     }
 
     /**
@@ -103,18 +104,36 @@ class JSONTest extends PHPUnit_Framework_TestCase
     public function testDecode($string)
     {
         $expected = json_decode($string, true);
-        $actual = $this->json->decode($string);
+        $actual = $this->_json->decode($string);
         $this->assertEquals($expected, $actual);
+    }
+
+    public function dataForTestDecode()
+    {
+        return array(
+            array(file_get_contents('./tests/unit/data/example.json')),
+            array("\"\xC3\xA4\xC3\xB6\xC3\xBC\""),
+            array('"\u0061\u00E4\uFEFC"'),
+            array('"\ufeff"'),
+            array('"\uD834\uDD1E"'),
+            array('"\uDD1E"'),
+            array('t'),
+            array('f'),
+            array('n'),
+            array('null'),
+            array('bar'),
+            array('foo bar')
+        );
     }
 
     public function testDecodeSyntaxError()
     {
         $string = '{true}';
         $expected = json_decode($string, true);
-        $actual = $this->json->decode($string);
+        $actual = $this->_json->decode($string);
         $this->assertEquals($expected, $actual);
         $expected = !!json_last_error();
-        $actual = $this->json->lastError();
+        $actual = $this->_json->lastError();
         $this->assertEquals($expected, $actual);
     }
 
@@ -122,7 +141,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
     {
         $string = file_get_contents('./tests/unit/data/example.json');
         $value = json_decode($string, true);
-        $new = $this->json->decode($this->json->encode($value));
+        $new = $this->_json->decode($this->_json->encode($value));
         $this->assertEquals($value, $new);
     }
 }
