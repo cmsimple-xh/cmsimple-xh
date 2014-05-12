@@ -22,6 +22,7 @@
             <directory name="tests"/>
             <directory name="tutorials"/>
             <directory name="userfiles"/>
+            <directory name="vendor"/>
 
             <!-- constants which are defined conditionally, but PHP_CompatInfo doesn't recognize it -->
             <constant name="E_DEPRECATED"/>
