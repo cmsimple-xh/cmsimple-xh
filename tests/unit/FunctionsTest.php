@@ -645,7 +645,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    function testRenameFile()
+    public function testRenameFile()
     {
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
@@ -657,6 +657,28 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($actual);
     }
 
+    /**
+     * @dataProvider getRootFolderData
+     */
+    public function testRootFolder($scriptName, $language, $expected)
+    {
+        global $sn, $sl;
+
+        $sn = $scriptName;
+        $sl = $language;
+        $this->assertEquals($expected, XH_getRootFolder());
+    }
+
+    public function getRootFolderData()
+    {
+        return array(
+            array('/xh/', 'en', '/xh/'),
+            array('/xh/en/', 'en', '/xh/'),
+            array('/xh/index.php', 'en', '/xh/'),
+            array('/xh/en/index.php', 'en', '/xh/'),
+            array('/en/cms/', 'en', '/en/cms/')
+        );
+    }
 }
 
 ?>

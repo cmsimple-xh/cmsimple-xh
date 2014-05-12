@@ -522,10 +522,7 @@ foreach ($temp as $i) {
 /**
  * The absolute path of the root folder.
  */
-define(
-    'CMSIMPLE_ROOT',
-    str_replace('index.php', '', str_replace('/' . $sl . '/', "/", $sn))
-);
+define('CMSIMPLE_ROOT', XH_getRootFolder());
 
 /**
  * The relative path of the root folder.

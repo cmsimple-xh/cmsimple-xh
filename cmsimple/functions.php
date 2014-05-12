@@ -2618,4 +2618,25 @@ function XH_exit()
     exit;
 }
 
+/**
+ * Returns the root (= installation) folder of the system.
+ *
+ * @return string
+ *
+ * @global string The script name.
+ * @global string The current language.
+ *
+ * @since 1.6.2
+ */
+function XH_getRootFolder()
+{
+    global $sn, $sl;
+
+    return preg_replace(
+        '/\/' . preg_quote($sl, '/') . '\/$/',
+        '/',
+        preg_replace('/\/index\.php$/', '/', $sn)
+    );
+}
+
 ?>
