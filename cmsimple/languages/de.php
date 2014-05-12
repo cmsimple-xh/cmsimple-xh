@@ -162,6 +162,11 @@ $tx['locator']['text']="Sie sind hier: ";
 
 $tx['log']['dateformat']="Y-m-d H:i:s";
 $tx['log']['loggedin']="Eingeloggt";
+$tx['log']['timestamp']="Zeitstempel";
+$tx['log']['type']="Typ";
+$tx['log']['module']="Modul";
+$tx['log']['category']="Kategorie";
+$tx['log']['description']="Beschreibung";
 
 $tx['login']['failure']="Sie haben ein falsches Passwort eingegeben!";
 $tx['login']['loggedout']="Sie wurden ausgeloggt";
