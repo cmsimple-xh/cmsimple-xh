@@ -299,9 +299,8 @@ class XH_Mailform
 
         // textarea
         $name = $this->embedded ? 'xh_mailform' : 'mailform';
-        $o .= '<textarea rows="12" cols="40" name="' . $name . '">' . "\n";
-        $o .= XH_hsc($this->mailform) . "\n";
-        $o .= '</textarea>' . "\n";
+        $o .= '<textarea rows="12" cols="40" name="' . $name . '">'
+            . XH_hsc($this->mailform) . '</textarea>';
 
         // captcha
         if (isset($cf['mailform']['captcha'])
