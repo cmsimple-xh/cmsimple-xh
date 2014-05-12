@@ -36,6 +36,15 @@ class XH_Mailform
     var $embedded;
 
     /**
+     * The linebreak characters (either CRLF or LF).
+     *
+     * Serves as workaround for broken mailers which don't handle CRLF correctly.
+     *
+     * @var bool
+     */
+    var $_linebreak;
+
+    /**
      * The name of the sender.
      *
      * @var string
@@ -103,13 +112,17 @@ class XH_Mailform
      *
      * @param bool $embedded Whether the mailform is embedded on a CMSimple_XH page.
      *
+     * @global array The configuration of the core.
+     * @global array The localization of the core.
+     *
      * @access public
      */
     function XH_Mailform($embedded = false)
     {
-        global $tx;
+        global $cf, $tx;
 
         $this->embedded = $embedded;
+        $this->_linebreak = ($cf['mailform']['lf_only'] ? "\n" : "\r\n");
         $this->sendername = isset($_POST['sendername'])
             ? stsl($_POST['sendername']) : '';
         $this->senderphone = isset($_POST['senderphone'])
@@ -180,8 +193,8 @@ class XH_Mailform
             . $this->mailform;
         $sent = $this->sendMail(
             $cf['mailform']['email'], $this->subject, $body,
-            "From: " . $this->sender . "\r\n"
-            . "X-Remote: " . sv('REMOTE_ADDR') . "\r\n"
+            "From: " . $this->sender . $this->_linebreak
+            . "X-Remote: " . sv('REMOTE_ADDR') . $this->_linebreak
         );
         if (!$sent) {
             XH_logMessage('error', 'XH', 'mailform', $this->sender);
@@ -325,13 +338,16 @@ class XH_Mailform
      */
     function sendMail($to, $subject = '(No Subject)', $message = '', $header = '')
     {
-        $header = 'MIME-Version: 1.0' . "\r\n"
-            . 'Content-Type: text/plain; charset=UTF-8; format=flowed' . "\r\n"
-            . 'Content-Transfer-Encoding: base64' . "\r\n"
+        $header = 'MIME-Version: 1.0' . $this->_linebreak
+            . 'Content-Type: text/plain; charset=UTF-8; format=flowed'
+            . $this->_linebreak
+            . 'Content-Transfer-Encoding: base64' . $this->_linebreak
             . $header;
         $subject = $this->encodeMIMEFieldBody($subject);
 
-        $message = preg_replace('/(?:\r\n|\r|\n)/', "\r\n", trim($message));
+        $message = preg_replace(
+            '/(?:\r\n|\r|\n)/', $this->_linebreak, trim($message)
+        );
         $message = chunk_split(base64_encode($message));
 
         return mail($to, $subject, $message, $header);
@@ -370,7 +386,7 @@ class XH_Mailform
             } while ($text != '');
             $body = 'return \'=?UTF-8?B?\' . base64_encode($l) . \'?=\';';
             $func = create_function('$l', $body);
-            return implode("\r\n ", array_map($func, $lines));
+            return implode($this->_linebreak . ' ', array_map($func, $lines));
         }
     }
 

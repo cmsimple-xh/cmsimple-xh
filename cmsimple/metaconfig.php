@@ -11,6 +11,7 @@ $mcf['show_hidden']['pages_search']="bool";
 $mcf['show_hidden']['pages_sitemap']="bool";
 $mcf['show_hidden']['path_locator']="bool";
 $mcf['mailform']['captcha']="bool";
+$mcf['mailform']['lf_only']="hidden";
 $mcf['menu']['color']="hidden";
 $mcf['menu']['highlightcolor']="hidden";
 $mcf['menu']['levels']="enum:1,2,3,4,5,6";

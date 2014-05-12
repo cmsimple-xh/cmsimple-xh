@@ -44,7 +44,8 @@ class MailformTest extends PHPUnit_Framework_TestCase
         $cf = array(
             'mailform' => array(
                 'captcha' => 'true',
-                'email' => 'devs@cmsimple-xh.org'
+                'email' => 'devs@cmsimple-xh.org',
+                'lf_only' => ''
             )
         );
         $this->_goodPost = array(
@@ -208,6 +209,21 @@ class MailformTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @dataProvider dataForTestEncodeMIMEFieldBody
+     */
+    public function testEncodeMIMEFieldBody($str, $expected, $lfOnly = false)
+    {
+        global $cf;
+
+        if ($lfOnly) {
+            $cf['mailform']['lf_only'] = 'true';
+        }
+        $mailform = new XH_Mailform();
+        $actual = $mailform->encodeMIMEFieldBody($str);
+        $this->assertEquals($expected, $actual);
+    }
+
     public function dataForTestEncodeMIMEFieldBody()
     {
         return array(
@@ -218,18 +234,14 @@ class MailformTest extends PHPUnit_Framework_TestCase
                 str_repeat("\xC3\xA4\xC3\xB6\xC3\xBC", 10),
                 "=?UTF-8?B?w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6Q=?="
                 . "\r\n =?UTF-8?B?w7bDvMOkw7bDvMOkw7bDvA==?="
+            ),
+            array(
+                str_repeat("\xC3\xA4\xC3\xB6\xC3\xBC", 10),
+                "=?UTF-8?B?w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6Q=?="
+                . "\n =?UTF-8?B?w7bDvMOkw7bDvMOkw7bDvA==?=",
+                true
             )
         );
-    }
-
-    /**
-     * @dataProvider dataForTestEncodeMIMEFieldBody
-     */
-    public function testEncodeMIMEFieldBody($str, $expected)
-    {
-        $mailform = new XH_Mailform();
-        $actual = $mailform->encodeMIMEFieldBody($str);
-        $this->assertEquals($expected, $actual);
     }
 
     /**

@@ -27,6 +27,7 @@ $cf['filebrowser']['external']="";
 $cf['pagemanager']['external']="";
 $cf['mailform']['email']="";
 $cf['mailform']['captcha']="true";
+$cf['mailform']['lf_only']="true";
 $cf['menu']['color']="000000";
 $cf['menu']['highlightcolor']="808080";
 $cf['menu']['levels']="3";
