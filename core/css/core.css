@@ -257,6 +257,7 @@
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 13px;
     color: #222;
+    background-color: white;
     padding: 2px 4px;
     margin: 0 0 2px 0;
 }
@@ -579,6 +580,7 @@ div.xh_modal_dialog_center {
 
 div.xh_modal_dialog {
     overflow: auto;
+    color: black;
     background: white;
     margin: auto;
     border: 1px solid #ccc;
