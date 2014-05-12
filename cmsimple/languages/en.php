@@ -161,6 +161,11 @@ $tx['locator']['text']="You are here: ";
 
 $tx['log']['dateformat']="Y-m-d H:i:s";
 $tx['log']['loggedin']="logged in";
+$tx['log']['timestamp']="timestamp";
+$tx['log']['type']="type";
+$tx['log']['module']="module";
+$tx['log']['category']="category";
+$tx['log']['description']="description";
 
 $tx['login']['failure']="You have entered a wrong password!";
 $tx['login']['loggedout']="You have been logged out";

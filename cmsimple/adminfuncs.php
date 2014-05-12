@@ -360,7 +360,14 @@ function XH_logFileView()
         . 'var elt = document.getElementById("xh_logfile");'
         . 'elt.scrollTop = elt.scrollHeight;'
         . '}())'
-        . '/* ]]> */</script>';
+        . '/* ]]> */</script>'
+        . '<p>('
+        . $tx['log']['timestamp'] . ' &ndash; '
+        . $tx['log']['type']      . ' &ndash; '
+        . $tx['log']['module']    . ' &ndash; '
+        . $tx['log']['category']  . ' &ndash; '
+        . $tx['log']['description']
+        . ')</p>';
 }
 
 /**
