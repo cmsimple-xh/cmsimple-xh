@@ -241,7 +241,9 @@
 }
 
 #xh_mailform .text, .xh_mailform textarea {
-    width: 90%;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .xh_captcha_code {
