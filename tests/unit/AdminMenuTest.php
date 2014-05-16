@@ -210,25 +210,28 @@ class AdminMenuTest extends PHPUnit_Framework_TestCase
         $fooItems = array(
             array(
                 'label' => 'Config',
-                'url' => '?&foo&admin=plugin_config&action=plugin_edit'
+                'url' => '?&foo&admin=plugin_config&action=plugin_edit',
+                'target' => null
             ),
             array(
                 'label' => 'Stylesheet',
-                'url' => '?&foo&admin=plugin_stylesheet&action=plugin_text'
+                'url' => '?&foo&admin=plugin_stylesheet&action=plugin_text',
+                'target' => '_blank'
             )
 
         );
         $barItems = array(
             array(
                 'label' => 'Language',
-                'url' => '?&foo&admin=plugin_language&action=plugin_edit'
+                'url' => '?&foo&admin=plugin_language&action=plugin_edit',
+                'target' => '_blank'
             )
         );
         foreach ($fooItems as $item) {
-            XH_registerPluginMenuItem('foo', $item['label'], $item['url']);
+            XH_registerPluginMenuItem('foo', $item['label'], $item['url'], $item['target']);
         }
         foreach ($barItems as $item) {
-            XH_registerPluginMenuItem('bar', $item['label'], $item['url']);
+            XH_registerPluginMenuItem('bar', $item['label'], $item['url'], $item['target']);
         }
         $this->assertEquals($fooItems, XH_registerPluginMenuItem('foo'));
         $this->assertEquals($barItems, XH_registerPluginMenuItem('bar'));

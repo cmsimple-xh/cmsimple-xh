@@ -603,7 +603,7 @@ $xh_hasher = new PasswordHash(8, true);
 /**
  * The plugin menu builder.
  *
- * @global XH_PluginMenu $_XH_pluginMenu
+ * @global XH_ClassicPluginMenu $_XH_pluginMenu
  */
 $_XH_pluginMenu = new XH_ClassicPluginMenu();
 

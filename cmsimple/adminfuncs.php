@@ -459,7 +459,7 @@ function XH_backupsView()
  *
  * @return mixed
  *
- * @global XH_PluginMenu The plugin menu builder.
+ * @global XH_ClassicPluginMenu The plugin menu builder.
  */
 function pluginMenu($add = '', $link = '', $target = '', $text = '',
     $style = array()
@@ -502,19 +502,22 @@ function XH_registerStandardPluginMenuItems($showMain)
  * @param string $plugin A plugin name.
  * @param string $label  A menu item label.
  * @param string $url    A URL to link to.
+ * @param string $target A target attribute value.
  *
  * @return mixed
  *
  * @staticvar array $pluginMenu The array of already registered menu items.
  */
-function XH_registerPluginMenuItem($plugin, $label = null, $url = null)
-{
+function XH_registerPluginMenuItem($plugin, $label = null, $url = null,
+    $target = null
+) {
     static $pluginMenu = array();
 
     if (isset($label) && isset($url)) {
         $pluginMenu[$plugin][] = array(
             'label' => $label,
-            'url' => $url
+            'url' => $url,
+            'target' => $target
         );
     } else {
         if (isset($pluginMenu[$plugin])) {
@@ -685,7 +688,11 @@ function XH_adminMenuItem($item, $level = 0)
     $indent = str_repeat('    ', $level);
     $t = $indent . '<li>';
     if (isset($item['url'])) {
-        $t .= '<a href="' . XH_hsc($item['url']) . '">';
+        $t .= '<a href="' . XH_hsc($item['url']) . '"';
+        if (isset($item['target'])) {
+            $t .= ' target="' . $item['target'] . '"';
+        }
+        $t .= '>';
     } else {
         $t .= '<span>';
     }
@@ -718,7 +725,7 @@ function XH_adminMenuItem($item, $level = 0)
  *
  * @return string (X)HTML.
  *
- * @global XH_PluginMenu The plugin menu builder.
+ * @global XH_ClassicPluginMenu The plugin menu builder.
  */
 function print_plugin_admin($main)
 {

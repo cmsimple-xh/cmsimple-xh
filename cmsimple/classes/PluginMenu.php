@@ -518,7 +518,7 @@ class XH_IntegratedPluginMenu extends XH_PluginMenu
     function makeHelpItem()
     {
         XH_registerPluginMenuItem(
-            $this->plugin, $this->helpLabel, $this->helpUrl
+            $this->plugin, $this->helpLabel, $this->helpUrl, '_blank'
         );
     }
 }
