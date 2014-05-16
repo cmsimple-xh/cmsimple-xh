@@ -18,6 +18,7 @@ require_once './vendor/autoload.php';
 
 require_once './plugins/utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
+require_once './cmsimple/functions.php';
 
 require_once './cmsimple/adminfuncs.php';
 
@@ -199,6 +200,49 @@ class AdminMenuTest extends PHPUnit_Framework_TestCase
             'children' => array(
                 'count' => 7,
                 'only' => array('tag' => 'li')
+            )
+        );
+        $this->_assertMatches($matcher);
+    }
+
+    public function testRegisterPluginMenuItemReturnsRegisteredItems()
+    {
+        $fooItems = array(
+            array(
+                'label' => 'Config',
+                'url' => '?&foo&admin=plugin_config&action=plugin_edit'
+            ),
+            array(
+                'label' => 'Stylesheet',
+                'url' => '?&foo&admin=plugin_stylesheet&action=plugin_text'
+            )
+
+        );
+        $barItems = array(
+            array(
+                'label' => 'Language',
+                'url' => '?&foo&admin=plugin_language&action=plugin_edit'
+            )
+        );
+        foreach ($fooItems as $item) {
+            XH_registerPluginMenuItem('foo', $item['label'], $item['url']);
+        }
+        foreach ($barItems as $item) {
+            XH_registerPluginMenuItem('bar', $item['label'], $item['url']);
+        }
+        $this->assertEquals($fooItems, XH_registerPluginMenuItem('foo'));
+        $this->assertEquals($barItems, XH_registerPluginMenuItem('bar'));
+        $this->assertEmpty(XH_registerPluginMenuItem('baz'));
+    }
+
+    public function testShowsRegisteredPluginMenuItem()
+    {
+        $this->_plugins = array('foo');
+        $matcher = array(
+            'tag' => 'a',
+            'content' => 'Config',
+            'attributes' => array(
+                'href' => '/?&foo&admin=plugin_config&action=plugin_edit'
             )
         );
         $this->_assertMatches($matcher);

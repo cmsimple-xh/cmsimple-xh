@@ -1456,7 +1456,6 @@ function XH_createLanguageFile($dst)
  *
  * @param string $plugin The name of the plugin.
  *
- * @global array  The configuration of the core.
  * @global array  The paths of system files and folders.
  * @global string The active language.
  *
@@ -1466,7 +1465,7 @@ function XH_createLanguageFile($dst)
  */
 function pluginFiles($plugin)
 {
-    global $cf, $pth, $sl;
+    global $pth, $sl;
     static $helpFiles = array();
 
     $folders = array(
