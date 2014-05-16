@@ -210,6 +210,7 @@ require_once $pth['folder']['classes'] . 'PasswordHash.php';
 require_once $pth['folder']['classes'] . 'PageDataRouter.php';
 require_once $pth['folder']['classes'] . 'PageDataModel.php';
 require_once $pth['folder']['classes'] . 'PageDataView.php';
+require_once $pth['folder']['classes'] . 'PluginMenu.php';
 require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
 require_once UTF8 . '/utils/validation.php';
@@ -598,6 +599,13 @@ $f = '';
  * @global object $xh_hasher
  */
 $xh_hasher = new PasswordHash(8, true);
+
+/**
+ * The plugin menu builder.
+ *
+ * @var XH_PluginMenu
+ */
+$_XH_pluginMenu = new XH_PluginMenu();
 
 /*
  * Include required_classes of all plugins.

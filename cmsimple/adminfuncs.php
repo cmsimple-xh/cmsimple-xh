@@ -459,64 +459,26 @@ function XH_backupsView()
  *
  * @return mixed
  *
- * @staticvar string The (X)HTML of the menu build so far.
+ * @global XH_PluginMenu The plugin menu builder.
  */
 function pluginMenu($add = '', $link = '', $target = '', $text = '',
     $style = array()
 ) {
-    static $menu = '';
+    global $_XH_pluginMenu;
 
-    $add = strtoupper($add);
-
-    if (!isset($style['row'])) {
-        $style['row'] = 'class="edit" style="width: 100%;"';
-    }
-    if (!isset($style['tab'])) {
-        $style['tab'] = '';
-    }
-    if (!isset($style['link'])) {
-        $style['link'] = '';
-    }
-    if (!isset($style['data'])) {
-        $style['data'] = '';
-    }
-
-    $menu_row = '<table {{STYLE_ROW}}>' . "\n"
-        . '<tr>' . "\n" . '{{TAB}}</tr>' . "\n" . '</table>' . "\n" . "\n";
-    $menu_tab = '<td {{STYLE_TAB}}><a {{STYLE_LINK}} href="{{LINK}}"'
-        . ' {{TARGET}}>{{TEXT}}</a></td>' . "\n";
-    $menu_tab_data = '<td {{STYLE_DATA}}>{{TEXT}}</td>' . "\n";
-
-    if ($add == 'ROW') {
-        $new_menu_row = $menu_row;
-        $new_menu_row = str_replace('{{STYLE_ROW}}', $style['row'], $new_menu_row);
-        $menu .= $new_menu_row;
-    }
-
-    if ($add == 'TAB') {
-        $new_menu_tab = $menu_tab;
-        $new_menu_tab = str_replace('{{STYLE_TAB}}', $style['tab'], $new_menu_tab);
-        $new_menu_tab = str_replace('{{STYLE_LINK}}', $style['link'], $new_menu_tab);
-        $new_menu_tab = str_replace('{{LINK}}', $link, $new_menu_tab);
-        $new_menu_tab = str_replace('{{TARGET}}', $target, $new_menu_tab);
-        $new_menu_tab = str_replace('{{TEXT}}', $text, $new_menu_tab);
-        $menu = str_replace('{{TAB}}', $new_menu_tab . '{{TAB}}', $menu);
-    }
-
-    if ($add == 'DATA') {
-        $new_menu_tab_data = $menu_tab_data;
-        $new_menu_tab_data = str_replace(
-            '{{STYLE_DATA}}', $style['data'], $new_menu_tab_data
-        );
-        $new_menu_tab_data = str_replace('{{TEXT}}', $text, $new_menu_tab_data);
-        $menu = str_replace('{{TAB}}', $new_menu_tab_data . '{{TAB}}', $menu);
-    }
-
-    if ($add == 'SHOW') {
-        $menu = str_replace('{{TAB}}', '', $menu);
-        $m = $menu;
-        $menu = '';
-        return $m;
+    switch (strtoupper($add)) {
+    case 'ROW':
+        $_XH_pluginMenu->makeRow($style);
+        break;
+    case 'TAB':
+        $_XH_pluginMenu->makeTab($link, $target, $text, $style);
+        break;
+    case 'DATA':
+        $_XH_pluginMenu->makeData($text, $style);
+        break;
+    case 'SHOW':
+        return $_XH_pluginMenu->show();
+        break;
     }
 }
 
@@ -744,67 +706,18 @@ function XH_adminMenuItem($item, $level = 0)
  * @param string $main Whether the main setting menu item should be shown
  *                     ('ON'/'OFF').
  *
- * @global string The sitename.
- * @global string The name of the currently loading plugin.
- * @global array  The paths of system files and folders.
- * @global array  The localization of the core.
- * @global array  The localization of the plugins.
- *
  * @return string (X)HTML.
+ *
+ * @global XH_PluginMenu The plugin menu builder.
  */
 function print_plugin_admin($main)
 {
-    global $sn, $plugin, $pth, $tx, $plugin_tx;
+    global $_XH_pluginMenu;
 
     initvar('action');
     initvar('admin');
-    pluginFiles($plugin);
-
-    $main = strtoupper($main) == 'ON';
-    $css = is_readable($pth['file']['plugin_stylesheet']);
-    $config = is_readable($pth['file']['plugin_config']);
-    $language = is_readable($pth['file']['plugin_language']);
-    $help = is_readable($pth['file']['plugin_help']);
-
-    $tx_main = empty($plugin_tx[$plugin]['menu_main'])
-        ? $tx['menu']['tab_main'] : $plugin_tx[$plugin]['menu_main'];
-    $tx_css = empty($plugin_tx[$plugin]['menu_css'])
-        ? $tx['menu']['tab_css'] : $plugin_tx[$plugin]['menu_css'];
-    $tx_config = empty($plugin_tx[$plugin]['menu_config'])
-        ? $tx['menu']['tab_config'] : $plugin_tx[$plugin]['menu_config'];
-    $tx_language = empty($plugin_tx[$plugin]['menu_language'])
-        ? $tx['menu']['tab_language'] : $plugin_tx[$plugin]['menu_language'];
-    $tx_help = empty($plugin_tx[$plugin]['menu_help'])
-        ? $tx['menu']['tab_help'] : $plugin_tx[$plugin]['menu_help'];
-
-    pluginMenu('ROW', '', '', '', array());
-    if ($main) {
-        $link = $sn . '?&amp;' . $plugin
-            . '&amp;admin=plugin_main&amp;action=plugin_text';
-        pluginMenu('TAB', $link, '', $tx_main, array());
-    }
-    if ($css) {
-        $link = $sn . '?&amp;' . $plugin
-            . '&amp;admin=plugin_stylesheet&amp;action=plugin_text';
-        pluginMenu('TAB', $link, '', $tx_css, array());
-    }
-    if ($config) {
-        $link = $sn . '?&amp;' . $plugin
-            . '&amp;admin=plugin_config&amp;action=plugin_edit';
-        pluginMenu('TAB', $link, '', $tx_config, '');
-    }
-    if ($language) {
-        $link = $sn . '?&amp;' . $plugin
-            . '&amp;admin=plugin_language&amp;action=plugin_edit';
-        pluginMenu('TAB', $link, '', $tx_language, '');
-    }
-    if ($help) {
-        $link = $pth['file']['plugin_help'];
-        pluginMenu('TAB', $link, 'target="_blank"', $tx_help, '');
-    }
-    return pluginMenu('SHOW');
+    return $_XH_pluginMenu->render(strtoupper($main) == 'ON');
 }
-
 
 /**
  * Handles reading and writing of plugin files

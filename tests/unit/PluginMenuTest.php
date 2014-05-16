@@ -18,6 +18,7 @@ require_once './vendor/autoload.php';
 
 require_once './cmsimple/functions.php';
 require_once './cmsimple/adminfuncs.php';
+require_once './cmsimple/classes/PluginMenu.php';
 
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -27,7 +28,7 @@ class PluginMenuTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        global $sn, $plugin, $sl, $tx;
+        global $sn, $plugin, $sl, $tx, $_XH_pluginMenu;
 
         $sn = '/xh/';
         $plugin = 'filebrowser';
@@ -42,6 +43,7 @@ class PluginMenuTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->_setUpVFS();
+        $_XH_pluginMenu = new XH_PluginMenu();
     }
 
     private function _setUpVFS()
@@ -226,6 +228,16 @@ class PluginMenuTest extends PHPUnit_Framework_TestCase
         $this->_assertCustomMenuMatches($matcher);
     }
 
+    public function testCustomMenuDataWithoutStyle()
+    {
+        $matcher = array(
+            'tag' => 'td',
+            'attributes' => array(),
+            'content' => 'without style'
+        );
+        $this->_assertCustomMenuMatches($matcher);
+    }
+
     private function _assertCustomMenuMatches($matcher)
     {
         $this->assertTag($matcher, $this->_renderCustomMenu());
@@ -245,6 +257,7 @@ class PluginMenuTest extends PHPUnit_Framework_TestCase
             'DATA', '', '', 'Lorem ipsum',
             array('data' => 'style="color: dark"')
         );
+        pluginMenu('DATA', '', '', 'without style', array());
         return pluginMenu('SHOW');
     }
 
