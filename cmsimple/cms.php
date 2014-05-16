@@ -605,7 +605,7 @@ $xh_hasher = new PasswordHash(8, true);
  *
  * @global XH_PluginMenu $_XH_pluginMenu
  */
-$_XH_pluginMenu = new XH_PluginMenu();
+$_XH_pluginMenu = new XH_ClassicPluginMenu();
 
 /**
  * The currently loaded plugin.

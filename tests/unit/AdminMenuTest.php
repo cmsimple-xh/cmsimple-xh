@@ -242,7 +242,7 @@ class AdminMenuTest extends PHPUnit_Framework_TestCase
             'tag' => 'a',
             'content' => 'Config',
             'attributes' => array(
-                'href' => '/?&foo&admin=plugin_config&action=plugin_edit'
+                'href' => '?&foo&admin=plugin_config&action=plugin_edit'
             )
         );
         $this->_assertMatches($matcher);

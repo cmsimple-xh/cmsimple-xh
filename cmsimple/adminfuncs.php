@@ -483,6 +483,19 @@ function pluginMenu($add = '', $link = '', $target = '', $text = '',
 }
 
 /**
+ * Registers the standard plugin menu items for the admin menu.
+ *
+ * @param bool $showMain Whether to display the main settings item.
+ *
+ * @return void
+ */
+function XH_registerStandardPluginMenuItems($showMain)
+{
+    $pluginMenu = new XH_IntegratedPluginMenu();
+    $pluginMenu->render($showMain);
+}
+
+/**
  * Register a new plugin menu item, or returns the registered plugin menu items,
  * if <var>$label</var> and <var>$url</var> are null.
  *
@@ -519,6 +532,7 @@ function XH_registerPluginMenuItem($plugin, $label = null, $url = null)
  *
  * @return string (X)HTML.
  *
+ * @global string The scipt name.
  * @global bool   Whether edit mode is active.
  * @global int    The index of the current page.
  * @global array  The URLs of the pages.
@@ -531,7 +545,7 @@ function XH_registerPluginMenuItem($plugin, $label = null, $url = null)
  */
 function XH_adminMenu($plugins = array())
 {
-    global $edit, $s, $u, $cf, $tx, $su, $plugin_tx;
+    global $sn, $edit, $s, $u, $cf, $tx, $su, $plugin_tx;
 
     if ($s < 0) {
         $su = $u[0];
@@ -543,45 +557,45 @@ function XH_adminMenu($plugins = array())
     foreach (array('images', 'downloads', 'media') as $item) {
         $filesMenu[] =  array(
             'label' => utf8_ucfirst($tx['editmenu'][$item]),
-            'url' => '?&normal&' . $item
+            'url' => $sn . '?&normal&' . $item
         );
     }
     $settingsMenu = array(
         array(
             'label' => utf8_ucfirst($tx['editmenu']['configuration']),
-            'url' => '?file=config&action=array'
+            'url' => $sn . '?file=config&action=array'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['language']),
-            'url' => '?file=language&action=array'
+            'url' => $sn . '?file=language&action=array'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['template']),
-            'url' => '?file=template&action=edit'
+            'url' => $sn . '?file=template&action=edit'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['stylesheet']),
-            'url' => '?file=stylesheet&action=edit'
+            'url' => $sn . '?file=stylesheet&action=edit'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['log']),
-            'url' => '?file=log&action=view'
+            'url' => $sn . '?file=log&action=view'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['validate']),
-            'url' => '?&validate'
+            'url' => $sn . '?&validate'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['backups']),
-            'url' => '?&xh_backups'
+            'url' => $sn . '?&xh_backups'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['pagedata']),
-            'url' => '?&xh_pagedata'
+            'url' => $sn . '?&xh_pagedata'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['sysinfo']),
-            'url' => '?&sysinfo'
+            'url' => $sn . '?&sysinfo'
         )
     );
     $hiddenPlugins = explode(',', $cf['plugins']['hidden']);
@@ -609,7 +623,7 @@ function XH_adminMenu($plugins = array())
             : ucfirst($plugin);
         $pluginMenuItem = array('label' => $label);
         if ($plugin != '') {
-            $pluginMenuItem['url'] = '?' . $plugin . '&normal';
+            $pluginMenuItem['url'] = $sn . '?' . $plugin . '&normal';
             foreach (XH_registerPluginMenuItem($plugin) as $item) {
                 $pluginMenuItem['children'][] = $item;
             }
@@ -619,20 +633,20 @@ function XH_adminMenu($plugins = array())
     $menu = array(
         array(
             'label' => $changeText,
-            'url' => '?' . $su . '&' . $changeMode,
+            'url' => $sn . '?' . $su . '&' . $changeMode,
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['pagemanager']),
-            'url' => '?&normal&xhpages'
+            'url' => $sn . '?&normal&xhpages'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['files']),
-            'url' => '?&normal&userfiles',
+            'url' => $sn . '?&normal&userfiles',
             'children' => $filesMenu
             ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['settings']),
-            'url' => '?&settings',
+            'url' => $sn . '?&settings',
             'children' => $settingsMenu
         ),
         array(
@@ -642,7 +656,7 @@ function XH_adminMenu($plugins = array())
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['logout']),
-            'url' => '?&logout'
+            'url' => $sn . '?&logout'
         )
     );
 
@@ -664,18 +678,14 @@ function XH_adminMenu($plugins = array())
  *
  * @return string
  *
- * @global string The scipt name.
- *
  * @since 1.6
  */
 function XH_adminMenuItem($item, $level = 0)
 {
-    global $sn;
-
     $indent = str_repeat('    ', $level);
     $t = $indent . '<li>';
     if (isset($item['url'])) {
-        $t .= '<a href="' . $sn . XH_hsc($item['url']) . '">';
+        $t .= '<a href="' . XH_hsc($item['url']) . '">';
     } else {
         $t .= '<span>';
     }

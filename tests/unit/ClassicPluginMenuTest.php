@@ -24,7 +24,7 @@ use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
-class PluginMenuTest extends PHPUnit_Framework_TestCase
+class ClassicPluginMenuTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -43,7 +43,7 @@ class PluginMenuTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->_setUpVFS();
-        $_XH_pluginMenu = new XH_PluginMenu();
+        $_XH_pluginMenu = new XH_ClassicPluginMenu();
     }
 
     private function _setUpVFS()
