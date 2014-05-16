@@ -124,7 +124,7 @@ class XH_PluginMenu
      * @return string (X)HTML.
      *
      * @global string The name of the current plugin.
-     * @global array  The paths of system files and folders.     *
+     * @global array  The paths of system files and folders.
      */
     function render($showMain)
     {

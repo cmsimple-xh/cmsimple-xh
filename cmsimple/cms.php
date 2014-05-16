@@ -603,9 +603,16 @@ $xh_hasher = new PasswordHash(8, true);
 /**
  * The plugin menu builder.
  *
- * @var XH_PluginMenu
+ * @global XH_PluginMenu $_XH_pluginMenu
  */
 $_XH_pluginMenu = new XH_PluginMenu();
+
+/**
+ * The currently loaded plugin.
+ *
+ * @global string $plugin
+ */
+$plugin = null;
 
 /*
  * Include required_classes of all plugins.
@@ -620,7 +627,7 @@ foreach (XH_plugins() as $plugin) {
 /**
  * The CRSF protection object.
  *
- * @global object $_XH_csrfProtection
+ * @global XH_CSRFProtection $_XH_csrfProtection
  */
 $_XH_csrfProtection = new XH_CSRFProtection();
 
@@ -757,7 +764,7 @@ $cl = 0;
 /**
  * The page data router.
  *
- * @global object $pd_router
+ * @global XH_PageDataRouter $pd_router
  */
 $pd_router = null;
 
@@ -895,7 +902,7 @@ $pd_s = $s == -1 && !$f && $o == '' && $su == '' ? 0 : $s;
 /**
  * The infos about the current page.
  *
- * @global object $pd_current
+ * @global array $pd_current
  */
 $pd_current = $pd_router->find_page($pd_s);
 
