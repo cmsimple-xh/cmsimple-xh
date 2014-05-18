@@ -2638,4 +2638,35 @@ function XH_getRootFolder()
     );
 }
 
+/**
+ * Registers the type of a plugin resp. returns the registered plugins of a
+ * certain type.
+ *
+ * @param string $type   A plugin type ('editor', 'filebrowser', 'pagemanager',
+ *                       'editmenu').
+ * @param string $plugin A plugin name or <var>null</var>.
+ *
+ * @return mixed
+ *
+ * @staticvar array The registered plugins.
+ *
+ * @since 1.6.2
+ */
+function XH_registerPluginType($type, $plugin = null)
+{
+    static $plugins = array();
+
+    if (isset($plugin)) {
+        $plugins[$type][] = $plugin;
+    } else {
+        if (isset($plugins[$type])) {
+            $result = $plugins[$type];
+            natcasesort($result);
+            return array_values($result);
+        } else {
+            return array();
+        }
+    }
+}
+
 ?>

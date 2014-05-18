@@ -679,6 +679,20 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
             array('/en/cms/', 'en', '/en/cms/')
         );
     }
+
+    public function testRegisterPluginType()
+    {
+        XH_registerPluginType('editor', 'tinymce');
+        XH_registerPluginType('filebrowser', 'filebrowser');
+        XH_registerPluginType('editor', 'ckeditor');
+        $this->assertEmpty(XH_registerPluginType('unknown'));
+        $this->assertEquals(
+            array('ckeditor', 'tinymce'), XH_registerPluginType('editor')
+        );
+        $this->assertEquals(
+            array('filebrowser'), XH_registerPluginType('filebrowser')
+        );
+    }
 }
 
 ?>
