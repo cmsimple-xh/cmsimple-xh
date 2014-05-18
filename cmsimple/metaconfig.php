@@ -2,6 +2,7 @@
 
 $mcf['security']['password']="password";
 $mcf['security']['secret']="random";
+$mcf['security']['frame_options']="enum:DENY,SAMEORIGIN,";
 $mcf['site']['template']="function:XH_templates";
 $mcf['language']['default']="function:XH_availableLocalizations";
 $mcf['locator']['show_homepage']="bool";

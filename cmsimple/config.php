@@ -3,6 +3,7 @@
 $cf['security']['password']="\$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1";
 $cf['security']['secret']="cf6055c67b190634cdc08658";
 $cf['security']['email']="";
+$cf['security']['frame_options']="";
 $cf['site']['template']="mini1";
 $cf['site']['timezone']="";
 $cf['language']['default']="en";
