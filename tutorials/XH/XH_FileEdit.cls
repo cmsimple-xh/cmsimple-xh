@@ -48,8 +48,18 @@
                     one of several fixed values (represented as selectlist).
                 </listitem>
                 <listitem>
+                    <emphasis>xenum</emphasis>:
+                    a text with suggestions of several fixed values (represented
+                    as text input with datalist).
+                </listitem>
+                <listitem>
                     <emphasis>function</emphasis>:
                     one of several dynamic values (represented as selectlist).
+                </listitem>
+                <listitem>
+                    <emphasis>xfunction</emphasis>:
+                    a text with suggestions of several dynamic values
+                    (represented as text input with datalist).
                 </listitem>
                 <listitem>
                     <emphasis>hidden</emphasis>:

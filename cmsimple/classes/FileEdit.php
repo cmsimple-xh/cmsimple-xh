@@ -531,9 +531,24 @@ class XH_ArrayFileEdit extends XH_FileEdit
                 $label = ($val == '')
                     ? ' label="' . $tx['label']['empty'] . '"'
                     : '';
-                $o .= '<option' . $sel . $label . '>' . $val . '</option>';
+                $o .= '<option' . $sel . $label . '>' . XH_hsc($val) . '</option>';
             }
             $o .= '</select>';
+            return $o;
+        case 'xenum':
+            $o = tag(
+                'input type="text" name="' . $iname . '" value="'
+                . XH_hsc($opt['val']) . '" class="xh_setting" list="'
+                . $iname . '_DATA"'
+            );
+            $o .= '<datalist id="' . $iname . '_DATA">';
+            foreach ($opt['vals'] as $val) {
+                $label = ($val == '')
+                    ? ' label="' . $tx['label']['empty'] . '"'
+                    : '';
+                $o .= tag('option' . $label . ' value="' . XH_hsc($val) . '"');
+            }
+            $o .= '</datalist>';
             return $o;
         case 'hidden':
         case 'random':
@@ -721,21 +736,27 @@ class XH_ArrayFileEdit extends XH_FileEdit
     function option($mcf, $val, $hint)
     {
         $type = isset($mcf) ? $mcf : 'string';
-        if (strpos($type, 'enum:') === 0) {
-            $vals = explode(',', substr($type, strlen('enum:')));
-            $type = 'enum';
-        } elseif (strpos($type, 'function:') === 0) {
-            $func = substr($type, strlen('function:'));
+        list($typeTag) = explode(':', $type);
+        switch ($typeTag) {
+        case 'enum':
+        case 'xenum':
+            $vals = explode(',', substr($type, strlen($typeTag) + 1));
+            $type = $typeTag;
+            break;
+        case 'function':
+        case 'xfunction':
+            $func = substr($type, strlen($typeTag) + 1);
             if (function_exists($func)) {
                 $vals = call_user_func($func);
             } else {
                 $vals = array();
             }
-            $type = 'enum';
-        } else {
+            $type = ($typeTag == 'function') ? 'enum' : 'xenum';
+            break;
+        default:
             $vals = null;
         }
-        $co = array('val' => $val, 'type' => $type,  'vals' => $vals);
+        $co = compact('val', 'type', 'vals');
         if (isset($hint)) {
             $co['hint'] = $hint;
         }

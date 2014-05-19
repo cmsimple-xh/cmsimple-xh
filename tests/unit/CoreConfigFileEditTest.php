@@ -31,6 +31,11 @@ use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
+function Test_languages()
+{
+    return array('de', 'en');
+}
+
 /**
  * A test case to for the CoreConfigFileEdit classes.
  *
@@ -84,10 +89,16 @@ class CoreConfigFileEditTest extends PHPUnit_Framework_TestCase
         global $cf;
 
         $cf = array(
+            'foo' => array('bar' => 'baz'),
+            'language' => array(
+                'default' => 'en',
+                'other' => 'en'
+            ),
             'locator' => array('show_homepage' => 'true'),
             'menu' => array(
                 'levelcatch' => '10',
-                'levels' => '3'
+                'levels' => '3',
+                'sdoc' => 'parent'
             ),
             'meta' => array('robots' => 'index, follow'),
             'scripting' => array('regexp' => '#CMSimple .*#'),
@@ -118,9 +129,13 @@ class CoreConfigFileEditTest extends PHPUnit_Framework_TestCase
     {
         $contents = <<<EOT
 <?php
+\$mcf['foo']['bar']="function:Test_doesntExist";
+\$mcf['language']['default']="function:Test_languages";
+\$mcf['language']['other']="xfunction:Test_languages";
 \$mcf['locator']['show_homepage']="bool";
 \$mcf['menu']['levelcatch']="hidden";
 \$mcf['menu']['levels']="enum:1,2,3,4,5,6";
+\$mcf['menu']['sdoc']="xenum:parent";
 \$mcf['meta']['robots']="string";
 \$mcf['security']['password']="password";
 \$mcf['security']['secret']="random";
@@ -155,7 +170,8 @@ EOT;
             'attributes' => array(
                 'type' => 'submit',
                 'class' => 'submit'
-            )
+            ),
+            'ancestor' => array('tag' => 'form')
         );
         $this->_assertFormMatches($matcher);
     }
@@ -189,6 +205,69 @@ EOT;
         $this->_assertFormMatches($matcher);
     }
 
+    public function testFormContainsForBarField()
+    {
+        $matcher = array(
+            'tag' => 'select',
+            'attributes' => array('name' => 'foo_bar'),
+            'ancestor' => array('tag' => 'form')
+        );
+        $this->_assertFormMatches($matcher);
+    }
+
+    public function testFormContainsForBarFieldWithoutOptions()
+    {
+        $matcher = array(
+            'tag' => 'select',
+            'attributes' => array('name' => 'foo_bar'),
+            'child' => array('tag' => 'option'),
+            'ancestor' => array('tag' => 'form')
+        );
+        $this->assertNotTag($matcher, $this->_subject->form());
+    }
+
+    public function testFormContainsLanguageDefaultField()
+    {
+        $matcher = array(
+            'tag' => 'select',
+            'attributes' => array('name' => 'language_default'),
+            'children' => array(
+                'only' => array('tag' => 'option'),
+                'count' => 2
+            ),
+            'ancestor' => array('tag' => 'form')
+        );
+        $this->_assertFormMatches($matcher);
+    }
+
+    public function testFormContainsLanguageOtherField()
+    {
+        $matcher = array(
+            'tag' => 'input',
+            'attributes' => array(
+                'type' => 'text',
+                'name' => 'language_other',
+                'list' => 'language_other_DATA'
+            ),
+            'ancestor' => array('tag' => 'form')
+        );
+        $this->_assertFormMatches($matcher);
+    }
+
+    public function testFormContainsLanguageOtherDatalist()
+    {
+        $matcher = array(
+            'tag' => 'datalist',
+            'id' => 'language_other_DATA',
+            'children' => array(
+                'only' => array('tag' => 'option'),
+                'count' => 2
+            ),
+            'ancestor' => array('tag' => 'form')
+        );
+        $this->_assertFormMatches($matcher);
+    }
+
     public function testFormContainsLocatorShowHomepageField()
     {
         $matcher = array(
@@ -213,6 +292,34 @@ EOT;
             'children' => array(
                 'count' => 6,
                 'only' => array('tag' => 'option')
+            ),
+            'ancestor' => array('tag' => 'form')
+        );
+        $this->_assertFormMatches($matcher);
+    }
+
+    public function testFormContainsMenuSdocField()
+    {
+        $matcher = array(
+            'tag' => 'input',
+            'attributes' => array(
+                'type' => 'text',
+                'name' => 'menu_sdoc',
+                'list' => 'menu_sdoc_DATA'
+            ),
+            'ancestor' => array('tag' => 'form')
+        );
+        $this->_assertFormMatches($matcher);
+    }
+
+    public function testFormContainsMenuSdocDatalist()
+    {
+        $matcher = array(
+            'tag' => 'datalist',
+            'id' => 'menu_sdoc_DATA',
+            'children' => array(
+                'only' => array('tag' => 'option'),
+                'count' => 1
             ),
             'ancestor' => array('tag' => 'form')
         );
@@ -254,7 +361,8 @@ EOT;
             'children' => array(
                 'count' => 3,
                 'only' => array('tag' => 'tr')
-            )
+            ),
+            'ancestor' => array('tag' => 'form')
         );
         $this->_assertFormMatches($matcher);
     }
@@ -264,7 +372,7 @@ EOT;
         $matcher = array(
             'tag' => 'input',
             'attributes' => array('name' => 'scripting_regexp'),
-            'ancestor' => 'form'
+            'ancestor' => array('tag' => 'form')
         );
         $this->assertNotTag($matcher, $this->_subject->form());
     }

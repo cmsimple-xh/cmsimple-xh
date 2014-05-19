@@ -2669,4 +2669,52 @@ function XH_registerPluginType($type, $plugin = null)
     }
 }
 
+/**
+ * Returns the names of the registered editor plugins.
+ *
+ * @return array
+ *
+ * @since 1.6.2
+ */
+function XH_registeredEditorPlugins()
+{
+    return XH_registerPluginType('editor');
+}
+
+/**
+ * Returns the names of the registered filebrowser plugins.
+ *
+ * @return array
+ *
+ * @since 1.6.2
+ */
+function XH_registeredFilebrowserPlugins()
+{
+    return XH_registerPluginType('filebrowser');
+}
+
+/**
+ * Returns the names of the registered pagemanager plugins.
+ *
+ * @return array
+ *
+ * @since 1.6.2
+ */
+function XH_registeredPagemanagerPlugins()
+{
+    return XH_registerPluginType('pagemanager');
+}
+
+/**
+ * Returns the names of the registered editmenu plugins.
+ *
+ * @return array
+ *
+ * @since 1.6.2
+ */
+function XH_registeredEditmenuPlugins()
+{
+    return XH_registerPluginType('editmenu');
+}
+
 ?>

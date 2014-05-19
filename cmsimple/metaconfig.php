@@ -11,6 +11,9 @@ $mcf['show_hidden']['pages_toc']="bool";
 $mcf['show_hidden']['pages_search']="bool";
 $mcf['show_hidden']['pages_sitemap']="bool";
 $mcf['show_hidden']['path_locator']="bool";
+$mcf['editor']['external']="xfunction:XH_registeredEditorPlugins";
+$mcf['filebrowser']['external']="xfunction:XH_registeredFilebrowserPlugins";
+$mcf['pagemanager']['external']="xfunction:XH_registeredPagemanagerPlugins";
 $mcf['mailform']['captcha']="bool";
 $mcf['mailform']['lf_only']="hidden";
 $mcf['menu']['color']="hidden";
@@ -23,5 +26,6 @@ $mcf['uri']['length']="hidden";
 $mcf['xhtml']['endtags']="bool";
 $mcf['xhtml']['amp']="hidden";
 $mcf['editmenu']['scroll']="bool";
+$mcf['editmenu']['external']="xfunction:XH_registeredEditmenuPlugins";
 
 ?>
