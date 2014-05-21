@@ -1404,7 +1404,7 @@ function XH_debug($errno, $errstr, $errfile, $errline, $context)
 
 /**
  * Checks <var>$arr</var> recursively for valid UTF-8.
- * Otherwise it exists the script.
+ * Otherwise it exits the script.
  *
  * Useful for checking user input.
  *

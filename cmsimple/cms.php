@@ -329,7 +329,7 @@ $pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
  * as these might be set from non UTF-8 scripts on the domain.
  */
 XH_checkValidUtf8(
-    array($_GET, $_POST, $_SERVER, array_keys($_GET), array_keys($_POST))
+    array($_GET, $_POST, $_SERVER, array_keys($_POST))
 );
 
 /**
