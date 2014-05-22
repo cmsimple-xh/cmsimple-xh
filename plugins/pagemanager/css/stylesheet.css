@@ -26,6 +26,7 @@
     background-color: #eee;
     padding: 0 8px;
     font-size: 14px;
+    overflow: hidden;
 }
 
 #pagemanager-toolbar button,
@@ -36,6 +37,7 @@
     width: 16px;
     height: 16px;
     background-image: url("../images/tools.png");
+    background-color: #eee;
     cursor: pointer;
 }
 

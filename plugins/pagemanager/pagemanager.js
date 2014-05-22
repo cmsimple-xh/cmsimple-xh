@@ -7,7 +7,7 @@ if (!PAGEMANAGER) {
      * @author    Christoph M. Becker <cmbecker69@gmx.de>
      * @copyright 2011-2014 Christoph M. Becker (http://3-magi.net)
      * @license   GNU GPLv3 (http://www.gnu.org/licenses/gpl-3.0.en.html)
-     * @version   $Id: pagemanager.js 182 2014-01-28 20:21:21Z cmb $
+     * @version   $Id: pagemanager.js 184 2014-03-22 12:02:13Z cmb $
      */
     PAGEMANAGER = {};
 }
@@ -199,8 +199,6 @@ PAGEMANAGER.submit = function () {
 	    "application/x-www-form-urlencoded");
     request.onreadystatechange = function () {
 	if (request.readyState == 4) {
-	    console.log(request.status);
-	    console.log(request.responseText);
 	    status.css("display", "none");
 	    if (request.status == 200) {
 		message = request.responseText;
