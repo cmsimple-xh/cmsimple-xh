@@ -132,12 +132,15 @@ class Filebrowser_Controller
      * Determines the current type of the allowed file extensions.
      *
      * @return void
-     *
-     * @todo What to do if baseDirectories are not different?
      */
     function determineCurrentType()
     {
         $this->currentType = $this->linkType;
+        if (count(array_unique($this->baseDirectories)) != 4) {
+            // If any of the directories are identical, we can't reliably detect
+            // the current type, so we bail out.
+            return;
+        }
         $types = array('images', 'downloads', 'media', 'userfiles');
         foreach ($types as $type) {
             $pos = strpos($this->currentDirectory, $this->baseDirectories[$type]);
