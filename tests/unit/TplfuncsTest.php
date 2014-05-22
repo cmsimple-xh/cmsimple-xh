@@ -192,6 +192,24 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
         $actual = top();
         $this->assertTag($matcher, $actual);
     }
+
+    public function testLanguageMenu()
+    {
+        global $pth;
+
+        $pth = array('folder' => array('base' => './', 'flags' => ''));
+        runkit_function_rename('XH_secondLanguages', 'Old_secondLanguages');
+        runkit_function_add('XH_secondLanguages', '', 'return array("fr", "de");');
+        $matcher = array(
+            'tag' => 'a',
+            'attributes' => array('href' => './de/'),
+            'content' => '[de]'
+        );
+        $actual = languagemenu();
+        $this->assertTag($matcher, $actual);
+        runkit_function_remove('XH_secondLanguages');
+        runkit_function_rename('Old_secondLanguages', 'XH_secondLanguages');
+    }
 }
 
 ?>

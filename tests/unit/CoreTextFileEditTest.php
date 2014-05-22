@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Testing the CoreTextFileEdit classe.
+ * Testing the CoreTextFileEdit class.
  *
  * PHP version 5
  *
@@ -14,14 +14,21 @@
  * @link      http://cmsimple-xh.org/
  */
 
+require_once './vendor/autoload.php';
+
 require_once './cmsimple/functions.php';
 require_once './plugins/utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
+require_once './cmsimple/classes/CSRFProtection.php';
 
 /**
  * The file under test.
  */
 require_once './cmsimple/classes/FileEdit.php';
+
+use org\bovigo\vfs\vfsStreamWrapper;
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStream;
 
 /**
  * A test case for the CoreTextFileEdit class.
@@ -35,22 +42,157 @@ require_once './cmsimple/classes/FileEdit.php';
  */
 class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
 {
+    private $_subject;
+
+    private $_testFile;
+
     public function setUp()
     {
-        global $pth, $file;
+        global $pth, $sn, $file, $_XH_csrfProtection;
 
+        if (!defined('CMSIMPLE_URL')) {
+            define('CMSIMPLE_URL', 'http://example.com/xh/');
+        } else {
+            runkit_constant_redefine('CMSIMPLE_URL', 'http://example.com/xh/');
+        }
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
+        $this->_testFile = vfsStream::url('test/template.htm');
+        file_put_contents($this->_testFile, '<html>');
         $file = 'template';
-        $pth['file']['template'] = './templates/mini1/template.htm';
-        $this->editor = new XH_CoreTextFileEdit();
+        $sn = '/xh/';
+        $pth['file']['template'] = $this->_testFile;
+        $_XH_csrfProtection = $this->getMockBuilder('XH_CSRFProtection')
+            ->disableOriginalConstructor()->getMock();
+        $this->_setUpLocalization();
+        $this->_subject = new XH_CoreTextFileEdit();
     }
 
-    public function testAsString()
+    private function _setUpLocalization()
     {
-        global $pth;
+        global $tx;
 
-        $expected = file_get_contents($pth['file']['template']);
-        $actual = $this->editor->asString();
-        $this->assertEquals($expected, $actual);
+        $tx = array(
+            'action' => array(
+                'save' => 'save'
+            ),
+            'filetype' => array(
+                'template' => 'template'
+            ),
+            'message' => array(
+                'saved' => 'Saved %s'
+            )
+        );
+    }
+
+    public function testFormAttributes()
+    {
+        $matcher = array(
+            'tag' => 'form',
+            'attributes' => array(
+                'method' => 'post',
+                'action' => '/xh/'
+            )
+        );
+        $this->assertTag($matcher, $this->_subject->form());
+    }
+
+    public function testFormContainsTextarea()
+    {
+        $matcher = array(
+            'tag' => 'textarea',
+            'attributes' => array(
+                'name' => 'text',
+                'class' => 'xh_file_edit'
+            ),
+            'content' => '<html>',
+            'parent' => array('tag' => 'form')
+        );
+        $this->assertTag($matcher, $this->_subject->form());
+    }
+
+    public function testFormContainsSubmitButton()
+    {
+        $matcher = array(
+            'tag' => 'input',
+            'attributes' => array(
+                'type' => 'submit',
+                'class' => 'submit',
+                'value' => 'Save'
+
+            ),
+            'parent' => array('tag' => 'form')
+        );
+        $this->assertTag($matcher, $this->_subject->form());
+    }
+
+    public function testFormContainsFileInput()
+    {
+        global $file;
+
+        $matcher = array(
+            'tag' => 'input',
+            'attributes' => array(
+                'type' => 'hidden',
+                'name' => 'file',
+                'value' => $file
+            )
+        );
+        $this->assertTag($matcher, $this->_subject->form());
+    }
+
+    public function testFormContainsActionInput()
+    {
+        $matcher = array(
+            'tag' => 'input',
+            'attributes' => array(
+                'type' => 'hidden',
+                'name' => 'action',
+                'value' => 'save'
+            )
+        );
+        $this->assertTag($matcher, $this->_subject->form());
+    }
+
+    public function testSuccessMessage()
+    {
+        $_GET['xh_success'] = 'template';
+        $matcher = array(
+            'tag' => 'p',
+            'attributes' => array('class' => 'xh_success'),
+            'content' => 'Saved Template'
+        );
+        $this->assertTag($matcher, $this->_subject->form());
+    }
+
+    public function testSubmit()
+    {
+        $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->_subject);
+        $headerSpy->expects($this->once())->with(
+            $this->equalTo(
+                'Location: ' . CMSIMPLE_URL
+                . '?file=template&action=edit&xh_success=template'
+            )
+        );
+        $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->_subject);
+        $exitSpy->expects($this->once());
+        $_POST = array('text' => '</html>');
+        $this->_subject->submit();
+    }
+
+    public function testSubmitCantSave()
+    {
+        $writeFileStub = new PHPUnit_Extensions_MockFunction(
+            'XH_writeFile', $this->_subject
+        );
+        $writeFileStub->expects($this->once())->will($this->returnValue(false));
+        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->_subject);
+        $eSpy->expects($this->once())->with(
+            $this->equalTo('cntsave'), $this->equalTo('file'),
+            $this->equalTo($this->_testFile)
+        );
+        $_POST = array('text' => '</html>');
+        $this->_subject->submit();
     }
 }
 

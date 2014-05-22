@@ -1,3 +1,11 @@
+Version 2.0.3 - released 2014-05-21
+* fixed insufficient styling
+* changed default of pagedata_attribute to linked_to_menu
+
+Version 2.0.2 - released 2014-03-22
+* fixed bug, where debug statements could cause browsers to fail reporting
+  (un)successful saving
+
 Version 2.0.1 - released 2014-01-28
 * fixed bug, where most HTML entities in page headings broke loading of the page
   structure (reported by bca)

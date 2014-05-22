@@ -37,7 +37,7 @@
     <!-- Checks -->
 
     <target name="sniff">
-        <phpcodesniffer standard="PEAR">
+        <phpcodesniffer standard="PEAR" format="full">
             <fileset refid="php-sources"/>
         </phpcodesniffer>
     </target>
@@ -110,6 +110,10 @@
         </coverage-report>
     </target>
 
+    <target name="report">
+        <exec command="phpunit" logoutput="true"/>
+    </target>
+
     <!-- Documentation -->
 
     <target name="php-doc">
@@ -122,7 +126,7 @@
     </target>
 
     <target name="js-doc">
-        <exec command="jsdoc --destination doc/js javascript/admin.js plugins/filebrowser/js/filebrowser.js" checkreturn="true"/>
+        <exec command="jsdoc --destination doc/js core/js/admin.js plugins/filebrowser/js/filebrowser.js" checkreturn="true"/>
     </target>
 
     <target name="doc" depends="php-doc,js-doc"/>

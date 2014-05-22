@@ -1094,14 +1094,18 @@ function uenc($s)
  *
  * @return string
  *
+ * @global array The configuration of the core.
+ *
  * @see uenc()
  *
  * @since 1.6
  */
 function XH_uenc($s, $search, $replace)
 {
+    global $cf;
+
     $s = str_replace($search, $replace, $s);
-    return str_replace('+', '_', urlencode($s));
+    return str_replace('+', $cf['uri']['word_separator'], urlencode($s));
 }
 
 /**
@@ -1400,7 +1404,7 @@ function XH_debug($errno, $errstr, $errfile, $errline, $context)
 
 /**
  * Checks <var>$arr</var> recursively for valid UTF-8.
- * Otherwise it exists the script.
+ * Otherwise it exits the script.
  *
  * Useful for checking user input.
  *
@@ -1452,7 +1456,6 @@ function XH_createLanguageFile($dst)
  *
  * @param string $plugin The name of the plugin.
  *
- * @global array  The configuration of the core.
  * @global array  The paths of system files and folders.
  * @global string The active language.
  *
@@ -1462,7 +1465,7 @@ function XH_createLanguageFile($dst)
  */
 function pluginFiles($plugin)
 {
-    global $cf, $pth, $sl;
+    global $pth, $sl;
     static $helpFiles = array();
 
     $folders = array(
@@ -1989,56 +1992,28 @@ function XH_message($type, $message)
 }
 
 /**
- * Creates a backup of the contents file. Surplus old backups will be deleted.
- * Returns an appropriate message.
+ * Creates backups of all content files.
  *
- * @return string The (X)HTML.
+ * Surplus old backups will be deleted. Returns an appropriate message.
+ *
+ * @return string (X)HTML.
  *
  * @global array The paths of system files and folders.
- * @global array The configuration of the core.
- * @global array The localization of the core.
  *
  * @since 1.6
  */
 function XH_backup()
 {
-    global $pth, $cf, $tx;
+    global $pth;
 
-    $o = '';
-    $date = date("Ymd_His");
-    $fn = $date . '_content.htm';
-    if (empty($cf['backup']['numberoffiles'])
-        || copy($pth['file']['content'], $pth['folder']['content'] . $fn)
-    ) {
-        if (!empty($cf['backup']['numberoffiles'])) {
-            $message = utf8_ucfirst($tx['filetype']['backup']) . ' ' . $fn
-                . ' ' . $tx['result']['created'];
-            $o .= XH_message('info', $message);
-        }
-        $fl = array();
-        if ($fd = opendir($pth['folder']['content'])) {
-            while (($p = readdir($fd)) == true) {
-                if (XH_isContentBackup($p)) {
-                    $fl[] = $p;
-                }
-            }
-            closedir($fd);
-        }
-        sort($fl);
-        $v = count($fl) - $cf['backup']['numberoffiles'];
-        for ($i = 0; $i < $v; $i++) {
-            if (unlink($pth['folder']['content'] . $fl[$i])) {
-                $message = utf8_ucfirst($tx['filetype']['backup'])
-                    . ' ' . $fl[$i] . ' ' . $tx['result']['deleted'];
-                $o .= XH_message('info', $message);
-            } else {
-                e('cntdelete', 'backup', $fl[$i]);
-            }
-        }
-    } else {
-        e('cntsave', 'backup', $fn);
+    include_once $pth['folder']['classes'] . 'Backup.php';
+    $languages = XH_secondLanguages();
+    $folders = array($pth['folder']['base'] . 'content/');
+    foreach ($languages as $language) {
+        $folders[] = $pth['folder']['base'] . 'content/' . $language . '/';
     }
-    return $o;
+    $backup = new XH_Backup($folders);
+    return $backup->execute();
 }
 
 /**
@@ -2159,7 +2134,7 @@ function XH_helpIcon($tooltip)
 function XH_isContentBackup($filename, $regularOnly = true)
 {
     $suffix = $regularOnly ? 'content' : '[^.]+';
-    return preg_match('/^\d{8}_\d{6}_' . $suffix . '.htm$/', $filename);
+    return (bool) preg_match('/^\d{8}_\d{6}_' . $suffix . '.htm$/', $filename);
 }
 
 /**
@@ -2464,10 +2439,13 @@ function XH_hsc($string)
  */
 function XH_mailform()
 {
-    global $pth;
+    global $pth, $cf;
+
+    if ($cf['mailform']['email'] == '') {
+        return false;
+    }
 
     include_once $pth['folder']['classes'] . 'Mailform.php';
-
     $mailform = new XH_Mailform(true);
     return $mailform->process();
 }
@@ -2623,6 +2601,120 @@ function XH_renameFile($oldname, $newname)
         unlink($newname);
     }
     return rename($oldname, $newname);
+}
+
+/**
+ * Exits the running script.
+ *
+ * Simple wrapper for exit for testing purposes.
+ *
+ * @return void
+ *
+ * @since 1.6.2
+ */
+function XH_exit()
+{
+    exit;
+}
+
+/**
+ * Returns the root (= installation) folder of the system.
+ *
+ * @return string
+ *
+ * @global string The script name.
+ * @global string The current language.
+ *
+ * @since 1.6.2
+ */
+function XH_getRootFolder()
+{
+    global $sn, $sl;
+
+    return preg_replace(
+        '/\/' . preg_quote($sl, '/') . '\/$/',
+        '/',
+        preg_replace('/\/index\.php$/', '/', $sn)
+    );
+}
+
+/**
+ * Registers the type of a plugin resp. returns the registered plugins of a
+ * certain type.
+ *
+ * @param string $type   A plugin type ('editor', 'filebrowser', 'pagemanager',
+ *                       'editmenu').
+ * @param string $plugin A plugin name or <var>null</var>.
+ *
+ * @return mixed
+ *
+ * @staticvar array The registered plugins.
+ *
+ * @since 1.6.2
+ */
+function XH_registerPluginType($type, $plugin = null)
+{
+    static $plugins = array();
+
+    if (isset($plugin)) {
+        $plugins[$type][] = $plugin;
+    } else {
+        if (isset($plugins[$type])) {
+            $result = $plugins[$type];
+            natcasesort($result);
+            return array_values($result);
+        } else {
+            return array();
+        }
+    }
+}
+
+/**
+ * Returns the names of the registered editor plugins.
+ *
+ * @return array
+ *
+ * @since 1.6.2
+ */
+function XH_registeredEditorPlugins()
+{
+    return XH_registerPluginType('editor');
+}
+
+/**
+ * Returns the names of the registered filebrowser plugins.
+ *
+ * @return array
+ *
+ * @since 1.6.2
+ */
+function XH_registeredFilebrowserPlugins()
+{
+    return XH_registerPluginType('filebrowser');
+}
+
+/**
+ * Returns the names of the registered pagemanager plugins.
+ *
+ * @return array
+ *
+ * @since 1.6.2
+ */
+function XH_registeredPagemanagerPlugins()
+{
+    return XH_registerPluginType('pagemanager');
+}
+
+/**
+ * Returns the names of the registered editmenu plugins.
+ *
+ * @return array
+ *
+ * @since 1.6.2
+ */
+function XH_registeredEditmenuPlugins()
+{
+    return XH_registerPluginType('editmenu');
 }
 
 ?>

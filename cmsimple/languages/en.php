@@ -89,7 +89,6 @@ $tx['help']['editor_external']="Enter here the name of the wanted editor, which 
 $tx['help']['filebrowser_external']="If you want to use an external file browser, e.g. hi_kcfinder, install the plugin and enter its name here.";
 $tx['help']['functions_file']="Please do not change";
 $tx['help']['meta_author']="(Optional) Enter here for the benefit of search engines the name of the author of your pages.";
-$tx['help']['meta_publisher']="(Optional) Enter here for the benefit of search engines the publisher of your site, i.e. the person or institute responsable for the site.";
 $tx['help']['backup_numberoffiles']="After each logout a backup of the content file is generated. Enter the number of such files which the system automatically keeps.";
 
 $tx['help']['show_hidden_path_locator']="Whether the path of the hidden page is shown in the locator.";
@@ -111,13 +110,16 @@ $tx['help']['meta_robots']="Default setting for all pages of your site. \"index,
 
 $tx['help']['pagemanager_external']="If you want to use an external page manager, install the plugin and enter its name here";
 $tx['help']['plugins_disabled']="A comma separated list of plugins which shall not be loaded. <strong>Caveat: if any of these plugins is actually in use on the site, you may not be able to access the site anymore, and would have to fix this option via FTP!</strong>";
+$tx['help']['plugins_hidden']="A comma separated list of plugins which shall not be shown in the admin menu.";
 $tx['help']['plugins_folder']="Please do not change";
 $tx['help']['security_password']="Password of the site and all secondary language pages";
 $tx['help']['security_email']="The email address for the password forgotten functionality. It is preferable to use an address that is not publicly known.";
+$tx['help']['security_frame_options']="Whether pages of your site are allowed to be displayed in frames: \"DENY\" means never, \"SAMEORIGIN\" means only on pages from the same domain. Leave empty to allow framing, what is, however, not recommended for security reasons.";
 $tx['help']['site_template']="Default template of the site";
 $tx['help']['site_timezone']="Usually no entry necessary. Starting from PHP 5.1.0  a <a href=\"http://www.php.net/manual/en/timezones.php\">time zone</a> can be entered to override your server's setting (see http://www.php.net/manual/en/timezones.php).";
 $tx['help']['title_format']="The way the title of a page of your site (&lt;title&gt;) is shown in the tab of your browser.";
 $tx['help']['uri_seperator']="The character which separates names of pages and sub pages in the URL.";
+$tx['help']['uri_word_separator']="The character which separates words in the URL.";
 $tx['help']['uri_length']="The URLs of the pages will be truncated at this length. This might change in a future release, so it's best to use shorter page headings (e.g. by using Page&rarr;Alternative heading).";
 $tx['help']['xhtml_endtags']="Check this, if you want XHTML-output. The required endslashes in standalone tags will be created automatically.";
 
@@ -160,6 +162,11 @@ $tx['locator']['text']="You are here: ";
 
 $tx['log']['dateformat']="Y-m-d H:i:s";
 $tx['log']['loggedin']="logged in";
+$tx['log']['timestamp']="timestamp";
+$tx['log']['type']="type";
+$tx['log']['module']="module";
+$tx['log']['category']="category";
+$tx['log']['description']="description";
 
 $tx['login']['failure']="You have entered a wrong password!";
 $tx['login']['loggedout']="You have been logged out";
@@ -211,7 +218,7 @@ $tx['pagedata']['ok']="No superfluous fields detected in page data.";
 $tx['password']['change']="Change password";
 $tx['password']['confirmation']="Confirmation";
 $tx['password']['fields_missing']="Fill out all fields.";
-$tx['password']['invalid']="New password is invalid.";
+$tx['password']['invalid']="New password must consist of ASCII characters only.";
 $tx['password']['mismatch']="New password and its confirmation do not match.";
 $tx['password']['new']="New password";
 $tx['password']['old']="Old password";
@@ -263,6 +270,8 @@ $tx['sysinfo']['phpinfo_hint']="(opens in a new window or tab)";
 $tx['sysinfo']['phpinfo_link']="PHP Info &raquo;";
 $tx['sysinfo']['plugins']="Installed Plugins";
 $tx['sysinfo']['version']="Installed CMSimple Version";
+$tx['sysinfo']['unknown']="Webserver could not be determined";
+$tx['sysinfo']['webserver']="Webserver";
 
 $tx['template']['default']="default template";
 

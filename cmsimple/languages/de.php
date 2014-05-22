@@ -55,7 +55,7 @@ $tx['error']['cntlocateheading']="Keine Seite ausgewählt";
 $tx['error']['cntopen']="Nicht zu öffnen:";
 $tx['error']['cntsave']="Nicht abspeicherbar:";
 $tx['error']['cntwriteto']="Nicht schreibbar:";
-$tx['error']['noeditor']="Der externe Editor \"%s\ fehlt!";
+$tx['error']['noeditor']="Der externe Editor \"%s\" fehlt!";
 $tx['error']['nofilebrowser']="Der externe Filebrowser \"%s\" fehlt!";
 $tx['error']['nopagemanager']="Der externe Pagemanager \"%s\" fehlt!";
 $tx['error']['headers']="Header-Information kann nicht geändert werden - die Header wurden bereits verschickt (die Ausgabe begann in {location})";
@@ -89,7 +89,6 @@ $tx['help']['editor_external']="Hier den Namen in Kleinbuchstaben des zu benutze
 $tx['help']['filebrowser_external']="Wenn Sie einen externen Datei-Browser verwenden möchten, z.B. hi_kcfinder, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['functions_file']="Bitte nicht ändern";
 $tx['help']['meta_author']="(Kann-Eingabe) Hier für Suchmaschinen den Autor der Texte Ihrer Site eintragen.";
-$tx['help']['meta_publisher']="(Kann-Eingabe) Hier für Suchmaschinen den Herausgeber Ihrer Site eingeben, d.h. die verantwortliche Person oder Institution.";
 $tx['help']['backup_numberoffiles']="Nach jedem Ausloggen erzeugt das System eine Sicherungskopie der Content-Datei. Hier die Anzahl solcher Dateien eintragen, die das System automatisch aufbewahrt.";
 
 
@@ -112,13 +111,16 @@ $tx['help']['meta_robots']="Standarteinstellung für alle Seiten. \"index,follow
 
 $tx['help']['pagemanager_external']="Wenn Sie einen externen Seiten-Manager verwenden möchten, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['plugins_disabled']="Eine durch Kommata getrennte Liste von Plugins, die nicht geladen werden sollen. <strong>Vorsicht: wenn eines dieser Plugins auf der Website verwendet wird, kann es sein, dass Sie auf die Website nicht mehr zugreifen können, und diese Option per FTP korrigieren müssen!</strong>";
+$tx['help']['plugins_hidden']="Eine durch Kommata getrennte Liste von Plugins, die nicht im Admin-Menü angezeigt werden sollen.";
 $tx['help']['plugins_folder']="Bitte nicht ändern";
 $tx['help']['security_password']="Passwort für die Website einschließlich aller einzelnen Sprachbereiche";
 $tx['help']['security_email']="Die E-Mail-Adresse für die 'Kennwort vergessen'-Funktionalität. Am besten verwenden Sie eine Adresse, die nicht öffentlich bekannt ist.";
+$tx['help']['security_frame_options']="Ob Seiten Ihrer Website in Frames angezeigt werden dürfen: \"DENY\" bedeutet niemals, \"SAMEORIGIN\" bedeutet nur auf Seiten der selben Domain. Lassen sie die Einstellung leer, um die Darstellung in Frames zu erlauben; das ist allerdings aus Sicherheitsgründen nicht zu empfehlen.";
 $tx['help']['site_template']="Standard-Template für die Website";
 $tx['help']['site_timezone']="Normalerweise keine Einstellung erforderlich. Ab PHP 5.1 kann eine vom Server abweichende <a href=\"http://www.php.net/manual/de/timezones.php\">Zeitzone</a> eingeben werden (siehe http://php.net/manual/de/timezones.php).";
 $tx['help']['title_format']="Das Format des Seitentitels (&lt;title&gt;) wie er normalerweise oben in den Seitenreitern des Browsers angezeigt wird.";
 $tx['help']['uri_seperator']="Das Zeichen, das die Namen von Seiten und Unterseiten in der URL trennt.";
+$tx['help']['uri_word_separator']="Das Zeichen, das Wörter in der URL trennt.";
 $tx['help']['uri_length']="Die URLs der Seiten werden ab dieser Länge abgeschnitten. Das könnte sich in einer zukünftigen Version ändern, so dass es das Beste ist, kürzere Seitenüberschriften zu verwenden (z.B. durch die Verwendung von Seite&rarr;Andere Seitenüberschrift).";
 $tx['help']['xhtml_endtags']="Anklicken wenn Sie XHTML-Ausgabe wünschen. Die für XHTML-Auszeichnungselemente erforderlichen Abschluss-Schrägstriche werden automatisch erzeugt.";
 
@@ -161,6 +163,11 @@ $tx['locator']['text']="Sie sind hier: ";
 
 $tx['log']['dateformat']="Y-m-d H:i:s";
 $tx['log']['loggedin']="Eingeloggt";
+$tx['log']['timestamp']="Zeitstempel";
+$tx['log']['type']="Typ";
+$tx['log']['module']="Modul";
+$tx['log']['category']="Kategorie";
+$tx['log']['description']="Beschreibung";
 
 $tx['login']['failure']="Sie haben ein falsches Passwort eingegeben!";
 $tx['login']['loggedout']="Sie wurden ausgeloggt";
@@ -212,7 +219,7 @@ $tx['pagedata']['ok']="Keine überflüssigen Page-Data-Felder gefunden.";
 $tx['password']['change']="Passwort ändern";
 $tx['password']['confirmation']="Bestätigung";
 $tx['password']['fields_missing']="Alle Felder ausfüllen.";
-$tx['password']['invalid']="Das neue Passwort ist ungültig.";
+$tx['password']['invalid']="Das neue Passwort darf nur aus ASCII-Zeichen bestehen.";
 $tx['password']['mismatch']="Das neue Passwort stimmt nicht mit der Bestätigung überein.";
 $tx['password']['new']="Neues Passwort";
 $tx['password']['old']="Altes Passwort";
@@ -264,6 +271,8 @@ $tx['sysinfo']['phpinfo_hint']="(wird in einem neuen Fenster oder Tab geöffnet)
 $tx['sysinfo']['phpinfo_link']="PHP Info »";
 $tx['sysinfo']['plugins']="Installierte Plugins";
 $tx['sysinfo']['version']="Installierte CMSimple Version";
+$tx['sysinfo']['unknown']="Webserver konnte nicht ermittelt werden";
+$tx['sysinfo']['webserver']="Webserver";
 
 $tx['template']['default']="Standard Template";
 

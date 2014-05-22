@@ -10,7 +10,7 @@
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright 2011-2014 Christoph M. Becker <http://3-magi.net/>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   SVN: $Id: XMLParser.php 182 2014-01-28 20:21:21Z cmb $
+ * @version   SVN: $Id: XMLParser.php 179 2014-01-28 13:24:08Z cmb $
  * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
  */
 

@@ -51,6 +51,13 @@ class Filebrowser_Controller
     var $currentDirectory;
 
     /**
+     *  The current type of allowed file extensions.
+     *
+     *  @var string
+     */
+    var $currentType;
+
+    /**
      * @var string $linkType
      */
     var $linkType;
@@ -117,6 +124,29 @@ class Filebrowser_Controller
                 if ((bool) $extension) {
                     $this->allowedExtensions[$type][] = strtolower($extension);
                 }
+            }
+        }
+    }
+
+    /**
+     * Determines the current type of the allowed file extensions.
+     *
+     * @return void
+     */
+    function determineCurrentType()
+    {
+        $this->currentType = $this->linkType;
+        if (count(array_unique($this->baseDirectories)) != 4) {
+            // If any of the directories are identical, we can't reliably detect
+            // the current type, so we bail out.
+            return;
+        }
+        $types = array('images', 'downloads', 'media', 'userfiles');
+        foreach ($types as $type) {
+            $pos = strpos($this->currentDirectory, $this->baseDirectories[$type]);
+            if ($pos === 0) {
+                $this->currentType = $type;
+                break;
             }
         }
     }
@@ -266,8 +296,8 @@ class Filebrowser_Controller
         if ($extension == $file) {
             return false;
         }
-        if (!in_array($extension, $this->allowedExtensions[$this->linkType])
-            && !in_array('*', $this->allowedExtensions[$this->linkType])
+        if (!in_array($extension, $this->allowedExtensions[$this->currentType])
+            && !in_array('*', $this->allowedExtensions[$this->currentType])
         ) {
             return false;
         }

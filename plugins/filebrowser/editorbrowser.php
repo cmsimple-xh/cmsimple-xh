@@ -88,6 +88,7 @@ if ($fb_type && array_key_exists($fb_type, $browser->baseDirectories)) {
             $browser->currentDirectory = rtrim($subdir, '/') . '/';
         }
     }
+    $browser->determineCurrentType();
 
     if (isset($_POST['upload'])) {
         $browser->view->checkCSRFToken();

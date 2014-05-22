@@ -38,7 +38,6 @@ $mtx['pages search']="in den Suchergebnissen";
 $mtx['pages sitemap']="im Inhaltsverzeichnis";
 $mtx['pages toc']="im Menü";
 $mtx['password']="Passwort";
-$mtx['publisher']="Herausgeber";
 $mtx['robots']="Suchroboter";
 $mtx['scroll']="Scrollen";
 $mtx['sdoc']="Ebenenhervorhebung";
@@ -54,6 +53,7 @@ $mtx['type']="Typ";
 $mtx['uri']="URL";
 $mtx['urichar']="URL-Zeichen";
 $mtx['userfiles']="Benutzerdateien";
+$mtx['word separator']="Worttrennzeichen";
 $mtx['xhtml']="XHTML";
 
 ?>

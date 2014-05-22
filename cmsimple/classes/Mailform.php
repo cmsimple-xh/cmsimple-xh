@@ -36,6 +36,15 @@ class XH_Mailform
     var $embedded;
 
     /**
+     * The linebreak characters (either CRLF or LF).
+     *
+     * Serves as workaround for broken mailers which don't handle CRLF correctly.
+     *
+     * @var bool
+     */
+    var $_linebreak;
+
+    /**
      * The name of the sender.
      *
      * @var string
@@ -103,13 +112,17 @@ class XH_Mailform
      *
      * @param bool $embedded Whether the mailform is embedded on a CMSimple_XH page.
      *
+     * @global array The configuration of the core.
+     * @global array The localization of the core.
+     *
      * @access public
      */
     function XH_Mailform($embedded = false)
     {
-        global $tx;
+        global $cf, $tx;
 
         $this->embedded = $embedded;
+        $this->_linebreak = ($cf['mailform']['lf_only'] ? "\n" : "\r\n");
         $this->sendername = isset($_POST['sendername'])
             ? stsl($_POST['sendername']) : '';
         $this->senderphone = isset($_POST['senderphone'])
@@ -133,12 +146,10 @@ class XH_Mailform
     }
 
     /**
-     * Returns whether the submitted mailform is valid.
-     * Errors are reported to <var>$e</var>
+     * Returns error messages resp. an empty string if everything is okay.
      *
-     * @return bool
+     * @return string (X)HTML.
      *
-     * @global string (X)HTML fragment of LI elements with error messages.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      *
@@ -146,20 +157,21 @@ class XH_Mailform
      */
     function check()
     {
-        global $e, $cf, $tx;
+        global $cf, $tx;
 
+        $o = '';
         if ($this->getlast != $this->cap
             && trim($cf['mailform']['captcha']) == 'true'
         ) {
-            $e .= '<li>' . $tx['mailform']['captchafalse'] . '</li>';
+            $o .= XH_message('warning', $tx['mailform']['captchafalse']);
         }
         if ($this->mailform == '') {
-            $e .= '<li>' . $tx['mailform']['mustwritemessage'] . '</li>';
+            $o .= XH_message('warning', $tx['mailform']['mustwritemessage']);
         }
         if (!$this->isValidEmail($this->sender) || $this->subject == '') {
-            $e .= '<li>' . $tx['mailform']['notaccepted'] . '</li>';
+            $o .= XH_message('warning', $tx['mailform']['notaccepted']);
         }
-        return $e == '';
+        return $o;
     }
 
     /**
@@ -176,20 +188,16 @@ class XH_Mailform
     {
         global $cf, $tx;
 
-        if ($this->check()) {
-            $body = $tx['mailform']['sendername'] . $this->sendername . "\n"
-                . $tx['mailform']['senderphone'] . $this->senderphone . "\n\n"
-                . $this->mailform;
-            $sent = $this->sendMail(
-                $cf['mailform']['email'], $this->subject, $body,
-                "From: " . $this->sender . "\r\n"
-                . "X-Remote: " . sv('REMOTE_ADDR') . "\r\n"
-            );
-            if (!$sent) {
-                XH_logMessage('error', 'XH', 'mailform', $this->sender);
-            }
-        } else {
-            $sent = false;
+        $body = $tx['mailform']['sendername'] . $this->sendername . "\n"
+            . $tx['mailform']['senderphone'] . $this->senderphone . "\n\n"
+            . $this->mailform;
+        $sent = $this->sendMail(
+            $cf['mailform']['email'], $this->subject, $body,
+            "From: " . $this->sender . $this->_linebreak
+            . "X-Remote: " . sv('REMOTE_ADDR') . $this->_linebreak
+        );
+        if (!$sent) {
+            XH_logMessage('error', 'XH', 'mailform', $this->sender);
         }
         return $sent;
     }
@@ -200,21 +208,31 @@ class XH_Mailform
      * @return string (X)HTML
      *
      * @global string The requested action.
-     * @global string (X)HTML fragment of LI elements with error messages.
      * @global array  The localization of the core.
      *
+     * @staticvar bool Whether any mailform is processed more than once.
+     *
      * @access public
+     *
+     * @todo Remove static variable for better testability.
      */
     function process()
     {
-        global $action, $e, $tx;
+        global $action, $tx;
+        static $again = false;
+
+        if ($again) {
+            return false;
+        }
+        $again = true;
 
         if ($action == 'send') {
-            if ($this->submit()) {
-                $o = '<p>' . $tx['mailform']['send'] . '</p>' . "\n";
+            $o = $this->check();
+            if (!$o && $this->submit()) {
+                $o .= XH_message('success', $tx['mailform']['send']);
             } else {
-                $e .= '<li>' . $tx['mailform']['notsend'] . '</li>' . "\n";
-                $o = $this->render();
+                $o .= XH_message('fail', $tx['mailform']['notsend'])
+                    . $this->render();
             }
         } else {
             $o = $this->render();
@@ -281,9 +299,8 @@ class XH_Mailform
 
         // textarea
         $name = $this->embedded ? 'xh_mailform' : 'mailform';
-        $o .= '<textarea rows="12" cols="40" name="' . $name . '">' . "\n";
-        $o .= XH_hsc($this->mailform) . "\n";
-        $o .= '</textarea>' . "\n";
+        $o .= '<textarea rows="12" cols="40" name="' . $name . '">'
+            . XH_hsc($this->mailform) . '</textarea>';
 
         // captcha
         if (isset($cf['mailform']['captcha'])
@@ -320,13 +337,16 @@ class XH_Mailform
      */
     function sendMail($to, $subject = '(No Subject)', $message = '', $header = '')
     {
-        $header = 'MIME-Version: 1.0' . "\r\n"
-            . 'Content-Type: text/plain; charset=UTF-8; format=flowed' . "\r\n"
-            . 'Content-Transfer-Encoding: base64' . "\r\n"
+        $header = 'MIME-Version: 1.0' . $this->_linebreak
+            . 'Content-Type: text/plain; charset=UTF-8; format=flowed'
+            . $this->_linebreak
+            . 'Content-Transfer-Encoding: base64' . $this->_linebreak
             . $header;
         $subject = $this->encodeMIMEFieldBody($subject);
 
-        $message = preg_replace('/(?:\r\n|\r|\n)/', "\r\n", trim($message));
+        $message = preg_replace(
+            '/(?:\r\n|\r|\n)/', $this->_linebreak, trim($message)
+        );
         $message = chunk_split(base64_encode($message));
 
         return mail($to, $subject, $message, $header);
@@ -365,7 +385,7 @@ class XH_Mailform
             } while ($text != '');
             $body = 'return \'=?UTF-8?B?\' . base64_encode($l) . \'?=\';';
             $func = create_function('$l', $body);
-            return implode("\r\n ", array_map($func, $lines));
+            return implode($this->_linebreak . ' ', array_map($func, $lines));
         }
     }
 

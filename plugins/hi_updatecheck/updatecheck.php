@@ -1,15 +1,15 @@
 <?php
 
 /*
- * @version $Id: updatecheck.php 236 2014-01-02 11:38:01Z hi $
+ * @version $Id: updatecheck.php 237 2014-02-05 22:31:24Z hi $
  */
 
 /*
  * ==================================================================
  * Update-Check-Plugin for CMSimple_XH
  * ==================================================================
- * Version:    1.2
- * Build:      2014010201
+ * Version:    1.2.1
+ * Build:      2014020601
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -348,8 +348,14 @@ if (!function_exists('json_encode')) {
         include_once $pth['folder']['plugins'] . 'hi_updatecheck/JSON.php';
     }
 
+    /* function json_encode($value) {
+      return CMB_JSON::instance()->encode($value);
+      }
+     */
+
     function json_encode($value) {
-        return CMB_JSON::instance()->encode($value);
+        $json = CMB_JSON::instance();
+        return $json->encode($value);
     }
 
 }

@@ -22,6 +22,19 @@ require_once './cmsimple/functions.php';
 require_once './cmsimple/classes/LinkChecker.php';
 
 /**
+ * A test stub to avoid actual checking of external links.
+ *
+ * @todo Refactor out external request from XH_LinkChecker::checkExternalLink().
+ */
+class TestingLinkChecker extends XH_LinkChecker
+{
+    function checkExternalLink($parts)
+    {
+        return '200';
+    }
+}
+
+/**
  * A test case for the link checker.
  *
  * @category Testing
@@ -67,7 +80,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             'xhtml' => array('endtags' => '1')
         );
         $onload = '';
-        $this->linkChecker = new XH_LinkChecker();
+        $this->linkChecker = new TestingLinkChecker();
     }
 
     public function testPrepare()
@@ -122,9 +135,8 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             array('./?download=template.htm', '200'),
             array('./?download=doesnotexist', 'file not found'),
             array('http://www.cmsimple-xh.org/', '200'),
-            array('http://cmsimple-xh.org/', '301'),
             array('mailto:devs@cmsimple-xh.org', 'mailto'),
-            array('./tests/unit/data/template.htm' , '200'),
+            array('./tests/unit/data/template.htm', '200'),
             array('?sitemap', '200'),
             array('?mailform', '200'),
             // TODO: add checks for second languages, what is actually too cumbersome

@@ -178,15 +178,16 @@ function XH_absoluteUrlPath($path)
 function XH_isAccessProtected($path)
 {
     $host = $_SERVER['HTTP_HOST'];
-    $stream = fsockopen($host, 80, $errno, $errstr, 5);
+    $stream = fsockopen($host, $_SERVER['SERVER_PORT'], $errno, $errstr, 5);
     if ($stream) {
+        stream_set_timeout($stream, 5);
         $request = "HEAD $path HTTP/1.1\r\nHost: $host\r\n"
             . "User-Agent: CMSimple_XH\r\n\r\n";
         fwrite($stream, $request);
         $response = fread($stream, 12);
         fclose($stream);
         $status = substr($response, 9);
-        return $status[0] == '4' || $status[1] == '5';
+        return $status[0] == '4' || $status[0] == '5';
     } else {
         return false;
     }
@@ -219,6 +220,12 @@ function XH_sysinfo()
     }
     $o .= '</ul>' . "\n" . "\n";
 
+    $serverSoftware = !empty($_SERVER['SERVER_SOFTWARE'])
+        ? $_SERVER['SERVER_SOFTWARE']
+        : $tx['sysinfo']['unknown'];
+    $o .= '<p><b>' . $tx['sysinfo']['webserver'] . '</b></p>' . "\n"
+        . '<ul>' . "\n" . '<li>' . $serverSoftware . '</li>' . "\n"
+        . '</ul>' . "\n\n";
     $o .= '<p><b>' . $tx['sysinfo']['php_version'] . '</b></p>' . "\n"
         . '<ul>' . "\n" . '<li>' . phpversion() . '</li>' . "\n"
         . '<li><a href="./?&phpinfo" target="blank"><b>'
@@ -246,7 +253,9 @@ HTML;
         'writable' => array(),
         'other' => array()
     );
-    $temp = array('content', 'corestyle', 'images', 'downloads', 'userfiles', 'media');
+    $temp = array(
+        'content', 'corestyle', 'images', 'downloads', 'userfiles', 'media'
+    );
     foreach ($temp as $i) {
         $checks['writable'][] = $pth['folder'][$i];
     }
@@ -277,6 +286,12 @@ HTML;
     );
     $checks['other'][] = array(
         !get_magic_quotes_runtime(), false, $tx['syscheck']['magic_quotes']
+    );
+    $checks['other'][] = array(
+        !ini_get('session.use_trans_sid'), false, 'session.use_trans_sid off'
+    );
+    $checks['other'][] = array(
+        ini_get('session.use_only_cookies'), false, 'session.use_only_cookies on'
     );
     $o .= XH_systemCheck($checks);
     return $o;
@@ -345,7 +360,14 @@ function XH_logFileView()
         . 'var elt = document.getElementById("xh_logfile");'
         . 'elt.scrollTop = elt.scrollHeight;'
         . '}())'
-        . '/* ]]> */</script>';
+        . '/* ]]> */</script>'
+        . '<p>('
+        . $tx['log']['timestamp'] . ' &ndash; '
+        . $tx['log']['type']      . ' &ndash; '
+        . $tx['log']['module']    . ' &ndash; '
+        . $tx['log']['category']  . ' &ndash; '
+        . $tx['log']['description']
+        . ')</p>';
 }
 
 /**
@@ -437,64 +459,72 @@ function XH_backupsView()
  *
  * @return mixed
  *
- * @staticvar string The (X)HTML of the menu build so far.
+ * @global XH_ClassicPluginMenu The plugin menu builder.
  */
 function pluginMenu($add = '', $link = '', $target = '', $text = '',
     $style = array()
 ) {
-    static $menu = '';
+    global $_XH_pluginMenu;
 
-    $add = strtoupper($add);
+    switch (strtoupper($add)) {
+    case 'ROW':
+        $_XH_pluginMenu->makeRow($style);
+        break;
+    case 'TAB':
+        $_XH_pluginMenu->makeTab($link, $target, $text, $style);
+        break;
+    case 'DATA':
+        $_XH_pluginMenu->makeData($text, $style);
+        break;
+    case 'SHOW':
+        return $_XH_pluginMenu->show();
+        break;
+    }
+}
 
-    if (!isset($style['row'])) {
-        $style['row'] = 'class="edit" style="width: 100%;"';
-    }
-    if (!isset($style['tab'])) {
-        $style['tab'] = '';
-    }
-    if (!isset($style['link'])) {
-        $style['link'] = '';
-    }
-    if (!isset($style['data'])) {
-        $style['data'] = '';
-    }
+/**
+ * Registers the standard plugin menu items for the admin menu.
+ *
+ * @param bool $showMain Whether to display the main settings item.
+ *
+ * @return void
+ */
+function XH_registerStandardPluginMenuItems($showMain)
+{
+    $pluginMenu = new XH_IntegratedPluginMenu();
+    $pluginMenu->render($showMain);
+}
 
-    $menu_row = '<table {{STYLE_ROW}}>' . "\n"
-        . '<tr>' . "\n" . '{{TAB}}</tr>' . "\n" . '</table>' . "\n" . "\n";
-    $menu_tab = '<td {{STYLE_TAB}}><a{{STYLE_LINK}} href="{{LINK}}"'
-        . ' {{TARGET}}>{{TEXT}}</a></td>' . "\n";
-    $menu_tab_data = '<td {{STYLE_DATA}}>{{TEXT}}</td>' . "\n";
+/**
+ * Register a new plugin menu item, or returns the registered plugin menu items,
+ * if <var>$label</var> and <var>$url</var> are null.
+ *
+ * @param string $plugin A plugin name.
+ * @param string $label  A menu item label.
+ * @param string $url    A URL to link to.
+ * @param string $target A target attribute value.
+ *
+ * @return mixed
+ *
+ * @staticvar array $pluginMenu The array of already registered menu items.
+ */
+function XH_registerPluginMenuItem($plugin, $label = null, $url = null,
+    $target = null
+) {
+    static $pluginMenu = array();
 
-    if ($add == 'ROW') {
-        $new_menu_row = $menu_row;
-        $new_menu_row = str_replace('{{STYLE_ROW}}', $style['row'], $new_menu_row);
-        $menu .= $new_menu_row;
-    }
-
-    if ($add == 'TAB') {
-        $new_menu_tab = $menu_tab;
-        $new_menu_tab = str_replace('{{STYLE_TAB}}', $style['tab'], $new_menu_tab);
-        $new_menu_tab = str_replace('{{STYLE_LINK}}', $style['link'], $new_menu_tab);
-        $new_menu_tab = str_replace('{{LINK}}', $link, $new_menu_tab);
-        $new_menu_tab = str_replace('{{TARGET}}', $target, $new_menu_tab);
-        $new_menu_tab = str_replace('{{TEXT}}', $text, $new_menu_tab);
-        $menu = str_replace('{{TAB}}', $new_menu_tab . '{{TAB}}', $menu);
-    }
-
-    if ($add == 'DATA') {
-        $new_menu_tab_data = $menu_tab_data;
-        $new_menu_tab_data = str_replace(
-            '{{STYLE_DATA}}', $style['data'], $new_menu_tab_data
+    if (isset($label) && isset($url)) {
+        $pluginMenu[$plugin][] = array(
+            'label' => $label,
+            'url' => $url,
+            'target' => $target
         );
-        $new_menu_tab_data = str_replace('{{TEXT}}', $text, $new_menu_tab_data);
-        $menu = str_replace('{{TAB}}', $new_menu_tab_data . '{{TAB}}', $menu);
-    }
-
-    if ($add == 'SHOW') {
-        $menu = str_replace('{{TAB}}', '', $menu);
-        $m = $menu;
-        $menu = '';
-        return $m;
+    } else {
+        if (isset($pluginMenu[$plugin])) {
+            return $pluginMenu[$plugin];
+        } else {
+            return array();
+        }
     }
 }
 
@@ -505,9 +535,11 @@ function pluginMenu($add = '', $link = '', $target = '', $text = '',
  *
  * @return string (X)HTML.
  *
+ * @global string The scipt name.
  * @global bool   Whether edit mode is active.
  * @global int    The index of the current page.
  * @global array  The URLs of the pages.
+ * @global array  The configuration of the core.
  * @global array  The localization of the core.
  * @global string The URL of the current page.
  * @global array  The localization of the plugins.
@@ -516,7 +548,7 @@ function pluginMenu($add = '', $link = '', $target = '', $text = '',
  */
 function XH_adminMenu($plugins = array())
 {
-    global $edit, $s, $u, $tx, $su, $plugin_tx;
+    global $sn, $edit, $s, $u, $cf, $tx, $su, $plugin_tx;
 
     if ($s < 0) {
         $su = $u[0];
@@ -528,47 +560,50 @@ function XH_adminMenu($plugins = array())
     foreach (array('images', 'downloads', 'media') as $item) {
         $filesMenu[] =  array(
             'label' => utf8_ucfirst($tx['editmenu'][$item]),
-            'url' => '?&amp;normal&amp;' . $item
+            'url' => $sn . '?&normal&' . $item
         );
     }
     $settingsMenu = array(
         array(
             'label' => utf8_ucfirst($tx['editmenu']['configuration']),
-            'url' => '?file=config&amp;action=array'
+            'url' => $sn . '?file=config&action=array'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['language']),
-            'url' => '?file=language&amp;action=array'
+            'url' => $sn . '?file=language&action=array'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['template']),
-            'url' => '?file=template&amp;action=edit'
+            'url' => $sn . '?file=template&action=edit'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['stylesheet']),
-            'url' => '?file=stylesheet&amp;action=edit'
+            'url' => $sn . '?file=stylesheet&action=edit'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['log']),
-            'url' => '?file=log&amp;action=view'
+            'url' => $sn . '?file=log&action=view'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['validate']),
-            'url' => '?&amp;validate'
+            'url' => $sn . '?&validate'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['backups']),
-            'url' => '?&amp;xh_backups'
+            'url' => $sn . '?&xh_backups'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['pagedata']),
-            'url' => '?&amp;xh_pagedata'
+            'url' => $sn . '?&xh_pagedata'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['sysinfo']),
-            'url' => '?&amp;sysinfo'
+            'url' => $sn . '?&sysinfo'
         )
     );
+    $hiddenPlugins = explode(',', $cf['plugins']['hidden']);
+    $hiddenPlugins = array_map('trim', $hiddenPlugins);
+    $plugins = array_diff($plugins, $hiddenPlugins);
     $total = count($plugins);
     $rows = 12;
     $columns = ceil($total / $rows);
@@ -591,27 +626,30 @@ function XH_adminMenu($plugins = array())
             : ucfirst($plugin);
         $pluginMenuItem = array('label' => $label);
         if ($plugin != '') {
-            $pluginMenuItem['url'] = '?' . $plugin . '&amp;normal';
+            $pluginMenuItem['url'] = $sn . '?' . $plugin . '&normal';
+            foreach (XH_registerPluginMenuItem($plugin) as $item) {
+                $pluginMenuItem['children'][] = $item;
+            }
         }
         $pluginMenu[] = $pluginMenuItem;
     }
     $menu = array(
         array(
             'label' => $changeText,
-            'url' => '?' . $su . '&amp;' . $changeMode,
+            'url' => $sn . '?' . $su . '&' . $changeMode,
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['pagemanager']),
-            'url' => '?&amp;normal&amp;xhpages'
+            'url' => $sn . '?&normal&xhpages'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['files']),
-            'url' => '?&amp;normal&amp;userfiles',
+            'url' => $sn . '?&normal&userfiles',
             'children' => $filesMenu
             ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['settings']),
-            'url' => '?&amp;settings',
+            'url' => $sn . '?&settings',
             'children' => $settingsMenu
         ),
         array(
@@ -621,11 +659,11 @@ function XH_adminMenu($plugins = array())
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['logout']),
-            'url' => '?&amp;logout'
+            'url' => $sn . '?&logout'
         )
     );
 
-    $t .= "\n" . '<div id="xh_adminmenu">';
+    $t = "\n" . '<div id="xh_adminmenu">';
     $t .= "\n" . '<ul>' . "\n";
     foreach ($menu as $item) {
         $t .= XH_adminMenuItem($item);
@@ -643,18 +681,14 @@ function XH_adminMenu($plugins = array())
  *
  * @return string
  *
- * @global string The scipt name.
- *
  * @since 1.6
  */
 function XH_adminMenuItem($item, $level = 0)
 {
-    global $sn;
-
     $indent = str_repeat('    ', $level);
-    $t .= $indent . '<li>';
+    $t = $indent . '<li>';
     if (isset($item['url'])) {
-        $t .= '<a href="' . $sn . $item['url'] . '"';
+        $t .= '<a href="' . XH_hsc($item['url']) . '"';
         if (isset($item['target'])) {
             $t .= ' target="' . $item['target'] . '"';
         }
@@ -689,69 +723,18 @@ function XH_adminMenuItem($item, $level = 0)
  * @param string $main Whether the main setting menu item should be shown
  *                     ('ON'/'OFF').
  *
- * @global string The sitename.
- * @global string The name of the currently loading plugin.
- * @global array  The paths of system files and folders.
- * @global string The currently active language.
- * @global array  The configuration of the core.
- * @global array  The localization of the core.
- * @global array  The localization of the plugins.
- *
  * @return string (X)HTML.
+ *
+ * @global XH_ClassicPluginMenu The plugin menu builder.
  */
 function print_plugin_admin($main)
 {
-    global $sn, $plugin, $pth, $sl, $cf, $tx, $plugin_tx;
+    global $_XH_pluginMenu;
 
     initvar('action');
     initvar('admin');
-    pluginFiles($plugin);
-
-    $main = strtoupper($main) == 'ON';
-    $css = is_readable($pth['file']['plugin_stylesheet']);
-    $config = is_readable($pth['file']['plugin_config']);
-    $language = is_readable($pth['file']['plugin_language']);
-    $help = is_readable($pth['file']['plugin_help']);
-
-    $tx_main = empty($plugin_tx[$plugin]['menu_main'])
-        ? $tx['menu']['tab_main'] : $plugin_tx[$plugin]['menu_main'];
-    $tx_css = empty($plugin_tx[$plugin]['menu_css'])
-        ? $tx['menu']['tab_css'] : $plugin_tx[$plugin]['menu_css'];
-    $tx_config = empty($plugin_tx[$plugin]['menu_config'])
-        ? $tx['menu']['tab_config'] : $plugin_tx[$plugin]['menu_config'];
-    $tx_language = empty($plugin_tx[$plugin]['menu_language'])
-        ? $tx['menu']['tab_language'] : $plugin_tx[$plugin]['menu_language'];
-    $tx_help = empty($plugin_tx[$plugin]['menu_help'])
-        ? $tx['menu']['tab_help'] : $plugin_tx[$plugin]['menu_help'];
-
-    pluginMenu('ROW', '', '', '', array());
-    if ($main) {
-        $link = $sn . '?&amp;' . $plugin
-            . '&amp;admin=plugin_main&amp;action=plugin_text';
-        pluginMenu('TAB', $link, '', $tx_main, array());
-    }
-    if ($css) {
-        $link = $sn . '?&amp;' . $plugin
-            . '&amp;admin=plugin_stylesheet&amp;action=plugin_text';
-        pluginMenu('TAB', $link, '', $tx_css, array());
-    }
-    if ($config) {
-        $link = $sn . '?&amp;' . $plugin
-            . '&amp;admin=plugin_config&amp;action=plugin_edit';
-        pluginMenu('TAB', $link, '', $tx_config, '');
-    }
-    if ($language) {
-        $link = $sn . '?&amp;' . $plugin
-            . '&amp;admin=plugin_language&amp;action=plugin_edit';
-        pluginMenu('TAB', $link, '', $tx_language, '');
-    }
-    if ($help) {
-        $link = $pth['file']['plugin_help'];
-        pluginMenu('TAB', $link, 'target="_blank"', $tx_help, '');
-    }
-    return pluginMenu('SHOW');
+    return $_XH_pluginMenu->render(strtoupper($main) == 'ON');
 }
-
 
 /**
  * Handles reading and writing of plugin files
@@ -1081,7 +1064,7 @@ function XH_adminJSLocalization()
 
     $keys = array(
         'action' => array('cancel', 'ok'),
-        'password' => array('fields_missing', 'mismatch', 'wrong'),
+        'password' => array('fields_missing', 'invalid', 'mismatch', 'wrong'),
         'error' => array('server'),
         'settings' => array('backupsuffix')
     );

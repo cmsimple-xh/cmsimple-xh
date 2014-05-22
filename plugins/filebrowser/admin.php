@@ -15,8 +15,12 @@
  * @link      http://cmsimple-xh.org/
  */
 
-if (!XH_ADM || $cf['filebrowser']['external']) {
-    return true;
+/*
+ * Prevent direct access.
+ */
+if (!defined('CMSIMPLE_XH_VERSION')) {
+    header('HTTP/1.0 403 Forbidden');
+    exit;
 }
 
 initvar('filebrowser');
@@ -32,10 +36,12 @@ if ($filebrowser) {
         . '<div class="plugineditcaption">Filebrowser for @CMSIMPLE_XH_VERSION@'
         . '</div>' . tag('hr');
 
-    !$admin &&
+    if (!$admin) {
         $admin = 'plugin_config';
-    !$action &&
+    }
+    if (!$action) {
         $action = 'plugin_edit';
+    }
 
     $o .= plugin_admin_common($action, $admin, $plugin)
         . '</div>';
@@ -81,6 +87,7 @@ if (strpos($subdir, $browser->baseDirectory) !== 0) {
 $browser->currentDirectory =  rtrim($subdir, '/') . '/';
 $browser->linkType = $f;
 $browser->setLinkParams($f);
+$browser->determineCurrentType();
 
 if (!empty($_SERVER['CONTENT_LENGTH']) && empty($_POST)) {
     $browser->view->error(

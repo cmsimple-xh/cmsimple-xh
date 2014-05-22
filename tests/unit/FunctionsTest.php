@@ -14,12 +14,16 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once 'vfsStream/vfsStream.php';
+require_once './vendor/autoload.php';
 
 /**
  * The file under test.
  */
 require_once './cmsimple/functions.php';
+
+use org\bovigo\vfs\vfsStreamWrapper;
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStream;
 
 /**
  * A helper to test multiple evaluation of a function with side effects.
@@ -394,21 +398,30 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertTag($matcher, $actual);
     }
 
-    public function dataForIsContentBackup()
+    /**
+     * @dataProvider dataForUenc
+     */
+    public function testUenc($uricharSep, $uricharOrg, $uricharNew, $wordSep, $expected)
     {
-        return array(
-            array('20130711_010203_content.htm', true),
-            array('2013-07-11-01-02-03-content.htm', false)
-        );
+        global $cf, $tx;
+
+        if (!defined('XH_URICHAR_SEPARATOR')) {
+            define('XH_URICHAR_SEPARATOR', $uricharSep);
+        } else {
+            runkit_constant_redefine('XH_URICHAR_SEPARATOR', $uricharSep);
+        }
+        $cf['uri']['word_separator'] = $wordSep;
+        $tx['urichar']['org'] = $uricharOrg;
+        $tx['urichar']['new'] = $uricharNew;
+        $this->assertEquals($expected, uenc("\xC3\x9Cber uns"));
     }
 
-    /**
-     * @dataProvider dataForIsContentBackup
-     */
-    public function testIsContentBackup($filename, $expected)
+    public function dataForUenc()
     {
-        $actual = XH_isContentBackup($filename);
-        $this->assertEquals($expected, $actual);
+        return array(
+            array('|', "\xC3\x84|\xC3\x96|\xC3\x9C", 'Ae|Oe|Ue', '_', 'Ueber_uns'),
+            array(',', "\xC3\x84,\xC3\x96,\xC3\x9C", 'Ae,Oe,Ue', '-', 'Ueber-uns')
+        );
     }
 
     public function testSecondLanguages()
@@ -632,7 +645,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    function testRenameFile()
+    public function testRenameFile()
     {
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
@@ -644,6 +657,42 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($actual);
     }
 
+    /**
+     * @dataProvider getRootFolderData
+     */
+    public function testRootFolder($scriptName, $language, $expected)
+    {
+        global $sn, $sl;
+
+        $sn = $scriptName;
+        $sl = $language;
+        $this->assertEquals($expected, XH_getRootFolder());
+    }
+
+    public function getRootFolderData()
+    {
+        return array(
+            array('/xh/', 'en', '/xh/'),
+            array('/xh/en/', 'en', '/xh/'),
+            array('/xh/index.php', 'en', '/xh/'),
+            array('/xh/en/index.php', 'en', '/xh/'),
+            array('/en/cms/', 'en', '/en/cms/')
+        );
+    }
+
+    public function testRegisterPluginType()
+    {
+        XH_registerPluginType('editor', 'tinymce');
+        XH_registerPluginType('filebrowser', 'filebrowser');
+        XH_registerPluginType('editor', 'ckeditor');
+        $this->assertEmpty(XH_registerPluginType('unknown'));
+        $this->assertEquals(
+            array('ckeditor', 'tinymce'), XH_registerPluginType('editor')
+        );
+        $this->assertEquals(
+            array('filebrowser'), XH_registerPluginType('filebrowser')
+        );
+    }
 }
 
 ?>

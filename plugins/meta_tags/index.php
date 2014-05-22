@@ -55,10 +55,10 @@ if ($pd_current['title']) {
     $cf['site']['title'] = $pd_current['title'];
 }
 if ($pd_current['description']) {
-    $cf['meta']['description'] = $pd_current['description'];
+    $tx['meta']['description'] = $pd_current['description'];
 }
 if ($pd_current['keywords']) {
-    $cf['meta']['keywords'] = $pd_current['keywords'];
+    $tx['meta']['keywords'] = $pd_current['keywords'];
 }
 if ($pd_current['robots']) {
     $cf['meta']['robots'] = $pd_current['robots'];

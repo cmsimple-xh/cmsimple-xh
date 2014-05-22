@@ -210,6 +210,7 @@ require_once $pth['folder']['classes'] . 'PasswordHash.php';
 require_once $pth['folder']['classes'] . 'PageDataRouter.php';
 require_once $pth['folder']['classes'] . 'PageDataModel.php';
 require_once $pth['folder']['classes'] . 'PageDataView.php';
+require_once $pth['folder']['classes'] . 'PluginMenu.php';
 require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
 require_once UTF8 . '/utils/validation.php';
@@ -328,7 +329,7 @@ $pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
  * as these might be set from non UTF-8 scripts on the domain.
  */
 XH_checkValidUtf8(
-    array($_GET, $_POST, $_SERVER, array_keys($_GET), array_keys($_POST))
+    array($_GET, $_POST, $_SERVER, array_keys($_POST))
 );
 
 /**
@@ -522,10 +523,7 @@ foreach ($temp as $i) {
 /**
  * The absolute path of the root folder.
  */
-define(
-    'CMSIMPLE_ROOT',
-    str_replace('index.php', '', str_replace('/' . $sl . '/', "/", $sn))
-);
+define('CMSIMPLE_ROOT', XH_getRootFolder());
 
 /**
  * The relative path of the root folder.
@@ -602,6 +600,20 @@ $f = '';
  */
 $xh_hasher = new PasswordHash(8, true);
 
+/**
+ * The plugin menu builder.
+ *
+ * @global XH_ClassicPluginMenu $_XH_pluginMenu
+ */
+$_XH_pluginMenu = new XH_ClassicPluginMenu();
+
+/**
+ * The currently loaded plugin.
+ *
+ * @global string $plugin
+ */
+$plugin = null;
+
 /*
  * Include required_classes of all plugins.
  */
@@ -615,7 +627,7 @@ foreach (XH_plugins() as $plugin) {
 /**
  * The CRSF protection object.
  *
- * @global object $_XH_csrfProtection
+ * @global XH_CSRFProtection $_XH_csrfProtection
  */
 $_XH_csrfProtection = new XH_CSRFProtection();
 
@@ -752,7 +764,7 @@ $cl = 0;
 /**
  * The page data router.
  *
- * @global object $pd_router
+ * @global XH_PageDataRouter $pd_router
  */
 $pd_router = null;
 
@@ -890,7 +902,7 @@ $pd_s = $s == -1 && !$f && $o == '' && $su == '' ? 0 : $s;
 /**
  * The infos about the current page.
  *
- * @global object $pd_current
+ * @global array $pd_current
  */
 $pd_current = $pd_router->find_page($pd_s);
 
@@ -997,18 +1009,28 @@ case 'forgotten':
     break;
 }
 
-// Compatibility for DHTML menus
-$si = -1;
+/**
+ * The page indexes of the visible menu items.
+ *
+ * @global array $hc
+ */
 $hc = array();
-for ($i = 0; $i < $cl; $i++) {
-    if (!hide($i) || ($i == $s && $cf['show_hidden']['pages_toc'] == 'true')) {
-        $hc[] = $i;
-    }
-    if ($i == $s) {
-        $si = count($hc);
-    }
-}
-$hl = count($hc);
+
+/**
+ * The length of {@link $hc}.
+ *
+ * @global int $hl
+ */
+$hl = -1;
+
+/**
+ * The index of the current page in {@link $hc}.
+ *
+ * @global int $si
+ */
+$si = -1;
+
+XH_buildHc();
 
 // LEGAL NOTICES - not needed under GPL3
 if (empty($cf['menu']['legal'])) {
@@ -1235,6 +1257,9 @@ if ($title == '') {
 if (!headers_sent($temp, $i)) {
     header('Content-Type: text/html; charset=UTF-8');
     header("Content-Language: $sl");
+    if ($cf['security']['frame_options'] != '') {
+        header('X-Frame-Options: ' . $cf['security']['frame_options']);
+    }
 } else {
     $temp .= ':' . $i;
     exit(str_replace('{location}', $temp, $tx['error']['headers']));

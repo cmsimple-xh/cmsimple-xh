@@ -185,7 +185,8 @@ class XH_TextFileEdit extends XH_FileEdit
     {
         global $sn, $tx, $_XH_csrfProtection;
 
-        $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;        $value = utf8_ucfirst($tx['action']['save']);
+        $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;
+        $value = utf8_ucfirst($tx['action']['save']);
         if (isset($_GET['xh_success'])) {
             $filetype = utf8_ucfirst($tx['filetype'][stsl($_GET['xh_success'])]);
             $message =  XH_message('success', $tx['message']['saved'], $filetype);
@@ -194,7 +195,7 @@ class XH_TextFileEdit extends XH_FileEdit
         }
         $button = tag('input type="submit" class="submit" value="' . $value . '"');
         $o = '<h1>' . $this->caption . '</h1>' . $message
-            . '<form action="' . $action . '" method="POST">'
+            . '<form action="' . $action . '" method="post">'
             . '<textarea rows="25" cols="80" name="' . $this->textareaName
             . '" class="xh_file_edit">'
             . XH_hsc($this->text)
@@ -228,8 +229,8 @@ class XH_TextFileEdit extends XH_FileEdit
         $_XH_csrfProtection->check();
         $this->text = stsl($_POST[$this->textareaName]);
         if ($this->save()) {
-            header('Location: ' . $this->redir, true, 303);
-            exit;
+            header('Location: ' . CMSIMPLE_URL . $this->redir, true, 303);
+            XH_exit();
         } else {
             e('cntsave', 'file', $this->filename);
             return $this->form();
@@ -530,9 +531,24 @@ class XH_ArrayFileEdit extends XH_FileEdit
                 $label = ($val == '')
                     ? ' label="' . $tx['label']['empty'] . '"'
                     : '';
-                $o .= '<option' . $sel . $label . '>' . $val . '</option>';
+                $o .= '<option' . $sel . $label . '>' . XH_hsc($val) . '</option>';
             }
             $o .= '</select>';
+            return $o;
+        case 'xenum':
+            $o = tag(
+                'input type="text" name="' . $iname . '" value="'
+                . XH_hsc($opt['val']) . '" class="xh_setting" list="'
+                . $iname . '_DATA"'
+            );
+            $o .= '<datalist id="' . $iname . '_DATA">';
+            foreach ($opt['vals'] as $val) {
+                $label = ($val == '')
+                    ? ' label="' . $tx['label']['empty'] . '"'
+                    : '';
+                $o .= tag('option' . $label . ' value="' . XH_hsc($val) . '"');
+            }
+            $o .= '</datalist>';
             return $o;
         case 'hidden':
         case 'random':
@@ -577,7 +593,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
         }
         $o = '<h1>' . $this->caption . '</h1>' . $message
             . '<form id="xh_config_form" action="' . $action
-            . '" method="POST" accept-charset="UTF-8">'
+            . '" method="post" accept-charset="UTF-8">'
             . $button;
         foreach ($this->cfg as $category => $options) {
             $hasVisibleFields = $this->hasVisibleFields($options);
@@ -636,17 +652,20 @@ class XH_ArrayFileEdit extends XH_FileEdit
     {
         global $tx, $xh_hasher;
 
-        if ($_POST[$iname . '_OLD'] == '') {
+        if (!isset($_POST[$iname . '_OLD']) || $_POST[$iname . '_OLD'] == '') {
             $val = $opt['val'];
         } else {
             $val = false;
-            $old = stsl($_POST[$iname . '_OLD']);
-            $new = stsl($_POST[$iname . '_NEW']);
-            $confirm = stsl($_POST[$iname . '_CONFIRM']);
+            $old = isset($_POST[$iname . '_OLD'])
+                ? stsl($_POST[$iname . '_OLD']) : '';
+            $new = isset($_POST[$iname . '_NEW'])
+                ? stsl($_POST[$iname . '_NEW']) : '';
+            $confirm = isset($_POST[$iname . '_CONFIRM'])
+                ? stsl($_POST[$iname . '_CONFIRM']) : '';
             if (!$xh_hasher->CheckPassword($old, $opt['val'])) {
                 $errors[] = '<li>' . $tx['password']['wrong'] . '</li>';
             } else {
-                if ($new == '') {
+                if (!preg_match('/^[!-~]+$/u', $new)) {
                     $errors[] = '<li>' . $tx['password']['invalid'] . '</li>';
                 } elseif ($new != $confirm) {
                     $errors[] = '<li>' . $tx['password']['mismatch'] . '</li>';
@@ -697,8 +716,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
             $e .= implode('', $errors);
             return $this->form();
         } elseif ($this->save()) {
-            header('Location: ' . $this->redir, true, 303);
-            exit;
+            header('Location: ' . CMSIMPLE_URL . $this->redir, true, 303);
+            XH_exit();
         } else {
             e('cntsave', 'file', $this->filename);
             return $this->form();
@@ -717,21 +736,27 @@ class XH_ArrayFileEdit extends XH_FileEdit
     function option($mcf, $val, $hint)
     {
         $type = isset($mcf) ? $mcf : 'string';
-        if (strpos($type, 'enum:') === 0) {
-            $vals = explode(',', substr($type, strlen('enum:')));
-            $type = 'enum';
-        } elseif (strpos($type, 'function:') === 0) {
-            $func = substr($type, strlen('function:'));
+        list($typeTag) = explode(':', $type);
+        switch ($typeTag) {
+        case 'enum':
+        case 'xenum':
+            $vals = explode(',', substr($type, strlen($typeTag) + 1));
+            $type = $typeTag;
+            break;
+        case 'function':
+        case 'xfunction':
+            $func = substr($type, strlen($typeTag) + 1);
             if (function_exists($func)) {
                 $vals = call_user_func($func);
             } else {
                 $vals = array();
             }
-            $type = 'enum';
-        } else {
+            $type = ($typeTag == 'function') ? 'enum' : 'xenum';
+            break;
+        default:
             $vals = null;
         }
-        $co = array('val' => $val, 'type' => $type,  'vals' => $vals);
+        $co = compact('val', 'type', 'vals');
         if (isset($hint)) {
             $co['hint'] = $hint;
         }
