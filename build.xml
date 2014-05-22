@@ -118,7 +118,7 @@
 
     <target name="php-doc">
         <phpdoc title="CMSimple_XH Developer Documentation" destdir="doc/php"
-                output="HTML:frames:default" defaultpackagename="XH"
+                output="HTML:Smarty:HandS" defaultpackagename="XH"
                 defaultcategoryname="CMSimple_XH">
             <fileset refid="php-sources"/>
             <fileset refid="tutorials"/>
