@@ -2546,9 +2546,10 @@ function XH_readConfiguration($plugin = false, $language = false)
         $$varname = array();
     }
     if (is_readable($filename)) {
+        $var = XH_includeVar($filename, $varname);
         $$varname = XH_unionOf2DArrays(
-            (array) XH_includeVar($filename, $varname),
-            (array) $$varname
+            is_array($var) ? $var : array(),
+            is_array($$varname) ? $$varname : array()
         );
     }
     return $$varname;

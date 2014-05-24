@@ -645,6 +645,52 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testReadConfigWithoutDefaultconfig()
+    {
+        global $pth;
+
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
+
+        $pth['folder']['cmsimple'] = vfsStream::url('test/');
+        $pth['file']['config'] = vfsStream::url('test/config.php');
+
+        $config = array(
+            'foo' => array('a' => 'b', 'c' => 'c'),
+            'bar' => array('a' => 'b', 'c' => 'c')
+        );
+        $config = var_export($config, true);
+        $contents = "<?php \$cf = $config;?>";
+        file_put_contents($pth['file']['config'], $contents);
+
+        $expected = array(
+            'foo' => array('a' => 'b', 'c' => 'c'),
+            'bar' => array('a' => 'b', 'c' => 'c')
+        );
+        $this->assertEquals($expected, XH_readConfiguration());
+    }
+
+    /**
+     * Should also test other include failures, which can't be easily simulated.
+     *
+     * @link http://cmsimpleforum.com/viewtopic.php?f=17&t=7679#p41533
+     */
+    public function testReadCorruptConfiguration()
+    {
+        global $pth;
+
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
+
+        $pth['folder']['cmsimple'] = vfsStream::url('test/');
+        $pth['file']['config'] = vfsStream::url('test/config.php');
+
+        $contents = "<?php \$cf = false;?>";
+        file_put_contents($pth['file']['config'], $contents);
+
+        $this->assertEquals(array(), XH_readConfiguration());
+    }
+
     public function testRenameFile()
     {
         vfsStreamWrapper::register();
