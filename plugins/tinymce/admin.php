@@ -22,6 +22,13 @@
 
 if (!XH_ADM) {     return; }
 
+/*
+ * Register the plugin menu items.
+ */
+if (function_exists('XH_registerStandardPluginMenuItems')) {
+    XH_registerStandardPluginMenuItems(false);
+}
+
 initvar('tinymce');
 
 if ($tinymce) {
