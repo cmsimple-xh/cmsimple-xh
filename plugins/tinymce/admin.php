@@ -23,6 +23,13 @@
 if (!XH_ADM) {     return; }
 
 /*
+ * Register the plugin type.
+ */
+if (function_exists('XH_registerPluginType')) {
+    XH_registerPluginType  ('editor');
+}
+
+/*
  * Register the plugin menu items.
  */
 if (function_exists('XH_registerStandardPluginMenuItems')) {
