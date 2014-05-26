@@ -26,7 +26,7 @@ if (!XH_ADM) {     return; }
  * Register the plugin type.
  */
 if (function_exists('XH_registerPluginType')) {
-    XH_registerPluginType  ('editor');
+    XH_registerPluginType  ('editor', $plugin);
 }
 
 /*
