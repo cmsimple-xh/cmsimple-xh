@@ -32,7 +32,7 @@ function XH_pluginVersion($plugin)
     global $pth;
 
     $internalPlugins = array(
-        'filebrowser', 'meta_tags', 'page_params', 'tinymce', 'tinymce4'
+        'filebrowser', 'meta_tags', 'page_params', 'tinymce'
     );
     if (in_array($plugin, $internalPlugins)) {
         $version = 'for ' . CMSIMPLE_XH_VERSION;
