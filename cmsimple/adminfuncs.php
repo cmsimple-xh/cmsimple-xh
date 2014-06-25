@@ -488,6 +488,8 @@ function pluginMenu($add = '', $link = '', $target = '', $text = '',
  * @param bool $showMain Whether to display the main settings item.
  *
  * @return void
+ *
+ * @since 1.6.2
  */
 function XH_registerStandardPluginMenuItems($showMain)
 {
@@ -507,6 +509,8 @@ function XH_registerStandardPluginMenuItems($showMain)
  * @return mixed
  *
  * @staticvar array $pluginMenu The array of already registered menu items.
+ *
+ * @since 1.6.2
  */
 function XH_registerPluginMenuItem($plugin, $label = null, $url = null,
     $target = null
