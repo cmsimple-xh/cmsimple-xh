@@ -182,7 +182,7 @@ if (!defined('E_USER_DEPRECATED')) {
     /**
      * @ignore
      */
-    define('E_USER_DEPRECATED', 16384);
+    define('E_USER_DEPRECATED', E_USER_NOTICE);
 }
 
 /**
