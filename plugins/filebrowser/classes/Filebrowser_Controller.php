@@ -428,19 +428,24 @@ class Filebrowser_Controller
     {
         $file = $_FILES['fbupload'];
 
-        if ($file['error'] != 0) {
-            switch ($file['error']) {
-            case UPLOAD_ERR_INI_SIZE:
-                $this->view->error('error_not_uploaded', $file['name']);
-                $this->view->info(
-                    'error_file_too_big_php',
-                    array(ini_get('upload_max_filesize'), 'upload_max_filesize')
-                );
-                return;
-            default:
-                $this->view->error('error_not_uploaded', $file['name']);
-                return;
-            }
+        switch ($file['error']) {
+        case UPLOAD_ERR_OK:
+            break;
+        case UPLOAD_ERR_INI_SIZE:
+            $this->view->error(
+                'error_file_too_big_php',
+                array(ini_get('upload_max_filesize'), 'upload_max_filesize')
+            );
+            $this->view->info('error_not_uploaded', $file['name']);
+            return;
+        case UPLOAD_ERR_NO_TMP_DIR:
+            $this->view->error('error_missing_temp_folder');
+            $this->view->info('error_not_uploaded', $file['name']);
+            return;
+        default:
+            $this->view->error('error_unknown', (string) $file['error']);
+            $this->view->info('error_not_uploaded', $file['name']);
+            return;
         }
 
         // alternatively the following might be used:
@@ -512,7 +517,7 @@ class Filebrowser_Controller
             return;
         }
         if (!mkdir($folder)) {
-            $this->view->error('error_unknown');
+            $this->view->error('error_cant_create_folder');
         }
         $this->view->success('success_folder_created', basename($folder));
     }
@@ -526,11 +531,38 @@ class Filebrowser_Controller
     {
         $folder = $this->browseBase . $this->currentDirectory
             . basename($_POST['folder']);
-        if (!rmdir($folder)) {
-            $this->view->error('error_not_deleted', basename($folder));
+        if (!$this->_isEmpty($folder)) {
+            $this->view->error('error_folder_not_empty');
+            $this->view->info('error_not_deleted', basename($folder));
             return;
+        } else {
+            if (!rmdir($folder)) {
+                $this->view->error('error_not_deleted', basename($folder));
+                return;
+            }
         }
         $this->view->success('success_deleted', basename($folder));
+    }
+
+    /**
+     * Returns whether a folder is empty.
+     *
+     * @param string $folder A folder name.
+     *
+     * @return bool
+     */
+    function _isEmpty($folder)
+    {
+        $isEmpty = true;
+        if ($dir = opendir($folder)) {
+            while (($entry = readdir($dir)) !== false) {
+                if ($entry != '.' && $entry != '..') {
+                    $isEmpty = false;
+                    break;
+                }
+            }
+        }
+        return $isEmpty;
     }
 
     /**
