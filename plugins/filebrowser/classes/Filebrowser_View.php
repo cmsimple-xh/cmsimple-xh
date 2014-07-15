@@ -251,20 +251,23 @@ class Filebrowser_View
      * @return string
      *
      * @global object The CRSF protection object.
+     * @global string The script name.
      *
      * @access protected
      */
     function subfolderList($folders)
     {
-        global $_XH_csrfProtection;
+        global $_XH_csrfProtection, $sn;
 
         $html = '';
         if (is_array($folders) && count($folders) > 0) {
+            $action = $sn . '?' . XH_hsc($_SERVER['QUERY_STRING']);
             $html = '<ul>';
             foreach ($folders as $folder) {
                 $name = str_replace($this->currentDirectory, '', $folder);
                 $html .= '<li class="folder">'
-                    . '<form style="display: inline;" method="post" action="#"'
+                    . '<form style="display: inline;" method="post" action="'
+                    . $action . '"'
                     . ' onsubmit="return FILEBROWSER.confirmFolderDelete(\''
                     . $this->translate('confirm_delete', $this->basePath . $folder)
                     . '\');">'
@@ -294,17 +297,26 @@ class Filebrowser_View
      *
      * @return string
      *
+     * @global string The script name.
+     *
      * @access protected
      */
     function subfolderListForEditor($folders)
     {
+        global $sn;
+
         $html = '';
         if (is_array($folders) && count($folders) > 0) {
+            $action = $sn . '?'
+                . htmlspecialchars(
+                    $_SERVER['QUERY_STRING'], ENT_COMPAT, 'UTF-8'
+                );
             $html = '<ul>';
             foreach ($folders as $folder) {
                 $name = str_replace($this->currentDirectory, '', $folder);
                 $html .= '<li class="folder">'
-                    . '<form style="display: inline;" method="post" action="#"'
+                    . '<form style="display: inline;" method="post" action="'
+                    . $action . '"'
                     . ' onsubmit="return FILEBROWSER.confirmFolderDelete(\''
                     . $this->translate('confirm_delete', $this->basePath . $folder)
                     . '\');">'
@@ -352,6 +364,7 @@ class Filebrowser_View
      *
      * @return string
      *
+     * @global string The script name.
      * @global array  The localization of the core.
      * @global object The CRSF protection object.
      *
@@ -359,7 +372,7 @@ class Filebrowser_View
      */
     function fileList($files)
     {
-        global $tx, $_XH_csrfProtection;
+        global $sn, $tx, $_XH_csrfProtection;
 
         if (empty($files)) {
             return '';
@@ -372,10 +385,12 @@ class Filebrowser_View
         if ($base{0} == '.' && $base{1} == '/') {
             $base = substr($base, 2);
         }
+        $action = $sn . '?' . XH_hsc($_SERVER['QUERY_STRING']);
         foreach ($files as $file) {
             $class = $class == 'odd' ? 'even' : 'odd';
             $html .= '<li style="white-space:nowrap;" class="' . $class . '">'
-                . '<form style="display: inline;" method="post" action="#"'
+                . '<form style="display: inline;" method="post" action="'
+                . $action . '"'
                 . ' onsubmit="return FILEBROWSER.confirmFileDelete(\''
                 . $this->translate('confirm_delete', $this->currentDirectory . $file)
                 . '\');">'
@@ -392,7 +407,8 @@ class Filebrowser_View
                 )
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
-                . '<form method="post" style="display:inline;" action="#"'
+                . '<form method="post" style="display:inline;" action="'
+                . $action . '"'
                 . ' onsubmit="return FILEBROWSER.promptNewName(this, \''
                 . $this->translate('prompt_rename', $file) . '\');"'
                 . '>'
