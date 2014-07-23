@@ -6,7 +6,8 @@ $cf['security']['email']="";
 $cf['security']['frame_options']="";
 $cf['site']['template']="mini1";
 $cf['site']['timezone']="";
-$cf['language']['default']="de";
+$cf['language']['default']="en";
+$cf['language']['2nd_lang_names']="cs=Čeština;da=Dansk;de=Deutsch;en=English;es=Español;fi=Suomi;fr=Français;gr=Ελληνικά;hu=Magyar;it=Italiano;nl=Nederlands;no=Norsk;pl=Polski;ru=Русский;se=Svensk;sk=Slovenčina";
 $cf['meta']['robots']="index, follow";
 $cf['meta']['author']="";
 $cf['locator']['show_homepage']="true";
@@ -45,5 +46,4 @@ $cf['xhtml']['amp']="true";
 $cf['editmenu']['scroll']="";
 $cf['editmenu']['external']="";
 $cf['title']['format']="{SITE} &ndash; {PAGE}";
-
 ?>

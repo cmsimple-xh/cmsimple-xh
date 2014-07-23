@@ -719,15 +719,24 @@ function languagemenu()
     $i = array_search($sl, $r);
     unset($r[$i]);
 
+    $langNames = explode(';',$cf['language']['2nd_lang_names']);
+    foreach ($langNames as $value) {
+    	$langName[substr($value,0,2)] = substr($value,3);
+    }
     $t = '';
     foreach ($r as $lang) {
         $url = $pth['folder']['base']
             . ($lang == $cf['language']['default'] ? '' : $lang . '/');
         $img = $pth['folder']['flags'] . $lang . '.gif';
+
+        $title = isset($langName[$lang])
+            ? $langName[$lang]
+            : '&nbsp;' . $lang . '&nbsp;';
+
         $el = file_exists($img)
             ? tag(
-                'img src="' . $img . '" alt="' . $lang . '" title="&nbsp;'
-                . $lang . '&nbsp;" class="flag"'
+                'img src="' . $img . '" alt="' . $lang . '" title="'
+                . $title . '" class="flag"'
             )
             : '[' . $lang . ']';
         $t .= '<a href="' . $url . '">' . $el . '</a> ';
@@ -735,4 +744,24 @@ function languagemenu()
     return $t;
 }
 
+
+/**
+ * Provides a minimal template (in case template isn't found)
+ *
+ */
+function emergencyTemplate() {
+    header('HTTP/1.0 503 Service Unavailable');
+    header('Content-Type: text/html;charset=UTF-8');
+    echo '<!DOCTYPE html><head>'
+    . head()
+    . '</head><body '
+    . onload()
+    . '>'
+    . sitename()
+    . toc()
+    . content()
+    . loginlink()
+    . '</body></html>';
+    exit;
+}
 ?>
