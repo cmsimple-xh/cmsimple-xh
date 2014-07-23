@@ -1,12 +1,12 @@
 <?php
 
 $cf['security']['password']="\$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1";
-$cf['security']['secret']="cf6055c67b190634cdc08658";
+$cf['security']['secret']="5b2b98208d4fc6ce9331e47d";
 $cf['security']['email']="";
 $cf['security']['frame_options']="";
 $cf['site']['template']="mini1";
 $cf['site']['timezone']="";
-$cf['language']['default']="en";
+$cf['language']['default']="de";
 $cf['meta']['robots']="index, follow";
 $cf['meta']['author']="";
 $cf['locator']['show_homepage']="true";

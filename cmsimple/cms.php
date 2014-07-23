@@ -1300,12 +1300,8 @@ if ($temp) {
     }
     fclose($temp);
 }
-if (!$i) {
-    header('HTTP/1.0 500 Internal Server Error');
-    header('Content-Type: text/plain; charset=utf-8');
-    echo $tx['error']['missing'], ' ', $tx['filetype']['template'], "\n",
-        $pth['file']['template'];
-    exit;
+if (!$i) {// the template could not be included
+    emergencyTemplate();
 }
 
 $_XH_csrfProtection->store();
