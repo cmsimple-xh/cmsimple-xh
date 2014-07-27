@@ -231,13 +231,13 @@ class XH_PluginMenu
         global $pth;
 
         $this->mainUrl = $this->scriptName . '?&' . $this->plugin
-            . '&admin=plugin_main&action=plugin_text';
+            . '&admin=plugin_main&action=plugin_text&normal';
         $this->cssUrl = $this->scriptName . '?&' . $this->plugin
-            . '&admin=plugin_stylesheet&action=plugin_text';
+            . '&admin=plugin_stylesheet&action=plugin_text&normal';
         $this->configUrl = $this->scriptName . '?&' . $this->plugin
-            . '&admin=plugin_config&action=plugin_edit';
+            . '&admin=plugin_config&action=plugin_edit&normal';
         $this->languageUrl = $this->scriptName . '?&' . $this->plugin
-            . '&admin=plugin_language&action=plugin_edit';
+            . '&admin=plugin_language&action=plugin_edit&normal';
         $this->helpUrl = $pth['file']['plugin_help'];
     }
 }
