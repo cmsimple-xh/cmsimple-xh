@@ -386,8 +386,8 @@ XH.promptBackupName = function (form) {
         if (suffix === null) {
             return false;
         }
-    } while (!/^[a-z_0-9-]{1,20}$/i.test(suffix));
-    field.value = suffix;
+    } while (!/^[a-z_0-9-]{0,20}$/i.test(suffix));
+    field.value = suffix? suffix : 'content';
     return true;
 };
 
