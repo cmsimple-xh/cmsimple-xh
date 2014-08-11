@@ -719,9 +719,9 @@ function languagemenu()
     $i = array_search($sl, $r);
     unset($r[$i]);
 
-    $langNames = explode(';',$cf['language']['2nd_lang_names']);
+    $langNames = explode(';', $cf['language']['2nd_lang_names']);
     foreach ($langNames as $value) {
-    	$langName[substr($value,0,2)] = substr($value,3);
+        $langName[substr($value, 0, 2)] = substr($value, 3);
     }
     $t = '';
     foreach ($r as $lang) {
@@ -746,10 +746,14 @@ function languagemenu()
 
 
 /**
- * Provides a minimal template (in case template isn't found)
+ * Provides a minimal template (in case template isn't found).
  *
+ * @return void
+ *
+ * @since 1.6.3
  */
-function emergencyTemplate() {
+function XH_emergencyTemplate()
+{
     header('HTTP/1.0 503 Service Unavailable');
     header('Content-Type: text/html;charset=UTF-8');
     echo '<!DOCTYPE html><head>'
@@ -764,4 +768,5 @@ function emergencyTemplate() {
     . '</body></html>';
     exit;
 }
+
 ?>

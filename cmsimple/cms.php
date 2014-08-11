@@ -1301,7 +1301,7 @@ if ($temp) {
     fclose($temp);
 }
 if (!$i) {// the template could not be included
-    emergencyTemplate();
+    XH_emergencyTemplate();
 }
 
 $_XH_csrfProtection->store();
