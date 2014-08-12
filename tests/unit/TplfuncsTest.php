@@ -14,6 +14,7 @@
  * @link      http://cmsimple-xh.org/
  */
 
+require_once './vendor/autoload.php';
 require_once './cmsimple/functions.php';
 
 /**
@@ -157,30 +158,90 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
         $this->assertEmpty($actual);
     }
 
+    /**
+     * Tests the link to the previous page.
+     *
+     * @return void
+     *
+     * @global array The localization of the core.
+     * @global int   The index of the requested page.
+     */
     public function testPreviouspage()
     {
         global $tx, $s;
 
-        $s = 1;
+        $s = 10;
+        $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $hideMock->expects($this->any())->will($this->returnValue(false));
         $matcher = array(
             'tag' => 'a',
+            'attributes' => array('rel' => 'prev'),
             'content' => $tx['navigator']['previous']
         );
-        $actual = previouspage();
-        $this->assertTag($matcher, $actual);
+        $this->assertTag($matcher, previouspage());
+        $hideMock->restore();
     }
 
+    /**
+     * Tests that there's no link to the previous page if there is none.
+     *
+     * @return void
+     *
+     * @global int The index of the requested page.
+     */
+    public function testNoPreviousPage()
+    {
+        global $s;
+
+        $s = 10;
+        $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $hideMock->expects($this->any())->will($this->returnValue(true));
+        $this->assertEmpty(previouspage());
+        $hideMock->restore();
+    }
+
+    /**
+     * Tests the link to the next page.
+     *
+     * @return void
+     *
+     * @global array The localization of the core.
+     * @global int   The index of the requested page.
+     * @global int   The number of pages.
+     */
     public function testNextpage()
     {
         global $tx, $s, $cl;
 
-        $s = -1; $cl = 1;
+        $s = 0; $cl = 10;
+        $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $hideMock->expects($this->any())->will($this->returnValue(false));
         $matcher = array(
-            'tag' => 'a'/*,
-            'content' => $tx['navigator']['next']*/
+            'tag' => 'a',
+            'attributes' => array('rel' => 'next'),
+            'content' => 'next' /*$tx['navigator']['next']*/
         );
-        $actual = nextpage();
-        $this->assertTag($matcher, $actual);
+        $this->assertTag($matcher, nextpage());
+        $hideMock->restore();
+    }
+
+    /**
+     * Tests that there's no link to the next page if there is none.
+     *
+     * @return void
+     *
+     * @global int The index of the requested page.
+     * @global int The number of pages.
+     */
+    public function testNoNextPage()
+    {
+        global $s, $cl;
+
+        $s = 0; $cl = 10;
+        $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $hideMock->expects($this->any())->will($this->returnValue(true));
+        $this->assertNull(nextpage());
+        $hideMock->restore();
     }
 
     public function testTop()

@@ -637,7 +637,6 @@ function submenu()
     }
 }
 
-
 /**
  * Returns the link to the previous page.
  *
@@ -655,11 +654,10 @@ function previouspage()
 
     for ($i = $s - 1; $i > -1; $i--) {
         if (!hide($i)) {
-            return a($i, '') . $tx['navigator']['previous'] . '</a>';
+            return a($i, '" rel="prev') . $tx['navigator']['previous'] . '</a>';
         }
     }
 }
-
 
 /**
  * Returns the link to the next page
@@ -678,11 +676,10 @@ function nextpage()
 
     for ($i = $s + 1; $i < $cl; $i++) {
         if (!hide($i)) {
-            return a($i, '') . $tx['navigator']['next'] . '</a>';
+            return a($i, '" rel="next') . $tx['navigator']['next'] . '</a>';
         }
     }
 }
-
 
 /**
  * Returns a link to the top of the page.
