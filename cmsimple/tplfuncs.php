@@ -638,46 +638,40 @@ function submenu()
 }
 
 /**
- * Returns the link to the previous page.
+ * Returns a link to the previous page.
  *
  * @return string (X)HTML.
  *
- * @global int   The index of the current page.
- * @global int   The number of pages.
  * @global array The localization of the core.
  *
  * @see nextpage()
  */
 function previouspage()
 {
-    global $s, $cl, $tx;
+    global $tx;
 
-    for ($i = $s - 1; $i > -1; $i--) {
-        if (!hide($i)) {
-            return a($i, '" rel="prev') . $tx['navigator']['previous'] . '</a>';
-        }
+    $index = XH_findPreviousPage();
+    if ($index !== false) {
+        return a($index, '" rel="prev') . $tx['navigator']['previous'] . '</a>';
     }
 }
 
 /**
- * Returns the link to the next page
+ * Returns a link to the next page
  *
  * @return string (X)HTML.
  *
- * @global int   The index of the current page.
- * @global int   The number of pages.
  * @global array The localization of the core.
  *
  * @see previouspage()
  */
 function nextpage()
 {
-    global $s, $cl, $tx;
+    global $tx;
 
-    for ($i = $s + 1; $i < $cl; $i++) {
-        if (!hide($i)) {
-            return a($i, '" rel="next') . $tx['navigator']['next'] . '</a>';
-        }
+    $index = XH_findNextPage();
+    if ($index !== false) {
+        return a($index, '" rel="next') . $tx['navigator']['next'] . '</a>';
     }
 }
 

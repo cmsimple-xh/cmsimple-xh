@@ -196,7 +196,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
         $s = 10;
         $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
         $hideMock->expects($this->any())->will($this->returnValue(true));
-        $this->assertEmpty(previouspage());
+        $this->assertNull(previouspage());
         $hideMock->restore();
     }
 

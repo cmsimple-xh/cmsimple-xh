@@ -980,6 +980,50 @@ function XH_readContents($language = null)
 }
 
 /**
+ * Finds the index of the previous page.
+ *
+ * @return int
+ *
+ * @global int   The index of the current page.
+ * @global int   The number of pages.
+ *
+ * @since 1.6.3
+ */
+function XH_findPreviousPage()
+{
+    global $s, $cl;
+
+    for ($i = $s - 1; $i > -1; $i--) {
+        if (!hide($i)) {
+            return $i;
+        }
+    }
+    return false;
+}
+
+/**
+ * Finds the index of the next page.
+ *
+ * @return int
+ *
+ * @global int The index of the current page.
+ * @global int The number of pages.
+ *
+ * @since 1.6.3
+ */
+function XH_findNextPage()
+{
+    global $s, $cl;
+
+    for ($i = $s + 1; $i < $cl; $i++) {
+        if (!hide($i)) {
+            return $i;
+        }
+    }
+    return false;
+}
+
+/**
  * Returns an opening a tag as link to a page.
  *
  * @param int    $i The page index.
