@@ -2212,7 +2212,7 @@ function XH_secondLanguages()
         $langs = array();
         if ($dir = opendir($pth['folder']['base'])) {
             while (($entry = readdir($dir)) !== false) {
-                if (XH_isLanguageFolder($entry)) {
+                if ($entry[0] != '.' && XH_isLanguageFolder($entry)) {
                     $langs[] = $entry;
                 }
             }
@@ -2222,7 +2222,6 @@ function XH_secondLanguages()
     }
     return $langs;
 }
-
 /**
  * Returns whether a path refers to a CMSimple index.php.
  *
