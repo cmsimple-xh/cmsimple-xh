@@ -739,6 +739,16 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
             array('filebrowser'), XH_registerPluginType('filebrowser')
         );
     }
+
+    /**
+     * Tests XH_formatDate().
+     *
+     * @return void
+     */
+    public function testFormatDate()
+    {
+        $this->assertEquals('January 02, 1970, 11:17', XH_formatDate('123456'));
+    }
 }
 
 ?>

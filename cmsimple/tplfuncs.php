@@ -514,8 +514,7 @@ function lastupdate($br = null, $hour = null)
         $t .= ' ';
     }
     return $t
-        . date(
-            $tx['lastupdate']['dateformat'],
+        . XH_formatDate(
             filemtime($pth['file']['content']) + (isset($hour) ? $hour * 3600 : 0)
         );
 }

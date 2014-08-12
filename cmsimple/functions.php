@@ -2780,4 +2780,20 @@ function XH_onShutdown()
     }
 }
 
+/**
+ * Returns a timestamp formatted according to <var>$tx[lastupdate][dateformat]</var>.
+ *
+ * @return string
+ *
+ * @global array The localization of the core.
+ *
+ * @since 1.6.3
+ */
+function XH_formatDate($timestamp)
+{
+    global $tx;
+
+    return date($tx['lastupdate']['dateformat'], $timestamp);
+}
+
 ?>
