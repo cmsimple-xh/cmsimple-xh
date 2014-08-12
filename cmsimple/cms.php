@@ -299,6 +299,13 @@ if ($tx['locale']['all'] != '') {
     setlocale(LC_ALL, $tx['locale']['all']);
 }
 
+/*
+ * Register shutdown handler.
+ */
+if (function_exists('error_get_last')) {
+    register_shutdown_function('XH_onShutdown');
+}
+
 // removed from the core in XH 1.6, but left for compatibility with plugins.
 $tx['meta']['codepage']='UTF-8';
 

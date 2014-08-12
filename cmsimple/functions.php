@@ -2717,4 +2717,23 @@ function XH_registeredEditmenuPlugins()
     return XH_registerPluginType('editmenu');
 }
 
+/**
+ * Handles the shutdown of the script.
+ *
+ * Currently, it only displays a message if a fatal error occurred.
+ *
+ * @return void
+ *
+ * @global array The localization of the core.
+ */
+function XH_onShutdown()
+{
+    global $tx;
+
+    $lastError = error_get_last();
+    if (in_array($lastError['type'], array(E_ERROR, E_PARSE))) {
+        echo $tx['error']['fatal'];
+    }
+}
+
 ?>

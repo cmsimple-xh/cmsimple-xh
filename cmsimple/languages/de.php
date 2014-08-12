@@ -55,6 +55,7 @@ $tx['error']['cntlocateheading']="Keine Seite ausgewählt";
 $tx['error']['cntopen']="Nicht zu öffnen:";
 $tx['error']['cntsave']="Nicht abspeicherbar:";
 $tx['error']['cntwriteto']="Nicht schreibbar:";
+$tx['error']['fatal']="Ein fataler Fehler ist aufgetreten. Aktivieren Sie den <a href=\"http://www.cmsimple-xh.org/wiki/doku.php/de:troubleshooting#debug-modus\" target=\"_blank\">Debug-Modus</a> für weitere Hinweise.";
 $tx['error']['noeditor']="Der externe Editor \"%s\" fehlt!";
 $tx['error']['nofilebrowser']="Der externe Filebrowser \"%s\" fehlt!";
 $tx['error']['nopagemanager']="Der externe Pagemanager \"%s\" fehlt!";

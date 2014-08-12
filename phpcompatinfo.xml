@@ -31,6 +31,9 @@
 
             <!-- excluded because of $delete_old_session parameter, which was added in PHP 5.1.0 only -->
             <function name="session_regenerate_id"/>
+
+            <!-- used conditionally only, but PHP_CI doesn't recognize that -->
+            <function name="error_get_last"/>
         </exclude>
     </excludes>
 </phpcompatinfo>
