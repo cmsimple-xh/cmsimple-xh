@@ -16,6 +16,49 @@
  * @link      http://cmsimple-xh.org/
  */
 
+/**
+ * Renders the prev link.
+ *
+ * @return string (X)HTML.
+ *
+ * @global string The script name.
+ * @global array  The page URLs.
+ *
+ * @since 1.6.3
+ */
+function XH_renderPrevLink()
+{
+    global $sn, $u;
+
+    $index = XH_findPreviousPage();
+    if ($index !== false) {
+        return tag('link rel="prev" href="' . $sn . '?' . $u[$index] . '"');
+    } else {
+        return '';
+    }
+}
+
+/**
+ * Renders the next link.
+ *
+ * @return string (X)HTML.
+ *
+ * @global string The script name.
+ * @global array  The page URLs.
+ *
+ * @since 1.6.3
+ */
+function XH_renderNextLink()
+{
+    global $sn, $u;
+
+    $index = XH_findNextPage();
+    if ($index !== false) {
+        return tag('link rel="next" href="' . $sn . '?' . $u[$index] . '"');
+    } else {
+        return '';
+    }
+}
 
 /**
  * Returns the complete HEAD element.
@@ -46,6 +89,7 @@ function head()
             . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org"'
         ) . "\n"
         . '<!-- plugins: ' . $plugins . ' -->' . "\n"
+        . XH_renderPrevLink() . XH_renderNextLink()
         . tag(
             'link rel="stylesheet" href="' . $pth['file']['corestyle']
             . '" type="text/css"'
@@ -56,7 +100,6 @@ function head()
         ) . "\n"
         . $hjs;
 }
-
 
 /**
  * Returns the language dependend site title.
