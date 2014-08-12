@@ -766,7 +766,7 @@ function XH_emergencyTemplate()
     . content()
     . loginlink()
     . '</body></html>';
-    exit;
+    XH_exit();
 }
 
 ?>
