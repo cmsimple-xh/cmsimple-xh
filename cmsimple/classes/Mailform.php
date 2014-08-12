@@ -194,7 +194,7 @@ class XH_Mailform
         $sent = $this->sendMail(
             $cf['mailform']['email'], $this->subject, $body,
             "From: " . $this->sender . $this->_linebreak
-            . "X-Remote: " . sv('REMOTE_ADDR') . $this->_linebreak
+            . "X-Remote: " . sv('REMOTE_ADDR')
         );
         if (!$sent) {
             XH_logMessage('error', 'XH', 'mailform', $this->sender);
