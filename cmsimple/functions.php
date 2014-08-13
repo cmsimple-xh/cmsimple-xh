@@ -557,18 +557,12 @@ function initvar($name)
 /**
  * Returns the value of a $_SERVER key.
  *
- * Has fallback to $HTTP_SERVER_VARS for PHP < 4.1.0. ;-)
- *
  * @param string $s The key.
  *
  * @return string
  */
 function sv($s)
 {
-    if (!isset($_SERVER)) {
-        global $_SERVER;
-        $_SERVER = $GLOBALS['HTTP_SERVER_VARS'];
-    }
     if (isset($_SERVER[$s])) {
         return $_SERVER[$s];
     } else {
@@ -1653,18 +1647,12 @@ function XH_plugins($admin = false)
 /**
  * Returns the value of a cookie, or <var>null</var> if the cookie doesn't exist.
  *
- * Has fallback to $HTTP_COOKIE_VARS for PHP < 4.1.0. ;-)
- *
  * @param string $s The name of the cookie.
  *
  * @return string
  */
 function gc($s)
 {
-    if (!isset($_COOKIE)) {
-        global $_COOKIE;
-        $_COOKIE = $GLOBALS['HTTP_COOKIE_VARS'];
-    }
     if (isset($_COOKIE[$s])) {
         return $_COOKIE[$s];
     }
