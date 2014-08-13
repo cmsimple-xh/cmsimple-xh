@@ -2783,6 +2783,8 @@ function XH_onShutdown()
 /**
  * Returns a timestamp formatted according to <var>$tx[lastupdate][dateformat]</var>.
  *
+ * @param int $timestamp A UNIX timestamp.
+ *
  * @return string
  *
  * @global array The localization of the core.

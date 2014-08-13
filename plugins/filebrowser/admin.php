@@ -71,8 +71,8 @@ if (!$cf['filebrowser']['external']
      */
     define('XHFB_PATH', $pth['folder']['plugins'] . 'filebrowser/');
 
-    $hjs .= '<script type="text/javascript" src="' . XHFB_PATH . 'js/filebrowser.js">'
-        . '</script>';
+    $hjs .= '<script type="text/javascript" src="' . XHFB_PATH
+        . 'js/filebrowser.js"></script>';
 
     $subdir = isset($_GET['subdir'])
         ? str_replace(array('..', '.'), '', $_GET['subdir'])
@@ -90,7 +90,8 @@ if (!$cf['filebrowser']['external']
 
     if (!empty($_SERVER['CONTENT_LENGTH']) && empty($_POST)) {
         $browser->view->error(
-            'error_file_too_big_php', array(ini_get('post_max_size'), 'post_max_size')
+            'error_file_too_big_php',
+            array(ini_get('post_max_size'), 'post_max_size')
         );
     }
     if (isset($_POST['deleteFile']) && isset($_POST['filebrowser_file'])) {
