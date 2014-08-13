@@ -756,6 +756,7 @@ function languagemenu()
     foreach ($langNames as $value) {
         $langName[substr($value, 0, 2)] = substr($value, 3);
     }
+
     $t = '';
     foreach ($r as $lang) {
         $url = $pth['folder']['base']
@@ -764,14 +765,14 @@ function languagemenu()
 
         $title = isset($langName[$lang])
             ? $langName[$lang]
-            : '&nbsp;' . $lang . '&nbsp;';
+            : $lang;
 
         $el = file_exists($img)
             ? tag(
-                'img src="' . $img . '" alt="' . $lang . '" title="'
+                'img src="' . $img . '" alt="' . $title . '" title="'
                 . $title . '" class="flag"'
             )
-            : '[' . $lang . ']';
+            : $title;
         $t .= '<a href="' . $url . '">' . $el . '</a> ';
     }
     return $t;

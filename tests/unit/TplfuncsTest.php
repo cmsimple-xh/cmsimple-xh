@@ -22,6 +22,10 @@ require_once './cmsimple/functions.php';
  */
 require_once './cmsimple/tplfuncs.php';
 
+use org\bovigo\vfs\vfsStreamWrapper;
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStream;
+
 if (!defined('XH_ADM')) {
     define('XH_ADM', true);
 }
@@ -45,6 +49,8 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
         include './cmsimple/config.php';
         include './cmsimple/languages/en.php';
         $onload = 'foo()';
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
     }
 
     public function testSitename()
@@ -254,22 +260,52 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
         $this->assertTag($matcher, $actual);
     }
 
+    /**
+     * Tests languagemenu().
+     *
+     * @return void
+     *
+     * @global array The paths of system files and folders.
+     */
     public function testLanguageMenu()
     {
         global $pth;
 
-        $pth = array('folder' => array('base' => './', 'flags' => ''));
-        runkit_function_rename('XH_secondLanguages', 'Old_secondLanguages');
-        runkit_function_add('XH_secondLanguages', '', 'return array("fr", "de");');
-        $matcher = array(
-            'tag' => 'a',
-            'attributes' => array('href' => './de/'),
-            'content' => '[de]'
+        $pth = array(
+            'folder' => array('base' => './', 'flags' => vfsStream::url('test/'))
         );
-        $actual = languagemenu();
-        $this->assertTag($matcher, $actual);
-        runkit_function_remove('XH_secondLanguages');
-        runkit_function_rename('Old_secondLanguages', 'XH_secondLanguages');
+        touch($pth['folder']['flags'] . 'da.gif');
+        $secondLanguagesMock = new PHPUnit_Extensions_MockFunction(
+            'XH_secondLanguages', null
+        );
+        $secondLanguagesMock->expects($this->any())->will(
+            $this->returnValue(array('da', 'de'))
+        );
+        $this->assertTag(
+            array(
+                'tag' => 'a',
+                'attributes' => array('href' => './de/'),
+                'content' => 'Deutsch'
+            ),
+            languagemenu()
+        );
+        $this->assertTag(
+            array(
+                'tag' => 'a',
+                'attributes' => array('href' => './da/'),
+                'child' => array(
+                    'tag' => 'img',
+                    'attributes' => array(
+                        'class' => 'flag',
+                        'alt' => 'Dansk',
+                        'title' => 'Dansk',
+                        'src' => $pth['folder']['flags'] . 'da.gif'
+                    )
+                )
+            ),
+            languagemenu()
+        );
+        $secondLanguagesMock->restore();
     }
 }
 
