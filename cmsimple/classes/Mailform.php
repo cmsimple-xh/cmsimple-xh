@@ -279,35 +279,38 @@ class XH_Mailform
             . '</div>' . "\n"
             . '<div>' . "\n" . $tx['mailform']['senderphone'] . tag('br') . "\n"
             . tag(
-                'input type="text" class="text" size="35" name="senderphone" value="'
+                'input type="tel" class="text" size="35" name="senderphone" value="'
                 . XH_hsc($this->senderphone).'"'
             ) . "\n"
             . '</div>' . "\n"
             . '<div>' . "\n" . $tx['mailform']['sender'] . tag('br') . "\n"
             . tag(
-                'input type="text" class="text" size="35" name="sender" value="'
-                . XH_hsc($this->sender).'"'
+                'input type="email" class="text" size="35" name="sender" value="'
+                . XH_hsc($this->sender).'" required="required"'
             ) . "\n"
             . '</div>' . "\n"
             . '<div>' . "\n" .  $tx['mailform']['subject'] . tag('br') . "\n"
             . tag(
                 'input type="text" class="text" size="35" name="subject" value="'
-                . XH_hsc($this->subject).'"'
+                . XH_hsc($this->subject).'" required="required"'
             ) . "\n"
             . '</div>' . "\n"
             . tag('br') . "\n";
 
         // textarea
         $name = $this->embedded ? 'xh_mailform' : 'mailform';
-        $o .= '<textarea rows="12" cols="40" name="' . $name . '">'
-            . XH_hsc($this->mailform) . '</textarea>';
+        $o .= '<textarea rows="12" cols="40" name="' . $name
+            . '" required="required">' . XH_hsc($this->mailform) . '</textarea>';
 
         // captcha
         if (isset($cf['mailform']['captcha'])
             && trim($cf['mailform']['captcha']) == 'true'
         ) {
             $o .= '<p>' .  $tx['mailform']['captcha'] . '</p>' . "\n"
-                .  tag('input type="text" name="cap" class="xh_captcha_input"')
+                .  tag(
+                    'input type="text" name="cap" class="xh_captcha_input"'
+                    . ' required="required"'
+                )
                 . "\n" .  '<span class="xh_captcha_code">' . "\n"
                 .  $random . '</span>' . "\n";
         }
