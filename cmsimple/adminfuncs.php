@@ -1087,4 +1087,18 @@ function XH_adminJSLocalization()
     return $o;
 }
 
+/**
+ * Returns whether the administration of a certain plugin is requested.
+ *
+ * @param string $pluginName A plugin name.
+ *
+ * @return bool
+ *
+ * @since 1.6.3
+ */
+function XH_wantsPluginAdministration($pluginName)
+{
+    return $GLOBALS[$pluginName] == 'true';
+}
+
 ?>
