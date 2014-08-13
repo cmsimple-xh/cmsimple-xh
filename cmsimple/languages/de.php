@@ -253,6 +253,7 @@ $tx['settings']['warning']="Bitte hier nur solche Änderungen durchführen, bei 
 $tx['submenu']['heading']="weiter zu:";
 
 $tx['syscheck']['access_protected']="'%s' zugriffsgeschützt";
+$tx['syscheck']['bom']="Ohne <a href=\"http://www.cmsimple-xh.org/wiki/doku.php/de:utf8#was_ist_ein_bom\" target=\"_blank\">BOM</a>";
 $tx['syscheck']['encoding']="UTF-8-Kodierung eingestellt";
 $tx['syscheck']['extension']="Erweiterung '%s' geladen";
 $tx['syscheck']['fail']="Fehler";

@@ -252,6 +252,7 @@ $tx['settings']['warning']="Only change settings when you understand the effect 
 $tx['submenu']['heading']="Submenu";
 
 $tx['syscheck']['access_protected']="'%s' access protected";
+$tx['syscheck']['bom']="Without <a href=\"http://www.cmsimple-xh.org/wiki/doku.php/utf8#what_s_a_bom\" target=\"_blank\">BOM</a>";
 $tx['syscheck']['encoding']="Encoding 'UTF-8' configured";
 $tx['syscheck']['extension']="Extension '%s' loaded";
 $tx['syscheck']['fail']="Failure";

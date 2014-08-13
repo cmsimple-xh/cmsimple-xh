@@ -293,6 +293,10 @@ HTML;
     $checks['other'][] = array(
         ini_get('session.use_only_cookies'), false, 'session.use_only_cookies on'
     );
+    $checks['other'][] = array(
+        strpos(ob_get_contents(), "\xEF\xBB\xBF") !== 0,
+        false, $tx['syscheck']['bom']
+    );
     $o .= XH_systemCheck($checks);
     return $o;
 }
