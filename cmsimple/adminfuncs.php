@@ -1098,7 +1098,7 @@ function XH_adminJSLocalization()
  */
 function XH_wantsPluginAdministration($pluginName)
 {
-    return $GLOBALS[$pluginName] == 'true';
+    return isset($GLOBALS[$pluginName]) && $GLOBALS[$pluginName] == 'true';
 }
 
 ?>

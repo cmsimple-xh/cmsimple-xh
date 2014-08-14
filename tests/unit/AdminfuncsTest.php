@@ -45,6 +45,31 @@ class AdminfuncsTest extends PHPUnit_Framework_TestCase
         $edit = false;
         XH_saveContents();
     }
+
+    /**
+     * Test XH_wantsPluginAdministration().
+     *
+     * @return void
+     *
+     * @global string Whether the pagemanager administration is requested.
+     */
+    public function testWantsPluginAdministration()
+    {
+        global $pagemanager;
+
+        $pagemanager = 'true';
+        $this->assertTrue(XH_wantsPluginAdministration('pagemanager'));
+    }
+
+    /**
+     * Tests XH_wantsPluginAdministration().
+     *
+     * @return void
+     */
+    public function testDoesNotWantPluginAdministration()
+    {
+        $this->assertFalse(XH_wantsPluginAdministration('pagemanager'));
+    }
 }
 
 ?>
