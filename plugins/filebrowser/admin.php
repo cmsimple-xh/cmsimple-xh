@@ -23,13 +23,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
     exit;
 }
 
-initvar('filebrowser');
-
-if ($filebrowser) {
-
-    initvar('admin');
-    initvar('action');
-
+if (XH_wantsPluginAdministration('filebrowser')) {
     $o .= print_plugin_admin('off');
 
     $o .= '<div class="plugintext">'

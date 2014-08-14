@@ -33,7 +33,7 @@ if (!defined('PLUGINLOADER')) {
  * Check if plugin was called. If so, let the
  * Loader create and handle the admin-menu
  */
-if (isset($page_params) && $page_params == 'true') {
+if (XH_wantsPluginAdministration('page_params')) {
     $o .= print_plugin_admin('off');
     if ($admin == '') {
         $o .= "\n" . '<div class="plugintext"><div class="plugineditcaption">'
