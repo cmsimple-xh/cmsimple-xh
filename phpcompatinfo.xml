@@ -34,6 +34,7 @@
 
             <!-- used conditionally only, but PHP_CI doesn't recognize that -->
             <function name="error_get_last"/>
+            <class name="Normalizer"/>
         </exclude>
     </excludes>
 </phpcompatinfo>

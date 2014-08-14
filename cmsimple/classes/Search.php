@@ -120,18 +120,11 @@ class XH_Search
         foreach ($c as $i => $content) {
             if (!hide($i) || $cf['show_hidden']['pages_search'] == 'true') {
                 $found  = true;
-                $content = evaluate_plugincall($content);
-                $content = utf8_strtolower(strip_tags($content));
-                // html_entity_decode() doesn't work reliably under PHP 4 for UTF-8
-                $decode = array(
-                    '&amp;' => '&',
-                    '&quot;' => '"',
-                    '&apos;' => '\'',
-                    '&lt;' => '<',
-                    '&gt;' => '>'
-                );
-                $content = strtr($content, $decode);
+                $content = $this->prepareContent($content);
                 foreach ($words as $word) {
+                    if (method_exists('Normalizer', 'normalize')) {
+                        $word = Normalizer::normalize($word);
+                    }
                     if (strpos($content, $word) === false) {
                         $found = false;
                         break;
@@ -143,6 +136,34 @@ class XH_Search
             }
         }
         return $result;
+    }
+
+    /**
+     * Prepares content to be searched.
+     *
+     * @param string $content A content.
+     *
+     * @return string
+     *
+     * @protected
+     */
+    function prepareContent($content)
+    {
+        $content = evaluate_plugincall($content);
+        $content = strip_tags($content);
+        if (method_exists('Normalizer', 'normalize')) {
+            $content = Normalizer::normalize($content);
+        }
+        $content = utf8_strtolower($content);
+        // html_entity_decode() doesn't work for UTF-8 under PHP 4
+        $decode = array(
+            '&amp;' => '&',
+            '&quot;' => '"',
+            '&apos;' => '\'',
+            '&lt;' => '<',
+            '&gt;' => '>'
+        );
+        return strtr($content, $decode);
     }
 
     /**
