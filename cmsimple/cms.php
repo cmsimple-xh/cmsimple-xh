@@ -1301,9 +1301,9 @@ ob_start('XH_finalCleanUp');
 
 $temp = fopen($pth['file']['template'], 'r');
 if ($temp) {
-    if (flock($temp, LOCK_SH)) {
+    if (XH_lockFile($temp, LOCK_SH)) {
         $i = include $pth['file']['template'];
-        flock($temp, LOCK_UN);
+        XH_lockFile($temp, LOCK_UN);
     }
     fclose($temp);
 }

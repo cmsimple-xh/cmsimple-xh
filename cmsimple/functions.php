@@ -1731,10 +1731,10 @@ function XH_logMessage($type, $module, $category, $description)
     $ok = false;
     $stream = fopen($pth['file']['log'], 'a');
     if ($stream) {
-        if (flock($stream, LOCK_EX)) {
+        if (XH_lockFile($stream, LOCK_EX)) {
             $ok = fwrite($stream, $message . PHP_EOL) !== false;
             fflush($stream);
-            flock($stream, LOCK_UN);
+            XH_lockFile($stream, LOCK_UN);
         }
         fclose($stream);
     }
@@ -1844,9 +1844,9 @@ function XH_readFile($filename)
     $contents = false;
     $stream = fopen($filename, 'rb');
     if ($stream) {
-        if (flock($stream, LOCK_SH)) {
+        if (XH_lockFile($stream, LOCK_SH)) {
             $contents = XH_getStreamContents($stream);
-            flock($stream, LOCK_UN);
+            XH_lockFile($stream, LOCK_UN);
         }
         fclose($stream);
     }
@@ -1871,12 +1871,12 @@ function XH_writeFile($filename, $contents)
     // we can't use "r+b" as it will fail if the file does not already exist
     $stream = fopen($filename, 'a+b');
     if ($stream) {
-        if (flock($stream, LOCK_EX)) {
+        if (XH_lockFile($stream, LOCK_EX)) {
             fseek($stream, 0);
             ftruncate($stream, 0);
             $res = fwrite($stream, $contents);
             fflush($stream);
-            flock($stream, LOCK_UN);
+            XH_lockFile($stream, LOCK_UN);
         }
         fclose($stream);
     }
@@ -2498,9 +2498,9 @@ function XH_includeVar($_filename, $_varname)
     $_res = false;
     $_stream = fopen($_filename, 'r');
     if ($_stream) {
-        if (flock($_stream, LOCK_SH)) {
+        if (XH_lockFile($_stream, LOCK_SH)) {
             $_res = include $_filename;
-            flock($_stream, LOCK_UN);
+            XH_lockFile($_stream, LOCK_UN);
         }
         fclose($_stream);
     }
@@ -2784,6 +2784,23 @@ function XH_formatDate($timestamp)
     global $tx;
 
     return date($tx['lastupdate']['dateformat'], $timestamp);
+}
+
+/**
+ * Implements portable advisory file locking.
+ *
+ * For now it is just a simple wrapper around {@link flock flock()}.
+ *
+ * @param resource $handle    A file handle.
+ * @param int      $operation A lock operation (use LOCK_SH, LOCK_EX or LOCK_UN).
+ *
+ * @return bool
+ *
+ * @since 1.6.3
+ */
+function XH_lockFile($handle, $operation)
+{
+    return flock($handle, $operation);
 }
 
 ?>

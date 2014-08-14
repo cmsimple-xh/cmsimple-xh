@@ -749,6 +749,21 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals('January 02, 1970, 11:17', XH_formatDate('123456'));
     }
+
+    /**
+     * Tests XH_lockFile().
+     *
+     * @return void
+     */
+    public function testFlock()
+    {
+        $handle = 'foo';
+        $operation = LOCK_EX;
+        $flockMock = new PHPUnit_Extensions_MockFunction('flock', null);
+        $flockMock->expects($this->once())->with($handle, $operation);
+        XH_lockFile($handle, $operation);
+        $flockMock->restore();
+    }
 }
 
 ?>
