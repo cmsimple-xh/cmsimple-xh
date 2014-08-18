@@ -91,6 +91,9 @@ class XH_Search
             foreach ($words as $word) {
                 $word = trim($word);
                 if ($word != '') {
+                    if (method_exists('Normalizer', 'normalize')) {
+                        $word = Normalizer::normalize($word);
+                    }
                     $this->words[] = $word;
                 }
             }
@@ -122,9 +125,6 @@ class XH_Search
                 $found  = true;
                 $content = $this->prepareContent($content);
                 foreach ($words as $word) {
-                    if (method_exists('Normalizer', 'normalize')) {
-                        $word = Normalizer::normalize($word);
-                    }
                     if (utf8_stripos($content, $word) === false) {
                         $found = false;
                         break;
