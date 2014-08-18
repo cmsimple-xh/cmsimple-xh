@@ -86,8 +86,7 @@ class XH_Search
     function getWords()
     {
         if (!isset($this->words)) {
-            $search = utf8_strtolower($this->searchString);
-            $words = explode(' ', $search);
+            $words = explode(' ', $this->searchString);
             $this->words = array();
             foreach ($words as $word) {
                 $word = trim($word);
@@ -112,6 +111,7 @@ class XH_Search
     {
         global $c, $cf;
 
+        include_once UTF8 . '/stripos.php';
         $result = array();
         $words = $this->getWords();
         if (empty($words)) {
@@ -125,7 +125,7 @@ class XH_Search
                     if (method_exists('Normalizer', 'normalize')) {
                         $word = Normalizer::normalize($word);
                     }
-                    if (strpos($content, $word) === false) {
+                    if (utf8_stripos($content, $word) === false) {
                         $found = false;
                         break;
                     }
@@ -149,12 +149,10 @@ class XH_Search
      */
     function prepareContent($content)
     {
-        $content = evaluate_plugincall($content);
-        $content = strip_tags($content);
+        $content = strip_tags(evaluate_plugincall($content));
         if (method_exists('Normalizer', 'normalize')) {
             $content = Normalizer::normalize($content);
         }
-        $content = utf8_strtolower($content);
         // html_entity_decode() doesn't work for UTF-8 under PHP 4
         $decode = array(
             '&amp;' => '&',
