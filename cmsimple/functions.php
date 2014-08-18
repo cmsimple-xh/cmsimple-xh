@@ -157,11 +157,7 @@ function l($n)
  */
 function evaluate_cmsimple_scripting($__text, $__compat = true)
 {
-    global $output;
-    foreach ($GLOBALS as $__name => $__dummy) {
-        $$__name = &$GLOBALS[$__name];
-    }
-
+    extract($GLOBALS, EXTR_REFS);
     $__scope_before = null; // just that it exists
     $__scripts = array();
     preg_match_all('~#CMSimple (.*?)#~is', $__text, $__scripts);
