@@ -402,7 +402,15 @@ class XH_ArrayFileEdit extends XH_FileEdit
      */
     function translate($key)
     {
-        return isset($this->lang[$key]) ? $this->lang[$key] : utf8_ucfirst($key);
+        $altKey = str_replace(' ', '_', $key);
+        if (isset($this->lang[$key])) {
+            $result = $this->lang[$key];
+        } elseif (isset($this->lang[$altKey])) {
+            $result = $this->lang[$altKey];
+        } else {
+            $result = utf8_ucfirst($key);
+        }
+        return $result;
     }
 
     /**
