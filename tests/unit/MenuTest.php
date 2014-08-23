@@ -32,7 +32,7 @@ require_once './cmsimple/tplfuncs.php';
  */
 class MenuTest extends PHPUnit_Framework_TestCase
 {
-    private $_liStub;
+    private $_aStub;
 
     private $_hideStub;
 
@@ -179,8 +179,8 @@ class MenuTest extends PHPUnit_Framework_TestCase
      */
     private function _setUpFunctionStubs()
     {
-        $this->_liStub = new PHPUnit_Extensions_MockFunction('a', $this);
-        $this->_liStub->expects($this->any())->will(
+        $this->_aStub = new PHPUnit_Extensions_MockFunction('a', null);
+        $this->_aStub->expects($this->any())->will(
             $this->returnCallback(
                 function ($pageIndex, $suffix) {
                     global $u;
@@ -189,7 +189,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
                 }
             )
         );
-        $this->_hideStub = new PHPUnit_Extensions_MockFunction('hide', $this);
+        $this->_hideStub = new PHPUnit_Extensions_MockFunction('hide', null);
         $this->_hideStub->expects($this->any())->will(
             $this->returnCallback(
                 function ($pageIndex) {
@@ -201,7 +201,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $this->_liStub->restore();
+        $this->_aStub->restore();
         $this->_hideStub->restore();
     }
 
