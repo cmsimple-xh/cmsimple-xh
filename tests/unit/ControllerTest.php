@@ -1428,6 +1428,13 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
     protected $subject;
 
     /**
+     * The e() mock.
+     *
+     * @var object
+     */
+    protected $eMock;
+
+    /**
      * The exit mock.
      *
      * @var object
@@ -1468,6 +1475,7 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
         $pd_router = $this->getMockBuilder('XH_PageDataRouter')
             ->disableOriginalConstructor()->getMock();
         $this->subject = new XH_Controller();
+        $this->eMock = new PHPUnit_Extensions_MockFunction('e', $this->subject);
         $this->exitMock = new PHPUnit_Extensions_MockFunction(
             'XH_exit', $this->subject
         );
@@ -1541,6 +1549,40 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
     {
         $_GET['xh_pagedata_ajax'] = '';
         $this->exitMock->expects($this->once());
+        $this->subject->handleSavePageData();
+    }
+
+    /**
+     * Tests that no Ajax success does not call e().
+     *
+     * @return void
+     *
+     * @global XH_PageDataRouter The page data router.
+     */
+    public function testNoAjaxSuccessDoesNotCallE()
+    {
+        global $pd_router;
+
+        $pd_router->expects($this->any())->method('update')
+            ->will($this->returnValue(true));
+        $this->eMock->expects($this->never());
+        $this->subject->handleSavePageData();
+    }
+
+    /**
+     * Tests that no Ajax failure calls e().
+     *
+     * @return void
+     *
+     * @global XH_PageDataRouter The page data router.
+     */
+    public function testNoAjaxFailureCallsE()
+    {
+        global $pd_router;
+
+        $pd_router->expects($this->any())->method('update')
+            ->will($this->returnValue(false));
+        $this->eMock->expects($this->once());
         $this->subject->handleSavePageData();
     }
 }

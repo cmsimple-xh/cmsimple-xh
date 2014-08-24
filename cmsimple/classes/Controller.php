@@ -425,7 +425,9 @@ class XH_Controller
                 }
                 XH_exit();
             } else {
-                e('cntsave', 'content', $pth['file']['content']);
+                if (!$temp) {
+                    e('cntsave', 'content', $pth['file']['content']);
+                }
             }
         }
     }
