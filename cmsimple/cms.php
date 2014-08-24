@@ -205,6 +205,7 @@ $pth['file']['config'] = $pth['folder']['cmsimple'] . 'config.php';
 // include general utility functions and classes
 require_once $pth['folder']['cmsimple'] . 'functions.php';
 require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
+require_once $pth['folder']['classes'] . 'Controller.php';
 require_once $pth['folder']['classes'] . 'CSRFProtection.php';
 require_once $pth['folder']['classes'] . 'PasswordHash.php';
 require_once $pth['folder']['classes'] . 'PageDataRouter.php';
@@ -214,6 +215,13 @@ require_once $pth['folder']['classes'] . 'PluginMenu.php';
 require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
 require_once UTF8 . '/utils/validation.php';
+
+/**
+ * The controller.
+ *
+ * @var XH_Controller
+ */
+$_XH_controller = new XH_Controller();
 
 /**
  * The configuration of the core.
@@ -974,45 +982,17 @@ XH_afterPluginLoading();
 
 
 if ($f == 'search') {
-    if (file_exists($pth['file']['search'])) {
-        // For compatibility with modified search functions and search plugins.
-        include $pth['file']['search'];
-    } else {
-        include_once $pth['folder']['classes'] . 'Search.php';
-        $title = $tx['title']['search'];
-        $temp = new XH_Search(stsl($search));
-        $o .= $temp->render();
-    }
+    $_XH_controller->handleSearch();
 }
 switch ($f) {
 case 'mailform':
-    if ($cf['mailform']['email'] != '') {
-        include_once $pth['folder']['classes'] . 'Mailform.php';
-        $temp = new XH_Mailform();
-        $title = $tx['title'][$f];
-        $o .= "\n" . '<div id="xh_mailform">' . "\n";
-        $o .= '<h1>' . $title . '</h1>' . "\n";
-        $o .= $temp->process();
-        $o .= '</div>' . "\n";
-    } else {
-        shead(404);
-    }
+    $_XH_controller->handleMailform();
     break;
 case 'sitemap':
-    $title = $tx['title'][$f];
-    $temp = array();
-    $o .= '<h1>' . $title . '</h1>' . "\n";
-    for ($i = 0; $i < $cl; $i++) {
-        if (!hide($i) || $cf['show_hidden']['pages_sitemap'] == 'true') {
-            $temp[] = $i;
-        }
-    }
-    $o .= li($temp, 'sitemaplevel');
+    $_XH_controller->handleSitemap();
     break;
 case 'forgotten':
-    include_once $pth['folder']['classes'] . 'PasswordForgotten.php';
-    $temp = new XH_PasswordForgotten();
-    $temp->dispatch();
+    $_XH_controller->handlePasswordForgotten();
     break;
 }
 
