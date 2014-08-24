@@ -743,6 +743,15 @@ $cl = 0;
 $pd_router = null;
 
 /**
+ * The index of the first published page.
+ *
+ * @global int $_XH_firstPublishedPage
+ *
+ * @since 1.6.3
+ */
+$_XH_firstPublishedPage = -1;
+
+/**
  * The index of the currently selected page.
  *
  * @global int $s
@@ -832,7 +841,7 @@ if (XH_ADM) {
  *
  * @global int $pd_s
  */
-$pd_s = $s == -1 && !$f && $o == '' && $su == '' ? 0 : $s;
+$pd_s = ($s == -1 && !$f && $o == '' && $su == '') ? $_XH_firstPublishedPage : $s;
 
 /**
  * The infos about the current page.
@@ -1018,8 +1027,8 @@ if (XH_ADM) {
 
 // fix $s
 if ($s == -1 && !$f && $o == '' && $su == '') {
-    $s = 0;
-    $hs = 0;
+    $s = $_XH_firstPublishedPage;
+    $hs = $_XH_firstPublishedPage;
 }
 
 if (XH_ADM && $f == 'save') {

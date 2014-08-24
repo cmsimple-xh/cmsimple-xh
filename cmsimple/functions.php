@@ -857,6 +857,7 @@ function rfc()
  * @global array The paths of system files and folders.
  * @global array The configuration of the core.
  * @global bool  Whether edit mode is active.
+ * @global int   The index of the first published page.
  *
  * @return array
  *
@@ -864,7 +865,7 @@ function rfc()
  */
 function XH_readContents($language = null)
 {
-    global $pth, $cf, $edit;
+    global $pth, $cf, $edit, $_XH_firstPublishedPage;
 
     if (isset($language)) {
         $contentFolder = $pth['folder']['base'] . 'content/' . $language . '/';
@@ -951,9 +952,15 @@ function XH_readContents($language = null)
     );
 
     // remove unpublished pages
+    if (!isset($language)) {
+        $_XH_firstPublishedPage = 0;
+    }
     if (!($edit && XH_ADM)) {
         foreach ($c as $i => $text) {
             if (cmscript('remove', $text)) {
+                if (!isset($language) && $_XH_firstPublishedPage == $i) {
+                    $_XH_firstPublishedPage = ($i < count($c) - 1) ? $i + 1 : -1;
+                }
                 $c[$i] = '#CMSimple hide# #CMSimple shead(404);#';
             }
         }

@@ -214,6 +214,8 @@ if (!(XH_ADM && $edit)) {
         if (!Pageparams_isPublished($j)) {
             $c[$i] = '#CMSimple hide#';
             if ($i == $pd_s) {
+                $pd_s = $_XH_firstPublishedPage
+                    = ($i < count($temp) - 1 ? $i + 1 : -1);
                 $c[$i] .= '#CMSimple shead(404);#';
             }
         } elseif ($j['linked_to_menu'] == '0') {
