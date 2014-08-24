@@ -662,6 +662,7 @@ function XH_adminMenu($plugins = array())
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['plugins']),
+            'url' => $sn, // TODO: use more sensible URL
             'children' => $pluginMenu,
             'style' => 'width:' . $width . 'px; margin-left: ' . $marginLeft . 'px'
         ),

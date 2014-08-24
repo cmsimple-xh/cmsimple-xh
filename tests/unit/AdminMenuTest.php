@@ -137,7 +137,8 @@ class AdminMenuTest extends PHPUnit_Framework_TestCase
         global $tx;
 
         $matcher = array(
-            'tag' => 'span',
+            'tag' => 'a',
+            'attributes' => array('href' => '/'),
             'content' => $tx['editmenu']['plugins'],
             'ancestor' => array(
                 'tag' => 'div',
