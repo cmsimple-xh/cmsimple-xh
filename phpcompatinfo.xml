@@ -12,16 +12,9 @@
 
     <excludes>
         <exclude id="xh">
-            <directory name="2lang"/>
             <!-- unfortunately, directory separators have to be OS dependend -->
             <file name="cmsimple\\classes\\PasswordHash.php"/>
-            <directory name="content"/>
-            <directory name="css"/>
-            <directory name="javascript"/>
-            <directory name="plugins\\tinymce4"/>
             <directory name="tests"/>
-            <directory name="tutorials"/>
-            <directory name="userfiles"/>
             <directory name="vendor"/>
 
             <!-- constants which are defined conditionally, but PHP_CompatInfo doesn't recognize it -->
