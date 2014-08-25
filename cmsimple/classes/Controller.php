@@ -729,6 +729,10 @@ EOT;
     }
 
     /**
+     * Whether edit mode is requested and the edit contents shall be displayed.
+     *
+     * @return bool
+     *
      * @access public
      *
      * @global string Whether edit mode is requested.
