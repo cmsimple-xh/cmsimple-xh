@@ -664,6 +664,7 @@ function XH_adminMenu($plugins = array())
             'label' => utf8_ucfirst($tx['editmenu']['plugins']),
             'url' => $sn, // TODO: use more sensible URL
             'children' => $pluginMenu,
+            'id' => 'xh_adminmenu_plugins',
             'style' => 'width:' . $width . 'px; margin-left: ' . $marginLeft . 'px'
         ),
         array(
@@ -713,6 +714,9 @@ function XH_adminMenuItem($item, $level = 0)
     }
     if (isset($item['children'])) {
         $t .= "\n" . $indent . '    <ul';
+        if (isset($item['id'])) {
+            $t .= ' id="' . $item['id'] . '"';
+        }
         if (isset($item['style'])) {
             $t .= ' style="' . $item['style'] . '"';
         }

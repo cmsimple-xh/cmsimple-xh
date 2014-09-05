@@ -414,6 +414,59 @@ XH.checkLinks = function (url) {
     request.send(null);
 };
 
+/**
+ * Adapts the admin menu to the viewport, so that all menu items are visible,
+ * if at least two menu items fit side by side, and there are not too many
+ * plugins.
+ *
+ * @returns {undefined}
+ *
+ * @since 1.6.3
+ */
+XH.adaptAdminMenu = function () {
+    var viewportWidth = document.documentElement.clientWidth,
+        pluginMenu = document.getElementById("xh_adminmenu_plugins"),
+        itemWidth = pluginMenu.parentNode.offsetWidth,
+        style = pluginMenu.style,
+        pluginMenuRect = pluginMenu.getBoundingClientRect(),
+        pluginMenus = document.querySelectorAll("#xh_adminmenu ul ul ul"),
+        i;
+
+    if (pluginMenu.hasAttribute("data-margin-left")) {
+        style.marginLeft = pluginMenu.getAttribute("data-margin-left");
+    } else {
+        pluginMenu.setAttribute("data-margin-left", style.marginLeft);
+    }
+    if (pluginMenuRect.left < 0) {
+        style.marginLeft = "0";
+    } else if (pluginMenuRect.right > viewportWidth) {
+        style.marginLeft = parseInt(style.marginLeft, 10) - itemWidth + "px";
+    }
+    for (i = 0; i < pluginMenus.length; i++) {
+        pluginMenu = pluginMenus[i];
+        pluginMenuRect = pluginMenu.getBoundingClientRect();
+        pluginMenu.style.left = "100%";
+        if (pluginMenuRect.right > viewportWidth) {
+            pluginMenu.style.left = "-100%";
+        }
+    }
+};
+
+/*
+ * Register resize handler for adapting the admin menu. This has some glitches,
+ * but should be acceptable.
+ */
+if (typeof window.addEventListener !== "undefined") {
+    window.addEventListener("resize", XH.adaptAdminMenu, false);
+} else if (typeof window.attachEvent !== "undefined") {
+    window.attachEvent("onresize", XH.adaptAdminMenu);
+}
+
+/*
+ * Adapts the admin menu initially.
+ */
+XH.adaptAdminMenu();
+
 /*
  * Initialize the quick submit of page data forms.
  */
