@@ -2755,15 +2755,24 @@ function XH_registeredEditmenuPlugins()
 /**
  * Handles the shutdown of the script.
  *
- * Currently, it only displays a message if a fatal error occurred.
+ * <ul>
+ * <li>Unsets erroneously set password in session (backdoor mitigation).</li>
+ * <li>Displays a message if a fatal error occurred.</li>
+ * </ul>
  *
  * @return void
  *
  * @global array The localization of the core.
+ *
+ * @since 1.6.3
  */
 function XH_onShutdown()
 {
     global $tx;
+
+    if (!XH_ADM && isset($_SESSION['xh_password'][CMSIMPLE_ROOT])) {
+        unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
+    }
 
     $lastError = error_get_last();
     if (in_array($lastError['type'], array(E_ERROR, E_PARSE))) {
