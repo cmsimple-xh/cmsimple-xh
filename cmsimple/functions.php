@@ -2305,10 +2305,10 @@ function XH_isInternalPath($path)
  */
 function XH_isInternalUrl($urlParts)
 {
-    $ok = !isset(
-        $urlParts['scheme'], $urlParts['host'], $urlParts['port'],
-        $urlParts['user'], $urlParts['pass']
-    );
+    $ok = true;
+    foreach (array('scheme', 'host', 'port', 'user', 'pass') as $key) {
+        $ok = $ok && !isset($urlParts[$key]);
+    }
     $ok = $ok
         && (!isset($urlParts['path']) || XH_isInternalPath($urlParts['path']));
     return $ok;

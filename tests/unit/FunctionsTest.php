@@ -471,6 +471,13 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
                 ),
                 false
             ),
+            array( // test for <http://cmsimpleforum.com/viewtopic.php?f=10&t=8053>
+                array(
+                    'scheme' => 'http',
+                    'host' => 'www.cmsimple-xh.org'
+                ),
+                false
+            ),
             array(array('path' =>'./', 'query' => 'Foo'), true),
             array(array('path' => './index.php', 'query' => 'Foo'), true),
             array(array('query' => 'Foo'), true),
