@@ -395,7 +395,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
             'attributes' => array('name' => 'robots', 'content' => 'index, follow')
         );
         $actual = meta('robots');
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     /**

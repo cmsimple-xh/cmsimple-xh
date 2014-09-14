@@ -162,7 +162,7 @@ class FinalCleanUpTest extends PHPUnit_Framework_TestCase
                 'attributes' => array('class' => 'xh_debug')
             )
         );
-        $this->assertNotTag($matcher, XH_finalCleanUp(self::HTML));
+        @$this->assertNotTag($matcher, XH_finalCleanUp(self::HTML));
         error_reporting($errorReporting);
     }
 
@@ -180,7 +180,8 @@ class FinalCleanUpTest extends PHPUnit_Framework_TestCase
                 'attributes' => array('class' => 'xh_debug')
             )
         );
-        $this->_assertResultMatches($matcher);
+        $output = XH_finalCleanUp(self::HTML);
+        @$this->assertTag($matcher, $output);
     }
 
     /**
@@ -235,7 +236,8 @@ class FinalCleanUpTest extends PHPUnit_Framework_TestCase
             'content' => 'html {margin-top: 58px;}',
             'parent' => array('tag' => 'head')
         );
-        $this->_assertResultMatches($matcher);
+        $output = XH_finalCleanUp(self::HTML);
+        @$this->assertTag($matcher, $output);
     }
 
     /**
@@ -273,7 +275,8 @@ class FinalCleanUpTest extends PHPUnit_Framework_TestCase
             'content' => 'html {margin-top: 22px;}',
             'parent' => array('tag' => 'head')
         );
-        $this->_assertResultMatches($matcher);
+        $output = XH_finalCleanUp(self::HTML);
+        @$this->assertTag($matcher, $output);
     }
 
     /**
@@ -344,7 +347,7 @@ class FinalCleanUpTest extends PHPUnit_Framework_TestCase
      */
     private function _assertResultMatches($matcher)
     {
-        $this->assertTag($matcher, XH_finalCleanUp(self::HTML));
+        @$this->assertTag($matcher, XH_finalCleanUp(self::HTML));
     }
 
 }

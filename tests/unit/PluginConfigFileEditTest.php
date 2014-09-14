@@ -266,7 +266,7 @@ EOT;
             'attributes' => array('name' => 'scripting_regexp'),
             'ancestor' => 'form'
         );
-        $this->assertNotTag($matcher, $this->_subject->form());
+        @$this->assertNotTag($matcher, $this->_subject->form());
     }
 
     /**
@@ -389,7 +389,7 @@ EOT;
 
     private function _assertFormMatches($matcher)
     {
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     //public function dataForFormField()

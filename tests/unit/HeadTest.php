@@ -98,7 +98,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
     {
         $this->titleMock->expects($this->any())
             ->will($this->returnValue('<b>Website</b>'));
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'title',
                 'content' => 'Website'
@@ -114,7 +114,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
      */
     public function testRendersContentType()
     {
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'meta',
                 'attributes' => array(
@@ -133,7 +133,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
      */
     public function testRendersMetaRobots()
     {
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'meta',
                 'attributes' => array(
@@ -152,7 +152,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
      */
     public function testRendersMetaKeywords()
     {
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'meta',
                 'attributes' => array(
@@ -171,7 +171,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
      */
     public function testRendersMetaGenerator()
     {
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'meta',
                 'attributes' => array(
@@ -189,7 +189,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
      */
     public function testRendersCoreStylesheetLink()
     {
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'link',
                 'attributes' => array(
@@ -220,7 +220,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
             'XH_findPreviousPage', null
         );
         $findPreviousPageMock->expects($this->any())->will($this->returnValue(0));
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'link',
                 'attributes' => array(
@@ -251,7 +251,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
             'XH_findNextPage', null
         );
         $findNextPageMock->expects($this->any())->will($this->returnValue(0));
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'link',
                 'attributes' => array(
@@ -271,7 +271,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
      */
     public function testRendersTemplateStylesheetLink()
     {
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'link',
                 'attributes' => array(

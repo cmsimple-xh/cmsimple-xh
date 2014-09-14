@@ -83,7 +83,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
             )
         );
         $actual = searchbox();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testSitemaplink()
@@ -95,7 +95,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
             'content' => $tx['menu']['sitemap']
         );
         $actual = sitemaplink();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testSitemaplinkActive()
@@ -127,7 +127,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
             'content' => $tx['menu']['mailform']
         );
         $actual = mailformlink();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testMailformlinkActive()
@@ -184,7 +184,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
             'attributes' => array('rel' => 'prev'),
             'content' => $tx['navigator']['previous']
         );
-        $this->assertTag($matcher, previouspage());
+        @$this->assertTag($matcher, previouspage());
         $hideMock->restore();
     }
 
@@ -227,7 +227,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
             'attributes' => array('rel' => 'next'),
             'content' => 'next' /*$tx['navigator']['next']*/
         );
-        $this->assertTag($matcher, nextpage());
+        @$this->assertTag($matcher, nextpage());
         $hideMock->restore();
     }
 
@@ -257,7 +257,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
             'attributes' => array('href' => '#TOP')
         );
         $actual = top();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     /**
@@ -281,7 +281,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
         $secondLanguagesMock->expects($this->any())->will(
             $this->returnValue(array('da', 'de'))
         );
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'a',
                 'attributes' => array('href' => './de/'),
@@ -289,7 +289,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
             ),
             languagemenu()
         );
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'a',
                 'attributes' => array('href' => './da/'),

@@ -132,7 +132,7 @@ class BackupTest extends PHPUnit_Framework_TestCase
             'attributes' => array('class' => 'xh_info'),
             'content' => 'created'
         );
-        $this->assertTag($matcher, $this->_subject->execute());
+        @$this->assertTag($matcher, $this->_subject->execute());
     }
 
     public function testDeletesTooOldBackups()
@@ -176,7 +176,7 @@ class BackupTest extends PHPUnit_Framework_TestCase
             'attributes' => array('class' => 'xh_info'),
             'content' => 'deleted'
         );
-        $this->assertTag($matcher, $this->_subject->execute());
+        @$this->assertTag($matcher, $this->_subject->execute());
     }
 
     public function testReportsDeletionFailure()

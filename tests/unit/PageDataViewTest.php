@@ -60,7 +60,7 @@ class PageDataViewTest extends PHPUnit_Framework_TestCase
             )
         );
         $actual = $this->pageDataView->tab($title, $filename);
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testTabs()
@@ -76,7 +76,7 @@ class PageDataViewTest extends PHPUnit_Framework_TestCase
             )
         );
         $actual = $this->pageDataView->tabs();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testView()
@@ -94,7 +94,7 @@ class PageDataViewTest extends PHPUnit_Framework_TestCase
             )
         );
         $actual = $this->pageDataView->view($filename);
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testViews()
@@ -110,7 +110,7 @@ class PageDataViewTest extends PHPUnit_Framework_TestCase
             )
         );
         $actual = $this->pageDataView->views();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 }
 

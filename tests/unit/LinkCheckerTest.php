@@ -92,7 +92,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             'descendant' => array('tag' => 'img')
         );
         $actual = $this->linkChecker->prepare();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
         $this->stringStartsWith('XH.checkLinks(', $onload);
     }
 
@@ -100,7 +100,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
     {
         $matcher = array('tag' => 'h4');
         $actual = $this->linkChecker->checkLinks();
-        $this->assertNotTag($matcher, $actual);
+        @$this->assertNotTag($matcher, $actual);
     }
 
     public function testGatherLinks()
@@ -171,7 +171,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
         );
         $error = array('400', '?Welcome', 'Start Page');
         $actual = $this->linkChecker->reportError($error);
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testReportNotice()
@@ -188,7 +188,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
         );
         $notice = array('300', $url, $text);
         $actual = $this->linkChecker->reportNotice($notice);
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testMessage()
@@ -209,8 +209,8 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             )
         );
         $actual = $this->linkChecker->message(7, $hints);
-        $this->assertSelectCount('h4', 2, $actual);
-        $this->assertSelectCount('h5', 3, $actual);
+        @$this->assertSelectCount('h4', 2, $actual);
+        @$this->assertSelectCount('h5', 3, $actual);
     }
 }
 

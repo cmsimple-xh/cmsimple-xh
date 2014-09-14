@@ -94,7 +94,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
                 'action' => '/xh/'
             )
         );
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     public function testFormContainsTextarea()
@@ -108,7 +108,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
             'content' => '<html>',
             'parent' => array('tag' => 'form')
         );
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     public function testFormContainsSubmitButton()
@@ -123,7 +123,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
             ),
             'parent' => array('tag' => 'form')
         );
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     public function testFormContainsFileInput()
@@ -138,7 +138,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
                 'value' => $file
             )
         );
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     public function testFormContainsActionInput()
@@ -151,7 +151,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
                 'value' => 'save'
             )
         );
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     public function testSuccessMessage()
@@ -162,7 +162,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
             'attributes' => array('class' => 'xh_success'),
             'content' => 'Saved Template'
         );
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     public function testSubmit()

@@ -94,7 +94,7 @@ class PluginTextFileEditTest extends PHPUnit_Framework_TestCase
                 'action' => '/xh/?&pagemanager'
             )
         );
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     public function testFormContainsTextarea()
@@ -108,7 +108,7 @@ class PluginTextFileEditTest extends PHPUnit_Framework_TestCase
             'content' => 'body{}',
             'parent' => array('tag' => 'form')
         );
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     public function testFormContainsSubmitButton()
@@ -123,7 +123,7 @@ class PluginTextFileEditTest extends PHPUnit_Framework_TestCase
             ),
             'parent' => array('tag' => 'form')
         );
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     public function testFormContainsAdminInput()
@@ -136,7 +136,7 @@ class PluginTextFileEditTest extends PHPUnit_Framework_TestCase
                 'value' => 'plugin_stylesheet'
             )
         );
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     public function testFormContainsActionInput()
@@ -149,7 +149,7 @@ class PluginTextFileEditTest extends PHPUnit_Framework_TestCase
                 'value' => 'plugin_textsave'
             )
         );
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     public function testSuccessMessage()
@@ -160,7 +160,7 @@ class PluginTextFileEditTest extends PHPUnit_Framework_TestCase
             'attributes' => array('class' => 'xh_success'),
             'content' => 'Saved Stylesheet'
         );
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     public function testSubmit()

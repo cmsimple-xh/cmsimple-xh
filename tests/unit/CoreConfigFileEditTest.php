@@ -223,7 +223,7 @@ EOT;
             'child' => array('tag' => 'option'),
             'ancestor' => array('tag' => 'form')
         );
-        $this->assertNotTag($matcher, $this->_subject->form());
+        @$this->assertNotTag($matcher, $this->_subject->form());
     }
 
     public function testFormContainsLanguageDefaultField()
@@ -374,7 +374,7 @@ EOT;
             'attributes' => array('name' => 'scripting_regexp'),
             'ancestor' => array('tag' => 'form')
         );
-        $this->assertNotTag($matcher, $this->_subject->form());
+        @$this->assertNotTag($matcher, $this->_subject->form());
     }
 
     /**
@@ -497,7 +497,7 @@ EOT;
 
     private function _assertFormMatches($matcher)
     {
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 
     //public function dataForFormField()

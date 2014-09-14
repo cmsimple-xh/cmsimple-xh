@@ -202,7 +202,7 @@ class ControllerMailformTest extends PHPUnit_Framework_TestCase
         global $o;
 
         $this->subject->handleMailform();
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'div',
                 'id' => 'xh_mailform',
@@ -399,7 +399,7 @@ class ControllerSitemapTest extends PHPUnit_Framework_TestCase
         global $o;
 
         $this->subject->handleSitemap();
-        $this->assertTag(
+        @$this->assertTag(
             array(
                 'tag' => 'h1',
                 'content' => 'Sitemap'
