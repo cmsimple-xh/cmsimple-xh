@@ -105,7 +105,7 @@ class BackupTest extends PHPUnit_Framework_TestCase
     {
         touch("{$this->_contentFolder}content.htm");
         $this->_subject->execute();
-        $this->assertCount(2, scandir($this->_contentFolder));
+        $this->assertCount(4, scandir($this->_contentFolder));
     }
 
     public function testCreatesBackupWhenLatestBackupIsOutdated()
@@ -113,7 +113,7 @@ class BackupTest extends PHPUnit_Framework_TestCase
         touch("{$this->_contentFolder}19700101_000102_content.htm");
         file_put_contents("{$this->_contentFolder}content.htm", 'foo');
         $this->_subject->execute();
-        $this->assertCount(3, scandir($this->_contentFolder));
+        $this->assertCount(5, scandir($this->_contentFolder));
     }
 
     public function testDoesntCreateBackupWhenLatestBackupIsUpToDate()
@@ -121,7 +121,7 @@ class BackupTest extends PHPUnit_Framework_TestCase
         touch("{$this->_contentFolder}19700101_000102_content.htm");
         touch("{$this->_contentFolder}content.htm");
         $this->_subject->execute();
-        $this->assertCount(2, scandir($this->_contentFolder));
+        $this->assertCount(4, scandir($this->_contentFolder));
     }
 
     public function testReportsCreationOfBackup()
