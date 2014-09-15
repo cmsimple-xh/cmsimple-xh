@@ -30,6 +30,10 @@ class TestingLinkChecker extends XH_LinkChecker
 {
     function checkExternalLink($parts)
     {
+        // request to IDN will fail
+        if (preg_match('/[\x80-\xFF]/', $parts['host'])) {
+            return 'externalfail';
+        }
         return '200';
     }
 }
@@ -146,7 +150,8 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             array('./tests/unit/data/', 'internalfail'), // fails, even there's a index.(php|html)
             array('anotherxh/?Welcome', '200'), // erroneously checks the same installation
             array('anotherxh/?Welcome2', 'internalfail'), // fails, even if anotherxh/ would exist
-            array('?Secret', '200') // does not respect unpublished pages
+            array('?Secret', '200'), // does not respect unpublished pages
+            array("http://www.\xC3\xA4rger.de/", 'externalfail') // can't handle IDNs
         );
     }
 
