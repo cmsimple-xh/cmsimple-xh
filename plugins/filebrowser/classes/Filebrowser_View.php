@@ -346,15 +346,9 @@ class Filebrowser_View
      */
     function isImageFile($filename)
     {
-        if (class_exists('finfo')) {
-            $finfo = new finfo(FILEINFO_MIME);
-            $mimeType = $finfo->file($filename);
-            return strpos($mimeType, 'image/') === 0;
-        } else {
-            $ext = pathinfo($filename, PATHINFO_EXTENSION);
-            $exts = array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'tiff', 'ico');
-            return in_array(strtolower($ext), $exts);
-        }
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $exts = array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'tiff', 'ico');
+        return in_array(strtolower($ext), $exts);
     }
 
     /**
