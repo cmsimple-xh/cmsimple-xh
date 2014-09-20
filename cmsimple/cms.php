@@ -340,11 +340,12 @@ $pth['folder']['menubuttons'] = $pth['folder']['template'] . 'menu/';
 $pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
 
 /*
- * Additional security measure. However, we cannot check cookies,
- * as these might be set from non UTF-8 scripts on the domain.
+ * Additional security measure. However, we can neither check cookies,
+ * as these might be set from non UTF-8 scripts on the domain, nor server
+ * variables (<http://cmsimpleforum.com/viewtopic.php?f=10&t=8052>).
  */
 XH_checkValidUtf8(
-    array($_GET, $_POST, $_SERVER, array_keys($_POST))
+    array($_GET, $_POST, array_keys($_POST))
 );
 
 /**
