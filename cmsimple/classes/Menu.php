@@ -48,39 +48,36 @@ class XH_Li
     var $st;
 
     /**
-     * Initializes a new instance.
+     * Whether the current menu item is not representing the requested page.
      *
-     * @param array $ta The indexes of the pages.
-     * @param mixed $st The menu level to start with or the type of menu.
+     * @var bool
      *
-     * @access public
+     * @access protected
      */
-    function XH_Li($ta, $st)
-    {
-        $this->ta = (array) $ta;
-        $this->st = $st;
-    }
+    var $tf;
 
     /**
      * Renders a menu structure of certain pages.
+     *
+     * @param array $ta The indexes of the pages.
+     * @param mixed $st The menu level to start with or the type of menu.
      *
      * @return string (X)HTML.
      *
      * @global int    The index of the current page.
      * @global array  The menu levels of the pages.
-     * @global array  The headings of the pages.
      * @global int    The number of pages.
      * @global array  The configuration of the core.
      * @global array  The URLs of the pages.
-     * @global array  Whether we are in edit mode.
-     * @global object The page data router.
      *
      * @access public
      */
-    function render()
+    function render($ta, $st)
     {
-        global $s, $l, $h, $cl, $cf, $u, $edit, $pd_router;
+        global $s, $l, $cl, $cf, $u;
 
+        $this->ta = (array) $ta;
+        $this->st = $st;
         $tl = count($this->ta);
         if ($tl < 1) {
             return;
@@ -96,7 +93,7 @@ class XH_Li
         }
         $lf = array();
         for ($i = 0; $i < $tl; $i++) {
-            $tf = ($s != $this->ta[$i]);
+            $this->tf = ($s != $this->ta[$i]);
             if ($this->st == 'menulevel' || $this->st == 'sitemaplevel') {
                 for ($k = (isset($this->ta[$i - 1]) ? $l[$this->ta[$i - 1]] : $b);
                      $k < $l[$this->ta[$i]];
@@ -106,7 +103,7 @@ class XH_Li
                 }
             }
             $t .= '<li class="';
-            if (!$tf) {
+            if (!$this->tf) {
                 $t .= 's';
             } elseif ($cf['menu']['sdoc'] == "parent" && $s > -1) {
                 if ($l[$this->ta[$i]] < $l[$s]) {
@@ -129,20 +126,7 @@ class XH_Li
                 }
             }
             $t .= '">';
-            if ($tf) {
-                $pageData = $pd_router->find_page($this->ta[$i]);
-                $x = !(XH_ADM && $edit) && $pageData['use_header_location'] === '2'
-                    ? '" target="_blank' : '';
-                $t .= a($this->ta[$i], $x);
-            } else {
-                $t .='<span>';
-            }
-            $t .= $h[$this->ta[$i]];
-            if ($tf) {
-                $t .= '</a>';
-            } else {
-                $t .='</span>';
-            }
+            $t .= $this->renderMenuItem($i);
             if ($this->st == 'menulevel' || $this->st == 'sitemaplevel') {
                 $temp = isset($this->ta[$i + 1]) ? $l[$this->ta[$i + 1]] : $b;
                 if ($temp > $l[$this->ta[$i]]) {
@@ -171,6 +155,70 @@ class XH_Li
             $t .= '</ul>' . "\n";
         }
         return $t;
+    }
+
+    /**
+     * Renders a menu item.
+     *
+     * @param int $i The index of the current item.
+     *
+     * @return string (X)HTML.
+     *
+     * @global array  The headings of the pages.
+     *
+     * @access protected
+     */
+    function renderMenuItem($i)
+    {
+        global $h;
+
+        if ($this->tf) {
+            $html = $this->renderAnchorStartTag($i);
+        } else {
+            $html ='<span>';
+        }
+        $html .= $h[$this->ta[$i]];
+        if ($this->tf) {
+            $html .= '</a>';
+        } else {
+            $html .='</span>';
+        }
+        return $html;
+    }
+
+    /**
+     * Renders an anchor start tag.
+     *
+     * @param int $i The index of the current item.
+     *
+     * @return string (X)HTML.
+     *
+     * @access protected
+     */
+    function renderAnchorStartTag($i)
+    {
+        $x = $this->shallOpenInNewWindow($i) ? '" target="_blank' : '';
+        return a($this->ta[$i], $x);
+    }
+
+    /**
+     * Returns whether a link shall be opened in a new window.
+     *
+     * @param int $i The index of the current item.
+     *
+     * @return bool
+     *
+     * @global array  Whether we are in edit mode.
+     * @global object The page data router.
+     *
+     * @access protected
+     */
+    function shallOpenInNewWindow($i)
+    {
+        global $edit, $pd_router;
+
+        $pageData = $pd_router->find_page($this->ta[$i]);
+        return !(XH_ADM && $edit) && $pageData['use_header_location'] === '2';
     }
 }
 
