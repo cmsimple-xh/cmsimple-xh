@@ -485,11 +485,13 @@ class XH_Controller
      * @global int               The index of the currently selected page.
      * @global XH_PageDataRouter The page data router.
      * @global array             The localization of the core.
+     * @global XH_CSRFProtection The CSRF protector.
      */
     function handleSavePageData()
     {
-        global $pth, $s, $pd_router, $tx;
+        global $pth, $s, $pd_router, $tx, $_XH_csrfProtection;
 
+        $_XH_csrfProtection->check();
         $postData = $_POST;
         unset($postData['save_page_data']);
         $postData = array_map('stsl', $postData);

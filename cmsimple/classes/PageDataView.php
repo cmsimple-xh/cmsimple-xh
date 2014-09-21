@@ -104,13 +104,14 @@ class XH_PageDataView
      *
      * @return string (X)HTML.
      *
-     * @global array The paths of system files and folders.
+     * @global array             The paths of system files and folders.
+     * @global XH_CSRFProtection The CSRF protector.
      *
      * @access protected
      */
     function view($filename)
     {
-        global $pth;
+        global $pth, $_XH_csrfProtection;
 
         list($function, $dummy) = explode('.', basename($filename), 2);
         // TODO: use something more appropriate than an anchor
@@ -120,7 +121,11 @@ class XH_PageDataView
             . ' onclick="XH.toggleTab(\'' . $function . '\');">&nbsp;</a>';
         if (file_exists($filename)) {
             include_once $filename;
-            $o .= $function($this->page);
+            $o .= preg_replace(
+                '/<(?:input|button)[^>]name="save_page_data"/',
+                $_XH_csrfProtection->tokenInput() . '$0',
+                $function($this->page)
+            );
         } else {
             // TODO: i18n; or probably better: use $e/e()
             $o .= "Could not find " . $filename;
