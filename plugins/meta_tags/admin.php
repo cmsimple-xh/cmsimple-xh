@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Page-Parameters - module admin
+ * Meta-Tags - module admin
  *
  * Admin-interface for configuring the plugin
  * via the standard-functions of pluginloader.
@@ -9,15 +9,16 @@
  * PHP versions 4 and 5
  *
  * @category  CMSimple_XH
- * @package   Pageparams
+ * @package   Metatags
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
- * @author    Jerry Jakobsfeld <mail@simplesolutions.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
  */
+
+/* utf8-marker = äöüß */
 
 /*
  * Check if PLUGINLOADER is calling and die if not.
@@ -30,22 +31,16 @@ if (!defined('PLUGINLOADER')) {
 }
 
 /*
- * Check if plugin was called. If so, let the
- * Loader create and handle the admin-menu
+ * Check if plugin was called.
+ * If so, let the Loader create and handle the admin-menu.
  */
-if (isset($page_params) && $page_params == 'true') {
+if (XH_wantsPluginAdministration('meta_tags')) {
     $o .= print_plugin_admin('off');
-    if ($admin <> 'plugin_main') {
-        $o .= plugin_admin_common($action, $admin, $plugin);
-    }
-    if ($admin == 'plugin_main') {
-        $o .= plugin_admin_common($action, $admin, $plugin);
-    }
     if ($admin == '') {
         $o .= "\n" . '<div class="plugintext"><div class="plugineditcaption">'
-            . utf8_ucfirst(str_replace('_', ' ', $plugin)) . '</div></div>'
-            . tag('br');
+            . ucfirst(str_replace('_', ' ', $plugin)) . '</div></div>' . tag('br');
     }
+    $o .= plugin_admin_common($action, $admin, $plugin);
 }
 
 ?>

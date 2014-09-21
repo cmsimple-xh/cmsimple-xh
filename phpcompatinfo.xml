@@ -12,16 +12,9 @@
 
     <excludes>
         <exclude id="xh">
-            <directory name="2lang"/>
             <!-- unfortunately, directory separators have to be OS dependend -->
             <file name="cmsimple\\classes\\PasswordHash.php"/>
-            <directory name="content"/>
-            <directory name="css"/>
-            <directory name="javascript"/>
-            <directory name="plugins\\tinymce4"/>
             <directory name="tests"/>
-            <directory name="tutorials"/>
-            <directory name="userfiles"/>
             <directory name="vendor"/>
 
             <!-- constants which are defined conditionally, but PHP_CompatInfo doesn't recognize it -->
@@ -31,6 +24,10 @@
 
             <!-- excluded because of $delete_old_session parameter, which was added in PHP 5.1.0 only -->
             <function name="session_regenerate_id"/>
+
+            <!-- used conditionally only, but PHP_CI doesn't recognize that -->
+            <function name="error_get_last"/>
+            <class name="Normalizer"/>
         </exclude>
     </excludes>
 </phpcompatinfo>

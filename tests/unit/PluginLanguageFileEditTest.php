@@ -218,7 +218,7 @@ class PluginLanguageFileEditTest extends PHPUnit_Framework_TestCase
 
     private function _assertFormMatches($matcher)
     {
-        $this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->_subject->form());
     }
 }
 

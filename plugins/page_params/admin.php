@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Meta-Tags - module admin
+ * Page-Parameters - module admin
  *
  * Admin-interface for configuring the plugin
  * via the standard-functions of pluginloader.
@@ -9,16 +9,15 @@
  * PHP versions 4 and 5
  *
  * @category  CMSimple_XH
- * @package   Metatags
+ * @package   Pageparams
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
+ * @author    Jerry Jakobsfeld <mail@simplesolutions.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
  */
-
-/* utf8-marker = äöüß */
 
 /*
  * Check if PLUGINLOADER is calling and die if not.
@@ -31,24 +30,17 @@ if (!defined('PLUGINLOADER')) {
 }
 
 /*
- * Check if plugin was called.
- * If so, let the Loader create and handle the admin-menu.
+ * Check if plugin was called. If so, let the
+ * Loader create and handle the admin-menu
  */
-initvar('meta_tags');
-if ($meta_tags) {
-    $admin = isset($_POST['admin'])
-        ? $_POST['admin']
-        : $admin = isset($_GET['admin']) ? $_GET['admin'] : '';
-    $action = isset($_POST['action'])
-        ? $_POST['action']
-        : $action = isset($_GET['action']) ? $_GET['action'] : '';
-    $plugin = basename(dirname(__FILE__), "/");
-    $o .= print_plugin_admin('off')
-        . plugin_admin_common($action, $admin, $plugin);
+if (XH_wantsPluginAdministration('page_params')) {
+    $o .= print_plugin_admin('off');
     if ($admin == '') {
         $o .= "\n" . '<div class="plugintext"><div class="plugineditcaption">'
-            . ucfirst(str_replace('_', ' ', $plugin)) . '</div></div>' . tag('br');
+            . utf8_ucfirst(str_replace('_', ' ', $plugin)) . '</div></div>'
+            . tag('br');
     }
+    $o .= plugin_admin_common($action, $admin, $plugin);
 }
 
 ?>

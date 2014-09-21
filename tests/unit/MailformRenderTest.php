@@ -15,12 +15,7 @@
  */
 
 require_once './vendor/autoload.php';
-
 require_once './cmsimple/functions.php';
-
-/**
- * The file under test.
- */
 require_once './cmsimple/classes/Mailform.php';
 
 class MailformRenderTest extends PHPUnit_Framework_TestCase
@@ -98,33 +93,60 @@ class MailformRenderTest extends PHPUnit_Framework_TestCase
 
     public function testSendernameInput()
     {
-        $this->_testTextInput('sendername');
+        $this->_assertMatches(
+            array(
+                'tag' => 'input',
+                'attributes' => array(
+                    'type' => 'text',
+                    'name' => 'sendername',
+                    'class' => 'text'
+                ),
+                'ancestor' => array('tag' => 'form')
+            )
+        );
     }
 
     public function testSenderphoneInput()
     {
-        $this->_testTextInput('senderphone');
+        $this->_assertMatches(
+            array(
+                'tag' => 'input',
+                'attributes' => array(
+                    'type' => 'tel',
+                    'name' => 'senderphone',
+                    'class' => 'text'
+                ),
+                'ancestor' => array('tag' => 'form')
+            )
+        );
     }
 
     public function testSenderInput()
     {
-        $this->_testTextInput('sender');
+        $this->_assertMatches(
+            array(
+                'tag' => 'input',
+                'attributes' => array(
+                    'type' => 'email',
+                    'name' => 'sender',
+                    'class' => 'text',
+                    'required' => 'required'
+                ),
+                'ancestor' => array('tag' => 'form')
+            )
+        );
     }
 
     public function testSubjectInput()
-    {
-        $this->_testTextInput('subject');
-    }
-
-    private function _testTextInput($name)
     {
         $this->_assertMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
                     'type' => 'text',
-                    'name' => $name,
-                    'class' => 'text'
+                    'name' => 'subject',
+                    'class' => 'text',
+                    'required' => 'required'
                 ),
                 'ancestor' => array('tag' => 'form')
             )
@@ -147,7 +169,10 @@ class MailformRenderTest extends PHPUnit_Framework_TestCase
         $this->_assertMatches(
             array(
                 'tag' => 'textarea',
-                'attributes' => array('name' => $name),
+                'attributes' => array(
+                    'name' => $name,
+                    'required' => 'required'
+                ),
                 'ancestor' => array('tag' => 'form')
             )
         );
@@ -188,7 +213,8 @@ class MailformRenderTest extends PHPUnit_Framework_TestCase
                 'attributes' => array(
                     'type' => 'text',
                     'name' => 'cap',
-                    'class' => 'xh_captcha_input'
+                    'class' => 'xh_captcha_input',
+                    'required' => 'required'
                 ),
                 'ancestor' => array('tag' => 'form')
             )
@@ -222,12 +248,12 @@ class MailformRenderTest extends PHPUnit_Framework_TestCase
 
     private function _assertMatches($matcher)
     {
-        $this->assertTag($matcher, $this->_subject->render());
+        @$this->assertTag($matcher, $this->_subject->render());
     }
 
     private function _assertNotMatches($matcher)
     {
-        $this->assertNotTag($matcher, $this->_subject->render());
+        @$this->assertNotTag($matcher, $this->_subject->render());
     }
 
 }

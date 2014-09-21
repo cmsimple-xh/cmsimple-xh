@@ -30,6 +30,10 @@ class TestingLinkChecker extends XH_LinkChecker
 {
     function checkExternalLink($parts)
     {
+        // request to IDN will fail
+        if (preg_match('/[\x80-\xFF]/', $parts['host'])) {
+            return 'externalfail';
+        }
         return '200';
     }
 }
@@ -92,7 +96,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             'descendant' => array('tag' => 'img')
         );
         $actual = $this->linkChecker->prepare();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
         $this->stringStartsWith('XH.checkLinks(', $onload);
     }
 
@@ -100,7 +104,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
     {
         $matcher = array('tag' => 'h4');
         $actual = $this->linkChecker->checkLinks();
-        $this->assertNotTag($matcher, $actual);
+        @$this->assertNotTag($matcher, $actual);
     }
 
     public function testGatherLinks()
@@ -146,7 +150,8 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             array('./tests/unit/data/', 'internalfail'), // fails, even there's a index.(php|html)
             array('anotherxh/?Welcome', '200'), // erroneously checks the same installation
             array('anotherxh/?Welcome2', 'internalfail'), // fails, even if anotherxh/ would exist
-            array('?Secret', '200') // does not respect unpublished pages
+            array('?Secret', '200'), // does not respect unpublished pages
+            array("http://www.\xC3\xA4rger.de/", 'externalfail') // can't handle IDNs
         );
     }
 
@@ -171,7 +176,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
         );
         $error = array('400', '?Welcome', 'Start Page');
         $actual = $this->linkChecker->reportError($error);
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testReportNotice()
@@ -188,7 +193,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
         );
         $notice = array('300', $url, $text);
         $actual = $this->linkChecker->reportNotice($notice);
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testMessage()
@@ -209,8 +214,8 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             )
         );
         $actual = $this->linkChecker->message(7, $hints);
-        $this->assertSelectCount('h4', 2, $actual);
-        $this->assertSelectCount('h5', 3, $actual);
+        @$this->assertSelectCount('h4', 2, $actual);
+        @$this->assertSelectCount('h5', 3, $actual);
     }
 }
 

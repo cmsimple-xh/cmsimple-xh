@@ -86,12 +86,14 @@ class XH_Search
     function getWords()
     {
         if (!isset($this->words)) {
-            $search = utf8_strtolower($this->searchString);
-            $words = explode(' ', $search);
+            $words = explode(' ', $this->searchString);
             $this->words = array();
             foreach ($words as $word) {
                 $word = trim($word);
                 if ($word != '') {
+                    if (method_exists('Normalizer', 'normalize')) {
+                        $word = Normalizer::normalize($word);
+                    }
                     $this->words[] = $word;
                 }
             }
@@ -112,6 +114,7 @@ class XH_Search
     {
         global $c, $cf;
 
+        include_once UTF8 . '/stripos.php';
         $result = array();
         $words = $this->getWords();
         if (empty($words)) {
@@ -120,19 +123,9 @@ class XH_Search
         foreach ($c as $i => $content) {
             if (!hide($i) || $cf['show_hidden']['pages_search'] == 'true') {
                 $found  = true;
-                $content = evaluate_plugincall($content);
-                $content = utf8_strtolower(strip_tags($content));
-                // html_entity_decode() doesn't work reliably under PHP 4 for UTF-8
-                $decode = array(
-                    '&amp;' => '&',
-                    '&quot;' => '"',
-                    '&apos;' => '\'',
-                    '&lt;' => '<',
-                    '&gt;' => '>'
-                );
-                $content = strtr($content, $decode);
+                $content = $this->prepareContent($content);
                 foreach ($words as $word) {
-                    if (strpos($content, $word) === false) {
+                    if (utf8_stripos($content, $word) === false) {
                         $found = false;
                         break;
                     }
@@ -143,6 +136,32 @@ class XH_Search
             }
         }
         return $result;
+    }
+
+    /**
+     * Prepares content to be searched.
+     *
+     * @param string $content A content.
+     *
+     * @return string
+     *
+     * @access protected
+     */
+    function prepareContent($content)
+    {
+        $content = strip_tags(evaluate_plugincall($content));
+        if (method_exists('Normalizer', 'normalize')) {
+            $content = Normalizer::normalize($content);
+        }
+        // html_entity_decode() doesn't work for UTF-8 under PHP 4
+        $decode = array(
+            '&amp;' => '&',
+            '&quot;' => '"',
+            '&apos;' => '\'',
+            '&lt;' => '<',
+            '&gt;' => '>'
+        );
+        return strtr($content, $decode);
     }
 
     /**

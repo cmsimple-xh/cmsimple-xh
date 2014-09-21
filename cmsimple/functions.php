@@ -157,11 +157,7 @@ function l($n)
  */
 function evaluate_cmsimple_scripting($__text, $__compat = true)
 {
-    global $output;
-    foreach ($GLOBALS as $__name => $__dummy) {
-        $$__name = &$GLOBALS[$__name];
-    }
-
+    extract($GLOBALS, EXTR_REFS);
     $__scope_before = null; // just that it exists
     $__scripts = array();
     preg_match_all('~#CMSimple (.*?)#~is', $__text, $__scripts);
@@ -557,18 +553,12 @@ function initvar($name)
 /**
  * Returns the value of a $_SERVER key.
  *
- * Has fallback to $HTTP_SERVER_VARS for PHP < 4.1.0. ;-)
- *
  * @param string $s The key.
  *
  * @return string
  */
 function sv($s)
 {
-    if (!isset($_SERVER)) {
-        global $_SERVER;
-        $_SERVER = $GLOBALS['HTTP_SERVER_VARS'];
-    }
     if (isset($_SERVER[$s])) {
         return $_SERVER[$s];
     } else {
@@ -867,6 +857,7 @@ function rfc()
  * @global array The paths of system files and folders.
  * @global array The configuration of the core.
  * @global bool  Whether edit mode is active.
+ * @global int   The index of the first published page.
  *
  * @return array
  *
@@ -874,7 +865,7 @@ function rfc()
  */
 function XH_readContents($language = null)
 {
-    global $pth, $cf, $edit;
+    global $pth, $cf, $edit, $_XH_firstPublishedPage;
 
     if (isset($language)) {
         $contentFolder = $pth['folder']['base'] . 'content/' . $language . '/';
@@ -961,9 +952,15 @@ function XH_readContents($language = null)
     );
 
     // remove unpublished pages
+    if (!isset($language)) {
+        $_XH_firstPublishedPage = 0;
+    }
     if (!($edit && XH_ADM)) {
         foreach ($c as $i => $text) {
             if (cmscript('remove', $text)) {
+                if (!isset($language) && $_XH_firstPublishedPage == $i) {
+                    $_XH_firstPublishedPage = ($i < count($c) - 1) ? $i + 1 : -1;
+                }
                 $c[$i] = '#CMSimple hide# #CMSimple shead(404);#';
             }
         }
@@ -977,6 +974,50 @@ function XH_readContents($language = null)
         'pages' => $c,
         'pd_router' => $pd_router
     );
+}
+
+/**
+ * Finds the index of the previous page.
+ *
+ * @return int
+ *
+ * @global int   The index of the current page.
+ * @global int   The number of pages.
+ *
+ * @since 1.6.3
+ */
+function XH_findPreviousPage()
+{
+    global $s, $cl;
+
+    for ($i = $s - 1; $i > -1; $i--) {
+        if (!hide($i)) {
+            return $i;
+        }
+    }
+    return false;
+}
+
+/**
+ * Finds the index of the next page.
+ *
+ * @return int
+ *
+ * @global int The index of the current page.
+ * @global int The number of pages.
+ *
+ * @since 1.6.3
+ */
+function XH_findNextPage()
+{
+    global $s, $cl;
+
+    for ($i = $s + 1; $i < $cl; $i++) {
+        if (!hide($i)) {
+            return $i;
+        }
+    }
+    return false;
 }
 
 /**
@@ -1609,18 +1650,12 @@ function XH_plugins($admin = false)
 /**
  * Returns the value of a cookie, or <var>null</var> if the cookie doesn't exist.
  *
- * Has fallback to $HTTP_COOKIE_VARS for PHP < 4.1.0. ;-)
- *
  * @param string $s The name of the cookie.
  *
  * @return string
  */
 function gc($s)
 {
-    if (!isset($_COOKIE)) {
-        global $_COOKIE;
-        $_COOKIE = $GLOBALS['HTTP_COOKIE_VARS'];
-    }
     if (isset($_COOKIE[$s])) {
         return $_COOKIE[$s];
     }
@@ -1699,10 +1734,10 @@ function XH_logMessage($type, $module, $category, $description)
     $ok = false;
     $stream = fopen($pth['file']['log'], 'a');
     if ($stream) {
-        if (flock($stream, LOCK_EX)) {
+        if (XH_lockFile($stream, LOCK_EX)) {
             $ok = fwrite($stream, $message . PHP_EOL) !== false;
             fflush($stream);
-            flock($stream, LOCK_UN);
+            XH_lockFile($stream, LOCK_UN);
         }
         fclose($stream);
     }
@@ -1812,9 +1847,9 @@ function XH_readFile($filename)
     $contents = false;
     $stream = fopen($filename, 'rb');
     if ($stream) {
-        if (flock($stream, LOCK_SH)) {
+        if (XH_lockFile($stream, LOCK_SH)) {
             $contents = XH_getStreamContents($stream);
-            flock($stream, LOCK_UN);
+            XH_lockFile($stream, LOCK_UN);
         }
         fclose($stream);
     }
@@ -1839,12 +1874,12 @@ function XH_writeFile($filename, $contents)
     // we can't use "r+b" as it will fail if the file does not already exist
     $stream = fopen($filename, 'a+b');
     if ($stream) {
-        if (flock($stream, LOCK_EX)) {
+        if (XH_lockFile($stream, LOCK_EX)) {
             fseek($stream, 0);
             ftruncate($stream, 0);
             $res = fwrite($stream, $contents);
             fflush($stream);
-            flock($stream, LOCK_UN);
+            XH_lockFile($stream, LOCK_UN);
         }
         fclose($stream);
     }
@@ -2212,7 +2247,7 @@ function XH_secondLanguages()
         $langs = array();
         if ($dir = opendir($pth['folder']['base'])) {
             while (($entry = readdir($dir)) !== false) {
-                if (XH_isLanguageFolder($entry)) {
+                if ($entry[0] != '.' && XH_isLanguageFolder($entry)) {
                     $langs[] = $entry;
                 }
             }
@@ -2222,7 +2257,6 @@ function XH_secondLanguages()
     }
     return $langs;
 }
-
 /**
  * Returns whether a path refers to a CMSimple index.php.
  *
@@ -2271,10 +2305,10 @@ function XH_isInternalPath($path)
  */
 function XH_isInternalUrl($urlParts)
 {
-    $ok = !isset(
-        $urlParts['scheme'], $urlParts['host'], $urlParts['port'],
-        $urlParts['user'], $urlParts['pass']
-    );
+    $ok = true;
+    foreach (array('scheme', 'host', 'port', 'user', 'pass') as $key) {
+        $ok = $ok && !isset($urlParts[$key]);
+    }
     $ok = $ok
         && (!isset($urlParts['path']) || XH_isInternalPath($urlParts['path']));
     return $ok;
@@ -2467,9 +2501,9 @@ function XH_includeVar($_filename, $_varname)
     $_res = false;
     $_stream = fopen($_filename, 'r');
     if ($_stream) {
-        if (flock($_stream, LOCK_SH)) {
+        if (XH_lockFile($_stream, LOCK_SH)) {
             $_res = include $_filename;
-            flock($_stream, LOCK_UN);
+            XH_lockFile($_stream, LOCK_UN);
         }
         fclose($_stream);
     }
@@ -2546,9 +2580,10 @@ function XH_readConfiguration($plugin = false, $language = false)
         $$varname = array();
     }
     if (is_readable($filename)) {
+        $var = XH_includeVar($filename, $varname);
         $$varname = XH_unionOf2DArrays(
-            (array) XH_includeVar($filename, $varname),
-            (array) $$varname
+            is_array($var) ? $var : array(),
+            is_array($$varname) ? $$varname : array()
         );
     }
     return $$varname;
@@ -2715,6 +2750,69 @@ function XH_registeredPagemanagerPlugins()
 function XH_registeredEditmenuPlugins()
 {
     return XH_registerPluginType('editmenu');
+}
+
+/**
+ * Handles the shutdown of the script.
+ *
+ * <ul>
+ * <li>Unsets erroneously set password in session (backdoor mitigation).</li>
+ * <li>Displays a message if a fatal error occurred.</li>
+ * </ul>
+ *
+ * @return void
+ *
+ * @global array The localization of the core.
+ *
+ * @since 1.6.3
+ */
+function XH_onShutdown()
+{
+    global $tx;
+
+    if (!XH_ADM && isset($_SESSION['xh_password'][CMSIMPLE_ROOT])) {
+        unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
+    }
+
+    $lastError = error_get_last();
+    if (in_array($lastError['type'], array(E_ERROR, E_PARSE))) {
+        echo $tx['error']['fatal'];
+    }
+}
+
+/**
+ * Returns a timestamp formatted according to <var>$tx[lastupdate][dateformat]</var>.
+ *
+ * @param int $timestamp A UNIX timestamp.
+ *
+ * @return string
+ *
+ * @global array The localization of the core.
+ *
+ * @since 1.6.3
+ */
+function XH_formatDate($timestamp)
+{
+    global $tx;
+
+    return date($tx['lastupdate']['dateformat'], $timestamp);
+}
+
+/**
+ * Implements portable advisory file locking.
+ *
+ * For now it is just a simple wrapper around {@link flock flock()}.
+ *
+ * @param resource $handle    A file handle.
+ * @param int      $operation A lock operation (use LOCK_SH, LOCK_EX or LOCK_UN).
+ *
+ * @return bool
+ *
+ * @since 1.6.3
+ */
+function XH_lockFile($handle, $operation)
+{
+    return flock($handle, $operation);
 }
 
 ?>

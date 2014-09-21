@@ -43,7 +43,8 @@ class SearchTest extends PHPUnit_Framework_TestCase
             'Some arbitrary content',
             'More about CMSimple.',
             '#CMSimple hide# CMSimple again',
-            'Bill &amp; Ted'
+            'Bill &amp; Ted',
+            "se\xC3\xB1or"
         );
         $cf['show_hidden']['pages_search'] == 'true';
     }
@@ -55,7 +56,8 @@ class SearchTest extends PHPUnit_Framework_TestCase
             array('wurstsuppe', array()),
             array('cmsimple more', array(2)),
             array(' ', array()),
-            array('&', array(4))
+            array('&', array(4)),
+            array("sen\xCC\x83or", array(5)) // testing unicode equivalence
         );
     }
 

@@ -9,7 +9,7 @@
  * @version   $Id$
  * @since     1.6
  */
-var XH = {}
+var XH = {};
 
 /**
  * Toggles the visibility of a page data tab.
@@ -32,7 +32,7 @@ XH.toggleTab = function (tabId) {
     views = document.getElementById("xh_pdviews").getElementsByTagName("div");
     for (i = 0, n = views.length; i < n; ++i) {
         view = views[i];
-        if (view.id.indexOf("xh_view_") == 0) {
+        if (view.id.indexOf("xh_view_") === 0) {
             view.className = "xh_inactive_view";
             status = XH.findViewStatus(view);
             status.getElementsByTagName("div")[0].innerHTML = "";
@@ -69,7 +69,7 @@ XH.modalDialog = function (contentElement, width, func) {
     overlay.className = "xh_modal_dialog_overlay";
     overlay.onclick = function () {
         document.body.removeChild(overlay);
-    }
+    };
 
     center = document.createElement("div");
     center.className = "xh_modal_dialog_center";
@@ -83,7 +83,7 @@ XH.modalDialog = function (contentElement, width, func) {
         } else {
             window.event.cancelBubble = true;
         }
-    }
+    };
 
     contentClone = contentElement.cloneNode(true);
     contentClone.style.display = "block";
@@ -98,7 +98,7 @@ XH.modalDialog = function (contentElement, width, func) {
     buttons.className = "xh_modal_dialog_buttons";
 
     okButton = document.createElement("button");
-    text = document.createTextNode(XH.i18n["action"]["ok"]);
+    text = document.createTextNode(XH.i18n.action.ok);
     okButton.appendChild(text);
     okButton.onclick = function () {
         var result = func(contentClone);
@@ -111,15 +111,15 @@ XH.modalDialog = function (contentElement, width, func) {
         } else {
             error.firstChild.nodeValue = result;
         }
-    }
+    };
     buttons.appendChild(okButton);
 
     cancelButton = document.createElement("button");
-    text = document.createTextNode(XH.i18n["action"]["cancel"]);
+    text = document.createTextNode(XH.i18n.action.cancel);
     cancelButton.appendChild(text);
     cancelButton.onclick = function () {
         document.body.removeChild(overlay);
-    }
+    };
     buttons.appendChild(cancelButton);
 
     dialog.appendChild(buttons);
@@ -145,24 +145,24 @@ XH.validatePassword = function (dialog) {
         confirmation = inputs[2].value,
         request;
 
-    if (oldPassword == "" || newPassword == "" || confirmation == "") {
-        return XH.i18n["password"]["fields_missing"];
+    if (oldPassword === "" || newPassword === "" || confirmation === "") {
+        return XH.i18n.password.fields_missing;
     }
     if (!(/^[!-~]+$/.test(newPassword))) {
         return XH.i18n.password.invalid;
     }
     if (newPassword != confirmation) {
-        return XH.i18n["password"]["mismatch"];
+        return XH.i18n.password.mismatch;
     }
     request = new XMLHttpRequest();
     request.open("GET", "?xh_check=" + encodeURIComponent(oldPassword), false);
     request.send(null);
     if (request.status != 200) {
-        return XH.i18n["error"]["server"].replace("%s",
+        return XH.i18n.error.server.replace("%s",
                 request.status + " " + request.statusText);
     }
     if (request.responseText != 1) {
-        return XH.i18n["password"]["wrong"];
+        return XH.i18n.password.wrong;
     }
     return true;
 };
@@ -232,7 +232,7 @@ XH.findViewStatus = function (formOrTab) {
  * @since 1.6
  */
 XH.quickSubmit = function (form) {
-    var request = new XMLHttpRequest,
+    var request = new XMLHttpRequest(),
         status, img, message;
 
     request.open("POST", form.action + "&xh_pagedata_ajax");
@@ -251,7 +251,7 @@ XH.quickSubmit = function (form) {
                 form.onsubmit = null;
             }
         }
-    }
+    };
     request.send(XH.serializeForm(form));
 };
 
@@ -265,16 +265,18 @@ XH.quickSubmit = function (form) {
 XH.initQuickSubmit = function () {
     var views, forms, i, n, form;
 
+    function onSubmit() {
+        XH.quickSubmit(this);
+        return false;
+    }
+
     views = document.getElementById("xh_pdviews");
     if (views) {
         forms = views.getElementsByTagName("form");
         for (i = 0, n = forms.length; i < n; ++i) {
             form = forms[i];
             if (!form.onsubmit) {
-                form.onsubmit = function () {
-                    XH.quickSubmit(this);
-                    return false;
-                }
+                form.onsubmit = onSubmit;
             }
         }
     }
@@ -321,16 +323,8 @@ XH.makeAutosize = function (textarea) {
         }
     }
 
-    function onBlur(event) {
-        var ev = event || window.event;
-        var textarea = ev.target || ev.srcElement;
-
-        textarea.style.height = null;
-    }
-
     if (typeof textarea.addEventListener != "undefined") {
         textarea.addEventListener("focus", onResize, false);
-        //textarea.addEventListener("blur", onBlur, false);
         if (typeof textarea.oninput != "undefined") {
             textarea.addEventListener("input", onResize, false);
         } else if (typeof textarea.onpropertychange != "undefined") {
@@ -341,7 +335,6 @@ XH.makeAutosize = function (textarea) {
         }
     } else {
         textarea.attachEvent("onfocus", onResize);
-        //textarea.attachEvent("onblur", onBlur);
         textarea.attachEvent("onpropertychange", onPropertyChange);
     }
     // the following would be nice, but it's very slow for many textareas
@@ -379,15 +372,15 @@ XH.makeTextareasAutosize = function (node) {
 XH.promptBackupName = function (form) {
     var suffix, field;
 
-    field = form.elements["xh_suffix"];
+    field = form.elements.xh_suffix;
     suffix = field.value;
     do {
-        suffix = prompt(XH.i18n["settings"]["backupsuffix"], suffix);
+        suffix = prompt(XH.i18n.settings.backupsuffix, suffix);
         if (suffix === null) {
             return false;
         }
-    } while (!/^[a-z_0-9-]{1,20}$/i.test(suffix));
-    field.value = suffix;
+    } while (!/^[a-z_0-9\-]{0,20}$/i.test(suffix));
+    field.value = suffix? suffix : "content";
     return true;
 };
 
@@ -413,13 +406,66 @@ XH.checkLinks = function (url) {
             if (request.status == 200) {
                 div.innerHTML = request.responseText;
             } else {
-                div.innerHTML = XH.i18n["error"]["server"].replace("%s",
+                div.innerHTML = XH.i18n.error.server.replace("%s",
                     request.status + " " + request.statusText);
             }
         }
-    }
+    };
     request.send(null);
 };
+
+/**
+ * Adapts the admin menu to the viewport, so that all menu items are visible,
+ * if at least two menu items fit side by side, and there are not too many
+ * plugins.
+ *
+ * @returns {undefined}
+ *
+ * @since 1.6.3
+ */
+XH.adaptAdminMenu = function () {
+    var viewportWidth = document.documentElement.clientWidth,
+        pluginMenu = document.getElementById("xh_adminmenu_plugins"),
+        itemWidth = pluginMenu.parentNode.offsetWidth,
+        style = pluginMenu.style,
+        pluginMenuRect = pluginMenu.getBoundingClientRect(),
+        pluginMenus = document.querySelectorAll("#xh_adminmenu ul ul ul"),
+        i;
+
+    if (pluginMenu.hasAttribute("data-margin-left")) {
+        style.marginLeft = pluginMenu.getAttribute("data-margin-left");
+    } else {
+        pluginMenu.setAttribute("data-margin-left", style.marginLeft);
+    }
+    if (pluginMenuRect.left < 0) {
+        style.marginLeft = "0";
+    } else if (pluginMenuRect.right > viewportWidth) {
+        style.marginLeft = parseInt(style.marginLeft, 10) - itemWidth + "px";
+    }
+    for (i = 0; i < pluginMenus.length; i++) {
+        pluginMenu = pluginMenus[i];
+        pluginMenuRect = pluginMenu.getBoundingClientRect();
+        pluginMenu.style.left = "100%";
+        if (pluginMenuRect.right > viewportWidth) {
+            pluginMenu.style.left = "-100%";
+        }
+    }
+};
+
+/*
+ * Register resize handler for adapting the admin menu. This has some glitches,
+ * but should be acceptable.
+ */
+if (typeof window.addEventListener !== "undefined") {
+    window.addEventListener("resize", XH.adaptAdminMenu, false);
+} else if (typeof window.attachEvent !== "undefined") {
+    window.attachEvent("onresize", XH.adaptAdminMenu);
+}
+
+/*
+ * Adapts the admin menu initially.
+ */
+XH.adaptAdminMenu();
 
 /*
  * Initialize the quick submit of page data forms.

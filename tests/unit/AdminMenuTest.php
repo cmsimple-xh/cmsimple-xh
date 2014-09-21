@@ -137,7 +137,8 @@ class AdminMenuTest extends PHPUnit_Framework_TestCase
         global $tx;
 
         $matcher = array(
-            'tag' => 'span',
+            'tag' => 'a',
+            'attributes' => array('href' => '/'),
             'content' => $tx['editmenu']['plugins'],
             'ancestor' => array(
                 'tag' => 'div',
@@ -266,7 +267,7 @@ class AdminMenuTest extends PHPUnit_Framework_TestCase
 
     private function _assertMatches($matcher)
     {
-        $this->assertTag($matcher, XH_adminMenu($this->_plugins));
+        @$this->assertTag($matcher, XH_adminMenu($this->_plugins));
     }
 }
 

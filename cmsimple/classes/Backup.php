@@ -34,28 +34,28 @@ class XH_Backup
      *
      * @var array
      */
-    private $_contentFolders;
+    var $_contentFolders;
 
     /**
      * The path of the content folder.
      *
      * @var string
      */
-    private $_contentFolder;
+    var $_contentFolder;
 
     /**
      * The path of the content file.
      *
      * @var string
      */
-    private $_contentFile;
+    var $_contentFile;
 
     /**
      * The maximum number of backups to keep.
      *
      * @var int
      */
-    private $_maxBackups;
+    var $_maxBackups;
 
     /**
      * Initializes a new instance.

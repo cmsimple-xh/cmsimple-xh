@@ -190,7 +190,7 @@ if (!$edit && $pd_current) {
     ) {
         $temp = '<div id = "pp_last_update">'
             . $plugin_tx['page_params']['last_edit'] .  ' '
-            . date($tx['lastupdate']['dateformat'], $pd_current['last_edit'])
+            . XH_formatDate($pd_current['last_edit'])
             . '</div>';
         if ($pd_current['show_last_edit'] == 1) {
             $c[$pd_s] .= $temp;
@@ -214,6 +214,8 @@ if (!(XH_ADM && $edit)) {
         if (!Pageparams_isPublished($j)) {
             $c[$i] = '#CMSimple hide#';
             if ($i == $pd_s) {
+                $pd_s = $_XH_firstPublishedPage
+                    = ($i < count($temp) - 1 ? $i + 1 : -1);
                 $c[$i] .= '#CMSimple shead(404);#';
             }
         } elseif ($j['linked_to_menu'] == '0') {

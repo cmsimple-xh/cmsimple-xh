@@ -5,6 +5,7 @@ $mcf['security']['secret']="random";
 $mcf['security']['frame_options']="enum:DENY,SAMEORIGIN,";
 $mcf['site']['template']="function:XH_templates";
 $mcf['language']['default']="function:XH_availableLocalizations";
+$mcf['language']['2nd_lang_names']="hidden";
 $mcf['locator']['show_homepage']="bool";
 $mcf['folders']['content']="hidden";
 $mcf['show_hidden']['pages_toc']="bool";
@@ -27,5 +28,4 @@ $mcf['xhtml']['endtags']="bool";
 $mcf['xhtml']['amp']="hidden";
 $mcf['editmenu']['scroll']="bool";
 $mcf['editmenu']['external']="xfunction:XH_registeredEditmenuPlugins";
-
 ?>

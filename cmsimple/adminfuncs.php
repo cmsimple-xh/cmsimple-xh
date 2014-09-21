@@ -32,7 +32,7 @@ function XH_pluginVersion($plugin)
     global $pth;
 
     $internalPlugins = array(
-        'filebrowser', 'meta_tags', 'page_params', 'tinymce', 'tinymce4'
+        'filebrowser', 'meta_tags', 'page_params', 'tinymce'
     );
     if (in_array($plugin, $internalPlugins)) {
         $version = 'for ' . CMSIMPLE_XH_VERSION;
@@ -293,6 +293,10 @@ HTML;
     $checks['other'][] = array(
         ini_get('session.use_only_cookies'), false, 'session.use_only_cookies on'
     );
+    $checks['other'][] = array(
+        strpos(ob_get_contents(), "\xEF\xBB\xBF") !== 0,
+        false, $tx['syscheck']['bom']
+    );
     $o .= XH_systemCheck($checks);
     return $o;
 }
@@ -488,6 +492,8 @@ function pluginMenu($add = '', $link = '', $target = '', $text = '',
  * @param bool $showMain Whether to display the main settings item.
  *
  * @return void
+ *
+ * @since 1.6.2
  */
 function XH_registerStandardPluginMenuItems($showMain)
 {
@@ -507,6 +513,8 @@ function XH_registerStandardPluginMenuItems($showMain)
  * @return mixed
  *
  * @staticvar array $pluginMenu The array of already registered menu items.
+ *
+ * @since 1.6.2
  */
 function XH_registerPluginMenuItem($plugin, $label = null, $url = null,
     $target = null
@@ -654,7 +662,9 @@ function XH_adminMenu($plugins = array())
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['plugins']),
+            'url' => $sn, // TODO: use more sensible URL
             'children' => $pluginMenu,
+            'id' => 'xh_adminmenu_plugins',
             'style' => 'width:' . $width . 'px; margin-left: ' . $marginLeft . 'px'
         ),
         array(
@@ -704,6 +714,9 @@ function XH_adminMenuItem($item, $level = 0)
     }
     if (isset($item['children'])) {
         $t .= "\n" . $indent . '    <ul';
+        if (isset($item['id'])) {
+            $t .= ' id="' . $item['id'] . '"';
+        }
         if (isset($item['style'])) {
             $t .= ' style="' . $item['style'] . '"';
         }
@@ -1077,6 +1090,20 @@ function XH_adminJSLocalization()
     $o = '<script type="text/javascript">/* <![CDATA[ */XH.i18n = '
         . XH_encodeJson($l10n) . '/* ]]> */</script>' . PHP_EOL;
     return $o;
+}
+
+/**
+ * Returns whether the administration of a certain plugin is requested.
+ *
+ * @param string $pluginName A plugin name.
+ *
+ * @return bool
+ *
+ * @since 1.6.3
+ */
+function XH_wantsPluginAdministration($pluginName)
+{
+    return isset($GLOBALS[$pluginName]) && $GLOBALS[$pluginName] == 'true';
 }
 
 ?>

@@ -14,12 +14,17 @@
  * @link      http://cmsimple-xh.org/
  */
 
+require_once './vendor/autoload.php';
 require_once './cmsimple/functions.php';
 
 /**
  * The file under test.
  */
 require_once './cmsimple/tplfuncs.php';
+
+use org\bovigo\vfs\vfsStreamWrapper;
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStream;
 
 if (!defined('XH_ADM')) {
     define('XH_ADM', true);
@@ -44,6 +49,8 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
         include './cmsimple/config.php';
         include './cmsimple/languages/en.php';
         $onload = 'foo()';
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
     }
 
     public function testSitename()
@@ -76,7 +83,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
             )
         );
         $actual = searchbox();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testSitemaplink()
@@ -88,7 +95,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
             'content' => $tx['menu']['sitemap']
         );
         $actual = sitemaplink();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testSitemaplinkActive()
@@ -120,7 +127,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
             'content' => $tx['menu']['mailform']
         );
         $actual = mailformlink();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testMailformlinkActive()
@@ -157,30 +164,90 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
         $this->assertEmpty($actual);
     }
 
+    /**
+     * Tests the link to the previous page.
+     *
+     * @return void
+     *
+     * @global array The localization of the core.
+     * @global int   The index of the requested page.
+     */
     public function testPreviouspage()
     {
         global $tx, $s;
 
-        $s = 1;
+        $s = 10;
+        $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $hideMock->expects($this->any())->will($this->returnValue(false));
         $matcher = array(
             'tag' => 'a',
+            'attributes' => array('rel' => 'prev'),
             'content' => $tx['navigator']['previous']
         );
-        $actual = previouspage();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, previouspage());
+        $hideMock->restore();
     }
 
+    /**
+     * Tests that there's no link to the previous page if there is none.
+     *
+     * @return void
+     *
+     * @global int The index of the requested page.
+     */
+    public function testNoPreviousPage()
+    {
+        global $s;
+
+        $s = 10;
+        $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $hideMock->expects($this->any())->will($this->returnValue(true));
+        $this->assertNull(previouspage());
+        $hideMock->restore();
+    }
+
+    /**
+     * Tests the link to the next page.
+     *
+     * @return void
+     *
+     * @global array The localization of the core.
+     * @global int   The index of the requested page.
+     * @global int   The number of pages.
+     */
     public function testNextpage()
     {
         global $tx, $s, $cl;
 
-        $s = -1; $cl = 1;
+        $s = 0; $cl = 10;
+        $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $hideMock->expects($this->any())->will($this->returnValue(false));
         $matcher = array(
-            'tag' => 'a'/*,
-            'content' => $tx['navigator']['next']*/
+            'tag' => 'a',
+            'attributes' => array('rel' => 'next'),
+            'content' => 'next' /*$tx['navigator']['next']*/
         );
-        $actual = nextpage();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, nextpage());
+        $hideMock->restore();
+    }
+
+    /**
+     * Tests that there's no link to the next page if there is none.
+     *
+     * @return void
+     *
+     * @global int The index of the requested page.
+     * @global int The number of pages.
+     */
+    public function testNoNextPage()
+    {
+        global $s, $cl;
+
+        $s = 0; $cl = 10;
+        $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $hideMock->expects($this->any())->will($this->returnValue(true));
+        $this->assertNull(nextpage());
+        $hideMock->restore();
     }
 
     public function testTop()
@@ -190,25 +257,55 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
             'attributes' => array('href' => '#TOP')
         );
         $actual = top();
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
+    /**
+     * Tests languagemenu().
+     *
+     * @return void
+     *
+     * @global array The paths of system files and folders.
+     */
     public function testLanguageMenu()
     {
         global $pth;
 
-        $pth = array('folder' => array('base' => './', 'flags' => ''));
-        runkit_function_rename('XH_secondLanguages', 'Old_secondLanguages');
-        runkit_function_add('XH_secondLanguages', '', 'return array("fr", "de");');
-        $matcher = array(
-            'tag' => 'a',
-            'attributes' => array('href' => './de/'),
-            'content' => '[de]'
+        $pth = array(
+            'folder' => array('base' => './', 'flags' => vfsStream::url('test/'))
         );
-        $actual = languagemenu();
-        $this->assertTag($matcher, $actual);
-        runkit_function_remove('XH_secondLanguages');
-        runkit_function_rename('Old_secondLanguages', 'XH_secondLanguages');
+        touch($pth['folder']['flags'] . 'da.gif');
+        $secondLanguagesMock = new PHPUnit_Extensions_MockFunction(
+            'XH_secondLanguages', null
+        );
+        $secondLanguagesMock->expects($this->any())->will(
+            $this->returnValue(array('da', 'de'))
+        );
+        @$this->assertTag(
+            array(
+                'tag' => 'a',
+                'attributes' => array('href' => './de/'),
+                'content' => 'Deutsch'
+            ),
+            languagemenu()
+        );
+        @$this->assertTag(
+            array(
+                'tag' => 'a',
+                'attributes' => array('href' => './da/'),
+                'child' => array(
+                    'tag' => 'img',
+                    'attributes' => array(
+                        'class' => 'flag',
+                        'alt' => 'Dansk',
+                        'title' => 'Dansk',
+                        'src' => $pth['folder']['flags'] . 'da.gif'
+                    )
+                )
+            ),
+            languagemenu()
+        );
+        $secondLanguagesMock->restore();
     }
 }
 

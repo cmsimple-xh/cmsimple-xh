@@ -182,7 +182,7 @@ if (!defined('E_USER_DEPRECATED')) {
     /**
      * @ignore
      */
-    define('E_USER_DEPRECATED', 16384);
+    define('E_USER_DEPRECATED', E_USER_NOTICE);
 }
 
 /**
@@ -205,6 +205,7 @@ $pth['file']['config'] = $pth['folder']['cmsimple'] . 'config.php';
 // include general utility functions and classes
 require_once $pth['folder']['cmsimple'] . 'functions.php';
 require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
+require_once $pth['folder']['classes'] . 'Controller.php';
 require_once $pth['folder']['classes'] . 'CSRFProtection.php';
 require_once $pth['folder']['classes'] . 'PasswordHash.php';
 require_once $pth['folder']['classes'] . 'PageDataRouter.php';
@@ -214,6 +215,13 @@ require_once $pth['folder']['classes'] . 'PluginMenu.php';
 require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
 require_once UTF8 . '/utils/validation.php';
+
+/**
+ * The controller.
+ *
+ * @var XH_Controller
+ */
+$_XH_controller = new XH_Controller();
 
 /**
  * The configuration of the core.
@@ -299,6 +307,13 @@ if ($tx['locale']['all'] != '') {
     setlocale(LC_ALL, $tx['locale']['all']);
 }
 
+/*
+ * Register shutdown handler.
+ */
+if (function_exists('error_get_last')) {
+    register_shutdown_function('XH_onShutdown');
+}
+
 // removed from the core in XH 1.6, but left for compatibility with plugins.
 $tx['meta']['codepage']='UTF-8';
 
@@ -325,11 +340,12 @@ $pth['folder']['menubuttons'] = $pth['folder']['template'] . 'menu/';
 $pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
 
 /*
- * Additional security measure. However, we cannot check cookies,
- * as these might be set from non UTF-8 scripts on the domain.
+ * Additional security measure. However, we can neither check cookies,
+ * as these might be set from non UTF-8 scripts on the domain, nor server
+ * variables (<http://cmsimpleforum.com/viewtopic.php?f=10&t=8052>).
  */
 XH_checkValidUtf8(
-    array($_GET, $_POST, $_SERVER, array_keys($_POST))
+    array($_GET, $_POST, array_keys($_POST))
 );
 
 /**
@@ -631,56 +647,7 @@ foreach (XH_plugins() as $plugin) {
  */
 $_XH_csrfProtection = new XH_CSRFProtection();
 
-// LOGIN & BACKUP
-
-$adm = gc('status') == 'adm' && logincheck();
-
-$keycut = stsl($keycut);
-
-if ($login && $keycut == '' && !$adm) {
-    $login = null;
-    $f = 'login';
-}
-
-if ($login && !$adm) {
-    if ($xh_hasher->CheckPassword($keycut, $cf['security']['password'])) {
-        setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
-        if (session_id() == '') {
-            session_start();
-        }
-        session_regenerate_id(true);
-        $_SESSION['xh_password'][CMSIMPLE_ROOT] = $cf['security']['password'];
-        $_SESSION['xh_user_agent'] = md5($_SERVER['HTTP_USER_AGENT']);
-        $adm = true;
-        $edit = true;
-        $temp = XH_logMessage(
-            'info', 'XH', 'login', 'login from ' . $_SERVER['REMOTE_ADDR']
-        );
-        if (!$temp) {
-            e('cntwriteto', 'log', $pth['file']['log']);
-        }
-    } else {
-        $login = null;
-        $f = 'xh_login_failed';
-        XH_logMessage(
-            'warning', 'XH', 'login', 'login failed from ' . $_SERVER['REMOTE_ADDR']
-        );
-        //shead('403');
-    }
-} elseif ($logout && $adm) {
-    if ($logout != 'no_backup') {
-        $o .= XH_backup();
-    }
-    $adm = false;
-    setcookie('status', '', 0, CMSIMPLE_ROOT);
-    if (session_id() == '') {
-        session_start();
-    }
-    session_regenerate_id(true);
-    unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
-    $o .= XH_message('success', $tx['login']['loggedout']);
-    $f = 'xh_loggedout';
-}
+$_XH_controller->handleLoginAndLogout();
 
 /**
  * Whether admin mode is active.
@@ -693,66 +660,16 @@ define('XH_ADM', $adm);
 
 if (XH_ADM) {
     include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
+    if (isset($_GET['xh_keep_alive'])) {
+        $_XH_controller->handleKeepAlive();
+    }
+    if (isset($_GET['xh_check'])) {
+        $_XH_controller->handlePasswordCheck();
+    }
+    $_XH_controller->outputAdminScripts();
 }
 
-/*
- * Handle AJAX request to keep the admin session alive.
- */
-if (XH_ADM && isset($_GET['xh_keep_alive'])) {
-    session_start();
-    header('Content-Type: text/plain');
-    exit;
-}
-
-/*
- * Handle AJAX request to check the password.
- */
-if (XH_ADM && isset($_GET['xh_check'])) {
-    header('Content-Type: text/plain');
-    echo intval(
-        $xh_hasher->CheckPassword(
-            stsl($_GET['xh_check']),
-            $cf['security']['password']
-        )
-    );
-    exit;
-}
-
-
-// SETTING FUNCTIONS AS PERMITTED
-
-if (XH_ADM) {
-    $temp = 1000 * (ini_get('session.gc_maxlifetime') - 1);
-    $o .= '<script type="text/javascript">/* <![CDATA[ */'
-        . 'if (document.cookie.indexOf(\'status=adm\') == -1)'
-        . ' document.write(\'<div class="xh_warning">'
-        . $tx['error']['nocookies'] . '<\/div>\')'
-        . '/* ]]> */</script>'
-        . '<noscript><div class="xh_warning">'
-        . $tx['error']['nojs'] . '</div></noscript>'
-        . '<script type="text/javascript">/* <![CDATA[ */'
-        . 'setInterval(function() {'
-        . 'var request = new XMLHttpRequest();'
-        . 'request.open("GET", "?xh_keep_alive"); request.send(null);'
-        . '}, ' . $temp . ');'
-        . '/* ]]> */</script>';
-    if ($edit) {
-        setcookie('mode', 'edit', 0, CMSIMPLE_ROOT);
-    }
-    if ($normal) {
-        setcookie('mode', '', 0, CMSIMPLE_ROOT);
-    }
-    if (gc('mode') == 'edit' && !$normal) {
-        $edit = true;
-    }
-} else {
-    if (gc('status') != '') {
-        setcookie('status', '', 0, CMSIMPLE_ROOT);
-    }
-    if (gc('mode') == 'edit') {
-        setcookie('mode', '', 0, CMSIMPLE_ROOT);
-    }
-}
+$_XH_controller->setFunctionsAsPermitted();
 
 /**
  * The number of pages.
@@ -767,6 +684,15 @@ $cl = 0;
  * @global XH_PageDataRouter $pd_router
  */
 $pd_router = null;
+
+/**
+ * The index of the first published page.
+ *
+ * @global int $_XH_firstPublishedPage
+ *
+ * @since 1.6.3
+ */
+$_XH_firstPublishedPage = -1;
 
 /**
  * The index of the currently selected page.
@@ -809,26 +735,11 @@ $l = null;
 
 rfc(); // Here content is loaded
 
-if ($function == 'forgotten') {
-    $f = 'forgotten';
-}
-if ($function == 'search') {
-    $f = 'search';
-}
-if (($su == '' || $su == 'mailform') && ($mailform || $function == 'mailform')) {
-    $f = 'mailform';
-}
-if (($su == '' || $su == 'sitemap') && $sitemap) {
-    $f = 'sitemap';
-}
-if ($xhpages) {
-    $f = 'xhpages';
-}
+$_XH_controller->setFrontendF();
 
 if (is_readable($pth['folder']['cmsimple'] . 'userfuncs.php')) {
     include_once $pth['folder']['cmsimple'] . 'userfuncs.php';
 }
-
 
 $cf['site']['title'] = $tx['site']['title']; // for backward compatibility
 
@@ -847,7 +758,6 @@ define('PLUGINLOADER', true);
  */
 define('PLUGINLOADER_VERSION', 2.111);
 
-
 /**
  * A unique prefix for autogenerated forms.
  *
@@ -855,40 +765,13 @@ define('PLUGINLOADER_VERSION', 2.111);
  */
 define('XH_FORM_NAMESPACE', 'PL3bbeec384_');
 
-
-// If admin is logged in, generate fake output to suppress later adjustment of $s.
 if (XH_ADM) {
-    $o .= ' ';
-}
-
-
-if (XH_ADM) {
-    // check for pagedata changes from MenuManager
-    if (isset($menumanager) && $menumanager == 'true'
-        && $action == 'saverearranged' && !empty($text)
-    ) {
-        if (!$pd_router->refresh_from_menu_manager($text)) {
-            e('notwritable', 'content', $pth['file']['content']);
-        }
+    $o .= ' '; // generate fake output to suppress later adjustment of $s
+    if ($_XH_controller->isSavingMenumanager()) {
+        $_XH_controller->handleMenumanager();
     }
-
-    // check for some changed page infos
-    if ($s > -1 && isset($_POST['save_page_data'])) {
-        $temp = $_POST;
-        unset($temp['save_page_data']);
-        $temp = array_map('stsl', $temp);
-        $temp = $pd_router->update($s, $temp);
-        if (isset($_GET['xh_pagedata_ajax'])) {
-            if ($temp) {
-                echo XH_message('info', $tx['message']['pd_success']);
-            } else {
-                header('HTTP/1.0 500 Internal Server Error');
-                echo XH_message('fail', $tx['message']['pd_fail']);
-            }
-            exit;
-        } else {
-            e('cntsave', 'content', $pth['file']['content']);
-        }
+    if ($_XH_controller->wantsSavePageData()) {
+        $_XH_controller->handleSavePageData();
     }
 }
 
@@ -897,7 +780,7 @@ if (XH_ADM) {
  *
  * @global int $pd_s
  */
-$pd_s = $s == -1 && !$f && $o == '' && $su == '' ? 0 : $s;
+$pd_s = ($s == -1 && !$f && $o == '' && $su == '') ? $_XH_firstPublishedPage : $s;
 
 /**
  * The infos about the current page.
@@ -912,6 +795,7 @@ $pd_current = $pd_router->find_page($pd_s);
  * @global array $plugin_cf
  */
 $plugin_cf = array();
+
 /**
  * The localization of the plugins.
  *
@@ -966,46 +850,18 @@ unset($plugin);
 XH_afterPluginLoading();
 
 
-if ($f == 'search') {
-    if (file_exists($pth['file']['search'])) {
-        // For compatibility with modified search functions and search plugins.
-        include $pth['file']['search'];
-    } else {
-        include_once $pth['folder']['classes'] . 'Search.php';
-        $title = $tx['title']['search'];
-        $temp = new XH_Search(stsl($search));
-        $o .= $temp->render();
-    }
-}
 switch ($f) {
+case 'search':
+    $_XH_controller->handleSearch();
+    break;
 case 'mailform':
-    if ($cf['mailform']['email'] != '') {
-        include_once $pth['folder']['classes'] . 'Mailform.php';
-        $temp = new XH_Mailform();
-        $title = $tx['title'][$f];
-        $o .= "\n" . '<div id="xh_mailform">' . "\n";
-        $o .= '<h1>' . $title . '</h1>' . "\n";
-        $o .= $temp->process();
-        $o .= '</div>' . "\n";
-    } else {
-        shead(404);
-    }
+    $_XH_controller->handleMailform();
     break;
 case 'sitemap':
-    $title = $tx['title'][$f];
-    $temp = array();
-    $o .= '<h1>' . $title . '</h1>' . "\n";
-    for ($i = 0; $i < $cl; $i++) {
-        if (!hide($i) || $cf['show_hidden']['pages_sitemap'] == 'true') {
-            $temp[] = $i;
-        }
-    }
-    $o .= li($temp, 'sitemaplevel');
+    $_XH_controller->handleSitemap();
     break;
 case 'forgotten':
-    include_once $pth['folder']['classes'] . 'PasswordForgotten.php';
-    $temp = new XH_PasswordForgotten();
-    $temp->dispatch();
+    $_XH_controller->handlePasswordForgotten();
     break;
 }
 
@@ -1044,44 +900,7 @@ if ($su == uenc($cf['menu']['legal'])) {
 }
 
 if (XH_ADM) {
-    if ($validate) {
-        $f = 'validate';
-    }
-    if (isset($xh_do_validate)) {
-        $f = 'do_validate';
-    }
-    if ($settings) {
-        $f = 'settings';
-    }
-    if (isset($xh_backups)) {
-        $f = 'xh_backups';
-    }
-    if (isset($xh_pagedata)) {
-        $f = 'xh_pagedata';
-    }
-    if (isset($sysinfo)) {
-        $f = 'sysinfo';
-    }
-    if (isset($phpinfo)) {
-        $f = 'phpinfo';
-    }
-    if ($file) {
-        $f = 'file';
-    }
-    // FIXME: handling of userfiles, images and download probably not necessary,
-    //		as this should already be handled by the filebrowser
-    if ($userfiles) {
-        $f = 'userfiles';
-    }
-    if ($images || $function == 'images') {
-        $f = 'images';
-    }
-    if ($downloads || $function == 'downloads') {
-        $f = 'downloads';
-    }
-    if ($function == 'save') {
-        $f = 'save';
-    }
+    $_XH_controller->setBackendF();
 
     if ($f == 'settings' || $f == 'xh_backups' || $f == 'images' || $f == 'downloads'
         || $f == 'validate' || $f == 'sysinfo' || $f == 'phpinfo'
@@ -1104,9 +923,7 @@ if (XH_ADM) {
         $o .= XH_backupsView();
         break;
     case 'xh_pagedata':
-        include_once $pth['folder']['classes'] . 'PageDataEditor.php';
-        $temp = new XH_PageDataEditor();
-        $o .= $temp->process();
+        $_XH_controller->handlePageDataEditor();
         break;
     case 'file':
         if (XH_isContentBackup($file, false)) {
@@ -1115,25 +932,13 @@ if (XH_ADM) {
         if ($pth['file'][$file] != '') {
             switch ($action) {
             case 'view':
-                if ($file === 'log') {
-                    $o .= XH_logFileView();
-                } else {
-                    header('Content-Type: text/plain; charset=utf-8');
-                    echo rmnl(file_get_contents($pth['file'][$file]));
-                    exit;
-                }
+                $_XH_controller->handleFileView();
                 break;
             case 'download':
                 download($pth['file'][$file]);
                 break;
             case 'backup':
-                $_XH_csrfProtection->check();
-                if ($file === 'content') {
-                    $temp = stsl($_POST['xh_suffix']);
-                    if (preg_match('/^[a-z_0-9-]{1,20}$/i', $temp)) {
-                        XH_extraBackup($temp);
-                    }
-                }
+                $_XH_controller->handleFileBackup();
                 break;
             case 'restore':
                 $_XH_csrfProtection->check();
@@ -1141,23 +946,12 @@ if (XH_ADM) {
                 break;
             case 'empty':
                 $_XH_csrfProtection->check();
-                if ($file = 'content') {
+                if ($file == 'content') {
                     XH_emptyContents();
                 }
                 break;
             default:
-                include_once $pth['folder']['classes'] . 'FileEdit.php';
-                $temp = array('config' => 'XH_CoreConfigFileEdit',
-                              'language' => 'XH_CoreLangFileEdit',
-                              'content' => 'XH_CoreTextFileEdit',
-                              'template' => 'XH_CoreTextFileEdit',
-                              'stylesheet' => 'XH_CoreTextFileEdit');
-                $temp = isset($temp[$file]) ? new $temp[$file]() : null;
-                if ($action == 'save') {
-                    $o .= $temp->submit();
-                } else {
-                    $o .= $temp->form();
-                }
+                $_XH_controller->handleFileEdit();
             }
         }
         break;
@@ -1173,44 +967,22 @@ if (XH_ADM) {
 
 // fix $s
 if ($s == -1 && !$f && $o == '' && $su == '') {
-    $s = 0;
-    $hs = 0;
+    $s = $_XH_firstPublishedPage;
+    $hs = $_XH_firstPublishedPage;
 }
 
-if (XH_ADM && $f == 'save') {
-    $_XH_csrfProtection->check();
-    XH_saveEditorContents($text);
-}
-
-if (XH_ADM && $edit && (!$f || $f == 'save') && !$download) {
-    if ($s > -1) {
-        $o .= XH_contentEditor();
-    } else {
-        $o .= '<p>' . $tx['error']['cntlocateheading'] . '</p>' . "\n";
+if (XH_ADM) {
+    if ($f == 'save') {
+        $_XH_controller->handleSaveRequest();
     }
-}
-
-if (XH_ADM && ($images || $downloads || $userfiles || $media || $edit
-    && (!$f || $f == 'save') && !$download)
-) {
-    if ($cf['filebrowser']['external']
-        && !file_exists($pth['folder']['plugins'] . $cf['filebrowser']['external'])
-    ) {
-        $temp = sprintf(
-            $tx['error']['nofilebrowser'], $cf['filebrowser']['external']
-        );
-        $e .= '<li>' . $temp . '</li>' . "\n";
+    if ($_XH_controller->wantsEditContents()) {
+        $_XH_controller->outputEditContents();
     }
-}
-
-if (XH_ADM && $f == 'xhpages') {
-    if ($cf['pagemanager']['external']
-        && !file_exists($pth['folder']['plugins'] . $cf['pagemanager']['external'])
-    ) {
-        $temp = sprintf(
-            $tx['error']['nopagemanager'], $cf['pagemanager']['external']
-        );
-        $e .= '<li>' . $temp . '</li>' . "\n";
+    if ($_XH_controller->isFilebrowserMissing()) {
+        $_XH_controller->reportMissingExternal('filebrowser');
+    }
+    if ($_XH_controller->isPagemanagerMissing()) {
+        $_XH_controller->reportMissingExternal('pagemanager');
     }
 }
 
@@ -1294,18 +1066,14 @@ ob_start('XH_finalCleanUp');
 
 $temp = fopen($pth['file']['template'], 'r');
 if ($temp) {
-    if (flock($temp, LOCK_SH)) {
+    if (XH_lockFile($temp, LOCK_SH)) {
         $i = include $pth['file']['template'];
-        flock($temp, LOCK_UN);
+        XH_lockFile($temp, LOCK_UN);
     }
     fclose($temp);
 }
-if (!$i) {
-    header('HTTP/1.0 500 Internal Server Error');
-    header('Content-Type: text/plain; charset=utf-8');
-    echo $tx['error']['missing'], ' ', $tx['filetype']['template'], "\n",
-        $pth['file']['template'];
-    exit;
+if (!$i) {// the template could not be included
+    XH_emergencyTemplate();
 }
 
 $_XH_csrfProtection->store();

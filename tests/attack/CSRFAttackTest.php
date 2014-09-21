@@ -71,6 +71,12 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
                     'text' => '<h1>hacked</h1>'
                 )
             ),
+            array( // pagedata tab
+                array(
+                    'save_page_data' => ''
+                ),
+                'Welcome_to_CMSimple_XH'
+            ),
             array( // core configuration
                 array(
                     'form' => 'array',

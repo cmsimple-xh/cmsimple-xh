@@ -123,19 +123,19 @@ class ClassicPluginMenuTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 'Main',
-                '/xh/?&filebrowser&admin=plugin_main&action=plugin_text'
+                '/xh/?&filebrowser&admin=plugin_main&action=plugin_text&normal'
             ),
             array(
                 'Stylesheet',
-                '/xh/?&filebrowser&admin=plugin_stylesheet&action=plugin_text'
+                '/xh/?&filebrowser&admin=plugin_stylesheet&action=plugin_text&normal'
             ),
             array(
                 'Config',
-                '/xh/?&filebrowser&admin=plugin_config&action=plugin_edit'
+                '/xh/?&filebrowser&admin=plugin_config&action=plugin_edit&normal'
             ),
             array(
                 'Language',
-                '/xh/?&filebrowser&admin=plugin_language&action=plugin_edit'
+                '/xh/?&filebrowser&admin=plugin_language&action=plugin_edit&normal'
             )
         );
     }
@@ -182,12 +182,12 @@ class ClassicPluginMenuTest extends PHPUnit_Framework_TestCase
             'content' => 'Main',
             'ancestor' => array('tag' => 'table')
         );
-        $this->assertNotTag($matcher, print_plugin_admin('off'));
+        @$this->assertNotTag($matcher, print_plugin_admin('off'));
     }
 
     private function _assertPluginMenuMatches($matcher)
     {
-        $this->assertTag($matcher, print_plugin_admin('on'));
+        @$this->assertTag($matcher, print_plugin_admin('on'));
     }
 
     public function testCustomMenuRow()
@@ -240,7 +240,7 @@ class ClassicPluginMenuTest extends PHPUnit_Framework_TestCase
 
     private function _assertCustomMenuMatches($matcher)
     {
-        $this->assertTag($matcher, $this->_renderCustomMenu());
+        @$this->assertTag($matcher, $this->_renderCustomMenu());
     }
 
     private function _renderCustomMenu()

@@ -395,7 +395,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
             'attributes' => array('name' => 'robots', 'content' => 'index, follow')
         );
         $actual = meta('robots');
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     /**
@@ -468,6 +468,13 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
                     'scheme' => 'http',
                     'host' => 'www.cmsimple-xh.org',
                     'path' => '/'
+                ),
+                false
+            ),
+            array( // test for <http://cmsimpleforum.com/viewtopic.php?f=10&t=8053>
+                array(
+                    'scheme' => 'http',
+                    'host' => 'www.cmsimple-xh.org'
                 ),
                 false
             ),
@@ -645,6 +652,52 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testReadConfigWithoutDefaultconfig()
+    {
+        global $pth;
+
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
+
+        $pth['folder']['cmsimple'] = vfsStream::url('test/');
+        $pth['file']['config'] = vfsStream::url('test/config.php');
+
+        $config = array(
+            'foo' => array('a' => 'b', 'c' => 'c'),
+            'bar' => array('a' => 'b', 'c' => 'c')
+        );
+        $config = var_export($config, true);
+        $contents = "<?php \$cf = $config;?>";
+        file_put_contents($pth['file']['config'], $contents);
+
+        $expected = array(
+            'foo' => array('a' => 'b', 'c' => 'c'),
+            'bar' => array('a' => 'b', 'c' => 'c')
+        );
+        $this->assertEquals($expected, XH_readConfiguration());
+    }
+
+    /**
+     * Should also test other include failures, which can't be easily simulated.
+     *
+     * @link http://cmsimpleforum.com/viewtopic.php?f=17&t=7679#p41533
+     */
+    public function testReadCorruptConfiguration()
+    {
+        global $pth;
+
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
+
+        $pth['folder']['cmsimple'] = vfsStream::url('test/');
+        $pth['file']['config'] = vfsStream::url('test/config.php');
+
+        $contents = "<?php \$cf = false;?>";
+        file_put_contents($pth['file']['config'], $contents);
+
+        $this->assertEquals(array(), XH_readConfiguration());
+    }
+
     public function testRenameFile()
     {
         vfsStreamWrapper::register();
@@ -692,6 +745,31 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             array('filebrowser'), XH_registerPluginType('filebrowser')
         );
+    }
+
+    /**
+     * Tests XH_formatDate().
+     *
+     * @return void
+     */
+    public function testFormatDate()
+    {
+        $this->assertEquals('January 02, 1970, 11:17', XH_formatDate('123456'));
+    }
+
+    /**
+     * Tests XH_lockFile().
+     *
+     * @return void
+     */
+    public function testFlock()
+    {
+        $handle = 'foo';
+        $operation = LOCK_EX;
+        $flockMock = new PHPUnit_Extensions_MockFunction('flock', null);
+        $flockMock->expects($this->once())->with($handle, $operation);
+        XH_lockFile($handle, $operation);
+        $flockMock->restore();
     }
 }
 

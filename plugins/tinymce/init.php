@@ -65,7 +65,7 @@ function include_tinymce() {
     }
 
     $hjs .='
-        <script language="javascript" type="text/javascript" src="' . $pth['folder']['plugins'] . 'tinymce/' . 'tiny_mce/tiny_mce.js"></script>
+        <script type="text/javascript" src="' . $pth['folder']['plugins'] . 'tinymce/' . 'tiny_mce/tiny_mce.js"></script>
         <script type="text/javascript" src="' . $pth['folder']['plugins'] . 'tinymce/init.js"></script>
 	<script type="text/javascript">
 	/* <![CDATA[ */
@@ -222,7 +222,7 @@ function tinymce_config($xh_editor, $config) {
     $temp = tinymce_config($initClasses == 'xh-editor', $config);
 
     $hjs .= '
-	<script language="javascript" type="text/javascript">
+	<script type="text/javascript">
 	/* <![CDATA[ */
 	function tinyMCE_initialize' . $run . '() {
 	    tinyMCE_instantiateByClasses(\'' . $initClasses . '\', ' . $temp . ');

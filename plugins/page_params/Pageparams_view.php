@@ -378,7 +378,7 @@ function Pageparams_view($page)
     $view .= Pageparams_lastEditRadiogroup($page['show_last_edit']);
     if ($page['last_edit'] !== '') {
         $view .= "\n\t\t" . '&nbsp;&nbsp;(' . $lang['last_edit'] . ' '
-            . date($tx['lastupdate']['dateformat'], $page['last_edit']) . ')';
+            . XH_formatDate($page['last_edit']) . ')';
     }
     $view .= "\n\t" . tag('hr');
 

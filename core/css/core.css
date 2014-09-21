@@ -16,7 +16,6 @@
 
 #xh_adminmenu {
     width: 100%;
-    min-width: 760px;
     background-color: #2e3436;
     font-size: 14px;
     padding: 0;
@@ -111,6 +110,7 @@
 #xh_adminmenu ul ul ul {
     left: 100%;
     top: 0px;
+    width: 100%;
     visibility: hidden;
     padding: 0;
     margin: 0;

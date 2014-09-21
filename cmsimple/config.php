@@ -1,12 +1,13 @@
 <?php
 
 $cf['security']['password']="\$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1";
-$cf['security']['secret']="cf6055c67b190634cdc08658";
+$cf['security']['secret']="5b2b98208d4fc6ce9331e47d";
 $cf['security']['email']="";
 $cf['security']['frame_options']="";
 $cf['site']['template']="mini1";
 $cf['site']['timezone']="";
 $cf['language']['default']="en";
+$cf['language']['2nd_lang_names']="cs=Čeština;da=Dansk;de=Deutsch;en=English;es=Español;fi=Suomi;fr=Français;gr=Ελληνικά;hu=Magyar;it=Italiano;nl=Nederlands;no=Norsk;pl=Polski;ru=Русский;se=Svensk;sk=Slovenčina";
 $cf['meta']['robots']="index, follow";
 $cf['meta']['author']="";
 $cf['locator']['show_homepage']="true";
@@ -36,7 +37,7 @@ $cf['menu']['levelcatch']="10";
 $cf['menu']['sdoc']="parent";
 $cf['menu']['legal']="CMSimple Legal Notices";
 $cf['plugins']['disabled']="";
-$cf['plugins']['hidden']="";
+$cf['plugins']['hidden']="meta_tags,page_params";
 $cf['uri']['seperator']=":";
 $cf['uri']['word_separator']="_";
 $cf['uri']['length']="200";
@@ -45,5 +46,4 @@ $cf['xhtml']['amp']="true";
 $cf['editmenu']['scroll']="";
 $cf['editmenu']['external']="";
 $cf['title']['format']="{SITE} &ndash; {PAGE}";
-
 ?>

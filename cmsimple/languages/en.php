@@ -55,6 +55,7 @@ $tx['error']['cntlocateheading']="No page selected";
 $tx['error']['cntopen']="Could not open";
 $tx['error']['cntsave']="Could not save";
 $tx['error']['cntwriteto']="Could not write to";
+$tx['error']['fatal']="A fatal error occurred. Enable <a href=\"http://www.cmsimple-xh.org/wiki/doku.php/troubleshooting#debug_mode\" target=\"_blank\">debug mode</a> for further information.";
 $tx['error']['noeditor']="External editor \"%s\" missing!";
 $tx['error']['nofilebrowser']="External filebrowser \"%s\" missing!";
 $tx['error']['nopagemanager']="External pagemanager \"%s\" missing!";
@@ -251,6 +252,7 @@ $tx['settings']['warning']="Only change settings when you understand the effect 
 $tx['submenu']['heading']="Submenu";
 
 $tx['syscheck']['access_protected']="'%s' access protected";
+$tx['syscheck']['bom']="Without <a href=\"http://www.cmsimple-xh.org/wiki/doku.php/utf8#what_s_a_bom\" target=\"_blank\">BOM</a>";
 $tx['syscheck']['encoding']="Encoding 'UTF-8' configured";
 $tx['syscheck']['extension']="Extension '%s' loaded";
 $tx['syscheck']['fail']="Failure";

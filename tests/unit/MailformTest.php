@@ -99,7 +99,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
             'content' => $tx['mailform'][$langKey]
         );
         $mailform = new XH_Mailform();
-        $this->assertTag($matcher, $mailform->check());
+        @$this->assertTag($matcher, $mailform->check());
     }
 
     public function testSubmitSendsMailSuccess()

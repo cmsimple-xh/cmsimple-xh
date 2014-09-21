@@ -32,7 +32,7 @@ require_once './cmsimple/tplfuncs.php';
  */
 class MenuTest extends PHPUnit_Framework_TestCase
 {
-    private $_liStub;
+    private $_aStub;
 
     private $_hideStub;
 
@@ -179,8 +179,8 @@ class MenuTest extends PHPUnit_Framework_TestCase
      */
     private function _setUpFunctionStubs()
     {
-        $this->_liStub = new PHPUnit_Extensions_MockFunction('a', $this);
-        $this->_liStub->expects($this->any())->will(
+        $this->_aStub = new PHPUnit_Extensions_MockFunction('a', null);
+        $this->_aStub->expects($this->any())->will(
             $this->returnCallback(
                 function ($pageIndex, $suffix) {
                     global $u;
@@ -189,7 +189,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
                 }
             )
         );
-        $this->_hideStub = new PHPUnit_Extensions_MockFunction('hide', $this);
+        $this->_hideStub = new PHPUnit_Extensions_MockFunction('hide', null);
         $this->_hideStub->expects($this->any())->will(
             $this->returnCallback(
                 function ($pageIndex) {
@@ -201,7 +201,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $this->_liStub->restore();
+        $this->_aStub->restore();
         $this->_hideStub->restore();
     }
 
@@ -455,7 +455,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
      */
     private function _assertMatches($matcher)
     {
-        $this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->_renderAllPages());
     }
 
     /**
@@ -473,7 +473,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
                 'content' => 'Hidden'
             )
         );
-        $this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->_renderAllPages());
     }
 
     /**
@@ -492,7 +492,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
             'tag' => 'ul',
             'attributes' => array('class' => $class)
         );
-        $this->assertTag($matcher, $this->_renderAllPages($forOrFrom));
+        @$this->assertTag($matcher, $this->_renderAllPages($forOrFrom));
     }
 
     /**
@@ -535,7 +535,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
                 'content' => 'Blog'
             )
         );
-        $this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->_renderAllPages());
     }
 
     /**
@@ -553,7 +553,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
                 'content' => 'Welcome'
             )
         );
-        $this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->_renderAllPages());
     }
 
     /**
@@ -571,7 +571,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
                 'content' => 'Blog'
             )
         );
-        $this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->_renderAllPages());
     }
 
     /**
@@ -594,7 +594,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
                 'content' => 'Welcome'
             )
         );
-        $this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->_renderAllPages());
     }
 
     /**
@@ -625,7 +625,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
                 'content' => 'Blog'
             )
         );
-        $this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->_renderAllPages());
     }
 
     /**
@@ -667,7 +667,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
                 'content' => 'About'
             )
         );
-        $this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->_renderAllPages());
     }
 
     /**
@@ -695,7 +695,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
             'content' => 'Cold',
             'attributes' => array('target' => '_blank')
         );
-        $this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->_renderAllPages());
     }
 
     /**
@@ -711,7 +711,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
             'content' => 'Cold',
             'attributes' => array('target' => '_blank')
         );
-        $this->assertNotTag($matcher, $this->_renderAllPages());
+        @$this->assertNotTag($matcher, $this->_renderAllPages());
     }
 
     /**
@@ -747,7 +747,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
                 )
             )
         );
-        $this->assertTag($matcher, li(array(2, 4, 6), 'submenu'));
+        @$this->assertTag($matcher, li(array(2, 4, 6), 'submenu'));
     }
 
     /**
@@ -770,7 +770,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
                 'class' => 'submenu'
             )
         );
-        $this->assertTag($matcher, li(array(2, 4, 6), 'submenu'));
+        @$this->assertTag($matcher, li(array(2, 4, 6), 'submenu'));
     }
 
     public function testBuildHcForThirdPage()

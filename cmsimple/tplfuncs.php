@@ -16,6 +16,49 @@
  * @link      http://cmsimple-xh.org/
  */
 
+/**
+ * Renders the prev link.
+ *
+ * @return string (X)HTML.
+ *
+ * @global string The script name.
+ * @global array  The page URLs.
+ *
+ * @since 1.6.3
+ */
+function XH_renderPrevLink()
+{
+    global $sn, $u;
+
+    $index = XH_findPreviousPage();
+    if ($index !== false) {
+        return tag('link rel="prev" href="' . $sn . '?' . $u[$index] . '"');
+    } else {
+        return '';
+    }
+}
+
+/**
+ * Renders the next link.
+ *
+ * @return string (X)HTML.
+ *
+ * @global string The script name.
+ * @global array  The page URLs.
+ *
+ * @since 1.6.3
+ */
+function XH_renderNextLink()
+{
+    global $sn, $u;
+
+    $index = XH_findNextPage();
+    if ($index !== false) {
+        return tag('link rel="next" href="' . $sn . '?' . $u[$index] . '"');
+    } else {
+        return '';
+    }
+}
 
 /**
  * Returns the complete HEAD element.
@@ -46,6 +89,7 @@ function head()
             . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org"'
         ) . "\n"
         . '<!-- plugins: ' . $plugins . ' -->' . "\n"
+        . XH_renderPrevLink() . XH_renderNextLink()
         . tag(
             'link rel="stylesheet" href="' . $pth['file']['corestyle']
             . '" type="text/css"'
@@ -56,7 +100,6 @@ function head()
         ) . "\n"
         . $hjs;
 }
-
 
 /**
  * Returns the language dependend site title.
@@ -168,115 +211,22 @@ function toc($start = null, $end = null, $li = 'li')
 
 
 /**
- * Returns a menu structure of the pages.
+ * Returns a menu structure of certain pages.
  *
  * @param array $ta The indexes of the pages.
  * @param mixed $st The menu level to start with or the type of menu.
  *
  * @return string The (X)HTML.
  *
- * @global int    The index of the current page.
- * @global array  The menu levels of the pages.
- * @global array  The headings of the pages.
- * @global int    The number of pages.
- * @global array  The configuration of the core.
- * @global array  The URLs of the pages.
- * @global array  Whether we are in edit mode.
- * @global object The page data router.
+ * @global array The paths of system files and folders.
  */
 function li($ta, $st)
 {
-    global $s, $l, $h, $cl, $cf, $u, $edit, $pd_router;
+    global $pth;
 
-    $tl = count($ta);
-    if ($tl < 1) {
-        return;
-    }
-    $t = '';
-    if ($st == 'submenu' || $st == 'search') {
-        $t .= '<ul class="' . $st . '">' . "\n";
-    }
-    $b = 0;
-    if ($st > 0) {
-        $b = $st - 1;
-        $st = 'menulevel';
-    }
-    $lf = array();
-    for ($i = 0; $i < $tl; $i++) {
-        $tf = ($s != $ta[$i]);
-        if ($st == 'menulevel' || $st == 'sitemaplevel') {
-            for ($k = (isset($ta[$i - 1]) ? $l[$ta[$i - 1]] : $b);
-                 $k < $l[$ta[$i]];
-                 $k++
-            ) {
-                $t .= "\n" . '<ul class="' . $st . ($k + 1) . '">' . "\n";
-            }
-        }
-        $t .= '<li class="';
-        if (!$tf) {
-            $t .= 's';
-        } elseif ($cf['menu']['sdoc'] == "parent" && $s > -1) {
-            if ($l[$ta[$i]] < $l[$s]) {
-                $hasChildren = substr($u[$s], 0, 1 + strlen($u[$ta[$i]]))
-                    == $u[$ta[$i]] . $cf['uri']['seperator'];
-                if ($hasChildren) {
-                    $t .= 's';
-                }
-            }
-        }
-        $t .= 'doc';
-        for ($j = $ta[$i] + 1; $j < $cl; $j++) {
-            if (!hide($j)
-                && $l[$j] - $l[$ta[$i]] < 2 + $cf['menu']['levelcatch']
-            ) {
-                if ($l[$j] > $l[$ta[$i]]) {
-                    $t .= 's';
-                }
-                break;
-            }
-        }
-        $t .= '">';
-        if ($tf) {
-            $pageData = $pd_router->find_page($ta[$i]);
-            $x = !(XH_ADM && $edit) && $pageData['use_header_location'] === '2'
-                ? '" target="_blank' : '';
-            $t .= a($ta[$i], $x);
-        } else {
-            $t .='<span>';
-        }
-        $t .= $h[$ta[$i]];
-        if ($tf) {
-            $t .= '</a>';
-        } else {
-            $t .='</span>';
-        }
-        if ($st == 'menulevel' || $st == 'sitemaplevel') {
-            if ((isset($ta[$i + 1]) ? $l[$ta[$i + 1]] : $b) > $l[$ta[$i]]) {
-                $lf[$l[$ta[$i]]] = true;
-            } else {
-                $t .= '</li>' . "\n";
-                $lf[$l[$ta[$i]]] = false;
-            }
-            for ($k = $l[$ta[$i]];
-                $k > (isset($ta[$i + 1]) ? $l[$ta[$i + 1]] : $b);
-                $k--
-            ) {
-                $t .= '</ul>' . "\n";
-                if (isset($lf[$k - 1])) {
-                    if ($lf[$k - 1]) {
-                        $t .= '</li>' . "\n";
-                        $lf[$k - 1] = false;
-                    }
-                }
-            }
-        } else {
-            $t .= '</li>' . "\n";
-        }
-    }
-    if ($st == 'submenu' || $st == 'search') {
-        $t .= '</ul>' . "\n";
-    }
-    return $t;
+    include_once $pth['folder']['classes'] . 'Menu.php';
+    $li = new XH_Li();
+    return $li->render($ta, $st);
 }
 
 /**
@@ -471,8 +421,7 @@ function lastupdate($br = null, $hour = null)
         $t .= ' ';
     }
     return $t
-        . date(
-            $tx['lastupdate']['dateformat'],
+        . XH_formatDate(
             filemtime($pth['file']['content']) + (isset($hour) ? $hour * 3600 : 0)
         );
 }
@@ -637,52 +586,43 @@ function submenu()
     }
 }
 
-
 /**
- * Returns the link to the previous page.
+ * Returns a link to the previous page.
  *
  * @return string (X)HTML.
  *
- * @global int   The index of the current page.
- * @global int   The number of pages.
  * @global array The localization of the core.
  *
  * @see nextpage()
  */
 function previouspage()
 {
-    global $s, $cl, $tx;
+    global $tx;
 
-    for ($i = $s - 1; $i > -1; $i--) {
-        if (!hide($i)) {
-            return a($i, '') . $tx['navigator']['previous'] . '</a>';
-        }
+    $index = XH_findPreviousPage();
+    if ($index !== false) {
+        return a($index, '" rel="prev') . $tx['navigator']['previous'] . '</a>';
     }
 }
 
-
 /**
- * Returns the link to the next page
+ * Returns a link to the next page
  *
  * @return string (X)HTML.
  *
- * @global int   The index of the current page.
- * @global int   The number of pages.
  * @global array The localization of the core.
  *
  * @see previouspage()
  */
 function nextpage()
 {
-    global $s, $cl, $tx;
+    global $tx;
 
-    for ($i = $s + 1; $i < $cl; $i++) {
-        if (!hide($i)) {
-            return a($i, '') . $tx['navigator']['next'] . '</a>';
-        }
+    $index = XH_findNextPage();
+    if ($index !== false) {
+        return a($index, '" rel="next') . $tx['navigator']['next'] . '</a>';
     }
 }
-
 
 /**
  * Returns a link to the top of the page.
@@ -719,20 +659,55 @@ function languagemenu()
     $i = array_search($sl, $r);
     unset($r[$i]);
 
+    $langNames = explode(';', $cf['language']['2nd_lang_names']);
+    foreach ($langNames as $value) {
+        $langName[substr($value, 0, 2)] = substr($value, 3);
+    }
+
     $t = '';
     foreach ($r as $lang) {
         $url = $pth['folder']['base']
             . ($lang == $cf['language']['default'] ? '' : $lang . '/');
         $img = $pth['folder']['flags'] . $lang . '.gif';
+
+        $title = isset($langName[$lang])
+            ? $langName[$lang]
+            : $lang;
+
         $el = file_exists($img)
             ? tag(
-                'img src="' . $img . '" alt="' . $lang . '" title="&nbsp;'
-                . $lang . '&nbsp;" class="flag"'
+                'img src="' . $img . '" alt="' . $title . '" title="'
+                . $title . '" class="flag"'
             )
-            : '[' . $lang . ']';
+            : $title;
         $t .= '<a href="' . $url . '">' . $el . '</a> ';
     }
     return $t;
+}
+
+
+/**
+ * Provides a minimal template (in case template isn't found).
+ *
+ * @return void
+ *
+ * @since 1.6.3
+ */
+function XH_emergencyTemplate()
+{
+    header('HTTP/1.0 503 Service Unavailable');
+    header('Content-Type: text/html;charset=UTF-8');
+    echo '<!DOCTYPE html><head>'
+    . head()
+    . '</head><body '
+    . onload()
+    . '>'
+    . sitename()
+    . toc()
+    . content()
+    . loginlink()
+    . '</body></html>';
+    XH_exit();
 }
 
 ?>
