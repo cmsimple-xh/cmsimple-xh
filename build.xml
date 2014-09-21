@@ -148,8 +148,10 @@
         <move todir="dist/cmsimplexh">
             <fileset dir="export">
                 <exclude name="build.xml"/>
+                <exclude name="composer.json"/>
+                <exclude name="composer.lock"/>
+                <exclude name="coverage.xml"/>
                 <exclude name="phpcompatinfo.xml"/>
-                <exclude name="phpunit.xml"/>
                 <exclude name="2lang/.2lang"/>
                 <exclude name="tests/**"/>
                 <exclude name="tutorials/**"/>
@@ -167,7 +169,7 @@
         <copy file="dist/cmsimplexh/plugins/meta_tags/languages/en.php" tofile="dist/cmsimplexh/plugins/meta_tags/languages/default.php" preservelastmodified="true"/>
         <copy file="dist/cmsimplexh/plugins/page_params/languages/en.php" tofile="dist/cmsimplexh/plugins/page_params/languages/default.php" preservelastmodified="true"/>
 
-        <zip destfile="CMSimple_XH_${version}.zip" basedir="dist"/>
+        <zip destfile="CMSimple_XH-${version}.zip" basedir="dist"/>
         <delete dir="dist" quiet="true"/>
     </target>
 
