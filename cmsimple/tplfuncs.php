@@ -225,8 +225,8 @@ function li($ta, $st)
     global $pth;
 
     include_once $pth['folder']['classes'] . 'Menu.php';
-    $li = new XH_Li($ta, $st);
-    return $li->render();
+    $li = new XH_Li();
+    return $li->render($ta, $st);
 }
 
 /**
