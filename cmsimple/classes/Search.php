@@ -145,7 +145,7 @@ class XH_Search
      *
      * @return string
      *
-     * @protected
+     * @access protected
      */
     function prepareContent($content)
     {
