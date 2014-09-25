@@ -1462,10 +1462,11 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
      *
      * @global int               The index of the currently selected page.
      * @global XH_PageDataRouter The page data router.
+     * @global XH_CSRFProtection The CSRF protector.
      */
     public function setUp()
     {
-        global $s, $pd_router;
+        global $s, $pd_router, $_XH_csrfProtection;
 
         $_POST = array(
             'foo' => 'bar',
@@ -1473,6 +1474,8 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
         );
         $s = 0;
         $pd_router = $this->getMockBuilder('XH_PageDataRouter')
+            ->disableOriginalConstructor()->getMock();
+        $_XH_csrfProtection = $this->getMockBuilder('XH_CSRFProtection')
             ->disableOriginalConstructor()->getMock();
         $this->subject = new XH_Controller();
         $this->eMock = new PHPUnit_Extensions_MockFunction('e', $this->subject);
