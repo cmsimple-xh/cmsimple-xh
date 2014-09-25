@@ -1470,7 +1470,8 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
 
         $_POST = array(
             'foo' => 'bar',
-            'save_page_data' => ''
+            'save_page_data' => '',
+            'xh_csrf_token' => '0123456789abcdef'
         );
         $s = 0;
         $pd_router = $this->getMockBuilder('XH_PageDataRouter')

@@ -493,7 +493,7 @@ class XH_Controller
 
         $_XH_csrfProtection->check();
         $postData = $_POST;
-        unset($postData['save_page_data']);
+        unset($postData['save_page_data'], $postData['xh_csrf_token']);
         $postData = array_map('stsl', $postData);
         $successful = $pd_router->update($s, $postData);
         if (isset($_GET['xh_pagedata_ajax'])) {
