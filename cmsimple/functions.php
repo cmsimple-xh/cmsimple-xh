@@ -282,7 +282,7 @@ function XH_evaluateSinglePluginCall($___expression)
  * Note that the behavior of negative values for <var>$offset</var>
  * and <var>$length</var> is not defined.
  *
- * @param string &$string     The string to manipulate.
+ * @param string $string      The string to manipulate.
  * @param int    $offset      Offset of the string where to start the replacement.
  * @param int    $length      The number of characters to be replaced.
  * @param string $replacement The string to replace the removed characters.
