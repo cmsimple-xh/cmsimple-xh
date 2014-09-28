@@ -647,9 +647,9 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * Handles the submission of a password field and returns the new password
      * hash on success, <var>false</var> on failure to change the password.
      *
-     * @param array  $opt     An option record.
-     * @param string $iname   The name of the INPUT element.
-     * @param array  &$errors A LI elements with an error message.
+     * @param array  $opt    An option record.
+     * @param string $iname  The name of the INPUT element.
+     * @param array  $errors LI elements with an error message.
      *
      * @return string
      *

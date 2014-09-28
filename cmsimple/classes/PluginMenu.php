@@ -144,7 +144,7 @@ class XH_PluginMenu
      *
      * @global string The script name.
      */
-    function __construct()
+    function XH_PluginMenu()
     {
         global $sn;
 
@@ -269,9 +269,9 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      *
      * @return void
      */
-    function __construct()
+    function XH_ClassicPluginMenu()
     {
-        parent::__construct();
+        parent::XH_PluginMenu();
         $this->_menu = '';
     }
 

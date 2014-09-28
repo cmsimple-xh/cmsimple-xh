@@ -352,7 +352,7 @@ class XH_JSON
      *
      * <samp>object -> LBRACE [ pair { COMMA pair ] RBRACE</samp>
      *
-     * @param object &$res The parsed object.
+     * @param object $res The parsed object.
      *
      * @return void
      *
@@ -379,8 +379,8 @@ class XH_JSON
      *
      * <samp>pair -> STRING COLON value</samp>
      *
-     * @param string &$key The parsed key.
-     * @param mixed  &$val The parsed value.
+     * @param string $key The parsed key.
+     * @param mixed  $val The parsed value.
      *
      * @return void
      *
@@ -399,7 +399,7 @@ class XH_JSON
      *
      * <samp>array -> LBRACK [ value { COMMA value } ] RBRACK</samp>
      *
-     * @param array &$res The parsed array.
+     * @param array $res The parsed array.
      *
      * @return void
      *
@@ -426,7 +426,7 @@ class XH_JSON
      *
      * <samp>value -> STRING | NUMBER | object | array | TRUE | FALSE | NULL</samp>
      *
-     * @param mixed &$res The parsed value.
+     * @param mixed $res The parsed value.
      *
      * @return void
      *

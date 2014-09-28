@@ -64,7 +64,7 @@ class XH_Backup
      *
      * @global array The configuration of the core.
      */
-    function __construct($contentFolders)
+    function XH_Backup($contentFolders)
     {
         global $cf;
 
