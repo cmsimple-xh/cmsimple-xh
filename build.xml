@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- $Id$ -->
-
-<project name="CMSimple_XH" default="default">
-
-    <!-- Properties -->
+<project name="CMSimple_XH" default="help">
 
     <property environment="env"/>
     <property name="build" value="01"/>
     <property name="styledir" value="C:\xampp\php\data\phing\etc"/>
-
-    <!-- Filesets -->
 
     <fileset id="php-sources" dir=".">
         <include name="cmsimple/*.php"/>
@@ -28,28 +22,23 @@
         <include name="XH/*.cls"/>
     </fileset>
 
-    <!-- Dummy default -->
-
-    <target name="default">
-        <fail message="There's no default target"/>
+    <target name="help" description="lists available targets">
+        <exec command="phing -l" outputProperty="help"/>
+        <echo>${help}</echo>
     </target>
 
-    <!-- Checks -->
-
-    <target name="sniff">
+    <target name="sniff" description="checks adherence to PEAR CS">
         <phpcodesniffer standard="PEAR" format="full">
             <fileset refid="php-sources"/>
         </phpcodesniffer>
     </target>
 
-    <target name="compat">
+    <target name="compat" description="checks compatibility with PHP_CompatInfo 2">
         <exec command="phpcompatinfo --configuration phpcompatinfo.xml print --exclude-pattern xh ."
               logoutput="true"/>
     </target>
 
-    <!-- Tests -->
-
-    <target name="unit-tests">
+    <target name="unit-tests" description="runs all unit tests">
         <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
@@ -60,7 +49,7 @@
         </phpunit>
     </target>
 
-    <target name="validation-tests">
+    <target name="validation-tests" description="runs all validation tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
         <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
@@ -72,7 +61,7 @@
         </phpunit>
     </target>
 
-    <target name="attack-tests">
+    <target name="attack-tests" description="runs all attack tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
         <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
@@ -84,15 +73,12 @@
         </phpunit>
     </target>
 
-    <target name="all-tests" depends="unit-tests,validation-tests,attack-tests"/>
+    <target name="all-tests" depends="unit-tests,validation-tests,attack-tests"
+            description="runs all tests"/>
 
-    <!-- Code coverage -->
-
-    <target name="coverage">
+    <target name="coverage" description="generates coverage report">
         <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
     </target>
-
-    <!-- Documentation -->
 
     <target name="php-doc">
         <phpdoc title="CMSimple_XH Developer Documentation" destdir="doc/php"
@@ -107,11 +93,9 @@
         <exec command="jsdoc --destination doc/js core/js/admin.js plugins/filebrowser/js/filebrowser.js" checkreturn="true"/>
     </target>
 
-    <target name="doc" depends="php-doc,js-doc"/>
+    <target name="doc" depends="php-doc,js-doc" description="generates the developer documentation"/>
 
-    <!-- Build -->
-
-    <target name="build">
+    <target name="build" description="builds a distributable ZIP archive">
         <fail unless="version" message="version is not defined!"/>
         <svnexport revision="" repositoryurl="." todir="export"/>
         <tstamp>
@@ -161,7 +145,6 @@
         <touch file="dist/cmsimplexh/2lang/.2lang"/>
         <delete dir="export"/>
 
-        <!-- create defaultconfig.php and default.php files -->
         <copy file="dist/cmsimplexh/cmsimple/config.php" tofile="dist/cmsimplexh/cmsimple/defaultconfig.php" preservelastmodified="true"/>
         <copy file="dist/cmsimplexh/cmsimple/languages/en.php" tofile="dist/cmsimplexh/cmsimple/languages/default.php" preservelastmodified="true"/>
         <copy file="dist/cmsimplexh/plugins/filebrowser/config/config.php" tofile="dist/cmsimplexh/plugins/filebrowser/config/defaultconfig.php" preservelastmodified="true"/>
