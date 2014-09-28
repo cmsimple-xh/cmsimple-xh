@@ -56,7 +56,7 @@ class ValidationTest extends PHPUnit_Framework_TestCase
                 'class' => 'valid'
             )
         );
-        $this->assertTag($matcher, $actual);
+        @$this->assertTag($matcher, $actual);
     }
 
     public function testStartPage()
