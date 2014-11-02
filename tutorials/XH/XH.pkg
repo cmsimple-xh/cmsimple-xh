@@ -71,4 +71,14 @@
             </para>
         </refsect2>
     </refsect1>
+    <refsect1 id="{@id API}">
+        <title>API</title>
+        <para>
+            An important part of the API of CMSimple_XH consists of global
+            variables which are documented in {@link cms.php}. Not all global
+            variables are part of the public API, only those tagged as public.
+            Furthermore many of the public variables should be treated as
+            read-only or read-write as documented.
+        </para>
+    </refsect1>
 </refentry>
