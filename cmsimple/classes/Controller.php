@@ -232,7 +232,9 @@ class XH_Controller
             if (session_id() == '') {
                 session_start();
             }
-            session_regenerate_id(true);
+            // HACK to work around limititation of PHPCompatInfo
+            $sessionRegenerateId = 'session_regenerate_id';
+            $sessionRegenerateId(true);
             $_SESSION['xh_password'][CMSIMPLE_ROOT] = $cf['security']['password'];
             $_SESSION['xh_user_agent'] = md5($_SERVER['HTTP_USER_AGENT']);
             $adm = true;
@@ -280,7 +282,9 @@ class XH_Controller
         if (session_id() == '') {
             session_start();
         }
-        session_regenerate_id(true);
+        // HACK to work around limititation of PHPCompatInfo
+        $sessionRegenerateId = 'session_regenerate_id';
+        $sessionRegenerateId(true);
         unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
         $o .= XH_message('success', $tx['login']['loggedout']);
         $f = 'xh_loggedout';

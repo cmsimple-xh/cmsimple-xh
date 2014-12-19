@@ -33,9 +33,14 @@
         </phpcodesniffer>
     </target>
 
-    <target name="compat" description="checks compatibility with PHP_CompatInfo 2">
-        <exec command="phpcompatinfo --configuration phpcompatinfo.xml print --exclude-pattern xh ."
-              logoutput="true"/>
+    <target name="compat"
+            description="checks compatibility with PHP_CompatInfo 3">
+        <!-- HACK to work around https://github.com/llaville/php-compat-info/issues/153 -->
+        <move file="cmsimple/classes/PasswordHash.php"
+              tofile="cmsimple/classes/PasswordHash._php"/>
+        <exec command="phpcompatinfo analyser:run ." logoutput="true"/>
+        <move file="cmsimple/classes/PasswordHash._php"
+              tofile="cmsimple/classes/PasswordHash.php"/>
     </target>
 
     <target name="unit-tests" description="runs all unit tests">

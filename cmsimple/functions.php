@@ -1821,9 +1821,8 @@ function loginforms()
  */
 function XH_getStreamContents($stream)
 {
-    $func = 'stream_get_contents';
-    if (function_exists($func)) {
-        $contents = $func($stream);
+    if (function_exists('stream_get_contents')) {
+        $contents = stream_get_contents($stream);
     } else {
         ob_start();
         fpassthru($stream);
@@ -2372,9 +2371,8 @@ function XH_decodeJson($string)
 {
     global $pth, $_XH_json;
 
-    $func = 'json_decode';
-    if (function_exists($func)) {
-        return $func($string); // indirect call to satisfy PHP_CI
+    if (function_exists('json_decode')) {
+        return json_decode($string);
     } else {
         if (!isset($_XH_json)) {
             include_once $pth['folder']['classes'] . 'JSON.php';
@@ -2400,9 +2398,8 @@ function XH_encodeJson($value)
 {
     global $pth, $_XH_json;
 
-    $func = 'json_encode';
-    if (function_exists($func)) {
-        return $func($value); // indirect call to satisfy PHP_CI
+    if (function_exists('json_encode')) {
+        return json_encode($value);
     } else {
         if (!isset($_XH_json)) {
             include_once $pth['folder']['classes'] . 'JSON.php';
