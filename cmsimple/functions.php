@@ -153,10 +153,12 @@ function l($n)
  *
  * @return string
  *
- * @since  1.5
+ * @since 1.5
  */
+// @codingStandardsIgnoreStart
 function evaluate_cmsimple_scripting($__text, $__compat = true)
 {
+// @codingStandardsIgnoreEnd
     extract($GLOBALS, EXTR_REFS);
     $__scope_before = null; // just that it exists
     $__scripts = array();
@@ -219,8 +221,10 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
  *
  * @since 1.5
  */
+// @codingStandardsIgnoreStart
 function evaluate_plugincall($text)
 {
+// @codingStandardsIgnoreEnd
     global $tx;
 
     $message = '<span class="xh_fail">' . $tx['error']['plugincall']
@@ -309,8 +313,10 @@ function XH_spliceString(&$string, $offset, $length = 0, $replacement = '')
  *
  * @since 1.5
  */
+// @codingStandardsIgnoreStart
 function evaluate_scripting($text, $compat = true)
 {
+// @codingStandardsIgnoreEnd
     return evaluate_cmsimple_scripting(evaluate_plugincall($text), $compat);
 }
 
@@ -359,10 +365,12 @@ function newsbox($heading)
  *
  * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces
  *
- * @since  1.5
+ * @since 1.5
  */
+// @codingStandardsIgnoreStart
 function init_editor($elementClasses = array(),  $initFile = false)
 {
+// @codingStandardsIgnoreEnd
     global $pth, $cf;
 
     $fn = $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
@@ -391,10 +399,12 @@ function init_editor($elementClasses = array(),  $initFile = false)
  *
  * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces
  *
- * @since  1.5
+ * @since 1.5
  */
+// @codingStandardsIgnoreStart
 function include_editor()
 {
+// @codingStandardsIgnoreEnd
     global $pth, $cf;
 
     $fn = $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
@@ -429,8 +439,10 @@ function include_editor()
 
  * @since 1.5
  */
+// @codingStandardsIgnoreStart
 function editor_replace($elementID = false, $config = '')
 {
+// @codingStandardsIgnoreEnd
     global $pth, $cf;
 
     if (!$elementID) {
@@ -1328,6 +1340,7 @@ function shead($s)
  * @return boolean Whether error_reporting is enabled.
  *
  * @author Holger
+ *
  * @since 1.0rc3
  */
 function XH_debugmode()
@@ -1451,7 +1464,7 @@ function XH_debug($errno, $errstr, $errfile, $errline, $context)
  *
  * @param array $arr Array to check.
  *
- * @return  void
+ * @return void
  *
  * @since 1.5.5
  */
@@ -1580,6 +1593,7 @@ function pluginFiles($plugin)
  * @author mvwd
  *
  * @since 1.0
+ *
  * @deprecated since 1.6
  */
 function preCallPlugins($pageIndex = -1)
@@ -1603,7 +1617,7 @@ function preCallPlugins($pageIndex = -1)
  *
  * @param bool $admin Whether to return only plugins with a admin.php
  *
- * @return  array
+ * @return array
  *
  * @global array The paths of system files and folders.
  * @global array The configuration of the core.

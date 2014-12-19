@@ -152,6 +152,7 @@ $hjs = '';
  * @access public
  *
  * @see $hjs
+ *
  * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#bjs
  *
  * @since 1.5.4
@@ -218,18 +219,24 @@ define('CMSIMPLE_XH_DATE', '@CMSIMPLE_XH_DATE@');
 
 if (!defined('E_STRICT')) {
     /**
+     * Strict standards violation notice.
+     *
      * @ignore
      */
     define('E_STRICT', 2048);
 }
 if (!defined('E_DEPRECATED')) {
     /**
+     * Deprecation notice.
+     *
      * @ignore
      */
     define('E_DEPRECATED', 8192);
 }
 if (!defined('E_USER_DEPRECATED')) {
     /**
+     * User generated deprecation notice.
+     *
      * @ignore
      */
     define('E_USER_DEPRECATED', E_USER_NOTICE);
@@ -913,7 +920,9 @@ $_XH_controller->handleLoginAndLogout();
  * Whether admin mode is active.
  *
  * @since 1.5.4
+ *
  * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#xh_adm
+ *
  * @see $adm
  */
 define('XH_ADM', $adm);

@@ -159,6 +159,8 @@ class Filebrowser_View
     /**
      * Initializes a newly created instance.
      *
+     * @return void
+     *
      * @global array  The localization of the plugins.
      *
      * @access public

@@ -740,8 +740,10 @@ function XH_adminMenuItem($item, $level = 0)
  *
  * @global XH_ClassicPluginMenu The plugin menu builder.
  */
+// @codingStandardsIgnoreStart
 function print_plugin_admin($main)
 {
+// @codingStandardsIgnoreEnd
     global $_XH_pluginMenu;
 
     initvar('action');
@@ -767,8 +769,10 @@ function print_plugin_admin($main)
  *
  * @todo Deprecated unused parameters.
  */
+// @codingStandardsIgnoreStart
 function plugin_admin_common($action, $admin, $plugin, $hint=array())
 {
+// @codingStandardsIgnoreEnd
     global $action, $admin, $plugin, $pth;
 
     include_once $pth['folder']['classes'] . 'FileEdit.php';
@@ -1010,7 +1014,7 @@ function XH_emptyContents()
  * @global array  The paths of system files and folders.
  * @global array  An (X)HTML fragment with error messages.
  *
- * @since  1.6
+ * @since 1.6
  */
 function XH_restore($filename)
 {

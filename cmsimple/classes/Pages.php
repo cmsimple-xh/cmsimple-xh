@@ -33,6 +33,7 @@ class XH_Pages
      * @var int
      *
      * @access protected
+     *
      * @see $cl
      */
     var $count;
@@ -43,6 +44,7 @@ class XH_Pages
      * @var array
      *
      * @access protected
+     *
      * @see $h
      */
     var $headings;
@@ -53,6 +55,7 @@ class XH_Pages
      * @var array
      *
      * @access protected
+     *
      * @see $u
      */
     var $urls;
@@ -63,6 +66,7 @@ class XH_Pages
      * @var array
      *
      * @access protected
+     *
      * @see $l
      */
     var $levels;
@@ -73,12 +77,15 @@ class XH_Pages
      * @var array
      *
      * @access protected
+     *
      * @see $c
      */
     var $contents;
 
     /**
      * Constructs an instance.
+     *
+     * @return void
      *
      * @global array The headings of the pages.
      * @global array The URLs of the pages.

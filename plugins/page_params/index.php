@@ -70,6 +70,7 @@ function Pageparams_handleRelocation($index, $data)
  * @global array The localization of the plugins.
  *
  * @author Jerry Jakobsfeld <mail@simplesolutions.dk>
+ *
  * @since 1.6
  */
 function Pageparams_isPublished($pd_page)

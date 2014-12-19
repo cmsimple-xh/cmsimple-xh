@@ -62,6 +62,8 @@ class XH_Backup
      *
      * @param array $contentFolders An array of foldernames.
      *
+     * @return void
+     *
      * @global array The configuration of the core.
      */
     function XH_Backup($contentFolders)

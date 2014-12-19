@@ -26,7 +26,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  *
- * @access  public
+ * @access public
  */
 class XH_PageDataModel
 {

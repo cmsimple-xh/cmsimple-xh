@@ -170,6 +170,8 @@ class XH_JSON
     /**
      * Constructs an instance.
      *
+     * @return void
+     *
      * @access public
      */
     function XH_JSON()
@@ -253,8 +255,17 @@ class XH_JSON
             return;
         }
         switch ($this->str{0}) {
-        case '-': case '0': case '1': case '2': case '3': case '4':
-        case '5': case '6': case '7': case '8': case '9':
+        case '-':
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
             $pattern = '/-?(?:0|[1-9][0-9]*(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?)/';
             preg_match($pattern, $this->str, $m);
             $i = intval($m[0]);
