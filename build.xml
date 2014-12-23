@@ -36,7 +36,8 @@
         <!-- HACK to work around https://github.com/llaville/php-compat-info/issues/153 -->
         <move file="cmsimple/classes/PasswordHash.php"
               tofile="cmsimple/classes/PasswordHash._php"/>
-        <exec command="phpcompatinfo analyser:run ." logoutput="true"/>
+        <exec command="phpcompatinfo analyser:run ."
+              passthru="true" logoutput="true"/>
         <move file="cmsimple/classes/PasswordHash._php"
               tofile="cmsimple/classes/PasswordHash.php"/>
     </target>
@@ -80,7 +81,8 @@
             description="runs all tests"/>
 
     <target name="coverage" description="generates coverage report">
-        <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
+        <exec command="phpunit --configuration coverage.xml"
+              passthru="true" logoutput="true"/>
     </target>
 
     <target name="php-doc">
@@ -93,7 +95,8 @@
     </target>
 
     <target name="js-doc">
-        <exec command="jsdoc --destination doc/js core/js/admin.js plugins/filebrowser/js/filebrowser.js" checkreturn="true"/>
+        <exec command="jsdoc --destination doc/js core/js/admin.js plugins/filebrowser/js/filebrowser.js"
+              passthru="true" checkreturn="true"/>
     </target>
 
     <target name="doc" depends="php-doc,js-doc" description="generates the developer documentation"/>
