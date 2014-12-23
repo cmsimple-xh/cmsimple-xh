@@ -2,9 +2,7 @@
 
 <project name="CMSimple_XH" default="help">
 
-    <property environment="env"/>
     <property name="build" value="01"/>
-    <property name="styledir" value="C:\xampp\php\data\phing\etc"/>
 
     <fileset id="php-sources" dir=".">
         <include name="cmsimple/*.php"/>
