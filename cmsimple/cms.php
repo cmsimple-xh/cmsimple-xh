@@ -912,7 +912,12 @@ foreach (XH_plugins() as $plugin) {
  *
  * @tutorial XH_CSRFProtection.cls
  */
-$_XH_csrfProtection = new XH_CSRFProtection();
+$_XH_csrfProtection = null;
+if (isset($_COOKIE['status']) && $_COOKIE['status'] == 'adm'
+    || isset($_POST['keycut'])
+) {
+    $_XH_csrfProtection = new XH_CSRFProtection();
+}
 
 $_XH_controller->handleLoginAndLogout();
 
@@ -1416,6 +1421,8 @@ if (!$i) {// the template could not be included
     XH_emergencyTemplate();
 }
 
-$_XH_csrfProtection->store();
+if (isset($_XH_csrfProtection)) {
+    $_XH_csrfProtection->store();
+}
 
 ?>

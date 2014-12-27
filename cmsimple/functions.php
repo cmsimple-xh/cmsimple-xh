@@ -2139,10 +2139,11 @@ function XH_builtinTemplate($bodyClass)
         tag('meta name="robots" content="noindex"'), "\n",
         '</head>', "\n", '<body class="', $bodyClass,'"', onload(), '>', "\n",
         $content, '</body>', "\n", '</html>', "\n";
-    $_XH_csrfProtection->store();
+    if (isset($_XH_csrfProtection)) {
+        $_XH_csrfProtection->store();
+    }
     exit;
 }
-
 /**
  * Returns a help icon which displays a tooltip on hover.
  *
