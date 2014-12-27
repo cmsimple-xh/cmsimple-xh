@@ -229,21 +229,23 @@ function evaluate_plugincall($text)
 
     $message = '<span class="xh_fail">' . $tx['error']['plugincall']
         . '</span>';
-    $re = '/{{{(?:[^:]+:)?(([a-z_0-9]+)\(.*?\);)}}}/iu';
+    $re = '/{{{(?:[^:]+:)?([a-z_0-9]+)\s*\(?(.*?)\)?;?}}}/iu';
     preg_match_all($re, $text, $calls, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
     $results = array();
     foreach ($calls as $call) {
-        $expression = preg_replace(
+        $arguments = preg_replace(
             array(
                 '/&(quot|#34);/i', '/&(amp|#38);/i', '/&(apos|#39);/i',
                 '/&(lt|#60);/i', '/&(gt|#62);/i', '/&(nbsp|#160);/i'
             ),
             array('"', '&', '\'', '<', '>', ' '),
-            $call[1][0]
+            $call[2][0]
         );
-        $function = $call[2][0];
+        $function = $call[1][0];
         if (function_exists($function)) {
-            $results[] = XH_evaluateSinglePluginCall($expression);
+            $results[] = XH_evaluateSinglePluginCall(
+                $function . '(' . $arguments . ')'
+            );
         } else {
             $results[] = sprintf($message, $function);
         }
@@ -277,7 +279,7 @@ function XH_evaluateSinglePluginCall($___expression)
     foreach ($GLOBALS as $___var => $___value) {
         $$___var = $GLOBALS[$___var];
     }
-    return eval('return ' . $___expression);
+    return eval('return ' . $___expression . ';');
 }
 
 /**

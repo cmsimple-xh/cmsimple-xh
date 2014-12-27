@@ -130,7 +130,16 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
                 'foo {{{PLUGIN:doesnotexist();}}} bar',
                 'foo <span class="xh_fail">Function doesnotexist() is not defined!</span> bar'
             ),
-            array('foo {{{PLUGIN:trim(\':\');}}} bar', 'foo : bar')
+            array('foo {{{PLUGIN:trim(\':\');}}} bar', 'foo : bar'),
+            array( // without trailing semicolon
+                'foo {{{trim(\'baz\');}}} bar', 'foo baz bar'
+            ),
+            array( // with whitespace before the opening parenthesis
+                'foo {{{trim(\'baz\');}}} bar', 'foo baz bar'
+            ),
+            array( // without parentheses
+                'foo {{{trim \'baz\';}}} bar', 'foo baz bar'
+            )
         );
     }
 
