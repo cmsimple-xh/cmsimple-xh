@@ -176,6 +176,7 @@ $tx['login']['warning']="Administrationsbereich. Bitte Passwort eingeben";
 
 $tx['mailform']['captcha']="Bitte diese Zahl eingeben (Spamschutz)";
 $tx['mailform']['captchafalse']="Bitte Zahl zum Schutz vor Spam eingeben";
+$tx['mailform']['message']="Mitteilungstext";
 $tx['mailform']['mustwritemessage']="Bitte Mitteilungstext eingeben";
 $tx['mailform']['notaccepted']="Bitte erforderliche Felder ausfüllen";
 $tx['mailform']['notsend']="Die Nachricht konnte nicht versendet werden";
@@ -239,6 +240,7 @@ $tx['search']['button']="Suchen";
 $tx['search']['found_1']="\"%s\" wurde auf einer Seite gefunden:";
 $tx['search']['found_2-4']="\"%s\" wurde auf %d Seiten gefunden:";
 $tx['search']['found_5']="\"%s\" wurde auf %d Seiten gefunden:";
+$tx['search']['label']="Suchbegriffe";
 $tx['search']['notfound']="\"%s\" wurde nicht gefunden.";
 $tx['search']['result']="Suchergebnis";
 

@@ -175,6 +175,7 @@ $tx['login']['warning']="Site administration. Please enter password.";
 
 $tx['mailform']['captcha']="Please enter this number (spam prevention)";
 $tx['mailform']['captchafalse']="Please enter anti-spam code";
+$tx['mailform']['message']="Message";
 $tx['mailform']['mustwritemessage']="No message has been entered";
 $tx['mailform']['notaccepted']="Please fill in the required fields";
 $tx['mailform']['notsend']="The message could not be sent";
@@ -238,6 +239,7 @@ $tx['search']['button']="Search";
 $tx['search']['found_1']="\"%s\" was found in one page:";
 $tx['search']['found_2-4']="\"%s\" was found in %d pages:";
 $tx['search']['found_5']="\"%s\" was found in %d pages:";
+$tx['search']['label']="Search terms";
 $tx['search']['notfound']="\"%s\" was not found.";
 $tx['search']['result']="Result of your search";
 
