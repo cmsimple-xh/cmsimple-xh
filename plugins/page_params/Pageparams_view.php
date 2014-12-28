@@ -165,10 +165,11 @@ function Pageparams_redirectRadiogroup($value)
     $options = array('yes_new' => 2, 'yes_same' => 1, 'no' => 0);
     foreach ($options as $string => $number) {
         $checked = $value == $number ? ' checked="checked"' : '';
-        foreach (array('header_location', 'pageparams_linklist') as $toggle) {
-            $onclick .= 'document.forms[\'page_params\'].elements[\'' . $toggle
-                . '\'].disabled=' . ($number > 0 ? 'false' : 'true') . ';';
-        }
+        $disabled = $number > 0 ? 'false' : 'true';
+        $onclick = 'document.forms[\'page_params\'].elements[\'header_location\']'
+            . '.disabled=' . $disabled . ';'
+            . 'document.getElementById(\'pageparams_linklist\').disabled='
+            . $disabled;
         $radio = tag(
             'input type="radio" name="use_header_location"'
             . ' value="' . $number . '"' . $checked . ' onclick="' . $onclick . '"'
@@ -280,7 +281,7 @@ function Pageparams_linkList($default, $disabled)
     $pages = new XH_Pages();
     $disabled = $disabled ? ' disabled="disabled"' : '';
     $onchange = ' onchange="PAGEPARAMS.onLinkListChange(this)"';
-    $o = '<select name="pageparams_linklist"' . $disabled . $onchange . '>';
+    $o = '<select id="pageparams_linklist"' . $disabled . $onchange . '>';
     $links = $pages->linkList();
     array_unshift($links, array($plugin_tx['page_params']['quick_select'], ''));
     foreach ($links as $link) {
