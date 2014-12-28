@@ -125,7 +125,7 @@ class XH_Search
         foreach ($c as $i => $content) {
             if (!hide($i) || $cf['show_hidden']['pages_search'] == 'true') {
                 $found  = true;
-                $content = $this->prepareContent($content);
+                $content = $this->prepareContent($content, $i);
                 foreach ($words as $word) {
                     if (utf8_stripos($content, $word) === false) {
                         $found = false;
@@ -143,15 +143,20 @@ class XH_Search
     /**
      * Prepares content to be searched.
      *
-     * @param string $content A content.
+     * @param string $content   A content.
+     * @param string $pageIndex A page index.
      *
      * @return string
      *
      * @access protected
      */
-    function prepareContent($content)
+    function prepareContent($content, $pageIndex)
     {
+        global $s;
+
+        $s = $pageIndex;
         $content = strip_tags(evaluate_plugincall($content));
+        $s = -1;
         if (method_exists('Normalizer', 'normalize')) {
             $content = Normalizer::normalize($content);
         }
