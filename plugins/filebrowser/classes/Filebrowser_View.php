@@ -423,7 +423,7 @@ class Filebrowser_View
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
                 . '<a style="position:relative" class="xhfbfile" href="'
-                . $this->currentDirectory . $file . '" target="_blank">' . $file;
+                . $this->basePath . $this->currentDirectory . $file . '" target="_blank">' . $file;
 
             $ffn = $base . $fb->currentDirectory . $file;
             $usage = array_key_exists($ffn, $imgs)
