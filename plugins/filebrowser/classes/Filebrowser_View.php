@@ -182,6 +182,8 @@ class Filebrowser_View
      * @global array The localization of the core.
      *
      * @access protected
+     *
+     * @todo Internationalize "Userfiles".
      */
     function folderList($folders)
     {
@@ -189,7 +191,7 @@ class Filebrowser_View
 
         $title = isset($tx['title']['userfiles'])
             ? utf8_ucfirst($tx['title']['userfiles'])
-            : ucfirst('Userfiles ' . $this->translate('folder'));
+            : ucfirst('Userfiles');
         $html = '<ul><li class="openFolder"><a href="?'
             . htmlspecialchars($this->linkParams, ENT_QUOTES, 'UTF-8') . '">'
             . $title . ' ' . $this->lang['folder'] . '</a>';
