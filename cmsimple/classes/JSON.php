@@ -199,8 +199,24 @@ class XH_JSON
     function quote($string)
     {
         $string = addcslashes($string, "\"\\/");
-        $string = preg_replace('/[\x00-\x1f]/s', '\u00$1', $string);
+        $string = preg_replace_callback(
+            '/[\x00-\x1f]/', array($this, 'escapeControlChar'), $string
+        );
         return $string;
+    }
+
+    /**
+     * Escapes an ASCII control character for use in a JSON string.
+     *
+     * @param string $matches An array of matches with a single element.
+     *
+     * @return string
+     *
+     * @access protected
+     */
+    function escapeControlChar($matches)
+    {
+        return sprintf('\\u%04X', ord($matches[0]));
     }
 
     /**

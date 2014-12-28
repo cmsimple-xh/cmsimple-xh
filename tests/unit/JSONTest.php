@@ -99,6 +99,16 @@ class JSONTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests encoding of control characters.
+     *
+     * @link <http://cmsimpleforum.com/viewtopic.php?f=10&t=8236>
+     */
+    public function testEncodeControlCharacters()
+    {
+        $this->assertEquals('"\u0009\u000A"', $this->_json->encode("\t\n"));
+    }
+
+    /**
      * @dataProvider dataForTestDecode
      */
     public function testDecode($string)
