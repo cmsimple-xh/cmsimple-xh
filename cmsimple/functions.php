@@ -2788,12 +2788,13 @@ function XH_onShutdown()
         unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
     }
 
-    $lastError = error_get_last();
-    if (in_array($lastError['type'], array(E_ERROR, E_PARSE))) {
-        echo $tx['error']['fatal'];
+    if (error_reporting() <= 0 && function_exists('error_get_last')) {
+        $lastError = error_get_last();
+        if (in_array($lastError['type'], array(E_ERROR, E_PARSE))) {
+            echo $tx['error']['fatal'];
+        }
     }
 }
-
 /**
  * Returns a timestamp formatted according to <var>$tx[lastupdate][dateformat]</var>.
  *
