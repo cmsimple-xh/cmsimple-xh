@@ -59,6 +59,7 @@ class XH_PageDataEditor
 
         $fields = $_POST;
         unset($fields['xh_pagedata_delete']);
+        unset($fields['xh_csrf_token']);
         $fields = array_keys($fields);
         if (empty($fields)) {
             return 0;
