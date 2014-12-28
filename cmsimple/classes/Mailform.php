@@ -228,16 +228,17 @@ class XH_Mailform
         }
         $again = true;
 
+        $anchor = '<div id="xh_mailform"></div>';
         if ($action == 'send') {
             $o = $this->check();
             if (!$o && $this->submit()) {
-                $o .= XH_message('success', $tx['mailform']['send']);
+                $o .= $anchor . XH_message('success', $tx['mailform']['send']);
             } else {
-                $o .= XH_message('fail', $tx['mailform']['notsend'])
+                $o .= $anchor . XH_message('fail', $tx['mailform']['notsend'])
                     . $this->render();
             }
         } else {
-            $o = $this->render();
+            $o = $anchor . $this->render();
         }
         return $o;
     }
@@ -260,7 +261,7 @@ class XH_Mailform
 
         $random = rand(10000, 99999);
         $url = $sn . ($this->embedded ? '?' . $su : '');
-        $o = '<form class="xh_mailform" action="' . $url . '" method="post">' . "\n";
+        $o = '<form class="xh_mailform" action="' . $url . '#xh_mailform" method="post">' . "\n";
         if (!$this->embedded) {
             $o .= tag('input type="hidden" name="function" value="mailform"') . "\n";
         }
