@@ -288,6 +288,9 @@ HTML;
         !get_magic_quotes_runtime(), false, $tx['syscheck']['magic_quotes']
     );
     $checks['other'][] = array(
+        !ini_get('safe_mode'), false, 'safe_mode off'
+    );
+    $checks['other'][] = array(
         !ini_get('session.use_trans_sid'), false, 'session.use_trans_sid off'
     );
     $checks['other'][] = array(
