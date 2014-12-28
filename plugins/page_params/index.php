@@ -38,7 +38,7 @@ if (!defined('PLUGINLOADER_VERSION')) {
  *
  * @return void
  *
- * @global int    The index of the current page.
+ * @global int    The preliminary index of the current page.
  * @global string The script name.
  * @global array  The content of the pages.
  *
@@ -46,7 +46,7 @@ if (!defined('PLUGINLOADER_VERSION')) {
  */
 function Pageparams_handleRelocation($index, $data)
 {
-    global $s, $sn, $c;
+    global $pd_s, $sn, $c;
 
     $location = $data['header_location'];
     if ((int) $data['use_header_location'] > 0 && trim($location) !== '' ) {
@@ -54,7 +54,7 @@ function Pageparams_handleRelocation($index, $data)
         if (!$components || !isset($components['scheme'])) {
             $location = CMSIMPLE_URL . $location;
         }
-        if ($index == $s) {
+        if ($index == $pd_s) {
             $c[$index] = '#CMSimple header("Location:'. $location .'"); exit; #';
         }
     }
