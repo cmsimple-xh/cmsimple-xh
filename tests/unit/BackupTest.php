@@ -96,6 +96,8 @@ class BackupTest extends PHPUnit_Framework_TestCase
         );
         file_put_contents("{$this->_contentFolder}content.htm", '');
         chmod($this->_contentFolder, 0444);
+        // HACK: we can't use try-catch here, because that would prevent e()
+        // from being called, so we temporarily disable the error_reporting
         $errorReporting = error_reporting(0);
         $this->_subject->execute();
         error_reporting($errorReporting);
