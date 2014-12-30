@@ -57,7 +57,10 @@ class SearchTest extends PHPUnit_Framework_TestCase
             array('cmsimple more', array(2)),
             array(' ', array()),
             array('&', array(4)),
-            array("sen\xCC\x83or", array(5)) // testing unicode equivalence
+            array( // testing unicode equivalence
+                "sen\xCC\x83or",
+                method_exists('Normalizer', 'normalize') ? array(5) : array()
+            )
         );
     }
 
