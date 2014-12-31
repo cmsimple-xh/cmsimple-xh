@@ -53,6 +53,7 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
     protected function setCurlOptions($fields)
     {
         $options = array(
+            CURLOPT_SAFE_UPLOAD => true,
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $fields,
             CURLOPT_RETURNTRANSFER => true,
