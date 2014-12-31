@@ -1,7 +1,7 @@
 <?php
 
 /*
- * @version $Id: admin.php 242 2014-05-06 20:20:18Z hi $
+ * @version $Id: admin.php 254 2014-12-31 15:48:09Z hi $
  *
  */
 
@@ -11,8 +11,8 @@
  * Admin-interface for configuring the plugin
  * via the standard-functions of pluginloader.
  *
- * Version:    1.5.2
- * Build:      2014050601
+ * Version:    1.5.4
+ * Build:      2014123101
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -20,6 +20,13 @@
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
+}
+
+/*
+ * Register the plugin menu items.
+ */
+if (function_exists('XH_registerStandardPluginMenuItems')) {
+    XH_registerStandardPluginMenuItems(false);
 }
 
 if (isset($_GET['jquery'])) {
@@ -78,7 +85,7 @@ if (isset($_GET['jquery'])) {
     if ($admin == '') {
         $o .= "\n" . '<div>';
         $o .= "\n" . '<h1>jQuery for CMSimple</h1>';
-        $o .= "\n" . '<p>Version 1.5.2 - 2014-05-06</p>';
+        $o .= "\n" . '<p>Version 1.5.4 - 2014-12-31</p>';
         $o .= "\n" . '<p>&copy;2011-2013 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
         $o .= "\n" . '<p>';
         $o .= "\n" . 'jQuery Version: ';
