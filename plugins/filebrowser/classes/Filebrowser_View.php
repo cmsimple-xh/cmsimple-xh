@@ -273,7 +273,9 @@ class Filebrowser_View
                     . '<form style="display: inline;" method="post" action="'
                     . $action . '"'
                     . ' onsubmit="return FILEBROWSER.confirmFolderDelete(\''
-                    . $this->translate('confirm_delete', $this->basePath . $folder)
+                    . $this->escapeForEventHandlerAttribute(
+                        $this->translate('confirm_delete', $this->basePath . $folder)
+                    )
                     . '\');">'
                     . tag(
                         'input type="image" src="' . $this->browserPath
@@ -322,7 +324,9 @@ class Filebrowser_View
                     . '<form style="display: inline;" method="post" action="'
                     . $action . '"'
                     . ' onsubmit="return FILEBROWSER.confirmFolderDelete(\''
-                    . $this->translate('confirm_delete', $this->basePath . $folder)
+                    . $this->escapeForEventHandlerAttribute(
+                        $this->translate('confirm_delete', $this->basePath . $folder)
+                    )
                     . '\');">'
                     . '<input type="image" src="' . $this->browserPath
                     . 'css/icons/delete.png" alt="delete" title="'
@@ -390,7 +394,11 @@ class Filebrowser_View
                 . '<form style="display: inline;" method="post" action="'
                 . $action . '"'
                 . ' onsubmit="return FILEBROWSER.confirmFileDelete(\''
-                . $this->translate('confirm_delete', $this->currentDirectory . $file)
+                . $this->escapeForEventHandlerAttribute(
+                    $this->translate(
+                        'confirm_delete', $this->currentDirectory . $file
+                    )
+                )
                 . '\');">'
                 . tag(
                     'input type="image" src="' . $this->browserPath
@@ -408,7 +416,10 @@ class Filebrowser_View
                 . '<form method="post" style="display:inline;" action="'
                 . $action . '"'
                 . ' onsubmit="return FILEBROWSER.promptNewName(this, \''
-                . $this->translate('prompt_rename', $file) . '\');"'
+                . $this->escapeForEventHandlerAttribute(
+                    $this->translate('prompt_rename', $file)
+                )
+                . '\');"'
                 . '>'
                 . tag(
                     'input type="hidden" name="renameFile" value="'
@@ -679,6 +690,30 @@ HTM;
             return $html;
         }
         return $html;
+    }
+
+    /**
+     * Escapes a string to be used as a literal JS string inside an event
+     * handler attribute.
+     *
+     * @param string $string A string.
+     *
+     * @return string
+     *
+     * @since 1.6.5
+     *
+     * @todo Don't use literal string in event handler attribute, but rather a
+     *       property of the FILEBROWSER object.
+     */
+    function escapeForEventHandlerAttribute($string)
+    {
+        // HACK: we can't use XH_hsc() because that is not defined for the
+        // editorbrowser. htmlspecialchars() might fail under PHP 4.
+        return str_replace(
+            array('<', '>', '&', '"', "'"),
+            array('&lt;', '&gt;', '&amp;', '&quot;', "\\'"),
+            $string
+        );
     }
 }
 

@@ -52,7 +52,7 @@ global $tx, $sn;
             <legend><?php echo $this->translate('upload_file_to', $this->currentDirectory); ?></legend>
             <div style="padding: 3em;">
 
-                <form method="POST" action="<?php echo $sn, '?', XH_hsc($_SERVER['QUERY_STRING']);?>" enctype="multipart/form-data" onsubmit="return FILEBROWSER.checkUpload(this, '<?php echo $this->translate('confirm_upload');?>')">
+                <form method="POST" action="<?php echo $sn, '?', XH_hsc($_SERVER['QUERY_STRING']);?>" enctype="multipart/form-data" onsubmit="return FILEBROWSER.checkUpload(this, '<?php echo $this->escapeForEventHandlerAttribute($this->translate('confirm_upload'));?>')">
                     <?php echo tag('input type="file" name="fbupload"');?>
                     <?php echo tag('input type="hidden" name="upload" value="upload"');?>
                     <?php echo tag('input type="submit" class="submit" value="' . $this->translate('upload_file') . '"');?>

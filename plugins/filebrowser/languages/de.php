@@ -34,9 +34,6 @@ $plugin_tx['filebrowser']['rename_file']="Datei umbenennen";
 $plugin_tx['filebrowser']['confirm_delete']="%s wirklich löschen?";
 $plugin_tx['filebrowser']['prompt_rename']="%s umbenennen zu:";
 $plugin_tx['filebrowser']['confirm_upload']="Es gibt bereits eine Datei mit diesem Namen, die umbenannt werden wird. Bestehende Links werden auf die neu hoch geladene Datei verweisen.";
-$plugin_tx['filebrowser']['cf_confirm_delete']="Dieser Text wird unter JavaScript verwendet: \" und ' darf nicht verwendet werden.";
-$plugin_tx['filebrowser']['cf_prompt_rename']="Dieser Text wird unter JavaScript verwendet: \" und ' darf nicht verwendet werden.";
-$plugin_tx['filebrowser']['cf_confirm_upload']="Dieser Text wird unter JavaScript verwendet: \" und ' darf nicht verwendet werden.";
 
 $plugin_tx['filebrowser']['folder'] = "Ordner";
 $plugin_tx['filebrowser']['files'] = "Dateien:";
