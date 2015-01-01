@@ -583,7 +583,9 @@ function submenu()
             }
         }
         if (count($ta) != 0) {
-            return '<h4>' . $tx['submenu']['heading'] . '</h4>'
+            $level = min($cf['menu']['levels'] + 1, 6);
+            return '<h' . $level . '>' . $tx['submenu']['heading']
+                . '</h' . $level . '>'
                 . li($ta, 'submenu');
         }
     }
