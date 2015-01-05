@@ -2485,7 +2485,7 @@ function XH_hsc($string)
  *
  * @since 1.6
  */
-function XH_mailform()
+function XH_mailform($subject=null)
 {
     global $pth, $cf;
 
@@ -2494,7 +2494,7 @@ function XH_mailform()
     }
 
     include_once $pth['folder']['classes'] . 'Mailform.php';
-    $mailform = new XH_Mailform(true);
+    $mailform = new XH_Mailform(true,$subject);
     return $mailform->process();
 }
 

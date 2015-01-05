@@ -111,6 +111,7 @@ class XH_Mailform
      * Constructs an instance.
      *
      * @param bool $embedded Whether the mailform is embedded on a CMSimple_XH page.
+     * @param string $subject An alternative subject field preset text instead of the subject default in localization.
      *
      * @global array The configuration of the core.
      * @global array The localization of the core.
@@ -119,10 +120,9 @@ class XH_Mailform
      *
      * @access public
      */
-    function XH_Mailform($embedded = false)
+    function XH_Mailform($embedded = false, $subject)
     {
         global $cf, $tx;
-
         $this->embedded = $embedded;
         $this->_linebreak = ($cf['mailform']['lf_only'] ? "\n" : "\r\n");
         $this->sendername = isset($_POST['sendername'])
@@ -135,9 +135,16 @@ class XH_Mailform
             ? stsl($_POST['getlast']) : '';
         $this->cap = isset($_POST['cap'])
             ? stsl($_POST['cap']) : '';
-        $this->subject = isset($_POST['subject'])
-            ? stsl($_POST['subject'])
-            : sprintf($tx['mailform']['subject_default'], sv('SERVER_NAME'));
+            
+        if (isset($_POST['subject']))
+            $this->subject = stsl($_POST['subject']);
+        elseif ($_GET['xh_mailform_subject'])
+            $this->subject = stsl($_GET['xh_mailform_subject']);
+        elseif(isset($subject))
+            $this->subject = $subject;
+        else
+            $this->subject = sprintf($tx['mailform']['subject_default'], sv('SERVER_NAME'));
+            
         if ($embedded) {
             $this->mailform = isset($_POST['xh_mailform'])
                 ? stsl($_POST['xh_mailform']) : '';
@@ -438,7 +445,6 @@ class XH_Mailform
         }
         return true;
     }
-
 }
 
 ?>
