@@ -2479,7 +2479,10 @@ function XH_hsc($string)
 /**
  * Handles a mailform embedded in a CMSimple_XH page.
  *
+ * @param string $subject An alternative subject field preset text
+ * 
  * @return string (X)HTML.
+ * instead of the subject default in localization.
  *
  * @global array The paths of system files and folders.
  *
@@ -2494,7 +2497,7 @@ function XH_mailform($subject=null)
     }
 
     include_once $pth['folder']['classes'] . 'Mailform.php';
-    $mailform = new XH_Mailform(true,$subject);
+    $mailform = new XH_Mailform(true, $subject);
     return $mailform->process();
 }
 
