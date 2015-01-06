@@ -120,7 +120,7 @@ class XH_Mailform
      *
      * @access public
      */
-    function XH_Mailform($embedded = false, $subject)
+    function XH_Mailform($embedded = false, $subject=null)
     {
         global $cf, $tx;
         $this->embedded = $embedded;
@@ -138,7 +138,7 @@ class XH_Mailform
             
         if (isset($_POST['subject']))
             $this->subject = stsl($_POST['subject']);
-        elseif ($_GET['xh_mailform_subject'])
+        elseif (isset($_GET['xh_mailform_subject']))
             $this->subject = stsl($_GET['xh_mailform_subject']);
         elseif(isset($subject))
             $this->subject = $subject;
