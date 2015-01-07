@@ -272,6 +272,24 @@ class MailformTest extends PHPUnit_Framework_TestCase
         $mailform->expects($this->never())->method('check');
         $this->assertFalse($mailform->process());
     }
+
+    public function testSubjectIsSetFromQueryParameter()
+    {
+        $subject = 'Foo subject';
+        $_GET['xh_mailform_subject'] = $subject;
+        $mailform = new XH_Mailform();
+        // TODO: don't test for *protected* property
+        $this->assertEquals($subject, $mailform->subject);
+    }
+
+    public function testSubjectIsSetFromConstructorParameter()
+    {
+        $subject = 'Foo subject';
+        $mailform = new XH_Mailform(true, $subject);
+        // TODO: don't test for *protected* property
+        $this->assertEquals($subject, $mailform->subject);
+    }
+
 }
 
 ?>
