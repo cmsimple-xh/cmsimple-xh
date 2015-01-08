@@ -50,16 +50,21 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
         curl_close($this->curlHandle);
     }
 
+    /**
+     * @todo Use CURLFile class and get rid of @ operator.
+     */
     protected function setCurlOptions($fields)
     {
+        if (defined('CURLOPT_SAFE_UPLOAD')) {
+            curl_setopt($this->curlHandle, CURLOPT_SAFE_UPLOAD, false);
+        }
         $options = array(
-            CURLOPT_SAFE_UPLOAD => true,
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $fields,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_COOKIEFILE => $this->cookieFile
         );
-        curl_setopt_array($this->curlHandle, $options);
+        @curl_setopt_array($this->curlHandle, $options);
     }
 
     public function dataForAttack()
