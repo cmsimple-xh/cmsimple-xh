@@ -113,7 +113,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
      */
     public function testDecode($string)
     {
-        $expected = json_decode($string, true);
+        $expected = json_decode($string);
         $actual = $this->_json->decode($string);
         $this->assertEquals($expected, $actual);
     }
@@ -139,7 +139,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
     public function testDecodeSyntaxError()
     {
         $string = '{true}';
-        $expected = json_decode($string, true);
+        $expected = json_decode($string);
         $actual = $this->_json->decode($string);
         $this->assertEquals($expected, $actual);
         $expected = !!json_last_error();
@@ -150,7 +150,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
     public function testEncodeAndDecode()
     {
         $string = file_get_contents('./tests/unit/data/example.json');
-        $value = json_decode($string, true);
+        $value = json_decode($string);
         $new = $this->_json->decode($this->_json->encode($value));
         $this->assertEquals($value, $new);
     }

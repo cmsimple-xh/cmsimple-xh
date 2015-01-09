@@ -388,14 +388,14 @@ class XH_JSON
     function parseObject(&$res)
     {
         $this->accept(XH_JSON_LBRACE);
-        $res = array();
+        $res = new stdClass();
         if (in_array($this->sym, $this->first['pair'])) {
             $this->parsePair($key, $val);
-            $res[$key]= $val;
+            $res->{$key} = $val;
             while ($this->sym == XH_JSON_COMMA) {
                 $this->accept(XH_JSON_COMMA);
                 $this->parsePair($key, $val);
-                $res[$key] = $val;
+                $res->{$key} = $val;
             }
         }
         $this->accept(XH_JSON_RBRACE);
