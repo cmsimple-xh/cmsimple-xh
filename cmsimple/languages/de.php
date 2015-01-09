@@ -50,6 +50,7 @@ $tx['error']['401']="Fehler 401: Nicht erlaubt";
 $tx['error']['403']="Error 403: Verboten";
 $tx['error']['404']="Fehler 404: Nicht gefunden";
 $tx['error']['alreadyexists']="Existiert bereits";
+$tx['error']['badrequest']="Inkorrekte Anfrage. Bitte versuchen Sie es <a href=\".\">noch einmal</a>.";
 $tx['error']['cntdelete']="Nicht löschbar:";
 $tx['error']['cntlocateheading']="Keine Seite ausgewählt";
 $tx['error']['cntopen']="Nicht zu öffnen:";
@@ -280,6 +281,7 @@ $tx['sysinfo']['webserver']="Webserver";
 
 $tx['template']['default']="Standard Template";
 
+$tx['title']['bad_request']="Inkorrekte Anfrage";
 $tx['title']['downloads']="Downloads";
 $tx['title']['images']="Bilder";
 $tx['title']['log']="Log-Datei";

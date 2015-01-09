@@ -1468,16 +1468,28 @@ function XH_debug($errno, $errstr, $errfile, $errline, $context)
  *
  * @return void
  *
+ * @global array The localization of the core.
+ *
  * @since 1.5.5
  */
 function XH_checkValidUtf8($arr)
 {
+    global $tx;
+
     foreach ($arr as $elt) {
         if (is_array($elt)) {
             XH_checkValidUtf8($elt);
         } elseif (!utf8_is_valid($elt)) {
             header('HTTP/1.0 400 Bad Request');
-            exit('Malformed UTF-8 detected!');
+            header('Content-Type: text/html; charset=UTF-8');
+            echo <<<EOT
+<!DOCTYPE html>
+<html>
+    <head><title>{$tx['title']['bad_request']}</title></head>
+    <body>{$tx['error']['badrequest']}</body>
+</html>
+EOT;
+            exit;
         }
     }
 }

@@ -50,6 +50,7 @@ $tx['error']['401']="Error 401: Unauthorized";
 $tx['error']['403']="Error 403: Forbidden";
 $tx['error']['404']="Error 404: Not found";
 $tx['error']['alreadyexists']="Already exists";
+$tx['error']['badrequest']="Bad request. Please <a href=\".\">try again</a>.";
 $tx['error']['cntdelete']="Could not delete";
 $tx['error']['cntlocateheading']="No page selected";
 $tx['error']['cntopen']="Could not open";
@@ -279,6 +280,7 @@ $tx['sysinfo']['webserver']="Webserver";
 
 $tx['template']['default']="default template";
 
+$tx['title']['bad_request']="Bad request";
 $tx['title']['downloads']="Downloads";
 $tx['title']['images']="Images";
 $tx['title']['log']="Log File";
