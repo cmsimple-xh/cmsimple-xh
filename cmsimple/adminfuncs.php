@@ -350,15 +350,17 @@ function XH_settingsView()
  *
  * @return string (X)HTML.
  *
- * @global array The paths of system files and folders.
- * @global array The localization of the core.
+ * @global array  The paths of system files and folders.
+ * @global array  The localization of the core.
+ * @global string The title of the current page.
  *
  * @since 1.6
  */
 function XH_logFileView()
 {
-    global $pth, $tx;
+    global $pth, $tx, $title;
 
+    $title = $tx['title']['log'];
     return '<h1>' . $tx['title']['log'] . '</h1>'
         . '<pre id="xh_logfile">' . XH_hsc(XH_readFile($pth['file']['log']))
         . '</pre>'

@@ -1243,9 +1243,11 @@ if ($su == uenc($cf['menu']['legal'])) {
 if (XH_ADM) {
     $_XH_controller->setBackendF();
 
-    if ($f == 'settings' || $f == 'xh_backups' || $f == 'images' || $f == 'downloads'
-        || $f == 'validate' || $f == 'sysinfo' || $f == 'phpinfo'
-    ) {
+    $temp = array(
+        'settings', 'xh_backups', 'images', 'downloads', 'validate', 'sysinfo',
+        'phpinfo', 'xh_pagedata'
+    );
+    if (in_array($f, $temp)) {
         $title = $tx['title'][$f];
         $o .= "\n\n" . '<h1>' . $title . '</h1>' . "\n";
     }

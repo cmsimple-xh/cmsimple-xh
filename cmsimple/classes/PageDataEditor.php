@@ -130,11 +130,10 @@ class XH_PageDataEditor
     {
         global $sn, $tx, $_XH_csrfProtection;
 
-        $o = '<h1>' . $tx['title']['pagedata'] . '</h1>';
         if (!isset($deleted) && isset($_GET['xh_success'])) {
             $deleted = $_GET['xh_success'];
         }
-        $o .= $this->renderMessage($deleted);
+        $o = $this->renderMessage($deleted);
         if ($deleted === false) {
             return $o;
         }

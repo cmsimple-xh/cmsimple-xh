@@ -189,14 +189,16 @@ class XH_TextFileEdit extends XH_FileEdit
      *
      * @global string The script name.
      * @global array  The localization of the core.
+     * @global string The title of the current page.
      * @global object The CSRF protection object.
      *
      * @access public
      */
     function form()
     {
-        global $sn, $tx, $_XH_csrfProtection;
+        global $sn, $tx, $title, $_XH_csrfProtection;
 
+        $title = $this->caption;
         $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;
         $value = utf8_ucfirst($tx['action']['save']);
         if (isset($_GET['xh_success'])) {
@@ -604,14 +606,16 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * @global array  The paths of system files and folders.
      * @global array  The localization of the core.
      * @global string JS for the onload attribute of the body element.
+     * @global string The title of the current page.
      * @global object The CSRF protection object.
      *
      * @access public
      */
     function form()
     {
-        global $sn, $pth, $tx, $onload, $_XH_csrfProtection;
+        global $sn, $pth, $tx, $onload, $title, $_XH_csrfProtection;
 
+        $title = $this->caption;
         $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;
         $value = utf8_ucfirst($tx['action']['save']);
         $button = tag('input type="submit" class="submit" value="' . $value . '"');
