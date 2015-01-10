@@ -2845,4 +2845,24 @@ function XH_lockFile($handle, $operation)
     return flock($handle, $operation);
 }
 
+/**
+ * Highlights the search words in a text.
+ *
+ * @param array  $words An array of search words.
+ * @param string $text  A text.
+ *
+ * @return string (X)HTML.
+ *
+ * @since 1.6.5
+ */
+function XH_highlightSearchWords($words, $text)
+{
+    usort($words, create_function('$a, $b', 'return strlen($b) - strlen($a);'));
+    $patterns = array();
+    foreach ($words as $word) {
+        $patterns[] = '/' . preg_quote($word, '/') . '(?![^<]*>)/isuU';
+    }
+    return preg_replace($patterns, '<span class="xh_find">$0</span>', $text);
+}
+
 ?>

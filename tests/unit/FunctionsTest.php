@@ -780,6 +780,71 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         XH_lockFile($handle, $operation);
         $flockMock->restore();
     }
+
+    /**
+     * @dataProvider dataForHightlightSearchWords
+     */
+    public function testHighlightSearchWords($words, $text, $expected)
+    {
+        $this->assertEquals($expected, XH_highlightSearchWords($words, $text));
+    }
+
+    public function dataForHightlightSearchWords()
+    {
+        return [
+            // A simple case.
+            [
+                ['word'], 'blah word blah',
+                'blah <span class="xh_find">word</span> blah'
+            ],
+            // Don't highlight inside an (X)HTML tag.
+            [
+                ['word'], 'blah <img src="word.jpg"> blah',
+                'blah <img src="word.jpg"> blah'
+            ],
+            // Escape meta characters.
+            [['w.rd'], 'blah word blah', 'blah word blah'],
+            // Searching for two words of which one is contained in the other.
+            // The result isn't beautiful, but it works.
+            [
+                ['or', 'word'], 'blah word blah',
+                'blah <span class="xh_find">w<span class="xh_find">or</span>'
+                . 'd</span> blah'
+            ],
+            // A sanscrit example that points out problems wrt. combining chars.
+            // See <http://cmsimpleforum.com/viewtopic.php?f=29&t=8077>.
+            [
+                [
+                    "\xE0\xA4\xB0\xE0\xA5\x87\xE0\xA4\xA6\xE0\xA4\xBE\xE0\xA4\xA4"
+                    . "\xE0\xA5\x8D\xE0\xA4\xAE\xE0\xA4\xA8\xE0\xA4\xBE\xE0\xA4"
+                    . "\xA4\xE0\xA5\x8D\xE0\xA4\xAE\xE0\xA4\xBE\xE0\xA4\xA8\xE0"
+                    . "\xA4\x82",
+                    "\xE0\xA4\xA8\xE0\xA4\xBE\xE0\xA4\xA4\xE0\xA5"
+                    . "\x8D\xE0\xA4\xAE\xE0\xA4\xBE\xE0\xA4\xA8"
+                ],
+                "\xE0\xA4\x89\xE0\xA4\xA6\xE0\xA5\x8D\xE0\xA4\xA7\xE0\xA4\xB0\xE0"
+                . "\xA5\x87\xE0\xA4\xA6\xE0\xA4\xBE\xE0\xA4\xA4\xE0\xA5\x8D\xE0"
+                . "\xA4\xAE\xE0\xA4\xA8\xE0\xA4\xBE\xE0\xA4\xA4\xE0\xA5\x8D\xE0"
+                . "\xA4\xAE\xE0\xA4\xBE\xE0\xA4\xA8\xE0\xA4\x82\x20\xE0\xA4\xA8"
+                . "\xE0\xA4\xBE\xE0\xA4\xA4\xE0\xA5\x8D\xE0\xA4\xAE\xE0\xA4\xBE"
+                . "\xE0\xA4\xA8\xE0\xA4\xAE\xE0\xA4\xB5\xE0\xA4\xB8\xE0\xA4\xBE"
+                . "\xE0\xA4\xA6\xE0\xA4\xAF\xE0\xA5\x87\xE0\xA4\xA4\xE0\xA5\x8D",
+                "\xE0\xA4\x89\xE0\xA4\xA6\xE0\xA5\x8D\xE0\xA4\xA7"
+                . '<span class="xh_find">'
+                . "\xE0\xA4\xB0\xE0\xA5\x87\xE0\xA4\xA6\xE0\xA4\xBE\xE0\xA4\xA4"
+                . "\xE0\xA5\x8D\xE0\xA4\xAE"
+                . '<span class="xh_find">'
+                . "\xE0\xA4\xA8\xE0\xA4\xBE\xE0\xA4\xA4\xE0\xA5\x8D\xE0\xA4\xAE"
+                . "\xE0\xA4\xBE\xE0\xA4\xA8"
+                . '</span>' . "\xE0\xA4\x82" . '</span> <span class="xh_find">'
+                . "\xE0\xA4\xA8\xE0\xA4\xBE\xE0\xA4\xA4\xE0\xA5\x8D\xE0\xA4\xAE"
+                . "\xE0\xA4\xBE\xE0\xA4\xA8"
+                . '</span>'
+                . "\xE0\xA4\xAE\xE0\xA4\xB5\xE0\xA4\xB8\xE0\xA4\xBE\xE0\xA4\xA6"
+                . "\xE0\xA4\xAF\xE0\xA5\x87\xE0\xA4\xA4\xE0\xA5\x8D"
+            ]
+        ];
+    }
 }
 
 ?>
