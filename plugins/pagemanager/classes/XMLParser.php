@@ -8,9 +8,9 @@
  * @category  CMSimple_XH
  * @package   Pagemanager
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2011-2014 Christoph M. Becker <http://3-magi.net/>
+ * @copyright 2011-2015 Christoph M. Becker <http://3-magi.net/>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   SVN: $Id: XMLParser.php 179 2014-01-28 13:24:08Z cmb $
+ * @version   SVN: $Id$
  * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
  */
 
@@ -121,6 +121,8 @@ class Pagemanager_XMLParser
      * @param array  $contents   Page contents.
      * @param int    $levels     Maximum page level.
      * @param string $pdattrName Name of a page data attribute.
+     *
+     * @return void
      */
     function Pagemanager_XMLParser($contents, $levels, $pdattrName)
     {
@@ -139,11 +141,21 @@ class Pagemanager_XMLParser
     function parse($xml)
     {
         $parser = xml_parser_create('UTF-8');
-        xml_set_element_handler(
-            $parser, array($this, 'startElementHandler'),
-            array($this, 'endElementHandler')
-        );
-        xml_set_character_data_handler($parser, array($this, 'cDataHandler'));
+        // In PHP 4, we have to use a reference to create the callbacks.
+        // For PHP 5, we don't want references, though.
+        if (version_compare(phpversion(), '5', 'ge')) {
+            xml_set_element_handler(
+                $parser, array($this, 'startElementHandler'),
+                array($this, 'endElementHandler')
+            );
+            xml_set_character_data_handler($parser, array($this, 'cDataHandler'));
+        } else {
+            xml_set_element_handler(
+                $parser, array(&$this, 'startElementHandler'),
+                array(&$this, 'endElementHandler')
+            );
+            xml_set_character_data_handler($parser, array(&$this, 'cDataHandler'));
+        }
         $this->level = 0;
         $this->newContents = array();
         $this->pageData = array();
@@ -255,6 +267,7 @@ class Pagemanager_XMLParser
             $pageData = $pd_router->find_page($this->id);
         } else {
             $pageData = $pd_router->new_page();
+            $pageData['last_edit'] = time();
         }
         if ($this->mayRename) {
             $pageData['url'] = uenc($this->title);

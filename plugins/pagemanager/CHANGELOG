@@ -1,3 +1,13 @@
+Version 2.0.5 - released 2015-01-10
+* fixed bug, where page data field "last_edit" was not set for newly created
+  pages (reported by Hartmut)
+* fitted better to CMSimple_XH 1.6+
+
+Version 2.0.4 - released 2014-12-02
+* fixed bug, where saving purged content.htm under PHP 4 (reported by marcus)
+* added Dutch localization (contributed by bastingse)
+* shrinked JS files
+
 Version 2.0.3 - released 2014-05-21
 * fixed insufficient styling
 * changed default of pagedata_attribute to linked_to_menu

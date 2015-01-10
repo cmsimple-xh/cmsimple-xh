@@ -1,6 +1,7 @@
 <?php
 
 $plugin_tx['pagemanager']['menu_main']="Page administration";
+$plugin_tx['pagemanager']['menu_info']="Info";
 $plugin_tx['pagemanager']['treeview_loading']="Loading...";
 $plugin_tx['pagemanager']['treeview_new']="New page";
 $plugin_tx['pagemanager']['button_delete']="Delete";
@@ -38,9 +39,7 @@ $plugin_tx['pagemanager']['syscheck_phpversion']="PHP version &ge; %s";
 $plugin_tx['pagemanager']['syscheck_extension']="Extension \"%s\" loaded";
 $plugin_tx['pagemanager']['syscheck_xhversion']="CMSimple_XH version &ge; %s";
 $plugin_tx['pagemanager']['syscheck_jquery']="<a href=\"http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple\">jQuery4CMSimple plugin</a> installed";
-$plugin_tx['pagemanager']['syscheck_magic_quotes']="Magic quotes runtime off";
 $plugin_tx['pagemanager']['syscheck_writable']="Folder \"%s\" writable";
-$plugin_tx['pagemanager']['about']="About Pagemanager_XH";
 $plugin_tx['pagemanager']['cf_verbose']="Whether to show information and confirmation dialogs.";
 $plugin_tx['pagemanager']['cf_toolbar_show']="Whether the toolbar shall be shown.";
 $plugin_tx['pagemanager']['cf_toolbar_vertical']="Whether the toolbar shall be displayed vertically. This option is for power users, who can adjust the layout in Plugin Stylesheet.";

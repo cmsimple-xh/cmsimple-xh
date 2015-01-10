@@ -1,4 +1,5 @@
 <!-- Pagemanager_XH: widget -->
+<h1>Pagemanager &ndash; <?php echo $this->lang('menu_main')?></h1>
 <form id="pagemanager-form" action="<?php echo XH_hsc($this->submissionURL());?>"
       method="post" accept-charset="UTF-8" onsubmit="PAGEMANAGER.submit(); return false">
 <?php if ($this->model->isIrregular()):?>
