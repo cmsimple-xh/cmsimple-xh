@@ -33,10 +33,12 @@
  * @global string The URL of the requested page.
  * @global array  The localization of the plugins.
  * @global array  The paths of system files and folders.
+ * @global string The JavaScript for the onload attribute of the body element.
+ * @global string The (X)HTML fragment to insert at the bottom of the body element.
  */
 function Metatags_view($page)
 {
-    global $sn, $su, $plugin_tx, $pth;
+    global $sn, $su, $plugin_tx, $pth, $onload, $bjs;
 
     $func = create_function('&$data', '$data=str_replace("\"", "&quot;", $data);');
     array_walk($page, $func);
@@ -44,6 +46,31 @@ function Metatags_view($page)
     $lang = $plugin_tx['meta_tags'];
 
     $my_fields = array('title', 'description', 'keywords', 'robots');
+
+    $bjs .= <<<EOT
+<script type="text/javascript">/* <![CDATA[ */
+var META_TAGS = {};
+
+META_TAGS.init = function () {
+    var description = document.getElementById("meta_tags").elements.description;
+
+    if (description) {
+        XH.addInputEventListener(description, function (event) {
+            var textarea = event.target || event.srcElement,
+                text = "[" + textarea.value.length + "]",
+                counter = document.getElementById("mt_description_length");
+
+            if (typeof counter.textContent != "undefined") {
+                counter.textContent = text;
+            } else {
+                counter.innerText = text;
+            }
+        });
+    }
+};
+/* ]]> */</script>
+EOT;
+    $onload .= 'META_TAGS.init();';
 
     $view ="\n" . '<form action="' . $sn . '?' . $su
         . '" method="post" id="meta_tags">'
@@ -61,7 +88,12 @@ function Metatags_view($page)
             );
         $view .= "\n\t" . XH_helpIcon($lang['hint_' . $field])
             . "\n\t" . '<label><span class = "mt_label">'
-            . $lang[$field] . '</span>' . tag('br')
+            . $lang[$field] . '</span>';
+        if ($field == 'description') {
+            $view .= '<span id="mt_description_length">['
+                . utf8_strlen($page[$field]). ']</span>';
+        }
+        $view .= tag('br')
             . "\n\t\t" . $element . '</label>' . tag('hr');
     }
     $view .= "\n\t" . tag('input name="save_page_data" type="hidden"')

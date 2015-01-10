@@ -283,6 +283,47 @@ XH.initQuickSubmit = function () {
 };
 
 /**
+ * Adds an event listener to a textarea for focus and input events.
+ *
+ * If multiple listeners are attached, they are triggered in unspecified order.
+ * Inside the listeners, `this` should be treated as undefined.
+ *
+ * @param {HTMLTextareaElement} textarea A textarea.
+ * @param {EventListener }      listener An event listener.
+ *
+ * @returns {undefined}
+ *
+ * @since 1.6.5
+ */
+XH.addInputEventListener = function (textarea, listener) {
+    if (typeof textarea.addEventListener != "undefined") {
+        textarea.addEventListener("focus", listener, false);
+        if (typeof textarea.oninput != "undefined") {
+            textarea.addEventListener("input", listener, false);
+        } else if (typeof textarea.onpropertychange != "undefined") {
+            textarea.addEventListener(
+                "onpropertychange",
+                function (event) {
+                    if (event.propertyName == "value") {
+                        listener(event);
+                    }
+                },
+                false
+            );
+        } else {
+            textarea.addEventListener("keypress", listener, false);
+        }
+    } else if (typeof textarea.attachEvent != "undefined") {
+        textarea.attachEvent("onfocus", listener);
+        textarea.attachEvent("onpropertychange", function (event) {
+            if (event.propertyName == "value") {
+                listener(event);
+            }
+        });
+    }
+};
+
+/**
  * Makes a focused textarea autosizing according to its content.
  *
  * @param {HTMLTextareaElement} textarea A textarea.
@@ -308,35 +349,12 @@ XH.makeAutosize = function (textarea) {
     }
 
     function onResize(event) {
-        var ev = event || window.event;
-        var textarea = ev.target || ev.srcElement;
+        var textarea = event.target || event.srcElement;
 
         resize(textarea);
     }
 
-    function onPropertyChange(event) {
-        var ev = event || window.event;
-        var textarea = ev.target || ev.srcElement;
-
-        if (ev.propertyName == "value") {
-            resize(textarea);
-        }
-    }
-
-    if (typeof textarea.addEventListener != "undefined") {
-        textarea.addEventListener("focus", onResize, false);
-        if (typeof textarea.oninput != "undefined") {
-            textarea.addEventListener("input", onResize, false);
-        } else if (typeof textarea.onpropertychange != "undefined") {
-            textarea.addEventListener("onpropertychange", onPropertyChange,
-                    false);
-        } else {
-            textarea.addEventListener("keypress", onResize, false);
-        }
-    } else {
-        textarea.attachEvent("onfocus", onResize);
-        textarea.attachEvent("onpropertychange", onPropertyChange);
-    }
+    XH.addInputEventListener(textarea, onResize);
     // the following would be nice, but it's very slow for many textareas
     //resize(textarea);
 };
