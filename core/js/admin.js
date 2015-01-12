@@ -435,7 +435,7 @@ XH.checkLinks = function (url) {
 /**
  * Adapts the admin menu to the viewport, so that all menu items are visible,
  * if at least two menu items fit side by side, and there are not too many
- * plugins.
+ * plugins. HTML's margin top is corrected to prevent menu overlap.
  *
  * @returns {undefined}
  *
@@ -443,13 +443,14 @@ XH.checkLinks = function (url) {
  */
 XH.adaptAdminMenu = function () {
     var viewportWidth = document.documentElement.clientWidth,
+        htmlObj = document.getElementsByTagName("html")[0],
         pluginMenu = document.getElementById("xh_adminmenu_plugins"),
         itemWidth = pluginMenu.parentNode.offsetWidth,
         style = pluginMenu.style,
         pluginMenuRect = pluginMenu.getBoundingClientRect(),
         pluginMenus = document.querySelectorAll("#xh_adminmenu ul ul ul"),
+        adminMenuHeight = document.getElementById("xh_adminmenu").clientHeight,
         i;
-
     if (pluginMenu.hasAttribute("data-margin-left")) {
         style.marginLeft = pluginMenu.getAttribute("data-margin-left");
     } else {
@@ -468,6 +469,7 @@ XH.adaptAdminMenu = function () {
             pluginMenu.style.left = "-100%";
         }
     }
+    htmlObj.style.marginTop = adminMenuHeight + "px";  
 };
 
 /*
