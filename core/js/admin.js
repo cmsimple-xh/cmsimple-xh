@@ -443,13 +443,13 @@ XH.checkLinks = function (url) {
  */
 XH.adaptAdminMenu = function () {
     var viewportWidth = document.documentElement.clientWidth,
-        htmlObj = document.getElementsByTagName("html")[0],
+        htmlObj = document.documentElement,
         pluginMenu = document.getElementById("xh_adminmenu_plugins"),
         itemWidth = pluginMenu.parentNode.offsetWidth,
         style = pluginMenu.style,
         pluginMenuRect = pluginMenu.getBoundingClientRect(),
         pluginMenus = document.querySelectorAll("#xh_adminmenu ul ul ul"),
-        adminMenuHeight = document.getElementById("xh_adminmenu").clientHeight,
+        adminMenu = document.getElementById("xh_adminmenu_fixed"),
         i;
     if (pluginMenu.hasAttribute("data-margin-left")) {
         style.marginLeft = pluginMenu.getAttribute("data-margin-left");
@@ -469,7 +469,9 @@ XH.adaptAdminMenu = function () {
             pluginMenu.style.left = "-100%";
         }
     }
-    htmlObj.style.marginTop = adminMenuHeight + "px";  
+    if (adminMenu) {
+      htmlObj.style.marginTop = adminMenu.clientHeight + "px";
+    }
 };
 
 /*

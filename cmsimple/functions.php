@@ -492,19 +492,15 @@ function XH_finalCleanUp($html)
     if (XH_ADM === true) {
         $debugHint = '';
         $errorList = '';
-        $margin = 36;
 
         if ($debugMode = error_reporting() > 0) {
             $debugHint .= '<div class="xh_debug">' . "\n"
                 . $tx['message']['debug_mode'] . "\n"
                 . '</div>' . "\n";
-            $margin += 22;
         }
 
         $adminMenuFunc = trim($cf['editmenu']['external']);
-        if ($adminMenuFunc != '' && function_exists($adminMenuFunc)) {
-            $margin -= 36;
-        } else {
+        if ($adminMenuFunc == '' || !function_exists($adminMenuFunc)) {
             $adminMenuFunc = 'XH_adminMenu';
         }
 
@@ -520,12 +516,8 @@ function XH_finalCleanUp($html)
             && $cf['editmenu']['scroll'] == 'true'
         ) {
             $id = ' id="xh_adminmenu_scrolling"';
-            $margin = 0;
         } else {
             $id =' id="xh_adminmenu_fixed"';
-            $replacement = '<style type="text/css">html {margin-top: ' . $margin
-                . 'px;}</style>' ."\n" . '$0';
-            $html = preg_replace('~</head>~i', $replacement, $html, 1);
         }
 
         $adminMenu = call_user_func($adminMenuFunc, XH_plugins(true));
