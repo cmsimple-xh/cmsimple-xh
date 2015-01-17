@@ -81,7 +81,7 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
                 array(
                     'save_page_data' => ''
                 ),
-                'Welcome_to_CMSimple_XH'
+                'Welcome-to-CMSimple_XH'
             ),
             array( // core configuration
                 array(
