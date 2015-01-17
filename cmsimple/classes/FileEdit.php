@@ -645,8 +645,12 @@ class XH_ArrayFileEdit extends XH_FileEdit
                         : $category;
                     $o .= '<div class="xh_label">'
                         . $info . '<span class="xh_label">'
-                        . $this->translate($displayName) . '</span>'
-                        . '</div>'
+                        . $this->translate($displayName) . '</span>';
+                    if ($category == 'meta' && $name == 'description') {
+                        $o .= ' <span id="xh_description_length">['
+                            . utf8_strlen($opt['val']) . ']</span>';
+                    }
+                    $o .= '</div>'
                         . '<div class="xh_field">'
                         . $this->formField($category, $name, $opt) . '</div>'
                         . tag('br');

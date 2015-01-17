@@ -52,20 +52,11 @@ function Metatags_view($page)
 var META_TAGS = {};
 
 META_TAGS.init = function () {
-    var description = document.getElementById("meta_tags").elements.description;
+    var description = document.getElementById("meta_tags").elements.description,
+        indicator = document.getElementById("mt_description_length");
 
-    if (description) {
-        XH.addInputEventListener(description, function (event) {
-            var textarea = event.target || event.srcElement,
-                text = "[" + textarea.value.length + "]",
-                counter = document.getElementById("mt_description_length");
-
-            if (typeof counter.textContent != "undefined") {
-                counter.textContent = text;
-            } else {
-                counter.innerText = text;
-            }
-        });
+    if (description && indicator) {
+        XH.displayTextLength(description, indicator);
     }
 };
 /* ]]> */</script>

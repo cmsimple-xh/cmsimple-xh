@@ -379,6 +379,28 @@ XH.makeTextareasAutosize = function (node) {
 };
 
 /**
+ * Displays the length of the value of a textarea in an indicator.
+ *
+ * @param {HTMLTextareaElement} textarea
+ * @param {HTMLElement}         indicator
+ *
+ * @returns {undefined}
+ *
+ * @since 1.6.5
+ */
+XH.displayTextLength = function (textarea, indicator) {
+    XH.addInputEventListener(textarea, function () {
+        var text = "[" + textarea.value.length + "]";
+
+        if (typeof indicator.textContent != "undefined") {
+            indicator.textContent = text;
+        } else {
+            indicator.innerText = text;
+        }
+    });
+};
+
+/**
  * Prompts for a valid backup suffix. Returns whether to continue.
  *
  * @param {HTMLFormElement} form
@@ -493,3 +515,19 @@ XH.adaptAdminMenu();
  * Initialize the quick submit of page data forms.
  */
 XH.initQuickSubmit();
+
+/*
+ * Initialize displaying of the meta description length.
+ */
+(function () {
+    var form, description, indicator;
+
+    form = document.getElementById("xh_config_form");
+    if (form) {
+        description = form.elements.PL3bbeec384_meta_description;
+        indicator = document.getElementById("xh_description_length");
+        if (description && indicator) {
+            XH.displayTextLength(description, indicator);
+        }
+    }
+}());
