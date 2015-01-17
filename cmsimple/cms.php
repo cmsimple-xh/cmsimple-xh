@@ -409,18 +409,7 @@ $tx['meta']['codepage']='UTF-8';
  */
 $txc = array('template' => $tx['template']);
 
-$pth['folder']['templates'] = $pth['folder']['base'] . 'templates/';
-$pth['folder']['template'] = $pth['folder']['templates']
-    . $cf['site']['template'] . '/';
-
-$temp = $tx['subsite']['template'] == ''
-    ? $cf['site']['template']
-    : $tx['subsite']['template'];
-$pth['folder']['template'] = $pth['folder']['templates'] . $temp . '/';
-$pth['file']['template'] = $pth['folder']['template'] . 'template.htm';
-$pth['file']['stylesheet'] = $pth['folder']['template'] . 'stylesheet.css';
-$pth['folder']['menubuttons'] = $pth['folder']['template'] . 'menu/';
-$pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
+$_XH_controller->initTemplatePaths();
 
 /*
  * Additional security measure. However, we can neither check cookies,
@@ -1357,11 +1346,7 @@ if ($s == -1 && !$f && $o == '') {
 
 loginforms();
 
-if ($e) {
-    $o = '<div class="xh_warning">' . "\n"
-        . '<ul>' . "\n" . $e . '</ul>' . "\n" . '</div>' . "\n"
-        . $o;
-}
+$o = $_XH_controller->renderErrorMessages() . $o;
 if ($title == '') {
     if ($s > -1) {
         $title = $h[$s];
@@ -1371,16 +1356,7 @@ if ($title == '') {
     }
 }
 
-if (!headers_sent($temp, $i)) {
-    header('Content-Type: text/html; charset=UTF-8');
-    header("Content-Language: $sl");
-    if ($cf['security']['frame_options'] != '') {
-        header('X-Frame-Options: ' . $cf['security']['frame_options']);
-    }
-} else {
-    $temp .= ':' . $i;
-    exit(str_replace('{location}', $temp, $tx['error']['headers']));
-}
+$_XH_controller->sendStandardHeaders();
 
 if ($print) {
     XH_builtinTemplate('print');
@@ -1394,18 +1370,7 @@ if (XH_ADM) {
         . XH_adminJSLocalization();
 }
 
-/*
- * Check if $adm was manipulated. If so, we present the login form.
- * Redirecting would be cleaner, but may result in a loop, so we do it this way.
- */
-if (!XH_ADM && $adm) {
-    $s = -1;
-    $adm = $edit = false;
-    $o = '';
-    $f = 'login';
-    $title = utf8_ucfirst($tx['menu']['login']);
-    loginforms();
-}
+$_XH_controller->verifyAdm();
 
 ob_start('XH_finalCleanUp');
 
