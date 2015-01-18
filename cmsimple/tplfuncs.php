@@ -465,25 +465,26 @@ function legallink()
  * @global array  The menu levels of the pages.
  * @global array  The localization of the core.
  * @global array  The configuration of the core.
+ * @global int    The index of the first published page.
  */
 function locator()
 {
-    global $title, $h, $s, $f, $c, $l, $tx, $cf;
+    global $title, $h, $s, $f, $c, $l, $tx, $cf, $_XH_firstPublishedPage;
 
     if (hide($s) && $cf['show_hidden']['path_locator'] != 'true') {
         return $h[$s];
     }
-    if ($s == 0) {
+    if ($s == $_XH_firstPublishedPage) {
         return $h[$s];
     } elseif ($title != '' && (!isset($h[$s]) || $h[$s] != $title)) {
         $t = $title;
     } elseif ($f != '') {
         return ucfirst($f);
-    } elseif ($s > 0) {
+    } elseif ($s > $_XH_firstPublishedPage) {
         $t = '';
         $tl = $l[$s];
         if ($tl > 1) {
-            for ($i = $s - 1; $i >= 0; $i--) {
+            for ($i = $s - 1; $i >= $_XH_firstPublishedPage; $i--) {
                 if ($l[$i] < $tl) {
                     $t = a($i, '') . $h[$i] . '</a> &gt; ' . $t;
                     $tl--;
@@ -497,10 +498,12 @@ function locator()
         return '&nbsp;';
     }
     if ($cf['locator']['show_homepage'] == 'true') {
-        return a(0, '') . $tx['locator']['home'] . '</a> &gt; ' . $t
-            . (($s > 0 && $h[$s] == $title) ? $h[$s] : '');
+        return a($_XH_firstPublishedPage, '') . $tx['locator']['home']
+            . '</a> &gt; ' . $t
+            . (($s > $_XH_firstPublishedPage && $h[$s] == $title) ? $h[$s] : '');
     } else {
-        return $t . (($s > 0 && $h[$s] == $title) ? $h[$s] : '');
+        return $t
+            . (($s > $_XH_firstPublishedPage && $h[$s] == $title) ? $h[$s] : '');
     }
 }
 
