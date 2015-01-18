@@ -218,6 +218,7 @@ if (!(XH_ADM && $edit)) {
                 $_XH_firstPublishedPage = ($i < count($temp) - 1 ? $i + 1 : -1);
             }
             if ($pd_s == $i) {
+                $s = -1;
                 $pd_s = ($i < count($temp) - 1 ? $i + 1 : -1);
                 $c[$i] .= '#CMSimple shead(404);#';
             }

@@ -779,6 +779,7 @@ function e($et, $ft, $fn)
 /**
  * Reads and parses the content file and sets global variables accordingly.
  *
+ * @global bool   Whether we're in edit mode.
  * @global array  The contents of the pages.
  * @global int    The number of pages.
  * @global array  The headings of the pages.
@@ -794,7 +795,7 @@ function e($et, $ft, $fn)
  */
 function rfc()
 {
-    global $c, $cl, $h, $u, $l, $su, $s, $tx, $e, $pth, $pd_router;
+    global $edit, $c, $cl, $h, $u, $l, $su, $s, $tx, $e, $pth, $pd_router;
 
     $contents = XH_readContents();
     if ($contents === false) {
@@ -804,7 +805,7 @@ function rfc()
             new XH_PageDataRouter(array(), array(), array(), array())
         );
     }
-    list($u, $tooLong, $h, $l, $c, $pd_router) = array_values($contents);
+    list($u, $tooLong, $h, $l, $c, $pd_router, $removed) = array_values($contents);
     $duplicate = 0;
 
     $cl = count($c);
@@ -831,8 +832,10 @@ function rfc()
     }
 
     foreach ($u as $i => $url) {
-        if ($su == $u[$i] || $su == urlencode($u[$i])) {
-            $s = $i;
+        if (($su == $u[$i] || $su == urlencode($u[$i]))
+            && (XH_ADM && $edit || !$removed[$i])
+        ) {
+                $s = $i;
         } // get index of selected page
 
         for ($j = $i + 1; $j < $cl; $j++) {   //check for duplicate "urls"
@@ -855,6 +858,7 @@ function rfc()
  * - <var>levels</var>: The menu levels of the pages.
  * - <var>pages</var>: The contents of the pages.
  * - <var>pd_router</var>: A page data router object.
+ * - <var>removed</var>: Flags whether pages are removed.
  * Returns FALSE, if the file couldn't be read.
  *
  * @param string $language The language to read.
@@ -888,6 +892,7 @@ function XH_readContents($language = null)
     $h = array();
     $u = array();
     $tooLong = array();
+    $removed = array();
     $l = array();
     $empty = 0;
     $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
@@ -929,6 +934,7 @@ function XH_readContents($language = null)
         $url = implode($cf['uri']['seperator'], $ancestors);
         $u[] = substr($url, 0, $cf['uri']['length']);
         $tooLong[] = strlen($url) > $cf['uri']['length'];
+        $removed[] = false;
     }
 
     $page_data_fields = $temp_data = array();
@@ -968,6 +974,7 @@ function XH_readContents($language = null)
                     $_XH_firstPublishedPage = ($i < count($c) - 1) ? $i + 1 : -1;
                 }
                 $c[$i] = '#CMSimple hide# #CMSimple shead(404);#';
+                $removed[$i] = true;
             }
         }
     }
@@ -978,7 +985,8 @@ function XH_readContents($language = null)
         'headings' => $h,
         'levels' => $l,
         'pages' => $c,
-        'pd_router' => $pd_router
+        'pd_router' => $pd_router,
+        'removed' => $removed
     );
 }
 
