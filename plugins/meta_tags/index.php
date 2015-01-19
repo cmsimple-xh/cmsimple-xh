@@ -53,6 +53,7 @@ $pd_router->add_tab(
  */
 if ($pd_current['title']) {
     $cf['site']['title'] = $pd_current['title'];
+    $cf['title']['format'] = "{SITE}";
 }
 if ($pd_current['description']) {
     $tx['meta']['description'] = $pd_current['description'];
