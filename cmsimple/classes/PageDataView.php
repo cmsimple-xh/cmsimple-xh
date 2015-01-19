@@ -122,7 +122,7 @@ class XH_PageDataView
         if (file_exists($filename)) {
             include_once $filename;
             $o .= preg_replace(
-                '/<(?:input|button)[^>]+name="save_page_data"/',
+                '/<(?:input|button)[^>]+name\s*=\s*([\'"])save_page_data\1/',
                 $_XH_csrfProtection->tokenInput() . '$0',
                 $function($this->page)
             );
