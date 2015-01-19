@@ -145,11 +145,11 @@ class XH_Li
     {
         global $l;
 
-        $html = '';
+        $lines = array();
         for ($k = $this->getMenuLevel($i - 1); $k < $l[$this->ta[$i]]; $k++) {
-            $html .= "\n" . '<ul class="' . $this->st . ($k + 1) . '">' . "\n";
+            $lines[] = "\n" . '<ul class="' . $this->st . ($k + 1) . '">' . "\n";
         }
-        return $html;
+        return implode('<li>' . "\n", $lines);
     }
 
     /**
