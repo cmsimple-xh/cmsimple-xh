@@ -1,0 +1,9 @@
+<IfModule !authz_core_host>
+    order deny,allow
+    <Files "template.htm">
+      deny from all
+    </Files>
+</IfModule>
+<IfModule authz_core_host>
+    Require local
+</IfModule>
