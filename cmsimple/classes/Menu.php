@@ -57,6 +57,24 @@ class XH_Li
     var $tf;
 
     /**
+     * The "default" menu level.
+     *
+     * @var int
+     *
+     * @access protected
+     */
+    var $b;
+
+    /**
+     * TODO: add description!
+     *
+     * @var array
+     *
+     * @access protected
+     */
+    var $lf;
+
+    /**
      * Renders a menu structure of certain pages.
      *
      * @param array $ta The indexes of the pages.
@@ -66,15 +84,12 @@ class XH_Li
      *
      * @global int    The index of the current page.
      * @global array  The menu levels of the pages.
-     * @global int    The number of pages.
-     * @global array  The configuration of the core.
-     * @global array  The URLs of the pages.
      *
      * @access public
      */
     function render($ta, $st)
     {
-        global $s, $l, $cl, $cf, $u;
+        global $s, $l;
 
         $this->ta = (array) $ta;
         $this->st = $st;
@@ -86,67 +101,27 @@ class XH_Li
         if ($this->st == 'submenu' || $this->st == 'search') {
             $t .= '<ul class="' . $this->st . '">' . "\n";
         }
-        $b = 0;
+        $this->b = 0;
         if ($this->st > 0) {
-            $b = $this->st - 1;
+            $this->b = $this->st - 1;
             $this->st = 'menulevel';
         }
-        $lf = array();
+        $this->lf = array();
         for ($i = 0; $i < $tl; $i++) {
             $this->tf = ($s != $this->ta[$i]);
             if ($this->st == 'menulevel' || $this->st == 'sitemaplevel') {
-                for ($k = (isset($this->ta[$i - 1]) ? $l[$this->ta[$i - 1]] : $b);
-                     $k < $l[$this->ta[$i]];
-                     $k++
-                ) {
-                    $t .= "\n" . '<ul class="' . $this->st . ($k + 1) . '">' . "\n";
-                }
+                $t .= $this->renderULStartTags($i);
             }
-            $t .= '<li class="';
-            if (!$this->tf) {
-                $t .= 's';
-            } elseif ($cf['menu']['sdoc'] == "parent" && $s > -1) {
-                if ($l[$this->ta[$i]] < $l[$s]) {
-                    $hasChildren = substr($u[$s], 0, 1 + strlen($u[$this->ta[$i]]))
-                        == $u[$this->ta[$i]] . $cf['uri']['seperator'];
-                    if ($hasChildren) {
-                        $t .= 's';
-                    }
-                }
-            }
-            $t .= 'doc';
-            for ($j = $this->ta[$i] + 1; $j < $cl; $j++) {
-                if (!hide($j)
-                    && $l[$j] - $l[$this->ta[$i]] < 2 + $cf['menu']['levelcatch']
-                ) {
-                    if ($l[$j] > $l[$this->ta[$i]]) {
-                        $t .= 's';
-                    }
-                    break;
-                }
-            }
-            $t .= '">';
+            $t .= '<li class="' . $this->getClassName($i) . '">';
             $t .= $this->renderMenuItem($i);
             if ($this->st == 'menulevel' || $this->st == 'sitemaplevel') {
-                $temp = isset($this->ta[$i + 1]) ? $l[$this->ta[$i + 1]] : $b;
-                if ($temp > $l[$this->ta[$i]]) {
-                    $lf[$l[$this->ta[$i]]] = true;
+                if ($this->getMenuLevel($i + 1) > $l[$this->ta[$i]]) {
+                    $this->lf[$l[$this->ta[$i]]] = true;
                 } else {
                     $t .= '</li>' . "\n";
-                    $lf[$l[$this->ta[$i]]] = false;
+                    $this->lf[$l[$this->ta[$i]]] = false;
                 }
-                for ($k = $l[$this->ta[$i]];
-                    $k > (isset($this->ta[$i + 1]) ? $l[$this->ta[$i + 1]] : $b);
-                    $k--
-                ) {
-                    $t .= '</ul>' . "\n";
-                    if (isset($lf[$k - 1])) {
-                        if ($lf[$k - 1]) {
-                            $t .= '</li>' . "\n";
-                            $lf[$k - 1] = false;
-                        }
-                    }
-                }
+                $t .= $this->renderEndTags($i);
             } else {
                 $t .= '</li>' . "\n";
             }
@@ -155,6 +130,155 @@ class XH_Li
             $t .= '</ul>' . "\n";
         }
         return $t;
+    }
+
+    /**
+     * Renders the ul start tags.
+     *
+     * @param int $i The index of the current item.
+     *
+     * @return string (X)HTML.
+     *
+     * @global array The menu levels of the pages.
+     */
+    function renderULStartTags($i)
+    {
+        global $l;
+
+        $html = '';
+        for ($k = $this->getMenuLevel($i - 1); $k < $l[$this->ta[$i]]; $k++) {
+            $html .= "\n" . '<ul class="' . $this->st . ($k + 1) . '">' . "\n";
+        }
+        return $html;
+    }
+
+    /**
+     * Renders the ul and li end tags.
+     *
+     * @param int $i The index of the current item.
+     *
+     * @return string (X)HTML.
+     */
+    function renderEndTags($i)
+    {
+        $html = '';
+        for ($k = $this->getMenuLevel($i); $k > $this->getMenuLevel($i + 1); $k--) {
+            $html .= '</ul>' . "\n";
+            if (isset($this->lf[$k - 1]) && $this->lf[$k - 1]) {
+                $html .= '</li>' . "\n";
+                $this->lf[$k - 1] = false;
+            }
+        }
+        return $html;
+    }
+
+    /**
+     * Returns the menu level of a menu item.
+     *
+     * @param int $i The index of the current item.
+     *
+     * @return int
+     *
+     * @global array  The menu levels of the pages.
+     */
+    function getMenuLevel($i)
+    {
+        global $l;
+
+        return isset($this->ta[$i]) ? $l[$this->ta[$i]] : $this->b;
+    }
+
+    /**
+     * Returns the class name of the current item.
+     *
+     * @param int $i The index of the current item.
+     *
+     * @return string
+     *
+     * @global array  The configuration of the core.
+     */
+    function getClassName($i)
+    {
+        $className = '';
+        if ($this->isSelected($i)) {
+            $className .= 's';
+        }
+        $className .= 'doc';
+        if ($this->hasChildren($i)) {
+            $className .= 's';
+        }
+        return $className;
+    }
+
+    /**
+     * Returns whether the current menu item is selected.
+     *
+     * @param int $i The index of the current item.
+     *
+     * @return bool
+     *
+     * @access protected
+     */
+    function isSelected($i)
+    {
+        global $cf;
+
+        return !$this->tf
+            || $cf['menu']['sdoc'] == "parent"
+            && $this->isAnchestorOfSelectedPage($i);
+    }
+
+    /**
+     * Returns whether the current item is an anchestor of the selected page.
+     *
+     * @param int $i The index of the current item.
+     *
+     * @return bool
+     *
+     * @global int    The index of the current page.
+     * @global array  The URLs of the pages.
+     * @global array  The menu levels of the pages.
+     * @global array  The configuration of the core.
+     *
+     * @access protected
+     */
+    function isAnchestorOfSelectedPage($i)
+    {
+        global $s, $u, $l, $cf;
+
+        return $s > -1 && $l[$this->ta[$i]] < $l[$s]
+            && substr($u[$s], 0, 1 + strlen($u[$this->ta[$i]]))
+            == $u[$this->ta[$i]] . $cf['uri']['seperator'];
+    }
+
+    /**
+     * Returns whether the current item has children.
+     *
+     * @param int $i The index of the current item.
+     *
+     * @return bool
+     *
+     * @global int    The number of pages.
+     * @global array  The menu levels of the pages.
+     * @global array  The configuration of the core.
+     *
+     * @access protected
+     */
+    function hasChildren($i)
+    {
+        global $cl, $l, $cf;
+
+        for ($j = $this->ta[$i] + 1; $j < $cl; $j++) {
+            if (!hide($j)
+                && $l[$j] - $l[$this->ta[$i]] < 2 + $cf['menu']['levelcatch']
+            ) {
+                if ($l[$j] > $l[$this->ta[$i]]) {
+                    return true;
+                }
+                break;
+            }
+        }
+        return false;
     }
 
     /**
