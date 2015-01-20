@@ -66,7 +66,7 @@ class XH_Li
     var $b;
 
     /**
-     * TODO: add description!
+     * The array of flags, signalling whether a certain menu level is open.
      *
      * @var array
      *
@@ -82,14 +82,13 @@ class XH_Li
      *
      * @return string (X)HTML.
      *
-     * @global int    The index of the current page.
-     * @global array  The menu levels of the pages.
+     * @global int The index of the current page.
      *
      * @access public
      */
     function render($ta, $st)
     {
-        global $s, $l;
+        global $s;
 
         $this->ta = (array) $ta;
         $this->st = $st;
@@ -115,11 +114,11 @@ class XH_Li
             $t .= '<li class="' . $this->getClassName($i) . '">';
             $t .= $this->renderMenuItem($i);
             if ($this->st == 'menulevel' || $this->st == 'sitemaplevel') {
-                if ($this->getMenuLevel($i + 1) > $l[$this->ta[$i]]) {
-                    $this->lf[$l[$this->ta[$i]]] = true;
+                if ($this->getMenuLevel($i + 1) > $this->getMenuLevel($i)) {
+                    $this->lf[$this->getMenuLevel($i)] = true;
                 } else {
                     $t .= '</li>' . "\n";
-                    $this->lf[$l[$this->ta[$i]]] = false;
+                    $this->lf[$this->getMenuLevel($i)] = false;
                 }
                 $t .= $this->renderEndTags($i);
             } else {
@@ -140,13 +139,15 @@ class XH_Li
      * @return string (X)HTML.
      *
      * @global array The menu levels of the pages.
+     *
+     * @access protected
      */
     function renderULStartTags($i)
     {
         global $l;
 
         $lines = array();
-        for ($k = $this->getMenuLevel($i - 1); $k < $l[$this->ta[$i]]; $k++) {
+        for ($k = $this->getMenuLevel($i - 1); $k < $this->getMenuLevel($i); $k++) {
             $lines[] = "\n" . '<ul class="' . $this->st . ($k + 1) . '">' . "\n";
         }
         return implode('<li>' . "\n", $lines);
@@ -158,6 +159,8 @@ class XH_Li
      * @param int $i The index of the current item.
      *
      * @return string (X)HTML.
+     *
+     * @access protected
      */
     function renderEndTags($i)
     {
@@ -180,6 +183,8 @@ class XH_Li
      * @return int
      *
      * @global array  The menu levels of the pages.
+     *
+     * @access protected
      */
     function getMenuLevel($i)
     {
@@ -196,6 +201,8 @@ class XH_Li
      * @return string
      *
      * @global array  The configuration of the core.
+     *
+     * @access protected
      */
     function getClassName($i)
     {
