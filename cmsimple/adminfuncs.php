@@ -171,17 +171,21 @@ function XH_absoluteUrlPath($path)
  *
  * @param string $path A normalized absolute URL path.
  *
- * @return bool.
+ * @return bool
+ *
+ * @global string The script name.
  *
  * @since 1.6.1
  */
 function XH_isAccessProtected($path)
 {
+    global $sn;
+
     $host = $_SERVER['HTTP_HOST'];
     $stream = fsockopen($host, $_SERVER['SERVER_PORT'], $errno, $errstr, 5);
     if ($stream) {
         stream_set_timeout($stream, 5);
-        $request = "HEAD $path HTTP/1.1\r\nHost: $host\r\n"
+        $request = "HEAD  $sn$path HTTP/1.1\r\nHost: $host\r\n"
             . "User-Agent: CMSimple_XH\r\n\r\n";
         fwrite($stream, $request);
         $response = fread($stream, 12);
