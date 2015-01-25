@@ -199,12 +199,10 @@ class XH_LinkChecker
     {
         global $c, $u, $cl, $pth, $cf;
 
-        if (isset($test['path'])) {
+        if (isset($test['path']) && !isset($test['query'])) {
             $filename = urldecode($test['path']);
             if (is_file($filename) && is_readable($filename)) {
                 return '200';
-            } elseif (!is_dir($filename)) {
-                return 'file not found';
             }
         }
         if (!isset($test['query'])) {
