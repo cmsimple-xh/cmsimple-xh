@@ -50,6 +50,7 @@ $tx['error']['401']="Fehler 401: Nicht erlaubt";
 $tx['error']['403']="Error 403: Verboten";
 $tx['error']['404']="Fehler 404: Nicht gefunden";
 $tx['error']['alreadyexists']="Existiert bereits";
+$tx['error']['badrequest']="Inkorrekte Anfrage. Bitte versuchen Sie es <a href=\".\">noch einmal</a>.";
 $tx['error']['cntdelete']="Nicht löschbar:";
 $tx['error']['cntlocateheading']="Keine Seite ausgewählt";
 $tx['error']['cntopen']="Nicht zu öffnen:";
@@ -176,6 +177,7 @@ $tx['login']['warning']="Administrationsbereich. Bitte Passwort eingeben";
 
 $tx['mailform']['captcha']="Bitte diese Zahl eingeben (Spamschutz)";
 $tx['mailform']['captchafalse']="Bitte Zahl zum Schutz vor Spam eingeben";
+$tx['mailform']['message']="Mitteilungstext";
 $tx['mailform']['mustwritemessage']="Bitte Mitteilungstext eingeben";
 $tx['mailform']['notaccepted']="Bitte erforderliche Felder ausfüllen";
 $tx['mailform']['notsend']="Die Nachricht konnte nicht versendet werden";
@@ -239,6 +241,7 @@ $tx['search']['button']="Suchen";
 $tx['search']['found_1']="\"%s\" wurde auf einer Seite gefunden:";
 $tx['search']['found_2-4']="\"%s\" wurde auf %d Seiten gefunden:";
 $tx['search']['found_5']="\"%s\" wurde auf %d Seiten gefunden:";
+$tx['search']['label']="Suchbegriffe";
 $tx['search']['notfound']="\"%s\" wurde nicht gefunden.";
 $tx['search']['result']="Suchergebnis";
 
@@ -278,12 +281,13 @@ $tx['sysinfo']['webserver']="Webserver";
 
 $tx['template']['default']="Standard Template";
 
+$tx['title']['bad_request']="Inkorrekte Anfrage";
 $tx['title']['downloads']="Downloads";
 $tx['title']['images']="Bilder";
 $tx['title']['log']="Log-Datei";
 $tx['title']['mailform']="Kontakt-Formular";
 $tx['title']['media']="Media-Dateien";
-$tx['title']['pagedata']="Page-Data Bereinigung";
+$tx['title']['xh_pagedata']="Page-Data Bereinigung";
 $tx['title']['password_forgotten']="Passwort vergessen";
 $tx['title']['phpinfo']="PHP-Info";
 $tx['title']['search']="Suchen";

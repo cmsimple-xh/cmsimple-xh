@@ -138,9 +138,13 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             array('?Welcome:About#doesnotexist', 'anchor missing'),
             array('./?download=template.htm', '200'),
             array('./?download=doesnotexist', 'file not found'),
+            array('./?download=doesnotexist.txt?v01', 'file not found'),
             array('http://www.cmsimple-xh.org/', '200'),
             array('mailto:devs@cmsimple-xh.org', 'mailto'),
             array('./tests/unit/data/template.htm', '200'),
+            array('./tests/unit/data/doesnotexist', 'internalfail'),
+            array('./tests/unit/data/doesnotexist?v=1', 'internalfail'),
+            array('./tests/unit/data/file%20name.txt', '200'),
             array('?sitemap', '200'),
             array('?mailform', '200'),
             // TODO: add checks for second languages, what is actually too cumbersome
@@ -148,10 +152,11 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             // the following are (current) limitations
             array('https://bugs.php.net', 'unknown'), // no HTTPS protocol support
             array('./tests/unit/data/', 'internalfail'), // fails, even there's a index.(php|html)
-            array('anotherxh/?Welcome', '200'), // erroneously checks the same installation
+            array('./tests/unit/anotherxh/?Welcome', '200'), // erroneously checks the same installation 
             array('anotherxh/?Welcome2', 'internalfail'), // fails, even if anotherxh/ would exist
             array('?Secret', '200'), // does not respect unpublished pages
-            array("http://www.\xC3\xA4rger.de/", 'externalfail') // can't handle IDNs
+            array("http://www.\xC3\xA4rger.de/", 'externalfail'), // can't handle IDNs
+            array('./tests/unit/data/template.htm?v=1', 'internalfail') // doesn't accept query string for existing files
         );
     }
 

@@ -9,7 +9,7 @@
  * @package   Filebrowser
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -159,6 +159,8 @@ class Filebrowser_View
     /**
      * Initializes a newly created instance.
      *
+     * @return void
+     *
      * @global array  The localization of the plugins.
      *
      * @access public
@@ -180,6 +182,8 @@ class Filebrowser_View
      * @global array The localization of the core.
      *
      * @access protected
+     *
+     * @todo Internationalize "Userfiles".
      */
     function folderList($folders)
     {
@@ -187,7 +191,7 @@ class Filebrowser_View
 
         $title = isset($tx['title']['userfiles'])
             ? utf8_ucfirst($tx['title']['userfiles'])
-            : ucfirst('Userfiles ' . $this->translate('folder'));
+            : ucfirst('Userfiles');
         $html = '<ul><li class="openFolder"><a href="?'
             . htmlspecialchars($this->linkParams, ENT_QUOTES, 'UTF-8') . '">'
             . $title . ' ' . $this->lang['folder'] . '</a>';
@@ -269,7 +273,9 @@ class Filebrowser_View
                     . '<form style="display: inline;" method="post" action="'
                     . $action . '"'
                     . ' onsubmit="return FILEBROWSER.confirmFolderDelete(\''
-                    . $this->translate('confirm_delete', $this->basePath . $folder)
+                    . $this->escapeForEventHandlerAttribute(
+                        $this->translate('confirm_delete', $this->basePath . $folder)
+                    )
                     . '\');">'
                     . tag(
                         'input type="image" src="' . $this->browserPath
@@ -318,7 +324,9 @@ class Filebrowser_View
                     . '<form style="display: inline;" method="post" action="'
                     . $action . '"'
                     . ' onsubmit="return FILEBROWSER.confirmFolderDelete(\''
-                    . $this->translate('confirm_delete', $this->basePath . $folder)
+                    . $this->escapeForEventHandlerAttribute(
+                        $this->translate('confirm_delete', $this->basePath . $folder)
+                    )
                     . '\');">'
                     . '<input type="image" src="' . $this->browserPath
                     . 'css/icons/delete.png" alt="delete" title="'
@@ -386,7 +394,11 @@ class Filebrowser_View
                 . '<form style="display: inline;" method="post" action="'
                 . $action . '"'
                 . ' onsubmit="return FILEBROWSER.confirmFileDelete(\''
-                . $this->translate('confirm_delete', $this->currentDirectory . $file)
+                . $this->escapeForEventHandlerAttribute(
+                    $this->translate(
+                        'confirm_delete', $this->currentDirectory . $file
+                    )
+                )
                 . '\');">'
                 . tag(
                     'input type="image" src="' . $this->browserPath
@@ -404,7 +416,10 @@ class Filebrowser_View
                 . '<form method="post" style="display:inline;" action="'
                 . $action . '"'
                 . ' onsubmit="return FILEBROWSER.promptNewName(this, \''
-                . $this->translate('prompt_rename', $file) . '\');"'
+                . $this->escapeForEventHandlerAttribute(
+                    $this->translate('prompt_rename', $file)
+                )
+                . '\');"'
                 . '>'
                 . tag(
                     'input type="hidden" name="renameFile" value="'
@@ -421,7 +436,8 @@ class Filebrowser_View
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
                 . '<a style="position:relative" class="xhfbfile" href="'
-                . $this->currentDirectory . $file . '" target="_blank">' . $file;
+                . $this->basePath . $this->currentDirectory . $file
+                . '" target="_blank">' . $file;
 
             $ffn = $base . $fb->currentDirectory . $file;
             $usage = array_key_exists($ffn, $imgs)
@@ -674,6 +690,30 @@ HTM;
             return $html;
         }
         return $html;
+    }
+
+    /**
+     * Escapes a string to be used as a literal JS string inside an event
+     * handler attribute.
+     *
+     * @param string $string A string.
+     *
+     * @return string
+     *
+     * @since 1.6.5
+     *
+     * @todo Don't use literal string in event handler attribute, but rather a
+     *       property of the FILEBROWSER object.
+     */
+    function escapeForEventHandlerAttribute($string)
+    {
+        // HACK: we can't use XH_hsc() because that is not defined for the
+        // editorbrowser. htmlspecialchars() might fail under PHP 4.
+        return str_replace(
+            array('<', '>', '&', '"', "'"),
+            array('&lt;', '&gt;', '&amp;', '&quot;', "\\'"),
+            $string
+        );
     }
 }
 

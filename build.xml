@@ -2,9 +2,7 @@
 
 <project name="CMSimple_XH" default="help">
 
-    <property environment="env"/>
     <property name="build" value="01"/>
-    <property name="styledir" value="C:\xampp\php\data\phing\etc"/>
 
     <fileset id="php-sources" dir=".">
         <include name="cmsimple/*.php"/>
@@ -28,14 +26,20 @@
     </target>
 
     <target name="sniff" description="checks adherence to PEAR CS">
-        <phpcodesniffer standard="PEAR" format="full">
+        <phpcodesniffer standard="ruleset.xml" format="full">
             <fileset refid="php-sources"/>
         </phpcodesniffer>
     </target>
 
-    <target name="compat" description="checks compatibility with PHP_CompatInfo 2">
-        <exec command="phpcompatinfo --configuration phpcompatinfo.xml print --exclude-pattern xh ."
-              logoutput="true"/>
+    <target name="compat"
+            description="checks compatibility with PHP_CompatInfo 3">
+        <!-- HACK to work around https://github.com/llaville/php-compat-info/issues/153 -->
+        <move file="cmsimple/classes/PasswordHash.php"
+              tofile="cmsimple/classes/PasswordHash._php"/>
+        <exec command="phpcompatinfo analyser:run ."
+              passthru="true" logoutput="true"/>
+        <move file="cmsimple/classes/PasswordHash._php"
+              tofile="cmsimple/classes/PasswordHash.php"/>
     </target>
 
     <target name="unit-tests" description="runs all unit tests">
@@ -77,20 +81,22 @@
             description="runs all tests"/>
 
     <target name="coverage" description="generates coverage report">
-        <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
+        <exec command="phpunit --configuration coverage.xml"
+              passthru="true" logoutput="true"/>
     </target>
 
     <target name="php-doc">
         <phpdoc title="CMSimple_XH Developer Documentation" destdir="doc/php"
                 output="HTML:Smarty:HandS" defaultpackagename="XH"
-                defaultcategoryname="CMSimple_XH">
+                defaultcategoryname="CMSimple_XH" parseprivate="true">
             <fileset refid="php-sources"/>
             <fileset refid="tutorials"/>
         </phpdoc>
     </target>
 
     <target name="js-doc">
-        <exec command="jsdoc --destination doc/js core/js/admin.js plugins/filebrowser/js/filebrowser.js" checkreturn="true"/>
+        <exec command="jsdoc --destination doc/js core/js/admin.js plugins/filebrowser/js/filebrowser.js"
+              passthru="true" checkreturn="true"/>
     </target>
 
     <target name="doc" depends="php-doc,js-doc" description="generates the developer documentation"/>
@@ -135,7 +141,8 @@
                 <exclude name="composer.json"/>
                 <exclude name="composer.lock"/>
                 <exclude name="coverage.xml"/>
-                <exclude name="phpcompatinfo.xml"/>
+                <exclude name="phpcompatinfo.*"/>
+                <exclude name="ruleset.xml"/>
                 <exclude name="2lang/.2lang"/>
                 <exclude name="tests/**"/>
                 <exclude name="tutorials/**"/>

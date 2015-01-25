@@ -9,7 +9,7 @@
  * @package   Filebrowser
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -31,21 +31,29 @@
 class Filebrowser_Controller
 {
     /**
+     * The link prefix.
+     *
      * @var string $linkPrefix
      */
     var $linkPrefix = '';
 
     /**
+     * The browse base.
+     *
      * @var string $browseBase
      */
     var $browseBase = '';
 
     /**
+     * The base directory.
+     *
      * @var string $baseDirectory
      */
     var $baseDirectory;
 
     /**
+     * The current directory.
+     *
      * @var string $currentDirectory
      */
     var $currentDirectory;
@@ -58,52 +66,72 @@ class Filebrowser_Controller
     var $currentType;
 
     /**
+     * The link type.
+     *
      * @var string $linkType
      */
     var $linkType;
 
     /**
+     * The folders.
+     *
      * @var array $folders
      */
     var $folders = array();
 
     /**
+     * The files.
+     *
      * @var array $files
      */
     var $files = array();
 
     /**
+     * The base directories.
+     *
      * @var array baseDirectories
      */
     var $baseDirectories = array();
 
     /**
+     * The allowed extensions.
+     *
      * @var array $allowedExtensions
      */
     var $allowedExtensions = array();
 
     /**
+     * The maximum filesizes.
+     *
      * @var array $maxFilesizes
      */
     var $maxFilesizes = array();
 
     /**
+     * The view.
+     *
      * @var object $view
      */
     var $view;
 
     /**
+     * The message.
+     *
      * @var string $message
      */
     var $message = '';
 
     /**
+     * The brower path.
+     *
      * @var string $browserPath
      */
     var $browserPath = '';
 
     /**
      * Constructs an instance.
+     *
+     * @return void
      *
      * @global array The paths of system files and folders.
      * @global array The configuration of the plugins.

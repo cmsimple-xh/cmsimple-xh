@@ -8,7 +8,7 @@
  * @category  CMSimple_XH
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -59,6 +59,7 @@ class XH_PageDataEditor
 
         $fields = $_POST;
         unset($fields['xh_pagedata_delete']);
+        unset($fields['xh_csrf_token']);
         $fields = array_keys($fields);
         if (empty($fields)) {
             return 0;
@@ -129,11 +130,10 @@ class XH_PageDataEditor
     {
         global $sn, $tx, $_XH_csrfProtection;
 
-        $o = '<h1>' . $tx['title']['pagedata'] . '</h1>';
         if (!isset($deleted) && isset($_GET['xh_success'])) {
             $deleted = $_GET['xh_success'];
         }
-        $o .= $this->renderMessage($deleted);
+        $o = $this->renderMessage($deleted);
         if ($deleted === false) {
             return $o;
         }

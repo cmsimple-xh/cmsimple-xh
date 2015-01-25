@@ -14,7 +14,7 @@
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    Jerry Jakobsfeld <mail@simplesolutions.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -38,7 +38,7 @@ if (!defined('PLUGINLOADER_VERSION')) {
  *
  * @return void
  *
- * @global int    The index of the current page.
+ * @global int    The preliminary index of the current page.
  * @global string The script name.
  * @global array  The content of the pages.
  *
@@ -46,7 +46,7 @@ if (!defined('PLUGINLOADER_VERSION')) {
  */
 function Pageparams_handleRelocation($index, $data)
 {
-    global $s, $sn, $c;
+    global $pd_s, $sn, $c;
 
     $location = $data['header_location'];
     if ((int) $data['use_header_location'] > 0 && trim($location) !== '' ) {
@@ -54,7 +54,7 @@ function Pageparams_handleRelocation($index, $data)
         if (!$components || !isset($components['scheme'])) {
             $location = CMSIMPLE_URL . $location;
         }
-        if ($index == $s) {
+        if ($index == $pd_s) {
             $c[$index] = '#CMSimple header("Location:'. $location .'"); exit; #';
         }
     }
@@ -70,6 +70,7 @@ function Pageparams_handleRelocation($index, $data)
  * @global array The localization of the plugins.
  *
  * @author Jerry Jakobsfeld <mail@simplesolutions.dk>
+ *
  * @since 1.6
  */
 function Pageparams_isPublished($pd_page)
@@ -213,9 +214,14 @@ if (!(XH_ADM && $edit)) {
         // unpublishing superseedes hiding:
         if (!Pageparams_isPublished($j)) {
             $c[$i] = '#CMSimple hide#';
-            if ($i == $pd_s) {
-                $pd_s = $_XH_firstPublishedPage
-                    = ($i < count($temp) - 1 ? $i + 1 : -1);
+            if ($_XH_firstPublishedPage == $i) {
+                $_XH_firstPublishedPage = ($i < count($temp) - 1 ? $i + 1 : -1);
+            }
+            if ($s == $i) {
+                $s = -1;
+            }
+            if ($pd_s == $i) {
+                $pd_s = ($i < count($temp) - 1 ? $i + 1 : -1);
                 $c[$i] .= '#CMSimple shead(404);#';
             }
         } elseif ($j['linked_to_menu'] == '0') {

@@ -9,8 +9,8 @@
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -286,7 +286,10 @@ function searchbox()
 
     return '<form action="' . $sn . '" method="get">' . "\n"
         . '<div id="searchbox">' . "\n"
-        . tag('input type="text" class="text" name="search" size="12"') . "\n"
+        . tag(
+            'input type="text" class="text" name="search" title="'
+            . $tx['search']['label'] . '" size="12"'
+        ) . "\n"
         . tag('input type="hidden" name="function" value="search"') . "\n" . ' '
         . tag(
             'input type="submit" class="submit" value="'
@@ -462,25 +465,26 @@ function legallink()
  * @global array  The menu levels of the pages.
  * @global array  The localization of the core.
  * @global array  The configuration of the core.
+ * @global int    The index of the first published page.
  */
 function locator()
 {
-    global $title, $h, $s, $f, $c, $l, $tx, $cf;
+    global $title, $h, $s, $f, $c, $l, $tx, $cf, $_XH_firstPublishedPage;
 
     if (hide($s) && $cf['show_hidden']['path_locator'] != 'true') {
         return $h[$s];
     }
-    if ($s == 0) {
+    if ($s == $_XH_firstPublishedPage) {
         return $h[$s];
     } elseif ($title != '' && (!isset($h[$s]) || $h[$s] != $title)) {
         $t = $title;
     } elseif ($f != '') {
         return ucfirst($f);
-    } elseif ($s > 0) {
+    } elseif ($s > $_XH_firstPublishedPage) {
         $t = '';
         $tl = $l[$s];
         if ($tl > 1) {
-            for ($i = $s - 1; $i >= 0; $i--) {
+            for ($i = $s - 1; $i >= $_XH_firstPublishedPage; $i--) {
                 if ($l[$i] < $tl) {
                     $t = a($i, '') . $h[$i] . '</a> &gt; ' . $t;
                     $tl--;
@@ -494,10 +498,12 @@ function locator()
         return '&nbsp;';
     }
     if ($cf['locator']['show_homepage'] == 'true') {
-        return a(0, '') . $tx['locator']['home'] . '</a> &gt; ' . $t
-            . (($s > 0 && $h[$s] == $title) ? $h[$s] : '');
+        return a($_XH_firstPublishedPage, '') . $tx['locator']['home']
+            . '</a> &gt; ' . $t
+            . (($s > $_XH_firstPublishedPage && $h[$s] == $title) ? $h[$s] : '');
     } else {
-        return $t . (($s > 0 && $h[$s] == $title) ? $h[$s] : '');
+        return $t
+            . (($s > $_XH_firstPublishedPage && $h[$s] == $title) ? $h[$s] : '');
     }
 }
 
@@ -536,10 +542,7 @@ function content()
         if (isset($_GET['search'])) {
             $search = XH_hsc(stsl($_GET['search']));
             $words = explode(' ', $search);
-            $code = 'return "&" . preg_quote($w, "&") . "(?!([^<]+)?>)&isU";';
-            $words = array_map(create_function('$w', $code), $words);
-            $replacement = '<span class="xh_find">$0</span>';
-            $c[$s] = preg_replace($words, $replacement, $c[$s]);
+            $c[$s] = XH_highlightSearchWords($words, $c[$s]);
         }
         return $o . preg_replace('/#CMSimple (.*?)#/is', '', $c[$s]);
     } else {
@@ -580,7 +583,9 @@ function submenu()
             }
         }
         if (count($ta) != 0) {
-            return '<h4>' . $tx['submenu']['heading'] . '</h4>'
+            $level = min($cf['menu']['levels'] + 1, 6);
+            return '<h' . $level . '>' . $tx['submenu']['heading']
+                . '</h' . $level . '>'
                 . li($ta, 'submenu');
         }
     }

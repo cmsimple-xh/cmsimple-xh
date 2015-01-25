@@ -8,7 +8,7 @@
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -57,7 +57,10 @@ class SearchTest extends PHPUnit_Framework_TestCase
             array('cmsimple more', array(2)),
             array(' ', array()),
             array('&', array(4)),
-            array("sen\xCC\x83or", array(5)) // testing unicode equivalence
+            array( // testing unicode equivalence
+                "sen\xCC\x83or",
+                method_exists('Normalizer', 'normalize') ? array(5) : array()
+            )
         );
     }
 

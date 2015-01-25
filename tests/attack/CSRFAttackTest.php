@@ -11,7 +11,7 @@
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -50,15 +50,21 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
         curl_close($this->curlHandle);
     }
 
+    /**
+     * @todo Use CURLFile class and get rid of @ operator.
+     */
     protected function setCurlOptions($fields)
     {
+        if (defined('CURLOPT_SAFE_UPLOAD')) {
+            curl_setopt($this->curlHandle, CURLOPT_SAFE_UPLOAD, false);
+        }
         $options = array(
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $fields,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_COOKIEFILE => $this->cookieFile
         );
-        curl_setopt_array($this->curlHandle, $options);
+        @curl_setopt_array($this->curlHandle, $options);
     }
 
     public function dataForAttack()
@@ -75,7 +81,7 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
                 array(
                     'save_page_data' => ''
                 ),
-                'Welcome_to_CMSimple_XH'
+                'Welcome-to-CMSimple_XH'
             ),
             array( // core configuration
                 array(

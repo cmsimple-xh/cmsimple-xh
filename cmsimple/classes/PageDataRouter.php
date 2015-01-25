@@ -8,8 +8,8 @@
  * @package   XH
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -111,8 +111,10 @@ class XH_PageDataRouter
      *
      * @access public
      */
+// @codingStandardsIgnoreStart
     function add_interest($field)
     {
+// @codingStandardsIgnoreEnd
         if (!in_array($field, $this->model->params)) {
             $this->model->addParam($field);
         }
@@ -150,8 +152,10 @@ class XH_PageDataRouter
      *
      * @access public
      */
+// @codingStandardsIgnoreStart
     function add_tab($tab_name, $tab_view)
     {
+// @codingStandardsIgnoreEnd
         $this->model->addTab($tab_name, $tab_view);
     }
 
@@ -164,8 +168,10 @@ class XH_PageDataRouter
      *
      * @access public
      */
+// @codingStandardsIgnoreStart
     function find_page($id)
     {
+// @codingStandardsIgnoreEnd
         $page = $this->model->findKey($id);
         return $page;
     }
@@ -177,8 +183,10 @@ class XH_PageDataRouter
      *
      * @access public
      */
+// @codingStandardsIgnoreStart
     function find_all()
     {
+// @codingStandardsIgnoreEnd
         return $this->model->data;
     }
 
@@ -191,8 +199,10 @@ class XH_PageDataRouter
      *
      * @access public
      */
+// @codingStandardsIgnoreStart
     function new_page($params = array())
     {
+// @codingStandardsIgnoreEnd
         $page = $this->model->create($params);
         return $page;
     }
@@ -257,8 +267,10 @@ class XH_PageDataRouter
      *
      * @access public
      */
+// @codingStandardsIgnoreStart
     function find_field_value($field, $value, $separator = null)
     {
+// @codingStandardsIgnoreEnd
         if ($separator) {
             $results = $this->model->findArrayfieldValue(
                 $field, $value, $separator
@@ -283,9 +295,11 @@ class XH_PageDataRouter
      *
      * @access public
      */
+// @codingStandardsIgnoreStart
     function find_field_value_sortkey($field, $value, $sortKey,
         $sortFlag = null, $sep = null
     ) {
+// @codingStandardsIgnoreEnd
         $results = $this->model->findFieldValueSortkey(
             $field, $value, $sortKey, $sortFlag, $sep
         );
@@ -303,8 +317,10 @@ class XH_PageDataRouter
      *
      * @access public
      */
+// @codingStandardsIgnoreStart
     function refresh_from_texteditor($headings, $index)
     {
+// @codingStandardsIgnoreEnd
         if (count($headings) == 0) {
             /*
              * Current page has been deleted:
@@ -383,8 +399,10 @@ class XH_PageDataRouter
      *
      * @todo Remove sometimes in the future.
      */
+// @codingStandardsIgnoreStart
     function refresh_from_menu_manager($changes)
     {
+// @codingStandardsIgnoreEnd
         $changes = explode(',', $changes);
         /*
          * Create an up-to-date page data array ...
@@ -465,8 +483,10 @@ class XH_PageDataRouter
      *
      * @access public
      */
+// @codingStandardsIgnoreStart
     function create_tabs($s)
     {
+// @codingStandardsIgnoreElse
         global $edit, $f, $o, $su, $_XH_firstPublishedPage;
 
         if (is_array($this->model->tabs)
@@ -495,8 +515,10 @@ class XH_PageDataRouter
      *
      * @access protected
      */
+// @codingStandardsIgnoreStart
     function keep_in_mind($pd_s)
     {
+// @codingStandardsIgnoreEnd
         $page = $this->find_page($pd_s);
         $this->model->storeTemp($page);
     }
@@ -506,7 +528,7 @@ class XH_PageDataRouter
      *
      * @return string The PHP tag.
      *
-     * @since  1.6
+     * @since 1.6
      *
      * @access public
      */

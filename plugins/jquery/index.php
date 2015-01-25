@@ -1,15 +1,15 @@
 <?php
 
 /*
- * @version $Id: index.php 242 2014-05-06 20:20:18Z hi $
+ * @version $Id: index.php 250 2014-10-16 17:05:00Z hi $
  *
  */
 
 /**
  * jQuery for CMSimple
  *
- * Version:    1.5.2
- * Build:      2014050601
+ * Version:    1.5.4
+ * Build:      2014123101
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de

@@ -4,7 +4,7 @@
  * @namespace
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2014 The CMSimple_XH developers (http://cmsimple-xh.org/?The_Team)
+ * @copyright 2009-2015 The CMSimple_XH developers (http://cmsimple-xh.org/?The_Team)
  * @license   GNU GPLv3 (http://www.gnu.org/licenses/gpl-3.0.en.html)
  * @version   $Id$
  * @since     1.6
@@ -283,6 +283,47 @@ XH.initQuickSubmit = function () {
 };
 
 /**
+ * Adds an event listener to a textarea for focus and input events.
+ *
+ * If multiple listeners are attached, they are triggered in unspecified order.
+ * Inside the listeners, `this` should be treated as undefined.
+ *
+ * @param {HTMLTextareaElement} textarea A textarea.
+ * @param {EventListener }      listener An event listener.
+ *
+ * @returns {undefined}
+ *
+ * @since 1.6.5
+ */
+XH.addInputEventListener = function (textarea, listener) {
+    if (typeof textarea.addEventListener != "undefined") {
+        textarea.addEventListener("focus", listener, false);
+        if (typeof textarea.oninput != "undefined") {
+            textarea.addEventListener("input", listener, false);
+        } else if (typeof textarea.onpropertychange != "undefined") {
+            textarea.addEventListener(
+                "onpropertychange",
+                function (event) {
+                    if (event.propertyName == "value") {
+                        listener(event);
+                    }
+                },
+                false
+            );
+        } else {
+            textarea.addEventListener("keypress", listener, false);
+        }
+    } else if (typeof textarea.attachEvent != "undefined") {
+        textarea.attachEvent("onfocus", listener);
+        textarea.attachEvent("onpropertychange", function (event) {
+            if (event.propertyName == "value") {
+                listener(event);
+            }
+        });
+    }
+};
+
+/**
  * Makes a focused textarea autosizing according to its content.
  *
  * @param {HTMLTextareaElement} textarea A textarea.
@@ -308,35 +349,12 @@ XH.makeAutosize = function (textarea) {
     }
 
     function onResize(event) {
-        var ev = event || window.event;
-        var textarea = ev.target || ev.srcElement;
+        var textarea = event.target || event.srcElement;
 
         resize(textarea);
     }
 
-    function onPropertyChange(event) {
-        var ev = event || window.event;
-        var textarea = ev.target || ev.srcElement;
-
-        if (ev.propertyName == "value") {
-            resize(textarea);
-        }
-    }
-
-    if (typeof textarea.addEventListener != "undefined") {
-        textarea.addEventListener("focus", onResize, false);
-        if (typeof textarea.oninput != "undefined") {
-            textarea.addEventListener("input", onResize, false);
-        } else if (typeof textarea.onpropertychange != "undefined") {
-            textarea.addEventListener("onpropertychange", onPropertyChange,
-                    false);
-        } else {
-            textarea.addEventListener("keypress", onResize, false);
-        }
-    } else {
-        textarea.attachEvent("onfocus", onResize);
-        textarea.attachEvent("onpropertychange", onPropertyChange);
-    }
+    XH.addInputEventListener(textarea, onResize);
     // the following would be nice, but it's very slow for many textareas
     //resize(textarea);
 };
@@ -358,6 +376,28 @@ XH.makeTextareasAutosize = function (node) {
     for (i = 0, count = textareas.length; i < count; i++) {
         XH.makeAutosize(textareas[i]);
     }
+};
+
+/**
+ * Displays the length of the value of a textarea in an indicator.
+ *
+ * @param {HTMLTextareaElement} textarea
+ * @param {HTMLElement}         indicator
+ *
+ * @returns {undefined}
+ *
+ * @since 1.6.5
+ */
+XH.displayTextLength = function (textarea, indicator) {
+    XH.addInputEventListener(textarea, function () {
+        var text = "[" + textarea.value.length + "]";
+
+        if (typeof indicator.textContent != "undefined") {
+            indicator.textContent = text;
+        } else {
+            indicator.innerText = text;
+        }
+    });
 };
 
 /**
@@ -417,7 +457,7 @@ XH.checkLinks = function (url) {
 /**
  * Adapts the admin menu to the viewport, so that all menu items are visible,
  * if at least two menu items fit side by side, and there are not too many
- * plugins.
+ * plugins. HTML's margin top is corrected to prevent menu overlap.
  *
  * @returns {undefined}
  *
@@ -425,13 +465,14 @@ XH.checkLinks = function (url) {
  */
 XH.adaptAdminMenu = function () {
     var viewportWidth = document.documentElement.clientWidth,
+        htmlObj = document.documentElement,
         pluginMenu = document.getElementById("xh_adminmenu_plugins"),
         itemWidth = pluginMenu.parentNode.offsetWidth,
         style = pluginMenu.style,
         pluginMenuRect = pluginMenu.getBoundingClientRect(),
         pluginMenus = document.querySelectorAll("#xh_adminmenu ul ul ul"),
+        adminMenu = document.getElementById("xh_adminmenu_fixed"),
         i;
-
     if (pluginMenu.hasAttribute("data-margin-left")) {
         style.marginLeft = pluginMenu.getAttribute("data-margin-left");
     } else {
@@ -449,6 +490,9 @@ XH.adaptAdminMenu = function () {
         if (pluginMenuRect.right > viewportWidth) {
             pluginMenu.style.left = "-100%";
         }
+    }
+    if (adminMenu) {
+      htmlObj.style.marginTop = adminMenu.clientHeight + "px";
     }
 };
 
@@ -471,3 +515,19 @@ XH.adaptAdminMenu();
  * Initialize the quick submit of page data forms.
  */
 XH.initQuickSubmit();
+
+/*
+ * Initialize displaying of the meta description length.
+ */
+(function () {
+    var form, description, indicator;
+
+    form = document.getElementById("xh_config_form");
+    if (form) {
+        description = form.elements.PL3bbeec384_meta_description;
+        indicator = document.getElementById("xh_description_length");
+        if (description && indicator) {
+            XH.displayTextLength(description, indicator);
+        }
+    }
+}());

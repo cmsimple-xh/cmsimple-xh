@@ -8,8 +8,8 @@
  * @package   XH
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -122,7 +122,7 @@ class XH_PageDataView
         if (file_exists($filename)) {
             include_once $filename;
             $o .= preg_replace(
-                '/<(?:input|button)[^>]+name="save_page_data"/',
+                '/<(?:input|button)[^>]+name\s*=\s*([\'"])save_page_data\1/',
                 $_XH_csrfProtection->tokenInput() . '$0',
                 $function($this->page)
             );

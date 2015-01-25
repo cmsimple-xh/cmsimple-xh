@@ -8,7 +8,7 @@
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2014-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -222,61 +222,6 @@ class FinalCleanUpTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->_assertResultMatches($matcher);
-    }
-
-    /**
-     * Tests that the fixed admin menu has 58px top margin.
-     *
-     * @return void
-     */
-    public function testFixedAdminMenuHas58pxTopMargin()
-    {
-        $matcher = array(
-            'tag' => 'style',
-            'content' => 'html {margin-top: 58px;}',
-            'parent' => array('tag' => 'head')
-        );
-        $output = XH_finalCleanUp(self::HTML);
-        @$this->assertTag($matcher, $output);
-    }
-
-    /**
-     * Tests that the fixed admin menu has 36px top margin when debug mode is
-     * disabled.
-     *
-     * @return void
-     */
-    public function testFixedAdminMenuHas36pxTopMarginWhenDebugModeDisabled()
-    {
-        $errorReporting = error_reporting(0);
-        $matcher = array(
-            'tag' => 'style',
-            'content' => 'html {margin-top: 36px;}',
-            'parent' => array('tag' => 'head')
-        );
-        $this->_assertResultMatches($matcher);
-        error_reporting($errorReporting);
-    }
-
-    /**
-     * Tests that a fixed custom admin menu has 22px top margin.
-     *
-     * @return void
-     *
-     * @global array The configuration of the core.
-     */
-    public function testFixedCustomAdminMenuHas22pxTopMargin()
-    {
-        global $cf;
-
-        $cf['editmenu']['external'] = 'myAdminMenu';
-        $matcher = array(
-            'tag' => 'style',
-            'content' => 'html {margin-top: 22px;}',
-            'parent' => array('tag' => 'head')
-        );
-        $output = XH_finalCleanUp(self::HTML);
-        @$this->assertTag($matcher, $output);
     }
 
     /**

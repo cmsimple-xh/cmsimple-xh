@@ -8,9 +8,9 @@
  * @category  CMSimple_XH
  * @package   Pagemanager
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2011-2014 Christoph M. Becker <http://3-magi.net>
+ * @copyright 2011-2015 Christoph M. Becker <http://3-magi.net>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   SVN: $Id: Controller.php 179 2014-01-28 13:24:08Z cmb $
+ * @version   SVN: $Id$
  * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
  */
 
@@ -43,6 +43,8 @@ class Pagemanager_Controller
      * Initializes a newly create object.
      *
      * @global array The paths of system files and folders.
+     *
+     * @return void
      */
     function Pagemanager_Controller()
     {
@@ -99,8 +101,6 @@ class Pagemanager_Controller
             $key = sprintf($ptx['syscheck_extension'], $ext);
             $checks[$key] = extension_loaded($ext) ? 'ok' : 'fail';
         }
-        $key = $ptx['syscheck_magic_quotes'];
-        $checks[$key] = !get_magic_quotes_runtime() ? 'ok' : 'fail';
         $xhVersion = 'CMSimple_XH 1.6beta';
         $ok = strpos(CMSIMPLE_XH_VERSION, 'CMSimple_XH') === 0
             && version_compare(CMSIMPLE_XH_VERSION, $xhVersion) >= 0;
@@ -125,7 +125,7 @@ class Pagemanager_Controller
      *
      * @return string
      *
-     * @lobal array The paths of system files and folders.
+     * @global array The paths of system files and folders.
      */
     function pluginIconPath()
     {
@@ -357,8 +357,9 @@ class Pagemanager_Controller
      */
     function editView()
     {
-        global $pth;
+        global $pth, $title, $plugin_tx;
 
+        $title = 'Pagemanager &ndash; ' . $plugin_tx['pagemanager']['menu_main'];
         include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php';
         include_jQuery();
         include_jQueryUI();
@@ -465,25 +466,27 @@ class Pagemanager_Controller
      *
      * @global string The admin parameter.
      * @global string The action parameter.
-     * @global string Whether pagemanager administration is requested.
      * @global array  The paths of system files and folders.
      * @global string The requested function.
      * @global array  The configuration of the core.
      */
     function dispatch()
     {
-        global $admin, $action, $pagemanager, $pth, $plugin, $f, $cf;
+        global $admin, $action, $pth, $plugin, $f, $cf;
 
+        if (function_exists('XH_registerStandardPluginMenuItems')) {
+            XH_registerStandardPluginMenuItems(false);
+        }
         $o = '';
         if ($f === 'xhpages'
             && in_array($cf['pagemanager']['external'], array('', 'pagemanager'))
         ) {
             $o .= $this->editView();
-        } elseif (isset($pagemanager) && $pagemanager === 'true') {
+        } elseif ($this->isAdministrationRequested()) {
             $o .= print_plugin_admin('on');
             switch ($admin) {
             case '':
-                $o .= $this->render('info');
+                $o .= $this->renderInfoView();
                 break;
             case 'plugin_main':
                 switch ($action) {
@@ -504,6 +507,40 @@ class Pagemanager_Controller
             }
         }
         return $o;
+    }
+
+    /**
+     * Returns whether the plugin administration is requested.
+     *
+     * @return bool
+     *
+     * @global string Whether the plugin administration is requested.
+     *
+     * @access protected
+     */
+    function isAdministrationRequested()
+    {
+        global $pagemanager;
+
+        return function_exists('XH_wantsPluginAdministration')
+            && XH_wantsPluginAdministration('pagemanager')
+            || isset($pagemanager) && $pagemanager === 'true';
+    }
+
+    /**
+     * Renders the info view.
+     *
+     * @return string (X)HTML.
+     *
+     * @global array  The localization of the plugins.
+     * @global string The title of the current page.
+     */
+    function renderInfoView()
+    {
+        global $title, $plugin_tx;
+
+        $title = 'Pagemanager &ndash; ' . $plugin_tx['pagemanager']['menu_info'];
+        return $this->render('info');
     }
 }
 

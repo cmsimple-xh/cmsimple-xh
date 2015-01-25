@@ -9,8 +9,8 @@
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -171,17 +171,21 @@ function XH_absoluteUrlPath($path)
  *
  * @param string $path A normalized absolute URL path.
  *
- * @return bool.
+ * @return bool
+ *
+ * @global string The script name.
  *
  * @since 1.6.1
  */
 function XH_isAccessProtected($path)
 {
+    global $sn;
+
     $host = $_SERVER['HTTP_HOST'];
     $stream = fsockopen($host, $_SERVER['SERVER_PORT'], $errno, $errstr, 5);
     if ($stream) {
         stream_set_timeout($stream, 5);
-        $request = "HEAD $path HTTP/1.1\r\nHost: $host\r\n"
+        $request = "HEAD  $sn$path HTTP/1.1\r\nHost: $host\r\n"
             . "User-Agent: CMSimple_XH\r\n\r\n";
         fwrite($stream, $request);
         $response = fread($stream, 12);
@@ -265,7 +269,10 @@ HTML;
     }
     $checks['writable'] = array_unique($checks['writable']);
     sort($checks['writable']);
-    foreach (array($pth['file']['config'], $pth['file']['content']) as $file) {
+    $files = array(
+        $pth['file']['config'], $pth['file']['content'], $pth['file']['template']
+    );
+    foreach ($files as $file) {
         $checks['other'][] = array(
             XH_isAccessProtected($file), false,
             sprintf($tx['syscheck']['access_protected'], $file)
@@ -286,6 +293,9 @@ HTML;
     );
     $checks['other'][] = array(
         !get_magic_quotes_runtime(), false, $tx['syscheck']['magic_quotes']
+    );
+    $checks['other'][] = array(
+        !ini_get('safe_mode'), false, 'safe_mode off'
     );
     $checks['other'][] = array(
         !ini_get('session.use_trans_sid'), false, 'session.use_trans_sid off'
@@ -347,15 +357,17 @@ function XH_settingsView()
  *
  * @return string (X)HTML.
  *
- * @global array The paths of system files and folders.
- * @global array The localization of the core.
+ * @global array  The paths of system files and folders.
+ * @global array  The localization of the core.
+ * @global string The title of the current page.
  *
  * @since 1.6
  */
 function XH_logFileView()
 {
-    global $pth, $tx;
+    global $pth, $tx, $title;
 
+    $title = $tx['title']['log'];
     return '<h1>' . $tx['title']['log'] . '</h1>'
         . '<pre id="xh_logfile">' . XH_hsc(XH_readFile($pth['file']['log']))
         . '</pre>'
@@ -740,8 +752,10 @@ function XH_adminMenuItem($item, $level = 0)
  *
  * @global XH_ClassicPluginMenu The plugin menu builder.
  */
+// @codingStandardsIgnoreStart
 function print_plugin_admin($main)
 {
+// @codingStandardsIgnoreEnd
     global $_XH_pluginMenu;
 
     initvar('action');
@@ -767,8 +781,10 @@ function print_plugin_admin($main)
  *
  * @todo Deprecated unused parameters.
  */
+// @codingStandardsIgnoreStart
 function plugin_admin_common($action, $admin, $plugin, $hint=array())
 {
+// @codingStandardsIgnoreEnd
     global $action, $admin, $plugin, $pth;
 
     include_once $pth['folder']['classes'] . 'FileEdit.php';
@@ -1010,7 +1026,7 @@ function XH_emptyContents()
  * @global array  The paths of system files and folders.
  * @global array  An (X)HTML fragment with error messages.
  *
- * @since  1.6
+ * @since 1.6
  */
 function XH_restore($filename)
 {

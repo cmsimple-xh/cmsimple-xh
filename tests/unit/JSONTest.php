@@ -8,7 +8,7 @@
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2012-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2012-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -99,11 +99,21 @@ class JSONTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests encoding of control characters.
+     *
+     * @link <http://cmsimpleforum.com/viewtopic.php?f=10&t=8236>
+     */
+    public function testEncodeControlCharacters()
+    {
+        $this->assertEquals('"\u0009\u000A"', $this->_json->encode("\t\n"));
+    }
+
+    /**
      * @dataProvider dataForTestDecode
      */
     public function testDecode($string)
     {
-        $expected = json_decode($string, true);
+        $expected = json_decode($string);
         $actual = $this->_json->decode($string);
         $this->assertEquals($expected, $actual);
     }
@@ -129,7 +139,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
     public function testDecodeSyntaxError()
     {
         $string = '{true}';
-        $expected = json_decode($string, true);
+        $expected = json_decode($string);
         $actual = $this->_json->decode($string);
         $this->assertEquals($expected, $actual);
         $expected = !!json_last_error();
@@ -140,7 +150,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
     public function testEncodeAndDecode()
     {
         $string = file_get_contents('./tests/unit/data/example.json');
-        $value = json_decode($string, true);
+        $value = json_decode($string);
         $new = $this->_json->decode($this->_json->encode($value));
         $this->assertEquals($value, $new);
     }

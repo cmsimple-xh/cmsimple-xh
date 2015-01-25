@@ -9,8 +9,8 @@
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -110,17 +110,21 @@ class XH_Mailform
     /**
      * Constructs an instance.
      *
-     * @param bool $embedded Whether the mailform is embedded on a CMSimple_XH page.
+     * @param bool   $embedded Whether the mailform is embedded on a CMSimple_XH
+     *                         page.
+     * @param string $subject  An alternative subject field preset text instead of 
+     *                         the subject default in localization.
      *
-     * @global array The configuration of the core.
-     * @global array The localization of the core.
+     * @global array   The configuration of the core.
+     * @global array   The localization of the core.
+     *
+     * @return void
      *
      * @access public
      */
-    function XH_Mailform($embedded = false)
+    function XH_Mailform($embedded = false, $subject=null)
     {
         global $cf, $tx;
-
         $this->embedded = $embedded;
         $this->_linebreak = ($cf['mailform']['lf_only'] ? "\n" : "\r\n");
         $this->sendername = isset($_POST['sendername'])
@@ -133,9 +137,19 @@ class XH_Mailform
             ? stsl($_POST['getlast']) : '';
         $this->cap = isset($_POST['cap'])
             ? stsl($_POST['cap']) : '';
-        $this->subject = isset($_POST['subject'])
-            ? stsl($_POST['subject'])
-            : sprintf($tx['mailform']['subject_default'], sv('SERVER_NAME'));
+            
+        if (isset($_POST['subject'])) {
+            $this->subject = stsl($_POST['subject']);
+        } elseif (isset($_GET['xh_mailform_subject'])) {
+            $this->subject = stsl($_GET['xh_mailform_subject']);
+        } elseif (isset($subject)) {
+            $this->subject = $subject;
+        } else {
+            $this->subject = sprintf(
+                $tx['mailform']['subject_default'], sv('SERVER_NAME')
+            );
+        }
+            
         if ($embedded) {
             $this->mailform = isset($_POST['xh_mailform'])
                 ? stsl($_POST['xh_mailform']) : '';
@@ -226,16 +240,17 @@ class XH_Mailform
         }
         $again = true;
 
+        $anchor = '<div id="xh_mailform"></div>';
         if ($action == 'send') {
             $o = $this->check();
             if (!$o && $this->submit()) {
-                $o .= XH_message('success', $tx['mailform']['send']);
+                $o .= $anchor . XH_message('success', $tx['mailform']['send']);
             } else {
-                $o .= XH_message('fail', $tx['mailform']['notsend'])
+                $o .= $anchor . XH_message('fail', $tx['mailform']['notsend'])
                     . $this->render();
             }
         } else {
-            $o = $this->render();
+            $o = $anchor . $this->render();
         }
         return $o;
     }
@@ -258,7 +273,8 @@ class XH_Mailform
 
         $random = rand(10000, 99999);
         $url = $sn . ($this->embedded ? '?' . $su : '');
-        $o = '<form class="xh_mailform" action="' . $url . '" method="post">' . "\n";
+        $o = '<form class="xh_mailform" action="' . $url
+            . '#xh_mailform" method="post">' . "\n";
         if (!$this->embedded) {
             $o .= tag('input type="hidden" name="function" value="mailform"') . "\n";
         }
@@ -271,27 +287,35 @@ class XH_Mailform
         $o .= tag('input type="hidden" name="action" value="send"') . "\n";
 
         // fields before textarea
-        $o .= '<div>' . "\n" . $tx['mailform']['sendername'] . tag('br') . "\n"
+        $o .= '<div>' . "\n" . '<label for="xh_mailform_sendername">'
+            . $tx['mailform']['sendername'] . '</label>' . tag('br') . "\n"
             . tag(
-                'input type="text" class="text" size="35" name="sendername" value="'
+                'input type="text" class="text" size="35" name="sendername"'
+                . ' id="xh_mailform_sendername" value="'
                 . XH_hsc($this->sendername).'"'
             ) . "\n"
             . '</div>' . "\n"
-            . '<div>' . "\n" . $tx['mailform']['senderphone'] . tag('br') . "\n"
+            . '<div>' . "\n" . '<label for="xh_mailform_senderphone">'
+            . $tx['mailform']['senderphone'] . '</label>' . tag('br') . "\n"
             . tag(
-                'input type="tel" class="text" size="35" name="senderphone" value="'
+                'input type="tel" class="text" size="35" name="senderphone"'
+                . ' id="xh_mailform_senderphone" value="'
                 . XH_hsc($this->senderphone).'"'
             ) . "\n"
             . '</div>' . "\n"
-            . '<div>' . "\n" . $tx['mailform']['sender'] . tag('br') . "\n"
+            . '<div>' . "\n" . '<label for="xh_mailform_sender">'
+            . $tx['mailform']['sender'] . '</label>' . tag('br') . "\n"
             . tag(
-                'input type="email" class="text" size="35" name="sender" value="'
+                'input type="email" class="text" size="35" name="sender"'
+                . ' id="xh_mailform_sender" value="'
                 . XH_hsc($this->sender).'" required="required"'
             ) . "\n"
             . '</div>' . "\n"
-            . '<div>' . "\n" .  $tx['mailform']['subject'] . tag('br') . "\n"
+            . '<div>' . "\n" .  '<label for="xh_mailform_subject">'
+            . $tx['mailform']['subject'] . '</label>'. tag('br') . "\n"
             . tag(
-                'input type="text" class="text" size="35" name="subject" value="'
+                'input type="text" class="text" size="35" name="subject"'
+                . ' id="xh_mailform_subject" value="'
                 . XH_hsc($this->subject).'" required="required"'
             ) . "\n"
             . '</div>' . "\n"
@@ -300,7 +324,8 @@ class XH_Mailform
         // textarea
         $name = $this->embedded ? 'xh_mailform' : 'mailform';
         $o .= '<textarea rows="12" cols="40" name="' . $name
-            . '" required="required">' . XH_hsc($this->mailform) . '</textarea>';
+            . '" required="required" title="' . $tx['mailform']['message'] . '">'
+            . XH_hsc($this->mailform) . '</textarea>';
 
         // captcha
         if (isset($cf['mailform']['captcha'])
@@ -425,7 +450,6 @@ class XH_Mailform
         }
         return true;
     }
-
 }
 
 ?>

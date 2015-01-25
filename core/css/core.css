@@ -201,8 +201,6 @@
 .cmsimplecore_warning {
     padding: 0.7em;
     padding-left: 36px;
-    -moz-border-radius: 7px;
-    -webkit-border-radius: 7px;
     border-radius: 7px;
 }
 
@@ -242,7 +240,6 @@
 
 #xh_mailform .text, .xh_mailform textarea {
     width: 100%;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -501,10 +498,6 @@ div.pl_tooltip img {
     border: 1px solid #888;
     padding: 1px 3px 2px 3px;
     background-color: #ddd;
-    background-image: -webkit-linear-gradient(top, #eee, #ccc);
-    background-image: -moz-linear-gradient(top, #eee, #ccc);
-    background-image: -ms-linear-gradient(top, #eee, #ccc);
-    background-image: -o-linear-gradient(top, #eee, #ccc);
     background-image: linear-gradient(to bottom, #eee, #ccc);
     border-bottom: none;
     border-radius: 5px 5px 0 0;
@@ -514,20 +507,12 @@ div.pl_tooltip img {
     color: red;
     cursor: pointer;
     background-color: #cde;
-    background-image: -webkit-linear-gradient(top, #def, #bcd);
-    background-image: -moz-linear-gradient(top, #def, #bcd);
-    background-image: -ms-linear-gradient(top, #def, #bcd);
-    background-image: -o-linear-gradient(top, #def, #bcd);
     background-image: linear-gradient(to bottom, #def, #bcd);
 }
 
 #xh_pdtabs .xh_active_tab,
 #pdtabs .xh_active_tab:hover {
     background-color: #cdc;
-    background-image: -webkit-linear-gradient(bottom, #fff, #aba);
-    background-image: -moz-linear-gradient(bottom, #fff, #aba);
-    background-image: -ms-linear-gradient(bottom, #fff, #aba);
-    background-image: -o-linear-gradient(bottom, #fff, #aba);
     background-image: linear-gradient(to top, #fff, #aba);
     padding-top: 3px;
 }

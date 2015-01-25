@@ -9,8 +9,8 @@
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -153,10 +153,12 @@ function l($n)
  *
  * @return string
  *
- * @since  1.5
+ * @since 1.5
  */
+// @codingStandardsIgnoreStart
 function evaluate_cmsimple_scripting($__text, $__compat = true)
 {
+// @codingStandardsIgnoreEnd
     extract($GLOBALS, EXTR_REFS);
     $__scope_before = null; // just that it exists
     $__scripts = array();
@@ -219,27 +221,31 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
  *
  * @since 1.5
  */
+// @codingStandardsIgnoreStart
 function evaluate_plugincall($text)
 {
+// @codingStandardsIgnoreEnd
     global $tx;
 
     $message = '<span class="xh_fail">' . $tx['error']['plugincall']
         . '</span>';
-    $re = '/{{{(?:[^:]+:)?(([a-z_0-9]+)\(.*?\);)}}}/iu';
+    $re = '/{{{(?:[^:]+:)?([a-z_0-9]+)\s*\(?(.*?)\)?;?}}}/iu';
     preg_match_all($re, $text, $calls, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
     $results = array();
     foreach ($calls as $call) {
-        $expression = preg_replace(
+        $arguments = preg_replace(
             array(
                 '/&(quot|#34);/i', '/&(amp|#38);/i', '/&(apos|#39);/i',
                 '/&(lt|#60);/i', '/&(gt|#62);/i', '/&(nbsp|#160);/i'
             ),
             array('"', '&', '\'', '<', '>', ' '),
-            $call[1][0]
+            $call[2][0]
         );
-        $function = $call[2][0];
+        $function = $call[1][0];
         if (function_exists($function)) {
-            $results[] = XH_evaluateSinglePluginCall($expression);
+            $results[] = XH_evaluateSinglePluginCall(
+                $function . '(' . $arguments . ')'
+            );
         } else {
             $results[] = sprintf($message, $function);
         }
@@ -273,7 +279,7 @@ function XH_evaluateSinglePluginCall($___expression)
     foreach ($GLOBALS as $___var => $___value) {
         $$___var = $GLOBALS[$___var];
     }
-    return eval('return ' . $___expression);
+    return eval('return ' . $___expression . ';');
 }
 
 /**
@@ -309,8 +315,10 @@ function XH_spliceString(&$string, $offset, $length = 0, $replacement = '')
  *
  * @since 1.5
  */
+// @codingStandardsIgnoreStart
 function evaluate_scripting($text, $compat = true)
 {
+// @codingStandardsIgnoreEnd
     return evaluate_cmsimple_scripting(evaluate_plugincall($text), $compat);
 }
 
@@ -359,10 +367,12 @@ function newsbox($heading)
  *
  * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces
  *
- * @since  1.5
+ * @since 1.5
  */
+// @codingStandardsIgnoreStart
 function init_editor($elementClasses = array(),  $initFile = false)
 {
+// @codingStandardsIgnoreEnd
     global $pth, $cf;
 
     $fn = $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
@@ -391,10 +401,12 @@ function init_editor($elementClasses = array(),  $initFile = false)
  *
  * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces
  *
- * @since  1.5
+ * @since 1.5
  */
+// @codingStandardsIgnoreStart
 function include_editor()
 {
+// @codingStandardsIgnoreEnd
     global $pth, $cf;
 
     $fn = $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
@@ -429,8 +441,10 @@ function include_editor()
 
  * @since 1.5
  */
+// @codingStandardsIgnoreStart
 function editor_replace($elementID = false, $config = '')
 {
+// @codingStandardsIgnoreEnd
     global $pth, $cf;
 
     if (!$elementID) {
@@ -478,19 +492,15 @@ function XH_finalCleanUp($html)
     if (XH_ADM === true) {
         $debugHint = '';
         $errorList = '';
-        $margin = 36;
 
         if ($debugMode = error_reporting() > 0) {
             $debugHint .= '<div class="xh_debug">' . "\n"
                 . $tx['message']['debug_mode'] . "\n"
                 . '</div>' . "\n";
-            $margin += 22;
         }
 
         $adminMenuFunc = trim($cf['editmenu']['external']);
-        if ($adminMenuFunc != '' && function_exists($adminMenuFunc)) {
-            $margin -= 36;
-        } else {
+        if ($adminMenuFunc == '' || !function_exists($adminMenuFunc)) {
             $adminMenuFunc = 'XH_adminMenu';
         }
 
@@ -506,12 +516,8 @@ function XH_finalCleanUp($html)
             && $cf['editmenu']['scroll'] == 'true'
         ) {
             $id = ' id="xh_adminmenu_scrolling"';
-            $margin = 0;
         } else {
             $id =' id="xh_adminmenu_fixed"';
-            $replacement = '<style type="text/css">html {margin-top: ' . $margin
-                . 'px;}</style>' ."\n" . '$0';
-            $html = preg_replace('~</head>~i', $replacement, $html, 1);
         }
 
         $adminMenu = call_user_func($adminMenuFunc, XH_plugins(true));
@@ -773,6 +779,7 @@ function e($et, $ft, $fn)
 /**
  * Reads and parses the content file and sets global variables accordingly.
  *
+ * @global bool   Whether we're in edit mode.
  * @global array  The contents of the pages.
  * @global int    The number of pages.
  * @global array  The headings of the pages.
@@ -788,7 +795,7 @@ function e($et, $ft, $fn)
  */
 function rfc()
 {
-    global $c, $cl, $h, $u, $l, $su, $s, $tx, $e, $pth, $pd_router;
+    global $edit, $c, $cl, $h, $u, $l, $su, $s, $tx, $e, $pth, $pd_router;
 
     $contents = XH_readContents();
     if ($contents === false) {
@@ -798,7 +805,7 @@ function rfc()
             new XH_PageDataRouter(array(), array(), array(), array())
         );
     }
-    list($u, $tooLong, $h, $l, $c, $pd_router) = array_values($contents);
+    list($u, $tooLong, $h, $l, $c, $pd_router, $removed) = array_values($contents);
     $duplicate = 0;
 
     $cl = count($c);
@@ -825,8 +832,10 @@ function rfc()
     }
 
     foreach ($u as $i => $url) {
-        if ($su == $u[$i] || $su == urlencode($u[$i])) {
-            $s = $i;
+        if (($su == $u[$i] || $su == urlencode($u[$i]))
+            && (XH_ADM && $edit || !$removed[$i])
+        ) {
+                $s = $i;
         } // get index of selected page
 
         for ($j = $i + 1; $j < $cl; $j++) {   //check for duplicate "urls"
@@ -849,6 +858,7 @@ function rfc()
  * - <var>levels</var>: The menu levels of the pages.
  * - <var>pages</var>: The contents of the pages.
  * - <var>pd_router</var>: A page data router object.
+ * - <var>removed</var>: Flags whether pages are removed.
  * Returns FALSE, if the file couldn't be read.
  *
  * @param string $language The language to read.
@@ -882,6 +892,7 @@ function XH_readContents($language = null)
     $h = array();
     $u = array();
     $tooLong = array();
+    $removed = array();
     $l = array();
     $empty = 0;
     $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
@@ -923,6 +934,7 @@ function XH_readContents($language = null)
         $url = implode($cf['uri']['seperator'], $ancestors);
         $u[] = substr($url, 0, $cf['uri']['length']);
         $tooLong[] = strlen($url) > $cf['uri']['length'];
+        $removed[] = false;
     }
 
     $page_data_fields = $temp_data = array();
@@ -962,6 +974,7 @@ function XH_readContents($language = null)
                     $_XH_firstPublishedPage = ($i < count($c) - 1) ? $i + 1 : -1;
                 }
                 $c[$i] = '#CMSimple hide# #CMSimple shead(404);#';
+                $removed[$i] = true;
             }
         }
     }
@@ -972,7 +985,8 @@ function XH_readContents($language = null)
         'headings' => $h,
         'levels' => $l,
         'pages' => $c,
-        'pd_router' => $pd_router
+        'pd_router' => $pd_router,
+        'removed' => $removed
     );
 }
 
@@ -1328,6 +1342,7 @@ function shead($s)
  * @return boolean Whether error_reporting is enabled.
  *
  * @author Holger
+ *
  * @since 1.0rc3
  */
 function XH_debugmode()
@@ -1451,18 +1466,30 @@ function XH_debug($errno, $errstr, $errfile, $errline, $context)
  *
  * @param array $arr Array to check.
  *
- * @return  void
+ * @return void
+ *
+ * @global array The localization of the core.
  *
  * @since 1.5.5
  */
 function XH_checkValidUtf8($arr)
 {
+    global $tx;
+
     foreach ($arr as $elt) {
         if (is_array($elt)) {
             XH_checkValidUtf8($elt);
         } elseif (!utf8_is_valid($elt)) {
             header('HTTP/1.0 400 Bad Request');
-            exit('Malformed UTF-8 detected!');
+            header('Content-Type: text/html; charset=UTF-8');
+            echo <<<EOT
+<!DOCTYPE html>
+<html>
+    <head><title>{$tx['title']['bad_request']}</title></head>
+    <body>{$tx['error']['badrequest']}</body>
+</html>
+EOT;
+            exit;
         }
     }
 }
@@ -1580,6 +1607,7 @@ function pluginFiles($plugin)
  * @author mvwd
  *
  * @since 1.0
+ *
  * @deprecated since 1.6
  */
 function preCallPlugins($pageIndex = -1)
@@ -1603,7 +1631,7 @@ function preCallPlugins($pageIndex = -1)
  *
  * @param bool $admin Whether to return only plugins with a admin.php
  *
- * @return  array
+ * @return array
  *
  * @global array The paths of system files and folders.
  * @global array The configuration of the core.
@@ -1821,9 +1849,8 @@ function loginforms()
  */
 function XH_getStreamContents($stream)
 {
-    $func = 'stream_get_contents';
-    if (function_exists($func)) {
-        $contents = $func($stream);
+    if (function_exists('stream_get_contents')) {
+        $contents = stream_get_contents($stream);
     } else {
         ob_start();
         fpassthru($stream);
@@ -2124,10 +2151,11 @@ function XH_builtinTemplate($bodyClass)
         tag('meta name="robots" content="noindex"'), "\n",
         '</head>', "\n", '<body class="', $bodyClass,'"', onload(), '>', "\n",
         $content, '</body>', "\n", '</html>', "\n";
-    $_XH_csrfProtection->store();
+    if (isset($_XH_csrfProtection)) {
+        $_XH_csrfProtection->store();
+    }
     exit;
 }
-
 /**
  * Returns a help icon which displays a tooltip on hover.
  *
@@ -2372,9 +2400,8 @@ function XH_decodeJson($string)
 {
     global $pth, $_XH_json;
 
-    $func = 'json_decode';
-    if (function_exists($func)) {
-        return $func($string); // indirect call to satisfy PHP_CI
+    if (function_exists('json_decode')) {
+        return json_decode($string);
     } else {
         if (!isset($_XH_json)) {
             include_once $pth['folder']['classes'] . 'JSON.php';
@@ -2400,9 +2427,8 @@ function XH_encodeJson($value)
 {
     global $pth, $_XH_json;
 
-    $func = 'json_encode';
-    if (function_exists($func)) {
-        return $func($value); // indirect call to satisfy PHP_CI
+    if (function_exists('json_encode')) {
+        return json_encode($value);
     } else {
         if (!isset($_XH_json)) {
             include_once $pth['folder']['classes'] . 'JSON.php';
@@ -2465,13 +2491,16 @@ function XH_hsc($string)
 /**
  * Handles a mailform embedded in a CMSimple_XH page.
  *
+ * @param string $subject An alternative subject field preset text
+ * 
  * @return string (X)HTML.
+ * instead of the subject default in localization.
  *
  * @global array The paths of system files and folders.
  *
  * @since 1.6
  */
-function XH_mailform()
+function XH_mailform($subject=null)
 {
     global $pth, $cf;
 
@@ -2480,7 +2509,7 @@ function XH_mailform()
     }
 
     include_once $pth['folder']['classes'] . 'Mailform.php';
-    $mailform = new XH_Mailform(true);
+    $mailform = new XH_Mailform(true, $subject);
     return $mailform->process();
 }
 
@@ -2774,12 +2803,13 @@ function XH_onShutdown()
         unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
     }
 
-    $lastError = error_get_last();
-    if (in_array($lastError['type'], array(E_ERROR, E_PARSE))) {
-        echo $tx['error']['fatal'];
+    if (error_reporting() <= 0 && function_exists('error_get_last')) {
+        $lastError = error_get_last();
+        if (in_array($lastError['type'], array(E_ERROR, E_PARSE))) {
+            echo $tx['error']['fatal'];
+        }
     }
 }
-
 /**
  * Returns a timestamp formatted according to <var>$tx[lastupdate][dateformat]</var>.
  *
@@ -2813,6 +2843,26 @@ function XH_formatDate($timestamp)
 function XH_lockFile($handle, $operation)
 {
     return flock($handle, $operation);
+}
+
+/**
+ * Highlights the search words in a text.
+ *
+ * @param array  $words An array of search words.
+ * @param string $text  A text.
+ *
+ * @return string (X)HTML.
+ *
+ * @since 1.6.5
+ */
+function XH_highlightSearchWords($words, $text)
+{
+    usort($words, create_function('$a, $b', 'return strlen($b) - strlen($a);'));
+    $patterns = array();
+    foreach ($words as $word) {
+        $patterns[] = '/' . preg_quote($word, '/') . '(?![^<]*>)/isuU';
+    }
+    return preg_replace($patterns, '<span class="xh_find">$0</span>', $text);
 }
 
 ?>

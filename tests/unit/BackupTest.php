@@ -8,7 +8,7 @@
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2014-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -96,6 +96,8 @@ class BackupTest extends PHPUnit_Framework_TestCase
         );
         file_put_contents("{$this->_contentFolder}content.htm", '');
         chmod($this->_contentFolder, 0444);
+        // HACK: we can't use try-catch here, because that would prevent e()
+        // from being called, so we temporarily disable the error_reporting
         $errorReporting = error_reporting(0);
         $this->_subject->execute();
         error_reporting($errorReporting);

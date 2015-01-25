@@ -12,7 +12,7 @@
     <head>
         <title>Filebrowser</title>
         <link rel="stylesheet" href="./css/stylesheet.css" type="text/css" />
-        <link rel="stylesheet" href="../../css/core.css" type="text/css" />
+        <link rel="stylesheet" href="../../core/css/core.css" type="text/css" />
         <style type="text/css">body {padding: 0; margin: 0; overflow: auto;}</style>
 
         %SCRIPT%
@@ -28,7 +28,7 @@
                 <legend><?php echo $this->translate('upload_file_to', $this->currentDirectory); ?></legend>
                 <div style="padding: 3em;">
 
-                    <form method="post" action="" enctype="multipart/form-data" onsubmit="return FILEBROWSER.checkUpload(this, '<?php echo $this->translate('confirm_upload');?>')">
+                    <form method="post" action="" enctype="multipart/form-data" onsubmit="return FILEBROWSER.checkUpload(this, '<?php echo $this->escapeForEventHandlerAttribute($this->translate('confirm_upload'));?>')">
                         <input type="file" name="fbupload" />
                         <input type="hidden" name="upload" value="upload" />
 			<input type="hidden" name="filebrowser_csrf_token" value="<?php echo $this->getCSRFToken();?>"/>

@@ -9,8 +9,8 @@
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -29,6 +29,30 @@
  */
 class XH_Controller
 {
+    /**
+     * Initializes the paths related to the template.
+     *
+     * @return void
+     *
+     * @global array The paths of system files and folders.
+     * @global array The configuration of the core.
+     * @global array The localization of the core.
+     */
+    function initTemplatePaths()
+    {
+        global $pth, $cf, $tx;
+
+        $pth['folder']['templates'] = $pth['folder']['base'] . 'templates/';
+        $template = $tx['subsite']['template'] == ''
+            ? $cf['site']['template']
+            : $tx['subsite']['template'];
+        $pth['folder']['template'] = $pth['folder']['templates'] . $template . '/';
+        $pth['file']['template'] = $pth['folder']['template'] . 'template.htm';
+        $pth['file']['stylesheet'] = $pth['folder']['template'] . 'stylesheet.css';
+        $pth['folder']['menubuttons'] = $pth['folder']['template'] . 'menu/';
+        $pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
+    }
+
     /**
      * Handles search requests.
      *
@@ -232,7 +256,9 @@ class XH_Controller
             if (session_id() == '') {
                 session_start();
             }
-            session_regenerate_id(true);
+            // HACK to work around limititation of PHPCompatInfo
+            $sessionRegenerateId = 'session_regenerate_id';
+            $sessionRegenerateId(true);
             $_SESSION['xh_password'][CMSIMPLE_ROOT] = $cf['security']['password'];
             $_SESSION['xh_user_agent'] = md5($_SERVER['HTTP_USER_AGENT']);
             $adm = true;
@@ -280,7 +306,9 @@ class XH_Controller
         if (session_id() == '') {
             session_start();
         }
-        session_regenerate_id(true);
+        // HACK to work around limititation of PHPCompatInfo
+        $sessionRegenerateId = 'session_regenerate_id';
+        $sessionRegenerateId(true);
         unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
         $o .= XH_message('success', $tx['login']['loggedout']);
         $f = 'xh_loggedout';
@@ -871,6 +899,86 @@ EOT;
         $e .= '<li>' . sprintf($tx['error']['no' . $name], $cf[$name]['external'])
             . '</li>' . "\n";
     }
+
+    /**
+     * Verifies that $adm has not be manipulated.
+     *
+     * Otherwise we present the login form. Redirecting would be cleaner, but
+     * may result in an infinite loop, so we do it this way.
+     *
+     * @return void
+     *
+     * @global bool   Whether we're logged in as administrator.
+     * @global bool   Whether we're in edit mode.
+     * @global array  The localization of the core.
+     * @global int    The current page.
+     * @global string The (X)HTML fragment for insertion in the contents area.
+     * @global string The current special function.
+     * @global string The title of the page.
+     */
+    function verifyAdm()
+    {
+        global $adm, $edit, $tx, $s, $o, $f, $title;
+
+        if (!XH_ADM && $adm) {
+            $s = -1;
+            $adm = $edit = false;
+            $o = '';
+            $f = 'login';
+            $title = utf8_ucfirst($tx['menu']['login']);
+            loginforms();
+        }
+    }
+
+    /**
+     * Renders the error messages stored in $e.
+     *
+     * @return string (X)HTML.
+     *
+     * @global string The (X)HTML for the <li>s holding error messages.
+     */
+    function renderErrorMessages()
+    {
+        global $e;
+
+        if ($e) {
+            return '<div class="xh_warning">' . "\n"
+                . '<ul>' . "\n" . $e . '</ul>' . "\n" . '</div>' . "\n";
+        } else {
+            return '';
+        }
+    }
+
+    /**
+     * Sends the standard HTTP headers to the client.
+     *
+     * If that's not possible, a respective error message is send and the script
+     * is aborted.
+     *
+     * @return void
+     *
+     * @global string The ISO 659-1 code of the current language.
+     * @global array  The configuration of the core.
+     * @global array  The localization of the core.
+     *
+     * @todo Emit error message only in admin mode?
+     */
+    function sendStandardHeaders()
+    {
+        global $sl, $cf, $tx;
+
+        if (!headers_sent($file, $line)) {
+            header('Content-Type: text/html; charset=UTF-8');
+            header("Content-Language: $sl");
+            if ($cf['security']['frame_options'] != '') {
+                header('X-Frame-Options: ' . $cf['security']['frame_options']);
+            }
+        } else {
+            $location = $file . ':' . $line;
+            XH_exit(str_replace('{location}', $location, $tx['error']['headers']));
+        }
+    }
+
 }
 
 ?>

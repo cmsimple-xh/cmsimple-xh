@@ -8,7 +8,7 @@
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -272,6 +272,24 @@ class MailformTest extends PHPUnit_Framework_TestCase
         $mailform->expects($this->never())->method('check');
         $this->assertFalse($mailform->process());
     }
+
+    public function testSubjectIsSetFromQueryParameter()
+    {
+        $subject = 'Foo subject';
+        $_GET['xh_mailform_subject'] = $subject;
+        $mailform = new XH_Mailform();
+        // TODO: don't test for *protected* property
+        $this->assertEquals($subject, $mailform->subject);
+    }
+
+    public function testSubjectIsSetFromConstructorParameter()
+    {
+        $subject = 'Foo subject';
+        $mailform = new XH_Mailform(true, $subject);
+        // TODO: don't test for *protected* property
+        $this->assertEquals($subject, $mailform->subject);
+    }
+
 }
 
 ?>

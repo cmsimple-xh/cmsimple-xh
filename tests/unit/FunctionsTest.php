@@ -8,7 +8,7 @@
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -130,7 +130,16 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
                 'foo {{{PLUGIN:doesnotexist();}}} bar',
                 'foo <span class="xh_fail">Function doesnotexist() is not defined!</span> bar'
             ),
-            array('foo {{{PLUGIN:trim(\':\');}}} bar', 'foo : bar')
+            array('foo {{{PLUGIN:trim(\':\');}}} bar', 'foo : bar'),
+            array( // without trailing semicolon
+                'foo {{{trim(\'baz\');}}} bar', 'foo baz bar'
+            ),
+            array( // with whitespace before the opening parenthesis
+                'foo {{{trim(\'baz\');}}} bar', 'foo baz bar'
+            ),
+            array( // without parentheses
+                'foo {{{trim \'baz\';}}} bar', 'foo baz bar'
+            )
         );
     }
 
@@ -770,6 +779,71 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $flockMock->expects($this->once())->with($handle, $operation);
         XH_lockFile($handle, $operation);
         $flockMock->restore();
+    }
+
+    /**
+     * @dataProvider dataForHightlightSearchWords
+     */
+    public function testHighlightSearchWords($words, $text, $expected)
+    {
+        $this->assertEquals($expected, XH_highlightSearchWords($words, $text));
+    }
+
+    public function dataForHightlightSearchWords()
+    {
+        return [
+            // A simple case.
+            [
+                ['word'], 'blah word blah',
+                'blah <span class="xh_find">word</span> blah'
+            ],
+            // Don't highlight inside an (X)HTML tag.
+            [
+                ['word'], 'blah <img src="word.jpg"> blah',
+                'blah <img src="word.jpg"> blah'
+            ],
+            // Escape meta characters.
+            [['w.rd'], 'blah word blah', 'blah word blah'],
+            // Searching for two words of which one is contained in the other.
+            // The result isn't beautiful, but it works.
+            [
+                ['or', 'word'], 'blah word blah',
+                'blah <span class="xh_find">w<span class="xh_find">or</span>'
+                . 'd</span> blah'
+            ],
+            // A sanscrit example that points out problems wrt. combining chars.
+            // See <http://cmsimpleforum.com/viewtopic.php?f=29&t=8077>.
+            [
+                [
+                    "\xE0\xA4\xB0\xE0\xA5\x87\xE0\xA4\xA6\xE0\xA4\xBE\xE0\xA4\xA4"
+                    . "\xE0\xA5\x8D\xE0\xA4\xAE\xE0\xA4\xA8\xE0\xA4\xBE\xE0\xA4"
+                    . "\xA4\xE0\xA5\x8D\xE0\xA4\xAE\xE0\xA4\xBE\xE0\xA4\xA8\xE0"
+                    . "\xA4\x82",
+                    "\xE0\xA4\xA8\xE0\xA4\xBE\xE0\xA4\xA4\xE0\xA5"
+                    . "\x8D\xE0\xA4\xAE\xE0\xA4\xBE\xE0\xA4\xA8"
+                ],
+                "\xE0\xA4\x89\xE0\xA4\xA6\xE0\xA5\x8D\xE0\xA4\xA7\xE0\xA4\xB0\xE0"
+                . "\xA5\x87\xE0\xA4\xA6\xE0\xA4\xBE\xE0\xA4\xA4\xE0\xA5\x8D\xE0"
+                . "\xA4\xAE\xE0\xA4\xA8\xE0\xA4\xBE\xE0\xA4\xA4\xE0\xA5\x8D\xE0"
+                . "\xA4\xAE\xE0\xA4\xBE\xE0\xA4\xA8\xE0\xA4\x82\x20\xE0\xA4\xA8"
+                . "\xE0\xA4\xBE\xE0\xA4\xA4\xE0\xA5\x8D\xE0\xA4\xAE\xE0\xA4\xBE"
+                . "\xE0\xA4\xA8\xE0\xA4\xAE\xE0\xA4\xB5\xE0\xA4\xB8\xE0\xA4\xBE"
+                . "\xE0\xA4\xA6\xE0\xA4\xAF\xE0\xA5\x87\xE0\xA4\xA4\xE0\xA5\x8D",
+                "\xE0\xA4\x89\xE0\xA4\xA6\xE0\xA5\x8D\xE0\xA4\xA7"
+                . '<span class="xh_find">'
+                . "\xE0\xA4\xB0\xE0\xA5\x87\xE0\xA4\xA6\xE0\xA4\xBE\xE0\xA4\xA4"
+                . "\xE0\xA5\x8D\xE0\xA4\xAE"
+                . '<span class="xh_find">'
+                . "\xE0\xA4\xA8\xE0\xA4\xBE\xE0\xA4\xA4\xE0\xA5\x8D\xE0\xA4\xAE"
+                . "\xE0\xA4\xBE\xE0\xA4\xA8"
+                . '</span>' . "\xE0\xA4\x82" . '</span> <span class="xh_find">'
+                . "\xE0\xA4\xA8\xE0\xA4\xBE\xE0\xA4\xA4\xE0\xA5\x8D\xE0\xA4\xAE"
+                . "\xE0\xA4\xBE\xE0\xA4\xA8"
+                . '</span>'
+                . "\xE0\xA4\xAE\xE0\xA4\xB5\xE0\xA4\xB8\xE0\xA4\xBE\xE0\xA4\xA6"
+                . "\xE0\xA4\xAF\xE0\xA5\x87\xE0\xA4\xA4\xE0\xA5\x8D"
+            ]
+        ];
     }
 }
 

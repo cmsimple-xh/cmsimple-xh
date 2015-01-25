@@ -9,8 +9,8 @@
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2014 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2015 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
@@ -35,6 +35,7 @@ class XH_FileEdit
      * Additional POST parameters.
      *
      * @var array
+     *
      * @access protected
      */
     var $params = array();
@@ -43,6 +44,7 @@ class XH_FileEdit
      * The name of the plugin.
      *
      * @var string
+     *
      * @access protected
      */
     var $plugin = null;
@@ -51,6 +53,7 @@ class XH_FileEdit
      * The caption of the form.
      *
      * @var string
+     *
      * @access protected
      */
     var $caption = null;
@@ -59,6 +62,7 @@ class XH_FileEdit
      * The name of the file to edit.
      *
      * @var string
+     *
      * @access protected
      */
     var $filename = null;
@@ -67,6 +71,7 @@ class XH_FileEdit
      * URL for redirecting after successful submission (PRG pattern).
      *
      * @var string
+     *
      * @access protected
      */
     var $redir = null;
@@ -89,6 +94,7 @@ class XH_FileEdit
      * @return string  (X)HTML.
      *
      * @abstract
+     *
      * @access public
      */
     function form()
@@ -104,6 +110,7 @@ class XH_FileEdit
      * @return mixed  The (X)HTML resp. void.
      *
      * @abstract
+     *
      * @access public
      */
     function submit()
@@ -116,6 +123,7 @@ class XH_FileEdit
      * @return string
      *
      * @abstract
+     *
      * @access protected
      */
     function asString()
@@ -142,6 +150,7 @@ class XH_TextFileEdit extends XH_FileEdit
      * The name of the textarea.
      *
      * @var string
+     *
      * @access protected
      */
     var $textareaName = null;
@@ -150,12 +159,15 @@ class XH_TextFileEdit extends XH_FileEdit
      * The contents of the file.
      *
      * @var string
+     *
      * @access protected
      */
     var $text = null;
 
     /**
      * Constructs an instance.
+     *
+     * @return void
      *
      * @access protected
      */
@@ -177,14 +189,16 @@ class XH_TextFileEdit extends XH_FileEdit
      *
      * @global string The script name.
      * @global array  The localization of the core.
+     * @global string The title of the current page.
      * @global object The CSRF protection object.
      *
      * @access public
      */
     function form()
     {
-        global $sn, $tx, $_XH_csrfProtection;
+        global $sn, $tx, $title, $_XH_csrfProtection;
 
+        $title = $this->caption;
         $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;
         $value = utf8_ucfirst($tx['action']['save']);
         if (isset($_GET['xh_success'])) {
@@ -270,6 +284,8 @@ class XH_CoreTextFileEdit extends XH_TextFileEdit
      * @global string The requested special file.
      * @global array  The localization of the core.
      *
+     * @return void
+     *
      * @access public
      */
     function XH_CoreTextFileEdit()
@@ -304,6 +320,8 @@ class XH_PluginTextFileEdit extends XH_TextFileEdit
      * @global array  The paths of system files and folders.
      * @global string The name of the currently loading plugin.
      * @global array  The localization of the core.
+     *
+     * @return void
      *
      * @access public
      */
@@ -341,7 +359,11 @@ class XH_ArrayFileEdit extends XH_FileEdit
 {
 
     /**
+     * The configuration.
      *
+     * @var array
+     *
+     * @access protected
      */
     var $cfg = null;
 
@@ -367,6 +389,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
 
     /**
      * Construct an instance
+     *
+     * @return void
      */
     function XH_ArrayFileEdit()
     {
@@ -582,14 +606,16 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * @global array  The paths of system files and folders.
      * @global array  The localization of the core.
      * @global string JS for the onload attribute of the body element.
+     * @global string The title of the current page.
      * @global object The CSRF protection object.
      *
      * @access public
      */
     function form()
     {
-        global $sn, $pth, $tx, $onload, $_XH_csrfProtection;
+        global $sn, $pth, $tx, $onload, $title, $_XH_csrfProtection;
 
+        $title = $this->caption;
         $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;
         $value = utf8_ucfirst($tx['action']['save']);
         $button = tag('input type="submit" class="submit" value="' . $value . '"');
@@ -619,8 +645,12 @@ class XH_ArrayFileEdit extends XH_FileEdit
                         : $category;
                     $o .= '<div class="xh_label">'
                         . $info . '<span class="xh_label">'
-                        . $this->translate($displayName) . '</span>'
-                        . '</div>'
+                        . $this->translate($displayName) . '</span>';
+                    if ($category == 'meta' && $name == 'description') {
+                        $o .= ' <span id="xh_description_length">['
+                            . utf8_strlen($opt['val']) . ']</span>';
+                    }
+                    $o .= '</div>'
                         . '<div class="xh_field">'
                         . $this->formField($category, $name, $opt) . '</div>'
                         . tag('br');
@@ -795,6 +825,8 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
      * @global string The key of the system file.
      * @global array  The localization of the plugins.
      *
+     * @return void
+     *
      * @access protected
      */
     function XH_CoreArrayFileEdit()
@@ -877,6 +909,8 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      *
+     * @return void
+     *
      * @access public
      */
     function XH_CoreConfigFileEdit()
@@ -939,6 +973,8 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      *
+     * @return void
+     *
      * @access public
      */
     function XH_CoreLangFileEdit()
@@ -997,7 +1033,7 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
     /**
      * The name of the config array variable.
      *
-     * @var    string
+     * @var string
      *
      * @access protected
      */
@@ -1009,6 +1045,8 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
      * @global array  The paths of system files and folders.
      * @global string The current language.
      * @global string The name of the currently loading plugin.
+     *
+     * @return void
      *
      * @access protected
      */
@@ -1067,6 +1105,8 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
      * @global array  The configuration of the plugins.
      * @global array  The localization of the plugins.
      *
+     * @return void
+     *
      * @access public
      */
     function XH_PluginConfigFileEdit()
@@ -1120,6 +1160,8 @@ class XH_PluginLanguageFileEdit extends XH_PluginArrayFileEdit
      * @global string The name of the currently loading plugin.
      * @global array  The localization of the core.
      * @global array  The localization of the plugins.
+     *
+     * @return void
      *
      * @access public
      */
