@@ -31,19 +31,15 @@ class XH_CSRFProtection
      * The name of the session key and input name of the CSRF token.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $keyName;
+    protected $keyName;
 
     /**
      * The CSRF token for the following request.
      *
      * @var string $token
-     *
-     * @access protected
      */
-    var $token = null;
+    protected $token = null;
 
     /**
      * Initializes a new object.
@@ -52,7 +48,7 @@ class XH_CSRFProtection
      * @param bool   $perRequest Whether a new token shall be generated for each
      *                           request (otherwise once per session).
      */
-    function __construct($keyName = 'xh_csrf_token', $perRequest = false)
+    public function __construct($keyName = 'xh_csrf_token', $perRequest = false)
     {
         $this->keyName = $keyName;
         if (!$perRequest) {
@@ -73,7 +69,7 @@ class XH_CSRFProtection
      *
      * @todo Use cryptographically stronger token?
      */
-    function tokenInput()
+    public function tokenInput()
     {
         if (!isset($this->token)) {
             $this->token = md5(uniqid(rand()));
@@ -90,10 +86,8 @@ class XH_CSRFProtection
      * session. Responds with "403 Forbidden" if not.
      *
      * @return void
-     *
-     * @access public
      */
-    function check()
+    public function check()
     {
         $submittedToken = isset($_POST[$this->keyName])
             ? $_POST[$this->keyName]
@@ -115,10 +109,8 @@ class XH_CSRFProtection
      * Stores the CSRF token in the session, if a self::tokenInput() was called.
      *
      * @return void
-     *
-     * @access public
      */
-    function store()
+    public function store()
     {
         if (isset($this->token)) {
             if (session_id() == '') {

@@ -32,67 +32,55 @@ class XH_Pages
      *
      * @var int
      *
-     * @access protected
-     *
      * @see $cl
      */
-    var $count;
+    protected $count;
 
     /**
      * The headings of the pages.
      *
      * @var array
      *
-     * @access protected
-     *
      * @see $h
      */
-    var $headings;
+    protected $headings;
 
     /**
      * The URLs of the pages.
      *
      * @var array
      *
-     * @access protected
-     *
      * @see $u
      */
-    var $urls;
+    protected $urls;
 
     /**
      * The menu levels of the pages.
      *
      * @var array
      *
-     * @access protected
-     *
      * @see $l
      */
-    var $levels;
+    protected $levels;
 
     /**
      * The contents of the pages.
      *
      * @var array
      *
-     * @access protected
-     *
      * @see $c
      */
-    var $contents;
+    protected $contents;
 
     /**
      * Constructs an instance.
-     *
-     * @return void
      *
      * @global array The headings of the pages.
      * @global array The URLs of the pages.
      * @global array The menu levels of the pages.
      * @global array The contents of the pages.
      */
-    function __construct()
+    public function __construct()
     {
         global $h, $u, $l, $c;
 
@@ -112,7 +100,7 @@ class XH_Pages
      *
      * @return bool
      */
-    function isHidden($n)
+    public function isHidden($n)
     {
         return hide($n);
     }
@@ -122,7 +110,7 @@ class XH_Pages
      *
      * @return int
      */
-    function getCount()
+    public function getCount()
     {
         return $this->count;
     }
@@ -134,7 +122,7 @@ class XH_Pages
      *
      * @return string
      */
-    function heading($n)
+    public function heading($n)
     {
         return $this->headings[$n];
     }
@@ -146,7 +134,7 @@ class XH_Pages
      *
      * @return string
      */
-    function url($n)
+    public function url($n)
     {
         return $this->urls[$n];
     }
@@ -158,7 +146,7 @@ class XH_Pages
      *
      * @return int
      */
-    function level($n)
+    public function level($n)
     {
         return $this->levels[$n];
     }
@@ -170,7 +158,7 @@ class XH_Pages
      *
      * @return string
      */
-    function content($n)
+    public function content($n)
     {
         return $this->contents[$n];
     }
@@ -182,7 +170,7 @@ class XH_Pages
      *
      * @return array
      */
-    function toplevels($ignoreHidden = true)
+    public function toplevels($ignoreHidden = true)
     {
         $result = array();
         for ($i = 0; $i < $this->count; ++$i) {
@@ -205,7 +193,7 @@ class XH_Pages
      *
      * @global array The configuration of the core.
      */
-    function children($n, $ignoreHidden = true)
+    public function children($n, $ignoreHidden = true)
     {
         global $cf;
 
@@ -235,7 +223,7 @@ class XH_Pages
      *
      * @return int
      */
-    function parent($n, $ignoreHidden = true)
+    public function parent($n, $ignoreHidden = true)
     {
         for ($i = $n - 1; $i >= 0; --$i) {
             if ($this->levels[$i] < $this->levels[$n]
@@ -257,7 +245,7 @@ class XH_Pages
      *
      * @return array
      */
-    function getAncestorsOf($pageIndex, $ignoreHidden = true)
+    public function getAncestorsOf($pageIndex, $ignoreHidden = true)
     {
         $result = array();
         while (true) {
@@ -278,7 +266,7 @@ class XH_Pages
      *
      * @return int The index of the page, or -1 if not found.
      */
-    function pageWithHeading($heading)
+    public function pageWithHeading($heading)
     {
         for ($i = 0; $i < $this->count; $i++) {
             if ($this->headings[$i] == $heading) {
@@ -298,7 +286,7 @@ class XH_Pages
      *
      * @return array
      */
-    function linkList($prefix = '', $ignoreHidden = true)
+    public function linkList($prefix = '', $ignoreHidden = true)
     {
         $result = array();
         for ($i = 0; $i < $this->count; $i++) {

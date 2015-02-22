@@ -33,116 +33,92 @@ class XH_PluginMenu
      * The script name.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $scriptName;
+    protected $scriptName;
 
     /**
      * The name of current plugin.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $plugin;
+    protected $plugin;
 
     /**
      * The label of the main item of the current plugin.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $mainLabel;
+    protected $mainLabel;
 
     /**
      * The label of the stylesheet item of the current plugin.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $cssLabel;
+    protected $cssLabel;
 
     /**
      * The label of the configuration item of the current plugin.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $configLabel;
+    protected $configLabel;
 
     /**
      * The label of the language item of the current plugin.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $languageLabel;
+    protected $languageLabel;
 
     /**
      * The label of the help item of the current plugin.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $helpLabel;
+    protected $helpLabel;
 
     /**
      * The URL of the main item of the current plugin.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $mainUrl;
+    protected $mainUrl;
 
     /**
      * The URL of the stylesheet item of the current plugin.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $cssUrl;
+    protected $cssUrl;
 
     /**
      * The URL of the configuration item of the current plugin.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $configUrl;
+    protected $configUrl;
 
     /**
      * The URL of the language item of the current plugin.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $languageUrl;
+    protected $languageUrl;
 
     /**
      * The URL of the help item of the current plugin.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $helpUrl;
+    protected $helpUrl;
 
     /**
      * Initializes a new instance.
      *
      * @global string The script name.
      */
-    function __construct()
+    public function __construct()
     {
         global $sn;
 
@@ -159,7 +135,7 @@ class XH_PluginMenu
      * @global string The name of the current plugin.
      * @global array  The paths of system files and folders.
      */
-    function render($showMain)
+    public function render($showMain)
     {
         global $plugin, $pth;
 
@@ -189,12 +165,10 @@ class XH_PluginMenu
      *
      * @return void
      *
-     * @access private
-     *
      * @global array The localization of the core.
      * @global array The localization of the plugins.
      */
-    function _initLabels()
+    private function _initLabels()
     {
         global $tx, $plugin_tx;
 
@@ -220,11 +194,9 @@ class XH_PluginMenu
      *
      * @return void
      *
-     * @access private
-     *
      * @global array The paths of system files and folders.
      */
-    function _initUrls()
+    private function _initUrls()
     {
         global $pth;
 
@@ -257,15 +229,13 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      * The menu built so far.
      *
      * @var string (X)HTML.
-     *
-     * @access private
      */
-    var $_menu;
+    private $_menu;
 
     /**
      * Initializes a new instance.
      */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->_menu = '';
@@ -280,7 +250,7 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      *
      * @return (X)HTML.
      */
-    function render($showMain)
+    public function render($showMain)
     {
         $this->makeRow();
         parent::render($showMain);
@@ -291,10 +261,8 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      * Makes the main menu item.
      *
      * @return void
-     *
-     * @access protected
      */
-    function makeMainItem()
+    protected function makeMainItem()
     {
         $this->makeTab(XH_hsc($this->mainUrl), '', $this->mainLabel);
     }
@@ -303,10 +271,8 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      * Makes the stylesheet menu item.
      *
      * @return void
-     *
-     * @access protected
      */
-    function makeStylesheetItem()
+    protected function makeStylesheetItem()
     {
         $this->makeTab(XH_hsc($this->cssUrl), '', $this->cssLabel);
     }
@@ -315,10 +281,8 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      * Makes the configuration menu item.
      *
      * @return void
-     *
-     * @access protected
      */
-    function makeConfigItem()
+    protected function makeConfigItem()
     {
         $this->makeTab(XH_hsc($this->configUrl), '', $this->configLabel);
     }
@@ -327,10 +291,8 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      * Makes the language menu item.
      *
      * @return void
-     *
-     * @access protected
      */
-    function makeLanguageItem()
+    protected function makeLanguageItem()
     {
         $this->makeTab(XH_hsc($this->languageUrl), '', $this->languageLabel);
     }
@@ -339,10 +301,8 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      * Makes the help menu item.
      *
      * @return void
-     *
-     * @access protected
      */
-    function makeHelpItem()
+    protected function makeHelpItem()
     {
         $this->makeTab(XH_hsc($this->helpUrl), 'target="_blank"', $this->helpLabel);
     }
@@ -354,7 +314,7 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      *
      * @return void
      */
-    function makeRow($style = array())
+    public function makeRow($style = array())
     {
         if (!isset($style['row'])) {
             $style['row'] = 'class="edit" style="width: 100%;"';
@@ -375,7 +335,7 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      *
      * @return void
      */
-    function makeTab($link, $target, $text, $style = array())
+    public function makeTab($link, $target, $text, $style = array())
     {
         if (!isset($style['tab'])) {
             $style['tab'] = '';
@@ -405,7 +365,7 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      *
      * @return void
      */
-    function makeData($text, $style = array())
+    public function makeData($text, $style = array())
     {
         if (!isset($style['data'])) {
             $style['data'] = '';
@@ -425,7 +385,7 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      *
      * @return string (X)HTML.
      */
-    function show()
+    public function show()
     {
         $this->_menu = str_replace('{{TAB}}', '', $this->_menu);
         $result = $this->_menu;
@@ -450,10 +410,8 @@ class XH_IntegratedPluginMenu extends XH_PluginMenu
      * Makes the main menu item.
      *
      * @return void
-     *
-     * @access protected
      */
-    function makeMainItem()
+    protected function makeMainItem()
     {
         XH_registerPluginMenuItem(
             $this->plugin, $this->mainLabel, $this->mainUrl
@@ -464,10 +422,8 @@ class XH_IntegratedPluginMenu extends XH_PluginMenu
      * Makes the stylesheet menu item.
      *
      * @return void
-     *
-     * @access protected
      */
-    function makeStylesheetItem()
+    protected function makeStylesheetItem()
     {
         XH_registerPluginMenuItem(
             $this->plugin, $this->cssLabel, $this->cssUrl
@@ -478,10 +434,8 @@ class XH_IntegratedPluginMenu extends XH_PluginMenu
      * Makes the configuration menu item.
      *
      * @return void
-     *
-     * @access protected
      */
-    function makeConfigItem()
+    protected function makeConfigItem()
     {
         XH_registerPluginMenuItem(
             $this->plugin, $this->configLabel, $this->configUrl
@@ -492,10 +446,8 @@ class XH_IntegratedPluginMenu extends XH_PluginMenu
      * Makes the language menu item.
      *
      * @return void
-     *
-     * @access protected
      */
-    function makeLanguageItem()
+    protected function makeLanguageItem()
     {
         XH_registerPluginMenuItem(
             $this->plugin, $this->languageLabel, $this->languageUrl
@@ -507,11 +459,9 @@ class XH_IntegratedPluginMenu extends XH_PluginMenu
      *
      * @return void
      *
-     * @access protected
-     *
      * @todo target=_blank
      */
-    function makeHelpItem()
+    protected function makeHelpItem()
     {
         XH_registerPluginMenuItem(
             $this->plugin, $this->helpLabel, $this->helpUrl, '_blank'

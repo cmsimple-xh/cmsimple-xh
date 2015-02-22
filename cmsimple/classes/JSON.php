@@ -124,10 +124,8 @@ class XH_JSON
      * The set of "first" tokens.
      *
      * @var array
-     *
-     * @access protected
      */
-    var $first;
+    protected $first;
 
     /**
      * The string to parse.
@@ -135,44 +133,34 @@ class XH_JSON
      * Already parsed parts will be truncated.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $str;
+    protected $str;
 
     /**
      * The current token.
      *
      * @var int
-     *
-     * @access protected
      */
-    var $sym;
+    protected $sym;
 
     /**
      * The current value (for strings and numbers).
      *
      * @var mixed
-     *
-     * @access protected
      */
-    var $value;
+    protected $value;
 
     /**
      * Error flag.
      *
      * @var bool
-     *
-     * @access protected
      */
-    var $error;
+    protected $error;
 
     /**
      * Constructs an instance.
-     *
-     * @access public
      */
-    function __construct()
+    public function __construct()
     {
         $this->first = array(
             'object' => array(XH_JSON_LBRACE),
@@ -191,10 +179,8 @@ class XH_JSON
      * @param string $string A string.
      *
      * @return string
-     *
-     * @access protected
      */
-    function quote($string)
+    protected function quote($string)
     {
         $string = addcslashes($string, "\"\\/");
         $string = preg_replace_callback(
@@ -209,10 +195,8 @@ class XH_JSON
      * @param string $matches An array of matches with a single element.
      *
      * @return string
-     *
-     * @access protected
      */
-    function escapeControlChar($matches)
+    protected function escapeControlChar($matches)
     {
         return sprintf('\\u%04X', ord($matches[0]));
     }
@@ -223,10 +207,8 @@ class XH_JSON
      * @param array $matches Matches from the previous preg_match().
      *
      * @return string
-     *
-     * @access protected
      */
-    function unescape($matches)
+    protected function unescape($matches)
     {
         if (isset($matches[3])) {
             $n = hexdec($matches[3]);
@@ -258,10 +240,8 @@ class XH_JSON
      * Scans the next token and sets $this->sym accordingly.
      *
      * @return void
-     *
-     * @access protected
      */
-    function getSym()
+    protected function getSym()
     {
         $this->str = preg_replace('/^\s*/', '', $this->str);
         if (empty($this->str)) {
@@ -361,10 +341,8 @@ class XH_JSON
      * @param string $terminal A terminal symbol.
      *
      * @return void
-     *
-     * @access protected
      */
-    function accept($terminal)
+    protected function accept($terminal)
     {
         if ($this->sym != $terminal) {
             $this->error = true;
@@ -380,10 +358,8 @@ class XH_JSON
      * @param object $res The parsed object.
      *
      * @return void
-     *
-     * @access protected
      */
-    function parseObject(&$res)
+    protected function parseObject(&$res)
     {
         $this->accept(XH_JSON_LBRACE);
         $res = new stdClass();
@@ -408,10 +384,8 @@ class XH_JSON
      * @param mixed  $val The parsed value.
      *
      * @return void
-     *
-     * @access protected
      */
-    function parsePair(&$key, &$val)
+    protected function parsePair(&$key, &$val)
     {
         $this->accept(XH_JSON_STRING);
         $key = $this->value;
@@ -427,10 +401,8 @@ class XH_JSON
      * @param array $res The parsed array.
      *
      * @return void
-     *
-     * @access protected
      */
-    function parseArray(&$res)
+    protected function parseArray(&$res)
     {
         $this->accept(XH_JSON_LBRACK);
         $res = array();
@@ -454,10 +426,8 @@ class XH_JSON
      * @param mixed $res The parsed value.
      *
      * @return void
-     *
-     * @access protected
      */
-    function parseValue(&$res)
+    protected function parseValue(&$res)
     {
         switch ($this->sym) {
         case XH_JSON_STRING:
@@ -498,10 +468,8 @@ class XH_JSON
      * @param mixed $value A PHP value.
      *
      * @return string
-     *
-     * @access public
      */
-    function encode($value)
+    public function encode($value)
     {
         switch (gettype($value)) {
         case 'boolean':
@@ -551,10 +519,8 @@ class XH_JSON
      * @param string $string A JSON string.
      *
      * @return mixed
-     *
-     * @access public
      */
-    function decode($string)
+    public function decode($string)
     {
         $this->str = $string;
         $this->sym = $this->value = null;
@@ -569,10 +535,8 @@ class XH_JSON
      * during the last {@link XH_JSON::decode()}.
      *
      * @return bool
-     *
-     * @access public
      */
-    function lastError()
+    public function lastError()
     {
         return $this->error;
     }

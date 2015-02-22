@@ -35,55 +35,43 @@ class XH_FileEdit
      * Additional POST parameters.
      *
      * @var array
-     *
-     * @access protected
      */
-    var $params = array();
+    protected $params = array();
 
     /**
      * The name of the plugin.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $plugin = null;
+    protected $plugin = null;
 
     /**
      * The caption of the form.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $caption = null;
+    protected $caption = null;
 
     /**
      * The name of the file to edit.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $filename = null;
+    protected $filename = null;
 
     /**
      * URL for redirecting after successful submission (PRG pattern).
      *
      * @var string
-     *
-     * @access protected
      */
-    var $redir = null;
+    protected $redir = null;
 
     /**
      * Saves the file. Returns whether that succeeded.
      *
      * @return bool
-     *
-     * @access protected
      */
-    function save()
+    protected function save()
     {
         return XH_writeFile($this->filename, $this->asString());
     }
@@ -94,10 +82,8 @@ class XH_FileEdit
      * @return string  (X)HTML.
      *
      * @abstract
-     *
-     * @access public
      */
-    function form()
+    public function form()
     {
     }
 
@@ -110,10 +96,8 @@ class XH_FileEdit
      * @return mixed  The (X)HTML resp. void.
      *
      * @abstract
-     *
-     * @access public
      */
-    function submit()
+    public function submit()
     {
     }
 
@@ -123,10 +107,8 @@ class XH_FileEdit
      * @return string
      *
      * @abstract
-     *
-     * @access protected
      */
-    function asString()
+    protected function asString()
     {
     }
 }
@@ -150,26 +132,20 @@ class XH_TextFileEdit extends XH_FileEdit
      * The name of the textarea.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $textareaName = null;
+    protected $textareaName = null;
 
     /**
      * The contents of the file.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $text = null;
+    protected $text = null;
 
     /**
      * Constructs an instance.
-     *
-     * @access protected
      */
-    function __construct()
+    public function __construct()
     {
         $contents = XH_readFile($this->filename);
         if ($contents !== false) {
@@ -189,10 +165,8 @@ class XH_TextFileEdit extends XH_FileEdit
      * @global array  The localization of the core.
      * @global string The title of the current page.
      * @global object The CSRF protection object.
-     *
-     * @access public
      */
-    function form()
+    public function form()
     {
         global $sn, $tx, $title, $_XH_csrfProtection;
 
@@ -231,10 +205,8 @@ class XH_TextFileEdit extends XH_FileEdit
      * @return mixed
      *
      * @global object The CSRF protection object.
-     *
-     * @access public
      */
-    function submit()
+    public function submit()
     {
         global $_XH_csrfProtection;
 
@@ -253,10 +225,8 @@ class XH_TextFileEdit extends XH_FileEdit
      * Returns the the file contents as string for saving.
      *
      * @return string
-     *
-     * @access protected
      */
-    function asString()
+    protected function asString()
     {
         return $this->text;
     }
@@ -281,10 +251,8 @@ class XH_CoreTextFileEdit extends XH_TextFileEdit
      * @global array  The paths of system files and folders.
      * @global string The requested special file.
      * @global array  The localization of the core.
-     *
-     * @access public
      */
-    function __construct()
+    public function __construct()
     {
         global $pth, $file, $tx;
 
@@ -316,10 +284,8 @@ class XH_PluginTextFileEdit extends XH_TextFileEdit
      * @global array  The paths of system files and folders.
      * @global string The name of the currently loading plugin.
      * @global array  The localization of the core.
-     *
-     * @access public
      */
-    function __construct()
+    public function __construct()
     {
         global $pth, $plugin, $tx;
 
@@ -356,35 +322,29 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * The configuration.
      *
      * @var array
-     *
-     * @access protected
      */
-    var $cfg = null;
+    protected $cfg = null;
 
     /**
      * A dictionary which maps from config and languages keys
      * to their localization.
      *
      * @var array
-     *
-     * @access protected
      */
-    var $lang = null;
+    protected $lang = null;
 
     /**
      * The path of the meta language file,
      * which contains localization of config and language keys.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $metaLangFile;
+    protected $metaLangFile;
 
     /**
      * Construct an instance
      */
-    function __construct()
+    public function __construct()
     {
         if (is_readable($this->metaLangFile)) {
             include $this->metaLangFile;
@@ -400,7 +360,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @return bool
      */
-    function save()
+    protected function save()
     {
         $ok = parent::save();
         if (function_exists('opcache_invalidate')) {
@@ -416,7 +376,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @return string
      */
-    function translate($key)
+    protected function translate($key)
     {
         $altKey = str_replace(' ', '_', $key);
         if (isset($this->lang[$key])) {
@@ -435,10 +395,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * @param string $key The original key.
      *
      * @return array
-     *
-     * @access protected
      */
-    function splitKey($key)
+    protected function splitKey($key)
     {
         if (strpos($key, '_') !== false) {
             list($first, $rest) = explode('_', $key, 2);
@@ -455,10 +413,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * @param array $options The list of options.
      *
      * @return bool
-     *
-     * @access protected
      */
-    function hasVisibleFields($options)
+    protected function hasVisibleFields($options)
     {
         foreach ($options as $opt) {
             if ($opt['type'] != 'hidden' && $opt['type'] != 'random') {
@@ -476,10 +432,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * @return string  The (X)HTML.
      *
      * @global array The localization of the core.
-     *
-     * @access protected
      */
-    function passwordDialog($iname)
+    protected function passwordDialog($iname)
     {
         global $tx;
 
@@ -523,10 +477,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * @return string The (X)HTML.
      *
      * @global array The localization of the core.
-     *
-     * @access protected
      */
-    function formField($cat, $name, $opt)
+    protected function formField($cat, $name, $opt)
     {
         global $tx;
 
@@ -600,10 +552,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * @global string JS for the onload attribute of the body element.
      * @global string The title of the current page.
      * @global object The CSRF protection object.
-     *
-     * @access public
      */
-    function form()
+    public function form()
     {
         global $sn, $pth, $tx, $onload, $title, $_XH_csrfProtection;
 
@@ -678,7 +628,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * @global array   The localization of the core.
      * @global object  The password hasher.
      */
-    function submitPassword($opt, $iname, &$errors)
+    protected function submitPassword($opt, $iname, &$errors)
     {
         global $tx, $xh_hasher;
 
@@ -719,10 +669,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
      * @global string Error messages.
      * @global object The CSRF protection object.
      * @global object The password hasher.
-     *
-     * @access public
      */
-    function submit()
+    public function submit()
     {
         global $e, $_XH_csrfProtection, $xh_hasher;
 
@@ -763,7 +711,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @return array
      */
-    function option($mcf, $val, $hint)
+    protected function option($mcf, $val, $hint)
     {
         $type = isset($mcf) ? $mcf : 'string';
         list($typeTag) = explode(':', $type);
@@ -816,10 +764,8 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
      * @global string The current language.
      * @global string The key of the system file.
      * @global array  The localization of the plugins.
-     *
-     * @access protected
      */
-    function __construct()
+    public function __construct()
     {
         global $pth, $sl, $file, $tx;
 
@@ -833,10 +779,8 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
      * Returns the the file contents as string for saving.
      *
      * @return string
-     *
-     * @access protected
      */
-    function asString()
+    protected function asString()
     {
         $o = "<?php\n\n";
         foreach ($this->cfg as $cat => $opts) {
@@ -858,10 +802,8 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
      * @return array
      *
      * @global array The paths of system files and folders.
-     *
-     * @access protected
      */
-    function selectOptions($fn, $regex)
+    protected function selectOptions($fn, $regex)
     {
         global $pth;
 
@@ -898,10 +840,8 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
      * @global array  The paths of system files and folders.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
-     *
-     * @access public
      */
-    function __construct()
+    public function __construct()
     {
         global $pth, $cf, $tx;
 
@@ -960,10 +900,8 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
      * @global string The current language.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
-     *
-     * @access public
      */
-    function __construct()
+    public function __construct()
     {
         global $sl, $cf, $tx;
 
@@ -1020,10 +958,8 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
      * The name of the config array variable.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $varName = null;
+    protected $varName = null;
 
     /**
      * Constructs an instance.
@@ -1031,10 +967,8 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
      * @global array  The paths of system files and folders.
      * @global string The current language.
      * @global string The name of the currently loading plugin.
-     *
-     * @access protected
      */
-    function __construct()
+    public function __construct()
     {
         global $pth, $sl, $plugin;
 
@@ -1048,10 +982,8 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
      * Returns the the file contents as string for saving.
      *
      * @return string
-     *
-     * @access protected
      */
-    function asString()
+    protected function asString()
     {
         $o = "<?php\n\n";
         foreach ($this->cfg as $cat => $opts) {
@@ -1088,10 +1020,8 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
      * @global array  The localization of the core.
      * @global array  The configuration of the plugins.
      * @global array  The localization of the plugins.
-     *
-     * @access public
      */
-    function __construct()
+    public function __construct()
     {
         global $pth, $plugin, $tx, $plugin_cf, $plugin_tx;
 
@@ -1142,10 +1072,8 @@ class XH_PluginLanguageFileEdit extends XH_PluginArrayFileEdit
      * @global string The name of the currently loading plugin.
      * @global array  The localization of the core.
      * @global array  The localization of the plugins.
-     *
-     * @access public
      */
-    function __construct()
+    public function __construct()
     {
         global $pth, $plugin, $tx, $plugin_tx;
 

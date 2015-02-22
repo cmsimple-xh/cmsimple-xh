@@ -33,7 +33,7 @@ class XH_PageDataEditor
      *
      * @global object The page data router.
      */
-    function unusedFields()
+    protected function unusedFields()
     {
         global $pd_router;
 
@@ -53,7 +53,7 @@ class XH_PageDataEditor
      *
      * @global object The page data router.
      */
-    function deleteFields()
+    protected function deleteFields()
     {
         global $pd_router;
 
@@ -78,7 +78,7 @@ class XH_PageDataEditor
      *
      * @return string (X)HTML.
      */
-    function renderField($field)
+    protected function renderField($field)
     {
         return '<li><label>'
             . tag('input type="checkbox" name="' . $field . '"')
@@ -97,7 +97,7 @@ class XH_PageDataEditor
      * @global array The paths of system files and folders.
      * @global array The localization of the core.
      */
-    function renderMessage($deleted)
+    protected function renderMessage($deleted)
     {
         global $pth, $tx;
 
@@ -126,7 +126,7 @@ class XH_PageDataEditor
      * @global array  The localization of the core.
      * @global array  The CSRF protection object.
      */
-    function render($deleted = null)
+    protected function render($deleted = null)
     {
         global $sn, $tx, $_XH_csrfProtection;
 
@@ -166,7 +166,7 @@ class XH_PageDataEditor
      *
      * @global object The CSRF protection object.
      */
-    function process()
+    public function process()
     {
         global $_XH_csrfProtection;
 

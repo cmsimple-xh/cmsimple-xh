@@ -33,46 +33,36 @@ class XH_Li
      * The relevant page indexes.
      *
      * @var array
-     *
-     * @access protected
      */
-    var $ta;
+    protected $ta;
 
     /**
      * The menu level to start with or the type of menu.
      *
      * @var mixed
-     *
-     * @access protected
      */
-    var $st;
+    protected $st;
 
     /**
      * Whether the current menu item is not representing the requested page.
      *
      * @var bool
-     *
-     * @access protected
      */
-    var $tf;
+    protected $tf;
 
     /**
      * The "default" menu level.
      *
      * @var int
-     *
-     * @access protected
      */
-    var $b;
+    protected $b;
 
     /**
      * The array of flags, signalling whether a certain menu level is open.
      *
      * @var array
-     *
-     * @access protected
      */
-    var $lf;
+    protected $lf;
 
     /**
      * Renders a menu structure of certain pages.
@@ -83,10 +73,8 @@ class XH_Li
      * @return string (X)HTML.
      *
      * @global int The index of the current page.
-     *
-     * @access public
      */
-    function render($ta, $st)
+    public function render($ta, $st)
     {
         global $s;
 
@@ -139,10 +127,8 @@ class XH_Li
      * @return string (X)HTML.
      *
      * @global array The menu levels of the pages.
-     *
-     * @access protected
      */
-    function renderULStartTags($i)
+    protected function renderULStartTags($i)
     {
         global $l;
 
@@ -159,10 +145,8 @@ class XH_Li
      * @param int $i The index of the current item.
      *
      * @return string (X)HTML.
-     *
-     * @access protected
      */
-    function renderEndTags($i)
+    protected function renderEndTags($i)
     {
         $html = '';
         for ($k = $this->getMenuLevel($i); $k > $this->getMenuLevel($i + 1); $k--) {
@@ -183,10 +167,8 @@ class XH_Li
      * @return int
      *
      * @global array  The menu levels of the pages.
-     *
-     * @access protected
      */
-    function getMenuLevel($i)
+    protected function getMenuLevel($i)
     {
         global $l;
 
@@ -201,10 +183,8 @@ class XH_Li
      * @return string
      *
      * @global array  The configuration of the core.
-     *
-     * @access protected
      */
-    function getClassName($i)
+    protected function getClassName($i)
     {
         $className = '';
         if ($this->isSelected($i)) {
@@ -223,10 +203,8 @@ class XH_Li
      * @param int $i The index of the current item.
      *
      * @return bool
-     *
-     * @access protected
      */
-    function isSelected($i)
+    protected function isSelected($i)
     {
         global $cf;
 
@@ -246,10 +224,8 @@ class XH_Li
      * @global array  The URLs of the pages.
      * @global array  The menu levels of the pages.
      * @global array  The configuration of the core.
-     *
-     * @access protected
      */
-    function isAnchestorOfSelectedPage($i)
+    protected function isAnchestorOfSelectedPage($i)
     {
         global $s, $u, $l, $cf;
 
@@ -268,10 +244,8 @@ class XH_Li
      * @global int    The number of pages.
      * @global array  The menu levels of the pages.
      * @global array  The configuration of the core.
-     *
-     * @access protected
      */
-    function hasChildren($i)
+    protected function hasChildren($i)
     {
         global $cl, $l, $cf;
 
@@ -296,10 +270,8 @@ class XH_Li
      * @return string (X)HTML.
      *
      * @global array  The headings of the pages.
-     *
-     * @access protected
      */
-    function renderMenuItem($i)
+    protected function renderMenuItem($i)
     {
         global $h;
 
@@ -323,10 +295,8 @@ class XH_Li
      * @param int $i The index of the current item.
      *
      * @return string (X)HTML.
-     *
-     * @access protected
      */
-    function renderAnchorStartTag($i)
+    protected function renderAnchorStartTag($i)
     {
         $x = $this->shallOpenInNewWindow($i) ? '" target="_blank' : '';
         return a($this->ta[$i], $x);
@@ -341,10 +311,8 @@ class XH_Li
      *
      * @global array  Whether we are in edit mode.
      * @global object The page data router.
-     *
-     * @access protected
      */
-    function shallOpenInNewWindow($i)
+    protected function shallOpenInNewWindow($i)
     {
         global $edit, $pd_router;
 

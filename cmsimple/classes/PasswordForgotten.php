@@ -31,14 +31,14 @@ class XH_PasswordForgotten
      *
      * @var string
      */
-    var $status = '';
+    protected $status = '';
 
     /**
      * Dispatches according to the request.
      *
      * @return void
      */
-    function dispatch()
+    public function dispatch()
     {
         if (isset($_POST['xh_email'])) {
             $this->submit();
@@ -59,7 +59,7 @@ class XH_PasswordForgotten
      * @global array  The localization of the core.
      * @global string JS for the onload attribute of the BODY element.
      */
-    function render()
+    protected function render()
     {
         global $title, $o, $sn, $tx, $onload;
 
@@ -92,6 +92,8 @@ class XH_PasswordForgotten
      * @return string
      *
      * @global array The configuration of the core.
+     *
+     * @todo Declare visibility.
      */
     function mac($previous = false)
     {
@@ -111,6 +113,8 @@ class XH_PasswordForgotten
      * @param string $mac A MAC.
      *
      * @return bool
+     *
+     * @todo Declare visibility.
      */
     function checkMac($mac)
     {
@@ -128,7 +132,7 @@ class XH_PasswordForgotten
      * @global array  The localization of the core.
      * @global string LI elements to be emitted as error messages.
      */
-    function submit()
+    protected function submit()
     {
         global $pth, $cf, $tx, $e;
 
@@ -164,7 +168,7 @@ class XH_PasswordForgotten
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      */
-    function reset()
+    protected function reset()
     {
         global $xh_hasher, $pth, $cf, $tx;
 
@@ -197,7 +201,7 @@ class XH_PasswordForgotten
      *
      * @global array The paths of system files and folders.
      */
-    function saveNewPassword($hash)
+    protected function saveNewPassword($hash)
     {
         global $pth;
 

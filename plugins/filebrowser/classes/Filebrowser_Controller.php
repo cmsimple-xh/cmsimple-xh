@@ -35,98 +35,98 @@ class Filebrowser_Controller
      *
      * @var string $linkPrefix
      */
-    var $linkPrefix = '';
+    protected $linkPrefix = '';
 
     /**
      * The browse base.
      *
      * @var string $browseBase
      */
-    var $browseBase = '';
+    public $browseBase = '';
 
     /**
      * The base directory.
      *
      * @var string $baseDirectory
      */
-    var $baseDirectory;
+    public $baseDirectory;
 
     /**
      * The current directory.
      *
      * @var string $currentDirectory
      */
-    var $currentDirectory;
+    public $currentDirectory;
 
     /**
      *  The current type of allowed file extensions.
      *
      *  @var string
      */
-    var $currentType;
+    protected $currentType;
 
     /**
      * The link type.
      *
      * @var string $linkType
      */
-    var $linkType;
+    public $linkType;
 
     /**
      * The folders.
      *
      * @var array $folders
      */
-    var $folders = array();
+    protected $folders = array();
 
     /**
      * The files.
      *
      * @var array $files
      */
-    var $files = array();
+    protected $files = array();
 
     /**
      * The base directories.
      *
      * @var array baseDirectories
      */
-    var $baseDirectories = array();
+    public $baseDirectories = array();
 
     /**
      * The allowed extensions.
      *
      * @var array $allowedExtensions
      */
-    var $allowedExtensions = array();
+    protected $allowedExtensions = array();
 
     /**
      * The maximum filesizes.
      *
      * @var array $maxFilesizes
      */
-    var $maxFilesizes = array();
+    protected $maxFilesizes = array();
 
     /**
      * The view.
      *
      * @var object $view
      */
-    var $view;
+    public $view;
 
     /**
      * The message.
      *
      * @var string $message
      */
-    var $message = '';
+    protected $message = '';
 
     /**
      * The brower path.
      *
      * @var string $browserPath
      */
-    var $browserPath = '';
+    public $browserPath = '';
 
     /**
      * Constructs an instance.
@@ -134,7 +134,7 @@ class Filebrowser_Controller
      * @global array The paths of system files and folders.
      * @global array The configuration of the plugins.
      */
-    function __construct()
+    public function __construct()
     {
         global $pth, $plugin_cf;
 
@@ -159,7 +159,7 @@ class Filebrowser_Controller
      *
      * @return void
      */
-    function determineCurrentType()
+    public function determineCurrentType()
     {
         $this->currentType = $this->linkType;
         if (count(array_unique($this->baseDirectories)) != 4) {
@@ -189,7 +189,7 @@ class Filebrowser_Controller
      *
      * @return array
      */
-    function fileIsLinked($file)
+    protected function fileIsLinked($file)
     {
         global $h, $c, $u;
 
@@ -222,7 +222,7 @@ class Filebrowser_Controller
      * @global array The headings of the pages.
      * @global int   The number of pages.
      */
-    function usedImages()
+    public function usedImages()
     {
         global $c, $h, $cl;
 
@@ -251,7 +251,7 @@ class Filebrowser_Controller
      *
      * @return void
      */
-    function readDirectory()
+    public function readDirectory()
     {
         $dir = $this->browseBase . $this->currentDirectory;
         $this->files = array();
@@ -284,7 +284,7 @@ class Filebrowser_Controller
      *
      * @return array
      */
-    function getFolders($directory)
+    protected function getFolders($directory)
     {
         $folders = array();
         $handle = opendir($directory);
@@ -316,7 +316,7 @@ class Filebrowser_Controller
      *
      * @return bool
      */
-    function isAllowedFile($file)
+    protected function isAllowedFile($file)
     {
         $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
         if ($extension == $file) {
@@ -339,7 +339,7 @@ class Filebrowser_Controller
      *
      * @todo Document the details.
      */
-    function foldersArray($all = true)
+    protected function foldersArray($all = true)
     {
         $folders = array();
 
@@ -381,7 +381,7 @@ class Filebrowser_Controller
      *
      * @todo Document the details.
      */
-    function gatherChildren($parent, $folders)
+    protected function gatherChildren($parent, $folders)
     {
         $children = array();
         foreach ($folders as $key => $folder) {
@@ -399,7 +399,7 @@ class Filebrowser_Controller
      *
      * @return void
      */
-    function deleteFile($file)
+    public function deleteFile($file)
     {
         $file = $this->browseBase . $this->currentDirectory . basename($file);
         $pages = $this->fileIsLinked($file);
@@ -430,7 +430,7 @@ class Filebrowser_Controller
      *
      * @since 1.6
      */
-    function newFilename($filename)
+    protected function newFilename($filename)
     {
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         $base = substr($filename, 0, -(strlen($ext) + 1));
@@ -450,7 +450,7 @@ class Filebrowser_Controller
      *
      * @return void
      */
-    function uploadFile()
+    public function uploadFile()
     {
         $file = $_FILES['fbupload'];
 
@@ -531,7 +531,7 @@ class Filebrowser_Controller
      *
      * @return void
      */
-    function createFolder()
+    public function createFolder()
     {
         $folder = basename($_POST['createFolder']);
         $folder = str_replace(
@@ -553,7 +553,7 @@ class Filebrowser_Controller
      *
      * @return void
      */
-    function deleteFolder()
+    public function deleteFolder()
     {
         $folder = $this->browseBase . $this->currentDirectory
             . basename($_POST['folder']);
@@ -577,7 +577,7 @@ class Filebrowser_Controller
      *
      * @return bool
      */
-    function _isEmpty($folder)
+    private function _isEmpty($folder)
     {
         $isEmpty = true;
         if ($dir = opendir($folder)) {
@@ -598,7 +598,7 @@ class Filebrowser_Controller
      *
      * @todo Add i18n for errors.
      */
-    function renameFile()
+    public function renameFile()
     {
         $newName = str_replace(
             array('..', '<', '>', ':', '?', ' '), '', basename($_POST['renameFile'])
@@ -648,7 +648,7 @@ class Filebrowser_Controller
      *
      * @todo i18n of error message (or probably make it an error)
      */
-    function render($template)
+    public function render($template)
     {
         $template = str_replace(array('.', '/', '\\', '<', ' '), '', $template);
         if (!file_exists($this->browserPath . 'tpl/' . $template . '.html')) {
@@ -673,7 +673,7 @@ class Filebrowser_Controller
      *
      * @return void
      */
-    function setLinkParams($paramsString)
+    public function setLinkParams($paramsString)
     {
         $this->view->linkParams = $paramsString;
     }
@@ -685,7 +685,7 @@ class Filebrowser_Controller
      *
      * @return void
      */
-    function setLinkPrefix($prefix)
+    public function setLinkPrefix($prefix)
     {
         $this->view->linkPrefix = $prefix;
     }
@@ -697,7 +697,7 @@ class Filebrowser_Controller
      *
      * @return void
      */
-    function setBrowseBase($path)
+    public function setBrowseBase($path)
     {
 
         $this->browseBase = $path;
@@ -711,7 +711,7 @@ class Filebrowser_Controller
      *
      * @return void
      */
-    function setBrowserPath($path)
+    public function setBrowserPath($path)
     {
         $this->view->browserPath = $path;
     }
@@ -724,7 +724,7 @@ class Filebrowser_Controller
      *
      * @return void
      */
-    function setMaxFileSize($folder, $bytes)
+    public function setMaxFileSize($folder, $bytes)
     {
         if (key_exists($folder, $this->baseDirectories)) {
             $this->maxFilesizes[$folder] = (int) $bytes;

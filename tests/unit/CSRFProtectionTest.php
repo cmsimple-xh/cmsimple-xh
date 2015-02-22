@@ -42,9 +42,10 @@ class CSRFProtectionTest extends PHPUnit_Framework_TestCase
     public function testGetFollowedByPost()
     {
         $protection = new XH_CSRFProtection();
-        $protection->tokenInput();
+        $input = $protection->tokenInput();
+        preg_match('/value="(.*)"/', $input, $matches);
         $protection->store();
-        $_POST['xh_csrf_token'] = $protection->token;
+        $_POST['xh_csrf_token'] = $matches[1];
         $protection->check();
     }
 
