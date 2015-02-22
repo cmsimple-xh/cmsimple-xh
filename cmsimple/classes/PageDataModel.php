@@ -69,7 +69,7 @@ class XH_PageDataModel
      *
      * @var array
      */
-    protected $tabs;
+    public $tabs;
 
     /**
      * Constructs an instance.
