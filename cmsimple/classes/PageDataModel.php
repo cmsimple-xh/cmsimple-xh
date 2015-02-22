@@ -83,11 +83,9 @@ class XH_PageDataModel
      * @param array $tempData       The most recently deleted page data.
      * @param array $pageData       The page data.
      *
-     * @return void
-     *
      * @access public
      */
-    function XH_PageDataModel($h, $pageDataFields, $tempData, $pageData)
+    function __construct($h, $pageDataFields, $tempData, $pageData)
     {
         $this->headings = $h;
         $this->params = !empty($pageDataFields)

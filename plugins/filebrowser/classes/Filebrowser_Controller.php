@@ -131,12 +131,10 @@ class Filebrowser_Controller
     /**
      * Constructs an instance.
      *
-     * @return void
-     *
      * @global array The paths of system files and folders.
      * @global array The configuration of the plugins.
      */
-    function Filebrowser_Controller()
+    function __construct()
     {
         global $pth, $plugin_cf;
 

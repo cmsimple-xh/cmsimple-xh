@@ -140,11 +140,9 @@ class XH_PluginMenu
     /**
      * Initializes a new instance.
      *
-     * @return void
-     *
      * @global string The script name.
      */
-    function XH_PluginMenu()
+    function __construct()
     {
         global $sn;
 
@@ -266,12 +264,10 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
 
     /**
      * Initializes a new instance.
-     *
-     * @return void
      */
-    function XH_ClassicPluginMenu()
+    function __construct()
     {
-        parent::XH_PluginMenu();
+        parent::__construct();
         $this->_menu = '';
     }
 

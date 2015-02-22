@@ -92,7 +92,7 @@ class XH_Pages
      * @global array The menu levels of the pages.
      * @global array The contents of the pages.
      */
-    function XH_Pages()
+    function __construct()
     {
         global $h, $u, $l, $c;
 

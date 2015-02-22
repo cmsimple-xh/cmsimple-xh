@@ -170,11 +170,9 @@ class XH_JSON
     /**
      * Constructs an instance.
      *
-     * @return void
-     *
      * @access public
      */
-    function XH_JSON()
+    function __construct()
     {
         $this->first = array(
             'object' => array(XH_JSON_LBRACE),

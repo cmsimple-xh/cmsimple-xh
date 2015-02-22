@@ -118,11 +118,9 @@ class XH_Mailform
      * @global array   The configuration of the core.
      * @global array   The localization of the core.
      *
-     * @return void
-     *
      * @access public
      */
-    function XH_Mailform($embedded = false, $subject=null)
+    function __construct($embedded = false, $subject=null)
     {
         global $cf, $tx;
         $this->embedded = $embedded;
