@@ -104,18 +104,6 @@ class ControllerMakeTest extends PHPUnit_Framework_TestCase
             'XH_PageDataEditor', $this->subject->makePageDataEditor()
         );
     }
-
-    /**
-     * Tests ::makeFileEditor().
-     *
-     * @return void
-     */
-    public function testMakeFileEditor()
-    {
-        $this->assertInstanceOf(
-            'XH_FileEdit', $this->subject->makeFileEditor('XH_FileEdit')
-        );
-    }
 }
 
 /**

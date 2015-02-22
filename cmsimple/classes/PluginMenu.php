@@ -27,7 +27,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6.2
  */
-class XH_PluginMenu
+abstract class XH_PluginMenu
 {
     /**
      * The script name.

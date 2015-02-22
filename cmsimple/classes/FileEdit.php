@@ -26,10 +26,8 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  * @since    1.6
-
- * @abstract
  */
-class XH_FileEdit
+abstract class XH_FileEdit
 {
     /**
      * Additional POST parameters.
@@ -80,12 +78,8 @@ class XH_FileEdit
      * Returns the form to edit the file contents.
      *
      * @return string  (X)HTML.
-     *
-     * @abstract
      */
-    public function form()
-    {
-    }
+    abstract public function form();
 
     /**
      * Handles the form submission.
@@ -94,23 +88,15 @@ class XH_FileEdit
      * Otherwise writes error message to $e, and returns the edit form.
      *
      * @return mixed  The (X)HTML resp. void.
-     *
-     * @abstract
      */
-    public function submit()
-    {
-    }
+    abstract public function submit();
 
     /**
      * Returns the the file contents as string for saving.
      *
      * @return string
-     *
-     * @abstract
      */
-    protected function asString()
-    {
-    }
+    abstract protected function asString();
 }
 
 
@@ -123,10 +109,8 @@ class XH_FileEdit
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  * @since    1.6
- *
- * @abstract
  */
-class XH_TextFileEdit extends XH_FileEdit
+abstract class XH_TextFileEdit extends XH_FileEdit
 {
     /**
      * The name of the textarea.
@@ -312,10 +296,8 @@ class XH_PluginTextFileEdit extends XH_TextFileEdit
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  * @since    1.6
- *
- * @abstract
  */
-class XH_ArrayFileEdit extends XH_FileEdit
+abstract class XH_ArrayFileEdit extends XH_FileEdit
 {
 
     /**
@@ -752,10 +734,8 @@ class XH_ArrayFileEdit extends XH_FileEdit
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  * @since    1.6
- *
- * @abstract
  */
-class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
+abstract class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
 {
     /**
      * Constructs an instance.
@@ -949,10 +929,8 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  * @since    1.6
- *
- * @abstract
  */
-class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
+abstract class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
 {
     /**
      * The name of the config array variable.
