@@ -16,96 +16,6 @@
  */
 
 /**
- * End of string has been reached.
- *
- * @access private
- */
-define('XH_JSON_EOS', -1);
-
-/**
- * Unknown terminal symbol.
- *
- * @access private
- */
-define('XH_JSON_UNKNOWN', 0);
-
-/**
- * <kbd>NUMBER</kbd>
- *
- * @access private
- */
-define('XH_JSON_NUMBER', 1);
-
-/**
- * <kbd>STRING</kbd>
- *
- * @access private
- */
-define('XH_JSON_STRING', 2);
-
-/**
- * <kbd>LBRACE</kbd>
- *
- * @access private
- */
-define('XH_JSON_LBRACE', 3);
-
-/**
- * <kbd>RBRACE</kbd>
- *
- * @access private
- */
-define('XH_JSON_RBRACE', 4);
-
-/**
- * <kbd>LBRACK</kbd>
- *
- * @access private
- */
-define('XH_JSON_LBRACK', 5);
-
-/**
- * <kbd>RBRACK</kbd>
- *
- * @access private
- */
-define('XH_JSON_RBRACK', 6);
-
-/**
- * <kbd>COMMA</kbd>
- *
- * @access private
- */
-define('XH_JSON_COMMA', 7);
-
-/**
- * <kbd>COLON</kbd>
- * @access private
- */
-define('XH_JSON_COLON', 8);
-
-/**
- * <kdb>TRUE</kbd>
- *
- * @access private
- */
-define('XH_JSON_TRUE', 9);
-
-/**
- * <kbd>FALSE</kbd>
- *
- * @access private
- */
-define('XH_JSON_FALSE', 10);
-
-/**
- * <kbd>NULL</kbd>
- *
- * @access private
- */
-define('XH_JSON_NULL', 11);
-
-/**
  * Handles encoding and decoding of JSON from resp. to native PHP data structures.
  *
  * It is a <i>simplified</i> alternative to <kbd>json_encode()</kbd> and
@@ -120,6 +30,71 @@ define('XH_JSON_NULL', 11);
  */
 class XH_JSON
 {
+    /**
+     * The end of the string has been reached.
+     */
+    const T_EOS = -1;
+
+    /**
+     * An unknown token.
+     */
+    const T_UNKNOWN = 0;
+
+    /**
+     * A number token.
+     */
+    const T_NUMBER = 1;
+
+    /**
+     * A string token.
+     */
+    const T_STRING = 2;
+
+    /**
+     * An opening brace token.
+     */
+    const T_LBRACE = 3;
+
+    /**
+     * A closing brace token.
+     */
+    const T_RBRACE = 4;
+
+    /**
+     * An opening bracket token.
+     */
+    const T_LBRACK = 5;
+
+    /**
+     * A closing bracket token.
+     */
+    const T_RBRACK = 6;
+
+    /**
+     * A comma token.
+     */
+    const T_COMMA = 7;
+
+    /**
+     * A colon token.
+     */
+    const T_COLON = 8;
+
+    /**
+     * A true token.
+     */
+    const T_TRUE = 9;
+
+    /**
+     * A false token.
+     */
+    const T_FALSE = 10;
+
+    /**
+     * A null token.
+     */
+    const T_NULL = 11;
+
     /**
      * The set of "first" tokens.
      *
@@ -163,12 +138,12 @@ class XH_JSON
     public function __construct()
     {
         $this->first = array(
-            'object' => array(XH_JSON_LBRACE),
-            'pair' => array(XH_JSON_STRING),
-            'array' => array(XH_JSON_LBRACK),
+            'object' => array(self::T_LBRACE),
+            'pair' => array(self::T_STRING),
+            'array' => array(self::T_LBRACK),
             'value' => array(
-                XH_JSON_STRING, XH_JSON_NUMBER, XH_JSON_LBRACE, XH_JSON_LBRACK,
-                XH_JSON_TRUE, XH_JSON_FALSE, XH_JSON_NULL
+                self::T_STRING, self::T_NUMBER, self::T_LBRACE, self::T_LBRACK,
+                self::T_TRUE, self::T_FALSE, self::T_NULL
             )
         );
     }
@@ -245,7 +220,7 @@ class XH_JSON
     {
         $this->str = preg_replace('/^\s*/', '', $this->str);
         if (empty($this->str)) {
-            $this->sym = XH_JSON_EOS;
+            $this->sym = self::T_EOS;
             return;
         }
         switch ($this->str{0}) {
@@ -265,7 +240,7 @@ class XH_JSON
             $i = intval($m[0]);
             $this->value = $i == $m[0] ? $i : floatval($m[0]);
             $this->str = substr($this->str, strlen($m[0]));
-            $this->sym = XH_JSON_NUMBER;
+            $this->sym = self::T_NUMBER;
             break;
         case '"':
             $pattern = '/^"((?:[^"\\\\]|[\\\\](?:["\\\\\/bfnrt]|'
@@ -278,58 +253,58 @@ class XH_JSON
             );
             $this->value = stripcslashes($m[1]);
             $this->str = substr($this->str, strlen($m[0]) + 1);
-            $this->sym = XH_JSON_STRING;
+            $this->sym = self::T_STRING;
             break;
         case '{':
             $this->str = substr($this->str, 1);
-            $this->sym = XH_JSON_LBRACE;
+            $this->sym = self::T_LBRACE;
             break;
         case '}':
             $this->str = substr($this->str, 1);
-            $this->sym = XH_JSON_RBRACE;
+            $this->sym = self::T_RBRACE;
             break;
         case '[':
             $this->str = substr($this->str, 1);
-            $this->sym = XH_JSON_LBRACK;
+            $this->sym = self::T_LBRACK;
             break;
         case ']':
             $this->str = substr($this->str, 1);
-            $this->sym = XH_JSON_RBRACK;
+            $this->sym = self::T_RBRACK;
             break;
         case ',':
             $this->str = substr($this->str, 1);
-            $this->sym = XH_JSON_COMMA;
+            $this->sym = self::T_COMMA;
             break;
         case ':':
             $this->str = substr($this->str, 1);
-            $this->sym = XH_JSON_COLON;
+            $this->sym = self::T_COLON;
             break;
         case 't':
             if (strpos($this->str, 'true') === 0) {
                 $this->str = substr($this->str, 4);
-                $this->sym = XH_JSON_TRUE;
+                $this->sym = self::T_TRUE;
             } else {
-                $this->sym = XH_JSON_UNKNOWN;
+                $this->sym = self::T_UNKNOWN;
             }
             break;
         case 'f':
             if (strpos($this->str, 'false') === 0) {
                 $this->str = substr($this->str, 5);
-                $this->sym = XH_JSON_FALSE;
+                $this->sym = self::T_FALSE;
             } else {
-                $this->sym = XH_JSON_UNKNOWN;
+                $this->sym = self::T_UNKNOWN;
             }
             break;
         case 'n':
             if (strpos($this->str, 'null') === 0) {
                 $this->str = substr($this->str, 4);
-                $this->sym = XH_JSON_NULL;
+                $this->sym = self::T_NULL;
             } else {
-                $this->sym = XH_JSON_UNKNOWN;
+                $this->sym = self::T_UNKNOWN;
             }
             break;
         default:
-            $this->sym = XH_JSON_UNKNOWN;
+            $this->sym = self::T_UNKNOWN;
         }
     }
 
@@ -361,18 +336,18 @@ class XH_JSON
      */
     protected function parseObject(&$res)
     {
-        $this->accept(XH_JSON_LBRACE);
+        $this->accept(self::T_LBRACE);
         $res = new stdClass();
         if (in_array($this->sym, $this->first['pair'])) {
             $this->parsePair($key, $val);
             $res->{$key} = $val;
-            while ($this->sym == XH_JSON_COMMA) {
-                $this->accept(XH_JSON_COMMA);
+            while ($this->sym == self::T_COMMA) {
+                $this->accept(self::T_COMMA);
                 $this->parsePair($key, $val);
                 $res->{$key} = $val;
             }
         }
-        $this->accept(XH_JSON_RBRACE);
+        $this->accept(self::T_RBRACE);
     }
 
     /**
@@ -387,9 +362,9 @@ class XH_JSON
      */
     protected function parsePair(&$key, &$val)
     {
-        $this->accept(XH_JSON_STRING);
+        $this->accept(self::T_STRING);
         $key = $this->value;
-        $this->accept(XH_JSON_COLON);
+        $this->accept(self::T_COLON);
         $this->parseValue($val);
     }
 
@@ -404,18 +379,18 @@ class XH_JSON
      */
     protected function parseArray(&$res)
     {
-        $this->accept(XH_JSON_LBRACK);
+        $this->accept(self::T_LBRACK);
         $res = array();
         if (in_array($this->sym, $this->first['value'])) {
             $this->parseValue($res1);
             $res[] = $res1;
-            while ($this->sym == XH_JSON_COMMA) {
-                $this->accept(XH_JSON_COMMA);
+            while ($this->sym == self::T_COMMA) {
+                $this->accept(self::T_COMMA);
                 $this->parseValue($res1);
                 $res[] = $res1;
             }
         }
-        $this->accept(XH_JSON_RBRACK);
+        $this->accept(self::T_RBRACK);
     }
 
     /**
@@ -430,29 +405,29 @@ class XH_JSON
     protected function parseValue(&$res)
     {
         switch ($this->sym) {
-        case XH_JSON_STRING:
+        case self::T_STRING:
             $res = $this->value;
             $this->getSym();
             break;
-        case XH_JSON_NUMBER:
+        case self::T_NUMBER:
             $res = $this->value;
             $this->getSym();
             break;
-        case XH_JSON_LBRACE:
+        case self::T_LBRACE:
             $this->parseObject($res);
             break;
-        case XH_JSON_LBRACK:
+        case self::T_LBRACK:
             $this->parseArray($res);
             break;
-        case XH_JSON_TRUE:
+        case self::T_TRUE:
             $res = true;
             $this->getSym();
             break;
-        case XH_JSON_FALSE:
+        case self::T_FALSE:
             $res = false;
             $this->getSym();
             break;
-        case XH_JSON_NULL:
+        case self::T_NULL:
             $res = null;
             $this->getSym();
             break;
