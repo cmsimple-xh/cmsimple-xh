@@ -3,7 +3,7 @@
 /**
  * Classes for online editing of text and config files.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   XH

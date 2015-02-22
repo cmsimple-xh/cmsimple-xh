@@ -4,7 +4,7 @@
  * Handling of encoding and decoding of JSON from resp. to
  * native PHP data structures. Provides a fallback for PHP < 5.2.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   XH

@@ -6,7 +6,7 @@
  * This script is called directly, to display the editor's file browser
  * in a separate window.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   Filebrowser

@@ -3,7 +3,7 @@
 /**
  * The search function of CMSimple_XH.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   XH

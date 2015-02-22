@@ -6,7 +6,7 @@
  * Stores meta-tags (description, keywords, title and robots) per page.
  * index.php is called by pluginloader and returns (X)HTML META ELEMENTS to template.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   Metatags
