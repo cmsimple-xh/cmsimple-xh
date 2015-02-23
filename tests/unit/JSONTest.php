@@ -15,11 +15,6 @@
  */
 
 /**
- * The file under test.
- */
-require_once './cmsimple/classes/JSON.php';
-
-/**
  * A test case for XH_JSON.
  *
  * @category Testing

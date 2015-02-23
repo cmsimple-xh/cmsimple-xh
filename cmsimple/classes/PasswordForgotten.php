@@ -127,14 +127,13 @@ class XH_PasswordForgotten
      *
      * @return void
      *
-     * @global array  The paths of system files and folders.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      * @global string LI elements to be emitted as error messages.
      */
     protected function submit()
     {
-        global $pth, $cf, $tx, $e;
+        global $cf, $tx, $e;
 
         if ($_POST['xh_email'] == $cf['security']['email']) {
             $to = $cf['security']['email'];
@@ -143,7 +142,6 @@ class XH_PasswordForgotten
                 . '<' . CMSIMPLE_URL . '?&function=forgotten&xh_code='
                 . $this->mac() . '>';
             $headers = 'From: ' . $to;
-            include_once $pth['folder']['classes'] . 'Mailform.php';
             $mailform = new XH_Mailform();
             $ok = $mailform->sendMail($to, $subject, $message, $headers);
             if ($ok) {
@@ -178,7 +176,6 @@ class XH_PasswordForgotten
         $subject = $tx['title']['password_forgotten'];
         $message = $tx['password_forgotten']['email2_text'] . ' ' . $password;
         $headers = 'From: ' . $to;
-        include_once $pth['folder']['classes'] . 'Mailform.php';
         $mailform = new XH_Mailform();
         $sent = $mailform->sendMail($to, $subject, $message, $headers);
         if ($sent) {

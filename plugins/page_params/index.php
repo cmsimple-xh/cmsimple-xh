@@ -118,7 +118,6 @@ function Pageparams_switchTemplate($n)
 {
     global $pth, $cf, $pd_router;
 
-    include_once $pth['folder']['classes'] . 'Pages.php';
     $pages = new XH_Pages();
     while (true) {
         $data = $pd_router->find_page($n);

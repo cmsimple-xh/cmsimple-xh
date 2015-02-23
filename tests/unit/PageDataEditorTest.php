@@ -15,11 +15,6 @@
  */
 
 /**
- * The file under test.
- */
-require_once './cmsimple/classes/PageDataEditor.php';
-
-/**
  * A test case for the page data editor.
  *
  * @category Testing

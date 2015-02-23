@@ -20,11 +20,6 @@
 
 require_once './cmsimple/functions.php';
 
-/**
- * The file under test.
- */
-require_once './cmsimple/classes/CSRFProtection.php';
-
 const CMSIMPLE_ROOT = '/test/';
 
 /**

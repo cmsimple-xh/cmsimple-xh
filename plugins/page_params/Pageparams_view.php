@@ -268,16 +268,14 @@ function Pageparams_templateSelectbox($page)
  *
  * @return string (X)HTML
  *
- * @global array The paths of system files and folders.
  * @global array The localization of the plugins.
  *
  * @since 1.6
  */
 function Pageparams_linkList($default, $disabled)
 {
-    global $pth, $plugin_tx;
+    global $plugin_tx;
 
-    include_once $pth['folder']['classes'] . 'Pages.php';
     $pages = new XH_Pages();
     $disabled = $disabled ? ' disabled="disabled"' : '';
     $onchange = ' onchange="PAGEPARAMS.onLinkListChange(this)"';

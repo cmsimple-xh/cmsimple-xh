@@ -19,13 +19,7 @@ require_once './vendor/autoload.php';
 require_once './cmsimple/functions.php';
 require_once './plugins/utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
-require_once './cmsimple/classes/CSRFProtection.php';
 require_once './cmsimple/classes/PasswordHash.php';
-
-/**
- * The file under test.
- */
-require_once './cmsimple/classes/FileEdit.php';
 
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;

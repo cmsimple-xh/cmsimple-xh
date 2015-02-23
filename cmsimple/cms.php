@@ -268,14 +268,9 @@ $pth['file']['config'] = $pth['folder']['cmsimple'] . 'config.php';
 
 // include general utility functions and classes
 require_once $pth['folder']['cmsimple'] . 'functions.php';
+spl_autoload_register('XH_autoload');
 require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
-require_once $pth['folder']['classes'] . 'Controller.php';
-require_once $pth['folder']['classes'] . 'CSRFProtection.php';
 require_once $pth['folder']['classes'] . 'PasswordHash.php';
-require_once $pth['folder']['classes'] . 'PageDataRouter.php';
-require_once $pth['folder']['classes'] . 'PageDataModel.php';
-require_once $pth['folder']['classes'] . 'PageDataView.php';
-require_once $pth['folder']['classes'] . 'PluginMenu.php';
 require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
 require_once UTF8 . '/utils/validation.php';
@@ -1289,7 +1284,6 @@ if (XH_ADM) {
         break;
     case 'validate':
     case 'do_validate':
-        include_once $pth['folder']['classes'] . 'LinkChecker.php';
         $temp = new XH_LinkChecker();
         $o .= ($f == 'validate') ? $temp->prepare() : $temp->doCheck();
         break;

@@ -2068,7 +2068,6 @@ function XH_backup()
 {
     global $pth;
 
-    include_once $pth['folder']['classes'] . 'Backup.php';
     $languages = XH_secondLanguages();
     $folders = array($pth['folder']['base'] . 'content/');
     foreach ($languages as $language) {
@@ -2391,20 +2390,18 @@ function XH_convertPrintUrls($pageContent)
  *
  * @return mixed
  *
- * @global array  The paths of system files and folders.
  * @global object The JSON codec.
  *
  * @since 1.6
  */
 function XH_decodeJson($string)
 {
-    global $pth, $_XH_json;
+    global $_XH_json;
 
     if (function_exists('json_decode')) {
         return json_decode($string);
     } else {
         if (!isset($_XH_json)) {
-            include_once $pth['folder']['classes'] . 'JSON.php';
             $_XH_json = new XH_JSON();
         }
         return $_XH_json->decode($string);
@@ -2418,20 +2415,18 @@ function XH_decodeJson($string)
  *
  * @return string
  *
- * @global array The paths of system files and folders.
  * @global object The JSON codec.
  *
  * @since 1.6
  */
 function XH_encodeJson($value)
 {
-    global $pth, $_XH_json;
+    global $_XH_json;
 
     if (function_exists('json_encode')) {
         return json_encode($value);
     } else {
         if (!isset($_XH_json)) {
-            include_once $pth['folder']['classes'] . 'JSON.php';
             $_XH_json = new XH_JSON();
         }
         return $_XH_json->encode($value);
@@ -2444,20 +2439,18 @@ function XH_encodeJson($value)
  *
  * @return bool
  *
- * @global array The paths of system files and folders.
  * @global object The JSON codec.
  *
  * @since 1.6
  */
 function XH_lastJsonError()
 {
-    global $pth, $_XH_json;
+    global $_XH_json;
 
     if (function_exists('json_last_error')) {
         return json_last_error();
     } else {
         if (!isset($_XH_json)) {
-            include_once $pth['folder']['classes'] . 'JSON.php';
             $_XH_json = new XH_JSON();
         }
         return $_XH_json->lastError();
@@ -2496,19 +2489,18 @@ function XH_hsc($string)
  * @return string (X)HTML.
  * instead of the subject default in localization.
  *
- * @global array The paths of system files and folders.
+ * @global array The configuration of the core.
  *
  * @since 1.6
  */
 function XH_mailform($subject=null)
 {
-    global $pth, $cf;
+    global $cf;
 
     if ($cf['mailform']['email'] == '') {
         return false;
     }
 
-    include_once $pth['folder']['classes'] . 'Mailform.php';
     $mailform = new XH_Mailform(true, $subject);
     return $mailform->process();
 }
@@ -2863,6 +2855,48 @@ function XH_highlightSearchWords($words, $text)
         $patterns[] = '/' . preg_quote($word, '/') . '(?![^<]*>)/isuU';
     }
     return preg_replace($patterns, '<span class="xh_find">$0</span>', $text);
+}
+
+/**
+ * Autoloads classes named after CMSimple_XH/PEAR coding standards.
+ *
+ * @param string $className A class name.
+ *
+ * @return void
+ *
+ * @global array The paths of system files and folders.
+ */
+function XH_autoload($className)
+{
+    global $pth;
+
+    // set $package, $subpackages and $class
+    $subpackages = explode('_', $className);
+    $packages = array_splice($subpackages, 0, 1);
+    $package = $packages[0];
+    $classes = array_splice($subpackages, -1);
+    $class = $classes[0];
+
+    // construct $filename
+    if ($package == 'XH') {
+        $folder = $pth['folder']['classes'];
+    } else {
+        $folder = $pth['folder']['plugins'] . strtolower($package) . '/classes/';
+    }
+    foreach ($subpackages as $subpackage) {
+        $folder .= strtolower($subpackage) . '/';
+    }
+    $filename = $folder . $class . '.php';
+
+    // possible error handling
+    if (!file_exists($filename)) {
+        // do something, or not
+
+        var_dump($className, $filename);
+    }
+
+    // include the class file
+    include_once $filename;
 }
 
 ?>

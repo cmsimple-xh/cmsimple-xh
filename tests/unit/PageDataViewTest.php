@@ -17,11 +17,6 @@
 require_once './cmsimple/functions.php';
 
 /**
- * The file under test.
- */
-require_once './cmsimple/classes/PageDataView.php';
-
-/**
  * A test case for the page data views.
  *
  * @category Testing

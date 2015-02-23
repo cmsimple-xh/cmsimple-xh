@@ -18,15 +18,7 @@ require_once './vendor/autoload.php';
 require_once './cmsimple/adminfuncs.php';
 require_once './cmsimple/functions.php';
 require_once './cmsimple/tplfuncs.php';
-require_once './cmsimple/classes/CSRFProtection.php';
-require_once './cmsimple/classes/FileEdit.php';
-require_once './cmsimple/classes/Mailform.php';
-require_once './cmsimple/classes/PageDataEditor.php';
-require_once './cmsimple/classes/PageDataRouter.php';
-require_once './cmsimple/classes/PasswordForgotten.php';
 require_once './cmsimple/classes/PasswordHash.php';
-require_once './cmsimple/classes/Search.php';
-require_once './cmsimple/classes/Controller.php';
 
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;

@@ -84,16 +84,14 @@ class XH_Controller
      *
      * @access protected
      *
-     * @global array  The paths of system files and folders.
      * @global string The search string.
      *
      * @todo Declare visibility.
      */
     function makeSearch()
     {
-        global $pth, $search;
+        global $search;
 
-        include_once $pth['folder']['classes'] . 'Search.php';
         return new XH_Search(stsl($search));
     }
 
@@ -130,13 +128,10 @@ class XH_Controller
      *
      * @access protected
      *
-     * @global array The paths of system files and folders.
+     * @todo Declare visibility.
      */
     function makeMailform()
     {
-        global $pth;
-
-        include_once $pth['folder']['classes'] . 'Mailform.php';
         return new XH_Mailform();
     }
 
@@ -186,15 +181,10 @@ class XH_Controller
      *
      * @access protected
      *
-     * @global array The paths of system files and folders.
-     *
      * @todo Declare visibility.
      */
     function makePasswordForgotten()
     {
-        global $pth;
-
-        include_once $pth['folder']['classes'] . 'PasswordForgotten.php';
         return new XH_PasswordForgotten();
     }
 
@@ -550,15 +540,10 @@ class XH_Controller
      *
      * @access protected
      *
-     * @global array The paths of system files and folders.
-     *
      * @todo Declare visibility.
      */
     function makePageDataEditor()
     {
-        global $pth;
-
-        include_once $pth['folder']['classes'] . 'PageDataEditor.php';
         return new XH_PageDataEditor();
     }
 
@@ -644,15 +629,10 @@ class XH_Controller
      *
      * @access protected
      *
-     * @global array The paths of system files and folders.
-     *
      * @todo Declare visibility.
      */
     function makeFileEditor($class)
     {
-        global $pth;
-
-        include_once $pth['folder']['classes'] . 'FileEdit.php';
         return new $class;
     }
 

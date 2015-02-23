@@ -21,8 +21,6 @@ require_once UTF8 . '/ucfirst.php';
 
 require_once './cmsimple/functions.php';
 
-require_once './cmsimple/classes/Backup.php';
-
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;

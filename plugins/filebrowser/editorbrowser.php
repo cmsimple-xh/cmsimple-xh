@@ -21,12 +21,12 @@
 /**
  * The controller class.
  */
-require_once './classes/Filebrowser_Controller.php';
+require_once './classes/Controller.php';
 
 /**
  * The view class.
  */
-require_once './classes/Filebrowser_View.php';
+require_once './classes/View.php';
 
 if (!isset($_SESSION)) {
     session_start();
