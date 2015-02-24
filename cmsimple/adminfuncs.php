@@ -248,7 +248,7 @@ function XH_sysinfo()
 HTML;
 
     $checks = array(
-        'phpversion' => '4.3.10',
+        'phpversion' => '5.3',
         'extensions' => array(
             'pcre',
             array('session', false),
