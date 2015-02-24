@@ -3,7 +3,7 @@
 /**
  * The search function of CMSimple_XH.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   XH
@@ -55,7 +55,7 @@ class XH_Search
      *
      * @access protected
      */
-    var $searchString;
+    protected $searchString;
 
     /**
      * The search words.
@@ -64,16 +64,14 @@ class XH_Search
      *
      * @access protected
      */
-    var $words;
+    protected $words;
 
     /**
      * Constructs an instance.
      *
      * @param string $searchString String The search string.
-     *
-     * @return void
      */
-    function XH_Search($searchString)
+    public function __construct($searchString)
     {
         $this->searchString = $searchString;
     }
@@ -85,7 +83,7 @@ class XH_Search
      *
      * @access protected
      */
-    function getWords()
+    protected function getWords()
     {
         if (!isset($this->words)) {
             $words = explode(' ', $this->searchString);
@@ -111,6 +109,10 @@ class XH_Search
      *
      * @global array The content of the pages.
      * @global array The configuration of the core.
+     *
+     * @access protected
+     *
+     * @todo Declare visibility.
      */
     function search()
     {
@@ -147,10 +149,8 @@ class XH_Search
      * @param string $pageIndex A page index.
      *
      * @return string
-     *
-     * @access protected
      */
-    function prepareContent($content, $pageIndex)
+    protected function prepareContent($content, $pageIndex)
     {
         global $s;
 
@@ -180,7 +180,7 @@ class XH_Search
      *
      * @global array The localization of the core.
      */
-    function foundMessage($count)
+    protected function foundMessage($count)
     {
         global $tx;
 
@@ -210,7 +210,7 @@ class XH_Search
      * @global array  The localization of the core.
      * @global object The page data router.
      */
-    function render()
+    public function render()
     {
         global $h, $u, $sn, $tx, $pd_router;
 

@@ -6,7 +6,7 @@
  * This script is called directly, to display the editor's file browser
  * in a separate window.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   Filebrowser
@@ -21,12 +21,12 @@
 /**
  * The controller class.
  */
-require_once './classes/Filebrowser_Controller.php';
+require_once './classes/Controller.php';
 
 /**
  * The view class.
  */
-require_once './classes/Filebrowser_View.php';
+require_once './classes/View.php';
 
 if (!isset($_SESSION)) {
     session_start();

@@ -3,7 +3,7 @@
 /**
  * Handling of the mailform.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   XH
@@ -33,7 +33,7 @@ class XH_Mailform
      *
      * @var bool
      */
-    var $embedded;
+    protected $embedded;
 
     /**
      * The linebreak characters (either CRLF or LF).
@@ -42,52 +42,42 @@ class XH_Mailform
      *
      * @var bool
      */
-    var $_linebreak;
+    private $_linebreak;
 
     /**
      * The name of the sender.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $sendername;
+    protected $sendername;
 
     /**
      * The phone number of the sender.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $senderphone;
+    protected $senderphone;
 
     /**
      * The email address of the sender.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $sender;
+    protected $sender;
 
     /**
      * The expected CAPTCHA value.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $getlast;
+    protected $getlast;
 
     /**
      * The actual CAPTCHA value.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $cap;
+    protected $cap;
 
     /**
      * The subject of the mail.
@@ -95,6 +85,8 @@ class XH_Mailform
      * @var string
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     var $subject;
 
@@ -102,10 +94,8 @@ class XH_Mailform
      * The message.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $mailform;
+    protected $mailform;
 
     /**
      * Constructs an instance.
@@ -117,12 +107,8 @@ class XH_Mailform
      *
      * @global array   The configuration of the core.
      * @global array   The localization of the core.
-     *
-     * @return void
-     *
-     * @access public
      */
-    function XH_Mailform($embedded = false, $subject=null)
+    public function __construct($embedded = false, $subject=null)
     {
         global $cf, $tx;
         $this->embedded = $embedded;
@@ -168,6 +154,8 @@ class XH_Mailform
      * @global array  The localization of the core.
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     function check()
     {
@@ -197,6 +185,8 @@ class XH_Mailform
      * @global array The localization of the core.
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     function submit()
     {
@@ -226,11 +216,9 @@ class XH_Mailform
      *
      * @staticvar bool Whether any mailform is processed more than once.
      *
-     * @access public
-     *
      * @todo Remove static variable for better testability.
      */
-    function process()
+    public function process()
     {
         global $action, $tx;
         static $again = false;
@@ -266,6 +254,8 @@ class XH_Mailform
      * @global string The current page URL.
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     function render()
     {
@@ -362,6 +352,8 @@ class XH_Mailform
      * @return bool Whether the mail was accepted for delivery.
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     function sendMail($to, $subject = '(No Subject)', $message = '', $header = '')
     {
@@ -391,6 +383,7 @@ class XH_Mailform
      * @access protected
      *
      * @todo Don't we have to fold overlong pure ASCII texts also?
+     * @todo Declare visibility.
      */
     function encodeMIMEFieldBody($text)
     {
@@ -429,6 +422,8 @@ class XH_Mailform
      * @return bool
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     function isValidEmail($address)
     {

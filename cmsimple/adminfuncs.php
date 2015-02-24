@@ -3,7 +3,7 @@
 /**
  * Admin only functions.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   XH
@@ -775,7 +775,6 @@ function print_plugin_admin($main)
  * @global string The requested action.
  * @global string The requested admin-action.
  * @global string The name of the currently loading plugin.
- * @global array  The paths of system files and folders.
  *
  * @return string Returns the created form or the result of saving the data.
  *
@@ -785,9 +784,8 @@ function print_plugin_admin($main)
 function plugin_admin_common($action, $admin, $plugin, $hint=array())
 {
 // @codingStandardsIgnoreEnd
-    global $action, $admin, $plugin, $pth;
+    global $action, $admin, $plugin;
 
-    include_once $pth['folder']['classes'] . 'FileEdit.php';
     switch ($admin) {
     case 'plugin_config':
         $fileEdit = new XH_PluginConfigFileEdit();

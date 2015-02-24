@@ -43,7 +43,7 @@
     </target>
 
     <target name="unit-tests" description="runs all unit tests">
-        <phpunit haltonerror="true" haltonfailure="true">
+        <phpunit bootstrap="tests\autoload.php" haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
                 <fileset dir="tests/unit">
@@ -55,7 +55,7 @@
 
     <target name="validation-tests" description="runs all validation tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
-        <phpunit haltonerror="true" haltonfailure="true">
+        <phpunit bootstrap="tests\autoload.php" haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
                 <fileset dir="tests/validation">
@@ -67,7 +67,7 @@
 
     <target name="attack-tests" description="runs all attack tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
-        <phpunit haltonerror="true" haltonfailure="true">
+        <phpunit bootstrap="tests\autoload.php" haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
                 <fileset dir="tests/attack">
@@ -81,7 +81,7 @@
             description="runs all tests"/>
 
     <target name="coverage" description="generates coverage report">
-        <exec command="phpunit --configuration coverage.xml"
+        <exec command="phpunit --bootstrap tests/autoload.php --configuration coverage.xml"
               passthru="true" logoutput="true"/>
     </target>
 

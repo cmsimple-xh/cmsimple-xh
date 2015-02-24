@@ -7,7 +7,7 @@
  * visibility of the page.
  * index.php is called by pluginloader and manipulates the respective CMSimple-data.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   Pageparams
@@ -118,7 +118,6 @@ function Pageparams_switchTemplate($n)
 {
     global $pth, $cf, $pd_router;
 
-    include_once $pth['folder']['classes'] . 'Pages.php';
     $pages = new XH_Pages();
     while (true) {
         $data = $pd_router->find_page($n);

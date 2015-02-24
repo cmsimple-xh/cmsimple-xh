@@ -4,7 +4,7 @@
  * Handling of encoding and decoding of JSON from resp. to
  * native PHP data structures. Provides a fallback for PHP < 5.2.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   XH
@@ -14,96 +14,6 @@
  * @version   SVN: $Id$
  * @link      http://cmsimple-xh.org/
  */
-
-/**
- * End of string has been reached.
- *
- * @access private
- */
-define('XH_JSON_EOS', -1);
-
-/**
- * Unknown terminal symbol.
- *
- * @access private
- */
-define('XH_JSON_UNKNOWN', 0);
-
-/**
- * <kbd>NUMBER</kbd>
- *
- * @access private
- */
-define('XH_JSON_NUMBER', 1);
-
-/**
- * <kbd>STRING</kbd>
- *
- * @access private
- */
-define('XH_JSON_STRING', 2);
-
-/**
- * <kbd>LBRACE</kbd>
- *
- * @access private
- */
-define('XH_JSON_LBRACE', 3);
-
-/**
- * <kbd>RBRACE</kbd>
- *
- * @access private
- */
-define('XH_JSON_RBRACE', 4);
-
-/**
- * <kbd>LBRACK</kbd>
- *
- * @access private
- */
-define('XH_JSON_LBRACK', 5);
-
-/**
- * <kbd>RBRACK</kbd>
- *
- * @access private
- */
-define('XH_JSON_RBRACK', 6);
-
-/**
- * <kbd>COMMA</kbd>
- *
- * @access private
- */
-define('XH_JSON_COMMA', 7);
-
-/**
- * <kbd>COLON</kbd>
- * @access private
- */
-define('XH_JSON_COLON', 8);
-
-/**
- * <kdb>TRUE</kbd>
- *
- * @access private
- */
-define('XH_JSON_TRUE', 9);
-
-/**
- * <kbd>FALSE</kbd>
- *
- * @access private
- */
-define('XH_JSON_FALSE', 10);
-
-/**
- * <kbd>NULL</kbd>
- *
- * @access private
- */
-define('XH_JSON_NULL', 11);
 
 /**
  * Handles encoding and decoding of JSON from resp. to native PHP data structures.
@@ -121,13 +31,76 @@ define('XH_JSON_NULL', 11);
 class XH_JSON
 {
     /**
+     * The end of the string has been reached.
+     */
+    const T_EOS = -1;
+
+    /**
+     * An unknown token.
+     */
+    const T_UNKNOWN = 0;
+
+    /**
+     * A number token.
+     */
+    const T_NUMBER = 1;
+
+    /**
+     * A string token.
+     */
+    const T_STRING = 2;
+
+    /**
+     * An opening brace token.
+     */
+    const T_LBRACE = 3;
+
+    /**
+     * A closing brace token.
+     */
+    const T_RBRACE = 4;
+
+    /**
+     * An opening bracket token.
+     */
+    const T_LBRACK = 5;
+
+    /**
+     * A closing bracket token.
+     */
+    const T_RBRACK = 6;
+
+    /**
+     * A comma token.
+     */
+    const T_COMMA = 7;
+
+    /**
+     * A colon token.
+     */
+    const T_COLON = 8;
+
+    /**
+     * A true token.
+     */
+    const T_TRUE = 9;
+
+    /**
+     * A false token.
+     */
+    const T_FALSE = 10;
+
+    /**
+     * A null token.
+     */
+    const T_NULL = 11;
+
+    /**
      * The set of "first" tokens.
      *
      * @var array
-     *
-     * @access protected
      */
-    var $first;
+    protected $first;
 
     /**
      * The string to parse.
@@ -135,54 +108,42 @@ class XH_JSON
      * Already parsed parts will be truncated.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $str;
+    protected $str;
 
     /**
      * The current token.
      *
      * @var int
-     *
-     * @access protected
      */
-    var $sym;
+    protected $sym;
 
     /**
      * The current value (for strings and numbers).
      *
      * @var mixed
-     *
-     * @access protected
      */
-    var $value;
+    protected $value;
 
     /**
      * Error flag.
      *
      * @var bool
-     *
-     * @access protected
      */
-    var $error;
+    protected $error;
 
     /**
      * Constructs an instance.
-     *
-     * @return void
-     *
-     * @access public
      */
-    function XH_JSON()
+    public function __construct()
     {
         $this->first = array(
-            'object' => array(XH_JSON_LBRACE),
-            'pair' => array(XH_JSON_STRING),
-            'array' => array(XH_JSON_LBRACK),
+            'object' => array(self::T_LBRACE),
+            'pair' => array(self::T_STRING),
+            'array' => array(self::T_LBRACK),
             'value' => array(
-                XH_JSON_STRING, XH_JSON_NUMBER, XH_JSON_LBRACE, XH_JSON_LBRACK,
-                XH_JSON_TRUE, XH_JSON_FALSE, XH_JSON_NULL
+                self::T_STRING, self::T_NUMBER, self::T_LBRACE, self::T_LBRACK,
+                self::T_TRUE, self::T_FALSE, self::T_NULL
             )
         );
     }
@@ -193,10 +154,8 @@ class XH_JSON
      * @param string $string A string.
      *
      * @return string
-     *
-     * @access protected
      */
-    function quote($string)
+    protected function quote($string)
     {
         $string = addcslashes($string, "\"\\/");
         $string = preg_replace_callback(
@@ -211,10 +170,8 @@ class XH_JSON
      * @param string $matches An array of matches with a single element.
      *
      * @return string
-     *
-     * @access protected
      */
-    function escapeControlChar($matches)
+    protected function escapeControlChar($matches)
     {
         return sprintf('\\u%04X', ord($matches[0]));
     }
@@ -225,10 +182,8 @@ class XH_JSON
      * @param array $matches Matches from the previous preg_match().
      *
      * @return string
-     *
-     * @access protected
      */
-    function unescape($matches)
+    protected function unescape($matches)
     {
         if (isset($matches[3])) {
             $n = hexdec($matches[3]);
@@ -260,14 +215,12 @@ class XH_JSON
      * Scans the next token and sets $this->sym accordingly.
      *
      * @return void
-     *
-     * @access protected
      */
-    function getSym()
+    protected function getSym()
     {
         $this->str = preg_replace('/^\s*/', '', $this->str);
         if (empty($this->str)) {
-            $this->sym = XH_JSON_EOS;
+            $this->sym = self::T_EOS;
             return;
         }
         switch ($this->str{0}) {
@@ -287,7 +240,7 @@ class XH_JSON
             $i = intval($m[0]);
             $this->value = $i == $m[0] ? $i : floatval($m[0]);
             $this->str = substr($this->str, strlen($m[0]));
-            $this->sym = XH_JSON_NUMBER;
+            $this->sym = self::T_NUMBER;
             break;
         case '"':
             $pattern = '/^"((?:[^"\\\\]|[\\\\](?:["\\\\\/bfnrt]|'
@@ -300,58 +253,58 @@ class XH_JSON
             );
             $this->value = stripcslashes($m[1]);
             $this->str = substr($this->str, strlen($m[0]) + 1);
-            $this->sym = XH_JSON_STRING;
+            $this->sym = self::T_STRING;
             break;
         case '{':
             $this->str = substr($this->str, 1);
-            $this->sym = XH_JSON_LBRACE;
+            $this->sym = self::T_LBRACE;
             break;
         case '}':
             $this->str = substr($this->str, 1);
-            $this->sym = XH_JSON_RBRACE;
+            $this->sym = self::T_RBRACE;
             break;
         case '[':
             $this->str = substr($this->str, 1);
-            $this->sym = XH_JSON_LBRACK;
+            $this->sym = self::T_LBRACK;
             break;
         case ']':
             $this->str = substr($this->str, 1);
-            $this->sym = XH_JSON_RBRACK;
+            $this->sym = self::T_RBRACK;
             break;
         case ',':
             $this->str = substr($this->str, 1);
-            $this->sym = XH_JSON_COMMA;
+            $this->sym = self::T_COMMA;
             break;
         case ':':
             $this->str = substr($this->str, 1);
-            $this->sym = XH_JSON_COLON;
+            $this->sym = self::T_COLON;
             break;
         case 't':
             if (strpos($this->str, 'true') === 0) {
                 $this->str = substr($this->str, 4);
-                $this->sym = XH_JSON_TRUE;
+                $this->sym = self::T_TRUE;
             } else {
-                $this->sym = XH_JSON_UNKNOWN;
+                $this->sym = self::T_UNKNOWN;
             }
             break;
         case 'f':
             if (strpos($this->str, 'false') === 0) {
                 $this->str = substr($this->str, 5);
-                $this->sym = XH_JSON_FALSE;
+                $this->sym = self::T_FALSE;
             } else {
-                $this->sym = XH_JSON_UNKNOWN;
+                $this->sym = self::T_UNKNOWN;
             }
             break;
         case 'n':
             if (strpos($this->str, 'null') === 0) {
                 $this->str = substr($this->str, 4);
-                $this->sym = XH_JSON_NULL;
+                $this->sym = self::T_NULL;
             } else {
-                $this->sym = XH_JSON_UNKNOWN;
+                $this->sym = self::T_UNKNOWN;
             }
             break;
         default:
-            $this->sym = XH_JSON_UNKNOWN;
+            $this->sym = self::T_UNKNOWN;
         }
     }
 
@@ -363,10 +316,8 @@ class XH_JSON
      * @param string $terminal A terminal symbol.
      *
      * @return void
-     *
-     * @access protected
      */
-    function accept($terminal)
+    protected function accept($terminal)
     {
         if ($this->sym != $terminal) {
             $this->error = true;
@@ -382,23 +333,21 @@ class XH_JSON
      * @param object $res The parsed object.
      *
      * @return void
-     *
-     * @access protected
      */
-    function parseObject(&$res)
+    protected function parseObject(&$res)
     {
-        $this->accept(XH_JSON_LBRACE);
+        $this->accept(self::T_LBRACE);
         $res = new stdClass();
         if (in_array($this->sym, $this->first['pair'])) {
             $this->parsePair($key, $val);
             $res->{$key} = $val;
-            while ($this->sym == XH_JSON_COMMA) {
-                $this->accept(XH_JSON_COMMA);
+            while ($this->sym == self::T_COMMA) {
+                $this->accept(self::T_COMMA);
                 $this->parsePair($key, $val);
                 $res->{$key} = $val;
             }
         }
-        $this->accept(XH_JSON_RBRACE);
+        $this->accept(self::T_RBRACE);
     }
 
     /**
@@ -410,14 +359,12 @@ class XH_JSON
      * @param mixed  $val The parsed value.
      *
      * @return void
-     *
-     * @access protected
      */
-    function parsePair(&$key, &$val)
+    protected function parsePair(&$key, &$val)
     {
-        $this->accept(XH_JSON_STRING);
+        $this->accept(self::T_STRING);
         $key = $this->value;
-        $this->accept(XH_JSON_COLON);
+        $this->accept(self::T_COLON);
         $this->parseValue($val);
     }
 
@@ -429,23 +376,21 @@ class XH_JSON
      * @param array $res The parsed array.
      *
      * @return void
-     *
-     * @access protected
      */
-    function parseArray(&$res)
+    protected function parseArray(&$res)
     {
-        $this->accept(XH_JSON_LBRACK);
+        $this->accept(self::T_LBRACK);
         $res = array();
         if (in_array($this->sym, $this->first['value'])) {
             $this->parseValue($res1);
             $res[] = $res1;
-            while ($this->sym == XH_JSON_COMMA) {
-                $this->accept(XH_JSON_COMMA);
+            while ($this->sym == self::T_COMMA) {
+                $this->accept(self::T_COMMA);
                 $this->parseValue($res1);
                 $res[] = $res1;
             }
         }
-        $this->accept(XH_JSON_RBRACK);
+        $this->accept(self::T_RBRACK);
     }
 
     /**
@@ -456,35 +401,33 @@ class XH_JSON
      * @param mixed $res The parsed value.
      *
      * @return void
-     *
-     * @access protected
      */
-    function parseValue(&$res)
+    protected function parseValue(&$res)
     {
         switch ($this->sym) {
-        case XH_JSON_STRING:
+        case self::T_STRING:
             $res = $this->value;
             $this->getSym();
             break;
-        case XH_JSON_NUMBER:
+        case self::T_NUMBER:
             $res = $this->value;
             $this->getSym();
             break;
-        case XH_JSON_LBRACE:
+        case self::T_LBRACE:
             $this->parseObject($res);
             break;
-        case XH_JSON_LBRACK:
+        case self::T_LBRACK:
             $this->parseArray($res);
             break;
-        case XH_JSON_TRUE:
+        case self::T_TRUE:
             $res = true;
             $this->getSym();
             break;
-        case XH_JSON_FALSE:
+        case self::T_FALSE:
             $res = false;
             $this->getSym();
             break;
-        case XH_JSON_NULL:
+        case self::T_NULL:
             $res = null;
             $this->getSym();
             break;
@@ -500,10 +443,8 @@ class XH_JSON
      * @param mixed $value A PHP value.
      *
      * @return string
-     *
-     * @access public
      */
-    function encode($value)
+    public function encode($value)
     {
         switch (gettype($value)) {
         case 'boolean':
@@ -553,10 +494,8 @@ class XH_JSON
      * @param string $string A JSON string.
      *
      * @return mixed
-     *
-     * @access public
      */
-    function decode($string)
+    public function decode($string)
     {
         $this->str = $string;
         $this->sym = $this->value = null;
@@ -571,10 +510,8 @@ class XH_JSON
      * during the last {@link XH_JSON::decode()}.
      *
      * @return bool
-     *
-     * @access public
      */
-    function lastError()
+    public function lastError()
     {
         return $this->error;
     }

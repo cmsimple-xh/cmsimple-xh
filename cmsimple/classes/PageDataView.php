@@ -2,7 +2,7 @@
 /**
  * The page data view.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   XH
@@ -31,31 +31,23 @@ class XH_PageDataView
      * The current page data.
      *
      * @var array
-     *
-     * @access protected
      */
-    var $page;
+    protected $page;
 
     /**
      * The page data tabs.
      *
      * @var array
-     *
-     * @access protected
      */
-    var $tabs;
+    protected $tabs;
 
     /**
      * Constructs an instance.
      *
      * @param array $page Data of the page.
      * @param array $tabs The filenames of the views of page data tabs.
-     *
-     * @return void
-     *
-     * @access public
      */
-    function XH_PageDataView($page, $tabs = null)
+    public function __construct($page, $tabs = null)
     {
         $this->page = $page;
         $this->tabs = $tabs;
@@ -70,6 +62,8 @@ class XH_PageDataView
      * @return string (X)HTML.
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     function tab($title, $filename)
     {
@@ -85,7 +79,9 @@ class XH_PageDataView
      *
      * @return string (X)HTML.
      *
-     * @access public
+     * @access protected
+     *
+     * @todo Declare visibility.
      */
     function tabs()
     {
@@ -108,6 +104,8 @@ class XH_PageDataView
      * @global XH_CSRFProtection The CSRF protector.
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     function view($filename)
     {
@@ -145,10 +143,8 @@ class XH_PageDataView
      * Returns the page data views.
      *
      * @return string (X)HTML.
-     *
-     * @access public
      */
-    function views()
+    public function views()
     {
         $o = "\n" . '<div id="xh_pdviews">';
         foreach ($this->tabs as $title => $file) {

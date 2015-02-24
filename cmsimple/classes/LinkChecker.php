@@ -3,7 +3,7 @@
 /**
  * The link checker.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   XH
@@ -47,10 +47,8 @@ class XH_LinkChecker
      * @global array  The paths of system files and folders.
      * @global array  The localization of the core.
      * @global string The value of the onload attribute of the BODY element.
-     *
-     * @access public
      */
-    function prepare()
+    public function prepare()
     {
         global $sn, $pth, $tx, $onload;
 
@@ -70,10 +68,8 @@ class XH_LinkChecker
      * Handles the actual link check request.
      *
      * @return void
-     *
-     * @access public
      */
-    function doCheck()
+    public function doCheck()
     {
         header('Content-Type: text/plain; charset=utf-8');
         echo $this->checkLinks();
@@ -86,6 +82,8 @@ class XH_LinkChecker
      * @return string The (X)HTML.
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     function checkLinks()
     {
@@ -119,6 +117,8 @@ class XH_LinkChecker
      * @global int   The number of pages.
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     function gatherLinks()
     {
@@ -156,6 +156,8 @@ class XH_LinkChecker
      * @return string
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     function linkStatus($link)
     {
@@ -192,10 +194,8 @@ class XH_LinkChecker
      * @global int   The number of pages.
      * @global array The paths of system files and folders.
      * @global array The configuration of the core.
-     *
-     * @access protected
      */
-    function checkInternalLink($test)
+    protected function checkInternalLink($test)
     {
         global $c, $u, $cl, $pth, $cf;
 
@@ -273,10 +273,8 @@ class XH_LinkChecker
      * @param array $parts URL parts.
      *
      * @return string
-     *
-     * @access protected
      */
-    function checkExternalLink($parts)
+    protected function checkExternalLink($parts)
     {
         set_time_limit(30);
         $host = $parts['host'];
@@ -305,6 +303,8 @@ class XH_LinkChecker
      * @return (X)HTML.
      *
      * @access protected
+     *
+     * @todo Declare visiblity.
      */
     function reportError($error)
     {
@@ -346,6 +346,8 @@ class XH_LinkChecker
      * @return (X)HTML.
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     function reportNotice($notice)
     {
@@ -388,6 +390,8 @@ class XH_LinkChecker
      * @global array The page URLs.
      *
      * @access protected
+     *
+     * @todo Declare visibility.
      */
     function message($checkedLinks, $hints)
     {

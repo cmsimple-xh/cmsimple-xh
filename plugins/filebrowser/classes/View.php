@@ -3,7 +3,7 @@
 /**
  * The file browser view class.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   Filebrowser
@@ -31,141 +31,111 @@ class Filebrowser_View
      * (X)HTML fragments to insert in the templates.
      *
      * @var array
-     *
-     * @access public
      */
-    var $partials = array();
+    public $partials = array();
 
     /**
      * Relative path of the filebrowser folder.
      *
      * @var string
-     *
-     * @access public
      */
-    var $browserPath = '';
+    public $browserPath = '';
 
     /**
      * Relative path of the CMSimple installation folder.
      *
      * @var string
-     *
-     * @access public
      */
-    var $basePath;
+    public $basePath;
 
     /**
      * Relative path of the userfiles folder.
      *
      * @var string
-     *
-     * @access public
      */
-    var $baseDirectory;
+    public $baseDirectory;
 
     /**
      * The type of the files to browse ("images", "downloads", "media" or
      * "userfiles").
      *
      * @var string
-     *
-     * @access public
      */
-    var $baseLink;
+    public $baseLink;
 
     /**
      * The path of the current folder relative to the type's main folder.
      *
      * @var string
-     *
-     * @access public
      */
-    var $currentDirectory;
+    public $currentDirectory;
 
     /**
      * The (partial) query string.
      *
      * @var string
-     *
-     * @access public
      */
-    var $linkParams;
+    public $linkParams;
 
     /**
      * ???
      *
      * @var string
      *
-     * @access public
-     *
      * @todo Document description.
      */
-    var $linkPrefix;
+    public $linkPrefix;
 
     /**
      * An array of folders?
      *
      * @var array
-     *
-     * @access public
      */
-    var $folders;
+    public $folders;
 
     /**
      * An array of subfolders?
      *
      * @var array
-     *
-     * @access public
      */
-    var $subfolders;
+    public $subfolders;
 
     /**
      * An array of files?
      *
      * @var array
-     *
-     * @access public
      */
-    var $files;
+    public $files;
 
     /**
      * The (X)HTML content of the message area.
      *
      * @var string
-     *
-     * @access protected
      */
-    var $message = '';
+    public $message = '';
 
     /**
      * The localization of the file browser.
      *
      * @var array
-     *
-     * @access protected
      */
-    var $lang = array();
+    protected $lang = array();
 
     /**
      * The CSRF token.
      *
      * @var string
      *
-     * @access protected
+     * @todo Unused?
      */
-    var $csrfToken;
+    protected $csrfToken;
 
     /**
      * Initializes a newly created instance.
      *
-     * @return void
-     *
      * @global array  The localization of the plugins.
-     *
-     * @access public
      */
-    function Filebrowser_View()
+    public function __construct()
     {
         global $plugin_tx;
 
@@ -181,11 +151,9 @@ class Filebrowser_View
      *
      * @global array The localization of the core.
      *
-     * @access protected
-     *
      * @todo Internationalize "Userfiles".
      */
-    function folderList($folders)
+    protected function folderList($folders)
     {
         global $tx;
 
@@ -216,11 +184,9 @@ class Filebrowser_View
      *
      * @return string
      *
-     * @access public
-     *
      * @todo What is this method for?
      */
-    function folderLink($folder, $folders)
+    public function folderLink($folder, $folders)
     {
         // TODO: Do we need PHP_SELF here; might allow for XSS.
         $link = str_replace('index.php', '', $_SERVER['PHP_SELF']);
@@ -256,10 +222,8 @@ class Filebrowser_View
      *
      * @global object The CRSF protection object.
      * @global string The script name.
-     *
-     * @access protected
      */
-    function subfolderList($folders)
+    protected function subfolderList($folders)
     {
         global $_XH_csrfProtection, $sn;
 
@@ -304,10 +268,8 @@ class Filebrowser_View
      * @return string
      *
      * @global string The script name.
-     *
-     * @access protected
      */
-    function subfolderListForEditor($folders)
+    protected function subfolderListForEditor($folders)
     {
         global $sn;
 
@@ -349,10 +311,8 @@ class Filebrowser_View
      * @param string $filename A file name.
      *
      * @return bool
-     *
-     * @access protected
      */
-    function isImageFile($filename)
+    protected function isImageFile($filename)
     {
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         $exts = array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'tiff', 'ico');
@@ -369,10 +329,8 @@ class Filebrowser_View
      * @global string The script name.
      * @global array  The localization of the core.
      * @global object The CRSF protection object.
-     *
-     * @access protected
      */
-    function fileList($files)
+    protected function fileList($files)
     {
         global $sn, $tx, $_XH_csrfProtection;
 
@@ -474,10 +432,8 @@ class Filebrowser_View
      * @param array $files An array of files.
      *
      * @return string
-     *
-     * @access protected
      */
-    function fileListForEditor($files)
+    protected function fileListForEditor($files)
     {
         if (empty($files)) {
             return '';
@@ -529,10 +485,8 @@ HTM;
      * Returns a CSRF token and stores it in the session.
      *
      * @return string
-     *
-     * @access protected
      */
-    function getCSRFToken()
+    public function getCSRFToken()
     {
         if (!isset($this->token)) {
             $this->token = md5(uniqid(rand()));
@@ -546,10 +500,8 @@ HTM;
      * Exits the script with 403, if that failed.
      *
      * @return void
-     *
-     * @access public
      */
-    function checkCSRFToken()
+    public function checkCSRFToken()
     {
         $key = 'filebrowser_csrf_token';
         $submittedToken = isset($_POST[$key]) ? $_POST[$key] : '';
@@ -568,10 +520,8 @@ HTM;
      * @param string $template A template file name.
      *
      * @return string (X)HTML.
-     *
-     * @access public
      */
-    function loadTemplate($template)
+    public function loadTemplate($template)
     {
         if (file_exists($template)) {
             ob_start();
@@ -605,10 +555,8 @@ HTM;
      * @param array  $args    Arguments.
      *
      * @return void
-     *
-     * @access public
      */
-    function error($message ='', $args = null)
+    public function error($message ='', $args = null)
     {
         $this->message .= '<p class="xh_fail">'
             . $this->translate($message, $args) . '</p>';
@@ -621,10 +569,8 @@ HTM;
      * @param array  $args    The arguments.
      *
      * @return void
-     *
-     * @access public
      */
-    function success($message, $args = null)
+    public function success($message, $args = null)
     {
         $this->message .= '<p class="xh_success">'
             . $this->translate($message, $args) . '</p>';
@@ -637,10 +583,8 @@ HTM;
      * @param array  $args    The arguments.
      *
      * @return void
-     *
-     * @access public
      */
-    function info($message, $args = null)
+    public function info($message, $args = null)
     {
         $this->message .= '<p class="xh_info">'
             . $this->translate($message, $args) . '</p>';
@@ -652,10 +596,8 @@ HTM;
      * @param string $message A message.
      *
      * @return void
-     *
-     * @access public
      */
-    function message($message)
+    public function message($message)
     {
         $this->message .= '<p style="width: auto;">' . $message . '</p>';
     }
@@ -667,10 +609,8 @@ HTM;
      * @param mixed  $args   A single argument or an array of arguments.
      *
      * @return string
-     *
-     * @access public
      */
-    function translate($string = '', $args = null)
+    public function translate($string = '', $args = null)
     {
         if (strlen($string) === 0) {
             return '';
@@ -705,7 +645,7 @@ HTM;
      * @todo Don't use literal string in event handler attribute, but rather a
      *       property of the FILEBROWSER object.
      */
-    function escapeForEventHandlerAttribute($string)
+    public function escapeForEventHandlerAttribute($string)
     {
         // HACK: we can't use XH_hsc() because that is not defined for the
         // editorbrowser. htmlspecialchars() might fail under PHP 4.

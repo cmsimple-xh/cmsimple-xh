@@ -15,12 +15,6 @@
  */
 
 require_once './cmsimple/functions.php';
-require_once './cmsimple/classes/PageDataModel.php';
-
-/**
- * The file under test.
- */
-require_once './cmsimple/classes/PageDataRouter.php';
 
 /**
  * A test case for the page data router.

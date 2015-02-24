@@ -3,7 +3,7 @@
 /**
  * Handling of the content backups.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   XH
@@ -34,39 +34,37 @@ class XH_Backup
      *
      * @var array
      */
-    var $_contentFolders;
+    private $_contentFolders;
 
     /**
      * The path of the content folder.
      *
      * @var string
      */
-    var $_contentFolder;
+    private $_contentFolder;
 
     /**
      * The path of the content file.
      *
      * @var string
      */
-    var $_contentFile;
+    private $_contentFile;
 
     /**
      * The maximum number of backups to keep.
      *
      * @var int
      */
-    var $_maxBackups;
+    private $_maxBackups;
 
     /**
      * Initializes a new instance.
      *
      * @param array $contentFolders An array of foldernames.
      *
-     * @return void
-     *
      * @global array The configuration of the core.
      */
-    function XH_Backup($contentFolders)
+    public function __construct($contentFolders)
     {
         global $cf;
 
@@ -79,7 +77,7 @@ class XH_Backup
      *
      * @return string (X)HTML.
      */
-    function execute()
+    public function execute()
     {
         $result = '';
         foreach ($this->_contentFolders as $folder) {
@@ -95,7 +93,7 @@ class XH_Backup
      *
      * @return string (X)HTML.
      */
-    function backupSingleFolder($folder)
+    public function backupSingleFolder($folder)
     {
         $result = '';
         $this->_contentFolder = $folder;
@@ -120,7 +118,7 @@ class XH_Backup
      *
      * @return array
      */
-    function _findBackups()
+    private function _findBackups()
     {
         $result = array();
         if ($dir = opendir($this->_contentFolder)) {
@@ -140,7 +138,7 @@ class XH_Backup
      *
      * @return bool
      */
-    function _needsBackup()
+    private function _needsBackup()
     {
         if ($this->_maxBackups <= 0) {
             return false;
@@ -160,7 +158,7 @@ class XH_Backup
      *
      * @return string
      */
-    function _latestBackup()
+    private function _latestBackup()
     {
         $backups = $this->_findBackups();
         if (!empty($backups)) {
@@ -177,7 +175,7 @@ class XH_Backup
      *
      * @return bool
      */
-    function _backupFile($basename)
+    private function _backupFile($basename)
     {
         return copy($this->_contentFile, $this->_contentFolder . $basename);
     }
@@ -187,7 +185,7 @@ class XH_Backup
      *
      * @return array A map of filenames => deletion success.
      */
-    function _deleteSurplusBackups()
+    private function _deleteSurplusBackups()
     {
         $result = array();
         $basenames = $this->_findBackups();
@@ -208,7 +206,7 @@ class XH_Backup
      *
      * @global array The localization of the core.
      */
-    function _renderCreationInfo($filename)
+    private function _renderCreationInfo($filename)
     {
         global $tx;
 
@@ -227,7 +225,7 @@ class XH_Backup
      *
      * @return string (X)HTML.
      */
-    function _renderDeletionResults($deletions)
+    private function _renderDeletionResults($deletions)
     {
         $results = '';
         foreach ($deletions as $filename => $deleted) {
@@ -249,7 +247,7 @@ class XH_Backup
      *
      * @global array The localization of the core.
      */
-    function _renderDeletionInfo($filename)
+    private function _renderDeletionInfo($filename)
     {
         global $tx;
 

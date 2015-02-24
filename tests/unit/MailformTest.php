@@ -19,11 +19,6 @@ require_once './vendor/autoload.php';
 require_once './cmsimple/functions.php';
 
 /**
- * The file under test.
- */
-require_once './cmsimple/classes/Mailform.php';
-
-/**
  * A test case for the mailform.
  *
  * @category Testing

@@ -6,7 +6,7 @@
  * Creates the menu for the user to change meta-tags
  * (description, keywords, title and robots) per page.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   Metatags

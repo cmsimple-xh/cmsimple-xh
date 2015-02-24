@@ -3,7 +3,7 @@
 /**
  * Handling of password forgotten functionality.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   XH
@@ -31,14 +31,14 @@ class XH_PasswordForgotten
      *
      * @var string
      */
-    var $status = '';
+    protected $status = '';
 
     /**
      * Dispatches according to the request.
      *
      * @return void
      */
-    function dispatch()
+    public function dispatch()
     {
         if (isset($_POST['xh_email'])) {
             $this->submit();
@@ -59,7 +59,7 @@ class XH_PasswordForgotten
      * @global array  The localization of the core.
      * @global string JS for the onload attribute of the BODY element.
      */
-    function render()
+    protected function render()
     {
         global $title, $o, $sn, $tx, $onload;
 
@@ -92,6 +92,8 @@ class XH_PasswordForgotten
      * @return string
      *
      * @global array The configuration of the core.
+     *
+     * @todo Declare visibility.
      */
     function mac($previous = false)
     {
@@ -111,6 +113,8 @@ class XH_PasswordForgotten
      * @param string $mac A MAC.
      *
      * @return bool
+     *
+     * @todo Declare visibility.
      */
     function checkMac($mac)
     {
@@ -123,14 +127,13 @@ class XH_PasswordForgotten
      *
      * @return void
      *
-     * @global array  The paths of system files and folders.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      * @global string LI elements to be emitted as error messages.
      */
-    function submit()
+    protected function submit()
     {
-        global $pth, $cf, $tx, $e;
+        global $cf, $tx, $e;
 
         if ($_POST['xh_email'] == $cf['security']['email']) {
             $to = $cf['security']['email'];
@@ -139,7 +142,6 @@ class XH_PasswordForgotten
                 . '<' . CMSIMPLE_URL . '?&function=forgotten&xh_code='
                 . $this->mac() . '>';
             $headers = 'From: ' . $to;
-            include_once $pth['folder']['classes'] . 'Mailform.php';
             $mailform = new XH_Mailform();
             $ok = $mailform->sendMail($to, $subject, $message, $headers);
             if ($ok) {
@@ -164,7 +166,7 @@ class XH_PasswordForgotten
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      */
-    function reset()
+    protected function reset()
     {
         global $xh_hasher, $pth, $cf, $tx;
 
@@ -174,7 +176,6 @@ class XH_PasswordForgotten
         $subject = $tx['title']['password_forgotten'];
         $message = $tx['password_forgotten']['email2_text'] . ' ' . $password;
         $headers = 'From: ' . $to;
-        include_once $pth['folder']['classes'] . 'Mailform.php';
         $mailform = new XH_Mailform();
         $sent = $mailform->sendMail($to, $subject, $message, $headers);
         if ($sent) {
@@ -197,7 +198,7 @@ class XH_PasswordForgotten
      *
      * @global array The paths of system files and folders.
      */
-    function saveNewPassword($hash)
+    protected function saveNewPassword($hash)
     {
         global $pth;
 

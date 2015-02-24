@@ -6,7 +6,7 @@
  * Admin-interface for configuring the plugin
  * via the standard-functions of pluginloader.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   Pageparams

@@ -15,11 +15,6 @@
  */
 
 /**
- * The file under test.
- */
-require_once './cmsimple/classes/PasswordForgotten.php';
-
-/**
  * A test case for the password forgotten class.
  *
  * @category Testing

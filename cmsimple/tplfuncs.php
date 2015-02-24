@@ -3,7 +3,7 @@
 /**
  * Template functions.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   XH
@@ -217,14 +217,9 @@ function toc($start = null, $end = null, $li = 'li')
  * @param mixed $st The menu level to start with or the type of menu.
  *
  * @return string The (X)HTML.
- *
- * @global array The paths of system files and folders.
  */
 function li($ta, $st)
 {
-    global $pth;
-
-    include_once $pth['folder']['classes'] . 'Menu.php';
     $li = new XH_Li();
     return $li->render($ta, $st);
 }
@@ -240,7 +235,6 @@ function li($ta, $st)
  *
  * @return void
  *
- * @global array The paths of system files and folders.
  * @global int   The number of pages.
  * @global int   The current page index.
  * @global array The configuration of the core.
@@ -252,9 +246,8 @@ function li($ta, $st)
  */
 function XH_buildHc()
 {
-    global $pth, $cl, $s, $cf, $si, $hc, $hl;
+    global $cl, $s, $cf, $si, $hc, $hl;
 
-    include_once $pth['folder']['classes'] . 'Pages.php';
     $pages = new XH_Pages();
     $si = -1;
     $hc = array();

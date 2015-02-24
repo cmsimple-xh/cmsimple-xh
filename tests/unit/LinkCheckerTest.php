@@ -17,11 +17,6 @@
 require_once './cmsimple/functions.php';
 
 /**
- * The file under test.
- */
-require_once './cmsimple/classes/LinkChecker.php';
-
-/**
  * A test stub to avoid actual checking of external links.
  *
  * @todo Refactor out external request from XH_LinkChecker::checkExternalLink().
