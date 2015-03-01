@@ -19,13 +19,9 @@ spl_autoload_register(function ($className) {
     }
     $filename = $folder . $class . '.php';
 
-    // error handling
-    if (!file_exists($filename)) {
-        var_dump($className, $filename);
+    if (file_exists($filename)) {
+        include_once $filename;
     }
-
-    // include the class file
-    include_once $filename;
 });
 
 ?>
