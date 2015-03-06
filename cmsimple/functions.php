@@ -2664,13 +2664,15 @@ function XH_renameFile($oldname, $newname)
  *
  * Simple wrapper for exit for testing purposes.
  *
+ * @param mixed $status A status message or code.
+ *
  * @return void
  *
  * @since 1.6.2
  */
-function XH_exit()
+function XH_exit($status = 0)
 {
-    exit;
+    exit($status);
 }
 
 /**
