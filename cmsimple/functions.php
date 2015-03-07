@@ -1642,6 +1642,8 @@ function preCallPlugins($pageIndex = -1)
  * @since 1.6
  *
  * @todo Might be optimized to set $admPlugins only when necessary.
+ * @todo with PHP 5.4.0 replace array_values()
+ *       by sort($plugins, SORT_NATURAL | SORT_FLAG_CASE)
  */
 function XH_plugins($admin = false)
 {
@@ -1670,7 +1672,9 @@ function XH_plugins($admin = false)
             closedir($dh);
         }
         natcasesort($plugins);
+        $plugins = array_values($plugins);
         natcasesort($admPlugins);
+        $admPlugins = array_values($admPlugins);
     }
     return $admin ? $admPlugins : $plugins;
 }
