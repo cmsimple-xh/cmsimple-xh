@@ -1368,6 +1368,7 @@ $_XH_controller->verifyAdm();
 
 ob_start('XH_finalCleanUp');
 
+$i = false;
 $temp = fopen($pth['file']['template'], 'r');
 if ($temp) {
     if (XH_lockFile($temp, LOCK_SH)) {
