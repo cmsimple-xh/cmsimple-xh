@@ -1,15 +1,15 @@
 <?php
 
 /*
- * @version $Id: index.php 250 2014-10-16 17:05:00Z hi $
+ * @version $Id: index.php 257 2015-03-12 20:05:31Z hi $
  *
  */
 
 /**
  * jQuery for CMSimple
  *
- * Version:    1.5.4
- * Build:      2014123101
+ * Version:    1.6
+ * Build:      2015031201
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -22,6 +22,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 if ($plugin_cf['jquery']['autoload'] == '1' || $plugin_cf['jquery']['autoload'] == 'true') {
     include_once($pth['folder']['plugins'] . 'jquery/jquery.inc.php');
     include_jQuery();
-    include_jQueryUI();
+    if ($plugin_cf['jquery']['autoload_libraries'] == 'jQuery & jQueryUI') {
+        include_jQueryUI();
+    }
 }
-?>

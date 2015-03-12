@@ -1,0 +1,241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>jQuery für CMSimple :: Hilfe</title>
+
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <style>
+html, body {
+margin: 0;
+padding: 0;
+}
+body {
+font-family: verdana, arial, sans-serif;
+background-color: #e2e2e2;
+text-align: center;
+font-size: 0.9em;
+line-height: 1.3;
+}
+.additional{
+font-size: 90%;
+color: #666;
+line-height: 1.1;
+}
+p.code {font-family: Courier New; border: 1px solid #999; background: #eed; padding: 8px 12px;}
+  </style>
+  <script type="text/javascript" src="sh/scripts/shCore.js"></script>
+  <script type="text/javascript" src="sh/scripts/shBrushPhp.js"></script>
+  <link type="text/css" rel="stylesheet" href="sh/styles/shCore.css">
+
+  <link type="text/css" rel="stylesheet" href="sh/styles/shThemeDefault.css">
+
+  <script type="text/javascript">
+SyntaxHighlighter.config.clipboardSwf = 'sh/scripts/clipboard.swf';
+SyntaxHighlighter.all();
+  </script>
+</head>
+
+
+<body>
+
+<div style="border: 1px solid rgb(187, 187, 187); margin: 0px auto auto; padding: 0pt 3em; text-align: left; width: 780px; background-color: rgb(255, 255, 255);">
+<a target="_blank" href="http://jquery.com/"><img style="border: 0px solid ; width: 420px; height: 104px; float: right;" alt="" src="jQuery_logo_color_onwhite.png" vspace="20"></a><a target="_blank" href="http://jqueryui.com/"><img style="border: 0px solid ; width: 448px; height: 108px; float: right;" alt="" src="jQuery__UI_logo_color_onwhite.png" vspace="10"></a>
+<h1><a class="mozTocH1" name="mozTocId902206"></a>jQuery
+für CMSimple<br>
+
+</h1>
+
+<p>Ein kleines CMSimple-System-Plugin, das jQuery und jQueryUI
+einer CMSimple Installation beifügt und die Bibliotheken anderen
+CMSimple-Plugins zur Verfügung stellt. </p>
+
+<p class="additional">Version 1.4 - 2013-03-30<br>
+
+<span class="additional">
+&copy; 2011-2013 Holger Irmler, </span><a class="additional" target="_blank" href="http://cmsimple.holgerirmler.de">http://CMSimple.HolgerIrmler.de</a><span class="additional">.<br>
+
+</span></p>
+
+<br>
+
+<br>
+
+<ol id="mozToc">
+
+<!--mozToc h2 1 h3 2 h4 3--><li><a href="#mozTocId43365">Installation</a></li>
+
+  <li><a href="./help.htm#mozTocId153175">Für Entwickler (englisch)</a>
+  </li>
+
+  <li><a href="./help.htm#mozTocId602111">Für Designer (englisch)</a></li>
+
+  <li><a href="#mozTocId830415">Fortgeschrittene Verwendung</a></li>
+
+  <li><a href="#mozTocId160751">Lizenzen</a></li>
+
+  <li><a href="#mozTocId753693">Sie brauchen Hilfe?</a></li>
+
+</ol>
+
+<br>
+
+<h2><a class="mozTocH2" name="mozTocId43365"></a>Installation</h2>
+
+<ol>
+
+  <li> <b>Legen Sie immer eine Sicherungskopie Ihrer Installation an</b>
+bevor Sie ein neues Plugin hinzufügen. </li>
+
+  <li>Entpacken Sie das Archiv und laden Sie die Dateien und Ordner in
+Ihren
+Plugins-Ordner. <span class="additional">
+    <p>Es sollte so aussehen: </p>
+
+    <ul>
+
+      <li>[Root]
+        <ul>
+
+          <li>[2lang]</li>
+
+          <li>[cmsimple]</li>
+
+          <li>...</li>
+
+          <li>[plugins]
+            <ul>
+
+              <li>...</li>
+
+              <li>[pluginloader]</li>
+
+              <li><b>[jquery]</b>
+                <ul>
+
+                  <li><b>[config]</b></li>
+
+                  <li><span class="additional"><b>[lib]</b></span></li>
+
+                  <li>admin.php</li>
+
+                  <li>index.php</li>
+
+                  <li>jquery.inc.php</li>
+
+                </ul>
+
+              </li>
+
+              <li>index.php</li>
+
+            </ul>
+
+          </li>
+
+          <li>[...]</li>
+
+          <li>index.php</li>
+
+        </ul>
+
+      </li>
+
+    </ul>
+
+    </span> </li>
+
+  <p>Die Datei plugins/jquery/config/config.php muss
+beschreibbar sein.</p>
+
+  <li><span style="font-weight: bold;">Fertig! </span><br>
+
+Es ist nicht erforderlich irgendetwas irgendwo zu aktivieren, da das
+Plugin normalerweise nur<br>
+
+von anderen Plugins oder sich selbst verwendet und aktiviert wird.
+Wenn also Ihre beabsichtigte Verwendung nur darin besteht,
+dass Sie ein anderes Plugin nutzen möchten, dass
+jQuery für CMSimple benötigt,
+brauchen Sie den Rest dieses Dokuments nicht zu lesen</li>
+
+</ol>
+
+<div style="text-align: right;"><a href="#mozToc">zurück zum Inhaltsverzeichnis</a><br>
+
+</div>
+
+<h2><a class="mozTocH2" name="mozTocId830415"></a><a name="Advanced_Usage"></a>Fortgeschrittene Verwendung</h2>
+
+Wenn Sie mit jQuery / jQuery UI vertraut sind und diese auch ohne
+andere CMSimple-Plugins verwenden wollen, können Sie jQuery und jQuery UI automatisch
+in Ihrem Seiten -&nbsp;&lt;head&gt; einbinden, ohne die Installation eines
+anderen Plugins
+oder Änderungen an Ihrem Template. Setzen Sie einfach die Konfigurationsoption "<span style="font-weight: bold;">autoload</span>" auf "<span style="font-weight: bold;">1</span>" und die Bibliotheken
+sind verfügbar.<br>
+
+<br>
+
+<div style="text-align: right;"><a href="#mozToc">zurück zum Inhaltsverzeichnis</a><br>
+
+</div>
+
+<ol>
+
+</ol>
+
+<h2><a class="mozTocH2" name="mozTocId160751"></a>Lizenzen</h2>
+
+<ul>
+
+  <li><span style="font-weight: bold;">jQuery:</span><br>
+
+Copyright 2011, John Resig<br>
+
+dual licensed under the MIT or GPL Version 2 licenses<br>
+
+see http://jquery.org/license</li>
+
+  <li><span style="font-weight: bold;">jQueryUI:</span><br>
+
+Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)<br>
+
+dual licensed under the MIT or GPL Version 2 licenses<br>
+
+see http://jquery.org/license
+&amp;&nbsp;http://docs.jquery.com/UI<br>
+
+  </li>
+
+  <li><span style="font-weight: bold;">jQuery für
+CMSimple:</span><br>
+
+Copyright 2011, Holger Irmler<br>
+
+lizensiert unter der GPL Version 2 oder einer späteren Version Ihrer Wahl</li>
+
+</ul>
+
+<div style="text-align: right;"><a href="#mozToc">zurück zum Inhaltsverzeichnis</a>
+</div>
+
+<ol>
+
+</ol>
+
+<h2><a class="mozTocH2" name="mozTocId753693"></a>Sie brauchen
+Hilfe?</h2>
+
+<p>... besuchen Sie <a target="_blank" href="http://www.cmsimpleforum.com">cmsimpleforum.com</a>.</p>
+
+<span style="font-weight: bold;">
+<br>
+
+</span>
+<pre style="font-weight: bold; line-height: 1.2em; font-size: 90%; color: rgb(102, 102, 102);"> THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED <br> IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND,<br> EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS<br> FOR A PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD<br> THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.<br> </pre>
+
+</div>
+
+</body>
+</html>
