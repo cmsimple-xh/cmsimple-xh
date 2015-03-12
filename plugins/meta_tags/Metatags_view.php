@@ -40,9 +40,6 @@ function Metatags_view($page)
 {
     global $sn, $su, $plugin_tx, $pth, $onload, $bjs;
 
-    $func = create_function('&$data', '$data=str_replace("\"", "&quot;", $data);');
-    array_walk($page, $func);
-
     $lang = $plugin_tx['meta_tags'];
 
     $my_fields = array('title', 'description', 'keywords', 'robots');
