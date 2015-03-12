@@ -1,12 +1,20 @@
 ------------------------------------------------------------------------------------------------------------------
 
+ Version 1.6 2015-03-12
+
+ Added Option to auto-load jQuery without jQueryUI
+ jQuery UI version 1.10.4 removed
+ jQuery UI version 1.11.4 added
+ Added German help written by cmb
+
+------------------------------------------------------------------------------------------------------------------
+
  Version 1.5.4 2014-12-31
 
  jQuery 1.9.1 removed
  jQuery 1.11.2 added
  jQuery UI version 1.11.2 added
  jQuery UI version 1.10.3 removed
-
 
 ------------------------------------------------------------------------------------------------------------------
 

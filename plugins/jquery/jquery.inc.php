@@ -1,7 +1,7 @@
 <?php
 
 /*
- * @version $Id: jquery.inc.php 250 2014-10-16 17:05:00Z hi $
+ * @version $Id: jquery.inc.php 257 2015-03-12 20:05:31Z hi $
  *
  */
 
@@ -12,8 +12,8 @@
  * to enable jQuery, jQueryUI 
  * and other jQuery-based plugins
  *
- * Version:    1.5.4
- * Build:      2014123101
+ * Version:    1.6
+ * Build:      2015031201
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -110,5 +110,3 @@ function include_jQueryPlugin($name = '', $path = '') {
         }
     }
 }
-
-?>
