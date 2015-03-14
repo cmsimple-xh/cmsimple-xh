@@ -26,16 +26,6 @@ use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
 /**
- * A helper to test multiple evaluation of a function with side effects.
- */
-function counter()
-{
-    static $count = 0;
-
-    return ++$count;
-}
-
-/**
  * A test case for the functions in functions.php.
  *
  * @category Testing
@@ -49,12 +39,11 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        global $var, $cf, $tx;
+        global $cf, $tx;
 
         include './cmsimple/config.php';
         include './cmsimple/languages/en.php';
         $_SERVER['SERVER_NAME'] = 'example.com';
-        $var = 'baz';
     }
 
     /**
@@ -63,102 +52,6 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     public function testAutogalleryIsDeprecated()
     {
         autogallery('');
-    }
-
-    /**
-     * @todo add more tests
-     */
-    public function dataForTestEvaluateCmsimpleScripting()
-    {
-        return array(
-            array('foo bar', true, 'foo bar'),
-            array('foo #CMSimple $output .= \'baz\';# bar', true, 'foo  barbaz'),
-            array('foo #CMSimple $output .= $var;# bar', true, 'foo  barbaz'),
-            array('foo #CMSimple hide# bar', true, 'foo #CMSimple hide# bar')
-        );
-    }
-
-    /**
-     * @dataProvider dataForTestEvaluateCmsimpleScripting
-     */
-    public function testEvaluateCmsimpleScripting($str, $compat, $expected)
-    {
-        $actual = evaluate_cmsimple_scripting($str, $compat);
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testEvaluateCmsimpleScriptingKeywords()
-    {
-        $str = 'foo #CMSimple $keywords = \'foo, bar\';# bar';
-        $expected = 'foo  bar';
-        $actual = evaluate_cmsimple_scripting($str, true);
-        $this->assertEquals($expected, $actual);
-        $this->assertEquals('foo, bar', $GLOBALS['keywords']);
-    }
-
-    public function dataForSpliceString()
-    {
-        return array(
-            array('foobarbaz', 3, 3, 'test', 'bar', 'footestbaz'),
-            array('foobarbaz', 3, 3, '', 'bar', 'foobaz'),
-            array('foobaz', 3, 0, 'bar', '', 'foobarbaz')
-        );
-    }
-
-    /**
-     * @dataProvider dataForSpliceString
-     */
-    public function testSpliceString($string, $offset, $length, $replacement, $expectedResult, $expectedString)
-    {
-        $actual = XH_spliceString($string,$offset, $length, $replacement);
-        $this->assertEquals($expectedResult, $actual);
-        $this->assertEquals($expectedString, $string);
-    }
-
-    public function dataForTestEvaluatePluginCall()
-    {
-        return array(
-            array('foo bar','foo bar'),
-            array('foo {{{PLUGIN:trim(\'baz\');}}} bar', 'foo baz bar'),
-            array('foo {{{PLUGIN:trim(trim(\'baz\'));}}} bar', 'foo baz bar'),
-            array('foo {{{PLUGIN:trim($var);}}} bar', 'foo baz bar'),
-            array( // evaluation of plugin calls in order of their appearance
-                'foo {{{PLUGIN:counter();}}} bar {{{PLUGIN:counter();}}} baz',
-                'foo 1 bar 2 baz'
-            ),
-            array( // function does not exist
-                'foo {{{PLUGIN:doesnotexist();}}} bar',
-                'foo <span class="xh_fail">Function doesnotexist() is not defined!</span> bar'
-            ),
-            array('foo {{{PLUGIN:trim(\':\');}}} bar', 'foo : bar'),
-            array( // without trailing semicolon
-                'foo {{{trim(\'baz\');}}} bar', 'foo baz bar'
-            ),
-            array( // with whitespace before the opening parenthesis
-                'foo {{{trim(\'baz\');}}} bar', 'foo baz bar'
-            ),
-            array( // without parentheses
-                'foo {{{trim \'baz\';}}} bar', 'foo baz bar'
-            )
-        );
-    }
-
-    /**
-     * @dataProvider dataForTestEvaluatePluginCall
-     */
-    public function testEvaluatePluginCall($str, $expected)
-    {
-        $actual = evaluate_plugincall($str);
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testEvaluatePluginCallKeywords()
-    {
-        $str = 'foo {{{PLUGIN:sscanf(\'baz\', \'%s\', $keywords);}}} bar';
-        $expected = 'foo 1 bar';
-        $actual = evaluate_plugincall($str, true);
-        $this->assertEquals($expected, $actual);
-        $this->assertFalse(isset($GLOBALS['keywords']));
     }
 
     /**

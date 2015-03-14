@@ -279,7 +279,28 @@ function XH_evaluateSinglePluginCall($___expression)
     foreach ($GLOBALS as $___var => $___value) {
         $$___var = $GLOBALS[$___var];
     }
-    return eval('return ' . $___expression . ';');
+    return preg_replace_callback(
+        '/#(CMSimple .*?)#/is', 'XH_escapeCMSimpleScripting',
+        eval('return ' . $___expression . ';')
+    );
+}
+
+/**
+ * Escapes CMSimple scripting returned from a plugin call.
+ *
+ * @param array $matches An array of matches.
+ *
+ * @return string
+ *
+ * @since 1.6.6
+ */
+function XH_escapeCMSimpleScripting($matches)
+{
+    trigger_error(
+        'CMSimple scripting not allowed in return value of plugin call',
+        E_USER_WARNING
+    );
+    return "#\xE2\x80\x8B{$matches[1]}#";
 }
 
 /**
