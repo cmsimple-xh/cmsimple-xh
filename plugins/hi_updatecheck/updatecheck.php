@@ -1,15 +1,15 @@
 <?php
 
 /*
- * @version $Id: updatecheck.php 237 2014-02-05 22:31:24Z hi $
+ * @version $Id: updatecheck.php 257 2015-03-14 17:01:30Z hi $
  */
 
 /*
  * ==================================================================
  * Update-Check-Plugin for CMSimple_XH
  * ==================================================================
- * Version:    1.2.1
- * Build:      2014020601
+ * Version:    1.3
+ * Build:      2015031401
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -17,25 +17,14 @@
  * ==================================================================
  */
 
-if (!isset($_SESSION))
-    session_start();
 
-if (isset($_POST['do_updatecheck']) && isset($_POST['pluginname'])) {
-    echo hi_updateInfo($_POST['pluginname']);
+if (!defined('CMSIMPLE_XH_VERSION')) {
+    header('HTTP/1.0 403 Forbidden');
     exit;
 }
-
-if (isset($_POST['do_quickcheck'])) {
-    hi_updateQuickInfo();
-    exit;
-}
-
-
-//necessary globals, if functions used directly in a plugin
-global $cf, $hjs, $pth, $sl, $sn;
 
 function hi_updateQuickCheck($pluginname) {
-    global $cf, $plugin_tx, $pth, $sl, $sn;
+    global $pth;
 
     if ($pluginname == '' || isset($_SESSION['upd_available']))
         return;
@@ -46,15 +35,15 @@ function hi_updateQuickCheck($pluginname) {
                 . ',,,,,'
                 . CMSIMPLE_XH_VERSIONINFO;
     } else {
-        $versionStr = @file_get_contents($pth['folder']['plugins'] . $pluginname . '/version.nfo');
+        $versionStr = @file_get_contents($pth['folder']['plugins']
+                        . $pluginname . '/version.nfo');
     }
 
     if ($versionStr != '') {
         include_once($pth['folder']['plugins'] . 'jquery/jquery.inc.php');
         include_jQuery();
 
-        $url = str_replace('index.php', '', str_replace('/' . basename($sl) . '/', '/', $sn));
-        $url .= 'plugins/hi_updatecheck/updatecheck.php';
+        $url = CMSIMPLE_URL;
         $data = array(
             'versionstr' => $versionStr,
             'do_quickcheck' => 1
@@ -74,24 +63,34 @@ function hi_updateQuickCheck($pluginname) {
 }
 
 function hi_updateQuickInfo() {
-    if (!isset($_SESSION['xh_session']))
-        return;
+    global $plugin_cf;
+    
+    $remoteKey = 1;
+    $compare = '<';
+    
     $localVersion = hi_versionInfo($_POST['versionstr']);
-    if (count($localVersion) !== 7)
+    if (count($localVersion) !== 7) {
         return;
-    $versionStr = hi_fsFileGetContents(trim($localVersion[6]), 15);
+    }
+    $timeout = intval($plugin_cf['hi_updatecheck']['autocheck_timeout']);
+    $versionStr = hi_fsFileGetContents(trim($localVersion[6]), $timeout);
     $remoteVersion = hi_versionInfo($versionStr);
-    if (count($remoteVersion) !== 7)
+    if (count($remoteVersion) !== 7) {
         return;
+    }
+    if ($plugin_cf['hi_updatecheck']['autocheck_notify'] == 'Only critical updates') {
+        $remoteKey = 3;
+        $compare = '<=';
+    }
     //Update available?
-    if (version_compare($remoteVersion[1], $localVersion[1], '>')) {
+    if (version_compare($localVersion[1], $remoteVersion[$remoteKey],  $compare)) {
         $_SESSION['upd_available'] = TRUE;
         return;
     }
 }
 
 function hi_updateCheck($pluginname = '', $single_check = 1) {
-    global $cf, $hjs, $plugin_tx, $pth, $sl, $sn;
+    global $plugin_tx, $pth;
 
     if ($pluginname == '')
         return '';
@@ -105,7 +104,8 @@ function hi_updateCheck($pluginname = '', $single_check = 1) {
                 . ',,,,,'
                 . CMSIMPLE_XH_VERSIONINFO;
     } else {
-        $versionStr = @file_get_contents($pth['folder']['plugins'] . $pluginname . '/version.nfo');
+        $versionStr = @file_get_contents($pth['folder']['plugins']
+                        . $pluginname . '/version.nfo');
     }
 
     if ($versionStr == '') {
@@ -117,8 +117,7 @@ function hi_updateCheck($pluginname = '', $single_check = 1) {
     $token = md5(microtime() . mt_rand());
     $_SESSION['updtoken_' . $pluginname] = $token;
 
-    $url = str_replace('index.php', '', str_replace('/' . basename($sl) . '/', '/', $sn));
-    $url .= 'plugins/hi_updatecheck/updatecheck.php';
+    $url = CMSIMPLE_URL;
     $data = array(
         'token_' . $pluginname => $token,
         'pluginname' => $pluginname,
@@ -126,15 +125,13 @@ function hi_updateCheck($pluginname = '', $single_check = 1) {
         'do_updatecheck' => 1,
         'single_check' => $single_check
     );
-    foreach ($p_tx as $key => $val) {
-        $data[$key] = $val;
-    }
-
     $t = '<div class="upd_container">';
-    $t .= '<div id="upd_' . $pluginname . '_loading"><p>' .
-            $p_tx['message_searching'] . ' ' . ucfirst($pluginname) . ' ...' . tag('br') .
-            tag('img src="' . $p_pth . '/images/ajax-loader.gif" style="padding: 5px 0 15px 0;"') .
-            '</p></div>';
+    $t .= '<div id="upd_' . $pluginname . '_loading"><p>'
+            . $p_tx['message_searching'] . ' '
+            . ucfirst($pluginname) . ' ...' . tag('br')
+            . tag('img src="' . $p_pth
+                    . '/images/ajax-loader.gif" style="padding: 5px 0 15px 0;"')
+            . '</p></div>';
     $t .= '<div id="upd_' . $pluginname . '_Info"></div>';
     $t .= '</div>';
     $t .= '<script type = "text/javascript">
@@ -143,14 +140,16 @@ function hi_updateCheck($pluginname = '', $single_check = 1) {
                     url: "' . $url . '",
                     data: ' . json_encode($data) . ',
                     dataType: "html",
-                    processData: true,  // I know that is the default-value, anyway
+                    processData: true,  // I know that is the default-value...
                     error: function() {
-                        jQuery(\'#upd_' . $pluginname . '_loading\').css(\'display\',\'none\');
+                        jQuery(\'#upd_' . $pluginname . '_loading\')
+                            .css(\'display\',\'none\');
                         jQuery(\'#upd_' . $pluginname . '_Info\').html(\'Sorry, a problem has occurred while checking ' . $pluginname . '.\');
                     },
                     success: function(msg){
 			jQuery(\'#upd_' . $pluginname . '_Info\').html(msg);
-			jQuery(\'#upd_' . $pluginname . '_loading\').css(\'display\',\'none\');
+			jQuery(\'#upd_' . $pluginname . '_loading\')
+                            .css(\'display\',\'none\');
                     }
                 });
             </script>';
@@ -158,19 +157,15 @@ function hi_updateCheck($pluginname = '', $single_check = 1) {
 }
 
 function hi_updateInfo($pluginname = '') {
+    global $plugin_tx;
 
-    if ($_POST['token_' . $pluginname] !== $_SESSION['updtoken_' . $pluginname]
-            || !$_POST['versionstr']
-            || $pluginname == '')
+    if ($_POST['token_' . $pluginname] !== $_SESSION['updtoken_' . $pluginname] || !$_POST['versionstr'] || $pluginname == '') {
         die('Access denied!');
+    }
 
     unset($_SESSION['updtoken_' . $pluginname]);
-    $p_tx = array();
-    $p_tx['message_download'] = $_POST['message_download'];
-    $p_tx['message_fail'] = $_POST['message_fail'];
-    $p_tx['message_up-to-date'] = $_POST['message_up-to-date'];
-    $p_tx['message_update-available'] = $_POST['message_update-available'];
-    $p_tx['message_update-critical'] = $_POST['message_update-critical'];
+
+    $p_tx = $plugin_tx['hi_updatecheck'];
 
     //superfluous, but anyway
     foreach ($p_tx as $key => $val) {
@@ -250,10 +245,7 @@ function hi_updateInstalledScripts() {
     $handle = opendir($pth['folder']['plugins']);
     if ($handle) {
         while ($installed_plugin = readdir($handle)) {
-            if (strpos($installed_plugin, '.') === false
-                    && $installed_plugin != $pluginloader_cfg['foldername_pluginloader']
-                    && is_dir($pth['folder']['plugins'] . $installed_plugin)
-                    && !in_array(strtolower($installed_plugin), $ignore)) {
+            if (strpos($installed_plugin, '.') === false && $installed_plugin != $pluginloader_cfg['foldername_pluginloader'] && is_dir($pth['folder']['plugins'] . $installed_plugin) && !in_array(strtolower($installed_plugin), $ignore)) {
                 $installed_plugins[] = $installed_plugin;
             }
         }
@@ -277,6 +269,96 @@ function hi_versionInfo($versionStr = FALSE) {
         return FALSE; //Error
     }
     return $versionInfo;
+}
+
+function hi_updateNotify() {
+    //Display info-icon in editmenu, if updates are available
+    global $sn, $o, $plugin_tx;
+    $o .= "\n";
+    $o .= '<script type="text/javascript">
+                    jQuery(document).ready(function($){
+                        $("#editmenu_update").css("display","block"); //before xh1.6
+                        $("#xh_adminmenu_update").css("display","block"); //sice xh1.6RC
+                    });
+            </script>' . "\n";
+
+    //Prepend notification to "Sysinfo" - page if updates are available
+    if (isset($_GET['sysinfo'])) {
+        $upd_msg_sysinfo = '<div class="upd_info">'
+                . '<b>' . $plugin_tx['hi_updatecheck']['message_sysinfo-update-found'] . '</b>'
+                . tag('br')
+                . '<a href="' . $sn . '?&amp;hi_updatecheck&amp;admin=plugin_main&amp;normal">' . $plugin_tx['hi_updatecheck']['message_sysinfo-link'] . '</a>'
+                . '</div>';
+        $o .= $upd_msg_sysinfo . "\n";
+    }
+}
+
+function hi_updateCheckAll() {
+    global $plugin_cf, $plugin_tx, $tx;
+
+    unset($_SESSION['upd_available']); //reset notifications
+    $t = '<div id="upd_list_container">';
+    $t .= $plugin_tx['hi_updatecheck']['heading_updatecheck'];
+    $temp = explode(',', $plugin_cf['hi_updatecheck']['ignore']);
+    if (!in_array('CMSimple_XH', $temp)) {
+        $t .= $plugin_tx['hi_updatecheck']['heading_updatecheck_core'];
+        $t .= '<b>' . $tx['sysinfo']['version'] . ':</b>' . tag('br');
+        $t .= CMSIMPLE_XH_VERSION;
+        if (defined('CMSIMPLE_XH_DATE'))
+            $t .= '&nbsp;&nbsp;Released: ' . CMSIMPLE_XH_DATE;
+        $t .= '<ul class="upd_list">';
+        $t .= '<li>';
+        $t .= hi_updateCheck('CMSimple_XH', 0);
+        $t .= '</li>';
+        $t .= '</ul>';
+    }
+    $upd_plugins = hi_updateInstalledScripts();
+    if (count($upd_plugins) > 0) {
+        $t .= $plugin_tx['hi_updatecheck']['heading_updatecheck_plugins'];
+        $t .= '<ul class="upd_list">';
+        foreach ($upd_plugins as $value) {
+            $t .= '<li>';
+            $t .= hi_updateCheck($value, 0);
+            $t .= '</li>';
+        }
+        $t .= '</ul>';
+    }
+    $t .= '</div>';
+    return $t;
+}
+
+function hi_updateSetStatus() {
+    global $o, $plugin_cf;
+
+    $upd_plugins = hi_updateInstalledScripts();
+    $temp = explode(',', $plugin_cf['hi_updatecheck']['ignore']);
+    if (!in_array('CMSimple_XH', $temp)) {
+        array_unshift($upd_plugins, 'CMSimple_XH');
+    }
+    foreach ($upd_plugins as $value) {
+        $o .= hi_updateQuickCheck($value);
+    }
+    $_SESSION['upd_checked'] = TRUE;
+}
+
+//Add entry to editmenu if updates are available
+function upd_addMenuEntry() {
+    global $sn, $plugin_tx, $pth;
+
+    $imgtag = tag('img src=\"' . $pth['folder']['plugins']
+            . 'hi_updatecheck/images/update-available-24.png\" '
+            . 'title=\"' . $plugin_tx['hi_updatecheck']['message_qc-update-found'] . '\" '
+            . 'alt=\"' . $plugin_tx['hi_updatecheck']['message_qc-update-found'] . '\"'
+    );
+    $href = $sn . '?&amp;hi_updatecheck&amp;admin=plugin_main&amp;normal';
+    $t = "\n";
+    $t .= '<script type="text/javascript">
+                    jQuery(document).ready(function($){
+                        $("#edit_menu").append("<li id=\"editmenu_update\"><a href=\"' . $href . '\">' . $imgtag . '<\/a></li>");                   //before xh1.6
+                        $("#xh_adminmenu > ul").append("<li id=\"xh_adminmenu_update\"><a href=\"' . $href . '\">' . $imgtag . '<\/a></li>");       //since xh1.6RC
+                    });
+            </script>' . "\n";
+    return $t;
 }
 
 /*
@@ -315,7 +397,7 @@ function hi_fsFileGetContents($url, $timeout = 30) {
     do {
         $line = rtrim(fgets($fp));
         $header .= $line . "\n";
-    } while (!empty($line) and !feof($fp));
+    } while (!empty($line) and ! feof($fp));
     // read data
     $result = '';
     while (!feof($fp)) {
