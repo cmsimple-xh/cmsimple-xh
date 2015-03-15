@@ -16,6 +16,8 @@
     $plugin_tx['hi_updatecheck']['message_qc-update-found']="Es sind Updates verfügbar...";
     $plugin_tx['hi_updatecheck']['menu_main']="Nach Updates suchen";
     $plugin_tx['hi_updatecheck']['cf_autocheck']="Soll das Plugin einmalig bei jedem Login nach Updates suchen?";
+    $plugin_tx['hi_updatecheck']['cf_autocheck_timeout']="Zeit in Sekunden die jedes Modul bei der automatischen Updateprüfung beanspruchen kann";
+    $plugin_tx['hi_updatecheck']['cf_autocheck_notify']="<p>All updates: zeigt das Info-Icon sobald ein Update verfügbar ist.</p><p>Only critical updates: zeigt das Info-Icon nur wenn kritische Updates verfügbar sind.</p>";
     $plugin_tx['hi_updatecheck']['cf_ignore']="Geben Sie hier eine mittels Komma separierte Liste von Plugins ein, die nicht bei der Updateprüfung berücksichtigt werden sollen (normalerweise nur Plugins, die ausschließlich mit CMSimple_XH angeboten werden).";
 
 ?>

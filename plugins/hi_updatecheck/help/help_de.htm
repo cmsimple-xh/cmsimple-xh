@@ -1,0 +1,353 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  
+  <title>UpdateCheck für CMSimple_XH :: Hilfe</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+  
+  <style>
+html, body {
+margin: 0;
+padding: 0;
+}
+body {
+font-family: verdana, arial, sans-serif;
+background-color: #e2e2e2;
+text-align: center;
+font-size: 0.9em;
+line-height: 1.3;
+}
+.additional{
+font-size: 90%;
+color: #666;
+line-height: 1.1;
+}
+p.code {font-family: Courier New; border: 1px solid #999; background: #eed; padding: 8px 12px;}
+  </style>
+  
+  <meta content="Holger Irmler" name="author">
+</head>
+
+
+<body>
+
+
+<div style="border: 1px solid rgb(187, 187, 187); margin: 0px auto auto; padding: 0pt 3em; text-align: left; width: 780px; background-color: rgb(255, 255, 255);">
+
+<h1><img style="width: 128px; height: 128px; float: left;" alt="" src="../images/software-update-icon.png"></h1>
+
+<h1><a class="mozTocH1" name="mozTocId902206"></a>UpdateCheck
+für CMSimple_XH<br>
+
+
+</h1>
+
+
+<p>Ein kleines CMSimple-Plugin, das hilft Ihre
+CMSimple_XH Installation aktuell zu halten </p>
+
+
+<p class="additional">Version 1.2<br>
+
+
+<span class="additional">
+&copy;&nbsp;2013-2014 Holger Irmler, </span><a class="additional" target="_blank" href="http://cmsimple.holgerirmler.de">http://CMSimple.HolgerIrmler.de</a><span class="additional">.<br>
+
+
+</span></p>
+
+
+<br>
+
+
+<h2><a class="mozTocH2" name="mozTocId43365"></a>Installation</h2>
+
+
+<ol>
+
+
+  <li> <b>Legen Sie immer eine Sicherungskopie Ihrer Installation an</b>
+bevor Sie ein neues Plugin hinzufügen. </li>
+
+
+  <li>Entpacken Sie das Archiv und laden Sie die Dateien und Ordner in
+Ihren
+Plugins-Ordner. <span class="additional">
+    
+    <p>Es sollte so aussehen: </p>
+
+
+    
+    <ul>
+
+
+      <li>[Root]
+        
+        <ul>
+
+
+          <li>[2lang]</li>
+
+
+          <li>[cmsimple]</li>
+
+
+          <li>...</li>
+
+
+          <li>[plugins]
+            
+            <ul>
+
+
+              <li>...</li>
+
+
+              <li>[pluginloader]</li>
+
+
+              <li><b>[hi_updatecheck]</b>
+                
+                <ul>
+
+
+                  <li><b>[config]</b></li>
+
+
+                  <li><span class="additional"><b>[css]</b></span></li>
+
+
+                  <li><span class="additional"><b>[help]</b></span></li>
+
+
+                  <li><span class="additional"><b>[languages]<br>
+
+
+                    </b></span></li>
+
+
+                  <li>admin.php</li>
+
+
+                  <li>index.php</li>
+
+
+                  <li>JSON.php</li>
+
+
+                  <li>updatecheck.php</li>
+
+
+                  <li>version.nfo</li>
+
+
+                
+                </ul>
+
+
+              </li>
+
+
+              <li>index.php</li>
+
+
+            
+            </ul>
+
+
+          </li>
+
+
+          <li>[...]</li>
+
+
+          <li>index.php</li>
+
+
+        
+        </ul>
+
+
+      </li>
+
+
+    
+    </ul>
+
+
+    </span> </li>
+
+
+  
+  <p>Wenn Sie die Plugin-Administration online durchführen wollen, müssen Sie
+Schreibberechtigungen für die Order&nbsp;'config', 'css' und
+'languages' und für die enthaltenen Dateien vergeben.</p>
+
+
+  <li><span style="font-weight: bold;">Konfiguration
+    </span><br>
+
+
+Die voreingestellte Konfiguration sollte für die meisten Anwender geeignet sein. Sie
+finden Hinweise zu den Konfigurationsoptionen, wenn Sie auf die blauen Fragenzeichen zeigen.</li>
+
+
+</ol>
+
+
+<h2><a class="mozTocH2" name="mozTocId571817"></a>Verwendung</h2>
+
+Per Voreinstellung (Konfigurationseinstellung "autocheck" = 1) führt das Plugin
+einen "stillen Quick-Check" im Hintergrund durch, direkt nach dem Sie sich in Ihre
+CMSimple_XH Installation eingeloggt haben. Wenn genügend Zeit vergeht bevor Sie den
+nächsten Klick im Backend tätigen, und Updates verfügbar sind, wird ein
+Info-Icon neben dem Logout-Schalter in der Menüleiste angezeigt.<br>
+
+
+Abgesehen davon wird eine Benachrichtigung zu Beginn der "System Info" Seite
+angezeigt ( Einstellungen -&gt; Info ).<br>
+
+<br>
+
+<div style="text-align: center;"><img style="border: 1px solid ; width: 628px; height: 406px;" alt="" src="../images/updatecheck1.PNG"><br>
+
+</div>
+
+<div style="text-align: center;"><span class="additional">Info-Icon und Benachrichtigung auf der "System Info" Seite</span></div>
+
+<br>
+
+<br>
+
+
+Dieser "Quick-Check" wird nur einmal pro Sitzung durchgeführt.<br>
+
+Klicken Sie das Icon oder den Link auf der System-Info Seite an, um einen vollständigen Update-Check zu starten.<br>
+
+<br>
+
+<br>
+
+<div style="text-align: center;"><img style="border: 1px solid ; width: 627px; height: 609px;" alt="" src="../images/updatecheck2.PNG"><br>
+
+</div>
+
+
+<div style="text-align: center;"><span class="additional">Beispiel Updatecheck Ergebnis</span><br>
+
+<span class="additional"></span></div>
+
+<span class="additional"><br>
+
+</span>
+<span style="font-weight: bold;"><br>
+
+Von Zeit zu Zeit sollten Sie
+die Updateprüfung selbst anstoßen: </span><br style="font-weight: bold;">
+
+
+gehen Sie zu Plugins -&gt; hi_updatecheck -&gt; Nach Updates suchen<br style="font-weight: bold;">
+
+
+<br>
+
+
+<h2><a class="mozTocH2" name="mozTocId508485"></a>Kompatibilität</h2>
+
+<span style="font-weight: bold;">
+Seien Sie gewarnt!</span> Dieses Plugin funktioniert nur mit dem original CMSimple_XH von <a href="www.cmsimple-xh.org" target="_blank">www.cmsimple-xh.org</a>.<br>
+
+
+Die Verwendung unter anderen Versionen / Derivaten kann zu Fehlern und/oder falschen
+Informationen führen!<br>
+
+
+<br>
+
+<br>
+
+<br>
+
+Hinweise für Entwickler finden Sie in der <a href="./help.htm">englischen Hilfedatei</a>. <br>
+
+Viel Spaß und bleiben Sie auf dem neusten Stand ;-).<br>
+
+<br>
+
+<br>
+
+<br>
+
+<h2><a class="mozTocH2" name="mozTocId185790"></a><span style="font-weight: bold;">Danksagung</span></h2>
+
+Das Design der Meldungen basiert auf einem Artikel von Janko Jovanovic.<br>
+
+Die Icons, die für die Meldungen verwendet werden, wurden von Miles Ponson erschaffen und frei zur Verfügung gestellt.<br>
+
+Das Plugin-Icon wurde von Alexandre Moore erschaffen und frei zur Verfügung gestellt.<br>
+
+<br>
+
+Besonderer Dank an <a href="http://3-magi.net" target="_blank">Christoph M. Becker</a> für die Prüfung meines Codes, den Austausch von Ideen und konstruktives Feedback bezüglich dieses Plugins<br>
+<br>
+Die dänische Übersetzung wurde von Jens Maegaard bereitgestellt - <a href="http://www.JmNet.dk" target="_blank">www.JmNet.dk</a> - <a href="http://www.CMSimple-xh.dk" target="_blank">www.CMSimple-xh.dk</a><br>
+
+<br>
+
+<span style="font-weight: bold;"></span>
+<ol>
+
+
+</ol>
+
+
+<h2><a class="mozTocH2" name="mozTocId160751"></a>Copyright &amp; Lizenz</h2>
+
+
+<ul>
+
+</ul>
+
+
+<p>Copyright &copy;2013-2014 <a href="http://cmsimple.holgerirmler.de/">Holger Irmler</a> - alle Rechte vorbehalten<br>
+
+</p>
+
+<p class="upd_license">Lizenz: GPL3</p>
+
+<p style="text-align: justify;" class="upd_license">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT 
+WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+<p style="text-align: justify;" class="upd_license"></p>
+
+
+<ol>
+
+
+</ol>
+
+
+<h2><a class="mozTocH2" name="mozTocId753693"></a>Sie brauchen
+Hilfe?</h2>
+
+
+<p>... besuchen Sie <a target="_blank" href="http://www.cmsimpleforum.com">cmsimpleforum.com</a>.</p>
+
+
+<span style="font-weight: bold;">
+</span>
+<pre style="font-weight: bold; line-height: 1.2em; font-size: 90%; color: rgb(102, 102, 102);"><br> </pre>
+
+
+</div>
+
+
+</body>
+</html>
