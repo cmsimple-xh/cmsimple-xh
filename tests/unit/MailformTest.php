@@ -99,17 +99,17 @@ class MailformTest extends PHPUnit_Framework_TestCase
 
     public function testSubmitSendsMailSuccess()
     {
-        $mailform = $this->getMock('XH_Mailform', array('sendMail'));
-        $mailform->expects($this->once())->method('sendMail')
-            ->will($this->returnValue(true));
+        $mail = $this->getMockBuilder('XH_Mail')->getMock();
+        $mail->expects($this->once())->method('send')->willReturn(true);
+        $mailform = new XH_Mailform(false, null, $mail);
         $this->assertTrue($mailform->submit());
     }
 
     public function testMailFailureIsLogged()
     {
-        $mailform = $this->getMock('XH_Mailform', array('sendMail'));
-        $mailform->expects($this->once())->method('sendMail')
-            ->will($this->returnValue(false));
+        $mail = $this->getMockBuilder('XH_Mail')->getMock();
+        $mail->expects($this->once())->method('send')->willReturn(false);
+        $mailform = new XH_Mailform(false, null, $mail);
         $logMessageSpy = new PHPUnit_Extensions_MockFunction(
             'XH_logMessage', $mailform
         );
@@ -164,79 +164,6 @@ class MailformTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(false));
         $mailform->expects($this->once())->method('render');
         $mailform->process();
-    }
-
-    public function testSendMailCallsMailOnce()
-    {
-        $mailform = new XH_Mailform();
-        $mailSpy = new PHPUnit_Extensions_MockFunction('mail', $mailform);
-        $mailSpy->expects($this->once());
-        $mailform->sendMail('devs@cmsimple-xh.org');
-    }
-
-    public function dataForIsValidEmail()
-    {
-        return array(
-            array('post@example.com', '127.0.0.1', true),
-            array('post.master@example.com', '127.0.0.1', true),
-            array('post-master@example.com', '127.0.0.1', true),
-            array('post,master@example.com', '127.0.0.1', false),
-            array('post@master@example.com', '127.0.0.1', false),
-            array("me@\xC3\xA4rger.de", '127.0.0.1', true),
-            array("hacker\r\n\r\n@example.com", '127.0.0.1', false),
-            array("j\xC3\xBCrgen@example.com", '127.0.0.1', false),
-            array('foo@bar.invalid', 'bar.invalid', false)
-        );
-    }
-
-    /**
-     * @dataProvider dataForIsValidEmail
-     */
-    public function testIsValidEmail($address, $ip, $expected)
-    {
-        $mailform = new XH_Mailform();
-        $getHostByNameStub = new PHPUnit_Extensions_MockFunction(
-            'gethostbyname', $mailform
-        );
-        $getHostByNameStub->expects($this->any())
-            ->will($this->returnValue($ip));
-        $actual = $mailform->isValidEmail($address);
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * @dataProvider dataForTestEncodeMIMEFieldBody
-     */
-    public function testEncodeMIMEFieldBody($str, $expected, $lfOnly = false)
-    {
-        global $cf;
-
-        if ($lfOnly) {
-            $cf['mailform']['lf_only'] = 'true';
-        }
-        $mailform = new XH_Mailform();
-        $actual = $mailform->encodeMIMEFieldBody($str);
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function dataForTestEncodeMIMEFieldBody()
-    {
-        return array(
-            array('foo bar', 'foo bar'),
-            array(str_repeat('foo bar ', 20), str_repeat('foo bar ', 20)),
-            array("f\xC3\xB6o", '=?UTF-8?B?ZsO2bw==?='),
-            array(
-                str_repeat("\xC3\xA4\xC3\xB6\xC3\xBC", 10),
-                "=?UTF-8?B?w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6Q=?="
-                . "\r\n =?UTF-8?B?w7bDvMOkw7bDvMOkw7bDvA==?="
-            ),
-            array(
-                str_repeat("\xC3\xA4\xC3\xB6\xC3\xBC", 10),
-                "=?UTF-8?B?w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6TDtsO8w6Q=?="
-                . "\n =?UTF-8?B?w7bDvMOkw7bDvMOkw7bDvA==?=",
-                true
-            )
-        );
     }
 
     /**

@@ -36,15 +36,6 @@ class XH_Mailform
     protected $embedded;
 
     /**
-     * The linebreak characters (either CRLF or LF).
-     *
-     * Serves as workaround for broken mailers which don't handle CRLF correctly.
-     *
-     * @var bool
-     */
-    private $_linebreak;
-
-    /**
      * The name of the sender.
      *
      * @var string
@@ -98,21 +89,28 @@ class XH_Mailform
     protected $mailform;
 
     /**
+     * The mail object.
+     *
+     * @var XH_Mail
+     */
+    protected $mail;
+
+    /**
      * Constructs an instance.
      *
-     * @param bool   $embedded Whether the mailform is embedded on a CMSimple_XH
-     *                         page.
-     * @param string $subject  An alternative subject field preset text instead of 
-     *                         the subject default in localization.
+     * @param bool    $embedded Whether the mailform is embedded on a CMSimple_XH
+     *                          page.
+     * @param string  $subject  An alternative subject field preset text instead of
+     *                          the subject default in localization.
+     * @param XH_Mail $mail     A mail object.
      *
-     * @global array   The configuration of the core.
      * @global array   The localization of the core.
      */
-    public function __construct($embedded = false, $subject=null)
+    public function __construct($embedded = false, $subject = null, $mail = null)
     {
-        global $cf, $tx;
+        global $tx;
+
         $this->embedded = $embedded;
-        $this->_linebreak = ($cf['mailform']['lf_only'] ? "\n" : "\r\n");
         $this->sendername = isset($_POST['sendername'])
             ? stsl($_POST['sendername']) : '';
         $this->senderphone = isset($_POST['senderphone'])
@@ -143,6 +141,7 @@ class XH_Mailform
             $this->mailform = isset($_POST['mailform'])
                 ? stsl($_POST['mailform']) : '';
         }
+        $this->mail = isset($mail) ? $mail : new XH_Mail();
     }
 
     /**
@@ -170,7 +169,7 @@ class XH_Mailform
         if ($this->mailform == '') {
             $o .= XH_message('warning', $tx['mailform']['mustwritemessage']);
         }
-        if (!$this->isValidEmail($this->sender) || $this->subject == '') {
+        if (!$this->mail->isValidAddress($this->sender) || $this->subject == '') {
             $o .= XH_message('warning', $tx['mailform']['notaccepted']);
         }
         return $o;
@@ -192,14 +191,16 @@ class XH_Mailform
     {
         global $cf, $tx;
 
-        $body = $tx['mailform']['sendername'] . $this->sendername . "\n"
+        $this->mail->setTo($cf['mailform']['email']);
+        $this->mail->addHeader('From', $this->sender);
+        $this->mail->addHeader('X-Remote', sv('REMOTE_ADDR'));
+        $this->mail->setSubject($this->subject);
+        $this->mail->setMessage(
+            $tx['mailform']['sendername'] . $this->sendername . "\n"
             . $tx['mailform']['senderphone'] . $this->senderphone . "\n\n"
-            . $this->mailform;
-        $sent = $this->sendMail(
-            $cf['mailform']['email'], $this->subject, $body,
-            "From: " . $this->sender . $this->_linebreak
-            . "X-Remote: " . sv('REMOTE_ADDR')
+            . $this->mailform
         );
+        $sent = $this->mail->send();
         if (!$sent) {
             XH_logMessage('error', 'XH', 'mailform', $this->sender);
         }
@@ -339,111 +340,6 @@ class XH_Mailform
             . "\n" . '</div>' . "\n" . '</form>' . "\n";
 
         return $o;
-    }
-
-    /**
-     * Sends a UTF-8 encoded mail.
-     *
-     * @param string $to      Receiver(s) of the mail.
-     * @param string $subject Subject of the email to be sent.
-     * @param string $message Message to be sent.
-     * @param string $header  String to be inserted at the end of the email header.
-     *
-     * @return bool Whether the mail was accepted for delivery.
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
-     */
-    function sendMail($to, $subject = '(No Subject)', $message = '', $header = '')
-    {
-        $header = 'MIME-Version: 1.0' . $this->_linebreak
-            . 'Content-Type: text/plain; charset=UTF-8; format=flowed'
-            . $this->_linebreak
-            . 'Content-Transfer-Encoding: base64' . $this->_linebreak
-            . $header;
-        $subject = $this->encodeMIMEFieldBody($subject);
-
-        $message = preg_replace(
-            '/(?:\r\n|\r|\n)/', $this->_linebreak, trim($message)
-        );
-        $message = chunk_split(base64_encode($message));
-
-        return mail($to, $subject, $message, $header);
-    }
-
-    /**
-     * Returns the body of an email header field as "encoded word" (RFC 2047)
-     * with "folding" (RFC 5322), if necessary.
-     *
-     * @param string $text The body of the MIME field.
-     *
-     * @return string
-     *
-     * @access protected
-     *
-     * @todo Don't we have to fold overlong pure ASCII texts also?
-     * @todo Declare visibility.
-     */
-    function encodeMIMEFieldBody($text)
-    {
-        if (!preg_match('/(?:[^\x00-\x7F])/', $text)) { // ASCII only
-            return $text;
-        } else {
-            $lines = array();
-            do {
-                $i = 45;
-                if (strlen($text) > $i) {
-                    while ((ord($text[$i]) & 0xc0) == 0x80) {
-                        $i--;
-                    }
-                    $lines[] = substr($text, 0, $i);
-                    $text = substr($text, $i);
-                } else {
-                    $lines[] = $text;
-                    $text = '';
-                }
-            } while ($text != '');
-            $body = 'return \'=?UTF-8?B?\' . base64_encode($l) . \'?=\';';
-            $func = create_function('$l', $body);
-            return implode($this->_linebreak . ' ', array_map($func, $lines));
-        }
-    }
-
-    /**
-     * Returns whether an email address is valid.
-     *
-     * For simplicity we are not aiming for full compliance with RFC 5322.
-     * The local-part must be a dot-atom-text. The domain is checked with
-     * gethostbyname() after applying idn_to_ascii(), if the latter is available.
-     *
-     * @param string $address An email address.
-     *
-     * @return bool
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
-     */
-    function isValidEmail($address)
-    {
-        $atext = '[!#-\'*+\-\/-9=?A-Z^-~]';
-        $dotAtomText = $atext . '(?:' . $atext . '|\.)*';
-        $pattern = '/^(' . $dotAtomText . ')@([^@]+)$/u';
-        if (!preg_match($pattern, $address, $matches)) {
-            return false;
-        }
-        $local = $matches[1];
-        $domain = $matches[2];
-        if (function_exists('idn_to_ascii')) {
-            $domain = defined('INTL_IDNA_VARIANT_UTS46')
-                ? idn_to_ascii($domain, 0, INTL_IDNA_VARIANT_UTS46)
-                : idn_to_ascii($domain);
-        }
-        if (gethostbyname($domain) == $domain) {
-            return false;
-        }
-        return true;
     }
 }
 
