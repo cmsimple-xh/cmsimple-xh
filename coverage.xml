@@ -13,7 +13,6 @@
                 <directory suffix=".php">cmsimple/languages</directory>
                 <file>cmsimple/config.php</file>
                 <file>cmsimple/metaconfig.php</file>
-                <file>cmsimple/classes/PasswordHash.php</file>
             </exclude>
         </whitelist>
     </filter>

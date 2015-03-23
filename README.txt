@@ -51,7 +51,7 @@ damage your CMSimple installation.
 If you have forgotten your password, you can
 enter the encrypted password "test", i.e.:
 
-\$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1
+\$2a\$09\$b032aima.KOrfY.N6ex44esuEon1K8WP/QjeTeaAc0Kmhw6NOl/2u
 
 via ftp into config.php and login using "test".
 

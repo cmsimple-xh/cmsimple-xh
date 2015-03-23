@@ -237,7 +237,7 @@ class XH_Controller
     {
         global $f, $pth, $keycut, $login, $adm, $edit, $xh_hasher, $cf;
 
-        if ($xh_hasher->CheckPassword($keycut, $cf['security']['password'])) {
+        if ($xh_hasher->checkPassword($keycut, $cf['security']['password'])) {
             setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
             if (session_id() == '') {
                 session_start();
@@ -328,7 +328,7 @@ class XH_Controller
 
         header('Content-Type: text/plain');
         echo intval(
-            $xh_hasher->CheckPassword(
+            $xh_hasher->checkPassword(
                 stsl($_GET['xh_check']),
                 $cf['security']['password']
             )

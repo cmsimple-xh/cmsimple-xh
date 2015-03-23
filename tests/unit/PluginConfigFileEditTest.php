@@ -19,7 +19,6 @@ require_once './vendor/autoload.php';
 require_once './cmsimple/functions.php';
 require_once './plugins/utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
-require_once './cmsimple/classes/PasswordHash.php';
 
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -102,7 +101,7 @@ class PluginConfigFileEditTest extends PHPUnit_Framework_TestCase
         ));
         $_XH_csrfProtection = $this->getMockBuilder('XH_CSRFProtection')
             ->disableOriginalConstructor()->getMock();
-        $xh_hasher = $this->getMockBuilder('PasswordHash')
+        $xh_hasher = $this->getMockBuilder('XH_PasswordHash')
             ->disableOriginalConstructor()->getMock();
     }
 
@@ -302,7 +301,7 @@ EOT;
     {
         global $xh_hasher;
 
-        $xh_hasher->expects($this->once())->method('CheckPassword')
+        $xh_hasher->expects($this->once())->method('checkPassword')
             ->will($this->returnValue(true));
         $writeFileSpy = new PHPUnit_Extensions_MockFunction(
             'XH_writeFile', $this->_subject
@@ -329,7 +328,7 @@ EOT;
     {
         global $xh_hasher, $e;
 
-        $xh_hasher->expects($this->once())->method('CheckPassword')
+        $xh_hasher->expects($this->once())->method('checkPassword')
             ->will($this->returnValue(false));
         $_POST = array(
             'test_password_OLD' => 'bar',
@@ -344,7 +343,7 @@ EOT;
     {
         global $xh_hasher, $e;
 
-        $xh_hasher->expects($this->once())->method('CheckPassword')
+        $xh_hasher->expects($this->once())->method('checkPassword')
             ->will($this->returnValue(true));
         $_POST = array(
             'test_password_OLD' => 'foo',
@@ -359,7 +358,7 @@ EOT;
     {
         global $xh_hasher, $e;
 
-        $xh_hasher->expects($this->once())->method('CheckPassword')
+        $xh_hasher->expects($this->once())->method('checkPassword')
             ->will($this->returnValue(true));
         $_POST = array(
             'test_password_OLD' => 'foo',

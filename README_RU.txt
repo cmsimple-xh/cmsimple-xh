@@ -53,7 +53,7 @@ config.php содержит пароль в зашифрованном виде.
 ftp и ввести в config.php зашифрованный пароль "test",
 например:
 
-\$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1
+\$2a\$09\$b032aima.KOrfY.N6ex44esuEon1K8WP/QjeTeaAc0Kmhw6NOl/2u
 
 После этого Вы можете войти в панель управления,
 используя пароль "test".

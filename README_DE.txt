@@ -56,7 +56,7 @@ Funktionen von CMSimple_XH kommen.
 Falls Sie Ihr Passwort vergessen haben, können
 Sie das verschlüsselte Passwort "test", nämlich
 
-\$P\$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1
+\$2a\$09\$b032aima.KOrfY.N6ex44esuEon1K8WP/QjeTeaAc0Kmhw6NOl/2u
 
 mittels ftp in die config.php eintragen und sich
 mit dem Passwort "test" einloggen.

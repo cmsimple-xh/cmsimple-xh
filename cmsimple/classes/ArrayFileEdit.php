@@ -353,7 +353,7 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
                 ? stsl($_POST[$iname . '_NEW']) : '';
             $confirm = isset($_POST[$iname . '_CONFIRM'])
                 ? stsl($_POST[$iname . '_CONFIRM']) : '';
-            if (!$xh_hasher->CheckPassword($old, $opt['val'])) {
+            if (!$xh_hasher->checkPassword($old, $opt['val'])) {
                 $errors[] = '<li>' . $tx['password']['wrong'] . '</li>';
             } else {
                 if (!preg_match('/^[!-~]+$/u', $new)) {
@@ -361,7 +361,7 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
                 } elseif ($new != $confirm) {
                     $errors[] = '<li>' . $tx['password']['mismatch'] . '</li>';
                 } else {
-                    $val = $xh_hasher->HashPassword($new);
+                    $val = $xh_hasher->hashPassword($new);
                 }
             }
         }
@@ -396,7 +396,7 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
                 } elseif ($opt['type'] == 'password') {
                     $val = $this->submitPassword($opt, $iname, $errors);
                 } elseif ($opt['type'] == 'random') {
-                    $val = bin2hex($xh_hasher->get_random_bytes(12));
+                    $val = bin2hex($xh_hasher->getRandomBytes(12));
                 }
                 $this->cfg[$cat][$name]['val'] = $val;
             }

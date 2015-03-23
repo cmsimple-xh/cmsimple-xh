@@ -170,8 +170,8 @@ class XH_PasswordForgotten
     {
         global $xh_hasher, $pth, $cf, $tx;
 
-        $password = bin2hex($xh_hasher->get_random_bytes(8));
-        $hash = $xh_hasher->HashPassword($password);
+        $password = bin2hex($xh_hasher->getRandomBytes(8));
+        $hash = $xh_hasher->hashPassword($password);
         $to = $cf['security']['email'];
         $subject = $tx['title']['password_forgotten'];
         $message = $tx['password_forgotten']['email2_text'] . ' ' . $password;

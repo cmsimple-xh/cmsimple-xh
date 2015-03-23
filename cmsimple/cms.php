@@ -270,7 +270,6 @@ $pth['file']['config'] = $pth['folder']['cmsimple'] . 'config.php';
 require_once $pth['folder']['cmsimple'] . 'functions.php';
 spl_autoload_register('XH_autoload');
 require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
-require_once $pth['folder']['classes'] . 'PasswordHash.php';
 require_once $pth['folder']['plugins'] . 'utf8/utf8.php';
 require_once UTF8 . '/ucfirst.php';
 require_once UTF8 . '/utils/validation.php';
@@ -851,7 +850,7 @@ $f = '';
  *
  * @access private
  */
-$xh_hasher = new PasswordHash(8, true);
+$xh_hasher = new XH_PasswordHash(9, false);
 
 /**
  * The plugin menu builder.

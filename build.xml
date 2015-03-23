@@ -8,7 +8,6 @@
         <include name="cmsimple/*.php"/>
         <exclude name="cmsimple/*config.php"/>
         <include name="cmsimple/classes/*.php"/>
-        <exclude name="cmsimple/classes/PasswordHash.php"/>
         <include name="plugins/filebrowser/*.php"/>
         <include name="plugins/filebrowser/classes/*.php"/>
         <include name="plugins/meta_tags/*.php"/>
@@ -33,13 +32,8 @@
 
     <target name="compat"
             description="checks compatibility with PHP_CompatInfo 3">
-        <!-- HACK to work around https://github.com/llaville/php-compat-info/issues/153 -->
-        <move file="cmsimple/classes/PasswordHash.php"
-              tofile="cmsimple/classes/PasswordHash._php"/>
         <exec command="phpcompatinfo analyser:run ."
               passthru="true" logoutput="true"/>
-        <move file="cmsimple/classes/PasswordHash._php"
-              tofile="cmsimple/classes/PasswordHash.php"/>
     </target>
 
     <target name="unit-tests" description="runs all unit tests">

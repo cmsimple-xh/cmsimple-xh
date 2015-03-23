@@ -18,7 +18,6 @@ require_once './vendor/autoload.php';
 require_once './cmsimple/adminfuncs.php';
 require_once './cmsimple/functions.php';
 require_once './cmsimple/tplfuncs.php';
-require_once './cmsimple/classes/PasswordHash.php';
 
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -560,7 +559,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
             'HTTP_USER_AGENT' => 'Mozilla/5.0',
             'REMOTE_ADDR' => '127.0.0.1'
         );
-        $xh_hasher = $this->getMockBuilder('PasswordHash')
+        $xh_hasher = $this->getMockBuilder('XH_PasswordHash')
             ->disableOriginalConstructor()->getMock();
         $cf['security']['password'] = '$P$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1';
         $this->eMock = new PHPUnit_Extensions_MockFunction('e', $this->subject);
@@ -580,7 +579,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
     {
         global $xh_hasher;
 
-        $xh_hasher->expects($this->any())->method('CheckPassword')
+        $xh_hasher->expects($this->any())->method('checkPassword')
             ->will($this->returnValue(true));
         $this->setcookieMock->expects($this->any())->with('status', 'adm');
         $this->subject->handleLogin();
@@ -598,7 +597,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
     {
         global $xh_hasher, $cf;
 
-        $xh_hasher->expects($this->any())->method('CheckPassword')
+        $xh_hasher->expects($this->any())->method('checkPassword')
             ->will($this->returnValue(true));
         $this->subject->handleLogin();
         $this->assertEquals(
@@ -621,7 +620,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
     {
         global $xh_hasher;
 
-        $xh_hasher->expects($this->any())->method('CheckPassword')
+        $xh_hasher->expects($this->any())->method('checkPassword')
             ->will($this->returnValue(true));
         $this->sessionRegenerateIdMock->expects($this->once())->with(true);
         $this->subject->handleLogin();
@@ -638,7 +637,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
     {
         global $xh_hasher;
 
-        $xh_hasher->expects($this->any())->method('CheckPassword')
+        $xh_hasher->expects($this->any())->method('checkPassword')
             ->will($this->returnValue(true));
         $this->logMessageMock->expects($this->once())
             ->with('info', 'XH', 'login');
@@ -658,7 +657,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
     {
         global $xh_hasher, $f, $login;
 
-        $xh_hasher->expects($this->any())->method('CheckPassword')
+        $xh_hasher->expects($this->any())->method('checkPassword')
             ->will($this->returnValue(false));
         $this->subject->handleLogin();
         $this->assertNull($login);
@@ -676,7 +675,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
     {
         global $xh_hasher;
 
-        $xh_hasher->expects($this->any())->method('CheckPassword')
+        $xh_hasher->expects($this->any())->method('checkPassword')
             ->will($this->returnValue(false));
         $this->logMessageMock->expects($this->once())
             ->with('warning', 'XH', 'login');
@@ -825,7 +824,7 @@ class ControllerPasswordCheckTest extends PHPUnit_Framework_TestCase
         global $xh_hasher;
 
         $_GET['xh_check'] = 'test';
-        $xh_hasher = $this->getMockBuilder('PasswordHash')
+        $xh_hasher = $this->getMockBuilder('XH_PasswordHash')
             ->disableOriginalConstructor()->getMock();
         $this->subject = new XH_Controller();
         $this->exitMock = new PHPUnit_Extensions_MockFunction(
@@ -858,7 +857,7 @@ class ControllerPasswordCheckTest extends PHPUnit_Framework_TestCase
     {
         global $xh_hasher;
 
-        $xh_hasher->expects($this->any())->method('CheckPassword')
+        $xh_hasher->expects($this->any())->method('checkPassword')
             ->will($this->returnValue(true));
         $this->expectOutputString('1');
         $this->subject->handlePasswordCheck();
@@ -875,7 +874,7 @@ class ControllerPasswordCheckTest extends PHPUnit_Framework_TestCase
     {
         global $xh_hasher;
 
-        $xh_hasher->expects($this->any())->method('CheckPassword')
+        $xh_hasher->expects($this->any())->method('checkPassword')
             ->will($this->returnValue(false));
         $this->expectOutputString('0');
         $this->subject->handlePasswordCheck();
