@@ -250,6 +250,7 @@ HTML;
     $checks = array(
         'phpversion' => '5.3',
         'extensions' => array(
+            'json',
             'pcre',
             array('session', false),
             array('xml', false)

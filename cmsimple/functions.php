@@ -2151,19 +2151,12 @@ function XH_convertPrintUrls($pageContent)
  * @global object The JSON codec.
  *
  * @since 1.6
+ *
+ * @todo Deprecate starting with 1.8.
  */
 function XH_decodeJson($string)
 {
-    global $_XH_json;
-
-    if (function_exists('json_decode')) {
-        return json_decode($string);
-    } else {
-        if (!isset($_XH_json)) {
-            $_XH_json = new XH_JSON();
-        }
-        return $_XH_json->decode($string);
-    }
+    return json_decode($string);
 }
 
 /**
@@ -2176,19 +2169,12 @@ function XH_decodeJson($string)
  * @global object The JSON codec.
  *
  * @since 1.6
+ *
+ * @todo Deprecate starting with 1.8.
  */
 function XH_encodeJson($value)
 {
-    global $_XH_json;
-
-    if (function_exists('json_encode')) {
-        return json_encode($value);
-    } else {
-        if (!isset($_XH_json)) {
-            $_XH_json = new XH_JSON();
-        }
-        return $_XH_json->encode($value);
-    }
+    return json_encode($value);
 }
 
 /**
@@ -2200,19 +2186,12 @@ function XH_encodeJson($value)
  * @global object The JSON codec.
  *
  * @since 1.6
+ *
+ * @todo Deprecate starting with 1.8.
  */
 function XH_lastJsonError()
 {
-    global $_XH_json;
-
-    if (function_exists('json_last_error')) {
-        return json_last_error();
-    } else {
-        if (!isset($_XH_json)) {
-            $_XH_json = new XH_JSON();
-        }
-        return $_XH_json->lastError();
-    }
+    return json_last_error();
 }
 
 /**
