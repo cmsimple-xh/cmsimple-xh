@@ -196,7 +196,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array('', 'br', '<br>'),
-            array('true', 'br', '<br />')
+            array('true', 'br', '<br>')
         );
     }
 
@@ -208,8 +208,19 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         global $cf;
 
         $cf['xhtml']['endtags'] = $xhtmlEndtags;
+        $errorReporting = error_reporting();
+        error_reporting(0);
         $actual = tag($str);
+        error_reporting($errorReporting);
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
+    public function testTagIsDeprecated()
+    {
+        tag('dummy');
     }
 
     /**

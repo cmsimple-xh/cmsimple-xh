@@ -71,10 +71,8 @@ function XH_systemCheck($data)
 
     foreach (array('success', 'warning', 'fail') as $img) {
         $txt = $stx[$img];
-        $imgs[$img] = tag(
-            'img src="' . $pth['folder']['corestyle'] . $img . '.png" alt="'
-            . $txt . '" title="' . $txt . '" width="16" height="16"'
-        );
+        $imgs[$img] = '<img src="' . $pth['folder']['corestyle'] . $img . '.png"'
+            . ' alt="' . $txt . '" title="' . $txt . '" width="16" height="16">';
     }
 
     $o = "<h4>$stx[title]</h4>\n<ul id=\"xh_system_check\">\n";
@@ -414,27 +412,23 @@ function XH_backupsView()
         . '</a>'
         . ' <form action="' . $sn . '?&xh_backups" method="post"'
         . ' class="xh_inline_form" onsubmit="return XH.promptBackupName(this)">'
-        . tag('input type="hidden" name="file" value="content"')
-        . tag('input type="hidden" name="action" value="backup"')
-        . tag('input type="hidden" name="xh_suffix" value="extra"')
-        . tag(
-            'input type="submit" class="submit" value="'
-            . $tx['action']['backup'] . '"'
-        )
+        . '<input type="hidden" name="file" value="content">'
+        . '<input type="hidden" name="action" value="backup">'
+        . '<input type="hidden" name="xh_suffix" value="extra">'
+        . '<input type="submit" class="submit" value="'
+        . $tx['action']['backup'] . '">'
         . $_XH_csrfProtection->tokenInput()
         . '</form>'
         . ' <form action="' . $sn . '?&xh_backups" method="post"'
         . ' class="xh_inline_form">'
-        . tag('input type="hidden" name="file" value="content"')
-        . tag('input type="hidden" name="action" value="empty"')
-        . tag(
-            'input type="submit" class="submit" value="'
-            . $tx['action']['empty'] . '"'
-        )
+        . '<input type="hidden" name="file" value="content">'
+        . '<input type="hidden" name="action" value="empty">'
+        . '<input type="submit" class="submit" value="'
+        . $tx['action']['empty'] . '">'
         . $_XH_csrfProtection->tokenInput()
         . '</form>'
         . '</li>' . "\n";
-    $o .= '</ul>' . "\n" . tag('hr') . "\n" . '<p>'
+    $o .= '</ul>' . "\n" . '<hr>' . "\n" . '<p>'
         . $tx['settings']['backupexplain1'] . '</p>' . "\n" . '<p>'
         . $tx['settings']['backupexplain2'] . '</p>' . "\n" . '<ul>' . "\n";
     $fs = sortdir($pth['folder']['content']);
@@ -447,12 +441,10 @@ function XH_backupsView()
                 . $p . '</a> (' . $size . ' KB)'
                 . ' <form action="' . $sn . '?&xh_backups" method="post"'
                 . ' class="xh_inline_form">'
-                . tag('input type="hidden" name="file" value="' . $p . '"')
-                . tag('input type="hidden" name="action" value="restore"')
-                . tag(
-                    'input type="submit" class="submit" value="'
-                    . $tx['action']['restore'] . '"'
-                )
+                . '<input type="hidden" name="file" value="' . $p . '">'
+                . '<input type="hidden" name="action" value="restore">'
+                . '<input type="submit" class="submit" value="'
+                . $tx['action']['restore'] . '">'
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
                 . '</li>' . "\n";
@@ -841,8 +833,8 @@ function XH_contentEditor()
         $e .= '<li>' . $msg . '</li>' . "\n";
     }
     $o = '<form method="POST" id="ta" action="' . $sn . '">'
-        . tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
-        . tag('input type="hidden" name="function" value="save"')
+        . '<input type="hidden" name="selected" value="' . $u[$s] . '">'
+        . '<input type="hidden" name="function" value="save">'
         . '<textarea name="text" id="text" class="xh-editor" style="height: '
         . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
         . XH_hsc($c[$s])
@@ -853,7 +845,7 @@ function XH_contentEditor()
         . $_XH_csrfProtection->tokenInput();
     if ($cf['editor']['external'] == '' || !$editor) {
         $value = utf8_ucfirst($tx['action']['save']);
-        $o .= tag('input type="submit" value="' . $value . '"');
+        $o .= '<input type="submit" value="' . $value . '">';
     }
     $o .= '</form>';
     return $o;

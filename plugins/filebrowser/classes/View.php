@@ -227,15 +227,11 @@ class Filebrowser_View
                         $this->translate('confirm_delete', $this->basePath . $folder)
                     )
                     . '\');">'
-                    . tag(
-                        'input type="image" src="' . $this->browserPath
-                        . 'css/icons/delete.png" alt="delete" title="'
-                        . $this->translate('delete_folder') . '"'
-                    )
-                    . tag('input type="hidden" name="deleteFolder"')
-                    . tag(
-                        'input type="hidden" name="folder" value="' . $folder . '"'
-                    )
+                    . '<input type="image" src="' . $this->browserPath
+                    . 'css/icons/delete.png" alt="delete" title="'
+                    . $this->translate('delete_folder') . '">'
+                    . '<input type="hidden" name="deleteFolder">'
+                    . '<input type="hidden" name="folder" value="' . $folder . '">'
                     . $_XH_csrfProtection->tokenInput()
                     . '</form>'
                     . '<a href="?' . $this->linkParams . '&amp;subdir=' . $folder
@@ -300,17 +296,13 @@ class Filebrowser_View
                     )
                 )
                 . '\');">'
-                . tag(
-                    'input type="image" src="' . $this->browserPath
-                    . 'css/icons/delete.png" alt="delete" title="'
-                    . $this->translate('delete_file')
-                    . '" style="width: 16px; height: 16px"'
-                )
-                . tag('input type="hidden" name="deleteFile"')
-                . tag(
-                    'input type="hidden" name="filebrowser_file" value="'
-                    . $file . '"'
-                )
+                . '<input type="image" src="' . $this->browserPath
+                . 'css/icons/delete.png" alt="delete" title="'
+                . $this->translate('delete_file')
+                . '" style="width: 16px; height: 16px">'
+                . '<input type="hidden" name="deleteFile">'
+                . '<input type="hidden" name="filebrowser_file" value="'
+                . $file . '">'
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
                 . '<form method="post" style="display:inline;" action="'
@@ -321,18 +313,14 @@ class Filebrowser_View
                 )
                 . '\');"'
                 . '>'
-                . tag(
-                    'input type="hidden" name="renameFile" value="'
-                    . $file . '"'
-                )
-                . tag('input type="hidden" name="oldName" value="' . $file . '"')
-                . tag(
-                    'input type="image" src="' . $this->browserPath
-                    . 'css/icons/rename.png"' . ' alt="'
-                    . $this->translate('rename_file') . '" title="'
-                    . $this->translate('rename_file')
-                    . '" style="width: 16px; height: 16px"'
-                )
+                . '<input type="hidden" name="renameFile" value="'
+                . $file . '">'
+                . '<input type="hidden" name="oldName" value="' . $file . '">'
+                . '<input type="image" src="' . $this->browserPath
+                . 'css/icons/rename.png"' . ' alt="'
+                . $this->translate('rename_file') . '" title="'
+                . $this->translate('rename_file')
+                . '" style="width: 16px; height: 16px">'
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
                 . '<a style="position:relative" class="xhfbfile" href="'
@@ -342,7 +330,7 @@ class Filebrowser_View
             $ffn = $base . $fb->currentDirectory . $file;
             $usage = array_key_exists($ffn, $imgs)
                 ? '<strong>' . $this->translate('image_usedin') . '</strong>'
-                    . tag('br') . implode(tag('br'), $imgs[$ffn])
+                    . '<br>' . implode('<br>', $imgs[$ffn])
                 : '';
 
             $path = $this->basePath . $this->currentDirectory . $file;
@@ -418,12 +406,10 @@ class Filebrowser_View
         }
         return '<span style="position: relative;  z-index: 4; ">'
             . '<span style="font-weight: normal; border: none;">'
-            . $image[0] . ' x ' . $image[1] . ' px</span>' . tag('br')
-            . tag(
-                'img src="' . $path . '" width="' . $width . '" height="'
-                . $height . '" alt="' . $file . '"'
-            )
-            . (isset($usage) ? tag('br') . $usage : '')
+            . $image[0] . ' x ' . $image[1] . ' px</span>' . '<br>'
+            . '<img src="' . $path . '" width="' . $width . '" height="'
+            . $height . '" alt="' . $file . '">'
+            . (isset($usage) ? '<br>' . $usage : '')
             . '</span>';
     }
 

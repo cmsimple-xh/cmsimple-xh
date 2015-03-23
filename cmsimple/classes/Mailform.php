@@ -267,50 +267,42 @@ class XH_Mailform
         $o = '<form class="xh_mailform" action="' . $url
             . '#xh_mailform" method="post">' . "\n";
         if (!$this->embedded) {
-            $o .= tag('input type="hidden" name="function" value="mailform"') . "\n";
+            $o .= '<input type="hidden" name="function" value="mailform">' . "\n";
         }
         if (isset($cf['mailform']['captcha'])
             && trim($cf['mailform']['captcha']) == 'true'
         ) {
-            $o .= tag('input type="hidden" name="getlast" value="' . $random . '"')
+            $o .= '<input type="hidden" name="getlast" value="' . $random . '">'
                 . "\n";
         }
-        $o .= tag('input type="hidden" name="action" value="send"') . "\n";
+        $o .= '<input type="hidden" name="action" value="send">' . "\n";
 
         // fields before textarea
         $o .= '<div>' . "\n" . '<label for="xh_mailform_sendername">'
-            . $tx['mailform']['sendername'] . '</label>' . tag('br') . "\n"
-            . tag(
-                'input type="text" class="text" size="35" name="sendername"'
-                . ' id="xh_mailform_sendername" value="'
-                . XH_hsc($this->sendername).'"'
-            ) . "\n"
+            . $tx['mailform']['sendername'] . '</label>' . '<br>' . "\n"
+            . '<input type="text" class="text" size="35" name="sendername"'
+            . ' id="xh_mailform_sendername" value="'
+            . XH_hsc($this->sendername).'">' . "\n"
             . '</div>' . "\n"
             . '<div>' . "\n" . '<label for="xh_mailform_senderphone">'
-            . $tx['mailform']['senderphone'] . '</label>' . tag('br') . "\n"
-            . tag(
-                'input type="tel" class="text" size="35" name="senderphone"'
-                . ' id="xh_mailform_senderphone" value="'
-                . XH_hsc($this->senderphone).'"'
-            ) . "\n"
+            . $tx['mailform']['senderphone'] . '</label>' . '<br>' . "\n"
+            . '<input type="tel" class="text" size="35" name="senderphone"'
+            . ' id="xh_mailform_senderphone" value="'
+            . XH_hsc($this->senderphone).'">' . "\n"
             . '</div>' . "\n"
             . '<div>' . "\n" . '<label for="xh_mailform_sender">'
-            . $tx['mailform']['sender'] . '</label>' . tag('br') . "\n"
-            . tag(
-                'input type="email" class="text" size="35" name="sender"'
-                . ' id="xh_mailform_sender" value="'
-                . XH_hsc($this->sender).'" required="required"'
-            ) . "\n"
+            . $tx['mailform']['sender'] . '</label>' . '<br>' . "\n"
+            . '<input type="email" class="text" size="35" name="sender"'
+            . ' id="xh_mailform_sender" value="'
+            . XH_hsc($this->sender).'" required="required">' . "\n"
             . '</div>' . "\n"
             . '<div>' . "\n" .  '<label for="xh_mailform_subject">'
-            . $tx['mailform']['subject'] . '</label>'. tag('br') . "\n"
-            . tag(
-                'input type="text" class="text" size="35" name="subject"'
-                . ' id="xh_mailform_subject" value="'
-                . XH_hsc($this->subject).'" required="required"'
-            ) . "\n"
+            . $tx['mailform']['subject'] . '</label>'. '<br>' . "\n"
+            . '<input type="text" class="text" size="35" name="subject"'
+            . ' id="xh_mailform_subject" value="'
+            . XH_hsc($this->subject).'" required="required">' . "\n"
             . '</div>' . "\n"
-            . tag('br') . "\n";
+            . '<br>' . "\n";
 
         // textarea
         $name = $this->embedded ? 'xh_mailform' : 'mailform';
@@ -323,20 +315,16 @@ class XH_Mailform
             && trim($cf['mailform']['captcha']) == 'true'
         ) {
             $o .= '<p>' .  $tx['mailform']['captcha'] . '</p>' . "\n"
-                .  tag(
-                    'input type="text" name="cap" class="xh_captcha_input"'
-                    . ' required="required"'
-                )
+                .  '<input type="text" name="cap" class="xh_captcha_input"'
+                . ' required="required">'
                 . "\n" .  '<span class="xh_captcha_code">' . "\n"
                 .  $random . '</span>' . "\n";
         }
 
         // send button
         $o .= '<div class="xh_break">' . "\n"
-            . tag(
-                'input type="submit" class="submit" value="'
-                .  $tx['mailform']['sendbutton'] . '"'
-            )
+            . '<input type="submit" class="submit" value="'
+            .  $tx['mailform']['sendbutton'] . '">'
             . "\n" . '</div>' . "\n" . '</form>' . "\n";
 
         return $o;

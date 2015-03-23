@@ -152,22 +152,16 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
         $o = '<div id="' . $id . '" style="display:none">'
             . '<table style="width: 100%">'
             . '<tr><td>' . $tx['password']['old'] . '</td><td>'
-            . tag(
-                'input type="password" name="' . $iname . '_OLD" value=""'
-                . ' autocomplete="off" class="xh_setting"'
-            )
+            . '<input type="password" name="' . $iname . '_OLD" value=""'
+            . ' autocomplete="off" class="xh_setting">'
             . '</td></tr>'
             . '<tr><td>' . $tx['password']['new'] . '</td><td>'
-            . tag(
-                'input type="password" name="' . $iname . '_NEW" value=""'
-                . ' autocomplete="off" class="xh_setting"'
-            )
+            . '<input type="password" name="' . $iname . '_NEW" value=""'
+            . ' autocomplete="off" class="xh_setting">'
             . '</td></tr>'
             . '<tr><td>' . $tx['password']['confirmation'] . '</td><td>'
-            . tag(
-                'input type="password" name="' . $iname . '_CONFIRM" value=""'
-                . ' autocomplete="off" class="xh_setting"'
-            )
+            . '<input type="password" name="' . $iname . '_CONFIRM" value=""'
+            . ' autocomplete="off" class="xh_setting">'
             . '</td></tr>'
             . '</table>'
             . '</div>';
@@ -207,10 +201,8 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
                 . XH_hsc($opt['val'])
                 . '</textarea>';
         case 'bool':
-            return tag(
-                'input type="checkbox" name="' . $iname . '"'
-                . ($opt['val'] ? ' checked="checked"' : '')
-            );
+            return '<input type="checkbox" name="' . $iname . '"'
+                . ($opt['val'] ? ' checked="checked"' : '') . '>';
         case 'enum':
             $o = '<select name="' . $iname . '">';
             foreach ($opt['vals'] as $val) {
@@ -223,32 +215,26 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
             $o .= '</select>';
             return $o;
         case 'xenum':
-            $o = tag(
-                'input type="text" name="' . $iname . '" value="'
+            $o = '<input type="text" name="' . $iname . '" value="'
                 . XH_hsc($opt['val']) . '" class="xh_setting" list="'
-                . $iname . '_DATA"'
-            );
+                . $iname . '_DATA">';
             $o .= '<datalist id="' . $iname . '_DATA">';
             foreach ($opt['vals'] as $val) {
                 $label = ($val == '')
                     ? ' label="' . $tx['label']['empty'] . '"'
                     : '';
-                $o .= tag('option' . $label . ' value="' . XH_hsc($val) . '"');
+                $o .= '<option' . $label . ' value="' . XH_hsc($val) . '">';
             }
             $o .= '</datalist>';
             return $o;
         case 'hidden':
         case 'random':
-            return tag(
-                'input type="hidden" name="' . $iname . '" value="'
-                . XH_hsc($opt['val']) . '"'
-            );
+            return '<input type="hidden" name="' . $iname . '" value="'
+                . XH_hsc($opt['val']) . '">';
         default:
-            return tag(
-                'input type="text" name="' . $iname . '" value="'
+            return '<input type="text" name="' . $iname . '" value="'
                 . XH_hsc($opt['val'])
-                . '" class="xh_setting"'
-            );
+                . '" class="xh_setting">';
         }
     }
 
@@ -271,7 +257,7 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
         $title = $this->caption;
         $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;
         $value = utf8_ucfirst($tx['action']['save']);
-        $button = tag('input type="submit" class="submit" value="' . $value . '"');
+        $button = '<input type="submit" class="submit" value="' . $value . '">';
         if (isset($_GET['xh_success'])) {
             $filetype = utf8_ucfirst($tx['filetype'][stsl($_GET['xh_success'])]);
             $message = XH_message('success', $tx['message']['saved'], $filetype);
@@ -306,7 +292,7 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
                     $o .= '</div>'
                         . '<div class="xh_field">'
                         . $this->formField($category, $name, $opt) . '</div>'
-                        . tag('br');
+                        . '<br>';
                 }
             }
             if ($hasVisibleFields) {
@@ -314,9 +300,8 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
             }
         }
         foreach ($this->params as $param => $value) {
-            $o .= tag(
-                'input type="hidden" name="' . $param . '" value="' . $value . '"'
-            );
+            $o .= '<input type="hidden" name="' . $param . '" value="'
+                . $value . '">';
         }
         $o .= $_XH_csrfProtection->tokenInput();
         $o .= $button . '</form>';

@@ -38,7 +38,7 @@ if (XH_wantsPluginAdministration('page_params')) {
     if ($admin == '') {
         $o .= "\n" . '<div class="plugintext"><div class="plugineditcaption">'
             . utf8_ucfirst(str_replace('_', ' ', $plugin)) . '</div></div>'
-            . tag('br');
+            . '<br>';
     }
     $o .= plugin_admin_common($action, $admin, $plugin);
 }

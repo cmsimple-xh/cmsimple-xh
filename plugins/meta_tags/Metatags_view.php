@@ -69,11 +69,9 @@ EOT;
                 . ' class="xh_setting">'
                 . XH_hsc($page[$field])
                 . '</textarea>'
-            : tag(
-                'input type="text" class="xh_setting" size="50"'
+            : '<input type="text" class="xh_setting" size="50"'
                 . ' name="' . $field . '" value="'
-                . XH_hsc($page[$field]) . '"'
-            );
+                . XH_hsc($page[$field]) . '">';
         $view .= "\n\t" . XH_helpIcon($lang['hint_' . $field])
             . "\n\t" . '<label><span class = "mt_label">'
             . $lang[$field] . '</span>';
@@ -81,13 +79,13 @@ EOT;
             $view .= '<span id="mt_description_length">['
                 . utf8_strlen($page[$field]). ']</span>';
         }
-        $view .= tag('br')
-            . "\n\t\t" . $element . '</label>' . tag('hr');
+        $view .= '<br>'
+            . "\n\t\t" . $element . '</label>' . '<hr>';
     }
-    $view .= "\n\t" . tag('input name="save_page_data" type="hidden"')
+    $view .= "\n\t" . '<input name="save_page_data" type="hidden">'
         . "\n\t" . '<div style="text-align: right;">'
-        . "\n\t\t" . tag('input type="submit" value="' . $lang['submit'].'"')
-        . tag('br')
+        . "\n\t\t" . '<input type="submit" value="' . $lang['submit'].'">'
+        . '<br>'
         . "\n\t" . '</div>'
         . "\n" . '</form>';
     return $view;

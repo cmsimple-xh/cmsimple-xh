@@ -124,7 +124,6 @@ $tx['help']['title_format']="The way the title of a page of your site (&lt;title
 $tx['help']['uri_seperator']="The character which separates names of pages and sub pages in the URL.";
 $tx['help']['uri_word_separator']="The character which separates words in the URL.";
 $tx['help']['uri_length']="The URLs of the pages will be truncated at this length. This might change in a future release, so it's best to use shorter page headings (e.g. by using Page&rarr;Alternative heading).";
-$tx['help']['xhtml_endtags']="Check this, if you want XHTML-output. The required endslashes in standalone tags will be created automatically.";
 
 $tx['help']['folders_userfiles']="The base folder of all userfiles.";
 $tx['help']['folders_downloads']="A subfolder of userfiles.";

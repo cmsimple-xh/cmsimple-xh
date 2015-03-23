@@ -38,7 +38,7 @@ if (XH_wantsPluginAdministration('meta_tags')) {
     $o .= print_plugin_admin('off');
     if ($admin == '') {
         $o .= "\n" . '<div class="plugintext"><div class="plugineditcaption">'
-            . ucfirst(str_replace('_', ' ', $plugin)) . '</div></div>' . tag('br');
+            . ucfirst(str_replace('_', ' ', $plugin)) . '</div></div>' . '<br>';
     }
     $o .= plugin_admin_common($action, $admin, $plugin);
 }

@@ -25,8 +25,6 @@ include ($pth['folder']['template'].'tbsuchen.php');
 
 
 ?>
-
-
 <?php
 // if jQuery4CMSimple is installed, include its jQuery library
 if (is_readable($pth['folder']['plugins'].'jquery/jquery.inc.php')) {
@@ -147,7 +145,7 @@ if (is_readable($pth['folder']['plugins'].'jquery/jquery.inc.php')) {
 </div></div>
 </div><div class="tbisgpl3-block clearfix">
         <div class="tbisgpl3-blockcontent"><div>
-<?php echo languagemenu();?><?php echo tag('br');?>
+<?php echo languagemenu();?><br>
 <?php echo lastupdate();?>
 
 
@@ -161,13 +159,13 @@ if (is_readable($pth['folder']['plugins'].'jquery/jquery.inc.php')) {
     <div class="tbisgpl3-content-layout-row">
     <div class="tbisgpl3-layout-cell layout-item-2" style="width: 25%">
         <!-- ONLY THIS Torsten Behrens TEMPLATE IS A GPL3 TEMPLATE -->
-        <p><a href="http://torsten-behrens.de/">TBIS GPL3 Template</a><?php echo tag('br');?><a href="http://www.CMSimple.eu">CMSimple GPL3</a></p>
+        <p><a href="http://torsten-behrens.de/">TBIS GPL3 Template</a><br><a href="http://www.CMSimple.eu">CMSimple GPL3</a></p>
         <!-- SEE MORE Torsten Behrens LinkWare TEMPLATES FOR CMSIMPLE XH ON http://torsten-behrens.de -->
     </div><div class="tbisgpl3-layout-cell layout-item-2" style="width: 25%">
-<p>Copyright &copy;  1997-<?php echo date("Y"); ?><?php echo tag('br');?><?php echo date("d.m.Y"); ?></p>    </div><div class="tbisgpl3-layout-cell layout-item-2" style="width: 25%">
-        <p><?php echo sitemaplink();?><?php echo tag('br');?><?php echo loginlink();?></p>
+<p>Copyright &copy;  1997-<?php echo date("Y"); ?><br><?php echo date("d.m.Y"); ?></p>    </div><div class="tbisgpl3-layout-cell layout-item-2" style="width: 25%">
+        <p><?php echo sitemaplink();?><br><?php echo loginlink();?></p>
     </div><div class="tbisgpl3-layout-cell layout-item-3" style="width: 25%">
-        <p><?php echo mailformlink();?><?php echo tag('br');?><?php echo printlink();?></p>
+        <p><?php echo mailformlink();?><br><?php echo printlink();?></p>
     </div>
     </div>
 </div>

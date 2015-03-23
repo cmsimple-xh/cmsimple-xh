@@ -9,8 +9,8 @@
 <html lang="en">
     <head>
         <title>Filebrowser</title>
-        <?php echo tag('link rel="stylesheet" href="' . $pth['file']['corestyle'] . '" type="text/css"')?>
-        <?php echo tag('link rel="stylesheet" href="' . $pth['folder']['plugin_css'] . 'stylesheet.css" type="text/css"')?>
+        <link rel="stylesheet" href="<?php echo $pth['file']['corestyle']?>" type="text/css">
+        <link rel="stylesheet" href="<?php echo $pth['folder']['plugin_css']?>stylesheet.css" type="text/css">
         <style type="text/css">body {padding: 0; margin: 0; overflow: auto;}</style>
 
         %SCRIPT%
@@ -27,10 +27,10 @@
                 <div style="padding: 3em;">
 
                     <form method="post" enctype="multipart/form-data" onsubmit="return FILEBROWSER.checkUpload(this, '<?php echo $this->escapeForEventHandlerAttribute($this->translate('confirm_upload'));?>')">
-                        <?php echo tag('input type="file" name="fbupload"')?>
-                        <?php echo tag('input type="hidden" name="upload" value="upload"')?>
+                        <input type="file" name="fbupload">
+                        <input type="hidden" name="upload" value="upload">
 			<?php echo $_XH_csrfProtection->tokenInput()?>
-                        <?php echo tag('input type="submit" class="submit" value="' . $this->translate('upload_file') . '"')?>
+                        <input type="submit" class="submit" value="<?php echo $this->translate('upload_file')?>">
                     </form>
                 </div>
             </fieldset>
@@ -39,9 +39,9 @@
                 <div style="padding: 3em;">
 
                     <form method="post">
-                        <?php echo tag('input type="text" name="createFolder" size="30"')?>
+                        <input type="text" name="createFolder" size="30">
 			<?php echo $_XH_csrfProtection->tokenInput()?>
-                        <?php echo tag('input type="submit" class="submit" value="' . $this->translate('create_folder') . '"')?>
+                        <input type="submit" class="submit" value="<?php echo $this->translate('create_folder')?>">
                     </form>
                 </div>
             </fieldset>
@@ -51,7 +51,7 @@
                 %FOLDERS%
             </div>
             <div id="filebrowser_files" style="overflow: auto; z-index: 3; font-weight: 300; padding: 6px 6px 100px 30px;">
-			<span class="xhfb_files"><?php echo $this->translate('files');?></span><?php echo tag('br'), tag('br')?>
+			<span class="xhfb_files"><?php echo $this->translate('files');?></span><br><br>
                 %FILES%
             </div>
             <div style="clear:both;"></div>

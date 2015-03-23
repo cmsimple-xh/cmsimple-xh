@@ -74,10 +74,8 @@ class XH_CSRFProtection
         if (!isset($this->token)) {
             $this->token = md5(uniqid(rand()));
         }
-        $o = tag(
-            'input type="hidden" name="' . $this->keyName . '" value="'
-            . $this->token . '"'
-        );
+        $o = '<input type="hidden" name="' . $this->keyName . '" value="'
+            . $this->token . '">';
         return $o;
     }
 

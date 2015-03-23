@@ -79,7 +79,7 @@ abstract class XH_TextFileEdit extends XH_FileEdit
         } else {
             $message = '';
         }
-        $button = tag('input type="submit" class="submit" value="' . $value . '"');
+        $button = '<input type="submit" class="submit" value="' . $value . '">';
         $o = '<h1>' . $this->caption . '</h1>' . $message
             . '<form action="' . $action . '" method="post">'
             . '<textarea rows="25" cols="80" name="' . $this->textareaName
@@ -87,9 +87,8 @@ abstract class XH_TextFileEdit extends XH_FileEdit
             . XH_hsc($this->text)
             . '</textarea>';
         foreach ($this->params as $param => $value) {
-            $o .= tag(
-                'input type="hidden" name="' . $param . '" value="' . $value . '"'
-            );
+            $o .= '<input type="hidden" name="' . $param . '" value="'
+                . $value . '">';
         }
         $o .= $_XH_csrfProtection->tokenInput()
             . $button . '</form>';

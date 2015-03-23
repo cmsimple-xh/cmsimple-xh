@@ -19,7 +19,7 @@
         <div id="headerin">
         <?php
             if (file_exists($pth['folder']['templateimages'].'logo.jpg')){
-            echo '<a href="./">'.tag('img src="'.$pth['folder']['templateimages'].'logo.jpg" class="logo" alt="Logo"').'</a>';
+            echo '<a href="./"><img src="'.$pth['folder']['templateimages'].'logo.jpg" class="logo" alt="Logo"></a>';
             }
         ?>
         <h1><?php echo sitename()?></h1>
@@ -74,7 +74,7 @@
     </div>
     <div id="footer">
         <div class="footer_in">
-            <div class="button"><?php echo top();?></div><?php echo tag('br');?><?php echo tag('br');?>
+            <div class="button"><?php echo top();?></div><br><br>
             <div style="clear: both;"></div>
             <div class="copyright">Powered by <a target="_blank" href="http://www.cmsimple-xh.org/">CMSimple_XH</a> |
             Template by <a target="_blank" href="http://oldnema.compsys.cz/en/?Demo_templates">Oldnema</a> |

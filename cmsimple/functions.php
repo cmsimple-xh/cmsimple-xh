@@ -672,7 +672,7 @@ function e($et, $ft, $fn)
     global $e, $tx;
 
     $e .= '<li><b>' . $tx['error'][$et] . ' ' . $tx['filetype'][$ft] . '</b>'
-        . tag('br') . $fn . '</li>' . "\n";
+        . '<br>' . $fn . '</li>' . "\n";
 }
 
 /**
@@ -725,7 +725,7 @@ function rfc()
 
     foreach ($tooLong as $i => $tl) {
         if (XH_ADM && $tl) {
-            $e .= '<li><b>' . $tx['uri']['toolong'] . '</b>' . tag('br')
+            $e .= '<li><b>' . $tx['uri']['toolong'] . '</b>' . '<br>'
                 . '<a href="?' . $u[$i] . '">' . $h[$i] . '</a>' . '</li>';
         }
     }
@@ -979,7 +979,7 @@ function meta($n)
     $value = isset($tx['meta'][$n]) ? $tx['meta'][$n] : $cf['meta'][$n];
     if ($n != 'codepage' && !empty($value) && !($print && in_array($n, $exclude))) {
         $content = XH_hsc($value);
-        return tag('meta name="' . $n . '" content="' . $content . '"') . "\n";
+        return '<meta name="' . $n . '" content="' . $content . '">' . "\n";
     }
 }
 
@@ -1128,16 +1128,17 @@ function hide($i)
  *
  * @param string $s The contents of the tag.
  *
+ * @return string The (X)HTML.
+ *
  * @global array The configuration of the core.
  *
- * @return string The (X)HTML.
+ * @deprecated since 1.7
  */
 function tag($s)
 {
-    global $cf;
+    trigger_error('Function tag() is deprecated', E_USER_DEPRECATED);
 
-    $t = $cf['xhtml']['endtags'] == 'true' ? ' /' : '';
-    return '<' . $s . $t . '>';
+    return '<' . $s . '>';
 }
 
 /**
@@ -1303,8 +1304,8 @@ function XH_debug($errno, $errstr, $errfile, $errline, $context)
         $errtype = "Unknow error type [$errno]";
     }
 
-    $errors[] = "<b>$errtype:</b> $errstr" . tag('br') . "$errfile:$errline"
-        . tag('br') . "\n";
+    $errors[] = "<b>$errtype:</b> $errstr" . '<br>' . "$errfile:$errline"
+        . '<br>' . "\n";
 
     if ($errno === E_USER_ERROR) {
         die($errors[count($errors) - 1]);
@@ -1603,14 +1604,12 @@ function loginforms()
             . '<p><b>' . $tx['login']['warning'] . '</b></p>'
             . '<form id="login" name="login" action="' . $sn . '?' . $u[$s]
             . '" method="post">'
-            . tag('input type="hidden" name="login" value="true"')
-            . tag('input type="hidden" name="selected" value="' . $u[$s] . '"')
-            . tag('input type="password" name="keycut" id="passwd" value=""')
+            . '<input type="hidden" name="login" value="true">'
+            . '<input type="hidden" name="selected" value="' . $u[$s] . '">'
+            . '<input type="password" name="keycut" id="passwd" value="">'
             . ' '
-            . tag(
-                'input type="submit" name="submit" id="submit" value="'
-                . $tx['menu']['login'] . '"'
-            )
+            . '<input type="submit" name="submit" id="submit" value="'
+            . $tx['menu']['login'] . '">'
             . '</form>';
         if (!empty($cf['security']['email'])) {
             $o .= '<a href="' . $sn . '?&function=forgotten">'
@@ -1905,7 +1904,7 @@ function XH_builtinTemplate($bodyClass)
     }
     $content = XH_convertPrintUrls(content());
     echo '<head>', "\n" . head(),
-        tag('meta name="robots" content="noindex"'), "\n",
+        '<meta name="robots" content="noindex">', "\n",
         '</head>', "\n", '<body class="', $bodyClass,'"', onload(), '>', "\n",
         $content, '</body>', "\n", '</html>', "\n";
     if (isset($_XH_csrfProtection)) {
@@ -1935,7 +1934,7 @@ function XH_helpIcon($tooltip)
 
     $src = $pth['folder']['corestyle'] . 'help_icon.png';
     $o = '<div class="pl_tooltip">'
-        . tag('img src="' . $src . '" alt="' . $tx['editmenu']['help'] . '"')
+        . '<img src="' . $src . '" alt="' . $tx['editmenu']['help'] . '">'
         . '<div>' . $tooltip . '</div>'
         . '</div>';
     return $o;

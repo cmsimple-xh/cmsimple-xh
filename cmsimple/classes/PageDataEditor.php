@@ -81,7 +81,7 @@ class XH_PageDataEditor
     protected function renderField($field)
     {
         return '<li><label>'
-            . tag('input type="checkbox" name="' . $field . '"')
+            . '<input type="checkbox" name="' . $field . '">'
             . XH_hsc($field)
             . '</label></li>';
     }
@@ -149,10 +149,8 @@ class XH_PageDataEditor
                 $o .= $this->renderField($field);
             }
             $o .= '</ul>'
-                . tag(
-                    'input type="submit" class="submit" name="xh_pagedata_delete"'
-                    . ' value="' . $tx['action']['delete'] . '"'
-                )
+                . '<input type="submit" class="submit" name="xh_pagedata_delete"'
+                . ' value="' . $tx['action']['delete'] . '">'
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>';
         }

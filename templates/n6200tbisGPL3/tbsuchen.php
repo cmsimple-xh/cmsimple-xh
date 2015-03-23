@@ -21,7 +21,7 @@ Version 08.08.2013. Update for jQuery4CMSimple.
 <?php
 function tbsuchen() {
     global $sn, $tx;
-    return '<form class="tbisgpl3-search" action="' . $sn . '" method="post">' . "\n" . "\n" . tag('input type="text" class="text" name="search" size="12"') . "\n" . tag('input type="hidden" name="function" value="search"') . "\n" . ' ' . tag('input type="submit" class="submit" value="' . $tx['search']['button'] . '"') . "\n" . "\n" . '</form>' . "\n";
+    return '<form class="tbisgpl3-search" action="' . $sn . '" method="post">' . "\n" . "\n" . '<input type="text" class="text" name="search" size="12">' . "\n" . '<input type="hidden" name="function" value="search">' . "\n" . ' ' . '<input type="submit" class="submit" value="' . $tx['search']['button'] . '">' . "\n" . "\n" . '</form>' . "\n";
 }
 
 ?>

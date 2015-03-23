@@ -47,11 +47,9 @@ class XH_LinkChecker
         $url = $sn . '?&amp;xh_do_validate';
         $onload .= "XH.checkLinks('$url');";
         $o = '<div id="xh_linkchecker">'
-            . tag(
-                'img src="' . $pth['folder']['corestyle']
-                . 'ajax-loader-bar.gif" width="128" height="15" alt="'
-                . $tx['link']['checking'] . '"'
-            )
+            . '<img src="' . $pth['folder']['corestyle']
+            . 'ajax-loader-bar.gif" width="128" height="15" alt="'
+            . $tx['link']['checking'] . '">'
             . '</div>';
         return $o;
     }
@@ -322,9 +320,9 @@ class XH_LinkChecker
 
         $o = '<li>' . "\n" . '<b>' . $tx['link']['link'] . '</b>'
             . '<a href="' . $link->getURL() . '">' . $link->getText() . '</a>'
-            . tag('br') . "\n"
+            . '<br>' . "\n"
             . '<b>' . $tx['link']['linked_page'] . '</b>' . $link->getURL()
-            . tag('br') . "\n"
+            . '<br>' . "\n"
             . '<b>' . $tx['link']['error'] . '</b>';
         switch ($link->getStatus()) {
         case XH_Link::STATUS_INTERNALFAIL:
@@ -338,7 +336,7 @@ class XH_LinkChecker
             $o .= $tx['link']['ext_error_domain'];
             break;
         default:
-            $o .= $tx['link']['ext_error_page'] . tag('br') . "\n"
+            $o .= $tx['link']['ext_error_page'] . '<br>' . "\n"
                 . '<b>' . $tx['link']['returned_status'] . '</b>'
                 . $link->getStatus();
         }
@@ -363,9 +361,9 @@ class XH_LinkChecker
 
         $o = '<li>' . "\n" . '<b>' . $tx['link']['link'] . '</b>'
             . '<a href="' . $link->getURL() . '">' . $link->getText() . '</a>'
-            . tag('br') . "\n"
+            . '<br>' . "\n"
             . '<b>' . $tx['link']['linked_page'] . '</b>'
-            . $link->getURL() . tag('br') . "\n";
+            . $link->getURL() . '<br>' . "\n";
         switch ($link->getStatus()) {
         case XH_Link::STATUS_MAILTO:
             $o .= $tx['link']['email'] . "\n";
@@ -376,7 +374,7 @@ class XH_LinkChecker
         default:
             if ($link->getStatus() >= 300 && $link->getStatus() < 400) {
                 $o .= '<b>' . $tx['link']['error'] . '</b>'
-                    . $tx['link']['redirect'] . tag('br') . "\n";
+                    . $tx['link']['redirect'] . '<br>' . "\n";
             }
             $o .= '<b>' . $tx['link']['returned_status'] . '</b>'
                 . $link->getStatus() . "\n";
@@ -414,7 +412,7 @@ class XH_LinkChecker
         $o .= '<p><b>' . $tx['link']['check_errors'] . '</b></p>' . "\n";
         $o .= '<p>' . $tx['link']['check'] . '</p>' . "\n";
         foreach ($hints as $page => $problems) {
-            $o .= tag('hr') . "\n\n" . '<h4>' . $tx['link']['page']
+            $o .= '<hr>' . "\n\n" . '<h4>' . $tx['link']['page']
                 . '<a href="?' . $u[$page] . '">' . $h[$page] . '</a></h4>' . "\n";
             if (isset($problems['errors'])) {
                 $o .= '<h5>' . $tx['link']['errors'] . '</h5>' . "\n"

@@ -32,8 +32,8 @@ global $tx, $sn;
             <div style="padding: 3em;">
 
                 <form method="POST" action="<?php echo $sn, '?', XH_hsc($_SERVER['QUERY_STRING']);?>">
-                    <?php echo tag('input type="text" name="createFolder" size="30"');?>
-                    <?php echo tag('input type="submit" class="submit" value="' . $this->translate('create_folder') . '"');?>
+                    <input type="text" name="createFolder" size="30">
+                    <input type="submit" class="submit" value="<?php echo $this->translate('create_folder')?>">
 		    <?php echo $_XH_csrfProtection->tokenInput()?>
                 </form>
             </div>
@@ -42,7 +42,7 @@ global $tx, $sn;
         %SUBFOLDERS%
 
     </div>
-	<?php echo tag('hr');?>
+	<hr>
 	<p class="xhfb_files"><?php echo $this->translate('files');?></p>
     <div id="filebrowser_files">
          <div style="text-align: right; font-weight: 900">
@@ -53,9 +53,9 @@ global $tx, $sn;
             <div style="padding: 3em;">
 
                 <form method="POST" action="<?php echo $sn, '?', XH_hsc($_SERVER['QUERY_STRING']);?>" enctype="multipart/form-data" onsubmit="return FILEBROWSER.checkUpload(this, '<?php echo $this->escapeForEventHandlerAttribute($this->translate('confirm_upload'));?>')">
-                    <?php echo tag('input type="file" name="fbupload"');?>
-                    <?php echo tag('input type="hidden" name="upload" value="upload"');?>
-                    <?php echo tag('input type="submit" class="submit" value="' . $this->translate('upload_file') . '"');?>
+                    <input type="file" name="fbupload">
+                    <input type="hidden" name="upload" value="upload">
+                    <input type="submit" class="submit" value="<?php echo $this->translate('upload_file')?>">
 		    <?php echo $_XH_csrfProtection->tokenInput()?>
                 </form>
             </div>

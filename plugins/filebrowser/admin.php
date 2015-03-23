@@ -34,7 +34,7 @@ if (XH_wantsPluginAdministration('filebrowser')) {
 
     $o .= '<div class="plugintext">'
         . '<div class="plugineditcaption">Filebrowser for @CMSIMPLE_XH_VERSION@'
-        . '</div>' . tag('hr');
+        . '</div>' . '<hr>';
 
     if (!$admin) {
         $admin = 'plugin_config';

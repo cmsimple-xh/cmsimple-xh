@@ -217,7 +217,7 @@ class Pagemanager_Controller
                 . '" target="_blank" id="' . $id . '" title="' . $tooltip . '"></a>';
         }
         if (!$horizontal) {
-            $o .= tag('br');
+            $o .= '<br>';
         }
         $o .= "\n";
         return $o;

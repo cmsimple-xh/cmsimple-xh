@@ -1,6 +1,5 @@
 <?php
 
-$mtx['amp']="amp";
 $mtx['author']="Autor";
 $mtx['backup']="Sicherung";
 $mtx['captcha']="CAPTCHA";
@@ -10,7 +9,6 @@ $mtx['downloads']="Downloads";
 $mtx['editmenu']="Bearbeitungsmenü (Admin-Menü)";
 $mtx['editor']="Editor";
 $mtx['email']="E-Mail";
-$mtx['endtags']="konform";
 $mtx['external']="Name";
 $mtx['filebrowser']="Dateibrowser";
 $mtx['folders']="Ordner";
@@ -54,6 +52,5 @@ $mtx['uri']="URL";
 $mtx['urichar']="URL-Zeichen";
 $mtx['userfiles']="Benutzerdateien";
 $mtx['word separator']="Worttrennzeichen";
-$mtx['xhtml']="XHTML";
 
 ?>

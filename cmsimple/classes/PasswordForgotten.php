@@ -76,8 +76,8 @@ class XH_PasswordForgotten
             $o .= '<p>' . $tx['password_forgotten']['request'] . '</p>'
             . '<form name="xh_forgotten" action="' . $sn . '?&function=forgotten"'
             . ' method="post">'
-            . tag('input type="text" name="xh_email"')
-            . tag('input type="submit" class="submit" value="Send Reminder"')
+            . '<input type="text" name="xh_email">'
+            . '<input type="submit" class="submit" value="Send Reminder">'
             . '</form>';
             $onload .= 'document.forms[\'xh_forgotten\'].elements[\'xh_email\']'
                 . '.focus();';

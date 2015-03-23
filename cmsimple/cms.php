@@ -299,8 +299,12 @@ if (!$cf) {
     die("Config file {$pth['file']['config']} missing");
 }
 // removed from the core in XH 1.6, but left for compatibility with plugins.
-$cf['security']['type']='page';
-$cf['scripting']['regexp']='#CMSimple (.*?)#';
+$cf['security']['type'] = 'page';
+$cf['scripting']['regexp'] = '#CMSimple (.*?)#';
+
+// removed from the core in XH 1.7, but left for compatibility with extensions
+$cf['xhtml']['endtags'] = '';
+$cf['xhtml']['amp'] = 'true';
 
 foreach (array('userfiles', 'downloads', 'images', 'media') as $temp) {
     // for compatibility with older version's config files
@@ -1135,9 +1139,8 @@ foreach (XH_plugins() as $plugin) {
 /*
  * Add LINK to combined plugin stylesheet.
  */
-$hjs .= tag(
-    'link rel="stylesheet" href="' . XH_pluginStylesheet() . '" type="text/css"'
-) . PHP_EOL;
+$hjs .= '<link rel="stylesheet" href="' . XH_pluginStylesheet()
+    . '" type="text/css">' . PHP_EOL;
 
 /*
  * Include index.php of all plugins.

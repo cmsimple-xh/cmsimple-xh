@@ -129,10 +129,8 @@ class XH_PageDataView
             $o .= "Could not find " . $filename;
         }
         $o .= '<div class="xh_view_status">'
-            . tag(
-                'img src="' . $pth['folder']['corestyle']
-                . 'ajax-loader-bar.gif" style="display:none" alt="loading"'
-            )
+            . '<img src="' . $pth['folder']['corestyle']
+            . 'ajax-loader-bar.gif" style="display:none" alt="loading">'
             . '<div></div>'
             . '</div>';
         $o .= "\n" . "</div>\n";

@@ -32,7 +32,7 @@ function XH_renderPrevLink()
 
     $index = XH_findPreviousPage();
     if ($index !== false) {
-        return tag('link rel="prev" href="' . $sn . '?' . $u[$index] . '"');
+        return '<link rel="prev" href="' . $sn . '?' . $u[$index] . '">';
     } else {
         return '';
     }
@@ -54,7 +54,7 @@ function XH_renderNextLink()
 
     $index = XH_findNextPage();
     if ($index !== false) {
-        return tag('link rel="next" href="' . $sn . '?' . $u[$index] . '"');
+        return '<link rel="next" href="' . $sn . '?' . $u[$index] . '">';
     } else {
         return '';
     }
@@ -80,24 +80,18 @@ function head()
     foreach (array_merge($cf['meta'], $tx['meta']) as $i => $k) {
         $t .= meta($i);
     }
-    $t = tag('meta http-equiv="content-type" content="text/html;charset=UTF-8"')
+    $t = '<meta http-equiv="content-type" content="text/html;charset=UTF-8">'
         . "\n" . $t;
     $plugins = implode(', ', XH_plugins());
     return $t
-        . tag(
-            'meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' '
-            . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org"'
-        ) . "\n"
+        . '<meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' '
+        . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org">' . "\n"
         . '<!-- plugins: ' . $plugins . ' -->' . "\n"
         . XH_renderPrevLink() . XH_renderNextLink()
-        . tag(
-            'link rel="stylesheet" href="' . $pth['file']['corestyle']
-            . '" type="text/css"'
-        ) . "\n"
-        . tag(
-            'link rel="stylesheet" href="' . $pth['file']['stylesheet']
-            . '" type="text/css"'
-        ) . "\n"
+        . '<link rel="stylesheet" href="' . $pth['file']['corestyle']
+        . '" type="text/css">' . "\n"
+        . '<link rel="stylesheet" href="' . $pth['file']['stylesheet']
+        . '" type="text/css">' . "\n"
         . $hjs;
 }
 
@@ -279,15 +273,11 @@ function searchbox()
 
     return '<form action="' . $sn . '" method="get">' . "\n"
         . '<div id="searchbox">' . "\n"
-        . tag(
-            'input type="text" class="text" name="search" title="'
-            . $tx['search']['label'] . '" size="12"'
-        ) . "\n"
-        . tag('input type="hidden" name="function" value="search"') . "\n" . ' '
-        . tag(
-            'input type="submit" class="submit" value="'
-            . $tx['search']['button'] . '"'
-        ) . "\n"
+        . '<input type="text" class="text" name="search" title="'
+        . $tx['search']['label'] . '" size="12">' . "\n"
+        . '<input type="hidden" name="function" value="search">' . "\n" . ' '
+        . '<input type="submit" class="submit" value="'
+        . $tx['search']['button'] . '">' . "\n"
         . '</div>' . "\n" . '</form>' . "\n";
 }
 
@@ -393,7 +383,7 @@ function lastupdate($br = null, $hour = null)
 
     $t = $tx['lastupdate']['text'] . ':';
     if (!(isset($br))) {
-        $t .= tag('br');
+        $t .= '<br>';
     } else {
         $t .= ' ';
     }
@@ -631,10 +621,8 @@ function languagemenu()
             : $lang;
 
         $el = file_exists($img)
-            ? tag(
-                'img src="' . $img . '" alt="' . $title . '" title="'
-                . $title . '" class="flag"'
-            )
+            ? '<img src="' . $img . '" alt="' . $title . '" title="'
+                . $title . '" class="flag">'
             : $title;
         $t .= '<a href="' . $url . '">' . $el . '</a> ';
     }
