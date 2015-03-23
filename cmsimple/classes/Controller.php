@@ -427,40 +427,6 @@ class XH_Controller
     }
 
     /**
-     * Returns whether saving from menumanager is requested.
-     *
-     * @return bool
-     *
-     * @global string Whether the menumanager is requested.
-     * @global string The requested action.
-     */
-    public function isSavingMenumanager()
-    {
-        global $menumanager, $action, $text;
-
-        return isset($menumanager) && $menumanager == 'true'
-            && $action == 'saverearranged' && !empty($text);
-    }
-
-    /**
-     * Handles menumanager requests.
-     *
-     * @return void
-     *
-     * @global array             The paths of system files and folders.
-     * @global string            The menumanager page information.
-     * @global XH_PageDataRouter The page data router.
-     */
-    public function handleMenumanager()
-    {
-        global $pth, $text, $pd_router;
-
-        if (!$pd_router->refresh_from_menu_manager($text)) {
-            e('notwritable', 'content', $pth['file']['content']);
-        }
-    }
-
-    /**
      * Returns whether page data have to be saved.
      *
      * @return bool

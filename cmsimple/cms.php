@@ -1058,9 +1058,6 @@ define('XH_FORM_NAMESPACE', 'PL3bbeec384_');
 
 if (XH_ADM) {
     $o .= ' '; // generate fake output to suppress later adjustment of $s
-    if ($_XH_controller->isSavingMenumanager()) {
-        $_XH_controller->handleMenumanager();
-    }
     if ($_XH_controller->wantsSavePageData()) {
         $_XH_controller->handleSavePageData();
     }

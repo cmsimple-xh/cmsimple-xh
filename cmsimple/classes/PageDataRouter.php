@@ -352,64 +352,6 @@ class XH_PageDataRouter
     }
 
     /**
-     * Updates the page data according to changes from the menumanager plugin.
-     * Returns whether that succeeded.
-     *
-     * @param string $changes The changed page structure.
-     *
-     * @return bool
-     *
-     * @todo Remove sometimes in the future.
-     */
-// @codingStandardsIgnoreStart
-    public function refresh_from_menu_manager($changes)
-    {
-// @codingStandardsIgnoreEnd
-        $changes = explode(',', $changes);
-        /*
-         * Create an up-to-date page data array ...
-         */
-        $new_data = array();
-        /*
-         * index counter is needed for changed headings
-         */
-        $i = 0;
-        foreach ($changes as $temp) {
-            $infos = explode('^', $temp);
-            $old_position = $infos[0];
-            if ($old_position == 'New') {
-                /*
-                 * Page was added: create a new record
-                 * These informations are created by default
-                 */
-                $params = array();
-                $title = trim(strip_tags($infos[2]));
-                $url = uenc($title);
-                $params['url'] = $url;
-                $new_data[] = $this->new_page($params);
-            } else {
-                /*
-                 * Get the old record
-                 */
-                $new_data[] = $this->find_page($old_position);
-            }
-            if (isset($infos[3])) {
-                /*
-                 * if the heading has changed:
-                 * update 'url'
-                 */
-                $url = uenc(trim(strip_tags($infos[3])));
-                $new_data[$i]['url'] = $url;
-            }
-            $i++;
-        }
-        /*
-         * Replace the old data with the new array
-         */
-        return $this->model->refresh($new_data);
-    }
-
-    /**
      * Updates the page data of a single page and returns whether that succeeded.
      *
      * @param int   $s      The index of the page.
