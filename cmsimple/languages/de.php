@@ -120,6 +120,7 @@ $tx['help']['security_email']="Die E-Mail-Adresse für die 'Kennwort vergessen'-
 $tx['help']['security_frame_options']="Ob Seiten Ihrer Website in Frames angezeigt werden dürfen: \"DENY\" bedeutet niemals, \"SAMEORIGIN\" bedeutet nur auf Seiten der selben Domain. Lassen sie die Einstellung leer, um die Darstellung in Frames zu erlauben; das ist allerdings aus Sicherheitsgründen nicht zu empfehlen.";
 $tx['help']['site_template']="Standard-Template für die Website";
 $tx['help']['site_timezone']="Normalerweise keine Einstellung erforderlich. Ab PHP 5.1 kann eine vom Server abweichende <a href=\"http://www.php.net/manual/de/timezones.php\">Zeitzone</a> eingeben werden (siehe http://php.net/manual/de/timezones.php).";
+$tx['help']['site_compat']="Benötigt die Website Funktionen, die in CMSimple_XH 1.7 entfernt wurden?";
 $tx['help']['title_format']="Das Format des Seitentitels (&lt;title&gt;) wie er normalerweise oben in den Seitenreitern des Browsers angezeigt wird.";
 $tx['help']['uri_seperator']="Das Zeichen, das die Namen von Seiten und Unterseiten in der URL trennt.";
 $tx['help']['uri_word_separator']="Das Zeichen, das Wörter in der URL trennt.";

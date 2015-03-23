@@ -363,25 +363,6 @@ function mailformlink()
     }
 }
 
-
-/**
- * Returns the link to the guestbook.
- *
- * @return string The (X)HTML.
- *
- * @deprecated since 1.5.4
- */
-function guestbooklink()
-{
-    trigger_error(
-        'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
-    );
-    if (function_exists('gblink')) {
-        return gblink();
-    }
-}
-
-
 /**
  * Returns the link to the login form.
  *
@@ -421,29 +402,6 @@ function lastupdate($br = null, $hour = null)
             filemtime($pth['file']['content']) + (isset($hour) ? $hour * 3600 : 0)
         );
 }
-
-
-/**
- * Returns the link to the copyright and license informations.
- *
- * @return string The (X)HTML.
- *
- * @global array  The configuration of the core.
- * @global string The script name.
- *
- * @deprecated since 1.5.8
- */
-function legallink()
-{
-    global $cf, $sn;
-
-    trigger_error(
-        'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
-    );
-    return '<a href="' . $sn . '?' . uenc($cf['menu']['legal']) . '">'
-        . $cf['menu']['legal'] . '</a>';
-}
-
 
 /**
  * Returns the locator (breadcrumb navigation).
