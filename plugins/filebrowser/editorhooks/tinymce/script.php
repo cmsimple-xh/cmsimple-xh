@@ -5,10 +5,10 @@
  */
 
 $script = '
-<script type="text/javascript" src="./../tinymce/tiny_mce/tiny_mce_popup.js">
+<script type="text/javascript" src="' . $pth['folder']['plugins'] . 'tinymce/tiny_mce/tiny_mce_popup.js">
 </script>
 
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
 
 var FileBrowserDialogue = {
 

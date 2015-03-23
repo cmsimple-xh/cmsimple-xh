@@ -34,7 +34,7 @@ global $tx, $sn;
                 <form method="POST" action="<?php echo $sn, '?', XH_hsc($_SERVER['QUERY_STRING']);?>">
                     <?php echo tag('input type="text" name="createFolder" size="30"');?>
                     <?php echo tag('input type="submit" class="submit" value="' . $this->translate('create_folder') . '"');?>
-		    <?php global $_XH_csrfProtection; echo $_XH_csrfProtection->tokenInput();?>
+		    <?php echo $_XH_csrfProtection->tokenInput()?>
                 </form>
             </div>
         </fieldset>
@@ -56,7 +56,7 @@ global $tx, $sn;
                     <?php echo tag('input type="file" name="fbupload"');?>
                     <?php echo tag('input type="hidden" name="upload" value="upload"');?>
                     <?php echo tag('input type="submit" class="submit" value="' . $this->translate('upload_file') . '"');?>
-		    <?php global $_XH_csrfProtection; echo $_XH_csrfProtection->tokenInput();?>
+		    <?php echo $_XH_csrfProtection->tokenInput()?>
                 </form>
             </div>
         </fieldset>

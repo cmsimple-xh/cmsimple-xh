@@ -122,15 +122,6 @@ class Filebrowser_View
     protected $lang = array();
 
     /**
-     * The CSRF token.
-     *
-     * @var string
-     *
-     * @todo Unused?
-     */
-    protected $csrfToken;
-
-    /**
      * Initializes a newly created instance.
      *
      * @global array  The localization of the plugins.
@@ -150,19 +141,14 @@ class Filebrowser_View
      * @return string (X)HTML.
      *
      * @global array The localization of the core.
-     *
-     * @todo Internationalize "Userfiles".
      */
     protected function folderList($folders)
     {
         global $tx;
 
-        $title = isset($tx['title']['userfiles'])
-            ? utf8_ucfirst($tx['title']['userfiles'])
-            : ucfirst('Userfiles');
         $html = '<ul><li class="openFolder"><a href="?'
-            . htmlspecialchars($this->linkParams, ENT_QUOTES, 'UTF-8') . '">'
-            . $title . ' ' . $this->lang['folder'] . '</a>';
+            . XH_hsc($this->linkParams) . '">'
+            . $tx['title']['userfiles'] . ' ' . $this->lang['folder'] . '</a>';
         if (!empty($folders)) {
             $html .= '<ul>';
             foreach ($folders as $folder => $data) {
@@ -196,8 +182,8 @@ class Filebrowser_View
         }
         $temp = explode('/', $folder);
         $html = '<li class="' . $class . '"><a href="' . $link . '?'
-            . htmlspecialchars($this->linkParams, ENT_QUOTES, 'UTF-8')
-            . '&amp;subdir=' . $folder . '">' . end($temp) . '</a>';
+            . XH_hsc($this->linkParams) . '&amp;subdir=' . $folder . '">'
+            . end($temp) . '</a>';
         if (count($folders[$folder]['children']) > 0) {
             if (substr($this->currentDirectory, 0, strlen($folder)) !== $folder) {
                 $class = 'unseen';
@@ -261,51 +247,6 @@ class Filebrowser_View
     }
 
     /**
-     * Returns the subfolder list view of the editor browser.
-     *
-     * @param array $folders An array of folders.
-     *
-     * @return string
-     *
-     * @global string The script name.
-     */
-    protected function subfolderListForEditor($folders)
-    {
-        global $sn;
-
-        $html = '';
-        if (is_array($folders) && count($folders) > 0) {
-            $action = $sn . '?'
-                . htmlspecialchars(
-                    $_SERVER['QUERY_STRING'], ENT_COMPAT, 'UTF-8'
-                );
-            $html = '<ul>';
-            foreach ($folders as $folder) {
-                $name = str_replace($this->currentDirectory, '', $folder);
-                $html .= '<li class="folder">'
-                    . '<form style="display: inline;" method="post" action="'
-                    . $action . '"'
-                    . ' onsubmit="return FILEBROWSER.confirmFolderDelete(\''
-                    . $this->escapeForEventHandlerAttribute(
-                        $this->translate('confirm_delete', $this->basePath . $folder)
-                    )
-                    . '\');">'
-                    . '<input type="image" src="' . $this->browserPath
-                    . 'css/icons/delete.png" alt="delete" title="'
-                    . $this->translate('delete_folder') . '" />'
-                    . '<input type="hidden" name="deleteFolder" />'
-                    . '<input type="hidden" name="folder" value="' . $folder
-                    . '" />'
-                    . '</form>'
-                    . '<a href="?' . $this->linkParams . '&amp;subdir=' . $folder
-                    . '">' . $name . '</a></li>';
-            }
-            $html .= '</ul>';
-        }
-        return $html;
-    }
-
-    /**
      * Returns whether a file is an image file.
      *
      * @param string $filename A file name.
@@ -326,20 +267,21 @@ class Filebrowser_View
      *
      * @return string
      *
-     * @global string The script name.
-     * @global array  The localization of the core.
-     * @global object The CRSF protection object.
+     * @global string                 The script name.
+     * @global array                  The localization of the core.
+     * @global object                 The CRSF protection object.
+     * @global Filebrowser_Controller The filebrowser controller.
      */
     protected function fileList($files)
     {
-        global $sn, $tx, $_XH_csrfProtection;
+        global $sn, $tx, $_XH_csrfProtection, $_XH_filebrowser;
 
         if (empty($files)) {
             return '';
         }
         $html = '<ul>';
         $class = 'even';
-        $fb = $_SESSION['xh_browser']; // FIXME: the view shouldn't know the model
+        $fb = $_XH_filebrowser; // FIXME: the view shouldn't know the controller
         $imgs = $fb->usedImages();
         $base = $fb->browseBase;
         if ($base{0} == '.' && $base{1} == '/') {
@@ -405,22 +347,9 @@ class Filebrowser_View
 
             $path = $this->basePath . $this->currentDirectory . $file;
             if ($this->isImageFile($path) && ($image = getimagesize($path))) {
-                list($width, $height) = $image;
-                if ($width > 100) {
-                    $ratio = $width / $height;
-                    $width = 100;
-                    $height = $width / $ratio;
-                }
-                $html .= '<span style="position: relative;  z-index: 4; ">'
-                    . '<span style="font-weight: normal; border: none;">'
-                    . $image[0] . ' x ' . $image[1] . ' px</span>' . tag('br')
-                    . tag(
-                        'img src="' . $path . '" width="' . $width . '" height="'
-                        . $height . '" alt="' . $file . '"'
-                    ) . tag('br') . $usage . '</span>';
+                $html .= $this->renderImage($path, $file, $image, $usage);
             }
-            $size = round(filesize($path) / 1024, 1);
-            $html .= '</a> (' . $size . ' kb)</li>';
+            $html .= '</a> (' .  $this->renderFileSize($path) . ')</li>';
         }
         $html .= '</ul>';
         return $html;
@@ -461,57 +390,53 @@ class Filebrowser_View
             if (strpos($this->linkParams, 'type=images') !== false
                 && $this->isImageFile($path) && ($image = getimagesize($path))
             ) {
-                list($width, $height) = $image;
-                if ($width > 150) {
-                    $ratio = $width / $height;
-                    $width = 150;
-                    $height = $width / $ratio;
-                }
-                $src = $this->basePath . $this->currentDirectory . $file;
-                $html .= <<<HTM
-<span style="position: relative; z-index: 4;">
-<span style="font-weight: normal; border: none;">$image[0] x $image[1] px</span>
-<br /><img src="$src" width="$width" height="$height" alt="$file"/></span>
-HTM;
+                $html .= $this->renderImage($path, $file, $image);
             }
-            $html .= '</span> (' . round(filesize($path) / 1024, 1)
-                . ' kb)</li>';
+            $html .= '</span> (' . $this->renderFileSize($path) . ')</li>';
         }
         $html .= '</ul>';
         return $html;
     }
 
     /**
-     * Returns a CSRF token and stores it in the session.
+     * Renders an image.
      *
-     * @return string
+     * @param string $path  An image path.
+     * @param string $file  An image filename.
+     * @param array  $image An array of image information from getimagesize.
+     * @param string $usage A usage information string.
+     *
+     * @return string (X)HTML.
      */
-    public function getCSRFToken()
+    protected function renderImage($path, $file, $image, $usage = null)
     {
-        if (!isset($this->token)) {
-            $this->token = md5(uniqid(rand()));
-            $_SESSION['filebrowser_csrf_token'] = $this->token;
+        list($width, $height) = $image;
+        if ($width > 150) {
+            $ratio = $width / $height;
+            $width = 150;
+            $height = $width / $ratio;
         }
-        return $this->token;
+        return '<span style="position: relative;  z-index: 4; ">'
+            . '<span style="font-weight: normal; border: none;">'
+            . $image[0] . ' x ' . $image[1] . ' px</span>' . tag('br')
+            . tag(
+                'img src="' . $path . '" width="' . $width . '" height="'
+                . $height . '" alt="' . $file . '"'
+            )
+            . (isset($usage) ? tag('br') . $usage : '')
+            . '</span>';
     }
 
     /**
-     * Checks the submitted CSRF token against the one stored in the session.
-     * Exits the script with 403, if that failed.
+     * Renders a file size in KB.
      *
-     * @return void
+     * @param string $path A path name.
+     *
+     * @return string (X)HTML.
      */
-    public function checkCSRFToken()
+    protected function renderFileSize($path)
     {
-        $key = 'filebrowser_csrf_token';
-        $submittedToken = isset($_POST[$key]) ? $_POST[$key] : '';
-        $ok = isset($_SESSION[$key]) && $_SESSION[$key] === $_POST[$key];
-        if (!$ok) {
-            header('HTTP/1.0 403 Forbidden');
-            echo 'Invalid CSRF token!';
-            // the following should be exit/die, but that would break unit tests
-            trigger_error('Invalid CSRF token!', E_USER_ERROR);
-        }
+        return round(filesize($path) / 1024, 1) . ' kb';
     }
 
     /**
@@ -520,22 +445,23 @@ HTM;
      * @param string $template A template file name.
      *
      * @return string (X)HTML.
+     *
+     * @global array The paths of system files and folders.
      */
     public function loadTemplate($template)
     {
+        global $pth, $_XH_csrfProtection;
+
         if (file_exists($template)) {
             ob_start();
             include $template;
         }
         $html = ob_get_clean();
         $this->partials['folders'] = $this->folderList($this->folders);
+        $this->partials['subfolders'] = $this->subfolderList($this->subfolders);
         if (basename($template) == 'cmsbrowser.html') {
-            $this->partials['subfolders']
-                = $this->subfolderList($this->subfolders);
             $this->partials['files'] = $this->fileList($this->files);
         } elseif (basename($template) == 'editorbrowser.html') {
-            $this->partials['subfolders']
-                = $this->subfolderListForEditor($this->subfolders);
             $this->partials['files'] = $this->fileListForEditor($this->files);
         }
         $this->partials['message'] = $this->message;
@@ -645,7 +571,7 @@ HTM;
      * @todo Don't use literal string in event handler attribute, but rather a
      *       property of the FILEBROWSER object.
      */
-    public function escapeForEventHandlerAttribute($string)
+    protected function escapeForEventHandlerAttribute($string)
     {
         // HACK: we can't use XH_hsc() because that is not defined for the
         // editorbrowser. htmlspecialchars() might fail under PHP 4.
