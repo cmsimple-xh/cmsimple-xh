@@ -11,6 +11,5 @@ $plugin_tx['meta_tags']['hint_description'] = "<p>Provide a rough summary of thi
 $plugin_tx['meta_tags']['hint_keywords'] = "<p>A list of the most important topics of this article, separated by commas.</p>";
 $plugin_tx['meta_tags']['hint_robots'] = "<p><b>index, follow</b> » Searchengines are allowed to index this page.</p><p><b>noindex, nofollow</b> » Searchengines are <b>NOT</b> allowed to index this page.</p>";
 $plugin_tx['meta_tags']['submit'] = "submit";
-$plugin_tx['meta_tags']['utf-8_marker']="äöü";
 
 ?>

@@ -38,8 +38,6 @@ $plugin_tx['filebrowser']['confirm_upload']="Es gibt bereits eine Datei mit dies
 $plugin_tx['filebrowser']['folder'] = "Ordner";
 $plugin_tx['filebrowser']['files'] = "Dateien:";
 
-$plugin_tx['filebrowser']['utf-8-marker']="äöü";
-
 $plugin_tx['filebrowser']['cf_extensions_images']="Listen Sie die im Bilder-Ordner erlaubten Dateiendungen - voneinander durch Kommas getrennt - auf. <b>*</b> dient als Platzhalter für alle Dateiendungen";
 $plugin_tx['filebrowser']['cf_extensions_downloads']="Listen Sie die im Downloads-Ordner erlaubten Dateiendungen - voneinander durch Kommas getrennt - auf. <b>*</b> dient als Platzhalter für alle Dateiendungen";
 $plugin_tx['filebrowser']['cf_extensions_userfiles']="Listen Sie die im  Anwenderdateien-Ordner erlaubten Dateiendungen - voneinander durch Kommas getrennt - auf. <b>*</b> dient als Platzhalter für alle Dateiendungen";

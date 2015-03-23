@@ -315,6 +315,4 @@ $tx['validate']['intok']="INTERNAL LINK OK";
 $tx['validate']['mailto']="MAILTO LINK";
 $tx['validate']['notxt']="NO TEXT IN LINK";
 
-$tx['utf-8']['marker']="äöü";
-
 ?>

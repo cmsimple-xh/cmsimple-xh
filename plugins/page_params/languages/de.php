@@ -27,6 +27,5 @@ $plugin_tx['page_params']['hint_linked_to_menu']="<p>Wenn eine Seite nicht im Na
 $plugin_tx['page_params']['hint_last_edit']="<p>Sie können das Datum der letzten Bearbeitung anzeigen lassen.</p><p>Das Datumsformat legen Sie über die CMSimple-Spracheinstellungen fest, das sonstige Erscheinungsbild per CSS (#pp_last_update).</p>";
 $plugin_tx['page_params']['hint_template']="<p>Hier können Sie für diese Seite ein vom Standard abweichendes Template auswählen. Dieses Template gilt automatisch auch für Unterseiten dieser Seite.</p>";
 $plugin_tx['page_params']['hint_header_location']="<p>Hier kann die Seite auf ein internes oder externes Ziel weitergeleitet werden.</p><p>Externe Ziele mit Protokoll eintragen, z.B. http://...</p>";
-$plugin_tx['page_params']['utf-8_marker']="äöü";
 
 ?>

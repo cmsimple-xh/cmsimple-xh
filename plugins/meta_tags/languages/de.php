@@ -11,6 +11,5 @@ $plugin_tx['meta_tags']['hint_description'] = "<p>Fassen Sie hier kurz und treff
 $plugin_tx['meta_tags']['hint_keywords'] = "<p>Geben Sie hier die für den Seiteninhalt wichtigsten Begriffe, getrennt durch Kommata, ein.</p>";
 $plugin_tx['meta_tags']['hint_robots'] = "<p><b>index, follow</b> » Ihre Seite wird von Suchmaschinen indiziert.</p><p><b>noindex, nofollow</b> » Ihre Seite wird von Suchmaschinen <b>NICHT</b> indiziert.</p>";
 $plugin_tx['meta_tags']['submit'] = "speichern";
-$plugin_tx['meta_tags']['utf-8_marker']="äöü";
 
 ?>

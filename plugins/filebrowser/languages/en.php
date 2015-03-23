@@ -38,8 +38,6 @@ $plugin_tx['filebrowser']['confirm_upload']="There already is a file with this n
 $plugin_tx['filebrowser']['folder'] = "Folder";
 $plugin_tx['filebrowser']['files'] = "Files:";
 
-$plugin_tx['filebrowser']['utf-8-marker']="äöü";
-
 $plugin_tx['filebrowser']['cf_extensions_images']="Fill in the file extensions you want to allow for the images folder as comma separated list. <b>*</b> is a wildcard for all file extensions.";
 $plugin_tx['filebrowser']['cf_extensions_downloads']="Fill in the file extensions you want to allow for the downloads folder as comma separated list. <b>*</b> is a wildcard for all file extensions.";
 $plugin_tx['filebrowser']['cf_extensions_userfiles']="Fill in the file extensions you want to allow for the userfiles folder as comma separated list. <b>*</b> is a wildcard for all file extensions.";

@@ -316,6 +316,4 @@ $tx['validate']['intok']="INTERNE VERLINKUNG OK";
 $tx['validate']['mailto']="MAILTO VERLINKUNG";
 $tx['validate']['notxt']="KEIN TEXT IN VERLINKUNG";
 
-$tx['utf-8']['marker']="äöü";
-
 ?>
