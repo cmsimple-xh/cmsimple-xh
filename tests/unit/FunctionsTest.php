@@ -609,7 +609,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $newname = vfsStream::url('test/newname.txt');
         file_put_contents($oldname, 'foo');
         file_put_contents($newname, 'bar');
-        $actual = XH_renameFile($oldname, $newname);
+        $actual = rename($oldname, $newname);
         $this->assertTrue($actual);
     }
 

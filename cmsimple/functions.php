@@ -1622,27 +1622,6 @@ function loginforms()
 }
 
 /**
- * Returns the remaining contents of a stream.
- *
- * @param resource $stream An open stream.
- *
- * @return string
- *
- * @since 1.6
- */
-function XH_getStreamContents($stream)
-{
-    if (function_exists('stream_get_contents')) {
-        $contents = stream_get_contents($stream);
-    } else {
-        ob_start();
-        fpassthru($stream);
-        $contents = ob_get_clean();
-    }
-    return $contents;
-}
-
-/**
  * Reads a file and returns its contents; <var>false</var> on failure.
  * During reading, the file is locked for shared access.
  *
@@ -1658,7 +1637,7 @@ function XH_readFile($filename)
     $stream = fopen($filename, 'rb');
     if ($stream) {
         if (XH_lockFile($stream, LOCK_SH)) {
-            $contents = XH_getStreamContents($stream);
+            $contents = stream_get_contents($stream);
             XH_lockFile($stream, LOCK_UN);
         }
         fclose($stream);
@@ -1680,13 +1659,9 @@ function XH_readFile($filename)
 function XH_writeFile($filename, $contents)
 {
     $res = false;
-    // we can't use "cb" as it is available only since PHP 5.2.6
-    // we can't use "r+b" as it will fail if the file does not already exist
-    $stream = fopen($filename, 'a+b');
+    $stream = fopen($filename, 'cb');
     if ($stream) {
         if (XH_lockFile($stream, LOCK_EX)) {
-            fseek($stream, 0);
-            ftruncate($stream, 0);
             $res = fwrite($stream, $contents);
             fflush($stream);
             XH_lockFile($stream, LOCK_UN);
@@ -2431,14 +2406,11 @@ function XH_unionOf2DArrays($array1, $array2)
  * @return bool
  *
  * @since 1.6
+ *
+ * @todo Deprecate for 1.8.
  */
 function XH_renameFile($oldname, $newname)
 {
-    if (strtoupper(substr(php_uname(), 0, 3)) == 'WIN'
-        && file_exists($newname)
-    ) {
-        unlink($newname);
-    }
     return rename($oldname, $newname);
 }
 
@@ -2580,7 +2552,7 @@ function XH_onShutdown()
         unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
     }
 
-    if (error_reporting() <= 0 && function_exists('error_get_last')) {
+    if (error_reporting() <= 0) {
         $lastError = error_get_last();
         if (in_array($lastError['type'], array(E_ERROR, E_PARSE))) {
             echo $tx['error']['fatal'];

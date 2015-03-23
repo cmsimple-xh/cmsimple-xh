@@ -287,8 +287,7 @@ HTML;
         );
     }
     $checks['other'][] = array(
-        !function_exists('date_default_timezone_get')
-        || date_default_timezone_get() !== 'UTC',
+        date_default_timezone_get() !== 'UTC',
         false, $tx['syscheck']['timezone']
     );
     $checks['other'][] = array(
@@ -1031,7 +1030,7 @@ function XH_restore($filename)
     global $pth, $e;
 
     $tempFilename = $pth['folder']['content'] . 'restore.htm';
-    if (!XH_renameFile($filename, $tempFilename)) {
+    if (!rename($filename, $tempFilename)) {
         e('cntsave', 'backup', $tempFilename);
         return;
     }
@@ -1042,7 +1041,7 @@ function XH_restore($filename)
         }
         return;
     }
-    if (!XH_renameFile($tempFilename, $pth['file']['content'])) {
+    if (!rename($tempFilename, $pth['file']['content'])) {
         e('cntsave', 'content', $pth['file']['content']);
         return;
     }
