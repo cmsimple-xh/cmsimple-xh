@@ -57,7 +57,9 @@ class MailformTest extends PHPUnit_Framework_TestCase
     public function testCheckCorrectInput()
     {
         $_POST = $this->_goodPost;
-        $mailform = new XH_Mailform();
+        $mail = $this->getMockBuilder('XH_Mail')->getMock();
+        $mail->expects($this->once())->method('isValidAddress')->willReturn(true);
+        $mailform = new XH_Mailform(false, null, $mail);
         $this->assertEquals('', $mailform->check());
     }
 
@@ -93,7 +95,9 @@ class MailformTest extends PHPUnit_Framework_TestCase
             'attributes' => array('class' => 'xh_warning'),
             'content' => $tx['mailform'][$langKey]
         );
-        $mailform = new XH_Mailform();
+        $mail = $this->getMockBuilder('XH_Mail')->getMock();
+        $mail->expects($this->once())->method('isValidAddress')->willReturn(false);
+        $mailform = new XH_Mailform(false, null, $mail);
         @$this->assertTag($matcher, $mailform->check());
     }
 

@@ -874,6 +874,7 @@ EOT;
     {
         global $sl, $cf, $tx;
 
+        $file = $line = null; // for unit test mocking of headers_sent()
         if (!headers_sent($file, $line)) {
             header('Content-Type: text/html; charset=UTF-8');
             header("Content-Language: $sl");
