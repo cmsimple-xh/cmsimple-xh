@@ -2215,9 +2215,9 @@ function XH_hsc($string)
  * Handles a mailform embedded in a CMSimple_XH page.
  *
  * @param string $subject An alternative subject field preset text
+ *                        instead of the subject default in localization.
  * 
  * @return string HTML
- * instead of the subject default in localization.
  *
  * @global array The configuration of the core.
  *
