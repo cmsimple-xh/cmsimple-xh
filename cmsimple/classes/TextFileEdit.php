@@ -59,7 +59,7 @@ abstract class XH_TextFileEdit extends XH_FileEdit
     /**
      * Returns the form to edit the file contents.
      *
-     * @return string  (X)HTML.
+     * @return string HTML
      *
      * @global string The script name.
      * @global array  The localization of the core.

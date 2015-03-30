@@ -381,7 +381,7 @@ class XH_PageDataRouter
      * @global string
      * @global int    The index of the first published page.
      *
-     * @return string  The (X)HTML.
+     * @return string HTML
      */
 // @codingStandardsIgnoreStart
     public function create_tabs($s)

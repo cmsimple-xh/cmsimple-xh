@@ -101,7 +101,7 @@ define('XH_URICHAR_SEPARATOR', '|');
 $title = '';
 
 /**
- * The (X)HTML for the contents area.
+ * The HTML for the contents area.
  *
  * This <i>read-write</i> variable is used to buffer the output, which is
  * prepended to the contents of the current page (if any). Usually you will
@@ -114,7 +114,7 @@ $title = '';
 $o = '';
 
 /**
- * The (X)HTML for the <li>s holding error messages.
+ * The HTML for the <li>s holding error messages.
  *
  * This <i>read-write</i> variable can be used to add error messages above the
  * content. Usually you will only append to this variable.
@@ -128,7 +128,7 @@ $o = '';
 $e = '';
 
 /**
- * (X)HTML that will be inserted to the <head> section.
+ * HTML that will be inserted to the <head> section.
  *
  * This <i>read-write</i> variable can be used to add script, style, meta and link
  * elements etc. to the head element. Usually you will only append to this variable.
@@ -142,7 +142,7 @@ $e = '';
 $hjs = '';
 
 /**
- * (X)HTML that will be inserted right before the </body> tag.
+ * HTML that will be inserted right before the </body> tag.
  *
  * This <i>read-write</i> variable can be used to add script elements to the end
  * of the body element. Usually you will only append to this variable.

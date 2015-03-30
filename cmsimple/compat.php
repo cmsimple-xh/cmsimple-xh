@@ -23,7 +23,7 @@
  *
  * @global string The URL of the active page.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @deprecated since 1.5.4. Use a gallery plugin instead.
  */
@@ -69,7 +69,7 @@ function rp($p)
 /**
  * Returns '&' or '&amp;' according to the setting of $cf['xhtml']['amp'].
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global array The configuration of the core.
  *
@@ -91,7 +91,7 @@ function amp()
 /**
  * Returns the link to the guestbook.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @deprecated since 1.5.4
  */
@@ -108,7 +108,7 @@ function guestbooklink()
 /**
  * Returns the link to the copyright and license informations.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global array  The configuration of the core.
  * @global string The script name.
@@ -277,7 +277,7 @@ function preCallPlugins($pageIndex = -1)
  * @return void
  *
  * @global array  The paths of system files and folders.
- * @global string Error messages as (X)HTML fragment consisting of LI Elements.
+ * @global string Error messages as HTML fragment consisting of LI Elements.
  *
  * @deprecated since 1.6
  */

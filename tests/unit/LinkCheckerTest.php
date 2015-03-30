@@ -73,8 +73,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
             'file' => array('template' => './tests/unit/data/template.htm')
         );
         $cf = array(
-            'mailform' => array('email' => 'devs@cmsimple-xh.org'),
-            'xhtml' => array('endtags' => '1')
+            'mailform' => array('email' => 'devs@cmsimple-xh.org')
         );
         $onload = '';
         $this->linkChecker = new TestingLinkChecker();

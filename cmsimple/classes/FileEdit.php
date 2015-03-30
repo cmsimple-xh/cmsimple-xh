@@ -76,7 +76,7 @@ abstract class XH_FileEdit
     /**
      * Returns the form to edit the file contents.
      *
-     * @return string  (X)HTML.
+     * @return string HTML
      */
     abstract public function form();
 
@@ -86,7 +86,7 @@ abstract class XH_FileEdit
      * If file could be successfully saved, triggers a redirect.
      * Otherwise writes error message to $e, and returns the edit form.
      *
-     * @return mixed  The (X)HTML resp. void.
+     * @return mixed The HTML resp. void.
      */
     abstract public function submit();
 

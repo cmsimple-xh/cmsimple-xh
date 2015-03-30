@@ -54,7 +54,7 @@ class XH_PasswordForgotten
      * @return void
      *
      * @global string The page title.
-     * @global string The generated (X)HTML.
+     * @global string The generated HTML.
      * @global string The script name.
      * @global array  The localization of the core.
      * @global string JS for the onload attribute of the BODY element.

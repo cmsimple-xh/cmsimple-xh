@@ -63,9 +63,9 @@ class XH_CSRFProtection
 
     /**
      * Returns a hidden input field with the CSRF token
-     * for inclusion in an (X)HTML form.
+     * for inclusion in an HTML form.
      *
-     * @return string (X)HTML
+     * @return string HTML
      *
      * @todo Use cryptographically stronger token?
      */

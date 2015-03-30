@@ -61,7 +61,7 @@ class XH_Controller
      * @global array  The paths of system files and folders.
      * @global array  The localization of the core.
      * @global string The content of the title element.
-     * @global string The (X)HTML of the contents area.
+     * @global string The HTML of the contents area.
      */
     public function handleSearch()
     {
@@ -103,7 +103,7 @@ class XH_Controller
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      * @global string The content of the title element.
-     * @global string The (X)HTML of the contents area.
+     * @global string The HTML of the contents area.
      */
     public function handleMailform()
     {
@@ -144,7 +144,7 @@ class XH_Controller
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      * @global string The content of the title element.
-     * @global string The (X)HTML of the content area.
+     * @global string The HTML of the content area.
      *
      * @todo Declare visibility.
      */
@@ -274,7 +274,7 @@ class XH_Controller
      * @global string The requested function.
      * @global string Whether logout is requested.
      * @global array  The localization of the core.
-     * @global string The (X)HTML for the contents area.
+     * @global string The HTML for the contents area.
      *
      * @todo Declare visibility.
      */
@@ -482,7 +482,7 @@ class XH_Controller
      *
      * @access public
      *
-     * @global string The (X)HTML for the contents area.
+     * @global string The HTML for the contents area.
      *
      * @todo Unused?
      * @todo Declare visibility.
@@ -516,7 +516,7 @@ class XH_Controller
      *
      * @global array  The paths of system files and folders.
      * @global string The name of a special file to be handled.
-     * @global string The (X)HTML for the contents area.
+     * @global string The HTML for the contents area.
      */
     public function handleFileView()
     {
@@ -559,7 +559,7 @@ class XH_Controller
      *
      * @global string The name of a special file to be handled.
      * @global string The requested action.
-     * @global string The (X)HTML for the contents area.
+     * @global string The HTML for the contents area.
      */
     public function handleFileEdit()
     {
@@ -604,7 +604,7 @@ class XH_Controller
      * @return void
      *
      * @global array  The localization of the core.
-     * @global string The (X)HTML for the contents area.
+     * @global string The HTML for the contents area.
      */
     public function outputAdminScripts()
     {
@@ -705,7 +705,7 @@ EOT;
      *
      * @global int    The index of the currently selected page.
      * @global array  The localization of the core.
-     * @global string The (X)HTML for the contents area.
+     * @global string The HTML for the contents area.
      */
     public function outputEditContents()
     {
@@ -797,7 +797,7 @@ EOT;
      *
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
-     * @global string The (X)HTML for the <li>s holding error messages.
+     * @global string The HTML for the <li>s holding error messages.
      */
     public function reportMissingExternal($name)
     {
@@ -819,7 +819,7 @@ EOT;
      * @global bool   Whether we're in edit mode.
      * @global array  The localization of the core.
      * @global int    The current page.
-     * @global string The (X)HTML fragment for insertion in the contents area.
+     * @global string The HTML fragment for insertion in the contents area.
      * @global string The current special function.
      * @global string The title of the page.
      */
@@ -840,9 +840,9 @@ EOT;
     /**
      * Renders the error messages stored in $e.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
-     * @global string The (X)HTML for the <li>s holding error messages.
+     * @global string The HTML for the <li>s holding error messages.
      */
     public function renderErrorMessages()
     {

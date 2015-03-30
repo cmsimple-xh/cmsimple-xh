@@ -147,7 +147,7 @@ class XH_Mailform
     /**
      * Returns error messages resp. an empty string if everything is okay.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
@@ -210,7 +210,7 @@ class XH_Mailform
     /**
      * Processes the mailform request and returns the resulting view.
      *
-     * @return string (X)HTML
+     * @return string HTML
      *
      * @global string The requested action.
      * @global array  The localization of the core.
@@ -247,7 +247,7 @@ class XH_Mailform
     /**
      * Returns the mailform view.
      *
-     * @return string (X)HTML
+     * @return string HTML
      *
      * @global string The script name.
      * @global array  The configuration of the core.

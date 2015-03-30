@@ -718,7 +718,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
      *
      * @param mixed $forOrFrom A li() view kind or the start level.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      */
     private function _renderAllPages($forOrFrom = 1)
     {

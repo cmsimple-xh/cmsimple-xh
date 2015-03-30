@@ -33,7 +33,7 @@ class XH_LinkChecker
     /**
      * Prepares the link check.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global string The script name.
      * @global array  The paths of system files and folders.
@@ -69,7 +69,7 @@ class XH_LinkChecker
     /**
      * Checks all links and returns the result view.
      *
-     * @return string The (X)HTML.
+     * @return string HTML
      *
      * @access protected
      *
@@ -308,7 +308,7 @@ class XH_LinkChecker
      *
      * @param XH_Link $link A link.
      *
-     * @return (X)HTML.
+     * @return string HTML
      *
      * @access protected
      *
@@ -349,7 +349,7 @@ class XH_LinkChecker
      *
      * @param XH_Link $link A link.
      *
-     * @return (X)HTML.
+     * @return string HTML
      *
      * @access protected
      *
@@ -388,7 +388,7 @@ class XH_LinkChecker
      * @param int   $checkedLinks The number of checked links.
      * @param array $hints        The errors and warnings.
      *
-     * @return string The (X)HTML.
+     * @return string HTML
      *
      * @global array The localization of the core.
      * @global array The page headings.

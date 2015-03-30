@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Testing valid (X)HTML.
+ * Testing valid HTML.
  *
  * We're using the W3C markup validation service (http://validator.w3.org/),
  * so don't run these test unnecessarily to avoid wasting its resources.
@@ -21,7 +21,7 @@
  */
 
 /**
- * A test case to check the validity of the produced (X)HTML.
+ * A test case to check the validity of the produced HTML.
  *
  * @category Testing
  * @package  XH

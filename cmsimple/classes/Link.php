@@ -72,7 +72,7 @@ class XH_Link
     /**
      * The link text.
      *
-     * @var string (X)HTML.
+     * @var string The HTML.
      */
     protected $text;
 
@@ -110,7 +110,7 @@ class XH_Link
     /**
      * Returns the link text.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      */
     public function getText()
     {

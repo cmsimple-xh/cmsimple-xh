@@ -70,7 +70,7 @@ class XH_Li
      * @param array $ta The indexes of the pages.
      * @param mixed $st The menu level to start with or the type of menu.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global int The index of the current page.
      */
@@ -124,7 +124,7 @@ class XH_Li
      *
      * @param int $i The index of the current item.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global array The menu levels of the pages.
      */
@@ -144,7 +144,7 @@ class XH_Li
      *
      * @param int $i The index of the current item.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      */
     protected function renderEndTags($i)
     {
@@ -267,7 +267,7 @@ class XH_Li
      *
      * @param int $i The index of the current item.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global array  The headings of the pages.
      */
@@ -294,7 +294,7 @@ class XH_Li
      *
      * @param int $i The index of the current item.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      */
     protected function renderAnchorStartTag($i)
     {

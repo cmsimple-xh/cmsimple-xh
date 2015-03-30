@@ -4,7 +4,7 @@
  * Meta-Tags - main index.php
  *
  * Stores meta-tags (description, keywords, title and robots) per page.
- * index.php is called by pluginloader and returns (X)HTML META ELEMENTS to template.
+ * index.php is called by pluginloader and returns HTML META ELEMENTS to template.
  *
  * PHP version 5
  *

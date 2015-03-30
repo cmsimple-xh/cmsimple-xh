@@ -176,7 +176,7 @@ class XH_Search
      *
      * @param int $count How often the search string was found.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global array The localization of the core.
      */
@@ -202,7 +202,7 @@ class XH_Search
     /**
      * Returns the search results view.
      *
-     * @return string (X)HTML
+     * @return string HTML
      *
      * @global array  The headings of the pages.
      * @global array  The URLs of the pages.

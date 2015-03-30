@@ -59,7 +59,7 @@ class XH_PageDataView
      * @param string $title    Label of the tab.
      * @param string $filename Name of the view file.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @access protected
      *
@@ -77,7 +77,7 @@ class XH_PageDataView
     /**
      * Returns the page data tab bar.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @access protected
      *
@@ -98,7 +98,7 @@ class XH_PageDataView
      *
      * @param string $filename Name of the view file.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global array             The paths of system files and folders.
      * @global XH_CSRFProtection The CSRF protector.
@@ -140,7 +140,7 @@ class XH_PageDataView
     /**
      * Returns the page data views.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      */
     public function views()
     {

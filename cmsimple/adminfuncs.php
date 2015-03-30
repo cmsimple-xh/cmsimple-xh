@@ -57,7 +57,7 @@ function XH_pluginVersion($plugin)
  * @global array The paths of system files and folders.
  * @global array The localization of the core.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#system_check
  *
@@ -201,7 +201,7 @@ function XH_isAccessProtected($path)
  * @global array The paths of system files and folders.
  * @global array The localization of the core.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @since 1.6
  */
@@ -313,7 +313,7 @@ HTML;
 /**
  * Returns the general settings view.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global string The script name.
  * @global array  The localization of the core.
@@ -353,7 +353,7 @@ function XH_settingsView()
 /**
  * Returns the log file view.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global array  The paths of system files and folders.
  * @global array  The localization of the core.
@@ -387,7 +387,7 @@ function XH_logFileView()
 /**
  * Returns the backup view.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global array  The paths of system files and folders.
  * @global array  The script name.
@@ -545,7 +545,7 @@ function XH_registerPluginMenuItem($plugin, $label = null, $url = null,
  *
  * @param array $plugins A list of plugins.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global string The scipt name.
  * @global bool   Whether edit mode is active.
@@ -740,7 +740,7 @@ function XH_adminMenuItem($item, $level = 0)
  * @param string $main Whether the main setting menu item should be shown
  *                     ('ON'/'OFF').
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global XH_ClassicPluginMenu The plugin menu builder.
  */
@@ -812,12 +812,12 @@ function plugin_admin_common($action, $admin, $plugin, $hint=array())
  * @global int    The index of the currently active page.
  * @global array  The URLs of the pages.
  * @global array  The content of the pages.
- * @global string Error messages as (X)HTML fragment consisting of LI Elements.
+ * @global string Error messages as HTML fragment consisting of LI Elements.
  * @global array  The configuration of the core.
  * @global array  The localization of the core.
  * @global object The CSRF protection object.
  *
- * @return string  The (X)HTML.
+ * @return string  HTML
  *
  * @since 1.6
  */
@@ -981,7 +981,7 @@ function XH_saveEditorContents($text)
  * @global array  The content of the pages.
  * @global int    The number of pages.
  * @global array  The paths of system files and folders.
- * @global array  An (X)HTML fragment with error messages.
+ * @global array  An HTML fragment with error messages.
  * @global object The pagedata router.
  */
 function XH_emptyContents()
@@ -1014,7 +1014,7 @@ function XH_emptyContents()
  * @return void
  *
  * @global array  The paths of system files and folders.
- * @global array  An (X)HTML fragment with error messages.
+ * @global array  An HTML fragment with error messages.
  *
  * @since 1.6
  */
@@ -1071,7 +1071,7 @@ function XH_extraBackup($suffix)
 /**
  * Returns SCRIPT element containing the localization for admin.js.
  *
- * @return string (X)HTML
+ * @return string HTML
  *
  * @global array The localization of the core.
  *

@@ -174,7 +174,7 @@ class ControllerMailformTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      *
-     * @global string The (X)HTML of the content area.
+     * @global string The HTML of the content area.
      */
     public function testRenderedHTML()
     {
@@ -371,7 +371,7 @@ class ControllerSitemapTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      *
-     * @global string The (X)HTML of the contents area.
+     * @global string The HTML of the contents area.
      */
     public function testRenderedHTML()
     {

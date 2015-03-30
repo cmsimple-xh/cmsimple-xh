@@ -702,7 +702,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
                 ['word'], 'blah word blah',
                 'blah <span class="xh_find">word</span> blah'
             ],
-            // Don't highlight inside an (X)HTML tag.
+            // Don't highlight inside an HTML tag.
             [
                 ['word'], 'blah <img src="word.jpg"> blah',
                 'blah <img src="word.jpg"> blah'

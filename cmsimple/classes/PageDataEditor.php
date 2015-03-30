@@ -76,7 +76,7 @@ class XH_PageDataEditor
      *
      * @param string $field A field name.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      */
     protected function renderField($field)
     {
@@ -92,7 +92,7 @@ class XH_PageDataEditor
      * @param mixed $deleted The number of deleted fields resp.
      *                       <var>false</var> on failure.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global array The paths of system files and folders.
      * @global array The localization of the core.
@@ -120,7 +120,7 @@ class XH_PageDataEditor
      * @param mixed $deleted The number of deleted fields, <var>null</var> on
      *                       initial request resp. <var>false</var> on failure.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global string The script name.
      * @global array  The localization of the core.
@@ -160,7 +160,7 @@ class XH_PageDataEditor
     /**
      * Handles requests to the page data editor.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global object The CSRF protection object.
      */

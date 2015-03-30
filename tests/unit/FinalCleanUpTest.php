@@ -19,7 +19,7 @@ require_once './cmsimple/functions.php';
 /**
  * A stub for XH_adminMenu().
  *
- * @return string (X)HTML.
+ * @return string HTML
  */
 function adminMenuStubForFinalCleanUp()
 {
@@ -41,7 +41,7 @@ function pluginsStubForFinalCleanUp($admin)
 /**
  * A custom admin menu function stub.
  *
- * @return string (X)HTML.
+ * @return string HTML
  */
 function myAdminMenu()
 {

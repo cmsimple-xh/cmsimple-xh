@@ -140,7 +140,7 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @param string $iname The base name of the password input.
      *
-     * @return string  The (X)HTML.
+     * @return string HTML
      *
      * @global array The localization of the core.
      */
@@ -179,7 +179,7 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
      * @param string $name The name.
      * @param array  $opt  The field options.
      *
-     * @return string The (X)HTML.
+     * @return string HTML
      *
      * @global array The localization of the core.
      */
@@ -241,7 +241,7 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
     /**
      * Returns the form to edit the file contents.
      *
-     * @return string  (X)HTML.
+     * @return string HTML
      *
      * @global string The script name.
      * @global array  The paths of system files and folders.
@@ -360,7 +360,7 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
      * and the file could be successfully saved.
      * Otherwise writes an error message to $e, and returns the edit form.
      *
-     * @return string  The (X)HTML.
+     * @return string HTML
      *
      * @global string Error messages.
      * @global object The CSRF protection object.

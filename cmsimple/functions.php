@@ -41,7 +41,7 @@
  *
  * @param string $u A URL.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  */
 function geturl($u)
 {
@@ -60,7 +60,7 @@ function geturl($u)
  *
  * @param string $u A URL.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  */
 function geturlwp($u)
 {
@@ -327,7 +327,7 @@ function evaluate_scripting($text, $compat = true)
  * @global array The configuation of the core.
  * @global bool  Whether edit mode is active.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  */
 function newsbox($heading)
 {
@@ -459,19 +459,19 @@ function editor_replace($elementID = false, $config = '')
 }
 
 /**
- * Callback for output buffering. Returns the postprocessed (X)HTML.
+ * Callback for output buffering. Returns the postprocessed HTML.
  *
  * Currently debug information and admin menu are prepended,
  * and $bjs is appended to the body element.
  *
- * @param string $html The (X)HTML generated so far.
+ * @param string $html The HTML generated so far.
  *
  * @global int    The index of the active page.
- * @global string The (X)HTML of the contents area.
+ * @global string The HTML of the contents area.
  * @global array
  * @global array  The configuration of the core.
  * @global array  The localization of the core.
- * @global string (X)HTML to be preprended to the closing BODY tag.
+ * @global string HTML to be preprended to the closing BODY tag.
  *
  * @return string
  *
@@ -662,7 +662,7 @@ function download($fl)
  * @param string $ft A key in $tx['filetype'].
  * @param string $fn The file name.
  *
- * @global string Error messages as (X)HTML fragment consisting of LI Elements.
+ * @global string Error messages as HTML fragment consisting of LI Elements.
  * @global array  The localization of the core.
  *
  * @return void
@@ -687,7 +687,7 @@ function e($et, $ft, $fn)
  * @global string The URL of the current page.
  * @global string The index of the current page.
  * @global array  The localization of the core.
- * @global string Error messages as (X)HTML fragment consisting of LI Elements.
+ * @global string Error messages as HTML fragment consisting of LI Elements.
  * @global object The pagedata router.
  *
  * @return void
@@ -943,7 +943,7 @@ function XH_findNextPage()
  * @global array  The URLs of the pages.
  * @global array  The configuration of the core.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  */
 function a($i, $x)
 {
@@ -969,7 +969,7 @@ function a($i, $x)
  * @global array The localization of the core.
  * @global bool  Whether print mode is active.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  */
 function meta($n)
 {
@@ -992,7 +992,7 @@ function meta($n)
  * @global string The script name.
  * @global array  The localization of the core.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  */
 function ml($i)
 {
@@ -1123,12 +1123,14 @@ function hide($i)
 }
 
 /**
- * Returns an (X)HTML compliant stand alone tag
+ * Returns an HTML stand alone tag.
+ *
+ * Used to returns an (X)HTML compliant stand alone tag
  * according to the settings of $cf['xhtml']['endtags'].
  *
  * @param string $s The contents of the tag.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global array The configuration of the core.
  *
@@ -1150,7 +1152,7 @@ function tag($s)
  * @global bool   Whether the API is CGI.
  * @global array  The localization of the core.
  * @global string The page title.
- * @global string The (X)HTML of the contents area.
+ * @global string The HTML of the contents area.
  *
  * @return void.
  */
@@ -1259,7 +1261,7 @@ function XH_debugmode()
  * @param int    $errline Line number where error was raised.
  * @param array  $context The error context.
  *
- * @global array The list of PHP errors formatted as (X)HTML fragment.
+ * @global array The list of PHP errors formatted as HTML fragment.
  *
  * @return void
  */
@@ -1562,7 +1564,7 @@ function XH_logMessage($type, $module, $category, $description)
  * @global int    The index of the requested page.
  * @global array  The localization of the core.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  */
 function lilink()
 {
@@ -1580,12 +1582,12 @@ function lilink()
  * @global array  The localization of the core.
  * @global string JavaScript for the onload event of the BODY element.
  * @global string The requested special function.
- * @global string The (X)HTML of the contents area.
+ * @global string The HTML of the contents area.
  * @global int    The index of the requested page.
  * @global string The script name.
  * @global array  The URLs of the pages.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  */
 function loginforms()
 {
@@ -1792,7 +1794,7 @@ function XH_adjustStylesheetURLs($plugin, $css)
 }
 
 /**
- * Returns an (X)HTML element formatted as message.
+ * Returns an HTML element formatted as message.
  *
  * @param string $type    The type of message ('success', 'info', 'warning', 'fail').
  * @param string $message A message format to print in an printf() style.
@@ -1815,7 +1817,7 @@ function XH_message($type, $message)
  *
  * Surplus old backups will be deleted. Returns an appropriate message.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global array The paths of system files and folders.
  *
@@ -1884,7 +1886,7 @@ function XH_title($site, $subtitle)
  *
  * @param string $bodyClass The CSS class of the BODY element.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @since 1.6
  */
@@ -1892,16 +1894,8 @@ function XH_builtinTemplate($bodyClass)
 {
     global $_XH_csrfProtection;
 
-    if ($cf['xhtml']['endtags'] == 'true') {
-        echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"',
-            ' "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">', "\n",
-            '<html xmlns="http://www.w3.org/1999/xhtml"',
-            (strlen($sl) == 2 ? " lang=\"$sl\" xml:lang=\"$sl\"" : ''), '>', "\n";
-    } else {
-        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"',
-            ' "http://www.w3.org/TR/html4/loose.dtd">', "\n", '<html',
-            (strlen($sl) == 2 ? " lang=\"$sl\"" : ''), '>', "\n";
-    }
+    echo '<!DOCTYPE html>', "\n", '<html',
+        (strlen($sl) == 2 ? " lang=\"$sl\"" : ''), '>', "\n";
     $content = XH_convertPrintUrls(content());
     echo '<head>', "\n" . head(),
         '<meta name="robots" content="noindex">', "\n",
@@ -1915,9 +1909,9 @@ function XH_builtinTemplate($bodyClass)
 /**
  * Returns a help icon which displays a tooltip on hover.
  *
- * @param string $tooltip A tooltip in (X)HTML.
+ * @param string $tooltip A tooltip in HTML.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global array The paths of system files and folders.
  * @global array The localization of the core.
@@ -2127,7 +2121,7 @@ function XH_convertToPrintUrl($matches)
 /**
  * Convert all internal URLs in a text to print URLs.
  *
- * @param string $pageContent Some (X)HTML.
+ * @param string $pageContent Some HTML.
  *
  * @return string
  *
@@ -2222,7 +2216,7 @@ function XH_hsc($string)
  *
  * @param string $subject An alternative subject field preset text
  * 
- * @return string (X)HTML.
+ * @return string HTML
  * instead of the subject default in localization.
  *
  * @global array The configuration of the core.
@@ -2578,7 +2572,7 @@ function XH_lockFile($handle, $operation)
  * @param array  $words An array of search words.
  * @param string $text  A text.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @since 1.6.5
  */

@@ -75,7 +75,7 @@ class XH_Backup
     /**
      * Executes the backup process.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      */
     public function execute()
     {
@@ -91,7 +91,7 @@ class XH_Backup
      *
      * @param string $folder A foldername.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      */
     public function backupSingleFolder($folder)
     {
@@ -202,7 +202,7 @@ class XH_Backup
      *
      * @param string $filename A filename.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global array The localization of the core.
      */
@@ -223,7 +223,7 @@ class XH_Backup
      *
      * @param array $deletions A map of filenames => deletion success.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      */
     private function _renderDeletionResults($deletions)
     {
@@ -243,7 +243,7 @@ class XH_Backup
      *
      * @param string $filename A filename.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global array The localization of the core.
      */

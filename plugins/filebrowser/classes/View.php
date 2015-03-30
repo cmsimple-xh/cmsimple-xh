@@ -28,7 +28,7 @@
 class Filebrowser_View
 {
     /**
-     * (X)HTML fragments to insert in the templates.
+     * HTML fragments to insert in the templates.
      *
      * @var array
      */
@@ -108,7 +108,7 @@ class Filebrowser_View
     public $files;
 
     /**
-     * The (X)HTML content of the message area.
+     * The HTML content of the message area.
      *
      * @var string
      */
@@ -138,7 +138,7 @@ class Filebrowser_View
      *
      * @param array $folders An array of folders.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global array The localization of the core.
      */
@@ -394,7 +394,7 @@ class Filebrowser_View
      * @param array  $image An array of image information from getimagesize.
      * @param string $usage A usage information string.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      */
     protected function renderImage($path, $file, $image, $usage = null)
     {
@@ -418,7 +418,7 @@ class Filebrowser_View
      *
      * @param string $path A path name.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      */
     protected function renderFileSize($path)
     {
@@ -430,7 +430,7 @@ class Filebrowser_View
      *
      * @param string $template A template file name.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      *
      * @global array The paths of system files and folders.
      */

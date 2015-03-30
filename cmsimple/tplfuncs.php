@@ -19,7 +19,7 @@
 /**
  * Renders the prev link.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global string The script name.
  * @global array  The page URLs.
@@ -41,7 +41,7 @@ function XH_renderPrevLink()
 /**
  * Renders the next link.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global string The script name.
  * @global array  The page URLs.
@@ -63,13 +63,13 @@ function XH_renderNextLink()
 /**
  * Returns the complete HEAD element.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global string The page title.
  * @global array  The configuration of the core.
  * @global array  The paths of system files and folders.
  * @global array  The localization of the core.
- * @global string (X)HTML to be inserted to the HEAD Element.
+ * @global string HTML to be inserted to the HEAD Element.
  */
 function head()
 {
@@ -98,7 +98,7 @@ function head()
 /**
  * Returns the language dependend site title.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global array The localization of the core.
  */
@@ -113,7 +113,7 @@ function sitename()
 /**
  * Returns the global site title.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global array The configuration of the core.
  */
@@ -128,7 +128,7 @@ function pagename()
 /**
  * Returns the onload attribute for the body element.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global string JavaScript for the onload attribute of the BODY element.
  */
@@ -147,7 +147,7 @@ function onload()
  * @param int      $end   The menu level to end with.
  * @param callable $li    A callback that actually creates the view.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global array The content of the pages.
  * @global int   The number of pages.
@@ -210,7 +210,7 @@ function toc($start = null, $end = null, $li = 'li')
  * @param array $ta The indexes of the pages.
  * @param mixed $st The menu level to start with or the type of menu.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  */
 function li($ta, $st)
 {
@@ -262,7 +262,7 @@ function XH_buildHc()
 /**
  * Returns the search form.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global string The script name.
  * @global array  The localization of the core.
@@ -285,7 +285,7 @@ function searchbox()
 /**
  * Returns the sitemap link.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  */
 function sitemaplink()
 {
@@ -296,7 +296,7 @@ function sitemaplink()
 /**
  * Returns the link for the print view.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global array  The localization of the core.
  */
@@ -340,7 +340,7 @@ function XH_printUrl()
 /**
  * Returns the link to the mail form.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global array The configuration of the core.
  */
@@ -356,7 +356,7 @@ function mailformlink()
 /**
  * Returns the link to the login form.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  */
 function loginlink()
 {
@@ -372,7 +372,7 @@ function loginlink()
  * @param bool $br   Whether to emit a br element between text and date.
  * @param int  $hour The time correction in hours.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global array The localization of the core.
  * @global array The paths of system files and folders.
@@ -396,7 +396,7 @@ function lastupdate($br = null, $hour = null)
 /**
  * Returns the locator (breadcrumb navigation).
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @global string The title of the page.
  * @global array  The headings of the pages.
@@ -455,7 +455,7 @@ function locator()
  * Returns an empty string since XH 1.5,
  * as the admin menu is automatically inserted to the template.
  *
- * @return string The (X)HTML.
+ * @return string HTML
  *
  * @see XH_adminMenu()
  */
@@ -467,7 +467,7 @@ function editmenu()
 /**
  * Returns the contents area.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global int    The index of the current page.
  * @global string The output of the contents area.
@@ -495,7 +495,7 @@ function content()
 /**
  * Returns the submenu of a page.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global int   The index of the current page.
  * @global int   The number of pages.
@@ -535,7 +535,7 @@ function submenu()
 /**
  * Returns a link to the previous page.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global array The localization of the core.
  *
@@ -554,7 +554,7 @@ function previouspage()
 /**
  * Returns a link to the next page
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global array The localization of the core.
  *
@@ -575,7 +575,7 @@ function nextpage()
  *
  * To work, an anchor TOP has to be defined in the template.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global array The localization of the core.
  */
@@ -590,7 +590,7 @@ function top()
 /**
  * Returns the language menu.
  *
- * @return string (X)HTML.
+ * @return string HTML
  *
  * @global array  The paths of system files and folders.
  * @global array  The configuration of the core.

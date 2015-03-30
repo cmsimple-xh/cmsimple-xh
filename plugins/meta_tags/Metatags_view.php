@@ -34,7 +34,7 @@
  * @global array  The localization of the plugins.
  * @global array  The paths of system files and folders.
  * @global string The JavaScript for the onload attribute of the body element.
- * @global string The (X)HTML fragment to insert at the bottom of the body element.
+ * @global string The HTML fragment to insert at the bottom of the body element.
  */
 function Metatags_view($page)
 {

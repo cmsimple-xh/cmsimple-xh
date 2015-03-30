@@ -21,7 +21,7 @@
 /**
  * Returns a document fragment to be inserted to the HEAD element.
  *
- * @return (X)HTML.
+ * @return string HTML
  *
  * @since 1.6
  */
@@ -75,7 +75,7 @@ HTM;
   * @param string $label A label.
   * @param string $hint  A help tooltip text.
   *
-  * @return string (X)HTML
+  * @return string HTML
   *
   * @since 1.6
   */
@@ -92,7 +92,7 @@ function Pageparams_caption($label, $hint)
  * @param bool   $checked Whether the checkbox is checked.
  * @param array  $toggles An array of elements to en-/disable.
  *
- * @return string (X)HTML
+ * @return string HTML
  *
  * @since 1.6
  */
@@ -119,7 +119,7 @@ function Pageparams_checkbox($name, $checked, $toggles)
  *
  * @param int $value The current value.
  *
- * @return string (X)HTML
+ * @return string HTML
  *
  * @global array The localization of the plugins.
  *
@@ -146,7 +146,7 @@ function Pageparams_lastEditRadiogroup($value)
  *
  * @param int $value The current value.
  *
- * @return string (X)HTML
+ * @return string HTML
  *
  * @global array The localization of the plugins.
  *
@@ -182,7 +182,7 @@ function Pageparams_redirectRadiogroup($value)
  * @param string $value    A value.
  * @param bool   $disabled Whether the element is disabled.
  *
- * @return string (X)HTML
+ * @return string HTML
  *
  * @since 1.6
  */
@@ -201,7 +201,7 @@ function Pageparams_input($name, $value, $disabled)
  * @param string $value    An element value.
  * @param bool   $disabled Whether the input is disabled.
  *
- * @return string (X)HTML
+ * @return string HTML
  *
  * @since 1.6
  */
@@ -220,7 +220,7 @@ function Pageparams_scheduleInput($name, $value, $disabled)
  *
  * @param array $page Page data of the current page.
  *
- * @return string (X)HTML
+ * @return string HTML
  *
  * @global array The localization of the plugins.
  *
@@ -256,7 +256,7 @@ function Pageparams_templateSelectbox($page)
  * @param string $default  Default value of the redirect.
  * @param bool   $disabled Whether the SELECT element is initially disabled.
  *
- * @return string (X)HTML
+ * @return string HTML
  *
  * @global array The localization of the plugins.
  *
@@ -287,7 +287,7 @@ function Pageparams_linkList($default, $disabled)
  *
  * @param array $page Page data of the current page.
  *
- * @return string (X)HTML
+ * @return string HTML
  *
  * @global string The script name.
  * @global string The URL of the current page.

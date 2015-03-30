@@ -67,8 +67,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
             'meta' => array('robots' => 'index, follow'),
             'site' => array(
                 'title' => ''
-            ),
-            'xhtml' => array('endtags' => '')
+            )
         );
         $tx = array(
             'meta' => array('keywords' => 'CMSimple, XH')
@@ -289,7 +288,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      *
-     * @global string The (X)HTML to insert in the head element.
+     * @global string The HTML to insert in the head element.
      */
     public function testRendersHjsAtTheEnd()
     {

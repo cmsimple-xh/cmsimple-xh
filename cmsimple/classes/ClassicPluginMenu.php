@@ -32,7 +32,7 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
     /**
      * The menu built so far.
      *
-     * @var string (X)HTML.
+     * @var string HTML.
      */
     private $_menu;
 
@@ -52,7 +52,7 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      *
      * @param bool $showMain Whether to show the main settings menu item.
      *
-     * @return (X)HTML.
+     * @return HTML
      */
     public function render($showMain)
     {
@@ -187,7 +187,7 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
     /**
      * Renders the built plugin menu.
      *
-     * @return string (X)HTML.
+     * @return string HTML
      */
     public function show()
     {
