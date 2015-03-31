@@ -1663,6 +1663,7 @@ function XH_writeFile($filename, $contents)
     $stream = fopen($filename, 'cb');
     if ($stream) {
         if (XH_lockFile($stream, LOCK_EX)) {
+            ftruncate($stream, 0);
             $res = fwrite($stream, $contents);
             fflush($stream);
             XH_lockFile($stream, LOCK_UN);
