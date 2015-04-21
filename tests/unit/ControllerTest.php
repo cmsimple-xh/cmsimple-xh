@@ -602,7 +602,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
         $this->subject->handleLogin();
         $this->assertEquals(
             $cf['security']['password'],
-            $_SESSION['xh_password'][CMSIMPLE_ROOT]
+            $_SESSION['xh_password']
         );
         $this->assertEquals(
             md5($_SERVER['HTTP_USER_AGENT']), $_SESSION['xh_user_agent']

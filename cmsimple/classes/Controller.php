@@ -239,11 +239,9 @@ class XH_Controller
 
         if ($xh_hasher->checkPassword($keycut, $cf['security']['password'])) {
             setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
-            if (session_id() == '') {
-                session_start();
-            }
+            XH_startSession();
             session_regenerate_id(true);
-            $_SESSION['xh_password'][CMSIMPLE_ROOT] = $cf['security']['password'];
+            $_SESSION['xh_password'] = $cf['security']['password'];
             $_SESSION['xh_user_agent'] = md5($_SERVER['HTTP_USER_AGENT']);
             $adm = true;
             $edit = true;
@@ -287,11 +285,9 @@ class XH_Controller
         }
         $adm = false;
         setcookie('status', '', 0, CMSIMPLE_ROOT);
-        if (session_id() == '') {
-            session_start();
-        }
+        XH_startSession();
         session_regenerate_id(true);
-        unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
+        unset($_SESSION['xh_password']);
         $o .= XH_message('success', $tx['login']['loggedout']);
         $f = 'xh_loggedout';
     }
@@ -303,9 +299,7 @@ class XH_Controller
      */
     public function handleKeepAlive()
     {
-        if (session_id() != '') {
-            session_start();
-        }
+        XH_startSession();
         header('Content-Type: text/plain');
         XH_exit();
     }
