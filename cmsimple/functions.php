@@ -1513,12 +1513,9 @@ function logincheck()
 {
     global $cf;
 
-    if (session_id() == '') {
-        session_start();
-    }
+    XH_startSession();
     return isset($_SESSION['xh_password'])
-        && isset($_SESSION['xh_password'][CMSIMPLE_ROOT])
-        && $_SESSION['xh_password'][CMSIMPLE_ROOT] == $cf['security']['password']
+        && $_SESSION['xh_password'] == $cf['security']['password']
         && isset($_SESSION['xh_user_agent'])
         && $_SESSION['xh_user_agent'] == md5($_SERVER['HTTP_USER_AGENT']);
 }
@@ -2526,8 +2523,8 @@ function XH_onShutdown()
 {
     global $tx;
 
-    if (!XH_ADM && isset($_SESSION['xh_password'][CMSIMPLE_ROOT])) {
-        unset($_SESSION['xh_password'][CMSIMPLE_ROOT]);
+    if (!XH_ADM && isset($_SESSION['xh_password'])) {
+        unset($_SESSION['xh_password']);
     }
 
     if (error_reporting() <= 0) {
@@ -2632,6 +2629,23 @@ function XH_autoload($className)
 
     // include the class file
     include_once $filename;
+}
+
+/**
+ * Starts a named session.
+ *
+ * If session is already started, nothing happens.
+ *
+ * @return void
+ *
+ * @since 1.7
+ */
+function XH_startSession()
+{
+    if (session_id() == '') {
+        session_name('XH_' . bin2hex(CMSIMPLE_ROOT));
+        session_start();
+    }
 }
 
 ?>

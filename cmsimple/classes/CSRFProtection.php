@@ -52,11 +52,9 @@ class XH_CSRFProtection
     {
         $this->keyName = $keyName;
         if (!$perRequest) {
-            if (session_id() == '') {
-                session_start();
-            }
-            if (isset($_SESSION[$this->keyName][CMSIMPLE_ROOT])) {
-                $this->token = $_SESSION[$this->keyName][CMSIMPLE_ROOT];
+            XH_startSession();
+            if (isset($_SESSION[$this->keyName])) {
+                $this->token = $_SESSION[$this->keyName];
             }
         }
     }
@@ -90,11 +88,9 @@ class XH_CSRFProtection
         $submittedToken = isset($_POST[$this->keyName])
             ? $_POST[$this->keyName]
             : (isset($_GET[$this->keyName]) ? $_GET[$this->keyName] : '');
-        if (session_id() == '') {
-            session_start();
-        }
-        if (!isset($_SESSION[$this->keyName][CMSIMPLE_ROOT])
-            || $submittedToken != $_SESSION[$this->keyName][CMSIMPLE_ROOT]
+        XH_startSession();
+        if (!isset($_SESSION[$this->keyName])
+            || $submittedToken != $_SESSION[$this->keyName]
         ) {
             header('HTTP/1.0 403 Forbidden');
             echo 'Invalid CSRF token!';
@@ -111,10 +107,8 @@ class XH_CSRFProtection
     public function store()
     {
         if (isset($this->token)) {
-            if (session_id() == '') {
-                session_start();
-            }
-            $_SESSION[$this->keyName][CMSIMPLE_ROOT] = $this->token;
+            XH_startSession();
+            $_SESSION[$this->keyName] = $this->token;
         }
     }
 }
