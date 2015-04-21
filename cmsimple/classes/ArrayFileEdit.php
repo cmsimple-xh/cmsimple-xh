@@ -251,7 +251,7 @@ abstract class ArrayFileEdit extends FileEdit
      */
     public function form()
     {
-        global $sn, $tx, $onload, $title, $_XH_csrfProtection;
+        global $sn, $tx, $title, $_XH_csrfProtection;
 
         $title = $this->caption;
         $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;

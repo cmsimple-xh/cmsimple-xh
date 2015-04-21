@@ -150,7 +150,7 @@ class PageDataView
     public function views()
     {
         $o = "\n" . '<div id="xh_pdviews">';
-        foreach ($this->tabs as $title => $array) {
+        foreach ($this->tabs as $array) {
             $file = $array[0];
             $o .= $this->view($file);
         }

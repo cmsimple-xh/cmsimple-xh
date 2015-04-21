@@ -1894,12 +1894,11 @@ function XH_title($site, $subtitle)
  *
  * @since 1.6
  *
- * @global array             The configuration of the core.
  * @global XH_CSRFProtection The CSRF protector.
  */
 function XH_builtinTemplate($bodyClass)
 {
-    global $cf, $_XH_csrfProtection;
+    global $_XH_csrfProtection;
 
     echo '<!DOCTYPE html>', "\n", '<html',
         (strlen($sl) == 2 ? " lang=\"$sl\"" : ''), '>', "\n";
