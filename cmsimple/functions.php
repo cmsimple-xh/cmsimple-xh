@@ -265,7 +265,7 @@ function XH_evaluateSinglePluginCall($___expression)
  *
  * @since 1.6.6
  */
-function XH_escapeCMSimpleScripting($matches)
+function XH_escapeCMSimpleScripting(array $matches)
 {
     trigger_error(
         'CMSimple scripting not allowed in return value of plugin call',
@@ -362,7 +362,7 @@ function newsbox($heading)
  * @since 1.5
  */
 // @codingStandardsIgnoreStart
-function init_editor($elementClasses = array(),  $initFile = false)
+function init_editor(array $elementClasses = array(),  $initFile = false)
 {
 // @codingStandardsIgnoreEnd
     global $pth, $cf;
@@ -1054,7 +1054,7 @@ function uenc($s)
  *
  * @since 1.6
  */
-function XH_uenc($s, $search, $replace)
+function XH_uenc($s, array $search, array $replace)
 {
     global $cf;
 
@@ -1263,7 +1263,7 @@ function XH_debugmode()
  *
  * @return void
  */
-function XH_debug($errno, $errstr, $errfile, $errline, $context)
+function XH_debug($errno, $errstr, $errfile, $errline, array $context)
 {
     global $errors;
 
@@ -1329,7 +1329,7 @@ function XH_debug($errno, $errstr, $errfile, $errline, $context)
  *
  * @since 1.5.5
  */
-function XH_checkValidUtf8($arr)
+function XH_checkValidUtf8(array $arr)
 {
     global $tx;
 
@@ -2108,7 +2108,7 @@ function XH_isInternalUrl($urlParts)
  *
  * @since 1.6
  */
-function XH_convertToPrintUrl($matches)
+function XH_convertToPrintUrl(array $matches)
 {
     $url = $matches[3];
     $parts = parse_url($url);
@@ -2358,7 +2358,7 @@ function XH_readConfiguration($plugin = false, $language = false)
  *
  * @since 1.6
  */
-function XH_unionOf2DArrays($array1, $array2)
+function XH_unionOf2DArrays(array $array1, array $array2)
 {
     foreach ($array1 as $key => $subarray1) {
         $subarray2 = isset($array2[$key]) ? $array2[$key] : array();
@@ -2582,7 +2582,7 @@ function XH_lockFile($handle, $operation)
  *
  * @since 1.6.5
  */
-function XH_highlightSearchWords($words, $text)
+function XH_highlightSearchWords(array $words, $text)
 {
     usort($words, create_function('$a, $b', 'return strlen($b) - strlen($a);'));
     $patterns = array();

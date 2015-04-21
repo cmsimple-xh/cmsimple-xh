@@ -64,7 +64,7 @@ class XH_Backup
      *
      * @global array The configuration of the core.
      */
-    public function __construct($contentFolders)
+    public function __construct(array $contentFolders)
     {
         global $cf;
 
@@ -225,7 +225,7 @@ class XH_Backup
      *
      * @return string (X)HTML.
      */
-    private function _renderDeletionResults($deletions)
+    private function _renderDeletionResults(array $deletions)
     {
         $results = '';
         foreach ($deletions as $filename => $deleted) {

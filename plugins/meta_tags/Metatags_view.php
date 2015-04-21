@@ -36,7 +36,7 @@
  * @global string The JavaScript for the onload attribute of the body element.
  * @global string The (X)HTML fragment to insert at the bottom of the body element.
  */
-function Metatags_view($page)
+function Metatags_view(array $page)
 {
     global $sn, $su, $plugin_tx, $pth, $onload, $bjs;
 

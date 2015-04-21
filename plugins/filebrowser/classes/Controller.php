@@ -381,7 +381,7 @@ class Filebrowser_Controller
      *
      * @todo Document the details.
      */
-    protected function gatherChildren($parent, $folders)
+    protected function gatherChildren($parent, array $folders)
     {
         $children = array();
         foreach ($folders as $key => $folder) {

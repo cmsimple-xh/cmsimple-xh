@@ -96,7 +96,7 @@ function Pageparams_caption($label, $hint)
  *
  * @since 1.6
  */
-function Pageparams_checkbox($name, $checked, $toggles)
+function Pageparams_checkbox($name, $checked, array $toggles)
 {
     $checkedAttr = $checked ? ' checked="checked"' : '';
     $onclick = '';
@@ -226,7 +226,7 @@ function Pageparams_scheduleInput($name, $value, $disabled)
  *
  * @since 1.6
  */
-function Pageparams_templateSelectbox($page)
+function Pageparams_templateSelectbox(array $page)
 {
     global $plugin_tx;
 
@@ -295,7 +295,7 @@ function Pageparams_linkList($default, $disabled)
  * @global array  The localization of the core.
  * @global array  The localization of the plugins.
  */
-function Pageparams_view($page)
+function Pageparams_view(array $page)
 {
     global $sn, $su, $hjs, $tx, $plugin_tx;
 

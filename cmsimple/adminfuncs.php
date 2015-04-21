@@ -63,7 +63,7 @@ function XH_pluginVersion($plugin)
  *
  * @since 1.5.4
  */
-function XH_systemCheck($data)
+function XH_systemCheck(array $data)
 {
     global $pth, $tx;
 
@@ -470,7 +470,7 @@ function XH_backupsView()
  * @global XH_ClassicPluginMenu The plugin menu builder.
  */
 function pluginMenu($add = '', $link = '', $target = '', $text = '',
-    $style = array()
+    array $style = array()
 ) {
     global $_XH_pluginMenu;
 
@@ -558,7 +558,7 @@ function XH_registerPluginMenuItem($plugin, $label = null, $url = null,
  *
  * @since 1.6
  */
-function XH_adminMenu($plugins = array())
+function XH_adminMenu(array $plugins = array())
 {
     global $sn, $edit, $s, $u, $cf, $tx, $su, $plugin_tx;
 
@@ -697,7 +697,7 @@ function XH_adminMenu($plugins = array())
  *
  * @since 1.6
  */
-function XH_adminMenuItem($item, $level = 0)
+function XH_adminMenuItem(array $item, $level = 0)
 {
     $indent = str_repeat('    ', $level);
     $t = $indent . '<li>';
@@ -759,10 +759,10 @@ function print_plugin_admin($main)
  * Handles reading and writing of plugin files
  * (e.g. en.php, config.php, stylesheet.css).
  *
- * @param bool  $action Unused.
- * @param array $admin  Unused.
- * @param bool  $plugin Unused.
- * @param bool  $hint   Unused.
+ * @param string $action Unused.
+ * @param string $admin  Unused.
+ * @param string $plugin Unused.
+ * @param array  $hint   Unused.
  *
  * @global string The requested action.
  * @global string The requested admin-action.
@@ -773,7 +773,7 @@ function print_plugin_admin($main)
  * @todo Deprecated unused parameters.
  */
 // @codingStandardsIgnoreStart
-function plugin_admin_common($action, $admin, $plugin, $hint=array())
+function plugin_admin_common($action, $admin, $plugin, array $hint = array())
 {
 // @codingStandardsIgnoreEnd
     global $action, $admin, $plugin;

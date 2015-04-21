@@ -136,7 +136,7 @@ class XH_LinkChecker
      *
      * @return int
      */
-    protected function countLinks($links)
+    protected function countLinks(array $links)
     {
         return array_sum(array_map('count', $links));
     }
@@ -188,7 +188,7 @@ class XH_LinkChecker
      * @global array The paths of system files and folders.
      * @global array The configuration of the core.
      */
-    protected function checkInternalLink($test)
+    protected function checkInternalLink(array $test)
     {
         global $c, $u, $cl, $pth, $cf;
 
@@ -267,7 +267,7 @@ class XH_LinkChecker
      *
      * @return string
      */
-    protected function checkExternalLink($parts)
+    protected function checkExternalLink(array $parts)
     {
         set_time_limit(30);
         $path = isset($parts['path']) ? $parts['path'] : '/';
@@ -398,7 +398,7 @@ class XH_LinkChecker
      *
      * @todo Declare visibility.
      */
-    function message($checkedLinks, $hints)
+    function message($checkedLinks, array $hints)
     {
         global $tx, $h, $u;
 
