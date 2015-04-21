@@ -16,7 +16,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-
 /*
   ======================================
   @CMSIMPLE_XH_VERSION@
@@ -35,6 +34,7 @@
   ======================================
  */
 
+namespace XH;
 
 /**
  * The search class.
@@ -46,7 +46,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class XH_Search
+class Search
 {
     /**
      * The search String.
@@ -91,8 +91,8 @@ class XH_Search
             foreach ($words as $word) {
                 $word = trim($word);
                 if ($word != '') {
-                    if (method_exists('Normalizer', 'normalize')) {
-                        $word = Normalizer::normalize($word);
+                    if (method_exists('\Normalizer', 'normalize')) {
+                        $word = \Normalizer::normalize($word);
                     }
                     $this->words[] = $word;
                 }
@@ -157,8 +157,8 @@ class XH_Search
         $s = $pageIndex;
         $content = strip_tags(evaluate_plugincall($content));
         $s = -1;
-        if (method_exists('Normalizer', 'normalize')) {
-            $content = Normalizer::normalize($content);
+        if (method_exists('\Normalizer', 'normalize')) {
+            $content = \Normalizer::normalize($content);
         }
         // html_entity_decode() doesn't work for UTF-8 under PHP 4
         $decode = array(

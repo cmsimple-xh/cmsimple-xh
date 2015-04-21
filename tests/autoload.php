@@ -1,8 +1,9 @@
 <?php
 
 spl_autoload_register(function ($className) {
+    $className = str_replace('_', '\\', $className);
     // set $package, $subpackages and $class
-    $subpackages = explode('_', $className);
+    $subpackages = explode('\\', $className);
     $packages = array_splice($subpackages, 0, 1);
     $package = $packages[0];
     $classes = array_splice($subpackages, -1);

@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * The menu builder for a plugin menu that is integrated in the admin menu.
  *
@@ -26,7 +28,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6.2
  */
-class XH_IntegratedPluginMenu extends XH_PluginMenu
+class IntegratedPluginMenu extends PluginMenu
 {
     /**
      * Makes the main menu item.

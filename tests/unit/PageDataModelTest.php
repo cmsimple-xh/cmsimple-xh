@@ -39,7 +39,7 @@ class PageDataModelTest extends PHPUnit_Framework_TestCase
             array('url' => 'wrong', 'foo' => 'foo0', 'bar' => 'bar0'),
             array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'snork' => true)
         );
-        $this->pd = new XH_PageDataModel($h, $fields, $temp, $data);
+        $this->pd = new XH\PageDataModel($h, $fields, $temp, $data);
     }
 
     public function testStoredFields()

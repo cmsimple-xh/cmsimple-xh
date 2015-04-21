@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * The plugin menu builder.
  *
@@ -27,7 +29,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6.2
  */
-abstract class XH_PluginMenu
+abstract class PluginMenu
 {
     /**
      * The script name.

@@ -47,7 +47,7 @@ class IntegratedPluginMenuTest extends PHPUnit_Framework_TestCase
 
     public function testRegisters5MenuItems()
     {
-        $subject = new XH_IntegratedPluginMenu();
+        $subject = new XH\IntegratedPluginMenu();
         $registerPluginMenuItem = new PHPUnit_Extensions_MockFunction(
             'XH_registerPluginMenuItem', $subject
         );

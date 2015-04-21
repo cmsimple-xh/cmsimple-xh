@@ -36,7 +36,7 @@ class CSRFProtectionTest extends PHPUnit_Framework_TestCase
 {
     public function testGetFollowedByPost()
     {
-        $protection = new XH_CSRFProtection();
+        $protection = new XH\CSRFProtection();
         $input = $protection->tokenInput();
         preg_match('/value="(.*)"/', $input, $matches);
         $protection->store();
@@ -49,7 +49,7 @@ class CSRFProtectionTest extends PHPUnit_Framework_TestCase
      */
     public function testCSRFAttack()
     {
-        $protection = new XH_CSRFProtection();
+        $protection = new XH\CSRFProtection();
         $_SESSION['xh_csrf_token'][CMSIMPLE_ROOT] = '5dff45ce0e8db5e4ea2bf59cf0cb96dd';
         $_POST['xh_csrf_token'] = 'fd97a436f658ecc2178561898f8a6c9e';
         $protection->check();

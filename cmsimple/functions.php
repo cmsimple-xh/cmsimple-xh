@@ -701,7 +701,7 @@ function rfc()
         e('missing', 'content', $pth['file']['content']);
         $contents = array(
             array(), array(), array(), array(), array(),
-            new XH_PageDataRouter(array(), array(), array(), array())
+            new XH\PageDataRouter(array(), array(), array(), array())
         );
     }
     list($u, $tooLong, $h, $l, $c, $pd_router, $removed) = array_values($contents);
@@ -858,7 +858,7 @@ function XH_readContents($language = null)
         include $pageDataFile;
     }
 
-    $pd_router = new XH_PageDataRouter(
+    $pd_router = new XH\PageDataRouter(
         $h, $page_data_fields, $temp_data, $page_data
     );
 
@@ -1830,7 +1830,7 @@ function XH_backup()
     foreach ($languages as $language) {
         $folders[] = $pth['folder']['base'] . 'content/' . $language . '/';
     }
-    $backup = new XH_Backup($folders);
+    $backup = new XH\Backup($folders);
     return $backup->execute();
 }
 
@@ -2237,7 +2237,7 @@ function XH_mailform($subject=null)
         return false;
     }
 
-    $mailform = new XH_Mailform(true, $subject);
+    $mailform = new XH\Mailform(true, $subject);
     return $mailform->process();
 }
 
@@ -2605,8 +2605,9 @@ function XH_autoload($className)
 {
     global $pth;
 
+    $className = str_replace('_', '\\', $className);
     // set $package, $subpackages and $class
-    $subpackages = explode('_', $className);
+    $subpackages = explode('\\', $className);
     $packages = array_splice($subpackages, 0, 1);
     $package = $packages[0];
     $classes = array_splice($subpackages, -1);
@@ -2632,6 +2633,10 @@ function XH_autoload($className)
 
     // include the class file
     include_once $filename;
+
+    if (class_exists($className)) {
+        class_alias($className, str_replace('\\', '_', $className));
+    }
 }
 
 ?>

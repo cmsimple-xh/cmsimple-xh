@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * Editing of plugin config files.
  *
@@ -26,7 +28,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
+class PluginConfigFileEdit extends PluginArrayFileEdit
 {
     /**
      * Constructs an instance.

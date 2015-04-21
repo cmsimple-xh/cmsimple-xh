@@ -277,11 +277,11 @@ require_once UTF8 . '/utils/validation.php';
 /**
  * The controller.
  *
- * @var XH_Controller
+ * @var XH\Controller
  *
  * @access private
  */
-$_XH_controller = new XH_Controller();
+$_XH_controller = new XH\Controller();
 
 /**
  * The configuration of the core.
@@ -858,16 +858,16 @@ $f = '';
  *
  * @access private
  */
-$xh_hasher = new XH_PasswordHash(9, false);
+$xh_hasher = new XH\PasswordHash(9, false);
 
 /**
  * The plugin menu builder.
  *
- * @global XH_ClassicPluginMenu $_XH_pluginMenu
+ * @global XH\ClassicPluginMenu $_XH_pluginMenu
  *
  * @access private
  */
-$_XH_pluginMenu = new XH_ClassicPluginMenu();
+$_XH_pluginMenu = new XH\ClassicPluginMenu();
 
 /**
  * The currently loaded plugin.
@@ -895,17 +895,17 @@ foreach (XH_plugins() as $plugin) {
  *
  * Should be treated as <i>read-only</i>.
  *
- * @global XH_CSRFProtection $_XH_csrfProtection
+ * @global XH\CSRFProtection $_XH_csrfProtection
  *
  * @access public
  *
- * @tutorial XH_CSRFProtection.cls
+ * @tutorial CSRFProtection.cls
  */
 $_XH_csrfProtection = null;
 if (isset($_COOKIE['status']) && $_COOKIE['status'] == 'adm'
     || isset($_POST['keycut'])
 ) {
-    $_XH_csrfProtection = new XH_CSRFProtection();
+    $_XH_csrfProtection = new XH\CSRFProtection();
 }
 
 $_XH_controller->handleLoginAndLogout();
@@ -950,7 +950,7 @@ $cl = 0;
  *
  * Treat as <i>read-only</i>.
  *
- * @global XH_PageDataRouter $pd_router
+ * @global XH\PageDataRouter $pd_router
  *
  * @access public
  */
@@ -1287,7 +1287,7 @@ if (XH_ADM) {
         break;
     case 'validate':
     case 'do_validate':
-        $temp = new XH_LinkChecker();
+        $temp = new XH\LinkChecker();
         $o .= ($f == 'validate') ? $temp->prepare() : $temp->doCheck();
         break;
     }

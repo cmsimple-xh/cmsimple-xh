@@ -23,7 +23,7 @@ class MailformRenderTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->_subject = new XH_Mailform();
+        $this->_subject = new XH\Mailform();
         $tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->_subject);
         $tagStub->expects($this->any())->will($this->returnCallback(
             function ($string) {
@@ -62,7 +62,7 @@ class MailformRenderTest extends PHPUnit_Framework_TestCase
 
     public function testNoFunctionInputInEmbeddedMailform()
     {
-        $this->_subject = new XH_Mailform(true);
+        $this->_subject = new XH\Mailform(true);
         $this->_assertNotMatches(
             array(
                 'tag' => 'input',
@@ -159,7 +159,7 @@ class MailformRenderTest extends PHPUnit_Framework_TestCase
 
     public function testTextareaOfEmbeddedMailform()
     {
-        $this->_subject = new XH_Mailform(true);
+        $this->_subject = new XH\Mailform(true);
         $this->_testTextarea('xh_mailform');
     }
 

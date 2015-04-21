@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * The link checker.
  *
@@ -28,7 +30,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  */
-class XH_LinkChecker
+class LinkChecker
 {
     /**
      * Prepares the link check.
@@ -79,9 +81,9 @@ class XH_LinkChecker
     {
         $links = $this->gatherLinks();
         $failure = array(
-            400, 404, 500, XH_Link::STATUS_INTERNALFAIL,
-            XH_Link::STATUS_EXTERNALFAIL, XH_Link::STATUS_CONTENT_NOT_FOUND,
-            XH_Link::STATUS_FILE_NOT_FOUND, XH_Link::STATUS_ANCHOR_MISSING
+            400, 404, 500, Link::STATUS_INTERNALFAIL,
+            Link::STATUS_EXTERNALFAIL, Link::STATUS_CONTENT_NOT_FOUND,
+            Link::STATUS_FILE_NOT_FOUND, Link::STATUS_ANCHOR_MISSING
         );
         $hints = array();
         foreach ($links as $index => $currentLinks) {
@@ -122,7 +124,7 @@ class XH_LinkChecker
                         $url = '?' . $u[$i] . $url;
                     }
                     $text = $pageLinks[2][$j];
-                    $links[$i][] = new XH_Link($url, $text);
+                    $links[$i][] = new Link($url, $text);
                 }
             }
         }
@@ -144,7 +146,7 @@ class XH_LinkChecker
     /**
      * Determines the status of a link.
      *
-     * @param string $link A link
+     * @param Link $link A link
      *
      * @return void
      *
@@ -152,7 +154,7 @@ class XH_LinkChecker
      *
      * @todo Declare visibility.
      */
-    function determineLinkStatus(XH_Link $link)
+    function determineLinkStatus(Link $link)
     {
         $parts = parse_url($link->getURL());
         if (isset($parts['scheme'])) {
@@ -161,13 +163,13 @@ class XH_LinkChecker
                 $status = $this->checkExternalLink($parts);
                 break;
             case 'mailto':
-                $status = XH_Link::STATUS_MAILTO;
+                $status = Link::STATUS_MAILTO;
                 break;
             case '':
                 $status = $this->checkInternalLink($parts);
                 break;
             default:
-                $status = XH_Link::STATUS_UNKNOWN;
+                $status = Link::STATUS_UNKNOWN;
             }
         } else {
             $status = $this->checkInternalLink($parts);
@@ -199,7 +201,7 @@ class XH_LinkChecker
             }
         }
         if (!isset($test['query'])) {
-            return XH_Link::STATUS_INTERNALFAIL;
+            return Link::STATUS_INTERNALFAIL;
         }
 
         list($query) = explode('&', $test['query']);
@@ -221,7 +223,7 @@ class XH_LinkChecker
             $query = str_replace('/' . $lang . '/?', '', $query);
             $content = XH_readContents($lang);
             if (!$content) {
-                return XH_Link::STATUS_CONTENT_NOT_FOUND;
+                return Link::STATUS_CONTENT_NOT_FOUND;
             }
             $urls = $content['urls'];
             $pages = $content['pages'];
@@ -245,7 +247,7 @@ class XH_LinkChecker
                 if (preg_match($pattern, $template)) {
                     return 200;
                 }
-                return XH_Link::STATUS_ANCHOR_MISSING;
+                return Link::STATUS_ANCHOR_MISSING;
             }
         }
         $parts = explode('=', $test['query']);
@@ -254,10 +256,10 @@ class XH_LinkChecker
             if (file_exists($pth['folder']['downloads'] . $parts[1])) {
                 return 200;
             } else {
-                return XH_Link::STATUS_FILE_NOT_FOUND;
+                return Link::STATUS_FILE_NOT_FOUND;
             }
         }
-        return XH_Link::STATUS_INTERNALFAIL;
+        return Link::STATUS_INTERNALFAIL;
     }
 
     /**
@@ -275,7 +277,7 @@ class XH_LinkChecker
             $path .= "?" . $parts['query'];
         }
         $status = $this->makeHeadRequest($parts['host'], $path);
-        return ($status !== false) ? $status : XH_Link::STATUS_EXTERNALFAIL;
+        return ($status !== false) ? $status : Link::STATUS_EXTERNALFAIL;
     }
 
     /**
@@ -306,7 +308,7 @@ class XH_LinkChecker
     /**
      * Returns the report of a single error.
      *
-     * @param XH_Link $link A link.
+     * @param Link $link A link.
      *
      * @return (X)HTML.
      *
@@ -314,7 +316,7 @@ class XH_LinkChecker
      *
      * @todo Declare visiblity.
      */
-    function reportError(XH_Link $link)
+    function reportError(Link $link)
     {
         global $tx;
 
@@ -325,14 +327,14 @@ class XH_LinkChecker
             . '<br>' . "\n"
             . '<b>' . $tx['link']['error'] . '</b>';
         switch ($link->getStatus()) {
-        case XH_Link::STATUS_INTERNALFAIL:
-        case XH_Link::STATUS_CONTENT_NOT_FOUND:
+        case Link::STATUS_INTERNALFAIL:
+        case Link::STATUS_CONTENT_NOT_FOUND:
             $o .= $tx['link']['int_error'];
             break;
-        case XH_Link::STATUS_ANCHOR_MISSING:
+        case Link::STATUS_ANCHOR_MISSING:
             $o .= $tx['link']['int_error_fragment'];
             break;
-        case XH_Link::STATUS_EXTERNALFAIL:
+        case Link::STATUS_EXTERNALFAIL:
             $o .= $tx['link']['ext_error_domain'];
             break;
         default:
@@ -347,7 +349,7 @@ class XH_LinkChecker
     /**
      * Returns the report of a single notice.
      *
-     * @param XH_Link $link A link.
+     * @param Link $link A link.
      *
      * @return (X)HTML.
      *
@@ -355,7 +357,7 @@ class XH_LinkChecker
      *
      * @todo Declare visibility.
      */
-    function reportNotice(XH_Link $link)
+    function reportNotice(Link $link)
     {
         global $tx;
 
@@ -365,11 +367,11 @@ class XH_LinkChecker
             . '<b>' . $tx['link']['linked_page'] . '</b>'
             . $link->getURL() . '<br>' . "\n";
         switch ($link->getStatus()) {
-        case XH_Link::STATUS_MAILTO:
+        case Link::STATUS_MAILTO:
             $o .= $tx['link']['email'] . "\n";
             break;
-        case XH_Link::STATUS_UNKNOWN:
-            $o .= $tx['link'][XH_Link::STATUS_UNKNOWN] . "\n";
+        case Link::STATUS_UNKNOWN:
+            $o .= $tx['link'][Link::STATUS_UNKNOWN] . "\n";
             break;
         default:
             if ($link->getStatus() >= 300 && $link->getStatus() < 400) {

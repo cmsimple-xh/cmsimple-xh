@@ -56,10 +56,10 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
         $file = 'template';
         $sn = '/xh/';
         $pth['file']['template'] = $this->_testFile;
-        $_XH_csrfProtection = $this->getMockBuilder('XH_CSRFProtection')
+        $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
             ->disableOriginalConstructor()->getMock();
         $this->_setUpLocalization();
-        $this->_subject = new XH_CoreTextFileEdit();
+        $this->_subject = new XH\CoreTextFileEdit();
     }
 
     private function _setUpLocalization()

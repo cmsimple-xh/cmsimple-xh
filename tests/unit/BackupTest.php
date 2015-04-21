@@ -57,7 +57,7 @@ class BackupTest extends PHPUnit_Framework_TestCase
         );
         (new PHPUnit_Extensions_MockFunction('utf8_ucfirst', $this))
             ->expects($this->any())->will($this->returnArgument(0));
-        $this->_subject = new XH_Backup(array($this->_contentFolder));
+        $this->_subject = new XH\Backup(array($this->_contentFolder));
     }
 
     /**
@@ -201,7 +201,7 @@ class BackupTest extends PHPUnit_Framework_TestCase
         global $cf;
 
         $cf['backup']['numberoffiles'] = '0';
-        $this->_subject = new XH_Backup(array($this->_contentFolder));
+        $this->_subject = new XH\Backup(array($this->_contentFolder));
         touch("{$this->_contentFolder}content.htm");
         $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->_subject);
         $eSpy->expects($this->never());
@@ -211,7 +211,7 @@ class BackupTest extends PHPUnit_Framework_TestCase
     public function testMultipleBackupFolders()
     {
         $subject = $this->getMock(
-            'XH_Backup', array('backupSingleFolder'), array(array('foo', 'bar'))
+            'XH\Backup', array('backupSingleFolder'), array(array('foo', 'bar'))
         );
         $subject->expects($this->exactly(2))->method('backupSingleFolder');
         $subject->execute($subject);

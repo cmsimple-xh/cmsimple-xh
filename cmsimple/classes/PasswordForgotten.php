@@ -14,6 +14,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * The password forgotten handling class.
  *
@@ -24,7 +26,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class XH_PasswordForgotten
+class PasswordForgotten
 {
     /**
      * The status of the password forgotten procedure.
@@ -142,7 +144,7 @@ class XH_PasswordForgotten
                 . '<' . CMSIMPLE_URL . '?&function=forgotten&xh_code='
                 . $this->mac() . '>';
             $headers = 'From: ' . $to;
-            $mailform = new XH_Mailform();
+            $mailform = new Mailform();
             $ok = $mailform->sendMail($to, $subject, $message, $headers);
             if ($ok) {
                 $this->status = 'sent';
@@ -176,7 +178,7 @@ class XH_PasswordForgotten
         $subject = $tx['title']['password_forgotten'];
         $message = $tx['password_forgotten']['email2_text'] . ' ' . $password;
         $headers = 'From: ' . $to;
-        $mailform = new XH_Mailform();
+        $mailform = new Mailform();
         $sent = $mailform->sendMail($to, $subject, $message, $headers);
         if ($sent) {
             if (!$this->saveNewPassword($hash)) {

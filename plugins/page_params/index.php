@@ -118,7 +118,7 @@ function Pageparams_switchTemplate($n)
 {
     global $pth, $cf, $pd_router;
 
-    $pages = new XH_Pages();
+    $pages = new XH\Pages();
     while (true) {
         $data = $pd_router->find_page($n);
         if (isset($data['template']) && trim($data['template']) != ''

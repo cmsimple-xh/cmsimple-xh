@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * Handling of the content backups.
  *
@@ -27,7 +29,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6.2
  */
-class XH_Backup
+class Backup
 {
     /**
      * The paths of the content folders.

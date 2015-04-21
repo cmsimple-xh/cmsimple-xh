@@ -14,6 +14,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * Encapsulates access to several page related global variables,
  * and offers some page related utility methods.
@@ -25,7 +27,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class XH_Pages
+class Pages
 {
     /**
      * The number of pages.

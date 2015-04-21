@@ -61,7 +61,7 @@ class PluginLanguageFileEditTest extends PHPUnit_Framework_TestCase
             )
         );
         //$this->_setUpMetaConfig();
-        $this->_subject = new XH_PluginLanguageFileEdit();
+        $this->_subject = new XH\PluginLanguageFileEdit();
     }
 
     private function _setConstant($name, $value)
@@ -94,7 +94,7 @@ class PluginLanguageFileEditTest extends PHPUnit_Framework_TestCase
                 return "<$str>";
             }
         ));
-        $_XH_csrfProtection = $this->getMockBuilder('XH_CSRFProtection')
+        $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
             ->disableOriginalConstructor()->getMock();
     }
 

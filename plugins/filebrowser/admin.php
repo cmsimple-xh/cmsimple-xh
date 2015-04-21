@@ -23,7 +23,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
     exit;
 }
 
-$_XH_filebrowser = new Filebrowser_Controller();
+$_XH_filebrowser = new Filebrowser\Controller();
 $_XH_filebrowser->setBrowseBase(CMSIMPLE_BASE);
 $_XH_filebrowser->setBrowserPath($pth['folder']['plugins'] . 'filebrowser/');
 $_XH_filebrowser->setMaxFileSize('images', $cf['images']['maxsize']);
@@ -127,7 +127,7 @@ if (isset($_GET['filebrowser']) && $_GET['filebrowser'] == 'editorbrowser') {
  * @return void
  *
  * @global array                  The paths of system files and folders.
- * @global XH_CSRFProtection      The CSRF protector.
+ * @global XH\CSRFProtection      The CSRF protector.
  * @global Filebrowser_Controller The filebrowser controller.
  */
 function Filebrowser_forEditor()

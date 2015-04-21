@@ -33,7 +33,7 @@ class PasswordHashTest extends PHPUnit_Framework_TestCase
      */
     public function testHashPassesCheck()
     {
-        $subject = new XH_PasswordHash(4, false);
+        $subject = new XH\PasswordHash(4, false);
         $this->assertTrue(
             $subject->checkPassword('test', $subject->hashPassword('test'))
         );
@@ -46,7 +46,7 @@ class PasswordHashTest extends PHPUnit_Framework_TestCase
      */
     public function testPortableHashPassesCheck()
     {
-        $subject = new XH_PasswordHash(4, true);
+        $subject = new XH\PasswordHash(4, true);
         $this->assertTrue(
             $subject->checkPassword('test', $subject->hashPassword('test'))
         );
@@ -61,7 +61,7 @@ class PasswordHashTest extends PHPUnit_Framework_TestCase
      */
     public function testRandomBytesAreRandom()
     {
-        $subject = new XH_PasswordHash(4, true);
+        $subject = new XH\PasswordHash(4, true);
         $this->assertNotEquals(
             $subject->getRandomBytes(2), $subject->getRandomBytes(2)
         );

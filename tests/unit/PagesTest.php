@@ -87,7 +87,7 @@ class PagesTest extends PHPUnit_Framework_TestCase
             '<h1>News</h1> #CMSimple hide#'
         );
         $cf['menu']['levelcatch'] = 10;
-        $this->_subject = new XH_Pages();
+        $this->_subject = new XH\Pages();
     }
 
     public function dataForIsHidden()

@@ -42,7 +42,7 @@ class ClassicPluginMenuTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->_setUpVFS();
-        $_XH_pluginMenu = new XH_ClassicPluginMenu();
+        $_XH_pluginMenu = new XH\ClassicPluginMenu();
     }
 
     private function _setUpVFS()

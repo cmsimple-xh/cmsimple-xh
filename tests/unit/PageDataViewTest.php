@@ -36,7 +36,7 @@ class PageDataViewTest extends PHPUnit_Framework_TestCase
             'Meta' => 'Metatags_view.php',
             'Page' => 'Pageparams_view.php'
         );
-        $this->pageDataView = new XH_PageDataView(array(), $tabs);
+        $this->pageDataView = new XH\PageDataView(array(), $tabs);
     }
 
     public function testTab()

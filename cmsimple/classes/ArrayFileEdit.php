@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * The abstract base class for editing of config files.
  *
@@ -26,7 +28,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-abstract class XH_ArrayFileEdit extends XH_FileEdit
+abstract class ArrayFileEdit extends FileEdit
 {
 
     /**

@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * Editing of core language files.
  *
@@ -26,7 +28,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
+class CoreLangFileEdit extends CoreArrayFileEdit
 {
     /**
      * Constructs an instance.

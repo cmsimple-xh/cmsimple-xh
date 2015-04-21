@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * Handles the page-data-array including reading and writing of the files.
  *
@@ -28,7 +30,7 @@
  *
  * @access public
  */
-class XH_PageDataModel
+class PageDataModel
 {
     /**
      * The page headings (a copy of $h).

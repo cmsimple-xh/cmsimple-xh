@@ -65,7 +65,7 @@ class CoreConfigFileEditTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->_setUpMetaConfig();
-        $this->_subject = new XH_CoreConfigFileEdit();
+        $this->_subject = new XH\CoreConfigFileEdit();
     }
 
     private function _setConstant($name, $value)
@@ -112,9 +112,9 @@ class CoreConfigFileEditTest extends PHPUnit_Framework_TestCase
                 return "<$str>";
             }
         ));
-        $_XH_csrfProtection = $this->getMockBuilder('XH_CSRFProtection')
+        $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
             ->disableOriginalConstructor()->getMock();
-        $xh_hasher = $this->getMockBuilder('XH_PasswordHash')
+        $xh_hasher = $this->getMockBuilder('XH\PasswordHash')
             ->disableOriginalConstructor()->getMock();
     }
 

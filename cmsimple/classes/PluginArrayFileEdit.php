@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * The abstract base class for plugin config file editing.
  *
@@ -26,7 +28,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-abstract class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
+abstract class PluginArrayFileEdit extends ArrayFileEdit
 {
     /**
      * The name of the config array variable.

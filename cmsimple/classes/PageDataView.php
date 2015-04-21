@@ -15,6 +15,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * Provides an interface for plugins to handle the page_data.
  *
@@ -25,7 +27,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  */
-class XH_PageDataView
+class PageDataView
 {
     /**
      * The current page data.
@@ -100,8 +102,8 @@ class XH_PageDataView
      *
      * @return string (X)HTML.
      *
-     * @global array             The paths of system files and folders.
-     * @global XH_CSRFProtection The CSRF protector.
+     * @global array          The paths of system files and folders.
+     * @global CSRFProtection The CSRF protector.
      *
      * @access protected
      *
