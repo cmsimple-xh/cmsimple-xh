@@ -33,32 +33,18 @@
  * @global string The URL of the requested page.
  * @global array  The localization of the plugins.
  * @global array  The paths of system files and folders.
- * @global string The JavaScript for the onload attribute of the body element.
  * @global string The (X)HTML fragment to insert at the bottom of the body element.
  */
 function Metatags_view($page)
 {
-    global $sn, $su, $plugin_tx, $pth, $onload, $bjs;
+    global $sn, $su, $plugin_tx, $pth, $bjs;
 
     $lang = $plugin_tx['meta_tags'];
 
     $my_fields = array('title', 'description', 'keywords', 'robots');
 
-    $bjs .= <<<EOT
-<script type="text/javascript">/* <![CDATA[ */
-var META_TAGS = {};
-
-META_TAGS.init = function () {
-    var description = document.getElementById("meta_tags").elements.description,
-        indicator = document.getElementById("mt_description_length");
-
-    if (description && indicator) {
-        XH.displayTextLength(description, indicator);
-    }
-};
-/* ]]> */</script>
-EOT;
-    $onload .= 'META_TAGS.init();';
+    $bjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
+        . 'meta_tags/metatags.js"></script>';
 
     $view ="\n" . '<form action="' . $sn . '?' . $su
         . '" method="post" id="meta_tags">'

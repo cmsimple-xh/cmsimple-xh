@@ -12,6 +12,79 @@
 var XH = {};
 
 /**
+ * Finds all elements with a certain class name.
+ *
+ * @param {string} className
+ *
+ * @returns {array-like}
+ *
+ * @since 1.7
+ */
+XH.findByClass = function (className) {
+    if (typeof document.getElementsByClassName !== "undefined") {
+        return document.getElementsByClassName(className);
+    } else if (typeof document.querySelectorAll !== "undefined") {
+        return document.querySelectorAll("." + className);
+    } else {
+        return [];
+    }
+}
+
+/**
+ * Calls a function for each element of a collection.
+ *
+ * @param {array-like} collection
+ * @param {Function}   func
+ *
+ * @returns {undefined}
+ *
+ * @since 1.7
+ */
+XH.forEach = function (collection, func) {
+    var i, n;
+
+    for (i = 0, n = collection.length; i < n; i += 1) {
+        func(collection[i]);
+    }
+}
+
+/**
+ * Registers an event listener.
+ *
+ * @param {EventTarget} target
+ * @param {string}      event
+ * @param {Function}    listener
+ *
+ * @returns {undefined}
+ *
+ * @since 1.7
+ */
+XH.on = function (target, event, listener) {
+    if (typeof target.addEventListener !== "undefined") {
+        target.addEventListener(event, listener, false);
+    } else if (typeof target.attachEvent !== "undefined") {
+        target.attachEvent("on" + event, listener);
+    }
+}
+
+/**
+ * Prevents the default event handling.
+ *
+ * @param {Event} event
+ *
+ * @returns {undefined}
+ *
+ * @since 1.7
+ */
+XH.preventDefault = function (event) {
+    if (typeof event.preventDefault !== "undefined") {
+        event.preventDefault();
+    } else {
+        event.returnValue = false;
+    }
+}
+
+/**
  * Toggles the visibility of a page data tab.
  *
  * @param {string} tabId
@@ -411,7 +484,6 @@ XH.displayTextLength = function (textarea, indicator) {
  */
 XH.promptBackupName = function (form) {
     var suffix, field;
-
     field = form.elements.xh_suffix;
     suffix = field.value;
     do {
@@ -500,11 +572,7 @@ XH.adaptAdminMenu = function () {
  * Register resize handler for adapting the admin menu. This has some glitches,
  * but should be acceptable.
  */
-if (typeof window.addEventListener !== "undefined") {
-    window.addEventListener("resize", XH.adaptAdminMenu, false);
-} else if (typeof window.attachEvent !== "undefined") {
-    window.attachEvent("onresize", XH.adaptAdminMenu);
-}
+XH.on(window, "resize", XH.adaptAdminMenu);
 
 /*
  * Adapts the admin menu initially.
@@ -531,3 +599,48 @@ XH.initQuickSubmit();
         }
     }
 }());
+
+XH.on(window, "load", function () {
+    var element, elements;
+
+    element = document.getElementById("xh_config_form");
+    if (element) {
+        XH.makeTextareasAutosize(element);
+    }
+
+    XH.forEach(XH.findByClass("xh_inactive_tab"), function (element) {
+        XH.on(element, "click", function () {
+            XH.toggleTab(element.id.replace(/^xh_tab_/, ""));
+        });
+    });
+
+    XH.forEach(XH.findByClass("xh_view_toggle"), function (element) {
+        XH.on(element, "click", function () {
+            XH.toggleTab(element.parentNode.id.replace(/^xh_view_/, ""));
+        });
+    });
+
+    XH.forEach(XH.findByClass("xh_change_password"), function (element) {
+        XH.on(element, "click", function (event) {
+            var target = event.target || event.srcElement,
+                dialog = target.getAttribute("data-dialog"),
+                dlg = document.getElementById(dialog);
+
+            XH.modalDialog(dlg, "350px", XH.validatePassword);
+        });
+    });
+
+    element = document.getElementById("xh_backup_form");
+    if (element) {
+        XH.on(element, "submit", function (event) {
+            if (!XH.promptBackupName(element)) {
+                XH.preventDefault(event);
+            }
+        });
+    }
+
+    element = document.getElementById("xh_linkchecker");
+    if (element) {
+        XH.checkLinks(element.getAttribute("data-url"));
+    }
+});

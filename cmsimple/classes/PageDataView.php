@@ -70,8 +70,7 @@ class XH_PageDataView
         list($function, $dummy) = explode('.', basename($filename), 2);
         // TODO: use something more appropriate than an anchor
         return "\n\t" . '<a class="xh_inactive_tab" id="xh_tab_' . $function
-            . '" onclick="XH.toggleTab(\'' . $function . '\');"><span>'
-            . $title . '</span></a>';
+            . '"><span>' . $title . '</span></a>';
     }
 
     /**
@@ -115,8 +114,7 @@ class XH_PageDataView
         // TODO: use something more appropriate than an anchor
         $o = "\n" . '<div id="xh_view_' . $function
             . '" class="xh_inactive_view">'
-            . "\n\t" . '<a class="xh_view_toggle"'
-            . ' onclick="XH.toggleTab(\'' . $function . '\');">&nbsp;</a>';
+            . "\n\t" . '<a class="xh_view_toggle">&nbsp;</a>';
         if (file_exists($filename)) {
             include_once $filename;
             $o .= preg_replace(

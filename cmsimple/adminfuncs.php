@@ -411,7 +411,7 @@ function XH_backupsView()
         . $sn . '?file=content&amp;action=download">' . $tx['action']['download']
         . '</a>'
         . ' <form action="' . $sn . '?&xh_backups" method="post"'
-        . ' class="xh_inline_form" onsubmit="return XH.promptBackupName(this)">'
+        . ' class="xh_inline_form" id="xh_backup_form">'
         . '<input type="hidden" name="file" value="content">'
         . '<input type="hidden" name="action" value="backup">'
         . '<input type="hidden" name="xh_suffix" value="extra">'

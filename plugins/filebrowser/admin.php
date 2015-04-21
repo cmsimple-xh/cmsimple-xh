@@ -64,7 +64,7 @@ if (!$cf['filebrowser']['external']
         $f = 'media';
     }
 
-    $hjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
+    $bjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
         . 'filebrowser/js/filebrowser.js"></script>';
 
     $temp = isset($_GET['subdir'])
