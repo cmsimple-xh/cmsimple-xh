@@ -95,9 +95,7 @@ class CSRFProtection
             || $submittedToken != $_SESSION[$this->keyName]
         ) {
             header('HTTP/1.0 403 Forbidden');
-            echo 'Invalid CSRF token!';
-            // the following should be exit/die, but that would break unit tests
-            trigger_error('Invalid CSRF token!', E_USER_ERROR);
+            XH_exit('Invalid CSRF token!');
         }
     }
 

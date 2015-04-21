@@ -32,31 +32,49 @@ require_once './cmsimple/functions.php';
  */
 class CSRFProtectionTest extends PHPUnit_Framework_TestCase
 {
+    protected $subject;
+
+    protected $startSessionMock;
+
+    protected $headerMock;
+
+    protected $exitMock;
+
     public function setUp()
     {
         $this->defineConstant('CMSIMPLE_ROOT', '/test/');
-        XH_startSession();
+        $this->startSessionMock = new PHPUnit_Extensions_MockFunction(
+            'XH_startSession', null
+        );
+        $this->headerMock = new PHPUnit_Extensions_MockFunction('header', null);
+        $this->exitMock = new PHPUnit_Extensions_MockFunction('XH_exit', null);
+        $this->subject = new XH\CSRFProtection();
+    }
+
+    public function tearDown()
+    {
+        $this->startSessionMock->restore();
+        $this->headerMock->restore();
+        $this->exitMock->restore();
     }
 
     public function testGetFollowedByPost()
     {
-        $protection = new XH\CSRFProtection();
-        $input = $protection->tokenInput();
+        $input = $this->subject->tokenInput();
         preg_match('/value="(.*)"/', $input, $matches);
-        $protection->store();
+        $this->subject->store();
         $_POST['xh_csrf_token'] = $matches[1];
-        $protection->check();
+        $this->subject->check();
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error
-     */
     public function testCSRFAttack()
     {
-        $protection = new XH\CSRFProtection();
+        $this->subject = new XH\CSRFProtection();
         $_SESSION['xh_csrf_token'] = '5dff45ce0e8db5e4ea2bf59cf0cb96dd';
         $_POST['xh_csrf_token'] = 'fd97a436f658ecc2178561898f8a6c9e';
-        $protection->check();
+        $this->headerMock->expects($this->once())->with('HTTP/1.0 403 Forbidden');
+        $this->exitMock->expects($this->once());
+        $this->subject->check();
     }
 
     protected function defineConstant($name, $value)
