@@ -151,7 +151,7 @@ class Filebrowser_View
             . $tx['title']['userfiles'] . ' ' . $this->lang['folder'] . '</a>';
         if (!empty($folders)) {
             $html .= '<ul>';
-            foreach ($folders as $folder => $data) {
+            foreach ($folders as $data) {
                 if ($data['level'] == 2) {
                     $html .= $data['linkList'];
                 }
@@ -264,13 +264,12 @@ class Filebrowser_View
      * @return string
      *
      * @global string                 The script name.
-     * @global array                  The localization of the core.
      * @global object                 The CRSF protection object.
      * @global Filebrowser_Controller The filebrowser controller.
      */
     protected function fileList($files)
     {
-        global $sn, $tx, $_XH_csrfProtection, $_XH_filebrowser;
+        global $sn, $_XH_csrfProtection, $_XH_filebrowser;
 
         if (empty($files)) {
             return '';
@@ -431,13 +430,9 @@ class Filebrowser_View
      * @param string $template A template file name.
      *
      * @return string (X)HTML.
-     *
-     * @global array The paths of system files and folders.
      */
     public function loadTemplate($template)
     {
-        global $pth, $_XH_csrfProtection;
-
         if (file_exists($template)) {
             ob_start();
             include $template;

@@ -125,13 +125,9 @@ class XH_Li
      * @param int $i The index of the current item.
      *
      * @return string (X)HTML.
-     *
-     * @global array The menu levels of the pages.
      */
     protected function renderULStartTags($i)
     {
-        global $l;
-
         $lines = array();
         for ($k = $this->getMenuLevel($i - 1); $k < $this->getMenuLevel($i); $k++) {
             $lines[] = "\n" . '<ul class="' . $this->st . ($k + 1) . '">' . "\n";

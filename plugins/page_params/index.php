@@ -39,14 +39,13 @@ if (!defined('PLUGINLOADER_VERSION')) {
  * @return void
  *
  * @global int    The preliminary index of the current page.
- * @global string The script name.
  * @global array  The content of the pages.
  *
  * @since 1.6
  */
 function Pageparams_handleRelocation($index, $data)
 {
-    global $pd_s, $sn, $c;
+    global $pd_s, $c;
 
     $location = $data['header_location'];
     if ((int) $data['use_header_location'] > 0 && trim($location) !== '' ) {
@@ -67,16 +66,12 @@ function Pageparams_handleRelocation($index, $data)
  *
  * @return bool
  *
- * @global array The localization of the plugins.
- *
  * @author Jerry Jakobsfeld <mail@simplesolutions.dk>
  *
  * @since 1.6
  */
 function Pageparams_isPublished($pd_page)
 {
-    global $plugin_tx;
-
     if ($pd_page['published'] == '0') {
         return false;
     }

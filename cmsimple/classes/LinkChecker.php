@@ -208,8 +208,6 @@ class XH_LinkChecker
         ) {
             return 200;
         }
-        $pageLinks = array();
-        $pageContents = array();
         $contentLength = $cl;
         if (isset($test['path'])
             && preg_match('/\/([A-z]{2})\/[^\/]*/', $test['path'], $matches)
@@ -289,6 +287,7 @@ class XH_LinkChecker
      */
     protected function makeHeadRequest($host, $path)
     {
+        $errno = $errstr = null;
         $socket = fsockopen($host, 80, $errno, $errstr, 5);
         if ($socket) {
             $request = "HEAD $path HTTP/1.1\r\nHost: $host\r\n"

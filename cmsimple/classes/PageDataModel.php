@@ -178,7 +178,7 @@ class XH_PageDataModel
     {
         $n = array_search($field, $this->params);
         array_splice($this->params, $n, 1);
-        foreach ($this->headings as $id => $value) {
+        foreach (array_keys($this->headings) as $id) {
             unset($this->data[$id][$field]);
         }
         unset($this->temp_data[$field]);

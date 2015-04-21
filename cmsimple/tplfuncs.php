@@ -77,7 +77,7 @@ function head()
 
     $t = XH_title($cf['site']['title'], $title);
     $t = '<title>' . strip_tags($t) . '</title>' . "\n";
-    foreach (array_merge($cf['meta'], $tx['meta']) as $i => $k) {
+    foreach (array_keys(array_merge($cf['meta'], $tx['meta'])) as $i) {
         $t .= meta($i);
     }
     $t = '<meta http-equiv="content-type" content="text/html;charset=UTF-8">'
@@ -149,7 +149,6 @@ function onload()
  *
  * @return string The (X)HTML.
  *
- * @global array The content of the pages.
  * @global int   The number of pages.
  * @global int   The index of the current page.
  * @global array The menu levels of the pages.
@@ -157,7 +156,7 @@ function onload()
  */
 function toc($start = null, $end = null, $li = 'li')
 {
-    global $c, $cl, $s, $l, $cf;
+    global $cl, $s, $l, $cf;
 
     if (isset($start)) {
         if (!isset($end)) {
@@ -402,7 +401,6 @@ function lastupdate($br = null, $hour = null)
  * @global array  The headings of the pages.
  * @global int    The index of the current page.
  * @global string The requested special function.
- * @global array  The content of the pages.
  * @global array  The menu levels of the pages.
  * @global array  The localization of the core.
  * @global array  The configuration of the core.
@@ -410,7 +408,7 @@ function lastupdate($br = null, $hour = null)
  */
 function locator()
 {
-    global $title, $h, $s, $f, $c, $l, $tx, $cf, $_XH_firstPublishedPage;
+    global $title, $h, $s, $f, $l, $tx, $cf, $_XH_firstPublishedPage;
 
     if (hide($s) && $cf['show_hidden']['path_locator'] != 'true') {
         return $h[$s];
@@ -473,11 +471,10 @@ function editmenu()
  * @global string The output of the contents area.
  * @global array  The content of the pages.
  * @global bool   Whether edit mode is active.
- * @global array  The configuration of the core.
  */
 function content()
 {
-    global $s, $o, $c, $edit,  $cf;
+    global $s, $o, $c, $edit;
 
     if (!($edit && XH_ADM) && $s > -1) {
         if (isset($_GET['search'])) {

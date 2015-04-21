@@ -58,6 +58,7 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
     public function __construct()
     {
         if (is_readable($this->metaLangFile)) {
+            $mtx = array();
             include $this->metaLangFile;
             $this->lang = $mtx;
         } else {
@@ -244,7 +245,6 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
      * @return string  (X)HTML.
      *
      * @global string The script name.
-     * @global array  The paths of system files and folders.
      * @global array  The localization of the core.
      * @global string JS for the onload attribute of the body element.
      * @global string The title of the current page.
@@ -252,7 +252,7 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
      */
     public function form()
     {
-        global $sn, $pth, $tx, $onload, $title, $_XH_csrfProtection;
+        global $sn, $tx, $onload, $title, $_XH_csrfProtection;
 
         $title = $this->caption;
         $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;

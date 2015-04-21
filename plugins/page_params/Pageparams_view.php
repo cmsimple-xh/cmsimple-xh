@@ -292,12 +292,11 @@ function Pageparams_linkList($default, $disabled)
  * @global string The script name.
  * @global string The URL of the current page.
  * @global string Document fragment to insert into the HEAD element.
- * @global array  The localization of the core.
  * @global array  The localization of the plugins.
  */
 function Pageparams_view($page)
 {
-    global $sn, $su, $hjs, $tx, $plugin_tx;
+    global $sn, $su, $hjs, $plugin_tx;
 
     $hjs .= Pageparams_hjs();
 

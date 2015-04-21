@@ -247,7 +247,7 @@ function evaluate_plugincall($text)
  */
 function XH_evaluateSinglePluginCall($___expression)
 {
-    foreach ($GLOBALS as $___var => $___value) {
+    foreach (array_keys($GLOBALS) as $___var) {
         $$___var = $GLOBALS[$___var];
     }
     return preg_replace_callback(
@@ -466,8 +466,6 @@ function editor_replace($elementID = false, $config = '')
  *
  * @param string $html The (X)HTML generated so far.
  *
- * @global int    The index of the active page.
- * @global string The (X)HTML of the contents area.
  * @global array
  * @global array  The configuration of the core.
  * @global array  The localization of the core.
@@ -479,13 +477,13 @@ function editor_replace($elementID = false, $config = '')
  */
 function XH_finalCleanUp($html)
 {
-    global $s, $o, $errors, $cf, $tx, $bjs;
+    global $errors, $cf, $tx, $bjs;
 
     if (XH_ADM === true) {
         $debugHint = '';
         $errorList = '';
 
-        if ($debugMode = error_reporting() > 0) {
+        if (error_reporting() > 0) {
             $debugHint .= '<div class="xh_debug">' . "\n"
                 . $tx['message']['debug_mode'] . "\n"
                 . '</div>' . "\n";
@@ -731,7 +729,7 @@ function rfc()
     }
 
     foreach ($u as $i => $url) {
-        if (($su == $u[$i] || $su == urlencode($u[$i]))
+        if (($su == $url || $su == urlencode($url))
             && (XH_ADM && $edit || !$removed[$i])
         ) {
                 $s = $i;
@@ -895,13 +893,12 @@ function XH_readContents($language = null)
  * @return int
  *
  * @global int   The index of the current page.
- * @global int   The number of pages.
  *
  * @since 1.6.3
  */
 function XH_findPreviousPage()
 {
-    global $s, $cl;
+    global $s;
 
     for ($i = $s - 1; $i > -1; $i--) {
         if (!hide($i)) {
@@ -1090,14 +1087,10 @@ function sortdir($dir)
  * @param string $script The needle.
  * @param string $text   The haystack.
  *
- * @global array The configuration of the core.
- *
  * @return int
  */
 function cmscript($script, $text)
 {
-    global $cf;
-
     $pattern = str_replace('(.*?)', $script, '/#CMSimple (.*?)#/is');
     return preg_match($pattern, $text);
 }
@@ -1257,13 +1250,12 @@ function XH_debugmode()
  * @param string $errstr  An error message.
  * @param string $errfile Filename where error was raised.
  * @param int    $errline Line number where error was raised.
- * @param array  $context The error context.
  *
  * @global array The list of PHP errors formatted as (X)HTML fragment.
  *
  * @return void
  */
-function XH_debug($errno, $errstr, $errfile, $errline, $context)
+function XH_debug($errno, $errstr, $errfile, $errline)
 {
     global $errors;
 
@@ -1887,10 +1879,13 @@ function XH_title($site, $subtitle)
  * @return string (X)HTML.
  *
  * @since 1.6
+ *
+ * @global array             The configuration of the core.
+ * @global XH_CSRFProtection The CSRF protector.
  */
 function XH_builtinTemplate($bodyClass)
 {
-    global $_XH_csrfProtection;
+    global $cf, $_XH_csrfProtection;
 
     if ($cf['xhtml']['endtags'] == 'true') {
         echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"',

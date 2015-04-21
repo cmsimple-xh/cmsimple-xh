@@ -99,7 +99,6 @@ class XH_Mail
         if (!preg_match($pattern, $address, $matches)) {
             return false;
         }
-        $local = $matches[1];
         $domain = $matches[2];
         if (function_exists('idn_to_ascii')) {
             $domain = defined('INTL_IDNA_VARIANT_UTS46')

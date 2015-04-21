@@ -67,7 +67,8 @@ class XH_PageDataView
      */
     function tab($title, $filename)
     {
-        list($function, $dummy) = explode('.', basename($filename), 2);
+        $parts = explode('.', basename($filename), 2);
+        $function = $parts[0];
         // TODO: use something more appropriate than an anchor
         return "\n\t" . '<a class="xh_inactive_tab" id="xh_tab_' . $function
             . '" onclick="XH.toggleTab(\'' . $function . '\');"><span>'
@@ -111,7 +112,8 @@ class XH_PageDataView
     {
         global $pth, $_XH_csrfProtection;
 
-        list($function, $dummy) = explode('.', basename($filename), 2);
+        $parts = explode('.', basename($filename), 2);
+        $function = $parts[0];
         // TODO: use something more appropriate than an anchor
         $o = "\n" . '<div id="xh_view_' . $function
             . '" class="xh_inactive_view">'
@@ -145,7 +147,7 @@ class XH_PageDataView
     public function views()
     {
         $o = "\n" . '<div id="xh_pdviews">';
-        foreach ($this->tabs as $title => $file) {
+        foreach ($this->tabs as $file) {
             $o .= $this->view($file);
         }
         $o .= "\n" . '</div>';

@@ -333,13 +333,11 @@ class Filebrowser_Controller
     /**
      * Returns an array of folders.
      *
-     * @param bool $all ???
-     *
      * @return array
      *
      * @todo Document the details.
      */
-    protected function foldersArray($all = true)
+    protected function foldersArray()
     {
         $folders = array();
 
@@ -356,7 +354,6 @@ class Filebrowser_Controller
             $folders[$folder]['level'] = count($ar) - $baseDepth;
             $folders[$folder]['parent'] = $parent;
             $folders[$folder]['children'] = array();
-            $linkList = '';
         }
         foreach ($folders as $folder => $data) {
             $folders[$folder]['children']

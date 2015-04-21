@@ -180,6 +180,7 @@ function XH_isAccessProtected($path)
     global $sn;
 
     $host = $_SERVER['HTTP_HOST'];
+    $errno = $errstr = null;
     $stream = fsockopen($host, $_SERVER['SERVER_PORT'], $errno, $errstr, 5);
     if ($stream) {
         stream_set_timeout($stream, 5);
@@ -762,7 +763,6 @@ function print_plugin_admin($main)
  * @param bool  $action Unused.
  * @param array $admin  Unused.
  * @param bool  $plugin Unused.
- * @param bool  $hint   Unused.
  *
  * @global string The requested action.
  * @global string The requested admin-action.
@@ -773,7 +773,7 @@ function print_plugin_admin($main)
  * @todo Deprecated unused parameters.
  */
 // @codingStandardsIgnoreStart
-function plugin_admin_common($action, $admin, $plugin, $hint=array())
+function plugin_admin_common($action, $admin, $plugin)
 {
 // @codingStandardsIgnoreEnd
     global $action, $admin, $plugin;
