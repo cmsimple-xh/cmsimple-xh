@@ -193,7 +193,6 @@ function rf($fl)
  * @param bool   $writable Whether the file has to writable.
  *
  * @global array The paths of system files and folders.
- * @global array The localization of the core.
  *
  * @return bool
  *
@@ -201,7 +200,7 @@ function rf($fl)
  */
 function chkfile($fl, $writable)
 {
-    global $pth, $tx;
+    global $pth;
 
     trigger_error(
         'Function '. __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
@@ -277,13 +276,12 @@ function preCallPlugins($pageIndex = -1)
  * @return void
  *
  * @global array  The paths of system files and folders.
- * @global string Error messages as HTML fragment consisting of LI Elements.
  *
  * @deprecated since 1.6
  */
 function writelog($m)
 {
-    global $pth, $e;
+    global $pth;
 
     trigger_error(
         'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED

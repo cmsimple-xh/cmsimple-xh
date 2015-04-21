@@ -318,7 +318,7 @@ class PageDataRouter
              */
             $new_pages = array();
             $current_page = $this->find_page($index);
-            foreach ($headings as $key => $heading) {
+            foreach ($headings as $heading) {
                 $url = trim(xh_rmws(strip_tags($heading)));
                 $url = uenc($url);
 

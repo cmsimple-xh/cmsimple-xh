@@ -70,7 +70,8 @@ class PageDataView
      */
     function tab($title, $filename, $cssClass)
     {
-        list($function, $dummy) = explode('.', basename($filename), 2);
+        $parts = explode('.', basename($filename), 2);
+        $function = $parts[0];
         // TODO: use something more appropriate than an anchor
         return "\n\t" . '<a class="xh_inactive_tab" id="xh_tab_' . $function
             . '"><span class="'
@@ -115,7 +116,8 @@ class PageDataView
     {
         global $pth, $_XH_csrfProtection;
 
-        list($function, $dummy) = explode('.', basename($filename), 2);
+        $parts = explode('.', basename($filename), 2);
+        $function = $parts[0];
         // TODO: use something more appropriate than an anchor
         $o = "\n" . '<div id="xh_view_' . $function
             . '" class="xh_inactive_view">'

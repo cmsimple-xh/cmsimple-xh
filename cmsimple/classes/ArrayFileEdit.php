@@ -60,6 +60,7 @@ abstract class ArrayFileEdit extends FileEdit
     public function __construct()
     {
         if (is_readable($this->metaLangFile)) {
+            $mtx = array();
             include $this->metaLangFile;
             $this->lang = $mtx;
         } else {
@@ -244,14 +245,13 @@ abstract class ArrayFileEdit extends FileEdit
      * @return string HTML
      *
      * @global string The script name.
-     * @global array  The paths of system files and folders.
      * @global array  The localization of the core.
      * @global string The title of the current page.
      * @global object The CSRF protection object.
      */
     public function form()
     {
-        global $sn, $pth, $tx, $title, $_XH_csrfProtection;
+        global $sn, $tx, $onload, $title, $_XH_csrfProtection;
 
         $title = $this->caption;
         $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;

@@ -2,6 +2,7 @@
     "require-dev": {
         "phing/phing": "2.10.*",
         "squizlabs/php_codesniffer": "2.3.*",
+        "phpmd/phpmd": "2.2.*",
         "bartlett/php-compatinfo": "3.7.*",
         "phpunit/phpunit": "4.5.*",
         "tcz/phpunit-mockfunction": "1.0.*",

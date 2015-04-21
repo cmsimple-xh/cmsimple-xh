@@ -32,12 +32,11 @@
  * @global string The site name.
  * @global string The URL of the requested page.
  * @global array  The localization of the plugins.
- * @global array  The paths of system files and folders.
  * @global string The HTML fragment to insert at the bottom of the body element.
  */
 function Metatags_view(array $page)
 {
-    global $sn, $su, $plugin_tx, $pth, $bjs;
+    global $sn, $su, $plugin_tx, $onload, $bjs;
 
     $lang = $plugin_tx['meta_tags'];
 
