@@ -338,6 +338,21 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testUencTrimsSeparators()
+    {
+        global $cf, $tx;
+
+        if (!defined('XH_URICHAR_SEPARATOR')) {
+            define('XH_URICHAR_SEPARATOR', '/');
+        } else {
+            runkit_constant_redefine('XH_URICHAR_SEPARATOR', '/');
+        }
+        $cf['uri']['word_separator'] = '-';
+        $tx['urichar']['org'] = '';
+        $tx['urichar']['new'] = '';
+        $this->assertEquals('This-That', uenc('- This - That -'));
+    }
+
     public function testSecondLanguages()
     {
         global $pth;

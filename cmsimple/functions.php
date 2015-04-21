@@ -1040,7 +1040,9 @@ function uenc($s)
  * Returns a percent encoded URL component.
  *
  * Additionally all character sequences in $search will be replaced
- * by their according character sequences in $replace.
+ * by their according character sequences in $replace, spaces will be replaced
+ * by the configured word_separator and leading, trailing and multiple
+ * consecutive word_separators will be trimmed.
  *
  * @param string $s       The URL component.
  * @param array  $search  Strings to search for.
@@ -1058,8 +1060,12 @@ function XH_uenc($s, $search, $replace)
 {
     global $cf;
 
+    $separator = $cf['uri']['word_separator'];
     $s = str_replace($search, $replace, $s);
-    return str_replace('+', $cf['uri']['word_separator'], urlencode($s));
+    $s = str_replace('+', $separator, urlencode($s));
+    $s = trim($s, $separator);
+    $s = preg_replace('/' . preg_quote($separator, '/') . '+/', $separator, $s);
+    return $s;
 }
 
 /**

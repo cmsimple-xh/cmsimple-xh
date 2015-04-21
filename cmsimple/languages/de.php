@@ -305,8 +305,8 @@ $tx['toc']['newpage']="NEUE SEITE";
 
 $tx['uri']['toolong']="Gemäß Einstellungen&rarr;CMS&rarr;Uri&rarr;Length ist die URL zu lang:";
 
-$tx['urichar']['new']="";
-$tx['urichar']['org']="";
+$tx['urichar']['new']="ae|oe|ue|ss|Ae|Oe|Ue";
+$tx['urichar']['org']="ä|ö|ü|ß|Ä|Ö|Ü";
 
 $tx['validate']['extfail']="EXTERNE VERLINKUNG SCHEITERTE";
 $tx['validate']['extok']="EXTERNE VERLINKUNG OK";
