@@ -50,6 +50,22 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error_Deprecated
      */
+    public function testHIsDeprecated()
+    {
+        h(0);
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
+    public function testLIsDeprecated()
+    {
+        l(0);
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
     public function testAutogalleryIsDeprecated()
     {
         autogallery('');
