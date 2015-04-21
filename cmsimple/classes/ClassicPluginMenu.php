@@ -120,7 +120,7 @@ class ClassicPluginMenu extends PluginMenu
      *
      * @return void
      */
-    public function makeRow($style = array())
+    public function makeRow(array $style = array())
     {
         if (!isset($style['row'])) {
             $style['row'] = 'class="edit" style="width: 100%;"';
@@ -141,7 +141,7 @@ class ClassicPluginMenu extends PluginMenu
      *
      * @return void
      */
-    public function makeTab($link, $target, $text, $style = array())
+    public function makeTab($link, $target, $text, array $style = array())
     {
         if (!isset($style['tab'])) {
             $style['tab'] = '';
@@ -171,7 +171,7 @@ class ClassicPluginMenu extends PluginMenu
      *
      * @return void
      */
-    public function makeData($text, $style = array())
+    public function makeData($text, array $style = array())
     {
         if (!isset($style['data'])) {
             $style['data'] = '';

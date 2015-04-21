@@ -212,7 +212,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    public function li($pageIndexes, $forOrFrom)
+    public function li(array $pageIndexes, $forOrFrom)
     {
         return $pageIndexes;
     }
@@ -230,7 +230,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
      *
      * @dataProvider dataForToc
      */
-    public function testToc($start, $end, $expected)
+    public function testToc($start, $end, array $expected)
     {
         global $s;
 
@@ -452,7 +452,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    private function _assertMatches($matcher)
+    private function _assertMatches(array $matcher)
     {
         @$this->assertTag($matcher, $this->_renderAllPages());
     }

@@ -81,8 +81,9 @@ class PageDataModel
      * @param array $tempData       The most recently deleted page data.
      * @param array $pageData       The page data.
      */
-    public function __construct($h, $pageDataFields, $tempData, $pageData)
-    {
+    public function __construct(
+        array $h, array $pageDataFields, array $tempData, array $pageData
+    ) {
         $this->headings = $h;
         $this->params = !empty($pageDataFields)
             ? $pageDataFields
@@ -147,7 +148,7 @@ class PageDataModel
      *
      * @return bool Whether the page data have been refreshed.
      */
-    public function refresh($data = null)
+    public function refresh(array $data = null)
     {
         if (isset($data)) {
             $this->data = $data;
@@ -300,7 +301,7 @@ class PageDataModel
      *
      * @return array
      */
-    public function create($params = array())
+    public function create(array $params = array())
     {
         $clean = array();
         foreach ($this->params as $field) {
@@ -319,7 +320,7 @@ class PageDataModel
      *
      * @since 1.6
      */
-    public function appendPage($params)
+    public function appendPage(array $params)
     {
         $this->data[] = $params;
     }
@@ -332,7 +333,7 @@ class PageDataModel
      *
      * @return bool
      */
-    public function replace($pages, $index)
+    public function replace(array $pages, $index)
     {
         array_splice($this->data, $index, 1, $pages);
         return $this->save();
@@ -345,7 +346,7 @@ class PageDataModel
      *
      * @return void
      */
-    public function storeTemp($page)
+    public function storeTemp(array $page)
     {
         foreach ($page as $field => $value) {
             if (in_array($field, $this -> params)) {
@@ -375,7 +376,7 @@ class PageDataModel
      *
      * @return bool
      */
-    public function updateKey($key, $params)
+    public function updateKey($key, array $params)
     {
         foreach ($params as $field => $value) {
             $this->data[$key][$field] = $value;

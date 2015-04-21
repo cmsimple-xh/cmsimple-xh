@@ -44,7 +44,7 @@ if (!defined('PLUGINLOADER_VERSION')) {
  *
  * @since 1.6
  */
-function Pageparams_handleRelocation($index, $data)
+function Pageparams_handleRelocation($index, array $data)
 {
     global $pd_s, $sn, $c;
 
@@ -73,7 +73,7 @@ function Pageparams_handleRelocation($index, $data)
  *
  * @since 1.6
  */
-function Pageparams_isPublished($pd_page)
+function Pageparams_isPublished(array $pd_page)
 {
     global $plugin_tx;
 

@@ -127,7 +127,7 @@ abstract class ArrayFileEdit extends FileEdit
      *
      * @return bool
      */
-    protected function hasVisibleFields($options)
+    protected function hasVisibleFields(array $options)
     {
         foreach ($options as $opt) {
             if ($opt['type'] != 'hidden' && $opt['type'] != 'random') {
@@ -183,7 +183,7 @@ abstract class ArrayFileEdit extends FileEdit
      *
      * @global array The localization of the core.
      */
-    protected function formField($cat, $name, $opt)
+    protected function formField($cat, $name, array $opt)
     {
         global $tx;
 
@@ -321,7 +321,7 @@ abstract class ArrayFileEdit extends FileEdit
      * @global array   The localization of the core.
      * @global object  The password hasher.
      */
-    protected function submitPassword($opt, $iname, &$errors)
+    protected function submitPassword(array $opt, $iname, array &$errors)
     {
         global $tx, $xh_hasher;
 

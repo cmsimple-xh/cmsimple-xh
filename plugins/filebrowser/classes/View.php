@@ -144,7 +144,7 @@ class View
      *
      * @global array The localization of the core.
      */
-    protected function folderList($folders)
+    protected function folderList(array $folders)
     {
         global $tx;
 
@@ -174,7 +174,7 @@ class View
      *
      * @todo What is this method for?
      */
-    public function folderLink($folder, $folders)
+    public function folderLink($folder, array $folders)
     {
         // TODO: Do we need PHP_SELF here; might allow for XSS.
         $link = str_replace('index.php', '', $_SERVER['PHP_SELF']);
@@ -211,7 +211,7 @@ class View
      * @global object The CRSF protection object.
      * @global string The script name.
      */
-    protected function subfolderList($folders)
+    protected function subfolderList(array $folders)
     {
         global $_XH_csrfProtection, $sn;
 
@@ -266,7 +266,7 @@ class View
      * @global object     The CRSF protection object.
      * @global Controller The filebrowser controller.
      */
-    protected function fileList($files)
+    protected function fileList(array $files)
     {
         global $sn, $tx, $_XH_csrfProtection, $_XH_filebrowser;
 
@@ -337,7 +337,7 @@ class View
      *
      * @return string
      */
-    protected function fileListForEditor($files)
+    protected function fileListForEditor(array $files)
     {
         if (empty($files)) {
             return '';
@@ -381,7 +381,7 @@ class View
      *
      * @return string HTML
      */
-    protected function renderImage($path, $file, $image, $usage = null)
+    protected function renderImage($path, $file, array $image, $usage = null)
     {
         list($width, $height) = $image;
         if ($width > 150) {
@@ -453,7 +453,7 @@ class View
      *
      * @return void
      */
-    public function error($message ='', $args = null)
+    public function error($message ='', array $args = null)
     {
         $this->message .= '<p class="xh_fail">'
             . $this->translate($message, $args) . '</p>';
@@ -467,7 +467,7 @@ class View
      *
      * @return void
      */
-    public function success($message, $args = null)
+    public function success($message, array $args = null)
     {
         $this->message .= '<p class="xh_success">'
             . $this->translate($message, $args) . '</p>';
@@ -481,7 +481,7 @@ class View
      *
      * @return void
      */
-    public function info($message, $args = null)
+    public function info($message, array $args = null)
     {
         $this->message .= '<p class="xh_info">'
             . $this->translate($message, $args) . '</p>';

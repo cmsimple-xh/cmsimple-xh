@@ -76,7 +76,7 @@ class Li
      *
      * @global int The index of the current page.
      */
-    public function render($ta, $st)
+    public function render(array $ta, $st)
     {
         global $s;
 

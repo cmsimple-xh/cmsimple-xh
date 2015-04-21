@@ -212,7 +212,7 @@ function toc($start = null, $end = null, $li = 'li')
  *
  * @return string HTML
  */
-function li($ta, $st)
+function li(array $ta, $st)
 {
     $li = new XH\Li();
     return $li->render($ta, $st);

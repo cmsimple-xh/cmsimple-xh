@@ -59,8 +59,9 @@ class PageDataRouter
      * @param array $tempData       The most recently deleted page data.
      * @param array $pageData       The page data.
      */
-    public function __construct($h, $pageDataFields, $tempData, $pageData)
-    {
+    public function __construct(
+        array $h, array $pageDataFields, array $tempData, array $pageData
+    ) {
         $this->model = new PageDataModel(
             $h, $pageDataFields, $tempData, $pageData
         );
@@ -191,7 +192,7 @@ class PageDataRouter
      * @return array
      */
 // @codingStandardsIgnoreStart
-    public function new_page($params = array())
+    public function new_page(array $params = array())
     {
 // @codingStandardsIgnoreEnd
         $page = $this->model->create($params);
@@ -207,7 +208,7 @@ class PageDataRouter
      *
      * @since 1.6
      */
-    public function appendNewPage($params = array())
+    public function appendNewPage(array $params = array())
     {
         $pageData = $this->model->create($params);
         $this->model->appendPage($pageData);
@@ -221,7 +222,7 @@ class PageDataRouter
      *
      * @return bool
      */
-    public function insert($pages, $index)
+    public function insert(array $pages, $index)
     {
         return $this->model->replace($pages, $index);
     }
@@ -297,7 +298,7 @@ class PageDataRouter
      * @return bool
      */
 // @codingStandardsIgnoreStart
-    public function refresh_from_texteditor($headings, $index)
+    public function refresh_from_texteditor(array $headings, $index)
     {
 // @codingStandardsIgnoreEnd
         if (count($headings) == 0) {
@@ -374,7 +375,7 @@ class PageDataRouter
      *
      * @return bool
      */
-    public function update($s, $params)
+    public function update($s, array $params)
     {
         $update_params = array();
         foreach ($params as $field => $update) {

@@ -290,7 +290,7 @@ class FinalCleanUpTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    private function _assertResultMatches($matcher)
+    private function _assertResultMatches(array $matcher)
     {
         @$this->assertTag($matcher, XH_finalCleanUp(self::HTML));
     }

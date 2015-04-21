@@ -35,7 +35,7 @@
  * @global array  The paths of system files and folders.
  * @global string The HTML fragment to insert at the bottom of the body element.
  */
-function Metatags_view($page)
+function Metatags_view(array $page)
 {
     global $sn, $su, $plugin_tx, $pth, $bjs;
 
