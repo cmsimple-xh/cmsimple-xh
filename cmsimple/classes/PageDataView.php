@@ -58,6 +58,7 @@ class XH_PageDataView
      *
      * @param string $title    Label of the tab.
      * @param string $filename Name of the view file.
+     * @param string $cssClass A CSS class.
      *
      * @return string HTML
      *
@@ -65,13 +66,13 @@ class XH_PageDataView
      *
      * @todo Declare visibility.
      */
-    function tab($title, $filename)
+    function tab($title, $filename, $cssClass)
     {
         list($function, $dummy) = explode('.', basename($filename), 2);
         // TODO: use something more appropriate than an anchor
         return "\n\t" . '<a class="xh_inactive_tab" id="xh_tab_' . $function
-            . '" onclick="XH.toggleTab(\'' . $function . '\');"><span>'
-            . $title . '</span></a>';
+            . '" onclick="XH.toggleTab(\'' . $function . '\');"><span class="'
+            . $cssClass . '">' . $title . '</span></a>';
     }
 
     /**
@@ -86,8 +87,9 @@ class XH_PageDataView
     function tabs()
     {
         $o = "\n" . '<div id="xh_pdtabs">';
-        foreach ($this->tabs as $title => $file) {
-            $o .= $this->tab($title, $file);
+        foreach ($this->tabs as $title => $array) {
+            list($file, $cssClass) = $array;
+            $o .= $this->tab($title, $file, $cssClass);
         }
         $o .= "\n</div>";
         return $o;
@@ -145,7 +147,8 @@ class XH_PageDataView
     public function views()
     {
         $o = "\n" . '<div id="xh_pdviews">';
-        foreach ($this->tabs as $title => $file) {
+        foreach ($this->tabs as $title => $array) {
+            $file = $array[0];
             $o .= $this->view($file);
         }
         $o .= "\n" . '</div>';

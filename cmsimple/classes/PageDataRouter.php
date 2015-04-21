@@ -131,14 +131,15 @@ class XH_PageDataRouter
      *
      * @param string $tab_name The title of the tab.
      * @param string $tab_view The filename of the view.
+     * @param string $cssClass A CSS class name.
      *
      * @return void
      */
 // @codingStandardsIgnoreStart
-    public function add_tab($tab_name, $tab_view)
+    public function add_tab($tab_name, $tab_view, $cssClass = null)
     {
 // @codingStandardsIgnoreEnd
-        $this->model->addTab($tab_name, $tab_view);
+        $this->model->addTab($tab_name, $tab_view, $cssClass);
     }
 
     /**

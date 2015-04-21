@@ -189,12 +189,13 @@ class XH_PageDataModel
      *
      * @param string $title     The title of the tab.
      * @param string $view_file The filename of the view.
+     * @param string $cssClass  A CSS class name.
      *
      * @return void
      */
-    public function addTab($title, $view_file)
+    public function addTab($title, $view_file, $cssClass = null)
     {
-        $this->tabs[$title] = $view_file;
+        $this->tabs[$title] = array($view_file, $cssClass);
     }
 
     /**

@@ -33,8 +33,8 @@ class PageDataViewTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $tabs = array(
-            'Meta' => 'Metatags_view.php',
-            'Page' => 'Pageparams_view.php'
+            'Meta' => array('Metatags_view.php', null),
+            'Page' => array('Pageparams_view.php', null)
         );
         $this->pageDataView = new XH_PageDataView(array(), $tabs);
     }
@@ -54,7 +54,7 @@ class PageDataViewTest extends PHPUnit_Framework_TestCase
                 'content' => $title
             )
         );
-        $actual = $this->pageDataView->tab($title, $filename);
+        $actual = $this->pageDataView->tab($title, $filename, null);
         @$this->assertTag($matcher, $actual);
     }
 
