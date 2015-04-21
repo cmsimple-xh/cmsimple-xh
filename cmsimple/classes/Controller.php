@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * Top-level functionality.
  *
@@ -27,7 +29,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class XH_Controller
+class Controller
 {
     /**
      * Initializes the paths related to the template.
@@ -80,7 +82,7 @@ class XH_Controller
     /**
      * Makes and returns a search object.
      *
-     * @return XH_Search
+     * @return Search
      *
      * @access protected
      *
@@ -92,7 +94,7 @@ class XH_Controller
     {
         global $search;
 
-        return new XH_Search(stsl($search));
+        return new Search(stsl($search));
     }
 
     /**
@@ -124,7 +126,7 @@ class XH_Controller
     /**
      * Makes and returns a mailform object.
      *
-     * @return XH_Mailform
+     * @return Mailform
      *
      * @access protected
      *
@@ -132,7 +134,7 @@ class XH_Controller
      */
     function makeMailform()
     {
-        return new XH_Mailform();
+        return new Mailform();
     }
 
     /**
@@ -177,7 +179,7 @@ class XH_Controller
     /**
      * Makes and returns a password forgotten object.
      *
-     * @return XH_PasswordForgotten
+     * @return PasswordForgotten
      *
      * @access protected
      *
@@ -185,7 +187,7 @@ class XH_Controller
      */
     function makePasswordForgotten()
     {
-        return new XH_PasswordForgotten();
+        return new PasswordForgotten();
     }
 
     /**
@@ -439,11 +441,11 @@ class XH_Controller
      *
      * @return void
      *
-     * @global array             The paths of system files and folders.
-     * @global int               The index of the currently selected page.
-     * @global XH_PageDataRouter The page data router.
-     * @global array             The localization of the core.
-     * @global XH_CSRFProtection The CSRF protector.
+     * @global array          The paths of system files and folders.
+     * @global int            The index of the currently selected page.
+     * @global PageDataRouter The page data router.
+     * @global array          The localization of the core.
+     * @global CSRFProtection The CSRF protector.
      */
     public function handleSavePageData()
     {
@@ -492,7 +494,7 @@ class XH_Controller
     /**
      * Makes and returns a new page data editor object.
      *
-     * @return XH_PageDataEditor
+     * @return PageDataEditor
      *
      * @access protected
      *
@@ -500,7 +502,7 @@ class XH_Controller
      */
     function makePageDataEditor()
     {
-        return new XH_PageDataEditor();
+        return new PageDataEditor();
     }
 
     /**
@@ -530,8 +532,8 @@ class XH_Controller
      *
      * @return void
      *
-     * @global string            The name of a special file to be handled.
-     * @global XH_CSRFProtection The CRSF protector.
+     * @global string         The name of a special file to be handled.
+     * @global CSRFProtection The CRSF protector.
      */
     public function handleFileBackup()
     {
@@ -560,11 +562,11 @@ class XH_Controller
         global $file, $action, $o;
 
         $map = array(
-            'config' => 'XH_CoreConfigFileEdit',
-            'language' => 'XH_CoreLangFileEdit',
-            'content' => 'XH_CoreTextFileEdit',
-            'template' => 'XH_CoreTextFileEdit',
-            'stylesheet' => 'XH_CoreTextFileEdit'
+            'config' => 'XH\CoreConfigFileEdit',
+            'language' => 'XH\CoreLangFileEdit',
+            'content' => 'XH\CoreTextFileEdit',
+            'template' => 'XH\CoreTextFileEdit',
+            'stylesheet' => 'XH\CoreTextFileEdit'
         );
         $fileEditor = isset($map[$file])
             ? $this->makeFileEditor($map[$file])
@@ -581,7 +583,7 @@ class XH_Controller
      *
      * @param string $class A class name.
      *
-     * @return XH_FileEdit
+     * @return FileEdit
      *
      * @access protected
      *
@@ -662,8 +664,8 @@ EOT;
      *
      * @return void
      *
-     * @global string            The text of the editor on save.
-     * @global XH_CSRFProtection The CSRF protector.
+     * @global string         The text of the editor on save.
+     * @global CSRFProtection The CSRF protector.
      */
     public function handleSaveRequest()
     {

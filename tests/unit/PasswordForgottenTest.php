@@ -38,7 +38,7 @@ class PasswordForgottenTest extends PHPUnit_Framework_TestCase
                 'secret' => '0123456789abcdef'
             )
         );
-        $this->passwordForgotten = new XH_PasswordForgotten();
+        $this->passwordForgotten = new XH\PasswordForgotten();
     }
 
     protected function currentMac()

@@ -56,10 +56,10 @@ class PluginTextFileEditTest extends PHPUnit_Framework_TestCase
         file_put_contents($this->_testFile, 'body{}');
         $sn = '/xh/';
         $pth['file']['plugin_stylesheet'] = $this->_testFile;
-        $_XH_csrfProtection = $this->getMockBuilder('XH_CSRFProtection')
+        $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
             ->disableOriginalConstructor()->getMock();
         $this->_setUpLocalization();
-        $this->_subject = new XH_PluginTextFileEdit();
+        $this->_subject = new XH\PluginTextFileEdit();
     }
 
     private function _setUpLocalization()

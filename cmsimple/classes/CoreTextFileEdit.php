@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * Editing of core text files.
  *
@@ -26,7 +28,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class XH_CoreTextFileEdit extends XH_TextFileEdit
+class CoreTextFileEdit extends TextFileEdit
 {
     /**
      * Construct an instance.

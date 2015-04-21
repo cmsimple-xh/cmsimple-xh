@@ -36,7 +36,7 @@ class MailTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->subject = new XH_Mail();
+        $this->subject = new XH\Mail();
         $this->getHostByNameMock = new PHPUnit_Extensions_MockFunction(
             'gethostbyname', $this->subject
         );

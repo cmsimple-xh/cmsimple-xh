@@ -15,6 +15,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace Filebrowser;
+
 /**
  * The file browser view class.
  *
@@ -25,7 +27,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  */
-class Filebrowser_View
+class View
 {
     /**
      * HTML fragments to insert in the templates.
@@ -259,10 +261,10 @@ class Filebrowser_View
      *
      * @return string
      *
-     * @global string                 The script name.
-     * @global array                  The localization of the core.
-     * @global object                 The CRSF protection object.
-     * @global Filebrowser_Controller The filebrowser controller.
+     * @global string     The script name.
+     * @global array      The localization of the core.
+     * @global object     The CRSF protection object.
+     * @global Controller The filebrowser controller.
      */
     protected function fileList($files)
     {

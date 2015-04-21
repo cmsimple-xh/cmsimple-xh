@@ -15,6 +15,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace Filebrowser;
+
 /**
  * The file browser controller class.
  *
@@ -28,7 +30,7 @@
  * @todo Document meaning of properties.
  * @todo Document @access for members.
  */
-class Filebrowser_Controller
+class Controller
 {
     /**
      * The link prefix.
@@ -110,7 +112,7 @@ class Filebrowser_Controller
     /**
      * The view.
      *
-     * @var object $view
+     * @var View $view
      */
     public $view;
 
@@ -140,7 +142,7 @@ class Filebrowser_Controller
 
         $this->browserPath = $pth['folder']['plugins']
             . basename(dirname(dirname(__FILE__))) . '/';
-        $this->view = new Filebrowser_View();
+        $this->view = new View();
         foreach (array('images', 'downloads', 'userfiles', 'media') as $type) {
             $this->baseDirectories[$type] = ltrim($pth['folder'][$type], './');
             $this->allowedExtensions[$type] = array();
@@ -652,7 +654,7 @@ class Filebrowser_Controller
     {
         $template = str_replace(array('.', '/', '\\', '<', ' '), '', $template);
         if (!file_exists($this->browserPath . 'tpl/' . $template . '.html')) {
-            return '<p>Filebrowser_Controller::render() - Template not found: '
+            return '<p>Filebrowser\\Controller::render() - Template not found: '
                 . "{$this->browserPath}tpl/$template.html'</p>";
         }
         $this->view->baseDirectory = $this->baseDirectory;

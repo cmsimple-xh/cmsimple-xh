@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * Emails.
  *
@@ -26,7 +28,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.7
  */
-class XH_Mail
+class Mail
 {
     /**
      * The To address.

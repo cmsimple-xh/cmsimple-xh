@@ -64,7 +64,7 @@ class SearchTest extends PHPUnit_Framework_TestCase
      */
     public function testSearch($searchString, $expected)
     {
-        $search = new XH_Search($searchString);
+        $search = new XH\Search($searchString);
         $actual = $search->search();
         $this->assertEquals($expected, $actual);
     }

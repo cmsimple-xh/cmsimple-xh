@@ -15,6 +15,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * Handles all the data that has to be collected
  * to generate the page-data-array.
@@ -26,7 +28,7 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  */
-class XH_PageDataRouter
+class PageDataRouter
 {
     /**
      * The model.
@@ -59,7 +61,7 @@ class XH_PageDataRouter
      */
     public function __construct($h, $pageDataFields, $tempData, $pageData)
     {
-        $this->model = new XH_PageDataModel(
+        $this->model = new PageDataModel(
             $h, $pageDataFields, $tempData, $pageData
         );
     }
@@ -412,7 +414,7 @@ class XH_PageDataRouter
             }
             $page = $this->find_page($pd_s);
             if ($pd_s > -1) {
-                $view_provider = new XH_PageDataView($page, $this->model->tabs);
+                $view_provider = new PageDataView($page, $this->model->tabs);
                 return $view_provider->tabs() . $view_provider->views();
             }
         }

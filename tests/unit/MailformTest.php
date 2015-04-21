@@ -57,9 +57,9 @@ class MailformTest extends PHPUnit_Framework_TestCase
     public function testCheckCorrectInput()
     {
         $_POST = $this->_goodPost;
-        $mail = $this->getMockBuilder('XH_Mail')->getMock();
+        $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('isValidAddress')->willReturn(true);
-        $mailform = new XH_Mailform(false, null, $mail);
+        $mailform = new XH\Mailform(false, null, $mail);
         $this->assertEquals('', $mailform->check());
     }
 
@@ -95,25 +95,25 @@ class MailformTest extends PHPUnit_Framework_TestCase
             'attributes' => array('class' => 'xh_warning'),
             'content' => $tx['mailform'][$langKey]
         );
-        $mail = $this->getMockBuilder('XH_Mail')->getMock();
+        $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('isValidAddress')->willReturn(false);
-        $mailform = new XH_Mailform(false, null, $mail);
+        $mailform = new XH\Mailform(false, null, $mail);
         @$this->assertTag($matcher, $mailform->check());
     }
 
     public function testSubmitSendsMailSuccess()
     {
-        $mail = $this->getMockBuilder('XH_Mail')->getMock();
+        $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('send')->willReturn(true);
-        $mailform = new XH_Mailform(false, null, $mail);
+        $mailform = new XH\Mailform(false, null, $mail);
         $this->assertTrue($mailform->submit());
     }
 
     public function testMailFailureIsLogged()
     {
-        $mail = $this->getMockBuilder('XH_Mail')->getMock();
+        $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('send')->willReturn(false);
-        $mailform = new XH_Mailform(false, null, $mail);
+        $mailform = new XH\Mailform(false, null, $mail);
         $logMessageSpy = new PHPUnit_Extensions_MockFunction(
             'XH_logMessage', $mailform
         );
@@ -126,7 +126,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
         global $action;
 
         $action = '';
-        $mailform = $this->getMock('XH_Mailform', array('render'));
+        $mailform = $this->getMock('XH\Mailform', array('render'));
         $mailform->expects($this->once())->method('render');
         $mailform->process();
     }
@@ -136,7 +136,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
         global $action;
 
         $action = 'send';
-        $mailform = $this->getMock('XH_Mailform', array('check', 'submit'));
+        $mailform = $this->getMock('XH\Mailform', array('check', 'submit'));
         $mailform->expects($this->once())->method('check')
             ->will($this->returnValue(''));
         $mailform->expects($this->once())->method('submit')
@@ -149,7 +149,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
         global $action;
 
         $action = 'send';
-        $mailform = $this->getMock('XH_Mailform', array('check', 'render'));
+        $mailform = $this->getMock('XH\Mailform', array('check', 'render'));
         $mailform->expects($this->once())->method('check')
             ->will($this->returnValue('some error message'));
         $mailform->expects($this->any())->method('render');
@@ -161,7 +161,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
         global $action;
 
         $action = 'send';
-        $mailform = $this->getMock('XH_Mailform', array('check', 'submit', 'render'));
+        $mailform = $this->getMock('XH\Mailform', array('check', 'submit', 'render'));
         $mailform->expects($this->once())->method('check')
             ->will($this->returnValue(''));
         $mailform->expects($this->once())->method('submit')
@@ -190,11 +190,11 @@ class MailformTest extends PHPUnit_Framework_TestCase
         global $action;
 
         $action = '';
-        $mailform = $this->getMock('XH_Mailform', array('render', 'check'));
+        $mailform = $this->getMock('XH\Mailform', array('render', 'check'));
         $mailform->expects($this->any())->method('check')
             ->will($this->returnValue('some error message'));
         $mailform->process();
-        $mailform = $this->getMock('XH_Mailform', array('render'));
+        $mailform = $this->getMock('XH\Mailform', array('render'));
         $mailform->expects($this->never())->method('check');
         $this->assertFalse($mailform->process());
     }
@@ -203,7 +203,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
     {
         $subject = 'Foo subject';
         $_GET['xh_mailform_subject'] = $subject;
-        $mailform = new XH_Mailform();
+        $mailform = new XH\Mailform();
         // TODO: don't test for *protected* property
         $this->assertEquals($subject, $mailform->subject);
     }
@@ -211,7 +211,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
     public function testSubjectIsSetFromConstructorParameter()
     {
         $subject = 'Foo subject';
-        $mailform = new XH_Mailform(true, $subject);
+        $mailform = new XH\Mailform(true, $subject);
         // TODO: don't test for *protected* property
         $this->assertEquals($subject, $mailform->subject);
     }

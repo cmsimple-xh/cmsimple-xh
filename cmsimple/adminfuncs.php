@@ -467,7 +467,7 @@ function XH_backupsView()
  *
  * @return mixed
  *
- * @global XH_ClassicPluginMenu The plugin menu builder.
+ * @global XH\ClassicPluginMenu The plugin menu builder.
  */
 function pluginMenu($add = '', $link = '', $target = '', $text = '',
     $style = array()
@@ -501,7 +501,7 @@ function pluginMenu($add = '', $link = '', $target = '', $text = '',
  */
 function XH_registerStandardPluginMenuItems($showMain)
 {
-    $pluginMenu = new XH_IntegratedPluginMenu();
+    $pluginMenu = new XH\IntegratedPluginMenu();
     $pluginMenu->render($showMain);
 }
 
@@ -742,7 +742,7 @@ function XH_adminMenuItem($item, $level = 0)
  *
  * @return string HTML
  *
- * @global XH_ClassicPluginMenu The plugin menu builder.
+ * @global XH\ClassicPluginMenu The plugin menu builder.
  */
 // @codingStandardsIgnoreStart
 function print_plugin_admin($main)
@@ -780,13 +780,13 @@ function plugin_admin_common($action, $admin, $plugin, $hint=array())
 
     switch ($admin) {
     case 'plugin_config':
-        $fileEdit = new XH_PluginConfigFileEdit();
+        $fileEdit = new XH\PluginConfigFileEdit();
         break;
     case 'plugin_language':
-        $fileEdit = new XH_PluginLanguageFileEdit();
+        $fileEdit = new XH\PluginLanguageFileEdit();
         break;
     case 'plugin_stylesheet':
-        $fileEdit = new XH_PluginTextFileEdit();
+        $fileEdit = new XH\PluginTextFileEdit();
         break;
     default:
         return false;

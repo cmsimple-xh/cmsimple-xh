@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * Editing of plugin text files.
  *
@@ -26,7 +28,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class XH_PluginTextFileEdit extends XH_TextFileEdit
+class PluginTextFileEdit extends TextFileEdit
 {
     /**
      * Construct an instance.

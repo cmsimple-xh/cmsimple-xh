@@ -36,6 +36,8 @@
  * @link     http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * Portable PHP password hashing framework.
  *
@@ -47,7 +49,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.5.4
  */
-class XH_PasswordHash
+class PasswordHash
 {
     /**
      * The base 64 encoding scheme.

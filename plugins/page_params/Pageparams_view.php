@@ -219,7 +219,7 @@ function Pageparams_linkList($default, $disabled)
 {
     global $plugin_tx;
 
-    $pages = new XH_Pages();
+    $pages = new XH\Pages();
     $disabled = $disabled ? ' disabled="disabled"' : '';
     $o = '<select id="pageparams_linklist"' . $disabled . '>';
     $links = $pages->linkList();

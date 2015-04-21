@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * The plugin menu builders for the classic plugin menu.
  *
@@ -27,7 +29,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6.2
  */
-class XH_ClassicPluginMenu extends XH_PluginMenu
+class ClassicPluginMenu extends PluginMenu
 {
     /**
      * The menu built so far.

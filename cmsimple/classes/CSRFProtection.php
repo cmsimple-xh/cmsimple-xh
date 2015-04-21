@@ -14,6 +14,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * The CSRF protection class.
  *
@@ -23,9 +25,9 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  * @since    1.6
- * @tutorial XH/XH_CSRFProtection.cls
+ * @tutorial XH/CSRFProtection.cls
  */
-class XH_CSRFProtection
+class CSRFProtection
 {
     /**
      * The name of the session key and input name of the CSRF token.

@@ -16,6 +16,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * The mailform class.
  *
@@ -26,7 +28,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class XH_Mailform
+class Mailform
 {
     /**
      * Whether the mailform is embedded on a CMSimple_XH page.
@@ -91,20 +93,20 @@ class XH_Mailform
     /**
      * The mail object.
      *
-     * @var XH_Mail
+     * @var Mail
      */
     protected $mail;
 
     /**
      * Constructs an instance.
      *
-     * @param bool    $embedded Whether the mailform is embedded on a CMSimple_XH
-     *                          page.
-     * @param string  $subject  An alternative subject field preset text instead of
-     *                          the subject default in localization.
-     * @param XH_Mail $mail     A mail object.
+     * @param bool   $embedded Whether the mailform is embedded on a CMSimple_XH
+     *                         page.
+     * @param string $subject  An alternative subject field preset text instead of
+     *                         the subject default in localization.
+     * @param Mail   $mail     A mail object.
      *
-     * @global array   The localization of the core.
+     * @global array The localization of the core.
      */
     public function __construct($embedded = false, $subject = null, $mail = null)
     {
@@ -141,7 +143,7 @@ class XH_Mailform
             $this->mailform = isset($_POST['mailform'])
                 ? stsl($_POST['mailform']) : '';
         }
-        $this->mail = isset($mail) ? $mail : new XH_Mail();
+        $this->mail = isset($mail) ? $mail : new Mail();
     }
 
     /**

@@ -14,6 +14,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * The page data editor class.
  *
@@ -24,7 +26,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class XH_PageDataEditor
+class PageDataEditor
 {
     /**
      * Returns the currently unused page data fields.

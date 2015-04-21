@@ -214,7 +214,7 @@ function toc($start = null, $end = null, $li = 'li')
  */
 function li($ta, $st)
 {
-    $li = new XH_Li();
+    $li = new XH\Li();
     return $li->render($ta, $st);
 }
 
@@ -242,7 +242,7 @@ function XH_buildHc()
 {
     global $cl, $s, $cf, $si, $hc, $hl;
 
-    $pages = new XH_Pages();
+    $pages = new XH\Pages();
     $si = -1;
     $hc = array();
     for ($i = 0; $i < $cl; $i++) {
