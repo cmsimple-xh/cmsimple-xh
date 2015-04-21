@@ -32,6 +32,9 @@ class PageDataModelTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        global $cf;
+
+        $cf['uri']['word_separator'] = '-';
         $h = array('Welcome', 'News');
         $fields = array('url', 'foo', 'bar', 'list');
         $temp = array('url' => 'deleted', 'foo' => '', 'bar' => '', 'baz' => 42);
