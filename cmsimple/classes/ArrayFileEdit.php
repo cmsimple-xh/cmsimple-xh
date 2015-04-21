@@ -165,10 +165,8 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
             . '</td></tr>'
             . '</table>'
             . '</div>';
-        $onclick = 'var dlg = document.getElementById(\'' . $id
-            . '\'); XH.modalDialog(dlg, \'350px\', XH.validatePassword)';
-        $o .= '<button type="button" onclick="' . $onclick
-            . '">' . $tx['password']['change'] . '</button>';
+        $o .= '<button type="button" class="xh_change_password" data-dialog="'
+            . $id . '">' . $tx['password']['change'] . '</button>';
         return $o;
     }
 
@@ -246,13 +244,12 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
      * @global string The script name.
      * @global array  The paths of system files and folders.
      * @global array  The localization of the core.
-     * @global string JS for the onload attribute of the body element.
      * @global string The title of the current page.
      * @global object The CSRF protection object.
      */
     public function form()
     {
-        global $sn, $pth, $tx, $onload, $title, $_XH_csrfProtection;
+        global $sn, $pth, $tx, $title, $_XH_csrfProtection;
 
         $title = $this->caption;
         $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;
@@ -305,8 +302,6 @@ abstract class XH_ArrayFileEdit extends XH_FileEdit
         }
         $o .= $_XH_csrfProtection->tokenInput();
         $o .= $button . '</form>';
-        $onload .= 'XH.makeTextareasAutosize(document.getElementById('
-            . '\'xh_config_form\'));';
 
         return $o;
     }

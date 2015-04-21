@@ -38,15 +38,13 @@ class XH_LinkChecker
      * @global string The script name.
      * @global array  The paths of system files and folders.
      * @global array  The localization of the core.
-     * @global string The value of the onload attribute of the BODY element.
      */
     public function prepare()
     {
-        global $sn, $pth, $tx, $onload;
+        global $sn, $pth, $tx;
 
         $url = $sn . '?&amp;xh_do_validate';
-        $onload .= "XH.checkLinks('$url');";
-        $o = '<div id="xh_linkchecker">'
+        $o = '<div id="xh_linkchecker" data-url="' . $url . '">'
             . '<img src="' . $pth['folder']['corestyle']
             . 'ajax-loader-bar.gif" width="128" height="15" alt="'
             . $tx['link']['checking'] . '">'

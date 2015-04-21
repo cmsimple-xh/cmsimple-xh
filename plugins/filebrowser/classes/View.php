@@ -221,12 +221,8 @@ class Filebrowser_View
                 $name = str_replace($this->currentDirectory, '', $folder);
                 $html .= '<li class="folder">'
                     . '<form style="display: inline;" method="post" action="'
-                    . $action . '"'
-                    . ' onsubmit="return FILEBROWSER.confirmFolderDelete(\''
-                    . $this->escapeForEventHandlerAttribute(
-                        $this->translate('confirm_delete', $this->basePath . $folder)
-                    )
-                    . '\');">'
+                    . $action . '" class="filebrowser_delete_folder" data-path="'
+                    . XH_hsc($this->basePath) . $folder . '">'
                     . '<input type="image" src="' . $this->browserPath
                     . 'css/icons/delete.png" alt="delete" title="'
                     . $this->translate('delete_folder') . '">'
@@ -288,14 +284,8 @@ class Filebrowser_View
             $class = $class == 'odd' ? 'even' : 'odd';
             $html .= '<li style="white-space:nowrap;" class="' . $class . '">'
                 . '<form style="display: inline;" method="post" action="'
-                . $action . '"'
-                . ' onsubmit="return FILEBROWSER.confirmFileDelete(\''
-                . $this->escapeForEventHandlerAttribute(
-                    $this->translate(
-                        'confirm_delete', $this->currentDirectory . $file
-                    )
-                )
-                . '\');">'
+                . $action . '" class="filebrowser_delete_file" data-path="'
+                . XH_hsc($this->currentDirectory . $file) . '">'
                 . '<input type="image" src="' . $this->browserPath
                 . 'css/icons/delete.png" alt="delete" title="'
                 . $this->translate('delete_file')
@@ -306,13 +296,8 @@ class Filebrowser_View
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
                 . '<form method="post" style="display:inline;" action="'
-                . $action . '"'
-                . ' onsubmit="return FILEBROWSER.promptNewName(this, \''
-                . $this->escapeForEventHandlerAttribute(
-                    $this->translate('prompt_rename', $file)
-                )
-                . '\');"'
-                . '>'
+                . $action . '" class="filebrowser_rename_file" data-path="'
+                . XH_hsc($file) . '">'
                 . '<input type="hidden" name="renameFile" value="'
                 . $file . '">'
                 . '<input type="hidden" name="oldName" value="' . $file . '">'
@@ -359,20 +344,18 @@ class Filebrowser_View
         $dir = $this->basePath . $this->currentDirectory;
         $is_image = (int) (strpos($this->linkParams, 'type=images') === 0);
         $class = 'even';
+        $prefix = $this->linkPrefix;
+        if ($prefix != '?&amp;download=') {
+            $prefix .= str_replace(
+                array('../', './'), '', $this->currentDirectory
+            );
+        }
         foreach ($files as $file) {
             $class = $class == 'odd' ? 'even' : 'odd';
 
             $html .= '<li class="' . $class . '">';
-            $prefix = $this->linkPrefix;
-
-            if ($prefix != '?&amp;download=') {
-                $prefix .= str_replace(
-                    array('../', './'), '', $this->currentDirectory
-                );
-            }
-            $html .= '<span class="xhfbfile" onclick="window.setLink(\''
-                . $prefix . $file . '\',' . $is_image . ');">'
-                . $file;
+            $html .= '<span class="xhfbfile" data-file="' . $prefix . $file
+                . '" data-is-image="' . $is_image . '">' . $file;
 
             $path = $dir . $file;
             if (strpos($this->linkParams, 'type=images') !== false
@@ -545,27 +528,24 @@ class Filebrowser_View
     }
 
     /**
-     * Escapes a string to be used as a literal JS string inside an event
-     * handler attribute.
+     * Renders the JavaScript configuration script element.
      *
-     * @param string $string A string.
+     * @return string HTML
      *
-     * @return string
-     *
-     * @since 1.6.5
-     *
-     * @todo Don't use literal string in event handler attribute, but rather a
-     *       property of the FILEBROWSER object.
+     * @global array The localization of the plugins.
      */
-    protected function escapeForEventHandlerAttribute($string)
+    protected function renderJsConfig()
     {
-        // HACK: we can't use XH_hsc() because that is not defined for the
-        // editorbrowser. htmlspecialchars() might fail under PHP 4.
-        return str_replace(
-            array('<', '>', '&', '"', "'"),
-            array('&lt;', '&gt;', '&amp;', '&quot;', "\\'"),
-            $string
+        global $plugin_tx;
+
+        $ptx = $plugin_tx['filebrowser'];
+        $config = array(
+            'confirm_delete' => $ptx['confirm_delete'],
+            'confirm_upload' => $ptx['confirm_upload'],
+            'prompt_rename' => $ptx['prompt_rename']
         );
+        return '<script type="text/javascript">var FILEBROWSER = '
+            . json_encode($config) . ';</script>';
     }
 }
 

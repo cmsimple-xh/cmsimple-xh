@@ -24,49 +24,21 @@
  * @return string HTML
  *
  * @since 1.6
+ *
+ * @global array The paths of system files and folders.
+ * @global array The localization of the plugins.
  */
 function Pageparams_hjs()
 {
-    global $plugin_tx;
+    global $pth, $plugin_tx;
 
-    $message = addcslashes(
-        $plugin_tx['page_params']['error_date_format'], "\t\n\r\\/\""
+    $config = json_encode(
+        array('message' => $plugin_tx['page_params']['error_date_format'])
     );
-    return <<<HTM
-<script type="text/javascript">
-/* <![CDATA[ */
-var PAGEPARAMS = PAGEPARAMS || {};
-
-function page_params_date_check(field) {
-    var datearr = field.value.split(" ");
-    var dateformat = /^\d{4}[-](0?[1-9]|1[012])[-](0?[1-9]|[12][0-9]|3[01])$/;
-    var timeformat = /^([01]?[0-9]|2[0-3)])[:]([0-5]?[0-9])$/;
-
-    if (datearr[0] == "" || datearr[0] == undefined) {
-        datearr[0] = "2099-12-31";
-    }
-    if (datearr[1] == "" || datearr[1] == undefined) {
-        datearr[1] = "00:00";
-    }
-    if (dateformat.test(datearr[0]) && timeformat.test(datearr[1])) {
-        field.style.backgroundColor = "";
-        field.style.color = "";
-    } else {
-        field.style.backgroundColor ="#ffe4e1";
-        field.style.color = "#000";
-        alert("$message");
-    }
-}
-
-PAGEPARAMS.onLinkListChange = function(that) {
-    var input = document.forms["page_params"].elements["header_location"];
-
-    input.value = that.value ? "?" + that.value : "";
-}
-/* ]]> */
-</script>
-
-HTM;
+    return '<script type="text/javascript">var PAGEPARAMS = ' . $config
+        . ';</script>'
+        . '<script type="text/javascript" src="' . $pth['folder']['plugins']
+        . 'page_params/pageparams.js"></script>';
 }
 
  /**
@@ -90,27 +62,17 @@ function Pageparams_caption($label, $hint)
  *
  * @param string $name    Name of the checkbox.
  * @param bool   $checked Whether the checkbox is checked.
- * @param array  $toggles An array of elements to en-/disable.
  *
  * @return string HTML
  *
  * @since 1.6
  */
-function Pageparams_checkbox($name, $checked, $toggles)
+function Pageparams_checkbox($name, $checked)
 {
     $checkedAttr = $checked ? ' checked="checked"' : '';
-    $onclick = '';
-    foreach ($toggles as $toggle) {
-        $onclick .= 'document.forms[\'page_params\'].elements[\'' . $toggle
-            . '\'].disabled=!document.forms[\'page_params\'].elements[\'' . $toggle
-            . '\'].disabled;';
-    }
-    if ($onclick != '') {
-        $onclick = ' onclick="' . $onclick . '"';
-    }
     $o = "\n\t\t" . '<input type="hidden" name="' . $name . '" value="0">'
         . '<input type="checkbox" name="' . $name . '" value="1"'
-        . $checkedAttr . $onclick . '>';
+        . $checkedAttr . '>';
     return $o;
 }
 
@@ -157,17 +119,11 @@ function Pageparams_redirectRadiogroup($value)
     global $plugin_tx;
 
     $o = '';
-    $onclick = '';
     $options = array('yes_new' => 2, 'yes_same' => 1, 'no' => 0);
     foreach ($options as $string => $number) {
         $checked = $value == $number ? ' checked="checked"' : '';
-        $disabled = $number > 0 ? 'false' : 'true';
-        $onclick = 'document.forms[\'page_params\'].elements[\'header_location\']'
-            . '.disabled=' . $disabled . ';'
-            . 'document.getElementById(\'pageparams_linklist\').disabled='
-            . $disabled;
         $radio = '<input type="radio" name="use_header_location"'
-            . ' value="' . $number . '"' . $checked . ' onclick="' . $onclick . '">';
+            . ' value="' . $number . '"' . $checked . '>';
         $o .= "\n\t\t" . '<label>' . $radio
             . $plugin_tx['page_params'][$string] . '</label>';
     }
@@ -208,11 +164,8 @@ function Pageparams_input($name, $value, $disabled)
 function Pageparams_scheduleInput($name, $value, $disabled)
 {
     $disabled = $disabled ? ' disabled="disabled"' : '';
-    $js = 'page_params_date_check(document.forms[\'page_params\'].elements[\''
-        . $name . '\'])';
     return '<input type="text" size="16" maxlength="16" name="' . $name . '"'
-        . ' value="' . $value . '"' . $disabled
-        . ' onchange="' . $js .'">';
+        . ' value="' . $value . '"' . $disabled . '">';
 }
 
 /**
@@ -268,8 +221,7 @@ function Pageparams_linkList($default, $disabled)
 
     $pages = new XH_Pages();
     $disabled = $disabled ? ' disabled="disabled"' : '';
-    $onchange = ' onchange="PAGEPARAMS.onLinkListChange(this)"';
-    $o = '<select id="pageparams_linklist"' . $disabled . $onchange . '>';
+    $o = '<select id="pageparams_linklist"' . $disabled . '>';
     $links = $pages->linkList();
     array_unshift($links, array($plugin_tx['page_params']['quick_select'], ''));
     foreach ($links as $link) {
@@ -311,9 +263,7 @@ function Pageparams_view($page)
      * heading
      */
     $view .= Pageparams_caption($lang['heading'], $lang['hint_heading']);
-    $view .= Pageparams_checkbox(
-        'show_heading', $page['show_heading'] == '1', array('heading')
-    );
+    $view .= Pageparams_checkbox('show_heading', $page['show_heading'] == '1');
     $view .= '<br>';
     $view .= Pageparams_input(
         'heading', $page['heading'], $page['show_heading'] !== '1'
@@ -324,10 +274,7 @@ function Pageparams_view($page)
      * published
      */
     $view .= Pageparams_caption($lang['published'], $lang['hint_published']);
-    $view .= Pageparams_checkbox(
-        'published', $page['published'] != '0',
-        array('expires', 'publication_date')
-    );
+    $view .= Pageparams_checkbox('published', $page['published'] != '0');
     $view .= '<br>';
     $view .= "\n\t" . XH_helpIcon($lang['hint_publication_period']);
     $view .= "\n\t\t" . $plugin_tx['page_params']['publication_period'];
@@ -347,9 +294,7 @@ function Pageparams_view($page)
     $view .= Pageparams_caption(
         $lang['linked_to_menu'], $lang['hint_linked_to_menu']
     );
-    $view .= Pageparams_checkbox(
-        'linked_to_menu', $page['linked_to_menu'] !== '0', array()
-    );
+    $view .= Pageparams_checkbox('linked_to_menu', $page['linked_to_menu'] !== '0');
     $view .= '<br>';
     $view .= "\n\t" . '<hr>';
 
