@@ -143,6 +143,18 @@ class XH_PageDataRouter
     }
 
     /**
+     * Replaces the existing page data.
+     *
+     * @param array $data The new page data.
+     *
+     * @return bool Whether the page data have been refreshed.
+     */
+    public function refresh(array $data = null)
+    {
+        return $this->model->refresh($data);
+    }
+
+    /**
      * Returns the page data of a single page.
      *
      * @param int $id The page index.
