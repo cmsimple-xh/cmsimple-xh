@@ -456,9 +456,13 @@ function locator()
  * @return string HTML
  *
  * @see XH_adminMenu()
+ *
+ * @deprecated since 1.7. Just remove from the template.
  */
 function editmenu()
 {
+    trigger_error('Function editmenu() is deprecated', E_USER_DEPRECATED);
+
     return '';
 }
 

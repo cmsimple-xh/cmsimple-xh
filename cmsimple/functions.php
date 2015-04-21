@@ -88,10 +88,14 @@ function geturlwp($u)
  * @return string
  *
  * @see $h
+ *
+ * @deprecated since 1.7. Use $h instead.
  */
 function h($n)
 {
     global $h;
+
+    trigger_error('Function h() is deprecated', E_USER_DEPRECATED);
 
     return $h[$n];
 }
@@ -104,10 +108,14 @@ function h($n)
  * @return int
  *
  * @see $l
+ *
+ * @deprecated since 1.7. Use $l instead.
  */
 function l($n)
 {
     global $l;
+
+    trigger_error('Function l() is deprecated', E_USER_DEPRECATED);
 
     return $l[$n];
 }

@@ -160,8 +160,19 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
 
     public function testEditmenu()
     {
+        $errorReporting = error_reporting();
+        error_reporting($errorReporting & ~E_USER_DEPRECATED);
         $actual = editmenu();
+        error_reporting($errorReporting);
         $this->assertEmpty($actual);
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
+    public function testEditmenuIsDeprecated()
+    {
+        editmenu();
     }
 
     /**
