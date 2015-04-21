@@ -423,10 +423,10 @@ function lastupdate($br = null, $hour = null)
     } else {
         $t .= ' ';
     }
-    return $t
-        . XH_formatDate(
-            filemtime($pth['file']['content']) + (isset($hour) ? $hour * 3600 : 0)
-        );
+    $time = filemtime($pth['file']['content']) + (isset($hour) ? $hour * 3600 : 0);
+    return $t . '<time datetime="' . date('c', $time) . '">'
+        . XH_formatDate($time)
+        . '</time>';
 }
 
 
