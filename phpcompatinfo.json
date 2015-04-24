@@ -2,7 +2,14 @@
     "source-providers": [
         {
             "in": ". as current",
-            "exclude": ["tests", "vendor", "plugins/hi_updatecheck"],
+            "exclude": [
+                "tests",
+                "vendor",
+                "plugins/hi_updatecheck",
+                "plugins/jquery",
+                "plugins/pagemanager",
+                "plugins/utf8"
+            ],
             "name": "/\\.(php|htm)$/"
         }
     ],
