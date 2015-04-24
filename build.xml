@@ -37,8 +37,8 @@
     </target>
 
     <target name="compat"
-            description="checks compatibility with PHP_CompatInfo 3">
-        <exec command="phpcompatinfo analyser:run ."
+            description="checks compatibility with PHP_CompatInfo">
+        <exec command="phpcompatinfo analyser:run --alias current"
               passthru="true" logoutput="true"/>
     </target>
 
