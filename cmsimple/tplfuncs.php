@@ -396,56 +396,20 @@ function lastupdate($br = null, $hour = null)
  * Returns the locator (breadcrumb navigation).
  *
  * @return string HTML
- *
- * @global string The title of the page.
- * @global array  The headings of the pages.
- * @global int    The index of the current page.
- * @global string The requested special function.
- * @global array  The menu levels of the pages.
- * @global array  The localization of the core.
- * @global array  The configuration of the core.
- * @global int    The index of the first published page.
  */
 function locator()
 {
-    global $title, $h, $s, $f, $l, $tx, $cf, $_XH_firstPublishedPage;
-
-    if (hide($s) && $cf['show_hidden']['path_locator'] != 'true') {
-        return $h[$s];
-    }
-    if ($s == $_XH_firstPublishedPage) {
-        return $h[$s];
-    } elseif ($title != '' && (!isset($h[$s]) || $h[$s] != $title)) {
-        $t = $title;
-    } elseif ($f != '') {
-        return ucfirst($f);
-    } elseif ($s > $_XH_firstPublishedPage) {
-        $t = '';
-        $tl = $l[$s];
-        if ($tl > 1) {
-            for ($i = $s - 1; $i >= $_XH_firstPublishedPage; $i--) {
-                if ($l[$i] < $tl) {
-                    $t = a($i, '') . $h[$i] . '</a> &gt; ' . $t;
-                    $tl--;
-                }
-                if ($tl < 2) {
-                    break;
-                }
-            }
+    $model = XH_getLocatorModel();
+    $parts = array();
+    foreach ($model as $part) {
+        if (is_string($part)) {
+            $parts[] = $part;
+        } else {
+            $parts[] = a($part[1], '') . $part[0] . '</a>';
         }
-    } else {
-        return '&nbsp;';
     }
-    if ($cf['locator']['show_homepage'] == 'true') {
-        return a($_XH_firstPublishedPage, '') . $tx['locator']['home']
-            . '</a> &gt; ' . $t
-            . (($s > $_XH_firstPublishedPage && $h[$s] == $title) ? $h[$s] : '');
-    } else {
-        return $t
-            . (($s > $_XH_firstPublishedPage && $h[$s] == $title) ? $h[$s] : '');
-    }
+    return implode(' &gt; ', $parts);
 }
-
 
 /**
  * Returns the admin menu.

@@ -2656,4 +2656,71 @@ function XH_startSession()
     }
 }
 
+/**
+ * Returns the locator (breadcrumb navigation) model.
+ *
+ * The locator model is an ordered list of breadcrumb items, where each item is
+ * either a string or an array with a string and an integer. Strings denote the
+ * name of the item; integers denote the page index to link to.
+ *
+ * @return array
+ *
+ * @global string The title of the page.
+ * @global array  The headings of the pages.
+ * @global int    The index of the current page.
+ * @global string The requested special function.
+ * @global array  The menu levels of the pages.
+ * @global array  The localization of the core.
+ * @global array  The configuration of the core.
+ * @global int    The index of the first published page.
+ *
+ * @since 1.7
+ */
+function XH_getLocatorModel()
+{
+    global $title, $h, $s, $f, $l, $tx, $cf, $_XH_firstPublishedPage;
+
+    if (hide($s) && $cf['show_hidden']['path_locator'] != 'true') {
+        return array($h[$s]);
+    }
+    if ($s == $_XH_firstPublishedPage) {
+        return array($h[$s]);
+    } elseif ($title != '' && (!isset($h[$s]) || $h[$s] != $title)) {
+        $res = array($title);
+    } elseif ($f != '') {
+        return array(ucfirst($f));
+    } elseif ($s > $_XH_firstPublishedPage) {
+        $res = array();
+        $tl = $l[$s];
+        if ($tl > 1) {
+            for ($i = $s - 1; $i >= $_XH_firstPublishedPage; $i--) {
+                if ($l[$i] < $tl) {
+                    array_unshift($res, array($h[$i], $i));
+                    $tl--;
+                }
+                if ($tl < 2) {
+                    break;
+                }
+            }
+        }
+    } else {
+        return array('&nbsp;');
+    }
+    if ($cf['locator']['show_homepage'] == 'true') {
+        array_unshift(
+            $res,
+            array($tx['locator']['home'], $_XH_firstPublishedPage)
+        );
+        if ($s > $_XH_firstPublishedPage && $h[$s] == $title) {
+            $res[] = $h[$s];
+        }
+        return $res;
+    } else {
+        if ($s > $_XH_firstPublishedPage && $h[$s] == $title) {
+            $res[] = $h[$s];
+        }
+        return $res;
+    }
+}
+
 ?>
