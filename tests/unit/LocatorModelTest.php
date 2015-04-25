@@ -33,9 +33,10 @@ class LocatorModelTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        global $_XH_firstPublishedPage, $f, $cf, $tx;
+        global $sn, $_XH_firstPublishedPage, $f, $cf, $tx;
 
         $this->setUpContent();
+        $sn = '';
         $_XH_firstPublishedPage = 0;
         $f = '';
         $cf = array(
@@ -90,7 +91,7 @@ class LocatorModelTest extends PHPUnit_Framework_TestCase
 
         $s = 0;
         $title = $h[$s];
-        $this->assertEquals(array('foo'), XH_getLocatorModel());
+        $this->assertEquals(array(array('foo', '?foo')), XH_getLocatorModel());
     }
 
     public function testDressesPage()
@@ -100,7 +101,7 @@ class LocatorModelTest extends PHPUnit_Framework_TestCase
         $s = 1;
         $title = $h[$s];
         $this->assertEquals(
-            array(array('Home', 0), 'Dresses'),
+            array(array('Home', '?foo'), array('Dresses', '?Dresses')),
             XH_getLocatorModel()
         );
     }
@@ -112,7 +113,11 @@ class LocatorModelTest extends PHPUnit_Framework_TestCase
         $s = 2;
         $title = $h[$s];
         $this->assertEquals(
-            array(array('Home', 0), array('Dresses', 1), 'Real Dresses'),
+            array(
+                array('Home', '?foo'),
+                array('Dresses', '?Dresses'),
+                array('Real Dresses', '?Dresses/Real-Dresses')
+            ),
             XH_getLocatorModel()
         );
     }
@@ -123,7 +128,7 @@ class LocatorModelTest extends PHPUnit_Framework_TestCase
 
         $s = 3;
         $title = $h[$s];
-        $this->assertEquals(array('News'), XH_getLocatorModel());
+        $this->assertEquals(array(array('News', '?News')), XH_getLocatorModel());
     }
 
     public function testChangedTitle()
@@ -133,7 +138,7 @@ class LocatorModelTest extends PHPUnit_Framework_TestCase
         $s = 1;
         $title = 'Suits';
         $this->assertEquals(
-            array(array('Home', 0), 'Suits'),
+            array(array('Home', '?foo'), array('Suits', null)),
             XH_getLocatorModel()
         );
     }
@@ -144,7 +149,7 @@ class LocatorModelTest extends PHPUnit_Framework_TestCase
 
         $s = -1;
         $f = 'mailform';
-        $this->assertEquals(array('Mailform'), XH_getLocatorModel());
+        $this->assertEquals(array(array('Mailform', null)), XH_getLocatorModel());
     }
 
     public function testUnpublishedHomePage()
@@ -153,7 +158,7 @@ class LocatorModelTest extends PHPUnit_Framework_TestCase
 
         $_XH_firstPublishedPage = 1;
         $s = 0;
-        $this->assertEquals(array('&nbsp;'), XH_getLocatorModel());
+        $this->assertEquals(array(array('&nbsp;', null)), XH_getLocatorModel());
     }
 
     public function testDoNotShowHomePage()
@@ -163,7 +168,7 @@ class LocatorModelTest extends PHPUnit_Framework_TestCase
         $s = 1;
         $title = $h[$s];
         $cf['locator']['show_homepage'] = '';
-        $this->assertEquals(array('Dresses'), XH_getLocatorModel());
+        $this->assertEquals(array(array('Dresses', '?Dresses')), XH_getLocatorModel());
     }
 
     public function testDoShowHiddenPathLocator()
@@ -174,7 +179,7 @@ class LocatorModelTest extends PHPUnit_Framework_TestCase
         $title = $h[$s];
         $cf['show_hidden']['path_locator'] = 'true';
         $this->assertEquals(
-            array(array('Home', 0), 'News'),
+            array(array('Home', '?foo'), array('News', '?News')),
             XH_getLocatorModel()
         );
     }

@@ -42,7 +42,7 @@ class LocatorTest extends PHPUnit_Framework_TestCase
             'XH_getLocatorModel', null
         );
         $this->modelMock->expects($this->once())->willReturn(
-            array(array('Home', 0), 'Bar')
+            array(array('Home', '?foo'), array('Bar', '?bar'))
         );
     }
 
@@ -54,7 +54,7 @@ class LocatorTest extends PHPUnit_Framework_TestCase
 
     public function testLocator()
     {
-        $this->assertEquals('<a href="foo">Home</a> &gt; Bar', locator());
+        $this->assertEquals('<a href="?foo">Home</a> &gt; Bar', locator());
     }
 }
 

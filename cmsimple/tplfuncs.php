@@ -399,16 +399,18 @@ function lastupdate($br = null, $hour = null)
  */
 function locator()
 {
-    $breadcrumbs = XH_getLocatorModel();
     $html = '';
+    $breadcrumbs = XH_getLocatorModel();
+    $last = count($breadcrumbs) - 1;
     foreach ($breadcrumbs as $i => $breadcrumb) {
+        list($title, $url) = $breadcrumb;
         if ($i > 0) {
             $html .= ' &gt; ';
         }
-        if (is_string($breadcrumb)) {
-            $html .= $breadcrumb;
+        if (isset($url) && $i < $last) {
+            $html .= '<a href="' . $url . '">' . $title . '</a>';
         } else {
-            $html .= a($breadcrumb[1], '') . $breadcrumb[0] . '</a>';
+            $html .= $title;
         }
     }
     return $html;
