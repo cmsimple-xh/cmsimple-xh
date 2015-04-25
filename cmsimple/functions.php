@@ -2723,4 +2723,21 @@ function XH_getLocatorModel()
     }
 }
 
+/**
+ * Returns the full URL of a page.
+ *
+ * @param int $index A valid page index.
+ *
+ * @return string
+ *
+ * @global string The script name.
+ * @global array  The page URLs.
+ */
+function XH_getPageURL($index)
+{
+    global $sn, $u;
+
+    return $sn . '?' . $u[$index];
+}
+
 ?>
