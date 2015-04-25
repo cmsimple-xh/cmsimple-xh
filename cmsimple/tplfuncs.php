@@ -399,16 +399,19 @@ function lastupdate($br = null, $hour = null)
  */
 function locator()
 {
-    $model = XH_getLocatorModel();
-    $parts = array();
-    foreach ($model as $part) {
-        if (is_string($part)) {
-            $parts[] = $part;
+    $breadcrumbs = XH_getLocatorModel();
+    $html = '';
+    foreach ($breadcrumbs as $i => $breadcrumb) {
+        if ($i > 0) {
+            $html .= ' &gt; ';
+        }
+        if (is_string($breadcrumb)) {
+            $html .= $breadcrumb;
         } else {
-            $parts[] = a($part[1], '') . $part[0] . '</a>';
+            $html .= a($breadcrumb[1], '') . $breadcrumb[0] . '</a>';
         }
     }
-    return implode(' &gt; ', $parts);
+    return $html;
 }
 
 /**
