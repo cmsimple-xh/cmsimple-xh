@@ -358,34 +358,37 @@ h6 {
 
 
 /**************************/
-/*    Subnavigation       */
+/*   Previous/Next Page   */
 /**************************/
 
 .subnav {
     width:100%;
     padding:0 1em;
+    box-sizing: border-box;
+    display: table;
 }
-.subnav td a {
+.subnav a {
     text-decoration:none;
     color:black;
     display:block;
     white-space: nowrap;
     padding: 0;
 }
-.subnav td a:hover {
+.subnav a:hover {
     color:#090;
     background-color:#eee;
 }
-.previous {
+.subnav span {
+    display: table-cell;
     width:33%;
+}
+.previous {
     text-align:left;
 }
 .top {
-    width:33%;
     text-align:center;
 }
 .next  {
-    width:33%;
     text-align:right
 }
 
@@ -398,11 +401,13 @@ h6 {
     clear:both;
     text-align:center;
     font-size:x-small;
+    letter-spacing: .1em;
     margin:1em 0;
 }
 .copyright a {
     color:#777;
     text-decoration:none;
+    padding:.5em;
 }
 .copyright a:hover {
     color:#090;

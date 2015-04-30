@@ -1227,6 +1227,133 @@ if ($su == uenc($cf['menu']['legal'])) {
         . file_get_contents($pth['folder']['cmsimple'] . 'legal.txt');
 }
 
+
+/*
+ * Here begins the group of functions to create the "Site/CMS Info" page.
+ * To generate this page add <?php echo poweredbylink()?> to the template
+ * plus a template.nfo file containing a description of the template in
+ * plain text with link to the designer site totaling up to 400 digits.
+ *
+ * Newsbox text titled 'Site/CMS Info' will appear at the beginning
+ * of the generated page.
+ */
+if ($su == uenc('site/cms info')) {
+    $f = $title = 'Site/CMS Info';
+    $s = -1;
+    $o .= '<h1>' . $title . '</h1>';
+    $o .= newsbox('Site/CMS Info') . XH_poweredBy();
+}
+
+// 3 functions to show "Site/CMS Info"
+/**
+ * Returns The content of the generated page "Site/CMS Info".
+ *
+ * One of the 3 functions to show "Site/CMS Info".
+ *
+ * @global array $cf The configuration of the core.
+ * @global array $tx The language localization of the core.
+ * @global array $pth The paths of system files and folders.
+ *
+ * @return The HTML.
+ *
+ * @since 1.7.
+ */
+function XH_poweredBy()
+{
+    global $cf, $tx, $pth;
+
+    $o = '<h5>Content Management System</h5><ul><li><a href="http://cmsimple-xh.org">'
+        . CMSIMPLE_XH_VERSION . '</a></li></ul>';
+    $defaulttpl = $tx['subsite']['template'] == ''
+        ? $cf['site']['template']
+        : $tx['subsite']['template'];
+
+    $tpltext = '';
+    foreach (XH_templates() as $template) {
+
+        $tpltext .= $defaulttpl == $template
+            ? '<li><p><strong>Default template: ' . ucfirst($template) . '</strong>'
+            : '<li>' . ucfirst($template);
+        if(is_file($pth['folder']['templates'] . '/' . $template . '/template.nfo')) {
+            $tplinfo = utf8_substr(strip_tags(file_get_contents($pth['folder']['templates']
+                . '/' . $template . '/template.nfo'), '<a><br><br/>'), 0, 400);
+            if($tplinfo) $tpltext .= '<br>' . $tplinfo;
+        }
+        $tpltext .= '</li>';
+    }
+
+    $o .= '<h5>Templates</h5><ul>' . $tpltext . '</ul>';
+    $t = '';
+    foreach (XH_plugins() as $plugin) {
+        $url = XH_pluginURL($plugin);
+        if ($url) {
+            $t .= '<li><a href="' . $url . '">' . ucfirst($plugin)
+                . '</a></li>';
+        }
+    }
+    $o .= $t? '<h5>Plugins</h5><ul>' . $t . '</ul>' : '';
+    return $o;
+}
+/**
+ * Returns The link to a plugin download site.
+ *
+ * One of the 3 functions to show "Site/CMS Info".
+ *
+ * @global array $pth The paths of system files and folders.
+ *
+ * @param string $plugin The plugin name.
+ *
+ * @return string The link.
+ *
+ * @since 1.7.
+ */
+
+function XH_pluginURL($plugin)
+{
+    global $pth;
+
+    $internalPlugins = array(
+        'filebrowser', 'meta_tags', 'page_params', 'pagemanager' , 'tinymce', 'utf8', 'jquery', 'hi_updatecheck',
+    );
+    if (in_array($plugin, $internalPlugins)) {
+        $url = false;
+    } else {
+        $filename = $pth['folder']['plugins'] . $plugin . '/version.nfo';
+        if (is_readable($filename)) {
+            $contents = file_get_contents($filename);
+            $contents = explode(',', $contents);
+            $url = $contents[5];
+        } else {
+            $url = false;
+        }
+    }
+    return $url;
+}
+/**
+ * Creates the link to the generated page "Site/CMS Info".
+ *
+ * One of the 3 functions to create "Site/CMS Info".
+ *
+ * @global string The site (script) name.
+ *
+ * @param string $linktext The text to be displayed as the link in the template.
+ *
+ * @return string The link.
+ *
+ * @access public.
+ *
+ * @since 1.7.
+ */
+function poweredByLink($linktext = '')
+{
+    global $sn;
+
+    $linktext = $linktext ? $linktext : 'Site/CMS Info';
+    return '<a href="' . $sn . '?' . uenc('site/cms info') . '">'
+        . $linktext . '</a>';
+}
+
+
 if (XH_ADM) {
     $_XH_controller->setBackendF();
 
