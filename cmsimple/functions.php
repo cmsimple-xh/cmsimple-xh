@@ -2656,4 +2656,95 @@ function XH_startSession()
     }
 }
 
+/**
+ * Returns The content of the generated page "Site/CMS Info".
+ *
+ * One of the 3 functions to show "Site/CMS Info".
+ *
+ * @return The HTML.
+ *
+ * @global array The configuration of the core.
+ * @global array The language localization of the core.
+ * @global array The paths of system files and folders.
+ *
+ * @since 1.7
+ */
+function XH_poweredBy()
+{
+    global $cf, $tx, $pth;
+
+    $o = '<h5>Content Management System</h5>'
+        . '<ul><li><a href="http://cmsimple-xh.org">'
+        . CMSIMPLE_XH_VERSION . '</a></li></ul>';
+    $defaulttpl = $tx['subsite']['template'] == ''
+        ? $cf['site']['template']
+        : $tx['subsite']['template'];
+
+    $tpltext = '';
+    foreach (XH_templates() as $template) {
+        $tpltext .= $defaulttpl == $template
+            ? '<li><p><strong>Default template: ' . ucfirst($template) . '</strong>'
+            : '<li>' . ucfirst($template);
+        $infoPath = $pth['folder']['templates'] . '/' . $template . '/template.nfo';
+        if (is_file($infoPath)) {
+            $tplinfo = utf8_substr(
+                strip_tags(file_get_contents($infoPath), '<a><br><br/>'),
+                0, 400
+            );
+            if ($tplinfo) {
+                $tpltext .= '<br>' . $tplinfo;
+            }
+        }
+        $tpltext .= '</li>';
+    }
+
+    $o .= '<h5>Templates</h5><ul>' . $tpltext . '</ul>';
+    $t = '';
+    foreach (XH_plugins() as $plugin) {
+        $url = XH_pluginURL($plugin);
+        if ($url) {
+            $t .= '<li><a href="' . $url . '">' . ucfirst($plugin)
+                . '</a></li>';
+        }
+    }
+    $o .= $t? '<h5>Plugins</h5><ul>' . $t . '</ul>' : '';
+    return $o;
+}
+
+/**
+ * Returns The link to a plugin download site.
+ *
+ * One of the 3 functions to show "Site/CMS Info".
+ *
+ * @param string $plugin The plugin name.
+ *
+ * @return string The URL
+ *
+ * @global array The paths of system files and folders.
+ *
+ * @since 1.7
+ */
+function XH_pluginURL($plugin)
+{
+    global $pth;
+
+    $internalPlugins = array(
+        'filebrowser', 'meta_tags', 'page_params', 'pagemanager' , 'tinymce',
+        'utf8', 'jquery', 'hi_updatecheck',
+    );
+    if (in_array($plugin, $internalPlugins)) {
+        $url = false;
+    } else {
+        $filename = $pth['folder']['plugins'] . $plugin . '/version.nfo';
+        if (is_readable($filename)) {
+            $contents = file_get_contents($filename);
+            $contents = explode(',', $contents);
+            $url = $contents[5];
+        } else {
+            $url = false;
+        }
+    }
+    return $url;
+}
+
 ?>
