@@ -182,7 +182,7 @@ function XH_isAccessProtected($path)
     $headers = get_headers($url);
     stream_context_set_default($defaultContext);
     if ($headers) {
-        if (preg_match('/^HTTP\S*\s+[45]/', $headers[0])) {
+        if (preg_match('/^HTTP\S*\s+4/', $headers[0])) {
             return true;
         }
     }
