@@ -101,10 +101,10 @@ function utf8_strtoupper($string)
  * @return int
 */
 // @codingStandardsIgnoreStart
-function utf8_strpos($str, $search, $offset = 0)
+function utf8_strpos($haystack, $needle, $offset = 0)
 {
 // @codingStandardsIgnoreEnd
-    return mb_strpos($str, $search, $offset, 'UTF-8');
+    return mb_strpos($haystack, $needle, $offset, 'UTF-8');
 }
 
 /**
