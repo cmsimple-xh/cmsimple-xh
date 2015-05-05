@@ -18,8 +18,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-/* utf8-marker = äöüß */
-
 /**
  * Returns the Meta pagedata view.
  *

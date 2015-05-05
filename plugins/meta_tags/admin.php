@@ -18,8 +18,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-/* utf8-marker = äöüß */
-
 /*
  * Check if PLUGINLOADER is calling and die if not.
  */
