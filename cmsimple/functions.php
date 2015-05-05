@@ -2208,7 +2208,6 @@ function XH_lastJsonError()
 function XH_hsc($string)
 {
     if (!defined('ENT_SUBSTITUTE')) {
-        include_once UTF8 . '/utils/bad.php';
         $string = utf8_bad_replace($string, "\xEF\xBF\xBD");
         $string = htmlspecialchars($string, ENT_COMPAT, 'UTF-8');
     } else {
