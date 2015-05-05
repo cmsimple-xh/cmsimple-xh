@@ -16,7 +16,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-// TODO: delete Utf8_XH plugin
 // TODO: add system check for mbstring extension
 
 /**
