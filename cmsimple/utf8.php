@@ -17,7 +17,6 @@
  */
 
 // TODO: delete Utf8_XH plugin
-// TODO: add relevant unit tests
 // TODO: add system check for mbstring extension
 
 /**
@@ -69,7 +68,7 @@ function utf8_substr($string, $offset, $length = null)
 function utf8_strtolower($string)
 {
 // @codingStandardsIgnoreEnd
-    return mb_strtolower($string);
+    return mb_strtolower($string, 'UTF-8');
 }
 
 /**
