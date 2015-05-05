@@ -16,8 +16,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-// TODO: add system check for mbstring extension
-
 /**
  * Returns the number of Unicode code points in a string.
  *
