@@ -263,6 +263,7 @@ $tx['syscheck']['fail']="Fehler";
 $tx['syscheck']['locale_available']="Locale '%s' verfügbar";
 $tx['syscheck']['locale_default']="Standard-Locale aktiv";
 $tx['syscheck']['magic_quotes']="'Magic quotes runtime' aus";
+$tx['syscheck']['password']="Voreingestelltes Passwort geändert";
 $tx['syscheck']['phpversion']="PHP-Version ≥ %s";
 $tx['syscheck']['success']="OK";
 $tx['syscheck']['timezone']="Zeitzone gültig";
