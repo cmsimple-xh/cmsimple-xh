@@ -1082,7 +1082,7 @@ function XH_adminJSLocalization()
     global $tx;
 
     $keys = array(
-        'action' => array('cancel', 'ok'),
+        'action' => array('advanced_hide', 'advanced_show', 'cancel', 'ok'),
         'password' => array('fields_missing', 'invalid', 'mismatch', 'wrong'),
         'error' => array('server'),
         'settings' => array('backupsuffix')

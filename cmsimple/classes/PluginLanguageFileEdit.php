@@ -54,7 +54,7 @@ class PluginLanguageFileEdit extends PluginArrayFileEdit
         $this->cfg = array();
         foreach ($plugin_tx[$plugin] as $key => $val) {
             list($cat, $name) = $this->splitKey($key);
-            $co = array('val' => $val, 'type' => 'text');
+            $co = array('val' => $val, 'type' => 'text', 'isAdvanced' => false);
             $this->cfg[$cat][$name] = $co;
         }
     }

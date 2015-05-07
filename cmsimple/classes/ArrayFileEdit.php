@@ -124,14 +124,17 @@ abstract class ArrayFileEdit extends FileEdit
     /**
      * Returns whether all options are hidden.
      *
-     * @param array $options The list of options.
+     * @param array $options  The list of options.
+     * @param bool  $advanced Whether normal or advanced fields are to be checked.
      *
      * @return bool
      */
-    protected function hasVisibleFields(array $options)
+    protected function hasVisibleFields(array $options, $advanced)
     {
         foreach ($options as $opt) {
-            if ($opt['type'] != 'hidden' && $opt['type'] != 'random') {
+            if ($opt['type'] != 'hidden' && $opt['type'] != 'random'
+                && $advanced == $opt['isAdvanced']
+            ) {
                 return true;
             }
         }
@@ -266,14 +269,40 @@ abstract class ArrayFileEdit extends FileEdit
         $o = '<h1>' . $this->caption . '</h1>' . $message
             . '<form id="xh_config_form" action="' . $action
             . '" method="post" accept-charset="UTF-8">'
-            . $button;
+            . $button
+            . $this->renderFormFields(false)
+            . '<div id="xh_config_form_advanced">'
+            . $this->renderFormFields(true) . '</div>';
+        foreach ($this->params as $param => $value) {
+            $o .= '<input type="hidden" name="' . $param . '" value="'
+                . $value . '">';
+        }
+        $o .= $_XH_csrfProtection->tokenInput();
+        $o .= $button . '</form>';
+
+        return $o;
+    }
+
+    /**
+     * Renders the form fields grouped by category.
+     *
+     * @param bool $advanced Whether to render the normal or the advanced fields.
+     *
+     * @return string HTML
+     */
+    protected function renderFormFields($advanced)
+    {
+        $o = '';
         foreach ($this->cfg as $category => $options) {
-            $hasVisibleFields = $this->hasVisibleFields($options);
+            $hasVisibleFields = $this->hasVisibleFields($options, $advanced);
             if ($hasVisibleFields) {
                 $o .= '<fieldset><legend>' . $this->translate($category)
                     . '</legend>';
             }
             foreach ($options as $name => $opt) {
+                if ($opt['isAdvanced'] != $advanced) {
+                    continue;
+                }
                 $info = isset($opt['hint']) ? XH_helpIcon($opt['hint']) . ' ' : '';
                 if ($opt['type'] == 'hidden' || $opt['type'] == 'random') {
                     $o .= $this->formField($category, $name, $opt);
@@ -298,13 +327,6 @@ abstract class ArrayFileEdit extends FileEdit
                 $o .= '</fieldset>';
             }
         }
-        foreach ($this->params as $param => $value) {
-            $o .= '<input type="hidden" name="' . $param . '" value="'
-                . $value . '">';
-        }
-        $o .= $_XH_csrfProtection->tokenInput();
-        $o .= $button . '</form>';
-
         return $o;
     }
 
@@ -408,6 +430,13 @@ abstract class ArrayFileEdit extends FileEdit
     {
         $type = isset($mcf) ? $mcf : 'string';
         list($typeTag) = explode(':', $type);
+        if (strpos($typeTag, '+') === 0) {
+            $type = substr($type, 1);
+            $typeTag = substr($typeTag, 1);
+            $isAdvanced = true;
+        } else {
+            $isAdvanced = false;
+        }
         switch ($typeTag) {
         case 'enum':
         case 'xenum':
@@ -427,7 +456,7 @@ abstract class ArrayFileEdit extends FileEdit
         default:
             $vals = null;
         }
-        $co = compact('val', 'type', 'vals');
+        $co = compact('val', 'type', 'vals', 'isAdvanced');
         if (isset($hint)) {
             $co['hint'] = $hint;
         }
