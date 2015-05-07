@@ -62,6 +62,7 @@ class CoreConfigFileEdit extends CoreArrayFileEdit
                 if ($cat == 'security' && $name == 'type'
                     || $cat == 'scripting' && $name == 'regexp'
                     || $cat == 'site' && $name == 'title'
+                    || $cat == 'xhtml'
                 ) {
                     continue;
                 }
