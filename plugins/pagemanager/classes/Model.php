@@ -3,16 +3,17 @@
 /**
  * The model class of Pagemanager_XH.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   Pagemanager
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright 2011-2015 Christoph M. Becker <http://3-magi.net>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   SVN: $Id$
  * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
  */
+
+namespace Pagemanager;
 
 /**
  * The model class of Pagemanager_XH.
@@ -23,21 +24,25 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://3-magi.net/?CMSimple_XH/Pagemanager_XH
  */
-class Pagemanager_Model
+class Model
 {
     /**
      * The unmodified page headings.
      *
      * @var array
+     *
+     * @todo Make protected.
      */
-    var $headings;
+    public $headings;
 
     /**
      * Whether the pages may be renamed.
      *
      * @var array
+     *
+     * @todo Make protected.
      */
-    var $mayRename;
+    public $mayRename;
 
     /**
      * Returns whether a heading may be renamed.
@@ -51,7 +56,7 @@ class Pagemanager_Model
      *
      * @since 2.0.1
      */
-    function mayRename($heading)
+    protected function mayRename($heading)
     {
         return !preg_match('/<|&(?!(?:amp|quot|lt|gt);)/', $heading);
     }
@@ -70,16 +75,11 @@ class Pagemanager_Model
      *
      * @since 2.0.1
      */
-    function cleanedHeading($heading)
+    protected function cleanedHeading($heading)
     {
         $heading = trim(strip_tags($heading));
-        if (version_compare(PHP_VERSION, '5', 'ge')) {
-            $heading = html_entity_decode($heading, ENT_COMPAT, 'UTF-8');
-            $heading = htmlspecialchars($heading, ENT_COMPAT, 'UTF-8');
-        } else {
-            $pattern = '/&(?!(?:amp|quot|lt|gt);).+;/';
-            $heading = preg_replace($pattern, "\xEF\xBF\xBD", $heading);
-        }
+        $heading = html_entity_decode($heading, ENT_COMPAT, 'UTF-8');
+        $heading = htmlspecialchars($heading, ENT_COMPAT, 'UTF-8');
         return $heading;
     }
 
@@ -92,7 +92,7 @@ class Pagemanager_Model
      * @global array The configuration of the core.
      * @global array The localization of the core.
      */
-    function getHeadings()
+    public function getHeadings()
     {
         global $c, $cf, $tx;
 
@@ -119,11 +119,10 @@ class Pagemanager_Model
      * @global array The menu levels of the pages.
      * @global int   The number of pages.
      */
-    function isIrregular()
+    public function isIrregular()
     {
         global $l, $cl;
 
-        $stack = array();
         for ($i = 1; $i < $cl; $i++) {
             $delta = $l[$i] - $l[$i - 1];
             if ($delta > 1) {
@@ -140,7 +139,7 @@ class Pagemanager_Model
      *
      * @global array The paths of system files and folders.
      */
-    function themes()
+    public function themes()
     {
         global $pth;
 
@@ -161,28 +160,26 @@ class Pagemanager_Model
     /**
      * Saves the content. Returns whether that succeeded.
      *
-     * @param string $xml An XML document.
+     * @param string $json A JSON string.
      *
      * @return bool
      *
      * @global array  The contents of the pages.
-     * @global array  The paths of system files and folders.
      * @global array  The configuration of the core.
      * @global array  The configuration of the plugins.
      * @global object The page data router.
      */
-    function save($xml)
+    public function save($json)
     {
-        global $c, $pth, $cf, $plugin_cf, $pd_router;
+        global $c, $cf, $plugin_cf, $pd_router;
 
-        include_once "{$pth['folder']['plugins']}pagemanager/classes/XMLParser.php";
-        $parser = new Pagemanager_XMLParser(
+        $parser = new JSONProcessor(
             $c, (int) $cf['menu']['levels'],
             $plugin_cf['pagemanager']['pagedata_attribute']
         );
-        $parser->parse($xml);
+        $parser->process($json);
         $c = $parser->getContents();
-        return $pd_router->model->refresh($parser->getPageData());
+        return $pd_router->refresh($parser->getPageData());
     }
 }
 

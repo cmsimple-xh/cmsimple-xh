@@ -3,14 +3,13 @@
 /**
  * Administration of Pagemanager_XH.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   Pagemanager
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright 2011-2015 Christoph M. Becker <http://3-magi.net>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   SVN: $Id$
  * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
  */
 
@@ -22,15 +21,12 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
     exit;
 }
 
-/**
- * Pagemanager controller.
- */
-require_once $pth['folder']['plugin_classes'] . 'Controller.php';
+use Pagemanager\Controller;
 
 /**
  * Pagemanager version.
  */
-define('PAGEMANAGER_VERSION', '2.0.5');
+define('PAGEMANAGER_VERSION', '3.0dev1');
 
 /**
  * Functional wrapper for Pagemananger_Model::themes().
@@ -49,7 +45,7 @@ function Pagemanager_themes()
 /*
  * Initialize the global controller object and handle requests.
  */
-$_Pagemanager = new Pagemanager_Controller();
+$_Pagemanager = new Controller();
 $o .= $_Pagemanager->dispatch();
 
 ?>

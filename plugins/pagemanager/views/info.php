@@ -1,6 +1,6 @@
 <!-- Pagemanager_XH: info view -->
 <h1>Pagemanager &ndash; <?php echo $this->lang('menu_info');?></h1>
-<img src="<?php echo $this->pluginIconPath();?>" style="float: left; margin-right: 10px" alt="Plugin Icon"/>
+<img src="<?php echo $this->pluginIconPath();?>" style="float: left; margin-right: 10px" alt="Plugin Icon">
 <p>Version: <?php echo PAGEMANAGER_VERSION;?></p>
 <p>Copyright &copy; 2011-2015 <a href="http://3-magi.net">Christoph M. Becker</a></p>
 <p>Pagemanager_XH is powered by <a
@@ -23,7 +23,7 @@ href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
 <?php foreach ($this->systemChecks() as $check => $state):?>
     <li>
         <img src="<?php echo $this->stateIconPath($state);?>" alt="<?php echo $state;?>"
-            style="margin: 0; height: 1em; padding-right: 1em"/>
+            style="margin: 0; height: 1em; padding-right: 1em">
         <span><?php echo $check;?></span>
     </li>
 <?php endforeach;?>

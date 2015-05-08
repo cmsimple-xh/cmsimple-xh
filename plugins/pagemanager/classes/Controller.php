@@ -3,16 +3,19 @@
 /**
  * The controller class of Pagemanager_XH.
  *
- * PHP versions 4 and 5
+ * PHP version 5
  *
  * @category  CMSimple_XH
  * @package   Pagemanager
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright 2011-2015 Christoph M. Becker <http://3-magi.net>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   SVN: $Id$
  * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
  */
+
+namespace Pagemanager;
+
+use XH\Pages;
 
 /**
  * The controller class of Pagemanager_XH.
@@ -23,35 +26,23 @@
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://3-magi.net/?CMSimple_XH/Pagemanager_XH
  */
-class Pagemanager_Controller
+class Controller
 {
     /**
      * The pagemanager model.
      *
      * @var object
-     */
-    var $model;
-
-    /**
-     * The pages object.
      *
-     * @var object
+     * @todo Make protected.
      */
-    var $pages;
+    public $model;
 
     /**
      * Initializes a newly create object.
-     *
-     * @global array The paths of system files and folders.
-     *
-     * @return void
      */
-    function Pagemanager_Controller()
+    public function __construct()
     {
-        global $pth;
-
-        include_once $pth['folder']['plugin_classes'] . 'Model.php';
-        $this->model = new Pagemanager_Model();
+        $this->model = new Model();
     }
 
     /**
@@ -62,20 +53,15 @@ class Pagemanager_Controller
      * @return string (X)HTML.
      *
      * @global array The paths of system files and folders.
-     * @global array The configuration of the core.
      */
-    function render($template)
+    protected function render($template)
     {
-        global $pth, $cf;
+        global $pth;
 
         $template = "{$pth['folder']['plugins']}pagemanager/views/$template.php";
         ob_start();
         include $template;
-        $o = ob_get_clean();
-        if (!$cf['xhtml']['endtags']) {
-            $o = str_replace('/>', '>', $o);
-        }
-        return $o;
+        return ob_get_clean();
     }
 
     /**
@@ -84,15 +70,14 @@ class Pagemanager_Controller
      * @return array
      *
      * @global array The paths of system files and folders.
-     * @global array The localization of the core.
      * @global array The localization of the plugins.
      */
-    function systemChecks()
+    protected function systemChecks()
     {
-        global $pth, $tx, $plugin_tx;
+        global $pth, $plugin_tx;
 
         $ptx = $plugin_tx['pagemanager'];
-        $phpVersion = '4.3.0';
+        $phpVersion = '5.3.0';
         $checks = array();
         $key = sprintf($ptx['syscheck_phpversion'], $phpVersion);
         $ok = version_compare(PHP_VERSION, $phpVersion) >= 0;
@@ -101,7 +86,7 @@ class Pagemanager_Controller
             $key = sprintf($ptx['syscheck_extension'], $ext);
             $checks[$key] = extension_loaded($ext) ? 'ok' : 'fail';
         }
-        $xhVersion = 'CMSimple_XH 1.6beta';
+        $xhVersion = 'CMSimple_XH 1.7dev';
         $ok = strpos(CMSIMPLE_XH_VERSION, 'CMSimple_XH') === 0
             && version_compare(CMSIMPLE_XH_VERSION, $xhVersion) >= 0;
         $xhVersion = substr($xhVersion, 12);
@@ -127,7 +112,7 @@ class Pagemanager_Controller
      *
      * @global array The paths of system files and folders.
      */
-    function pluginIconPath()
+    protected function pluginIconPath()
     {
         global $pth;
 
@@ -143,7 +128,7 @@ class Pagemanager_Controller
      *
      * @global array The paths of system files and folders.
      */
-    function stateIconPath($state)
+    protected function stateIconPath($state)
     {
         global $pth;
 
@@ -157,7 +142,7 @@ class Pagemanager_Controller
      *
      * @global array The paths of system files and folders.
      */
-    function ajaxLoaderPath()
+    protected function ajaxLoaderPath()
     {
         global $pth;
 
@@ -173,7 +158,7 @@ class Pagemanager_Controller
      *
      * @global array The localization of the plugins.
      */
-    function lang($key)
+    protected function lang($key)
     {
         global $plugin_tx;
 
@@ -189,28 +174,23 @@ class Pagemanager_Controller
      *
      * @global array The paths of system files and folders.
      * @global array The configuration of the plugins.
-     * @global array The localization of the core.
      * @global array The localization of the plugins.
      */
-    function tool($tool)
+    protected function tool($tool)
     {
-        global $pth, $plugin_cf, $tx, $plugin_tx;
+        global $pth, $plugin_cf, $plugin_tx;
 
-        $imgdir = $pth['folder']['plugins'] . 'pagemanager/images/';
         $horizontal = !$plugin_cf['pagemanager']['toolbar_vertical'];
-        $img = $imgdir . $tool . '.png';
         $id = "pagemanager-$tool";
         $o = '';
         $style = $tool === 'save' ? ' style="display: none"' : '';
-        $onclick = 'PAGEMANAGER.tool(\''.$tool.'\')';
-        $onclick = $tool !== 'help' ? " onclick=\"$onclick\"" : '';
         if ($tool === 'save') {
             $tooltip = XH_hsc($plugin_tx['pagemanager']['button_save']);
         } else {
             $tooltip = XH_hsc($plugin_tx['pagemanager']['op_'.$tool]);
         }
         if ($tool !== 'help') {
-            $o .= '<button type="button" id="' . $id . '" ' . $style . $onclick
+            $o .= '<button type="button" id="' . $id . '" ' . $style
                 . ' title="' . $tooltip . '"' . '></button>';
         } else {
             $o .= '<a href="' . $pth['file']['plugin_help']
@@ -235,7 +215,7 @@ class Pagemanager_Controller
      * @global array  The configuration of the plugins.
      * @global array  The localization of the plugins.
      */
-    function jsConfig()
+    protected function jsConfig()
     {
         global $pth, $sn, $cf, $tx, $plugin_cf, $plugin_tx;
 
@@ -284,7 +264,7 @@ class Pagemanager_Controller
      *
      * @global array The configuration of the plugins.
      */
-    function toolbarClass()
+    protected function toolbarClass()
     {
         global $plugin_cf;
 
@@ -299,7 +279,7 @@ class Pagemanager_Controller
      *
      * @global array The configuration of the plugins.
      */
-    function hasToolbar()
+    protected function hasToolbar()
     {
         global $plugin_cf;
 
@@ -311,7 +291,7 @@ class Pagemanager_Controller
      *
      * @return array
      */
-    function tools()
+    protected function tools()
     {
         return array(
             'save', 'expand', 'collapse', 'create', 'create_after', 'rename',
@@ -326,7 +306,7 @@ class Pagemanager_Controller
      *
      * @global string The script name.
      */
-    function submissionURL()
+    protected function submissionURL()
     {
         global $sn;
 
@@ -341,7 +321,7 @@ class Pagemanager_Controller
      *
      * @global array The paths of system files and folders.
      */
-    function jsScriptPath()
+    protected function jsScriptPath()
     {
         global $pth;
 
@@ -355,7 +335,7 @@ class Pagemanager_Controller
      *
      * @global array  The paths of system files and folders.
      */
-    function editView()
+    protected function editView()
     {
         global $pth, $title, $plugin_tx;
 
@@ -379,13 +359,13 @@ class Pagemanager_Controller
      * @global array  The localization of the plugins.
      * @global object The CSRF protection object.
      */
-    function save()
+    protected function save()
     {
         global $pth, $plugin_tx, $_XH_csrfProtection;
 
         $_XH_csrfProtection->check();
         $ptx = $plugin_tx['pagemanager'];
-        if ($this->model->save(stsl($_POST['xml']))) {
+        if ($this->model->save(stsl($_POST['json']))) {
             echo XH_message('success', $ptx['message_save_success']);
         } else {
             $message = sprintf(
@@ -397,82 +377,18 @@ class Pagemanager_Controller
     }
 
     /**
-     * Returns the view of a single page.
-     *
-     * @param int $index A page index.
-     *
-     * @return string XML.
-     *
-     * @global array  The configuration of the plugins.
-     * @global object The page data router.
-     */
-    function page($index)
-    {
-        global $plugin_cf, $pd_router;
-
-        $pcf = $plugin_cf['pagemanager'];
-        $pageData = $pd_router->find_page($index);
-        if ($pcf['pagedata_attribute'] === '') {
-            $pdattr = '';
-        } elseif ($pageData[$pcf['pagedata_attribute']] === '') {
-            $pdattr = ' data-pdattr="1"';
-        } else {
-            $pdattr = $pageData[$pcf['pagedata_attribute']];
-            $pdattr = " data-pdattr=\"$pdattr\"";
-        }
-        $heading = $this->model->headings[$index];
-        $mayRename = $this->model->mayRename[$index];
-        $rename = $mayRename ? '' : ' class="pagemanager-no-rename"';
-        return "<item id=\"pagemanager-$index\" title=\"$heading\"$pdattr$rename>"
-            . "<content><name>$heading</name></content>";
-    }
-
-    /**
-     * Returns the page structure.
-     *
-     * @param int $parent The index of the parent page.
-     *
-     * @return string XML.
-     *
-     * @global array The paths of system files and folders.
-     */
-    function pages($parent = null)
-    {
-        global $pth;
-
-        include_once $pth['folder']['classes'] . 'Pages.php';
-        if (!isset($this->pages)) {
-            $this->pages = new XH_Pages();
-        }
-        if (!isset($parent)) {
-            $o = '<root>';
-        }
-        $children = !isset($parent)
-            ? $this->pages->toplevels(false)
-            : $this->pages->children($parent, false);
-        foreach ($children as $index) {
-            $o .= $this->page($index) . $this->pages($index) . '</item>';
-        }
-        if (!isset($parent)) {
-            $o .= '</root>';
-        }
-        return $o;
-    }
-
-    /**
      * Dispatches according to the current request.
      *
      * @return string The (X)HTML.
      *
      * @global string The admin parameter.
      * @global string The action parameter.
-     * @global array  The paths of system files and folders.
      * @global string The requested function.
      * @global array  The configuration of the core.
      */
-    function dispatch()
+    public function dispatch()
     {
-        global $admin, $action, $pth, $plugin, $f, $cf;
+        global $admin, $action, $plugin, $f, $cf;
 
         if (function_exists('XH_registerStandardPluginMenuItems')) {
             XH_registerStandardPluginMenuItems(false);
@@ -491,9 +407,8 @@ class Pagemanager_Controller
             case 'plugin_main':
                 switch ($action) {
                 case 'plugin_data':
-                    $this->model->getHeadings();
-                    header('Content-Type: application/xml; charset=UTF-8');
-                    echo $this->pages();
+                    $temp = new JSONGenerator($this->model, new Pages());
+                    $temp->execute();
                     exit;
                 case 'plugin_save':
                     $o .= $this->save();
@@ -515,10 +430,8 @@ class Pagemanager_Controller
      * @return bool
      *
      * @global string Whether the plugin administration is requested.
-     *
-     * @access protected
      */
-    function isAdministrationRequested()
+    protected function isAdministrationRequested()
     {
         global $pagemanager;
 
@@ -535,7 +448,7 @@ class Pagemanager_Controller
      * @global array  The localization of the plugins.
      * @global string The title of the current page.
      */
-    function renderInfoView()
+    protected function renderInfoView()
     {
         global $title, $plugin_tx;
 
