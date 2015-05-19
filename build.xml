@@ -32,11 +32,11 @@
     </target>
 
     <target name="compat"
-            description="checks compatibility with PHP_CompatInfo 3">
-        <!-- HACK to work around https://github.com/llaville/php-compat-info/issues/153 -->
+            description="checks compatibility with PHP_CompatInfo">
+        <!-- HACK to work around https://github.com/llaville/php-compat-info/issues/201 -->
         <move file="cmsimple/classes/PasswordHash.php"
               tofile="cmsimple/classes/PasswordHash._php"/>
-        <exec command="phpcompatinfo analyser:run ."
+        <exec command="phpcompatinfo analyser:run --alias current"
               passthru="true" logoutput="true"/>
         <move file="cmsimple/classes/PasswordHash._php"
               tofile="cmsimple/classes/PasswordHash.php"/>
