@@ -1229,10 +1229,10 @@ if ($su == uenc($cf['menu']['legal'])) {
 
 
 /*
- * Here begins the group of functions to create the "Site/CMS Info" page.
- * To generate this page add <?php echo poweredbylink()?> to the template
- * plus a template.nfo file containing a description of the template in
- * plain text with link to the designer site totaling up to 400 digits.
+ * Enables the automatic creation of a "Site/CMS Info" page.
+ * To generate a link to this page add <?php echo poweredbylink()?>
+ * to the template plus a template.nfo file containing a description
+ * of the template in plain text with link to the designer site.
  *
  * Newsbox text titled 'Site/CMS Info' will appear at the beginning
  * of the generated page.
