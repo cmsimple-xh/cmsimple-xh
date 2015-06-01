@@ -579,17 +579,19 @@ function nextpage()
 /**
  * Returns a link to the top of the page.
  *
- * To work, an anchor TOP has to be defined in the template.
+ * To work, an appropriate ID has to be defined in the template.
+ *
+ * @param string $id An (X)HTML ID.
  *
  * @return string HTML
  *
  * @global array The localization of the core.
  */
-function top()
+function top($id = 'TOP')
 {
     global $tx;
 
-    return '<a href="#TOP">' . $tx['navigator']['top'] . '</a>';
+    return '<a href="#' . $id . '">' . $tx['navigator']['top'] . '</a>';
 }
 
 
