@@ -118,7 +118,6 @@ class Search
     {
         global $c, $cf;
 
-        include_once UTF8 . '/stripos.php';
         $result = array();
         $words = $this->getWords();
         if (empty($words)) {

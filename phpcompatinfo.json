@@ -7,8 +7,7 @@
                 "vendor",
                 "plugins/hi_updatecheck",
                 "plugins/jquery",
-                "plugins/pagemanager",
-                "plugins/utf8"
+                "plugins/pagemanager"
             ],
             "name": "/\\.(php|htm)$/"
         }

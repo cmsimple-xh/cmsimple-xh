@@ -243,6 +243,7 @@ HTML;
         'phpversion' => '5.3',
         'extensions' => array(
             'json',
+            'mbstring',
             'pcre',
             array('session', false),
             array('xml', false)
