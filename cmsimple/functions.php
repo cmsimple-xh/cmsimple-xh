@@ -2730,4 +2730,90 @@ function XH_pluginURL($plugin)
     return $url;
 }
 
+/**
+ * Returns the locator (breadcrumb navigation) model.
+ *
+ * The locator model is an ordered list of breadcrumb items, where each item is
+ * an array of the title and the URL. If there is no appropriate URL, the
+ * element is null.
+ *
+ * @return array
+ *
+ * @global string The title of the page.
+ * @global array  The headings of the pages.
+ * @global int    The index of the current page.
+ * @global string The requested special function.
+ * @global array  The menu levels of the pages.
+ * @global array  The localization of the core.
+ * @global array  The configuration of the core.
+ * @global int    The index of the first published page.
+ *
+ * @since 1.7
+ */
+function XH_getLocatorModel()
+{
+    global $title, $h, $s, $f, $l, $tx, $cf, $_XH_firstPublishedPage;
+
+    if (hide($s) && $cf['show_hidden']['path_locator'] != 'true') {
+        return array(array($h[$s], XH_getPageURL($s)));
+    }
+    if ($s == $_XH_firstPublishedPage) {
+        return array(array($h[$s], XH_getPageURL($s)));
+    } elseif ($title != '' && (!isset($h[$s]) || $h[$s] != $title)) {
+        $res = array(array($title, null));
+    } elseif ($f != '') {
+        return array(array(ucfirst($f), null));
+    } elseif ($s > $_XH_firstPublishedPage) {
+        $res = array();
+        $tl = $l[$s];
+        if ($tl > 1) {
+            for ($i = $s - 1; $i >= $_XH_firstPublishedPage; $i--) {
+                if ($l[$i] < $tl) {
+                    array_unshift($res, array($h[$i], XH_getPageURL($i)));
+                    $tl--;
+                }
+                if ($tl < 2) {
+                    break;
+                }
+            }
+        }
+    } else {
+        return array(array('&nbsp;', null));
+    }
+    if ($cf['locator']['show_homepage'] == 'true') {
+        array_unshift(
+            $res,
+            array($tx['locator']['home'], XH_getPageURL($_XH_firstPublishedPage))
+        );
+        if ($s > $_XH_firstPublishedPage && $h[$s] == $title) {
+            $res[] = array($h[$s], XH_getPageURL($s));
+        }
+        return $res;
+    } else {
+        if ($s > $_XH_firstPublishedPage && $h[$s] == $title) {
+            $res[] = array($h[$s], XH_getPageURL($s));
+        }
+        return $res;
+    }
+}
+
+/**
+ * Returns the full URL of a page.
+ *
+ * @param int $index A valid page index.
+ *
+ * @return string
+ *
+ * @global string The script name.
+ * @global array  The page URLs.
+ *
+ * @since 1.7
+ */
+function XH_getPageURL($index)
+{
+    global $sn, $u;
+
+    return $sn . '?' . $u[$index];
+}
+
 ?>

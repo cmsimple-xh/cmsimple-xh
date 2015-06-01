@@ -30,158 +30,31 @@ require_once './cmsimple/tplfuncs.php';
  */
 class LocatorTest extends PHPUnit_Framework_TestCase
 {
-    protected $hideMock;
-
     protected $aMock;
+
+    protected $modelMock;
 
     public function setUp()
     {
-        global $_XH_firstPublishedPage, $f, $cf, $tx;
-
-        $this->setUpContent();
-        $_XH_firstPublishedPage = 0;
-        $f = '';
-        $cf = array(
-            'locator' => array('show_homepage' => 'true'),
-            'show_hidden' => array('path_locator' => '')
-        );
-        $tx = array(
-            'locator' => array('home' => 'Home')
-        );
-        $this->setUpMocks();
-    }
-
-    protected function setUpContent()
-    {
-        global $h, $l, $u;
-
-        $h = array(
-            'foo',
-            'Dresses',
-            'Real Dresses',
-            'News'
-        );
-        $l = array(1, 1, 2, 1);
-        $u = array(
-            'foo',
-            'Dresses',
-            'Dresses/Real-Dresses',
-            'News'
-        );
-    }
-
-    protected function setUpMocks()
-    {
-        $this->hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
-        $hideMap = array(
-            array(0, false),
-            array(1, false),
-            array(2, false),
-            array(3, true)
-        );
-        $this->hideMock->expects($this->any())->will($this->returnValueMap($hideMap));
         $this->aMock = new PHPUnit_Extensions_MockFunction('a', null);
-        $this->aMock->expects($this->any())->will(
-            $this->returnCallback(
-                function ($i) {
-                    global $u;
-
-                    return '<a href="' . $u[$i] . '">';
-                }
-            )
+        $this->aMock->expects($this->any())->willReturn('<a href="foo">');
+        $this->modelMock = new PHPUnit_Extensions_MockFunction(
+            'XH_getLocatorModel', null
+        );
+        $this->modelMock->expects($this->once())->willReturn(
+            array(array('Home', '?foo'), array('Bar', '?bar'))
         );
     }
 
     public function tearDown()
     {
-        $this->hideMock->restore();
         $this->aMock->restore();
+        $this->modelMock->restore();
     }
 
-    public function testHomePage()
+    public function testLocator()
     {
-        global $s, $h, $title;
-
-        $s = 0;
-        $title = $h[$s];
-        $this->assertEquals('foo', locator());
-    }
-
-    public function testDressesPage()
-    {
-        global $s, $h, $title;
-
-        $s = 1;
-        $title = $h[$s];
-        $this->assertEquals('<a href="foo">Home</a> &gt; Dresses', locator());
-    }
-
-    public function testRealDressesPage()
-    {
-        global $s, $h, $title;
-
-        $s = 2;
-        $title = $h[$s];
-        $this->assertEquals(
-            '<a href="foo">Home</a> &gt; <a href="Dresses">Dresses</a> &gt; Real Dresses',
-            locator()
-        );
-    }
-
-    public function testHiddenPage()
-    {
-        global $s, $h, $title;
-
-        $s = 3;
-        $title = $h[$s];
-        $this->assertEquals('News', locator());
-    }
-
-    public function testChangedTitle()
-    {
-        global $s, $h, $title;
-
-        $s = 1;
-        $title = 'Suits';
-        $this->assertEquals('<a href="foo">Home</a> &gt; Suits', locator());
-    }
-
-    public function testSpecialFunction()
-    {
-        global $s, $f;
-
-        $s = -1;
-        $f = 'mailform';
-        $this->assertEquals('Mailform', locator());
-    }
-
-    public function testUnpublishedHomePage()
-    {
-        global $_XH_firstPublishedPage, $s;
-
-        $_XH_firstPublishedPage = 1;
-        $s = 0;
-        $this->assertEquals('&nbsp;', locator());
-    }
-
-    public function testDoNotShowHomePage()
-    {
-        global $s, $h, $title, $cf;
-
-        $s = 1;
-        $title = $h[$s];
-        $cf['locator']['show_homepage'] = '';
-        $this->assertEquals('Dresses', locator());
-    }
-
-    public function testDoShowHiddenPathLocator()
-    {
-        global $s, $h, $title, $cf;
-
-        $s = 3;
-        $title = $h[$s];
-        $cf['show_hidden']['path_locator'] = 'true';
-        $this->assertEquals('<a href="foo">Home</a> &gt; News', locator());
+        $this->assertEquals('<a href="?foo">Home</a> &gt; Bar', locator());
     }
 }
 
