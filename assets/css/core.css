@@ -387,6 +387,11 @@ div.plugineditcaption {
     height: 18px;
 }
 
+.xh_config_form_advanced_button {
+    display: block;
+    margin: 1em 0;
+}
+
 /*
  * Tooltips
  */

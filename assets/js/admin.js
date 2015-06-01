@@ -568,6 +568,20 @@ XH.adaptAdminMenu = function () {
     }
 };
 
+/**
+ * Toggles the visibility of the advanced configuration form fields.
+ *
+ * @returns undefined
+ *
+ * @since 1.7
+ */
+XH.toggleAdvancedFields = function () {
+    var advanced;
+
+    advanced = document.getElementById("xh_config_form_advanced");
+    advanced.style.display = advanced.style.display ? "" : "none";
+}
+
 /*
  * Register resize handler for adapting the admin menu. This has some glitches,
  * but should be acceptable.
@@ -643,4 +657,24 @@ XH.on(window, "load", function () {
     if (element) {
         XH.checkLinks(element.getAttribute("data-url"));
     }
+
+    XH.toggleAdvancedFields();
+    (function () {
+        var form, advanced, button;
+
+        form = document.getElementById("xh_config_form");
+        advanced = document.getElementById("xh_config_form_advanced");
+        if (advanced.innerHTML) {
+            button = document.createElement("button");
+            button.setAttribute("type", "button");
+            button.className = "xh_config_form_advanced_button";
+            button.innerHTML = XH.i18n.action.advanced_show;
+            button.onclick = function () {
+                button.innerHTML = advanced.style.display ?
+                    XH.i18n.action.advanced_hide : XH.i18n.action.advanced_show;
+                XH.toggleAdvancedFields();
+            };
+            form.insertBefore(button, advanced);
+        }
+    }());
 });

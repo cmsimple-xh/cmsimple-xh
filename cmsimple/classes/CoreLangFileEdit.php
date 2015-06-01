@@ -57,7 +57,7 @@ class CoreLangFileEdit extends CoreArrayFileEdit
                 if ($cat == 'meta' && $name =='codepage') {
                     continue;
                 }
-                $co = array('val' => $val, 'type' => 'text');
+                $co = array('val' => $val, 'type' => 'text', 'isAdvanced' => false);
                 if ($cat == 'subsite' && $name == 'template') {
                     if ($sl === $cf['language']['default']) {
                         $co['type'] = 'hidden';
