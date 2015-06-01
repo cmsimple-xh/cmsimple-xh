@@ -171,29 +171,22 @@ function XH_absoluteUrlPath($path)
  *
  * @return bool
  *
- * @global string The script name.
- *
  * @since 1.6.1
  */
 function XH_isAccessProtected($path)
 {
-    global $sn;
-
-    $host = $_SERVER['HTTP_HOST'];
-    $errno = $errstr = null;
-    $stream = fsockopen($host, $_SERVER['SERVER_PORT'], $errno, $errstr, 5);
-    if ($stream) {
-        stream_set_timeout($stream, 5);
-        $request = "HEAD  $sn$path HTTP/1.1\r\nHost: $host\r\n"
-            . "User-Agent: CMSimple_XH\r\n\r\n";
-        fwrite($stream, $request);
-        $response = fread($stream, 12);
-        fclose($stream);
-        $status = substr($response, 9);
-        return $status[0] == '4' || $status[0] == '5';
-    } else {
-        return false;
+    $url = preg_replace('/index\.php$/', '', CMSIMPLE_URL) . $path;
+    $defaultContext = stream_context_set_default(
+        array('http' => array('method' => 'HEAD'))
+    );
+    $headers = get_headers($url);
+    stream_context_set_default($defaultContext);
+    if ($headers) {
+        if (preg_match('/^HTTP\S*\s+4/', $headers[0])) {
+            return true;
+        }
     }
+    return false;
 }
 
 /**
