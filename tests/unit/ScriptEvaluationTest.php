@@ -84,13 +84,13 @@ class ScriptEvaluationTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testEvaluateCmsimpleScriptingKeywords()
+    public function testEvaluateCmsimpleScriptingNoKeywords()
     {
         $str = 'foo #CMSimple $keywords = \'foo, bar\';# bar';
         $expected = 'foo  bar';
         $actual = evaluate_cmsimple_scripting($str, true);
         $this->assertEquals($expected, $actual);
-        $this->assertEquals('foo, bar', $GLOBALS['keywords']);
+        $this->assertArrayNotHasKey('keywords', $GLOBALS);
     }
 
     /**

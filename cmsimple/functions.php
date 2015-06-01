@@ -123,7 +123,8 @@ function l($n)
 /**
  * Returns a text with CMSimple scripting evaluated.
  *
- * Scripts are evaluated in the global scope.
+ * Scripts are evaluated as if they were in the global scope, except that
+ * no new global variables can be defined (unless via $GLOBALS).
  *
  * @param string $__text   The text.
  * @param bool   $__compat Whether only last CMSimple script should be evaluated.
@@ -139,7 +140,6 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
 {
 // @codingStandardsIgnoreEnd
     extract($GLOBALS, EXTR_REFS);
-    $__scope_before = null; // just that it exists
     $__scripts = array();
     preg_match_all('~#CMSimple (.*?)#~is', $__text, $__scripts);
     if (count($__scripts[1]) > 0) {
@@ -148,24 +148,9 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
             $__scripts[1] = array_reverse($__scripts[1]);
         }
         foreach ($__scripts[1] as $__script) {
-            if (strtolower($__script) !== 'hide'
-                && strtolower($__script) !== 'remove'
-            ) {
-                $__script = preg_replace(
-                    array(
-                        "'&(quot|#34);'i", "'&(amp|#38);'i", "'&(apos|#39);'i",
-                        "'&(lt|#60);'i", "'&(gt|#62);'i", "'&(nbsp|#160);'i"
-                    ),
-                    array("\"", "&", "'", "<", ">", " "),
-                    $__script
-                );
-                $__scope_before = array_keys(get_defined_vars());
+            if (!in_array(strtolower($__script), array('hide', 'remove'))) {
+                $__script = html_entity_decode($__script, ENT_QUOTES, 'UTF-8');
                 eval($__script);
-                $__scope_after = array_keys(get_defined_vars());
-                $__diff = array_diff($__scope_after, $__scope_before);
-                foreach ($__diff as $__var) {
-                    $GLOBALS[$__var] = $$__var;
-                }
                 if ($__compat) {
                     break;
                 }
@@ -255,9 +240,7 @@ function evaluate_plugincall($text)
  */
 function XH_evaluateSinglePluginCall($___expression)
 {
-    foreach (array_keys($GLOBALS) as $___var) {
-        $$___var = $GLOBALS[$___var];
-    }
+    extract($GLOBALS);
     return preg_replace_callback(
         '/#(CMSimple .*?)#/is', 'XH_escapeCMSimpleScripting',
         eval('return ' . $___expression . ';')
