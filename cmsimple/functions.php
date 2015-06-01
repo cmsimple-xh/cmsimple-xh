@@ -1142,11 +1142,11 @@ function hide($i)
  * @global array The configuration of the core.
  *
  * @deprecated since 1.7
+ *
+ * @todo Add deprecation warning (XH 1.8?)
  */
 function tag($s)
 {
-    trigger_error('Function tag() is deprecated', E_USER_DEPRECATED);
-
     return '<' . $s . '>';
 }
 

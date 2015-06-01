@@ -234,14 +234,6 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException PHPUnit_Framework_Error_Deprecated
      */
-    public function testTagIsDeprecated()
-    {
-        tag('dummy');
-    }
-
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testWritelogIsDeprecated()
     {
         writelog('foo');
