@@ -1562,23 +1562,6 @@ function XH_logMessage($type, $module, $category, $description)
 }
 
 /**
- * Returns the login link.
- *
- * @global int    The index of the requested page.
- * @global array  The localization of the core.
- *
- * @return string HTML
- */
-function lilink()
-{
-    global $s, $tx;
-
-    if (!XH_ADM) {
-        return a($s > -1 ? $s : 0, '&amp;login') . $tx['menu']['login'] . '</a>';
-    }
-}
-
-/**
  * Returns the login form.
  *
  * @global array  The configuration of the core.

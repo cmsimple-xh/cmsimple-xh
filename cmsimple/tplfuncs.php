@@ -355,12 +355,17 @@ function mailformlink()
 /**
  * Returns the link to the login form.
  *
+ * @global int    The index of the requested page.
+ * @global array  The localization of the core.
+ *
  * @return string HTML
  */
 function loginlink()
 {
-    if (function_exists('lilink')) {
-        return lilink();
+    global $s, $tx;
+
+    if (!XH_ADM) {
+        return a($s > -1 ? $s : 0, '&amp;login') . $tx['menu']['login'] . '</a>';
     }
 }
 
