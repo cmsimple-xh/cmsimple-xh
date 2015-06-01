@@ -264,6 +264,7 @@ $tx['syscheck']['fail']="Failure";
 $tx['syscheck']['locale_available']="Locale '%s' available";
 $tx['syscheck']['locale_default']="Default locale in use";
 $tx['syscheck']['magic_quotes']="Magic quotes runtime off";
+$tx['syscheck']['password']="Non-default password set";
 $tx['syscheck']['phpversion']="PHP version ≥ %s";
 $tx['syscheck']['success']="OK";
 $tx['syscheck']['timezone']="Time zone valid";
