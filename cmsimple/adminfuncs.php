@@ -760,23 +760,16 @@ function print_plugin_admin($main)
  * Handles reading and writing of plugin files
  * (e.g. en.php, config.php, stylesheet.css).
  *
- * @param bool  $action Unused.
- * @param array $admin  Unused.
- * @param bool  $plugin Unused.
- *
  * @global string The requested action.
  * @global string The requested admin-action.
- * @global string The name of the currently loading plugin.
  *
  * @return string Returns the created form or the result of saving the data.
- *
- * @todo Deprecated unused parameters.
  */
 // @codingStandardsIgnoreStart
-function plugin_admin_common($action, $admin, $plugin)
+function plugin_admin_common()
 {
 // @codingStandardsIgnoreEnd
-    global $action, $admin, $plugin;
+    global $action, $admin;
 
     switch ($admin) {
     case 'plugin_config':
