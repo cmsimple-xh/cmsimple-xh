@@ -185,7 +185,8 @@ function XH_isAccessProtected($path)
     $stream = fsockopen($host, $_SERVER['SERVER_PORT'], $errno, $errstr, 5);
     if ($stream) {
         stream_set_timeout($stream, 5);
-        $request = "HEAD  $sn$path HTTP/1.1\r\nHost: $host\r\n"
+        $root = preg_replace('/index\.php$/', '', $sn);
+        $request = "HEAD  {$root}{$path} HTTP/1.1\r\nHost: $host\r\n"
             . "User-Agent: CMSimple_XH\r\n\r\n";
         fwrite($stream, $request);
         $response = fread($stream, 12);
