@@ -735,6 +735,15 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
                 . '</span>'
                 . "\xE0\xA4\xAE\xE0\xA4\xB5\xE0\xA4\xB8\xE0\xA4\xBE\xE0\xA4\xA6"
                 . "\xE0\xA4\xAF\xE0\xA5\x87\xE0\xA4\xA4\xE0\xA5\x8D"
+            ],
+            // empty search string (see http://cmsimpleforum.com/viewtopic.php?f=10&t=8789)
+            [[''], 'foo bar baz', 'foo bar baz'],
+            // searching for a space doesn't "highlight" spaces
+            [[' '], 'foo bar baz', 'foo bar baz'],
+            // search for same word twice
+            [
+                ['word', 'word'], 'foo word bar',
+                'foo <span class="xh_find">word</span> bar'
             ]
         ];
     }

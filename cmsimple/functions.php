@@ -2884,10 +2884,14 @@ function XH_lockFile($handle, $operation)
  */
 function XH_highlightSearchWords($words, $text)
 {
+    $words = array_unique($words);
     usort($words, create_function('$a, $b', 'return strlen($b) - strlen($a);'));
     $patterns = array();
     foreach ($words as $word) {
-        $patterns[] = '/' . preg_quote($word, '/') . '(?![^<]*>)/isuU';
+        $word = trim($word);
+        if ($word != '') {
+            $patterns[] = '/' . preg_quote($word, '/') . '(?![^<]*>)/isuU';
+        }
     }
     return preg_replace($patterns, '<span class="xh_find">$0</span>', $text);
 }
