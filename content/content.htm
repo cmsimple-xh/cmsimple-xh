@@ -92,9 +92,11 @@ $page_data[]=array(
 'expires'=>''
 );
 ?>
-<p>Headings h1–h3 are used for splitting up the content file. An h1, h2 or h3 heading will dynamically split the document into new pages in the table of contents. An h4, h5 or h6 heading is used as a heading within a page.</p>
-<p class="warning">Please use only h4–h6 in the content of your CMSimple pages, <br> because using h1–h3 will create a new page.</p>
-<p>Starting with <strong>CMSimple_XH 1.5</strong> the plugin Pagemanager is included in the download. Pagemanager simplifies creating, renaming, moving and deleting of pages.</p>
+<p>HMTL provides 6 headings, h1-h6, from big to small. CMSimple_XH uses the bigger headings for splitting the content into webpages. It is like a book, where a big heading starts a new chapter. The remaining smaller headings are used as headings within the web page, just as in a book, where smaller headings are used within a chapter. The book itself is the unit containing the complete text, corresponding in CMSimple_XH to the content file. A chapter in the book corresponds to a web page.</p>
+<p>In Settings/CMS you can set the number of levels for your page menu navigation. Preset is 3, i.e. CMSimple_XH will use headings h1–h3 for splitting up the content file into web pages. Thus an h1, h2 or h3 heading will create a new web page in the table of contents. The remaining h4, h5 and h6 headings will not. They can be used as headings within a web page.</p>
+<p>If you set 4 levels, h4 also will be used for new web pages. If you set only 2 levels, h3 and h4 can be used as headings within a web page. However in most cases 3 levels is a good compromise.</p>
+<p class="warning">Preset is 3 menu levels, i.e. h1–h3 will create new web pages.<br>For headings within a web page use h4–h6.</p>
+<p>Starting with <strong>CMSimple_XH 1.5</strong> the plugin Pagemanager is included in the download. Pagemanager simplifies creating, renaming, moving and deleting of web pages.</p>
 <p>Even complete folders with subfolders can be moved or deleted with Pagemanager.</p>
 <p>Thus it should be no problem to get rid of the contents of this standard download. Alternatively you could start with the present page structure, rename pages and overwrite the contents.</p>
 <h2>Menu Level 2 – Page 1</h2>
@@ -503,7 +505,7 @@ $page_data[]=array(
 <?php
 $page_data[]=array(
 'url'=>'mini1',
-'last_edit'=>'1384252271',
+'last_edit'=>'1434102752',
 'description'=>'',
 'keywords'=>'',
 'title'=>'',
@@ -520,7 +522,7 @@ $page_data[]=array(
 'expires'=>''
 );
 ?>
-<p>A template with a fluid layout, a horizontal menu of the toplevel pages and a vertical menu of the subpages. This template is meant as starting point for the development of other templates. It was contributed by <a href="http://www.frankziesing.de/cmsimple/">svasti</a>.</p>
+<p>A template with a fluid layout, a horizontal menu of the toplevel pages and a vertical menu of the subpages. This template is meant as starting point for the development of other templates. It was contributed by <a href="http://svasti.de">svasti</a>.</p>
 <p>The template has some format definitions, which can be applied via the "Formats" or "Styles" selection (designation depends on the editor). </p>
 <div class="warning">This is the paragraph format "warning".</div>
 <div class="important">This is the paragraph format "important".</div>
