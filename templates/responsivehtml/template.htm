@@ -10,7 +10,7 @@
 <![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <?php include $pth['folder']['template'].'xtoc.php'; ?>
-<link rel="shortcut icon" href="<?=$pth['folder']['templateimages']?>favicon.ico">
+<link rel="shortcut icon" href="<?php echo $pth['folder']['templateimages']?>favicon.ico">
 </head>
 <body id="body" <?php echo onload();?>>
 <!-- utf-8 check: äöüß -->
@@ -29,7 +29,7 @@
     <div style="clear: both;"></div>
     <div id="navi">
         <div id="menu">
-        <div id="search"><?php echo searchbox();?><div id="iconmenu"><img src="<?=$pth['folder']['templateimages']?>menu.png" alt="MENU"></div></div>
+        <div id="search"><?php echo searchbox();?><div id="iconmenu"><img src="<?php echo $pth['folder']['templateimages']?>menu.png" alt="MENU"></div></div>
         <?php echo xtoc();?></div>
         <div style="clear: both;"></div>
         <div id="menu2">
