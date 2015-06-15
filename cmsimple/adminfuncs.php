@@ -308,6 +308,9 @@ HTML;
         strpos(ob_get_contents(), "\xEF\xBB\xBF") !== 0,
         false, $tx['syscheck']['bom']
     );
+    $checks['other'][] = array(
+        function_exists('fsockopen'), false, $tx['syscheck']['fsockopen']
+    );
     $o .= XH_systemCheck($checks);
     return $o;
 }

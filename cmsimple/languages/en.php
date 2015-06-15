@@ -259,6 +259,7 @@ $tx['syscheck']['bom']="Without <a href=\"http://www.cmsimple-xh.org/wiki/doku.p
 $tx['syscheck']['encoding']="Encoding 'UTF-8' configured";
 $tx['syscheck']['extension']="Extension '%s' loaded";
 $tx['syscheck']['fail']="Failure";
+$tx['syscheck']['fsockopen']="Function fsockopen available";
 $tx['syscheck']['locale_available']="Locale '%s' available";
 $tx['syscheck']['locale_default']="Default locale in use";
 $tx['syscheck']['magic_quotes']="Magic quotes runtime off";
