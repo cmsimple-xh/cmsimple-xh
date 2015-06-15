@@ -307,6 +307,9 @@ HTML;
         !$xh_hasher->checkPassword('test', $cf['security']['password']),
         false, $tx['syscheck']['password']
     );
+    $checks['other'][] = array(
+        function_exists('fsockopen'), false, $tx['syscheck']['fsockopen']
+    );
     $o .= XH_systemCheck($checks);
     return $o;
 }
