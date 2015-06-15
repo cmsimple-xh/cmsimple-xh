@@ -196,6 +196,7 @@ function XH_isAccessProtected($path)
  * @global array           The configuration of the core.
  * @global array           The localization of the core.
  * @global XH\PasswordHash The password hasher.
+ * @global string The script name.
  *
  * @return string HTML
  *
@@ -203,7 +204,7 @@ function XH_isAccessProtected($path)
  */
 function XH_sysinfo()
 {
-    global $pth, $cf, $tx, $xh_hasher;
+    global $pth, $cf, $tx, $xh_hasher, $sn;
 
     $o = '<p><b>' . $tx['sysinfo']['version'] . '</b></p>' . "\n";
     $o .= '<ul>' . "\n" . '<li>' . CMSIMPLE_XH_VERSION . '&nbsp;&nbsp;Released: '
@@ -226,7 +227,7 @@ function XH_sysinfo()
         . '</ul>' . "\n\n";
     $o .= '<p><b>' . $tx['sysinfo']['php_version'] . '</b></p>' . "\n"
         . '<ul>' . "\n" . '<li>' . phpversion() . '</li>' . "\n"
-        . '<li><a href="./?&phpinfo" target="blank"><b>'
+        . '<li><a href="' . $sn . '?&phpinfo" target="blank"><b>'
         . $tx['sysinfo']['phpinfo_link'] . '</b></a> &nbsp; '
         . $tx['sysinfo']['phpinfo_hint'] . '</li>' . "\n" . '</ul>' . "\n" . "\n";
 
