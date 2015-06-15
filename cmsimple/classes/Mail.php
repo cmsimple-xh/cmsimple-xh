@@ -107,7 +107,9 @@ class Mail
                 ? idn_to_ascii($domain, 0, INTL_IDNA_VARIANT_UTS46)
                 : idn_to_ascii($domain);
         }
-        if (gethostbyname($domain) == $domain) {
+        if ($domain
+            && (strlen($domain) > 255 || gethostbyname($domain) == $domain)
+        ) {
             return false;
         }
         return true;
