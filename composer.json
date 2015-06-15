@@ -4,7 +4,7 @@
         "squizlabs/php_codesniffer": "2.3.*",
         "phpmd/phpmd": "2.2.*",
         "bartlett/php-compatinfo": "4.2.*",
-        "phpunit/phpunit": "4.6.*",
+        "phpunit/phpunit": "4.7.*",
         "tcz/phpunit-mockfunction": "1.0.*",
         "mikey179/vfsStream": "1.5.*"
     }
