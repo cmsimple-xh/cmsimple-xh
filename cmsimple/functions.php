@@ -193,7 +193,7 @@ function evaluate_plugincall($text)
 
     $message = '<span class="xh_fail">' . $tx['error']['plugincall']
         . '</span>';
-    $re = '/{{{(?:[^:]+:)?([a-z_0-9]+)\s*\(?(.*?)\)?;?}}}/iu';
+    $re = '/{{{(?:PLUGIN:)?([a-z_0-9]+)\s*\(?(.*?)\)?;?}}}/iu';
     preg_match_all($re, $text, $calls, PREG_SET_ORDER | PREG_OFFSET_CAPTURE);
     $results = array();
     foreach ($calls as $call) {
