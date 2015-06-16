@@ -522,6 +522,15 @@ XH.initQuickSubmit();
 (function () {
     var form, description, indicator;
 
+    function undoPasswordAutocompletion() {
+        var inputs = document.getElementsByName(
+            "PL3bbeec384_security_password_OLD"
+        );
+        if (inputs) {
+            inputs[0].value = "";
+        }
+    }
+
     form = document.getElementById("xh_config_form");
     if (form) {
         description = form.elements.PL3bbeec384_meta_description;
@@ -529,5 +538,11 @@ XH.initQuickSubmit();
         if (description && indicator) {
             XH.displayTextLength(description, indicator);
         }
+    }
+
+    if (typeof window.addEventListener !== "undefined") {
+        window.addEventListener("load", undoPasswordAutocompletion, false);
+    } else if (typeof window.attachEvent !== "undefined") {
+        window.attachEvent("onload", undoPasswordAutocompletion);
     }
 }());
