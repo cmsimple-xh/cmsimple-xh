@@ -677,4 +677,13 @@ XH.on(window, "load", function () {
             form.insertBefore(button, advanced);
         }
     }());
+
+    (function () {
+        var inputs = document.getElementsByName(
+            "PL3bbeec384_security_password_OLD"
+        );
+        if (inputs) {
+            inputs[0].value = "";
+        }
+    }());
 });
