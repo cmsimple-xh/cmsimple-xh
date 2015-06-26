@@ -205,8 +205,8 @@ function toc($start = null, $end = null, $li = 'li')
         if ($l[$i] < $tl) {
             $tl = $l[$i];
         }
-    }
-    return call_user_func($li, $ta, $start);
+    }    
+    return $li($ta, $start);
 }
 
 
