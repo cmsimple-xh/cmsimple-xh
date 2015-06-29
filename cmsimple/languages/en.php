@@ -12,6 +12,9 @@ $tx['template']['text1']="Text 1 for templates requiring this text";
 $tx['template']['text2']="Text 2 for templates requiring this text";
 $tx['template']['text3']="Text 3 for templates requiring this text";
 
+$tx['urichar']['new']="";
+$tx['urichar']['org']="";
+
 $tx['action']['advanced_hide']="Less &hellip;";
 $tx['action']['advanced_show']="More &hellip;";
 $tx['action']['backup']="backup";
@@ -307,9 +310,6 @@ $tx['toc']['missing']="MISSING HEADING";
 $tx['toc']['newpage']="NEW PAGE";
 
 $tx['uri']['toolong']="According to Settings&rarr;CMS&rarr;Uri&rarr;Length the URL is too long:";
-
-$tx['urichar']['new']="";
-$tx['urichar']['org']="";
 
 $tx['validate']['extfail']="EXTERNAL LINK FAILED";
 $tx['validate']['extok']="EXTERNAL LINK OK";
