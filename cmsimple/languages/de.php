@@ -12,6 +12,9 @@ $tx['template']['text1']="Text 1 für entsprechend vorbereitete Templates";
 $tx['template']['text2']="Text 2 für entsprechend vorbereitete Templates";
 $tx['template']['text3']="Text 3 für entsprechend vorbereitete Templates";
 
+$tx['urichar']['new']="ae|oe|ue|ss|Ae|Oe|Ue";
+$tx['urichar']['org']="ä|ö|ü|ß|Ä|Ö|Ü";
+
 $tx['action']['backup']="sichern";
 $tx['action']['cancel']="Abbrechen";
 $tx['action']['delete']="löschen";
@@ -305,9 +308,6 @@ $tx['toc']['missing']="FEHLENDE ÜBERSCHRIFT";
 $tx['toc']['newpage']="NEUE SEITE";
 
 $tx['uri']['toolong']="Gemäß Einstellungen&rarr;CMS&rarr;Uri&rarr;Length ist die URL zu lang:";
-
-$tx['urichar']['new']="";
-$tx['urichar']['org']="";
 
 $tx['validate']['extfail']="EXTERNE VERLINKUNG SCHEITERTE";
 $tx['validate']['extok']="EXTERNE VERLINKUNG OK";
