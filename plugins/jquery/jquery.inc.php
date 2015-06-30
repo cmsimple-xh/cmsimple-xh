@@ -12,8 +12,8 @@
  * to enable jQuery, jQueryUI 
  * and other jQuery-based plugins
  *
- * Version:    1.6
- * Build:      2015031201
+ * Version:    1.6.1
+ * Build:      2015063001
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
