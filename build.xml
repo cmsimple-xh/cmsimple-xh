@@ -95,7 +95,7 @@
     </target>
 
     <target name="js-doc">
-        <exec command="jsdoc --destination doc/js core/js/admin.js"
+        <exec command="jsdoc --destination doc/js assets/js/admin.js"
               passthru="true" checkreturn="true"/>
     </target>
 
