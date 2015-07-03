@@ -579,7 +579,9 @@ XH.toggleAdvancedFields = function () {
     var advanced;
 
     advanced = document.getElementById("xh_config_form_advanced");
-    advanced.style.display = advanced.style.display ? "" : "none";
+    if (advanced) {
+        advanced.style.display = advanced.style.display ? "" : "none";
+    }
 }
 
 /*
@@ -664,7 +666,7 @@ XH.on(window, "load", function () {
 
         form = document.getElementById("xh_config_form");
         advanced = document.getElementById("xh_config_form_advanced");
-        if (advanced.innerHTML) {
+        if (advanced && advanced.innerHTML) {
             button = document.createElement("button");
             button.setAttribute("type", "button");
             button.className = "xh_config_form_advanced_button";
@@ -682,7 +684,7 @@ XH.on(window, "load", function () {
         var inputs = document.getElementsByName(
             "PL3bbeec384_security_password_OLD"
         );
-        if (inputs) {
+        if (inputs && inputs.length > 0) {
             inputs[0].value = "";
         }
     }());
