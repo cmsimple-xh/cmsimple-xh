@@ -526,7 +526,7 @@ XH.initQuickSubmit();
         var inputs = document.getElementsByName(
             "PL3bbeec384_security_password_OLD"
         );
-        if (inputs) {
+        if (inputs && inputs.length > 0) {
             inputs[0].value = "";
         }
     }
