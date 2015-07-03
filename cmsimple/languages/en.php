@@ -108,6 +108,7 @@ $tx['help']['language_default']="The primary language of your site";
 $tx['help']['locator_show_homepage']="Whether the locator starts with a link to the first page (homepage) or not.";
 $tx['help']['mailform_captcha']="Whether a CAPTCHA shall be used in the mailform to prevent SPAM-mails.";
 $tx['help']['mailform_email']="The mailform will only be enabled when an email address is entered here.";
+$tx['help']['mailform_lf_only']="If sending of mails doesn't properly work with the default, try enabling this option.";
 $tx['help']['menu_color']="Not used by CMSimple_XH core";
 $tx['help']['menu_highlightcolor']="Not used by CMSimple_XH core";
 $tx['help']['menu_levels']="The pages of your site can be organized in up to 6 levels, 3 being the default.";

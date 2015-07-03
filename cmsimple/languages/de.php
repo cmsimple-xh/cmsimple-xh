@@ -109,6 +109,7 @@ $tx['help']['language_default']="Die Hauptsprache der Website";
 $tx['help']['locator_show_homepage']="Angeklickt = Der Locator ('Sie sind hier') beginnt mit einen Link zur Startseite.";
 $tx['help']['mailform_captcha']="Angeklickt = CAPTCHA-Spamschutz im Kontakt-Formular aktiviert";
 $tx['help']['mailform_email']="Erst wenn eine E-Mail-Adresse eingegeben wird, ist das Kontakt-Formular verfügbar.";
+$tx['help']['mailform_lf_only']="Wenn der Mailversand nicht ordnungsgemäß funktioniert, versuchen Sie diese Option zu aktivieren.";
 $tx['help']['menu_color']="Nicht von CMSimple_XH Systemfunktionen genutzt";
 $tx['help']['menu_highlightcolor']="Nicht von CMSimple_XH Systemfunktionen genutzt";
 $tx['help']['menu_levels']="Die Seiten der Website können in bis zu 6 Menü-Ebenen angeordnet werden. 3 Ebenen sind die Voreinstellung.";
