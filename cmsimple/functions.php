@@ -2569,6 +2569,8 @@ function XH_highlightSearchWords(array $words, $text)
  * @return void
  *
  * @global array The paths of system files and folders.
+ *
+ * @since 1.7
  */
 function XH_autoload($className)
 {
