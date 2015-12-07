@@ -14,7 +14,10 @@
     function tinymce_filebrowser() {
         global $adm, $cf;
 
-        if (!$adm) { return ''; }  // no filebrowser, if editor is called from front-end
+        if (!$adm) {   // no filebrowser, if editor is called from front-end
+            $_SESSION['tinymce_fb_callback'] = '';
+            return ''; 
+        }
 
         $url = '';
         $script = ''; //holds the code of the callback-function
