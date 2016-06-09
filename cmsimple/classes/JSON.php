@@ -80,6 +80,7 @@ define('XH_JSON_COMMA', 7);
 
 /**
  * <kbd>COLON</kbd>
+ *
  * @access private
  */
 define('XH_JSON_COLON', 8);
