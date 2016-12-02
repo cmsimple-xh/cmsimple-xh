@@ -19,7 +19,7 @@ global $tx, $sn, $pth, $_XH_csrfProtection;
     <div style="clear: both;"></div>
 
     <div id="filebrowser_subfolders">
-        <div style="clear: both; margin: 0px 0;"><b><?php echo $tx['filetype']['folder']; ?>:</b> <?php echo $this->currentDirectory; ?></div>
+        <div style="clear: both; margin: 0px 0;"><b><?php echo $tx['filetype']['folder']; ?>:</b> <?php echo XH_hsc($this->currentDirectory); ?></div>
         <div style="text-align: right;">
         <button type="button" class="filebrowser_folder_toggle"><?php echo $this->translate('create_folder'); ?></button>
 
@@ -28,7 +28,7 @@ global $tx, $sn, $pth, $_XH_csrfProtection;
 
 
         <fieldset id="xhfbCreateDir" class="xhfbform">
-            <legend><?php echo $this->translate('create_subfolder_in', $this->currentDirectory); ?></legend>
+            <legend><?php echo $this->translate('create_subfolder_in', XH_hsc($this->currentDirectory)); ?></legend>
             <div style="padding: 3em;">
 
                 <form method="POST" action="<?php echo $sn, '?', XH_hsc($_SERVER['QUERY_STRING']);?>">
@@ -49,7 +49,7 @@ global $tx, $sn, $pth, $_XH_csrfProtection;
                 <button type="button" class="filebrowser_upload_toggle"><?php echo $this->translate('upload_file'); ?></button>
         </div>
                <fieldset id="xhfbUploadFile" class="xhfbform">
-            <legend><?php echo $this->translate('upload_file_to', $this->currentDirectory); ?></legend>
+            <legend><?php echo $this->translate('upload_file_to', XH_hsc($this->currentDirectory)); ?></legend>
             <div style="padding: 3em;">
 
                 <form method="POST" class="filebrowser_upload" action="<?php echo $sn, '?', XH_hsc($_SERVER['QUERY_STRING']);?>" enctype="multipart/form-data">
