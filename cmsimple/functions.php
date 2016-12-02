@@ -953,8 +953,8 @@ function XH_readContents($language = null)
         $ancestors[$l[$i] - 1] = XH_uenc($temp, $search, $replace);
         $ancestors = array_slice($ancestors, 0, $l[$i]);
         $url = implode($cf['uri']['seperator'], $ancestors);
-        $u[] = substr($url, 0, $cf['uri']['length']);
-        $tooLong[] = strlen($url) > $cf['uri']['length'];
+        $u[] = utf8_substr($url, 0, $cf['uri']['length']);
+        $tooLong[] = utf8_strlen($url) > $cf['uri']['length'];
         $removed[] = false;
     }
 

@@ -814,7 +814,7 @@ if (sv('QUERY_STRING') != '') {
 if (!isset($cf['uri']['length'])) {
     $cf['uri']['length'] = 200;
 }
-$su = substr($su, 0, $cf['uri']['length']);
+$su = utf8_substr($su, 0, $cf['uri']['length']);
 
 if ($download != '') {
     download($pth['folder']['downloads'] . basename(stsl($download)));
