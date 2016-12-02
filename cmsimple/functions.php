@@ -672,7 +672,7 @@ function download($fl)
         || ($download != '' && !preg_match('/.+\..+$/', $fl))
     ) {
         shead('404');
-        $o .= '<p>File ' . $fl . '</p>';
+        $o .= '<p>File ' . XH_hsc($fl) . '</p>';
         return;
     } else {
         header('Content-Type: application/save-as');
