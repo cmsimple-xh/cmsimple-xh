@@ -484,7 +484,7 @@ function locator()
         $t = '';
         $tl = $l[$s];
         if ($tl > 1) {
-            for ($i = $s - 1; $i >= $_XH_firstPublishedPage; $i--) {
+            for ($i = $s - 1; $i > $_XH_firstPublishedPage; $i--) {
                 if ($l[$i] < $tl) {
                     $t = a($i, '') . $h[$i] . '</a> &gt; ' . $t;
                     $tl--;
