@@ -93,7 +93,7 @@ class XH_Search
             foreach ($words as $word) {
                 $word = trim($word);
                 if ($word != '') {
-                    if (method_exists('Normalizer', 'normalize')) {
+                    if (class_exists('Normalizer') && method_exists('Normalizer', 'normalize')) {
                         $word = Normalizer::normalize($word);
                     }
                     $this->words[] = $word;
