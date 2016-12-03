@@ -1,15 +1,15 @@
 <?php
 
 /*
- * @version $Id: updatecheck.php 257 2015-03-14 17:01:30Z hi $
+ * @version $Id: updatecheck.php 261 2016-01-10 17:58:05Z hi $
  */
 
 /*
  * ==================================================================
  * Update-Check-Plugin for CMSimple_XH
  * ==================================================================
- * Version:    1.3
- * Build:      2015031401
+ * Version:    1.4
+ * Build:      2016011001
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -64,10 +64,10 @@ function hi_updateQuickCheck($pluginname) {
 
 function hi_updateQuickInfo() {
     global $plugin_cf;
-    
+
     $remoteKey = 1;
     $compare = '<';
-    
+
     $localVersion = hi_versionInfo($_POST['versionstr']);
     if (count($localVersion) !== 7) {
         return;
@@ -83,7 +83,7 @@ function hi_updateQuickInfo() {
         $compare = '<=';
     }
     //Update available?
-    if (version_compare($localVersion[1], $remoteVersion[$remoteKey],  $compare)) {
+    if (version_compare($localVersion[1], $remoteVersion[$remoteKey], $compare)) {
         $_SESSION['upd_available'] = TRUE;
         return;
     }
@@ -368,7 +368,7 @@ function upd_addMenuEntry() {
 
 function hi_fsFileGetContents($url, $timeout = 30) {
     // split URL
-    $parsedurl = @parse_url($url);
+    $parsedurl = parse_url($url);
     // determine host, catch invalid calls
     if (empty($parsedurl['host']))
         return null;
@@ -379,10 +379,21 @@ function hi_fsFileGetContents($url, $timeout = 30) {
     if (!empty($parsedurl['query']))
         $documentpath .= '?' . $parsedurl['query'];
     // determine port
-    $port = empty($parsedurl['port']) ? 80 : $port = $parsedurl['port'];
-
+    if (!empty($parsedurl['port'])) {
+        $port = $parsedurl['port'];
+    }
+    // determine scheme
+    switch ($parsedurl['scheme']) {
+        case 'https':
+            $scheme = 'ssl://';
+            $port = empty($port) ? '443' : $port;
+            break;
+        default:
+            $scheme = '';
+            $port = empty($port) ? '80' : $port;
+    }
     // open socket
-    $fp = @fsockopen($host, $port, $errno, $errstr, $timeout);
+    $fp = fsockopen($scheme . $host, $port, $errno, $errstr, $timeout);
     if (!$fp)
         return null;
 
