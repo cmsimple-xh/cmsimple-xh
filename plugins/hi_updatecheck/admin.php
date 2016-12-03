@@ -8,8 +8,8 @@
  * ==================================================================
  * Update-Check-Plugin for CMSimple_XH
  * ==================================================================
- * Version:    1.3
- * Build:      2015031401
+ * Version:    1.4
+ * Build:      2016011001
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -32,8 +32,8 @@ if (defined('CMSIMPLE_RELEASE')) {
     return;
 }
 
-define('UPD_VERSION', '1.3');
-define('UPD_DATE', '2015-03-14');
+define('UPD_VERSION', '1.4');
+define('UPD_DATE', '2016-01-10');
 
 //Path to core-Versioninfo
 define('CMSIMPLE_XH_VERSIONINFO', 'http://www.cmsimple-xh.org/downloads/versioninfo/cmsimple_xh-version.nfo');
