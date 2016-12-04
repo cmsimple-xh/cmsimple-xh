@@ -1,7 +1,7 @@
 <?php
 
 /*
- * @version $Id: admin.php 257 2015-03-12 20:05:31Z hi $
+ * @version $Id: admin.php 265 2016-12-04 20:17:55Z hi $
  *
  */
 
@@ -11,8 +11,8 @@
  * Admin-interface for configuring the plugin
  * via the standard-functions of pluginloader.
  *
- * Version:    1.6.1
- * Build:      2015063001
+ * Version:    1.6.2
+ * Build:      2016120401
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -85,8 +85,8 @@ if (isset($_GET['jquery'])) {
     if ($admin == '') {
         $o .= "\n" . '<div>';
         $o .= "\n" . '<h1>jQuery for CMSimple</h1>';
-        $o .= "\n" . '<p>Version 1.6.1 - 2015-06-30</p>';
-        $o .= "\n" . '<p>&copy;2011-2013 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
+        $o .= "\n" . '<p>Version 1.6.2 - 2016-12-04</p>';
+        $o .= "\n" . '<p>&copy;2011-2016 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
         $o .= "\n" . '<p>';
         $o .= "\n" . 'jQuery Version: ';
         $o .= '<script type="text/javascript">
