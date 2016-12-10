@@ -164,4 +164,35 @@
         <delete dir="dist" quiet="true"/>
     </target>
 
+    <target name="build-patch" description="builds a distributable update package">
+        <fail unless="patchee" message="patchee is not defined!"/>
+        <fail unless="version" message="version is not defined!"/>
+        <unzip file="CMSimple_XH-${version}.zip" todir="current"/>
+        <unzip file="${patchee}" todir="patchee"/>
+        <copy todir="dist">
+            <fileset dir="current">
+                <different targetdir="patchee" ignoreFileTimes="true"/>
+            </fileset>
+        </copy>
+        <delete>
+            <fileset dir="dist/cmsimplexh">
+                <include name="cmsimple/log.txt"/>
+                <include name="content/content.htm"/>
+                <include name="2lang/content/content.htm"/>
+                <include name="cmsimple/config.php"/>
+                <include name="plugins/*/config/config.php"/>
+                <include name="cmsimple/languages/??.php"/>
+                <include name="plugins/*/languages/??.php"/>
+                <include name="plugins/*/css/stylesheet.css"/>
+            </fileset>
+        </delete>
+        <delete includeemptydirs="true">
+            <fileset dir="dist/cmsimplexh/templates" includes="**"/>
+        </delete>
+        <zip destfile="CMSimple_XH-${version}-patch.zip" basedir="dist" includeemptydirs="false"/>
+        <delete dir="patchee" quiet="true"/>
+        <delete dir="current" quiet="true"/>
+        <delete dir="dist" quiet="true"/>
+    </target>
+
 </project>
