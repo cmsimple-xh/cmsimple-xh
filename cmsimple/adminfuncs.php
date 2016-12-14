@@ -244,7 +244,7 @@ function XH_sysinfo()
 <li><a href="http://www.cmsimple-xh.org/">cmsimple-xh.org &raquo;</a></li>
 <li><a href="http://www.cmsimple-xh.org/wiki/">cmsimple-xh.org/wiki/ &raquo;</a></li>
 <li><a href="http://www.cmsimpleforum.com/">cmsimpleforum.com &raquo;</a></li>
-<li><a href="http://www.cmsimplewiki.com/">cmsimplewiki.com &raquo;</a></li>
+<li><a href="http://www.cmsimple-xh.org/de/?Alles_auf_einen_Blick">cmsimple-xh.org/de/?Alles_auf_einen_Blick &raquo;</a></li>
 </ul>
 
 HTML;
