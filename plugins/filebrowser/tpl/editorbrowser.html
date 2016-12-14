@@ -25,7 +25,7 @@
             <button type="button" onclick="FILEBROWSER.togglexhfbForm('xhfbCreateDir');"><?php echo $this->translate('create_folder'); ?></button>
             <button type="button" onclick="FILEBROWSER.togglexhfbForm('xhfbUploadFile');"><?php echo $this->translate('upload_file'); ?></button>
             <fieldset id="xhfbUploadFile" class="xhfbform">
-                <legend><?php echo $this->translate('upload_file_to', XH_hsc($this->currentDirectory)); ?></legend>
+                <legend><?php echo $this->translate('upload_file_to', $this->escapeForEventHandlerAttribute($this->currentDirectory)); ?></legend>
                 <div style="padding: 3em;">
 
                     <form method="post" action="" enctype="multipart/form-data" onsubmit="return FILEBROWSER.checkUpload(this, '<?php echo $this->escapeForEventHandlerAttribute($this->translate('confirm_upload'));?>')">
@@ -37,7 +37,7 @@
                 </div>
             </fieldset>
             <fieldset id="xhfbCreateDir" class="xhfbform">
-                <legend><?php echo $this->translate('create_subfolder_in', XH_hsc($this->currentDirectory)); ?></legend>
+                <legend><?php echo $this->translate('create_subfolder_in', $this->escapeForEventHandlerAttribute($this->currentDirectory)); ?></legend>
                 <div style="padding: 3em;">
 
                     <form method="post" action="">                        <input type="text" name="createFolder" size="30" />
