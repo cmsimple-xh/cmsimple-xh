@@ -142,6 +142,7 @@
                 <exclude name="composer.lock"/>
                 <exclude name="coverage.xml"/>
                 <exclude name="phpcompatinfo.*"/>
+                <exclude name="README.md"/>
                 <exclude name="ruleset.xml"/>
                 <exclude name="2lang/.2lang"/>
                 <exclude name="tests/**"/>
