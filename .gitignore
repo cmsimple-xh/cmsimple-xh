@@ -1,0 +1,4 @@
+doc/
+tests/coverage/
+vendor/
+core/css/plugins.css
