@@ -103,7 +103,9 @@
 
     <target name="build" description="builds a distributable ZIP archive">
         <fail unless="version" message="version is not defined!"/>
-        <svnexport revision="" repositoryurl="." todir="export"/>
+        <exec command="git archive -o export.tar HEAD" checkreturn="true"/>
+        <untar file="export.tar" todir="export"/>
+        <delete file="export.tar"/>
         <tstamp>
             <format property="TODAY" pattern="%Y-%m-%d"/>
         </tstamp>
@@ -141,6 +143,7 @@
                 <exclude name="composer.json"/>
                 <exclude name="composer.lock"/>
                 <exclude name="coverage.xml"/>
+                <exclude name="pax_global_header"/>
                 <exclude name="phpcompatinfo.*"/>
                 <exclude name="README.md"/>
                 <exclude name="ruleset.xml"/>
