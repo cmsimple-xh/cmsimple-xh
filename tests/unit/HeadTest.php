@@ -168,9 +168,9 @@ class HeadTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testRendersMetaGenerator()
+    public function testDoesNotRenderMetaGenerator()
     {
-        @$this->assertTag(
+        @$this->assertNotTag(
             array(
                 'tag' => 'meta',
                 'attributes' => array(
