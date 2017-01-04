@@ -143,11 +143,23 @@ class XH_PluginMenu
      *
      * @global string The script name.
      */
-    function XH_PluginMenu()
+    function __construct()
     {
         global $sn;
 
         $this->scriptName = $sn;
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     *
+     * @global string The script name.
+     */
+    function XH_PluginMenu()
+    {
+        XH_PluginMenu::__construct();
     }
 
     /**
@@ -268,10 +280,20 @@ class XH_ClassicPluginMenu extends XH_PluginMenu
      *
      * @return void
      */
-    function XH_ClassicPluginMenu()
+    function __construct()
     {
         parent::XH_PluginMenu();
         $this->_menu = '';
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     */
+    function XH_ClassicPluginMenu()
+    {
+        XH_ClassicPluginMenu::__construct();
     }
 
     /**

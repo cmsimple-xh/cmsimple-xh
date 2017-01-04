@@ -46,12 +46,22 @@ class Pagemanager_Controller
      *
      * @return void
      */
-    function Pagemanager_Controller()
+    function __construct()
     {
         global $pth;
 
         include_once $pth['folder']['plugin_classes'] . 'Model.php';
         $this->model = new Pagemanager_Model();
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     */
+    function Pagemanager_Controller()
+    {
+        Pagemanager_Controller::__construct();
     }
 
     /**

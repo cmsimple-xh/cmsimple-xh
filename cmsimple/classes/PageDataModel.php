@@ -86,7 +86,7 @@ class XH_PageDataModel
      *
      * @access public
      */
-    function XH_PageDataModel($h, $pageDataFields, $tempData, $pageData)
+    function __construct($h, $pageDataFields, $tempData, $pageData)
     {
         $this->headings = $h;
         $this->params = !empty($pageDataFields)
@@ -95,6 +95,23 @@ class XH_PageDataModel
         $this->temp_data = $tempData;
         $this->data = $pageData;
         $this->fixUp();
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @param array $h              The page headings.
+     * @param array $pageDataFields The page data fields.
+     * @param array $tempData       The most recently deleted page data.
+     * @param array $pageData       The page data.
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function XH_PageDataModel($h, $pageDataFields, $tempData, $pageData)
+    {
+        XH_PageDataModel::__construct($h, $pageDataFields, $tempData, $pageData);
     }
 
     /**

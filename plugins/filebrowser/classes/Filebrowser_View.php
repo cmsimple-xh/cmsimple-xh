@@ -164,11 +164,23 @@ class Filebrowser_View
      *
      * @access public
      */
-    function Filebrowser_View()
+    function __construct()
     {
         global $plugin_tx;
 
         $this->lang = $plugin_tx['filebrowser'];
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function Filebrowser_View()
+    {
+        Filebrowser_View::__construct();
     }
 
     /**

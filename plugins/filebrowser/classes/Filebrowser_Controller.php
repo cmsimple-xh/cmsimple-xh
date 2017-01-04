@@ -135,7 +135,7 @@ class Filebrowser_Controller
      * @global array The paths of system files and folders.
      * @global array The configuration of the plugins.
      */
-    function Filebrowser_Controller()
+    function __construct()
     {
         global $pth, $plugin_cf;
 
@@ -153,6 +153,16 @@ class Filebrowser_Controller
                 }
             }
         }
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     */
+    function Filebrowser_Controller()
+    {
+        Filebrowser_Controller::__construct();
     }
 
     /**

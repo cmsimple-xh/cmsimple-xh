@@ -121,7 +121,7 @@ class XH_Mailform
      *
      * @access public
      */
-    function XH_Mailform($embedded = false, $subject=null)
+    function __construct($embedded = false, $subject=null)
     {
         global $cf, $tx;
         $this->embedded = $embedded;
@@ -156,6 +156,23 @@ class XH_Mailform
             $this->mailform = isset($_POST['mailform'])
                 ? stsl($_POST['mailform']) : '';
         }
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @param bool   $embedded Whether the mailform is embedded on a CMSimple_XH
+     *                         page.
+     * @param string $subject  An alternative subject field preset text instead of 
+     *                         the subject default in localization.
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function XH_Mailform($embedded = false, $subject=null)
+    {
+        XH_Mailform::__construct($embedded, $subject);
     }
 
     /**
