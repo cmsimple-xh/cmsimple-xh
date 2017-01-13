@@ -35,7 +35,7 @@ class SearchTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        global $c, $cf;
+        global $c, $cf, $pd_router;
 
         $c = array(
             '<h1>Welcome to CMSimple_XH</h1>',
@@ -43,9 +43,37 @@ class SearchTest extends PHPUnit_Framework_TestCase
             'More about CMSimple.',
             '#CMSimple hide# CMSimple again',
             'Bill &amp; Ted',
-            "se\xC3\xB1or"
+            "se\xC3\xB1or",
+            '<h1>foo</h1>'
         );
+        $h = array('a', 'b', 'c', 'd', 'e', 'f');
+        $fields = array('show_heading', 'heading');
+        $temp = array('show_heading' => '', 'heading' => '');
+        $data = array(
+            array('show_heading' => '', 'heading' => ''),
+            array('show_heading' => '', 'heading' => ''),
+            array('show_heading' => '', 'heading' => ''),
+            array('show_heading' => '', 'heading' => ''),
+            array('show_heading' => '', 'heading' => ''),
+            array('show_heading' => '', 'heading' => ''),
+            array('show_heading' => '1', 'heading' => 'bar')
+        );
+        $pd_router = new XH_PageDataRouter($h, $fields, $temp, $data);
         $cf['show_hidden']['pages_search'] == 'true';
+        runkit_function_add(
+            'Pageparams_replaceAlternativeHeading',
+            function ($content, $pageData) {
+                if ($pageData['show_heading']) {
+                    $content = "<h1>{$pageData['heading']}</h1>";
+                }
+                return $content;
+            }
+        );
+    }
+
+    public function tearDown()
+    {
+        runkit_function_remove('Pageparams_replaceAlternativeHeading');
     }
 
     public function dataForSearch()
@@ -59,6 +87,10 @@ class SearchTest extends PHPUnit_Framework_TestCase
             array( // testing unicode equivalence
                 "sen\xCC\x83or",
                 method_exists('Normalizer', 'normalize') ? array(5) : array()
+            ),
+            array( // alternative heading
+                'bar',
+                array(6)
             )
         );
     }

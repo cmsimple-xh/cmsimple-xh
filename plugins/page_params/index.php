@@ -142,6 +142,37 @@ function Pageparams_switchTemplate($n)
     }
 }
 
+/**
+ * Replaces the existing heading with an alternative heading if configured.
+ *
+ * @param string $content  The page content.
+ * @param array  $pageData The page data.
+ *
+ * @return string
+ *
+ * @global array The contents of the pages.
+ * @global array The configuration of the core.
+ *
+ * @since 1.6.10
+ */
+function Pageparams_replaceAlternativeHeading($content, $pageData)
+{
+    global $c, $cf;
+
+    if ($pageData['show_heading'] == '1') {
+        $pattern = '/(<h[1-' . $cf['menu']['levels'] . '].*>).+(<\/h[1-'
+            . $cf['menu']['levels'] . ']>)/isU';
+        if (trim($pageData['heading']) == '') {
+            return preg_replace($pattern, '', $content);
+        } else {
+            return preg_replace(
+                $pattern, '${1}' . addcslashes($pageData['heading'], '$\\') . '$2',
+                $content
+            );
+        }
+    }
+}
+
 /*
  * Add used interests to router.
  */
@@ -173,18 +204,7 @@ Pageparams_switchTemplate($pd_s);
  * Override defaults by page-parameters but only if not in edit-mode.
  */
 if (!$edit && $pd_current) {
-    if ($pd_current['show_heading'] == '1') {
-        $temp = '/(<h[1-' . $cf['menu']['levels'] . '].*>).+(<\/h[1-'
-            . $cf['menu']['levels'] . ']>)/isU';
-        if (trim($pd_current['heading']) == '') {
-            $c[$pd_s] = preg_replace($temp, '', $c[$pd_s]);
-        } else {
-            $c[$pd_s] = preg_replace(
-                $temp, '${1}' . addcslashes($pd_current['heading'], '$\\') . '$2',
-                $c[$pd_s]
-            );
-        }
-    }
+    $c[$pd_s] = Pageparams_replaceAlternativeHeading($c[$pd_s], $pd_current);
     if ($pd_current['show_last_edit'] > 0
         && $pd_current['last_edit'] !== ''
     ) {
