@@ -150,14 +150,13 @@ function Pageparams_switchTemplate($n)
  *
  * @return string
  *
- * @global array The contents of the pages.
  * @global array The configuration of the core.
  *
  * @since 1.6.10
  */
 function Pageparams_replaceAlternativeHeading($content, $pageData)
 {
-    global $c, $cf;
+    global $cf;
 
     if ($pageData['show_heading'] == '1') {
         $pattern = '/(<h[1-' . $cf['menu']['levels'] . '].*>).+(<\/h[1-'
@@ -170,6 +169,8 @@ function Pageparams_replaceAlternativeHeading($content, $pageData)
                 $content
             );
         }
+    } else {
+        return $content;
     }
 }
 
