@@ -501,7 +501,7 @@ class View
      *
      * @return string
      */
-    public function translate($string = '', $args = null)
+    public function translate($string = '', array $args = null)
     {
         if (strlen($string) === 0) {
             return '';
@@ -512,15 +512,7 @@ class View
         } else {
             $html = $this->lang[$string];
         }
-        if (is_array($args)) {
-            array_unshift($args, $html);
-            return call_user_func_array('sprintf', $args);
-        }
-        if (is_string($args)) {
-            $html = sprintf($html, $args);
-            return $html;
-        }
-        return $html;
+        return vsprintf($html, $args);
     }
 
     /**

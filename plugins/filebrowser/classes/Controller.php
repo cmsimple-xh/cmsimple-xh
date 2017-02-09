@@ -402,9 +402,9 @@ class Controller
         $file = $this->browseBase . $this->currentDirectory . basename($file);
         $pages = $this->fileIsLinked($file);
         if (is_array($pages)) {
-            $this->view->error('error_not_deleted', $file);
+            $this->view->error('error_not_deleted', array($file));
             $this->view->message .= '<div class="xh_info">'
-                . $this->view->translate('error_file_is_used', $file)
+                . $this->view->translate('error_file_is_used', array($file))
                 . '<ul>';
             foreach ($pages as $page) {
                 $this->view->message .= '<li>' . $page . '</li>';
@@ -413,9 +413,9 @@ class Controller
             return;
         }
         if (unlink($file)) {
-            $this->view->success('success_deleted', $file);
+            $this->view->success('success_deleted', array($file));
         } else {
-            $this->view->error('error_not_deleted', $file);
+            $this->view->error('error_not_deleted', array($file));
         }
     }
 
@@ -460,15 +460,15 @@ class Controller
                 'error_file_too_big_php',
                 array(ini_get('upload_max_filesize'), 'upload_max_filesize')
             );
-            $this->view->info('error_not_uploaded', $file['name']);
+            $this->view->info('error_not_uploaded', array($file['name']));
             return;
         case UPLOAD_ERR_NO_TMP_DIR:
             $this->view->error('error_missing_temp_folder');
-            $this->view->info('error_not_uploaded', $file['name']);
+            $this->view->info('error_not_uploaded', array($file['name']));
             return;
         default:
-            $this->view->error('error_unknown', (string) $file['error']);
-            $this->view->info('error_not_uploaded', $file['name']);
+            $this->view->error('error_unknown', array((string) $file['error']));
+            $this->view->info('error_not_uploaded', array($file['name']));
             return;
         }
 
@@ -478,7 +478,7 @@ class Controller
             ? 'images' : 'downloads';
         if (isset($this->maxFilesizes[$type])) {
             if ($file['size'] > $this->maxFilesizes[$type]) {
-                $this->view->error('error_not_uploaded', $file['name']);
+                $this->view->error('error_not_uploaded', array($file['name']));
                 $this->view->info(
                     'error_file_too_big',
                     array(
@@ -491,10 +491,10 @@ class Controller
         }
 
         if ($this->isAllowedFile($file['name']) == false) {
-            $this->view->error('error_not_uploaded', $file['name']);
+            $this->view->error('error_not_uploaded', array($file['name']));
             $this->view->info(
                 'error_no_proper_extension',
-                pathinfo($file['name'], PATHINFO_EXTENSION)
+                array(pathinfo($file['name'], PATHINFO_EXTENSION))
             );
             return;
         }
@@ -509,19 +509,19 @@ class Controller
                     array(basename($filename), basename($newFilename))
                 );
             } else {
-                $this->view->error('error_not_uploaded', $file['name']);
-                $this->view->info('error_file_already_exists', $filename);
+                $this->view->error('error_not_uploaded', array($file['name']));
+                $this->view->info('error_file_already_exists', array($filename));
                 return;
             }
         }
 
         if (move_uploaded_file($_FILES['fbupload']['tmp_name'], $filename)) {
             chmod($filename, 0644);
-            $this->view->success('success_uploaded', $file['name']);
+            $this->view->success('success_uploaded', array($file['name']));
             return;
         }
 
-        $this->view->error('error_not_uploaded', $file['name']);
+        $this->view->error('error_not_uploaded', array($file['name']));
     }
 
     /**
@@ -537,13 +537,13 @@ class Controller
         );
         $folder = $this->browseBase . $this->currentDirectory . $folder;
         if (is_dir($folder)) {
-            $this->view->error('error_folder_already_exists', basename($folder));
+            $this->view->error('error_folder_already_exists', array(basename($folder)));
             return;
         }
         if (!mkdir($folder)) {
             $this->view->error('error_cant_create_folder');
         }
-        $this->view->success('success_folder_created', basename($folder));
+        $this->view->success('success_folder_created', array(basename($folder)));
     }
 
     /**
@@ -557,15 +557,15 @@ class Controller
             . basename($_POST['folder']);
         if (!$this->_isEmpty($folder)) {
             $this->view->error('error_folder_not_empty');
-            $this->view->info('error_not_deleted', basename($folder));
+            $this->view->info('error_not_deleted', array(basename($folder)));
             return;
         } else {
             if (!rmdir($folder)) {
-                $this->view->error('error_not_deleted', basename($folder));
+                $this->view->error('error_not_deleted', array(basename($folder)));
                 return;
             }
         }
-        $this->view->success('success_deleted', basename($folder));
+        $this->view->success('success_deleted', array(basename($folder)));
     }
 
     /**
@@ -614,14 +614,14 @@ class Controller
         $newPath = $this->browseBase . $this->currentDirectory . '/' . $newName;
         $oldPath = $this->browseBase . $this->currentDirectory . '/' . $oldName;
         if (file_exists($newPath)) {
-            $this->view->error('error_file_already_exists', $newName);
+            $this->view->error('error_file_already_exists', array($newName));
             return;
         }
         $pages = $this->fileIsLinked($oldName);
         if (is_array($pages)) {
-            $this->view->error('error_cant_rename', $oldName);
+            $this->view->error('error_cant_rename', array($oldName));
             $this->view->message .= '<div class="xh_info">'
-                . $this->view->translate('error_file_is_used', $oldName)
+                . $this->view->translate('error_file_is_used', array($oldName))
                 . '<ul>';
             foreach ($pages as $page) {
                 $this->view->message .= '<li>' . $page . '</li>';
@@ -633,7 +633,7 @@ class Controller
             $this->view->success('success_renamed', array($oldName, $newName));
             return;
         }
-        $this->view->error('error_cant_rename', $oldName);
+        $this->view->error('error_cant_rename', array($oldName));
         return;
     }
 
