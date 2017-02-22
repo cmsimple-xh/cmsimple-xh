@@ -404,17 +404,17 @@ class Controller
             $f = 'userfiles';
         } elseif ($file) {
             $f = 'file';
-        } elseif (isset($phpinfo)) {
+        } elseif ($phpinfo) {
             $f = 'phpinfo';
-        } elseif (isset($sysinfo)) {
+        } elseif ($sysinfo) {
             $f = 'sysinfo';
-        } elseif (isset($xh_pagedata)) {
+        } elseif ($xh_pagedata) {
             $f = 'xh_pagedata';
-        } elseif (isset($xh_backups)) {
+        } elseif ($xh_backups) {
             $f = 'xh_backups';
         } elseif ($settings) {
             $f = 'settings';
-        } elseif (isset($xh_do_validate)) {
+        } elseif ($xh_do_validate) {
             $f = 'do_validate';
         } elseif ($validate) {
             $f = 'validate';
