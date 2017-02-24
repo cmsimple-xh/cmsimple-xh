@@ -1371,8 +1371,8 @@ $_XH_controller->sendStandardHeaders();
 
 if ($print) {
     XH_builtinTemplate('print');
-    //} elseif (strtolower($f) == 'login' || $f == 'forgotten') {
-    //    XH_builtinTemplate('xh_login');
+} elseif (strtolower($f) == 'login' || $f == 'forgotten') {
+    XH_builtinTemplate('xh_login');
 }
 
 if (XH_ADM) {
