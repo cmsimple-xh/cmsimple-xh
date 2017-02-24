@@ -53,7 +53,13 @@ class LocatorTest extends PHPUnit_Framework_TestCase
 
     public function testLocator()
     {
-        $this->assertEquals('<a href="?foo">Home</a> &gt; Bar', locator());
+        $expected = '<span vocab="http://schema.org/" typeof="BreadcrumbList">'
+            . '<span property="itemListElement" typeof="ListItem">'
+            . '<a property="item" typeof="WebPage" href="?foo">'
+            . '<span property="name">Home</span><meta property="position" content="1">'
+            . '</a></span> &gt; <span property="itemListElement" typeof="ListItem">'
+            . '<span property="name">Bar</span><meta property="position" content="2"></span></span>';
+        $this->assertEquals($expected, locator());
     }
 }
 
