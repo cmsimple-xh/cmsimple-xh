@@ -30,6 +30,7 @@ $tx['action']['upload']="upload";
 $tx['action']['view']="ansehen";
 
 $tx['editmenu']['backups']="Sicherheitskopien";
+$tx['editmenu']['change_password']="Passwort";
 $tx['editmenu']['configuration']="CMS";
 $tx['editmenu']['downloads']="Downloads";
 $tx['editmenu']['edit']="Bearbeiten";
@@ -290,6 +291,7 @@ $tx['sysinfo']['webserver']="Webserver";
 $tx['template']['default']="Standard Template";
 
 $tx['title']['bad_request']="Inkorrekte Anfrage";
+$tx['title']['change_password']="Passwort ändern";
 $tx['title']['downloads']="Downloads";
 $tx['title']['images']="Bilder";
 $tx['title']['log']="Log-Datei";

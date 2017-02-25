@@ -154,6 +154,15 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
                 ),
                 '&xh_pagedata'
             ),
+            array( // change password
+                array(
+                    'xh_password_old' => 'test',
+                    'xh_password_new' => 'foo',
+                    'xh_password_confirmation' => 'foo',
+                    'action' => 'save',
+                ),
+                '&xh_change_password'
+            ),
             array( // filebrowser: create folder
                 array(
                     'createFolder' => 'test'

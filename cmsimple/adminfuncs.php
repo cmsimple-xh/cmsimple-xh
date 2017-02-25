@@ -613,6 +613,10 @@ function XH_adminMenu(array $plugins = array())
             'url' => $sn . '?&xh_pagedata'
         ),
         array(
+            'label' => utf8_ucfirst($tx['editmenu']['change_password']),
+            'url' => $sn . '?&xh_change_password'
+        ),
+        array(
             'label' => utf8_ucfirst($tx['editmenu']['sysinfo']),
             'url' => $sn . '?&sysinfo'
         )

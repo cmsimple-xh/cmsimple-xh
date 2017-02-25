@@ -750,7 +750,8 @@ $xhpages = null;
 $temp = array(
     'action', 'download', 'downloads', 'edit', 'file', 'function', 'images',
     'login', 'logout', 'keycut', 'mailform', 'media', 'normal', 'print', 'search',
-    'selected', 'settings', 'sitemap', 'text', 'userfiles', 'validate', 'xhpages'
+    'selected', 'settings', 'sitemap', 'text', 'userfiles', 'validate', 'xhpages',
+    'xh_change_password'
 );
 foreach ($temp as $i) {
     initvar($i);
@@ -1246,7 +1247,7 @@ if (XH_ADM) {
 
     $temp = array(
         'settings', 'xh_backups', 'images', 'downloads', 'validate', 'sysinfo',
-        'phpinfo', 'xh_pagedata'
+        'phpinfo', 'xh_pagedata', 'change_password'
     );
     if (in_array($f, $temp)) {
         $title = $tx['title'][$f];
@@ -1303,6 +1304,11 @@ if (XH_ADM) {
     case 'do_validate':
         $temp = new XH\LinkChecker();
         $o .= ($f == 'validate') ? $temp->prepare() : $temp->doCheck();
+        break;
+    case 'change_password':
+        $temp = new XH\ChangePassword();
+        $i = $action === 'save' ? 'save' : 'default';
+        $temp->{"{$i}Action"}();
         break;
     }
 }
