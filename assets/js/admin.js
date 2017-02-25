@@ -202,45 +202,6 @@ XH.modalDialog = function (contentElement, width, func) {
 };
 
 /**
- * Validates the `change password' dialog.
- * Returns `true', if everything is okay; an error message otherwise.
- *
- * @param {HTMLElement} dialog
- *
- * @returns {mixed}
- *
- * @since 1.6
- */
-XH.validatePassword = function (dialog) {
-    var inputs = dialog.getElementsByTagName("input"),
-        oldPassword = inputs[0].value,
-        newPassword = inputs[1].value,
-        confirmation = inputs[2].value,
-        request;
-
-    if (oldPassword === "" || newPassword === "" || confirmation === "") {
-        return XH.i18n.password.fields_missing;
-    }
-    if (!(/^[!-~]+$/.test(newPassword))) {
-        return XH.i18n.password.invalid;
-    }
-    if (newPassword != confirmation) {
-        return XH.i18n.password.mismatch;
-    }
-    request = new XMLHttpRequest();
-    request.open("GET", "?xh_check=" + encodeURIComponent(oldPassword), false);
-    request.send(null);
-    if (request.status != 200) {
-        return XH.i18n.error.server.replace("%s",
-                request.status + " " + request.statusText);
-    }
-    if (request.responseText != 1) {
-        return XH.i18n.password.wrong;
-    }
-    return true;
-};
-
-/**
  * Returns the x-www-form-urlencoded data of a form.
  *
  * @param {HTMLFormElement} form
@@ -636,16 +597,6 @@ XH.on(window, "load", function () {
         });
     });
 
-    XH.forEach(XH.findByClass("xh_change_password"), function (element) {
-        XH.on(element, "click", function (event) {
-            var target = event.target || event.srcElement,
-                dialog = target.getAttribute("data-dialog"),
-                dlg = document.getElementById(dialog);
-
-            XH.modalDialog(dlg, "350px", XH.validatePassword);
-        });
-    });
-
     element = document.getElementById("xh_backup_form");
     if (element) {
         XH.on(element, "submit", function (event) {
@@ -677,15 +628,6 @@ XH.on(window, "load", function () {
                 XH.toggleAdvancedFields();
             };
             form.insertBefore(button, advanced);
-        }
-    }());
-
-    (function () {
-        var inputs = document.getElementsByName(
-            "PL3bbeec384_security_password_OLD"
-        );
-        if (inputs && inputs.length > 0) {
-            inputs[0].value = "";
         }
     }());
 });

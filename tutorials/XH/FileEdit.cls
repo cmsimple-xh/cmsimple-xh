@@ -69,12 +69,6 @@
                     <emphasis>random</emphasis>:
                     a hidden random value that is regenerated on each save.
                 </listitem>
-                <listitem>
-                    <emphasis>password</emphasis>:
-                    a password hash (represented as button which opens a dialog,
-                    where the old password has to be confirmed to set the new
-                    password).
-                </listitem>
             </itemizedlist>
         </refsect2>
     </refsect1>

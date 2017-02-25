@@ -924,9 +924,6 @@ if (XH_ADM) {
     if (isset($_GET['xh_keep_alive'])) {
         $_XH_controller->handleKeepAlive();
     }
-    if (isset($_GET['xh_check'])) {
-        $_XH_controller->handlePasswordCheck();
-    }
     $_XH_controller->outputAdminScripts();
 }
 

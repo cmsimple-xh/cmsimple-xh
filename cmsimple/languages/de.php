@@ -226,7 +226,6 @@ $tx['pagedata']['info']="Die folgenden Page-Data-Felder werden <em>derzeit</em> 
 $tx['pagedata']['nothing']="Keine Aktion erforderlich.";
 $tx['pagedata']['ok']="Keine überflüssigen Page-Data-Felder gefunden.";
 
-$tx['password']['change']="Passwort ändern";
 $tx['password']['confirmation']="Bestätigung";
 $tx['password']['fields_missing']="Alle Felder ausfüllen.";
 $tx['password']['invalid']="Das neue Passwort darf nur aus ASCII-Zeichen bestehen.";

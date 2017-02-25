@@ -306,32 +306,6 @@ class Controller
     }
 
     /**
-     * Handles password check Ajax requests.
-     *
-     * @return void
-     *
-     * @access protected
-     *
-     * @global PasswordHash The password hasher.
-     * @global array        The configuration of the core.
-     *
-     * @todo Declare visibility.
-     */
-    function handlePasswordCheck()
-    {
-        global $xh_hasher, $cf;
-
-        header('Content-Type: text/plain');
-        echo intval(
-            $xh_hasher->checkPassword(
-                stsl($_GET['xh_check']),
-                $cf['security']['password']
-            )
-        );
-        XH_exit();
-    }
-
-    /**
      * Sets frontend $f.
      *
      * @return void

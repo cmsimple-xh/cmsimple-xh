@@ -141,41 +141,6 @@ abstract class ArrayFileEdit extends FileEdit
     }
 
     /**
-     * Returns the "change password" dialog.
-     *
-     * @param string $iname The base name of the password input.
-     *
-     * @return string HTML
-     *
-     * @global array The localization of the core.
-     */
-    protected function passwordDialog($iname)
-    {
-        global $tx;
-
-        $id = $iname . '_DLG';
-        $o = '<div id="' . $id . '" style="display:none">'
-            . '<table style="width: 100%">'
-            . '<tr><td>' . $tx['password']['old'] . '</td><td>'
-            . '<input type="password" name="' . $iname . '_OLD" value=""'
-            . ' autocomplete="off" class="xh_setting">'
-            . '</td></tr>'
-            . '<tr><td>' . $tx['password']['new'] . '</td><td>'
-            . '<input type="password" name="' . $iname . '_NEW" value=""'
-            . ' autocomplete="off" class="xh_setting">'
-            . '</td></tr>'
-            . '<tr><td>' . $tx['password']['confirmation'] . '</td><td>'
-            . '<input type="password" name="' . $iname . '_CONFIRM" value=""'
-            . ' autocomplete="off" class="xh_setting">'
-            . '</td></tr>'
-            . '</table>'
-            . '</div>';
-        $o .= '<button type="button" class="xh_change_password" data-dialog="'
-            . $id . '">' . $tx['password']['change'] . '</button>';
-        return $o;
-    }
-
-    /**
      * Returns a form field.
      *
      * @param string $cat  The category.
@@ -192,8 +157,6 @@ abstract class ArrayFileEdit extends FileEdit
 
         $iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
         switch ($opt['type']) {
-        case 'password':
-            return $this->passwordDialog($iname);
         case 'text':
             $class = 'xh_setting';
             if (utf8_strlen($opt['val']) < 50) {
@@ -330,48 +293,6 @@ abstract class ArrayFileEdit extends FileEdit
     }
 
     /**
-     * Handles the submission of a password field and returns the new password
-     * hash on success, <var>false</var> on failure to change the password.
-     *
-     * @param array  $opt    An option record.
-     * @param string $iname  The name of the INPUT element.
-     * @param array  $errors LI elements with an error message.
-     *
-     * @return string
-     *
-     * @global array   The localization of the core.
-     * @global object  The password hasher.
-     */
-    protected function submitPassword(array $opt, $iname, array &$errors)
-    {
-        global $tx, $xh_hasher;
-
-        if (!isset($_POST[$iname . '_OLD']) || $_POST[$iname . '_OLD'] == '') {
-            $val = $opt['val'];
-        } else {
-            $val = false;
-            $old = isset($_POST[$iname . '_OLD'])
-                ? stsl($_POST[$iname . '_OLD']) : '';
-            $new = isset($_POST[$iname . '_NEW'])
-                ? stsl($_POST[$iname . '_NEW']) : '';
-            $confirm = isset($_POST[$iname . '_CONFIRM'])
-                ? stsl($_POST[$iname . '_CONFIRM']) : '';
-            if (!$xh_hasher->checkPassword($old, $opt['val'])) {
-                $errors[] = '<li>' . $tx['password']['wrong'] . '</li>';
-            } else {
-                if (!preg_match('/^[!-~]+$/u', $new)) {
-                    $errors[] = '<li>' . $tx['password']['invalid'] . '</li>';
-                } elseif ($new != $confirm) {
-                    $errors[] = '<li>' . $tx['password']['mismatch'] . '</li>';
-                } else {
-                    $val = $xh_hasher->hashPassword($new);
-                }
-            }
-        }
-        return $val;
-    }
-
-    /**
      * Handles the form submission.
      *
      * Triggers a redirect, if the submission was valid
@@ -396,8 +317,6 @@ abstract class ArrayFileEdit extends FileEdit
                 $val = isset($_POST[$iname]) ? stsl($_POST[$iname]) : '';
                 if ($opt['type'] == 'bool') {
                     $val = isset($_POST[$iname]) ? 'true' : '';
-                } elseif ($opt['type'] == 'password') {
-                    $val = $this->submitPassword($opt, $iname, $errors);
                 } elseif ($opt['type'] == 'random') {
                     $val = bin2hex($xh_hasher->getRandomBytes(12));
                 }
