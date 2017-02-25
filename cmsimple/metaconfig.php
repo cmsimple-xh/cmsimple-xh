@@ -1,6 +1,6 @@
 <?php
 
-$mcf['security']['password']="password";
+$mcf['security']['password']="hidden";
 $mcf['security']['secret']="random";
 $mcf['security']['frame_options']="enum:DENY,SAMEORIGIN,";
 $mcf['site']['template']="function:XH_templates";

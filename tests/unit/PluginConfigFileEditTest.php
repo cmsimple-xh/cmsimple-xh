@@ -224,32 +224,6 @@ EOT;
         $this->_assertFormMatches($matcher);
     }
 
-    public function testFormContainsPasswordField()
-    {
-        $matcher = array(
-            'tag' => 'button',
-            'attributes' => array('type' => 'button'),
-            'ancestor' => array('tag' => 'form')
-        );
-        $this->_assertFormMatches($matcher);
-    }
-
-    public function testFormContainsPasswordDialog()
-    {
-        $matcher = array(
-            'tag' => 'table',
-            'parent' => array(
-                'tag' => 'div',
-                'id' => 'test_password_DLG'
-            ),
-            'children' => array(
-                'count' => 3,
-                'only' => array('tag' => 'tr')
-            )
-        );
-        $this->_assertFormMatches($matcher);
-    }
-
     public function testFormDoesNotContainScriptingRegexpField()
     {
         $matcher = array(
@@ -258,31 +232,6 @@ EOT;
             'ancestor' => 'form'
         );
         @$this->assertNotTag($matcher, $this->_subject->form());
-    }
-
-    /**
-     * @dataProvider hiddenInputData
-     */
-    public function testFormContainsHiddenInput($name, $value)
-    {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'hidden',
-                'name' => $name,
-                'value' => $value
-            ),
-            'ancestor' => array('tag' => 'form')
-        );
-        $this->_assertFormMatches($matcher);
-    }
-
-    public function hiddenInputData()
-    {
-        return array(
-            array('admin', 'plugin_config'),
-            array('action', 'plugin_save')
-        );
     }
 
     public function testSuccessMessage()
@@ -297,10 +246,6 @@ EOT;
 
     public function testSubmit()
     {
-        global $xh_hasher;
-
-        $xh_hasher->expects($this->once())->method('checkPassword')
-            ->will($this->returnValue(true));
         $writeFileSpy = new PHPUnit_Extensions_MockFunction(
             'XH_writeFile', $this->_subject
         );
@@ -314,57 +259,7 @@ EOT;
         );
         $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->_subject);
         $exitSpy->expects($this->once());
-        $_POST = array(
-            'test_password_OLD' => 'foo',
-            'test_password_NEW' => 'bar',
-            'test_password_CONFIRM' => 'bar',
-        );
         $this->_subject->submit();
-    }
-
-    public function testSubmitWrongPasswordFailure()
-    {
-        global $xh_hasher, $e;
-
-        $xh_hasher->expects($this->once())->method('checkPassword')
-            ->will($this->returnValue(false));
-        $_POST = array(
-            'test_password_OLD' => 'bar',
-            'test_password_NEW' => 'bar',
-            'test_password_CONFIRM' => 'bar',
-        );
-        $this->_subject->submit();
-        $this->assertNotEmpty($e);
-    }
-
-    public function testSubmitInvalidPasswordFailure()
-    {
-        global $xh_hasher, $e;
-
-        $xh_hasher->expects($this->once())->method('checkPassword')
-            ->will($this->returnValue(true));
-        $_POST = array(
-            'test_password_OLD' => 'foo',
-            'test_password_NEW' => "\xC3\xA4",
-            'test_password_CONFIRM' => "\xC3\xA4",
-        );
-        $this->_subject->submit();
-        $this->assertNotEmpty($e);
-    }
-
-    public function testSubmitPasswordMismatchFailure()
-    {
-        global $xh_hasher, $e;
-
-        $xh_hasher->expects($this->once())->method('checkPassword')
-            ->will($this->returnValue(true));
-        $_POST = array(
-            'test_password_OLD' => 'foo',
-            'test_password_NEW' => 'bar',
-            'test_password_CONFIRM' => 'foo',
-        );
-        $this->_subject->submit();
-        $this->assertNotEmpty($e);
     }
 
     public function testSubmitSaveFailure()
