@@ -536,35 +536,43 @@ XH.checkLinks = function (url) {
  * @since 1.6.3
  */
 XH.adaptAdminMenu = function () {
-    var viewportWidth = document.documentElement.clientWidth,
-        htmlObj = document.documentElement,
-        pluginMenu = document.getElementById("xh_adminmenu_plugins"),
-        itemWidth = pluginMenu.parentNode.offsetWidth,
-        style = pluginMenu.style,
-        pluginMenuRect = pluginMenu.getBoundingClientRect(),
-        pluginMenus = document.querySelectorAll("#xh_adminmenu ul ul ul"),
-        adminMenu = document.getElementById("xh_adminmenu_fixed"),
-        i;
-    if (pluginMenu.hasAttribute("data-margin-left")) {
-        style.marginLeft = pluginMenu.getAttribute("data-margin-left");
-    } else {
-        pluginMenu.setAttribute("data-margin-left", style.marginLeft);
-    }
-    if (pluginMenuRect.left < 0) {
-        style.marginLeft = "0";
-    } else if (pluginMenuRect.right > viewportWidth) {
-        style.marginLeft = parseInt(style.marginLeft, 10) - itemWidth + "px";
-    }
-    for (i = 0; i < pluginMenus.length; i++) {
-        pluginMenu = pluginMenus[i];
+    var pluginMenu, adminMenu;
+
+    function adaptPluginMenuToViewport() {
+        var viewportWidth, itemWidth, style, pluginMenuRect, pluginMenus, i;
+
+        viewportWidth = document.documentElement.clientWidth;
+        itemWidth = pluginMenu.parentNode.offsetWidth;
+        style = pluginMenu.style;
         pluginMenuRect = pluginMenu.getBoundingClientRect();
-        pluginMenu.style.left = "100%";
-        if (pluginMenuRect.right > viewportWidth) {
-            pluginMenu.style.left = "-100%";
+        pluginMenus = document.querySelectorAll("#xh_adminmenu ul ul ul");
+        if (pluginMenu.hasAttribute("data-margin-left")) {
+            style.marginLeft = pluginMenu.getAttribute("data-margin-left");
+        } else {
+            pluginMenu.setAttribute("data-margin-left", style.marginLeft);
+        }
+        if (pluginMenuRect.left < 0) {
+            style.marginLeft = "0";
+        } else if (pluginMenuRect.right > viewportWidth) {
+            style.marginLeft = parseInt(style.marginLeft, 10) - itemWidth + "px";
+        }
+        for (i = 0; i < pluginMenus.length; i++) {
+            pluginMenu = pluginMenus[i];
+            pluginMenuRect = pluginMenu.getBoundingClientRect();
+            pluginMenu.style.left = "100%";
+            if (pluginMenuRect.right > viewportWidth) {
+                pluginMenu.style.left = "-100%";
+            }
         }
     }
+
+    pluginMenu = document.getElementById("xh_adminmenu_plugins");
+    if (pluginMenu) {
+        adaptPluginMenuToViewport();
+    }
+    adminMenu = document.getElementById("xh_adminmenu_fixed");
     if (adminMenu) {
-      htmlObj.style.marginTop = adminMenu.clientHeight + "px";
+      document.documentElement.style.marginTop = adminMenu.clientHeight + "px";
     }
 };
 
