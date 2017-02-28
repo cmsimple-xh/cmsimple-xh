@@ -8,9 +8,8 @@
  * @category  CMSimple_XH
  * @package   Pagemanager
  * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2011-2015 Christoph M. Becker <http://3-magi.net>
+ * @copyright 2011-2017 Christoph M. Becker <http://3-magi.net>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version   SVN: $Id$
  * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
  */
 
@@ -46,7 +45,7 @@ class Pagemanager_Controller
      *
      * @return void
      */
-    function Pagemanager_Controller()
+    function __construct()
     {
         global $pth;
 
@@ -54,6 +53,16 @@ class Pagemanager_Controller
         $this->model = new Pagemanager_Model();
     }
 
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     */
+    function Pagemanager_Controller()
+    {
+        Pagemanager_Controller::__construct();
+    }
+ 
     /**
      * Returns a rendered template.
      *

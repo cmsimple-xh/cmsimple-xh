@@ -2,7 +2,7 @@
 <h1>Pagemanager &ndash; <?php echo $this->lang('menu_info');?></h1>
 <img src="<?php echo $this->pluginIconPath();?>" style="float: left; margin-right: 10px" alt="Plugin Icon"/>
 <p>Version: <?php echo PAGEMANAGER_VERSION;?></p>
-<p>Copyright &copy; 2011-2015 <a href="http://3-magi.net">Christoph M. Becker</a></p>
+<p>Copyright &copy; 2011-2017 <a href="http://3-magi.net">Christoph M. Becker</a></p>
 <p>Pagemanager_XH is powered by <a
 href="http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple">
 jQuery4CMSimple</a> and <a href="http://www.jstree.com/">jsTree</a>.</p>
