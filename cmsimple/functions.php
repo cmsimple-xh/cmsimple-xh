@@ -1553,13 +1553,13 @@ function XH_logMessage($type, $module, $category, $description)
  * @global string The HTML of the contents area.
  * @global int    The index of the requested page.
  * @global string The script name.
- * @global array  The URLs of the pages.
+ * @global string The URL of the selected page.
  *
  * @return string HTML
  */
 function loginforms()
 {
-    global $cf, $tx, $onload, $f, $o, $s, $sn, $u;
+    global $cf, $tx, $onload, $f, $o, $s, $sn, $su;
 
     if ($f == 'login' || $f == 'xh_login_failed') {
         $cf['meta']['robots'] = "noindex";
@@ -1572,10 +1572,10 @@ function loginforms()
             . '<h1>' . $tx['menu']['login'] . '</h1>'
             . $message
             . '<p><b>' . $tx['login']['warning'] . '</b></p>'
-            . '<form id="login" name="login" action="' . $sn . '?' . $u[$s]
+            . '<form id="login" name="login" action="' . $sn . '?' . $su
             . '" method="post">'
             . '<input type="hidden" name="login" value="true">'
-            . '<input type="hidden" name="selected" value="' . $u[$s] . '">'
+            . '<input type="hidden" name="selected" value="' . $su . '">'
             . '<input type="password" name="keycut" id="passwd" value="">'
             . ' '
             . '<input type="submit" name="submit" id="submit" value="'
