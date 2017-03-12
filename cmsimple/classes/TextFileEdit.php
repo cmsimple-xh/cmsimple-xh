@@ -112,7 +112,7 @@ abstract class TextFileEdit extends FileEdit
 
         $_XH_csrfProtection->check();
         $this->text = stsl($_POST[$this->textareaName]);
-        if ($this->save()) {
+        if ($this->save() !== false) {
             header('Location: ' . CMSIMPLE_URL . $this->redir, true, 303);
             XH_exit();
         } else {
