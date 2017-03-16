@@ -1128,7 +1128,7 @@ function XH_adminJSLocalization()
  */
 function XH_wantsPluginAdministration($pluginName)
 {
-    return isset($GLOBALS[$pluginName]) && $GLOBALS[$pluginName] == 'true';
+    return (bool) preg_match('/(?:^|&)' . preg_quote($pluginName, '/') . '(?!=)/', sv('QUERY_STRING'));
 }
 
 ?>

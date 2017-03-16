@@ -749,8 +749,9 @@ $xhpages = null;
 
 $temp = array(
     'action', 'download', 'downloads', 'edit', 'file', 'function', 'images',
-    'login', 'logout', 'keycut', 'mailform', 'media', 'normal', 'print', 'search',
-    'selected', 'settings', 'sitemap', 'text', 'userfiles', 'validate', 'xhpages'
+    'login', 'logout', 'keycut', 'mailform', 'media', 'normal', 'phpinfo', 'print', 'search',
+    'selected', 'settings', 'sitemap', 'sysinfo', 'text', 'userfiles', 'validate', 'xhpages',
+    'xh_backups', 'xh_do_validate', 'xh_pagedata'
 );
 foreach ($temp as $i) {
     initvar($i);
@@ -803,7 +804,7 @@ if (sv('QUERY_STRING') != '') {
         $su = $selected;
     }
     foreach ($rq as $i) {
-        if (!strpos($i, '=')) {
+        if (!strpos($i, '=') && in_array($i, $temp)) {
             $GLOBALS[$i] = 'true';
         }
     }
