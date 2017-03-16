@@ -405,20 +405,26 @@ function lastupdate($br = null, $hour = null)
  */
 function locator()
 {
-    $html = '';
     $breadcrumbs = XH_getLocatorModel();
     $last = count($breadcrumbs) - 1;
+    $html = '<span vocab="http://schema.org/" typeof="BreadcrumbList">';
     foreach ($breadcrumbs as $i => $breadcrumb) {
         list($title, $url) = $breadcrumb;
         if ($i > 0) {
             $html .= ' &gt; ';
         }
+        $html .= '<span property="itemListElement" typeof="ListItem">';
+        $inner = '<span property="name">' . $title
+            . '</span><meta property="position" content="'. ($i + 1) . '">';
         if (isset($url) && $i < $last) {
-            $html .= '<a href="' . $url . '">' . $title . '</a>';
+            $html .= '<a property="item" typeof="WebPage" href="' . $url . '">'
+                . $inner . '</a>';
         } else {
-            $html .= $title;
+            $html .= $inner;
         }
+        $html .= '</span>';
     }
+    $html .= '</span>';
     return $html;
 }
 
