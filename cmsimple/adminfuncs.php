@@ -53,7 +53,6 @@ function XH_pluginVersion($plugin)
  *
  * @param array $data The data ;)
  *
- * @global array The paths of system files and folders.
  * @global array The localization of the core.
  *
  * @return string HTML
@@ -64,26 +63,22 @@ function XH_pluginVersion($plugin)
  */
 function XH_systemCheck(array $data)
 {
-    global $pth, $tx;
+    global $tx;
 
     $stx = $tx['syscheck'];
-
-    foreach (array('success', 'warning', 'fail') as $img) {
-        $txt = $stx[$img];
-        $imgs[$img] = '<img src="' . $pth['folder']['corestyle'] . $img . '.png"'
-            . ' alt="' . $txt . '" title="' . $txt . '" width="16" height="16">';
-    }
 
     $o = "<h4>$stx[title]</h4>\n<ul id=\"xh_system_check\">\n";
 
     if (key_exists('phpversion', $data)) {
         $ok = version_compare(PHP_VERSION, $data['phpversion']) >= 0;
-        $o .= '<li>' . $imgs[$ok ? 'success' : 'fail']
-            . sprintf($stx['phpversion'], $data['phpversion']) . "</li>\n";
+        $o .= XH_systemCheckLi(
+            '', $ok ? 'success' : 'fail', 
+            sprintf($stx['phpversion'], $data['phpversion'])
+        );
     }
 
     if (key_exists('extensions', $data)) {
-        $cat = ' class="xh_system_check_cat_start"';
+        $cat = 'xh_system_check_cat_start';
         foreach ($data['extensions'] as $ext) {
             if (is_array($ext)) {
                 $notok = $ext[1] ? 'fail' : 'warning';
@@ -91,15 +86,16 @@ function XH_systemCheck(array $data)
             } else {
                 $notok = 'fail';
             }
-            $o .= '<li' . $cat . '>'
-                . $imgs[extension_loaded($ext) ? 'success' : $notok]
-                . sprintf($stx['extension'], $ext) . "</li>\n";
+            $o .= XH_systemCheckLi(
+                $cat, extension_loaded($ext) ? 'success' : $notok,
+                sprintf($stx['extension'], $ext)
+            );
             $cat = '';
         }
     }
 
     if (key_exists('writable', $data)) {
-        $cat = ' class="xh_system_check_cat_start"';
+        $cat = 'xh_system_check_cat_start';
         foreach ($data['writable'] as $file) {
             if (is_array($file)) {
                 $notok = $file[1] ? 'fail' : 'warning';
@@ -107,18 +103,21 @@ function XH_systemCheck(array $data)
             } else {
                 $notok = 'warning';
             }
-            $o .= '<li' . $cat . '>' . $imgs[is_writable($file) ? 'success' : $notok]
-                . sprintf($stx['writable'], $file) . "</li>\n";
+            $o .= XH_systemCheckLi(
+                $cat, is_writable($file) ? 'success' : $notok,
+                sprintf($stx['writable'], $file)
+            );
             $cat = '';
         }
     }
 
     if (key_exists('other', $data)) {
-        $cat = ' class="xh_system_check_cat_start"';
+        $cat = 'xh_system_check_cat_start';
         foreach ($data['other'] as $check) {
             $notok = $check[1] ? 'fail' : 'warning';
-            $o .= '<li' . $cat . '>' . $imgs[$check[0] ? 'success' : $notok]
-                . $check[2] . "</li>\n";
+            $o .= XH_systemCheckLi(
+                $cat, $check[0] ? 'success' : $notok, $check[2]
+            );
             $cat = '';
         }
     }
@@ -126,6 +125,29 @@ function XH_systemCheck(array $data)
     $o .= "</ul>\n";
 
     return $o;
+}
+
+/**
+ * Returns a single `<li>` of the system check.
+ *
+ * @param string $class A CSS class.
+ * @param string $state A state.
+ * @param string $text  A message text.
+ *
+ * @global array The localization of the core.
+ *
+ * @return string
+ *
+ * @since 1.7.0
+ */
+function XH_systemCheckLi($class, $state, $text)
+{
+    global $tx;
+
+    $class = "class=\"xh_$state $class\"";
+    return "<li $class>"
+        . sprintf($tx['syscheck']['message'], $text, $tx['syscheck'][$state])
+        . "</li>\n";
 }
 
 /**
@@ -241,6 +263,7 @@ function XH_sysinfo()
 
 HTML;
 
+    $stx = $tx['syscheck'];
     $checks = array(
         'phpversion' => '5.3',
         'extensions' => array(
@@ -271,43 +294,43 @@ HTML;
     foreach ($files as $file) {
         $checks['other'][] = array(
             XH_isAccessProtected($file), false,
-            sprintf($tx['syscheck']['access_protected'], $file)
+            sprintf($stx['access_protected'], $file)
         );
     }
     if ($tx['locale']['all'] == '') {
-        $checks['other'][] = array(true, false, $tx['syscheck']['locale_default']);
+        $checks['other'][] = array(true, false, $stx['locale_default']);
     } else {
         $checks['other'][] = array(
             setlocale(LC_ALL, $tx['locale']['all']), false,
-            sprintf($tx['syscheck']['locale_available'], $tx['locale']['all'])
+            sprintf($stx['locale_available'], $tx['locale']['all'])
         );
     }
     $checks['other'][] = array(
         date_default_timezone_get() !== 'UTC',
-        false, $tx['syscheck']['timezone']
+        false, $stx['timezone']
     );
     $checks['other'][] = array(
-        !get_magic_quotes_runtime(), false, $tx['syscheck']['magic_quotes']
+        !get_magic_quotes_runtime(), false, $stx['magic_quotes']
     );
     $checks['other'][] = array(
-        !ini_get('safe_mode'), false, 'safe_mode off'
+        !ini_get('safe_mode'), false, $stx['safe_mode']
     );
     $checks['other'][] = array(
-        !ini_get('session.use_trans_sid'), false, 'session.use_trans_sid off'
+        !ini_get('session.use_trans_sid'), false, $stx['use_trans_sid']
     );
     $checks['other'][] = array(
-        ini_get('session.use_only_cookies'), false, 'session.use_only_cookies on'
+        ini_get('session.use_only_cookies'), false, $stx['use_only_cookies']
     );
     $checks['other'][] = array(
         strpos(ob_get_contents(), "\xEF\xBB\xBF") !== 0,
-        false, $tx['syscheck']['bom']
+        false, $stx['bom']
     );
     $checks['other'][] = array(
         !$xh_hasher->checkPassword('test', $cf['security']['password']),
-        false, $tx['syscheck']['password']
+        false, $stx['password']
     );
     $checks['other'][] = array(
-        function_exists('fsockopen'), false, $tx['syscheck']['fsockopen']
+        function_exists('fsockopen'), false, $stx['fsockopen']
     );
     $o .= XH_systemCheck($checks);
     return $o;

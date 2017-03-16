@@ -274,6 +274,7 @@
 
 #xh_system_check {
     list-style: none;
+    padding-left: 0;
 }
 
 #xh_system_check li {
