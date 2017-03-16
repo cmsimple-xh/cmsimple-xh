@@ -1,0 +1,3 @@
+- 2014-01-30: invented new possibility to handle CDN Variant
+
+- 2014-01-08: %EDITOR_HEIGHT% placeholder removed. Height is set in the html tag itself (xh-editor). In editor_replace() there is no opportunity to set the height in the available tepmplates. To set the editor height style the editor area or use a selfdefined editor config.

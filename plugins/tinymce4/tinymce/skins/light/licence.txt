@@ -1,0 +1,3 @@
+"Our theme may be modified and used freely in other projects. Note, however, there is no guarantee for any bugs. This skin is optimized for usage in all modern browsers and for Internet Explorer down to version 8. It works in Internet Explorer 7, but has some display bugs in the editor's popup dialogues."
+downloaded from http://pixabay.com/de/blog/posts/a-modern-custom-theme-for-tinymce-4-40/
+08-30-2013/em
