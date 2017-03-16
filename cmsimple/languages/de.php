@@ -30,6 +30,7 @@ $tx['action']['upload']="upload";
 $tx['action']['view']="ansehen";
 
 $tx['editmenu']['backups']="Sicherheitskopien";
+$tx['editmenu']['change_password']="Passwort";
 $tx['editmenu']['configuration']="CMS";
 $tx['editmenu']['downloads']="Downloads";
 $tx['editmenu']['edit']="Bearbeiten";
@@ -225,7 +226,6 @@ $tx['pagedata']['info']="Die folgenden Page-Data-Felder werden <em>derzeit</em> 
 $tx['pagedata']['nothing']="Keine Aktion erforderlich.";
 $tx['pagedata']['ok']="Keine überflüssigen Page-Data-Felder gefunden.";
 
-$tx['password']['change']="Passwort ändern";
 $tx['password']['confirmation']="Bestätigung";
 $tx['password']['fields_missing']="Alle Felder ausfüllen.";
 $tx['password']['invalid']="Das neue Passwort darf nur aus ASCII-Zeichen bestehen.";
@@ -293,6 +293,7 @@ $tx['sysinfo']['webserver']="Webserver";
 $tx['template']['default']="Standard Template";
 
 $tx['title']['bad_request']="Inkorrekte Anfrage";
+$tx['title']['change_password']="Passwort ändern";
 $tx['title']['downloads']="Downloads";
 $tx['title']['images']="Bilder";
 $tx['title']['log']="Log-Datei";

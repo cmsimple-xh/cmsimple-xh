@@ -30,6 +30,7 @@ $tx['action']['upload']="upload";
 $tx['action']['view']="view";
 
 $tx['editmenu']['backups']="Backups";
+$tx['editmenu']['change_password']="Password";
 $tx['editmenu']['configuration']="CMS";
 $tx['editmenu']['downloads']="Downloads";
 $tx['editmenu']['edit']="Edit mode";
@@ -224,7 +225,6 @@ $tx['pagedata']['info']="The following page data fields are <em>currently</em> u
 $tx['pagedata']['nothing']="No action necessary.";
 $tx['pagedata']['ok']="No superfluous fields detected in page data.";
 
-$tx['password']['change']="Change password";
 $tx['password']['confirmation']="Confirmation";
 $tx['password']['fields_missing']="Fill out all fields.";
 $tx['password']['invalid']="New password must consist of ASCII characters only.";
@@ -292,6 +292,7 @@ $tx['sysinfo']['webserver']="Webserver";
 $tx['template']['default']="default template";
 
 $tx['title']['bad_request']="Bad request";
+$tx['title']['change_password']="Change Password";
 $tx['title']['downloads']="Downloads";
 $tx['title']['images']="Images";
 $tx['title']['log']="Log File";

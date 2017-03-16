@@ -636,6 +636,10 @@ function XH_adminMenu(array $plugins = array())
             'url' => $sn . '?&xh_pagedata'
         ),
         array(
+            'label' => utf8_ucfirst($tx['editmenu']['change_password']),
+            'url' => $sn . '?&xh_change_password'
+        ),
+        array(
             'label' => utf8_ucfirst($tx['editmenu']['sysinfo']),
             'url' => $sn . '?&sysinfo'
         )
@@ -1102,7 +1106,6 @@ function XH_adminJSLocalization()
 
     $keys = array(
         'action' => array('advanced_hide', 'advanced_show', 'cancel', 'ok'),
-        'password' => array('fields_missing', 'invalid', 'mismatch', 'wrong'),
         'error' => array('server'),
         'settings' => array('backupsuffix')
     );

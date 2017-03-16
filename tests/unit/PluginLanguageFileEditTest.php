@@ -188,11 +188,6 @@ class PluginLanguageFileEditTest extends PHPUnit_Framework_TestCase
         );
         $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->_subject);
         $exitSpy->expects($this->once());
-        $_POST = array(
-            'security_password_OLD' => 'foo',
-            'security_password_NEW' => 'bar',
-            'security_password_CONFIRM' => 'bar',
-        );
         $this->_subject->submit();
     }
 

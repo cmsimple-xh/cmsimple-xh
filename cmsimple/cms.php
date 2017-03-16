@@ -751,7 +751,7 @@ $temp = array(
     'action', 'download', 'downloads', 'edit', 'file', 'function', 'images',
     'login', 'logout', 'keycut', 'mailform', 'media', 'normal', 'phpinfo', 'print', 'search',
     'selected', 'settings', 'sitemap', 'sysinfo', 'text', 'userfiles', 'validate', 'xhpages',
-    'xh_backups', 'xh_do_validate', 'xh_pagedata'
+    'xh_backups', 'xh_change_password', 'xh_do_validate', 'xh_pagedata'
 );
 foreach ($temp as $i) {
     initvar($i);
@@ -923,9 +923,6 @@ if (XH_ADM) {
     include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
     if (isset($_GET['xh_keep_alive'])) {
         $_XH_controller->handleKeepAlive();
-    }
-    if (isset($_GET['xh_check'])) {
-        $_XH_controller->handlePasswordCheck();
     }
     $_XH_controller->outputAdminScripts();
 }
@@ -1247,7 +1244,7 @@ if (XH_ADM) {
 
     $temp = array(
         'settings', 'xh_backups', 'images', 'downloads', 'validate', 'sysinfo',
-        'phpinfo', 'xh_pagedata'
+        'phpinfo', 'xh_pagedata', 'change_password'
     );
     if (in_array($f, $temp)) {
         $title = $tx['title'][$f];
@@ -1304,6 +1301,11 @@ if (XH_ADM) {
     case 'do_validate':
         $temp = new XH\LinkChecker();
         $o .= ($f == 'validate') ? $temp->prepare() : $temp->doCheck();
+        break;
+    case 'change_password':
+        $temp = new XH\ChangePassword();
+        $i = $action === 'save' ? 'save' : 'default';
+        $temp->{"{$i}Action"}();
         break;
     }
 }
