@@ -45,5 +45,8 @@ $cf['uri']['length']="200";
 $cf['editmenu']['scroll']="";
 $cf['editmenu']['external']="";
 $cf['title']['format']="{SITE} &ndash; {PAGE}";
+$cf['headings']['show']="true";
+$cf['headings']['format']="<h1>%s</h1>";
+$cf['mode']['advanced']="";
 
 ?>

@@ -846,7 +846,7 @@ function plugin_admin_common()
  */
 function XH_contentEditor()
 {
-    global $sn, $su, $s, $u, $c, $e, $cf, $tx, $_XH_csrfProtection;
+    global $sn, $su, $s, $u, $c, $e, $cf, $tx, $_XH_csrfProtection, $l, $h, $s;
 
     $su = $u[$s]; // TODO: is changing of $su correct here???
 
@@ -856,8 +856,16 @@ function XH_contentEditor()
         $e .= '<li>' . $msg . '</li>' . "\n";
     }
     $o = '<form method="POST" id="ta" action="' . $sn . '">'
-        . '<input type="hidden" name="selected" value="' . $u[$s] . '">'
-        . '<input type="hidden" name="function" value="save">'
+        . tag('input type="hidden" name="selected" value="' . $u[$s] . '"');
+    //Add page level and heading to post data because the split markers
+    //are filtered out if mode is not "advanced"
+    if (!$cf['mode']['advanced']) {
+        $o .= tag('input type="hidden" name="level" value="' . $l[$s] . '"')
+            . tag('input type="hidden" name="heading" value="' . $h[$s] . '"');
+        //replace split-markers
+        $c[$s] = preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $c[$s]);
+    }
+    $o .= tag('input type="hidden" name="function" value="save"')
         . '<textarea name="text" id="text" class="xh-editor" style="height: '
         . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
         . XH_hsc($c[$s])
@@ -881,7 +889,6 @@ function XH_contentEditor()
  *
  * @global array  The content of the pages.
  * @global array  The paths of system files and folders.
- * @global array  The configuration of the core.
  * @global array  The localization of the core.
  * @global array  Whether edit mode is active.
  * @global object The page data router.
@@ -890,7 +897,7 @@ function XH_contentEditor()
  */
 function XH_saveContents()
 {
-    global $c, $pth, $cf, $tx, $edit, $pd_router;
+    global $c, $pth, $tx, $edit, $pd_router;
 
     if (!(XH_ADM && $edit)) {
         trigger_error(
@@ -899,8 +906,8 @@ function XH_saveContents()
         );
         return false;
     }
-    $hot = '<h[1-' . $cf['menu']['levels'] . '][^>]*>';
-    $hct = '<\/h[1-' . $cf['menu']['levels'] . ']>';
+    $hot = '<!--XH_ml[1-9]:';
+    $hct = '-->';
     $title = utf8_ucfirst($tx['filetype']['content']);
     $cnts = "<html><head><title>$title</title>\n"
         . $pd_router->headAsPHP()
@@ -940,8 +947,16 @@ function XH_saveEditorContents($text)
 {
     global $pth, $cf, $tx, $pd_router, $c, $s, $u, $selected;
 
-    $hot = '<h[1-' . $cf['menu']['levels'] . '][^>]*>';
-    $hct = '<\/h[1-' . $cf['menu']['levels'] . ']>'; // TODO: use $1 ?
+    //clean up and inject split-markers
+    if (!$cf['mode']['advanced']) {
+        $text = preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $text);
+        $split = '<!--XH_ml' . stsl($_POST['level']) . ':' 
+            . stsl($_POST['heading']) . '-->'
+            . "\n";
+        $text = $split . $text;
+    }
+    $hot = '<!--XH_ml[1-9]:';
+    $hct = '-->';
     // TODO: this might be done before the plugins are loaded
     //       for backward compatibility
     $text = stsl($text);
@@ -954,20 +969,20 @@ function XH_saveEditorContents($text)
 
     // handle missing heading on the first page
     if ($s == 0) {
-        if (!preg_match('/^<h1[^>]*>.*<\/h1>/isu', $text)
+        if (!preg_match('/^<!--XH_ml[1-9]:.+-->/isu', $text)
             && !preg_match('/^(<p[^>]*>)?(\&nbsp;| |<br \/>)?(<\/p>)?$/isu', $text)
         ) {
-            $text = '<h1>' . $tx['toc']['missing'] . '</h1>' . "\n" . $text;
+            $text = '<!--XH_ml1:' . $tx['toc']['missing'] . '-->' . "\n" . $text;
         }
     }
     $c[$s] = $text; // keep editor contents, if saving fails
 
     // insert $text to $c
     $text = preg_replace(
-        '/<h[1-' . $cf['menu']['levels'] . ']/i', "\x00" . '$0', $text
+        '/<!--XH_ml[1-9]:/is', "\x00" . '$0', $text
     );
     $pages = explode("\x00", $text);
-    // append everything before the first page heading to the previous page:
+    // append everything before the first page to the previous page
     if ($s > 0) {
         $c[$s - 1] .= $pages[0];
     }
