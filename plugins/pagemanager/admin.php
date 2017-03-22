@@ -1,51 +1,40 @@
 <?php
 
 /**
- * Administration of Pagemanager_XH.
+ * Copyright 2011-2017 Christoph M. Becker
  *
- * PHP version 5
+ * This file is part of Pagemanager_XH.
  *
- * @category  CMSimple_XH
- * @package   Pagemanager
- * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2011-2015 Christoph M. Becker <http://3-magi.net>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
+ * Pagemanager_XH is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Pagemanager_XH is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Pagemanager_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Prevent direct access.
- */
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
 }
 
-use Pagemanager\Controller;
+use Pagemanager\Model;
+use Pagemanager\Plugin;
 
 /**
- * Pagemanager version.
- */
-define('PAGEMANAGER_VERSION', '3.0dev1');
-
-/**
- * Functional wrapper for Pagemananger_Model::themes().
- *
  * @return array
- *
- * @global object The pagemanager controller.
  */
 function Pagemanager_themes()
 {
-    global $_Pagemanager;
-
-    return $_Pagemanager->model->themes();
+    return Model::getThemes();
 }
 
-/*
- * Initialize the global controller object and handle requests.
- */
-$_Pagemanager = new Controller();
-$o .= $_Pagemanager->dispatch();
-
-?>
+$temp = new Plugin();
+$temp->run();
+$temp = null;

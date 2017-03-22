@@ -1,121 +1,93 @@
 <?php
 
 /**
- * The JSON processors.
+ * Copyright 2011-2017 Christoph M. Becker
  *
- * PHP version 5
+ * This file is part of Pagemanager_XH.
  *
- * @category  CMSimple_XH
- * @package   Pagemanager
- * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2011-2015 Christoph M. Becker <http://3-magi.net/>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
+ * Pagemanager_XH is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Pagemanager_XH is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Pagemanager_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace Pagemanager;
 
-/**
- * The JSON processors.
- *
- * @category CMSimple_XH
- * @package  Pagemanager
- * @author   Christoph M. Becker <cmbecker69@gmx.de>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://3-magi.net/?CMSimple_XH/Pagemanager_XH
- */
 class JSONProcessor
 {
     /**
-     * The original contents array.
-     *
-     * @var array
+     * @var string[]
      */
-    protected $contents;
+    private $contents;
 
     /**
-     * The new contents array.
-     *
-     * @var array
+     * @var string[]
      */
-    protected $newContents;
+    private $newContents;
 
     /**
-     * The new page data array.
-     *
-     * @var array
+     * @var array[]
      */
-    protected $pageData;
+    private $pageData;
 
     /**
-     * The maximum nesting level.
-     *
      * @var int
      */
-    protected $levels;
+    private $level;
 
     /**
-     * The current nesting level.
-     *
-     * @var int
-     */
-    protected $level;
-
-    /**
-     * The current page id (number?).
-     *
      * @var int
      */
     protected $id;
 
     /**
-     * The current page heading.
-     *
      * @var string
      */
-    protected $title;
+    private $title;
 
     /**
-     * The name of the page data attribute.
-     *
      * @var string
      */
-    protected $pdattrName;
+    private $pdattrName;
 
     /**
-     * The current page data attribute.
-     *
      * @var bool
      */
-    protected $pdattr;
+    private $pdattr;
 
     /**
-     * Whether the current page may be renamed.
-     *
      * @var bool
      */
-    protected $mayRename;
+    private $mayRename;
 
     /**
-     * Initializes a newly created object.
-     *
-     * @param array  $contents   Page contents.
-     * @param int    $levels     Maximum page level.
-     * @param string $pdattrName Name of a page data attribute.
+     * @var PageDataRouter
      */
-    public function __construct($contents, $levels, $pdattrName)
+    private $pdRouter;
+
+    /**
+     * @param string[] $contents
+     * @param string $pdattrName
+     */
+    public function __construct(array $contents, $pdattrName)
     {
+        global $pd_router;
+
         $this->contents = $contents;
-        $this->levels = $levels;
         $this->pdattrName = $pdattrName;
+        $this->pdRouter = $pd_router;
     }
 
     /**
-     * Processes the given JSON.
-     *
-     * @param string $json JSON.
-     *
-     * @return void
+     * @param string $json
      */
     public function process($json)
     {
@@ -126,13 +98,9 @@ class JSONProcessor
     }
 
     /**
-     * Processes an array of pages.
-     *
-     * @param array $pages An array of pages.
-     *
-     * @return void
+     * @param array[] $pages
      */
-    protected function processPages($pages)
+    private function processPages(array $pages)
     {
         $this->level++;
         foreach ($pages as $page) {
@@ -141,25 +109,16 @@ class JSONProcessor
         $this->level--;
     }
 
-    /**
-     * Processes a page.
-     *
-     * @param array $page An array of page related data.
-     *
-     * @return void
-     */
-    protected function processPage($page)
+    private function processPage(array $page)
     {
-        $pattern = '/(copy_)?pagemanager-([0-9]*)/';
-        $this->id = empty($page['attr']['id'])
+        $pattern = '/(copy_)?pagemanager_([0-9]*)/';
+        $this->id = empty($page['id'])
             ? null
-            : (int) preg_replace($pattern, '$2', $page['attr']['id']);
-        $this->title = htmlspecialchars(
-            $page['attr']['title'], ENT_NOQUOTES, 'UTF-8'
-        );
-        $this->pdattr = isset($page['attr']['data-pdattr'])
-            ? $page['attr']['data-pdattr'] : null;
-        $this->mayRename = $page['attr']['class'] == '';
+            : (int) preg_replace($pattern, '$2', $page['id']);
+        $this->title = htmlspecialchars($page['text'], ENT_NOQUOTES, 'UTF-8');
+        $this->pdattr = isset($page['li_attr']['data-pdattr'])
+            ? $page['li_attr']['data-pdattr'] : null;
+        $this->mayRename = !preg_match('/unrenameable$/', $page['type']);
 
         if (isset($this->contents[$this->id])) {
             $this->appendExistingPageContent();
@@ -171,12 +130,7 @@ class JSONProcessor
         $this->processPages($page['children']);
     }
 
-    /**
-     * Appends an existing page to the content.
-     *
-     * @return void
-     */
-    protected function appendExistingPageContent()
+    private function appendExistingPageContent()
     {
         $content = $this->contents[$this->id];
         if ($this->mayRename) {
@@ -186,49 +140,28 @@ class JSONProcessor
     }
 
     /**
-     * Replaces the heading of a page content.
-     *
-     * @param string $content A page content.
-     *
-     * @return string HTML
+     * @param string $content
+     * @return string
      */
-    protected function replaceHeading($content)
+    private function replaceHeading($content)
     {
-        $pattern = '/<h[1-' . $this->levels . ']([^>]*)>'
-            . '((<[^>]*>)*)[^<]*((<[^>]*>)*)'
-            . '<\/h[1-' . $this->levels . ']([^>]*)>/i';
-        $replacement = '<h' . $this->level . '$1>${2}'
-            . addcslashes($this->title, '$\\') . '$4'
-            . '</h' . $this->level . '$6>';
+        $pattern = "/<!--XH_ml[0-9]:.*?-->/";
+        $replacement = "<!--XH_ml{$this->level}:"
+            . addcslashes($this->title, '$\\') . '-->';
         return preg_replace($pattern, $replacement, $content, 1);
     }
 
-    /**
-     * Appends a new page to the content.
-     *
-     * @return void
-     */
-    protected function appendNewPageContent()
+    private function appendNewPageContent()
     {
-        $this->newContents[] = '<h' . $this->level . '>' . $this->title
-            . '</h' . $this->level . '>';
+        $this->newContents[] = "<!--XH_ml{$this->level}:{$this->title}-->";
     }
 
-    /**
-     * Appends a page's page data.
-     *
-     * @return void
-     *
-     * @global XH\PageDataRouter The page data router.
-     */
-    protected function appendPageData()
+    private function appendPageData()
     {
-        global $pd_router;
-
         if (isset($this->id)) {
-            $pageData = $pd_router->find_page($this->id);
+            $pageData = $this->pdRouter->find_page($this->id);
         } else {
-            $pageData = $pd_router->new_page();
+            $pageData = $this->pdRouter->new_page();
             $pageData['last_edit'] = time();
         }
         if ($this->mayRename) {
@@ -241,9 +174,7 @@ class JSONProcessor
     }
 
     /**
-     * Returns the new contents array.
-     *
-     * @return array
+     * @return string[]
      */
     public function getContents()
     {
@@ -251,14 +182,10 @@ class JSONProcessor
     }
 
     /**
-     * Returns the new page data array.
-     *
-     * @return array
+     * @return array[]
      */
     public function getPageData()
     {
         return $this->pageData;
     }
 }
-
-?>

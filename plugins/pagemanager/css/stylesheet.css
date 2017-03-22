@@ -12,7 +12,7 @@
     overflow: scroll !important;
 }
 
-#pagemanager.pagemanager-vertical {
+#pagemanager.pagemanager_vertical {
     margin-left: 27px;
 }
 
@@ -20,111 +20,39 @@
  * Toolbar
  */
 
-#pagemanager-toolbar {
-    margin: 1px 0;
-    border: 1px solid #999;
-    background-color: #eee;
-    padding: 0 8px;
-    font-size: 14px;
-    overflow: hidden;
-}
-
-#pagemanager-toolbar button,
-#pagemanager-toolbar a {
-    float: left;
-    border: 0;
-    padding: 0;
-    width: 16px;
-    height: 16px;
-    background-image: url("../images/tools.png");
-    background-color: #eee;
-    cursor: pointer;
-}
-
-#pagemanager-expand {background-position: -16px 0}
-#pagemanager-collapse {background-position: -32px 0}
-#pagemanager-create {background-position: -48px 0}
-#pagemanager-create_after {background-position: 0 -16px}
-#pagemanager-rename {background-position: -16px -16px}
-#pagemanager-delete {background-position: -32px -16px}
-#pagemanager-cut {background-position: -48px -16px}
-#pagemanager-copy {background-position: 0 -32px}
-#pagemanager-paste {background-position: -16px -32px}
-#pagemanager-paste_after {background-position: -32px -32px}
-#pagemanager-help {background-position: -48px -32px}
-
-/*
- * horizontal toolbar
- */
-
-/* for floating horizontal toolbar: uncomment the following */
-/*
-#pagemanager-toolbar.pagemanager-horizontal {
-    position: fixed;
-    top: 150px;
-    z-index: 1000;
-}
-*/
-
-#pagemanager-toolbar.pagemanager-horizontal img {
-    margin: 8px 0;
-}
-
-#pagemanager-toolbar.pagemanager-horizontal button,
-#pagemanager-toolbar.pagemanager-horizontal a {
-    margin: 6px 5px;
-}
-
-/*
- * vertical toolbar
- *
- * The style should be adjusted to your needs.
- * Change top and left accordingly.
- */
-
-#pagemanager-toolbar.pagemanager-vertical {
+#pagemanager_toolbar {
     text-align: center;
-    position: fixed;
-    margin: 0 auto;
-    padding: 0 2px;
-    z-index: 1000;
 }
-
-/* You might adjust the left or right margin of the treeview */
-/*
-#pagemanager {
-    margin-left: 32px;
+#pagemanager_toolbar button {
+    min-width: 5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
-*/
-/* and for a lefthand toolbar the margin of the submit button */
-/*
-#pagemanager-submit {
-    margin-left: 32px !important;
+#pagemanager_toolbar button span {
+    display: block;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0.3em 0 0.5em 0;
 }
-*/
-/* and for a righthand toolbar the position of the tooltips */
-/*
-#pagemanager-toolbar.pagemanager-vertical a.pl_tooltip:hover span {
-    left: -320px;
-}
-*/
-
-#pagemanager-toolbar.pagemanager-vertical img {
-    margin: 0 8px;
-}
-
-#pagemanager-toolbar.pagemanager-vertical button,
-#pagemanager-toolbar.pagemanager-vertical a {
-    margin: 6px 2px;
-}
-
+#pagemanager_add, #pagemanager_toggle, #pagemanager_cut, #pagemanager_edit, #pagemanager_help {margin-left: 1em}
+#pagemanager_save span {background-image: url("../images/save.png")}
+#pagemanager_toggle span {background-image: url("../images/toggle.png")}
+#pagemanager_add span {background-image: url("../images/add.png")}
+#pagemanager_rename span {background-image: url("../images/rename.png")}
+#pagemanager_remove span {background-image: url("../images/remove.png")}
+#pagemanager_cut span {background-image: url("../images/cut.png")}
+#pagemanager_copy span {background-image: url("../images/copy.png")}
+#pagemanager_paste span {background-image: url("../images/paste.png")}
+#pagemanager_edit span {background-image: url("../images/edit.png")}
+#pagemanager_preview span {background-image: url("../images/preview.png")}
+#pagemanager_help span {background-image: url("../images/help.png")}
 
 /*
  * Context menu
  */
 
 /* To have enough space for the whole context menu, if the template has a small footer */
-#pagemanager-footer {
+#pagemanager_footer {
     height: 150px;
 }
 

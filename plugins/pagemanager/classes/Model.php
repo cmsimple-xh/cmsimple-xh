@@ -1,81 +1,78 @@
 <?php
 
 /**
- * The model class of Pagemanager_XH.
+ * Copyright 2011-2017 Christoph M. Becker
  *
- * PHP version 5
+ * This file is part of Pagemanager_XH.
  *
- * @category  CMSimple_XH
- * @package   Pagemanager
- * @author    Christoph M. Becker <cmbecker69@gmx.de>
- * @copyright 2011-2015 Christoph M. Becker <http://3-magi.net>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://3-magi.net/?CMSimple_XH/Pagemanager_XH
+ * Pagemanager_XH is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Pagemanager_XH is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Pagemanager_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace Pagemanager;
 
-/**
- * The model class of Pagemanager_XH.
- *
- * @category CMSimple_XH
- * @package  Pagemanager
- * @author   Christoph M. Becker <cmbecker69@gmx.de>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://3-magi.net/?CMSimple_XH/Pagemanager_XH
- */
 class Model
 {
     /**
-     * The unmodified page headings.
-     *
-     * @var array
-     *
-     * @todo Make protected.
+     * @var string[]
      */
-    public $headings;
+    private $headings;
 
     /**
-     * Whether the pages may be renamed.
-     *
-     * @var array
-     *
-     * @todo Make protected.
+     * @var bool[]
      */
-    public $mayRename;
+    private $mayRename;
 
     /**
-     * Returns whether a heading may be renamed.
-     *
-     * Renaming is only allow if the heading doesn't contain any markup,
-     * besides the generally recognized XML entities.
-     *
-     * @param string $heading A page heading.
-     *
+     * @param int $index
      * @return string
-     *
-     * @since 2.0.1
      */
-    protected function mayRename($heading)
+    public function getHeading($index)
+    {
+        return $this->headings[$index];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getHeadings()
+    {
+        return $this->headings;
+    }
+
+    /**
+     * @param int $index
+     * @return bool
+     */
+    public function getMayRename($index)
+    {
+        return $this->mayRename[$index];
+    }
+
+    /**
+     * @param string $heading
+     * @return string
+     */
+    private function mayRename($heading)
     {
         return !preg_match('/<|&(?!(?:amp|quot|lt|gt);)/', $heading);
     }
 
     /**
-     * Returns a cleaned heading.
-     *
-     * Trims, strips off all tags and decodes HTML entities in the heading.
-     * For PHP 4 a simplified fallback is used which does not properly decode
-     * the HTML entities, but rather replaces them with the Unicode substitution
-     * character.
-     *
-     * @param string $heading A page heading.
-     *
+     * @param string $heading
      * @return string
-     *
-     * @since 2.0.1
      */
-    protected function cleanedHeading($heading)
+    private function cleanedHeading($heading)
     {
         $heading = trim(strip_tags($heading));
         $heading = html_entity_decode($heading, ENT_COMPAT, 'UTF-8');
@@ -83,41 +80,26 @@ class Model
         return $heading;
     }
 
-    /**
-     * Initializes <var>$headings</var> and <var>$mayRename</var>.
-     *
-     * @return void
-     *
-     * @global array The content of the pages.
-     * @global array The configuration of the core.
-     * @global array The localization of the core.
-     */
-    public function getHeadings()
+    public function calculateHeadings()
     {
-        global $c, $cf, $tx;
+        global $c, $tx;
 
-        $stop = $cf['menu']['levels'];
         $empty = 0;
         foreach ($c as $i => $page) {
-            preg_match('~<h([1-' . $stop . ']).*?>(.*?)</h~isu', $page, $matches);
-            $heading = $this->cleanedHeading($matches[2]);
+            preg_match('/<!--XH_ml[0-9]:(.*?)-->/su', $page, $matches);
+            $heading = $this->cleanedHeading($matches[1]);
             if ($heading === '') {
                 $empty += 1;
                 $this->headings[$i] = $tx['toc']['empty'] . ' ' . $empty;
             } else {
                 $this->headings[$i] = $heading;
             }
-            $this->mayRename[$i] = $this->mayRename($matches[2]);
+            $this->mayRename[$i] = $this->mayRename($matches[1]);
         }
     }
 
     /**
-     * Returns whether the page structure is irregular.
-     *
      * @return bool
-     *
-     * @global array The menu levels of the pages.
-     * @global int   The number of pages.
      */
     public function isIrregular()
     {
@@ -133,13 +115,9 @@ class Model
     }
 
     /**
-     * Returns the available themes.
-     *
-     * @return array
-     *
-     * @global array The paths of system files and folders.
+     * @return string[]
      */
-    public function themes()
+    public static function getThemes()
     {
         global $pth;
 
@@ -158,23 +136,15 @@ class Model
     }
 
     /**
-     * Saves the content. Returns whether that succeeded.
-     *
-     * @param string $json A JSON string.
-     *
+     * @param string $json
      * @return bool
-     *
-     * @global array  The contents of the pages.
-     * @global array  The configuration of the core.
-     * @global array  The configuration of the plugins.
-     * @global object The page data router.
      */
     public function save($json)
     {
-        global $c, $cf, $plugin_cf, $pd_router;
+        global $c, $plugin_cf, $pd_router;
 
         $parser = new JSONProcessor(
-            $c, (int) $cf['menu']['levels'],
+            $c,
             $plugin_cf['pagemanager']['pagedata_attribute']
         );
         $parser->process($json);
@@ -182,5 +152,3 @@ class Model
         return $pd_router->refresh($parser->getPageData());
     }
 }
-
-?>

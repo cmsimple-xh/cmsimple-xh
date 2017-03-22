@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2011-2017 Christoph M. Becker
+ * Copyright 2016-2017 Christoph M. Becker
  *
  * This file is part of Pagemanager_XH.
  *
@@ -21,23 +21,26 @@
 
 namespace Pagemanager;
 
-abstract class Controller
+class HtmlString
 {
     /**
      * @var string
      */
-    protected $pluginFolder;
+    private $value;
 
     /**
-     * @var array
+     * @param string $string
      */
-    protected $lang;
-
-    public function __construct()
+    public function __construct($string)
     {
-        global $pth, $plugin_tx;
+        $this->value = (string) $string;
+    }
 
-        $this->pluginFolder = "{$pth['folder']['plugins']}pagemanager/";
-        $this->lang = $plugin_tx['pagemanager'];
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->value;
     }
 }
