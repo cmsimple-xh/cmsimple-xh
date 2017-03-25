@@ -90,7 +90,7 @@ class Search
             foreach ($words as $word) {
                 $word = trim($word);
                 if ($word != '') {
-                    if (class_exists('\Normalizer') 
+                    if (class_exists('\Normalizer', false) 
                         && method_exists('\Normalizer', 'normalize')
                     ) {
                         $word = \Normalizer::normalize($word);
