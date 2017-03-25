@@ -92,6 +92,15 @@ class ScriptEvaluationTest extends PHPUnit_Framework_TestCase
         $this->assertArrayNotHasKey('keywords', $GLOBALS);
     }
 
+    public function testEvaluateCmsimpleScriptingParseError()
+    {
+        if (PHP_MAJOR_VERSION !== 5) {
+            $this->markTestSkipped();
+        }
+        $this->expectOutputRegex('/^\s*Parse error:/s');
+        evaluate_cmsimple_scripting('#CMSimple trim(\');#');
+    }
+
     /**
      * @dataProvider dataForSpliceString
      */
@@ -155,6 +164,15 @@ class ScriptEvaluationTest extends PHPUnit_Framework_TestCase
         $actual = evaluate_plugincall($str, true);
         $this->assertEquals($expected, $actual);
         $this->assertFalse(isset($GLOBALS['keywords']));
+    }
+
+    public function testEvaluatePluginCallParseError()
+    {
+        if (PHP_MAJOR_VERSION !== 5) {
+            $this->markTestSkipped();
+        }
+        $this->expectOutputRegex('/^\s*Parse error:/s');
+        evaluate_plugincall('{{{trim(\')}}}');
     }
 }
 

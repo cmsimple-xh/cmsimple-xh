@@ -149,7 +149,11 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
         foreach ($__scripts[1] as $__script) {
             if (!in_array(strtolower($__script), array('hide', 'remove'))) {
                 $__script = html_entity_decode($__script, ENT_QUOTES, 'UTF-8');
-                eval($__script);
+                try {
+                    eval($__script);
+                } catch (ParseError $ex) {
+                    trigger_error('Parse error: ' . $ex->getMessage(), E_USER_WARNING);
+                }
                 if ($__compat) {
                     break;
                 }
@@ -206,9 +210,14 @@ function evaluate_plugincall($text)
         );
         $function = $call[1][0];
         if (function_exists($function)) {
-            $results[] = XH_evaluateSinglePluginCall(
-                $function . '(' . $arguments . ')'
-            );
+            try {
+                $results[] = XH_evaluateSinglePluginCall(
+                    $function . '(' . $arguments . ')'
+                );
+            } catch (ParseError $ex) {
+                $results[] = '';
+                trigger_error('Parse error: ' . $ex->getMessage(), E_USER_WARNING);
+            }
         } else {
             $results[] = sprintf($message, $function);
         }
