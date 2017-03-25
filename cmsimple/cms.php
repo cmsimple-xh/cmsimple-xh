@@ -1132,12 +1132,6 @@ foreach (XH_plugins() as $plugin) {
 }
 
 /*
- * Add LINK to combined plugin stylesheet.
- */
-$hjs .= '<link rel="stylesheet" href="' . XH_pluginStylesheet()
-    . '" type="text/css">' . PHP_EOL;
-
-/*
  * Include index.php of all plugins.
  */
 foreach (XH_plugins() as $plugin) {

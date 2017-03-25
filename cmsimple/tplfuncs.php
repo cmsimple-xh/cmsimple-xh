@@ -89,6 +89,8 @@ function head()
         . XH_renderPrevLink() . XH_renderNextLink()
         . '<link rel="stylesheet" href="' . $pth['file']['corestyle']
         . '" type="text/css">' . "\n"
+        . '<link rel="stylesheet" href="' . XH_pluginStylesheet()
+        . '" type="text/css">' . PHP_EOL
         . '<link rel="stylesheet" href="' . $pth['file']['stylesheet']
         . '" type="text/css">' . "\n"
         . $hjs;
