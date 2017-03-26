@@ -2550,7 +2550,7 @@ function XH_lockFile($handle, $operation)
 function XH_highlightSearchWords(array $words, $text)
 {
     $words = array_unique($words);
-    usort($words, create_function('$a, $b', 'return strlen($b) - strlen($a);'));
+    usort($words, function ($a, $b) {return strlen($b) - strlen($a);});
     $patterns = array();
     foreach ($words as $word) {
         $word = trim($word);
