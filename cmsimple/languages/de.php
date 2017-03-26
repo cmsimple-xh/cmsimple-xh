@@ -232,6 +232,7 @@ $tx['password']['invalid']="Das neue Passwort darf nur aus ASCII-Zeichen bestehe
 $tx['password']['mismatch']="Das neue Passwort stimmt nicht mit der Bestätigung überein.";
 $tx['password']['new']="Neues Passwort";
 $tx['password']['old']="Altes Passwort";
+$tx['password']['score']="Passwortstärke: %s";
 $tx['password']['wrong']="Das alte Passwort ist falsch.";
 
 $tx['password_forgotten']['email1_sent']="Eine E-Mail mit einem Link zum Zurücksetzen des Passworts wurde an die hinterlegte Adresse verschickt. Dieser Link ist für 1-2 Stunden gültig.";

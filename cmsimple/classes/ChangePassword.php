@@ -137,14 +137,18 @@ class ChangePassword
     protected function renderField($which, $value)
     {
         $id = "xh_password_$which";
-        return '<p>'
+        $html = '<p>'
             . '<label for="' . $id . '">' . $this->lang['password'][$which]
             . '</label> '
             . tag(
                 'input id="' . $id . '" type="password" name="' . $id
                 . '" value="' . XH_hsc($value) . '"'
-            )
-            . '</p>';
+            );
+        if (in_array($which, array('old', 'new'))) {
+            $html .= ' <span class="xh_password_score"></span>';
+        }
+        $html .= '</p>';
+        return $html;
     }
 
     /**
