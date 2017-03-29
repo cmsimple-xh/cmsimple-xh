@@ -139,8 +139,6 @@ function Pageparams_switchTemplate($n)
 /*
  * Add used interests to router.
  */
-$pd_router->add_interest('heading');
-$pd_router->add_interest('show_heading');
 $pd_router->add_interest('template');
 $pd_router->add_interest('published');
 $pd_router->add_interest('publication_date');
@@ -167,17 +165,6 @@ Pageparams_switchTemplate($pd_s);
  * Override defaults by page-parameters but only if not in edit-mode.
  */
 if (!$edit && $pd_current) {
-    if ($pd_current['show_heading'] == '1') {
-        $temp = '/(<!--XH_ml[1-9]:).+(-->)/isU';
-        if (trim($pd_current['heading']) == '') {
-            $c[$pd_s] = preg_replace($temp, '', $c[$pd_s]);
-        } else {
-            $c[$pd_s] = preg_replace(
-                $temp, '${1}' . addcslashes($pd_current['heading'], '$\\') . '$2',
-                $c[$pd_s]
-            );
-        }
-    }
     if ($pd_current['show_last_edit'] > 0
         && $pd_current['last_edit'] !== ''
     ) {

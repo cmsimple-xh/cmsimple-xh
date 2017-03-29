@@ -2,7 +2,6 @@
 
 $plugin_tx['page_params']['tab']="Page";
 $plugin_tx['page_params']['form_title']="Page parameters";
-$plugin_tx['page_params']['heading']="Alternative heading?";
 $plugin_tx['page_params']['header_location']="Redirect page?";
 $plugin_tx['page_params']['template']="Page template:";
 $plugin_tx['page_params']['last_edit']="Last edited:";

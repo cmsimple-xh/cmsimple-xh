@@ -2,7 +2,6 @@
 
 $plugin_tx['page_params']['tab']="Seite";
 $plugin_tx['page_params']['form_title']="Seiten-Parameter";
-$plugin_tx['page_params']['heading']="Andere Seitenüberschrift?";
 $plugin_tx['page_params']['header_location']="Seite umleiten?";
 $plugin_tx['page_params']['template']="Seitentemplate";
 $plugin_tx['page_params']['last_edit']="Letzte Bearbeitung:";

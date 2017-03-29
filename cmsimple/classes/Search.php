@@ -155,10 +155,6 @@ class Search
         global $cf, $s, $h;
 
         $s = $pageIndex;
-        // we have to add the page heading, if visible in content
-        if ($cf['headings']['show']) {
-            $content = $h[$s] . $content;
-        }
         $content = strip_tags(evaluate_plugincall($content));
         $s = -1;
         if (method_exists('\Normalizer', 'normalize')) {

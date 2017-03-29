@@ -258,17 +258,6 @@ function Pageparams_view(array $page)
     $view .= "\n\t" . '<p><b>' . $lang['form_title'] . '</b></p>';
 
     /*
-     * heading
-     */
-    $view .= Pageparams_caption($lang['heading'], $lang['hint_heading']);
-    $view .= Pageparams_checkbox('show_heading', $page['show_heading'] == '1');
-    $view .= '<br>';
-    $view .= Pageparams_input(
-        'heading', $page['heading'], $page['show_heading'] !== '1'
-    );
-    $view .= '<br>' . "\n\t" . '<hr>';
-
-    /*
      * published
      */
     $view .= Pageparams_caption($lang['published'], $lang['hint_published']);
