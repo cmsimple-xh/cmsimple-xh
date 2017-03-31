@@ -53,7 +53,7 @@ class SearchTest extends PHPUnit_Framework_TestCase
             array('&', array(4)),
             array( // testing unicode equivalence
                 "sen\xCC\x83or",
-                method_exists('Normalizer', 'normalize') ? array(5) : array()
+                array(5)
             )
         );
     }
