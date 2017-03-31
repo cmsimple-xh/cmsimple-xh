@@ -164,15 +164,7 @@ class Search
         if (method_exists('\Normalizer', 'normalize')) {
             $content = \Normalizer::normalize($content);
         }
-        // html_entity_decode() doesn't work for UTF-8 under PHP 4
-        $decode = array(
-            '&amp;' => '&',
-            '&quot;' => '"',
-            '&apos;' => '\'',
-            '&lt;' => '<',
-            '&gt;' => '>'
-        );
-        return strtr($content, $decode);
+        return html_entity_decode($content, ENT_QUOTES, 'UTF-8');
     }
 
     /**
