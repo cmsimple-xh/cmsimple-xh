@@ -1586,6 +1586,8 @@ function loginforms()
             $o .= '<a href="' . $sn . '?&function=forgotten">'
                 . $tx['title']['password_forgotten'] . '</a>';
         }
+        $o .= '<p><a href="' . "$sn?$su" . '">' . $tx['login']['back']
+            . '</a></p>';
         $o .= ' </div>';
         $s = -1;
     }

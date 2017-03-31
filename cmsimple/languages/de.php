@@ -176,6 +176,7 @@ $tx['log']['module']="Modul";
 $tx['log']['category']="Kategorie";
 $tx['log']['description']="Beschreibung";
 
+$tx['login']['back']="Zurück";
 $tx['login']['failure']="Sie haben ein falsches Passwort eingegeben!";
 $tx['login']['loggedout']="Sie wurden ausgeloggt";
 $tx['login']['warning']="Administrationsbereich. Bitte Passwort eingeben";
