@@ -136,6 +136,9 @@ $tx['help']['folders_downloads']="Ein Unterordner der Benutzerdateien.";
 $tx['help']['folders_images']="Ein Unterordner der Benutzerdateien.";
 $tx['help']['folders_media']="Ein Unterordner der Benutzerdateien.";
 
+$tx['help']['format_date']="Das Datumsformat, wenn ext/intl verfügbar ist; andernfalls wird auf <code>\$tx['lastupdate']['format']</code> zurückgegriffen.";
+$tx['help']['format_time']="Das Zeitformat, wenn ext/intl verfügbar ist; andernfalls wird auf <code>\$tx['lastupdate']['format']</code> zurückgegriffen.";
+
 $tx['label']['empty']="- LEER -";
 
 $tx['languagemenu']['text']="Sprachauswahl: ";

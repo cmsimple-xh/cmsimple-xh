@@ -33,5 +33,7 @@ $mcf['editmenu']['scroll']="bool";
 $mcf['editmenu']['external']="xfunction:XH_registeredEditmenuPlugins";
 $mcf['headings']['show']="bool";
 $mcf['mode']['advanced']="bool";
+$mcf['format']['date']="enum:none,short,medium,long,full";
+$mcf['format']['time']="enum:none,short,medium,long,full";
 
 ?>
