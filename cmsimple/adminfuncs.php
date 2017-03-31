@@ -267,11 +267,10 @@ HTML;
     $checks = array(
         'phpversion' => '5.3',
         'extensions' => array(
+            array('intl', false),
             'json',
             'mbstring',
-            'pcre',
-            array('session', false),
-            array('xml', false)
+            'session'
         ),
         'writable' => array(),
         'other' => array()
