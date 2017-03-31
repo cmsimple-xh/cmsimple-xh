@@ -60,6 +60,7 @@ class SearchTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider dataForSearch
+     * @requires extension intl
      */
     public function testSearch($searchString, $expected)
     {
