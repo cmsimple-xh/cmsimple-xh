@@ -164,7 +164,7 @@ function Pageparams_scheduleInput($name, $value, $disabled)
 {
     $disabled = $disabled ? ' disabled="disabled"' : '';
     return '<input type="text" size="16" maxlength="16" name="' . $name . '"'
-        . ' value="' . $value . '"' . $disabled . '">';
+        . ' value="' . $value . '"' . $disabled . '>';
 }
 
 /**
