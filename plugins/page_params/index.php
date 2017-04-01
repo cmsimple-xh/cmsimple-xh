@@ -198,7 +198,9 @@ if (!$edit && $pd_current) {
  * the currently requested page, a CMSimple script to show a 404 page is added.
  */
 if (!(XH_ADM && $edit)) {
-    Pageparams_handleRelocation($pd_s, $pd_router->find_page($pd_s));
+    if ($pd_s >= 0) {
+        Pageparams_handleRelocation($pd_s, $pd_router->find_page($pd_s));
+    }
     $temp = $pd_router->find_all();
     foreach ($temp as $i => $j) {
         // unpublishing superseedes hiding:
