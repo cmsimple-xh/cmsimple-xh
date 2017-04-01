@@ -37,14 +37,13 @@ if (!defined('PLUGINLOADER_VERSION')) {
  *
  * @return void
  *
- * @global int    The preliminary index of the current page.
  * @global array  The content of the pages.
  *
  * @since 1.6
  */
 function Pageparams_handleRelocation($index, array $data)
 {
-    global $pd_s, $c;
+    global $c;
 
     $location = $data['header_location'];
     if ((int) $data['use_header_location'] > 0 && trim($location) !== '' ) {
@@ -52,9 +51,7 @@ function Pageparams_handleRelocation($index, array $data)
         if (!$components || !isset($components['scheme'])) {
             $location = CMSIMPLE_URL . $location;
         }
-        if ($index == $pd_s) {
-            $c[$index] = '#CMSimple header("Location:'. $location .'"); exit; #';
-        }
+        $c[$index] = '#CMSimple header("Location:'. $location .'"); exit; #';
     }
 }
 
@@ -201,9 +198,9 @@ if (!$edit && $pd_current) {
  * the currently requested page, a CMSimple script to show a 404 page is added.
  */
 if (!(XH_ADM && $edit)) {
+    Pageparams_handleRelocation($pd_s, $pd_router->find_page($pd_s));
     $temp = $pd_router->find_all();
     foreach ($temp as $i => $j) {
-        Pageparams_handleRelocation($i, $j);
         // unpublishing superseedes hiding:
         if (!Pageparams_isPublished($j)) {
             $c[$i] = '#CMSimple hide#';
