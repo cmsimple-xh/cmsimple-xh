@@ -1098,38 +1098,26 @@ $pd_current = $pd_router->find_page($pd_s);
  *
  * Treat as <i>read-only</i>.
  *
- * @global array $plugin_cf
+ * @global XH\PluginConfig $plugin_cf
  *
  * @access public
  *
  * @see $cf
  */
-$plugin_cf = array();
+$plugin_cf = new XH\PluginConfig();
 
 /**
  * The localization of the plugins.
  *
  * Treat as <i>read-only</i>.
  *
- * @global array $plugin_tx
+ * @global XH\PluginConfig $plugin_tx
  *
  * @access public
  *
  * @see $tx
  */
-$plugin_tx = array();
-
-/*
- * Include config and language files of all plugins.
- */
-foreach (XH_plugins() as $plugin) {
-    pluginFiles($plugin);
-    $temp = XH_readConfiguration(true, false);
-    $plugin_cf += $temp;
-    XH_createLanguageFile($pth['file']['plugin_language']);
-    $temp = XH_readConfiguration(true, true);
-    $plugin_tx += $temp;
-}
+$plugin_tx = new XH\PluginConfig(true);
 
 /*
  * Add LINK to combined plugin stylesheet.
