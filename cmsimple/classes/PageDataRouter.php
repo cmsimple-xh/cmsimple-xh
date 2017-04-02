@@ -394,7 +394,7 @@ class PageDataRouter
      * @global string
      * @global string
      * @global string
-     * @global int    The index of the first published page.
+     * @global object The publisher.
      *
      * @return string HTML
      */
@@ -402,13 +402,13 @@ class PageDataRouter
     public function create_tabs($s)
     {
 // @codingStandardsIgnoreElse
-        global $edit, $f, $o, $su, $_XH_firstPublishedPage;
+        global $edit, $f, $o, $su, $xh_publisher;
 
         if (is_array($this->model->tabs)
             && count($this->model->tabs) > 0 && $edit
         ) {
             if ($s == -1 && !$f && $o == '' && $su == '') { // Argh! :(
-                $pd_s = $_XH_firstPublishedPage;
+                $pd_s = $xh_publisher->getFirstPublishedPage();
             } else {
                 $pd_s = $s;
             }

@@ -56,42 +56,6 @@ function Pageparams_handleRelocation($index, array $data)
 }
 
 /**
- * Returns whether the page is published.
- *
- * @param array $pd_page The page data of a page.
- *
- * @return bool
- *
- * @author Jerry Jakobsfeld <mail@simplesolutions.dk>
- *
- * @since 1.6
- */
-function Pageparams_isPublished(array $pd_page)
-{
-    if ($pd_page['published'] == '0') {
-        return false;
-    }
-    $publication_date = isset($pd_page['publication_date'])
-        ? trim($pd_page['publication_date'])
-        : '';
-    $expires = isset($pd_page['expires']) ? trim($pd_page['expires']) : '';
-    if ($expires != '' || $publication_date != '') {
-        $current = time();
-        $maxInt = defined('PHP_INT_MAX') ? PHP_INT_MAX : 2147483647;
-        $int_publication_date = ($publication_date != '')
-            ? strtotime($publication_date) : 0;
-        $int_expiration_date = ($expires != '')
-            ? strtotime($expires) : $maxInt;
-        if ($current <= $int_publication_date
-            || $current >= $int_expiration_date
-        ) {
-            return false;
-        }
-    }
-    return true;
-}
-
-/**
  * Switches the template if a page specific is defined. Page specific templates
  * of super pages are inherited if not overridden.
  *
@@ -139,11 +103,7 @@ function Pageparams_switchTemplate($n)
 $pd_router->add_interest('heading');
 $pd_router->add_interest('show_heading');
 $pd_router->add_interest('template');
-$pd_router->add_interest('published');
-$pd_router->add_interest('publication_date');
-$pd_router->add_interest('expires');
 $pd_router->add_interest('show_last_edit');
-$pd_router->add_interest('linked_to_menu');
 $pd_router->add_interest('header_location');
 $pd_router->add_interest('use_header_location');
 
@@ -201,22 +161,18 @@ if (!(XH_ADM && $edit)) {
     if ($pd_s >= 0) {
         Pageparams_handleRelocation($pd_s, $pd_router->find_page($pd_s));
     }
-    $temp = $pd_router->find_all();
-    foreach ($temp as $i => $j) {
+    for ($i = 0; $i < $cl; $i++) {
         // unpublishing superseedes hiding:
-        if (!Pageparams_isPublished($j)) {
+        if (!$xh_publisher->isPublished($i)) {
             $c[$i] = '#CMSimple hide#';
-            if ($_XH_firstPublishedPage == $i) {
-                $_XH_firstPublishedPage = ($i < count($temp) - 1 ? $i + 1 : -1);
-            }
             if ($s == $i) {
                 $s = -1;
             }
             if ($pd_s == $i) {
-                $pd_s = ($i < count($temp) - 1 ? $i + 1 : -1);
+                $pd_s = ($i < $cl - 1 ? $i + 1 : -1);
                 $c[$i] .= '#CMSimple shead(404);#';
             }
-        } elseif ($j['linked_to_menu'] == '0') {
+        } elseif ($xh_publisher->isHidden($i)) {
             $c[$i] = '#CMSimple hide#' . $c[$i];
         }
     }
