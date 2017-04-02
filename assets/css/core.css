@@ -290,23 +290,6 @@ li.xh_system_check_cat_start {
 }
 
 /*
- * Pluginloader
- */
-
-div.pluginedit,
-div.plugintext {
-    border: 0px solid #828177;
-    padding: 4px 0;
-}
-
-div.plugineditcaption {
-    font-family: arial, sans-serif;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 6px 0;
-}
-
-/*
  * Configuration
  */
 
