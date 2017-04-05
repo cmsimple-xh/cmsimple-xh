@@ -281,8 +281,10 @@
         forEach(findByClass("filebrowser_delete_file"), function (element) {
             on(element, "submit", onDeleteFile);
         });
-        forEach(findByClass("xhfbfile"), function (element) {
-            on(element, "click", onFileChoose);
-        });
+        if (!document.getElementById("filebrowser_subfolders")) {
+            forEach(findByClass("xhfbfile"), function (element) {
+                on(element, "click", onFileChoose);
+            });
+        }
     });
 }());
