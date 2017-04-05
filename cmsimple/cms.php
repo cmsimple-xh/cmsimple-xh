@@ -779,6 +779,13 @@ define(
 );
 
 /**
+ * The fully qualified absolute path of the installation (main or current language).
+ *
+ * @since 1.7
+ */
+define('XH_CWD', getcwd());
+
+/**
  * The current page's URL (selected URL).
  *
  * Should be treated as <i>read-only</i>.
