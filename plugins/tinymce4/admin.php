@@ -37,9 +37,9 @@ if (function_exists('XH_registerStandardPluginMenuItems')) {
     XH_registerStandardPluginMenuItems(false);
 }
 
-initvar('tinymce4');
+//initvar('tinymce4');
 
-if ($tinymce4) {
+if (XH_wantsPluginAdministration('tinymce4')) {
     if (!class_exists('XH_CSRFProtection')) {
         $o .= XH_message('fail', 'needs CMSimple_XH Version 1.6 or higher!');
         return;
@@ -54,7 +54,7 @@ if ($tinymce4) {
      */
     function tinymce_getInits() 
     {
-        global $pth;
+        global $action, $pth;
         $inits = glob($pth['folder']['plugins'] . 'tinymce4/inits/*.js');
         
         $options = array();
@@ -67,8 +67,8 @@ if ($tinymce4) {
         return $options;
     }
 
-    initvar('admin');
-    initvar('action');
+    $admin = isset($_POST['admin']) ? $_POST['admin'] : $admin = isset($_GET['admin']) ? $_GET['admin'] : '';
+  //  $action = isset($_POST['action']) ? $_POST['action'] : $action = isset($_GET['action']) ? $_GET['action'] : '';
 
     $plugin = basename(dirname(__FILE__), "/");
     

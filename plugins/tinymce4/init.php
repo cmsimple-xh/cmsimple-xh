@@ -148,8 +148,8 @@ function tinymce4_config($config, $selector)
 {
     global $cl, $pth, $sl, $cf, $plugin_cf, $plugin_tx, $s;
 
-    $pcf = &$plugin_cf['tinymce4'];
-    $ptx = &$plugin_tx['tinymce4'];
+    $pcf = $plugin_cf['tinymce4'];
+    $ptx = $plugin_tx['tinymce4'];
     $pluginName = basename(dirname(__FILE__), "/");
     $pluginPth = $pth['folder']['plugins'] . $pluginName . '/';
 
