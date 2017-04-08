@@ -2595,14 +2595,10 @@ function XH_autoload($className)
     }
     $filename = $folder . $class . '.php';
 
-    // possible error handling
     if (!file_exists($filename)) {
-        // do something, or not
-
-        var_dump($className, $filename);
+        return;
     }
 
-    // include the class file
     include_once $filename;
 
     if (class_exists($className)) {
