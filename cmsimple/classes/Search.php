@@ -152,7 +152,7 @@ class Search
      */
     protected function prepareContent($content, $pageIndex)
     {
-        global $cf, $s, $h;
+        global $s;
 
         $s = $pageIndex;
         $content = strip_tags(evaluate_plugincall($content));

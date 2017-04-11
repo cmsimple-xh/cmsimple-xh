@@ -452,16 +452,14 @@ function editmenu()
  *
  * @return string HTML
  *
- * @global array  The headings of the pages.
  * @global int    The index of the current page.
  * @global string The output of the contents area.
  * @global array  The content of the pages.
  * @global bool   Whether edit mode is active.
- * @global array  The configuration of the core.
  */
 function content()
 {
-    global $h, $s, $o, $c, $edit, $cf;
+    global $s, $o, $c, $edit;
     $heading = '';
 
     if (!($edit && XH_ADM) && $s > -1) {
