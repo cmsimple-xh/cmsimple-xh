@@ -199,6 +199,7 @@ function tinymce4_config($config, $selector)
     } else {
         $tiny_language = 'en';
     }
+    
 
     /*
      * The styles of this sheet will be used inside the editor.
@@ -214,14 +215,17 @@ function tinymce4_config($config, $selector)
         'stylesheet.css', $temp
     );
 
+    /* %LANGUAGE% = language:"[lang]"  and language_url = path to 
+     * tinymce language file(in regard to the TinyMCE CDN Variant) 
+     * if lang other than en
+     */
     $temp = str_replace(
-        '%LANGUAGE%', $tiny_language !='en' ? 
-            TINYMCE4_VARIANT == 'CDN' ?
-                'language_url: "' . 
-                CMSIMPLE_ROOT.'plugins/tinymce4/tinymce/langs/' . 
-                $tiny_language.'.js",'
-            :   'language: "' . $tiny_language .'",' 
-        :   'language: "en",', $temp
+        '%LANGUAGE%', 'language: "' . $tiny_language .'",'
+        . ($tiny_language !='en' && TINYMCE4_VARIANT == 'CDN' ? 
+            '
+  language_url: "' . 
+            CMSIMPLE_ROOT.'plugins/tinymce4/tinymce/langs/' . 
+            $tiny_language.'.js",' : ''), $temp
     );
 
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
