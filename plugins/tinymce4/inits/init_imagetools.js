@@ -19,7 +19,6 @@
   content_css: "%STYLESHEET%",
   importcss_append:true,
   importcss_selector_filter: /(?:([a-z0-9\-_]+))(\.[a-z0-9_\-\.]+)$/i,
-// %LANGUAGE% = language:"en" (fallback) or language_url = path to tinymce language file (in regard to the TinyMCE CDN Variant  
   %LANGUAGE%
   element_format: "%ELEMENT_FORMAT%",
 // %PAGEHEADERS% = h1...hx for new pages, %NAMED_PAGEHEADERS% =  1. Level pageheader=h1 ...hx, %HEADERS% = remaining hy...h6
