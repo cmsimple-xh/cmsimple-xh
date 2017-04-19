@@ -343,14 +343,18 @@ function _setInit($config)
     static $run = 0;
     $js = str_replace(
         'tinyArgs', 'tinyArgs'.$run, '
-        var tinyArgs = ' . $config . ';
-        if (myImageList && myImageList.length > 0 ) 
-            tinyArgs.image_list = myImageList;
-        else
-            delete tinyArgs.image_list;
-        if (myLinkList) 
-            tinyArgs.link_list = myLinkList;
-        tinymce.init(tinyArgs);
+        if (typeof(tinymce) === "undefined" || tinymce === null) {
+            alert("tinyMCE not present! Either offline or local library missing.")
+        } else {
+            var tinyArgs = ' . $config . ';
+            if (myImageList && myImageList.length > 0 ) 
+                tinyArgs.image_list = myImageList;
+            else
+                delete tinyArgs.image_list;
+            if (myLinkList) 
+                tinyArgs.link_list = myLinkList;
+            tinymce.init(tinyArgs);
+        }
         '
     );
     $run++;
