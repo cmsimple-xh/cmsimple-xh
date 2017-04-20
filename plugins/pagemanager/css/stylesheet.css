@@ -24,17 +24,17 @@
     text-align: center;
 }
 #pagemanager_toolbar button {
-    min-width: 5em;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+    margin: 0.7em 0.3em 0.7em 0.3em;
+    padding: 0.4em 0.6em 0.4em 0.6em;
 }
 #pagemanager_toolbar button span {
-    display: block;
+    display: inline-block;
     background-position: center;
     background-repeat: no-repeat;
-    margin: 0.3em 0 0.5em 0;
+    width: 16px;
+    height: 16px;
 }
-#pagemanager_add, #pagemanager_toggle, #pagemanager_cut, #pagemanager_edit, #pagemanager_help {margin-left: 1em}
+#pagemanager_toolbar button[disabled] span {opacity: 0.3}
 #pagemanager_save span {background-image: url("../images/save.png")}
 #pagemanager_toggle span {background-image: url("../images/toggle.png")}
 #pagemanager_add span {background-image: url("../images/add.png")}
@@ -46,6 +46,19 @@
 #pagemanager_edit span {background-image: url("../images/edit.png")}
 #pagemanager_preview span {background-image: url("../images/preview.png")}
 #pagemanager_help span {background-image: url("../images/help.png")}
+.pagemanager_tool_wrapper {
+    position: relative;
+    display: inline-block;
+}
+.pagemanager_tool_inner {
+    position: absolute;
+    display: none;
+    min-width: 7em;
+}
+#pagemanager_toolbar .pagemanager_tool_inner button {
+    margin: 0;
+    width: 100%;
+}
 
 /*
  * Context menu

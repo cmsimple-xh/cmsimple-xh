@@ -77,7 +77,7 @@ class MainAdminController extends Controller
             . "{$this->pluginFolder}jstree/themes/{$this->config['treeview_theme']}/style.min.css" . '">';
         include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php';
         include_jQuery();
-        include_jQueryPlugin('jsTree', "{$this->pluginFolder}jstree/jstree.min.js");
+        include_jQueryPlugin('jstree', "{$this->pluginFolder}jstree/jstree.min.js");
         $bjs .= '<script type="text/javascript">var PAGEMANAGER = ' . $this->jsConfig() . ';</script>'
             . '<script type="text/javascript" src="' . XH_hsc("{$this->pluginFolder}pagemanager.js") . '"></script>';
         $view = new View('widget');
@@ -133,6 +133,9 @@ class MainAdminController extends Controller
             'pasteOp' => $this->lang['op_paste'],
             'editOp' => $this->lang['op_edit'],
             'previewOp' => $this->lang['op_preview'],
+            'before' => $this->lang['label_before'],
+            'inside' => $this->lang['label_inside'],
+            'after' => $this->lang['label_after'],
             'userManual' => $pth['file']['plugin_help'],
             'duplicateHeading' => $tx['toc']['dupl'],
             'offendingExtensionError' => $this->lang['error_offending_extension'],
@@ -185,9 +188,9 @@ class MainAdminController extends Controller
         );
         if ($this->pdAttr !== '') {
             if ($pageData[$this->pdAttr] === '') {
-                $res['li_attr']['data-pdattr'] = '1';
+                $res['state']['checked'] = true;
             } else {
-                $res['li_attr']['data-pdattr'] = $pageData[$this->pdAttr];
+                $res['state']['checked'] = (bool) $pageData[$this->pdAttr];
             }
         }
         if (!$this->model->getMayRename($index)) {

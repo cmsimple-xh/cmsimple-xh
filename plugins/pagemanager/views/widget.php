@@ -17,9 +17,8 @@
 <?php if ($this->hasToolbar):?>
     <div id="pagemanager_toolbar">
 <?php   foreach ($this->tools as $tool):?>
-        <button type="button" id="pagemanager_<?php echo $this->escape($tool)?>" title="<?php echo $this->text("op_{$tool}")?>">
-            <span>&nbsp;</span>
-            <?php echo $this->text("op_{$tool}")?>
+        <button type="button" id="pagemanager_<?php echo $this->escape($tool)?>" title="<?php echo $this->text("op_{$tool}")?>" aria-label="<?php echo $this->text("op_{$tool}")?>">
+            <span aria-hidden="true">&nbsp;</span>
         </button>
 <?php   endforeach?>
     </div>
@@ -28,7 +27,6 @@
     <input type="hidden" name="admin" value="plugin_main">
     <input type="hidden" name="action" value="plugin_save">
     <input type="hidden" name="json" id="pagemanager_json" value="">
-    <button id="pagemanager_submit"><?php echo $this->text('op_save')?></button>
     <?php echo $this->csrfTokenInput()?>
     <p class="pagemanager_status" style="display:none">
         <img src="<?php echo $this->ajaxLoaderPath()?>" alt="Loading">
