@@ -175,6 +175,7 @@ $tx['log']['module']="module";
 $tx['log']['category']="category";
 $tx['log']['description']="description";
 
+$tx['login']['back']="Back";
 $tx['login']['failure']="You have entered a wrong password!";
 $tx['login']['loggedout']="You have been logged out";
 $tx['login']['warning']="Site administration. Please enter password.";
