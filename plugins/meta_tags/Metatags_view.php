@@ -76,5 +76,3 @@ function Metatags_view(array $page)
         . "\n" . '</form>';
     return $view;
 }
-
-?>

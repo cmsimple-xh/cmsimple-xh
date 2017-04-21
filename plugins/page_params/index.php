@@ -46,7 +46,7 @@ function Pageparams_handleRelocation($index, array $data)
     global $c;
 
     $location = $data['header_location'];
-    if ((int) $data['use_header_location'] > 0 && trim($location) !== '' ) {
+    if ((int) $data['use_header_location'] > 0 && trim($location) !== '') {
         $components = parse_url($location);
         if (!$components || !isset($components['scheme'])) {
             $location = CMSIMPLE_URL . $location;
@@ -164,5 +164,3 @@ if (!(XH_ADM && $edit)) {
         }
     }
 }
-
-?>

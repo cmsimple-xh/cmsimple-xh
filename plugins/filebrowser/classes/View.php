@@ -120,7 +120,7 @@ class View
      *
      * @var array
      */
-    protected $lang = array();
+    private $lang = array();
 
     /**
      * Initializes a newly created instance.
@@ -143,7 +143,7 @@ class View
      *
      * @global array The localization of the core.
      */
-    protected function folderList(array $folders)
+    private function folderList(array $folders)
     {
         global $tx;
 
@@ -210,7 +210,7 @@ class View
      * @global object The CRSF protection object.
      * @global string The script name.
      */
-    protected function subfolderList(array $folders)
+    private function subfolderList(array $folders)
     {
         global $_XH_csrfProtection, $sn;
 
@@ -246,7 +246,7 @@ class View
      *
      * @return bool
      */
-    protected function isImageFile($filename)
+    private function isImageFile($filename)
     {
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         $exts = array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'tiff', 'ico');
@@ -264,7 +264,7 @@ class View
      * @global object     The CRSF protection object.
      * @global Controller The filebrowser controller.
      */
-    protected function fileList(array $files)
+    private function fileList(array $files)
     {
         global $sn, $_XH_csrfProtection, $_XH_filebrowser;
 
@@ -335,7 +335,7 @@ class View
      *
      * @return string
      */
-    protected function fileListForEditor(array $files)
+    private function fileListForEditor(array $files)
     {
         if (empty($files)) {
             return '';
@@ -346,9 +346,7 @@ class View
         $class = 'even';
         $prefix = $this->linkPrefix;
         if ($prefix != '?&amp;download=') {
-            $prefix .= str_replace(
-                array('../', './'), '', $this->currentDirectory
-            );
+            $prefix .= str_replace(array('../', './'), '', $this->currentDirectory);
         }
         foreach ($files as $file) {
             $class = $class == 'odd' ? 'even' : 'odd';
@@ -379,7 +377,7 @@ class View
      *
      * @return string HTML
      */
-    protected function renderImage($path, $file, array $image, $usage = null)
+    private function renderImage($path, $file, array $image, $usage = null)
     {
         list($width, $height) = $image;
         if ($width > 150) {
@@ -403,7 +401,7 @@ class View
      *
      * @return string HTML
      */
-    protected function renderFileSize($path)
+    private function renderFileSize($path)
     {
         return round(filesize($path) / 1024, 1) . ' kb';
     }
@@ -431,9 +429,7 @@ class View
         }
         $this->partials['message'] = $this->message;
         foreach ($this->partials as $placeholder => $value) {
-            $html = str_replace(
-                '%' . strtoupper($placeholder) . '%', $value, $html
-            );
+            $html = str_replace('%' . strtoupper($placeholder) . '%', $value, $html);
         }
         $this->message = '';
         return $html;
@@ -447,7 +443,7 @@ class View
      *
      * @return void
      */
-    public function error($message ='', array $args = null)
+    public function error($message = '', array $args = null)
     {
         $this->message .= '<p class="xh_fail">'
             . $this->translate($message, $args) . '</p>';
@@ -522,7 +518,7 @@ class View
      *
      * @global array The localization of the plugins.
      */
-    protected function renderJsConfig()
+    private function renderJsConfig()
     {
         global $plugin_tx;
 
@@ -536,5 +532,3 @@ class View
             . json_encode($config) . ';</script>';
     }
 }
-
-?>

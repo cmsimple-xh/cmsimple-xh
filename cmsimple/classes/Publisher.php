@@ -41,21 +41,21 @@ class Publisher
      *
      * @var bool[]
      */
-    protected $published = array();
+    private $published = array();
 
     /**
      * The hide status of the pages.
      *
      * @var bool[]
      */
-    protected $hidden = array();
+    private $hidden = array();
 
     /**
      * The pages.
      *
      * @var Pages
      */
-    protected $pages;
+    private $pages;
 
     /**
      * Initializes a new instance.
@@ -149,7 +149,7 @@ class Publisher
      *
      * @return bool
      */
-    protected function isPublishedInPageData(array $data)
+    private function isPublishedInPageData(array $data)
     {
         if ($data['published'] == '0') {
             return false;
@@ -174,5 +174,3 @@ class Publisher
         return true;
     }
 }
-
-?>

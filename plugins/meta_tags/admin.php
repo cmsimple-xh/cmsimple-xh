@@ -39,5 +39,3 @@ if (XH_wantsPluginAdministration('meta_tags')) {
     }
     $o .= plugin_admin_common($action, $admin, $plugin);
 }
-
-?>

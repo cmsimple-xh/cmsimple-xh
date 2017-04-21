@@ -32,7 +32,7 @@ class PasswordForgotten
      *
      * @var string
      */
-    protected $status = '';
+    private $status = '';
 
     /**
      * Dispatches according to the request.
@@ -60,28 +60,28 @@ class PasswordForgotten
      * @global array  The localization of the core.
      * @global string JS for the onload attribute of the BODY element.
      */
-    protected function render()
+    private function render()
     {
         global $title, $o, $sn, $tx, $onload;
 
         $title = $tx['title']['password_forgotten'];
         $o .= '<h1>' . $title . '</h1>';
         switch ($this->status) {
-        case 'sent':
-            $o .= '<p>' . $tx['password_forgotten']['email1_sent'] . '</p>';
-            break;
-        case 'reset':
-            $o .= '<p>' . $tx['password_forgotten']['email2_sent'] . '</p>';
-            break;
-        default:
-            $o .= '<p>' . $tx['password_forgotten']['request'] . '</p>'
-            . '<form name="xh_forgotten" action="' . $sn . '?&function=forgotten"'
-            . ' method="post">'
-            . '<input type="text" name="xh_email">'
-            . '<input type="submit" class="submit" value="Send Reminder">'
-            . '</form>';
-            $onload .= 'document.forms[\'xh_forgotten\'].elements[\'xh_email\']'
-                . '.focus();';
+            case 'sent':
+                $o .= '<p>' . $tx['password_forgotten']['email1_sent'] . '</p>';
+                break;
+            case 'reset':
+                $o .= '<p>' . $tx['password_forgotten']['email2_sent'] . '</p>';
+                break;
+            default:
+                $o .= '<p>' . $tx['password_forgotten']['request'] . '</p>'
+                . '<form name="xh_forgotten" action="' . $sn . '?&function=forgotten"'
+                . ' method="post">'
+                . '<input type="text" name="xh_email">'
+                . '<input type="submit" class="submit" value="Send Reminder">'
+                . '</form>';
+                $onload .= 'document.forms[\'xh_forgotten\'].elements[\'xh_email\']'
+                    . '.focus();';
         }
     }
 
@@ -93,10 +93,8 @@ class PasswordForgotten
      * @return string
      *
      * @global array The configuration of the core.
-     *
-     * @todo Declare visibility.
      */
-    function mac($previous = false)
+    public function mac($previous = false)
     {
         global $cf;
 
@@ -114,10 +112,8 @@ class PasswordForgotten
      * @param string $mac A MAC.
      *
      * @return bool
-     *
-     * @todo Declare visibility.
      */
-    function checkMac($mac)
+    public function checkMac($mac)
     {
         return $mac == $this->mac() || $mac == $this->mac(true);
     }
@@ -132,7 +128,7 @@ class PasswordForgotten
      * @global array  The localization of the core.
      * @global string LI elements to be emitted as error messages.
      */
-    protected function submit()
+    private function submit()
     {
         global $cf, $tx, $e;
 
@@ -169,7 +165,7 @@ class PasswordForgotten
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      */
-    protected function reset()
+    private function reset()
     {
         global $xh_hasher, $pth, $cf, $tx;
 
@@ -203,7 +199,7 @@ class PasswordForgotten
      *
      * @global array The paths of system files and folders.
      */
-    protected function saveNewPassword($hash)
+    private function saveNewPassword($hash)
     {
         global $pth;
 
@@ -220,5 +216,3 @@ class PasswordForgotten
         return XH_writeFile($pth['file']['config'], $o);
     }
 }
-
-?>

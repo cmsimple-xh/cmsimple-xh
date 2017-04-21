@@ -51,19 +51,15 @@ class Search
      * The search String.
      *
      * @var string
-     *
-     * @access protected
      */
-    protected $searchString;
+    private $searchString;
 
     /**
      * The search words.
      *
      * @var array
-     *
-     * @access protected
      */
-    protected $words;
+    private $words;
 
     /**
      * Constructs an instance.
@@ -79,10 +75,8 @@ class Search
      * Returns the array of search words.
      *
      * @return array
-     *
-     * @access protected
      */
-    protected function getWords()
+    private function getWords()
     {
         if (!isset($this->words)) {
             $words = explode(' ', $this->searchString);
@@ -90,7 +84,7 @@ class Search
             foreach ($words as $word) {
                 $word = trim($word);
                 if ($word != '') {
-                    if (class_exists('\Normalizer', false) 
+                    if (class_exists('\Normalizer', false)
                         && method_exists('\Normalizer', 'normalize')
                     ) {
                         $word = \Normalizer::normalize($word);
@@ -110,12 +104,8 @@ class Search
      *
      * @global array The content of the pages.
      * @global array The configuration of the core.
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function search()
+    public function search()
     {
         global $c, $cf;
 
@@ -150,7 +140,7 @@ class Search
      *
      * @return string
      */
-    protected function prepareContent($content, $pageIndex)
+    private function prepareContent($content, $pageIndex)
     {
         global $s;
 
@@ -172,7 +162,7 @@ class Search
      *
      * @global array The localization of the core.
      */
-    protected function foundMessage($count)
+    private function foundMessage($count)
     {
         global $tx;
 
@@ -234,5 +224,3 @@ class Search
         return $o;
     }
 }
-
-?>

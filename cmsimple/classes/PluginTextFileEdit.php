@@ -52,5 +52,3 @@ class PluginTextFileEdit extends TextFileEdit
         parent::__construct();
     }
 }
-
-?>

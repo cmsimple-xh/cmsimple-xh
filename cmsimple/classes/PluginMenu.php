@@ -142,8 +142,8 @@ abstract class PluginMenu
 
         $this->plugin = $plugin;
         pluginFiles($this->plugin);
-        $this->_initLabels();
-        $this->_initUrls();
+        $this->initLabels();
+        $this->initUrls();
         if ($showMain) {
             $this->makeMainItem();
         }
@@ -169,7 +169,7 @@ abstract class PluginMenu
      * @global array The localization of the core.
      * @global array The localization of the plugins.
      */
-    private function _initLabels()
+    private function initLabels()
     {
         global $tx, $plugin_tx;
 
@@ -197,7 +197,7 @@ abstract class PluginMenu
      *
      * @global array The paths of system files and folders.
      */
-    private function _initUrls()
+    private function initUrls()
     {
         global $pth;
 
@@ -212,5 +212,3 @@ abstract class PluginMenu
         $this->helpUrl = $pth['file']['plugin_help'];
     }
 }
-
-?>

@@ -26,8 +26,6 @@ namespace XH;
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
- *
- * @access public
  */
 class PageDataModel
 {
@@ -36,34 +34,28 @@ class PageDataModel
      *
      * @var array
      */
-    protected $headings;
+    private $headings;
 
     /**
      * The list of page data fields.
      *
      * @var array
-     *
-     * @todo Declare visibility.
      */
-    var $params;
+    public $params;
 
     /**
      * The page data.
      *
      * @var array
-     *
-     * @todo Declare visibility.
      */
-    var $data;
+    public $data;
 
     /**
      * The page data of the latest deleted page (recycle bin).
      *
      * @var array
-     *
-     * @todo Declare visibility.
      */
-    var $temp_data;
+    public $temp_data;
 
     /**
      * The filenames of the views of page data tabs.
@@ -80,9 +72,8 @@ class PageDataModel
      * @param array $tempData       The most recently deleted page data.
      * @param array $pageData       The page data.
      */
-    public function __construct(
-        array $h, array $pageDataFields, array $tempData, array $pageData
-    ) {
+    public function __construct(array $h, array $pageDataFields, array $tempData, array $pageData)
+    {
         $this->headings = $h;
         $this->params = !empty($pageDataFields)
             ? $pageDataFields
@@ -118,7 +109,7 @@ class PageDataModel
      * @global int   The index of the current page.
      * @global array The page data of the current page.
      */
-    protected function fixUp()
+    private function fixUp()
     {
         global $pd_s, $pd_current;
 
@@ -126,11 +117,11 @@ class PageDataModel
             foreach ($this->params as $param) {
                 if (!isset($this->data[$id][$param])) {
                     switch ($param) {
-                    case 'url':
-                        $this->data[$id][$param] = uenc(strip_tags($value));
-                        break;
-                    default:
-                        $this->data[$id][$param] = '';
+                        case 'url':
+                            $this->data[$id][$param] = uenc(strip_tags($value));
+                            break;
+                        default:
+                            $this->data[$id][$param] = '';
                     }
                 }
             }
@@ -387,13 +378,9 @@ class PageDataModel
      * Saves the page data and returns whether that succeeded.
      *
      * @return bool
-     *
-     * @access public
      */
-    protected function save()
+    private function save()
     {
         return XH_saveContents();
     }
 }
-
-?>

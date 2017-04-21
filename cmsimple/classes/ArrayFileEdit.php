@@ -157,50 +157,50 @@ abstract class ArrayFileEdit extends FileEdit
 
         $iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
         switch ($opt['type']) {
-        case 'text':
-            $class = 'xh_setting';
-            if (utf8_strlen($opt['val']) < 50) {
-                $class .= ' xh_setting_short';
-            }
-            return '<textarea name="' . $iname . '" rows="1" cols="50"'
-                . ' class="' . $class . '">'
-                . XH_hsc($opt['val'])
-                . '</textarea>';
-        case 'bool':
-            return '<input type="checkbox" name="' . $iname . '"'
-                . ($opt['val'] ? ' checked="checked"' : '') . '>';
-        case 'enum':
-            $o = '<select name="' . $iname . '">';
-            foreach ($opt['vals'] as $val) {
-                $sel = ($val == $opt['val']) ? ' selected="selected"' : '';
-                $label = ($val == '')
-                    ? ' label="' . $tx['label']['empty'] . '"'
-                    : '';
-                $o .= '<option' . $sel . $label . '>' . XH_hsc($val) . '</option>';
-            }
-            $o .= '</select>';
-            return $o;
-        case 'xenum':
-            $o = '<input type="text" name="' . $iname . '" value="'
-                . XH_hsc($opt['val']) . '" class="xh_setting" list="'
-                . $iname . '_DATA">';
-            $o .= '<datalist id="' . $iname . '_DATA">';
-            foreach ($opt['vals'] as $val) {
-                $label = ($val == '')
-                    ? ' label="' . $tx['label']['empty'] . '"'
-                    : '';
-                $o .= '<option' . $label . ' value="' . XH_hsc($val) . '">';
-            }
-            $o .= '</datalist>';
-            return $o;
-        case 'hidden':
-        case 'random':
-            return '<input type="hidden" name="' . $iname . '" value="'
-                . XH_hsc($opt['val']) . '">';
-        default:
-            return '<input type="text" name="' . $iname . '" value="'
-                . XH_hsc($opt['val'])
-                . '" class="xh_setting">';
+            case 'text':
+                $class = 'xh_setting';
+                if (utf8_strlen($opt['val']) < 50) {
+                    $class .= ' xh_setting_short';
+                }
+                return '<textarea name="' . $iname . '" rows="1" cols="50"'
+                    . ' class="' . $class . '">'
+                    . XH_hsc($opt['val'])
+                    . '</textarea>';
+            case 'bool':
+                return '<input type="checkbox" name="' . $iname . '"'
+                    . ($opt['val'] ? ' checked="checked"' : '') . '>';
+            case 'enum':
+                $o = '<select name="' . $iname . '">';
+                foreach ($opt['vals'] as $val) {
+                    $sel = ($val == $opt['val']) ? ' selected="selected"' : '';
+                    $label = ($val == '')
+                        ? ' label="' . $tx['label']['empty'] . '"'
+                        : '';
+                    $o .= '<option' . $sel . $label . '>' . XH_hsc($val) . '</option>';
+                }
+                $o .= '</select>';
+                return $o;
+            case 'xenum':
+                $o = '<input type="text" name="' . $iname . '" value="'
+                    . XH_hsc($opt['val']) . '" class="xh_setting" list="'
+                    . $iname . '_DATA">';
+                $o .= '<datalist id="' . $iname . '_DATA">';
+                foreach ($opt['vals'] as $val) {
+                    $label = ($val == '')
+                        ? ' label="' . $tx['label']['empty'] . '"'
+                        : '';
+                    $o .= '<option' . $label . ' value="' . XH_hsc($val) . '">';
+                }
+                $o .= '</datalist>';
+                return $o;
+            case 'hidden':
+            case 'random':
+                return '<input type="hidden" name="' . $iname . '" value="'
+                    . XH_hsc($opt['val']) . '">';
+            default:
+                return '<input type="text" name="' . $iname . '" value="'
+                    . XH_hsc($opt['val'])
+                    . '" class="xh_setting">';
         }
     }
 
@@ -356,23 +356,23 @@ abstract class ArrayFileEdit extends FileEdit
             $isAdvanced = false;
         }
         switch ($typeTag) {
-        case 'enum':
-        case 'xenum':
-            $vals = explode(',', substr($type, strlen($typeTag) + 1));
-            $type = $typeTag;
-            break;
-        case 'function':
-        case 'xfunction':
-            $func = substr($type, strlen($typeTag) + 1);
-            if (function_exists($func)) {
-                $vals = call_user_func($func);
-            } else {
-                $vals = array();
-            }
-            $type = ($typeTag == 'function') ? 'enum' : 'xenum';
-            break;
-        default:
-            $vals = null;
+            case 'enum':
+            case 'xenum':
+                $vals = explode(',', substr($type, strlen($typeTag) + 1));
+                $type = $typeTag;
+                break;
+            case 'function':
+            case 'xfunction':
+                $func = substr($type, strlen($typeTag) + 1);
+                if (function_exists($func)) {
+                    $vals = call_user_func($func);
+                } else {
+                    $vals = array();
+                }
+                $type = ($typeTag == 'function') ? 'enum' : 'xenum';
+                break;
+            default:
+                $vals = null;
         }
         $co = compact('val', 'type', 'vals', 'isAdvanced');
         if (isset($hint)) {
@@ -381,5 +381,3 @@ abstract class ArrayFileEdit extends FileEdit
         return $co;
     }
 }
-
-?>

@@ -68,14 +68,14 @@ class Link
      *
      * @var string
      */
-    protected $url;
+    private $url;
 
     /**
      * The link text.
      *
      * @var string The HTML.
      */
-    protected $text;
+    private $text;
 
     /**
      * The link status.
@@ -84,7 +84,7 @@ class Link
      *
      * @var int
      */
-    protected $status;
+    private $status;
 
     /**
      * Initializes a new instance.
@@ -140,5 +140,3 @@ class Link
         $this->status = $status;
     }
 }
-
-?>

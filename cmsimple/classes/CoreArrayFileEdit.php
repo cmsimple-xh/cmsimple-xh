@@ -92,5 +92,3 @@ abstract class CoreArrayFileEdit extends ArrayFileEdit
         return $options;
     }
 }
-
-?>

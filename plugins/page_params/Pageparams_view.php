@@ -265,22 +265,16 @@ function Pageparams_view(array $page)
     $view .= '<br>';
     $view .= "\n\t" . XH_helpIcon($lang['hint_publication_period']);
     $view .= "\n\t\t" . $plugin_tx['page_params']['publication_period'];
-    $view .= Pageparams_scheduleInput(
-        'publication_date', $page['publication_date'], $page['published'] == '0'
-    );
+    $view .= Pageparams_scheduleInput('publication_date', $page['publication_date'], $page['published'] == '0');
     $view .= ' - ';
-    $view .= Pageparams_scheduleInput(
-        'expires', $page['expires'], $page['published'] == '0'
-    );
+    $view .= Pageparams_scheduleInput('expires', $page['expires'], $page['published'] == '0');
     $view .= '<br>';
     $view .= "\n\t" . '<hr>';
 
     /*
      * linked to menu
      */
-    $view .= Pageparams_caption(
-        $lang['linked_to_menu'], $lang['hint_linked_to_menu']
-    );
+    $view .= Pageparams_caption($lang['linked_to_menu'], $lang['hint_linked_to_menu']);
     $view .= Pageparams_checkbox('linked_to_menu', $page['linked_to_menu'] !== '0');
     $view .= '<br>';
     $view .= "\n\t" . '<hr>';
@@ -306,18 +300,11 @@ function Pageparams_view(array $page)
     /*
      * header_location
      */
-    $view .= Pageparams_caption(
-        $lang['header_location'], $lang['hint_header_location']
-    );
+    $view .= Pageparams_caption($lang['header_location'], $lang['hint_header_location']);
     $view .= Pageparams_redirectRadiogroup($page['use_header_location']);
-    $view .= Pageparams_input(
-        'header_location', $page['header_location'],
-        (int) $page['use_header_location'] === 0
-    );
+    $view .= Pageparams_input('header_location', $page['header_location'], (int) $page['use_header_location'] === 0);
     $view .= '<br>';
-    $view .= Pageparams_linkList(
-        $page['header_location'], (int) $page['use_header_location'] === 0
-    );
+    $view .= Pageparams_linkList($page['header_location'], (int) $page['use_header_location'] === 0);
     $view .= '<br>' . "\n\t";
 
     $view .= "\n\t" . '<input name="save_page_data" type="hidden">'
@@ -328,5 +315,3 @@ function Pageparams_view(array $page)
         . "\n" . '</form>';
     return $view;
 }
-
-?>

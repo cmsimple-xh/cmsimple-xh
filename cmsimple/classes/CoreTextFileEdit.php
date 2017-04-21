@@ -48,5 +48,3 @@ class CoreTextFileEdit extends TextFileEdit
         parent::__construct();
     }
 }
-
-?>

@@ -35,7 +35,7 @@ class Pages
      *
      * @see $cl
      */
-    protected $count;
+    private $count;
 
     /**
      * The headings of the pages.
@@ -44,7 +44,7 @@ class Pages
      *
      * @see $h
      */
-    protected $headings;
+    private $headings;
 
     /**
      * The URLs of the pages.
@@ -53,7 +53,7 @@ class Pages
      *
      * @see $u
      */
-    protected $urls;
+    private $urls;
 
     /**
      * The menu levels of the pages.
@@ -62,7 +62,7 @@ class Pages
      *
      * @see $l
      */
-    protected $levels;
+    private $levels;
 
     /**
      * The contents of the pages.
@@ -71,7 +71,7 @@ class Pages
      *
      * @see $c
      */
-    protected $contents;
+    private $contents;
 
     /**
      * Constructs an instance.
@@ -300,5 +300,3 @@ class Pages
         return $result;
     }
 }
-
-?>

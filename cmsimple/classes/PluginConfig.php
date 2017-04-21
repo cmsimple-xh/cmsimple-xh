@@ -21,7 +21,7 @@ use ArrayAccess;
  * Abstraction over the plugin (language) configuration.
  *
  * Instead of plain arrays, `$plugin_cf` and `$plugin_tx` are objects, which
- * allow for lazy loading of the configuration and language files, respectively. 
+ * allow for lazy loading of the configuration and language files, respectively.
  *
  * @category CMSimple_XH
  * @package  XH
@@ -37,14 +37,14 @@ class PluginConfig implements ArrayAccess
      *
      * @var bool
      */
-    protected $language;
+    private $language;
 
     /**
      * The loaded plugin configurations.
      *
      * @var array
      */
-    protected $configs = array();
+    private $configs = array();
 
     /**
      * Initializes a new instance.
@@ -124,7 +124,7 @@ class PluginConfig implements ArrayAccess
      *
      * @return void
      */
-    protected function loadConfig($pluginname)
+    private function loadConfig($pluginname)
     {
         global $pth;
     
@@ -135,5 +135,3 @@ class PluginConfig implements ArrayAccess
         $this->configs += XH_readConfiguration(true, $this->language);
     }
 }
-
-?>

@@ -33,11 +33,14 @@ function autogallery($u)
     trigger_error('Function autogallery() is deprecated', E_USER_DEPRECATED);
 
     return preg_replace(
-        "/.*<!-- autogallery -->(.*)<!-- \/autogallery -->.*/is", '$1',
+        "/.*<!-- autogallery -->(.*)<!-- \/autogallery -->.*/is",
+        '$1',
         preg_replace(
-            "/(option value=\"\?)(p=)/is", '${1}' . $su . '&$2',
+            "/(option value=\"\?)(p=)/is",
+            '${1}' . $su . '&$2',
             preg_replace(
-                "/(href=\"\?)/is", '${1}' . $su . '&amp;',
+                "/(href=\"\?)/is",
+                '${1}' . $su . '&amp;',
                 preg_replace("/(src=\")(\.)/is", '${1}' . $u . '$2', geturlwp($u))
             )
         )
@@ -96,9 +99,7 @@ function amp()
  */
 function guestbooklink()
 {
-    trigger_error(
-        'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
-    );
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
     if (function_exists('gblink')) {
         return gblink();
     }
@@ -118,9 +119,7 @@ function legallink()
 {
     global $cf, $sn;
 
-    trigger_error(
-        'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
-    );
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
     return '<a href="' . $sn . '?' . uenc($cf['menu']['legal']) . '">'
         . $cf['menu']['legal'] . '</a>';
 }
@@ -142,9 +141,7 @@ function chkdl($fl)
 {
     global $pth, $sn;
 
-    trigger_error(
-        'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
-    );
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
     $m = false;
     if (is_dir($pth['folder']['downloads'])) {
         if ($fd = opendir($pth['folder']['downloads'])) {
@@ -172,9 +169,7 @@ function chkdl($fl)
  */
 function rf($fl)
 {
-    trigger_error(
-        'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
-    );
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
     if (!file_exists($fl)) {
         return;
     }
@@ -201,9 +196,7 @@ function chkfile($fl, $writable)
 {
     global $pth;
 
-    trigger_error(
-        'Function '. __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
-    );
+    trigger_error('Function '. __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
 
     $t = isset($pth['file'][$fl]) ? $pth['file'][$fl] : '';
     if ($t == '') {
@@ -282,9 +275,7 @@ function writelog($m)
 {
     global $pth;
 
-    trigger_error(
-        'Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED
-    );
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
     if ($fh = fopen($pth['file']['log'], "a")) {
         fwrite($fh, $m);
         fclose($fh);
@@ -292,5 +283,3 @@ function writelog($m)
         e('cntwriteto', 'log', $pth['file']['log']);
     }
 }
-
-?>

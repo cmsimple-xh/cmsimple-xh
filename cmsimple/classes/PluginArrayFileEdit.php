@@ -73,4 +73,3 @@ abstract class PluginArrayFileEdit extends ArrayFileEdit
         return $o;
     }
 }
-

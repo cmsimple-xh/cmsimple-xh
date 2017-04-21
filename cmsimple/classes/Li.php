@@ -317,5 +317,3 @@ class Li
         return !(XH_ADM && $edit) && $pageData['use_header_location'] === '2';
     }
 }
-
-?>

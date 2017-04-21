@@ -199,7 +199,7 @@ function toc($start = null, $end = null, $li = 'li')
         if ($l[$i] < $tl) {
             $tl = $l[$i];
         }
-    }    
+    }
     return $li($ta, $start);
 }
 
@@ -661,8 +661,6 @@ function XH_emergencyTemplate()
  *
  * @global string The site (script) name.
  *
- * @access public
- *
  * @since 1.7
  */
 function poweredByLink($linktext = '')
@@ -673,5 +671,3 @@ function poweredByLink($linktext = '')
     return '<a href="' . $sn . '?' . uenc('site/cms info') . '">'
         . $linktext . '</a>';
 }
-
-?>

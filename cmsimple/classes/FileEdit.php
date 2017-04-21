@@ -98,5 +98,3 @@ abstract class FileEdit
      */
     abstract protected function asString();
 }
-
-?>

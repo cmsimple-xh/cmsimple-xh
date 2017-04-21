@@ -59,5 +59,3 @@ if ($pd_current['keywords']) {
 if ($pd_current['robots']) {
     $cf['meta']['robots'] = $pd_current['robots'];
 }
-
-?>

@@ -66,10 +66,7 @@ function geturlwp($u)
     global $su;
 
     $t = '';
-    $qs = preg_replace(
-        "/^" . preg_quote($su, '/') . "(\&)?/s",
-        "", sv('QUERY_STRING')
-    );
+    $qs = preg_replace("/^" . preg_quote($su, '/') . "(\&)?/s", "", sv('QUERY_STRING'));
     if ($fh = fopen($u . '?' . $qs, "r")) {
         while (!feof($fh)) {
             $t .= fread($fh, 1024);
@@ -134,10 +131,8 @@ function l($n)
  *
  * @since 1.5
  */
-// @codingStandardsIgnoreStart
 function evaluate_cmsimple_scripting($__text, $__compat = true)
 {
-// @codingStandardsIgnoreEnd
     extract($GLOBALS, EXTR_REFS);
     $__scripts = array();
     preg_match_all('~#CMSimple (.*?)#~is', $__text, $__scripts);
@@ -188,10 +183,8 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
  *
  * @since 1.5
  */
-// @codingStandardsIgnoreStart
 function evaluate_plugincall($text)
 {
-// @codingStandardsIgnoreEnd
     global $tx;
 
     $message = '<span class="xh_fail">' . $tx['error']['plugincall']
@@ -250,7 +243,8 @@ function XH_evaluateSinglePluginCall($___expression)
 {
     extract($GLOBALS);
     return preg_replace_callback(
-        '/#(CMSimple .*?)#/is', 'XH_escapeCMSimpleScripting',
+        '/#(CMSimple .*?)#/is',
+        'XH_escapeCMSimpleScripting',
         eval('return ' . $___expression . ';')
     );
 }
@@ -306,10 +300,8 @@ function XH_spliceString(&$string, $offset, $length = 0, $replacement = '')
  *
  * @since 1.5
  */
-// @codingStandardsIgnoreStart
 function evaluate_scripting($text, $compat = true)
 {
-// @codingStandardsIgnoreEnd
     return evaluate_cmsimple_scripting(evaluate_plugincall($text), $compat);
 }
 
@@ -359,10 +351,8 @@ function newsbox($heading)
  *
  * @since 1.5
  */
-// @codingStandardsIgnoreStart
-function init_editor(array $elementClasses = array(),  $initFile = false)
+function init_editor(array $elementClasses = array(), $initFile = false)
 {
-// @codingStandardsIgnoreEnd
     global $pth, $cf;
 
     $fn = $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
@@ -431,10 +421,8 @@ function include_editor()
 
  * @since 1.5
  */
-// @codingStandardsIgnoreStart
 function editor_replace($elementID = false, $config = '')
 {
-// @codingStandardsIgnoreEnd
     global $pth, $cf;
 
     if (!$elementID) {
@@ -855,9 +843,7 @@ function XH_readContents($language = null)
         include $pageDataFile;
     }
 
-    $pd_router = new XH\PageDataRouter(
-        $h, $page_data_fields, $temp_data, $page_data
-    );
+    $pd_router = new XH\PageDataRouter($h, $page_data_fields, $temp_data, $page_data);
 
     // remove unpublished pages
     if (!($edit && XH_ADM)) {
@@ -1211,31 +1197,31 @@ function XH_debugmode()
         if (strlen($dbglevel) == 1) {
             set_error_handler('XH_debug');
             switch ($dbglevel) {
-            case 0:
-                error_reporting(0);
-                break;
-            case 1:
-                error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
-                break;
-            case 2:
-                error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE);
-                break;
-            case 3:
-                error_reporting(
-                    E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE | E_NOTICE
-                );
-                break;
-            case 4:
-                error_reporting(E_ALL ^ (E_NOTICE | E_WARNING | E_USER_WARNING));
-                break;
-            case 5:
-                error_reporting(E_ALL ^ E_NOTICE);
-                break;
-            case 6:
-                error_reporting(E_ALL);
-                break;
-            default:
-                error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
+                case 0:
+                    error_reporting(0);
+                    break;
+                case 1:
+                    error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
+                    break;
+                case 2:
+                    error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE);
+                    break;
+                case 3:
+                    error_reporting(
+                        E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE | E_NOTICE
+                    );
+                    break;
+                case 4:
+                    error_reporting(E_ALL ^ (E_NOTICE | E_WARNING | E_USER_WARNING));
+                    break;
+                case 5:
+                    error_reporting(E_ALL ^ E_NOTICE);
+                    break;
+                case 6:
+                    error_reporting(E_ALL);
+                    break;
+                default:
+                    error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
             }
         } else {
             error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
@@ -1269,35 +1255,35 @@ function XH_debug($errno, $errstr, $errfile, $errline)
     }
 
     switch ($errno) {
-    case E_USER_ERROR:
-        $errtype = 'XH-ERROR';
-        break;
-    case E_USER_WARNING:
-        $errtype = 'XH-WARNING';
-        break;
-    case E_USER_NOTICE:
-        $errtype = 'XH-NOTICE';
-        break;
-    case E_USER_DEPRECATED:
-        $errtype = 'XH-DEPRECATED';
-        $backtrace = debug_backtrace(false);
-        $errfile = $backtrace[2]['file'];
-        $errline = $backtrace[2]['line'];
-        break;
-    case E_WARNING:
-        $errtype = 'WARNING';
-        break;
-    case E_NOTICE:
-        $errtype = 'NOTICE';
-        break;
-    case E_STRICT:
-        $errtype = 'STRICT';
-        break;
-    case E_DEPRECATED:
-        $errtype = 'DEPRECATED';
-        break;
-    default:
-        $errtype = "Unknow error type [$errno]";
+        case E_USER_ERROR:
+            $errtype = 'XH-ERROR';
+            break;
+        case E_USER_WARNING:
+            $errtype = 'XH-WARNING';
+            break;
+        case E_USER_NOTICE:
+            $errtype = 'XH-NOTICE';
+            break;
+        case E_USER_DEPRECATED:
+            $errtype = 'XH-DEPRECATED';
+            $backtrace = debug_backtrace(false);
+            $errfile = $backtrace[2]['file'];
+            $errline = $backtrace[2]['line'];
+            break;
+        case E_WARNING:
+            $errtype = 'WARNING';
+            break;
+        case E_NOTICE:
+            $errtype = 'NOTICE';
+            break;
+        case E_STRICT:
+            $errtype = 'STRICT';
+            break;
+        case E_DEPRECATED:
+            $errtype = 'DEPRECATED';
+            break;
+        default:
+            $errtype = "Unknow error type [$errno]";
     }
 
     $errors[] = "<b>$errtype:</b> $errstr" . '<br>' . "$errfile:$errline"
@@ -1766,7 +1752,8 @@ function XH_adjustStylesheetURLs($plugin, $css)
 {
     return preg_replace(
         '/url\(\s*(["\']?)(?!\s*["\']?\/|\s*["\']?http[s]?:)(.*?)(["\']?)\s*\)/s',
-        "url(\$1../../plugins/$plugin/css/\$2\$3)", $css
+        "url(\$1../../plugins/$plugin/css/\$2\$3)",
+        $css
     );
 }
 
@@ -2194,14 +2181,14 @@ function XH_hsc($string)
  *
  * @param string $subject An alternative subject field preset text
  *                        instead of the subject default in localization.
- * 
+ *
  * @return string HTML
  *
  * @global array The configuration of the core.
  *
  * @since 1.6
  */
-function XH_mailform($subject=null)
+function XH_mailform($subject = null)
 {
     global $cf;
 
@@ -2566,7 +2553,9 @@ function XH_lockFile($handle, $operation)
 function XH_highlightSearchWords(array $words, $text)
 {
     $words = array_unique($words);
-    usort($words, function ($a, $b) {return strlen($b) - strlen($a);});
+    usort($words, function ($a, $b) {
+        return strlen($b) - strlen($a);
+    });
     $patterns = array();
     foreach ($words as $word) {
         $word = trim($word);
@@ -2672,7 +2661,8 @@ function XH_poweredBy()
         if (is_file($infoPath)) {
             $tplinfo = utf8_substr(
                 strip_tags(file_get_contents($infoPath), '<a><br><br/>'),
-                0, 400
+                0,
+                400
             );
             if ($tplinfo) {
                 $tpltext .= '<br>' . $tplinfo;
@@ -2816,5 +2806,3 @@ function XH_getPageURL($index)
 
     return $sn . '?' . $u[$index];
 }
-
-?>

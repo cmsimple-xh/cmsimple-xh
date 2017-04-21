@@ -34,21 +34,14 @@ class PageDataRouter
      *
      * @var object
      */
-    protected $model;
-
-    /**
-     * The page data of the current page.
-     *
-     * @var array
-     */
-    protected $current_page;
+    private $model;
 
     /**
      * The currently registered interests.
      *
      * @var array
      */
-    protected $currentInterests = array();
+    private $currentInterests = array();
 
     /**
      * Constructs an instance.
@@ -58,12 +51,9 @@ class PageDataRouter
      * @param array $tempData       The most recently deleted page data.
      * @param array $pageData       The page data.
      */
-    public function __construct(
-        array $h, array $pageDataFields, array $tempData, array $pageData
-    ) {
-        $this->model = new PageDataModel(
-            $h, $pageDataFields, $tempData, $pageData
-        );
+    public function __construct(array $h, array $pageDataFields, array $tempData, array $pageData)
+    {
+        $this->model = new PageDataModel($h, $pageDataFields, $tempData, $pageData);
     }
 
     /**
@@ -255,9 +245,7 @@ class PageDataRouter
     {
 // @codingStandardsIgnoreEnd
         if ($separator) {
-            $results = $this->model->findArrayfieldValue(
-                $field, $value, $separator
-            );
+            $results = $this->model->findArrayfieldValue($field, $value, $separator);
             return $results;
         }
         $results = $this->model->findFieldValue($field, $value);
@@ -281,9 +269,7 @@ class PageDataRouter
         $sortFlag = null, $sep = null
     ) {
 // @codingStandardsIgnoreEnd
-        $results = $this->model->findFieldValueSortkey(
-            $field, $value, $sortKey, $sortFlag, $sep
-        );
+        $results = $this->model->findFieldValueSortkey($field, $value, $sortKey, $sortFlag, $sep);
         return $results;
     }
 
@@ -322,33 +308,33 @@ class PageDataRouter
                 $url = uenc($url);
 
                 switch ($url) {
-                case $current_page['url']:
-                    /*
-                     * Keeping the current page data:
-                     * this attempt fails, if NEW pages are
-                     * added AND current heading was CHANGED
-                     */
-                    foreach ($current_page as $field => $value) {
-                        $params[$field] = $value;
-                    }
-                    break;
-                case $this->model->temp_data['url']:
-                    /*
-                     * This is the 'url' of the recently deleted
-                     * page. Most probably it was just pasted in
-                     * again. So don't be shy, get the old infos
-                     * for this new page
-                     */
-                    foreach ($this->model->temp_data as $field => $value) {
-                        $params[$field] = $value;
-                    }
-                    break;
-                default:
-                    /*
-                     * The 'url' is used for ... look right above
-                     */
-                    $params['url'] = $url;
-                    break;
+                    case $current_page['url']:
+                        /*
+                         * Keeping the current page data:
+                         * this attempt fails, if NEW pages are
+                         * added AND current heading was CHANGED
+                         */
+                        foreach ($current_page as $field => $value) {
+                            $params[$field] = $value;
+                        }
+                        break;
+                    case $this->model->temp_data['url']:
+                        /*
+                         * This is the 'url' of the recently deleted
+                         * page. Most probably it was just pasted in
+                         * again. So don't be shy, get the old infos
+                         * for this new page
+                         */
+                        foreach ($this->model->temp_data as $field => $value) {
+                            $params[$field] = $value;
+                        }
+                        break;
+                    default:
+                        /*
+                         * The 'url' is used for ... look right above
+                         */
+                        $params['url'] = $url;
+                        break;
                 }
                 $params['last_edit'] = time();
                 $new_pages[] = $params;
@@ -427,11 +413,9 @@ class PageDataRouter
      * @param int $pd_s The index of the page.
      *
      * @return void
-     *
-     * @access protected
      */
 // @codingStandardsIgnoreStart
-    protected function keep_in_mind($pd_s)
+    private function keep_in_mind($pd_s)
     {
 // @codingStandardsIgnoreEnd
         $page = $this->find_page($pd_s);
@@ -488,5 +472,3 @@ class PageDataRouter
         return $o;
     }
 }
-
-?>

@@ -33,14 +33,14 @@ class PageDataView
      *
      * @var array
      */
-    protected $page;
+    private $page;
 
     /**
      * The page data tabs.
      *
      * @var array
      */
-    protected $tabs;
+    private $tabs;
 
     /**
      * Constructs an instance.
@@ -62,12 +62,8 @@ class PageDataView
      * @param string $cssClass A CSS class.
      *
      * @return string HTML
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function tab($title, $filename, $cssClass)
+    public function tab($title, $filename, $cssClass)
     {
         $parts = explode('.', basename($filename), 2);
         $function = $parts[0];
@@ -81,12 +77,8 @@ class PageDataView
      * Returns the page data tab bar.
      *
      * @return string HTML
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function tabs()
+    public function tabs()
     {
         $o = "\n" . '<div id="xh_pdtabs">';
         foreach ($this->tabs as $title => $array) {
@@ -106,12 +98,8 @@ class PageDataView
      *
      * @global array          The paths of system files and folders.
      * @global CSRFProtection The CSRF protector.
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function view($filename)
+    public function view($filename)
     {
         global $pth, $_XH_csrfProtection;
 
@@ -157,5 +145,3 @@ class PageDataView
         return $o;
     }
 }
-
-?>

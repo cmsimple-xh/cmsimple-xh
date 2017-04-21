@@ -36,9 +36,7 @@ class IntegratedPluginMenu extends PluginMenu
      */
     protected function makeMainItem()
     {
-        XH_registerPluginMenuItem(
-            $this->plugin, $this->mainLabel, $this->mainUrl
-        );
+        XH_registerPluginMenuItem($this->plugin, $this->mainLabel, $this->mainUrl);
     }
 
     /**
@@ -48,9 +46,7 @@ class IntegratedPluginMenu extends PluginMenu
      */
     protected function makeStylesheetItem()
     {
-        XH_registerPluginMenuItem(
-            $this->plugin, $this->cssLabel, $this->cssUrl
-        );
+        XH_registerPluginMenuItem($this->plugin, $this->cssLabel, $this->cssUrl);
     }
 
     /**
@@ -60,9 +56,7 @@ class IntegratedPluginMenu extends PluginMenu
      */
     protected function makeConfigItem()
     {
-        XH_registerPluginMenuItem(
-            $this->plugin, $this->configLabel, $this->configUrl
-        );
+        XH_registerPluginMenuItem($this->plugin, $this->configLabel, $this->configUrl);
     }
 
     /**
@@ -72,9 +66,7 @@ class IntegratedPluginMenu extends PluginMenu
      */
     protected function makeLanguageItem()
     {
-        XH_registerPluginMenuItem(
-            $this->plugin, $this->languageLabel, $this->languageUrl
-        );
+        XH_registerPluginMenuItem($this->plugin, $this->languageLabel, $this->languageUrl);
     }
 
     /**
@@ -86,10 +78,6 @@ class IntegratedPluginMenu extends PluginMenu
      */
     protected function makeHelpItem()
     {
-        XH_registerPluginMenuItem(
-            $this->plugin, $this->helpLabel, $this->helpUrl, '_blank'
-        );
+        XH_registerPluginMenuItem($this->plugin, $this->helpLabel, $this->helpUrl, '_blank');
     }
 }
-
-?>

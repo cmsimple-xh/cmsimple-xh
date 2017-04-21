@@ -27,7 +27,6 @@ namespace Filebrowser;
  * @link     http://cmsimple-xh.org/
  *
  * @todo Document meaning of properties.
- * @todo Document @access for members.
  */
 class Controller
 {
@@ -36,7 +35,7 @@ class Controller
      *
      * @var string $linkPrefix
      */
-    protected $linkPrefix = '';
+    private $linkPrefix = '';
 
     /**
      * The browse base.
@@ -64,7 +63,7 @@ class Controller
      *
      *  @var string
      */
-    protected $currentType;
+    private $currentType;
 
     /**
      * The link type.
@@ -78,14 +77,14 @@ class Controller
      *
      * @var array $folders
      */
-    protected $folders = array();
+    private $folders = array();
 
     /**
      * The files.
      *
      * @var array $files
      */
-    protected $files = array();
+    private $files = array();
 
     /**
      * The base directories.
@@ -99,14 +98,14 @@ class Controller
      *
      * @var array $allowedExtensions
      */
-    protected $allowedExtensions = array();
+    private $allowedExtensions = array();
 
     /**
      * The maximum filesizes.
      *
      * @var array $maxFilesizes
      */
-    protected $maxFilesizes = array();
+    private $maxFilesizes = array();
 
     /**
      * The view.
@@ -120,7 +119,7 @@ class Controller
      *
      * @var string $message
      */
-    protected $message = '';
+    private $message = '';
 
     /**
      * The brower path.
@@ -190,7 +189,7 @@ class Controller
      *
      * @return array
      */
-    protected function fileIsLinked($file)
+    private function fileIsLinked($file)
     {
         global $h, $c, $u;
 
@@ -285,7 +284,7 @@ class Controller
      *
      * @return array
      */
-    protected function getFolders($directory)
+    private function getFolders($directory)
     {
         $folders = array();
         $handle = opendir($directory);
@@ -295,9 +294,7 @@ class Controller
                     continue;
                 }
                 if (is_dir($directory . $file)) {
-                    $folders[] = str_replace(
-                        $this->browseBase, '', $directory . $file
-                    );
+                    $folders[] = str_replace($this->browseBase, '', $directory . $file);
                     $subfolders = $this->getFolders($directory . $file . '/');
                     foreach ($subfolders as $subfolder) {
                         $folders[] = $subfolder;
@@ -317,7 +314,7 @@ class Controller
      *
      * @return bool
      */
-    protected function isAllowedFile($file)
+    private function isAllowedFile($file)
     {
         $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
         if ($extension == $file) {
@@ -338,7 +335,7 @@ class Controller
      *
      * @todo Document the details.
      */
-    protected function foldersArray()
+    private function foldersArray()
     {
         $folders = array();
 
@@ -379,7 +376,7 @@ class Controller
      *
      * @todo Document the details.
      */
-    protected function gatherChildren($parent, array $folders)
+    private function gatherChildren($parent, array $folders)
     {
         $children = array();
         foreach ($folders as $key => $folder) {
@@ -428,7 +425,7 @@ class Controller
      *
      * @since 1.6
      */
-    protected function newFilename($filename)
+    private function newFilename($filename)
     {
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         $base = substr($filename, 0, -(strlen($ext) + 1));
@@ -453,23 +450,23 @@ class Controller
         $file = $_FILES['fbupload'];
 
         switch ($file['error']) {
-        case UPLOAD_ERR_OK:
-            break;
-        case UPLOAD_ERR_INI_SIZE:
-            $this->view->error(
-                'error_file_too_big_php',
-                array(ini_get('upload_max_filesize'), 'upload_max_filesize')
-            );
-            $this->view->info('error_not_uploaded', array($file['name']));
-            return;
-        case UPLOAD_ERR_NO_TMP_DIR:
-            $this->view->error('error_missing_temp_folder');
-            $this->view->info('error_not_uploaded', array($file['name']));
-            return;
-        default:
-            $this->view->error('error_unknown', array((string) $file['error']));
-            $this->view->info('error_not_uploaded', array($file['name']));
-            return;
+            case UPLOAD_ERR_OK:
+                break;
+            case UPLOAD_ERR_INI_SIZE:
+                $this->view->error(
+                    'error_file_too_big_php',
+                    array(ini_get('upload_max_filesize'), 'upload_max_filesize')
+                );
+                $this->view->info('error_not_uploaded', array($file['name']));
+                return;
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $this->view->error('error_missing_temp_folder');
+                $this->view->info('error_not_uploaded', array($file['name']));
+                return;
+            default:
+                $this->view->error('error_unknown', array((string) $file['error']));
+                $this->view->info('error_not_uploaded', array($file['name']));
+                return;
         }
 
         // alternatively the following might be used:
@@ -532,9 +529,7 @@ class Controller
     public function createFolder()
     {
         $folder = basename($_POST['createFolder']);
-        $folder = str_replace(
-            array(':', '*', '?', '"', '<', '>', '|', ' '), '', $folder
-        );
+        $folder = str_replace(array(':', '*', '?', '"', '<', '>', '|', ' '), '', $folder);
         $folder = $this->browseBase . $this->currentDirectory . $folder;
         if (is_dir($folder)) {
             $this->view->error('error_folder_already_exists', array(basename($folder)));
@@ -555,7 +550,7 @@ class Controller
     {
         $folder = $this->browseBase . $this->currentDirectory
             . basename($_POST['folder']);
-        if (!$this->_isEmpty($folder)) {
+        if (!$this->isEmpty($folder)) {
             $this->view->error('error_folder_not_empty');
             $this->view->info('error_not_deleted', array(basename($folder)));
             return;
@@ -575,7 +570,7 @@ class Controller
      *
      * @return bool
      */
-    private function _isEmpty($folder)
+    private function isEmpty($folder)
     {
         $isEmpty = true;
         if ($dir = opendir($folder)) {
@@ -598,9 +593,7 @@ class Controller
      */
     public function renameFile()
     {
-        $newName = str_replace(
-            array('..', '<', '>', ':', '?', ' '), '', basename($_POST['renameFile'])
-        );
+        $newName = str_replace(array('..', '<', '>', ':', '?', ' '), '', basename($_POST['renameFile']));
         $oldName = $_POST['oldName'];
         if ($oldName == $newName) {
             return;
@@ -729,5 +722,3 @@ class Controller
         }
     }
 }
-
-?>

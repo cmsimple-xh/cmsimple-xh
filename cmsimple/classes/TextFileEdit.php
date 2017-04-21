@@ -131,5 +131,3 @@ abstract class TextFileEdit extends FileEdit
         return $this->text;
     }
 }
-
-?>

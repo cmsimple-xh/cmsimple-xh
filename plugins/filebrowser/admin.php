@@ -138,7 +138,7 @@ function Filebrowser_forEditor()
         $type = $_GET['type'];
         if ($type == 'image') {
             $type = 'images';
-        } else if ($type == 'file') {
+        } elseif ($type == 'file') {
             $type = 'downloads';
         }
     }
@@ -166,9 +166,7 @@ function Filebrowser_forEditor()
             = $_XH_filebrowser->baseDirectories[$type];
 
         if (isset($_GET['subdir'])) {
-            $subdir = str_replace(
-                array('../', './', '?', '<', '>', ':'), '', $_GET['subdir']
-            );
+            $subdir = str_replace(array('../', './', '?', '<', '>', ':'), '', $_GET['subdir']);
 
             if (strpos($subdir, $_XH_filebrowser->baseDirectory) === 0) {
                 $_XH_filebrowser->currentDirectory = rtrim($subdir, '/') . '/';
@@ -205,5 +203,3 @@ function Filebrowser_forEditor()
         echo $_XH_filebrowser->render('editorbrowser');
     }
 }
-
-?>

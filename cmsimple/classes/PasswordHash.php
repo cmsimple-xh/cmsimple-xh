@@ -56,28 +56,28 @@ class PasswordHash
      *
      * @var string
      */
-    protected $itoa64;
+    private $itoa64;
 
     /**
      * The iteration count.
      *
      * @var int
      */
-    protected $iterationCountLog2;
+    private $iterationCountLog2;
 
     /**
      * Whether to create portable hashes.
      *
      * @var bool
      */
-    protected $portableHashes;
+    private $portableHashes;
 
     /**
      * The random state.
      *
      * @var string
      */
-    protected $randomState;
+    private $randomState;
 
     /**
      * Initializes a new instance.
@@ -140,7 +140,7 @@ class PasswordHash
      *
      * @return string
      */
-    protected function encode64($input, $count)
+    private function encode64($input, $count)
     {
         $output = '';
         $i = 0;
@@ -174,7 +174,7 @@ class PasswordHash
      *
      * @return string
      */
-    protected function gensaltPrivate($input)
+    private function gensaltPrivate($input)
     {
         $output = '$P$';
         $output .= $this->itoa64[min($this->iterationCountLog2 + 5, 30)];
@@ -191,7 +191,7 @@ class PasswordHash
      *
      * @return string
      */
-    protected function cryptPrivate($password, $setting)
+    private function cryptPrivate($password, $setting)
     {
         $output = '*0';
         if (substr($setting, 0, 2) == $output) {
@@ -240,7 +240,7 @@ class PasswordHash
      *
      * @return string
      */
-    protected function gensaltExtended($input)
+    private function gensaltExtended($input)
     {
         $count_log2 = min($this->iterationCountLog2 + 8, 24);
         // This should be odd to not reveal weak DES keys, and the
@@ -265,7 +265,7 @@ class PasswordHash
      *
      * @return string
      */
-    protected function gensaltBlowfish($input)
+    private function gensaltBlowfish($input)
     {
         // This one needs to use a different order of characters and a
         // different encoding scheme from the one in encode64() above.
@@ -366,5 +366,3 @@ class PasswordHash
         return $hash == $stored_hash;
     }
 }
-
-?>

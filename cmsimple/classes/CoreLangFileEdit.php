@@ -62,9 +62,7 @@ class CoreLangFileEdit extends CoreArrayFileEdit
                         $co['type'] = 'hidden';
                     } else {
                         $co['type'] = 'enum';
-                        $co['vals'] = $this->selectOptions(
-                            'templates', '/^([^\.]*)$/i'
-                        );
+                        $co['vals'] = $this->selectOptions('templates', '/^([^\.]*)$/i');
                         array_unshift($co['vals'], '');
                     }
                 }
@@ -73,5 +71,3 @@ class CoreLangFileEdit extends CoreArrayFileEdit
         }
     }
 }
-
-?>

@@ -35,28 +35,28 @@ class Backup
      *
      * @var array
      */
-    private $_contentFolders;
+    private $contentFolders;
 
     /**
      * The path of the content folder.
      *
      * @var string
      */
-    private $_contentFolder;
+    private $contentFolder;
 
     /**
      * The path of the content file.
      *
      * @var string
      */
-    private $_contentFile;
+    private $contentFile;
 
     /**
      * The maximum number of backups to keep.
      *
      * @var int
      */
-    private $_maxBackups;
+    private $maxBackups;
 
     /**
      * Initializes a new instance.
@@ -69,8 +69,8 @@ class Backup
     {
         global $cf;
 
-        $this->_contentFolders = $contentFolders;
-        $this->_maxBackups = (int) $cf['backup']['numberoffiles'];
+        $this->contentFolders = $contentFolders;
+        $this->maxBackups = (int) $cf['backup']['numberoffiles'];
     }
 
     /**
@@ -81,7 +81,7 @@ class Backup
     public function execute()
     {
         $result = '';
-        foreach ($this->_contentFolders as $folder) {
+        foreach ($this->contentFolders as $folder) {
             $result .= $this->backupSingleFolder($folder);
         }
         return $result;
@@ -97,17 +97,17 @@ class Backup
     public function backupSingleFolder($folder)
     {
         $result = '';
-        $this->_contentFolder = $folder;
-        $this->_contentFile = $this->_contentFolder . 'content.htm';
+        $this->contentFolder = $folder;
+        $this->contentFile = $this->contentFolder . 'content.htm';
         $basename = date("Ymd_His") . '_content.htm';
-        $filename = $this->_contentFolder . $basename;
-        $needsBackup = $this->_needsBackup();
-        if (!$needsBackup || $this->_backupFile($basename)) {
+        $filename = $this->contentFolder . $basename;
+        $needsBackup = $this->needsBackup();
+        if (!$needsBackup || $this->backupFile($basename)) {
             if ($needsBackup) {
-                $result .= $this->_renderCreationInfo($filename);
+                $result .= $this->renderCreationInfo($filename);
             }
-            $deletions = $this->_deleteSurplusBackups();
-            $result .= $this->_renderDeletionResults($deletions);
+            $deletions = $this->deleteSurplusBackups();
+            $result .= $this->renderDeletionResults($deletions);
         } else {
             e('cntsave', 'backup', $filename);
         }
@@ -119,10 +119,10 @@ class Backup
      *
      * @return array
      */
-    private function _findBackups()
+    private function findBackups()
     {
         $result = array();
-        if ($dir = opendir($this->_contentFolder)) {
+        if ($dir = opendir($this->contentFolder)) {
             while (($entry = readdir($dir)) !== false) {
                 if (XH_isContentBackup($entry)) {
                     $result[] = $entry;
@@ -139,14 +139,14 @@ class Backup
      *
      * @return bool
      */
-    private function _needsBackup()
+    private function needsBackup()
     {
-        if ($this->_maxBackups <= 0) {
+        if ($this->maxBackups <= 0) {
             return false;
         }
-        $latestBackup = $this->_latestBackup();
+        $latestBackup = $this->latestBackup();
         if ($latestBackup) {
-            return md5_file($this->_contentFile) != md5_file($latestBackup);
+            return md5_file($this->contentFile) != md5_file($latestBackup);
         } else {
             return true;
         }
@@ -159,11 +159,11 @@ class Backup
      *
      * @return string
      */
-    private function _latestBackup()
+    private function latestBackup()
     {
-        $backups = $this->_findBackups();
+        $backups = $this->findBackups();
         if (!empty($backups)) {
-            return $this->_contentFolder . $backups[count($backups) - 1];
+            return $this->contentFolder . $backups[count($backups) - 1];
         } else {
             return false;
         }
@@ -176,9 +176,9 @@ class Backup
      *
      * @return bool
      */
-    private function _backupFile($basename)
+    private function backupFile($basename)
     {
-        return copy($this->_contentFile, $this->_contentFolder . $basename);
+        return copy($this->contentFile, $this->contentFolder . $basename);
     }
 
     /**
@@ -186,13 +186,13 @@ class Backup
      *
      * @return array A map of filenames => deletion success.
      */
-    private function _deleteSurplusBackups()
+    private function deleteSurplusBackups()
     {
         $result = array();
-        $basenames = $this->_findBackups();
-        $basenames = array_slice($basenames, 0, -$this->_maxBackups);
+        $basenames = $this->findBackups();
+        $basenames = array_slice($basenames, 0, -$this->maxBackups);
         foreach ($basenames as $basename) {
-            $filename = $this->_contentFolder . $basename;
+            $filename = $this->contentFolder . $basename;
             $result[$filename] = unlink($filename);
         }
         return $result;
@@ -207,15 +207,11 @@ class Backup
      *
      * @global array The localization of the core.
      */
-    private function _renderCreationInfo($filename)
+    private function renderCreationInfo($filename)
     {
         global $tx;
 
-        $message = sprintf(
-            '%s %s %s',
-            utf8_ucfirst($tx['filetype']['backup']),
-            $filename, $tx['result']['created']
-        );
+        $message = sprintf('%s %s %s', utf8_ucfirst($tx['filetype']['backup']), $filename, $tx['result']['created']);
         return XH_message('info', $message);
     }
 
@@ -226,12 +222,12 @@ class Backup
      *
      * @return string HTML
      */
-    private function _renderDeletionResults(array $deletions)
+    private function renderDeletionResults(array $deletions)
     {
         $results = '';
         foreach ($deletions as $filename => $deleted) {
             if ($deleted) {
-                $results .= $this->_renderDeletionInfo($filename);
+                $results .= $this->renderDeletionInfo($filename);
             } else {
                 e('cntdelete', 'backup', $filename);
             }
@@ -248,17 +244,11 @@ class Backup
      *
      * @global array The localization of the core.
      */
-    private function _renderDeletionInfo($filename)
+    private function renderDeletionInfo($filename)
     {
         global $tx;
 
-        $message = sprintf(
-            '%s %s %s',
-            utf8_ucfirst($tx['filetype']['backup']),
-            $filename, $tx['result']['deleted']
-        );
+        $message = sprintf('%s %s %s', utf8_ucfirst($tx['filetype']['backup']), $filename, $tx['result']['deleted']);
         return XH_message('info', $message);
     }
 }
-
-?>

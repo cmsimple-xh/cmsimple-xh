@@ -40,5 +40,3 @@ if (XH_wantsPluginAdministration('page_params')) {
     }
     $o .= plugin_admin_common($action, $admin, $plugin);
 }
-
-?>
