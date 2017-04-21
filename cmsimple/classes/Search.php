@@ -199,13 +199,15 @@ class Search
      * @global array  The headings of the pages.
      * @global array  The URLs of the pages.
      * @global string The script name.
+     * @global array  The configuration of the core.
      * @global array  The localization of the core.
      * @global object The page data router.
      */
     public function render()
     {
-        global $h, $u, $sn, $tx, $pd_router;
+        global $h, $u, $sn, $cf, $tx, $pd_router;
 
+        $cf['meta']['robots'] = 'noindex, nofollow';
         $o = '<h1>' . $tx['search']['result'] . '</h1>';
         $words = $this->getWords();
         $pages = $this->search();
