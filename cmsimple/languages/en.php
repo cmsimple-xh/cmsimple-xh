@@ -135,6 +135,9 @@ $tx['help']['folders_downloads']="A subfolder of userfiles.";
 $tx['help']['folders_images']="A subfolder of userfiles.";
 $tx['help']['folders_media']="A subfolder of userfiles.";
 
+$tx['help']['format_date']="The date format if ext/intl is available; otherwise the date/time format falls back to <code>\$tx['lastupdate']['format']</code>.";
+$tx['help']['format_time']="The time format if ext/intl is available; otherwise the date/time format falls back to <code>\$tx['lastupdate']['format']</code>.";
+
 $tx['label']['empty']="- EMPTY -";
 
 $tx['languagemenu']['text']="select language: ";

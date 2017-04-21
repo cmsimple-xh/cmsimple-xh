@@ -2514,20 +2514,29 @@ function XH_onShutdown()
     }
 }
 /**
- * Returns a timestamp formatted according to <var>$tx[lastupdate][dateformat]</var>.
+ * Returns a timestamp formatted according to config and lang.
  *
  * @param int $timestamp A UNIX timestamp.
  *
  * @return string
  *
+ * @global array The configuration of the core.
  * @global array The localization of the core.
  *
  * @since 1.6.3
  */
 function XH_formatDate($timestamp)
 {
-    global $tx;
+    global $cf, $tx;
 
+    if (class_exists('IntlDateFormatter', false)) {
+        $dateFormatter = new IntlDateFormatter(
+            $tx['locale']['all'] ? $tx['locale']['all'] : null,
+            constant('IntlDateFormatter::' . strtoupper($cf['format']['date'])),
+            constant('IntlDateFormatter::' . strtoupper($cf['format']['time']))
+        );
+        return $dateFormatter->format($timestamp);
+    }
     return date($tx['lastupdate']['dateformat'], $timestamp);
 }
 

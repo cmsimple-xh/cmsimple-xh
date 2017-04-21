@@ -32,5 +32,7 @@ $mcf['uri']['length']="hidden";
 $mcf['editmenu']['scroll']="bool";
 $mcf['editmenu']['external']="xfunction:XH_registeredEditmenuPlugins";
 $mcf['mode']['advanced']="bool";
+$mcf['format']['date']="enum:none,short,medium,long,full";
+$mcf['format']['time']="enum:none,short,medium,long,full";
 
 ?>
