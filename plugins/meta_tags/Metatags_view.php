@@ -58,7 +58,10 @@ function Metatags_view(array $page)
         $view .= "\n\t" . XH_helpIcon($lang['hint_' . $field])
             . "\n\t" . '<label><span class = "mt_label">'
             . $lang[$field] . '</span>';
-        if ($field == 'description') {
+        if ($field == 'title') {
+            $view .= '<span id="mt_title_length">['
+                . utf8_strlen($page[$field]). ']</span>';
+        } elseif ($field == 'description') {
             $view .= '<span id="mt_description_length">['
                 . utf8_strlen($page[$field]). ']</span>';
         }

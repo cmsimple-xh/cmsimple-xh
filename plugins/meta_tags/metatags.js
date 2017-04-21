@@ -33,11 +33,16 @@
      */
     on(window, "load", function () {
         var form = document.getElementById("meta_tags"),
+            title = form.elements.title,
+            titleIndicator = document.getElementById("mt_title_length"),
             description = form.elements.description,
-            indicator = document.getElementById("mt_description_length");
+            descIndicator = document.getElementById("mt_description_length");
 
-        if (description && indicator) {
-            XH.displayTextLength(description, indicator);
+        if (title && titleIndicator) {
+            XH.displayTextLength(title, titleIndicator);
+        }
+        if (description && descIndicator) {
+            XH.displayTextLength(description, descIndicator);
         }
     });
 }());
