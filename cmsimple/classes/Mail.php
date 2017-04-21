@@ -206,8 +206,9 @@ class Mail
                     $text = '';
                 }
             } while ($text != '');
-            $body = 'return \'=?UTF-8?B?\' . base64_encode($l) . \'?=\';';
-            $func = create_function('$l', $body);
+            $func = function ($line) {
+                return '=?UTF-8?B?' . base64_encode($line) . '?=';
+            };
             return implode($this->lineEnding . ' ', array_map($func, $lines));
         }
     }
