@@ -2657,7 +2657,7 @@ function XH_poweredBy()
         $tpltext .= $defaulttpl == $template
             ? '<li><p><strong>Default template: ' . ucfirst($template) . '</strong>'
             : '<li>' . ucfirst($template);
-        $infoPath = $pth['folder']['templates'] . '/' . $template . '/template.nfo';
+        $infoPath = $pth['folder']['templates'] . '/' . $template . '/templateinfo.htm';
         if (is_file($infoPath)) {
             $tplinfo = utf8_substr(
                 strip_tags(file_get_contents($infoPath), '<a><br><br/>'),
