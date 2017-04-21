@@ -31,10 +31,6 @@ $_XH_filebrowser->setMaxFileSize('downloads', $cf['downloads']['maxsize']);
 if (XH_wantsPluginAdministration('filebrowser')) {
     $o .= print_plugin_admin('off');
 
-    $o .= '<div class="plugintext">'
-        . '<div class="plugineditcaption">Filebrowser for @CMSIMPLE_XH_VERSION@'
-        . '</div>' . '<hr>';
-
     if (!$admin) {
         $admin = 'plugin_config';
     }
@@ -42,8 +38,7 @@ if (XH_wantsPluginAdministration('filebrowser')) {
         $action = 'plugin_edit';
     }
 
-    $o .= plugin_admin_common($action, $admin, $plugin)
-        . '</div>';
+    $o .= plugin_admin_common($action, $admin, $plugin);
     return;
 }
 
