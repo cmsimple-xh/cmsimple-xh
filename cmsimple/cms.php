@@ -952,17 +952,15 @@ $cl = 0;
 $pd_router = null;
 
 /**
- * The index of the first published page.
+ * The publisher instance.
  *
- * Treat as <i>read-only</i>.
- *
- * @global int $_XH_firstPublishedPage
+ * @global int $xh_publisher
  *
  * @access public
  *
- * @since 1.6.3
+ * @since 1.7.0
  */
-$_XH_firstPublishedPage = -1;
+$xh_publisher = null;
 
 /**
  * The index of the currently requested page.
@@ -1080,7 +1078,7 @@ if (XH_ADM) {
  *
  * @see $s
  */
-$pd_s = ($s == -1 && !$f && $o == '' && $su == '') ? $_XH_firstPublishedPage : $s;
+$pd_s = ($s == -1 && !$f && $o == '' && $su == '') ? $xh_publisher->getFirstPublishedPage() : $s;
 
 /**
  * The infos about the current page.
@@ -1295,8 +1293,7 @@ if (XH_ADM) {
 
 // fix $s
 if ($s == -1 && !$f && $o == '' && $su == '') {
-    $s = $_XH_firstPublishedPage;
-    $hs = $_XH_firstPublishedPage;
+    $s = $hs = $xh_publisher->getFirstPublishedPage();
 }
 
 if (XH_ADM) {

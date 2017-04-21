@@ -685,12 +685,13 @@ function e($et, $ft, $fn)
  * @global array  The localization of the core.
  * @global string Error messages as HTML fragment consisting of LI Elements.
  * @global object The pagedata router.
+ * @global object The publisher.
  *
  * @return void
  */
 function rfc()
 {
-    global $edit, $c, $cl, $h, $u, $l, $su, $s, $tx, $e, $pth, $pd_router;
+    global $edit, $c, $cl, $h, $u, $l, $su, $s, $tx, $e, $pth, $pd_router, $xh_publisher;
 
     $contents = XH_readContents();
     if ($contents === false) {
@@ -741,6 +742,8 @@ function rfc()
             }
         }
     }
+
+    $xh_publisher = new XH\Publisher($removed);
 }
 
 /**
@@ -762,7 +765,6 @@ function rfc()
  * @global array The paths of system files and folders.
  * @global array The configuration of the core.
  * @global bool  Whether edit mode is active.
- * @global int   The index of the first published page.
  *
  * @return array
  *
@@ -770,7 +772,7 @@ function rfc()
  */
 function XH_readContents($language = null)
 {
-    global $pth, $cf, $edit, $_XH_firstPublishedPage;
+    global $pth, $cf, $edit;
 
     if (isset($language)) {
         $contentFolder = $pth['folder']['base'] . 'content/' . $language . '/';
@@ -858,15 +860,9 @@ function XH_readContents($language = null)
     );
 
     // remove unpublished pages
-    if (!isset($language)) {
-        $_XH_firstPublishedPage = 0;
-    }
     if (!($edit && XH_ADM)) {
         foreach ($c as $i => $text) {
             if (cmscript('remove', $text)) {
-                if (!isset($language) && $_XH_firstPublishedPage == $i) {
-                    $_XH_firstPublishedPage = ($i < count($c) - 1) ? $i + 1 : -1;
-                }
                 $c[$i] = '#CMSimple hide# #CMSimple shead(404);#';
                 $removed[$i] = true;
             }
@@ -2750,28 +2746,29 @@ function XH_pluginURL($plugin)
  * @global array  The menu levels of the pages.
  * @global array  The localization of the core.
  * @global array  The configuration of the core.
- * @global int    The index of the first published page.
+ * @global object The publisher.
  *
  * @since 1.7
  */
 function XH_getLocatorModel()
 {
-    global $title, $h, $s, $f, $l, $tx, $cf, $_XH_firstPublishedPage;
+    global $title, $h, $s, $f, $l, $tx, $cf, $xh_publisher;
 
     if (hide($s) && $cf['show_hidden']['path_locator'] != 'true') {
         return array(array($h[$s], XH_getPageURL($s)));
     }
-    if ($s == $_XH_firstPublishedPage) {
+    $firstPublishedPage = $xh_publisher->getFirstPublishedPage();
+    if ($s == $firstPublishedPage) {
         return array(array($h[$s], XH_getPageURL($s)));
     } elseif ($title != '' && (!isset($h[$s]) || $h[$s] != $title)) {
         $res = array(array($title, null));
     } elseif ($f != '') {
         return array(array(ucfirst($f), null));
-    } elseif ($s > $_XH_firstPublishedPage) {
+    } elseif ($s > $firstPublishedPage) {
         $res = array();
         $tl = $l[$s];
         if ($tl > 1) {
-            for ($i = $s - 1; $i > $_XH_firstPublishedPage; $i--) {
+            for ($i = $s - 1; $i > $firstPublishedPage; $i--) {
                 if ($l[$i] < $tl) {
                     array_unshift($res, array($h[$i], XH_getPageURL($i)));
                     $tl--;
@@ -2787,14 +2784,14 @@ function XH_getLocatorModel()
     if ($cf['locator']['show_homepage'] == 'true') {
         array_unshift(
             $res,
-            array($tx['locator']['home'], XH_getPageURL($_XH_firstPublishedPage))
+            array($tx['locator']['home'], XH_getPageURL($firstPublishedPage))
         );
-        if ($s > $_XH_firstPublishedPage && $h[$s] == $title) {
+        if ($s > $firstPublishedPage && $h[$s] == $title) {
             $res[] = array($h[$s], XH_getPageURL($s));
         }
         return $res;
     } else {
-        if ($s > $_XH_firstPublishedPage && $h[$s] == $title) {
+        if ($s > $firstPublishedPage && $h[$s] == $title) {
             $res[] = array($h[$s], XH_getPageURL($s));
         }
         return $res;
