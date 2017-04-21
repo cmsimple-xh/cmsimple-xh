@@ -31,7 +31,7 @@ $tx['action']['view']="view";
 
 $tx['editmenu']['backups']="Backups";
 $tx['editmenu']['change_password']="Password";
-$tx['editmenu']['configuration']="CMS";
+$tx['editmenu']['configuration']="Configuration";
 $tx['editmenu']['downloads']="Downloads";
 $tx['editmenu']['edit']="Edit mode";
 $tx['editmenu']['files']="Files";
