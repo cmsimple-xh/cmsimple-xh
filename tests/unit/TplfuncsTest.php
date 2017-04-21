@@ -74,12 +74,9 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
     public function testSearchbox()
     {
         $matcher = array(
-            'tag' => 'div',
+            'tag' => 'form',
             'id' => 'searchbox',
-            'parent' => array(
-                'tag' => 'form',
-                'attributes' => array('method' => 'get')
-            )
+            'attributes' => array('method' => 'get')
         );
         $actual = searchbox();
         @$this->assertTag($matcher, $actual);

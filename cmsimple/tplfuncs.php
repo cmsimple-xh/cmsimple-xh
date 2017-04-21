@@ -271,14 +271,14 @@ function searchbox()
 {
     global $sn, $tx;
 
-    return '<form action="' . $sn . '" method="get">' . "\n"
-        . '<div id="searchbox">' . "\n"
-        . '<input type="text" class="text" name="search" title="'
-        . $tx['search']['label'] . '" size="12">' . "\n"
+    return '<form id="searchbox" action="' . $sn . '" method="get">' . "\n"
+        . '<input type="search" class="text" name="search" title="'
+        . $tx['search']['label'] . '" placeholder="' . $tx['search']['label']
+        . '" size="12">' . "\n"
         . '<input type="hidden" name="function" value="search">' . "\n" . ' '
         . '<input type="submit" class="submit" value="'
         . $tx['search']['button'] . '">' . "\n"
-        . '</div>' . "\n" . '</form>' . "\n";
+        . '</form>' . "\n";
 }
 
 
