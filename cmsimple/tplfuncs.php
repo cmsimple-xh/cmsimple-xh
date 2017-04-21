@@ -452,23 +452,16 @@ function editmenu()
  *
  * @return string HTML
  *
- * @global array  The headings of the pages.
  * @global int    The index of the current page.
  * @global string The output of the contents area.
  * @global array  The content of the pages.
  * @global bool   Whether edit mode is active.
- * @global array  The configuration of the core.
  */
 function content()
 {
-    global $h, $s, $o, $c, $edit, $cf;
+    global $s, $o, $c, $edit;
     $heading = '';
 
-    if ($cf['headings']['show'] && $s > -1) {
-        if (preg_match('/<!--XH_ml[1-9]:(.+)-->/isU', $c[$s], $matches)) {
-            $heading = sprintf($cf['headings']['format'], $matches[1]);
-        } 
-    }
     if (!($edit && XH_ADM) && $s > -1) {
         if (isset($_GET['search'])) {
             $search = XH_hsc(stsl($_GET['search']));
@@ -479,9 +472,6 @@ function content()
         $o .= $heading . preg_replace('/#CMSimple (.*?)#/is', '', $c[$s]);
         return  preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $o);
     } else {
-        if ($s > -1 && ($cf['headings']['show'] || ($edit && XH_ADM))) {
-            $o = sprintf($cf['headings']['format'], $h[$s]) . $o;
-        }
         return  preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $o);
     }
 }

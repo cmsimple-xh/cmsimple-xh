@@ -31,7 +31,6 @@ $mcf['menu']['sdoc']="enum:,parent";
 $mcf['uri']['length']="hidden";
 $mcf['editmenu']['scroll']="bool";
 $mcf['editmenu']['external']="xfunction:XH_registeredEditmenuPlugins";
-$mcf['headings']['show']="bool";
 $mcf['mode']['advanced']="bool";
 
 ?>

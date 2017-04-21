@@ -40,19 +40,6 @@
     }
 
     /**
-     * Handles show_heading click events.
-     *
-     * @param {Event} event
-     *
-     * @returns {undefined}
-     */
-    function onShowHeadingClick(event) {
-        var target = event.target || event.srcElement;
-
-        toggle(target.form.elements.heading);
-    }
-
-    /**
      * Handles published click events.
      *
      * @param {Event} event
@@ -139,7 +126,6 @@
         form = document.getElementById("page_params");
         if (form) {
             elements = form.elements;
-            on(elements.show_heading[1], "click", onShowHeadingClick);
             on(elements.published[1], "click", onPublishedClick);
             on(elements.publication_date, "change", onDateChange);
             on(elements.expires, "change", onDateChange);
