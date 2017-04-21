@@ -163,7 +163,7 @@ function Pageparams_input($name, $value, $disabled)
 function Pageparams_scheduleInput($name, $value, $disabled)
 {
     $disabled = $disabled ? ' disabled="disabled"' : '';
-    return '<input type="text" size="16" maxlength="16" name="' . $name . '"'
+    return '<input type="datetime-local" size="16" maxlength="16" name="' . $name . '"'
         . ' value="' . $value . '"' . $disabled . '>';
 }
 
