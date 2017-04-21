@@ -230,6 +230,7 @@ $tx['password']['invalid']="New password must consist of ASCII characters only."
 $tx['password']['mismatch']="New password and its confirmation do not match.";
 $tx['password']['new']="New password";
 $tx['password']['old']="Old password";
+$tx['password']['score']="Password score: %s";
 $tx['password']['wrong']="Old password is wrong.";
 
 $tx['password_forgotten']['email1_sent']="An email has been sent to the configured address with a link to reset the password. This link is valid for 1-2 hours.";

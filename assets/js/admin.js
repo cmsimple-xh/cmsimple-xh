@@ -553,6 +553,47 @@ XH.toggleAdvancedFields = function () {
     }
 }
 
+/**
+ * Scores the strength of a given password.
+ *
+ * Originally taken from
+ * <http://stackoverflow.com/questions/948172/password-strength-meter#11268104>.
+ *
+ * @param {string} pass
+ * @returns {number}
+ */
+XH.scorePassword = function (password) {
+    var score = 0;
+    if (!password) {
+        return score;
+    }
+
+    // award every unique letter until 5 repetitions
+    var letters = {};
+    for (var i = 0; i < password.length; i++) {
+        letters[password[i]] = (letters[password[i]] || 0) + 1;
+        score += Math.max(6 - letters[password[i]], 0);
+    }
+
+    // bonus points for mixing it up
+    var variations = {
+        digits: /\d/.test(password),
+        lower: /[a-z]/.test(password),
+        upper: /[A-Z]/.test(password),
+        punct: /\W|_/.test(password),
+    }
+
+    var variationCount = 0;
+    for (var check in variations) {
+        if (variations.hasOwnProperty(check)) {
+            variationCount += +variations[check];
+        }
+    }
+    score += (variationCount - 1) * 10;
+
+    return score;
+}
+
 /*
  * Register resize handler for adapting the admin menu. This has some glitches,
  * but should be acceptable.
@@ -638,4 +679,22 @@ XH.on(window, "load", function () {
             form.insertBefore(button, advanced);
         }
     }());
+
+    var showScore = function (event) {
+        var event = event || window.event;
+        var target = event.target || event.srcElement;
+        var score = XH.scorePassword(target.value);
+        var spans = target.parentNode.getElementsByTagName("span");
+        if (spans.length && spans[0].className === "xh_password_score") {
+            spans[0].innerHTML = XH.i18n.password.score.replace(/%s/, score);
+        }
+    };
+    var oldPasswordInput = document.getElementById("xh_password_old");
+    if (oldPasswordInput) {
+        XH.addInputEventListener(oldPasswordInput, showScore);
+    }
+    var newPasswordInput = document.getElementById("xh_password_new");
+    if (newPasswordInput) {
+        XH.addInputEventListener(newPasswordInput, showScore);
+    }
 });

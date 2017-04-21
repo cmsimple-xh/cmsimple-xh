@@ -1121,6 +1121,7 @@ function XH_adminJSLocalization()
     $keys = array(
         'action' => array('advanced_hide', 'advanced_show', 'cancel', 'ok'),
         'error' => array('server'),
+        'password' => array('score'),
         'settings' => array('backupsuffix')
     );
     $l10n = array();
