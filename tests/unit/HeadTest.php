@@ -44,6 +44,13 @@ class HeadTest extends PHPUnit_Framework_TestCase
     protected $pluginsMock;
 
     /**
+     * The XH_pluginStylesheet() mock.
+     *
+     * @var object
+     */
+    protected $pluginStylesheetMock;
+
+    /**
      * Sets up the test fixture.
      *
      * @return void
@@ -74,6 +81,8 @@ class HeadTest extends PHPUnit_Framework_TestCase
         $this->titleMock = new PHPUnit_Extensions_MockFunction('XH_title', null);
         $this->pluginsMock = new PHPUnit_Extensions_MockFunction('XH_plugins', null);
         $this->pluginsMock->expects($this->any())->will($this->returnValue(array()));
+        $this->pluginStylesheetMock = new PHPUnit_Extensions_MockFunction('XH_pluginStylesheet', null);
+        $this->pluginStylesheetMock->expects($this->once());
     }
 
     /**
@@ -85,6 +94,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
     {
         $this->titleMock->restore();
         $this->pluginsMock->restore();
+        $this->pluginStylesheetMock->restore();
     }
 
     /**
