@@ -27,7 +27,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 global $hjs, $plugin_cf, $pth;
 
 //load plugin-configuration for xh < 1.6
-require($pth['folder']['plugins'] . 'jquery/config/config.php');
+//require($pth['folder']['plugins'] . 'jquery/config/config.php');
 
 function include_jQuery($path = '') {
     global $pth, $plugin_cf, $hjs;
