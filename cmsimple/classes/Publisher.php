@@ -51,6 +51,13 @@ class Publisher
     protected $hidden = array();
 
     /**
+     * The pages.
+     *
+     * @var Pages
+     */
+    protected $pages;
+
+    /**
      * Initializes a new instance.
      *
      * @param bool[] $removed The removed status of the pages.
@@ -74,6 +81,7 @@ class Publisher
                     && $this->isPublishedInPageData($data);
             }
         }
+        $this->pages = new Pages;
     }
 
     /**
@@ -81,6 +89,8 @@ class Publisher
      *
      * A page may be unpublished either by `#cmsimple remove#` or via
      * the page data fields `published`, `publication_date` and `expires`.
+     * Note that all descendants of an unpublished page are also regarded as
+     * being unpublished.
      *
      * @param int $index A page index.
      *
@@ -88,6 +98,13 @@ class Publisher
      */
     public function isPublished($index)
     {
+        $parent = $index;
+        while (isset($parent) && $this->published[$parent]) {
+            $parent = $this->pages->parent($parent, false);
+        }
+        if (isset($parent)) {
+            return false;
+        }
         return $this->published[$index];
     }
 
@@ -96,7 +113,8 @@ class Publisher
      *
      * A page may be hidden either by `#cmsimple hide#` or via the page data
      * field `linked_to_menu`. Note that unpublished pages are not reported as
-     * being hidden by this method.
+     * being hidden by this method. Note that all descendants of a hidden page
+     * are also regarded as being hidden.
      *
      * @param int $index A page index.
      *
@@ -104,6 +122,13 @@ class Publisher
      */
     public function isHidden($index)
     {
+        $parent = $index;
+        while (isset($parent) && !$this->hidden[$parent]) {
+            $parent = $this->pages->parent($parent, false);
+        }
+        if (isset($parent)) {
+            return true;
+        }
         return $this->hidden[$index];
     }
 
