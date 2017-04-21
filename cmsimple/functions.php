@@ -1420,13 +1420,12 @@ function XH_debugmode()
  * @param string $errstr  An error message.
  * @param string $errfile Filename where error was raised.
  * @param int    $errline Line number where error was raised.
- * @param array  $context The error context.
  *
  * @global array The list of PHP errors formatted as (X)HTML fragment.
  *
  * @return void
  */
-function XH_debug($errno, $errstr, $errfile, $errline, $context)
+function XH_debug($errno, $errstr, $errfile, $errline)
 {
     global $errors;
 
