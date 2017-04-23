@@ -21,6 +21,7 @@
 
 namespace Pagemanager;
 
+use Fa;
 use XH\Pages;
 
 class MainAdminController extends Controller
@@ -72,21 +73,39 @@ class MainAdminController extends Controller
     {
         global $pth, $title, $hjs, $bjs;
 
-        $title = "Pagemanager – {$this->lang['menu_main']}";
+        if (XH_wantsPluginAdministration('pagemanager')) {
+            $title = "Pagemanager – {$this->lang['menu_main']}";
+        } else {
+            $title = $this->lang['menu_main'];
+        }
         $hjs .= '<link rel="stylesheet" type="text/css" href="'
             . "{$this->pluginFolder}jstree/themes/{$this->config['treeview_theme']}/style.min.css" . '">';
         include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php';
         include_jQuery();
         include_jQueryPlugin('jstree', "{$this->pluginFolder}jstree/jstree.min.js");
+        $command = new Fa\RequireCommand;
+        $command->execute();
         $bjs .= '<script type="text/javascript">var PAGEMANAGER = ' . $this->jsConfig() . ';</script>'
             . '<script type="text/javascript" src="' . XH_hsc("{$this->pluginFolder}pagemanager.js") . '"></script>';
         $view = new View('widget');
+        $view->title = $title;
         $view->submissionUrl = $this->submissionURL();
         $view->isIrregular = $this->model->isIrregular();
         $view->ajaxLoaderPath = "{$this->pluginFolder}images/ajax-loader-bar.gif";
         $view->hasToolbar = (bool) $this->config['toolbar_show'];
-        $view->tools = array('save', 'toggle', 'add', 'rename', 'remove',
-                             'cut', 'copy', 'paste', 'edit', 'preview', 'help');
+        $view->tools = array(
+            'save' => 'fa fa-save',
+            'toggle' => 'fa fa-expand',
+            'add' => 'fa fa-file-o',
+            'rename' => 'fa fa-tag',
+            'remove' => 'fa fa-trash-o',
+            'cut' => 'fa fa-cut',
+            'copy' => 'fa fa-copy',
+            'paste' => 'fa fa-paste',
+            'edit' => 'fa fa-edit',
+            'preview' => 'fa fa-eye',
+            'help' => 'fa fa-book'
+        );
         $view->csrfTokenInput = new HtmlString($this->csrfProtector->tokenInput());
         $view->render();
     }
@@ -123,7 +142,6 @@ class MainAdminController extends Controller
             'animation' => (int) $this->config['treeview_animation'],
             'loading' => $this->lang['treeview_loading'],
             'newNode' => $this->lang['treeview_new'],
-            'imageDir' => "{$this->pluginFolder}images/",
             'theme' => $this->config['treeview_theme'],
             'addOp' => $this->lang['op_add'],
             'renameOp' => $this->lang['op_rename'],
@@ -137,6 +155,16 @@ class MainAdminController extends Controller
             'inside' => $this->lang['label_inside'],
             'after' => $this->lang['label_after'],
             'userManual' => $pth['file']['plugin_help'],
+            'classes' => array(
+                'add' => 'fa-file-o',
+                'rename' => 'fa-tag',
+                'remove' => 'fa-trash-o',
+                'cut' => 'fa-cut',
+                'copy' => 'fa-copy',
+                'paste' => 'fa-paste',
+                'edit' => 'fa-edit',
+                'preview' => 'fa-eye'
+            ),
             'duplicateHeading' => $tx['toc']['dupl'],
             'offendingExtensionError' => $this->lang['error_offending_extension'],
             'hasCheckboxes' => $this->config['pagedata_attribute'] !== '',

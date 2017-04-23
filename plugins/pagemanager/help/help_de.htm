@@ -46,8 +46,8 @@
 <h2>Voraussetzungen</h2>
 <p>
     Pagemanager_XH ist ein Plugin für CMSimple_XH &ge; 1.7. Zusätzlich benötigt
-    es noch das jQuery4CMSimple-Plugin, das in allen Standarddownloads von
-    CMSimple_XH bereits enthalten ist. Es benötigt ebenfalls PHP &ge; 5.3.0 mit
+    es noch das jQuery4CMSimple und das Fa_XH Plugin, die in allen Standarddownloads von
+    CMSimple_XH bereits enthalten sind. Es benötigt ebenfalls PHP &ge; 5.3.0 mit
     der JSON Extension.
 </p>
 </section>
@@ -118,7 +118,7 @@
     über die kleinen Markierungen links von der Seite, oder durch Doppel-Klicken
     auf den Titel.
 </p>
-<img style="max-width:100%; margin:0 auto" src="pagemanager.png" alt="Pagemanager_XH Bildschirmfoto">
+<img style="max-width:100%; margin:0 auto" src="pagemanager.jpg" alt="Pagemanager_XH Bildschirmfoto">
 <p>
     Oberhalb der Baumansich der Seiten Ihrer Homepage befindet sich
     Pagemanager_XHs <strong>Werkzeugleiste</strong>. Die Werkzeugleiste ist
@@ -132,35 +132,13 @@
     eingeblendet, damit Sie sehen können, wo die Seite beim Ablegen eingeordnet
     wird. Sollte es nicht möglich sein auf eine bestimmte Seite zu ziehen, weil
     das z.B. in einer rekursiven Seitenstruktur resultieren würde, oder die
-    resultierende Verschachtelungstiefe zu groß würde, wird das durch ein rotes
+    resultierende Verschachtelungstiefe zu groß würde, wird das durch ein
     Kreuz angezeigt, oder es wird einfach nicht möglich sein, die Seite hier
     abzulegen. <em>Also beachten sie genau die Markierungen</em>, bis Sie ein
     Gefühl dafür bekommen, wie das Drag &amp; Drop funktioniert. Wenn Sie beim
     Ziehen einer Seite STRG gedrückt halten, wird die Seite kopiert statt
     verschoben.
 </p>
-<table style="margin:auto">
-<caption class="important">
-    Beispiele von Drag &amp; Drop Verschiebe-Operationen
-</caption>
-<tr><th>während dessen</th><th>danach</th></tr>
-<tr>
-    <td><img src="move1.png" alt="Verschieben 1"></td>
-    <td><img src="result1.png" alt="Ergebnis 1"></td>
-</tr>
-<tr>
-    <td><img src="move2.png" alt="Verschieben 2"></td>
-    <td><img src="result2.png" alt="Ergebnis 2"></td>
-</tr>
-<tr>
-    <td><img src="move3.png" alt="Verschieben 3"></td>
-    <td><img src="result3.png" alt="Ergebnis 3"></td>
-</tr>
-<tr>
-    <td><img src="move4.png" alt="Verschieben 4"></td>
-    <td><img src="result4.png" alt="Ergebnis 4"></td>
-</tr>
-</table>
 <p>
     Weitere Funktionen sind über die Werkzeugleiste und das
     <strong>Kontextmenü</strong> (klicken Sie mit der rechten Maustaste auf eine
@@ -171,6 +149,11 @@
     verwendet werden können, und es kann direkt zu einer Seite navigiert werden,
     entweder im <em>Bearbeitungs-</em> oder <em>Ansichtsmodus</em>. Es ist zu
     beachten, dass aktuell nicht verfügbare Funktionalität deaktiviert ist.
+    Beispielsweise erfordern die meisten Funktionen, dass eine Seite ausgewählt
+    ist; ist dies nicht der Fall, dann sind die entsprechenden Funktionen
+    deaktiviert (ausgegraut). Ein weiteres Beispiel ist die <em>Einfügen</em> →
+    <em>hinein</em> Funktionalität, die nicht verfügbar ist, wenn die Seite im
+    Clipboard in sich selbst eingefügt werden soll.
 </p>
 <p>
     Die Checkboxen links von den Seiten erlauben es, deren
@@ -180,12 +163,13 @@
     (Voreinstellung), dann werden keine Checkboxen angezeigt.
 </p>
 <p>
-    <strong>Doppelte Überschriften</strong> werden mit einem Warn-Icon markiert.
-    <strong>Neu erstellte Seiten</strong> werden mit einem <em>NEW</em> Icon
+    <strong>Doppelte Überschriften</strong> werden mit einem Warn-Icon markiert,
+    und sollten am besten gleich umbenannt werden.
+    <strong>Neu erstellte Seiten</strong> werden mit einem ausgefüllten Ordner-Icon
     angezeigt bis zum nächsten mal gespeichert wird, damit sie besser von
     bereits bestehenden unterschieden werden können. <strong>Seiten, die nicht
     umbenannt werden können</strong>, weil ihre Überschriften zusätzliches
-    Markup enthalten, werden mit einem <em>gelbe Marke</em>-Icon markiert;
+    Markup enthalten, werden mit einem <em>Marke</em>-Icon markiert;
     solche Seiten sind erlaubt, aber wenn das zusätzliche Markup entfernt werden
     soll, muss dies im Editor erfolgen.
 </p>
@@ -278,11 +262,20 @@
     den Entwickler dieses Plugins.
 </p>
 <p>
+    Das <em>proton</em> Theme für jsTree ist eine leicht angepasste Version des
+    <a href="https://github.com/orangehill/jstree-bootstrap-theme">jsTree
+    Bootstrap Themes</a>. Danke für die Veröffentlichung dieses schönen Themes
+    unter MIT Lizenz.
+</p>
+<p>
+    Dieses Plugin verwendet <a href="http://fontawesome.io/">Font Awesome von
+    Dave Gandy</a>. Vielen Dank für die Bereitstellung dieses großartigen
+    ikonischen Schriftarten- und CSS-Toolkits unter einer GPL freundlichen
+    Lizenz.
+</p>
+<p>
     Das Plugin-Icon wurde von <a href="http://www.everaldo.com/">Everaldo
-    Coelho</a> entworfen. Vielen Dank für die Veröffentlichung unter GPL. Dieses
-    Plugin verwendet "free application icons" von <a
-    href="http://www.aha-soft.com/">Aha-Soft</a>. Vielen Dank für die freie
-    Verwendbarkeit dieser Icons.
+    Coelho</a> entworfen. Vielen Dank für die Veröffentlichung unter GPL.
 </p>
 <p>
     Vielen Dank an die Gemeinschaft im <a

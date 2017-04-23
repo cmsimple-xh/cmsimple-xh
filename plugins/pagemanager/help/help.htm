@@ -46,7 +46,7 @@
 <h2>Requirements</h2>
 <p>
     Pagemanager_XH is a plugin for CMSimple_XH &ge; 1.7.0. Additionally it
-    requires the jQuery4CMSimple plugin, which is already contained in the
+    requires the jQuery4CMSimple and Fa_XH plugins, which are already contained in the
     standard download of CMSimple_XH. It also requires PHP &ge; 5.3.0 with the
     JSON extension.
 </p>
@@ -112,7 +112,7 @@
     overview of even extensive websites. You can open or close those by clicking
     on the small markers left to the page, or by double clicking their titles.
 </p>
-<img style="max-width:100%; margin:0 auto" src="pagemanager.png" alt="Pagemanager_XH screenshot">
+<img style="max-width:100%; margin:0 auto" src="pagemanager.jpg" alt="Pagemanager_XH screenshot">
 <p>
     Above the tree view of your website's pages you find Pagemanager_XH's
     <strong>toolbar</strong>. The toolbar is particularly useful, if your
@@ -125,33 +125,11 @@
     where the page will be inserted when dropping it. If it is not possible to
     drag to a certain page, because it would result in e.g. a recursive page
     structure, or the resulting nesting level would be too high, this will be
-    shown by a red cross or you will simply be not allowed to drop there. <em>So
+    signalled by a cross or you will simply be not allowed to drop there. <em>So
     carefully watch the markers,</em> until you get a feeling how the drag &amp;
     drop works. If you hold down the CTRL key while dragging, the result will be
     a copy instead of a move operation.
 </p>
-<table style="margin:auto">
-<caption class="important">
-    Examples of drag &amp; drop move operations
-</caption>
-<tr><th>during move</th><th>after move</th></tr>
-<tr>
-    <td><img src="move1.png" alt="Move 1"></td>
-    <td><img src="result1.png" alt="Result 1"></td>
-</tr>
-<tr>
-    <td><img src="move2.png" alt="Move 2"></td>
-    <td><img src="result2.png" alt="Result 2"></td>
-</tr>
-<tr>
-    <td><img src="move3.png" alt="Move 3"></td>
-    <td><img src="result3.png" alt="Result 3"></td>
-</tr>
-<tr>
-    <td><img src="move4.png" alt="Move 4"></td>
-    <td><img src="result4.png" alt="Result 4"></td>
-</tr>
-</table>
 <p>
     Additional functionality is available in the toolbar or through the
     <strong>context menu</strong> (click the right mouse button on the page).
@@ -159,7 +137,11 @@
     selected page, all it's subpages will be deleted as well.</em>), use the
     common clipboard functions as an alternative to drag & drop, and navigate
     directly to a page, either in <em>edit</em> or <em>view</em> mode. Note that
-    functionality that is currently unavailable is disabled.
+    functionality that is currently unavailable is disabled. For instance, most
+    of the functionality requires that a page is selected; if no page is
+    selected, these functions are disabled (greyed out). Another example is the
+    <em>paste</em> → <em>inside</em> function, which is not available if the
+    page in the clipboard should be pasted into itself.
 </p>
 <p>
     The checkboxes to the left of the pages allow you to view and change their
@@ -170,9 +152,9 @@
 <p>
     <strong>Duplicate headings</strong> are marked by a warning icon. It's best
     to fix these right away. <strong>Newly created pages</strong> will be shown
-    with a <em>NEW</em> icon until the next <em>save</em>, to better distinguish
+    with a filled folder icon until the next <em>save</em>, to better distinguish
     them from old pages. <strong>Pages that can't be renamed</strong> because
-    their headings contain additional markup are marked with a <em>yellow
+    their headings contain additional markup are marked with a <em>
     tag</em> icon; it is okay to have such pages, but if you want to remove the
     additional markup you have to do this in the editor.
 </p>
@@ -257,11 +239,18 @@
     plugin.
 </p>
 <p>
+    The <em>proton</em> theme for jsTree is a slightly modified version of <a
+    href="https://github.com/orangehill/jstree-bootstrap-theme">jsTree Bootstrap
+    Theme</a>. Thanks for publishing this nice theme under MIT license.
+</p>
+<p>
+    This plugin uses <a href="http://fontawesome.io/">Font Awesome by Dave
+    Gandy</a>. Many thanks for making this great iconic font and CSS toolkit
+    available under a GPL friendly license.
+</p>
+<p>
     The plugin icon is designed by <a href="http://www.everaldo.com/">Everaldo
-    Coelho</a>. Many thanks for publishing this icon under GPL. This plugin uses
-    free applications icons from <a
-    href="http://www.aha-soft.com/">Aha-Soft</a>. Many thanks to making these
-    icons freely available.
+    Coelho</a>. Many thanks for publishing this icon under GPL.
 </p>
 <p>
     Many thanks to the community at the <a

@@ -1,4 +1,4 @@
-<h1>Pagemanager – <?php echo $this->text('menu_main')?></h1>
+<h1><?php echo $this->title()?></h1>
 <form id="pagemanager_form" action="<?php echo $this->submissionUrl()?>"
       method="post" accept-charset="UTF-8">
 <?php if ($this->isIrregular):?>
@@ -16,9 +16,9 @@
     </p>
 <?php if ($this->hasToolbar):?>
     <div id="pagemanager_toolbar">
-<?php   foreach ($this->tools as $tool):?>
+<?php   foreach ($this->tools as $tool => $class):?>
         <button type="button" id="pagemanager_<?php echo $this->escape($tool)?>" title="<?php echo $this->text("op_{$tool}")?>" aria-label="<?php echo $this->text("op_{$tool}")?>">
-            <span aria-hidden="true">&nbsp;</span>
+            <span class="<?php echo $this->escape($class)?> fa-lg" aria-hidden="true"></span>
         </button>
 <?php   endforeach?>
     </div>

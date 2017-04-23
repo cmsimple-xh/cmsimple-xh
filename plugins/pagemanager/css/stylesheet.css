@@ -3,7 +3,6 @@
  */
 
 #pagemanager {
-    background: #fff;
     border: 1px solid #999;
     padding: 16px;
     margin: 1px 0;
@@ -29,23 +28,8 @@
 }
 #pagemanager_toolbar button span {
     display: inline-block;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 16px;
-    height: 16px;
 }
 #pagemanager_toolbar button[disabled] span {opacity: 0.3}
-#pagemanager_save span {background-image: url("../images/save.png")}
-#pagemanager_toggle span {background-image: url("../images/toggle.png")}
-#pagemanager_add span {background-image: url("../images/add.png")}
-#pagemanager_rename span {background-image: url("../images/rename.png")}
-#pagemanager_remove span {background-image: url("../images/remove.png")}
-#pagemanager_cut span {background-image: url("../images/cut.png")}
-#pagemanager_copy span {background-image: url("../images/copy.png")}
-#pagemanager_paste span {background-image: url("../images/paste.png")}
-#pagemanager_edit span {background-image: url("../images/edit.png")}
-#pagemanager_preview span {background-image: url("../images/preview.png")}
-#pagemanager_help span {background-image: url("../images/help.png")}
 .pagemanager_tool_wrapper {
     position: relative;
     display: inline-block;
@@ -53,7 +37,7 @@
 .pagemanager_tool_inner {
     position: absolute;
     display: none;
-    min-width: 7em;
+    z-index: 1;
 }
 #pagemanager_toolbar .pagemanager_tool_inner button {
     margin: 0;
@@ -69,6 +53,14 @@
     height: 150px;
 }
 
-#vakata-contextmenu {
-    width: 20em;
+/*
+ * Plugin info
+ */
+
+.pagemanager_logo {
+    float: left;
+    margin: 0 1em 0.5em 0;
+}
+.pagemanager_license {
+    text-align: justify;
 }
