@@ -125,7 +125,7 @@ class PoweredByTest extends PHPUnit_Framework_TestCase
     public function testViewShowsTemplateInfo()
     {
         $this->assertStringMatchesFormat(
-            '%A<li>Mini1<br>test<br>info</li>%A',
+            '%A<li>Mini1</li>%A',
             XH_poweredBy()
         );
     }
