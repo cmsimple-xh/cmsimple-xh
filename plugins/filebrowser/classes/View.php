@@ -517,6 +517,8 @@ class View
      * @return string HTML
      *
      * @global array The localization of the plugins.
+     *
+     * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
      */
     private function renderJsConfig()
     {
