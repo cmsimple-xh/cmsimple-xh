@@ -584,7 +584,7 @@ function XH_adminMenu($plugins = array())
     foreach (array('images', 'downloads', 'media') as $item) {
         $filesMenu[] =  array(
             'label' => utf8_ucfirst($tx['editmenu'][$item]),
-            'url' => $sn . '?&normal&' . $item
+            'url' => $sn . '?&edit&' . $item
         );
     }
     $settingsMenu = array(
@@ -668,7 +668,7 @@ function XH_adminMenu($plugins = array())
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['files']),
-            'url' => $sn . '?&normal&userfiles',
+            'url' => $sn . '?&edit&userfiles',
             'children' => $filesMenu
             ),
         array(
