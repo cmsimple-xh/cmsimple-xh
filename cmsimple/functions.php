@@ -2734,11 +2734,11 @@ function XH_pluginURL($plugin)
 {
     global $pth;
 
-    $internalPlugins = array(
-        'filebrowser', 'meta_tags', 'page_params', 'pagemanager' , 'tinymce',
-        'utf8', 'jquery', 'hi_updatecheck',
+    $standardPlugins = array(
+        'fa', 'filebrowser', 'meta_tags', 'page_params', 'pagemanager' , 'tinymce',
+        'jquery', 'hi_updatecheck',
     );
-    if (in_array($plugin, $internalPlugins)) {
+    if (in_array($plugin, $standardPlugins)) {
         $url = false;
     } else {
         $filename = $pth['folder']['plugins'] . $plugin . '/version.nfo';
