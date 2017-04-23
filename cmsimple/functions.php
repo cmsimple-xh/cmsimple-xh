@@ -685,7 +685,8 @@ function rfc()
         e('missing', 'content', $pth['file']['content']);
         $contents = array(
             array(), array(), array(), array(), array(),
-            new XH\PageDataRouter(array(), array(), array(), array())
+            new XH\PageDataRouter(array(), array(), array(), array()),
+            array()
         );
     }
     list($u, $tooLong, $h, $l, $c, $pd_router, $removed) = array_values($contents);
@@ -703,7 +704,9 @@ function rfc()
             $s = 0;
         }
         $cl = 1;
-        $pd_router->appendNewPage();
+        $removed = array(false);
+        $pd_router->appendNewPage(array('last_edit' => '0'));
+        $xh_publisher = new XH\Publisher($removed);
         return;
     }
 
@@ -855,7 +858,7 @@ function XH_readContents($language = null)
     }
 
     //TODO: don't use $cf['menu']['levels'] anymore
-    $cf['menu']['levels'] = max($l);
+    $cf['menu']['levels'] = count($l) ? max($l) : 1;
 
     return array(
         'urls' => $u,
