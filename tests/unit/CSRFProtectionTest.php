@@ -7,8 +7,6 @@
  * the environment variable CMSIMPLEDIR has to be set to the installation folder
  * (e.g. cmsimple_xh/).
  *
- * PHP version 5
- *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>

@@ -3,8 +3,6 @@
 /**
  * The search function of CMSimple_XH.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>

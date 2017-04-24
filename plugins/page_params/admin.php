@@ -6,8 +6,6 @@
  * Admin-interface for configuring the plugin
  * via the standard-functions of pluginloader.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   Pageparams
  * @author    Martin Damken <kontakt@zeichenkombinat.de>

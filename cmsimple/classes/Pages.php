@@ -3,8 +3,6 @@
 /**
  * A class for handling of CMSimple pages.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>

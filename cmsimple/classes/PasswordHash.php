@@ -3,8 +3,6 @@
 /**
  * Portable PHP password hashing framework.
  *
- * PHP version 5.
- *
  * Version 0.3 / CMSimple_XH.
  *
  * Written by Solar Designer <solar at openwall.com> in 2004-2006 and placed in

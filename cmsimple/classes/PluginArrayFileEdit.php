@@ -3,8 +3,6 @@
 /**
  * The abstract base class for plugin config file editing.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>

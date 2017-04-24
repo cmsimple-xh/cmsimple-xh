@@ -3,8 +3,6 @@
 /**
  * Internal Filebrowser -- admin.php
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   Filebrowser
  * @author    Martin Damken <kontakt@zeichenkombinat.de>

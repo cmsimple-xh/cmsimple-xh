@@ -3,8 +3,6 @@
 /**
  * The abstract base class for editing of text files.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>

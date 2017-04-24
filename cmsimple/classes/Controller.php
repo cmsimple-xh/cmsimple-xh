@@ -3,8 +3,6 @@
 /**
  * Top-level functionality.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>

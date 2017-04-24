@@ -3,8 +3,6 @@
 /**
  * Test case for the Publisher class.
  *
- * PHP version 5
- *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>

@@ -3,8 +3,6 @@
 /**
  * Testing the backup functionality.
  *
- * PHP version 5
- *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>

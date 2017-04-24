@@ -3,8 +3,6 @@
 /**
  * Testing the plugin menu that is integrated in the admin menu.
  *
- * PHP version 5
- *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>

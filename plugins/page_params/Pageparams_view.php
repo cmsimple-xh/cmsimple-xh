@@ -5,8 +5,6 @@
  * Creates the menu for the user to change
  * page-parameters per page.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   Pageparams
  * @author    Martin Damken <kontakt@zeichenkombinat.de>

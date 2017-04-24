@@ -3,8 +3,6 @@
 /**
  * Testing the UTF-8 related string functions.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   Testing
  * @author    Harry Fuecks <hfuecks@gmail.com>

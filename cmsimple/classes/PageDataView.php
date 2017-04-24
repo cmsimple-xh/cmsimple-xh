@@ -2,8 +2,6 @@
 /**
  * The page data view.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Martin Damken <kontakt@zeichenkombinat.de>

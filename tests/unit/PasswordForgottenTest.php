@@ -3,8 +3,6 @@
 /**
  * Testing the password forgotten class.
  *
- * PHP version 5
- *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
