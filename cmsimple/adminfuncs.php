@@ -1125,5 +1125,5 @@ function XH_adminJSLocalization()
  */
 function XH_wantsPluginAdministration($pluginName)
 {
-    return (bool) preg_match('/(?:^|&)' . preg_quote($pluginName, '/') . '(?!=)/', sv('QUERY_STRING'));
+    return (bool) preg_match('/(?:^|&)' . preg_quote($pluginName, '/') . '(?=&|$)/', sv('QUERY_STRING'));
 }

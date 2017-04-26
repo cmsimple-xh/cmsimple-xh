@@ -47,12 +47,21 @@ class AdminfuncsTest extends PHPUnit_Framework_TestCase
      * Test XH_wantsPluginAdministration().
      *
      * @return void
+     * @dataProvider wantsPluginAdministrationData
      */
-    public function testWantsPluginAdministration()
+    public function testWantsPluginAdministration($expected, $query, $pluginName)
     {
-        $_SERVER['QUERY_STRING'] = '&pagemanager&normal';
-        $this->assertTrue(XH_wantsPluginAdministration('pagemanager'));
+        $_SERVER['QUERY_STRING'] = $query;
+        $this->assertSame($expected, XH_wantsPluginAdministration($pluginName));
         unset($_SERVER['QUERY_STRING']);
+    }
+
+    public function wantsPluginAdministrationData()
+    {
+        return array(
+            [true, '&pagemanager&normal', 'pagemanager'],
+            [false, 'Languages&foldergallery_folder=flags', 'foldergallery']
+        );
     }
 
     /**
