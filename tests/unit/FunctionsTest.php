@@ -3,12 +3,10 @@
 /**
  * Testing the functions in functions.php.
  *
- * PHP version 5
- *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -266,6 +264,14 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $actual = file_get_contents($filename);
         $this->assertEquals($expected, $actual);
         unlink($filename);
+    }
+
+    public function testAfterFinalCleanUp()
+    {
+        XH_afterFinalCleanUp(function ($html) {
+            return 'foo';
+        });
+        $this->assertEquals('foo', XH_afterFinalCleanUp('bar'));
     }
 
     public function dataForTestAdjustStylesheetURLs()
@@ -690,7 +696,16 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
      */
     public function testFormatDate()
     {
-        $this->assertEquals('January 02, 1970, 11:17', XH_formatDate('123456'));
+        global $tx;
+
+        if (class_exists('IntlDateFormatter', false)) {
+            $oldLocale = $tx['locale']['all'];
+            $tx['locale']['all'] = 'en_US';
+            $this->assertEquals('January 2, 1970 at 11:17 AM', XH_formatDate('123456'));
+            $tx['locale']['all'] = $oldLocale;
+        } else {
+            $this->assertEquals('January 02, 1970, 11:17', XH_formatDate('123456'));
+        }
     }
 
     /**

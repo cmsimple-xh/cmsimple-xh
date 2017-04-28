@@ -3,12 +3,10 @@
 /**
  * Testing the functions in functions.php.
  *
- * PHP version 5
- *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -92,6 +90,15 @@ class ScriptEvaluationTest extends PHPUnit_Framework_TestCase
         $this->assertArrayNotHasKey('keywords', $GLOBALS);
     }
 
+    public function testEvaluateCmsimpleScriptingParseError()
+    {
+        if (PHP_MAJOR_VERSION !== 5) {
+            $this->markTestSkipped();
+        }
+        $this->expectOutputRegex('/^\s*Parse error:/s');
+        evaluate_cmsimple_scripting('#CMSimple trim(\');#');
+    }
+
     /**
      * @dataProvider dataForSpliceString
      */
@@ -155,6 +162,15 @@ class ScriptEvaluationTest extends PHPUnit_Framework_TestCase
         $actual = evaluate_plugincall($str, true);
         $this->assertEquals($expected, $actual);
         $this->assertFalse(isset($GLOBALS['keywords']));
+    }
+
+    public function testEvaluatePluginCallParseError()
+    {
+        if (PHP_MAJOR_VERSION !== 5) {
+            $this->markTestSkipped();
+        }
+        $this->expectOutputRegex('/^\s*Parse error:/s');
+        evaluate_plugincall('{{{trim(\')}}}');
     }
 }
 

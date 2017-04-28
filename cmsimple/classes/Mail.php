@@ -3,14 +3,12 @@
 /**
  * Emails.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -34,35 +32,35 @@ class Mail
      *
      * @var string
      */
-    protected $to;
+    private $to;
 
     /**
      * The Subject.
      *
      * @var string
      */
-    protected $subject;
+    private $subject;
 
     /**
      * The message body.
      *
      * @var string
      */
-    protected $message;
+    private $message;
 
     /**
      * The headers.
      *
      * @var array
      */
-    protected $headers;
+    private $headers;
 
     /**
      * The line ending character(s).
      *
      * @var string
      */
-    protected $lineEnding;
+    private $lineEnding;
 
     /**
      * Initializes a new instance.
@@ -157,9 +155,7 @@ class Mail
      */
     public function setMessage($message)
     {
-        $message = preg_replace(
-            '/\r\n|\r|\n/', $this->lineEnding, trim($message)
-        );
+        $message = preg_replace('/\r\n|\r|\n/', $this->lineEnding, trim($message));
         $message = chunk_split(base64_encode($message));
         $this->message = $message;
     }
@@ -187,7 +183,7 @@ class Mail
      *
      * @todo Don't we have to fold overlong pure ASCII texts also?
      */
-    protected function encodeMIMEFieldBody($text)
+    private function encodeMIMEFieldBody($text)
     {
         if (!preg_match('/(?:[^\x00-\x7F])/', $text)) { // ASCII only
             return $text;
@@ -206,8 +202,9 @@ class Mail
                     $text = '';
                 }
             } while ($text != '');
-            $body = 'return \'=?UTF-8?B?\' . base64_encode($l) . \'?=\';';
-            $func = create_function('$l', $body);
+            $func = function ($line) {
+                return '=?UTF-8?B?' . base64_encode($line) . '?=';
+            };
             return implode($this->lineEnding . ' ', array_map($func, $lines));
         }
     }
@@ -217,7 +214,7 @@ class Mail
      *
      * @return string
      */
-    protected function getHeaderString()
+    private function getHeaderString()
     {
         $string = '';
         foreach ($this->headers as $name => $value) {
@@ -236,12 +233,7 @@ class Mail
         if (!isset($this->to, $this->subject, $this->message)) {
             return false;
         } else {
-            return mail(
-                $this->to, $this->subject, $this->message,
-                $this->getHeaderString()
-            );
+            return mail($this->to, $this->subject, $this->message, $this->getHeaderString());
         }
     }
 }
-
-?>

@@ -70,8 +70,3 @@ GPL3 Licens.
 
 CMSimple_xh gemmer hele indholdet af de forskellige
 sider i en enklet html-fil (content.htm).
-
-Som standardinstilling, bliver Overskrifterne H1 - H3
-anvendt til at adskilde content.htm til enktle siden og
-generere navigations menuen, mens Overskrifterne H4 - H6
-anvendes til mere almindlig struktureing af siderne.

@@ -31,7 +31,7 @@ $tx['action']['view']="view";
 
 $tx['editmenu']['backups']="Backups";
 $tx['editmenu']['change_password']="Password";
-$tx['editmenu']['configuration']="CMS";
+$tx['editmenu']['configuration']="Configuration";
 $tx['editmenu']['downloads']="Downloads";
 $tx['editmenu']['edit']="Edit mode";
 $tx['editmenu']['files']="Files";
@@ -135,6 +135,9 @@ $tx['help']['folders_downloads']="A subfolder of userfiles.";
 $tx['help']['folders_images']="A subfolder of userfiles.";
 $tx['help']['folders_media']="A subfolder of userfiles.";
 
+$tx['help']['format_date']="The date format if ext/intl is available; otherwise the date/time format falls back to <code>\$tx['lastupdate']['format']</code>.";
+$tx['help']['format_time']="The time format if ext/intl is available; otherwise the date/time format falls back to <code>\$tx['lastupdate']['format']</code>.";
+
 $tx['label']['empty']="- EMPTY -";
 
 $tx['languagemenu']['text']="select language: ";
@@ -175,6 +178,7 @@ $tx['log']['module']="module";
 $tx['log']['category']="category";
 $tx['log']['description']="description";
 
+$tx['login']['back']="Back";
 $tx['login']['failure']="You have entered a wrong password!";
 $tx['login']['loggedout']="You have been logged out";
 $tx['login']['warning']="Site administration. Please enter password.";
@@ -229,6 +233,7 @@ $tx['password']['invalid']="New password must consist of ASCII characters only."
 $tx['password']['mismatch']="New password and its confirmation do not match.";
 $tx['password']['new']="New password";
 $tx['password']['old']="Old password";
+$tx['password']['score']="Password score: %s";
 $tx['password']['wrong']="Old password is wrong.";
 
 $tx['password_forgotten']['email1_sent']="An email has been sent to the configured address with a link to reset the password. This link is valid for 1-2 hours.";

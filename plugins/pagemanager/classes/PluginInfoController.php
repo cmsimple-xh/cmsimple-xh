@@ -31,50 +31,8 @@ class PluginInfoController extends Controller
         $view = new View('info');
         $view->logoPath = "{$this->pluginFolder}pagemanager.png";
         $view->version = Plugin::VERSION;
-        $checks = array();
-        foreach ($this->systemChecks() as $check => $state) {
-            $checks[] = (object) array(
-                'check' => $check,
-                'state' => $state,
-                'icon' => "{$this->pluginFolder}images/$state.png"
-            );
-        }
-        $view->checks = $checks;
+        $systemCheckService = new SystemCheckService;
+        $view->checks = $systemCheckService->getChecks();
         $view->render();
-    }
-
-    /**
-     * @return array
-     */
-    private function systemChecks()
-    {
-        global $pth;
-
-        $phpVersion = '5.3.0';
-        $checks = array();
-        $key = sprintf($this->lang['syscheck_phpversion'], $phpVersion);
-        $ok = version_compare(PHP_VERSION, $phpVersion) >= 0;
-        $checks[$key] = $ok ? 'ok' : 'fail';
-        foreach (array('json') as $ext) {
-            $key = sprintf($this->lang['syscheck_extension'], $ext);
-            $checks[$key] = extension_loaded($ext) ? 'ok' : 'fail';
-        }
-        $xhVersion = 'CMSimple_XH 1.7dev';
-        $ok = strpos(CMSIMPLE_XH_VERSION, 'CMSimple_XH') === 0
-            && version_compare(CMSIMPLE_XH_VERSION, $xhVersion) >= 0;
-        $xhVersion = substr($xhVersion, 12);
-        $key = sprintf($this->lang['syscheck_xhversion'], $xhVersion);
-        $checks[$key] = $ok ? 'ok' : 'fail';
-        $ok = file_exists($pth['folder']['plugins'].'jquery/jquery.inc.php');
-        $checks[$this->lang['syscheck_jquery']] = $ok ? 'ok' : 'fail';
-        $folders = array();
-        foreach (array('config/', 'css/', 'languages/') as $folder) {
-            $folders[] = "{$this->pluginFolder}{$folder}";
-        }
-        foreach ($folders as $folder) {
-            $key = sprintf($this->lang['syscheck_writable'], $folder);
-            $checks[$key] = is_writable($folder) ? 'ok' : 'warn';
-        }
-        return $checks;
     }
 }

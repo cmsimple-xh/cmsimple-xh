@@ -3,12 +3,10 @@
 /**
  * Testing the head() function.
  *
- * PHP version 5
- *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2014-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2014-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -44,6 +42,13 @@ class HeadTest extends PHPUnit_Framework_TestCase
     protected $pluginsMock;
 
     /**
+     * The XH_pluginStylesheet() mock.
+     *
+     * @var object
+     */
+    protected $pluginStylesheetMock;
+
+    /**
      * Sets up the test fixture.
      *
      * @return void
@@ -74,6 +79,8 @@ class HeadTest extends PHPUnit_Framework_TestCase
         $this->titleMock = new PHPUnit_Extensions_MockFunction('XH_title', null);
         $this->pluginsMock = new PHPUnit_Extensions_MockFunction('XH_plugins', null);
         $this->pluginsMock->expects($this->any())->will($this->returnValue(array()));
+        $this->pluginStylesheetMock = new PHPUnit_Extensions_MockFunction('XH_pluginStylesheet', null);
+        $this->pluginStylesheetMock->expects($this->once());
     }
 
     /**
@@ -85,6 +92,7 @@ class HeadTest extends PHPUnit_Framework_TestCase
     {
         $this->titleMock->restore();
         $this->pluginsMock->restore();
+        $this->pluginStylesheetMock->restore();
     }
 
     /**

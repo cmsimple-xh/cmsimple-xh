@@ -22,8 +22,7 @@
   importcss_selector_filter: /(?:([a-z0-9\-_]+))(\.[a-z0-9_\-\.]+)$/i,
   %LANGUAGE%
   element_format: "%ELEMENT_FORMAT%",
-// %PAGEHEADERS% = h1...hx for new pages, %NAMED_PAGEHEADERS% =  1. Level pageheader=h1 ...hx, %HEADERS% = remaining hy...h6
-  block_formats: "%HEADERS%;p=p;div=div;%NAMED_PAGEHEADERS%;code=code;pre=pre;dt=dt;dd=dd",
+  block_formats: "%HEADERS%;p=p;div=div;code=code;pre=pre;dt=dt;dd=dd",
   insertdatetime_formats: ["%H:%M:%S", "%d.%m.%Y", "%I:%M:%S %p", "%D"],
   relative_urls: true,
   convert_urls: false,

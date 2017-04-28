@@ -1,0 +1,734 @@
+/* ************************* Global Styles ************************* */
+h1 {
+	font-size: 3rem;
+}
+h2 {
+	font-size: 2.7rem;
+}
+h3 {
+	font-size: 2.4rem;
+}
+h4 {
+	font-size: 2.1rem;
+}
+h5 {
+	font-size: 1.8rem;
+}
+h6 {
+	font-size: 1.5rem;
+}
+h1, h2, h3, h4, h5, h6 {
+	clear: both;
+	color: #E0E0E0;
+	font-weight: 700;
+	line-height: normal;
+	margin: 1rem 0 0.5rem;
+}
+p {
+	margin: 0 0 0.8em 0;
+}
+p.small {
+	font-size: 0.5rem;
+}
+strong, b {
+	color: #E53935;
+}
+hr {
+	background-color: #212121;
+	border: 0;
+	border-bottom: 1px dashed #616161;
+	margin: 5px 0 3px 0;
+}
+code {
+	background-color: rgba(33, 33, 33, 0.5);
+	font: 0.9em/normal Consolas, monospace;
+	margin: 0;
+	padding: 0.15em;
+	letter-spacing: .05em;
+}
+.code {
+	background-color: rgba(158, 158, 158, 0.32);
+	color: #e0e0e0;
+	display: block;
+	font: .9em/normal Consolas, monospace;
+	padding: .6em .8em;
+}
+blockquote {
+	background-color: rgba(255, 255, 255, 0.05);
+	border: 1px dotted #757575;
+	border-left: 0 none transparent;
+	border-right: 0 none transparent;
+	color: #E0E0E0;
+	margin: 1.5em 0;
+	padding: .75em 0 .75em 3em;
+	position: relative;
+	text-align: justify;	
+}
+blockquote::before {
+	content: url(images/gmi_quote.png);
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+blockquote p {
+	margin: 0;
+}
+
+.left_30,
+.left_50 {
+	clear: left;
+	float: left;
+	margin: .4em 1em .4em 0;
+	text-align: left;
+}
+.left_30 {
+	max-width: 30%;
+}
+.left_50 {
+	max-width: 50%;
+}
+.right_30,
+.right_50 {
+	clear: right;
+	float: right;
+	margin: .4em 0 .4em 1em;
+	text-align: right;
+}
+.right_30 {
+	max-width: 30%;
+}
+.right_50 {
+	max-width: 50%;
+}
+.left_30 p,
+.left_50 p,
+.right_30 p,
+.right_50 p {
+	color: #999;
+	font-size: 0.7em;
+	font-style: italic;
+	margin: 0;
+}
+p.caption, .caption {
+	color: #999;
+	font-size: 0.7em;
+	font-style: italic;
+	margin: 0 0 1rem;
+}
+
+.important,
+.warning {
+	font-size: 110%;
+}
+.important {
+	clear: both;
+	margin: 3%;
+	padding: 0;
+}
+.important p:first-child:before,
+p.important:before {
+	content: url(images/gmi_important.png);
+	padding: 0 0.5em 0 0;
+	vertical-align: sub;
+}
+.warning {
+	clear: both;
+	margin: 3%;
+	padding: 0;
+}
+.warning p:first-child:before,
+p.warning:before {
+	content: url(images/gmi_warning.png);
+	padding: 0 0.5em 0 0;
+	vertical-align: sub;
+}
+.warning a {
+	color: #aaf;
+}
+.important p:first-child,
+.warning p:first-child {
+	margin-top: 0;
+}
+.important p, .warning p {
+	margin: 1em 0 0;
+}
+
+a:link {
+	color: #fff;
+	text-decoration: none;
+}
+a:visited {
+	color: #fff;
+	text-decoration: none;
+}
+a:focus {
+	color: #fff;
+	text-decoration: none;
+
+}
+a:hover {
+	color: #E53935;
+	text-decoration: none;
+}
+a:active {
+	color: #fff;
+	text-decoration: none;
+}
+
+.tpllck_content_main ul {
+	list-style-image: url(images/listimage_dot.gif);
+	list-style-type: none;
+	margin: 0 0 1em;
+	padding-left: 1.5em;
+}
+.tpllck_content_main ul li {
+	padding: 0.2em 0;
+}
+
+/* ****************************** "Table" vertical-align middle */
+.tpllck_tbl-middle {
+	display: table;
+	padding: 1rem 0;
+	width: 100%;
+}
+.tpllck_tbl-middle p {
+	display: table-cell;
+	padding: 0 1rem 0 0;
+	text-align: left;
+	vertical-align: middle;
+}
+.tpllck_tbl-middle p ~ p {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+/* ************************* Body ************************* */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+body {
+	background-image: url(images/lck_bgoverlay.png);
+	background-color: #424242;
+	color: #bdbdbd;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 1rem;
+	font-weight: 300;
+	line-height: normal;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+/* Hide scrollbar when overlay is active, show only overlay scrollbar (class added by menu_overlay.js) */
+body.overlay-active {
+	overflow: hidden;
+}
+body.print {
+	height: auto; /* Fix for Firefox print Bug */
+	margin: 2% 5%;
+	overflow: visible; /* Fix for Firefox print Bug */
+}
+#tpllck_body {
+	background-color: #212121;
+	background-image: url(images/lck_bgoverlay.png), url(images/bg01.jpg);
+	background-position: left top, center center;
+	background-attachment: fixed, fixed;
+	background-repeat: repeat, no-repeat;
+	-webkit-background-size: auto, cover;
+	background-size: auto, cover;
+}
+
+/* ************************* Container ************************* */
+.tpllck_container {
+	display: table;
+	height: 100%;
+	table-layout: fixed;
+	width: 100%;
+}
+
+/* ************************* Left-Container - Languagemenu + Sitename + Menu + Subnavigation */
+.tpllck_left_container {
+	/* background: url(images/bg_left.jpg) no-repeat #000; */ /* comment this two lines in, to use background-image for left container */
+	/* background-size: cover; */
+	background-color: rgba(255, 255, 255, 0);
+	display: table-cell;
+	float: none;
+	margin: 0;
+	overflow: hidden;
+	overflow-y: auto;
+	padding: 0;
+	position: fixed;
+	bottom: 0;
+	top: 0;
+	width: 25.33334%;
+}
+.tpllck_sidebar {
+	background: rgba(0,0,0,0.2); /* fallback color if gradients are not supported */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0.25) 0%, rgba(0,0,0,0.1) 66%, rgba(0,0,0,0) 100%);
+	background: -moz-linear-gradient(top, rgba(255,255,255,0.25) 0%, rgba(0,0,0,0.1) 66%, rgba(0,0,0,0) 100%);
+	background: -ms-linear-gradient(top, rgba(255,255,255,0.25) 0%, rgba(0,0,0,0.1) 66%, rgba(0,0,0,0) 100%);
+	background: -o-linear-gradient(top, rgba(255,255,255,0.25) 0%, rgba(0,0,0,0.1) 66%, rgba(0,0,0,0) 100%);
+	background: linear-gradient(to bottom, rgba(255,255,255,0.25) 0%, rgba(0,0,0,0.1) 66%, rgba(0,0,0,0) 100%);
+	display: block;
+	float: right;
+	margin: 0 1rem;
+	min-height: 100%;
+	min-height: 100vh;
+	min-width: 200px;
+	position: relative;
+	width: 60%;
+	z-index: 200;
+}
+.languagemenu {
+	line-height: 1em;
+	margin: 2rem 0.5rem 1rem;
+	position: relative;
+	text-align: center;
+}
+.languagemenu img {
+	padding: 0.5rem;
+}
+.tpllck_sitename {
+	/* background: url(images/header.jpg) 50% no-repeat rgba(0, 0, 0, 0); */ /* optional */
+	margin: 2rem 0.5rem;
+	padding: 0;
+	text-align: center;
+}
+.tpllck_sitename a {
+	color: #E0E0E0;
+	font-size: 2rem;
+	font-weight: 700;
+	letter-spacing: .1em;
+	padding: 0;
+	position: relative;
+	text-shadow: -2px 4px 0 #212121;
+	text-transform: uppercase;
+	word-wrap: break-word;
+}
+.tpllck_subnav {
+	position: absolute;
+	bottom: 2rem;
+	width: 100%;
+}
+.tpllck_subnav .navinner {
+	position: relative;
+	text-align: center;
+}
+.tpllck_subnav div {
+	line-height: 1.5rem;
+	padding: 0.7rem 0;
+}
+.tpllck_subnav img {
+	vertical-align: middle;
+}
+.tpllck_subnav .navicons {
+	display: table;
+	width: 100%;
+}
+.tpllck_subnav .navicons span {
+	display: inline-block;
+	width: 23%;
+}
+.tpllck_subnav a {
+	font-size: 1rem;
+	padding: 0.5rem;
+}
+.tpllck_subnav #searchform {
+	display: block;
+	opacity: 0;
+	position: absolute;
+	left: 50%;
+	top: -2.6rem;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	-webkit-transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out;
+	visibility: hidden;
+	width: 100%;
+}
+.tpllck_subnav #searchfield {
+	font-size: 1.2rem;
+	height: 2rem;
+	width: 90%;
+}
+.tpllck_search.active ~ #searchform {
+	opacity: 1;
+	visibility: visible;	
+}
+
+/* ************************* Content */
+/* Breadcrumbs-Locator */
+.tpllck_locator {
+	color: #fff;
+	margin: 0;
+}
+.tpllck_locator > span:first-child {
+	color: #e53935;
+	font-size: 1rem;
+	font-weight: 700;
+}
+.tpllck_locator span + span {
+	font-size: 1rem;
+}
+.tpllck_locator a {
+	color: #E0E0E0;
+}
+.tpllck_locator a:hover {
+	color: #fff;
+}
+.tpllck_right_container {
+	display: table-cell;
+	float: none;
+	margin: 0;
+	vertical-align: top;
+	width: 74.666666%;
+}
+.tpllck_content {
+	background-color: rgba(0, 0, 0, 0);
+	border: 0px solid #F9C237;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+.tpllck_content_main {
+	color: #bdbdbd;
+	font-size: 1.4rem;
+	line-height: normal;
+	max-width: 80%;
+	min-height: 80%;
+	min-height: 80vh;
+	padding: 1em 1em 2em 3em;
+}
+.tpllck_content_main a {
+	text-decoration: none;
+	-webkit-transition: color .3s ease;
+	transition: color .3s ease;
+}
+/* Attribute Selectors */
+.tpllck_content_main a[href^="http:"]::after,
+.tpllck_content_main a[href^="https:"]::after,
+.tpllck_content_main a[target="_blank"]::after {
+	content: url(images/gmi_listimage_extern.png);
+	padding-left: 0.2em;
+}
+/* Sitemap */
+ul.sitemaplevel1,
+ul.sitemaplevel1 ul {
+	list-style: none;
+}
+ul.sitemaplevel1 li {
+	line-height: 1.4em;
+	padding: 0 0 1em;
+}
+ul.sitemaplevel1 ul {
+	padding: 0 0 0 0.3em;
+}
+ul.sitemaplevel1 ul li {
+	padding: 0;
+}
+ul.sitemaplevel1 > li > a {
+	/* color: #34B484; */ /* optional */
+	/* font-weight: 700; */
+}
+/* Submenu */
+.tpllck_submenu {
+	margin: 2em 0 0;
+}
+.tpllck_submenu ul {
+	list-style-image: url(images/gmi_listimage_intern.png);
+	margin: 0;
+}
+.tpllck_submenu ul li {
+	padding: 0;
+}
+
+/* ************************* Footer - Copyright, Login, LastUpdate */
+#tpllck_footer {
+	background-color: rgba(0, 0, 0, 0);
+	border-top: 0px solid #FFF;
+	display: table;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+.tpllck_copyright {
+	clear: both;
+	color: #E0E0E0;
+	display: table-cell;
+	font-size: 0.8em;
+	line-height: 2em;
+	margin: 0;
+	padding: 1em;
+	text-align: center;
+	vertical-align: middle;
+}
+.tpllck_copyright a {
+	color: #E0E0E0;
+	padding: 4px;
+	text-decoration: none;
+}
+.tpllck_copyright a:hover {
+	background-color: transparent;
+	color: #fff;
+}
+.lastupdate{
+	color: #E0E0E0;
+}
+
+/* ************************* CMSimple_XH Mailform ************************* */
+.xh_mailform input,
+.xh_mailform textarea {
+	background-color: rgba(255, 255, 255, 0.8);
+}
+.xh_captcha_input, .xh_captcha_code {
+	border: 1px solid #212121;
+	font-family: inherit;
+	font-size: 1em;
+	height: 1.2em;
+	line-height: 1.2em;
+}
+.xh_captcha_code {
+	background-color: #777;
+}
+
+/* ************************* Media Queries - RESPONSIVE STYLE ************************* */
+@media screen and (max-width: 979px) {
+#tpllck_body {
+	background-image: url(images/lck_bgoverlay.png), url(images/bg01_mobil.jpg);
+}	
+.tpllck_container {
+	display: block;
+}
+.tpllck_left_container,
+.tpllck_right_container {
+	display: block;
+	float: none;
+	padding: 0;
+	position: static;
+	width: 100%;
+}
+.tpllck_left_container {
+	overflow: visible;
+}
+.tpllck_sidebar {
+	box-sizing: border-box;
+	float: none;
+	margin: 0 auto;
+	min-height: 100%;
+	padding: 0.7rem 0.5rem 0;
+	overflow: hidden;
+	text-align: center;
+	width: 100%;
+}
+.tpllck_sidebar .languagemenu,
+.tpllck_sitename,
+.tpllck_sidebar .menu-btn {
+	display: inline-block;
+	margin: 0;
+	vertical-align: middle;
+}
+.tpllck_sitename {
+	padding: 0 8%;
+}
+.tpllck_subnav {
+	display: table;
+	position: relative;
+	bottom: 0;
+	margin: 0 auto;
+	width: 75%;
+}
+.tpllck_subnav .navicons {
+	display: inline-block;
+	vertical-align: baseline;
+	width: 60%; /* inline-block FIX */
+}
+.tpllck_subnav .navlink {
+	display: inline-block;
+	vertical-align: middle;
+	width: 38%; /* inline-block FIX */
+}
+.tpllck_content_main {
+	font-size: 1.2rem;
+	line-height: normal;
+	max-width: 100%;
+	padding: 0 1em 1em;
+}
+.tpllck_locator {
+	display: none;
+}
+#tpllck_footer {
+	padding: 0;
+}
+}
+
+@media screen and (max-width: 599px) {
+h1 {font-size: 2.1rem;}
+h2 {font-size: 1.9rem;}
+h3 {font-size: 1.7rem;}
+h4 {font-size: 1.5rem;}
+h5 {font-size: 1.3rem;}
+h6 {font-size: 1.1rem;}
+
+.tpllck_sitename {
+	padding: 0 1%;
+}
+.tpllck_subnav {
+	width: 100%;
+}
+.tpllck_subnav div {
+	line-height: 1.8rem;
+	padding: 0;
+}
+.tpllck_subnav a {
+	padding: 0.3rem;
+}
+.tpllck_content_main {
+	font-size: 1.1rem;
+}
+}
+
+@media screen and (max-width: 479px) {
+.tpllck_right_container {
+	hyphens: auto;
+	-moz-hyphens: auto;
+	-ms-hyphens: auto;
+	-webkit-hyphens: auto;
+	word-wrap: break-word;
+}
+table td {
+	font-size: .8em;
+}
+.tpllck_tbl-middle {
+	padding: 0;
+}
+.tpllck_tbl-middle p, .tpllck_tbl-middle p ~ p {
+	display: block;
+	padding: 0;
+	width: 100% !important;
+}
+.left_30,
+.left_50,
+.right_30,
+.right_50 {
+	float: none;
+	margin: 1em 0;
+	max-width: 100%;
+	text-align: center;
+}
+}
+
+/* ************************* Responsive Image */
+img {
+	height: auto;
+	max-width:100%;
+}
+
+/* ************************* Responsive Video */
+/* Example: insert in content-page: <div class="responsive-video-wrapper"><div class="responsive-video"><iframe ...></iframe></div></div> */
+.responsive-video-wrapper {
+	max-width: 100%;
+	width: 600px;
+}
+.responsive-video {
+	height: 0;
+	overflow: hidden;
+	padding-bottom: 56.25%;
+	padding-top: 15px;
+	position: relative;	
+}
+.responsive-video iframe {
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+/* ************************* Responsive Table */
+.rsptable {
+color: #616161;
+display: table;
+margin: 0 0 1em 0;
+width: 100%;
+}
+.rsptable .row {
+background-color: #f6f6f6;
+display: table-row;
+}
+.rsptable .row:nth-of-type(odd) {
+background-color: #e0e0e0;
+}
+.rsptable .row.header {
+color: #fff;
+background-color: #616161;
+font-weight: 700;
+}
+.rsptable .cell {
+display: table-cell;
+padding: 6px 12px;
+}
+@media screen and (max-width: 599px) {
+.rsptable {
+display: block;
+}
+.rsptable .row {
+display: block;
+padding: 8px 0;
+}
+.rsptable .cell {
+display: block;
+padding: 2px 12px;
+}
+}
+
+/* ************************* BACKEND Style ************************* */
+/* Login-Side */
+.xh_login {
+	margin: 0;
+	text-align: center;
+}
+.xh_login a {
+	display: block;
+	margin-top: .8em;
+}
+#login #submit {
+	padding: 0 20px;
+}
+/* Pagemanager */
+#pagemanager {
+	color: #222;
+	font: 14.3333px Arial, sans-serif;
+}
+#pagemanager ul {
+	padding-left: 0;
+}
+#pagemanager li {
+	line-height: 1.4rem;
+	padding: inherit;
+}
+/* Settings */
+#xh_config_form div.xh_label {
+	font: 14.3333px Arial, sans-serif;
+}
+#xh_system_check li {
+	padding-left: 2rem;
+}
+/* Template + Stylesheet */
+.CodeMirror {
+	font: 14.3333px Arial, sans-serif;
+}
+/* Edit-Mode - Side-Tabs */
+#xh_pdtabs,
+#xh_pdviews {
+	font: 14.3333px Arial, sans-serif;
+}
+/* Editors body */
+#tinymce, .cke_editable {
+	margin: 1% auto;
+	width: 98%;
+}
+body > h1, body > h2, body > h3, body > h4, body > h5, body > h6 {
+	/* color: #555; */ /* optional, if background-color e,g, #fff */
+}
+/* ************************* Template by lck 04/2017 ************************* */

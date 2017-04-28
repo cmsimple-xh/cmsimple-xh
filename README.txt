@@ -69,9 +69,3 @@ GPL3 Licence.
 
 CMSimple_XH stores the content of the different
 pages in one single html-file (content.htm).
-
-In default setting headings H1-H3 are used
-to split the content.htm into single pages
-and to generate the navigation menu, while
-headings H4-H6 remain for normal semantic
-structuring within pages.

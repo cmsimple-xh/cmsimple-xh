@@ -75,10 +75,3 @@ GPL3 Lizenz.
 
 CMSimple_XH speichert den Inhalt aller Seiten
 in einer einzigen HTML-Datei.
-
-In der Voreinstellung werden die Überschriften
-H1-H3 verwendet, um die content.htm Datei in
-einzelne Seiten aufzuteilen und das
-Navigationsmenü zu erzeugen, während die
-Überschriften H4-H6 für die normale semantische
-Gliederung innerhalb der Seite verbleiben.

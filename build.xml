@@ -24,8 +24,8 @@
         <echo>${help}</echo>
     </target>
 
-    <target name="sniff" description="checks adherence to PEAR CS">
-        <phpcodesniffer standard="ruleset.xml" format="full">
+    <target name="sniff" description="checks adherence to PSR-2">
+        <phpcodesniffer standard="PSR2" format="full">
             <fileset refid="php-sources"/>
         </phpcodesniffer>
     </target>

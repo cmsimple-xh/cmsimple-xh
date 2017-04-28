@@ -3,7 +3,7 @@
  *
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2016 The CMSimple_XH developers
+ * @copyright 2009-2017 The CMSimple_XH developers
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -28,6 +28,12 @@
         }
     }
 
+    function hasNativeDateTimePicker() {
+        var input = document.createElement("input");
+        input.setAttribute("type", "datetime-local");
+        return input.type === "datetime-local";
+    }
+
     /**
      * Toggles the disabled property.
      *
@@ -37,19 +43,6 @@
      */
     function toggle(element) {
         element.disabled = !element.disabled;
-    }
-
-    /**
-     * Handles show_heading click events.
-     *
-     * @param {Event} event
-     *
-     * @returns {undefined}
-     */
-    function onShowHeadingClick(event) {
-        var target = event.target || event.srcElement;
-
-        toggle(target.form.elements.heading);
     }
 
     /**
@@ -77,20 +70,9 @@
      * @returns {undefined}
      */
     function onDateChange(event) {
-        var field, datearr, dateformat, timeformat;
-
-        field = event.target || event.srcElement;
-        datearr = field.value.split(" ");
-        dateformat = /^\d{4}[\-](0?[1-9]|1[012])[\-](0?[1-9]|[12][0-9]|3[01])$/;
-        timeformat = /^([01]?[0-9]|2[0-3)])[:]([0-5]?[0-9])$/;
-
-        if (datearr[0] === "" || datearr[0] === undefined) {
-            datearr[0] = "2099-12-31";
-        }
-        if (datearr[1] === "" || datearr[1] === undefined) {
-            datearr[1] = "00:00";
-        }
-        if (dateformat.test(datearr[0]) && timeformat.test(datearr[1])) {
+        var field = event.target || event.srcElement;
+        var format = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])T([01][0-9]|2[0-3)]):([0-5][0-9])$/;
+        if (format.test(field.value)) {
             field.style.backgroundColor = "";
             field.style.color = "";
         } else {
@@ -139,10 +121,11 @@
         form = document.getElementById("page_params");
         if (form) {
             elements = form.elements;
-            on(elements.show_heading[1], "click", onShowHeadingClick);
             on(elements.published[1], "click", onPublishedClick);
-            on(elements.publication_date, "change", onDateChange);
-            on(elements.expires, "change", onDateChange);
+            if (!hasNativeDateTimePicker()) {
+                on(elements.publication_date, "change", onDateChange);
+                on(elements.expires, "change", onDateChange);
+            }
             elements = form.elements.use_header_location;
             for (i = 0; i < elements.length; i += 1) {
                 on(elements[i], "click", onHeaderLocationRadioClick);

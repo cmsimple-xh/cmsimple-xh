@@ -3,14 +3,12 @@
 /**
  * The main file of CMSimple_XH.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -452,10 +450,7 @@ $cgi = (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi');
  *
  * @see CMSIMPLE_URL
  */
-$sn = preg_replace(
-    '/([^\?]*)\?.*/', '$1',
-    sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_URI'))
-);
+$sn = preg_replace('/([^\?]*)\?.*/', '$1', sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_URI')));
 
 /**
  * The requested plugin administration part.
@@ -782,6 +777,13 @@ define(
 );
 
 /**
+ * The fully qualified absolute path of the installation (main or current language).
+ *
+ * @since 1.7
+ */
+define('XH_CWD', getcwd());
+
+/**
  * The current page's URL (selected URL).
  *
  * Should be treated as <i>read-only</i>.
@@ -952,17 +954,15 @@ $cl = 0;
 $pd_router = null;
 
 /**
- * The index of the first published page.
+ * The publisher instance.
  *
- * Treat as <i>read-only</i>.
- *
- * @global int $_XH_firstPublishedPage
+ * @global int $xh_publisher
  *
  * @access public
  *
- * @since 1.6.3
+ * @since 1.7.0
  */
-$_XH_firstPublishedPage = -1;
+$xh_publisher = null;
 
 /**
  * The index of the currently requested page.
@@ -1080,7 +1080,7 @@ if (XH_ADM) {
  *
  * @see $s
  */
-$pd_s = ($s == -1 && !$f && $o == '' && $su == '') ? $_XH_firstPublishedPage : $s;
+$pd_s = ($s == -1 && !$f && $o == '' && $su == '') ? $xh_publisher->getFirstPublishedPage() : $s;
 
 /**
  * The infos about the current page.
@@ -1098,44 +1098,26 @@ $pd_current = $pd_router->find_page($pd_s);
  *
  * Treat as <i>read-only</i>.
  *
- * @global array $plugin_cf
+ * @global XH\PluginConfig $plugin_cf
  *
  * @access public
  *
  * @see $cf
  */
-$plugin_cf = array();
+$plugin_cf = new XH\PluginConfig();
 
 /**
  * The localization of the plugins.
  *
  * Treat as <i>read-only</i>.
  *
- * @global array $plugin_tx
+ * @global XH\PluginConfig $plugin_tx
  *
  * @access public
  *
  * @see $tx
  */
-$plugin_tx = array();
-
-/*
- * Include config and language files of all plugins.
- */
-foreach (XH_plugins() as $plugin) {
-    pluginFiles($plugin);
-    $temp = XH_readConfiguration(true, false);
-    $plugin_cf += $temp;
-    XH_createLanguageFile($pth['file']['plugin_language']);
-    $temp = XH_readConfiguration(true, true);
-    $plugin_tx += $temp;
-}
-
-/*
- * Add LINK to combined plugin stylesheet.
- */
-$hjs .= '<link rel="stylesheet" href="' . XH_pluginStylesheet()
-    . '" type="text/css">' . PHP_EOL;
+$plugin_tx = new XH\PluginConfig(true);
 
 /*
  * Include index.php of all plugins.
@@ -1166,18 +1148,18 @@ XH_afterPluginLoading();
 
 
 switch ($f) {
-case 'search':
-    $_XH_controller->handleSearch();
-    break;
-case 'mailform':
-    $_XH_controller->handleMailform();
-    break;
-case 'sitemap':
-    $_XH_controller->handleSitemap();
-    break;
-case 'forgotten':
-    $_XH_controller->handlePasswordForgotten();
-    break;
+    case 'search':
+        $_XH_controller->handleSearch();
+        break;
+    case 'mailform':
+        $_XH_controller->handleMailform();
+        break;
+    case 'sitemap':
+        $_XH_controller->handleSitemap();
+        break;
+    case 'forgotten':
+        $_XH_controller->handlePasswordForgotten();
+        break;
 }
 
 /**
@@ -1252,69 +1234,68 @@ if (XH_ADM) {
     }
 
     switch ($f) {
-    case 'sysinfo':
-        $o .= XH_sysinfo();
-        break;
-    case 'phpinfo':
-        phpinfo();
-        exit;
-    case 'settings':
-        $o .= XH_settingsView();
-        break;
-    case 'xh_backups':
-        $o .= XH_backupsView();
-        break;
-    case 'xh_pagedata':
-        $_XH_controller->handlePageDataEditor();
-        break;
-    case 'file':
-        if (XH_isContentBackup($file, false)) {
-            $pth['file'][$file] = $pth['folder']['content'] . $file;
-        }
-        if ($pth['file'][$file] != '') {
-            switch ($action) {
-            case 'view':
-                $_XH_controller->handleFileView();
-                break;
-            case 'download':
-                download($pth['file'][$file]);
-                break;
-            case 'backup':
-                $_XH_controller->handleFileBackup();
-                break;
-            case 'restore':
-                $_XH_csrfProtection->check();
-                XH_restore($pth['file'][$file]);
-                break;
-            case 'empty':
-                $_XH_csrfProtection->check();
-                if ($file == 'content') {
-                    XH_emptyContents();
-                }
-                break;
-            default:
-                $_XH_controller->handleFileEdit();
+        case 'sysinfo':
+            $o .= XH_sysinfo();
+            break;
+        case 'phpinfo':
+            phpinfo();
+            exit;
+        case 'settings':
+            $o .= XH_settingsView();
+            break;
+        case 'xh_backups':
+            $o .= XH_backupsView();
+            break;
+        case 'xh_pagedata':
+            $_XH_controller->handlePageDataEditor();
+            break;
+        case 'file':
+            if (XH_isContentBackup($file, false)) {
+                $pth['file'][$file] = $pth['folder']['content'] . $file;
             }
-        }
-        break;
-    case 'validate':
-    case 'do_validate':
-        $temp = new XH\LinkChecker();
-        $o .= ($f == 'validate') ? $temp->prepare() : $temp->doCheck();
-        break;
-    case 'change_password':
-        $temp = new XH\ChangePassword();
-        $i = $action === 'save' ? 'save' : 'default';
-        $temp->{"{$i}Action"}();
-        break;
+            if ($pth['file'][$file] != '') {
+                switch ($action) {
+                    case 'view':
+                        $_XH_controller->handleFileView();
+                        break;
+                    case 'download':
+                        download($pth['file'][$file]);
+                        break;
+                    case 'backup':
+                        $_XH_controller->handleFileBackup();
+                        break;
+                    case 'restore':
+                        $_XH_csrfProtection->check();
+                        XH_restore($pth['file'][$file]);
+                        break;
+                    case 'empty':
+                        $_XH_csrfProtection->check();
+                        if ($file == 'content') {
+                            XH_emptyContents();
+                        }
+                        break;
+                    default:
+                        $_XH_controller->handleFileEdit();
+                }
+            }
+            break;
+        case 'validate':
+        case 'do_validate':
+            $temp = new XH\LinkChecker();
+            $o .= ($f == 'validate') ? $temp->prepare() : $temp->doCheck();
+            break;
+        case 'change_password':
+            $temp = new XH\ChangePassword();
+            $i = $action === 'save' ? 'save' : 'default';
+            $temp->{"{$i}Action"}();
+            break;
     }
 }
 
 
 // fix $s
 if ($s == -1 && !$f && $o == '' && $su == '') {
-    $s = $_XH_firstPublishedPage;
-    $hs = $_XH_firstPublishedPage;
+    $s = $hs = $xh_publisher->getFirstPublishedPage();
 }
 
 if (XH_ADM) {
@@ -1404,5 +1385,3 @@ if (!$i) {// the template could not be included
 if (isset($_XH_csrfProtection)) {
     $_XH_csrfProtection->store();
 }
-
-?>

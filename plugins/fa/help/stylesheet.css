@@ -1,0 +1,49 @@
+@media (min-width: 768px) {
+    body {
+        column-count: 2;
+    }
+}
+@media (min-width: 1152px) {
+    body {
+        column-count: 3;
+    }
+}
+
+body {
+    font-family: Georgia, serif;
+    line-height: 1.5;
+    margin-left: 2em;
+    margin-right: 2em;
+    background: #ffffe1;
+    column-gap: 4em;
+}
+p {
+    text-align: justify;
+}
+pre {
+    color: black;
+    background: #ffe;
+    overflow: auto;
+    padding: 0.2em 0.5em;
+    border: 1px solid silver;
+}
+nav {
+    clear: both;
+}
+nav ul {
+    list-style: none;
+    padding-left: 0;
+    text-align: left;
+}
+nav ul ul {
+    font-size: small;
+    padding-left: 1em;
+}
+
+.logo {
+    float: left;
+    margin-right: 1em;
+}
+.important {
+    font-weight: bold;
+}

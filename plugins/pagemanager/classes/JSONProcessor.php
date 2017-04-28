@@ -111,13 +111,12 @@ class JSONProcessor
 
     private function processPage(array $page)
     {
-        $pattern = '/(copy_)?pagemanager_([0-9]*)/';
-        $this->id = empty($page['id'])
+        $pattern = '/^pagemanager_([0-9]*)(?:_copy_[0-9]+)?$/';
+        $this->id = strpos($page['id'], 'pagemanager_') !== 0
             ? null
-            : (int) preg_replace($pattern, '$2', $page['id']);
+            : (int) preg_replace($pattern, '$1', $page['id']);
         $this->title = htmlspecialchars($page['text'], ENT_NOQUOTES, 'UTF-8');
-        $this->pdattr = isset($page['li_attr']['data-pdattr'])
-            ? $page['li_attr']['data-pdattr'] : null;
+        $this->pdattr = $page['state']['checked'] ? '1' : '0';
         $this->mayRename = !preg_match('/unrenameable$/', $page['type']);
 
         if (isset($this->contents[$this->id])) {

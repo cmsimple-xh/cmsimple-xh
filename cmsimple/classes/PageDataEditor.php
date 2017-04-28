@@ -3,12 +3,10 @@
 /**
  * The page data editor.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -34,7 +32,7 @@ class PageDataEditor
      *
      * @global object The page data router.
      */
-    protected function unusedFields()
+    private function unusedFields()
     {
         global $pd_router;
 
@@ -54,7 +52,7 @@ class PageDataEditor
      *
      * @global object The page data router.
      */
-    protected function deleteFields()
+    private function deleteFields()
     {
         global $pd_router;
 
@@ -79,7 +77,7 @@ class PageDataEditor
      *
      * @return string HTML
      */
-    protected function renderField($field)
+    private function renderField($field)
     {
         return '<li><label>'
             . '<input type="checkbox" name="' . $field . '">'
@@ -98,7 +96,7 @@ class PageDataEditor
      * @global array The paths of system files and folders.
      * @global array The localization of the core.
      */
-    protected function renderMessage($deleted)
+    private function renderMessage($deleted)
     {
         global $pth, $tx;
 
@@ -127,7 +125,7 @@ class PageDataEditor
      * @global array  The localization of the core.
      * @global array  The CSRF protection object.
      */
-    protected function render($deleted = null)
+    private function render($deleted = null)
     {
         global $sn, $tx, $_XH_csrfProtection;
 
@@ -183,5 +181,3 @@ class PageDataEditor
         return $this->render();
     }
 }
-
-?>

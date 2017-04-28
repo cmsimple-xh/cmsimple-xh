@@ -3,7 +3,7 @@
  *
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2016 The CMSimple_XH developers
+ * @copyright 2009-2017 The CMSimple_XH developers
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -33,11 +33,16 @@
      */
     on(window, "load", function () {
         var form = document.getElementById("meta_tags"),
+            title = form.elements.title,
+            titleIndicator = document.getElementById("mt_title_length"),
             description = form.elements.description,
-            indicator = document.getElementById("mt_description_length");
+            descIndicator = document.getElementById("mt_description_length");
 
-        if (description && indicator) {
-            XH.displayTextLength(description, indicator);
+        if (title && titleIndicator) {
+            XH.displayTextLength(title, titleIndicator);
+        }
+        if (description && descIndicator) {
+            XH.displayTextLength(description, descIndicator);
         }
     });
 }());

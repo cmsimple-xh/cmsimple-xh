@@ -3,14 +3,12 @@
 /**
  * General functions.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -66,10 +64,7 @@ function geturlwp($u)
     global $su;
 
     $t = '';
-    $qs = preg_replace(
-        "/^" . preg_quote($su, '/') . "(\&)?/s",
-        "", sv('QUERY_STRING')
-    );
+    $qs = preg_replace("/^" . preg_quote($su, '/') . "(\&)?/s", "", sv('QUERY_STRING'));
     if ($fh = fopen($u . '?' . $qs, "r")) {
         while (!feof($fh)) {
             $t .= fread($fh, 1024);
@@ -134,10 +129,8 @@ function l($n)
  *
  * @since 1.5
  */
-// @codingStandardsIgnoreStart
 function evaluate_cmsimple_scripting($__text, $__compat = true)
 {
-// @codingStandardsIgnoreEnd
     extract($GLOBALS, EXTR_REFS);
     $__scripts = array();
     preg_match_all('~#CMSimple (.*?)#~is', $__text, $__scripts);
@@ -149,7 +142,11 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
         foreach ($__scripts[1] as $__script) {
             if (!in_array(strtolower($__script), array('hide', 'remove'))) {
                 $__script = html_entity_decode($__script, ENT_QUOTES, 'UTF-8');
-                eval($__script);
+                try {
+                    eval($__script);
+                } catch (ParseError $ex) {
+                    trigger_error('Parse error: ' . $ex->getMessage(), E_USER_WARNING);
+                }
                 if ($__compat) {
                     break;
                 }
@@ -184,10 +181,8 @@ function evaluate_cmsimple_scripting($__text, $__compat = true)
  *
  * @since 1.5
  */
-// @codingStandardsIgnoreStart
 function evaluate_plugincall($text)
 {
-// @codingStandardsIgnoreEnd
     global $tx;
 
     $message = '<span class="xh_fail">' . $tx['error']['plugincall']
@@ -206,9 +201,14 @@ function evaluate_plugincall($text)
         );
         $function = $call[1][0];
         if (function_exists($function)) {
-            $results[] = XH_evaluateSinglePluginCall(
-                $function . '(' . $arguments . ')'
-            );
+            try {
+                $results[] = XH_evaluateSinglePluginCall(
+                    $function . '(' . $arguments . ')'
+                );
+            } catch (ParseError $ex) {
+                $results[] = '';
+                trigger_error('Parse error: ' . $ex->getMessage(), E_USER_WARNING);
+            }
         } else {
             $results[] = sprintf($message, $function);
         }
@@ -241,7 +241,8 @@ function XH_evaluateSinglePluginCall($___expression)
 {
     extract($GLOBALS);
     return preg_replace_callback(
-        '/#(CMSimple .*?)#/is', 'XH_escapeCMSimpleScripting',
+        '/#(CMSimple .*?)#/is',
+        'XH_escapeCMSimpleScripting',
         eval('return ' . $___expression . ';')
     );
 }
@@ -297,10 +298,8 @@ function XH_spliceString(&$string, $offset, $length = 0, $replacement = '')
  *
  * @since 1.5
  */
-// @codingStandardsIgnoreStart
 function evaluate_scripting($text, $compat = true)
 {
-// @codingStandardsIgnoreEnd
     return evaluate_cmsimple_scripting(evaluate_plugincall($text), $compat);
 }
 
@@ -350,10 +349,8 @@ function newsbox($heading)
  *
  * @since 1.5
  */
-// @codingStandardsIgnoreStart
-function init_editor(array $elementClasses = array(),  $initFile = false)
+function init_editor(array $elementClasses = array(), $initFile = false)
 {
-// @codingStandardsIgnoreEnd
     global $pth, $cf;
 
     $fn = $pth['folder']['plugins'] . $cf['editor']['external'] . '/init.php';
@@ -422,10 +419,8 @@ function include_editor()
 
  * @since 1.5
  */
-// @codingStandardsIgnoreStart
 function editor_replace($elementID = false, $config = '')
 {
-// @codingStandardsIgnoreEnd
     global $pth, $cf;
 
     if (!$elementID) {
@@ -509,8 +504,7 @@ function XH_finalCleanUp($html)
     if (!empty($bjs)) {
         $html = str_replace('</body', "$bjs\n</body", $html);
     }
-
-    return $html;
+    return XH_afterFinalCleanUp($html);
 }
 
 /**
@@ -676,19 +670,21 @@ function e($et, $ft, $fn)
  * @global array  The localization of the core.
  * @global string Error messages as HTML fragment consisting of LI Elements.
  * @global object The pagedata router.
+ * @global object The publisher.
  *
  * @return void
  */
 function rfc()
 {
-    global $edit, $c, $cl, $h, $u, $l, $su, $s, $tx, $e, $pth, $pd_router;
+    global $edit, $c, $cl, $h, $u, $l, $su, $s, $tx, $e, $pth, $pd_router, $xh_publisher;
 
     $contents = XH_readContents();
     if ($contents === false) {
         e('missing', 'content', $pth['file']['content']);
         $contents = array(
             array(), array(), array(), array(), array(),
-            new XH\PageDataRouter(array(), array(), array(), array())
+            new XH\PageDataRouter(array(), array(), array(), array()),
+            array()
         );
     }
     list($u, $tooLong, $h, $l, $c, $pd_router, $removed) = array_values($contents);
@@ -706,7 +702,9 @@ function rfc()
             $s = 0;
         }
         $cl = 1;
-        $pd_router->appendNewPage();
+        $removed = array(false);
+        $pd_router->appendNewPage(array('last_edit' => '0'));
+        $xh_publisher = new XH\Publisher($removed);
         return;
     }
 
@@ -732,6 +730,8 @@ function rfc()
             }
         }
     }
+
+    $xh_publisher = new XH\Publisher($removed);
 }
 
 /**
@@ -753,7 +753,6 @@ function rfc()
  * @global array The paths of system files and folders.
  * @global array The configuration of the core.
  * @global bool  Whether edit mode is active.
- * @global int   The index of the first published page.
  *
  * @return array
  *
@@ -761,7 +760,7 @@ function rfc()
  */
 function XH_readContents($language = null)
 {
-    global $pth, $cf, $edit, $_XH_firstPublishedPage;
+    global $pth, $cf, $edit;
 
     if (isset($language)) {
         $contentFolder = $pth['folder']['base'] . 'content/' . $language . '/';
@@ -844,20 +843,12 @@ function XH_readContents($language = null)
         include $pageDataFile;
     }
 
-    $pd_router = new XH\PageDataRouter(
-        $h, $page_data_fields, $temp_data, $page_data
-    );
+    $pd_router = new XH\PageDataRouter($h, $page_data_fields, $temp_data, $page_data);
 
     // remove unpublished pages
-    if (!isset($language)) {
-        $_XH_firstPublishedPage = 0;
-    }
     if (!($edit && XH_ADM)) {
         foreach ($c as $i => $text) {
             if (cmscript('remove', $text)) {
-                if (!isset($language) && $_XH_firstPublishedPage == $i) {
-                    $_XH_firstPublishedPage = ($i < count($c) - 1) ? $i + 1 : -1;
-                }
                 $c[$i] = '#CMSimple hide# #CMSimple shead(404);#';
                 $removed[$i] = true;
             }
@@ -865,7 +856,7 @@ function XH_readContents($language = null)
     }
 
     //TODO: don't use $cf['menu']['levels'] anymore
-    $cf['menu']['levels'] = max($l);
+    $cf['menu']['levels'] = count($l) ? max($l) : 1;
 
     return array(
         'urls' => $u,
@@ -1206,31 +1197,31 @@ function XH_debugmode()
         if (strlen($dbglevel) == 1) {
             set_error_handler('XH_debug');
             switch ($dbglevel) {
-            case 0:
-                error_reporting(0);
-                break;
-            case 1:
-                error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
-                break;
-            case 2:
-                error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE);
-                break;
-            case 3:
-                error_reporting(
-                    E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE | E_NOTICE
-                );
-                break;
-            case 4:
-                error_reporting(E_ALL ^ (E_NOTICE | E_WARNING | E_USER_WARNING));
-                break;
-            case 5:
-                error_reporting(E_ALL ^ E_NOTICE);
-                break;
-            case 6:
-                error_reporting(E_ALL);
-                break;
-            default:
-                error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
+                case 0:
+                    error_reporting(0);
+                    break;
+                case 1:
+                    error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
+                    break;
+                case 2:
+                    error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE);
+                    break;
+                case 3:
+                    error_reporting(
+                        E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE | E_NOTICE
+                    );
+                    break;
+                case 4:
+                    error_reporting(E_ALL ^ (E_NOTICE | E_WARNING | E_USER_WARNING));
+                    break;
+                case 5:
+                    error_reporting(E_ALL ^ E_NOTICE);
+                    break;
+                case 6:
+                    error_reporting(E_ALL);
+                    break;
+                default:
+                    error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
             }
         } else {
             error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
@@ -1264,35 +1255,35 @@ function XH_debug($errno, $errstr, $errfile, $errline)
     }
 
     switch ($errno) {
-    case E_USER_ERROR:
-        $errtype = 'XH-ERROR';
-        break;
-    case E_USER_WARNING:
-        $errtype = 'XH-WARNING';
-        break;
-    case E_USER_NOTICE:
-        $errtype = 'XH-NOTICE';
-        break;
-    case E_USER_DEPRECATED:
-        $errtype = 'XH-DEPRECATED';
-        $backtrace = debug_backtrace(false);
-        $errfile = $backtrace[2]['file'];
-        $errline = $backtrace[2]['line'];
-        break;
-    case E_WARNING:
-        $errtype = 'WARNING';
-        break;
-    case E_NOTICE:
-        $errtype = 'NOTICE';
-        break;
-    case E_STRICT:
-        $errtype = 'STRICT';
-        break;
-    case E_DEPRECATED:
-        $errtype = 'DEPRECATED';
-        break;
-    default:
-        $errtype = "Unknow error type [$errno]";
+        case E_USER_ERROR:
+            $errtype = 'XH-ERROR';
+            break;
+        case E_USER_WARNING:
+            $errtype = 'XH-WARNING';
+            break;
+        case E_USER_NOTICE:
+            $errtype = 'XH-NOTICE';
+            break;
+        case E_USER_DEPRECATED:
+            $errtype = 'XH-DEPRECATED';
+            $backtrace = debug_backtrace(false);
+            $errfile = $backtrace[2]['file'];
+            $errline = $backtrace[2]['line'];
+            break;
+        case E_WARNING:
+            $errtype = 'WARNING';
+            break;
+        case E_NOTICE:
+            $errtype = 'NOTICE';
+            break;
+        case E_STRICT:
+            $errtype = 'STRICT';
+            break;
+        case E_DEPRECATED:
+            $errtype = 'DEPRECATED';
+            break;
+        default:
+            $errtype = "Unknow error type [$errno]";
     }
 
     $errors[] = "<b>$errtype:</b> $errstr" . '<br>' . "$errfile:$errline"
@@ -1586,6 +1577,8 @@ function loginforms()
             $o .= '<a href="' . $sn . '?&function=forgotten">'
                 . $tx['title']['password_forgotten'] . '</a>';
         }
+        $o .= '<p><a href="' . "$sn?$su" . '">' . $tx['login']['back']
+            . '</a></p>';
         $o .= ' </div>';
         $s = -1;
     }
@@ -1664,6 +1657,40 @@ function XH_afterPluginLoading($callback = null)
         foreach ($callbacks as $callback) {
             call_user_func($callback);
         }
+    }
+}
+
+/**
+ * Registers or executes registered callbacks at the end of XH_finalCleanUp().
+ *
+ * Registers a callback for execution at the end of {@link XH_finalCleanUp()},
+ * if <var>$param</var> is a callable; otherwise executes these callbacks,
+ * passing <var>$param</var> as parameter to the callback function. The latter
+ * variant is supposed to be called only by the core, and in this case will
+ * invoke the callback with the page HTML, and expects the callback to return
+ * the possibly modified HTML.
+ *
+ * Note that inside the callbacks the current working directory may have been
+ * changed under some webservers (e.g. Apache), so all filesystem access should
+ * use {@link XH_CWD} prepended to the <var>$pth</var> elements.
+ *
+ * @param mixed $param A parameter.
+ *
+ * @return void
+ *
+ * @since 1.7
+ */
+function XH_afterFinalCleanUp($param)
+{
+    static $callbacks = array();
+
+    if (is_callable($param)) {
+        $callbacks[] = $param;
+    } else {
+        foreach ($callbacks as $callback) {
+            $param = call_user_func($callback, $param);
+        }
+        return $param;
     }
 }
 
@@ -1759,7 +1786,8 @@ function XH_adjustStylesheetURLs($plugin, $css)
 {
     return preg_replace(
         '/url\(\s*(["\']?)(?!\s*["\']?\/|\s*["\']?http[s]?:)(.*?)(["\']?)\s*\)/s',
-        "url(\$1../../plugins/$plugin/css/\$2\$3)", $css
+        "url(\$1../../plugins/$plugin/css/\$2\$3)",
+        $css
     );
 }
 
@@ -2187,14 +2215,14 @@ function XH_hsc($string)
  *
  * @param string $subject An alternative subject field preset text
  *                        instead of the subject default in localization.
- * 
+ *
  * @return string HTML
  *
  * @global array The configuration of the core.
  *
  * @since 1.6
  */
-function XH_mailform($subject=null)
+function XH_mailform($subject = null)
 {
     global $cf;
 
@@ -2503,20 +2531,29 @@ function XH_onShutdown()
     }
 }
 /**
- * Returns a timestamp formatted according to <var>$tx[lastupdate][dateformat]</var>.
+ * Returns a timestamp formatted according to config and lang.
  *
  * @param int $timestamp A UNIX timestamp.
  *
  * @return string
  *
+ * @global array The configuration of the core.
  * @global array The localization of the core.
  *
  * @since 1.6.3
  */
 function XH_formatDate($timestamp)
 {
-    global $tx;
+    global $cf, $tx;
 
+    if (class_exists('IntlDateFormatter', false)) {
+        $dateFormatter = new IntlDateFormatter(
+            $tx['locale']['all'] ? $tx['locale']['all'] : null,
+            constant('IntlDateFormatter::' . strtoupper($cf['format']['date'])),
+            constant('IntlDateFormatter::' . strtoupper($cf['format']['time']))
+        );
+        return $dateFormatter->format($timestamp);
+    }
     return date($tx['lastupdate']['dateformat'], $timestamp);
 }
 
@@ -2550,7 +2587,9 @@ function XH_lockFile($handle, $operation)
 function XH_highlightSearchWords(array $words, $text)
 {
     $words = array_unique($words);
-    usort($words, create_function('$a, $b', 'return strlen($b) - strlen($a);'));
+    usort($words, function ($a, $b) {
+        return strlen($b) - strlen($a);
+    });
     $patterns = array();
     foreach ($words as $word) {
         $word = trim($word);
@@ -2652,11 +2691,12 @@ function XH_poweredBy()
         $tpltext .= $defaulttpl == $template
             ? '<li><p><strong>Default template: ' . ucfirst($template) . '</strong>'
             : '<li>' . ucfirst($template);
-        $infoPath = $pth['folder']['templates'] . '/' . $template . '/template.nfo';
+        $infoPath = $pth['folder']['templates'] . '/' . $template . '/templateinfo.htm';
         if (is_file($infoPath)) {
             $tplinfo = utf8_substr(
                 strip_tags(file_get_contents($infoPath), '<a><br><br/>'),
-                0, 400
+                0,
+                400
             );
             if ($tplinfo) {
                 $tpltext .= '<br>' . $tplinfo;
@@ -2695,11 +2735,11 @@ function XH_pluginURL($plugin)
 {
     global $pth;
 
-    $internalPlugins = array(
-        'filebrowser', 'meta_tags', 'page_params', 'pagemanager' , 'tinymce',
-        'utf8', 'jquery', 'hi_updatecheck',
+    $standardPlugins = array(
+        'fa', 'filebrowser', 'meta_tags', 'page_params', 'pagemanager' , 'tinymce',
+        'jquery', 'hi_updatecheck',
     );
-    if (in_array($plugin, $internalPlugins)) {
+    if (in_array($plugin, $standardPlugins)) {
         $url = false;
     } else {
         $filename = $pth['folder']['plugins'] . $plugin . '/version.nfo';
@@ -2730,28 +2770,29 @@ function XH_pluginURL($plugin)
  * @global array  The menu levels of the pages.
  * @global array  The localization of the core.
  * @global array  The configuration of the core.
- * @global int    The index of the first published page.
+ * @global object The publisher.
  *
  * @since 1.7
  */
 function XH_getLocatorModel()
 {
-    global $title, $h, $s, $f, $l, $tx, $cf, $_XH_firstPublishedPage;
+    global $title, $h, $s, $f, $l, $tx, $cf, $xh_publisher;
 
     if (hide($s) && $cf['show_hidden']['path_locator'] != 'true') {
         return array(array($h[$s], XH_getPageURL($s)));
     }
-    if ($s == $_XH_firstPublishedPage) {
+    $firstPublishedPage = $xh_publisher->getFirstPublishedPage();
+    if ($s == $firstPublishedPage) {
         return array(array($h[$s], XH_getPageURL($s)));
     } elseif ($title != '' && (!isset($h[$s]) || $h[$s] != $title)) {
         $res = array(array($title, null));
     } elseif ($f != '') {
         return array(array(ucfirst($f), null));
-    } elseif ($s > $_XH_firstPublishedPage) {
+    } elseif ($s > $firstPublishedPage) {
         $res = array();
         $tl = $l[$s];
         if ($tl > 1) {
-            for ($i = $s - 1; $i > $_XH_firstPublishedPage; $i--) {
+            for ($i = $s - 1; $i > $firstPublishedPage; $i--) {
                 if ($l[$i] < $tl) {
                     array_unshift($res, array($h[$i], XH_getPageURL($i)));
                     $tl--;
@@ -2767,14 +2808,14 @@ function XH_getLocatorModel()
     if ($cf['locator']['show_homepage'] == 'true') {
         array_unshift(
             $res,
-            array($tx['locator']['home'], XH_getPageURL($_XH_firstPublishedPage))
+            array($tx['locator']['home'], XH_getPageURL($firstPublishedPage))
         );
-        if ($s > $_XH_firstPublishedPage && $h[$s] == $title) {
+        if ($s > $firstPublishedPage && $h[$s] == $title) {
             $res[] = array($h[$s], XH_getPageURL($s));
         }
         return $res;
     } else {
-        if ($s > $_XH_firstPublishedPage && $h[$s] == $title) {
+        if ($s > $firstPublishedPage && $h[$s] == $title) {
             $res[] = array($h[$s], XH_getPageURL($s));
         }
         return $res;
@@ -2799,5 +2840,3 @@ function XH_getPageURL($index)
 
     return $sn . '?' . $u[$index];
 }
-
-?>

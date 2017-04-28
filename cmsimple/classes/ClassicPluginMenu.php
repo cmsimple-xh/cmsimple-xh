@@ -3,14 +3,12 @@
 /**
  * The plugin menu builders for the classic plugin menu.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -35,7 +33,7 @@ class ClassicPluginMenu extends PluginMenu
      *
      * @var string HTML.
      */
-    private $_menu;
+    private $menu;
 
     /**
      * Initializes a new instance.
@@ -43,7 +41,7 @@ class ClassicPluginMenu extends PluginMenu
     public function __construct()
     {
         parent::__construct();
-        $this->_menu = '';
+        $this->menu = '';
     }
 
     /**
@@ -127,7 +125,7 @@ class ClassicPluginMenu extends PluginMenu
         $template = '<table {{STYLE_ROW}}>' . "\n"
             . '<tr>' . "\n" . '{{TAB}}</tr>' . "\n" . '</table>' . "\n" . "\n";
 
-        $this->_menu .= str_replace('{{STYLE_ROW}}', $style['row'], $template);
+        $this->menu .= str_replace('{{STYLE_ROW}}', $style['row'], $template);
     }
 
     /**
@@ -159,7 +157,7 @@ class ClassicPluginMenu extends PluginMenu
                 '{{TEXT}}' => $text
             )
         );
-        $this->_menu = str_replace('{{TAB}}', $tab . '{{TAB}}', $this->_menu);
+        $this->menu = str_replace('{{TAB}}', $tab . '{{TAB}}', $this->menu);
     }
 
     /**
@@ -182,7 +180,7 @@ class ClassicPluginMenu extends PluginMenu
                 '{{TEXT}}' => $text
             )
         );
-        $this->_menu = str_replace('{{TAB}}', $data . '{{TAB}}', $this->_menu);
+        $this->menu = str_replace('{{TAB}}', $data . '{{TAB}}', $this->menu);
     }
 
     /**
@@ -192,11 +190,9 @@ class ClassicPluginMenu extends PluginMenu
      */
     public function show()
     {
-        $this->_menu = str_replace('{{TAB}}', '', $this->_menu);
-        $result = $this->_menu;
-        $this->_menu = '';
+        $this->menu = str_replace('{{TAB}}', '', $this->menu);
+        $result = $this->menu;
+        $this->menu = '';
         return $result;
     }
 }
-
-?>

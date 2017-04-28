@@ -68,11 +68,6 @@ pod GPL3 Licencí.
 CMSimple_XH ukládá obsah jednotlivých stránek
 v jediném html souboru (content.htm).
 
-Ve výchozím nastavení používá hlavičky H1-H3
-k rozdělení na jednotlivé stránky v content.htm
-a generuje navigační menu. Hlavičky H4-H6 zůstávají
-pro normální sémantické strukturování v rámci stránek.
-
 ################################################
        U Ž I T E Č N É    O D K A Z Y
 ################################################

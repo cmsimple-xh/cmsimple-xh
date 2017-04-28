@@ -3,12 +3,10 @@
 /**
  * Handling of CSRF protection.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -33,14 +31,14 @@ class CSRFProtection
      *
      * @var string
      */
-    protected $keyName;
+    private $keyName;
 
     /**
      * The CSRF token for the following request.
      *
      * @var string $token
      */
-    protected $token = null;
+    private $token = null;
 
     /**
      * Initializes a new object.
@@ -111,5 +109,3 @@ class CSRFProtection
         }
     }
 }
-
-?>

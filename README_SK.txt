@@ -63,11 +63,6 @@ Je to zdarma Open Source Software pod GPL3 Licenciou.
 CMSimple_XH ukladá obsah jednotlivých stránok
 v jedinom html súbore (content.htm).
 
-V základnom nastavení používa hlavičky H1-H3
-na rozdelenie na jednotlivé stránky v content.htm
-a generuje navigačné menu. Hlavičky H4-H6 zostávajú
-pre normálne sémantické štrukturovanie v rámci stránok.
-
 ################################################
        U Ž I T O Č N É    O D K A Z Y
 ################################################

@@ -65,7 +65,7 @@ class Model
      */
     private function mayRename($heading)
     {
-        return !preg_match('/<|&(?!(?:amp|quot|lt|gt);)/', $heading);
+        return strip_tags($heading) === $heading;
     }
 
     /**
@@ -76,7 +76,6 @@ class Model
     {
         $heading = trim(strip_tags($heading));
         $heading = html_entity_decode($heading, ENT_COMPAT, 'UTF-8');
-        $heading = htmlspecialchars($heading, ENT_COMPAT, 'UTF-8');
         return $heading;
     }
 

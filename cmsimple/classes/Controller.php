@@ -3,14 +3,12 @@
 /**
  * Top-level functionality.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -83,13 +81,9 @@ class Controller
      *
      * @return Search
      *
-     * @access protected
-     *
      * @global string The search string.
-     *
-     * @todo Declare visibility.
      */
-    function makeSearch()
+    public function makeSearch()
     {
         global $search;
 
@@ -126,12 +120,8 @@ class Controller
      * Makes and returns a mailform object.
      *
      * @return Mailform
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function makeMailform()
+    public function makeMailform()
     {
         return new Mailform();
     }
@@ -179,12 +169,8 @@ class Controller
      * Makes and returns a password forgotten object.
      *
      * @return PasswordForgotten
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function makePasswordForgotten()
+    public function makePasswordForgotten()
     {
         return new PasswordForgotten();
     }
@@ -223,18 +209,14 @@ class Controller
      *
      * @return void
      *
-     * @access protected
-     *
      * @global string       The requested function.
      * @global array        The paths of system files and folders.
      * @global string       The admin password.
      * @global string       Whether login is requested.
      * @global PasswordHash The password hasher.
      * @global array        The configuration of the core.
-     *
-     * @todo Declare visibility.
      */
-    function handleLogin()
+    public function handleLogin()
     {
         global $f, $pth, $keycut, $login, $adm, $edit, $xh_hasher, $cf;
 
@@ -246,19 +228,14 @@ class Controller
             $_SESSION['xh_user_agent'] = md5($_SERVER['HTTP_USER_AGENT']);
             $adm = true;
             $edit = true;
-            $written = XH_logMessage(
-                'info', 'XH', 'login', 'login from ' . $_SERVER['REMOTE_ADDR']
-            );
+            $written = XH_logMessage('info', 'XH', 'login', 'login from ' . $_SERVER['REMOTE_ADDR']);
             if (!$written) {
                 e('cntwriteto', 'log', $pth['file']['log']);
             }
         } else {
             $login = null;
             $f = 'xh_login_failed';
-            XH_logMessage(
-                'warning', 'XH', 'login',
-                'login failed from ' . $_SERVER['REMOTE_ADDR']
-            );
+            XH_logMessage('warning', 'XH', 'login', 'login failed from ' . $_SERVER['REMOTE_ADDR']);
         }
     }
 
@@ -267,17 +244,13 @@ class Controller
      *
      * @return void
      *
-     * @access protected
-     *
      * @global string Whether admin mode is active.
      * @global string The requested function.
      * @global string Whether logout is requested.
      * @global array  The localization of the core.
      * @global string The HTML for the contents area.
-     *
-     * @todo Declare visibility.
      */
-    function handleLogout()
+    public function handleLogout()
     {
         global $adm, $f, $logout, $tx, $o;
 
@@ -451,14 +424,11 @@ class Controller
      *
      * @return void
      *
-     * @access public
-     *
      * @global string The HTML for the contents area.
      *
      * @todo Unused?
-     * @todo Declare visibility.
      */
-    function handlePagedataEditor()
+    public function handlePagedataEditor()
     {
         global $o;
 
@@ -470,12 +440,8 @@ class Controller
      * Makes and returns a new page data editor object.
      *
      * @return PageDataEditor
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function makePageDataEditor()
+    public function makePageDataEditor()
     {
         return new PageDataEditor();
     }
@@ -559,12 +525,8 @@ class Controller
      * @param string $class A class name.
      *
      * @return FileEdit
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function makeFileEditor($class)
+    protected function makeFileEditor($class)
     {
         return new $class;
     }
@@ -733,7 +695,7 @@ EOT;
      * @todo Do we need $f == 'save' && !$download?
      *       IOW: isn't the script already exited in these cases?
      */
-    protected function needsFilebrowser()
+    private function needsFilebrowser()
     {
         global $images, $downloads, $userfiles, $media, $edit, $f, $download;
 
@@ -751,7 +713,7 @@ EOT;
      * @global array The paths of system files and folders.
      * @global array The configuration of the core.
      */
-    protected function isExternalMissing($name)
+    private function isExternalMissing($name)
     {
         global $pth, $cf;
 
@@ -857,7 +819,4 @@ EOT;
             XH_exit(str_replace('{location}', $location, $tx['error']['headers']));
         }
     }
-
 }
-
-?>

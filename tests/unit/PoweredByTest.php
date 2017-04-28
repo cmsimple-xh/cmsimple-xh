@@ -3,12 +3,10 @@
 /**
  * Testing the powered-by-link functionality.
  *
- * PHP version 5
- *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2015-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2015-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -125,7 +123,7 @@ class PoweredByTest extends PHPUnit_Framework_TestCase
     public function testViewShowsTemplateInfo()
     {
         $this->assertStringMatchesFormat(
-            '%A<li>Mini1<br>test<br>info</li>%A',
+            '%A<li>Mini1</li>%A',
             XH_poweredBy()
         );
     }

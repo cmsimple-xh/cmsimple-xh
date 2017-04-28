@@ -3,13 +3,11 @@
 /**
  * Internal Filebrowser -- admin.php
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   Filebrowser
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -31,10 +29,6 @@ $_XH_filebrowser->setMaxFileSize('downloads', $cf['downloads']['maxsize']);
 if (XH_wantsPluginAdministration('filebrowser')) {
     $o .= print_plugin_admin('off');
 
-    $o .= '<div class="plugintext">'
-        . '<div class="plugineditcaption">Filebrowser for @CMSIMPLE_XH_VERSION@'
-        . '</div>' . '<hr>';
-
     if (!$admin) {
         $admin = 'plugin_config';
     }
@@ -42,8 +36,7 @@ if (XH_wantsPluginAdministration('filebrowser')) {
         $action = 'plugin_edit';
     }
 
-    $o .= plugin_admin_common($action, $admin, $plugin)
-        . '</div>';
+    $o .= plugin_admin_common($action, $admin, $plugin);
     return;
 }
 
@@ -143,7 +136,7 @@ function Filebrowser_forEditor()
         $type = $_GET['type'];
         if ($type == 'image') {
             $type = 'images';
-        } else if ($type == 'file') {
+        } elseif ($type == 'file') {
             $type = 'downloads';
         }
     }
@@ -171,9 +164,7 @@ function Filebrowser_forEditor()
             = $_XH_filebrowser->baseDirectories[$type];
 
         if (isset($_GET['subdir'])) {
-            $subdir = str_replace(
-                array('../', './', '?', '<', '>', ':'), '', $_GET['subdir']
-            );
+            $subdir = str_replace(array('../', './', '?', '<', '>', ':'), '', $_GET['subdir']);
 
             if (strpos($subdir, $_XH_filebrowser->baseDirectory) === 0) {
                 $_XH_filebrowser->currentDirectory = rtrim($subdir, '/') . '/';
@@ -210,5 +201,3 @@ function Filebrowser_forEditor()
         echo $_XH_filebrowser->render('editorbrowser');
     }
 }
-
-?>

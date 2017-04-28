@@ -3,12 +3,10 @@
 /**
  * A class for handling of CMSimple pages.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -35,7 +33,7 @@ class Pages
      *
      * @see $cl
      */
-    protected $count;
+    private $count;
 
     /**
      * The headings of the pages.
@@ -44,7 +42,7 @@ class Pages
      *
      * @see $h
      */
-    protected $headings;
+    private $headings;
 
     /**
      * The URLs of the pages.
@@ -53,7 +51,7 @@ class Pages
      *
      * @see $u
      */
-    protected $urls;
+    private $urls;
 
     /**
      * The menu levels of the pages.
@@ -62,7 +60,7 @@ class Pages
      *
      * @see $l
      */
-    protected $levels;
+    private $levels;
 
     /**
      * The contents of the pages.
@@ -71,7 +69,7 @@ class Pages
      *
      * @see $c
      */
-    protected $contents;
+    private $contents;
 
     /**
      * Constructs an instance.
@@ -300,5 +298,3 @@ class Pages
         return $result;
     }
 }
-
-?>

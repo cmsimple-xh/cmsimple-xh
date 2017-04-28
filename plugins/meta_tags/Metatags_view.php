@@ -6,13 +6,11 @@
  * Creates the menu for the user to change meta-tags
  * (description, keywords, title and robots) per page.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   Metatags
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -58,7 +56,10 @@ function Metatags_view(array $page)
         $view .= "\n\t" . XH_helpIcon($lang['hint_' . $field])
             . "\n\t" . '<label><span class = "mt_label">'
             . $lang[$field] . '</span>';
-        if ($field == 'description') {
+        if ($field == 'title') {
+            $view .= '<span id="mt_title_length">['
+                . utf8_strlen($page[$field]). ']</span>';
+        } elseif ($field == 'description') {
             $view .= '<span id="mt_description_length">['
                 . utf8_strlen($page[$field]). ']</span>';
         }
@@ -73,5 +74,3 @@ function Metatags_view(array $page)
         . "\n" . '</form>';
     return $view;
 }
-
-?>

@@ -3,8 +3,6 @@
 /**
  * Changing the password.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
@@ -34,42 +32,42 @@ class ChangePassword
      *
      * @var string
      */
-    protected $passwordOld;
+    private $passwordOld;
 
     /**
      * The new password.
      *
      * @var string
      */
-    protected $passwordNew;
+    private $passwordNew;
 
     /**
      * The password confirmation.
      *
      * @var string
      */
-    protected $passwordConfirmation;
+    private $passwordConfirmation;
 
     /**
      * The configuration of the core.
      *
      * @var array
      */
-    protected $config;
+    private $config;
 
     /**
      * The localization of the core.
      *
      * @var array
      */
-    protected $lang;
+    private $lang;
 
     /**
      * The CSRF protector.
      *
      * @var CSRFProtection
      */
-    protected $csrfProtector;
+    private $csrfProtector;
 
     /**
      * Initializes a new instance.
@@ -112,7 +110,7 @@ class ChangePassword
      *
      * @return string
      */
-    protected function render()
+    private function render()
     {
         global $sn;
 
@@ -134,17 +132,21 @@ class ChangePassword
      *
      * @return string
      */
-    protected function renderField($which, $value)
+    private function renderField($which, $value)
     {
         $id = "xh_password_$which";
-        return '<p>'
+        $html = '<p>'
             . '<label for="' . $id . '">' . $this->lang['password'][$which]
             . '</label> '
             . tag(
                 'input id="' . $id . '" type="password" name="' . $id
                 . '" value="' . XH_hsc($value) . '"'
-            )
-            . '</p>';
+            );
+        if (in_array($which, array('old', 'new'))) {
+            $html .= ' <span class="xh_password_score"></span>';
+        }
+        $html .= '</p>';
+        return $html;
     }
 
     /**
@@ -152,7 +154,7 @@ class ChangePassword
      *
      * @return string
      */
-    protected function renderSubmit()
+    private function renderSubmit()
     {
         return '<p><button name="action" value="save">'
             . utf8_ucfirst($this->lang['action']['save']) . '</button></p>';
@@ -190,7 +192,7 @@ class ChangePassword
      *
      * @return ?string
      */
-    protected function validate(&$error)
+    private function validate(&$error)
     {
         global $xh_hasher;
 
@@ -198,9 +200,7 @@ class ChangePassword
         if ($this->passwordOld && $this->passwordNew
             && $this->passwordConfirmation
         ) {
-            $hash = $xh_hasher->checkPassword(
-                $this->passwordOld, $this->config['security']['password']
-            );
+            $hash = $xh_hasher->checkPassword($this->passwordOld, $this->config['security']['password']);
             if (!$hash) {
                 $error = $this->lang['password']['wrong'];
             } else {
@@ -225,7 +225,7 @@ class ChangePassword
      *
      * @return bool
      */
-    protected function savePassword()
+    private function savePassword()
     {
         global $pth;
 
@@ -249,5 +249,3 @@ class ChangePassword
         return XH_writeFile($pth['file']['config'], $o);
     }
 }
-
-?>

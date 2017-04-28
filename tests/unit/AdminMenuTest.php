@@ -3,12 +3,10 @@
 /**
  * Testing the admin menu.
  *
- * PHP version 5
- *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2015-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2015-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -111,10 +109,10 @@ class AdminMenuTest extends PHPUnit_Framework_TestCase
             array($tx['editmenu']['normal'], '/?Welcome&normal', true),
             array($tx['editmenu']['edit'], '/?Welcome&edit'),
             array($tx['editmenu']['pagemanager'], '/?&normal&xhpages'),
-            array($tx['editmenu']['files'], '/?&normal&userfiles'),
-            array($tx['editmenu']['images'], '/?&normal&images'),
-            array($tx['editmenu']['downloads'], '/?&normal&downloads'),
-            array($tx['editmenu']['media'], '/?&normal&media'),
+            array($tx['editmenu']['files'], '/?&edit&userfiles'),
+            array($tx['editmenu']['images'], '/?&edit&images'),
+            array($tx['editmenu']['downloads'], '/?&edit&downloads'),
+            array($tx['editmenu']['media'], '/?&edit&media'),
             array($tx['editmenu']['settings'], '/?&settings'),
             array($tx['editmenu']['configuration'], '/?file=config&action=array'),
             array($tx['editmenu']['lanugage'], '/?file=language&action=array'),

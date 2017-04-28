@@ -3,12 +3,10 @@
 /**
  * Testing the functions in adminfuncs.php.
  *
- * PHP version 5
- *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -49,12 +47,21 @@ class AdminfuncsTest extends PHPUnit_Framework_TestCase
      * Test XH_wantsPluginAdministration().
      *
      * @return void
+     * @dataProvider wantsPluginAdministrationData
      */
-    public function testWantsPluginAdministration()
+    public function testWantsPluginAdministration($expected, $query, $pluginName)
     {
-        $_SERVER['QUERY_STRING'] = '&pagemanager&normal';
-        $this->assertTrue(XH_wantsPluginAdministration('pagemanager'));
+        $_SERVER['QUERY_STRING'] = $query;
+        $this->assertSame($expected, XH_wantsPluginAdministration($pluginName));
         unset($_SERVER['QUERY_STRING']);
+    }
+
+    public function wantsPluginAdministrationData()
+    {
+        return array(
+            [true, '&pagemanager&normal', 'pagemanager'],
+            [false, 'Languages&foldergallery_folder=flags', 'foldergallery']
+        );
     }
 
     /**

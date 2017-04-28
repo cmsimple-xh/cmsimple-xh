@@ -3,14 +3,12 @@
 /**
  * The link checker.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -69,12 +67,8 @@ class LinkChecker
      * Checks all links and returns the result view.
      *
      * @return string HTML
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function checkLinks()
+    public function checkLinks()
     {
         $links = $this->gatherLinks();
         $failure = array(
@@ -105,7 +99,7 @@ class LinkChecker
      * @global array The page URLs.
      * @global int   The number of pages.
      */
-    protected function gatherLinks()
+    private function gatherLinks()
     {
         global $c, $u, $cl;
 
@@ -135,7 +129,7 @@ class LinkChecker
      *
      * @return int
      */
-    protected function countLinks(array $links)
+    private function countLinks(array $links)
     {
         return array_sum(array_map('count', $links));
     }
@@ -146,27 +140,23 @@ class LinkChecker
      * @param Link $link A link
      *
      * @return void
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function determineLinkStatus(Link $link)
+    public function determineLinkStatus(Link $link)
     {
         $parts = parse_url($link->getURL());
         if (isset($parts['scheme'])) {
             switch ($parts['scheme']) {
-            case 'http':
-                $status = $this->checkExternalLink($parts);
-                break;
-            case 'mailto':
-                $status = Link::STATUS_MAILTO;
-                break;
-            case '':
-                $status = $this->checkInternalLink($parts);
-                break;
-            default:
-                $status = Link::STATUS_UNKNOWN;
+                case 'http':
+                    $status = $this->checkExternalLink($parts);
+                    break;
+                case 'mailto':
+                    $status = Link::STATUS_MAILTO;
+                    break;
+                case '':
+                    $status = $this->checkInternalLink($parts);
+                    break;
+                default:
+                    $status = Link::STATUS_UNKNOWN;
             }
         } else {
             $status = $this->checkInternalLink($parts);
@@ -187,7 +177,7 @@ class LinkChecker
      * @global array The paths of system files and folders.
      * @global array The configuration of the core.
      */
-    protected function checkInternalLink(array $test)
+    private function checkInternalLink(array $test)
     {
         global $c, $u, $cl, $pth, $cf;
 
@@ -264,7 +254,7 @@ class LinkChecker
      *
      * @return string
      */
-    protected function checkExternalLink(array $parts)
+    private function checkExternalLink(array $parts)
     {
         set_time_limit(30);
         $path = isset($parts['path']) ? $parts['path'] : '/';
@@ -307,12 +297,8 @@ class LinkChecker
      * @param Link $link A link.
      *
      * @return string HTML
-     *
-     * @access protected
-     *
-     * @todo Declare visiblity.
      */
-    function reportError(Link $link)
+    public function reportError(Link $link)
     {
         global $tx;
 
@@ -323,20 +309,20 @@ class LinkChecker
             . '<br>' . "\n"
             . '<b>' . $tx['link']['error'] . '</b>';
         switch ($link->getStatus()) {
-        case Link::STATUS_INTERNALFAIL:
-        case Link::STATUS_CONTENT_NOT_FOUND:
-            $o .= $tx['link']['int_error'];
-            break;
-        case Link::STATUS_ANCHOR_MISSING:
-            $o .= $tx['link']['int_error_fragment'];
-            break;
-        case Link::STATUS_EXTERNALFAIL:
-            $o .= $tx['link']['ext_error_domain'];
-            break;
-        default:
-            $o .= $tx['link']['ext_error_page'] . '<br>' . "\n"
-                . '<b>' . $tx['link']['returned_status'] . '</b>'
-                . $link->getStatus();
+            case Link::STATUS_INTERNALFAIL:
+            case Link::STATUS_CONTENT_NOT_FOUND:
+                $o .= $tx['link']['int_error'];
+                break;
+            case Link::STATUS_ANCHOR_MISSING:
+                $o .= $tx['link']['int_error_fragment'];
+                break;
+            case Link::STATUS_EXTERNALFAIL:
+                $o .= $tx['link']['ext_error_domain'];
+                break;
+            default:
+                $o .= $tx['link']['ext_error_page'] . '<br>' . "\n"
+                    . '<b>' . $tx['link']['returned_status'] . '</b>'
+                    . $link->getStatus();
         }
         $o .= "\n" . '</li>' . "\n";
         return $o;
@@ -348,12 +334,8 @@ class LinkChecker
      * @param Link $link A link.
      *
      * @return string HTML
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function reportNotice(Link $link)
+    public function reportNotice(Link $link)
     {
         global $tx;
 
@@ -363,19 +345,19 @@ class LinkChecker
             . '<b>' . $tx['link']['linked_page'] . '</b>'
             . $link->getURL() . '<br>' . "\n";
         switch ($link->getStatus()) {
-        case Link::STATUS_MAILTO:
-            $o .= $tx['link']['email'] . "\n";
-            break;
-        case Link::STATUS_UNKNOWN:
-            $o .= $tx['link'][Link::STATUS_UNKNOWN] . "\n";
-            break;
-        default:
-            if ($link->getStatus() >= 300 && $link->getStatus() < 400) {
-                $o .= '<b>' . $tx['link']['error'] . '</b>'
-                    . $tx['link']['redirect'] . '<br>' . "\n";
-            }
-            $o .= '<b>' . $tx['link']['returned_status'] . '</b>'
-                . $link->getStatus() . "\n";
+            case Link::STATUS_MAILTO:
+                $o .= $tx['link']['email'] . "\n";
+                break;
+            case Link::STATUS_UNKNOWN:
+                $o .= $tx['link'][Link::STATUS_UNKNOWN] . "\n";
+                break;
+            default:
+                if ($link->getStatus() >= 300 && $link->getStatus() < 400) {
+                    $o .= '<b>' . $tx['link']['error'] . '</b>'
+                        . $tx['link']['redirect'] . '<br>' . "\n";
+                }
+                $o .= '<b>' . $tx['link']['returned_status'] . '</b>'
+                    . $link->getStatus() . "\n";
         }
         return $o;
     }
@@ -391,12 +373,8 @@ class LinkChecker
      * @global array The localization of the core.
      * @global array The page headings.
      * @global array The page URLs.
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function message($checkedLinks, array $hints)
+    public function message($checkedLinks, array $hints)
     {
         global $tx, $h, $u;
 
@@ -432,5 +410,3 @@ class LinkChecker
         return $o;
     }
 }
-
-?>

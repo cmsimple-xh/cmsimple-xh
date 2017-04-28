@@ -3,12 +3,10 @@
 /**
  * Testing the locator (breadcrumb navigation) model.
  *
- * PHP version 5
- *
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2015-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2015-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -32,11 +30,14 @@ class LocatorModelTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        global $sn, $_XH_firstPublishedPage, $f, $cf, $tx;
+        global $sn, $f, $cf, $tx, $xh_publisher;
 
         $this->setUpContent();
         $sn = '';
-        $_XH_firstPublishedPage = 0;
+        $xh_publisher = $this->getMockBuilder('XH\\Publisher')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $xh_publisher->method('getFirstPublishedPage')->willReturn(0);
         $f = '';
         $cf = array(
             'locator' => array('show_homepage' => 'true'),
@@ -153,9 +154,12 @@ class LocatorModelTest extends PHPUnit_Framework_TestCase
 
     public function testUnpublishedHomePage()
     {
-        global $_XH_firstPublishedPage, $s;
+        global $s, $xh_publisher;
 
-        $_XH_firstPublishedPage = 1;
+        $xh_publisher = $this->getMockBuilder('XH\\Publisher')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $xh_publisher->method('getFirstPublishedPage')->willReturn(1);
         $s = 0;
         $this->assertEquals(array(array('&nbsp;', null)), XH_getLocatorModel());
     }

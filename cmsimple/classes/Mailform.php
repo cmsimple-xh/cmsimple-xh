@@ -3,14 +3,12 @@
 /**
  * Handling of the mailform.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -34,67 +32,63 @@ class Mailform
      *
      * @var bool
      */
-    protected $embedded;
+    private $embedded;
 
     /**
      * The name of the sender.
      *
      * @var string
      */
-    protected $sendername;
+    private $sendername;
 
     /**
      * The phone number of the sender.
      *
      * @var string
      */
-    protected $senderphone;
+    private $senderphone;
 
     /**
      * The email address of the sender.
      *
      * @var string
      */
-    protected $sender;
+    private $sender;
 
     /**
      * The expected CAPTCHA value.
      *
      * @var string
      */
-    protected $getlast;
+    private $getlast;
 
     /**
      * The actual CAPTCHA value.
      *
      * @var string
      */
-    protected $cap;
+    private $cap;
 
     /**
      * The subject of the mail.
      *
      * @var string
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    var $subject;
+    public $subject;
 
     /**
      * The message.
      *
      * @var string
      */
-    protected $mailform;
+    private $mailform;
 
     /**
      * The mail object.
      *
      * @var Mail
      */
-    protected $mail;
+    private $mail;
 
     /**
      * Constructs an instance.
@@ -130,9 +124,7 @@ class Mailform
         } elseif (isset($subject)) {
             $this->subject = $subject;
         } else {
-            $this->subject = sprintf(
-                $tx['mailform']['subject_default'], sv('SERVER_NAME')
-            );
+            $this->subject = sprintf($tx['mailform']['subject_default'], sv('SERVER_NAME'));
         }
             
         if ($embedded) {
@@ -152,12 +144,8 @@ class Mailform
      *
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function check()
+    public function check()
     {
         global $cf, $tx;
 
@@ -183,12 +171,8 @@ class Mailform
      *
      * @global array The configuration of the core.
      * @global array The localization of the core.
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function submit()
+    public function submit()
     {
         global $cf, $tx;
 
@@ -254,12 +238,8 @@ class Mailform
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      * @global string The current page URL.
-     *
-     * @access protected
-     *
-     * @todo Declare visibility.
      */
-    function render()
+    public function render()
     {
         global $sn, $cf, $tx, $su;
 
@@ -331,5 +311,3 @@ class Mailform
         return $o;
     }
 }
-
-?>

@@ -5,14 +5,12 @@
  * Creates the menu for the user to change
  * page-parameters per page.
  *
- * PHP version 5
- *
  * @category  CMSimple_XH
  * @package   Pageparams
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    Jerry Jakobsfeld <mail@simplesolutions.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2016 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -163,7 +161,7 @@ function Pageparams_input($name, $value, $disabled)
 function Pageparams_scheduleInput($name, $value, $disabled)
 {
     $disabled = $disabled ? ' disabled="disabled"' : '';
-    return '<input type="text" size="16" maxlength="16" name="' . $name . '"'
+    return '<input type="datetime-local" size="16" maxlength="16" name="' . $name . '"'
         . ' value="' . $value . '"' . $disabled . '>';
 }
 
@@ -258,17 +256,6 @@ function Pageparams_view(array $page)
     $view .= "\n\t" . '<p><b>' . $lang['form_title'] . '</b></p>';
 
     /*
-     * heading
-     */
-    $view .= Pageparams_caption($lang['heading'], $lang['hint_heading']);
-    $view .= Pageparams_checkbox('show_heading', $page['show_heading'] == '1');
-    $view .= '<br>';
-    $view .= Pageparams_input(
-        'heading', $page['heading'], $page['show_heading'] !== '1'
-    );
-    $view .= '<br>' . "\n\t" . '<hr>';
-
-    /*
      * published
      */
     $view .= Pageparams_caption($lang['published'], $lang['hint_published']);
@@ -276,22 +263,16 @@ function Pageparams_view(array $page)
     $view .= '<br>';
     $view .= "\n\t" . XH_helpIcon($lang['hint_publication_period']);
     $view .= "\n\t\t" . $plugin_tx['page_params']['publication_period'];
-    $view .= Pageparams_scheduleInput(
-        'publication_date', $page['publication_date'], $page['published'] == '0'
-    );
+    $view .= Pageparams_scheduleInput('publication_date', $page['publication_date'], $page['published'] == '0');
     $view .= ' - ';
-    $view .= Pageparams_scheduleInput(
-        'expires', $page['expires'], $page['published'] == '0'
-    );
+    $view .= Pageparams_scheduleInput('expires', $page['expires'], $page['published'] == '0');
     $view .= '<br>';
     $view .= "\n\t" . '<hr>';
 
     /*
      * linked to menu
      */
-    $view .= Pageparams_caption(
-        $lang['linked_to_menu'], $lang['hint_linked_to_menu']
-    );
+    $view .= Pageparams_caption($lang['linked_to_menu'], $lang['hint_linked_to_menu']);
     $view .= Pageparams_checkbox('linked_to_menu', $page['linked_to_menu'] !== '0');
     $view .= '<br>';
     $view .= "\n\t" . '<hr>';
@@ -317,18 +298,11 @@ function Pageparams_view(array $page)
     /*
      * header_location
      */
-    $view .= Pageparams_caption(
-        $lang['header_location'], $lang['hint_header_location']
-    );
+    $view .= Pageparams_caption($lang['header_location'], $lang['hint_header_location']);
     $view .= Pageparams_redirectRadiogroup($page['use_header_location']);
-    $view .= Pageparams_input(
-        'header_location', $page['header_location'],
-        (int) $page['use_header_location'] === 0
-    );
+    $view .= Pageparams_input('header_location', $page['header_location'], (int) $page['use_header_location'] === 0);
     $view .= '<br>';
-    $view .= Pageparams_linkList(
-        $page['header_location'], (int) $page['use_header_location'] === 0
-    );
+    $view .= Pageparams_linkList($page['header_location'], (int) $page['use_header_location'] === 0);
     $view .= '<br>' . "\n\t";
 
     $view .= "\n\t" . '<input name="save_page_data" type="hidden">'
@@ -339,5 +313,3 @@ function Pageparams_view(array $page)
         . "\n" . '</form>';
     return $view;
 }
-
-?>
