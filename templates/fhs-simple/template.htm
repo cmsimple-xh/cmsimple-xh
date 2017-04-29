@@ -5,16 +5,18 @@ if (is_readable($pth['folder']['plugins'].'jquery/jquery.inc.php')) {
     include_once $pth['folder']['plugins'].'jquery/jquery.inc.php';
     include_jQuery();
 }
+// Plugin FA_XH
 if (function_exists('fa_require')) {
     fa_require();
+} else {
+    die('Das Template "fhs-simple" benötigt das Fa_XH-Plugin.<br>Das Fa_XH-Plugin kann hier heruntergeladen werden: <a href="http://3-magi.net/de/?CMSimple_XH/Fa_XH" target="_blank">Download</a>');
 }
 ?>
 <html lang="<?php echo $sl;?>">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="<?php echo $pth['folder']['template']?>grid.css" rel="stylesheet" type="text/css">
+<link href="<?php echo $pth['folder']['template']?>grid.min.css" rel="stylesheet" type="text/css">
 <link href="<?php echo $pth['folder']['template']?>navi.css" rel="stylesheet" type="text/css">
-<?php if (!function_exists('fa_require')):?><link href="<?php echo $pth['folder']['template']?>font-awesome.min.css" rel="stylesheet" type="text/css"><?php endif?>
 <?php echo head();?>
 <link rel="shortcut icon" href="<?php echo $pth['folder']['template']?>favicon.ico" type="image/x-icon">
 <link rel="icon" href="<?php echo $pth['folder']['template']?>favicon.ico" type="image/x-icon">
@@ -49,7 +51,9 @@ if (function_exists('fa_require')) {
 <div class="row">
 <div class="header-cont">
 <div id="logo"><a href="./" class="logo">&nbsp;</a></div>
-<div id="logoTxt"><h1><a href="./">&nbsp;<?php echo sitename()?></a></h1></div>
+<div id="logoTxt">
+<h1><a href="./">&nbsp;<?php echo sitename()?></a></h1>
+</div>
 </div>
 </div>
 <div class="burger"><i class="fa fa-bars fa-2x"></i></div>
@@ -73,8 +77,7 @@ if (function_exists('fa_require')) {
 </div>
 </div>
 </div>
-<div class="maincont c16 mw240">
-<?php echo content();?>
+<div class="maincont c16 mw240"> <?php echo content();?>
 <div class="submenDiv"><?php echo submenu('<span>%s</span>');?></div>
 <div id="newsboxes2" class="row">
 <section class="news">
@@ -93,7 +96,6 @@ Hier geht es zur Inhaltsübersicht: <a href="?&amp;sitemap">&raquo; Sitemap</a><
 </div>
 </div>
 </div>
-
 <div class="row-full-width" id="footer">
 <div class="row">
 <ul>
@@ -115,11 +117,12 @@ Hier geht es zur Inhaltsübersicht: <a href="?&amp;sitemap">&raquo; Sitemap</a><
 </div>
 </div>
 <div><a id="topLink" href="#"><i class="fa fa-chevron-up fa-3x"></i></a></div>
-<script type='text/javascript' src='<?php echo $pth['folder']['template']?>scripts/script.min.js'></script>
+<script type='text/javascript' src='<?php echo $pth['folder']['template']?>scripts/script.min.js'></script> 
 <script>
+// scroll to top
 jQuery(document).ready(function() {
-    var offset = 200;
-    var duration = 750;
+    var offset = 200; // start position
+    var duration = 600; // scroll speed
     jQuery(window).scroll(function() {
         if (jQuery(this).scrollTop() > offset) {
             jQuery('#topLink').fadeIn(duration);
@@ -127,7 +130,6 @@ jQuery(document).ready(function() {
             jQuery('#topLink').fadeOut(duration);
         }
     });
-    
     jQuery('#topLink').click(function(event) {
         event.preventDefault();
         jQuery('html, body').animate({scrollTop: 0}, duration);
@@ -135,6 +137,5 @@ jQuery(document).ready(function() {
     })
 });
 </script>
-
 </body>
 </html>
