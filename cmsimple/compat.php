@@ -104,25 +104,6 @@ function guestbooklink()
 }
 
 /**
- * Returns the link to the copyright and license informations.
- *
- * @return string HTML
- *
- * @global array  The configuration of the core.
- * @global string The script name.
- *
- * @deprecated since 1.5.8
- */
-function legallink()
-{
-    global $cf, $sn;
-
-    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
-    return '<a href="' . $sn . '?' . uenc($cf['menu']['legal']) . '">'
-        . $cf['menu']['legal'] . '</a>';
-}
-
-/**
  * Returns whether the file exists in the download folder
  * and is available for download.
  *
