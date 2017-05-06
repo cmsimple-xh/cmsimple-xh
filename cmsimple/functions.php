@@ -2656,8 +2656,12 @@ function XH_autoload($className)
  */
 function XH_startSession()
 {
+    global $pth;
+
     if (session_id() == '') {
-        session_name('XH_' . bin2hex(CMSIMPLE_ROOT));
+        $sessionName = 'XH_' . bin2hex(CMSIMPLE_ROOT);
+        file_put_contents("{$pth['folder']['cmsimple']}.sessionname", $sessionName);
+        session_name($sessionName);
         session_start();
     }
 }
