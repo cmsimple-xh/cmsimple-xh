@@ -172,6 +172,14 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
+    public function testInitvarIsDeprecated()
+    {
+        initvar('foo');
+    }
+
     public function dataForTestSv()
     {
         return array(

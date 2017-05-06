@@ -767,8 +767,6 @@ function print_plugin_admin($main)
 {
     global $_XH_pluginMenu;
 
-    initvar('action');
-    initvar('admin');
     return $_XH_pluginMenu->render(strtoupper($main) == 'ON');
 }
 

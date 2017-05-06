@@ -743,13 +743,21 @@ $validate = null;
 $xhpages = null;
 
 $temp = array(
-    'action', 'download', 'downloads', 'edit', 'file', 'function', 'images',
+    'action', 'admin', 'download', 'downloads', 'edit', 'file', 'function', 'images',
     'login', 'logout', 'keycut', 'mailform', 'media', 'normal', 'phpinfo', 'print', 'search',
     'selected', 'settings', 'sitemap', 'sysinfo', 'text', 'userfiles', 'validate', 'xhpages',
     'xh_backups', 'xh_change_password', 'xh_do_validate', 'xh_pagedata'
 );
 foreach ($temp as $i) {
-    initvar($i);
+    if (!isset($GLOBALS[$i])) {
+        if (isset($_GET[$i])) {
+            $GLOBALS[$i] = $_GET[$i];
+        } elseif (isset($_POST[$i])) {
+            $GLOBALS[$i] = $_POST[$i];
+        } else {
+            $GLOBALS[$i] = '';
+        }
+    }
 }
 
 /**
