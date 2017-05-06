@@ -1670,10 +1670,6 @@ function XH_afterPluginLoading($callback = null)
  * invoke the callback with the page HTML, and expects the callback to return
  * the possibly modified HTML.
  *
- * Note that inside the callbacks the current working directory may have been
- * changed under some webservers (e.g. Apache), so all filesystem access should
- * use {@link XH_CWD} prepended to the <var>$pth</var> elements.
- *
  * @param mixed $param A parameter.
  *
  * @return void
