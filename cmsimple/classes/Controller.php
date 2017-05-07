@@ -50,6 +50,7 @@ class Controller
         $pth['file']['stylesheet'] = $pth['folder']['template'] . 'stylesheet.css';
         $pth['folder']['menubuttons'] = $pth['folder']['template'] . 'menu/';
         $pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
+        $pth['folder']['templateflags'] = $pth['folder']['template'] . 'flags/';
     }
 
     /**
