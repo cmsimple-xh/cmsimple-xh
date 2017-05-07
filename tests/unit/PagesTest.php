@@ -124,6 +124,17 @@ class PagesTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testName()
+    {
+        global $h;
+
+        for ($i = 0; $i < $this->_subject->getCount(); ++$i) {
+            $expected = html_entity_decode(strip_tags($h[$i]), ENT_QUOTES, 'UTF-8');
+            $actual = $this->_subject->name($i);
+            $this->assertEquals($expected, $actual);
+        }
+    }
+
     public function testUrl()
     {
         global $u;
