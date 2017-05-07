@@ -803,7 +803,12 @@ if (sv('QUERY_STRING') != '') {
         $su = $rq[0];
     }
     if ($su == '' && $selected != '') {
-        $su = $selected;
+        if (isset($_GET['selected'])) {
+            header('Location: ' . XH_redirectSelectedUrl(), true, 301);
+            exit;
+        } else {
+            $su = $selected;
+        }
     }
     foreach ($rq as $i) {
         if (!strpos($i, '=') && in_array($i, $temp)) {
