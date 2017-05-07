@@ -5,6 +5,7 @@
             "exclude": [
                 "tests",
                 "vendor",
+                "plugins/fa",
                 "plugins/hi_updatecheck",
                 "plugins/jquery",
                 "plugins/pagemanager"
