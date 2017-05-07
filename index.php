@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @version $Id$
- */
-
 if (is_readable('./cmsimple/userprelude.php')) {
     include './cmsimple/userprelude.php';
 }

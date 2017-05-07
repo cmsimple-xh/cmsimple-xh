@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @version $Id$
- */
-
 /* script.php build: 2011012801 */
 $script = '
 <script language="javascript" type="text/javascript">
