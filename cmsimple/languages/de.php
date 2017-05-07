@@ -259,6 +259,7 @@ $tx['settings']['backupexplain1']="Beim Logout wird eine Sicherheitskopie des In
 $tx['settings']['backupexplain2']="Sicherheitskopie-Namen beginnen mit Datum und Uhrzeit der Erstellung: YYYYMMDD_HHMMSS";
 $tx['settings']['backupsuffix']="Geben Sie einen Dateinamen ein (nur a-z, 0-9, Minus und Unterstrich; höchstens 20 Zeichen):";
 $tx['settings']['ftp']="Bitte FTP zur Dateiverwaltung benutzen.";
+$tx['settings']['more']="Mehr";
 $tx['settings']['systemfiles']="Systemdateien";
 $tx['settings']['warning']="Bitte hier nur solche Änderungen durchführen, bei denen Sie genau wissen, was diese bewirken!";
 
@@ -305,6 +306,7 @@ $tx['title']['media']="Media-Dateien";
 $tx['title']['xh_pagedata']="Page-Data Bereinigung";
 $tx['title']['password_forgotten']="Passwort vergessen";
 $tx['title']['phpinfo']="PHP-Info";
+$tx['title']['plugins']="Plugins";
 $tx['title']['search']="Suchen";
 $tx['title']['settings']="Einstellungen";
 $tx['title']['sitemap']="Inhaltsverzeichnis";

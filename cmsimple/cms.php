@@ -746,7 +746,7 @@ $temp = array(
     'action', 'download', 'downloads', 'edit', 'file', 'function', 'images',
     'login', 'logout', 'keycut', 'mailform', 'media', 'normal', 'phpinfo', 'print', 'search',
     'selected', 'settings', 'sitemap', 'sysinfo', 'text', 'userfiles', 'validate', 'xhpages',
-    'xh_backups', 'xh_change_password', 'xh_do_validate', 'xh_pagedata'
+    'xh_backups', 'xh_change_password', 'xh_do_validate', 'xh_pagedata', 'xh_plugins'
 );
 foreach ($temp as $i) {
     initvar($i);
@@ -1288,6 +1288,9 @@ if (XH_ADM) {
             $temp = new XH\ChangePassword();
             $i = $action === 'save' ? 'save' : 'default';
             $temp->{"{$i}Action"}();
+            break;
+        case 'xh_plugins':
+            $o .= XH_pluginsView();
             break;
     }
 }

@@ -364,6 +364,13 @@ function XH_settingsView()
 
     $o .= '<h4>' . $tx['settings']['backup'] . '</h4>' . "\n";
     $o .= XH_backupsView();
+    $o .= '<h4>' . $tx['settings']['more'] . '</h4>' . "\n"
+        . '<ul>' . "\n"
+        . '<li><a href="' . $sn . '?&validate">' . $tx['editmenu']['validate'] . '</a></li>'
+        . '<li><a href="' . $sn . '?&xh_pagedata">' .$tx['editmenu']['pagedata'] . '</a></li>'
+        . '<li><a href="' . $sn . '?&xh_change_password">' . $tx['editmenu']['change_password'] . '</a></li>'
+        . '<li><a href="' . $sn . '?&sysinfo">' . $tx['editmenu']['sysinfo'] . '</a></li>'
+        . '</ul>' . "\n";
     return $o;
 }
 
@@ -468,6 +475,41 @@ function XH_backupsView()
         }
     }
     $o .= '</ul>' . "\n";
+    return $o;
+}
+
+/**
+ * Returns the plugins view.
+ *
+ * @return string HTML
+ *
+ * @global array  The script name.
+ * @global array  The configuration of the core
+ * @global array  The localization of the core.
+ *
+ * @since 1.7
+ */
+function XH_pluginsView()
+{
+    global $sn, $cf, $tx;
+
+    $plugins = XH_plugins(true);
+    $hiddenPlugins = explode(',', $cf['plugins']['hidden']);
+    $hiddenPlugins = array_map('trim', $hiddenPlugins);
+    $plugins = array_diff($plugins, $hiddenPlugins);
+    natcasesort($plugins);
+    $plugins = array_values($plugins);
+
+    $o = '<h1>' . $tx['title']['plugins'] . '</h1><ul>';
+    foreach ($plugins as $plugin) {
+        $item = array(
+            'label' => utf8_ucfirst($plugin),
+            'url' => "$sn?$plugin&normal",
+            'children' => XH_registerPluginMenuItem($plugin)
+        );
+        $o .= XH_adminMenuItem($item, 0);
+    }
+    $o .= '</ul>';
     return $o;
 }
 
@@ -685,7 +727,7 @@ function XH_adminMenu(array $plugins = array())
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['plugins']),
-            'url' => $sn, // TODO: use more sensible URL
+            'url' => $sn . '?&xh_plugins',
             'children' => $pluginMenu,
             'id' => 'xh_adminmenu_plugins',
             'style' => 'width:' . $width . 'px; margin-left: ' . $marginLeft . 'px'
