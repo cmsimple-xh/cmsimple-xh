@@ -95,7 +95,7 @@
     </target>
 
     <target name="js-doc">
-        <exec command="jsdoc --destination doc/js assets/js/admin.js"
+        <exec command="jsdoc --destination doc/js assets/js/admin.min.js"
               passthru="true" checkreturn="true"/>
     </target>
 
@@ -121,6 +121,14 @@
                 </replacetokens>
             </filterchain>
         </move>
+        <jsMin targetDir="dist/cmsimplexh" suffix="" failOnError="false">
+            <fileset dir="export">
+                <include name="assets/js/admin.min.js"/>
+                <include name="plugins/filebrowser/js/filebrowser.min.js"/>
+                <include name="plugins/meta_tags/metatags.min.js"/>
+                <include name="plugins/page_params/pageparams.min.js"/>
+            </fileset>
+        </jsMin>
         <move todir="dist/cmsimplexh">
             <fileset dir="export">
                 <include name="cmsimple/cms.php"/>

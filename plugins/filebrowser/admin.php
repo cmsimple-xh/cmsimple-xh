@@ -57,7 +57,7 @@ if (!$cf['filebrowser']['external']
     }
 
     $bjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
-        . 'filebrowser/js/filebrowser.js"></script>';
+        . 'filebrowser/js/filebrowser.min.js"></script>';
 
     $temp = isset($_GET['subdir'])
         ? str_replace(array('..', '.'), '', $_GET['subdir'])
