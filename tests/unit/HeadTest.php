@@ -189,26 +189,6 @@ class HeadTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that the core stylesheet link element is rendered.
-     *
-     * @return void
-     */
-    public function testRendersCoreStylesheetLink()
-    {
-        @$this->assertTag(
-            array(
-                'tag' => 'link',
-                'attributes' => array(
-                    'rel' => 'stylesheet',
-                    'type' => 'text/css',
-                    'href' => 'corestyle'
-                )
-            ),
-            head()
-        );
-    }
-
-    /**
      * Tests that the prev link is rendered.
      *
      * @return void
