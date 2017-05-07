@@ -2679,9 +2679,8 @@ function XH_poweredBy()
 {
     global $cf, $tx, $pth;
 
-    $o = '<h5>Content Management System</h5>'
-        . '<ul><li><a href="http://cmsimple-xh.org">'
-        . CMSIMPLE_XH_VERSION . '</a></li></ul>';
+    $o = '<h5>' . $tx['title']['cms'] . '</h5>'
+        . '<ul><li><a href="http://cmsimple-xh.org">CMSimple_XH</a></li></ul>';
     $defaulttpl = $tx['subsite']['template'] == ''
         ? $cf['site']['template']
         : $tx['subsite']['template'];
@@ -2689,8 +2688,8 @@ function XH_poweredBy()
     $tpltext = '';
     foreach (XH_templates() as $template) {
         $tpltext .= $defaulttpl == $template
-            ? '<li><p><strong>Default template: ' . ucfirst($template) . '</strong>'
-            : '<li>' . ucfirst($template);
+            ? '<dt>' . $tx['template']['active'] . ucfirst($template) . '</dt>'
+            : '<dt>' . ucfirst($template) . '</dt>';
         $infoPath = $pth['folder']['templates'] . '/' . $template . '/templateinfo.htm';
         if (is_file($infoPath)) {
             $tplinfo = utf8_substr(
@@ -2698,14 +2697,15 @@ function XH_poweredBy()
                 0,
                 400
             );
+            $tpltext .= '<dd>';
             if ($tplinfo) {
-                $tpltext .= '<br>' . $tplinfo;
+                $tpltext .= $tplinfo;
             }
+            $tpltext .= '</dd>';
         }
-        $tpltext .= '</li>';
     }
 
-    $o .= '<h5>Templates</h5><ul>' . $tpltext . '</ul>';
+    $o .= '<h5>' . $tx['title']['templates'] . '</h5><dl>' . $tpltext . '</dl>';
     $t = '';
     foreach (XH_plugins() as $plugin) {
         $url = XH_pluginURL($plugin);
@@ -2714,7 +2714,7 @@ function XH_poweredBy()
                 . '</a></li>';
         }
     }
-    $o .= $t? '<h5>Plugins</h5><ul>' . $t . '</ul>' : '';
+    $o .= $t? '<h5>' . $tx['title']['plugins'] . '</h5><ul>' . $t . '</ul>' : '';
     return $o;
 }
 

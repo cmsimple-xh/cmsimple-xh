@@ -293,10 +293,12 @@ $tx['sysinfo']['version']="Installierte CMSimple Version";
 $tx['sysinfo']['unknown']="Webserver konnte nicht ermittelt werden";
 $tx['sysinfo']['webserver']="Webserver";
 
+$tx['template']['active']="Aktives Template: ";
 $tx['template']['default']="Standard Template";
 
 $tx['title']['bad_request']="Inkorrekte Anfrage";
 $tx['title']['change_password']="Passwort ändern";
+$tx['title']['cms']="Content Management System";
 $tx['title']['downloads']="Downloads";
 $tx['title']['images']="Bilder";
 $tx['title']['log']="Log-Datei";
@@ -305,10 +307,12 @@ $tx['title']['media']="Media-Dateien";
 $tx['title']['xh_pagedata']="Page-Data Bereinigung";
 $tx['title']['password_forgotten']="Passwort vergessen";
 $tx['title']['phpinfo']="PHP-Info";
+$tx['title']['plugins']="Plugins";
 $tx['title']['search']="Suchen";
 $tx['title']['settings']="Einstellungen";
 $tx['title']['sitemap']="Inhaltsverzeichnis";
 $tx['title']['sysinfo']="System-Info";
+$tx['title']['templates']="Templates";
 $tx['title']['userfiles']="Andere";
 $tx['title']['validate']="Links prüfen";
 $tx['title']['xh_backups']="Sicherheitskopien";
