@@ -1711,7 +1711,7 @@ function XH_pluginStylesheet()
     $plugins = XH_plugins();
 
     $ofn = $pth['folder']['corestyle'] . 'xhstyles.css';
-    $expired = !file_exists($ofn);
+    $expired = !file_exists($ofn) || filemtime($pth['file']['corestyle']) > filemtime($ofn);
 
     // check for newly (un)installed plugins
     if (!$expired) {
