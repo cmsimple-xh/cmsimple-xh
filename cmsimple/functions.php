@@ -1761,8 +1761,7 @@ function XH_pluginStylesheet()
             }
         }
         $o = '/*' . PHP_EOL
-            . ' * Automatically created by ' . CMSIMPLE_XH_VERSION
-            . '. DO NOT MODIFY!' . PHP_EOL
+            . ' * Automatically created by CMSimple_XH. DO NOT MODIFY!' . PHP_EOL
             . ' * ' . implode(',', $plugins) . PHP_EOL
             . ' */' . PHP_EOL . PHP_EOL
             . implode(PHP_EOL . PHP_EOL, $o);
