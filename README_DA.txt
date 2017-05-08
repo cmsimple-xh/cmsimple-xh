@@ -51,7 +51,7 @@ Hvis du har glemt dit kodeord, kan du gendanne den
 krypteret kodeord "test":
 
 
-\$2a\$09\$b032aima.KOrfY.N6ex44esuEon1K8WP/QjeTeaAc0Kmhw6NOl/2u
+\$2y\$10\$TtMCJlxEv6D27BngvfdNrewGqIx2R0aPCHORruqpe63LQpz7.E9Gq
 
 Opload filen via FTP, og login med "test".
 

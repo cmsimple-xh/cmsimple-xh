@@ -207,7 +207,6 @@ function XH_isAccessProtected($path)
  * @global array           The paths of system files and folders.
  * @global array           The configuration of the core.
  * @global array           The localization of the core.
- * @global XH\PasswordHash The password hasher.
  * @global string The script name.
  *
  * @return string HTML
@@ -216,7 +215,7 @@ function XH_isAccessProtected($path)
  */
 function XH_sysinfo()
 {
-    global $pth, $cf, $tx, $xh_hasher, $sn;
+    global $pth, $cf, $tx, $sn;
 
     $o = '<p><b>' . $tx['sysinfo']['version'] . '</b></p>' . "\n";
     $o .= '<ul>' . "\n" . '<li>' . CMSIMPLE_XH_VERSION . '&nbsp;&nbsp;Released: '
@@ -256,7 +255,7 @@ HTML;
 
     $stx = $tx['syscheck'];
     $checks = array(
-        'phpversion' => '5.3',
+        'phpversion' => '5.3.7',
         'extensions' => array(
             array('intl', false),
             'json',
@@ -316,7 +315,7 @@ HTML;
         false, $stx['bom']
     );
     $checks['other'][] = array(
-        !$xh_hasher->checkPassword('test', $cf['security']['password']),
+        !password_verify('test', $cf['security']['password']),
         false, $stx['password']
     );
     $checks['other'][] = array(

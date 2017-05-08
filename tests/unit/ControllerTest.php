@@ -526,6 +526,11 @@ abstract class ControllerLogInOutTestCase extends PHPUnit_Framework_TestCase
 class ControllerLoginTest extends ControllerLogInOutTestCase
 {
     /**
+     * @var object
+     */
+    private $passwordVerifyMock;
+
+    /**
      * The e() mock.
      *
      * @var object
@@ -544,20 +549,18 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      *
      * @return void
      *
-     * @global PasswordHash The password hasher.
      * @global array        The configuration of the core.
      */
     public function setUp()
     {
-        global $xh_hasher, $cf;
+        global $cf;
 
         parent::setUp();
         $_SERVER = array(
             'HTTP_USER_AGENT' => 'Mozilla/5.0',
             'REMOTE_ADDR' => '127.0.0.1'
         );
-        $xh_hasher = $this->getMockBuilder('XH\PasswordHash')
-            ->disableOriginalConstructor()->getMock();
+        $this->passwordVerifyMock = new PHPUnit_Extensions_MockFunction('password_verify', $this->subject);
         $cf['security']['password'] = '$P$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1';
         $this->eMock = new PHPUnit_Extensions_MockFunction('e', $this->subject);
         $this->logMessageMock = new PHPUnit_Extensions_MockFunction(
@@ -569,15 +572,10 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      * Tests that login success sets the status cookie.
      *
      * @return void
-     *
-     * @global PasswordHash The password hasher.
      */
     public function testSuccessSetsStatusCookie()
     {
-        global $xh_hasher;
-
-        $xh_hasher->expects($this->any())->method('checkPassword')
-            ->will($this->returnValue(true));
+        $this->passwordVerifyMock->expects($this->any())->will($this->returnValue(true));
         $this->setcookieMock->expects($this->any())->with('status', 'adm');
         $this->subject->handleLogin();
     }
@@ -587,15 +585,13 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      *
      * @return void
      *
-     * @global PasswordHash The password hasher.
      * @global array        The configuration of the core.
      */
     public function testSuccessSetsSessionVariables()
     {
-        global $xh_hasher, $cf;
+        global $cf;
 
-        $xh_hasher->expects($this->any())->method('checkPassword')
-            ->will($this->returnValue(true));
+        $this->passwordVerifyMock->expects($this->any())->will($this->returnValue(true));
         $this->subject->handleLogin();
         $this->assertEquals(
             $cf['security']['password'],
@@ -610,15 +606,10 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      * Tests that login success regenerates the session ID.
      *
      * @return void
-     *
-     * @global PasswordHash The password hasher.
      */
     public function testSuccessRegeneratesSessionId()
     {
-        global $xh_hasher;
-
-        $xh_hasher->expects($this->any())->method('checkPassword')
-            ->will($this->returnValue(true));
+        $this->passwordVerifyMock->expects($this->any())->will($this->returnValue(true));
         $this->sessionRegenerateIdMock->expects($this->once())->with(true);
         $this->subject->handleLogin();
     }
@@ -627,15 +618,10 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      * Tests that login success writes a log message.
      *
      * @return void
-     *
-     * @global PasswordHash The password hasher.
      */
     public function testSuccessWritesLogMessage()
     {
-        global $xh_hasher;
-
-        $xh_hasher->expects($this->any())->method('checkPassword')
-            ->will($this->returnValue(true));
+        $this->passwordVerifyMock->expects($this->any())->will($this->returnValue(true));
         $this->logMessageMock->expects($this->once())
             ->with('info', 'XH', 'login');
         $this->subject->handleLogin();
@@ -646,16 +632,14 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      *
      * @return void
      *
-     * @global PasswordHash The password hasher.
      * @global string       The requested function.
      * @global string       Whether login is requested.
      */
     public function testFailSetsGlobalVariables()
     {
-        global $xh_hasher, $f, $login;
+        global $f, $login;
 
-        $xh_hasher->expects($this->any())->method('checkPassword')
-            ->will($this->returnValue(false));
+        $this->passwordVerifyMock->expects($this->any())->will($this->returnValue(false));
         $this->subject->handleLogin();
         $this->assertNull($login);
         $this->assertEquals('xh_login_failed', $f);
@@ -665,15 +649,10 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      * Tests that login failure writes a log message.
      *
      * @return void
-     *
-     * @global PasswordHash The password hasher.
      */
     public function testFailWritesLogMessage()
     {
-        global $xh_hasher;
-
-        $xh_hasher->expects($this->any())->method('checkPassword')
-            ->will($this->returnValue(false));
+        $this->passwordVerifyMock->expects($this->any())->will($this->returnValue(false));
         $this->logMessageMock->expects($this->once())
             ->with('warning', 'XH', 'login');
         $this->subject->handleLogin();

@@ -158,17 +158,16 @@ class PasswordForgotten
      *
      * @return void.
      *
-     * @global object The password hasher.
      * @global array  The paths of system files and folders.
      * @global array  The configuration of the core.
      * @global array  The localization of the core.
      */
     private function reset()
     {
-        global $xh_hasher, $pth, $cf, $tx;
+        global $pth, $cf, $tx;
 
-        $password = bin2hex($xh_hasher->getRandomBytes(8));
-        $hash = $xh_hasher->hashPassword($password);
+        $password = bin2hex(random_bytes(8));
+        $hash = password_hash($password, PASSWORD_BCRYPT);
         $to = $cf['security']['email'];
         $message = $tx['password_forgotten']['email2_text'] . ' ' . $password;
         $mail = new Mail();

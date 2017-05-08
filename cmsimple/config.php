@@ -1,6 +1,6 @@
 <?php
 
-$cf['security']['password']="\$2a\$09\$b032aima.KOrfY.N6ex44esuEon1K8WP/QjeTeaAc0Kmhw6NOl/2u";
+$cf['security']['password']="\$2y\$10\$TtMCJlxEv6D27BngvfdNrewGqIx2R0aPCHORruqpe63LQpz7.E9Gq";
 $cf['security']['secret']="cf7c3ecb0495698c7f657d65";
 $cf['security']['email']="";
 $cf['security']['frame_options']="";
