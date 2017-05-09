@@ -233,18 +233,13 @@ function tinymce4_config($config, $selector)
     
     $_named_pageheaders = $_pageheaders = $_headers = array();
     for ( $i = 1; $i <= 6; $i++ ) {
-        if ($i <= $cf['menu']['levels'] && $cf['menu']['levels'] <= 6) {
-            $_pageheaders [] = "Header $i=h$i";
+             $_pageheaders [] = "Header $i=h$i";
             $_named_pageheaders [] = sprintf($ptx['pageheader'], $i) . "=h$i";
-        } else {
             $_headers[] = "Header $i=h$i";
-            
-        }
     };
     $temp = str_replace('%PAGEHEADERS%', implode(';', $_pageheaders), $temp);
     
     $temp = str_replace('%HEADERS%', implode(';', $_headers), $temp);
-
     $temp = str_replace(
         '%NAMED_PAGEHEADERS%', 
         implode(

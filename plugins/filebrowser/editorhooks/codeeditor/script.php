@@ -2,8 +2,6 @@
 
 /**
  * Editorhook for internal filebrowser -> Codeeditor_XH
- *
- * @version $Id$
  */
 
 $script = <<<EOS

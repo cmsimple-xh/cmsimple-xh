@@ -1,4 +1,48 @@
-@import url("fonts.css");
+/*** FONTS ***/
+@font-face {
+	font-family: 'OpenSans-Regular';
+	src: url('fonts/opensans/OpenSans-Regular.eot');
+	src: url('fonts/opensans/OpenSans-Regular.eot?#iefix') format('embedded-opentype'), url('fonts/opensans/OpenSans-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'OpenSans-RegularItalic';
+	src: url('fonts/opensans/OpenSans-RegularItalic.eot');
+	src: url('fonts/opensans/OpenSans-RegularItalic.eot?#iefix') format('embedded-opentype'), url('fonts/opensans/OpenSans-RegularItalic.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'OpenSans-Semibold';
+	src: url('fonts/opensans/OpenSans-Semibold.eot');
+	src: url('fonts/opensans/OpenSans-Semibold.eot?#iefix') format('embedded-opentype'), url('fonts/opensans/OpenSans-Semibold.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'OpenSans-SemiboldItalic';
+	src: url('fonts/opensans/OpenSans-SemiboldItalic.eot');
+	src: url('fonts/opensans/OpenSans-SemiboldItalic.eot?#iefix') format('embedded-opentype'), url('fonts/opensans/OpenSans-SemiboldItalic.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+i, em {
+	font-family: "OpenSans-RegularItalic", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+}
+bold, strong {
+	font-family: "OpenSans-Semibold", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+}
+bold i, strong i, bold em, strong em, i bold, i strong, em bold, em strong {
+	font-family: "OpenSans-SemiboldItalic", sans-serif;
+	font-style: normal;
+	font-weight: normal;
+}
+/*** Allgemeine Styles ***/
 .clear {
 	clear: both;
 }
@@ -9,45 +53,56 @@ hr {
 	clear: both;
 	margin: 1em 0;
 }
-.hrdot {
+hr.hrdot {
 	border: 0;
 	border-bottom: 1px dotted #f60;
 	height: 0px;
 	clear: both;
 	margin: 1em 0;
 }
-.imgR, .imgL {
+span.underline, p.underline {
+	border: 0;
+	border-bottom: 1px dotted #f60;
+}
+span.orange, p.orange {
+	color: #f60;
+}
+img.imgR, img.imgL, div.imgR, div.imgL {
 	max-width: 40%;
 	font: 0.9em OpenSans-RegularItalic, sans-serif;
 	line-height: normal;
 	color: #666;
+}
+img.imgR, div.imgR {
+	margin: .5em 0 .25em 1em;
+	float: right;
+	text-align: right;
+}
+img.imgL, div.imgL {
+	margin: .5em 1em .5em 0;
+	float: left;
+	text-align: left;
+}
+div.imgR img, div.imgL img {
+	margin: 0 0 .25em 0;
+}
+div.imgR p, div.imgL p {
+	margin: 0 !important;
 }
 p.caption {
 	font: 0.9em OpenSans-RegularItalic, sans-serif;
 	line-height: normal;
 	color: #666;
 }
-.imgR {
-	margin: .5em 0 .25em 1em;
-	float: right;
-	text-align: right;
-}
-.imgL {
-	margin: .5em 1em .5em 0;
-	float: left;
-	text-align: left;
-}
-.imgR img, .imgL img {
-	margin: 0 0 .25em 0;
-}
-.imgR p, .imgL p {
-	margin: 0 !important;
-}
-.noBr {
+p.noBr, span.noBr, td.noBr {
 	white-space: nowrap;
 }
-.smaller {
+p.smaller, span.smaller, div.smaller {
 	font-size: .85em;
+}
+p.subHeading {
+	font-size: 1.25em;
+	margin: .5em 0 .25em 0;
 }
 /* Layout */
 body {
@@ -58,10 +113,10 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	font: normal 15px/1.42857em "OpenSans-Regular", sans-serif;
 }
-body.print {
+.print {
 	background: #fff !important;
 }
-body.print a {
+.print a {
 	text-decoration: none;
 	color: #666;
 	border-bottom: 1px dotted #999;
@@ -153,7 +208,7 @@ code {
 	hyphens: none;
 }
 blockquote {
-	padding: .75em 0 .75em 3em;
+	padding: .75em .75em .75em 3em;
 	position: relative;
 	color: #777;
 	text-align: justify;
@@ -278,10 +333,6 @@ h6 {
 .maincont p, .news p {
 	margin: 0 0 .75em 0;
 }
-p.subHeading {
-	font-size: 1.1em;
-	margin: .5em 0 .25em 0;
-}
 .maincont a, .maincont ul a, #tinymce a, #newsboxes a, div.xh_login a {
 	text-decoration: none;
 	color: #666;
@@ -382,7 +433,7 @@ abbr {
 }
 /*****************Footer****************/
 #footer {
-	background: #666 none repeat scroll 0 0;
+	background: #666;
 	border-top: 5px solid #f60;
 	font-family: "OpenSans-Regular", sans-serif;
 	font-size: .9em;
@@ -424,38 +475,43 @@ abbr {
 #footer ul li a:hover, .copyright a:hover {
 	color: #ccc;
 }
-input, textarea, select, button {
-	font-family: "OpenSans-Regular", sans-serif !important;
-	border: 1px solid #ccc !important;
-	/*font-family: inherit;*/
-	font-size: 1em !important;
-	padding: .25em .5em !important;
+input, textarea, select {
+	border: 1px solid #ccc;
+	padding: .25em .5em;
+	font: normal 1em/normal "OpenSans-Regular", sans-serif !important;
 }
 select {
-	padding: 0.15em 0.25em !important;
-}
-input[type=text], textarea {
+	padding: 0.15em 0.25em;
 }
 input[type=image] {
 	border: 0 !important;
 	margin: 0 !important;
 	padding: 0 !important;
 }
-input[type=submit], button {
+input[type=submit] {
 	cursor: pointer;
 	background: #f60;
 	color: #fff;
-	/*width: auto !important;*/
-	border: 0 !important;
 	margin: .25em .25em .25em 0;
+	border: 1px solid #f60;
 }
+button {
+	cursor: pointer;
+	font-family: "OpenSans-Regular", sans-serif !important;
+	font-size: 1em !important;
+	padding: .25em .5em;
+	background: #f60;
+	color: #fff;
+/*	border: 0 !important;
+	margin: .25em .25em .25em 0;
+*/}
 input[type="reset"] {
 	display: none;
 }
 input[type="file"] {
 	padding: 0 !important;
 }
-/*########### Responsive Tables ##########*/
+/*** Responsive Tables ***/
 table.responsive {
 	width: 100%;
 	border-spacing: 2px !important;
@@ -471,6 +527,9 @@ table.responsive tr:nth-child(odd) {
 table.responsive th {
 	background-color: #ddd;
 	padding: 0.25em 0.5em;
+	font-family: "OpenSans-Semibold", sans-serif;
+	font-style: normal;
+	font-weight: normal;
 }
 table.responsive td {
 	overflow-wrap: break-word;
@@ -497,13 +556,15 @@ table.responsive td {
 table.responsive td:before {
 	content: attr(data-label) ": ";
 	flex: 0 0 5em;
-	font-weight: bold;
+	font-family: "OpenSans-Semibold", sans-serif;
+	font-style: normal;
+	font-weight: normal;
 	margin-right: 1em;
 	margin-bottom: 0.25em;
 }
 }
 
-/*############## Responsive part ############### */
+/*** Responsive part ***/
 @media only screen and (min-width: 971px) { /* thanks to lck !!! */
 .nav_horizontal {
 	height: 40px !important;
@@ -513,13 +574,6 @@ table.responsive td:before {
 @media only screen and (max-width : 970px) {
 body {
 }
-/*.imgR, .imgL {
-	margin: 0 0 1em 0;
-	padding: 0;
-	float: none;
-	max-width: 100%;
-	text-align: left;
-}*/
 #header {
 }
 .burger {
@@ -558,7 +612,6 @@ div.maincont {
 }
 .nav_horizontal {
 	position: absolute;
-	/*min-height: 1200px;*/
 	z-index: 220;
 	max-width: 100%;
 	background-color: #666;
@@ -749,11 +802,17 @@ body {
 }
 #xh_mailform div {
 	width: 100%;
+	margin: 0 0 .75em 0;
 }
 #xh_config_form legend {
 	font-size: 0.9em;
 	text-transform: uppercase;
 	border-bottom: 1px solid #333;
+}
+.xh_captcha_input {
+	border: 1px solid #ccc;
+	float: left;
+	padding: .25em .5em;
 }
 .xh_captcha_code {
 	background-color: #ccc;
@@ -762,7 +821,6 @@ body {
 	float: left;
 	margin: 0 .5em;
 	padding: .25em .5em;
-	text-decoration: none;
 }
 .noScript {
 	color: #fff;
@@ -783,18 +841,13 @@ body {
 	font-size: .8em !important;
 	line-height: normal;
 	margin: 0;
-	padding: 0 0.5em;
+	padding: .25em .5em;
 	width: 45%;
 }
 .searchBtn {
 	height: 20px;
 	width: 20px;
 }
-/*li div {
-	font-size: 0.9em;
-	padding: 0 0 .75em 0;
-	color: #666;
-}*/
 body.xh_login {
 	background: rgba(0, 0, 0, 0.1) url(images/XH-Logo_bg.png) no-repeat fixed center center;
 	background-size: contain;

@@ -847,12 +847,14 @@ function XH_contentEditor()
         $o .= tag('input type="hidden" name="level" value="' . $l[$s] . '"')
             . tag('input type="hidden" name="heading" value="' . $h[$s] . '"');
         //replace split-markers
-        $c[$s] = preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $c[$s]);
+        $tempContent = preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $c[$s]);
+    } else {
+        $tempContent = $c[$s];
     }
     $o .= tag('input type="hidden" name="function" value="save"')
         . '<textarea name="text" id="text" class="xh-editor" style="height: '
         . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
-        . XH_hsc($c[$s])
+        . XH_hsc($tempContent)
         . '</textarea>'
         . '<script type="text/javascript">/* <![CDATA[ */'
         . 'document.getElementById("text").style.height=(' . $cf['editor']['height']

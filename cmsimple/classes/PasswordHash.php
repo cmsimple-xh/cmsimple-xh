@@ -30,7 +30,6 @@
  * @author   Solar Designer <solar@openwall.com>
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  public domain
- * @version  SVN: $Id$
  * @link     http://cmsimple-xh.org/
  */
 
