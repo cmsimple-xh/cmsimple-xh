@@ -5,7 +5,7 @@
   toolbar_items_size: "small",
   menubar:false,
   plugins: [
-    "advlist anchor autolink autosave charmap code colorpicker contextmenu emoticons fullscreen hr imagetools",
+    "advlist anchor autolink autosave charmap code colorpicker contextmenu emoticons fullscreen help hr imagetools",
     "image importcss insertdatetime link lists media nonbreaking paste",
     "save searchreplace table textcolor visualblocks visualchars wordcount"
   ],
