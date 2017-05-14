@@ -1,4 +1,7 @@
 /* Design of Responsive template richu172 by Richard Kircher (c)2017/http://www.richukunst.ch */
+.clear {
+clear: both;
+}
 * {padding: 0; margin: 0;
 }
 #body{  
@@ -80,9 +83,15 @@ p, pre{
 padding:  0 0 20px;
 line-height:1.5em;
 }
-ul{
-list-style-type:none;
-line-height:1.5em;
+/* Editors body Code by lck */
+#tinymce, .cke_editable {
+margin: 1% auto;
+width: 95%;
+}
+/* Editors body Code by lck */
+ul {
+list-style-type: none; /* sitemap + search Listensymbole werden nicht angezeigt */
+line-height: 1.5em;
 }
 /* Important */
 /* Sitemap Start  */
@@ -380,7 +389,7 @@ background: url(images/searchhover.png)no-repeat center;
 #searchbox .text{
 margin-top:2px;
 float: left;
-height:15px;
+height:48px;
 background-color: rgba(0, 0, 0, 0.4);/* Background Farbe */
 margin-left: 8px;
 width:180px;

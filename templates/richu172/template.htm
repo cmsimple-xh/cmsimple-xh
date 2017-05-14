@@ -91,16 +91,17 @@ include_jQuery();
 <!-- Footer Start -->
 <footer class="footer-center">
 <div id="footer">
-<?php echo date("Y");?> <?php echo sitename();?> &nbsp; <?php echo lastupdate(FALSE);?> &nbsp;
+© <?php echo date("Y");?> <?php echo sitename();?> &nbsp; <?php $tx['lastupdate']['dateformat']="d.m.Y";echo lastupdate(1);?> &nbsp;
 <p>
 </p>
 <!-- Wenn Sie CMSimple_XH nutzen, bitte den Link nicht entfernen. -->
-Powered by CMSimple_XH <a href="http://www.cmsimple-xh.org/" target="_blank" title="Small, modular, user friendly"><img src="<?php echo $pth['folder']['templateimages'];?>XH_50.png" alt="CMSimple"/></a> &nbsp;
 <!-- If you use CMSimple_XH, please do not remove the link. -->
-<p>
-</p>
+<?php if (function_exists('poweredbylink')):?>
+<?php echo poweredbylink()?>
+<?php else:?>
+© Powered by <a href="http://www.cmsimple-xh.org/" target="_blank">CMSimple_XH</a> | Template by <a href="http://www.richukunst.ch/" target="_blank">richukunst</a>
+<?php endif?>
 <!-- Dieser Link darf nicht gelöscht werden, wenn Sie dieses Template nutzen. -->
-Template by <a href="http://richukunst.ch/" target="_blank" title="richukunst Webdesign und Homepages">richukunst.ch</a> &nbsp;
 <!-- This link can not be deleted when you use this template. -->
 <p>
 </p>
