@@ -25,9 +25,9 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 1rem 0 0.5rem;
 }
 p {
-	margin: 0 0 0.8em 0;
+	margin: 0 0 0.5em 0;
 }
-p.small {
+.small, p.small, div.small {
 	font-size: 0.5rem;
 }
 strong, b {
@@ -46,7 +46,7 @@ code {
 	padding: 0.15em;
 	letter-spacing: .05em;
 }
-.code {
+.code, p.code, div.code {
 	background-color: rgba(158, 158, 158, 0.32);
 	color: #e0e0e0;
 	display: block;
@@ -64,7 +64,7 @@ blockquote {
 	position: relative;
 	text-align: justify;	
 }
-blockquote::before {
+blockquote:before {
 	content: url(images/gmi_quote.png);
 	display: block;
 	position: absolute;
@@ -75,8 +75,8 @@ blockquote p {
 	margin: 0;
 }
 
-.left_30,
-.left_50 {
+.left_30, img.left_30, div.left_30,
+.left_50, img.left_50, div.left_50 {
 	clear: left;
 	float: left;
 	margin: .4em 1em .4em 0;
@@ -88,8 +88,8 @@ blockquote p {
 .left_50 {
 	max-width: 50%;
 }
-.right_30,
-.right_50 {
+.right_30, img.right_30, div.right_30,
+.right_50, img.right_50, div.right_50 {
 	clear: right;
 	float: right;
 	margin: .4em 0 .4em 1em;
@@ -101,16 +101,14 @@ blockquote p {
 .right_50 {
 	max-width: 50%;
 }
-.left_30 p,
-.left_50 p,
-.right_30 p,
-.right_50 p {
+.left_30 p, .left_50 p,
+.right_30 p, .right_50 p {
 	color: #999;
 	font-size: 0.7em;
 	font-style: italic;
 	margin: 0;
 }
-p.caption, .caption {
+.caption, p.caption, div.caption {
 	color: #999;
 	font-size: 0.7em;
 	font-style: italic;
@@ -129,8 +127,10 @@ p.caption, .caption {
 .important p:first-child:before,
 p.important:before {
 	content: url(images/gmi_important.png);
+	display: inline-block;
 	padding: 0 0.5em 0 0;
-	vertical-align: sub;
+	position: relative;
+	bottom: -6px;
 }
 .warning {
 	clear: both;
@@ -141,7 +141,8 @@ p.important:before {
 p.warning:before {
 	content: url(images/gmi_warning.png);
 	padding: 0 0.5em 0 0;
-	vertical-align: sub;
+	position: relative;
+	bottom: -6px;
 }
 .warning a {
 	color: #aaf;
@@ -179,15 +180,24 @@ a:active {
 .tpllck_content_main ul {
 	list-style-image: url(images/listimage_dot.gif);
 	list-style-type: none;
-	margin: 0 0 1em;
+	margin: 0;
 	padding-left: 1.5em;
 }
-.tpllck_content_main ul li {
+.tpllck_content_main ol {
+    margin: 0;
+    padding-left: 1.5em;
+}
+.tpllck_content_main > ul,
+.tpllck_content_main > ol {
+	margin: 0 0 0.75em;
+}
+.tpllck_content_main ul li,
+.tpllck_content_main ol li {
 	padding: 0.2em 0;
 }
 
 /* ****************************** "Table" vertical-align middle */
-.tpllck_tbl-middle {
+div.tpllck_tbl-middle {
 	display: table;
 	padding: 1rem 0;
 	width: 100%;
@@ -217,12 +227,10 @@ body {
 	font-size: 1rem;
 	font-weight: 300;
 	line-height: normal;
-	overflow-x: hidden;
-	overflow-y: scroll;
 }
 /* Hide scrollbar when overlay is active, show only overlay scrollbar (class added by menu_overlay.js) */
 body.overlay-active {
-	overflow: hidden;
+	overflow: hidden !important;
 }
 body.print {
 	height: auto; /* Fix for Firefox print Bug */
@@ -237,6 +245,8 @@ body.print {
 	background-repeat: repeat, no-repeat;
 	-webkit-background-size: auto, cover;
 	background-size: auto, cover;
+	overflow-x: hidden;
+	overflow-y: scroll;
 }
 
 /* ************************* Container ************************* */
@@ -406,9 +416,9 @@ body.print {
 	transition: color .3s ease;
 }
 /* Attribute Selectors */
-.tpllck_content_main a[href^="http:"]::after,
-.tpllck_content_main a[href^="https:"]::after,
-.tpllck_content_main a[target="_blank"]::after {
+.tpllck_content_main a[href^="http:"]:after,
+.tpllck_content_main a[href^="https:"]:after,
+.tpllck_content_main a[target="_blank"]:after {
 	content: url(images/gmi_listimage_extern.png);
 	padding-left: 0.2em;
 }
@@ -419,9 +429,10 @@ ul.sitemaplevel1 ul {
 }
 ul.sitemaplevel1 li {
 	line-height: 1.4em;
-	padding: 0 0 1em;
+	padding: 0 0 .5em;
 }
 ul.sitemaplevel1 ul {
+	margin: 0;
 	padding: 0 0 0 0.3em;
 }
 ul.sitemaplevel1 ul li {
@@ -626,11 +637,11 @@ img {
 
 /* ************************* Responsive Video */
 /* Example: insert in content-page: <div class="responsive-video-wrapper"><div class="responsive-video"><iframe ...></iframe></div></div> */
-.responsive-video-wrapper {
+div.responsive-video-wrapper {
 	max-width: 100%;
 	width: 600px;
 }
-.responsive-video {
+div.responsive-video {
 	height: 0;
 	overflow: hidden;
 	padding-bottom: 56.25%;
@@ -698,30 +709,40 @@ padding: 2px 12px;
 /* Pagemanager */
 #pagemanager {
 	color: #222;
-	font: 14.3333px Arial, sans-serif;
+	font: 14px/normal Arial, sans-serif;
 }
 #pagemanager ul {
+	margin: 0;
 	padding-left: 0;
 }
 #pagemanager li {
 	line-height: 1.4rem;
 	padding: inherit;
 }
+/* Pagemanager Theme */
+#pagemanager.jstree-default {
+	background-color: #fff;
+	color: #222;
+}
+/* Pagemanager contextmenu */
+.vakata-context {
+	font: 12px/normal Arial, sans-serif;
+}
 /* Settings */
-#xh_config_form div.xh_label {
-	font: 14.3333px Arial, sans-serif;
+#xh_config_form .xh_label {
+	font: 14px/normal Arial, sans-serif;
 }
 #xh_system_check li {
 	padding-left: 2rem;
 }
 /* Template + Stylesheet */
 .CodeMirror {
-	font: 14.3333px Arial, sans-serif;
+	font: 14px/normal Arial, sans-serif;
 }
 /* Edit-Mode - Side-Tabs */
 #xh_pdtabs,
 #xh_pdviews {
-	font: 14.3333px Arial, sans-serif;
+	font: 14px/normal Arial, sans-serif;
 }
 /* Editors body */
 #tinymce, .cke_editable {
