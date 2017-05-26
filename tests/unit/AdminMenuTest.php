@@ -128,22 +128,6 @@ class AdminMenuTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testShowsPluginsItem()
-    {
-        global $tx;
-
-        $matcher = array(
-            'tag' => 'a',
-            'attributes' => array('href' => '/'),
-            'content' => $tx['editmenu']['plugins'],
-            'ancestor' => array(
-                'tag' => 'div',
-                'id' => 'xh_adminmenu'
-            )
-        );
-        $this->_assertMatches($matcher);
-    }
-
     /**
      * @dataProvider pluginData
      */

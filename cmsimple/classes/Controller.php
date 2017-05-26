@@ -339,7 +339,7 @@ class Controller
     {
         global $function, $validate, $xh_do_validate, $settings, $xh_backups,
             $xh_pagedata, $sysinfo, $phpinfo, $file, $userfiles, $images,
-            $downloads, $f, $xh_change_password;
+            $downloads, $f, $xh_change_password, $xh_plugins;
 
         if ($function == 'save') {
             $f = 'save';
@@ -367,6 +367,8 @@ class Controller
             $f = 'validate';
         } elseif ($xh_change_password) {
             $f = 'change_password';
+        } elseif ($xh_plugins) {
+            $f = 'xh_plugins';
         }
     }
 

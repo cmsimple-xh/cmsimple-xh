@@ -258,6 +258,7 @@ $tx['settings']['backupexplain1']="On logout content is backed up and the oldest
 $tx['settings']['backupexplain2']="Backup file names start with date and time of backup as: YYYYMMDD_HHMMSS";
 $tx['settings']['backupsuffix']="Enter a filename (only a-z, 0-9, minus and underscore; at most 20 characters):";
 $tx['settings']['ftp']="Use FTP for remote file management";
+$tx['settings']['more']="More";
 $tx['settings']['systemfiles']="System files";
 $tx['settings']['warning']="Only change settings when you understand the effect your changes will have!";
 
@@ -304,6 +305,7 @@ $tx['title']['media']="Mediafiles";
 $tx['title']['xh_pagedata']="Page Data Cleanup";
 $tx['title']['password_forgotten']="Password forgotten";
 $tx['title']['phpinfo']="PHP Info";
+$tx['title']['plugins']="Plugins";
 $tx['title']['search']="Search";
 $tx['title']['settings']="Settings";
 $tx['title']['sitemap']="Sitemap";
