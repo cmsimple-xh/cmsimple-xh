@@ -120,10 +120,31 @@ class Pages
      * @param int $n A page index.
      *
      * @return string
+     *
+     * @see name()
      */
     public function heading($n)
     {
         return $this->headings[$n];
+    }
+
+    /**
+     * Returns the name of a page.
+     *
+     * The name of a page is its heading sans any HTML tags, and with all HTML
+     * entities decoded, i.e. the plain text version of the heading.
+     *
+     * @param int $n A page index.
+     *
+     * @return string
+     *
+     * @see heading()
+     *
+     * @since 1.7
+     */
+    public function name($n)
+    {
+        return html_entity_decode(strip_tags($this->headings[$n]), ENT_QUOTES, 'UTF-8');
     }
 
     /**
