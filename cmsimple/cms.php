@@ -1364,7 +1364,7 @@ if (XH_ADM) {
 
 $_XH_controller->verifyAdm();
 
-ob_start('XH_finalCleanUp');
+ob_start();
 
 $i = false;
 $temp = fopen($pth['file']['template'], 'r');
@@ -1382,3 +1382,5 @@ if (!$i) {// the template could not be included
 if (isset($_XH_csrfProtection)) {
     $_XH_csrfProtection->store();
 }
+
+echo XH_finalCleanUp(ob_get_clean());
