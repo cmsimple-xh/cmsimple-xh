@@ -188,19 +188,15 @@ class ChangePassword
      *
      * @param string $error An error message.
      *
-     * @global PasswordHash The password hasher.
-     *
      * @return ?string
      */
     private function validate(&$error)
     {
-        global $xh_hasher;
-
         $result = null;
         if ($this->passwordOld && $this->passwordNew
             && $this->passwordConfirmation
         ) {
-            $hash = $xh_hasher->checkPassword($this->passwordOld, $this->config['security']['password']);
+            $hash = password_verify($this->passwordOld, $this->config['security']['password']);
             if (!$hash) {
                 $error = $this->lang['password']['wrong'];
             } else {
@@ -209,7 +205,7 @@ class ChangePassword
                 } elseif ($this->passwordNew != $this->passwordConfirmation) {
                     $error = $this->lang['password']['mismatch'];
                 } else {
-                    $result = $xh_hasher->hashPassword($this->passwordNew);
+                    $result = password_hash($this->passwordNew, PASSWORD_BCRYPT);
                 }
             }
         } else {

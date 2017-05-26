@@ -301,11 +301,10 @@ abstract class ArrayFileEdit extends FileEdit
      *
      * @global string Error messages.
      * @global object The CSRF protection object.
-     * @global object The password hasher.
      */
     public function submit()
     {
-        global $e, $_XH_csrfProtection, $xh_hasher;
+        global $e, $_XH_csrfProtection;
 
         $_XH_csrfProtection->check();
         $errors = array();
@@ -316,7 +315,7 @@ abstract class ArrayFileEdit extends FileEdit
                 if ($opt['type'] == 'bool') {
                     $val = isset($_POST[$iname]) ? 'true' : '';
                 } elseif ($opt['type'] == 'random') {
-                    $val = bin2hex($xh_hasher->getRandomBytes(12));
+                    $val = bin2hex(random_bytes(12));
                 }
                 $this->cfg[$cat][$name]['val'] = $val;
             }

@@ -213,14 +213,13 @@ class Controller
      * @global array        The paths of system files and folders.
      * @global string       The admin password.
      * @global string       Whether login is requested.
-     * @global PasswordHash The password hasher.
      * @global array        The configuration of the core.
      */
     public function handleLogin()
     {
-        global $f, $pth, $keycut, $login, $adm, $edit, $xh_hasher, $cf;
+        global $f, $pth, $keycut, $login, $adm, $edit, $cf;
 
-        if ($xh_hasher->checkPassword($keycut, $cf['security']['password'])) {
+        if (password_verify($keycut, $cf['security']['password'])) {
             setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
             XH_startSession();
             session_regenerate_id(true);

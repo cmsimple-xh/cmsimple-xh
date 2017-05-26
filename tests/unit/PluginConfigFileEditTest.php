@@ -87,7 +87,7 @@ class PluginConfigFileEditTest extends PHPUnit_Framework_TestCase
 
     private function _setUpMockery()
     {
-        global $_XH_csrfProtection, $xh_hasher;
+        global $_XH_csrfProtection;
 
         $this->_tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->_subject);
         $this->_tagStub->expects($this->any())->will($this->returnCallback(
@@ -96,8 +96,6 @@ class PluginConfigFileEditTest extends PHPUnit_Framework_TestCase
             }
         ));
         $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
-            ->disableOriginalConstructor()->getMock();
-        $xh_hasher = $this->getMockBuilder('XH\PasswordHash')
             ->disableOriginalConstructor()->getMock();
     }
 

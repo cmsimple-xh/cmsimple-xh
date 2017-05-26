@@ -48,7 +48,7 @@ poškodí se CMSimple instalace.
 Pokud zapomenete vaše původní heslo,
 vložte zašifrované heslo "test", jako:
 
-\$2a\$09\$b032aima.KOrfY.N6ex44esuEon1K8WP/QjeTeaAc0Kmhw6NOl/2u
+\$2y\$10\$TtMCJlxEv6D27BngvfdNrewGqIx2R0aPCHORruqpe63LQpz7.E9Gq
 
 přes ftp do config.php a pak
 se přihlašte jako "test".

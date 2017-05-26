@@ -268,6 +268,9 @@ require_once $pth['folder']['cmsimple'] . 'functions.php';
 spl_autoload_register('XH_autoload');
 require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
 require_once $pth['folder']['cmsimple'] . 'utf8.php';
+if (!function_exists('password_hash') || !function_exists('random_bytes')) {
+    include_once $pth['folder']['cmsimple'] . 'password.php';
+}
 
 /**
  * The controller.
@@ -863,15 +866,6 @@ $adm = 0;
  * @access public
  */
 $f = '';
-
-/**
- * The password hasher.
- *
- * @global object $xh_hasher
- *
- * @access private
- */
-$xh_hasher = new XH\PasswordHash(9, false);
 
 /**
  * The plugin menu builder.
