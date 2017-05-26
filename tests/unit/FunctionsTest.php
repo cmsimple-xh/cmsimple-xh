@@ -796,6 +796,44 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
             ]
         ];
     }
+
+    /**
+     * @dataProvider dataForRedirectSelectedUrl
+     * @param string $queryString
+     * @param string $expected
+     */
+    public function testRedirectSelectedUrl($queryString, $selected, $expected)
+    {
+        $this->redefineConstant('CMSIMPLE_URL', 'http://example.com/');
+        $GLOBALS['selected'] = $selected;
+        $_SERVER['QUERY_STRING'] = $queryString;
+        $this->assertSame($expected, XH_redirectSelectedUrl());
+    }
+
+    /**
+     * @return array[]
+     */
+    public function dataForRedirectSelectedUrl()
+    {
+        return array(
+            ['selected=foo', 'foo', 'http://example.com/?foo'],
+            ['selected=foo&bar=baz', 'foo', 'http://example.com/?foo&bar=baz'],
+            ['foo=bar&selected=baz', 'baz', 'http://example.com/?baz&foo=bar'],
+            ['foo=bar&selected=baz&bar=foo', 'baz', 'http://example.com/?baz&foo=bar&bar=foo']
+        );
+    }
+
+    /**
+     * @param string $name
+     */
+    private function redefineConstant($name, $value)
+    {
+        if (!defined($name)) {
+            define($name, $value);
+        } else {
+            runkit_constant_redefine($name, $value);
+        }
+    }
 }
 
 ?>

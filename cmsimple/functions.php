@@ -2840,3 +2840,25 @@ function XH_getPageURL($index)
 
     return $sn . '?' . $u[$index];
 }
+
+/**
+ * Returns the URL where to redirect `selected` GEt requests.
+ *
+ * @return string
+ *
+ * @global string The value of the `selected` GP parameter.
+ *
+ * @since 1.7.0
+ */
+function XH_redirectSelectedUrl()
+{
+    global $selected;
+
+    $queryString = ltrim(preg_replace('/&?selected=[^&]+/', '', $_SERVER['QUERY_STRING']), '&');
+    if ($queryString) {
+        $queryString = "$selected&$queryString";
+    } else {
+        $queryString = $selected;
+    }
+    return CMSIMPLE_URL . "?$queryString";
+}
