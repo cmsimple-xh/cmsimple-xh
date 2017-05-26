@@ -28,7 +28,7 @@ class SearchTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        global $c, $cf;
+        global $c, $cf, $s, $o, $hjs, $bjs, $e, $onload;
 
         $c = array(
             '<h1>Welcome to CMSimple_XH</h1>',

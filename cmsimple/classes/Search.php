@@ -142,9 +142,15 @@ class Search
     {
         global $s;
 
+        $vars = array('s', 'o', 'hjs', 'bjs', 'e', 'onload');
+        foreach ($vars as $var) {
+            $old[$var] = $GLOBALS[$var];
+        }
         $s = $pageIndex;
         $content = strip_tags(evaluate_plugincall($content));
-        $s = -1;
+        foreach ($vars as $var) {
+            $GLOBALS[$var] = $old[$var];
+        }
         if (method_exists('\Normalizer', 'normalize')) {
             $content = \Normalizer::normalize($content);
         }
