@@ -1198,18 +1198,6 @@ $si = -1;
 
 XH_buildHc();
 
-// LEGAL NOTICES - not needed under GPL3
-if (empty($cf['menu']['legal'])) {
-    $cf['menu']['legal'] = 'CMSimple Legal Notices';
-}
-if ($su == uenc($cf['menu']['legal'])) {
-    $f = $title = $cf['menu']['legal'];
-    $s = -1;
-    $o .= '<h1>' . $title . '</h1>'
-        . file_get_contents($pth['folder']['cmsimple'] . 'legal.txt');
-}
-
-
 /*
  * Enables the automatic creation of a "Site/CMS Info" page.
  * To generate a link to this page add <?php echo poweredbylink()?>
