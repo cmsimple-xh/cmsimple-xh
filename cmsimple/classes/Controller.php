@@ -547,20 +547,20 @@ class Controller
 
         $interval = 1000 * (ini_get('session.gc_maxlifetime') - 1);
         $o .= <<<EOT
-<script type="text/javascript">/* <![CDATA[ */
+<script type="text/javascript">
 if (document.cookie.indexOf('status=adm') == -1) {
     document.write('<div class="xh_warning">{$tx['error']['nocookies']}<\/div>');
 }
-/* ]]> */</script>
+</script>
 <noscript><div class="xh_warning">{$tx['error']['nojs']}</div></noscript>
-<script type="text/javascript">/* <![CDATA[ */
+<script type="text/javascript">
 setInterval(function() {
     var request = new XMLHttpRequest();
 
     request.open("GET", "?xh_keep_alive");
     request.send(null);
 }, $interval);
-/* ]]> */</script>
+</script>
 EOT;
     }
 

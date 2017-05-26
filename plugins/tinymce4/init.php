@@ -121,13 +121,11 @@ function include_tinymce4()
         $tiny_src. 
         '"></script>
 	<script type="text/javascript">
-	/* <![CDATA[ */
 	' . tinymce4_filebrowser() . '
     var myImageList;
 	' . $imageList . '
     var myLinkList;
 	' . $linkList . '
-	/* ]]> */
 	</script>
     <style type="text/css">
         div.mce-fullscreen {z-index: 999;}  /*fullscreen overlays admin toolbar */
@@ -318,8 +316,7 @@ function init_tinymce4($classes = array(), $config = false)
 
     $hjs .= '
 	<script language="javascript" type="text/javascript">
-	/* <![CDATA[ */' . _setInit($temp) . '
-	/* ]]> */
+	' . _setInit($temp) . '
 	</script>
 	';
     return;

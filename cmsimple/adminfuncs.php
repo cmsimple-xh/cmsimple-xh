@@ -392,12 +392,12 @@ function XH_logFileView()
     return '<h1>' . $tx['title']['log'] . '</h1>'
         . '<pre id="xh_logfile">' . XH_hsc(XH_readFile($pth['file']['log']))
         . '</pre>'
-        . '<script type="text/javascript">/* <![CDATA[ */'
+        . '<script type="text/javascript">'
         . '(function () {'
         . 'var elt = document.getElementById("xh_logfile");'
         . 'elt.scrollTop = elt.scrollHeight;'
         . '}())'
-        . '/* ]]> */</script>'
+        . '</script>'
         . '<p>('
         . $tx['log']['timestamp'] . ' &ndash; '
         . $tx['log']['type']      . ' &ndash; '
@@ -895,9 +895,9 @@ function XH_contentEditor()
         . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
         . XH_hsc($tempContent)
         . '</textarea>'
-        . '<script type="text/javascript">/* <![CDATA[ */'
+        . '<script type="text/javascript">'
         . 'document.getElementById("text").style.height=(' . $cf['editor']['height']
-        . ') + "px";/* ]]> */</script>'
+        . ') + "px";</script>'
         . $_XH_csrfProtection->tokenInput();
     if ($cf['editor']['external'] == '' || !$editor) {
         $value = utf8_ucfirst($tx['action']['save']);
@@ -1150,8 +1150,8 @@ function XH_adminJSLocalization()
             $l10n[$category][$key] = $tx[$category][$key];
         }
     }
-    $o = '<script type="text/javascript">/* <![CDATA[ */XH.i18n = '
-        . XH_encodeJson($l10n) . '/* ]]> */</script>' . PHP_EOL;
+    $o = '<script type="text/javascript">XH.i18n = '
+        . XH_encodeJson($l10n) . '</script>' . PHP_EOL;
     return $o;
 }
 
