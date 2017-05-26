@@ -24,7 +24,7 @@
 </p>
 <p>
     Furthermore Fa_XH delivers editor plugins to ease the use of Font Awesome
-    icons in the content, if this is desired. Currently, only TinyMCE 4 is
+    icons in the content, if this is desired. Currently, only TinyMCE 4 and CKEditor are
     supported.
 </p>
 
@@ -53,7 +53,7 @@
 <h2>Important Notice</h2>
 <p class="important">
     Fa_XH couldn't be tested so far in various environments. It is a so called
-    beta version. Use with caution!
+    release candidate. Use with caution!
 </p>
 </section>
 
@@ -148,9 +148,32 @@
 </li>
 </ul>
 <p>
-    After these preparation steps, you find a new toolbar button at the top
-    right named <em>Icons</em> which opens a dialog where you can select and
+    After these preparation steps, you find a new toolbar button
+    named <em>Font Awesome</em> which opens a dialog where you can select and
     insert the desired Font Awesome icon.
+</p>
+<p>
+    The fontawesome plugin for TinyMCE 4 supports only icons marked up as
+    <code>&lt;span&gt;</code>. Icons inserted in the HTML source code view with
+    the more common <code>&lt;i&gt;</code> will be removed!
+</p>
+</section>
+
+<section id="usage-content-ckeditor">
+<h4>CKEditor</h4>
+<p>
+    You need at least CKEditor 2.2 to use the fontawesome plugin, in which case
+    CKEditor loads the plugin automatically.
+</p>
+<p>
+    Use the toolbar button <em>Insert Font Awesome</em> to select, manipulate
+    and insert the desired Font Awesome icon. Double-click an already inserted
+    icon to edit it.
+</p>
+<p>
+    The fontawesome plugin for CKEditor supports only icons marked up as
+    <code>&lt;span&gt;</code>. Icons inserted in the HTML source code view with
+    the more common <code>&lt;i&gt;</code> will be removed!
 </p>
 </section>
 
@@ -240,6 +263,12 @@ $command->execute();
     by josh18. Thanks for publishing this TinyMCE plugin under MIT license.
 </p>
 <p>
+    This plugin contains an updated version of the <a
+    href="http://ckeditor.com/addon/fontawesome">Font Awesome plugin for
+    CKEditor</a> by Michael Janea. Thanks for publishing this CKEDitor plugin
+    under GPL.
+</p>
+<p>
     Fa_XH has been inspired by frase. Many thanks!
 </p>
 <!--
@@ -253,7 +282,8 @@ $command->execute();
     Many thanks to the community at the <a
     href="http://www.cmsimpleforum.com">CMSimple_XH forum</a> for tips,
     suggestions and testing. Especially, I like to thank lck and frase for early
-    testing and feedback, and manu for helping with the TinyMCE 4 plugin.
+    testing and feedback, manu for helping with the TinyMCE 4 plugin, and Holger
+    for helping with the CKEditor plugin.
 </p>
 <p>
     And last but not least many thanks to <a href="http://harteg.dk/">Peter

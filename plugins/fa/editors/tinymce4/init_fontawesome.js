@@ -12,9 +12,9 @@
   external_plugins: {
     "fontawesome": "%CMSIMPLE_ROOT%plugins/fa/editors/tinymce4/fontawesome/plugin.min.js"
   },
-  toolbar1: "save | fullscreen code formatselect fontselect fontsizeselect styleselect fontawesome",
+  toolbar1: "save | fullscreen code formatselect fontselect fontsizeselect styleselect",
   toolbar2: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify cut copy paste pastetext | bullist numlist outdent indent blockquote",
-  toolbar3: "undo redo | link unlink anchor image media | hr nonbreaking removeformat visualblocks visualchars | forecolor backcolor | searchreplace | charmap",
+  toolbar3: "undo redo | link unlink anchor image media | hr nonbreaking removeformat visualblocks visualchars | forecolor backcolor | searchreplace | charmap fontawesome",
   toolbar4: "emoticons subscript superscript | table inserttime help",
   image_advtab: true,
   image_title: true,

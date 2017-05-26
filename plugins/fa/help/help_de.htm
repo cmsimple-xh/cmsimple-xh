@@ -25,7 +25,7 @@
 <p>
     Weiterhin liefert Fa_XH Editor-Plugins aus, um die Verwendung von Font
     Awesome Icons im Content zu vereinfachen, wenn dies gewünscht wird. Zur Zeit
-    wird nur TinyMCE 4 unterstützt.
+    werden nur TinyMCE 4 und CKEditor unterstützt.
 </p>
 
 <nav id="nav">
@@ -53,7 +53,7 @@
 <h2>Wichtiger Hinweis</h2>
 <p class="important">
     Fa_XH konnte bisher nicht in diversen Umgebungen getestet werden. Es ist
-    eine so genannte Beta-Version. Vorsicht bei der Verwendung!
+    ein so genannter Release-Candidate. Vorsicht bei der Verwendung!
 </p>
 </section>
 
@@ -157,8 +157,33 @@
 </ul>
 <p>
     Nach diesen Vorbereitungen finden Sie einen neuen Schalter in der Toolbar
-    oben rechts mit dem Namen <em>Icons</em>, der einen Dialog öffnet, wo Sie
+    mit dem Namen <em>Font Awesome</em>, der einen Dialog öffnet, wo Sie
     das gewünschte Font Awesome Icon auswählen und einfügen können.
+</p>
+<p>
+    Das fontawesome Plugin für TinyMCE 4 unterstützt nur Icons, die als
+    <code>&lt;span&gt;</code> ausgezeichnet sind. Icons, die in der HTML
+    Quellcodeansicht mit dem üblicheren <code>&lt;i&gt;</code> eingefügt werden,
+    werden entfernt!
+</p>
+</section>
+
+<section id="usage-content-ckeditor">
+<h4>CKEditor</h4>
+<p>
+    Sie benötigen zumindest CKEditor 2.2 um das fontawesome Plugin verwenden zu
+    können; dieses wird dann automatisch vom CKEditor geladen.
+</p>
+<p>
+    Verwenden Sie den Toolbar-Schalter <em>Font Awesome einfügen</em>, um das
+    gewünschte Font Awesome Icon auszuwählen, zu manipulieren und einzufügen.
+    Klicken Sie doppelt auf ein bereits eingefügtes Icon, um es zu bearbeiten.
+</p>
+<p>
+    Das fontawesome Plugin für CKEditor unterstützt nur Icons, die als
+    <code>&lt;span&gt;</code> ausgezeichnet sind. Icons, die in der HTML
+    Quellcodeansicht mit dem üblicheren <code>&lt;i&gt;</code> eingefügt werden,
+    werden entfernt!
 </p>
 </section>
 
@@ -251,6 +276,11 @@ $command->execute();
     Lizenz.
 </p>
 <p>
+    Dieses Plugin enthält eine aktualisierte Version des <a
+    href="http://ckeditor.com/addon/fontawesome">Font Awesome Plugin für
+    CKEditor</a> von Michael Janea. Danke für die Veröffentlichung unter GPL.
+</p>
+<p>
     Fa_XH wurde von frase angeregt. Vielen Dank!
 </p>
 <!--
@@ -264,7 +294,8 @@ $command->execute();
     Vielen Dank an die Gemeinschaft im <a
     href="http://www.cmsimpleforum.com/">CMSimple_XH-Forum</a> für Tipps,
     Anregungen und das Testen. Besonders möchte ich lck und frase für frühes
-    Testen und Feedback danken, und manu für Hilfe mit dem TinyMCE 4 Plugin.
+    Testen und Feedback danken, manu für Hilfe bei dem TinyMCE 4 Plugin, und
+    Holger für Hilfe bei dem CKEditor Plugin.
 </p>
 <p>
     Zu guter Letzt vielen Dank an <a href="http://harteg.dk/">Peter Harteg</a>,

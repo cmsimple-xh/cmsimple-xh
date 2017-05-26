@@ -1,0 +1,6 @@
+#fontawesome {overflow:auto; text-align:center; height:400px; width:100%;}
+#fontawesome div {text-align:center;}
+#fontawesome a, #fontawesome span {margin-bottom:.5em; text-align:center;}
+#fontawesome a {padding:.5em; display:block; float:left; width:100px; border:1px solid #fff; -webkit-border-radius:5px; border-radius:5px; white-space:normal; text-align:center; height:68px;}
+#fontawesome a:hover, #fontawesome a.active {border:1px solid #ddd; background:#eee;}
+#fontawesome span {font-size:24px; color:#000;}
