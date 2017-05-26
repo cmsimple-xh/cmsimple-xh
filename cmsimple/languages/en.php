@@ -293,10 +293,12 @@ $tx['sysinfo']['version']="Installed CMSimple Version";
 $tx['sysinfo']['unknown']="Webserver could not be determined";
 $tx['sysinfo']['webserver']="Webserver";
 
+$tx['template']['active']="Active Template: ";
 $tx['template']['default']="default template";
 
 $tx['title']['bad_request']="Bad request";
 $tx['title']['change_password']="Change Password";
+$tx['title']['cms']="Content Management System";
 $tx['title']['downloads']="Downloads";
 $tx['title']['images']="Images";
 $tx['title']['log']="Log File";
@@ -310,6 +312,7 @@ $tx['title']['search']="Search";
 $tx['title']['settings']="Settings";
 $tx['title']['sitemap']="Sitemap";
 $tx['title']['sysinfo']="System Info";
+$tx['title']['templates']="Templates";
 $tx['title']['userfiles']="Userfiles";
 $tx['title']['validate']="Validate links";
 $tx['title']['xh_backups']="Backup";

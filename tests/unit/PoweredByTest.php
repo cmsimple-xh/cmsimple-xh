@@ -114,7 +114,7 @@ class PoweredByTest extends PHPUnit_Framework_TestCase
             array(
                 'tag' => 'a',
                 'attributes' => array('href' => 'http://cmsimple-xh.org'),
-                'content' => 'CMSimple_XH 1.7'
+                'content' => 'CMSimple_XH'
             ),
             XH_poweredBy()
         );
@@ -123,7 +123,7 @@ class PoweredByTest extends PHPUnit_Framework_TestCase
     public function testViewShowsTemplateInfo()
     {
         $this->assertStringMatchesFormat(
-            '%A<li>Mini1</li>%A',
+            '%A<dt>Mini1</dt>%A',
             XH_poweredBy()
         );
     }
