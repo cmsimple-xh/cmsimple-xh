@@ -566,6 +566,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
         $this->logMessageMock = new PHPUnit_Extensions_MockFunction(
             'XH_logMessage', $this->subject
         );
+        new PHPUnit_Extensions_MockFunction('file_put_contents', $this->subject);
     }
 
     /**
@@ -693,6 +694,7 @@ class ControllerLogoutTest extends ControllerLogInOutTestCase
         $this->backupMock = new PHPUnit_Extensions_MockFunction(
             'XH_backup', $this->subject
         );
+        new PHPUnit_Extensions_MockFunction('file_put_contents', $this->subject);
     }
 
     /**
