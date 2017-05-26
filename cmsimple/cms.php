@@ -808,10 +808,9 @@ define('XH_CWD', getcwd());
  */
 $su = '';
 if (sv('QUERY_STRING') != '') {
-    // $rq should be $temp, but its used at least in tg_popup
-    $rq = explode('&', sv('QUERY_STRING'));
-    if (!strpos($rq[0], '=')) {
-        $su = $rq[0];
+    $j = explode('&', sv('QUERY_STRING'));
+    if (!strpos($j[0], '=')) {
+        $su = $j[0];
     }
     if ($su == '' && $selected != '') {
         if (isset($_GET['selected'])) {
@@ -821,7 +820,7 @@ if (sv('QUERY_STRING') != '') {
             $su = $selected;
         }
     }
-    foreach ($rq as $i) {
+    foreach ($j as $i) {
         if (!strpos($i, '=') && in_array($i, $temp)) {
             $GLOBALS[$i] = 'true';
         }
