@@ -514,10 +514,12 @@ function XH_finalCleanUp($html)
  *
  * @return void
  *
- * @see http://www.cmsimpleforum.com/viewtopic.php?f=29&t=5315
+ * @deprecated since 1.7.0
  */
 function initvar($name)
 {
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
+
     if (!isset($GLOBALS[$name])) {
         if (isset($_GET[$name])) {
             $GLOBALS[$name] = $_GET[$name];

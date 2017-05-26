@@ -60,16 +60,6 @@ class ClassicPluginMenuTest extends PHPUnit_Framework_TestCase
         touch($pth['folder']['plugins'] . 'filebrowser/languages/en.php');
     }
 
-    public function testPluginMenuInitsAdminAndAction()
-    {
-        $initvar = new PHPUnit_Extensions_MockFunction('initvar', $this);
-        // We'd like to add ->withConsecutive() here, but that's not yet
-        // supported by PHPUnit 4.0 which we're relying on for now.
-        $initvar->expects($this->exactly(2));
-        print_plugin_admin('off');
-        $initvar->restore();
-    }
-
     public function testFullPluginMenuHas1Row()
     {
         $matcher = array(
