@@ -39,7 +39,7 @@ function Metatags_view(array $page)
     $my_fields = array('title', 'description', 'keywords', 'robots');
 
     $bjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
-        . 'meta_tags/metatags.js"></script>';
+        . 'meta_tags/metatags.min.js"></script>';
 
     $view ="\n" . '<form action="' . $sn . '?' . $su
         . '" method="post" id="meta_tags">'

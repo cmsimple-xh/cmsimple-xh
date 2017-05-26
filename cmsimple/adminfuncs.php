@@ -1087,7 +1087,7 @@ function XH_extraBackup($suffix)
 }
 
 /**
- * Returns SCRIPT element containing the localization for admin.js.
+ * Returns SCRIPT element containing the localization for admin.min.js.
  *
  * @return string HTML
  *

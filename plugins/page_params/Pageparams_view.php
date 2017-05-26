@@ -35,7 +35,7 @@ function Pageparams_hjs()
     return '<script type="text/javascript">var PAGEPARAMS = ' . $config
         . ';</script>'
         . '<script type="text/javascript" src="' . $pth['folder']['plugins']
-        . 'page_params/pageparams.js"></script>';
+        . 'page_params/pageparams.min.js"></script>';
 }
 
  /**

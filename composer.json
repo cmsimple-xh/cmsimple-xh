@@ -6,6 +6,7 @@
         "bartlett/php-compatinfo": "5.0.*",
         "phpunit/phpunit": "4.8.*",
         "tcz/phpunit-mockfunction": "1.0.*",
-        "mikey179/vfsStream": "1.6.*"
+        "mikey179/vfsStream": "1.6.*",
+        "tedivm/jshrink": "1.1.*"
     }
 }
