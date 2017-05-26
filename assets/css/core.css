@@ -45,7 +45,7 @@
     text-align: center;
     color: #d3d7cf;
     padding: 8px 0 0 0;
-    margin: 0;
+    margin: 2px 0 0 0;
 }
 
 #xh_adminmenu li a:hover,
@@ -58,8 +58,8 @@
 #xh_adminmenu span {
     display: block;
     color: #d3d7cf;
-    height: 26px;
-    padding: 2px 6px 0px 6px;
+    height: 28px;
+    padding: 0 6px 0 6px;
     text-decoration: none;
     font-style: normal;
 }
