@@ -271,21 +271,6 @@ class HeadTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that <var>$hjs</var> is rendered at the end.
-     *
-     * @return void
-     *
-     * @global string The HTML to insert in the head element.
-     */
-    public function testRendersHjsAtTheEnd()
-    {
-        global $hjs;
-
-        $hjs = 'HJS';
-        $this->assertStringEndsWith('HJS', head());
-    }
-
-    /**
      * (Re)defines a constant.
      *
      * @param string $name  A name.
