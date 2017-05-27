@@ -1708,8 +1708,8 @@ function XH_pluginStylesheet()
 
     $plugins = XH_plugins();
 
-    $ofn = $pth['folder']['corestyle'] . 'plugins.css';
-    $expired = !file_exists($ofn);
+    $ofn = $pth['folder']['corestyle'] . 'xhstyles.css';
+    $expired = !file_exists($ofn) || filemtime($pth['file']['corestyle']) > filemtime($ofn);
 
     // check for newly (un)installed plugins
     if (!$expired) {
@@ -1740,7 +1740,10 @@ function XH_pluginStylesheet()
 
     // create combined plugin stylesheet
     if ($expired) {
-        $o = array();
+        $o = array(
+            PHP_EOL . '/' . str_pad(' ' . $pth['file']['corestyle'], 76, '*', STR_PAD_LEFT) . ' */'
+            . PHP_EOL . PHP_EOL . file_get_contents($pth['file']['corestyle'])
+        );
         foreach ($plugins as $plugin) {
             $fn = $pth['folder']['plugins'] . $plugin . '/css/stylesheet.css';
             if (file_exists($fn)) {
@@ -1756,8 +1759,7 @@ function XH_pluginStylesheet()
             }
         }
         $o = '/*' . PHP_EOL
-            . ' * Automatically created by ' . CMSIMPLE_XH_VERSION
-            . '. DO NOT MODIFY!' . PHP_EOL
+            . ' * Automatically created by CMSimple_XH. DO NOT MODIFY!' . PHP_EOL
             . ' * ' . implode(',', $plugins) . PHP_EOL
             . ' */' . PHP_EOL . PHP_EOL
             . implode(PHP_EOL . PHP_EOL, $o);

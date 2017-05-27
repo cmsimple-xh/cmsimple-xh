@@ -85,8 +85,6 @@ function head()
         . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org">' . "\n"
         . '<!-- plugins: ' . $plugins . ' -->' . "\n"
         . XH_renderPrevLink() . XH_renderNextLink()
-        . '<link rel="stylesheet" href="' . $pth['file']['corestyle']
-        . '" type="text/css">' . "\n"
         . '<link rel="stylesheet" href="' . XH_pluginStylesheet()
         . '" type="text/css">' . PHP_EOL
         . '<link rel="stylesheet" href="' . $pth['file']['stylesheet']
