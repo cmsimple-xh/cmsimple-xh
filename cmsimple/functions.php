@@ -2158,7 +2158,7 @@ function XH_title($site, $subtitle)
  */
 function XH_builtinTemplate($bodyClass)
 {
-    global $_XH_csrfProtection;
+    global $sl, $cf, $_XH_csrfProtection;
 
     if ($cf['xhtml']['endtags'] == 'true') {
         echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"',
