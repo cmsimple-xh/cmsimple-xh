@@ -1892,7 +1892,7 @@ function XH_title($site, $subtitle)
  */
 function XH_builtinTemplate($bodyClass)
 {
-    global $_XH_csrfProtection;
+    global $sl, $_XH_csrfProtection;
 
     echo '<!DOCTYPE html>', "\n", '<html',
         (strlen($sl) == 2 ? " lang=\"$sl\"" : ''), '>', "\n";
