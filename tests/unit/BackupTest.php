@@ -11,6 +11,10 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -47,7 +51,7 @@ class BackupTest extends PHPUnit_Framework_TestCase
         );
         (new PHPUnit_Extensions_MockFunction('utf8_ucfirst', $this))
             ->expects($this->any())->will($this->returnArgument(0));
-        $this->_subject = new XH\Backup(array($this->_contentFolder));
+        $this->_subject = new Backup(array($this->_contentFolder));
     }
 
     /**
@@ -191,7 +195,7 @@ class BackupTest extends PHPUnit_Framework_TestCase
         global $cf;
 
         $cf['backup']['numberoffiles'] = '0';
-        $this->_subject = new XH\Backup(array($this->_contentFolder));
+        $this->_subject = new Backup(array($this->_contentFolder));
         touch("{$this->_contentFolder}content.htm");
         $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->_subject);
         $eSpy->expects($this->never());

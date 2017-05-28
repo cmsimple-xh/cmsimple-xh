@@ -11,6 +11,10 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -50,7 +54,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
         $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
             ->disableOriginalConstructor()->getMock();
         $this->_setUpLocalization();
-        $this->_subject = new XH\CoreTextFileEdit();
+        $this->_subject = new CoreTextFileEdit();
     }
 
     private function _setUpLocalization()

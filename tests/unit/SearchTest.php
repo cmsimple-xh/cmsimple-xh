@@ -11,6 +11,10 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+
 /**
  * A test case for the search functionality.
  *
@@ -59,7 +63,7 @@ class SearchTest extends PHPUnit_Framework_TestCase
      */
     public function testSearch($searchString, $expected)
     {
-        $search = new XH\Search($searchString);
+        $search = new Search($searchString);
         $actual = $search->search();
         $this->assertEquals($expected, $actual);
     }

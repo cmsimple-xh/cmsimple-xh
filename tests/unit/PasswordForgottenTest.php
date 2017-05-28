@@ -11,6 +11,10 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+
 /**
  * A test case for the password forgotten class.
  *
@@ -35,7 +39,7 @@ class PasswordForgottenTest extends PHPUnit_Framework_TestCase
                 'secret' => '0123456789abcdef'
             )
         );
-        $this->passwordForgotten = new XH\PasswordForgotten();
+        $this->passwordForgotten = new PasswordForgotten();
     }
 
     protected function currentMac()

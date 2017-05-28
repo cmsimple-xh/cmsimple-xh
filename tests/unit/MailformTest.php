@@ -11,6 +11,11 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+use PHPUnit_Extensions_MockFunction;
+
 /**
  * A test case for the mailform.
  *
@@ -52,7 +57,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
         $_POST = $this->_goodPost;
         $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('isValidAddress')->willReturn(true);
-        $mailform = new XH\Mailform(false, null, $mail);
+        $mailform = new Mailform(false, null, $mail);
         $this->assertEquals('', $mailform->check());
     }
 
@@ -90,7 +95,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
         );
         $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('isValidAddress')->willReturn(false);
-        $mailform = new XH\Mailform(false, null, $mail);
+        $mailform = new Mailform(false, null, $mail);
         @$this->assertTag($matcher, $mailform->check());
     }
 
@@ -98,7 +103,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
     {
         $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('send')->willReturn(true);
-        $mailform = new XH\Mailform(false, null, $mail);
+        $mailform = new Mailform(false, null, $mail);
         $this->assertTrue($mailform->submit());
     }
 
@@ -106,7 +111,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
     {
         $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('send')->willReturn(false);
-        $mailform = new XH\Mailform(false, null, $mail);
+        $mailform = new Mailform(false, null, $mail);
         $logMessageSpy = new PHPUnit_Extensions_MockFunction(
             'XH_logMessage', $mailform
         );
@@ -196,7 +201,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
     {
         $subject = 'Foo subject';
         $_GET['xh_mailform_subject'] = $subject;
-        $mailform = new XH\Mailform();
+        $mailform = new Mailform();
         // TODO: don't test for *protected* property
         $this->assertEquals($subject, $mailform->subject);
     }
@@ -204,7 +209,7 @@ class MailformTest extends PHPUnit_Framework_TestCase
     public function testSubjectIsSetFromConstructorParameter()
     {
         $subject = 'Foo subject';
-        $mailform = new XH\Mailform(true, $subject);
+        $mailform = new Mailform(true, $subject);
         // TODO: don't test for *protected* property
         $this->assertEquals($subject, $mailform->subject);
     }

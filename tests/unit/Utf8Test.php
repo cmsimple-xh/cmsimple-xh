@@ -13,6 +13,10 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+
 class Utf8StrlenTest extends PHPUnit_Framework_TestCase
 {
     public function testUtf8()

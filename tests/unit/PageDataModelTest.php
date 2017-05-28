@@ -11,6 +11,10 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+
 /**
  * A test case for the page data model.
  *
@@ -37,7 +41,7 @@ class PageDataModelTest extends PHPUnit_Framework_TestCase
             array('url' => 'wrong', 'foo' => 'foo0', 'bar' => 'bar0'),
             array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'snork' => true)
         );
-        $this->pd = new XH\PageDataModel($h, $fields, $temp, $data);
+        $this->pd = new PageDataModel($h, $fields, $temp, $data);
     }
 
     public function testStoredFields()

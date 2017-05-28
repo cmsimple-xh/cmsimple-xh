@@ -11,6 +11,10 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+
 /**
  * A test case for the pages class.
  *
@@ -82,7 +86,7 @@ class PagesTest extends PHPUnit_Framework_TestCase
             '<h1>News</h1> #CMSimple hide#'
         );
         $cf['menu']['levelcatch'] = 10;
-        $this->_subject = new XH\Pages();
+        $this->_subject = new Pages();
     }
 
     public function dataForIsHidden()

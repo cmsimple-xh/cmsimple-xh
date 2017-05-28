@@ -11,6 +11,11 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+use PHPUnit_Extensions_MockFunction;
+
 /**
  * Testing the head() function.
  *

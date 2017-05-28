@@ -11,6 +11,11 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+use PHPUnit_Extensions_MockFunction;
+
 /**
  * Test case for the menu functionality.
  *
@@ -142,7 +147,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      *
-     * @global XH\PageDataRouter The page data router.
+     * @global PageDataRouter The page data router.
      */
     private function _setUpPageDataRouterMock()
     {

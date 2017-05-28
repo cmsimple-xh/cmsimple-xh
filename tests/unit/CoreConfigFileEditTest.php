@@ -11,14 +11,21 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
-function Test_languages()
-{
-    return array('de', 'en');
-}
+eval(<<<EOS
+    function Test_languages()
+    {
+        return array('de', 'en');
+    }
+EOS
+);
 
 /**
  * A test case to for the CoreConfigFileEdit classes.
@@ -56,7 +63,7 @@ class CoreConfigFileEditTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->_setUpMetaConfig();
-        $this->_subject = new XH\CoreConfigFileEdit();
+        $this->_subject = new CoreConfigFileEdit();
     }
 
     private function _setConstant($name, $value)

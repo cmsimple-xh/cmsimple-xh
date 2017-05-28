@@ -11,6 +11,10 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -30,7 +34,7 @@ class ControllerMakeTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
@@ -41,7 +45,7 @@ class ControllerMakeTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->subject = new XH\Controller();
+        $this->subject = new Controller();
     }
 
     /**
@@ -104,14 +108,14 @@ class ControllerMailformTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
     /**
      * The mailform mock.
      *
-     * @var XH\Mailform
+     * @var Mailform
      */
     protected $mailformMock;
 
@@ -230,14 +234,14 @@ class ControllerSearchTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
     /**
      * The search mock.
      *
-     * @var XH\Search
+     * @var Search
      */
     protected $searchMock;
 
@@ -302,7 +306,7 @@ class ControllerSitemapTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
@@ -406,14 +410,14 @@ class ControllerPasswordForgottenTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
     /**
      * The password forgotten mock.
      *
-     * @var XH\PasswordForgotten
+     * @var PasswordForgotten
      */
     protected $passwordForgottenMock;
 
@@ -434,7 +438,7 @@ class ControllerPasswordForgottenTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that XH\PasswordForgotten::dispatch() is called.
+     * Tests that PasswordForgotten::dispatch() is called.
      *
      * @return void
      */
@@ -450,7 +454,7 @@ abstract class ControllerLogInOutTestCase extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
@@ -478,7 +482,7 @@ abstract class ControllerLogInOutTestCase extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->defineConstant('CMSIMPLE_ROOT', '/xh/');
-        $this->subject = new XH\Controller();
+        $this->subject = new Controller();
         $this->sessionStartMock = new PHPUnit_Extensions_MockFunction(
             'session_start', $this->subject
         );
@@ -767,7 +771,7 @@ class ControllerFrontendFTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
@@ -778,7 +782,7 @@ class ControllerFrontendFTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->subject = new XH\Controller();
+        $this->subject = new Controller();
     }
 
     /**
@@ -927,7 +931,7 @@ class ControllerBackendFTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
@@ -938,7 +942,7 @@ class ControllerBackendFTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->subject = new XH\Controller();
+        $this->subject = new Controller();
     }
 
     /**
@@ -1183,7 +1187,7 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
@@ -1220,9 +1224,9 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      *
-     * @global int               The index of the currently selected page.
-     * @global XH\PageDataRouter The page data router.
-     * @global XH\CSRFProtection The CSRF protector.
+     * @global int            The index of the currently selected page.
+     * @global PageDataRouter The page data router.
+     * @global CSRFProtection The CSRF protector.
      */
     public function setUp()
     {
@@ -1238,7 +1242,7 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()->getMock();
         $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
             ->disableOriginalConstructor()->getMock();
-        $this->subject = new XH\Controller();
+        $this->subject = new Controller();
         $this->eMock = new PHPUnit_Extensions_MockFunction('e', $this->subject);
         $this->exitMock = new PHPUnit_Extensions_MockFunction(
             'XH_exit', $this->subject
@@ -1252,12 +1256,12 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that XH\PageDataRouter::update() is called.
+     * Tests that PageDataRouter::update() is called.
      *
      * @return void
      *
-     * @global int               The index of the currently selected page.
-     * @global XH\PageDataRouter The page data router.
+     * @global int            The index of the currently selected page.
+     * @global PageDataRouter The page data router.
      */
     public function testCallsUpdate()
     {
@@ -1273,7 +1277,7 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      *
-     * @global XH\PageDataRouter The page data router.
+     * @global PageDataRouter The page data router.
      */
     public function testAjaxSuccessOutputsMessage()
     {
@@ -1291,7 +1295,7 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      *
-     * @global XH\PageDataRouter The page data router.
+     * @global PageDataRouter The page data router.
      */
     public function testAjaxFailureOutputsMessage()
     {
@@ -1321,7 +1325,7 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      *
-     * @global XH\PageDataRouter The page data router.
+     * @global PageDataRouter The page data router.
      */
     public function testNoAjaxSuccessDoesNotCallE()
     {
@@ -1338,7 +1342,7 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      *
-     * @global XH\PageDataRouter The page data router.
+     * @global PageDataRouter The page data router.
      */
     public function testNoAjaxFailureCallsE()
     {
@@ -1366,14 +1370,14 @@ class ControllerPageDataEditorTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
     /**
      * The page data editor mock.
      *
-     * @var XH\PageDataEditor
+     * @var PageDataEditor
      */
     protected $pageDataEditorMock;
 
@@ -1394,7 +1398,7 @@ class ControllerPageDataEditorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that XH\PageDataEditor::process() is called.
+     * Tests that PageDataEditor::process() is called.
      *
      * @return void
      */
@@ -1420,7 +1424,7 @@ class ControllerFileViewTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
@@ -1458,7 +1462,7 @@ class ControllerFileViewTest extends PHPUnit_Framework_TestCase
 
         $this->setUpFileSystem();
         $file = 'content';
-        $this->subject = new XH\Controller();
+        $this->subject = new Controller();
         $this->exitMock = new PHPUnit_Extensions_MockFunction(
             'XH_exit', $this->subject
         );
@@ -1522,7 +1526,7 @@ class ControllerFileViewTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Calls XH\Controller::handleFileView() while buffering output.
+     * Calls Controller::handleFileView() while buffering output.
      *
      * @return void
      */
@@ -1565,7 +1569,7 @@ class ControllerFileBackupTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
@@ -1575,7 +1579,7 @@ class ControllerFileBackupTest extends PHPUnit_Framework_TestCase
      * @return void
      *
      * @global string            The name of a special file to be handled.
-     * @global XH\CSRFProtection The CRSF protector.
+     * @global CSRFProtection The CRSF protector.
      */
     public function setUp()
     {
@@ -1585,7 +1589,7 @@ class ControllerFileBackupTest extends PHPUnit_Framework_TestCase
         $file = 'content';
         $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
             ->disableOriginalConstructor()->getMock();
-        $this->subject = new XH\Controller();
+        $this->subject = new Controller();
         $this->extraBackupMock = new PHPUnit_Extensions_MockFunction(
             'XH_extraBackup', $this->subject
         );
@@ -1596,7 +1600,7 @@ class ControllerFileBackupTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      *
-     * @global XH\CSRFProtection The CRSF protector.
+     * @global CSRFProtection The CRSF protector.
      */
     public function testChecksCsrfToken()
     {
@@ -1633,14 +1637,14 @@ class ControllerFileEditTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
     /**
      * The file editor mock.
      *
-     * @var XH\FileEdit
+     * @var FileEdit
      */
     protected $fileEditorMock;
 
@@ -1659,7 +1663,7 @@ class ControllerFileEditTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that the array action calls XH\FileEdit::form().
+     * Tests that the array action calls FileEdit::form().
      *
      * @return void
      *
@@ -1677,7 +1681,7 @@ class ControllerFileEditTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that the save action calls XH\FileEdit::submit().
+     * Tests that the save action calls FileEdit::submit().
      *
      * @return void
      *
@@ -1710,7 +1714,7 @@ class ControllerRenderErrorMessagesTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
@@ -1725,7 +1729,7 @@ class ControllerRenderErrorMessagesTest extends PHPUnit_Framework_TestCase
 
         $e = '<li>First error</li>'
             . '<li>Second error</li>';
-        $this->subject = new XH\Controller();
+        $this->subject = new Controller();
     }
 
     /**
@@ -1763,7 +1767,7 @@ class ControllerStandardHeaderTest extends PHPUnit_Framework_TestCase
     /**
      * The test subject.
      *
-     * @var XH\Controller
+     * @var Controller
      */
     protected $subject;
 
@@ -1800,7 +1804,7 @@ class ControllerStandardHeaderTest extends PHPUnit_Framework_TestCase
         global $cf;
 
         $cf['security']['frame_options'] = 'DENY';
-        $this->subject = new XH\Controller();
+        $this->subject = new Controller();
         $this->headersSentMock = new PHPUnit_Extensions_MockFunction(
             'headers_sent', $this->subject
         );

@@ -11,13 +11,18 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+use PHPUnit_Extensions_MockFunction;
+
 class MailformRenderTest extends PHPUnit_Framework_TestCase
 {
     private $_subject;
 
     public function setUp()
     {
-        $this->_subject = new XH\Mailform();
+        $this->_subject = new Mailform();
         $tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->_subject);
         $tagStub->expects($this->any())->will($this->returnCallback(
             function ($string) {
@@ -56,7 +61,7 @@ class MailformRenderTest extends PHPUnit_Framework_TestCase
 
     public function testNoFunctionInputInEmbeddedMailform()
     {
-        $this->_subject = new XH\Mailform(true);
+        $this->_subject = new Mailform(true);
         $this->_assertNotMatches(
             array(
                 'tag' => 'input',
@@ -153,7 +158,7 @@ class MailformRenderTest extends PHPUnit_Framework_TestCase
 
     public function testTextareaOfEmbeddedMailform()
     {
-        $this->_subject = new XH\Mailform(true);
+        $this->_subject = new Mailform(true);
         $this->_testTextarea('xh_mailform');
     }
 

@@ -11,6 +11,10 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+
 /**
  * A test case for the page data views.
  *
@@ -31,7 +35,7 @@ class PageDataViewTest extends PHPUnit_Framework_TestCase
             'Meta' => array('Metatags_view.php', null),
             'Page' => array('Pageparams_view.php', null)
         );
-        $this->pageDataView = new XH\PageDataView(array(), $tabs);
+        $this->pageDataView = new PageDataView(array(), $tabs);
     }
 
     public function testTab()

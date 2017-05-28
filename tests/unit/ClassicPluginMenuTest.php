@@ -11,6 +11,9 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -34,7 +37,7 @@ class ClassicPluginMenuTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->_setUpVFS();
-        $_XH_pluginMenu = new XH\ClassicPluginMenu();
+        $_XH_pluginMenu = new ClassicPluginMenu();
     }
 
     private function _setUpVFS()

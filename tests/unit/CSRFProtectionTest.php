@@ -15,6 +15,11 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+use PHPUnit_Extensions_MockFunction;
+
 /**
  * A test case to simulate the CSRF protection.
  *
@@ -43,7 +48,7 @@ class CSRFProtectionTest extends PHPUnit_Framework_TestCase
         );
         $this->headerMock = new PHPUnit_Extensions_MockFunction('header', null);
         $this->exitMock = new PHPUnit_Extensions_MockFunction('XH_exit', null);
-        $this->subject = new XH\CSRFProtection();
+        $this->subject = new CSRFProtection();
     }
 
     public function tearDown()
@@ -64,7 +69,7 @@ class CSRFProtectionTest extends PHPUnit_Framework_TestCase
 
     public function testCSRFAttack()
     {
-        $this->subject = new XH\CSRFProtection();
+        $this->subject = new CSRFProtection();
         $_SESSION['xh_csrf_token'] = '5dff45ce0e8db5e4ea2bf59cf0cb96dd';
         $_POST['xh_csrf_token'] = 'fd97a436f658ecc2178561898f8a6c9e';
         $this->headerMock->expects($this->once())->with('HTTP/1.0 403 Forbidden');

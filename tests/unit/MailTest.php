@@ -11,6 +11,11 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+use PHPUnit_Extensions_MockFunction;
+
 /**
  * Testing the mails.
  *
@@ -31,7 +36,7 @@ class MailTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->subject = new XH\Mail();
+        $this->subject = new Mail();
         $this->getHostByNameMock = new PHPUnit_Extensions_MockFunction(
             'gethostbyname', $this->subject
         );

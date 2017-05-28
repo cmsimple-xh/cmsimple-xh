@@ -11,6 +11,10 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -52,7 +56,7 @@ class PluginConfigFileEditTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->_setUpMetaConfig();
-        $this->_subject = new XH\PluginConfigFileEdit();
+        $this->_subject = new PluginConfigFileEdit();
     }
 
     private function _setConstant($name, $value)

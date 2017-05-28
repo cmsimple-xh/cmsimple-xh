@@ -11,15 +11,22 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+
 /**
  * A helper to test multiple evaluation of a function with side effects.
  */
+eval(<<<EOS
 function counter()
 {
-    static $count = 0;
+    static \$count = 0;
 
-    return ++$count;
+    return ++\$count;
 }
+EOS
+);
 
 /**
  * A test case for the functions in functions.php.

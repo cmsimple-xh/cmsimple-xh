@@ -6,15 +6,19 @@
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
+use PHPUnit_Framework_TestCase;
+
 /**
  * A test stub to avoid actual checking of external links.
  */
-class TestingLinkChecker extends XH\LinkChecker
+class TestingLinkChecker extends LinkChecker
 {
     protected function makeHeadRequest($host, $path)
     {
@@ -98,31 +102,31 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array('?Welcome', 200),
-            array('?Welkome', XH\Link::STATUS_INTERNALFAIL),
+            array('?Welkome', Link::STATUS_INTERNALFAIL),
             array('?Welcome:About#content', 200),
             array('?Welcome:About#template', 200),
-            array('?Welcome:About#doesnotexist', XH\Link::STATUS_ANCHOR_MISSING),
+            array('?Welcome:About#doesnotexist', Link::STATUS_ANCHOR_MISSING),
             array('./?download=template.htm', 200),
-            array('./?download=doesnotexist', XH\Link::STATUS_FILE_NOT_FOUND),
-            array('./?download=doesnotexist.txt?v01', XH\Link::STATUS_FILE_NOT_FOUND),
+            array('./?download=doesnotexist', Link::STATUS_FILE_NOT_FOUND),
+            array('./?download=doesnotexist.txt?v01', Link::STATUS_FILE_NOT_FOUND),
             array('http://www.cmsimple-xh.org/', 200),
-            array('mailto:devs@cmsimple-xh.org', XH\Link::STATUS_MAILTO),
+            array('mailto:devs@cmsimple-xh.org', Link::STATUS_MAILTO),
             array('./tests/unit/data/template.htm', 200),
-            array('./tests/unit/data/doesnotexist', XH\Link::STATUS_INTERNALFAIL),
-            array('./tests/unit/data/doesnotexist?v=1', XH\Link::STATUS_INTERNALFAIL),
+            array('./tests/unit/data/doesnotexist', Link::STATUS_INTERNALFAIL),
+            array('./tests/unit/data/doesnotexist?v=1', Link::STATUS_INTERNALFAIL),
             array('./tests/unit/data/file%20name.txt', 200),
             array('?sitemap', 200),
             array('?mailform', 200),
             // TODO: add checks for second languages, what is actually too cumbersome
 
             // the following are (current) limitations
-            array('https://bugs.php.net', XH\Link::STATUS_UNKNOWN), // no HTTPS protocol support
-            array('./tests/unit/data/', XH\Link::STATUS_INTERNALFAIL), // fails, even there's a index.(php|html)
+            array('https://bugs.php.net', Link::STATUS_UNKNOWN), // no HTTPS protocol support
+            array('./tests/unit/data/', Link::STATUS_INTERNALFAIL), // fails, even there's a index.(php|html)
             array('./tests/unit/anotherxh/?Welcome', 200), // erroneously checks the same installation
-            array('anotherxh/?Welcome2', XH\Link::STATUS_INTERNALFAIL), // fails, even if anotherxh/ would exist
+            array('anotherxh/?Welcome2', Link::STATUS_INTERNALFAIL), // fails, even if anotherxh/ would exist
             array('?Secret', 200), // does not respect unpublished pages
-            array("http://www.\xC3\xA4rger.de/", XH\Link::STATUS_EXTERNALFAIL), // can't handle IDNs
-            array('./tests/unit/data/template.htm?v=1', XH\Link::STATUS_INTERNALFAIL) // doesn't accept query string for existing files
+            array("http://www.\xC3\xA4rger.de/", Link::STATUS_EXTERNALFAIL), // can't handle IDNs
+            array('./tests/unit/data/template.htm?v=1', Link::STATUS_INTERNALFAIL) // doesn't accept query string for existing files
         );
     }
 
@@ -131,7 +135,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
      */
     public function testLinkStatus($url, $expected)
     {
-        $link = new XH\Link($url, '');
+        $link = new Link($url, '');
         $this->linkChecker->determineLinkStatus($link);
         $this->assertEquals($expected, $link->getStatus());
     }
@@ -146,7 +150,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
                 'content' => 'Start Page'
             )
         );
-        $link = new XH\Link('?Welcome', 'Start Page');
+        $link = new Link('?Welcome', 'Start Page');
         $link->setStatus(400);
         $actual = $this->linkChecker->reportError($link);
         @$this->assertTag($matcher, $actual);
@@ -164,7 +168,7 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
                 'content' => $text
             )
         );
-        $link = new XH\Link($url, $text);
+        $link = new Link($url, $text);
         $link->setStatus(300);
         $actual = $this->linkChecker->reportNotice($link);
         @$this->assertTag($matcher, $actual);
@@ -172,10 +176,10 @@ class LinkCheckerTest extends PHPUnit_Framework_TestCase
 
     public function testMessage()
     {
-        $link1 = new XH\Link('devs@cmsimple-xh.org', 'Developers');
-        $link1->setStatus(XH\Link::STATUS_MAILTO);
-        $link2 = new XH\Link('?Welcome', 'Start Page');
-        $link2->setStatus(XH\Link::STATUS_INTERNALFAIL);
+        $link1 = new Link('devs@cmsimple-xh.org', 'Developers');
+        $link1->setStatus(Link::STATUS_MAILTO);
+        $link2 = new Link('?Welcome', 'Start Page');
+        $link2->setStatus(Link::STATUS_INTERNALFAIL);
         $hints = array(
             0 => array(
                 'caveats' => array($link1)
