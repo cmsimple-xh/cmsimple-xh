@@ -70,6 +70,11 @@ EOT;
         spl_autoload_register('XH_autoload');
     }
 
+    protected function tearDown()
+    {
+        spl_autoload_unregister('XH_autoload');
+    }
+
     public function testCoreClass()
     {
         $this->assertInstanceOf('XH\\Foo', new \XH\Foo);
