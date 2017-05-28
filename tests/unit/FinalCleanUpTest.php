@@ -12,38 +12,6 @@
  */
 
 /**
- * A stub for XH_adminMenu().
- *
- * @return string HTML
- */
-function adminMenuStubForFinalCleanUp()
-{
-    return '<ul id="my_admin_menu"></ul>';
-}
-
-/**
- * A stub for XH_plugins().
- *
- * @param bool $admin Whether to return only plugins with an admin.php.
- *
- * @return array
- */
-function pluginsStubForFinalCleanUp($admin)
-{
-    return array('filebrowser', 'jquery', 'pagemanager');
-}
-
-/**
- * A custom admin menu function stub.
- *
- * @return string HTML
- */
-function myAdminMenu()
-{
-    return '';
-}
-
-/**
  * A test case for XH_finalCleanUp().
  *
  * @category Testing
@@ -55,6 +23,10 @@ function myAdminMenu()
 class FinalCleanUpTest extends PHPUnit_Framework_TestCase
 {
     const HTML = '<html><head></head><body></body></html>';
+
+    private $adminMenuStub;
+
+    private $pluginsStub;
 
     /**
      * Sets up the default fixture.
@@ -75,14 +47,10 @@ class FinalCleanUpTest extends PHPUnit_Framework_TestCase
      */
     private function _setUpFunctionStubs()
     {
-        if (function_exists('XH_adminMenu')) {
-            runkit_function_rename('XH_adminMenu', 'XH_adminMenu_ORIG');
-        }
-        runkit_function_rename('adminMenuStubForFinalCleanUp', 'XH_adminMenu');
-        if (function_exists('XH_plugins')) {
-            runkit_function_rename('XH_plugins', 'XH_plugins_ORIG');
-        }
-        runkit_function_rename('pluginsStubForFinalCleanUp', 'XH_plugins');
+        $this->adminMenuStub = new PHPUnit_Extensions_MockFunction('XH_adminMenu', null);
+        $this->adminMenuStub->expects($this->any())->willReturn('<ul id="my_admin_menu"></ul>');
+        $this->pluginsStub = new PHPUnit_Extensions_MockFunction('XH_plugins', null);
+        $this->pluginsStub->expects($this->any())->willReturn(array('filebrowser', 'jquery', 'pagemanager'));
     }
 
     /**
@@ -115,14 +83,8 @@ class FinalCleanUpTest extends PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        runkit_function_rename('XH_adminMenu', 'adminMenuStubForFinalCleanUp');
-        if (function_exists('XH_adminMenu_ORIG')) {
-            runkit_function_rename('XH_adminMenu_ORIG', 'XH_adminMenu');
-        }
-        runkit_function_rename('XH_plugins', 'pluginsStubForFinalCleanUp');
-        if (function_exists('XH_plugins_ORIG')) {
-            runkit_function_rename('XH_plugins_ORIG', 'XH_plugins');
-        }
+        $this->adminMenuStub->restore();
+        $this->pluginsStub->restore();
     }
 
     /**
