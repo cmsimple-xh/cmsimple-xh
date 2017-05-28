@@ -11,8 +11,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once './cmsimple/functions.php';
-
 /**
  * A stub for XH_adminMenu().
  *

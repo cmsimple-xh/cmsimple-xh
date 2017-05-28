@@ -11,11 +11,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-/**
- * The file under test.
- */
-require_once './cmsimple/adminfuncs.php';
-
 if (!defined('XH_ADM')) {
     define('XH_ADM', true);
 }

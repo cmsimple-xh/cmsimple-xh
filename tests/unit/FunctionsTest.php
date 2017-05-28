@@ -11,14 +11,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once './vendor/autoload.php';
-require_once './cmsimple/compat.php';
-
-/**
- * The file under test.
- */
-require_once './cmsimple/functions.php';
-
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;

@@ -11,13 +11,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once './vendor/autoload.php';
-
-require_once './cmsimple/utf8.php';
-require_once './cmsimple/functions.php';
-
-require_once './cmsimple/adminfuncs.php';
-
 class AdminMenuTest extends PHPUnit_Framework_TestCase
 {
     private $_plugins;

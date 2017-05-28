@@ -1,5 +1,13 @@
 <?php
 
+require_once './vendor/autoload.php';
+
+require_once './cmsimple/utf8.php';
+require_once './cmsimple/functions.php';
+require_once './cmsimple/adminfuncs.php';
+require_once './cmsimple/tplfuncs.php';
+require_once './cmsimple/compat.php';
+
 spl_autoload_register(function ($className) {
     $className = str_replace('_', '\\', $className);
     // set $package, $subpackages and $class

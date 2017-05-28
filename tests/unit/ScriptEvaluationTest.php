@@ -11,9 +11,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once './vendor/autoload.php';
-require_once './cmsimple/functions.php';
-
 /**
  * A helper to test multiple evaluation of a function with side effects.
  */

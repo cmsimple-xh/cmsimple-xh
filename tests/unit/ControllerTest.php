@@ -11,11 +11,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once './vendor/autoload.php';
-require_once './cmsimple/adminfuncs.php';
-require_once './cmsimple/functions.php';
-require_once './cmsimple/tplfuncs.php';
-
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;

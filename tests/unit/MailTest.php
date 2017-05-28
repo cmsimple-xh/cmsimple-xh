@@ -11,8 +11,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once './vendor/autoload.php';
-
 /**
  * Testing the mails.
  *

@@ -11,9 +11,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once './vendor/autoload.php';
-require_once './cmsimple/functions.php';
-
 class MailformRenderTest extends PHPUnit_Framework_TestCase
 {
     private $_subject;

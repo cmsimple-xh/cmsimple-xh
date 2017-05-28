@@ -13,8 +13,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once './cmsimple/utf8.php';
-
 class Utf8StrlenTest extends PHPUnit_Framework_TestCase
 {
     public function testUtf8()

@@ -43,7 +43,7 @@
     </target>
 
     <target name="unit-tests" description="runs all unit tests">
-        <phpunit bootstrap="tests\autoload.php" haltonerror="true" haltonfailure="true">
+        <phpunit bootstrap="tests\unit\bootstrap.php" haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
                 <fileset dir="tests/unit">
@@ -81,7 +81,7 @@
             description="runs all tests"/>
 
     <target name="coverage" description="generates coverage report">
-        <exec command="phpunit --bootstrap tests/autoload.php --configuration coverage.xml"
+        <exec command="phpunit --configuration coverage.xml"
               passthru="true" logoutput="true"/>
     </target>
 

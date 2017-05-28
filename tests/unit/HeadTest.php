@@ -11,10 +11,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once './vendor/autoload.php';
-require_once './cmsimple/functions.php';
-require_once './cmsimple/tplfuncs.php';
-
 /**
  * Testing the head() function.
  *

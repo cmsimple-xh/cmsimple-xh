@@ -11,8 +11,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once './cmsimple/functions.php';
-
 /**
  * A test case for the pages class.
  *

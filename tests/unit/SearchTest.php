@@ -11,9 +11,6 @@
  * @link      http://cmsimple-xh.org/
  */
 
-require_once './cmsimple/functions.php';
-require_once './cmsimple/utf8.php';
-
 /**
  * A test case for the search functionality.
  *

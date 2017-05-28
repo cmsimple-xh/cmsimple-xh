@@ -13,8 +13,6 @@
 
 namespace XH;
 
-require_once './cmsimple/functions.php';
-
 use PHPUnit_Framework_TestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
