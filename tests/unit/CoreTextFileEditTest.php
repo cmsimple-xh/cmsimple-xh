@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -29,7 +28,7 @@ use org\bovigo\vfs\vfsStream;
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
+class CoreTextFileEditTest extends TestCase
 {
     private $_subject;
 
@@ -39,11 +38,7 @@ class CoreTextFileEditTest extends PHPUnit_Framework_TestCase
     {
         global $pth, $sn, $file, $_XH_csrfProtection;
 
-        if (!defined('CMSIMPLE_URL')) {
-            define('CMSIMPLE_URL', 'http://example.com/xh/');
-        } else {
-            runkit_constant_redefine('CMSIMPLE_URL', 'http://example.com/xh/');
-        }
+        $this->setConstant('CMSIMPLE_URL', 'http://example.com/xh/');
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
         $this->_testFile = vfsStream::url('test/template.htm');

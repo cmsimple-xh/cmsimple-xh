@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -29,7 +28,7 @@ use org\bovigo\vfs\vfsStream;
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class FunctionsTest extends PHPUnit_Framework_TestCase
+class FunctionsTest extends TestCase
 {
     public function setUp()
     {
@@ -336,11 +335,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     {
         global $cf, $tx;
 
-        if (!defined('XH_URICHAR_SEPARATOR')) {
-            define('XH_URICHAR_SEPARATOR', $uricharSep);
-        } else {
-            runkit_constant_redefine('XH_URICHAR_SEPARATOR', $uricharSep);
-        }
+        $this->setConstant('XH_URICHAR_SEPARATOR', $uricharSep);
         $cf['uri']['word_separator'] = $wordSep;
         $tx['urichar']['org'] = $uricharOrg;
         $tx['urichar']['new'] = $uricharNew;
@@ -359,11 +354,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
     {
         global $cf, $tx;
 
-        if (!defined('XH_URICHAR_SEPARATOR')) {
-            define('XH_URICHAR_SEPARATOR', '/');
-        } else {
-            runkit_constant_redefine('XH_URICHAR_SEPARATOR', '/');
-        }
+        $this->setConstant('XH_URICHAR_SEPARATOR', '/');
         $cf['uri']['word_separator'] = '-';
         $tx['urichar']['org'] = '';
         $tx['urichar']['new'] = '';
@@ -808,7 +799,7 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
      */
     public function testRedirectSelectedUrl($queryString, $selected, $expected)
     {
-        $this->redefineConstant('CMSIMPLE_URL', 'http://example.com/');
+        $this->setConstant('CMSIMPLE_URL', 'http://example.com/');
         $GLOBALS['selected'] = $selected;
         $_SERVER['QUERY_STRING'] = $queryString;
         $this->assertSame($expected, XH_redirectSelectedUrl());
@@ -825,18 +816,6 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
             ['foo=bar&selected=baz', 'baz', 'http://example.com/?baz&foo=bar'],
             ['foo=bar&selected=baz&bar=foo', 'baz', 'http://example.com/?baz&foo=bar&bar=foo']
         );
-    }
-
-    /**
-     * @param string $name
-     */
-    private function redefineConstant($name, $value)
-    {
-        if (!defined($name)) {
-            define($name, $value);
-        } else {
-            runkit_constant_redefine($name, $value);
-        }
     }
 }
 

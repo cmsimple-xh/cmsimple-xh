@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 
@@ -27,7 +26,7 @@ use org\bovigo\vfs\vfsStreamDirectory;
  * @link     http://cmsimple-xh.org/
  * @since    1.7
  */
-class AutoloadTest extends PHPUnit_Framework_TestCase
+class AutoloadTest extends TestCase
 {
     const CLASS_XH_FOO = <<<'EOT'
 <?php

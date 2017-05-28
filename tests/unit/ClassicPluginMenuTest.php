@@ -13,12 +13,11 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
-class ClassicPluginMenuTest extends PHPUnit_Framework_TestCase
+class ClassicPluginMenuTest extends TestCase
 {
     public function setUp()
     {

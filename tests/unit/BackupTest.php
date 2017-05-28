@@ -13,14 +13,13 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
 
-class BackupTest extends PHPUnit_Framework_TestCase
+class BackupTest extends TestCase
 {
     private $_contentFolder;
 

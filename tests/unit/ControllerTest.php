@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -29,7 +28,7 @@ use org\bovigo\vfs\vfsStream;
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class ControllerMakeTest extends PHPUnit_Framework_TestCase
+class ControllerMakeTest extends TestCase
 {
     /**
      * The test subject.
@@ -103,7 +102,7 @@ class ControllerMakeTest extends PHPUnit_Framework_TestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class ControllerMailformTest extends PHPUnit_Framework_TestCase
+class ControllerMailformTest extends TestCase
 {
     /**
      * The test subject.
@@ -229,7 +228,7 @@ class ControllerMailformTest extends PHPUnit_Framework_TestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class ControllerSearchTest extends PHPUnit_Framework_TestCase
+class ControllerSearchTest extends TestCase
 {
     /**
      * The test subject.
@@ -301,7 +300,7 @@ class ControllerSearchTest extends PHPUnit_Framework_TestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class ControllerSitemapTest extends PHPUnit_Framework_TestCase
+class ControllerSitemapTest extends TestCase
 {
     /**
      * The test subject.
@@ -405,7 +404,7 @@ class ControllerSitemapTest extends PHPUnit_Framework_TestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class ControllerPasswordForgottenTest extends PHPUnit_Framework_TestCase
+class ControllerPasswordForgottenTest extends TestCase
 {
     /**
      * The test subject.
@@ -449,7 +448,7 @@ class ControllerPasswordForgottenTest extends PHPUnit_Framework_TestCase
     }
 }
 
-abstract class ControllerLogInOutTestCase extends PHPUnit_Framework_TestCase
+abstract class ControllerLogInOutTestCase extends TestCase
 {
     /**
      * The test subject.
@@ -481,7 +480,7 @@ abstract class ControllerLogInOutTestCase extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->defineConstant('CMSIMPLE_ROOT', '/xh/');
+        $this->setConstant('CMSIMPLE_ROOT', '/xh/');
         $this->subject = new Controller();
         $this->sessionStartMock = new PHPUnit_Extensions_MockFunction(
             'session_start', $this->subject
@@ -492,23 +491,6 @@ abstract class ControllerLogInOutTestCase extends PHPUnit_Framework_TestCase
         $this->setcookieMock = new PHPUnit_Extensions_MockFunction(
             'setcookie', $this->subject
         );
-    }
-
-    /**
-     * (Re)defines a constant.
-     *
-     * @param string $name  A name.
-     * @param mixed  $value A value.
-     *
-     * @return void
-     */
-    protected function defineConstant($name, $value)
-    {
-        if (!defined($name)) {
-            define($name, $value);
-        } else {
-            runkit_constant_redefine($name, $value);
-        }
     }
 }
 
@@ -766,7 +748,7 @@ class ControllerLogoutTest extends ControllerLogInOutTestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class ControllerFrontendFTest extends PHPUnit_Framework_TestCase
+class ControllerFrontendFTest extends TestCase
 {
     /**
      * The test subject.
@@ -926,7 +908,7 @@ class ControllerFrontendFTest extends PHPUnit_Framework_TestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class ControllerBackendFTest extends PHPUnit_Framework_TestCase
+class ControllerBackendFTest extends TestCase
 {
     /**
      * The test subject.
@@ -1182,7 +1164,7 @@ class ControllerBackendFTest extends PHPUnit_Framework_TestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
+class ControllerSavePageDataTest extends TestCase
 {
     /**
      * The test subject.
@@ -1365,7 +1347,7 @@ class ControllerSavePageDataTest extends PHPUnit_Framework_TestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class ControllerPageDataEditorTest extends PHPUnit_Framework_TestCase
+class ControllerPageDataEditorTest extends TestCase
 {
     /**
      * The test subject.
@@ -1419,7 +1401,7 @@ class ControllerPageDataEditorTest extends PHPUnit_Framework_TestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class ControllerFileViewTest extends PHPUnit_Framework_TestCase
+class ControllerFileViewTest extends TestCase
 {
     /**
      * The test subject.
@@ -1564,7 +1546,7 @@ class ControllerFileViewTest extends PHPUnit_Framework_TestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class ControllerFileBackupTest extends PHPUnit_Framework_TestCase
+class ControllerFileBackupTest extends TestCase
 {
     /**
      * The test subject.
@@ -1632,7 +1614,7 @@ class ControllerFileBackupTest extends PHPUnit_Framework_TestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class ControllerFileEditTest extends PHPUnit_Framework_TestCase
+class ControllerFileEditTest extends TestCase
 {
     /**
      * The test subject.
@@ -1709,7 +1691,7 @@ class ControllerFileEditTest extends PHPUnit_Framework_TestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.5
  */
-class ControllerRenderErrorMessagesTest extends PHPUnit_Framework_TestCase
+class ControllerRenderErrorMessagesTest extends TestCase
 {
     /**
      * The test subject.
@@ -1762,7 +1744,7 @@ class ControllerRenderErrorMessagesTest extends PHPUnit_Framework_TestCase
  * @link     http://cmsimple-xh.org/
  * @since    1.6.5
  */
-class ControllerStandardHeaderTest extends PHPUnit_Framework_TestCase
+class ControllerStandardHeaderTest extends TestCase
 {
     /**
      * The test subject.

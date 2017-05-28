@@ -17,7 +17,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 
 /**
@@ -30,7 +29,7 @@ use PHPUnit_Extensions_MockFunction;
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class CSRFProtectionTest extends PHPUnit_Framework_TestCase
+class CSRFProtectionTest extends TestCase
 {
     protected $subject;
 
@@ -42,7 +41,7 @@ class CSRFProtectionTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->defineConstant('CMSIMPLE_ROOT', '/test/');
+        $this->setConstant('CMSIMPLE_ROOT', '/test/');
         $this->startSessionMock = new PHPUnit_Extensions_MockFunction(
             'XH_startSession', null
         );
@@ -75,15 +74,6 @@ class CSRFProtectionTest extends PHPUnit_Framework_TestCase
         $this->headerMock->expects($this->once())->with('HTTP/1.0 403 Forbidden');
         $this->exitMock->expects($this->once());
         $this->subject->check();
-    }
-
-    protected function defineConstant($name, $value)
-    {
-        if (!defined($name)) {
-            define($name, $value);
-        } else {
-            runkit_constant_redefine($name, $value);
-        }
     }
 }
 

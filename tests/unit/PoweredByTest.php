@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -29,7 +28,7 @@ use org\bovigo\vfs\vfsStream;
  * @link     http://cmsimple-xh.org/
  * @since    1.7
  */
-class PoweredByTest extends PHPUnit_Framework_TestCase
+class PoweredByTest extends TestCase
 {
     protected $templatesMock;
 
@@ -41,7 +40,7 @@ class PoweredByTest extends PHPUnit_Framework_TestCase
     {
         global $sn, $pth;
 
-        $this->defineConstant('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.7');
+        $this->setConstant('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.7');
         $this->setUpVirtualFileSystem();
         $this->setUpMocks();
         $sn = '/xh/';
@@ -140,15 +139,6 @@ class PoweredByTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             '<a href="/xh/?site-info">site-info</a>', poweredByLink('site-info')
         );
-    }
-
-    protected function defineConstant($name, $value)
-    {
-        if (defined($name)) {
-            runkit_constant_redefine($name, $value);
-        } else {
-            define($name, $value);
-        }
     }
 }
 

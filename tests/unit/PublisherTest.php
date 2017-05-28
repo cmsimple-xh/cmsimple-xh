@@ -13,9 +13,7 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
-
-class PublisherTest extends PHPUnit_Framework_TestCase
+class PublisherTest extends TestCase
 {
     /**
      * @var Publisher
@@ -26,7 +24,7 @@ class PublisherTest extends PHPUnit_Framework_TestCase
     {
         global $pd_router, $edit, $c;
 
-        $this->redefineConstant('XH_ADM', false);
+        $this->setConstant('XH_ADM', false);
         $edit = false;
         $pd_router = $this->getMockBuilder('XH\\PageDataRouter')
             ->disableOriginalConstructor()
@@ -99,18 +97,6 @@ class PublisherTest extends PHPUnit_Framework_TestCase
             8 => '#cmsimple hide#'
         );
         $this->subject = new Publisher([false, false, false, false, false, false, false, true, false]);
-    }
-
-    /**
-     * @param string $name
-     */
-    private function redefineConstant($name, $value)
-    {
-        if (!defined($name)) {
-            define($name, $value);
-        } else {
-            runkit_constant_redefine($name, $value);
-        }
     }
 
     /**

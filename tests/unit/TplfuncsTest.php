@@ -13,15 +13,10 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
-
-if (!defined('XH_ADM')) {
-    define('XH_ADM', true);
-}
 
 /**
  * A test case for the functions in tplfuncs.php.
@@ -33,7 +28,7 @@ if (!defined('XH_ADM')) {
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class TplfuncsTest extends PHPUnit_Framework_TestCase
+class TplfuncsTest extends TestCase
 {
     public function setUp()
     {
@@ -41,6 +36,7 @@ class TplfuncsTest extends PHPUnit_Framework_TestCase
 
         include './cmsimple/config.php';
         include './cmsimple/languages/en.php';
+        $this->setConstant('XH_ADM', true);
         $onload = 'foo()';
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));

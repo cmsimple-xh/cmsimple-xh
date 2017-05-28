@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
-
 /**
  * A test case for the pages class.
  *
@@ -25,7 +23,7 @@ use PHPUnit_Framework_TestCase;
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class PagesTest extends PHPUnit_Framework_TestCase
+class PagesTest extends TestCase
 {
     private $_subject;
 

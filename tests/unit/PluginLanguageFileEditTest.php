@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -29,7 +28,7 @@ use org\bovigo\vfs\vfsStream;
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class PluginLanguageFileEditTest extends PHPUnit_Framework_TestCase
+class PluginLanguageFileEditTest extends TestCase
 {
     private $_subject;
 
@@ -37,8 +36,8 @@ class PluginLanguageFileEditTest extends PHPUnit_Framework_TestCase
     {
         global $sn, $pth, $file, $plugin;
 
-        $this->_setConstant('CMSIMPLE_URL', 'http://example.com/xh/');
-        $this->_setConstant('XH_FORM_NAMESPACE', '');
+        $this->setConstant('CMSIMPLE_URL', 'http://example.com/xh/');
+        $this->setConstant('XH_FORM_NAMESPACE', '');
         $this->_setUpLanguage();
         $this->_setUpMockery();
         $sn = '/xh/';
@@ -57,15 +56,6 @@ class PluginLanguageFileEditTest extends PHPUnit_Framework_TestCase
         );
         //$this->_setUpMetaConfig();
         $this->_subject = new PluginLanguageFileEdit();
-    }
-
-    private function _setConstant($name, $value)
-    {
-        if (!defined($name)) {
-            define($name, $value);
-        } else {
-            runkit_constant_redefine($name, $value);
-        }
     }
 
     private function _setUpLanguage()

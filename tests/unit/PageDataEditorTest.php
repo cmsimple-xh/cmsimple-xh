@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
-
 /**
  * A test case for the page data editor.
  *
@@ -25,7 +23,7 @@ use PHPUnit_Framework_TestCase;
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class PageDataEditorTest extends PHPUnit_Framework_TestCase
+class PageDataEditorTest extends TestCase
 {
     public function testNothing() {}
 }

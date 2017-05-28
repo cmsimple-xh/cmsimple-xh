@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 
 /**
@@ -26,7 +25,7 @@ use PHPUnit_Extensions_MockFunction;
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class EmergencyTemplateTest extends PHPUnit_Framework_TestCase
+class EmergencyTemplateTest extends TestCase
 {
     /**
      * The function mocks.

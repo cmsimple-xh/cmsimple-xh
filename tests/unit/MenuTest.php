@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 
 /**
@@ -25,7 +24,7 @@ use PHPUnit_Extensions_MockFunction;
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  */
-class MenuTest extends PHPUnit_Framework_TestCase
+class MenuTest extends TestCase
 {
     private $_aStub;
 
@@ -134,11 +133,7 @@ class MenuTest extends PHPUnit_Framework_TestCase
     {
         global $edit;
 
-        if (defined('XH_ADM')) {
-            runkit_constant_redefine('XH_ADM', $flag);
-        } else {
-            define('XH_ADM', $flag);
-        }
+        $this->setConstant('XH_ADM', $flag);
         $edit = $flag;
     }
 

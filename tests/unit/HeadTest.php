@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 
 /**
@@ -26,7 +25,7 @@ use PHPUnit_Extensions_MockFunction;
  * @link     http://cmsimple-xh.org/
  * @since    1.6.3
  */
-class HeadTest extends PHPUnit_Framework_TestCase
+class HeadTest extends TestCase
 {
     /**
      * The XH_title() mock.
@@ -62,8 +61,8 @@ class HeadTest extends PHPUnit_Framework_TestCase
     {
         global $pth, $cf, $tx;
 
-        $this->defineConstant('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.6.3');
-        $this->defineConstant('CMSIMPLE_XH_BUILD', '2014081201');
+        $this->setConstant('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.6.3');
+        $this->setConstant('CMSIMPLE_XH_BUILD', '2014081201');
         $pth['file'] = array(
             'corestyle' => 'corestyle',
             'stylesheet' => 'stylesheet'
@@ -269,23 +268,6 @@ class HeadTest extends PHPUnit_Framework_TestCase
             ),
             head()
         );
-    }
-
-    /**
-     * (Re)defines a constant.
-     *
-     * @param string $name  A name.
-     * @param string $value A value.
-     *
-     * @return void
-     */
-    protected function defineConstant($name, $value)
-    {
-        if (!defined($name)) {
-            define($name, $value);
-        } else {
-            runkit_constant_redefine($name, $value);
-        }
     }
 }
 

@@ -13,10 +13,9 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 
-class AdminMenuTest extends PHPUnit_Framework_TestCase
+class AdminMenuTest extends TestCase
 {
     private $_plugins;
 

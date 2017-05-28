@@ -13,10 +13,9 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 
-class MailformRenderTest extends PHPUnit_Framework_TestCase
+class MailformRenderTest extends TestCase
 {
     private $_subject;
 

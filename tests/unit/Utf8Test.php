@@ -15,9 +15,7 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
-
-class Utf8StrlenTest extends PHPUnit_Framework_TestCase
+class Utf8StrlenTest extends TestCase
 {
     public function testUtf8()
     {
@@ -44,7 +42,7 @@ class Utf8StrlenTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class Utf8SubstrTest extends PHPUnit_Framework_TestCase
+class Utf8SubstrTest extends TestCase
 {
     public function testUtf8()
     {
@@ -125,7 +123,7 @@ class Utf8SubstrTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class Utf8StrtolowerTest extends PHPUnit_Framework_TestCase
+class Utf8StrtolowerTest extends TestCase
 {
     public function testLower()
     {
@@ -140,7 +138,7 @@ class Utf8StrtolowerTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class Utf8StrtoupperTest extends PHPUnit_Framework_TestCase
+class Utf8StrtoupperTest extends TestCase
 {
     public function testUpper()
     {
@@ -155,7 +153,7 @@ class Utf8StrtoupperTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class Utf8StrposTest extends PHPUnit_Framework_TestCase
+class Utf8StrposTest extends TestCase
 {
     public function testUtf8()
     {
@@ -194,7 +192,7 @@ class Utf8StrposTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class Utf8UcfirstTest extends PHPUnit_Framework_TestCase
+class Utf8UcfirstTest extends TestCase
 {
     public function testUcfirst()
     {
@@ -233,7 +231,7 @@ class Utf8UcfirstTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class Utf8IsValidTest extends PHPUnit_Framework_TestCase
+class Utf8IsValidTest extends TestCase
 {
     public function testValidUtf8()
     {
@@ -332,7 +330,7 @@ class Utf8IsValidTest extends PHPUnit_Framework_TestCase
     }
 }
 
-class Utf8BadReplaceTest extends PHPUnit_Framework_TestCase
+class Utf8BadReplaceTest extends TestCase
 {
     public function testValidUtf8()
     {

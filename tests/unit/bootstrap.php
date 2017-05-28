@@ -8,6 +8,8 @@ require_once './cmsimple/adminfuncs.php';
 require_once './cmsimple/tplfuncs.php';
 require_once './cmsimple/compat.php';
 
+require_once './tests/unit/TestCase.php';
+
 spl_autoload_register(function ($className) {
     $className = str_replace('_', '\\', $className);
     // set $package, $subpackages and $class

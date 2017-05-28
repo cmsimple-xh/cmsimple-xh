@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
-
 /**
  * A helper to test multiple evaluation of a function with side effects.
  */
@@ -38,7 +36,7 @@ EOS
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class ScriptEvaluationTest extends PHPUnit_Framework_TestCase
+class ScriptEvaluationTest extends TestCase
 {
     public function setUp()
     {

@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
-
 /**
  * A test stub to avoid actual checking of external links.
  */
@@ -40,7 +38,7 @@ class TestingLinkChecker extends LinkChecker
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class LinkCheckerTest extends PHPUnit_Framework_TestCase
+class LinkCheckerTest extends TestCase
 {
     protected $linkChecker;
 

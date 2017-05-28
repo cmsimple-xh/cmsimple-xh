@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Extensions_MockFunction;
 
 /**
@@ -25,7 +24,7 @@ use PHPUnit_Extensions_MockFunction;
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/
  */
-class FinalCleanUpTest extends PHPUnit_Framework_TestCase
+class FinalCleanUpTest extends TestCase
 {
     const HTML = '<html><head></head><body></body></html>';
 
@@ -41,7 +40,7 @@ class FinalCleanUpTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->_setUpFunctionStubs();
-        $this->_setConstant('XH_ADM', true);
+        $this->setConstant('XH_ADM', true);
         $this->_setUpGlobals();
     }
 
@@ -217,7 +216,7 @@ class FinalCleanUpTest extends PHPUnit_Framework_TestCase
      */
     public function testEmitsBjsInFrontEnd()
     {
-        $this->_setConstant('XH_ADM', false);
+        $this->setConstant('XH_ADM', false);
         $matcher = array(
             'tag' => 'body',
             'child' => array(
@@ -226,23 +225,6 @@ class FinalCleanUpTest extends PHPUnit_Framework_TestCase
             )
         );
         $this->_assertResultMatches($matcher);
-    }
-
-    /**
-     * Sets the value of a constant.
-     *
-     * @param string A name of a constant.
-     * @param mixed  A value.
-     *
-     * @return void
-     */
-    private function _setConstant($name, $value)
-    {
-        if (!defined($name)) {
-            define($name, $value);
-        } else {
-            runkit_constant_redefine($name, $value);
-        }
     }
 
     /**

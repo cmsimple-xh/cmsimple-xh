@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
-
 /**
  * A test case for the password forgotten class.
  *
@@ -25,7 +23,7 @@ use PHPUnit_Framework_TestCase;
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class PasswordForgottenTest extends PHPUnit_Framework_TestCase
+class PasswordForgottenTest extends TestCase
 {
     protected $passwordForgotten;
 

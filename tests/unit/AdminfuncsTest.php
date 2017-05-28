@@ -13,12 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Framework_TestCase;
-
-if (!defined('XH_ADM')) {
-    define('XH_ADM', true);
-}
-
 /**
  * A test case for the functions in adminfuncs.php.
  *
@@ -29,8 +23,13 @@ if (!defined('XH_ADM')) {
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class AdminfuncsTest extends PHPUnit_Framework_TestCase
+class AdminfuncsTest extends TestCase
 {
+    protected function setUp()
+    {
+        $this->setConstant('XH_ADM', true);
+    }
+
     /**
      * @expectedException PHPUnit_Framework_Error_Warning
      */
