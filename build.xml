@@ -55,7 +55,7 @@
 
     <target name="validation-tests" description="runs all validation tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
-        <phpunit bootstrap="tests\autoload.php" haltonerror="true" haltonfailure="true">
+        <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
                 <fileset dir="tests/validation">
@@ -67,7 +67,7 @@
 
     <target name="attack-tests" description="runs all attack tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
-        <phpunit bootstrap="tests\autoload.php" haltonerror="true" haltonfailure="true">
+        <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
                 <fileset dir="tests/attack">
