@@ -1,5 +1,7 @@
 <?php
 
+namespace XH;
+
 /**
  * Extension for PHPUnit that makes MockObject-style expectations possible for global functions (even PECL functions).
  *
@@ -7,7 +9,7 @@
  *
  * @author zoltan.tothczifra
  */
-class PHPUnit_Extensions_MockFunction
+class FunctionMock
 {
     /**
      * Incremental ID of the current object instance to be able to find it.
@@ -74,7 +76,7 @@ class PHPUnit_Extensions_MockFunction
     /**
      * List of active mock object instances (those that are not restored) with their ID as key.
      *
-     * @var PHPUnit_Extensions_MockFunction[]
+     * @var FunctionMock[]
      */
     protected static $instances = array();
 

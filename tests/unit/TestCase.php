@@ -14,7 +14,6 @@
 namespace XH;
 
 use PHPUnit_Framework_TestCase;
-use PHPUnit_Extensions_MockFunction;
 
 class TestCase extends PHPUnit_Framework_TestCase
 {
@@ -25,7 +24,7 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     protected function getFunctionMock($name, $scopeObject)
     {
-        return new PHPUnit_Extensions_MockFunction($name, $scopeObject);
+        return new FunctionMock($name, $scopeObject);
     }
 
     /**
