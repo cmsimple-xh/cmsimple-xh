@@ -72,5 +72,3 @@ class AdminfuncsTest extends TestCase
         $this->assertFalse(XH_wantsPluginAdministration('pagemanager'));
     }
 }
-
-?>

@@ -39,9 +39,9 @@ class FinalCleanUpTest extends TestCase
      */
     public function setUp()
     {
-        $this->_setUpFunctionStubs();
+        $this->setUpFunctionStubs();
         $this->setConstant('XH_ADM', true);
-        $this->_setUpGlobals();
+        $this->setUpGlobals();
     }
 
     /**
@@ -49,7 +49,7 @@ class FinalCleanUpTest extends TestCase
      *
      * @return void
      */
-    private function _setUpFunctionStubs()
+    private function setUpFunctionStubs()
     {
         $this->adminMenuStub = new PHPUnit_Extensions_MockFunction('XH_adminMenu', null);
         $this->adminMenuStub->expects($this->any())->willReturn('<ul id="my_admin_menu"></ul>');
@@ -66,7 +66,7 @@ class FinalCleanUpTest extends TestCase
      * @global array  The configuration of the core.
      * @global string The script elements to insert at the bottom of the body.
      */
-    private function _setUpGlobals()
+    private function setUpGlobals()
     {
         global $errors, $cf, $bjs;
 
@@ -105,7 +105,7 @@ class FinalCleanUpTest extends TestCase
                 'content' => 'alert(1);'
             )
         );
-        $this->_assertResultMatches($matcher);
+        $this->assertResultMatches($matcher);
     }
 
     /**
@@ -163,7 +163,7 @@ class FinalCleanUpTest extends TestCase
                 'only' => array('tag' => 'li')
             )
         );
-        $this->_assertResultMatches($matcher);
+        $this->assertResultMatches($matcher);
     }
 
     /**
@@ -182,7 +182,7 @@ class FinalCleanUpTest extends TestCase
                 'id' => 'my_admin_menu'
             )
         );
-        $this->_assertResultMatches($matcher);
+        $this->assertResultMatches($matcher);
     }
 
     /**
@@ -206,7 +206,7 @@ class FinalCleanUpTest extends TestCase
                 'id' => 'my_admin_menu'
             )
         );
-        $this->_assertResultMatches($matcher);
+        $this->assertResultMatches($matcher);
     }
 
     /**
@@ -224,7 +224,7 @@ class FinalCleanUpTest extends TestCase
                 'content' => 'alert(1);'
             )
         );
-        $this->_assertResultMatches($matcher);
+        $this->assertResultMatches($matcher);
     }
 
     /**
@@ -234,11 +234,8 @@ class FinalCleanUpTest extends TestCase
      *
      * @return void
      */
-    private function _assertResultMatches(array $matcher)
+    private function assertResultMatches(array $matcher)
     {
         @$this->assertTag($matcher, XH_finalCleanUp(self::HTML));
     }
-
 }
-
-?>

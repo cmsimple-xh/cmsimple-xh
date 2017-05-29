@@ -30,7 +30,7 @@ use org\bovigo\vfs\vfsStream;
  */
 class PluginLanguageFileEditTest extends TestCase
 {
-    private $_subject;
+    private $subject;
 
     public function setUp()
     {
@@ -38,8 +38,8 @@ class PluginLanguageFileEditTest extends TestCase
 
         $this->setConstant('CMSIMPLE_URL', 'http://example.com/xh/');
         $this->setConstant('XH_FORM_NAMESPACE', '');
-        $this->_setUpLanguage();
-        $this->_setUpMockery();
+        $this->setUpLanguage();
+        $this->setUpMockery();
         $sn = '/xh/';
         $file = 'language';
         $plugin = 'pagemanager';
@@ -55,10 +55,10 @@ class PluginLanguageFileEditTest extends TestCase
             )
         );
         //$this->_setUpMetaConfig();
-        $this->_subject = new PluginLanguageFileEdit();
+        $this->subject = new PluginLanguageFileEdit();
     }
 
-    private function _setUpLanguage()
+    private function setUpLanguage()
     {
         global $plugin_tx;
 
@@ -69,11 +69,11 @@ class PluginLanguageFileEditTest extends TestCase
         );
     }
 
-    private function _setUpMockery()
+    private function setUpMockery()
     {
         global $_XH_csrfProtection;
 
-        $this->_tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->_subject);
+        $this->_tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->subject);
         $this->_tagStub->expects($this->any())->will($this->returnCallback(
             function ($str) {
                 return "<$str>";
@@ -99,7 +99,7 @@ class PluginLanguageFileEditTest extends TestCase
                 'accept-charset' => 'UTF-8'
             )
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsSubmitButton()
@@ -112,7 +112,7 @@ class PluginLanguageFileEditTest extends TestCase
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsSiteTitleField()
@@ -122,7 +122,7 @@ class PluginLanguageFileEditTest extends TestCase
             'attributes' => array(),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     /**
@@ -139,7 +139,7 @@ class PluginLanguageFileEditTest extends TestCase
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function hiddenInputData()
@@ -157,42 +157,36 @@ class PluginLanguageFileEditTest extends TestCase
             'tag' => 'p',
             'attributes' => array('class' => 'xh_success')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testSubmit()
     {
-        $writeFileSpy = new PHPUnit_Extensions_MockFunction(
-            'XH_writeFile', $this->_subject
-        );
+        $writeFileSpy = new PHPUnit_Extensions_MockFunction('XH_writeFile', $this->subject);
         $writeFileSpy->expects($this->once())->will($this->returnValue(true));
-        $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->_subject);
+        $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->subject);
         $headerSpy->expects($this->once())->with(
             $this->equalTo(
                 'Location: ' . CMSIMPLE_URL . '?&pagemanager&admin=plugin_language'
                 . '&action=plugin_edit&xh_success=language'
             )
         );
-        $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->_subject);
+        $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->subject);
         $exitSpy->expects($this->once());
-        $this->_subject->submit();
+        $this->subject->submit();
     }
 
     public function testSubmitSaveFailure()
     {
-        $writeFileSpy = new PHPUnit_Extensions_MockFunction(
-            'XH_writeFile', $this->_subject
-        );
+        $writeFileSpy = new PHPUnit_Extensions_MockFunction('XH_writeFile', $this->subject);
         $writeFileSpy->expects($this->once())->will($this->returnValue(false));
-        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->_subject);
+        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->subject);
         $eSpy->expects($this->once());
-        $this->_subject->submit();
+        $this->subject->submit();
     }
 
-    private function _assertFormMatches($matcher)
+    private function assertFormMatches($matcher)
     {
-        @$this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->subject->form());
     }
 }
-
-?>

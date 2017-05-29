@@ -69,13 +69,9 @@ class PoweredByTest extends TestCase
 
     protected function setUpMocks()
     {
-        $this->templatesMock = new PHPUnit_Extensions_MockFunction(
-            'XH_templates', null
-        );
+        $this->templatesMock = new PHPUnit_Extensions_MockFunction('XH_templates', null);
         $this->templatesMock->expects($this->any())->willReturn(array('mini1'));
-        $this->pluginsMock = new PHPUnit_Extensions_MockFunction(
-            'XH_plugins', null
-        );
+        $this->pluginsMock = new PHPUnit_Extensions_MockFunction('XH_plugins', null);
         $this->pluginsMock->expects($this->any())->willReturn(array('memberpages'));
         $this->uencMock = new PHPUnit_Extensions_MockFunction('uenc', null);
         $this->uencMock->expects($this->any())->willReturn('site-info');
@@ -136,10 +132,6 @@ class PoweredByTest extends TestCase
 
     public function testPoweredByLink()
     {
-        $this->assertEquals(
-            '<a href="/xh/?site-info">site-info</a>', poweredByLink('site-info')
-        );
+        $this->assertEquals('<a href="/xh/?site-info">site-info</a>', poweredByLink('site-info'));
     }
 }
-
-?>

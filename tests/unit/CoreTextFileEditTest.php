@@ -30,9 +30,9 @@ use org\bovigo\vfs\vfsStream;
  */
 class CoreTextFileEditTest extends TestCase
 {
-    private $_subject;
+    private $subject;
 
-    private $_testFile;
+    private $testFile;
 
     public function setUp()
     {
@@ -41,18 +41,18 @@ class CoreTextFileEditTest extends TestCase
         $this->setConstant('CMSIMPLE_URL', 'http://example.com/xh/');
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
-        $this->_testFile = vfsStream::url('test/template.htm');
-        file_put_contents($this->_testFile, '<html>');
+        $this->testFile = vfsStream::url('test/template.htm');
+        file_put_contents($this->testFile, '<html>');
         $file = 'template';
         $sn = '/xh/';
-        $pth['file']['template'] = $this->_testFile;
+        $pth['file']['template'] = $this->testFile;
         $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
             ->disableOriginalConstructor()->getMock();
-        $this->_setUpLocalization();
-        $this->_subject = new CoreTextFileEdit();
+        $this->setUpLocalization();
+        $this->subject = new CoreTextFileEdit();
     }
 
-    private function _setUpLocalization()
+    private function setUpLocalization()
     {
         global $tx;
 
@@ -78,7 +78,7 @@ class CoreTextFileEditTest extends TestCase
                 'action' => '/xh/'
             )
         );
-        @$this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsTextarea()
@@ -92,7 +92,7 @@ class CoreTextFileEditTest extends TestCase
             'content' => '<html>',
             'parent' => array('tag' => 'form')
         );
-        @$this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsSubmitButton()
@@ -107,7 +107,7 @@ class CoreTextFileEditTest extends TestCase
             ),
             'parent' => array('tag' => 'form')
         );
-        @$this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsFileInput()
@@ -122,7 +122,7 @@ class CoreTextFileEditTest extends TestCase
                 'value' => $file
             )
         );
-        @$this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsActionInput()
@@ -135,7 +135,7 @@ class CoreTextFileEditTest extends TestCase
                 'value' => 'save'
             )
         );
-        @$this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testSuccessMessage()
@@ -146,38 +146,35 @@ class CoreTextFileEditTest extends TestCase
             'attributes' => array('class' => 'xh_success'),
             'content' => 'Saved Template'
         );
-        @$this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testSubmit()
     {
-        $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->_subject);
+        $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->subject);
         $headerSpy->expects($this->once())->with(
             $this->equalTo(
                 'Location: ' . CMSIMPLE_URL
                 . '?file=template&action=edit&xh_success=template'
             )
         );
-        $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->_subject);
+        $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->subject);
         $exitSpy->expects($this->once());
         $_POST = array('text' => '</html>');
-        $this->_subject->submit();
+        $this->subject->submit();
     }
 
     public function testSubmitCantSave()
     {
-        $writeFileStub = new PHPUnit_Extensions_MockFunction(
-            'XH_writeFile', $this->_subject
-        );
+        $writeFileStub = new PHPUnit_Extensions_MockFunction('XH_writeFile', $this->subject);
         $writeFileStub->expects($this->once())->will($this->returnValue(false));
-        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->_subject);
+        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->subject);
         $eSpy->expects($this->once())->with(
-            $this->equalTo('cntsave'), $this->equalTo('file'),
-            $this->equalTo($this->_testFile)
+            $this->equalTo('cntsave'),
+            $this->equalTo('file'),
+            $this->equalTo($this->testFile)
         );
         $_POST = array('text' => '</html>');
-        $this->_subject->submit();
+        $this->subject->submit();
     }
 }
-
-?>

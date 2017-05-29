@@ -35,11 +35,11 @@ class ClassicPluginMenuTest extends TestCase
                 'tab_main' => 'Main',
             )
         );
-        $this->_setUpVFS();
+        $this->setUpVFS();
         $_XH_pluginMenu = new ClassicPluginMenu();
     }
 
-    private function _setUpVFS()
+    private function setUpVFS()
     {
         global $pth;
 
@@ -69,7 +69,7 @@ class ClassicPluginMenuTest extends TestCase
                 'count' => 1
             )
         );
-        $this->_assertPluginMenuMatches($matcher);
+        $this->assertPluginMenuMatches($matcher);
     }
 
     public function testFullPluginMenuHas5Columns()
@@ -82,7 +82,7 @@ class ClassicPluginMenuTest extends TestCase
             ),
             'parent' => array('tag' => 'table')
         );
-        $this->_assertPluginMenuMatches($matcher);
+        $this->assertPluginMenuMatches($matcher);
     }
 
     /**
@@ -98,7 +98,7 @@ class ClassicPluginMenuTest extends TestCase
             ),
             'ancestor' => array('tag' => 'table')
         );
-        $this->_assertPluginMenuMatches($matcher);
+        $this->assertPluginMenuMatches($matcher);
     }
 
     public function dataForMenuItems()
@@ -144,7 +144,7 @@ class ClassicPluginMenuTest extends TestCase
             'content' => $label,
             'ancestor' => array('tag' => 'table')
         );
-        $this->_assertPluginMenuMatches($matcher);
+        $this->assertPluginMenuMatches($matcher);
     }
 
     public function dataForPluginTextMenuItems()
@@ -168,7 +168,7 @@ class ClassicPluginMenuTest extends TestCase
         @$this->assertNotTag($matcher, print_plugin_admin('off'));
     }
 
-    private function _assertPluginMenuMatches($matcher)
+    private function assertPluginMenuMatches($matcher)
     {
         @$this->assertTag($matcher, print_plugin_admin('on'));
     }
@@ -180,7 +180,7 @@ class ClassicPluginMenuTest extends TestCase
             'attributes' => array('style' => 'color: red'),
             'child' => array('tag' => 'tr')
         );
-        $this->_assertCustomMenuMatches($matcher);
+        $this->assertCustomMenuMatches($matcher);
     }
 
     public function testCustomMenuTab()
@@ -198,7 +198,7 @@ class ClassicPluginMenuTest extends TestCase
                 'content' => 'CMSimple_XH'
             )
         );
-        $this->_assertCustomMenuMatches($matcher);
+        $this->assertCustomMenuMatches($matcher);
     }
 
     public function testCustomMenuData()
@@ -208,7 +208,7 @@ class ClassicPluginMenuTest extends TestCase
             'attributes' => array('style' => 'color: dark'),
             'content' => 'Lorem ipsum'
         );
-        $this->_assertCustomMenuMatches($matcher);
+        $this->assertCustomMenuMatches($matcher);
     }
 
     public function testCustomMenuDataWithoutStyle()
@@ -218,28 +218,28 @@ class ClassicPluginMenuTest extends TestCase
             'attributes' => array(),
             'content' => 'without style'
         );
-        $this->_assertCustomMenuMatches($matcher);
+        $this->assertCustomMenuMatches($matcher);
     }
 
-    private function _assertCustomMenuMatches($matcher)
+    private function assertCustomMenuMatches($matcher)
     {
-        @$this->assertTag($matcher, $this->_renderCustomMenu());
+        @$this->assertTag($matcher, $this->renderCustomMenu());
     }
 
-    private function _renderCustomMenu()
+    private function renderCustomMenu()
     {
         pluginMenu('ROW', '', '', '', array('row' => 'style="color: red"'));
         pluginMenu(
-            'TAB', 'http://cmsimple-xh.org', 'target="_blank"', 'CMSimple_XH',
+            'TAB',
+            'http://cmsimple-xh.org',
+            'target="_blank"',
+            'CMSimple_XH',
             array(
                 'tab' => 'style="color: turquoise"',
                 'link' => 'style="color: lime"'
             )
         );
-        pluginMenu(
-            'DATA', '', '', 'Lorem ipsum',
-            array('data' => 'style="color: dark"')
-        );
+        pluginMenu('DATA', '', '', 'Lorem ipsum', ['data' => 'style="color: dark"']);
         pluginMenu('DATA', '', '', 'without style', array());
         return pluginMenu('SHOW');
     }
@@ -275,5 +275,3 @@ class ClassicPluginMenuTest extends TestCase
         $this->assertEquals($expected, $pth);
     }
 }
-
-?>

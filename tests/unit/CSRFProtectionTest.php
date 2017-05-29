@@ -42,9 +42,7 @@ class CSRFProtectionTest extends TestCase
     public function setUp()
     {
         $this->setConstant('CMSIMPLE_ROOT', '/test/');
-        $this->startSessionMock = new PHPUnit_Extensions_MockFunction(
-            'XH_startSession', null
-        );
+        $this->startSessionMock = new PHPUnit_Extensions_MockFunction('XH_startSession', null);
         $this->headerMock = new PHPUnit_Extensions_MockFunction('header', null);
         $this->exitMock = new PHPUnit_Extensions_MockFunction('XH_exit', null);
         $this->subject = new CSRFProtection();
@@ -76,5 +74,3 @@ class CSRFProtectionTest extends TestCase
         $this->subject->check();
     }
 }
-
-?>

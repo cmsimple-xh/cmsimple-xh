@@ -36,12 +36,8 @@ class MailTest extends TestCase
     public function setUp()
     {
         $this->subject = new Mail();
-        $this->getHostByNameMock = new PHPUnit_Extensions_MockFunction(
-            'gethostbyname', $this->subject
-        );
-        $this->mailMock = new PHPUnit_Extensions_MockFunction(
-            'mail', $this->subject
-        );
+        $this->getHostByNameMock = new PHPUnit_Extensions_MockFunction('gethostbyname', $this->subject);
+        $this->mailMock = new PHPUnit_Extensions_MockFunction('mail', $this->subject);
     }
 
     /**
@@ -112,5 +108,3 @@ class MailTest extends TestCase
         $this->subject->send();
     }
 }
-
-?>

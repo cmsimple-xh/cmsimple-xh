@@ -75,7 +75,9 @@ class PageDataRouterTest extends TestCase
 
     public function testFindFieldValueArray()
     {
-        $expected = array(1 => array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'url' => 'News', 'bar' => '', 'snork' => true));
+        $expected = array(
+            1 => array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'url' => 'News', 'bar' => '', 'snork' => true)
+        );
         $actual = $this->pd->find_field_value('list', 'bar', ',');
         $this->assertEquals($expected, $actual);
     }
@@ -153,10 +155,10 @@ class PageDataRouterTest extends TestCase
 
     public function testPageAsPHP()
     {
-        $expected = "<?php\n\$page_data[]=array(\n'url'=>'wrong',\n'foo'=>'foo0',\n'bar'=>'bar0',\n'list'=>''\n);\n?>\n";
+        $expected = "<?php\n"
+            . "\$page_data[]=array(\n'url'=>'wrong',\n'foo'=>'foo0',\n'bar'=>'bar0',\n'list'=>''\n);\n"
+            . "?>\n";
         $actual = $this->pd->pageAsPHP(0);
         $this->assertEquals($expected, $actual);
     }
 }
-
-?>

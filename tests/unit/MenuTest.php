@@ -26,9 +26,9 @@ use PHPUnit_Extensions_MockFunction;
  */
 class MenuTest extends TestCase
 {
-    private $_aStub;
+    private $aStub;
 
-    private $_hideStub;
+    private $hideStub;
 
     /**
      * Sets up the default fixture.
@@ -43,11 +43,11 @@ class MenuTest extends TestCase
 
         $pth = array('folder' => array('classes' => './cmsimple/classes/'));
         $s = 0;
-        $this->_setUpPageStructure();
-        $this->_setUpConfiguration();
-        $this->_setUpEditMode(false);
-        $this->_setUpPageDataRouterMock();
-        $this->_setUpFunctionStubs();
+        $this->setUpPageStructure();
+        $this->setUpConfiguration();
+        $this->setUpEditMode(false);
+        $this->setUpPageDataRouterMock();
+        $this->setUpFunctionStubs();
     }
 
     /**
@@ -60,7 +60,7 @@ class MenuTest extends TestCase
      * @global array The URLs of the pages.
      * @global array The levels of the pages.
      */
-    private function _setUpPageStructure()
+    private function setUpPageStructure()
     {
         global $cl, $h, $u, $l;
 
@@ -101,7 +101,7 @@ class MenuTest extends TestCase
      *
      * @global array The configuration of the core.
      */
-    private function _setUpConfiguration()
+    private function setUpConfiguration()
     {
         global $cf;
 
@@ -129,7 +129,7 @@ class MenuTest extends TestCase
      *
      * @global bool Whether edit mode is enabled.
      */
-    private function _setUpEditMode($flag)
+    private function setUpEditMode($flag)
     {
         global $edit;
 
@@ -144,7 +144,7 @@ class MenuTest extends TestCase
      *
      * @global PageDataRouter The page data router.
      */
-    private function _setUpPageDataRouterMock()
+    private function setUpPageDataRouterMock()
     {
         global $pd_router;
 
@@ -167,10 +167,10 @@ class MenuTest extends TestCase
      *
      * @return void
      */
-    private function _setUpFunctionStubs()
+    private function setUpFunctionStubs()
     {
-        $this->_aStub = new PHPUnit_Extensions_MockFunction('a', null);
-        $this->_aStub->expects($this->any())->will(
+        $this->aStub = new PHPUnit_Extensions_MockFunction('a', null);
+        $this->aStub->expects($this->any())->will(
             $this->returnCallback(
                 function ($pageIndex, $suffix) {
                     global $u;
@@ -179,8 +179,8 @@ class MenuTest extends TestCase
                 }
             )
         );
-        $this->_hideStub = new PHPUnit_Extensions_MockFunction('hide', null);
-        $this->_hideStub->expects($this->any())->will(
+        $this->hideStub = new PHPUnit_Extensions_MockFunction('hide', null);
+        $this->hideStub->expects($this->any())->will(
             $this->returnCallback(
                 function ($pageIndex) {
                     return in_array($pageIndex, array(4, 5));
@@ -191,8 +191,8 @@ class MenuTest extends TestCase
 
     public function tearDown()
     {
-        $this->_aStub->restore();
-        $this->_hideStub->restore();
+        $this->aStub->restore();
+        $this->hideStub->restore();
     }
 
     /**
@@ -268,7 +268,7 @@ class MenuTest extends TestCase
         $l = array(1, 1, 2, 2, 2, 1, 1);
         $cl = count($l);
         $cf['menu']['levels'] = 2;
-        $this->assertEquals(array(0, 1, 2, 3, 6), $this->_toc());
+        $this->assertEquals(array(0, 1, 2, 3, 6), $this->toc());
     }
 
     /**
@@ -285,7 +285,7 @@ class MenuTest extends TestCase
 
         $s = 2;
         $cf['show_hidden']['pages_toc'] = 'true';
-        $this->assertEquals(array(0, 1, 2, 3, 6, 8, 10), $this->_toc());
+        $this->assertEquals(array(0, 1, 2, 3, 6, 8, 10), $this->toc());
     }
 
     /**
@@ -302,7 +302,7 @@ class MenuTest extends TestCase
 
         $s = 8;
         $cf['menu']['levelcatch'] = '0';
-        $this->assertEquals(array(0, 1, 8, 10), $this->_toc());
+        $this->assertEquals(array(0, 1, 8, 10), $this->toc());
     }
 
     /**
@@ -317,7 +317,7 @@ class MenuTest extends TestCase
         global $s;
 
         $s = -1;
-        $this->assertEquals(array(0, 1, 8, 10), $this->_toc());
+        $this->assertEquals(array(0, 1, 8, 10), $this->toc());
     }
 
     /**
@@ -325,7 +325,7 @@ class MenuTest extends TestCase
      *
      * @return array
      */
-    private function _toc()
+    private function toc()
     {
         return toc(null, null, array($this, 'li'));
     }
@@ -357,7 +357,7 @@ class MenuTest extends TestCase
                 'tag' => 'li'
             )
         );
-        $this->_assertMatches($matcher);
+        $this->assertMatches($matcher);
     }
 
     /**
@@ -392,7 +392,7 @@ class MenuTest extends TestCase
                 'attributes' => array('class' => $class)
             )
         );
-        $this->_assertMatches($matcher);
+        $this->assertMatches($matcher);
     }
 
     /**
@@ -419,7 +419,7 @@ class MenuTest extends TestCase
             'tag' => 'span',
             'content' => 'Welcome'
         );
-        $this->_assertMatches($matcher);
+        $this->assertMatches($matcher);
     }
 
     /**
@@ -433,7 +433,7 @@ class MenuTest extends TestCase
             'tag' => 'a',
             'content' => 'Blog'
         );
-        $this->_assertMatches($matcher);
+        $this->assertMatches($matcher);
     }
 
     /**
@@ -443,9 +443,9 @@ class MenuTest extends TestCase
      *
      * @return void
      */
-    private function _assertMatches(array $matcher)
+    private function assertMatches(array $matcher)
     {
-        @$this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -463,7 +463,7 @@ class MenuTest extends TestCase
                 'content' => 'Hidden'
             )
         );
-        @$this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -482,7 +482,7 @@ class MenuTest extends TestCase
             'tag' => 'ul',
             'attributes' => array('class' => $class)
         );
-        @$this->assertTag($matcher, $this->_renderAllPages($forOrFrom));
+        @$this->assertTag($matcher, $this->renderAllPages($forOrFrom));
     }
 
     /**
@@ -525,7 +525,7 @@ class MenuTest extends TestCase
                 'content' => 'Blog'
             )
         );
-        @$this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -543,7 +543,7 @@ class MenuTest extends TestCase
                 'content' => 'Welcome'
             )
         );
-        @$this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -561,7 +561,7 @@ class MenuTest extends TestCase
                 'content' => 'Blog'
             )
         );
-        @$this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -584,7 +584,7 @@ class MenuTest extends TestCase
                 'content' => 'Welcome'
             )
         );
-        @$this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -615,7 +615,7 @@ class MenuTest extends TestCase
                 'content' => 'Blog'
             )
         );
-        @$this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -657,7 +657,7 @@ class MenuTest extends TestCase
                 'content' => 'About'
             )
         );
-        @$this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -685,7 +685,7 @@ class MenuTest extends TestCase
             'content' => 'Cold',
             'attributes' => array('target' => '_blank')
         );
-        @$this->assertTag($matcher, $this->_renderAllPages());
+        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -695,13 +695,13 @@ class MenuTest extends TestCase
      */
     public function testPageDoesntOpenInNewWindowInEditMode()
     {
-        $this->_setUpEditMode(true);
+        $this->setUpEditMode(true);
         $matcher = array(
             'tag' => 'a',
             'content' => 'Cold',
             'attributes' => array('target' => '_blank')
         );
-        @$this->assertNotTag($matcher, $this->_renderAllPages());
+        @$this->assertNotTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -711,7 +711,7 @@ class MenuTest extends TestCase
      *
      * @return string HTML
      */
-    private function _renderAllPages($forOrFrom = 1)
+    private function renderAllPages($forOrFrom = 1)
     {
         return li(range(0, 10), $forOrFrom);
     }
@@ -785,5 +785,3 @@ class MenuTest extends TestCase
         $this->assertEquals(11, $hl);
     }
 }
-
-?>

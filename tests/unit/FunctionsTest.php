@@ -676,12 +676,8 @@ class FunctionsTest extends TestCase
         XH_registerPluginType('filebrowser', 'filebrowser');
         XH_registerPluginType('editor', 'ckeditor');
         $this->assertEmpty(XH_registerPluginType('unknown'));
-        $this->assertEquals(
-            array('ckeditor', 'tinymce'), XH_registerPluginType('editor')
-        );
-        $this->assertEquals(
-            array('filebrowser'), XH_registerPluginType('filebrowser')
-        );
+        $this->assertEquals(['ckeditor', 'tinymce'], XH_registerPluginType('editor'));
+        $this->assertEquals(['filebrowser'], XH_registerPluginType('filebrowser'));
     }
 
     /**
@@ -818,5 +814,3 @@ class FunctionsTest extends TestCase
         );
     }
 }
-
-?>

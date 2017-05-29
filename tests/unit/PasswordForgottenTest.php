@@ -62,7 +62,4 @@ class PasswordForgottenTest extends TestCase
     {
         $this->assertTrue($this->passwordForgotten->checkMac($this->currentMac()));
     }
-
 }
-
-?>

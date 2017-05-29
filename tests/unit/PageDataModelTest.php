@@ -65,7 +65,9 @@ class PageDataModelTest extends TestCase
 
     public function testFindArrayfieldValue()
     {
-        $expected = array(1 => array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'url' => 'News', 'bar' => '', 'snork' => true));
+        $expected = array(
+            1 => array('foo' => 'foo1', 'list' => 'foo,bar,baz', 'url' => 'News', 'bar' => '', 'snork' => true)
+        );
         $actual = $this->pd->findArrayfieldValue('list', 'bar', ',');
         $this->assertEquals($expected, $actual);
     }
@@ -144,5 +146,3 @@ class PageDataModelTest extends TestCase
         $this->assertEquals(1, $actual);
     }
 }
-
-?>

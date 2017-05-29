@@ -66,5 +66,3 @@ class SearchTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 }
-
-?>

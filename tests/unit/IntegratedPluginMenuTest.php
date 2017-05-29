@@ -43,12 +43,8 @@ class IntegratedPluginMenuTest extends TestCase
     public function testRegisters5MenuItems()
     {
         $subject = new IntegratedPluginMenu();
-        $registerPluginMenuItem = new PHPUnit_Extensions_MockFunction(
-            'XH_registerPluginMenuItem', $subject
-        );
+        $registerPluginMenuItem = new PHPUnit_Extensions_MockFunction('XH_registerPluginMenuItem', $subject);
         $registerPluginMenuItem->expects($this->exactly(5))->with('filebrowser');
         $subject->render(true);
     }
 }
-
-?>

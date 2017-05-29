@@ -106,7 +106,7 @@ class ScriptEvaluationTest extends TestCase
      */
     public function testSpliceString($string, $offset, $length, $replacement, $expectedResult, $expectedString)
     {
-        $actual = XH_spliceString($string,$offset, $length, $replacement);
+        $actual = XH_spliceString($string, $offset, $length, $replacement);
         $this->assertEquals($expectedResult, $actual);
         $this->assertEquals($expectedString, $string);
     }
@@ -175,5 +175,3 @@ class ScriptEvaluationTest extends TestCase
         evaluate_plugincall('{{{trim(\')}}}');
     }
 }
-
-?>

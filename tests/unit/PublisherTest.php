@@ -155,5 +155,3 @@ class PublisherTest extends TestCase
         $this->assertSame(0, $this->subject->getFirstPublishedPage());
     }
 }
-
-?>

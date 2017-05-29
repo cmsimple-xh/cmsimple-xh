@@ -17,12 +17,12 @@ use PHPUnit_Extensions_MockFunction;
 
 class MailformRenderTest extends TestCase
 {
-    private $_subject;
+    private $subject;
 
     public function setUp()
     {
-        $this->_subject = new Mailform();
-        $tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->_subject);
+        $this->subject = new Mailform();
+        $tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->subject);
         $tagStub->expects($this->any())->will($this->returnCallback(
             function ($string) {
                 return "<$string>";
@@ -32,7 +32,7 @@ class MailformRenderTest extends TestCase
 
     public function testForm()
     {
-        $this->_assertMatches(
+        $this->assertMatches(
             array(
                 'tag' => 'form',
                 'attributes' => array(
@@ -45,7 +45,7 @@ class MailformRenderTest extends TestCase
 
     public function testFunctionInput()
     {
-        $this->_assertMatches(
+        $this->assertMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
@@ -60,8 +60,8 @@ class MailformRenderTest extends TestCase
 
     public function testNoFunctionInputInEmbeddedMailform()
     {
-        $this->_subject = new Mailform(true);
-        $this->_assertNotMatches(
+        $this->subject = new Mailform(true);
+        $this->assertNotMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
@@ -75,7 +75,7 @@ class MailformRenderTest extends TestCase
 
     public function testActionInput()
     {
-        $this->_assertMatches(
+        $this->assertMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
@@ -90,7 +90,7 @@ class MailformRenderTest extends TestCase
 
     public function testSendernameInput()
     {
-        $this->_assertMatches(
+        $this->assertMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
@@ -105,7 +105,7 @@ class MailformRenderTest extends TestCase
 
     public function testSenderphoneInput()
     {
-        $this->_assertMatches(
+        $this->assertMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
@@ -120,7 +120,7 @@ class MailformRenderTest extends TestCase
 
     public function testSenderInput()
     {
-        $this->_assertMatches(
+        $this->assertMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
@@ -136,7 +136,7 @@ class MailformRenderTest extends TestCase
 
     public function testSubjectInput()
     {
-        $this->_assertMatches(
+        $this->assertMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
@@ -152,18 +152,18 @@ class MailformRenderTest extends TestCase
 
     public function testTextareaOfNormalMailform()
     {
-        $this->_testTextarea('mailform');
+        $this->checkTextarea('mailform');
     }
 
     public function testTextareaOfEmbeddedMailform()
     {
-        $this->_subject = new Mailform(true);
-        $this->_testTextarea('xh_mailform');
+        $this->subject = new Mailform(true);
+        $this->checkTextarea('xh_mailform');
     }
 
-    private function _testTextarea($name)
+    private function checkTextarea($name)
     {
-        $this->_assertMatches(
+        $this->assertMatches(
             array(
                 'tag' => 'textarea',
                 'attributes' => array(
@@ -177,7 +177,7 @@ class MailformRenderTest extends TestCase
 
     public function testSubmit()
     {
-        $this->_assertMatches(
+        $this->assertMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
@@ -194,7 +194,7 @@ class MailformRenderTest extends TestCase
         global $cf;
 
         $cf['mailform']['captcha'] = 'true';
-        $this->_assertMatches(
+        $this->assertMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
@@ -204,7 +204,7 @@ class MailformRenderTest extends TestCase
                 'ancestor' => array('tag' => 'form')
             )
         );
-        $this->_assertMatches(
+        $this->assertMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
@@ -223,7 +223,7 @@ class MailformRenderTest extends TestCase
         global $cf;
 
         $cf['mailform']['captcha'] = '';
-        $this->_assertNotMatches(
+        $this->assertNotMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
@@ -232,7 +232,7 @@ class MailformRenderTest extends TestCase
                 'ancestor' => array('tag' => 'form')
             )
         );
-        $this->_assertNotMatches(
+        $this->assertNotMatches(
             array(
                 'tag' => 'input',
                 'attributes' => array(
@@ -243,16 +243,13 @@ class MailformRenderTest extends TestCase
         );
     }
 
-    private function _assertMatches($matcher)
+    private function assertMatches($matcher)
     {
-        @$this->assertTag($matcher, $this->_subject->render());
+        @$this->assertTag($matcher, $this->subject->render());
     }
 
-    private function _assertNotMatches($matcher)
+    private function assertNotMatches($matcher)
     {
-        @$this->assertNotTag($matcher, $this->_subject->render());
+        @$this->assertNotTag($matcher, $this->subject->render());
     }
-
 }
-
-?>

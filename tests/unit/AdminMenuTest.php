@@ -17,25 +17,23 @@ use PHPUnit_Extensions_MockFunction;
 
 class AdminMenuTest extends TestCase
 {
-    private $_plugins;
+    private $plugins;
 
-    private $_ucfirstMock;
+    private $ucfirstMock;
 
     public function setUp()
     {
         global $edit;
 
         $edit = false;
-        $this->_setUpPageStructure();
-        $this->_plugins = array('plugin');
-        $this->_setUpLocalization();
-        $this->_ucfirstMock = new PHPUnit_Extensions_MockFunction(
-            'utf8_ucfirst', $this
-        );
-        $this->_ucfirstMock->expects($this->any())->will($this->returnArgument(0));
+        $this->setUpPageStructure();
+        $this->plugins = array('plugin');
+        $this->setUpLocalization();
+        $this->ucfirstMock = new PHPUnit_Extensions_MockFunction('utf8_ucfirst', $this);
+        $this->ucfirstMock->expects($this->any())->will($this->returnArgument(0));
     }
 
-    private function _setUpPageStructure()
+    private function setUpPageStructure()
     {
         global $sn, $s, $su, $u;
 
@@ -45,7 +43,7 @@ class AdminMenuTest extends TestCase
         $u = array('Welcome');
     }
 
-    private function _setUpLocalization()
+    private function setUpLocalization()
     {
         global $tx, $plugin_tx;
 
@@ -77,7 +75,7 @@ class AdminMenuTest extends TestCase
 
     public function tearDown()
     {
-        $this->_ucfirstMock->restore();
+        $this->ucfirstMock->restore();
     }
 
     /**
@@ -95,7 +93,7 @@ class AdminMenuTest extends TestCase
                 'id' => 'xh_adminmenu'
             )
         );
-        $this->_assertMatches($matcher);
+        $this->assertMatches($matcher);
     }
 
     public function itemData()
@@ -130,7 +128,7 @@ class AdminMenuTest extends TestCase
      */
     public function testShowsPluginsInColumns($count, $style)
     {
-        $this->_plugins = range(1, $count);
+        $this->plugins = range(1, $count);
         $matcher = array(
             'tag' => 'a',
             'content' => '1',
@@ -139,7 +137,7 @@ class AdminMenuTest extends TestCase
                 'attributes' => array('style' => $style)
             )
         );
-        $this->_assertMatches($matcher);
+        $this->assertMatches($matcher);
     }
 
     public function pluginData()
@@ -154,7 +152,7 @@ class AdminMenuTest extends TestCase
 
     public function testShowsAllPluginItems()
     {
-        $this->_plugins = range(1, 10);
+        $this->plugins = range(1, 10);
         $matcher = array(
             'tag' => 'ul',
             'attributes' => array('style' => 'width:125px; margin-left: 0px'),
@@ -163,7 +161,7 @@ class AdminMenuTest extends TestCase
                 'only' => array('tag' => 'li')
             )
         );
-        $this->_assertMatches($matcher);
+        $this->assertMatches($matcher);
     }
 
     public function testShowsAllVisiblePluginItems()
@@ -171,7 +169,7 @@ class AdminMenuTest extends TestCase
         global $cf;
 
         $cf = array('plugins' => array('hidden' => '1, 5, 10'));
-        $this->_plugins = range(1, 10);
+        $this->plugins = range(1, 10);
         $matcher = array(
             'tag' => 'ul',
             'attributes' => array('style' => 'width:125px; margin-left: 0px'),
@@ -180,7 +178,7 @@ class AdminMenuTest extends TestCase
                 'only' => array('tag' => 'li')
             )
         );
-        $this->_assertMatches($matcher);
+        $this->assertMatches($matcher);
     }
 
     public function testRegisterPluginMenuItemReturnsRegisteredItems()
@@ -218,7 +216,7 @@ class AdminMenuTest extends TestCase
 
     public function testShowsRegisteredPluginMenuItem()
     {
-        $this->_plugins = array('foo');
+        $this->plugins = array('foo');
         $matcher = array(
             'tag' => 'a',
             'content' => 'Config',
@@ -226,7 +224,7 @@ class AdminMenuTest extends TestCase
                 'href' => '?&foo&admin=plugin_config&action=plugin_edit'
             )
         );
-        $this->_assertMatches($matcher);
+        $this->assertMatches($matcher);
     }
 
     public function testEditModeLinksToStartPage()
@@ -239,14 +237,11 @@ class AdminMenuTest extends TestCase
             'content' => $tx['editmenu']['edit'],
             'attributes' => array('href' => '/?Welcome&edit')
         );
-        $this->_assertMatches($matcher);
+        $this->assertMatches($matcher);
     }
 
-    private function _assertMatches($matcher)
+    private function assertMatches($matcher)
     {
-        @$this->assertTag($matcher, XH_adminMenu($this->_plugins));
+        @$this->assertTag($matcher, XH_adminMenu($this->plugins));
     }
 }
-
-
-?>

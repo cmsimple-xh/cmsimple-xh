@@ -27,7 +27,7 @@ use PHPUnit_Extensions_MockFunction;
  */
 class MailformTest extends TestCase
 {
-    private $_goodPost;
+    private $goodPost;
 
     public function setUp()
     {
@@ -40,7 +40,7 @@ class MailformTest extends TestCase
                 'lf_only' => ''
             )
         );
-        $this->_goodPost = array(
+        $this->goodPost = array(
             'sendername' => 'Christoph Becker',
             'senderphone' => '123456789',
             'sender' => 'devs@cmsimple-xh.org',
@@ -53,7 +53,7 @@ class MailformTest extends TestCase
 
     public function testCheckCorrectInput()
     {
-        $_POST = $this->_goodPost;
+        $_POST = $this->goodPost;
         $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('isValidAddress')->willReturn(true);
         $mailform = new Mailform(false, null, $mail);
@@ -62,30 +62,30 @@ class MailformTest extends TestCase
 
     public function testCheckWrongCaptchaCode()
     {
-        $this->_testCheckInvalid('captchafalse', 'cap', '54321');
+        $this->checkInvalid('captchafalse', 'cap', '54321');
     }
 
     public function testCheckEmptyMessage()
     {
-        $this->_testCheckInvalid('mustwritemessage', 'mailform', '');
+        $this->checkInvalid('mustwritemessage', 'mailform', '');
     }
 
     public function testCheckInvalidEmailAddress()
     {
-        $this->_testCheckInvalid('notaccepted', 'sender', 'devscmsimple-xh.org');
+        $this->checkInvalid('notaccepted', 'sender', 'devscmsimple-xh.org');
     }
 
     public function testCheckEmptySubject()
     {
-        $this->_testCheckInvalid('notaccepted', 'subject', '');
+        $this->checkInvalid('notaccepted', 'subject', '');
     }
 
-    private function _testCheckInvalid($langKey, $postKey, $postValue)
+    private function checkInvalid($langKey, $postKey, $postValue)
     {
         global $tx;
 
         $tx['mailform'][$langKey] = 'foo bar';
-        $_POST = $this->_goodPost;
+        $_POST = $this->goodPost;
         $_POST[$postKey] = $postValue;
         $matcher = array(
             'tag' => 'p',
@@ -111,9 +111,7 @@ class MailformTest extends TestCase
         $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('send')->willReturn(false);
         $mailform = new Mailform(false, null, $mail);
-        $logMessageSpy = new PHPUnit_Extensions_MockFunction(
-            'XH_logMessage', $mailform
-        );
+        $logMessageSpy = new PHPUnit_Extensions_MockFunction('XH_logMessage', $mailform);
         $logMessageSpy->expects($this->once());
         $this->assertFalse($mailform->submit());
     }
@@ -212,7 +210,4 @@ class MailformTest extends TestCase
         // TODO: don't test for *protected* property
         $this->assertEquals($subject, $mailform->subject);
     }
-
 }
-
-?>

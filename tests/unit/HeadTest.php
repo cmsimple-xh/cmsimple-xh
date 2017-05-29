@@ -202,9 +202,7 @@ class HeadTest extends TestCase
 
         $sn = '/xh/';
         $u = array('Welcome');
-        $findPreviousPageMock = new PHPUnit_Extensions_MockFunction(
-            'XH_findPreviousPage', null
-        );
+        $findPreviousPageMock = new PHPUnit_Extensions_MockFunction('XH_findPreviousPage', null);
         $findPreviousPageMock->expects($this->any())->will($this->returnValue(0));
         @$this->assertTag(
             array(
@@ -233,9 +231,7 @@ class HeadTest extends TestCase
 
         $sn = '/xh/';
         $u = array('Welcome');
-        $findNextPageMock = new PHPUnit_Extensions_MockFunction(
-            'XH_findNextPage', null
-        );
+        $findNextPageMock = new PHPUnit_Extensions_MockFunction('XH_findNextPage', null);
         $findNextPageMock->expects($this->any())->will($this->returnValue(0));
         @$this->assertTag(
             array(
@@ -270,5 +266,3 @@ class HeadTest extends TestCase
         );
     }
 }
-
-?>

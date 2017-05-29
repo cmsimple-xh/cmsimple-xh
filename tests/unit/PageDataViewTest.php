@@ -105,5 +105,3 @@ class PageDataViewTest extends TestCase
         @$this->assertTag($matcher, $actual);
     }
 }
-
-?>

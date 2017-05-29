@@ -14,21 +14,6 @@
 namespace XH;
 
 /**
- * A test stub to avoid actual checking of external links.
- */
-class TestingLinkChecker extends LinkChecker
-{
-    protected function makeHeadRequest($host, $path)
-    {
-        // request to IDN will fail
-        if (preg_match('/[\x80-\xFF]/', $host)) {
-            return false;
-        }
-        return 200;
-    }
-}
-
-/**
  * A test case for the link checker.
  *
  * @category Testing
@@ -73,7 +58,17 @@ class LinkCheckerTest extends TestCase
             'mailform' => array('email' => 'devs@cmsimple-xh.org')
         );
         $onload = '';
-        $this->linkChecker = new TestingLinkChecker();
+        $this->linkChecker = $this->getMockBuilder('XH\LinkChecker')
+            ->setMethods(['makeHeadRequest'])
+            ->getMock();
+        $this->linkChecker->method('makeHeadRequest')
+            ->will($this->returnCallback(function ($host, $path) {
+                // request to IDN will fail
+                if (preg_match('/[\x80-\xFF]/', $host)) {
+                    return false;
+                }
+                return 200;
+            }));
     }
 
     public function testPrepare()
@@ -124,7 +119,8 @@ class LinkCheckerTest extends TestCase
             array('anotherxh/?Welcome2', Link::STATUS_INTERNALFAIL), // fails, even if anotherxh/ would exist
             array('?Secret', 200), // does not respect unpublished pages
             array("http://www.\xC3\xA4rger.de/", Link::STATUS_EXTERNALFAIL), // can't handle IDNs
-            array('./tests/unit/data/template.htm?v=1', Link::STATUS_INTERNALFAIL) // doesn't accept query string for existing files
+            array('./tests/unit/data/template.htm?v=1', Link::STATUS_INTERNALFAIL)
+                // doesn't accept query string for existing files
         );
     }
 
@@ -192,5 +188,3 @@ class LinkCheckerTest extends TestCase
         @$this->assertSelectCount('h5', 3, $actual);
     }
 }
-
-?>

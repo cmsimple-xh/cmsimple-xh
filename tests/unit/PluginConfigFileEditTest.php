@@ -30,7 +30,7 @@ use org\bovigo\vfs\vfsStream;
  */
 class PluginConfigFileEditTest extends TestCase
 {
-    private $_subject;
+    private $subject;
 
     public function setUp()
     {
@@ -39,8 +39,8 @@ class PluginConfigFileEditTest extends TestCase
         $this->setConstant('CMSIMPLE_URL', 'http://example.com/xh/');
         $this->setConstant('XH_FORM_NAMESPACE', '');
         $plugin = 'pagemanager';
-        $this->_setUpConfiguration();
-        $this->_setUpMockery();
+        $this->setUpConfiguration();
+        $this->setUpMockery();
         $sn = '/xh/';
         $file = 'plugin_config';
         vfsStreamWrapper::register();
@@ -54,11 +54,11 @@ class PluginConfigFileEditTest extends TestCase
                 'plugin_config' => vfsStream::url('test/config.php')
             )
         );
-        $this->_setUpMetaConfig();
-        $this->_subject = new PluginConfigFileEdit();
+        $this->setUpMetaConfig();
+        $this->subject = new PluginConfigFileEdit();
     }
 
-    private function _setUpConfiguration()
+    private function setUpConfiguration()
     {
         global $plugin_cf;
 
@@ -74,11 +74,11 @@ class PluginConfigFileEditTest extends TestCase
         );
     }
 
-    private function _setUpMockery()
+    private function setUpMockery()
     {
         global $_XH_csrfProtection;
 
-        $this->_tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->_subject);
+        $this->_tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->subject);
         $this->_tagStub->expects($this->any())->will($this->returnCallback(
             function ($str) {
                 return "<$str>";
@@ -88,7 +88,7 @@ class PluginConfigFileEditTest extends TestCase
             ->disableOriginalConstructor()->getMock();
     }
 
-    private function _setUpMetaConfig()
+    private function setUpMetaConfig()
     {
         $filename = vfsStream::url('test/pagemanager/config/metaconfig.php');
         mkdir(dirname($filename), 0777, true);
@@ -121,7 +121,7 @@ EOT;
                 'accept-charset' => 'UTF-8'
             )
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsSubmitButton()
@@ -133,7 +133,7 @@ EOT;
                 'class' => 'submit'
             )
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsStringField()
@@ -148,7 +148,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsHiddenField()
@@ -162,7 +162,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsBoolField()
@@ -176,7 +176,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsEnumField()
@@ -192,7 +192,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsRandomField()
@@ -206,7 +206,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormDoesNotContainScriptingRegexpField()
@@ -216,7 +216,7 @@ EOT;
             'attributes' => array('name' => 'scripting_regexp'),
             'ancestor' => 'form'
         );
-        @$this->assertNotTag($matcher, $this->_subject->form());
+        @$this->assertNotTag($matcher, $this->subject->form());
     }
 
     public function testSuccessMessage()
@@ -226,41 +226,37 @@ EOT;
             'tag' => 'p',
             'attributes' => array('class' => 'xh_success')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testSubmit()
     {
-        $writeFileSpy = new PHPUnit_Extensions_MockFunction(
-            'XH_writeFile', $this->_subject
-        );
+        $writeFileSpy = new PHPUnit_Extensions_MockFunction('XH_writeFile', $this->subject);
         $writeFileSpy->expects($this->once())->will($this->returnValue(true));
-        $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->_subject);
+        $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->subject);
         $headerSpy->expects($this->once())->with(
             $this->equalTo(
                 'Location: ' . CMSIMPLE_URL . '?&pagemanager&admin=plugin_config'
                 . '&action=plugin_edit&xh_success=config'
             )
         );
-        $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->_subject);
+        $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->subject);
         $exitSpy->expects($this->once());
-        $this->_subject->submit();
+        $this->subject->submit();
     }
 
     public function testSubmitSaveFailure()
     {
-        $writeFileSpy = new PHPUnit_Extensions_MockFunction(
-            'XH_writeFile', $this->_subject
-        );
+        $writeFileSpy = new PHPUnit_Extensions_MockFunction('XH_writeFile', $this->subject);
         $writeFileSpy->expects($this->once())->will($this->returnValue(false));
-        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->_subject);
+        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->subject);
         $eSpy->expects($this->once());
-        $this->_subject->submit();
+        $this->subject->submit();
     }
 
-    private function _assertFormMatches($matcher)
+    private function assertFormMatches($matcher)
     {
-        @$this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->subject->form());
     }
 
     //public function dataForFormField()
@@ -278,5 +274,3 @@ EOT;
     //    );
     //}
 }
-
-?>

@@ -25,7 +25,7 @@ namespace XH;
  */
 class PagesTest extends TestCase
 {
-    private $_subject;
+    private $subject;
 
     public function setUp()
     {
@@ -84,7 +84,7 @@ class PagesTest extends TestCase
             '<h1>News</h1> #CMSimple hide#'
         );
         $cf['menu']['levelcatch'] = 10;
-        $this->_subject = new Pages();
+        $this->subject = new Pages();
     }
 
     public function dataForIsHidden()
@@ -100,7 +100,7 @@ class PagesTest extends TestCase
      */
     public function testIsHidden($n, $expected)
     {
-        $actual = $this->_subject->isHidden($n);
+        $actual = $this->subject->isHidden($n);
         $this->assertEquals($expected, $actual);
     }
 
@@ -109,7 +109,7 @@ class PagesTest extends TestCase
         global $c;
 
         $expected = count($c);
-        $actual = $this->_subject->getCount();
+        $actual = $this->subject->getCount();
         $this->assertEquals($expected, $actual);
     }
 
@@ -117,9 +117,9 @@ class PagesTest extends TestCase
     {
         global $h;
 
-        for ($i = 0; $i < $this->_subject->getCount(); ++$i) {
+        for ($i = 0; $i < $this->subject->getCount(); ++$i) {
             $expected = $h[$i];
-            $actual = $this->_subject->heading($i);
+            $actual = $this->subject->heading($i);
             $this->assertEquals($expected, $actual);
         }
     }
@@ -128,9 +128,9 @@ class PagesTest extends TestCase
     {
         global $h;
 
-        for ($i = 0; $i < $this->_subject->getCount(); ++$i) {
+        for ($i = 0; $i < $this->subject->getCount(); ++$i) {
             $expected = html_entity_decode(strip_tags($h[$i]), ENT_QUOTES, 'UTF-8');
-            $actual = $this->_subject->name($i);
+            $actual = $this->subject->name($i);
             $this->assertEquals($expected, $actual);
         }
     }
@@ -139,9 +139,9 @@ class PagesTest extends TestCase
     {
         global $u;
 
-        for ($i = 0; $i < $this->_subject->getCount(); ++$i) {
+        for ($i = 0; $i < $this->subject->getCount(); ++$i) {
             $expected = $u[$i];
-            $actual = $this->_subject->url($i);
+            $actual = $this->subject->url($i);
             $this->assertEquals($expected, $actual);
         }
     }
@@ -150,9 +150,9 @@ class PagesTest extends TestCase
     {
         global $l;
 
-        for ($i = 0; $i < $this->_subject->getCount(); ++$i) {
+        for ($i = 0; $i < $this->subject->getCount(); ++$i) {
             $expected = $l[$i];
-            $actual = $this->_subject->level($i);
+            $actual = $this->subject->level($i);
             $this->assertEquals($expected, $actual);
         }
     }
@@ -161,9 +161,9 @@ class PagesTest extends TestCase
     {
         global $c;
 
-        for ($i = 0; $i < $this->_subject->getCount(); ++$i) {
+        for ($i = 0; $i < $this->subject->getCount(); ++$i) {
             $expected = $c[$i];
-            $actual = $this->_subject->content($i);
+            $actual = $this->subject->content($i);
             $this->assertEquals($expected, $actual);
         }
     }
@@ -181,14 +181,14 @@ class PagesTest extends TestCase
      */
     public function testToplevels($ignoreHidden, $expected)
     {
-        $actual = $this->_subject->toplevels($ignoreHidden);
+        $actual = $this->subject->toplevels($ignoreHidden);
         $this->assertEquals($expected, $actual);
     }
 
     public function testToplevelsDefaults()
     {
         $expected = array(0, 1, 8);
-        $actual = $this->_subject->toplevels();
+        $actual = $this->subject->toplevels();
         $this->assertEquals($expected, $actual);
     }
 
@@ -206,14 +206,14 @@ class PagesTest extends TestCase
      */
     public function testChilren($n, $ignoreHidden, $expected)
     {
-        $actual = $this->_subject->children($n, $ignoreHidden);
+        $actual = $this->subject->children($n, $ignoreHidden);
         $this->assertEquals($expected, $actual);
     }
 
     public function testChildrenDefaults()
     {
         $expected = array(2, 6);
-        $actual = $this->_subject->children(1);
+        $actual = $this->subject->children(1);
         $this->assertEquals($expected, $actual);
     }
 
@@ -232,14 +232,14 @@ class PagesTest extends TestCase
      */
     public function testParent($n, $ignoreHidden, $expected)
     {
-        $actual = $this->_subject->parent($n, $ignoreHidden);
+        $actual = $this->subject->parent($n, $ignoreHidden);
         $this->assertEquals($expected, $actual);
     }
 
     public function testParentDefaults()
     {
         $expected = 2;
-        $actual = $this->_subject->parent(5);
+        $actual = $this->subject->parent(5);
         $this->assertEquals($expected, $actual);
     }
 
@@ -257,7 +257,7 @@ class PagesTest extends TestCase
      */
     public function testPageWithHeading($heading, $expected)
     {
-        $actual = $this->_subject->pageWithHeading($heading);
+        $actual = $this->subject->pageWithHeading($heading);
         $this->assertEquals($expected, $actual);
     }
 
@@ -275,7 +275,7 @@ class PagesTest extends TestCase
             array("About", '?About'),
             array("${indent}Contact", '?About:Contact'),
         );
-        $this->assertEquals($expected, $this->_subject->linkList());
+        $this->assertEquals($expected, $this->subject->linkList());
     }
 
     public function testCustomLinkList()
@@ -294,21 +294,19 @@ class PagesTest extends TestCase
             array("* ${indent}Contact", '?About:Contact'),
             array('* News', '?News')
         );
-        $this->assertEquals($expected, $this->_subject->linkList('* ', false));
+        $this->assertEquals($expected, $this->subject->linkList('* ', false));
     }
 
     public function testGetAncestorsOf()
     {
-        $this->assertEquals(array(2, 1), $this->_subject->getAncestorsOf(5));
+        $this->assertEquals(array(2, 1), $this->subject->getAncestorsOf(5));
     }
 
     public function testGetAncestorsOfEvenIfHidden()
     {
         $this->assertEquals(
             array(4, 1),
-            $this->_subject->getAncestorsOf(5, false)
+            $this->subject->getAncestorsOf(5, false)
         );
     }
 }
-
-?>

@@ -38,7 +38,7 @@ EOS
  */
 class CoreConfigFileEditTest extends TestCase
 {
-    private $_subject;
+    private $subject;
 
     public function setUp()
     {
@@ -46,8 +46,8 @@ class CoreConfigFileEditTest extends TestCase
 
         $this->setConstant('CMSIMPLE_URL', 'http://example.com/xh/');
         $this->setConstant('XH_FORM_NAMESPACE', '');
-        $this->_setUpConfiguration();
-        $this->_setUpMockery();
+        $this->setUpConfiguration();
+        $this->setUpMockery();
         $sn = '/xh/';
         $file = 'config';
         vfsStreamWrapper::register();
@@ -61,11 +61,11 @@ class CoreConfigFileEditTest extends TestCase
                 'config' => vfsStream::url('test/config.php')
             )
         );
-        $this->_setUpMetaConfig();
-        $this->_subject = new CoreConfigFileEdit();
+        $this->setUpMetaConfig();
+        $this->subject = new CoreConfigFileEdit();
     }
 
-    private function _setUpConfiguration()
+    private function setUpConfiguration()
     {
         global $cf;
 
@@ -90,11 +90,11 @@ class CoreConfigFileEditTest extends TestCase
         );
     }
 
-    private function _setUpMockery()
+    private function setUpMockery()
     {
         global $_XH_csrfProtection;
 
-        $this->_tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->_subject);
+        $this->_tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->subject);
         $this->_tagStub->expects($this->any())->will($this->returnCallback(
             function ($str) {
                 return "<$str>";
@@ -104,7 +104,7 @@ class CoreConfigFileEditTest extends TestCase
             ->disableOriginalConstructor()->getMock();
     }
 
-    private function _setUpMetaConfig()
+    private function setUpMetaConfig()
     {
         $contents = <<<EOT
 <?php
@@ -139,7 +139,7 @@ EOT;
                 'accept-charset' => 'UTF-8'
             )
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsSubmitButton()
@@ -152,7 +152,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsMetaRobotsField()
@@ -167,7 +167,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsMenuLevelcatchField()
@@ -181,7 +181,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsForBarField()
@@ -191,7 +191,7 @@ EOT;
             'attributes' => array('name' => 'foo_bar'),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsForBarFieldWithoutOptions()
@@ -202,7 +202,7 @@ EOT;
             'child' => array('tag' => 'option'),
             'ancestor' => array('tag' => 'form')
         );
-        @$this->assertNotTag($matcher, $this->_subject->form());
+        @$this->assertNotTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsLanguageDefaultField()
@@ -216,7 +216,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsLanguageOtherField()
@@ -230,7 +230,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsLanguageOtherDatalist()
@@ -244,7 +244,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsLocatorShowHomepageField()
@@ -258,7 +258,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsMenuLevelsField()
@@ -274,7 +274,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsMenuSdocField()
@@ -288,7 +288,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsMenuSdocDatalist()
@@ -302,7 +302,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsSecuritySecretField()
@@ -316,7 +316,7 @@ EOT;
             ),
             'ancestor' => array('tag' => 'form')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testFormDoesNotContainScriptingRegexpField()
@@ -326,7 +326,7 @@ EOT;
             'attributes' => array('name' => 'scripting_regexp'),
             'ancestor' => array('tag' => 'form')
         );
-        @$this->assertNotTag($matcher, $this->_subject->form());
+        @$this->assertNotTag($matcher, $this->subject->form());
     }
 
     public function testSuccessMessage()
@@ -336,41 +336,37 @@ EOT;
             'tag' => 'p',
             'attributes' => array('class' => 'xh_success')
         );
-        $this->_assertFormMatches($matcher);
+        $this->assertFormMatches($matcher);
     }
 
     public function testSubmit()
     {
-        $writeFileSpy = new PHPUnit_Extensions_MockFunction(
-            'XH_writeFile', $this->_subject
-        );
+        $writeFileSpy = new PHPUnit_Extensions_MockFunction('XH_writeFile', $this->subject);
         $writeFileSpy->expects($this->once())->will($this->returnValue(true));
-        $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->_subject);
+        $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->subject);
         $headerSpy->expects($this->once())->with(
             $this->equalTo(
                 'Location: ' . CMSIMPLE_URL
                 . '?file=config&action=array&xh_success=config'
             )
         );
-        $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->_subject);
+        $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->subject);
         $exitSpy->expects($this->once());
-        $this->_subject->submit();
+        $this->subject->submit();
     }
 
     public function testSubmitSaveFailure()
     {
-        $writeFileSpy = new PHPUnit_Extensions_MockFunction(
-            'XH_writeFile', $this->_subject
-        );
+        $writeFileSpy = new PHPUnit_Extensions_MockFunction('XH_writeFile', $this->subject);
         $writeFileSpy->expects($this->once())->will($this->returnValue(false));
-        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->_subject);
+        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->subject);
         $eSpy->expects($this->once());
-        $this->_subject->submit();
+        $this->subject->submit();
     }
 
-    private function _assertFormMatches($matcher)
+    private function assertFormMatches($matcher)
     {
-        @$this->assertTag($matcher, $this->_subject->form());
+        @$this->assertTag($matcher, $this->subject->form());
     }
 
     //public function dataForFormField()
@@ -388,5 +384,3 @@ EOT;
     //    );
     //}
 }
-
-?>

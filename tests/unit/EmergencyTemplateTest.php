@@ -45,9 +45,7 @@ class EmergencyTemplateTest extends TestCase
             'header', 'head', 'onload', 'toc', 'content', 'loginlink', 'XH_exit'
         );
         foreach ($mockNames as $mockName) {
-            $this->mocks[$mockName] = new PHPUnit_Extensions_MockFunction(
-                $mockName, null
-            );
+            $this->mocks[$mockName] = new PHPUnit_Extensions_MockFunction($mockName, null);
         }
         $this->expectOutputRegex('//');
     }
@@ -154,5 +152,3 @@ class EmergencyTemplateTest extends TestCase
         XH_emergencyTemplate();
     }
 }
-
-?>

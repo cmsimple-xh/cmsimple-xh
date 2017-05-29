@@ -9,6 +9,7 @@ require_once './cmsimple/tplfuncs.php';
 require_once './cmsimple/compat.php';
 
 require_once './tests/unit/TestCase.php';
+require_once './tests/unit/ControllerLogInOutTestCase.php';
 
 spl_autoload_register(function ($className) {
     $className = str_replace('_', '\\', $className);
@@ -38,5 +39,3 @@ spl_autoload_register(function ($className) {
 if (!function_exists('password_hash') || !function_exists('random_bytes')) {
     include_once './cmsimple/password.php';
 }
-
-?>

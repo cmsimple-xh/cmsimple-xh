@@ -14,6 +14,10 @@
         <include name="plugins/page_params/*.php"/>
     </fileset>
 
+    <fileset id="unit-tests" dir="tests/unit">
+        <include name="*.php"/>
+    </fileset>
+
     <fileset id="tutorials" dir="tutorials">
         <include name="XH/*.pkg"/>
         <include name="XH/*.cls"/>
@@ -27,6 +31,7 @@
     <target name="sniff" description="checks adherence to PSR-2">
         <phpcodesniffer standard="PSR2" format="full">
             <fileset refid="php-sources"/>
+            <fileset refid="unit-tests"/>
         </phpcodesniffer>
     </target>
 

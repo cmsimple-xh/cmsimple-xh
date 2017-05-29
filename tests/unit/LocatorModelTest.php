@@ -188,5 +188,3 @@ class LocatorModelTest extends TestCase
         );
     }
 }
-
-?>

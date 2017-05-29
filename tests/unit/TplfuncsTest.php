@@ -208,7 +208,8 @@ class TplfuncsTest extends TestCase
     {
         global $tx, $s, $cl;
 
-        $s = 0; $cl = 10;
+        $s = 0;
+        $cl = 10;
         $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
         $hideMock->expects($this->any())->will($this->returnValue(false));
         $matcher = array(
@@ -232,7 +233,8 @@ class TplfuncsTest extends TestCase
     {
         global $s, $cl;
 
-        $s = 0; $cl = 10;
+        $s = 0;
+        $cl = 10;
         $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
         $hideMock->expects($this->any())->will($this->returnValue(true));
         $this->assertNull(nextpage());
@@ -264,9 +266,7 @@ class TplfuncsTest extends TestCase
             'folder' => array('base' => './', 'flags' => vfsStream::url('test/'))
         );
         touch($pth['folder']['flags'] . 'da.gif');
-        $secondLanguagesMock = new PHPUnit_Extensions_MockFunction(
-            'XH_secondLanguages', null
-        );
+        $secondLanguagesMock = new PHPUnit_Extensions_MockFunction('XH_secondLanguages', null);
         $secondLanguagesMock->expects($this->any())->will(
             $this->returnValue(array('da', 'de'))
         );
@@ -297,5 +297,3 @@ class TplfuncsTest extends TestCase
         $secondLanguagesMock->restore();
     }
 }
-
-?>
