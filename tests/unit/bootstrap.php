@@ -8,6 +8,7 @@ require_once './cmsimple/adminfuncs.php';
 require_once './cmsimple/tplfuncs.php';
 require_once './cmsimple/compat.php';
 
+require_once './tests/unit/MockFunction.php';
 require_once './tests/unit/TestCase.php';
 require_once './tests/unit/ControllerLogInOutTestCase.php';
 
