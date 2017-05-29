@@ -14,9 +14,20 @@
 namespace XH;
 
 use PHPUnit_Framework_TestCase;
+use PHPUnit_Extensions_MockFunction;
 
 class TestCase extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @param string $name
+     * @param object $scopeObject
+     * @return PHPUnit_Extension_MockFunction
+     */
+    protected function getFunctionMock($name, $scopeObject)
+    {
+        return new PHPUnit_Extensions_MockFunction($name, $scopeObject);
+    }
+
     /**
      * @param string $name
      * @param mixed $value

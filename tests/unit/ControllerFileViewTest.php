@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -72,9 +71,9 @@ class ControllerFileViewTest extends TestCase
         $this->setUpFileSystem();
         $file = 'content';
         $this->subject = new Controller();
-        $this->exitMock = new PHPUnit_Extensions_MockFunction('XH_exit', $this->subject);
-        $this->headerMock = new PHPUnit_Extensions_MockFunction('header', $this->subject);
-        $this->logFileViewMock = new PHPUnit_Extensions_MockFunction('XH_logFileView', $this->subject);
+        $this->exitMock = $this->getFunctionMock('XH_exit', $this->subject);
+        $this->headerMock = $this->getFunctionMock('header', $this->subject);
+        $this->logFileViewMock = $this->getFunctionMock('XH_logFileView', $this->subject);
     }
 
     /**

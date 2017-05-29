@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
-
 class MailformRenderTest extends TestCase
 {
     private $subject;
@@ -22,7 +20,7 @@ class MailformRenderTest extends TestCase
     public function setUp()
     {
         $this->subject = new Mailform();
-        $tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->subject);
+        $tagStub = $this->getFunctionMock('tag', $this->subject);
         $tagStub->expects($this->any())->will($this->returnCallback(
             function ($string) {
                 return "<$string>";

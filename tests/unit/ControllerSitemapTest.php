@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -68,8 +67,8 @@ class ControllerSitemapTest extends TestCase
             'sitemap' => 'Sitemap'
         );
         $this->subject = $this->getMock('XH\Controller', null);
-        $this->hideMock = new PHPUnit_Extensions_MockFunction('hide', $this->subject);
-        $this->liMock = new PHPUnit_Extensions_MockFunction('li', $this->subject);
+        $this->hideMock = $this->getFunctionMock('hide', $this->subject);
+        $this->liMock = $this->getFunctionMock('li', $this->subject);
     }
 
     /**

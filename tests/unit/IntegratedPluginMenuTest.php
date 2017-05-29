@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -43,7 +42,7 @@ class IntegratedPluginMenuTest extends TestCase
     public function testRegisters5MenuItems()
     {
         $subject = new IntegratedPluginMenu();
-        $registerPluginMenuItem = new PHPUnit_Extensions_MockFunction('XH_registerPluginMenuItem', $subject);
+        $registerPluginMenuItem = $this->getFunctionMock('XH_registerPluginMenuItem', $subject);
         $registerPluginMenuItem->expects($this->exactly(5))->with('filebrowser');
         $subject->render(true);
     }

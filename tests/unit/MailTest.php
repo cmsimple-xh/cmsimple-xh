@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
-
 /**
  * Testing the mails.
  *
@@ -36,8 +34,8 @@ class MailTest extends TestCase
     public function setUp()
     {
         $this->subject = new Mail();
-        $this->getHostByNameMock = new PHPUnit_Extensions_MockFunction('gethostbyname', $this->subject);
-        $this->mailMock = new PHPUnit_Extensions_MockFunction('mail', $this->subject);
+        $this->getHostByNameMock = $this->getFunctionMock('gethostbyname', $this->subject);
+        $this->mailMock = $this->getFunctionMock('mail', $this->subject);
     }
 
     /**

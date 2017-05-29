@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -71,9 +70,9 @@ class ControllerStandardHeaderTest extends TestCase
 
         $cf['security']['frame_options'] = 'DENY';
         $this->subject = new Controller();
-        $this->headersSentMock = new PHPUnit_Extensions_MockFunction('headers_sent', $this->subject);
-        $this->headerMock = new PHPUnit_Extensions_MockFunction('header', $this->subject);
-        $this->exitMock = new PHPUnit_Extensions_MockFunction('XH_exit', $this->subject);
+        $this->headersSentMock = $this->getFunctionMock('headers_sent', $this->subject);
+        $this->headerMock = $this->getFunctionMock('header', $this->subject);
+        $this->exitMock = $this->getFunctionMock('XH_exit', $this->subject);
     }
 
     /**

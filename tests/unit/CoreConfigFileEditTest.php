@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -94,7 +93,7 @@ class CoreConfigFileEditTest extends TestCase
     {
         global $_XH_csrfProtection;
 
-        $this->_tagStub = new PHPUnit_Extensions_MockFunction('tag', $this->subject);
+        $this->_tagStub = $this->getFunctionMock('tag', $this->subject);
         $this->_tagStub->expects($this->any())->will($this->returnCallback(
             function ($str) {
                 return "<$str>";
@@ -341,25 +340,25 @@ EOT;
 
     public function testSubmit()
     {
-        $writeFileSpy = new PHPUnit_Extensions_MockFunction('XH_writeFile', $this->subject);
+        $writeFileSpy = $this->getFunctionMock('XH_writeFile', $this->subject);
         $writeFileSpy->expects($this->once())->will($this->returnValue(true));
-        $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->subject);
+        $headerSpy = $this->getFunctionMock('header', $this->subject);
         $headerSpy->expects($this->once())->with(
             $this->equalTo(
                 'Location: ' . CMSIMPLE_URL
                 . '?file=config&action=array&xh_success=config'
             )
         );
-        $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->subject);
+        $exitSpy = $this->getFunctionMock('XH_exit', $this->subject);
         $exitSpy->expects($this->once());
         $this->subject->submit();
     }
 
     public function testSubmitSaveFailure()
     {
-        $writeFileSpy = new PHPUnit_Extensions_MockFunction('XH_writeFile', $this->subject);
+        $writeFileSpy = $this->getFunctionMock('XH_writeFile', $this->subject);
         $writeFileSpy->expects($this->once())->will($this->returnValue(false));
-        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->subject);
+        $eSpy = $this->getFunctionMock('e', $this->subject);
         $eSpy->expects($this->once());
         $this->subject->submit();
     }

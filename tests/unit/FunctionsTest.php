@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -708,7 +707,7 @@ class FunctionsTest extends TestCase
     {
         $handle = 'foo';
         $operation = LOCK_EX;
-        $flockMock = new PHPUnit_Extensions_MockFunction('flock', null);
+        $flockMock = $this->getFunctionMock('flock', null);
         $flockMock->expects($this->once())->with($handle, $operation);
         XH_lockFile($handle, $operation);
         $flockMock->restore();

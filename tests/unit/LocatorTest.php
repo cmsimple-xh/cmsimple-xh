@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
-
 /**
  * A test case for the locator.
  *
@@ -33,9 +31,9 @@ class LocatorTest extends TestCase
 
     public function setUp()
     {
-        $this->aMock = new PHPUnit_Extensions_MockFunction('a', null);
+        $this->aMock = $this->getFunctionMock('a', null);
         $this->aMock->expects($this->any())->willReturn('<a href="foo">');
-        $this->modelMock = new PHPUnit_Extensions_MockFunction('XH_getLocatorModel', null);
+        $this->modelMock = $this->getFunctionMock('XH_getLocatorModel', null);
         $this->modelMock->expects($this->once())->willReturn(
             array(array('Home', '?foo'), array('Bar', '?bar'))
         );

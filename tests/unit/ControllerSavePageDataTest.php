@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -89,10 +88,10 @@ class ControllerSavePageDataTest extends TestCase
         $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
             ->disableOriginalConstructor()->getMock();
         $this->subject = new Controller();
-        $this->eMock = new PHPUnit_Extensions_MockFunction('e', $this->subject);
-        $this->exitMock = new PHPUnit_Extensions_MockFunction('XH_exit', $this->subject);
-        $this->headerMock = new PHPUnit_Extensions_MockFunction('header', $this->subject);
-        $this->messageMock = new PHPUnit_Extensions_MockFunction('XH_message', $this->subject);
+        $this->eMock = $this->getFunctionMock('e', $this->subject);
+        $this->exitMock = $this->getFunctionMock('XH_exit', $this->subject);
+        $this->headerMock = $this->getFunctionMock('header', $this->subject);
+        $this->messageMock = $this->getFunctionMock('XH_message', $this->subject);
     }
 
     /**

@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
-
 /**
  * A test case for XH_finalCleanUp().
  *
@@ -51,9 +49,9 @@ class FinalCleanUpTest extends TestCase
      */
     private function setUpFunctionStubs()
     {
-        $this->adminMenuStub = new PHPUnit_Extensions_MockFunction('XH_adminMenu', null);
+        $this->adminMenuStub = $this->getFunctionMock('XH_adminMenu', null);
         $this->adminMenuStub->expects($this->any())->willReturn('<ul id="my_admin_menu"></ul>');
-        $this->pluginsStub = new PHPUnit_Extensions_MockFunction('XH_plugins', null);
+        $this->pluginsStub = $this->getFunctionMock('XH_plugins', null);
         $this->pluginsStub->expects($this->any())->willReturn(array('filebrowser', 'jquery', 'pagemanager'));
     }
 

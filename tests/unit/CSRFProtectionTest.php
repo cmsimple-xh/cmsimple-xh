@@ -17,8 +17,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
-
 /**
  * A test case to simulate the CSRF protection.
  *
@@ -42,9 +40,9 @@ class CSRFProtectionTest extends TestCase
     public function setUp()
     {
         $this->setConstant('CMSIMPLE_ROOT', '/test/');
-        $this->startSessionMock = new PHPUnit_Extensions_MockFunction('XH_startSession', null);
-        $this->headerMock = new PHPUnit_Extensions_MockFunction('header', null);
-        $this->exitMock = new PHPUnit_Extensions_MockFunction('XH_exit', null);
+        $this->startSessionMock = $this->getFunctionMock('XH_startSession', null);
+        $this->headerMock = $this->getFunctionMock('header', null);
+        $this->exitMock = $this->getFunctionMock('XH_exit', null);
         $this->subject = new CSRFProtection();
     }
 

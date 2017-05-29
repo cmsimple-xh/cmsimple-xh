@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -70,7 +69,7 @@ class ControllerMailformTest extends TestCase
             ->disableOriginalConstructor()->getMock();
         $this->subject->expects($this->any())->method('makeMailform')
             ->will($this->returnValue($this->mailformMock));
-        $this->sheadMock = new PHPUnit_Extensions_MockFunction('shead', $this->subject);
+        $this->sheadMock = $this->getFunctionMock('shead', $this->subject);
     }
 
     /**

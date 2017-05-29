@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -52,8 +51,8 @@ abstract class ControllerLogInOutTestCase extends TestCase
     {
         $this->setConstant('CMSIMPLE_ROOT', '/xh/');
         $this->subject = new Controller();
-        $this->sessionStartMock = new PHPUnit_Extensions_MockFunction('session_start', $this->subject);
-        $this->sessionRegenerateIdMock = new PHPUnit_Extensions_MockFunction('session_regenerate_id', $this->subject);
-        $this->setcookieMock = new PHPUnit_Extensions_MockFunction('setcookie', $this->subject);
+        $this->sessionStartMock = $this->getFunctionMock('session_start', $this->subject);
+        $this->sessionRegenerateIdMock = $this->getFunctionMock('session_regenerate_id', $this->subject);
+        $this->setcookieMock = $this->getFunctionMock('setcookie', $this->subject);
     }
 }

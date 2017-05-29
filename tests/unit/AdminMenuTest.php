@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
-
 class AdminMenuTest extends TestCase
 {
     private $plugins;
@@ -29,7 +27,7 @@ class AdminMenuTest extends TestCase
         $this->setUpPageStructure();
         $this->plugins = array('plugin');
         $this->setUpLocalization();
-        $this->ucfirstMock = new PHPUnit_Extensions_MockFunction('utf8_ucfirst', $this);
+        $this->ucfirstMock = $this->getFunctionMock('utf8_ucfirst', $this);
         $this->ucfirstMock->expects($this->any())->will($this->returnArgument(0));
     }
 

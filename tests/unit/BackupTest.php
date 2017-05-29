@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -47,7 +46,7 @@ class BackupTest extends TestCase
                 'deleted' => 'deleted'
             )
         );
-        (new PHPUnit_Extensions_MockFunction('utf8_ucfirst', $this))
+        $this->getFunctionMock('utf8_ucfirst', $this)
             ->expects($this->any())->will($this->returnArgument(0));
         $this->subject = new Backup(array($this->contentFolder));
     }
@@ -78,7 +77,7 @@ class BackupTest extends TestCase
 
     public function testFailedBackupReportsError()
     {
-        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->subject);
+        $eSpy = $this->getFunctionMock('e', $this->subject);
         $eSpy->expects($this->once())->with($this->equalTo('cntsave'), $this->equalTo('backup'));
         file_put_contents("{$this->contentFolder}content.htm", '');
         chmod($this->contentFolder, 0444);
@@ -169,13 +168,13 @@ class BackupTest extends TestCase
 
     public function testReportsDeletionFailure()
     {
-        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->subject);
+        $eSpy = $this->getFunctionMock('e', $this->subject);
         $eSpy->expects($this->once())->with($this->equalTo('cntdelete'), $this->equalTo('backup'));
         file_put_contents("{$this->contentFolder}content.htm", 'foo');
         touch("{$this->contentFolder}19700101_000102_content.htm");
         touch("{$this->contentFolder}19700102_000102_content.htm");
         touch("{$this->contentFolder}19700103_000102_content.htm");
-        $unlinkStub = new PHPUnit_Extensions_MockFunction('unlink', $this->subject);
+        $unlinkStub = $this->getFunctionMock('unlink', $this->subject);
         $unlinkStub->expects($this->any())->will($this->returnValue(false));
         $this->subject->execute();
     }
@@ -187,7 +186,7 @@ class BackupTest extends TestCase
         $cf['backup']['numberoffiles'] = '0';
         $this->subject = new Backup(array($this->contentFolder));
         touch("{$this->contentFolder}content.htm");
-        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->subject);
+        $eSpy = $this->getFunctionMock('e', $this->subject);
         $eSpy->expects($this->never());
         $this->assertEquals('', $this->subject->execute());
     }

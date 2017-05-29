@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -54,7 +53,7 @@ class ControllerFileBackupTest extends TestCase
         $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
             ->disableOriginalConstructor()->getMock();
         $this->subject = new Controller();
-        $this->extraBackupMock = new PHPUnit_Extensions_MockFunction('XH_extraBackup', $this->subject);
+        $this->extraBackupMock = $this->getFunctionMock('XH_extraBackup', $this->subject);
     }
 
     /**

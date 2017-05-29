@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -149,14 +148,14 @@ class PluginTextFileEditTest extends TestCase
 
     public function testSubmit()
     {
-        $headerSpy = new PHPUnit_Extensions_MockFunction('header', $this->subject);
+        $headerSpy = $this->getFunctionMock('header', $this->subject);
         $headerSpy->expects($this->once())->with(
             $this->equalTo(
                 'Location: ' . CMSIMPLE_URL . '?&pagemanager&admin=plugin_stylesheet'
                 . '&action=plugin_text&xh_success=stylesheet'
             )
         );
-        $exitSpy = new PHPUnit_Extensions_MockFunction('XH_exit', $this->subject);
+        $exitSpy = $this->getFunctionMock('XH_exit', $this->subject);
         $exitSpy->expects($this->once());
         $_POST = array('plugin_text' => 'body{}');
         $this->subject->submit();
@@ -164,9 +163,9 @@ class PluginTextFileEditTest extends TestCase
 
     public function testSubmitCantSave()
     {
-        $writeFileStub = new PHPUnit_Extensions_MockFunction('XH_writeFile', $this->subject);
+        $writeFileStub = $this->getFunctionMock('XH_writeFile', $this->subject);
         $writeFileStub->expects($this->once())->will($this->returnValue(false));
-        $eSpy = new PHPUnit_Extensions_MockFunction('e', $this->subject);
+        $eSpy = $this->getFunctionMock('e', $this->subject);
         $eSpy->expects($this->once())->with(
             $this->equalTo('cntsave'),
             $this->equalTo('file'),

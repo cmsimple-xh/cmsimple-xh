@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
-
 /**
  * Testing the emergency template.
  *
@@ -45,7 +43,7 @@ class EmergencyTemplateTest extends TestCase
             'header', 'head', 'onload', 'toc', 'content', 'loginlink', 'XH_exit'
         );
         foreach ($mockNames as $mockName) {
-            $this->mocks[$mockName] = new PHPUnit_Extensions_MockFunction($mockName, null);
+            $this->mocks[$mockName] = $this->getFunctionMock($mockName, null);
         }
         $this->expectOutputRegex('//');
     }

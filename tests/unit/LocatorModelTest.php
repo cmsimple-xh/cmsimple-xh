@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
-
 /**
  * A test case for the locator model.
  *
@@ -71,7 +69,7 @@ class LocatorModelTest extends TestCase
 
     protected function setUpMocks()
     {
-        $this->hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $this->hideMock = $this->getFunctionMock('hide', null);
         $hideMap = array(
             array(0, false),
             array(1, false),

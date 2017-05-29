@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -65,11 +64,11 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
             'HTTP_USER_AGENT' => 'Mozilla/5.0',
             'REMOTE_ADDR' => '127.0.0.1'
         );
-        $this->passwordVerifyMock = new PHPUnit_Extensions_MockFunction('password_verify', $this->subject);
+        $this->passwordVerifyMock = $this->getFunctionMock('password_verify', $this->subject);
         $cf['security']['password'] = '$P$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1';
-        $this->eMock = new PHPUnit_Extensions_MockFunction('e', $this->subject);
-        $this->logMessageMock = new PHPUnit_Extensions_MockFunction('XH_logMessage', $this->subject);
-        new PHPUnit_Extensions_MockFunction('file_put_contents', $this->subject);
+        $this->eMock = $this->getFunctionMock('e', $this->subject);
+        $this->logMessageMock = $this->getFunctionMock('XH_logMessage', $this->subject);
+        $this->getFunctionMock('file_put_contents', $this->subject);
     }
 
     /**

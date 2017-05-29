@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
-
 /**
  * Testing the head() function.
  *
@@ -76,10 +74,10 @@ class HeadTest extends TestCase
         $tx = array(
             'meta' => array('keywords' => 'CMSimple, XH')
         );
-        $this->titleMock = new PHPUnit_Extensions_MockFunction('XH_title', null);
-        $this->pluginsMock = new PHPUnit_Extensions_MockFunction('XH_plugins', null);
+        $this->titleMock = $this->getFunctionMock('XH_title', null);
+        $this->pluginsMock = $this->getFunctionMock('XH_plugins', null);
         $this->pluginsMock->expects($this->any())->will($this->returnValue(array()));
-        $this->pluginStylesheetMock = new PHPUnit_Extensions_MockFunction('XH_pluginStylesheet', null);
+        $this->pluginStylesheetMock = $this->getFunctionMock('XH_pluginStylesheet', null);
         $this->pluginStylesheetMock->expects($this->once());
     }
 
@@ -202,7 +200,7 @@ class HeadTest extends TestCase
 
         $sn = '/xh/';
         $u = array('Welcome');
-        $findPreviousPageMock = new PHPUnit_Extensions_MockFunction('XH_findPreviousPage', null);
+        $findPreviousPageMock = $this->getFunctionMock('XH_findPreviousPage', null);
         $findPreviousPageMock->expects($this->any())->will($this->returnValue(0));
         @$this->assertTag(
             array(
@@ -231,7 +229,7 @@ class HeadTest extends TestCase
 
         $sn = '/xh/';
         $u = array('Welcome');
-        $findNextPageMock = new PHPUnit_Extensions_MockFunction('XH_findNextPage', null);
+        $findNextPageMock = $this->getFunctionMock('XH_findNextPage', null);
         $findNextPageMock->expects($this->any())->will($this->returnValue(0));
         @$this->assertTag(
             array(

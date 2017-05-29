@@ -13,8 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
-
 /**
  * A test case for the mailform.
  *
@@ -111,7 +109,7 @@ class MailformTest extends TestCase
         $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('send')->willReturn(false);
         $mailform = new Mailform(false, null, $mail);
-        $logMessageSpy = new PHPUnit_Extensions_MockFunction('XH_logMessage', $mailform);
+        $logMessageSpy = $this->getFunctionMock('XH_logMessage', $mailform);
         $logMessageSpy->expects($this->once());
         $this->assertFalse($mailform->submit());
     }

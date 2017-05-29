@@ -13,7 +13,6 @@
 
 namespace XH;
 
-use PHPUnit_Extensions_MockFunction;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -166,7 +165,7 @@ class TplfuncsTest extends TestCase
         global $tx, $s;
 
         $s = 10;
-        $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $hideMock = $this->getFunctionMock('hide', null);
         $hideMock->expects($this->any())->will($this->returnValue(false));
         $matcher = array(
             'tag' => 'a',
@@ -189,7 +188,7 @@ class TplfuncsTest extends TestCase
         global $s;
 
         $s = 10;
-        $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $hideMock = $this->getFunctionMock('hide', null);
         $hideMock->expects($this->any())->will($this->returnValue(true));
         $this->assertNull(previouspage());
         $hideMock->restore();
@@ -210,7 +209,7 @@ class TplfuncsTest extends TestCase
 
         $s = 0;
         $cl = 10;
-        $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $hideMock = $this->getFunctionMock('hide', null);
         $hideMock->expects($this->any())->will($this->returnValue(false));
         $matcher = array(
             'tag' => 'a',
@@ -235,7 +234,7 @@ class TplfuncsTest extends TestCase
 
         $s = 0;
         $cl = 10;
-        $hideMock = new PHPUnit_Extensions_MockFunction('hide', null);
+        $hideMock = $this->getFunctionMock('hide', null);
         $hideMock->expects($this->any())->will($this->returnValue(true));
         $this->assertNull(nextpage());
         $hideMock->restore();
@@ -266,7 +265,7 @@ class TplfuncsTest extends TestCase
             'folder' => array('base' => './', 'flags' => vfsStream::url('test/'))
         );
         touch($pth['folder']['flags'] . 'da.gif');
-        $secondLanguagesMock = new PHPUnit_Extensions_MockFunction('XH_secondLanguages', null);
+        $secondLanguagesMock = $this->getFunctionMock('XH_secondLanguages', null);
         $secondLanguagesMock->expects($this->any())->will(
             $this->returnValue(array('da', 'de'))
         );
