@@ -96,6 +96,7 @@ class MainAdminController extends Controller
         $view->tools = array(
             'save' => 'fa fa-save',
             'toggle' => 'fa fa-expand',
+            'open' => 'fa fa-plus-square-o',
             'add' => 'fa fa-file-o',
             'rename' => 'fa fa-tag',
             'remove' => 'fa fa-trash-o',
@@ -143,6 +144,7 @@ class MainAdminController extends Controller
             'loading' => $this->lang['treeview_loading'],
             'newNode' => $this->lang['treeview_new'],
             'theme' => $this->config['treeview_theme'],
+            'openOp' => $this->lang['op_open'],
             'addOp' => $this->lang['op_add'],
             'renameOp' => $this->lang['op_rename'],
             'removeOp' => $this->lang['op_remove'],
@@ -156,6 +158,7 @@ class MainAdminController extends Controller
             'after' => $this->lang['label_after'],
             'userManual' => $pth['file']['plugin_help'],
             'classes' => array(
+                'open' => 'fa-plus-square-o',
                 'add' => 'fa-file-o',
                 'rename' => 'fa-tag',
                 'remove' => 'fa-trash-o',
@@ -169,7 +172,7 @@ class MainAdminController extends Controller
             'offendingExtensionError' => $this->lang['error_offending_extension'],
             'hasCheckboxes' => $this->config['pagedata_attribute'] !== '',
             'dataURL' => (string) $url->with('pagemanager', '')->with('admin', 'plugin_main')
-                ->with('action', 'plugin_data')
+                ->with('action', 'plugin_data')->with('edit', '')
         );
         return json_encode($config);
     }

@@ -12,6 +12,7 @@ $plugin_tx['pagemanager']['label_inside']="inside";
 $plugin_tx['pagemanager']['label_after']="after";
 $plugin_tx['pagemanager']['op_save']="Save";
 $plugin_tx['pagemanager']['op_toggle']="Toggle";
+$plugin_tx['pagemanager']['op_open']="Open";
 $plugin_tx['pagemanager']['op_add']="Add";
 $plugin_tx['pagemanager']['op_rename']="Rename";
 $plugin_tx['pagemanager']['op_remove']="Remove";

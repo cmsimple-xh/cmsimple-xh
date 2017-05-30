@@ -12,6 +12,7 @@ $plugin_tx['pagemanager']['label_inside']="hinein";
 $plugin_tx['pagemanager']['label_after']="danach";
 $plugin_tx['pagemanager']['op_save']="Speichern";
 $plugin_tx['pagemanager']['op_toggle']="Umschalten";
+$plugin_tx['pagemanager']['op_open']="Öffnen";
 $plugin_tx['pagemanager']['op_add']="Hinzufügen";
 $plugin_tx['pagemanager']['op_rename']="Umbenennen";
 $plugin_tx['pagemanager']['op_remove']="Entfernen";
