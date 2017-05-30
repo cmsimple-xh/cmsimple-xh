@@ -258,30 +258,30 @@ class FunctionMock
             $this->restore_name = 'restore_' . $this->function_name . '_' . $this->id . '_' . uniqid();
 
             runkit_function_copy($this->function_name, $this->restore_name);
-            runkit_function_redefine($this->function_name, '', $this->getCallback());
+            runkit_function_redefine($this->function_name, $this->getCallback());
         } else {
-            runkit_function_add($this->function_name, '', $this->getCallback());
+            runkit_function_add($this->function_name, $this->getCallback());
         }
 
         $this->active = true;
     }
 
     /**
-     * Gives back the source code body of the runkit function replacing the original.
+     * Gives back the closure of the runkit function replacing the original.
      *
      * The function is quite simple - find the function mock instance (of this class)
      * that created it, then calls its invoked() method with the parameters of its invokation.
      *
-     * @return string
+     * @return callable
      */
     protected function getCallback()
     {
-        $class_name = __CLASS__;
-        return <<<CALLBACK
-            \$mock      = $class_name::findMock( {$this->id} );
-            \$arguments = func_get_args();
-            return \$mock->invoked( \$arguments );
-CALLBACK;
+        $className = __CLASS__;
+        $id = $this->id;
+        return function () use ($className, $id) {
+            $mock = $className::findMock($id);
+            return $mock->invoked(func_get_args());
+        };
     }
 
     /**
