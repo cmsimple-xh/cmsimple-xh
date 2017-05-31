@@ -319,12 +319,11 @@ class FunctionsTest extends TestCase
 
     public function testMeta()
     {
-        $matcher = array(
-            'tag' => 'meta',
-            'attributes' => array('name' => 'robots', 'content' => 'index, follow')
-        );
         $actual = meta('robots');
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPath(
+            '//meta[@name="robots" and @content="index, follow"]',
+            $actual
+        );
     }
 
     /**

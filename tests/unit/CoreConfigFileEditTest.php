@@ -129,58 +129,34 @@ EOT;
 
     public function testFormAttributes()
     {
-        $matcher = array(
-            'tag' => 'form',
-            'id' => 'xh_config_form',
-            'attributes' => array(
-                'action' => '/xh/',
-                'method' => 'post',
-                'accept-charset' => 'UTF-8'
-            )
+        $this->assertXPath(
+            '//form[@id="xh_config_form" and @action="/xh/" and @method="post" and @accept-charset="UTF-8"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsSubmitButton()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'submit',
-                'class' => 'submit'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="submit" and @class="submit"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsMetaRobotsField()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'text',
-                'name' => 'meta_robots',
-                'value' => 'index, follow',
-                'class' => 'xh_setting'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="text" and @name="meta_robots" and @value="index, follow" and @class="xh_setting"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsMenuLevelcatchField()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'hidden',
-                'name' => 'menu_levelcatch',
-                'value' => '10'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="hidden" and @name="menu_levelcatch" and @value="10"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsForBarField()
@@ -190,152 +166,103 @@ EOT;
             'attributes' => array('name' => 'foo_bar'),
             'ancestor' => array('tag' => 'form')
         );
-        $this->assertFormMatches($matcher);
+        $this->assertXPath(
+            '//form//select[@name="foo_bar"]',
+            $this->subject->form()
+        );
     }
 
     public function testFormContainsForBarFieldWithoutOptions()
     {
-        $matcher = array(
-            'tag' => 'select',
-            'attributes' => array('name' => 'foo_bar'),
-            'child' => array('tag' => 'option'),
-            'ancestor' => array('tag' => 'form')
+        $this->assertNotXPath(
+            '//form//select[@name="foo_bar"]/option',
+            $this->subject->form()            
         );
-        @$this->assertNotTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsLanguageDefaultField()
     {
-        $matcher = array(
-            'tag' => 'select',
-            'attributes' => array('name' => 'language_default'),
-            'children' => array(
-                'only' => array('tag' => 'option'),
-                'count' => 2
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPathCount(
+            '//form//select[@name="language_default"]/option',
+            2,
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsLanguageOtherField()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'text',
-                'name' => 'language_other',
-                'list' => 'language_other_DATA'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="text" and @name="language_other" and @list="language_other_DATA"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsLanguageOtherDatalist()
     {
-        $matcher = array(
-            'tag' => 'datalist',
-            'id' => 'language_other_DATA',
-            'children' => array(
-                'only' => array('tag' => 'option'),
-                'count' => 2
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPathCount(
+            '//form//datalist[@id="language_other_DATA"]/option',
+            2,
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsLocatorShowHomepageField()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'checkbox',
-                'name' => 'locator_show_homepage',
-                'checked' => 'checked'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="checkbox" and @name="locator_show_homepage" and @checked]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsMenuLevelsField()
     {
-        $matcher = array(
-            'tag' => 'select',
-            'attributes' => array(
-                'name' => 'menu_levels'
-            ),
-            'children' => array(
-                'count' => 6,
-                'only' => array('tag' => 'option')
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPathCount(
+            '//form//select[@name="menu_levels"]/option',
+            6,
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsMenuSdocField()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'text',
-                'name' => 'menu_sdoc',
-                'list' => 'menu_sdoc_DATA'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="text" and @name="menu_sdoc" and @list="menu_sdoc_DATA"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsMenuSdocDatalist()
     {
-        $matcher = array(
-            'tag' => 'datalist',
-            'id' => 'menu_sdoc_DATA',
-            'children' => array(
-                'only' => array('tag' => 'option'),
-                'count' => 1
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPathCount(
+            '//form//datalist[@id="menu_sdoc_DATA"]/option',
+            1,
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsSecuritySecretField()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'hidden',
-                'name' => 'security_secret',
-                'value' => 'foo'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="hidden" and @name="security_secret" and @value="foo"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormDoesNotContainScriptingRegexpField()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array('name' => 'scripting_regexp'),
-            'ancestor' => array('tag' => 'form')
+        $this->assertNotXPath(
+            '//form//input[@name="scripting_regexp"]',
+            $this->subject->form()
         );
-        @$this->assertNotTag($matcher, $this->subject->form());
     }
 
     public function testSuccessMessage()
     {
         $_GET['xh_success'] = '';
-        $matcher = array(
-            'tag' => 'p',
-            'attributes' => array('class' => 'xh_success')
+        $this->assertXPath(
+            '//p[@class="xh_success"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testSubmit()
@@ -361,11 +288,6 @@ EOT;
         $eSpy = $this->getFunctionMock('e', $this->subject);
         $eSpy->expects($this->once());
         $this->subject->submit();
-    }
-
-    private function assertFormMatches($matcher)
-    {
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     //public function dataForFormField()

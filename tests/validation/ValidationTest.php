@@ -17,6 +17,8 @@
  * @link      http://cmsimple-xh.org/
  */
 
+namespace XH;
+
 /**
  * A test case to check the validity of the produced HTML.
  *
@@ -27,7 +29,7 @@
  * @link     http://cmsimple-xh.org/
  * @since    1.6
  */
-class ValidationTest extends PHPUnit_Framework_TestCase
+class ValidationTest extends TestCase
 {
     public function validate($html)
     {
@@ -47,13 +49,7 @@ class ValidationTest extends PHPUnit_Framework_TestCase
         ));
         $actual = curl_exec($curlHandle);
         curl_close($curlHandle);
-        $matcher = array(
-            'tag' => 'h2',
-            'attributes' => array(
-                'class' => 'valid'
-            )
-        );
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPath('//h2[@class="valid"]', $actual);
     }
 
     public function testStartPage()

@@ -103,14 +103,7 @@ class PoweredByTest extends TestCase
 
     public function testViewHasCMSSection()
     {
-        @$this->assertTag(
-            array(
-                'tag' => 'a',
-                'attributes' => array('href' => 'http://cmsimple-xh.org'),
-                'content' => 'CMSimple_XH'
-            ),
-            XH_poweredBy()
-        );
+        $this->assertXPathContains('//a[@href="http://cmsimple-xh.org"]', 'CMSimple_XH', XH_poweredBy());
     }
 
     public function testViewShowsTemplateInfo()

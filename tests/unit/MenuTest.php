@@ -348,14 +348,10 @@ class MenuTest extends TestCase
      */
     public function testUnorderedListHasListItemChild($class)
     {
-        $matcher = array(
-            'tag' => 'ul',
-            'attributes' => array('class' => $class),
-            'child' => array(
-                'tag' => 'li'
-            )
+        $this->assertXPath(
+            sprintf('//ul[@class="%s"]/li', $class),
+            $this->renderAllPages()
         );
-        $this->assertMatches($matcher);
     }
 
     /**
@@ -383,14 +379,10 @@ class MenuTest extends TestCase
      */
     public function testListItemHasUnorderedListChild($class)
     {
-        $matcher = array(
-            'tag' => 'li',
-            'child' => array(
-                'tag' => 'ul',
-                'attributes' => array('class' => $class)
-            )
+        $this->assertXPath(
+            sprintf('//li/ul[@class="%s"]', $class),
+            $this->renderAllPages()
         );
-        $this->assertMatches($matcher);
     }
 
     /**
@@ -413,11 +405,7 @@ class MenuTest extends TestCase
      */
     public function testSelectedPageHasSpan()
     {
-        $matcher = array(
-            'tag' => 'span',
-            'content' => 'Welcome'
-        );
-        $this->assertMatches($matcher);
+        $this->assertXPathContains('//span', 'Welcome', $this->renderAllPages());
     }
 
     /**
@@ -427,23 +415,7 @@ class MenuTest extends TestCase
      */
     public function testNotSelectedPageHasAnchor()
     {
-        $matcher = array(
-            'tag' => 'a',
-            'content' => 'Blog'
-        );
-        $this->assertMatches($matcher);
-    }
-
-    /**
-     * Asserts that the rendering of all pages matches a matcher.
-     *
-     * @param array $matcher A matcher.
-     *
-     * @return void
-     */
-    private function assertMatches(array $matcher)
-    {
-        @$this->assertTag($matcher, $this->renderAllPages());
+        $this->assertXPathContains('//a', 'Blog', $this->renderAllPages());
     }
 
     /**
@@ -453,15 +425,11 @@ class MenuTest extends TestCase
      */
     public function testLiWithoutVisibleChilrenHasClassDoc()
     {
-        $matcher = array(
-            'tag' => 'li',
-            'attributes' => array('class' => 'doc'),
-            'child' => array(
-                'tag' => 'a',
-                'content' => 'Hidden'
-            )
+        $this->assertXPathContains(
+            '//li[@class="doc"]/a',
+            'Hidden',
+            $this->renderAllPages()
         );
-        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -476,11 +444,10 @@ class MenuTest extends TestCase
      */
     public function testHasUlWithProperClass($forOrFrom, $class)
     {
-        $matcher = array(
-            'tag' => 'ul',
-            'attributes' => array('class' => $class)
+        $this->assertXPath(
+            sprintf('//ul[@class="%s"]', $class),
+            $this->renderAllPages($forOrFrom)
         );
-        @$this->assertTag($matcher, $this->renderAllPages($forOrFrom));
     }
 
     /**
@@ -515,15 +482,11 @@ class MenuTest extends TestCase
         global $s;
 
         $s = 1;
-        $matcher = array(
-            'tag' => 'li',
-            'attributes' => array('class' => 'sdocs'),
-            'child' => array(
-                'tag' => 'span',
-                'content' => 'Blog'
-            )
+        $this->assertXPathContains(
+            '//li[@class="sdocs"]/span',
+            'Blog',
+            $this->renderAllPages()
         );
-        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -533,15 +496,11 @@ class MenuTest extends TestCase
      */
     public function testSelectedChildlessPageHasClassSdoc()
     {
-        $matcher = array(
-            'tag' => 'li',
-            'attributes' => array('class' => 'sdoc'),
-            'child' => array(
-                'tag' => 'span',
-                'content' => 'Welcome'
-            )
+        $this->assertXPathContains(
+            '//li[@class="sdoc"]/span',
+            'Welcome',
+            $this->renderAllPages()
         );
-        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -551,15 +510,11 @@ class MenuTest extends TestCase
      */
     public function testNotSelectedPageHasClassDocs()
     {
-        $matcher = array(
-            'tag' => 'li',
-            'attributes' => array('class' => 'docs'),
-            'child' => array(
-                'tag' => 'a',
-                'content' => 'Blog'
-            )
+        $this->assertXPathContains(
+            '//li[@class="docs"]/a',
+            'Blog',
+            $this->renderAllPages()
         );
-        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -574,15 +529,11 @@ class MenuTest extends TestCase
         global $s;
 
         $s = 1;
-        $matcher = array(
-            'tag' => 'li',
-            'attributes' => array('class' => 'doc'),
-            'child' => array(
-                'tag' => 'a',
-                'content' => 'Welcome'
-            )
+        $this->assertXPathContains(
+            '//li[@class="doc"]/a',
+            'Welcome',
+            $this->renderAllPages()
         );
-        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -605,15 +556,11 @@ class MenuTest extends TestCase
 
         $s = 2;
         $cf['menu']['sdoc'] = $sdoc;
-        $matcher = array(
-            'tag' => 'li',
-            'attributes' => array('class' => $class),
-            'child' => array(
-                'tag' => 'a',
-                'content' => 'Blog'
-            )
+        $this->assertXPathContains(
+            sprintf('//li[@class="%s"]/a', $class),
+            'Blog',
+            $this->renderAllPages()
         );
-        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -647,15 +594,11 @@ class MenuTest extends TestCase
         global $cf;
 
         $cf['menu']['levelcatch'] = $levelcatch;
-        $matcher = array(
-            'tag' => 'li',
-            'attributes' => array('class' => $class),
-            'child' => array(
-                'tag' => 'a',
-                'content' => 'About'
-            )
+        $this->assertXPathContains(
+            sprintf('//li[@class="%s"]/a', $class),
+            'About',
+            $this->renderAllPages()
         );
-        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -678,12 +621,11 @@ class MenuTest extends TestCase
      */
     public function testPageOpensInNewWindowInNormalMode()
     {
-        $matcher = array(
-            'tag' => 'a',
-            'content' => 'Cold',
-            'attributes' => array('target' => '_blank')
+        $this->assertXPathContains(
+            '//a[@target="_blank"]',
+            'Cold',
+            $this->renderAllPages()
         );
-        @$this->assertTag($matcher, $this->renderAllPages());
     }
 
     /**
@@ -699,7 +641,11 @@ class MenuTest extends TestCase
             'content' => 'Cold',
             'attributes' => array('target' => '_blank')
         );
-        @$this->assertNotTag($matcher, $this->renderAllPages());
+        $this->assertNotXPathContains(
+            '//a[@target="_blank"]',
+            'Cold',
+            $this->renderAllPages()
+        );
     }
 
     /**
@@ -726,16 +672,11 @@ class MenuTest extends TestCase
         global $s;
 
         $s = 1;
-        $matcher = array(
-            'tag' => 'ul',
-            'children' => array(
-                'count' => 3,
-                'only' => array(
-                    'tag' => 'li'
-                )
-            )
+        $this->assertXPathCount(
+            '//ul/li',
+            3,
+            li([2, 4, 6], 'submenu')
         );
-        @$this->assertTag($matcher, li(array(2, 4, 6), 'submenu'));
     }
 
     /**
@@ -745,20 +686,11 @@ class MenuTest extends TestCase
      */
     public function testBlogSubmenuHasProperStructure()
     {
-        $matcher = array(
-            'tag' => 'li',
-            'attributes' => array('class' => 'docs'),
-            'child' => array(
-                'tag' => 'a',
-                'attributes' => array('href' => '?Blog:July'),
-                'content' => 'July'
-            ),
-            'parent' => array(
-                'tag' => 'ul',
-                'class' => 'submenu'
-            )
+        $this->assertXPathContains(
+            '//ul[@class="submenu"]/li[@class="docs"]/a[@href="?Blog:July"]',
+            'July',
+            li([2, 4, 6], 'submenu')
         );
-        @$this->assertTag($matcher, li(array(2, 4, 6), 'submenu'));
     }
 
     public function testBuildHcForThirdPage()

@@ -62,25 +62,19 @@ class TplfuncsTest extends TestCase
 
     public function testSearchbox()
     {
-        $matcher = array(
-            'tag' => 'form',
-            'id' => 'searchbox',
-            'attributes' => array('method' => 'get')
-        );
         $actual = searchbox();
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPath(
+            '//form[@id="searchbox" and @method="get"]',
+            $actual
+        );
     }
 
     public function testSitemaplink()
     {
         global $tx;
 
-        $matcher = array(
-            'tag' => 'a',
-            'content' => $tx['menu']['sitemap']
-        );
         $actual = sitemaplink();
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPathContains('//a', $tx['menu']['sitemap'], $actual);
     }
 
     public function testSitemaplinkActive()
@@ -107,12 +101,8 @@ class TplfuncsTest extends TestCase
         global $cf, $tx;
 
         $cf['mailform']['email'] = 'me@example.com';
-        $matcher = array(
-            'tag' => 'a',
-            'content' => $tx['menu']['mailform']
-        );
         $actual = mailformlink();
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPathContains('//a', $tx['menu']['mailform'], $actual);
     }
 
     public function testMailformlinkActive()
@@ -167,12 +157,11 @@ class TplfuncsTest extends TestCase
         $s = 10;
         $hideMock = $this->getFunctionMock('hide', null);
         $hideMock->expects($this->any())->will($this->returnValue(false));
-        $matcher = array(
-            'tag' => 'a',
-            'attributes' => array('rel' => 'prev'),
-            'content' => $tx['navigator']['previous']
+        $this->assertXPathContains(
+            '//a[@rel="prev"]',
+            $tx['navigator']['previous'],
+            previouspage()
         );
-        @$this->assertTag($matcher, previouspage());
         $hideMock->restore();
     }
 
@@ -211,12 +200,11 @@ class TplfuncsTest extends TestCase
         $cl = 10;
         $hideMock = $this->getFunctionMock('hide', null);
         $hideMock->expects($this->any())->will($this->returnValue(false));
-        $matcher = array(
-            'tag' => 'a',
-            'attributes' => array('rel' => 'next'),
-            'content' => 'next' /*$tx['navigator']['next']*/
+        $this->assertXPathContains(
+            '//a[@rel="next"]',
+            'next', /*$tx['navigator']['next']*/
+            nextpage()
         );
-        @$this->assertTag($matcher, nextpage());
         $hideMock->restore();
     }
 
@@ -242,12 +230,8 @@ class TplfuncsTest extends TestCase
 
     public function testTop()
     {
-        $matcher = array(
-            'tag' => 'a',
-            'attributes' => array('href' => '#TOP')
-        );
         $actual = top();
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPath('//a[@href="#TOP"]', $actual);
     }
 
     /**
@@ -262,34 +246,22 @@ class TplfuncsTest extends TestCase
         global $pth;
 
         $pth = array(
-            'folder' => array('base' => './', 'flags' => vfsStream::url('test/'))
+            'folder' => array('base' => './', 'flags' => vfsStream::url('test/'), 'templateflags' => 'foo')
         );
         touch($pth['folder']['flags'] . 'da.gif');
         $secondLanguagesMock = $this->getFunctionMock('XH_secondLanguages', null);
         $secondLanguagesMock->expects($this->any())->will(
             $this->returnValue(array('da', 'de'))
         );
-        @$this->assertTag(
-            array(
-                'tag' => 'a',
-                'attributes' => array('href' => './de/'),
-                'content' => 'Deutsch'
-            ),
+        $this->assertXPathContains(
+            '//a[@href="./de/"]',
+            'Deutsch',
             languagemenu()
         );
-        @$this->assertTag(
-            array(
-                'tag' => 'a',
-                'attributes' => array('href' => './da/'),
-                'child' => array(
-                    'tag' => 'img',
-                    'attributes' => array(
-                        'class' => 'flag',
-                        'alt' => 'Dansk',
-                        'title' => 'Dansk',
-                        'src' => $pth['folder']['flags'] . 'da.gif'
-                    )
-                )
+        $this->assertXPath(
+            sprintf(
+                '//a[@href="./da/"]/img[@class="flag" and @alt="Dansk" and @title="Dansk" and @src="%s"]',
+                "{$pth['folder']['flags']}da.gif"
             ),
             languagemenu()
         );

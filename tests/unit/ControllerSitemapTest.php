@@ -98,13 +98,7 @@ class ControllerSitemapTest extends TestCase
         global $o;
 
         $this->subject->handleSitemap();
-        @$this->assertTag(
-            array(
-                'tag' => 'h1',
-                'content' => 'Sitemap'
-            ),
-            $o
-        );
+        $this->assertXPathContains('//h1', 'Sitemap', $o);
     }
 
     /**

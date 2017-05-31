@@ -82,18 +82,18 @@ class MailformTest extends TestCase
     {
         global $tx;
 
+        $tx['mailform']['notaccepted']="oops";
         $tx['mailform'][$langKey] = 'foo bar';
         $_POST = $this->goodPost;
         $_POST[$postKey] = $postValue;
-        $matcher = array(
-            'tag' => 'p',
-            'attributes' => array('class' => 'xh_warning'),
-            'content' => $tx['mailform'][$langKey]
-        );
         $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('isValidAddress')->willReturn(false);
         $mailform = new Mailform(false, null, $mail);
-        @$this->assertTag($matcher, $mailform->check());
+        $this->assertXPathContains(
+            '//p[@class="xh_warning"]',
+            $tx['mailform'][$langKey],
+            $mailform->check()
+        );
     }
 
     public function testSubmitSendsMailSuccess()

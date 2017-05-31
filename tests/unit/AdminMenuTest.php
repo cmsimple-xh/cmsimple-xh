@@ -48,6 +48,7 @@ class AdminMenuTest extends TestCase
         $tx = array(
             'editmenu' => array(
                 'backups' => 'Backups',
+                'change_password' => 'Password',
                 'configuration' => 'Configuration',
                 'downloads' => 'Downloads',
                 'edit' => 'Edit mode',
@@ -82,16 +83,11 @@ class AdminMenuTest extends TestCase
     public function testShowsItem($item, $url, $edit = false)
     {
         $GLOBALS['edit'] = $edit;
-        $matcher = array(
-            'tag' => 'a',
-            'attributes' => array('href' => $url),
-            'content' => $item,
-            'ancestor' => array(
-                'tag' => 'div',
-                'id' => 'xh_adminmenu'
-            )
+        $this->assertXPathContains(
+            sprintf('//div[@id="xh_adminmenu"]//a[@href="%s"]', $url),
+            $item,
+            XH_adminMenu($this->plugins)
         );
-        $this->assertMatches($matcher);
     }
 
     public function itemData()
@@ -127,15 +123,11 @@ class AdminMenuTest extends TestCase
     public function testShowsPluginsInColumns($count, $style)
     {
         $this->plugins = range(1, $count);
-        $matcher = array(
-            'tag' => 'a',
-            'content' => '1',
-            'ancestor' => array(
-                'tag' => 'ul',
-                'attributes' => array('style' => $style)
-            )
+        $this->assertXPathContains(
+            sprintf('//ul[@style="%s"]//a', $style),
+            '1',
+            XH_adminMenu($this->plugins)
         );
-        $this->assertMatches($matcher);
     }
 
     public function pluginData()
@@ -151,15 +143,11 @@ class AdminMenuTest extends TestCase
     public function testShowsAllPluginItems()
     {
         $this->plugins = range(1, 10);
-        $matcher = array(
-            'tag' => 'ul',
-            'attributes' => array('style' => 'width:125px; margin-left: 0px'),
-            'children' => array(
-                'count' => 10,
-                'only' => array('tag' => 'li')
-            )
+        $this->assertXPathCount(
+            '//ul[@style="width:125px; margin-left: 0px"]/li',
+            10,
+            XH_adminMenu($this->plugins)
         );
-        $this->assertMatches($matcher);
     }
 
     public function testShowsAllVisiblePluginItems()
@@ -168,15 +156,11 @@ class AdminMenuTest extends TestCase
 
         $cf = array('plugins' => array('hidden' => '1, 5, 10'));
         $this->plugins = range(1, 10);
-        $matcher = array(
-            'tag' => 'ul',
-            'attributes' => array('style' => 'width:125px; margin-left: 0px'),
-            'children' => array(
-                'count' => 7,
-                'only' => array('tag' => 'li')
-            )
+        $this->assertXPathCount(
+            '//ul[@style="width:125px; margin-left: 0px"]/li',
+            7,
+            XH_adminMenu($this->plugins)
         );
-        $this->assertMatches($matcher);
     }
 
     public function testRegisterPluginMenuItemReturnsRegisteredItems()
@@ -215,14 +199,11 @@ class AdminMenuTest extends TestCase
     public function testShowsRegisteredPluginMenuItem()
     {
         $this->plugins = array('foo');
-        $matcher = array(
-            'tag' => 'a',
-            'content' => 'Config',
-            'attributes' => array(
-                'href' => '?&foo&admin=plugin_config&action=plugin_edit'
-            )
+        $this->assertXPathContains(
+            '//a[@href="?&foo&admin=plugin_config&action=plugin_edit"]',
+            'Config',
+            XH_adminMenu($this->plugins)
         );
-        $this->assertMatches($matcher);
     }
 
     public function testEditModeLinksToStartPage()
@@ -230,16 +211,10 @@ class AdminMenuTest extends TestCase
         global $s, $tx;
 
         $s = -1;
-        $matcher = array(
-            'tag' => 'a',
-            'content' => $tx['editmenu']['edit'],
-            'attributes' => array('href' => '/?Welcome&edit')
+        $this->assertXPathContains(
+            '//a[@href="/?Welcome&edit"]',
+            $tx['editmenu']['edit'],
+            XH_adminMenu($this->plugins)
         );
-        $this->assertMatches($matcher);
-    }
-
-    private function assertMatches($matcher)
-    {
-        @$this->assertTag($matcher, XH_adminMenu($this->plugins));
     }
 }

@@ -96,14 +96,11 @@ class FinalCleanUpTest extends TestCase
      */
     public function testEmitsBjs()
     {
-        $matcher = array(
-            'tag' => 'body',
-            'child' => array(
-                'tag' => 'script',
-                'content' => 'alert(1);'
-            )
+        $this->assertXPathContains(
+            '//body/script',
+            'alert(1);',
+            XH_finalCleanUp(self::HTML)
         );
-        $this->assertResultMatches($matcher);
     }
 
     /**
@@ -114,14 +111,10 @@ class FinalCleanUpTest extends TestCase
     public function testDebugModeNoticeNotShownWhenErrorReportingOff()
     {
         $errorReporting = error_reporting(0);
-        $matcher = array(
-            'tag' => 'body',
-            'descendant' => array(
-                'tag' => 'div',
-                'attributes' => array('class' => 'xh_debug')
-            )
+        $this->assertNotXPath(
+            '//body//div[@class="xh_debug"]',
+            XH_finalCleanUp(self::HTML)
         );
-        @$this->assertNotTag($matcher, XH_finalCleanUp(self::HTML));
         error_reporting($errorReporting);
     }
 
@@ -132,15 +125,11 @@ class FinalCleanUpTest extends TestCase
      */
     public function testDebugModeNoticeShownWhenErrorReportingOn()
     {
-        $matcher = array(
-            'tag' => 'body',
-            'descendant' => array(
-                'tag' => 'div',
-                'attributes' => array('class' => 'xh_debug')
-            )
-        );
         $output = XH_finalCleanUp(self::HTML);
-        @$this->assertTag($matcher, $output);
+        $this->assertXPath(
+            '//body//div[@class="xh_debug"]',
+            $output
+        );
     }
 
     /**
@@ -150,18 +139,11 @@ class FinalCleanUpTest extends TestCase
      */
     public function testErrorList()
     {
-        $matcher = array(
-            'tag' => 'ul',
-            'parent' => array(
-                'tag' => 'div',
-                'attributes' => array('class' => 'xh_debug_warnings')
-            ),
-            'children' => array(
-                'count' => 2,
-                'only' => array('tag' => 'li')
-            )
+        $this->assertXPathCount(
+            '//div[@class="xh_debug_warnings"]/ul/li',
+            2,
+            XH_finalCleanUp(self::HTML)
         );
-        $this->assertResultMatches($matcher);
     }
 
     /**
@@ -171,16 +153,10 @@ class FinalCleanUpTest extends TestCase
      */
     public function testFixedAdminMenu()
     {
-        $matcher = array(
-            'tag' => 'div',
-            'id' => 'xh_adminmenu_fixed',
-            'parent' => array('tag' => 'body'),
-            'child' => array(
-                'tag' => 'ul',
-                'id' => 'my_admin_menu'
-            )
+        $this->assertXPath(
+            '//body/div[@id="xh_adminmenu_fixed"]/ul[@id="my_admin_menu"]',
+            XH_finalCleanUp(self::HTML)
         );
-        $this->assertResultMatches($matcher);
     }
 
     /**
@@ -195,16 +171,10 @@ class FinalCleanUpTest extends TestCase
         global $cf;
 
         $cf['editmenu']['scroll'] = 'true';
-        $matcher = array(
-            'tag' => 'div',
-            'id' => 'xh_adminmenu_scrolling',
-            'parent' => array('tag' => 'body'),
-            'child' => array(
-                'tag' => 'ul',
-                'id' => 'my_admin_menu'
-            )
+        $this->assertXPath(
+            '//body/div[@id="xh_adminmenu_scrolling"]/ul[@id="my_admin_menu"]',
+            XH_finalCleanUp(self::HTML)
         );
-        $this->assertResultMatches($matcher);
     }
 
     /**
@@ -215,25 +185,10 @@ class FinalCleanUpTest extends TestCase
     public function testEmitsBjsInFrontEnd()
     {
         $this->setConstant('XH_ADM', false);
-        $matcher = array(
-            'tag' => 'body',
-            'child' => array(
-                'tag' => 'script',
-                'content' => 'alert(1);'
-            )
+        $this->assertXPathContains(
+            '//body/script',
+            'alert(1);',
+            XH_finalCleanUp(self::HTML)
         );
-        $this->assertResultMatches($matcher);
-    }
-
-    /**
-     * Asserts whether the result of XH_finalCleanUp() matches a matcher.
-     *
-     * @param array $matcher A matcher.
-     *
-     * @return void
-     */
-    private function assertResultMatches(array $matcher)
-    {
-        @$this->assertTag($matcher, XH_finalCleanUp(self::HTML));
     }
 }

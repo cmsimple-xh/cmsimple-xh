@@ -57,14 +57,9 @@ class ControllerRenderErrorMessagesTest extends TestCase
      */
     public function testRenderErrorMessages()
     {
-        @$this->assertTag(
-            [
-                'tag' => 'ul',
-                'parent' => [
-                    'tag' => 'div', 'attributes' => ['class' => 'xh_warning']
-                ],
-                'children' => ['count' => 2, 'only' => ['tag' => 'li']]
-            ],
+        $this->assertXPathCount(
+            '//div[@class="xh_warning"]/ul/li',
+            2,
             $this->subject->renderErrorMessages()
         );
     }

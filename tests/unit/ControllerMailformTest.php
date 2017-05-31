@@ -99,17 +99,7 @@ class ControllerMailformTest extends TestCase
         global $o;
 
         $this->subject->handleMailform();
-        @$this->assertTag(
-            array(
-                'tag' => 'div',
-                'id' => 'xh_mailform',
-                'child' => array(
-                    'tag' => 'h1',
-                    'content' => 'Mailform'
-                )
-            ),
-            $o
-        );
+        $this->assertXPathContains('//div[@id="xh_mailform"]/h1', 'Mailform', $o);
     }
 
     /**

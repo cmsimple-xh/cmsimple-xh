@@ -111,121 +111,77 @@ EOT;
 
     public function testFormAttributes()
     {
-        $matcher = array(
-            'tag' => 'form',
-            'id' => 'xh_config_form',
-            'attributes' => array(
-                'action' => '/xh/?&pagemanager',
-                'method' => 'post',
-                'accept-charset' => 'UTF-8'
-            )
+        $this->assertXPath(
+            '//form[@id="xh_config_form" and @action="/xh/?&pagemanager" and @method="post"'
+            . ' and @accept-charset="UTF-8"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsSubmitButton()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'submit',
-                'class' => 'submit'
-            )
+        $this->assertXPath(
+            '//input[@type="submit" and @class="submit"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsStringField()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'text',
-                'name' => 'test_string',
-                'value' => 'foo',
-                'class' => 'xh_setting'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="text" and @name="test_string" and @value="foo" and @class="xh_setting"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsHiddenField()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'hidden',
-                'name' => 'test_hidden',
-                'value' => 'foo'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="hidden" and @name="test_hidden" and @value="foo"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsBoolField()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'checkbox',
-                'name' => 'test_bool',
-                'checked' => 'checked'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="checkbox" and @name="test_bool" and @checked]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsEnumField()
     {
-        $matcher = array(
-            'tag' => 'select',
-            'attributes' => array(
-                'name' => 'test_enum'
-            ),
-            'children' => array(
-                'count' => 3,
-                'only' => array('tag' => 'option')
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPathCount(
+            '//form//select[@name="test_enum"]/option',
+            3,
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsRandomField()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'hidden',
-                'name' => 'test_random',
-                'value' => 'foo'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="hidden" and @name="test_random" and @value="foo"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormDoesNotContainScriptingRegexpField()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array('name' => 'scripting_regexp'),
-            'ancestor' => 'form'
+        $this->assertNotXPath(
+            '//form//input[@name="scripting_regexp"]',
+            $this->subject->form()
         );
-        @$this->assertNotTag($matcher, $this->subject->form());
     }
 
     public function testSuccessMessage()
     {
         $_GET['xh_success'] = '';
-        $matcher = array(
-            'tag' => 'p',
-            'attributes' => array('class' => 'xh_success')
+        $this->assertXPath(
+            '//p[@class="xh_success"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testSubmit()
@@ -251,11 +207,6 @@ EOT;
         $eSpy = $this->getFunctionMock('e', $this->subject);
         $eSpy->expects($this->once());
         $this->subject->submit();
-    }
-
-    private function assertFormMatches($matcher)
-    {
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     //public function dataForFormField()

@@ -30,121 +30,66 @@ class MailformRenderTest extends TestCase
 
     public function testForm()
     {
-        $this->assertMatches(
-            array(
-                'tag' => 'form',
-                'attributes' => array(
-                    'class' => 'xh_mailform',
-                    'method' => 'post'
-                )
-            )
+        $this->assertXPath(
+            '//form[@class="xh_mailform" and @method="post"]',
+            $this->subject->render()
         );
     }
 
     public function testFunctionInput()
     {
-        $this->assertMatches(
-            array(
-                'tag' => 'input',
-                'attributes' => array(
-                    'type' => 'hidden',
-                    'name' => 'function',
-                    'value' => 'mailform'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertXPath(
+            '//form//input[@type="hidden" and @name="function" and @value="mailform"]',
+            $this->subject->render()
         );
     }
 
     public function testNoFunctionInputInEmbeddedMailform()
     {
         $this->subject = new Mailform(true);
-        $this->assertNotMatches(
-            array(
-                'tag' => 'input',
-                'attributes' => array(
-                    'name' => 'function',
-                    'value' => 'mailform'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertNotXPath(
+            '//form//input[@name="function" and @value="mailform"]',
+            $this->subject->render()
         );
     }
 
     public function testActionInput()
     {
-        $this->assertMatches(
-            array(
-                'tag' => 'input',
-                'attributes' => array(
-                    'type' => 'hidden',
-                    'name' => 'action',
-                    'value' => 'send'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertXPath(
+            '//form//input[@type="hidden" and @name="action" and @value="send"]',
+            $this->subject->render()
         );
     }
 
     public function testSendernameInput()
     {
-        $this->assertMatches(
-            array(
-                'tag' => 'input',
-                'attributes' => array(
-                    'type' => 'text',
-                    'name' => 'sendername',
-                    'class' => 'text'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertXPath(
+            '//form//input[@type="text" and @name="sendername" and @class="text"]',
+            $this->subject->render()
         );
     }
 
     public function testSenderphoneInput()
     {
-        $this->assertMatches(
-            array(
-                'tag' => 'input',
-                'attributes' => array(
-                    'type' => 'tel',
-                    'name' => 'senderphone',
-                    'class' => 'text'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertXPath(
+            '//form//input[@type="tel" and @name="senderphone" and @class="text"]',
+            $this->subject->render()
         );
     }
 
     public function testSenderInput()
     {
-        $this->assertMatches(
-            array(
-                'tag' => 'input',
-                'attributes' => array(
-                    'type' => 'email',
-                    'name' => 'sender',
-                    'class' => 'text',
-                    'required' => 'required'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertXPath(
+            '//form//input[@type="email" and @name="sender" and @class="text" and @required]',
+            $this->subject->render()
         );
     }
 
     public function testSubjectInput()
     {
-        $this->assertMatches(
-            array(
-                'tag' => 'input',
-                'attributes' => array(
-                    'type' => 'text',
-                    'name' => 'subject',
-                    'class' => 'text',
-                    'required' => 'required'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertXPath(
+            '//form//input[@type="text" and @name="subject" and @class="text" and @required]',
+            $this->subject->render()
         );
     }
 
@@ -161,29 +106,17 @@ class MailformRenderTest extends TestCase
 
     private function checkTextarea($name)
     {
-        $this->assertMatches(
-            array(
-                'tag' => 'textarea',
-                'attributes' => array(
-                    'name' => $name,
-                    'required' => 'required'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertXPath(
+            sprintf('//form//textarea[@name="%s" and @required]', $name),
+            $this->subject->render()
         );
     }
 
     public function testSubmit()
     {
-        $this->assertMatches(
-            array(
-                'tag' => 'input',
-                'attributes' => array(
-                    'type' => 'submit',
-                    'class' => 'submit'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertXPath(
+            '//form//input[@type="submit" and @class="submit"]',
+            $this->subject->render()
         );
     }
 
@@ -192,27 +125,13 @@ class MailformRenderTest extends TestCase
         global $cf;
 
         $cf['mailform']['captcha'] = 'true';
-        $this->assertMatches(
-            array(
-                'tag' => 'input',
-                'attributes' => array(
-                    'type' => 'hidden',
-                    'name' => 'getlast'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertXPath(
+            '//form//input[@type="hidden" and @name="getlast"]',
+            $this->subject->render()
         );
-        $this->assertMatches(
-            array(
-                'tag' => 'input',
-                'attributes' => array(
-                    'type' => 'text',
-                    'name' => 'cap',
-                    'class' => 'xh_captcha_input',
-                    'required' => 'required'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertXPath(
+            '//form//input[@type="text" and @name="cap" and @class="xh_captcha_input" and @required]',
+            $this->subject->render()
         );
     }
 
@@ -221,33 +140,13 @@ class MailformRenderTest extends TestCase
         global $cf;
 
         $cf['mailform']['captcha'] = '';
-        $this->assertNotMatches(
-            array(
-                'tag' => 'input',
-                'attributes' => array(
-                    'name' => 'getlast'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertNotXPath(
+            '//form//input[@name="getlast"]',
+            $this->subject->render()
         );
-        $this->assertNotMatches(
-            array(
-                'tag' => 'input',
-                'attributes' => array(
-                    'name' => 'cap'
-                ),
-                'ancestor' => array('tag' => 'form')
-            )
+        $this->assertNotXPath(
+            '//form//input[@name="cap"]',
+            $this->subject->render()
         );
-    }
-
-    private function assertMatches($matcher)
-    {
-        @$this->assertTag($matcher, $this->subject->render());
-    }
-
-    private function assertNotMatches($matcher)
-    {
-        @$this->assertNotTag($matcher, $this->subject->render());
     }
 }

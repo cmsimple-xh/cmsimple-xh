@@ -40,68 +40,41 @@ class PageDataViewTest extends TestCase
     {
         $title = 'Meta';
         $filename = 'Metatags_view.php';
-        $matcher = array(
-            'tag' => 'a',
-            'attributes' => array(
-                'id' => 'xh_tab_Metatags_view',
-                'class' => 'xh_inactive_tab'
-            ),
-            'child' => array(
-                'tag' => 'span',
-                'content' => $title
-            )
-        );
         $actual = $this->pageDataView->tab($title, $filename, null);
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPathContains(
+            '//a[@id="xh_tab_Metatags_view" and @class="xh_inactive_tab"]/span',
+            $title,
+            $actual
+        );
     }
 
     public function testTabs()
     {
-        $matcher = array(
-            'tag' => 'div',
-            'attributes' => array(
-                'id' => 'xh_pdtabs'
-            ),
-            'children' => array(
-                'count' => 2,
-                'only' => array('tag' => 'a')
-            )
-        );
         $actual = $this->pageDataView->tabs();
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPathCount(
+            '//div[@id="xh_pdtabs"]/a',
+            2,
+            $actual
+        );
     }
 
     public function testView()
     {
         $filename = 'Metatags_view.php';
-        $matcher = array(
-            'tag' => 'div',
-            'attributes' => array(
-                'id' => 'xh_view_Metatags_view',
-                'class' => 'xh_inactive_view'
-            ),
-            'child' => array(
-                'tag' => 'div',
-                'class' => 'xh_view_status'
-            )
-        );
         $actual = $this->pageDataView->view($filename);
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPath(
+            '//div[@id="xh_view_Metatags_view" and @class="xh_inactive_view"]/div[@class="xh_view_status"]',
+            $actual
+        );
     }
 
     public function testViews()
     {
-        $matcher = array(
-            'tag' => 'div',
-            'attributes' => array(
-                'id' => 'xh_pdviews'
-            ),
-            'children' => array(
-                'count' => 2,
-                'only' => array('tag' => 'div')
-            )
-        );
         $actual = $this->pageDataView->views();
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPathCount(
+            '//div[@id="xh_pdviews"]/div',
+            2,
+            $actual
+        );
     }
 }

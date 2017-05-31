@@ -59,30 +59,20 @@ class ClassicPluginMenuTest extends TestCase
 
     public function testFullPluginMenuHas1Row()
     {
-        $matcher = array(
-            'tag' => 'table',
-            'attributes' => array(
-                'class' => 'edit'
-            ),
-            'children' => array(
-                'only' => array('tag' => 'tr'),
-                'count' => 1
-            )
+        $this->assertXPathCount(
+            '//table[@class="edit"]/tr',
+            1,
+            print_plugin_admin('on')
         );
-        $this->assertPluginMenuMatches($matcher);
     }
 
     public function testFullPluginMenuHas5Columns()
     {
-        $matcher = array(
-            'tag' => 'tr',
-            'children' => array(
-                'only' => array('tag' => 'td'),
-                'count' => 5
-            ),
-            'parent' => array('tag' => 'table')
+        $this->assertXPathCount(
+            '//table/tr/td',
+            5,
+            print_plugin_admin('on')
         );
-        $this->assertPluginMenuMatches($matcher);
     }
 
     /**
@@ -90,15 +80,11 @@ class ClassicPluginMenuTest extends TestCase
      */
     public function testFullPluginMenuHasMainItem($label, $href)
     {
-        $matcher = array(
-            'tag' => 'a',
-            'content' => $label,
-            'attributes' => array(
-                'href' => $href
-            ),
-            'ancestor' => array('tag' => 'table')
+        $this->assertXPathContains(
+            sprintf('//table//a[@href="%s"]', $href),
+            $label,
+            print_plugin_admin('on')
         );
-        $this->assertPluginMenuMatches($matcher);
     }
 
     public function dataForMenuItems()
@@ -139,12 +125,7 @@ class ClassicPluginMenuTest extends TestCase
                 'menu_help' => 'Plugin-Help',
             )
         );
-        $matcher = array(
-            'tag' => 'a',
-            'content' => $label,
-            'ancestor' => array('tag' => 'table')
-        );
-        $this->assertPluginMenuMatches($matcher);
+        $this->assertXPathContains('//table//a', $label, print_plugin_admin('on'));
     }
 
     public function dataForPluginTextMenuItems()
@@ -160,70 +141,43 @@ class ClassicPluginMenuTest extends TestCase
 
     public function testOffShowsNoMainItem()
     {
-        $matcher = array(
-            'tag' => 'a',
-            'content' => 'Main',
-            'ancestor' => array('tag' => 'table')
+        $this->assertNotXPathContains(
+            '//table//a',
+            'Main',
+            print_plugin_admin('off')
         );
-        @$this->assertNotTag($matcher, print_plugin_admin('off'));
-    }
-
-    private function assertPluginMenuMatches($matcher)
-    {
-        @$this->assertTag($matcher, print_plugin_admin('on'));
     }
 
     public function testCustomMenuRow()
     {
-        $matcher = array(
-            'tag' => 'table',
-            'attributes' => array('style' => 'color: red'),
-            'child' => array('tag' => 'tr')
+        $this->assertXPath(
+            '//table[@style="color: red"]/tr',
+            $this->renderCustomMenu()
         );
-        $this->assertCustomMenuMatches($matcher);
     }
 
     public function testCustomMenuTab()
     {
-        $matcher = array(
-            'tag' => 'td',
-            'attributes' => array('style' => 'color: turquoise'),
-            'child' => array(
-                'tag' => 'a',
-                'attributes' => array(
-                    'style' => 'color: lime',
-                    'href' => 'http://cmsimple-xh.org',
-                    'target' => '_blank'
-                ),
-                'content' => 'CMSimple_XH'
-            )
+        $this->assertXPathContains(
+            '//td[@style="color: turquoise"]/a[@style="color: lime"'
+            . ' and @href="http://cmsimple-xh.org" and @target="_blank"]',
+            'CMSimple_XH',
+            $this->renderCustomMenu()
         );
-        $this->assertCustomMenuMatches($matcher);
     }
 
     public function testCustomMenuData()
     {
-        $matcher = array(
-            'tag' => 'td',
-            'attributes' => array('style' => 'color: dark'),
-            'content' => 'Lorem ipsum'
+        $this->assertXPathContains(
+            '//td[@style="color: dark"]',
+            'Lorem ipsum',
+            $this->renderCustomMenu()
         );
-        $this->assertCustomMenuMatches($matcher);
     }
 
     public function testCustomMenuDataWithoutStyle()
     {
-        $matcher = array(
-            'tag' => 'td',
-            'attributes' => array(),
-            'content' => 'without style'
-        );
-        $this->assertCustomMenuMatches($matcher);
-    }
-
-    private function assertCustomMenuMatches($matcher)
-    {
-        @$this->assertTag($matcher, $this->renderCustomMenu());
+        $this->assertXPathContains('//td', 'without style', $this->renderCustomMenu());
     }
 
     private function renderCustomMenu()

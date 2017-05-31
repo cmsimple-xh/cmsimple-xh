@@ -70,82 +70,55 @@ class CoreTextFileEditTest extends TestCase
 
     public function testFormAttributes()
     {
-        $matcher = array(
-            'tag' => 'form',
-            'attributes' => array(
-                'method' => 'post',
-                'action' => '/xh/'
-            )
+        $this->assertXPath(
+            '//form[@method="post" and @action="/xh/"]',
+            $this->subject->form()
         );
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsTextarea()
     {
-        $matcher = array(
-            'tag' => 'textarea',
-            'attributes' => array(
-                'name' => 'text',
-                'class' => 'xh_file_edit'
-            ),
-            'content' => '<html>',
-            'parent' => array('tag' => 'form')
+        $this->assertXPathContains(
+            '//form/textarea[@name="text" and @class="xh_file_edit"]',
+            '<html>',
+            $this->subject->form()
         );
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsSubmitButton()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'submit',
-                'class' => 'submit',
-                'value' => 'Save'
-
-            ),
-            'parent' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="submit" and @class="submit" and @value="Save"]',
+            $this->subject->form()
         );
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsFileInput()
     {
         global $file;
 
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'hidden',
-                'name' => 'file',
-                'value' => $file
-            )
+        $this->assertXPath(
+            sprintf('//input[@type="hidden" and @name="file" and @value="%s"]', $file),
+            $this->subject->form()
         );
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsActionInput()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'hidden',
-                'name' => 'action',
-                'value' => 'save'
-            )
+        $this->assertXPath(
+            '//input[@type="hidden" and @name="action" and @value="save"]',
+            $this->subject->form()
         );
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testSuccessMessage()
     {
         $_GET['xh_success'] = 'template';
-        $matcher = array(
-            'tag' => 'p',
-            'attributes' => array('class' => 'xh_success'),
-            'content' => 'Saved Template'
+        $this->assertXPathContains(
+            '//p[@class="xh_success"]',
+            'Saved Template',
+            $this->subject->form()
         );
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testSubmit()

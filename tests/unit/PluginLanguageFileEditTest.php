@@ -89,39 +89,27 @@ class PluginLanguageFileEditTest extends TestCase
 
     public function testFormAttributes()
     {
-        $matcher = array(
-            'tag' => 'form',
-            'id' => 'xh_config_form',
-            'attributes' => array(
-                'action' => '/xh/?&pagemanager',
-                'method' => 'post',
-                'accept-charset' => 'UTF-8'
-            )
+        $this->assertXPath(
+            '//form[@id="xh_config_form" and @action="/xh/?&pagemanager" and @method="post"'
+            . ' and @accept-charset="UTF-8"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsSubmitButton()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'submit',
-                'class' => 'submit'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//input[@type="submit" and @class="submit"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsSiteTitleField()
     {
-        $matcher = array(
-            'tag' => 'textarea',
-            'attributes' => array(),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//textarea',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     /**
@@ -129,16 +117,10 @@ class PluginLanguageFileEditTest extends TestCase
      */
     public function testFormContainsHiddenInput($name, $value)
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'hidden',
-                'name' => $name,
-                'value' => $value
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            sprintf('//form//input[@type="hidden" and @name="%s" and @value="%s"]', $name, $value),
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function hiddenInputData()
@@ -152,11 +134,10 @@ class PluginLanguageFileEditTest extends TestCase
     public function testSuccessMessage()
     {
         $_GET['xh_success'] = 'language';
-        $matcher = array(
-            'tag' => 'p',
-            'attributes' => array('class' => 'xh_success')
+        $this->assertXPath(
+            '//p[@class="xh_success"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testSubmit()
@@ -182,10 +163,5 @@ class PluginLanguageFileEditTest extends TestCase
         $eSpy = $this->getFunctionMock('e', $this->subject);
         $eSpy->expects($this->once());
         $this->subject->submit();
-    }
-
-    private function assertFormMatches($matcher)
-    {
-        @$this->assertTag($matcher, $this->subject->form());
     }
 }

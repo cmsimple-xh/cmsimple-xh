@@ -89,53 +89,34 @@ class CoreLangFileEditTest extends TestCase
 
     public function testFormAttributes()
     {
-        $matcher = array(
-            'tag' => 'form',
-            'id' => 'xh_config_form',
-            'attributes' => array(
-                'action' => '/xh/',
-                'method' => 'post',
-                'accept-charset' => 'UTF-8'
-            )
+        $this->assertXPath(
+            '//form[@id="xh_config_form" and @action="/xh/" and @method="post" and @accept-charset="UTF-8"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsSubmitButton()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'submit',
-                'class' => 'submit'
-            )
+        $this->assertXPath(
+            '//input[@type="submit" and @class="submit"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsSiteTitleField()
     {
-        $matcher = array(
-            'tag' => 'textarea',
-            'attributes' => array(
-                'name' => 'site_title',
-                'class' => 'xh_setting'
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form//textarea[@name="site_title" and @class="xh_setting"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testFormContainsMessageSavedField()
     {
-        $matcher = array(
-            'tag' => 'textarea',
-            'attributes' => array(
-                'name' => 'message_saved',
-                'class' => 'xh_setting xh_setting_short'
-            )
+        $this->assertXPath(
+            '//textarea[@name="message_saved" and @class="xh_setting xh_setting_short"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     /**
@@ -143,16 +124,10 @@ class CoreLangFileEditTest extends TestCase
      */
     public function testFormContainsHiddenInput($name, $value)
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'hidden',
-                'name' => $name,
-                'value' => $value
-            ),
-            'ancestor' => array('tag' => 'form')
+        $this->assertXPath(
+            sprintf('//form//input[@type="hidden" and @name="%s" and @value="%s"]', $name, $value),
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function hiddenInputData()
@@ -166,11 +141,10 @@ class CoreLangFileEditTest extends TestCase
     public function testSuccessMessage()
     {
         $_GET['xh_success'] = 'language';
-        $matcher = array(
-            'tag' => 'p',
-            'attributes' => array('class' => 'xh_success')
+        $this->assertXPath(
+            '//p[@class="xh_success"]',
+            $this->subject->form()
         );
-        $this->assertFormMatches($matcher);
     }
 
     public function testSubmit()
@@ -201,10 +175,5 @@ class CoreLangFileEditTest extends TestCase
         $eSpy = $this->getFunctionMock('e', $this->subject);
         $eSpy->expects($this->once());
         $this->subject->submit();
-    }
-
-    private function assertFormMatches($matcher)
-    {
-        @$this->assertTag($matcher, $this->subject->form());
     }
 }

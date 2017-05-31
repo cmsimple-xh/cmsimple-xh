@@ -75,20 +75,18 @@ class LinkCheckerTest extends TestCase
     {
         global $onload;
 
-        $matcher = array(
-            'id' => 'xh_linkchecker',
-            'descendant' => array('tag' => 'img')
-        );
         $actual = $this->linkChecker->prepare();
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPath(
+            '//*[@id="xh_linkchecker"]//img',
+            $actual
+        );
         $this->stringStartsWith('XH.checkLinks(', $onload);
     }
 
     public function testCheckLinks()
     {
-        $matcher = array('tag' => 'h4');
         $actual = $this->linkChecker->checkLinks();
-        @$this->assertNotTag($matcher, $actual);
+        $this->assertNotXPath('//h4', $actual);
     }
 
     public function dataForLinkStatus()
@@ -136,36 +134,28 @@ class LinkCheckerTest extends TestCase
 
     public function testReportError()
     {
-        $matcher = array(
-            'tag' => 'li',
-            'descendant' => array(
-                'tag' => 'a',
-                'attributes' => array('href' => '?Welcome'),
-                'content' => 'Start Page'
-            )
-        );
         $link = new Link('?Welcome', 'Start Page');
         $link->setStatus(400);
         $actual = $this->linkChecker->reportError($link);
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPathContains(
+            '//li//a[@href="?Welcome"]',
+            'Start Page',
+            $actual
+        );
     }
 
     public function testReportNotice()
     {
         $url = 'http://cmsimple-xh.org/';
         $text = 'Start Page';
-        $matcher = array(
-            'tag' => 'li',
-            'descendant' => array(
-                'tag' => 'a',
-                'attributes' => array('href' => $url),
-                'content' => $text
-            )
-        );
         $link = new Link($url, $text);
         $link->setStatus(300);
         $actual = $this->linkChecker->reportNotice($link);
-        @$this->assertTag($matcher, $actual);
+        $this->assertXPathContains(
+            sprintf('//li//a[@href="%s"]', $url),
+            $text,
+            $actual
+        );
     }
 
     public function testMessage()

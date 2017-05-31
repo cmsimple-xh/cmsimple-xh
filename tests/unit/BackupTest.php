@@ -114,12 +114,11 @@ class BackupTest extends TestCase
     public function testReportsCreationOfBackup()
     {
         touch("{$this->contentFolder}content.htm");
-        $matcher = array(
-            'tag' => 'p',
-            'attributes' => array('class' => 'xh_info'),
-            'content' => 'created'
+        $this->assertXPathContains(
+            '//p[@class="xh_info"]',
+            'created',
+            $this->subject->execute()
         );
-        @$this->assertTag($matcher, $this->subject->execute());
     }
 
     public function testDeletesTooOldBackups()
@@ -158,12 +157,10 @@ class BackupTest extends TestCase
         touch("{$this->contentFolder}19700101_000102_content.htm");
         touch("{$this->contentFolder}19700102_000102_content.htm");
         touch("{$this->contentFolder}19700103_000102_content.htm");
-        $matcher = array(
-            'tag' => 'p',
-            'attributes' => array('class' => 'xh_info'),
-            'content' => 'deleted'
+        $this->assertXPath(
+            '//p[@class="xh_info"]',
+            $this->subject->execute()
         );
-        @$this->assertTag($matcher, $this->subject->execute());
     }
 
     public function testReportsDeletionFailure()

@@ -9,7 +9,7 @@ require_once './cmsimple/tplfuncs.php';
 require_once './cmsimple/compat.php';
 
 require_once './tests/unit/FunctionMock.php';
-require_once './tests/unit/TestCase.php';
+require_once './tests/TestCase.php';
 require_once './tests/unit/ControllerLogInOutTestCase.php';
 
 spl_autoload_register(function ($className) {

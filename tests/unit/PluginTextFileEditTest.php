@@ -70,80 +70,49 @@ class PluginTextFileEditTest extends TestCase
 
     public function testFormAttributes()
     {
-        $matcher = array(
-            'tag' => 'form',
-            'attributes' => array(
-                'method' => 'post',
-                'action' => '/xh/?&pagemanager'
-            )
+        $this->assertXPath(
+            '//form[@method="post" and @action="/xh/?&pagemanager"]',
+            $this->subject->form()
         );
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsTextarea()
     {
-        $matcher = array(
-            'tag' => 'textarea',
-            'attributes' => array(
-                'name' => 'plugin_text',
-                'class' => 'xh_file_edit'
-            ),
-            'content' => 'body{}',
-            'parent' => array('tag' => 'form')
+        $this->assertXPathContains(
+            '//form/textarea[@name="plugin_text" and @class="xh_file_edit"]',
+            'body{}',
+            $this->subject->form()
         );
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsSubmitButton()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'submit',
-                'class' => 'submit',
-                'value' => 'Save'
-
-            ),
-            'parent' => array('tag' => 'form')
+        $this->assertXPath(
+            '//form/input[@type="submit" and @class="submit" and @value="Save"]',
+            $this->subject->form()
         );
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsAdminInput()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'hidden',
-                'name' => 'admin',
-                'value' => 'plugin_stylesheet'
-            )
+        $this->assertXPath(
+            '//input[@type="hidden" and @name="admin" and @value="plugin_stylesheet"]',
+            $this->subject->form()
         );
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testFormContainsActionInput()
     {
-        $matcher = array(
-            'tag' => 'input',
-            'attributes' => array(
-                'type' => 'hidden',
-                'name' => 'action',
-                'value' => 'plugin_textsave'
-            )
+        $this->assertXPath(
+            '//input[@type="hidden" and @name="action" and @value="plugin_textsave"]',
+            $this->subject->form()
         );
-        @$this->assertTag($matcher, $this->subject->form());
     }
 
     public function testSuccessMessage()
     {
         $_GET['xh_success'] = 'stylesheet';
-        $matcher = array(
-            'tag' => 'p',
-            'attributes' => array('class' => 'xh_success'),
-            'content' => 'Saved Stylesheet'
-        );
-        @$this->assertTag($matcher, $this->subject->form());
+        $this->assertXPathContains('//p[@class="xh_success"]', 'Saved Stylesheet', $this->subject->form());
     }
 
     public function testSubmit()

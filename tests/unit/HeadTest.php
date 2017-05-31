@@ -102,13 +102,7 @@ class HeadTest extends TestCase
     {
         $this->titleMock->expects($this->any())
             ->will($this->returnValue('<b>Website</b>'));
-        @$this->assertTag(
-            array(
-                'tag' => 'title',
-                'content' => 'Website'
-            ),
-            head()
-        );
+        $this->assertXPathContains('//title', 'Website', head());
     }
 
     /**
@@ -118,14 +112,8 @@ class HeadTest extends TestCase
      */
     public function testRendersContentType()
     {
-        @$this->assertTag(
-            array(
-                'tag' => 'meta',
-                'attributes' => array(
-                    'http-equiv' => 'content-type',
-                    'content' => 'text/html;charset=UTF-8'
-                )
-            ),
+        $this->assertXPath(
+            '//meta[@http-equiv="content-type" and @content="text/html;charset=UTF-8"]',
             head()
         );
     }
@@ -137,14 +125,8 @@ class HeadTest extends TestCase
      */
     public function testRendersMetaRobots()
     {
-        @$this->assertTag(
-            array(
-                'tag' => 'meta',
-                'attributes' => array(
-                    'name' => 'robots',
-                    'content' => 'index, follow'
-                )
-            ),
+        $this->assertXPath(
+            '//meta[@name="robots" and @content="index, follow"]',
             head()
         );
     }
@@ -156,14 +138,8 @@ class HeadTest extends TestCase
      */
     public function testRendersMetaKeywords()
     {
-        @$this->assertTag(
-            array(
-                'tag' => 'meta',
-                'attributes' => array(
-                    'name' => 'keywords',
-                    'content' => 'CMSimple, XH'
-                )
-            ),
+        $this->assertXPath(
+            '//meta[@name="keywords" and @content="CMSimple, XH"]',
             head()
         );
     }
@@ -175,13 +151,8 @@ class HeadTest extends TestCase
      */
     public function testRendersMetaGenerator()
     {
-        @$this->assertTag(
-            array(
-                'tag' => 'meta',
-                'attributes' => array(
-                    'name' => 'generator'
-                )
-            ),
+        $this->assertXPath(
+            '//meta[@name="generator"]',
             head()
         );
     }
@@ -202,14 +173,8 @@ class HeadTest extends TestCase
         $u = array('Welcome');
         $findPreviousPageMock = $this->getFunctionMock('XH_findPreviousPage', null);
         $findPreviousPageMock->expects($this->any())->will($this->returnValue(0));
-        @$this->assertTag(
-            array(
-                'tag' => 'link',
-                'attributes' => array(
-                    'rel' => 'prev',
-                    'href' => '/xh/?Welcome'
-                )
-            ),
+        $this->assertXPath(
+            '//link[@rel="prev" and @href="/xh/?Welcome"]',
             head()
         );
         $findPreviousPageMock->restore();
@@ -231,14 +196,8 @@ class HeadTest extends TestCase
         $u = array('Welcome');
         $findNextPageMock = $this->getFunctionMock('XH_findNextPage', null);
         $findNextPageMock->expects($this->any())->will($this->returnValue(0));
-        @$this->assertTag(
-            array(
-                'tag' => 'link',
-                'attributes' => array(
-                    'rel' => 'next',
-                    'href' => '/xh/?Welcome'
-                )
-            ),
+        $this->assertXPath(
+            '//link[@rel="next" and @href="/xh/?Welcome"]',
             head()
         );
         $findNextPageMock->restore();
@@ -251,15 +210,8 @@ class HeadTest extends TestCase
      */
     public function testRendersTemplateStylesheetLink()
     {
-        @$this->assertTag(
-            array(
-                'tag' => 'link',
-                'attributes' => array(
-                    'rel' => 'stylesheet',
-                    'type' => 'text/css',
-                    'href' => 'stylesheet'
-                )
-            ),
+        $this->assertXPath(
+            '//link[@rel="stylesheet" and @type="text/css" and @href="stylesheet"]',
             head()
         );
     }
