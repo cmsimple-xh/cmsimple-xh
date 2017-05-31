@@ -22,9 +22,9 @@ class TestCase extends PHPUnit_Framework_TestCase
      * @param object $scopeObject
      * @return PHPUnit_Extension_MockFunction
      */
-    protected function getFunctionMock($name, $scopeObject)
+    protected function getFunctionMock($name)
     {
-        return new FunctionMock($name, $scopeObject);
+        return new FunctionMock($name);
     }
 
     /**

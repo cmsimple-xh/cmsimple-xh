@@ -123,24 +123,26 @@ class CoreTextFileEditTest extends TestCase
 
     public function testSubmit()
     {
-        $headerSpy = $this->getFunctionMock('header', $this->subject);
+        $headerSpy = $this->getFunctionMock('header');
         $headerSpy->expects($this->once())->with(
             $this->equalTo(
                 'Location: ' . CMSIMPLE_URL
                 . '?file=template&action=edit&xh_success=template'
             )
         );
-        $exitSpy = $this->getFunctionMock('XH_exit', $this->subject);
+        $exitSpy = $this->getFunctionMock('XH_exit');
         $exitSpy->expects($this->once());
         $_POST = array('text' => '</html>');
         $this->subject->submit();
+        $headerSpy->restore();
+        $exitSpy->restore();
     }
 
     public function testSubmitCantSave()
     {
-        $writeFileStub = $this->getFunctionMock('XH_writeFile', $this->subject);
+        $writeFileStub = $this->getFunctionMock('XH_writeFile');
         $writeFileStub->expects($this->once())->will($this->returnValue(false));
-        $eSpy = $this->getFunctionMock('e', $this->subject);
+        $eSpy = $this->getFunctionMock('e');
         $eSpy->expects($this->once())->with(
             $this->equalTo('cntsave'),
             $this->equalTo('file'),
@@ -148,5 +150,7 @@ class CoreTextFileEditTest extends TestCase
         );
         $_POST = array('text' => '</html>');
         $this->subject->submit();
+        $writeFileStub->restore();
+        $eSpy->restore();
     }
 }

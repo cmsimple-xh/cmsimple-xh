@@ -709,7 +709,7 @@ class FunctionsTest extends TestCase
     {
         $handle = 'foo';
         $operation = LOCK_EX;
-        $flockMock = $this->getFunctionMock('flock', null);
+        $flockMock = $this->getFunctionMock('flock');
         $flockMock->expects($this->once())->with($handle, $operation);
         XH_lockFile($handle, $operation);
         $flockMock->restore();

@@ -68,11 +68,11 @@ class PoweredByTest extends TestCase
 
     protected function setUpMocks()
     {
-        $this->templatesMock = $this->getFunctionMock('XH_templates', null);
+        $this->templatesMock = $this->getFunctionMock('XH_templates');
         $this->templatesMock->expects($this->any())->willReturn(array('mini1'));
-        $this->pluginsMock = $this->getFunctionMock('XH_plugins', null);
+        $this->pluginsMock = $this->getFunctionMock('XH_plugins');
         $this->pluginsMock->expects($this->any())->willReturn(array('memberpages'));
-        $this->uencMock = $this->getFunctionMock('uenc', null);
+        $this->uencMock = $this->getFunctionMock('uenc');
         $this->uencMock->expects($this->any())->willReturn('site-info');
     }
 

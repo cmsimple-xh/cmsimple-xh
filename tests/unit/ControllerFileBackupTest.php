@@ -53,7 +53,12 @@ class ControllerFileBackupTest extends TestCase
         $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
             ->disableOriginalConstructor()->getMock();
         $this->subject = new Controller();
-        $this->extraBackupMock = $this->getFunctionMock('XH_extraBackup', $this->subject);
+        $this->extraBackupMock = $this->getFunctionMock('XH_extraBackup');
+    }
+
+    protected function tearDown()
+    {
+        $this->extraBackupMock->restore();
     }
 
     /**

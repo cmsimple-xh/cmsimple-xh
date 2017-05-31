@@ -48,6 +48,8 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      */
     protected $logMessageMock;
 
+    protected $filePutContentsMock;
+
     /**
      * Sets up the test fixture.
      *
@@ -64,11 +66,20 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
             'HTTP_USER_AGENT' => 'Mozilla/5.0',
             'REMOTE_ADDR' => '127.0.0.1'
         );
-        $this->passwordVerifyMock = $this->getFunctionMock('password_verify', $this->subject);
+        $this->passwordVerifyMock = $this->getFunctionMock('password_verify');
         $cf['security']['password'] = '$P$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1';
-        $this->eMock = $this->getFunctionMock('e', $this->subject);
-        $this->logMessageMock = $this->getFunctionMock('XH_logMessage', $this->subject);
-        $this->getFunctionMock('file_put_contents', $this->subject);
+        $this->eMock = $this->getFunctionMock('e');
+        $this->logMessageMock = $this->getFunctionMock('XH_logMessage');
+        $this->filePutContentsMock = $this->getFunctionMock('file_put_contents');
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+        $this->passwordVerifyMock->restore();
+        $this->eMock->restore();
+        $this->logMessageMock->restore();
+        $this->filePutContentsMock->restore();
     }
 
     /**

@@ -70,9 +70,16 @@ class ControllerStandardHeaderTest extends TestCase
 
         $cf['security']['frame_options'] = 'DENY';
         $this->subject = new Controller();
-        $this->headersSentMock = $this->getFunctionMock('headers_sent', $this->subject);
-        $this->headerMock = $this->getFunctionMock('header', $this->subject);
-        $this->exitMock = $this->getFunctionMock('XH_exit', $this->subject);
+        $this->headersSentMock = $this->getFunctionMock('headers_sent');
+        $this->headerMock = $this->getFunctionMock('header');
+        $this->exitMock = $this->getFunctionMock('XH_exit');
+    }
+
+    protected function tearDown()
+    {
+        $this->headersSentMock->restore();
+        $this->headerMock->restore();
+        $this->exitMock->restore();
     }
 
     /**

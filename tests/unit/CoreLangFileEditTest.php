@@ -72,7 +72,7 @@ class CoreLangFileEditTest extends TestCase
     {
         global $_XH_csrfProtection;
 
-        $this->_tagStub = $this->getFunctionMock('tag', $this->subject);
+        $this->_tagStub = $this->getFunctionMock('tag');
         $this->_tagStub->expects($this->any())->will($this->returnCallback(
             function ($str) {
                 return "<$str>";
@@ -149,16 +149,16 @@ class CoreLangFileEditTest extends TestCase
 
     public function testSubmit()
     {
-        $writeFileSpy = $this->getFunctionMock('XH_writeFile', $this->subject);
+        $writeFileSpy = $this->getFunctionMock('XH_writeFile');
         $writeFileSpy->expects($this->once())->will($this->returnValue(true));
-        $headerSpy = $this->getFunctionMock('header', $this->subject);
+        $headerSpy = $this->getFunctionMock('header');
         $headerSpy->expects($this->once())->with(
             $this->equalTo(
                 'Location: ' . CMSIMPLE_URL
                 . '?file=language&action=array&xh_success=language'
             )
         );
-        $exitSpy = $this->getFunctionMock('XH_exit', $this->subject);
+        $exitSpy = $this->getFunctionMock('XH_exit');
         $exitSpy->expects($this->once());
         $_POST = array(
             'security_password_OLD' => 'foo',
@@ -166,14 +166,19 @@ class CoreLangFileEditTest extends TestCase
             'security_password_CONFIRM' => 'bar',
         );
         $this->subject->submit();
+        $writeFileSpy->restore();
+        $headerSpy->restore();
+        $exitSpy->restore();
     }
 
     public function testSubmitSaveFailure()
     {
-        $writeFileSpy = $this->getFunctionMock('XH_writeFile', $this->subject);
+        $writeFileSpy = $this->getFunctionMock('XH_writeFile');
         $writeFileSpy->expects($this->once())->will($this->returnValue(false));
-        $eSpy = $this->getFunctionMock('e', $this->subject);
+        $eSpy = $this->getFunctionMock('e');
         $eSpy->expects($this->once());
         $this->subject->submit();
+        $writeFileSpy->restore();
+        $eSpy->restore();
     }
 }

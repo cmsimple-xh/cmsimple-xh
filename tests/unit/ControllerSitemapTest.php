@@ -67,8 +67,14 @@ class ControllerSitemapTest extends TestCase
             'sitemap' => 'Sitemap'
         );
         $this->subject = $this->getMockBuilder('XH\Controller')->setMethods(null)->getMock();
-        $this->hideMock = $this->getFunctionMock('hide', $this->subject);
-        $this->liMock = $this->getFunctionMock('li', $this->subject);
+        $this->hideMock = $this->getFunctionMock('hide');
+        $this->liMock = $this->getFunctionMock('li');
+    }
+
+    protected function tearDown()
+    {
+        $this->hideMock->restore();
+        $this->liMock->restore();
     }
 
     /**

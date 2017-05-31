@@ -31,9 +31,9 @@ class LocatorTest extends TestCase
 
     public function setUp()
     {
-        $this->aMock = $this->getFunctionMock('a', null);
+        $this->aMock = $this->getFunctionMock('a');
         $this->aMock->expects($this->any())->willReturn('<a href="foo">');
-        $this->modelMock = $this->getFunctionMock('XH_getLocatorModel', null);
+        $this->modelMock = $this->getFunctionMock('XH_getLocatorModel');
         $this->modelMock->expects($this->once())->willReturn(
             array(array('Home', '?foo'), array('Bar', '?bar'))
         );

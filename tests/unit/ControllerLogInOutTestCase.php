@@ -51,8 +51,15 @@ abstract class ControllerLogInOutTestCase extends TestCase
     {
         $this->setConstant('CMSIMPLE_ROOT', '/xh/');
         $this->subject = new Controller();
-        $this->sessionStartMock = $this->getFunctionMock('session_start', $this->subject);
-        $this->sessionRegenerateIdMock = $this->getFunctionMock('session_regenerate_id', $this->subject);
-        $this->setcookieMock = $this->getFunctionMock('setcookie', $this->subject);
+        $this->sessionStartMock = $this->getFunctionMock('session_start');
+        $this->sessionRegenerateIdMock = $this->getFunctionMock('session_regenerate_id');
+        $this->setcookieMock = $this->getFunctionMock('setcookie');
+    }
+
+    protected function tearDown()
+    {
+        $this->sessionStartMock->restore();
+        $this->sessionRegenerateIdMock->restore();
+        $this->setcookieMock->restore();
     }
 }

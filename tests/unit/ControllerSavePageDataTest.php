@@ -88,10 +88,18 @@ class ControllerSavePageDataTest extends TestCase
         $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
             ->disableOriginalConstructor()->getMock();
         $this->subject = new Controller();
-        $this->eMock = $this->getFunctionMock('e', $this->subject);
-        $this->exitMock = $this->getFunctionMock('XH_exit', $this->subject);
-        $this->headerMock = $this->getFunctionMock('header', $this->subject);
-        $this->messageMock = $this->getFunctionMock('XH_message', $this->subject);
+        $this->eMock = $this->getFunctionMock('e');
+        $this->exitMock = $this->getFunctionMock('XH_exit');
+        $this->headerMock = $this->getFunctionMock('header');
+        $this->messageMock = $this->getFunctionMock('XH_message');
+    }
+
+    protected function tearDown()
+    {
+        $this->eMock->restore();
+        $this->exitMock->restore();
+        $this->headerMock->restore();
+        $this->messageMock->restore();
     }
 
     /**

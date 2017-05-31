@@ -69,7 +69,12 @@ class ControllerMailformTest extends TestCase
             ->disableOriginalConstructor()->getMock();
         $this->subject->expects($this->any())->method('makeMailform')
             ->will($this->returnValue($this->mailformMock));
-        $this->sheadMock = $this->getFunctionMock('shead', $this->subject);
+        $this->sheadMock = $this->getFunctionMock('shead');
+    }
+
+    protected function tearDown()
+    {
+        $this->sheadMock->restore();
     }
 
     /**

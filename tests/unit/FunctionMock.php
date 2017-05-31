@@ -41,16 +41,6 @@ class FunctionMock
     protected $mock_object;
 
     /**
-     * Object to check if the function is called from its scope (supposedly the test object to the test case).
-     *
-     * If the mocked function is called outside its scope, the original (unmocked)
-     * function is executed - if there is.
-     *
-     * @var object
-     */
-    protected $scope_object;
-
-    /**
      * The name of the original function that gets mocked.
      *
      * @var string
@@ -86,21 +76,11 @@ class FunctionMock
     const TESTCASE_CLASSNAME = 'PHPUnit_Framework_TestCase';
 
     /**
-     * Number of call stack items between the function call of the test object and self::invoked().
-     *
-     * 1. Inocation from test object
-     * 2. Runkit function
-     * 3. Call to self::invoked().
-     */
-    const CALL_STACK_DISTANCE = 3;
-
-    /**
      * Constructor setting up object.
      *
      * @param string $function_name Name of the function to mock. Doesn't need to exist, might be newly created.
-     * @param object $scope_object Object specifying the scope where the mocked function is used.
      */
-    public function __construct($function_name, $scope_object)
+    public function __construct($function_name)
     {
         if (!function_exists('runkit_function_redefine')) {
             trigger_error('Runkit is not installed.', E_USER_ERROR);
@@ -114,7 +94,6 @@ class FunctionMock
         
         $this->id               = self::$next_id;
         $this->function_name    = $function_name;
-        $this->scope_object     = $scope_object;
         $this->test_case        = self::findTestCase();
         $this->mock_object      =
             $this->test_case->getMockBuilder(
@@ -173,29 +152,9 @@ class FunctionMock
      */
     public function invoked(array $arguments)
     {
-        // Original function is called when the invocation is ousides he scope or
-        // the invocation comes from this object.
-        $caller_object = self::getCallStackObject(self::CALL_STACK_DISTANCE);
-        if ($caller_object === $this || (isset($this->scope_object) && $this->scope_object !== $caller_object)) {
-            if (isset($this->restore_name)) {
-                return $this->callOriginal($arguments);
-            }
-            trigger_error('Undefined function: ' . $this->function_name, E_USER_ERROR);
-        }
         return call_user_func_array(array($this->mock_object, __FUNCTION__), $arguments);
     }
     
-    /**
-     * Calls original function that we temporary renamed. This maintains the oriignal functionality.
-     *
-     * @param type $arguments
-     * @return mixed
-     */
-    protected function callOriginal(array $arguments)
-    {
-        return call_user_func_array($this->restore_name, $arguments);
-    }
-
     /**
      * Proxy to the 'expects' of the mock object.
      *
@@ -282,37 +241,5 @@ class FunctionMock
             $mock = $className::findMock($id);
             return $mock->invoked(func_get_args());
         };
-    }
-
-    /**
-     * Returns an object from the call stack at Nth distance if there is, null otherwise.
-     *
-     * In theory we should instement the distance by one because when we call this
-     * method, we don't count it itself to the callstack, but since the stack is
-     * 0-indexed, we can avoid this step.
-     *
-     * Function calls are ignored, the first call after $distance that is made form
-     * is returned.
-     *
-     * @param type $distance The distance in the call stack from the current call and the desired one.
-     * @return object
-     */
-    protected static function getCallStackObject($distance)
-    {
-        $backtrace = debug_backtrace();
-
-        do {
-            if (isset($backtrace[$distance]['object'])) {
-                return $backtrace[$distance]['object'];
-            }
-
-            /* If there is no object assiciated to this call, we go further until
-             * the next one.
-             * Funcsion calls and functions like "user_call_func" get ignored.
-             */
-            ++$distance;
-        } while (isset($backtrace[$distance]));
-
-        return null;
     }
 }

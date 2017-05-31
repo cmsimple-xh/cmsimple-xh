@@ -109,9 +109,10 @@ class MailformTest extends TestCase
         $mail = $this->getMockBuilder('XH\Mail')->getMock();
         $mail->expects($this->once())->method('send')->willReturn(false);
         $mailform = new Mailform(false, null, $mail);
-        $logMessageSpy = $this->getFunctionMock('XH_logMessage', $mailform);
+        $logMessageSpy = $this->getFunctionMock('XH_logMessage');
         $logMessageSpy->expects($this->once());
         $this->assertFalse($mailform->submit());
+        $logMessageSpy->restore();
     }
 
     public function testDefaultActionRendersMailform()

@@ -71,9 +71,9 @@ class ControllerFileViewTest extends TestCase
         $this->setUpFileSystem();
         $file = 'content';
         $this->subject = new Controller();
-        $this->exitMock = $this->getFunctionMock('XH_exit', $this->subject);
-        $this->headerMock = $this->getFunctionMock('header', $this->subject);
-        $this->logFileViewMock = $this->getFunctionMock('XH_logFileView', $this->subject);
+        $this->exitMock = $this->getFunctionMock('XH_exit');
+        $this->headerMock = $this->getFunctionMock('header');
+        $this->logFileViewMock = $this->getFunctionMock('XH_logFileView');
     }
 
     /**
@@ -91,6 +91,13 @@ class ControllerFileViewTest extends TestCase
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
         $pth['file']['content'] = vfsStream::url('test/content.htm');
         file_put_contents($pth['file']['content'], 'foo');
+    }
+
+    protected function tearDown()
+    {
+        $this->exitMock->restore();
+        $this->headerMock->restore();
+        $this->logFileViewMock->restore();
     }
 
     /**
