@@ -188,7 +188,7 @@ class MailformTest extends TestCase
         $mailform->expects($this->any())->method('check')
             ->will($this->returnValue('some error message'));
         $mailform->process();
-        $mailform = $this->getMockBuilder('XH\Mailform')->setMethods(array('render'))->getMock();
+        $mailform = $this->getMockBuilder('XH\Mailform')->setMethods(array('render', 'check'))->getMock();
         $mailform->expects($this->never())->method('check');
         $this->assertFalse($mailform->process());
     }
