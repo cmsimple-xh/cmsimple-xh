@@ -24,7 +24,7 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     protected function getFunctionMock($name)
     {
-        return new FunctionMock($name);
+        return new FunctionMock($name, $this);
     }
 
     /**

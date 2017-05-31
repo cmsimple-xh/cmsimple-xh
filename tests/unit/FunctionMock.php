@@ -27,13 +27,6 @@ class FunctionMock
     protected $active = false;
 
     /**
-     * Test case from where the mock function is created. Automagically found with call stack.
-     *
-     * @var PHPUnit_Framework_TestCase
-     */
-    protected $test_case;
-
-    /**
      * Standard PHPUnit MockObject used to test invocations of the mocked function.
      *
      * @var object
@@ -71,16 +64,12 @@ class FunctionMock
     protected static $instances = array();
 
     /**
-     * Class name of PHPUnit test cases, used to automatically find them in the call stack.
-     */
-    const TESTCASE_CLASSNAME = 'PHPUnit_Framework_TestCase';
-
-    /**
      * Constructor setting up object.
      *
      * @param string $function_name Name of the function to mock. Doesn't need to exist, might be newly created.
+     * @param object $testcase The calling test case.
      */
-    public function __construct($function_name)
+    public function __construct($function_name, $testcase)
     {
         if (!function_exists('runkit_function_redefine')) {
             trigger_error('Runkit is not installed.', E_USER_ERROR);
@@ -94,9 +83,8 @@ class FunctionMock
         
         $this->id               = self::$next_id;
         $this->function_name    = $function_name;
-        $this->test_case        = self::findTestCase();
         $this->mock_object      =
-            $this->test_case->getMockBuilder(
+            $testcase->getMockBuilder(
                 'Mock_' . str_replace('::', '__', $this->function_name) . '_' . $this->id
             )
             ->disableAutoload()
@@ -181,29 +169,6 @@ class FunctionMock
             throw new Exception('Mock object not found, might be destroyed already.');
         }
         return self::$instances[$id];
-    }
-
-    /**
-     * Finds the rist object in the call cstack that is instance of a PHPUnit test case.
-     *
-     * @see self::TESTCASE_CLASSNAME
-     * @return PHPUnit_Framework_TestCase
-     */
-    public static function findTestCase()
-    {
-        $backtrace = debug_backtrace();
-        $classname = self::TESTCASE_CLASSNAME;
-
-        do {
-            $calling_test = array_shift($backtrace);
-        } while (isset($calling_test)
-                && !(isset($calling_test['object']) && $calling_test['object'] instanceof $classname));
-
-        if (!isset($calling_test)) {
-            trigger_error('No calling test found.', E_USER_ERROR);
-        }
-
-        return $calling_test['object'];
     }
 
     /**
