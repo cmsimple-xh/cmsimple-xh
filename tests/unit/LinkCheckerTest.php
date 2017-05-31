@@ -174,7 +174,7 @@ class LinkCheckerTest extends TestCase
             )
         );
         $actual = $this->linkChecker->message(7, $hints);
-        @$this->assertSelectCount('h4', 2, $actual);
-        @$this->assertSelectCount('h5', 3, $actual);
+        $this->assertXPathCount('//h4', 2, $actual);
+        $this->assertXPathCount('//h5', 3, $actual);
     }
 }
