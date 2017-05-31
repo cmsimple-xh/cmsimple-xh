@@ -66,7 +66,7 @@ class ControllerSitemapTest extends TestCase
         $tx['title'] = array(
             'sitemap' => 'Sitemap'
         );
-        $this->subject = $this->getMock('XH\Controller', null);
+        $this->subject = $this->getMockBuilder('XH\Controller')->setMethods(null)->getMock();
         $this->hideMock = $this->getFunctionMock('hide', $this->subject);
         $this->liMock = $this->getFunctionMock('li', $this->subject);
     }

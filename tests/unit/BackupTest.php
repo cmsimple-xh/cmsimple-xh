@@ -190,7 +190,10 @@ class BackupTest extends TestCase
 
     public function testMultipleBackupFolders()
     {
-        $subject = $this->getMock('XH\Backup', array('backupSingleFolder'), array(array('foo', 'bar')));
+        $subject = $this->getMockBuilder('XH\Backup')
+            ->setMethods(array('backupSingleFolder'))
+            ->setConstructorArgs(array(array('foo', 'bar')))
+            ->getMock();
         $subject->expects($this->exactly(2))->method('backupSingleFolder');
         $subject->execute($subject);
     }

@@ -50,7 +50,7 @@ class ControllerPasswordForgottenTest extends TestCase
      */
     public function setUp()
     {
-        $this->subject = $this->getMock('XH\Controller', array('makePasswordForgotten'));
+        $this->subject = $this->getMockBuilder('XH\Controller')->setMethods(array('makePasswordForgotten'))->getMock();
         $this->passwordForgottenMock = $this->getMockBuilder('XH\PasswordForgotten')
             ->disableOriginalConstructor()->getMock();
         $this->subject->expects($this->any())->method('makePasswordForgotten')
