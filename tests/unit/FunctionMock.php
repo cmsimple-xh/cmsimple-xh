@@ -8,6 +8,7 @@ namespace XH;
  * Assimilated from <https://github.com/tcz/phpunit-mockfunction/blob/3cf5ea8/PHPUnit/Extensions/MockFunction.php>.
  *
  * @author zoltan.tothczifra
+ * @author The CMSimple_XH developers
  */
 class FunctionMock
 {
@@ -41,9 +42,7 @@ class FunctionMock
     protected $function_name;
 
     /**
-     * Random temporary name of a funstion there we "save" the original, unmocked function.
-     *
-     * If the function did not exist before mocking, it's empty.
+     * Random temporary name of a function there we "save" the original, unmocked function.
      *
      * @var string
      */
@@ -64,9 +63,7 @@ class FunctionMock
     protected static $instances = array();
 
     /**
-     * Constructor setting up object.
-     *
-     * @param string $function_name Name of the function to mock. Doesn't need to exist, might be newly created.
+     * @param string $function_name Name of the function to mock.
      * @param object $testcase The calling test case.
      */
     public function __construct($function_name, $testcase)
@@ -92,9 +89,9 @@ class FunctionMock
     }
 
     /**
-     * Called when all the referneces to the object are removed (even self::$instances).
+     * Called when all the references to the object are removed (even self::$instances).
      *
-     * Makes sure the replaced functions are finally cleared in case runkit
+     * Makes sure the replaced functions are finally cleared in case the engine
      * "forgets" to remove them in the end of the request.
      * It is still highly recommended to call restore() explicitly!
      */
@@ -106,7 +103,7 @@ class FunctionMock
     /**
      * Clean-up function.
      *
-     * Removes mocked function and restored the original was there is any.
+     * Removes the mocked function and restores the original if there is any.
      * Also removes the reference to the object from self::$instances.
      */
     public function restore()
@@ -125,7 +122,7 @@ class FunctionMock
     }
 
     /**
-     * Callback method to be used in runkit function when it is invoked.
+     * Callback method to be used in the mocked function when it is invoked.
      *
      * It takes the parameters of the function call and passes them to the mock object.
      *
@@ -138,9 +135,9 @@ class FunctionMock
     }
     
     /**
-     * Proxy to the 'expects' of the mock object.
+     * Proxy to the 'expects' method of the mock object.
      *
-     * Also calld method() so after this the mock object can be used to set
+     * Also calls method() so after this the mock object can be used to set
      * parameter constraints and return values.
      *
      * @return object
@@ -152,7 +149,7 @@ class FunctionMock
     }
 
     /**
-     * Returns an instance of this class selected by its ID. Used in the runkit function.
+     * Returns an instance of this class selected by its ID. Used in the mocked function.
      *
      * @param integer $id
      * @return object
@@ -166,9 +163,9 @@ class FunctionMock
     }
 
     /**
-     * Creates runkit function to be used for mocking, taking care of callback to this object.
+     * Creates the function to be used for mocking, taking care of the callback to this object.
      *
-     * Also temporary renames the original function if there is.
+     * Also temporary renames the original function.
      */
     protected function createFunction()
     {
@@ -188,10 +185,10 @@ class FunctionMock
     }
 
     /**
-     * Gives back the closure of the runkit function replacing the original.
+     * Gives back the closure of the function replacing the original.
      *
      * The function is quite simple - find the function mock instance (of this class)
-     * that created it, then calls its invoked() method with the parameters of its invokation.
+     * that created it, then call its invoked() method with the parameters of its invocation.
      *
      * @return callable
      */
