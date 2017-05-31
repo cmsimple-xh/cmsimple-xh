@@ -132,7 +132,7 @@ class LocatorModelTest extends TestCase
 
     public function testChangedTitle()
     {
-        global $s, $h, $title;
+        global $s, $title;
 
         $s = 1;
         $title = 'Suits';

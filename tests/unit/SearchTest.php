@@ -25,9 +25,12 @@ namespace XH;
  */
 class SearchTest extends TestCase
 {
+    /**
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
     public function setUp()
     {
-        global $c, $cf, $s, $o, $hjs, $bjs, $e, $onload;
+        global $c, $cf, $o, $hjs, $bjs, $e, $onload;
 
         $c = array(
             '<h1>Welcome to CMSimple_XH</h1>',

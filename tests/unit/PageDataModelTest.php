@@ -130,7 +130,6 @@ class PageDataModelTest extends TestCase
     public function testCreateDoesntAppendPage()
     {
         $before = count($this->pd->data);
-        $pageData = $this->pd->create();
         $after = count($this->pd->data);
         $actual = $after - $before;
         $this->assertEquals(0, $actual);

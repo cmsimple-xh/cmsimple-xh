@@ -29,6 +29,9 @@ use org\bovigo\vfs\vfsStream;
  */
 class FunctionsTest extends TestCase
 {
+    /**
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
     public function setUp()
     {
         global $cf, $tx;
@@ -270,7 +273,7 @@ class FunctionsTest extends TestCase
 
     public function testAfterFinalCleanUp()
     {
-        XH_afterFinalCleanUp(function ($html) {
+        XH_afterFinalCleanUp(function () {
             return 'foo';
         });
         $this->assertEquals('foo', XH_afterFinalCleanUp('bar'));

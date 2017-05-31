@@ -51,8 +51,6 @@ class PasswordForgottenTest extends TestCase
 
     public function testMac()
     {
-        global $cf;
-
         $actual = $this->passwordForgotten->mac();
         $expected = $this->currentMac();
         $this->assertEquals($expected, $actual);

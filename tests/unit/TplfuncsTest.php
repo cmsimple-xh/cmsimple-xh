@@ -29,6 +29,9 @@ use org\bovigo\vfs\vfsStream;
  */
 class TplfuncsTest extends TestCase
 {
+    /**
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
     public function setUp()
     {
         global $cf, $tx, $onload;
@@ -188,13 +191,12 @@ class TplfuncsTest extends TestCase
      *
      * @return void
      *
-     * @global array The localization of the core.
      * @global int   The index of the requested page.
      * @global int   The number of pages.
      */
     public function testNextpage()
     {
-        global $tx, $s, $cl;
+        global $s, $cl;
 
         $s = 0;
         $cl = 10;

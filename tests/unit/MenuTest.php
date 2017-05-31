@@ -197,11 +197,10 @@ class MenuTest extends TestCase
      * Returns the $pageIndexes argument.
      *
      * @param array $pageIndexes An array of page indexes.
-     * @param mixed $forOrFrom   A li() view kind or the start level.
      *
      * @return array
      */
-    public function li(array $pageIndexes, $forOrFrom)
+    public function li(array $pageIndexes)
     {
         return $pageIndexes;
     }
@@ -636,11 +635,6 @@ class MenuTest extends TestCase
     public function testPageDoesntOpenInNewWindowInEditMode()
     {
         $this->setUpEditMode(true);
-        $matcher = array(
-            'tag' => 'a',
-            'content' => 'Cold',
-            'attributes' => array('target' => '_blank')
-        );
         $this->assertNotXPathContains(
             '//a[@target="_blank"]',
             'Cold',
@@ -695,7 +689,7 @@ class MenuTest extends TestCase
 
     public function testBuildHcForThirdPage()
     {
-        global $s, $cf, $si, $hc, $hl;
+        global $s, $si, $hc, $hl;
 
         $s = 3;
         XH_buildHc();
@@ -706,7 +700,7 @@ class MenuTest extends TestCase
 
     public function testBuildHcForFifthPage()
     {
-        global $s, $cf, $si, $hc, $hl;
+        global $s, $si, $hc, $hl;
 
         $s = 5;
         XH_buildHc();

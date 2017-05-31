@@ -161,11 +161,6 @@ EOT;
 
     public function testFormContainsForBarField()
     {
-        $matcher = array(
-            'tag' => 'select',
-            'attributes' => array('name' => 'foo_bar'),
-            'ancestor' => array('tag' => 'form')
-        );
         $this->assertXPath(
             '//form//select[@name="foo_bar"]',
             $this->subject->form()
