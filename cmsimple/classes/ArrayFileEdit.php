@@ -362,7 +362,7 @@ abstract class ArrayFileEdit extends FileEdit
             case 'xfunction':
                 $func = substr($type, strlen($typeTag) + 1);
                 if (function_exists($func)) {
-                    $vals = call_user_func($func);
+                    $vals = $func();
                 } else {
                     $vals = array();
                 }

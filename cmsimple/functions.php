@@ -494,7 +494,7 @@ function XH_finalCleanUp($html)
             $id =' id="xh_adminmenu_fixed"';
         }
 
-        $adminMenu = call_user_func($adminMenuFunc, XH_plugins(true));
+        $adminMenu = $adminMenuFunc(XH_plugins(true));
         $replacement = '$0' . '<div' . $id . '>' . addcslashes($debugHint, '$\\')
             . addcslashes($adminMenu, '$\\')
             . '</div>' ."\n" . addcslashes($errorList, '$\\');
@@ -1657,7 +1657,7 @@ function XH_afterPluginLoading($callback = null)
         $callbacks[] = $callback;
     } else {
         foreach ($callbacks as $callback) {
-            call_user_func($callback);
+            $callback();
         }
     }
 }
@@ -1686,7 +1686,7 @@ function XH_afterFinalCleanUp($param)
         $callbacks[] = $param;
     } else {
         foreach ($callbacks as $callback) {
-            $param = call_user_func($callback, $param);
+            $param = $callback($param);
         }
         return $param;
     }
