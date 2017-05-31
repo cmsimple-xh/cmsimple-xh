@@ -17,8 +17,14 @@ spl_autoload_register(function ($className) {
     // set $package, $subpackages and $class
     $subpackages = explode('\\', $className);
     $packages = array_splice($subpackages, 0, 1);
+    if (empty($packages)) {
+        return;
+    }
     $package = $packages[0];
     $classes = array_splice($subpackages, -1);
+    if (empty($classes)) {
+        return;
+    }
     $class = $classes[0];
 
     // construct $filename
