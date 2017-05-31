@@ -75,12 +75,6 @@ class FunctionMock
             trigger_error('Runkit is not installed.', E_USER_ERROR);
         }
         
-        // APC doesn't quite like runkit.
-        // When they work together, it might result dead process.
-        if (function_exists('apc_clear_cache')) {
-            apc_clear_cache();
-        }
-        
         $this->id               = self::$next_id;
         $this->function_name    = $function_name;
         $this->mock_object      =
