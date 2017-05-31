@@ -171,7 +171,7 @@ EOT;
     {
         $this->assertNotXPath(
             '//form//select[@name="foo_bar"]/option',
-            $this->subject->form()            
+            $this->subject->form()
         );
     }
 
