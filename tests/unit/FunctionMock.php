@@ -42,13 +42,6 @@ class FunctionMock
     protected $function_name;
 
     /**
-     * Random temporary name of a function there we "save" the original, unmocked function.
-     *
-     * @var string
-     */
-    protected $restore_name;
-
-    /**
      * Value of the incremental ID that next time will be assigned to an instance of this class.
      *
      * @var integer
@@ -68,10 +61,6 @@ class FunctionMock
      */
     public function __construct($function_name, $testcase)
     {
-        if (!function_exists('runkit_function_redefine')) {
-            trigger_error('Runkit is not installed.', E_USER_ERROR);
-        }
-        
         $this->id               = self::$next_id;
         $this->function_name    = $function_name;
         $this->mock_object      =
@@ -109,10 +98,7 @@ class FunctionMock
     public function restore()
     {
         if ($this->active) {
-            runkit_function_remove($this->function_name);
-            if (isset($this->restore_name)) {
-                runkit_function_rename($this->restore_name, $this->function_name);
-            }
+            $this->restoreFunction();
             $this->active = false;
         }
 
@@ -170,10 +156,7 @@ class FunctionMock
     protected function createFunction()
     {
         if (function_exists($this->function_name)) {
-            $this->restore_name = 'restore_' . $this->function_name . '_' . $this->id . '_' . uniqid();
-
-            runkit_function_copy($this->function_name, $this->restore_name);
-            runkit_function_redefine($this->function_name, $this->getCallback());
+            $this->doCreateFunction();
         } else {
             trigger_error(
                 sprintf('Cannot stub or mock function "%s" which does not exist', $this->function_name),

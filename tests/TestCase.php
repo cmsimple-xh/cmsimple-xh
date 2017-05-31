@@ -24,7 +24,11 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     protected function getFunctionMock($name)
     {
-        return new FunctionMock($name, $this);
+        if (PHP_MAJOR_VERSION >= 7) {
+            return new UopzFunctionMock($name, $this);
+        } else {
+            return new RunkitFunctionMock($name, $this);
+        }
     }
 
     /**
@@ -36,7 +40,11 @@ class TestCase extends PHPUnit_Framework_TestCase
         if (!defined($name)) {
             define($name, $value);
         } else {
-            runkit_constant_redefine($name, $value);
+            if (PHP_MAJOR_VERSION >= 7) {
+                uopz_redefine($name, $value);
+            } else {
+                runkit_constant_redefine($name, $value);
+            }
         }
     }
 
