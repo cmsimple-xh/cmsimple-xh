@@ -184,7 +184,10 @@ class FunctionMock
             runkit_function_copy($this->function_name, $this->restore_name);
             runkit_function_redefine($this->function_name, $this->getCallback());
         } else {
-            runkit_function_add($this->function_name, $this->getCallback());
+            trigger_error(
+                sprintf('Cannot stub or mock function "%s" which does not exist', $this->function_name),
+                E_USER_NOTICE
+            );
         }
 
         $this->active = true;
