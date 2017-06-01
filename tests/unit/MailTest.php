@@ -31,7 +31,7 @@ class MailTest extends TestCase
 
     protected $mailMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->subject = new Mail();
         $this->getHostByNameMock = $this->getFunctionMock('gethostbyname');

@@ -27,7 +27,7 @@ class LocatorModelTest extends TestCase
 {
     protected $hideMock;
 
-    public function setUp()
+    protected function setUp()
     {
         global $sn, $f, $cf, $tx, $xh_publisher;
 
@@ -77,7 +77,7 @@ class LocatorModelTest extends TestCase
         $this->hideMock->expects($this->any())->will($this->returnValueMap($hideMap));
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         $this->hideMock->restore();
     }

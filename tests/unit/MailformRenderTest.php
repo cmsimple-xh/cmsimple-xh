@@ -19,7 +19,7 @@ class MailformRenderTest extends TestCase
 
     private $tagStub;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->subject = new Mailform();
         $this->tagStub = $this->getFunctionMock('tag');

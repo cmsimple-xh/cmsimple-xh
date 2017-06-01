@@ -35,7 +35,7 @@ class MenuTest extends TestCase
      *
      * @global int The index of the selected page.
      */
-    public function setUp()
+    protected function setUp()
     {
         global $pth, $s;
 
@@ -186,7 +186,7 @@ class MenuTest extends TestCase
         );
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         $this->aStub->restore();
         $this->hideStub->restore();

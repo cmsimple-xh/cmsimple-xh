@@ -73,7 +73,7 @@ class ControllerSavePageDataTest extends TestCase
      * @global PageDataRouter The page data router.
      * @global CSRFProtection The CSRF protector.
      */
-    public function setUp()
+    protected function setUp()
     {
         global $s, $pd_router, $_XH_csrfProtection;
 

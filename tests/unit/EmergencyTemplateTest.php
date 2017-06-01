@@ -37,7 +37,7 @@ class EmergencyTemplateTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
         $mockNames = array(
             'header', 'head', 'onload', 'toc', 'content', 'loginlink', 'XH_exit'
@@ -53,7 +53,7 @@ class EmergencyTemplateTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown()
     {
         foreach ($this->mocks as $mock) {
             $mock->restore();

@@ -38,7 +38,7 @@ EOS
  */
 class ScriptEvaluationTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         global $tx, $var;
 

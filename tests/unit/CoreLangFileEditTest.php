@@ -31,7 +31,7 @@ class CoreLangFileEditTest extends TestCase
 {
     private $subject;
 
-    public function setUp()
+    protected function setUp()
     {
         global $sn, $pth, $file;
 
@@ -81,7 +81,7 @@ class CoreLangFileEditTest extends TestCase
         $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         $this->_tagStub->restore();
     }

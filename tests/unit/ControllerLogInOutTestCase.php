@@ -47,7 +47,7 @@ abstract class ControllerLogInOutTestCase extends TestCase
      */
     protected $setcookieMock;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->setConstant('CMSIMPLE_ROOT', '/xh/');
         $this->subject = new Controller();

@@ -27,7 +27,7 @@ class PagesTest extends TestCase
 {
     private $subject;
 
-    public function setUp()
+    protected function setUp()
     {
         global $h, $u, $l, $c, $cf;
 

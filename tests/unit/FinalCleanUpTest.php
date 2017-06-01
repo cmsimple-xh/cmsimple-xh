@@ -35,7 +35,7 @@ class FinalCleanUpTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->setUpFunctionStubs();
         $this->setConstant('XH_ADM', true);
@@ -83,7 +83,7 @@ class FinalCleanUpTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown()
     {
         $this->adminMenuStub->restore();
         $this->pluginsStub->restore();

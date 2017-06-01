@@ -64,7 +64,7 @@ class ControllerStandardHeaderTest extends TestCase
      *
      * @global array The configuration of the core.
      */
-    public function setUp()
+    protected function setUp()
     {
         global $cf;
 

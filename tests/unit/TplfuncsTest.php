@@ -32,7 +32,7 @@ class TplfuncsTest extends TestCase
     /**
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
-    public function setUp()
+    protected function setUp()
     {
         global $cf, $tx, $onload;
 

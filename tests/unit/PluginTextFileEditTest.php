@@ -33,7 +33,7 @@ class PluginTextFileEditTest extends TestCase
 
     private $testFile;
 
-    public function setUp()
+    protected function setUp()
     {
         global $pth, $sn, $plugin, $_XH_csrfProtection;
 

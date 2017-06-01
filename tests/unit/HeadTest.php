@@ -55,7 +55,7 @@ class HeadTest extends TestCase
      * @global array The configuration of the core.
      * @global array The localization of the core.
      */
-    public function setUp()
+    protected function setUp()
     {
         global $pth, $cf, $tx;
 
@@ -86,7 +86,7 @@ class HeadTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown()
     {
         $this->titleMock->restore();
         $this->pluginsMock->restore();

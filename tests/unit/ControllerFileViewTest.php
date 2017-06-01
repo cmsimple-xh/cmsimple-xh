@@ -64,7 +64,7 @@ class ControllerFileViewTest extends TestCase
      *
      * @global string The name of a special file to be handled.
      */
-    public function setUp()
+    protected function setUp()
     {
         global $file;
 

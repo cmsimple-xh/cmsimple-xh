@@ -27,7 +27,7 @@ class PageDataViewTest extends TestCase
 {
     protected $pageDataView;
 
-    public function setUp()
+    protected function setUp()
     {
         $tabs = array(
             'Meta' => array('Metatags_view.php', null),

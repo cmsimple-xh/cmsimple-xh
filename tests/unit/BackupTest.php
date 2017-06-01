@@ -25,7 +25,7 @@ class BackupTest extends TestCase
 
     private $utf8UcfirstMock;
 
-    public function setUp()
+    protected function setUp()
     {
         global $pth, $cf, $tx;
 

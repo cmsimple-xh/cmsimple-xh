@@ -46,7 +46,7 @@ class ControllerLogoutTest extends ControllerLogInOutTestCase
      * @global PasswordHash The password hasher.
      * @global array        The configuration of the core.
      */
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
         $_SESSION = array();

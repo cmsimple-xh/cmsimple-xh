@@ -58,7 +58,7 @@ class ControllerMailformTest extends TestCase
      * @global array The configuration of the core.
      * @global array The localization of the core.
      */
-    public function setUp()
+    protected function setUp()
     {
         global $cf, $tx;
 

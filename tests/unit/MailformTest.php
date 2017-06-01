@@ -27,7 +27,7 @@ class MailformTest extends TestCase
 {
     private $goodPost;
 
-    public function setUp()
+    protected function setUp()
     {
         global $cf;
 

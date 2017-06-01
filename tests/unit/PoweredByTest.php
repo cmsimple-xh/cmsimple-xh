@@ -35,7 +35,7 @@ class PoweredByTest extends TestCase
 
     protected $uencMock;
 
-    public function setUp()
+    protected function setUp()
     {
         global $sn, $pth;
 
@@ -76,7 +76,7 @@ class PoweredByTest extends TestCase
         $this->uencMock->expects($this->any())->willReturn('site-info');
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         $this->templatesMock->restore();
         $this->pluginsMock->restore();

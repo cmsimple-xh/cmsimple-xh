@@ -58,7 +58,7 @@ class ControllerSitemapTest extends TestCase
      * @global int   The number of pages.
      * @global array The localization of the core.
      */
-    public function setUp()
+    protected function setUp()
     {
         global $cl, $tx;
 

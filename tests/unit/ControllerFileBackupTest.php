@@ -44,7 +44,7 @@ class ControllerFileBackupTest extends TestCase
      * @global string            The name of a special file to be handled.
      * @global CSRFProtection The CRSF protector.
      */
-    public function setUp()
+    protected function setUp()
     {
         global $file, $_XH_csrfProtection;
 

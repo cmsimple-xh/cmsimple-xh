@@ -19,7 +19,7 @@ class AdminMenuTest extends TestCase
 
     private $ucfirstMock;
 
-    public function setUp()
+    protected function setUp()
     {
         global $edit;
 
@@ -72,7 +72,7 @@ class AdminMenuTest extends TestCase
         $plugin_tx = array();
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         $this->ucfirstMock->restore();
     }

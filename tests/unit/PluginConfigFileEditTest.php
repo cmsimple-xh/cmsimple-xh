@@ -31,7 +31,7 @@ class PluginConfigFileEditTest extends TestCase
 {
     private $subject;
 
-    public function setUp()
+    protected function setUp()
     {
         global $sn, $pth, $file, $plugin;
 
@@ -103,7 +103,7 @@ EOT;
         file_put_contents($filename, $contents);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         $this->_tagStub->restore();
     }

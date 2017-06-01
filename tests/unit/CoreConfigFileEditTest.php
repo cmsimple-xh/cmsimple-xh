@@ -39,7 +39,7 @@ class CoreConfigFileEditTest extends TestCase
 {
     private $subject;
 
-    public function setUp()
+    protected function setUp()
     {
         global $sn, $pth, $file;
 
@@ -121,7 +121,7 @@ EOT;
         file_put_contents(vfsStream::url('test/metaconfig.php'), $contents);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         $this->_tagStub->restore();
     }

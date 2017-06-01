@@ -57,7 +57,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      *
      * @global array        The configuration of the core.
      */
-    public function setUp()
+    protected function setUp()
     {
         global $cf;
 

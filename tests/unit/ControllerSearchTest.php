@@ -50,7 +50,7 @@ class ControllerSearchTest extends TestCase
      *
      * @global array The localization of the core.
      */
-    public function setUp()
+    protected function setUp()
     {
         global $tx;
 
