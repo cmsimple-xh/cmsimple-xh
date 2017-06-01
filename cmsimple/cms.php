@@ -214,31 +214,6 @@ define('CMSIMPLE_XH_BUILD', '@CMSIMPLE_XH_BUILD@');
  */
 define('CMSIMPLE_XH_DATE', '@CMSIMPLE_XH_DATE@');
 
-if (!defined('E_STRICT')) {
-    /**
-     * Strict standards violation notice.
-     *
-     * @ignore
-     */
-    define('E_STRICT', 2048);
-}
-if (!defined('E_DEPRECATED')) {
-    /**
-     * Deprecation notice.
-     *
-     * @ignore
-     */
-    define('E_DEPRECATED', 8192);
-}
-if (!defined('E_USER_DEPRECATED')) {
-    /**
-     * User generated deprecation notice.
-     *
-     * @ignore
-     */
-    define('E_USER_DEPRECATED', E_USER_NOTICE);
-}
-
 /**
  * A two dimensional array that holds the paths of important files and folders.
  *
