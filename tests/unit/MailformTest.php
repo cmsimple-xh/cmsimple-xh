@@ -52,7 +52,7 @@ class MailformTest extends TestCase
     public function testCheckCorrectInput()
     {
         $_POST = $this->goodPost;
-        $mail = $this->getMockBuilder('XH\Mail')->getMock();
+        $mail = $this->createMock('XH\Mail');
         $mail->expects($this->once())->method('isValidAddress')->willReturn(true);
         $mailform = new Mailform(false, null, $mail);
         $this->assertEquals('', $mailform->check());
@@ -86,7 +86,7 @@ class MailformTest extends TestCase
         $tx['mailform'][$langKey] = 'foo bar';
         $_POST = $this->goodPost;
         $_POST[$postKey] = $postValue;
-        $mail = $this->getMockBuilder('XH\Mail')->getMock();
+        $mail = $this->createMock('XH\Mail');
         $mail->expects($this->once())->method('isValidAddress')->willReturn(false);
         $mailform = new Mailform(false, null, $mail);
         $this->assertXPathContains(
@@ -98,7 +98,7 @@ class MailformTest extends TestCase
 
     public function testSubmitSendsMailSuccess()
     {
-        $mail = $this->getMockBuilder('XH\Mail')->getMock();
+        $mail = $this->createMock('XH\Mail');
         $mail->expects($this->once())->method('send')->willReturn(true);
         $mailform = new Mailform(false, null, $mail);
         $this->assertTrue($mailform->submit());
@@ -106,7 +106,7 @@ class MailformTest extends TestCase
 
     public function testMailFailureIsLogged()
     {
-        $mail = $this->getMockBuilder('XH\Mail')->getMock();
+        $mail = $this->createMock('XH\Mail');
         $mail->expects($this->once())->method('send')->willReturn(false);
         $mailform = new Mailform(false, null, $mail);
         $logMessageSpy = $this->getFunctionMock('XH_logMessage');
@@ -132,9 +132,9 @@ class MailformTest extends TestCase
         $action = 'send';
         $mailform = $this->getMockBuilder('XH\Mailform')->setMethods(array('check', 'submit'))->getMock();
         $mailform->expects($this->once())->method('check')
-            ->will($this->returnValue(''));
+            ->willReturn('');
         $mailform->expects($this->once())->method('submit')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $mailform->process();
     }
 
@@ -145,8 +145,8 @@ class MailformTest extends TestCase
         $action = 'send';
         $mailform = $this->getMockBuilder('XH\Mailform')->setMethods(array('check', 'render'))->getMock();
         $mailform->expects($this->once())->method('check')
-            ->will($this->returnValue('some error message'));
-        $mailform->expects($this->any())->method('render');
+            ->willReturn('some error message');
+        $mailform->method('render');
         $mailform->process();
     }
 
@@ -157,9 +157,9 @@ class MailformTest extends TestCase
         $action = 'send';
         $mailform = $this->getMockBuilder('XH\Mailform')->setMethods(array('check', 'submit', 'render'))->getMock();
         $mailform->expects($this->once())->method('check')
-            ->will($this->returnValue(''));
+            ->willReturn('');
         $mailform->expects($this->once())->method('submit')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
         $mailform->expects($this->once())->method('render');
         $mailform->process();
     }
@@ -185,8 +185,8 @@ class MailformTest extends TestCase
 
         $action = '';
         $mailform = $this->getMockBuilder('XH\Mailform')->setMethods(array('render', 'check'))->getMock();
-        $mailform->expects($this->any())->method('check')
-            ->will($this->returnValue('some error message'));
+        $mailform->method('check')
+            ->willReturn('some error message');
         $mailform->process();
         $mailform = $this->getMockBuilder('XH\Mailform')->setMethods(array('render', 'check'))->getMock();
         $mailform->expects($this->never())->method('check');

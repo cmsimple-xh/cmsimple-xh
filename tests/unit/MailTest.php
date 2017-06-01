@@ -51,7 +51,7 @@ class MailTest extends TestCase
     {
         $this->getHostByNameMock
             ->expects($this->any())
-            ->will($this->returnValue($ip));
+            ->willReturn($ip);
         $actual = $this->subject->isValidAddress($address);
         $this->assertEquals($expected, $actual);
     }

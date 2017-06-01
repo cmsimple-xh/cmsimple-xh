@@ -45,8 +45,7 @@ class PluginTextFileEditTest extends TestCase
         file_put_contents($this->testFile, 'body{}');
         $sn = '/xh/';
         $pth['file']['plugin_stylesheet'] = $this->testFile;
-        $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
-            ->disableOriginalConstructor()->getMock();
+        $_XH_csrfProtection = $this->createMock('XH\CSRFProtection');
         $this->setUpLocalization();
         $this->subject = new PluginTextFileEdit();
     }
@@ -135,7 +134,7 @@ class PluginTextFileEditTest extends TestCase
     public function testSubmitCantSave()
     {
         $writeFileStub = $this->getFunctionMock('XH_writeFile');
-        $writeFileStub->expects($this->once())->will($this->returnValue(false));
+        $writeFileStub->expects($this->once())->willReturn(false);
         $eSpy = $this->getFunctionMock('e');
         $eSpy->expects($this->once())->with(
             $this->equalTo('cntsave'),

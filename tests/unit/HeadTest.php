@@ -76,7 +76,7 @@ class HeadTest extends TestCase
         );
         $this->titleMock = $this->getFunctionMock('XH_title');
         $this->pluginsMock = $this->getFunctionMock('XH_plugins');
-        $this->pluginsMock->expects($this->any())->will($this->returnValue(array()));
+        $this->pluginsMock->expects($this->any())->willReturn(array());
         $this->pluginStylesheetMock = $this->getFunctionMock('XH_pluginStylesheet');
         $this->pluginStylesheetMock->expects($this->once());
     }
@@ -101,7 +101,7 @@ class HeadTest extends TestCase
     public function testRendersTitleWithoutTags()
     {
         $this->titleMock->expects($this->any())
-            ->will($this->returnValue('<b>Website</b>'));
+            ->willReturn('<b>Website</b>');
         $this->assertXPathContains('//title', 'Website', head());
     }
 
@@ -172,7 +172,7 @@ class HeadTest extends TestCase
         $sn = '/xh/';
         $u = array('Welcome');
         $findPreviousPageMock = $this->getFunctionMock('XH_findPreviousPage');
-        $findPreviousPageMock->expects($this->any())->will($this->returnValue(0));
+        $findPreviousPageMock->expects($this->any())->willReturn(0);
         $this->assertXPath(
             '//link[@rel="prev" and @href="/xh/?Welcome"]',
             head()
@@ -195,7 +195,7 @@ class HeadTest extends TestCase
         $sn = '/xh/';
         $u = array('Welcome');
         $findNextPageMock = $this->getFunctionMock('XH_findNextPage');
-        $findNextPageMock->expects($this->any())->will($this->returnValue(0));
+        $findNextPageMock->expects($this->any())->willReturn(0);
         $this->assertXPath(
             '//link[@rel="next" and @href="/xh/?Welcome"]',
             head()

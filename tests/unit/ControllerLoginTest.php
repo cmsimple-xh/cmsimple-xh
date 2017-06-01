@@ -89,7 +89,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      */
     public function testSuccessSetsStatusCookie()
     {
-        $this->passwordVerifyMock->expects($this->any())->will($this->returnValue(true));
+        $this->passwordVerifyMock->expects($this->any())->willReturn(true);
         $this->setcookieMock->expects($this->any())->with('status', 'adm');
         $this->subject->handleLogin();
     }
@@ -105,7 +105,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
     {
         global $cf;
 
-        $this->passwordVerifyMock->expects($this->any())->will($this->returnValue(true));
+        $this->passwordVerifyMock->expects($this->any())->willReturn(true);
         $this->subject->handleLogin();
         $this->assertEquals(
             $cf['security']['password'],
@@ -121,7 +121,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      */
     public function testSuccessRegeneratesSessionId()
     {
-        $this->passwordVerifyMock->expects($this->any())->will($this->returnValue(true));
+        $this->passwordVerifyMock->expects($this->any())->willReturn(true);
         $this->sessionRegenerateIdMock->expects($this->once())->with(true);
         $this->subject->handleLogin();
     }
@@ -133,7 +133,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      */
     public function testSuccessWritesLogMessage()
     {
-        $this->passwordVerifyMock->expects($this->any())->will($this->returnValue(true));
+        $this->passwordVerifyMock->expects($this->any())->willReturn(true);
         $this->logMessageMock->expects($this->once())
             ->with('info', 'XH', 'login');
         $this->subject->handleLogin();
@@ -151,7 +151,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
     {
         global $f, $login;
 
-        $this->passwordVerifyMock->expects($this->any())->will($this->returnValue(false));
+        $this->passwordVerifyMock->expects($this->any())->willReturn(false);
         $this->subject->handleLogin();
         $this->assertNull($login);
         $this->assertEquals('xh_login_failed', $f);
@@ -164,7 +164,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      */
     public function testFailWritesLogMessage()
     {
-        $this->passwordVerifyMock->expects($this->any())->will($this->returnValue(false));
+        $this->passwordVerifyMock->expects($this->any())->willReturn(false);
         $this->logMessageMock->expects($this->once())
             ->with('warning', 'XH', 'login');
         $this->subject->handleLogin();

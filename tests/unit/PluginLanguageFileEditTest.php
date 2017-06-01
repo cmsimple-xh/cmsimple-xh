@@ -78,8 +78,7 @@ class PluginLanguageFileEditTest extends TestCase
                 return "<$str>";
             }
         ));
-        $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
-            ->disableOriginalConstructor()->getMock();
+        $_XH_csrfProtection = $this->createMock('XH\CSRFProtection');
     }
 
     public function tearDown()
@@ -143,7 +142,7 @@ class PluginLanguageFileEditTest extends TestCase
     public function testSubmit()
     {
         $writeFileSpy = $this->getFunctionMock('XH_writeFile');
-        $writeFileSpy->expects($this->once())->will($this->returnValue(true));
+        $writeFileSpy->expects($this->once())->willReturn(true);
         $headerSpy = $this->getFunctionMock('header');
         $headerSpy->expects($this->once())->with(
             $this->equalTo(
@@ -162,7 +161,7 @@ class PluginLanguageFileEditTest extends TestCase
     public function testSubmitSaveFailure()
     {
         $writeFileSpy = $this->getFunctionMock('XH_writeFile');
-        $writeFileSpy->expects($this->once())->will($this->returnValue(false));
+        $writeFileSpy->expects($this->once())->willReturn(false);
         $eSpy = $this->getFunctionMock('e');
         $eSpy->expects($this->once());
         $this->subject->submit();

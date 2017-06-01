@@ -83,10 +83,8 @@ class ControllerSavePageDataTest extends TestCase
             'xh_csrf_token' => '0123456789abcdef'
         );
         $s = 0;
-        $pd_router = $this->getMockBuilder('XH\PageDataRouter')
-            ->disableOriginalConstructor()->getMock();
-        $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
-            ->disableOriginalConstructor()->getMock();
+        $pd_router = $this->createMock('XH\PageDataRouter');
+        $_XH_csrfProtection = $this->createMock('XH\CSRFProtection');
         $this->subject = new Controller();
         $this->eMock = $this->getFunctionMock('e');
         $this->exitMock = $this->getFunctionMock('XH_exit');
@@ -131,8 +129,8 @@ class ControllerSavePageDataTest extends TestCase
         global $pd_router;
 
         $_GET['xh_pagedata_ajax'] = '';
-        $pd_router->expects($this->any())->method('update')
-            ->will($this->returnValue(true));
+        $pd_router->method('update')
+            ->willReturn(true);
         $this->messageMock->expects($this->once())->with('info');
         $this->subject->handleSavePageData();
     }
@@ -149,8 +147,8 @@ class ControllerSavePageDataTest extends TestCase
         global $pd_router;
 
         $_GET['xh_pagedata_ajax'] = '';
-        $pd_router->expects($this->any())->method('update')
-            ->will($this->returnValue(false));
+        $pd_router->method('update')
+            ->willReturn(false);
         $this->messageMock->expects($this->once())->with('fail');
         $this->subject->handleSavePageData();
     }
@@ -178,8 +176,8 @@ class ControllerSavePageDataTest extends TestCase
     {
         global $pd_router;
 
-        $pd_router->expects($this->any())->method('update')
-            ->will($this->returnValue(true));
+        $pd_router->method('update')
+            ->willReturn(true);
         $this->eMock->expects($this->never());
         $this->subject->handleSavePageData();
     }
@@ -195,8 +193,8 @@ class ControllerSavePageDataTest extends TestCase
     {
         global $pd_router;
 
-        $pd_router->expects($this->any())->method('update')
-            ->will($this->returnValue(false));
+        $pd_router->method('update')
+            ->willReturn(false);
         $this->eMock->expects($this->once());
         $this->subject->handleSavePageData();
     }

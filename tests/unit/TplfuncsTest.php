@@ -159,7 +159,7 @@ class TplfuncsTest extends TestCase
 
         $s = 10;
         $hideMock = $this->getFunctionMock('hide');
-        $hideMock->expects($this->any())->will($this->returnValue(false));
+        $hideMock->expects($this->any())->willReturn(false);
         $this->assertXPathContains(
             '//a[@rel="prev"]',
             $tx['navigator']['previous'],
@@ -181,7 +181,7 @@ class TplfuncsTest extends TestCase
 
         $s = 10;
         $hideMock = $this->getFunctionMock('hide');
-        $hideMock->expects($this->any())->will($this->returnValue(true));
+        $hideMock->expects($this->any())->willReturn(true);
         $this->assertNull(previouspage());
         $hideMock->restore();
     }
@@ -201,7 +201,7 @@ class TplfuncsTest extends TestCase
         $s = 0;
         $cl = 10;
         $hideMock = $this->getFunctionMock('hide');
-        $hideMock->expects($this->any())->will($this->returnValue(false));
+        $hideMock->expects($this->any())->willReturn(false);
         $this->assertXPathContains(
             '//a[@rel="next"]',
             'next', /*$tx['navigator']['next']*/
@@ -225,7 +225,7 @@ class TplfuncsTest extends TestCase
         $s = 0;
         $cl = 10;
         $hideMock = $this->getFunctionMock('hide');
-        $hideMock->expects($this->any())->will($this->returnValue(true));
+        $hideMock->expects($this->any())->willReturn(true);
         $this->assertNull(nextpage());
         $hideMock->restore();
     }
@@ -252,9 +252,7 @@ class TplfuncsTest extends TestCase
         );
         touch($pth['folder']['flags'] . 'da.gif');
         $secondLanguagesMock = $this->getFunctionMock('XH_secondLanguages');
-        $secondLanguagesMock->expects($this->any())->will(
-            $this->returnValue(array('da', 'de'))
-        );
+        $secondLanguagesMock->expects($this->any())->willReturn(array('da', 'de'));
         $this->assertXPathContains(
             '//a[@href="./de/"]',
             'Deutsch',

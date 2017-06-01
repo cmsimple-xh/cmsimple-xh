@@ -68,7 +68,7 @@ class EmergencyTemplateTest extends TestCase
     public function testRespondsWith503()
     {
         $this->mocks['header']->expects($this->atLeastOnce())
-            ->will($this->returnValue('HTTP/1.0 503 Service Unavailable'));
+            ->willReturn('HTTP/1.0 503 Service Unavailable');
         XH_emergencyTemplate();
     }
 
@@ -80,7 +80,7 @@ class EmergencyTemplateTest extends TestCase
     public function testSetsCorrectContentType()
     {
         $this->mocks['header']->expects($this->atLeastOnce())
-            ->will($this->returnValue('Content-Type: text/html;charset=UTF-8'));
+            ->willReturn('Content-Type: text/html;charset=UTF-8');
         XH_emergencyTemplate();
     }
 

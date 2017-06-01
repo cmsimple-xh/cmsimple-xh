@@ -90,7 +90,7 @@ class ControllerStandardHeaderTest extends TestCase
     public function testStandardHeaders()
     {
         $this->headersSentMock->expects($this->once())
-            ->will($this->returnValue(false));
+            ->willReturn(false);
         $this->headerMock->expects($this->exactly(3));
         $this->subject->sendStandardHeaders();
     }
@@ -103,7 +103,7 @@ class ControllerStandardHeaderTest extends TestCase
     public function testHeadersAlreadySent()
     {
         $this->headersSentMock->expects($this->once())
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $this->exitMock->expects($this->once());
         $this->subject->sendStandardHeaders();
     }

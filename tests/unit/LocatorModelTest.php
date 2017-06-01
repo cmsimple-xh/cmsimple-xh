@@ -33,9 +33,7 @@ class LocatorModelTest extends TestCase
 
         $this->setUpContent();
         $sn = '';
-        $xh_publisher = $this->getMockBuilder('XH\\Publisher')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $xh_publisher = $this->createMock('XH\\Publisher');
         $xh_publisher->method('getFirstPublishedPage')->willReturn(0);
         $f = '';
         $cf = array(
@@ -155,9 +153,7 @@ class LocatorModelTest extends TestCase
     {
         global $s, $xh_publisher;
 
-        $xh_publisher = $this->getMockBuilder('XH\\Publisher')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $xh_publisher = $this->createMock('XH\\Publisher');
         $xh_publisher->method('getFirstPublishedPage')->willReturn(1);
         $s = 0;
         $this->assertEquals(array(array('&nbsp;', null)), XH_getLocatorModel());

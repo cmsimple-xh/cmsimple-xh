@@ -45,8 +45,7 @@ class CoreTextFileEditTest extends TestCase
         $file = 'template';
         $sn = '/xh/';
         $pth['file']['template'] = $this->testFile;
-        $_XH_csrfProtection = $this->getMockBuilder('XH\CSRFProtection')
-            ->disableOriginalConstructor()->getMock();
+        $_XH_csrfProtection = $this->createMock('XH\CSRFProtection');
         $this->setUpLocalization();
         $this->subject = new CoreTextFileEdit();
     }
@@ -141,7 +140,7 @@ class CoreTextFileEditTest extends TestCase
     public function testSubmitCantSave()
     {
         $writeFileStub = $this->getFunctionMock('XH_writeFile');
-        $writeFileStub->expects($this->once())->will($this->returnValue(false));
+        $writeFileStub->expects($this->once())->willReturn(false);
         $eSpy = $this->getFunctionMock('e');
         $eSpy->expects($this->once())->with(
             $this->equalTo('cntsave'),

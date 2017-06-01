@@ -180,7 +180,7 @@ class BackupTest extends TestCase
         touch("{$this->contentFolder}19700102_000102_content.htm");
         touch("{$this->contentFolder}19700103_000102_content.htm");
         $unlinkStub = $this->getFunctionMock('unlink');
-        $unlinkStub->expects($this->any())->will($this->returnValue(false));
+        $unlinkStub->expects($this->any())->willReturn(false);
         $this->subject->execute();
         $unlinkStub->restore();
         $eSpy->restore();

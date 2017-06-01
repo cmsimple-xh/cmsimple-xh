@@ -65,10 +65,9 @@ class ControllerMailformTest extends TestCase
         $cf['mailform']['email'] = 'devs@cmsimple-xh.org';
         $tx['title']['mailform'] = 'Mailform';
         $this->subject = $this->getMockBuilder('XH\Controller')->setMethods(array('makeMailform'))->getMock();
-        $this->mailformMock = $this->getMockBuilder('XH\Mailform')
-            ->disableOriginalConstructor()->getMock();
-        $this->subject->expects($this->any())->method('makeMailform')
-            ->will($this->returnValue($this->mailformMock));
+        $this->mailformMock = $this->createMock('XH\Mailform');
+        $this->subject->method('makeMailform')
+            ->willReturn($this->mailformMock);
         $this->sheadMock = $this->getFunctionMock('shead');
     }
 
