@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @file adminfuncs.php
+ *
  * Admin only functions.
  *
  * @category  CMSimple_XH

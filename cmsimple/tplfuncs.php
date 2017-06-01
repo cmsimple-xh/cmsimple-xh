@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @file tplfuncs.php
+ *
  * Template functions.
  *
  * @category  CMSimple_XH

@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @file utf8.php
+ *
  * UTF-8 related string functions.
  *
  * @category  CMSimple_XH
