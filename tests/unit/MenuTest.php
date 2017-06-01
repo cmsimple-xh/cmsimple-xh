@@ -146,7 +146,7 @@ class MenuTest extends TestCase
     {
         global $pd_router;
 
-        $pd_router = $this->createMock('XH\PageDataRouter');
+        $pd_router = $this->createMock(PageDataRouter::class);
         $pd_router
             ->method('find_page')
             ->will(

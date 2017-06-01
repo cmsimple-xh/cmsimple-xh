@@ -58,7 +58,7 @@ class LinkCheckerTest extends TestCase
             'mailform' => array('email' => 'devs@cmsimple-xh.org')
         );
         $onload = '';
-        $this->linkChecker = $this->getMockBuilder('XH\LinkChecker')
+        $this->linkChecker = $this->getMockBuilder(LinkChecker::class)
             ->setMethods(['makeHeadRequest'])
             ->getMock();
         $this->linkChecker->method('makeHeadRequest')

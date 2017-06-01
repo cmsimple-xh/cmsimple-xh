@@ -77,17 +77,17 @@ EOT;
 
     public function testCoreClass()
     {
-        $this->assertInstanceOf('XH\\Foo', new \XH\Foo);
+        $this->assertInstanceOf(Foo::class, new Foo);
     }
 
     public function testCoreClassInSubnamespace()
     {
-        $this->assertInstanceOf('XH\\Foo\\Bar', new \XH\Foo\Bar);
+        $this->assertInstanceOf(Foo\Bar::class, new Foo\Bar);
     }
 
     public function testPluginClass()
     {
-        $this->assertInstanceOf('Foo\\Plugin', new \Foo\Plugin);
+        $this->assertInstanceOf(\Foo\Plugin::class, new \Foo\Plugin);
     }
 
     public function testClassAlias()
@@ -97,6 +97,6 @@ EOT;
 
     public function testNonExistentClass()
     {
-        $this->assertFalse(class_exists('XH\\Bar'));
+        $this->assertFalse(class_exists(Bar::class));
     }
 }

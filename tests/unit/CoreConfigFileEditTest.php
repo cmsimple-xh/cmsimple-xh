@@ -99,7 +99,7 @@ class CoreConfigFileEditTest extends TestCase
                 return "<$str>";
             }
         ));
-        $_XH_csrfProtection = $this->createMock('XH\CSRFProtection');
+        $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
     }
 
     private function setUpMetaConfig()

@@ -45,7 +45,7 @@ class CoreTextFileEditTest extends TestCase
         $file = 'template';
         $sn = '/xh/';
         $pth['file']['template'] = $this->testFile;
-        $_XH_csrfProtection = $this->createMock('XH\CSRFProtection');
+        $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
         $this->setUpLocalization();
         $this->subject = new CoreTextFileEdit();
     }

@@ -45,7 +45,7 @@ class PluginTextFileEditTest extends TestCase
         file_put_contents($this->testFile, 'body{}');
         $sn = '/xh/';
         $pth['file']['plugin_stylesheet'] = $this->testFile;
-        $_XH_csrfProtection = $this->createMock('XH\CSRFProtection');
+        $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
         $this->setUpLocalization();
         $this->subject = new PluginTextFileEdit();
     }

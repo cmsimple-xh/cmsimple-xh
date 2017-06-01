@@ -78,7 +78,7 @@ class PluginLanguageFileEditTest extends TestCase
                 return "<$str>";
             }
         ));
-        $_XH_csrfProtection = $this->createMock('XH\CSRFProtection');
+        $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
     }
 
     public function tearDown()

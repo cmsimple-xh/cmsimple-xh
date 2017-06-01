@@ -53,7 +53,7 @@ class ControllerMakeTest extends TestCase
      */
     public function testMakeSearch()
     {
-        $this->assertInstanceOf('XH\Search', $this->subject->makeSearch());
+        $this->assertInstanceOf(Search::class, $this->subject->makeSearch());
     }
 
     /**
@@ -63,7 +63,7 @@ class ControllerMakeTest extends TestCase
      */
     public function testMakeMailform()
     {
-        $this->assertInstanceOf('XH\Mailform', $this->subject->makeMailform());
+        $this->assertInstanceOf(Mailform::class, $this->subject->makeMailform());
     }
 
     /**
@@ -73,7 +73,7 @@ class ControllerMakeTest extends TestCase
      */
     public function testMakePasswordForgotten()
     {
-        $this->assertInstanceOf('XH\PasswordForgotten', $this->subject->makePasswordForgotten());
+        $this->assertInstanceOf(PasswordForgotten::class, $this->subject->makePasswordForgotten());
     }
 
     /**
@@ -83,6 +83,6 @@ class ControllerMakeTest extends TestCase
      */
     public function testMakePageDataEditor()
     {
-        $this->assertInstanceOf('XH\PageDataEditor', $this->subject->makePageDataEditor());
+        $this->assertInstanceOf(PageDataEditor::class, $this->subject->makePageDataEditor());
     }
 }

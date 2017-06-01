@@ -83,8 +83,8 @@ class ControllerSavePageDataTest extends TestCase
             'xh_csrf_token' => '0123456789abcdef'
         );
         $s = 0;
-        $pd_router = $this->createMock('XH\PageDataRouter');
-        $_XH_csrfProtection = $this->createMock('XH\CSRFProtection');
+        $pd_router = $this->createMock(PageDataRouter::class);
+        $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
         $this->subject = new Controller();
         $this->eMock = $this->getFunctionMock('e');
         $this->exitMock = $this->getFunctionMock('XH_exit');

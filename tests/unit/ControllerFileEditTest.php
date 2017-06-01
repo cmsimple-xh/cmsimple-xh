@@ -50,8 +50,8 @@ class ControllerFileEditTest extends TestCase
      */
     public function setUp()
     {
-        $this->subject = $this->getMockBuilder('XH\Controller')->setMethods(array('makeFileEditor'))->getMock();
-        $this->fileEditorMock = $this->createMock('XH\CoreConfigFileEdit');
+        $this->subject = $this->getMockBuilder(Controller::class)->setMethods(array('makeFileEditor'))->getMock();
+        $this->fileEditorMock = $this->createMock(CoreConfigFileEdit::class);
         $this->subject->expects($this->any())->method('makeFileEditor')
             ->willReturn($this->fileEditorMock);
     }

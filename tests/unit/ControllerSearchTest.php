@@ -55,8 +55,8 @@ class ControllerSearchTest extends TestCase
         global $tx;
 
         $tx['title']['search'] = 'Search';
-        $this->subject = $this->getMockBuilder('XH\Controller')->setMethods(array('makeSearch'))->getMock();
-        $this->searchMock = $this->createMock('XH\Search');
+        $this->subject = $this->getMockBuilder(Controller::class)->setMethods(array('makeSearch'))->getMock();
+        $this->searchMock = $this->createMock(Search::class);
         $this->subject->method('makeSearch')
             ->willReturn($this->searchMock);
     }
