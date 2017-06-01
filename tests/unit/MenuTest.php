@@ -166,7 +166,7 @@ class MenuTest extends TestCase
      */
     private function setUpFunctionStubs()
     {
-        $this->aStub = $this->getFunctionMock('a');
+        $this->aStub = $this->createFunctionMock('a');
         $this->aStub->expects($this->any())->will(
             $this->returnCallback(
                 function ($pageIndex, $suffix) {
@@ -176,7 +176,7 @@ class MenuTest extends TestCase
                 }
             )
         );
-        $this->hideStub = $this->getFunctionMock('hide');
+        $this->hideStub = $this->createFunctionMock('hide');
         $this->hideStub->expects($this->any())->will(
             $this->returnCallback(
                 function ($pageIndex) {

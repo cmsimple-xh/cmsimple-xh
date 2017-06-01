@@ -22,7 +22,7 @@ class TestCase extends PHPUnit_Framework_TestCase
      * @param object $scopeObject
      * @return PHPUnit_Extension_MockFunction
      */
-    protected function getFunctionMock($name)
+    protected function createFunctionMock($name)
     {
         if (PHP_MAJOR_VERSION >= 7) {
             return new UopzFunctionMock($name, $this);

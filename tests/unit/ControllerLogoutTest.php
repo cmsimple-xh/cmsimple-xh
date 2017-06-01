@@ -50,8 +50,8 @@ class ControllerLogoutTest extends ControllerLogInOutTestCase
     {
         parent::setUp();
         $_SESSION = array();
-        $this->backupMock = $this->getFunctionMock('XH_backup');
-        $this->filePutContentsStub = $this->getFunctionMock('file_put_contents');
+        $this->backupMock = $this->createFunctionMock('XH_backup');
+        $this->filePutContentsStub = $this->createFunctionMock('file_put_contents');
     }
 
     protected function tearDown()

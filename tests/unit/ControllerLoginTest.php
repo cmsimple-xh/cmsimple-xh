@@ -66,11 +66,11 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
             'HTTP_USER_AGENT' => 'Mozilla/5.0',
             'REMOTE_ADDR' => '127.0.0.1'
         );
-        $this->passwordVerifyMock = $this->getFunctionMock('password_verify');
+        $this->passwordVerifyMock = $this->createFunctionMock('password_verify');
         $cf['security']['password'] = '$P$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1';
-        $this->eMock = $this->getFunctionMock('e');
-        $this->logMessageMock = $this->getFunctionMock('XH_logMessage');
-        $this->filePutContentsMock = $this->getFunctionMock('file_put_contents');
+        $this->eMock = $this->createFunctionMock('e');
+        $this->logMessageMock = $this->createFunctionMock('XH_logMessage');
+        $this->filePutContentsMock = $this->createFunctionMock('file_put_contents');
     }
 
     protected function tearDown()

@@ -22,7 +22,7 @@ class MailformRenderTest extends TestCase
     protected function setUp()
     {
         $this->subject = new Mailform();
-        $this->tagStub = $this->getFunctionMock('tag');
+        $this->tagStub = $this->createFunctionMock('tag');
         $this->tagStub->expects($this->any())->will($this->returnCallback(
             function ($string) {
                 return "<$string>";

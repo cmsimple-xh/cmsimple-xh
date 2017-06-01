@@ -67,7 +67,7 @@ class LocatorModelTest extends TestCase
 
     protected function setUpMocks()
     {
-        $this->hideMock = $this->getFunctionMock('hide');
+        $this->hideMock = $this->createFunctionMock('hide');
         $hideMap = array(
             array(0, false),
             array(1, false),

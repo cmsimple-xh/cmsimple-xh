@@ -43,7 +43,7 @@ class EmergencyTemplateTest extends TestCase
             'header', 'head', 'onload', 'toc', 'content', 'loginlink', 'XH_exit'
         );
         foreach ($mockNames as $mockName) {
-            $this->mocks[$mockName] = $this->getFunctionMock($mockName);
+            $this->mocks[$mockName] = $this->createFunctionMock($mockName);
         }
         $this->expectOutputRegex('//');
     }

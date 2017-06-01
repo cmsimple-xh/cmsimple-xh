@@ -48,7 +48,7 @@ class BackupTest extends TestCase
                 'deleted' => 'deleted'
             )
         );
-        $this->utf8UcfirstMock = $this->getFunctionMock('utf8_ucfirst');
+        $this->utf8UcfirstMock = $this->createFunctionMock('utf8_ucfirst');
         $this->utf8UcfirstMock->expects($this->any())->will($this->returnArgument(0));
         $this->subject = new Backup(array($this->contentFolder));
     }
@@ -84,7 +84,7 @@ class BackupTest extends TestCase
 
     public function testFailedBackupReportsError()
     {
-        $eSpy = $this->getFunctionMock('e');
+        $eSpy = $this->createFunctionMock('e');
         $eSpy->expects($this->once())->with($this->equalTo('cntsave'), $this->equalTo('backup'));
         file_put_contents("{$this->contentFolder}content.htm", '');
         chmod($this->contentFolder, 0444);
@@ -173,13 +173,13 @@ class BackupTest extends TestCase
 
     public function testReportsDeletionFailure()
     {
-        $eSpy = $this->getFunctionMock('e');
+        $eSpy = $this->createFunctionMock('e');
         $eSpy->expects($this->once())->with($this->equalTo('cntdelete'), $this->equalTo('backup'));
         file_put_contents("{$this->contentFolder}content.htm", 'foo');
         touch("{$this->contentFolder}19700101_000102_content.htm");
         touch("{$this->contentFolder}19700102_000102_content.htm");
         touch("{$this->contentFolder}19700103_000102_content.htm");
-        $unlinkStub = $this->getFunctionMock('unlink');
+        $unlinkStub = $this->createFunctionMock('unlink');
         $unlinkStub->expects($this->any())->willReturn(false);
         $this->subject->execute();
         $unlinkStub->restore();
@@ -193,7 +193,7 @@ class BackupTest extends TestCase
         $cf['backup']['numberoffiles'] = '0';
         $this->subject = new Backup(array($this->contentFolder));
         touch("{$this->contentFolder}content.htm");
-        $eSpy = $this->getFunctionMock('e');
+        $eSpy = $this->createFunctionMock('e');
         $eSpy->expects($this->never());
         $this->assertEquals('', $this->subject->execute());
         $eSpy->restore();

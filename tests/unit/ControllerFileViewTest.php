@@ -71,9 +71,9 @@ class ControllerFileViewTest extends TestCase
         $this->setUpFileSystem();
         $file = 'content';
         $this->subject = new Controller();
-        $this->exitMock = $this->getFunctionMock('XH_exit');
-        $this->headerMock = $this->getFunctionMock('header');
-        $this->logFileViewMock = $this->getFunctionMock('XH_logFileView');
+        $this->exitMock = $this->createFunctionMock('XH_exit');
+        $this->headerMock = $this->createFunctionMock('header');
+        $this->logFileViewMock = $this->createFunctionMock('XH_logFileView');
     }
 
     /**

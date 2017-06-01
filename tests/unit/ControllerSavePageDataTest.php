@@ -86,10 +86,10 @@ class ControllerSavePageDataTest extends TestCase
         $pd_router = $this->createMock(PageDataRouter::class);
         $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
         $this->subject = new Controller();
-        $this->eMock = $this->getFunctionMock('e');
-        $this->exitMock = $this->getFunctionMock('XH_exit');
-        $this->headerMock = $this->getFunctionMock('header');
-        $this->messageMock = $this->getFunctionMock('XH_message');
+        $this->eMock = $this->createFunctionMock('e');
+        $this->exitMock = $this->createFunctionMock('XH_exit');
+        $this->headerMock = $this->createFunctionMock('header');
+        $this->messageMock = $this->createFunctionMock('XH_message');
     }
 
     protected function tearDown()

@@ -158,7 +158,7 @@ class TplfuncsTest extends TestCase
         global $tx, $s;
 
         $s = 10;
-        $hideMock = $this->getFunctionMock('hide');
+        $hideMock = $this->createFunctionMock('hide');
         $hideMock->expects($this->any())->willReturn(false);
         $this->assertXPathContains(
             '//a[@rel="prev"]',
@@ -180,7 +180,7 @@ class TplfuncsTest extends TestCase
         global $s;
 
         $s = 10;
-        $hideMock = $this->getFunctionMock('hide');
+        $hideMock = $this->createFunctionMock('hide');
         $hideMock->expects($this->any())->willReturn(true);
         $this->assertNull(previouspage());
         $hideMock->restore();
@@ -200,7 +200,7 @@ class TplfuncsTest extends TestCase
 
         $s = 0;
         $cl = 10;
-        $hideMock = $this->getFunctionMock('hide');
+        $hideMock = $this->createFunctionMock('hide');
         $hideMock->expects($this->any())->willReturn(false);
         $this->assertXPathContains(
             '//a[@rel="next"]',
@@ -224,7 +224,7 @@ class TplfuncsTest extends TestCase
 
         $s = 0;
         $cl = 10;
-        $hideMock = $this->getFunctionMock('hide');
+        $hideMock = $this->createFunctionMock('hide');
         $hideMock->expects($this->any())->willReturn(true);
         $this->assertNull(nextpage());
         $hideMock->restore();
@@ -251,7 +251,7 @@ class TplfuncsTest extends TestCase
             'folder' => array('base' => './', 'flags' => vfsStream::url('test/'), 'templateflags' => 'foo')
         );
         touch($pth['folder']['flags'] . 'da.gif');
-        $secondLanguagesMock = $this->getFunctionMock('XH_secondLanguages');
+        $secondLanguagesMock = $this->createFunctionMock('XH_secondLanguages');
         $secondLanguagesMock->expects($this->any())->willReturn(array('da', 'de'));
         $this->assertXPathContains(
             '//a[@href="./de/"]',

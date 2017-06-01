@@ -68,7 +68,7 @@ class ControllerMailformTest extends TestCase
         $this->mailformMock = $this->createMock(Mailform::class);
         $this->subject->method('makeMailform')
             ->willReturn($this->mailformMock);
-        $this->sheadMock = $this->getFunctionMock('shead');
+        $this->sheadMock = $this->createFunctionMock('shead');
     }
 
     protected function tearDown()

@@ -42,7 +42,7 @@ class IntegratedPluginMenuTest extends TestCase
     public function testRegisters5MenuItems()
     {
         $subject = new IntegratedPluginMenu();
-        $registerPluginMenuItem = $this->getFunctionMock('XH_registerPluginMenuItem');
+        $registerPluginMenuItem = $this->createFunctionMock('XH_registerPluginMenuItem');
         $registerPluginMenuItem->expects($this->exactly(5))->with('filebrowser');
         $subject->render(true);
         $registerPluginMenuItem->restore();

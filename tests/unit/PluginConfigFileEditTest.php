@@ -77,7 +77,7 @@ class PluginConfigFileEditTest extends TestCase
     {
         global $_XH_csrfProtection;
 
-        $this->_tagStub = $this->getFunctionMock('tag');
+        $this->_tagStub = $this->createFunctionMock('tag');
         $this->_tagStub->expects($this->any())->will($this->returnCallback(
             function ($str) {
                 return "<$str>";
@@ -185,16 +185,16 @@ EOT;
 
     public function testSubmit()
     {
-        $writeFileSpy = $this->getFunctionMock('XH_writeFile');
+        $writeFileSpy = $this->createFunctionMock('XH_writeFile');
         $writeFileSpy->expects($this->once())->willReturn(true);
-        $headerSpy = $this->getFunctionMock('header');
+        $headerSpy = $this->createFunctionMock('header');
         $headerSpy->expects($this->once())->with(
             $this->equalTo(
                 'Location: ' . CMSIMPLE_URL . '?&pagemanager&admin=plugin_config'
                 . '&action=plugin_edit&xh_success=config'
             )
         );
-        $exitSpy = $this->getFunctionMock('XH_exit');
+        $exitSpy = $this->createFunctionMock('XH_exit');
         $exitSpy->expects($this->once());
         $this->subject->submit();
         $writeFileSpy->restore();
@@ -204,9 +204,9 @@ EOT;
 
     public function testSubmitSaveFailure()
     {
-        $writeFileSpy = $this->getFunctionMock('XH_writeFile');
+        $writeFileSpy = $this->createFunctionMock('XH_writeFile');
         $writeFileSpy->expects($this->once())->willReturn(false);
-        $eSpy = $this->getFunctionMock('e');
+        $eSpy = $this->createFunctionMock('e');
         $eSpy->expects($this->once());
         $this->subject->submit();
         $writeFileSpy->restore();

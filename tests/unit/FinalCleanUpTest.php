@@ -49,9 +49,9 @@ class FinalCleanUpTest extends TestCase
      */
     private function setUpFunctionStubs()
     {
-        $this->adminMenuStub = $this->getFunctionMock('XH_adminMenu');
+        $this->adminMenuStub = $this->createFunctionMock('XH_adminMenu');
         $this->adminMenuStub->expects($this->any())->willReturn('<ul id="my_admin_menu"></ul>');
-        $this->pluginsStub = $this->getFunctionMock('XH_plugins');
+        $this->pluginsStub = $this->createFunctionMock('XH_plugins');
         $this->pluginsStub->expects($this->any())->willReturn(array('filebrowser', 'jquery', 'pagemanager'));
     }
 
