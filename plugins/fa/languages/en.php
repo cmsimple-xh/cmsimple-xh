@@ -1,6 +1,6 @@
 <?php
 
-$plugin_tx['fa']['alt_logo']="Fort Awesome";
+$plugin_tx['fa']['alt_logo']="Font Awesome";
 $plugin_tx['fa']['syscheck_fail']="failure";
 $plugin_tx['fa']['syscheck_message']="Checking that %1\$s … %2\$s";
 $plugin_tx['fa']['syscheck_phpversion']="PHP version ≥ %s";
