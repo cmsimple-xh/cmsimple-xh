@@ -155,6 +155,35 @@ padding: 0 20px;
 .clear {
 clear: both;
 }
+
+/* Blockquote Zitat Start */
+blockquote {
+background:rgba(0, 0, 0, 0.4);
+border-left: 8px solid #00F;
+border-right: 8px solid #00F;
+margin-top: 15px;
+margin-left: 0; /* bündig mit Seiten Rand = Schrift  */
+padding: 0.8em 10px;
+font-size: 1.5em;
+color: #FFF; /* Überschrift-Farbe */
+font-weight: 500;
+quotes: "\201C""\201D";
+}
+blockquote::before {
+margin-left: 5px;
+color: #F00; /* Zitat-Zeichen-Farbe */
+content: open-quote;
+font-size: 2em;
+line-height: 0.1em;
+margin-right: 0.2em; /* Abstand Sonderzeichen Schrift */
+vertical-align: -.2em; /* Zitat-Zeichen-höhe*/
+}
+blockquote p {
+display: inline;
+margin: 0;
+}
+/* Blockquote Zitat End */
+
 /* Navigation Hamburger Grünenbergpass_color2/icons/März/ Start by Richard Kircher (c)2017 /www.richukunst.ch */
 /* Navigation fährt von links nach rechts über die ganze Seite */
 /* Hamburger ABSCHNITT  Start */
