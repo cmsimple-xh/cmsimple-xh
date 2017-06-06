@@ -189,7 +189,7 @@ function XH_isAccessProtected($path)
 {
     $url = preg_replace('/index\.php$/', '', CMSIMPLE_URL) . $path;
     $defaultContext = stream_context_set_default(
-        array('http' => array('method' => 'HEAD'))
+        array('http' => array('method' => 'HEAD', 'timeout' => 5))
     );
     $headers = get_headers($url);
     stream_context_set_default(stream_context_get_params($defaultContext));
