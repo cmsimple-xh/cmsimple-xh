@@ -56,10 +56,7 @@ class XH_PageDataEditor
     {
         global $pd_router;
 
-        $fields = $_POST;
-        unset($fields['xh_pagedata_delete']);
-        unset($fields['xh_csrf_token']);
-        $fields = array_keys($fields);
+        $fields = $_POST['xh_fields'];
         if (empty($fields)) {
             return 0;
         }
@@ -80,7 +77,7 @@ class XH_PageDataEditor
     function renderField($field)
     {
         return '<li><label>'
-            . tag('input type="checkbox" name="' . $field . '"')
+            . tag('input type="checkbox" name="xh_fields[]" value="' . $field . '"')
             . XH_hsc($field)
             . '</label></li>';
     }
