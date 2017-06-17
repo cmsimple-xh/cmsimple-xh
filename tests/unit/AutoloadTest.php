@@ -46,6 +46,11 @@ namespace Foo;
 class Plugin {}
 EOT;
 
+    const CLASS_FOO = <<<'EOT'
+<?php
+class Foo{}
+EOT;
+
     /**
      * @var vfsStreamDirectory
      */
@@ -98,5 +103,10 @@ EOT;
     public function testNonExistentClass()
     {
         $this->assertFalse(class_exists(Bar::class));
+    }
+
+    public function testNonNamespacedClassIsNotLoaded()
+    {
+        $this->assertFalse(class_exists('\Foo'));
     }
 }

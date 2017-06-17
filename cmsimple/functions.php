@@ -2618,6 +2618,9 @@ function XH_autoload($className)
     $className = str_replace('_', '\\', $className);
     // set $package, $subpackages and $class
     $subpackages = explode('\\', $className);
+    if (count($subpackages) <= 1) {
+        return;
+    }
     $packages = array_splice($subpackages, 0, 1);
     $package = $packages[0];
     $classes = array_splice($subpackages, -1);
