@@ -693,7 +693,7 @@ class FunctionsTest extends TestCase
         if (class_exists('IntlDateFormatter', false)) {
             $oldLocale = $tx['locale']['all'];
             $tx['locale']['all'] = 'en_US';
-            $this->assertEquals('January 2, 1970 at 11:17 AM', XH_formatDate('123456'));
+            $this->assertStringMatchesFormat('January 2, 1970%s11:17 AM', XH_formatDate('123456'));
             $tx['locale']['all'] = $oldLocale;
         } else {
             $this->assertEquals('January 02, 1970, 11:17', XH_formatDate('123456'));
