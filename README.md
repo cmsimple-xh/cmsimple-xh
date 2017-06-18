@@ -1,6 +1,6 @@
 # CMSimple_XH – a flat file CMS
 
-[![stable: 1.6.9](https://img.shields.io/badge/stable-1.6.9-green.svg)](https://github.com/cmsimple-xh/cmsimple-xh/releases/tag/1.6.9)
+[![stable: 1.6.10](https://img.shields.io/badge/stable-1.6.10-green.svg)](https://github.com/cmsimple-xh/cmsimple-xh/releases/tag/1.6.10)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 CMSimple_XH is a fast, small, easy-to-use and
