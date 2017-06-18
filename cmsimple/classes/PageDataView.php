@@ -54,10 +54,25 @@ class XH_PageDataView
      *
      * @access public
      */
-    function XH_PageDataView($page, $tabs = null)
+    function __construct($page, $tabs = null)
     {
         $this->page = $page;
         $this->tabs = $tabs;
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @param array $page Data of the page.
+     * @param array $tabs The filenames of the views of page data tabs.
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function XH_PageDataView($page, $tabs = null)
+    {
+        XH_PageDataView::__construct($page, $tabs);
     }
 
     /**

@@ -72,9 +72,21 @@ class XH_Search
      *
      * @return void
      */
-    function XH_Search($searchString)
+    function __construct($searchString)
     {
         $this->searchString = $searchString;
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @param string $searchString String The search string.
+     *
+     * @return void
+     */
+    function XH_Search($searchString)
+    {
+        XH_Search::__construct($searchString);
     }
 
     /**

@@ -65,12 +65,24 @@ class XH_Backup
      *
      * @global array The configuration of the core.
      */
-    function XH_Backup($contentFolders)
+    function __construct($contentFolders)
     {
         global $cf;
 
         $this->_contentFolders = $contentFolders;
         $this->_maxBackups = (int) $cf['backup']['numberoffiles'];
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @param array $contentFolders An array of foldernames.
+     *
+     * @return void
+     */
+    function XH_Backup($contentFolders)
+    {
+        XH_Backup::__construct($contentFolders);
     }
 
     /**

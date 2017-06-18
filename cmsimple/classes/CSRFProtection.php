@@ -53,7 +53,7 @@ class XH_CSRFProtection
      *
      * @return void
      */
-    function XH_CSRFProtection($keyName = 'xh_csrf_token', $perRequest = false)
+    function __construct($keyName = 'xh_csrf_token', $perRequest = false)
     {
         $this->keyName = $keyName;
         if (!$perRequest) {
@@ -64,6 +64,20 @@ class XH_CSRFProtection
                 $this->token = $_SESSION[$this->keyName][CMSIMPLE_ROOT];
             }
         }
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @param string $keyName    A key name.
+     * @param bool   $perRequest Whether a new token shall be generated for each
+     *                           request (otherwise once per session).
+     *
+     * @return void
+     */
+    function XH_CSRFProtection($keyName = 'xh_csrf_token', $perRequest = false)
+    {
+        XH_CSRFProtection::__construct($keyName, $perRequest);
     }
 
     /**

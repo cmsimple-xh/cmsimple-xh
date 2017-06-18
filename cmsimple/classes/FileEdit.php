@@ -170,7 +170,7 @@ class XH_TextFileEdit extends XH_FileEdit
      *
      * @access protected
      */
-    function XH_TextFileEdit()
+    function __construct()
     {
         $contents = XH_readFile($this->filename);
         if ($contents !== false) {
@@ -179,6 +179,18 @@ class XH_TextFileEdit extends XH_FileEdit
             e('cntopen', 'file', $this->filename);
             $this->text = '';
         }
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     *
+     * @access protected
+     */
+    function XH_TextFileEdit()
+    {
+        XH_TextFileEdit::__construct();
     }
 
     /**
@@ -287,7 +299,7 @@ class XH_CoreTextFileEdit extends XH_TextFileEdit
      *
      * @access public
      */
-    function XH_CoreTextFileEdit()
+    function __construct()
     {
         global $pth, $file, $tx;
 
@@ -297,6 +309,18 @@ class XH_CoreTextFileEdit extends XH_TextFileEdit
         $this->redir = "?file=$file&action=edit&xh_success=$file";
         $this->textareaName = 'text';
         parent::XH_TextFileEdit();
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function XH_CoreTextFileEdit()
+    {
+        XH_CoreTextFileEdit::__construct();
     }
 }
 
@@ -324,7 +348,7 @@ class XH_PluginTextFileEdit extends XH_TextFileEdit
      *
      * @access public
      */
-    function XH_PluginTextFileEdit()
+    function __construct()
     {
         global $pth, $plugin, $tx;
 
@@ -338,6 +362,18 @@ class XH_PluginTextFileEdit extends XH_TextFileEdit
         $this->caption = utf8_ucfirst($plugin) . ' &ndash; '
             . utf8_ucfirst($tx['filetype']['stylesheet']);
         parent::XH_TextFileEdit();
+    }
+
+    /**
+     * Fallback constructor for PHP 4.
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function XH_PluginTextFileEdit()
+    {
+        XH_PluginTextFileEdit::__construct();
     }
 }
 
@@ -391,7 +427,7 @@ class XH_ArrayFileEdit extends XH_FileEdit
      *
      * @return void
      */
-    function XH_ArrayFileEdit()
+    function __construct()
     {
         if (is_readable($this->metaLangFile)) {
             include $this->metaLangFile;
@@ -399,6 +435,16 @@ class XH_ArrayFileEdit extends XH_FileEdit
         } else {
             $this->lang = array();
         }
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     */
+    function XH_ArrayFileEdit()
+    {
+        XH_ArrayFileEdit::__construct();
     }
 
     /**
@@ -828,7 +874,7 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
      *
      * @access protected
      */
-    function XH_CoreArrayFileEdit()
+    function __construct()
     {
         global $pth, $sl, $file, $tx;
 
@@ -836,6 +882,18 @@ class XH_CoreArrayFileEdit extends XH_ArrayFileEdit
         $this->caption = utf8_ucfirst($tx['filetype'][$file]);
         $this->metaLangFile = $pth['folder']['language'] . 'meta' . $sl . '.php';
         parent::XH_ArrayFileEdit();
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     *
+     * @access protected
+     */
+    function XH_CoreArrayFileEdit()
+    {
+        XH_CoreArrayFileEdit::__construct();
     }
 
     /**
@@ -912,7 +970,7 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
      *
      * @access public
      */
-    function XH_CoreConfigFileEdit()
+    function __construct()
     {
         global $pth, $cf, $tx;
 
@@ -950,6 +1008,18 @@ class XH_CoreConfigFileEdit extends XH_CoreArrayFileEdit
             }
         }
     }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function XH_CoreConfigFileEdit()
+    {
+        XH_CoreConfigFileEdit::__construct();
+    }
 }
 
 
@@ -976,7 +1046,7 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
      *
      * @access public
      */
-    function XH_CoreLangFileEdit()
+    function __construct()
     {
         global $sl, $cf, $tx;
 
@@ -1011,6 +1081,18 @@ class XH_CoreLangFileEdit extends XH_CoreArrayFileEdit
                 $this->cfg[$cat][$name] = $co;
             }
         }
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function XH_CoreLangFileEdit()
+    {
+        XH_CoreConfigFileEdit::__construct();
     }
 }
 
@@ -1049,7 +1131,7 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
      *
      * @access protected
      */
-    function XH_PluginArrayFileEdit()
+    function __construct()
     {
         global $pth, $sl, $plugin;
 
@@ -1057,6 +1139,18 @@ class XH_PluginArrayFileEdit extends XH_ArrayFileEdit
         $this->metaLangFile = $pth['folder']['plugins'] . $plugin
             . '/languages/meta' . $sl . '.php';
         parent::XH_ArrayFileEdit();
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     *
+     * @access protected
+     */
+    function XH_PluginArrayFileEdit()
+    {
+        XH_PluginArrayFileEdit::__construct();
     }
 
     /**
@@ -1108,7 +1202,7 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
      *
      * @access public
      */
-    function XH_PluginConfigFileEdit()
+    function __construct()
     {
         global $pth, $plugin, $tx, $plugin_cf, $plugin_tx;
 
@@ -1137,6 +1231,18 @@ class XH_PluginConfigFileEdit extends XH_PluginArrayFileEdit
             $this->cfg[$cat][$name] = $this->option($omcf, $val, $hint);
         }
     }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function XH_PluginConfigFileEdit()
+    {
+        XH_PluginConfigFileEdit::__construct();
+    }
 }
 
 
@@ -1164,7 +1270,7 @@ class XH_PluginLanguageFileEdit extends XH_PluginArrayFileEdit
      *
      * @access public
      */
-    function XH_PluginLanguageFileEdit()
+    function __construct()
     {
         global $pth, $plugin, $tx, $plugin_tx;
 
@@ -1183,6 +1289,18 @@ class XH_PluginLanguageFileEdit extends XH_PluginArrayFileEdit
             $co = array('val' => $val, 'type' => 'text');
             $this->cfg[$cat][$name] = $co;
         }
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function XH_PluginLanguageFileEdit()
+    {
+        XH_PluginLanguageFileEdit::__construct();
     }
 }
 

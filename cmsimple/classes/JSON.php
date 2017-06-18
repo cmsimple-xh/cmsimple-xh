@@ -174,7 +174,7 @@ class XH_JSON
      *
      * @access public
      */
-    function XH_JSON()
+    function __construct()
     {
         $this->first = array(
             'object' => array(XH_JSON_LBRACE),
@@ -185,6 +185,18 @@ class XH_JSON
                 XH_JSON_TRUE, XH_JSON_FALSE, XH_JSON_NULL
             )
         );
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function XH_JSON()
+    {
+        XH_JSON::__construct();
     }
 
     /**

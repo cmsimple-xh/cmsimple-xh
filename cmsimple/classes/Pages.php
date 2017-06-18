@@ -91,7 +91,7 @@ class XH_Pages
      * @global array The menu levels of the pages.
      * @global array The contents of the pages.
      */
-    function XH_Pages()
+    function __construct()
     {
         global $h, $u, $l, $c;
 
@@ -100,6 +100,16 @@ class XH_Pages
         $this->urls = $u;
         $this->contents = $c;
         $this->levels = $l;
+    }
+
+    /**
+     * Fallback constructor for PHP 4
+     *
+     * @return void
+     */
+    function XH_Pages()
+    {
+        XH_Pages::__construct();
     }
 
     /**

@@ -66,7 +66,7 @@ class XH_PageDataRouter
      *
      * @access public
      */
-    function XH_PageDataRouter($h, $pageDataFields, $tempData, $pageData)
+    function __construct($h, $pageDataFields, $tempData, $pageData)
     {
         $this->model = new XH_PageDataModel(
             $h, $pageDataFields, $tempData, $pageData
@@ -74,6 +74,23 @@ class XH_PageDataRouter
     }
 
     /**
+     * Fallback constructor for PHP 4
+     *
+     * @param array $h              The page headings.
+     * @param array $pageDataFields The page data fields.
+     * @param array $tempData       The most recently deleted page data.
+     * @param array $pageData       The page data.
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function XH_PageDataRouter($h, $pageDataFields, $tempData, $pageData)
+    {
+        XH_PageDataRouter::__construct($h, $pageDataFields, $tempData, $pageData);
+    }
+
+   /**
      * Returns all fields that are stored in the page data.
      *
      * @return array
