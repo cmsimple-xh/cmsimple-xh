@@ -612,7 +612,7 @@ class Filebrowser_Controller
     function renameFile()
     {
         $newName = str_replace(
-            array('..', '<', '>', ':', '?', ' '), '', basename($_POST['renameFile'])
+            array('..', '<', '>', ':', '?'), '', basename($_POST['renameFile'])
         );
         $oldName = $_POST['oldName'];
         if ($oldName == $newName) {
