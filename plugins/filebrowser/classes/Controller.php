@@ -591,7 +591,7 @@ class Controller
      */
     public function renameFile()
     {
-        $newName = str_replace(array('..', '<', '>', ':', '?', ' '), '', basename($_POST['renameFile']));
+        $newName = str_replace(array('..', '<', '>', ':', '?'), '', basename($_POST['renameFile']));
         $oldName = $_POST['oldName'];
         if ($oldName == $newName) {
             return;
