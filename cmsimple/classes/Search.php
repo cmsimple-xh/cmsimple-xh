@@ -165,9 +165,13 @@ class XH_Search
      */
     function prepareContent($content, $pageIndex)
     {
-        global $s;
+        global $s, $pd_router;
 
         $s = $pageIndex;
+        $pageData = $pd_router->find_page($s);
+        if (function_exists('Pageparams_replaceAlternativeHeading')) {
+            $content = Pageparams_replaceAlternativeHeading($content, $pageData);
+        }
         $content = strip_tags(evaluate_plugincall($content));
         $s = -1;
         if (method_exists('Normalizer', 'normalize')) {
