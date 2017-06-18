@@ -266,6 +266,7 @@ $tx['submenu']['heading']="Submenu";
 
 $tx['syscheck']['access_protected']="'%s' is access protected";
 $tx['syscheck']['bom']="there is no <a href=\"http://www.cmsimple-xh.org/wiki/doku.php/utf8#what_s_a_bom\" target=\"_blank\">BOM</a>";
+$tx['syscheck']['cookie_lifetime']="session.cookie_lifetime is 0";
 $tx['syscheck']['extension']="extension '%s' is loaded";
 $tx['syscheck']['fail']="failure";
 $tx['syscheck']['fsockopen']="function fsockopen is available";
