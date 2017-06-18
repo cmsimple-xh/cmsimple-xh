@@ -151,10 +151,13 @@ class HeadTest extends TestCase
      */
     public function testDoesNotRenderMetaGenerator()
     {
+        $error_reporting = error_reporting();
+        error_reporting(0);
         $this->assertNotXPath(
             '//meta[@name="generator"]',
             head()
         );
+        error_reporting($error_reporting);
     }
 
     /**
