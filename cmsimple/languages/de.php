@@ -332,5 +332,3 @@ $tx['validate']['intfilok']="INTERNE VERLINKUNG AUF DATEI OK";
 $tx['validate']['intok']="INTERNE VERLINKUNG OK";
 $tx['validate']['mailto']="MAILTO VERLINKUNG";
 $tx['validate']['notxt']="KEIN TEXT IN VERLINKUNG";
-
-?>

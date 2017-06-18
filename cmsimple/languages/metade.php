@@ -52,5 +52,3 @@ $mtx['uri']="URL";
 $mtx['urichar']="URL-Zeichen";
 $mtx['userfiles']="Benutzerdateien";
 $mtx['word separator']="Worttrennzeichen";
-
-?>

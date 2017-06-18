@@ -26,5 +26,3 @@ $plugin_tx['page_params']['hint_linked_to_menu']="<p>If unchecked, this page wil
 $plugin_tx['page_params']['hint_last_edit']="<p>Choose \"top\" or \"bottom\" to display the date of the last edit of this very page above resp. below the content. The Date format can be changed in the language settings, the look can be styled with the CSS selector <em>#pp_last_update</em>.</p>";
 $plugin_tx['page_params']['hint_template']="<p>Here you can select a special template for this page. All subpages of the page will also have this template.</p>";
 $plugin_tx['page_params']['hint_header_location']="<p>Here you can redirect this page to another internal or external page.</p><p>External targets have to be noted including the protocol (e.g. http://)</p>";
-
-?>

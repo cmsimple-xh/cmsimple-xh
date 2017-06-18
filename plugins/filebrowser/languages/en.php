@@ -42,5 +42,3 @@ $plugin_tx['filebrowser']['cf_extensions_images']="Fill in the file extensions y
 $plugin_tx['filebrowser']['cf_extensions_downloads']="Fill in the file extensions you want to allow for the downloads folder as comma separated list. <b>*</b> is a wildcard for all file extensions.";
 $plugin_tx['filebrowser']['cf_extensions_userfiles']="Fill in the file extensions you want to allow for the userfiles folder as comma separated list. <b>*</b> is a wildcard for all file extensions.";
 $plugin_tx['filebrowser']['cf_extensions_media']="Fill in the file extensions you want to allow for the media folder as comma separated list. <b>*</b> is a wildcard for all file extensions.";
-
-?>

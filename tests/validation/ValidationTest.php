@@ -72,5 +72,3 @@ class ValidationTest extends TestCase
         $this->validate($html);
     }
 }
-
-?>

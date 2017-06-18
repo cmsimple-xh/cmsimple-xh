@@ -67,7 +67,6 @@ abstract class PluginArrayFileEdit extends ArrayFileEdit
                 $o .= "\$$this->varName['$this->plugin']['$key']=\"$opt\";\n";
             }
         }
-        $o .= "\n?>\n";
         return $o;
     }
 }

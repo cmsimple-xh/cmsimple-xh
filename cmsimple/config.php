@@ -47,5 +47,3 @@ $cf['title']['format']="{SITE} &ndash; {PAGE}";
 $cf['mode']['advanced']="";
 $cf['format']['date']="long";
 $cf['format']['time']="short";
-
-?>
