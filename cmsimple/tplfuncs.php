@@ -82,13 +82,16 @@ function head()
     $t = tag('meta http-equiv="content-type" content="text/html;charset=UTF-8"')
         . "\n" . $t;
     $plugins = implode(', ', XH_plugins());
-    return $t
-        . tag(
-            'meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' '
-            . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org"'
-        ) . "\n"
-        . '<!-- plugins: ' . $plugins . ' -->' . "\n"
-        . XH_renderPrevLink() . XH_renderNextLink()
+    $o = $t;
+    if (error_reporting() > 0) {
+        $o .=
+            tag(
+                'meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' '
+                . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org"'
+            ) . "\n"
+            . '<!-- plugins: ' . $plugins . ' -->' . "\n";
+    }
+    $o .= XH_renderPrevLink() . XH_renderNextLink()
         . tag(
             'link rel="stylesheet" href="' . $pth['file']['corestyle']
             . '" type="text/css"'
@@ -98,6 +101,7 @@ function head()
             . '" type="text/css"'
         ) . "\n"
         . $hjs;
+    return $o;
 }
 
 /**
