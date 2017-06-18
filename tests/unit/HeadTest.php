@@ -149,9 +149,9 @@ class HeadTest extends TestCase
      *
      * @return void
      */
-    public function testRendersMetaGenerator()
+    public function testDoesNotRenderMetaGenerator()
     {
-        $this->assertXPath(
+        $this->assertNotXPath(
             '//meta[@name="generator"]',
             head()
         );

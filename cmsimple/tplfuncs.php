@@ -80,16 +80,20 @@ function head()
     $t = '<meta http-equiv="content-type" content="text/html;charset=UTF-8">'
         . "\n" . $t;
     $plugins = implode(', ', XH_plugins());
-    return $t
-        . '<meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' '
-        . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org">' . "\n"
-        . '<!-- plugins: ' . $plugins . ' -->' . "\n"
-        . XH_renderPrevLink() . XH_renderNextLink()
+    $o = $t;
+    if (error_reporting() > 0) {
+        $o .= '<meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' '
+            . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org">'
+            . "\n"
+            . '<!-- plugins: ' . $plugins . ' -->' . "\n";
+    }
+    $o .= XH_renderPrevLink() . XH_renderNextLink()
         . '<link rel="stylesheet" href="' . XH_pluginStylesheet()
         . '" type="text/css">' . PHP_EOL
         . $hjs
         . '<link rel="stylesheet" href="' . $pth['file']['stylesheet']
         . '" type="text/css">' . "\n";
+    return $o;
 }
 
 /**
