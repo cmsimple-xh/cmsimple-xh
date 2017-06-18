@@ -509,6 +509,9 @@ input[type="reset"] {
 input[type="file"] {
 	padding: 0 !important;
 }
+input[type="checkbox"], input[type="radio"] {
+	padding: 0;
+}
 /*** Responsive Tables ***/
 table.responsive {
 	width: 100%;
