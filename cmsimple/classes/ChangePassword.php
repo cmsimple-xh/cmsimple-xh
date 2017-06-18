@@ -100,6 +100,9 @@ class ChangePassword
     {
         global $o;
 
+        if (isset($_GET['xh_success']) && $_GET['xh_success'] === 'change_password') {
+            $o .= XH_message('success', 'Password successfully changed');
+        }
         $o .= $this->render();
     }
 
@@ -175,7 +178,9 @@ class ChangePassword
         if ($hash = $this->validate($error)) {
             $this->config['security']['password'] = $hash;
             $this->savePassword();
-            header('Location: ' . CMSIMPLE_URL);
+            session_regenerate_id(true);
+            $_SESSION['xh_password'] = $hash;
+            header('Location: ' . CMSIMPLE_URL . '?&xh_change_password&xh_success=change_password');
             exit;
         } else {
             $o .= XH_message('fail', $error);
