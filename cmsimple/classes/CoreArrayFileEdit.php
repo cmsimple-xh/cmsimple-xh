@@ -78,7 +78,7 @@ abstract class CoreArrayFileEdit extends ArrayFileEdit
         global $pth;
 
         $options = array();
-        if ($dh = opendir($pth['folder'][$fn])) {
+        if (is_dir($pth['folder'][$fn]) && ($dh = opendir($pth['folder'][$fn]))) {
             while (($p = readdir($dh)) !== false) {
                 if (preg_match($regex, $p, $m)) {
                     $options[] = $m[1];

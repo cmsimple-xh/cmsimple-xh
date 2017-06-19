@@ -1054,7 +1054,7 @@ function XH_uenc($s, array $search, array $replace)
  *
  * Caveat: the result includes '.' and '..'.
  *
- * @param string $dir The directory path.
+ * @param string $dir An existing directory path.
  *
  * @return array
  */
@@ -1449,7 +1449,7 @@ function XH_plugins($admin = false)
         $admPlugins = array();
         $disabledPlugins = explode(',', $cf['plugins']['disabled']);
         $disabledPlugins = array_map('trim', $disabledPlugins);
-        if ($dh = opendir($pth['folder']['plugins'])) {
+        if (is_dir($pth['folder']['plugins']) && ($dh = opendir($pth['folder']['plugins']))) {
             while (($fn = readdir($dh)) !== false) {
                 if (strpos($fn, '.') !== 0
                     && is_dir($pth['folder']['plugins'] . $fn)
@@ -1964,7 +1964,7 @@ function XH_templates()
     global $pth;
 
     $templates = array();
-    if ($handle = opendir($pth['folder']['templates'])) {
+    if (is_dir($pth['folder']['templates']) && ($handle = opendir($pth['folder']['templates']))) {
         while (($file = readdir($handle)) !== false) {
             $dir = $pth['folder']['templates'] . $file;
             if ($file[0] != '.' && is_dir($dir)
@@ -1993,7 +1993,7 @@ function XH_availableLocalizations()
     global $pth;
 
     $languages = array();
-    if ($handle = opendir($pth['folder']['language'])) {
+    if (is_dir($pth['folder']['language']) && ($handle = opendir($pth['folder']['language']))) {
         while (($file = readdir($handle)) !== false) {
             if (preg_match('/^([a-z]{2})\.php$/i', $file, $m)) {
                 $languages[] = $m[1];
@@ -2023,7 +2023,7 @@ function XH_secondLanguages()
 
     if (!isset($langs)) {
         $langs = array();
-        if ($dir = opendir($pth['folder']['base'])) {
+        if (is_dir($pth['folder']['base']) && ($dir = opendir($pth['folder']['base']))) {
             while (($entry = readdir($dir)) !== false) {
                 if ($entry[0] != '.' && XH_isLanguageFolder($entry)) {
                     $langs[] = $entry;
