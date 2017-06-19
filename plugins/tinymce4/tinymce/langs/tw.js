@@ -1,4 +1,4 @@
-tinymce.addI18n('zh_TW',{
+tinymce.addI18n('tw',{
 "Cut": "\u526a\u4e0b",
 "Heading 5": "\u6a19\u984c 5",
 "Header 2": "\u6a19\u984c 2",
