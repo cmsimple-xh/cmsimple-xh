@@ -133,11 +133,16 @@ class Publisher
     /**
      * Returns the index of the first published page.
      *
-     * @return int
+     * @return int -1 if no page is published
      */
     public function getFirstPublishedPage()
     {
-        return array_search(true, $this->published, true);
+        for ($i = 0; $i < $this->pages->getCount(); $i++) {
+            if ($this->isPublished($i)) {
+                return $i;
+            }
+        }
+        return -1;
     }
 
     /**
