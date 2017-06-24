@@ -2,6 +2,7 @@
 
 [![stable: 1.6.10](https://img.shields.io/badge/stable-1.6.10-green.svg)](https://github.com/cmsimple-xh/cmsimple-xh/releases/tag/1.6.10)
 [![rc: 1.7.0rc1](https://img.shields.io/badge/rc-1.7.0rc1-yellow.svg)](https://github.com/cmsimple-xh/cmsimple-xh/releases/tag/1.7.0rc1)
+[![Travis branch](https://img.shields.io/travis/cmsimple-xh/cmsimple-xh.svg)](https://travis-ci.org/cmsimple-xh/cmsimple-xh/branches)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 CMSimple_XH is a fast, small, easy-to-use and
