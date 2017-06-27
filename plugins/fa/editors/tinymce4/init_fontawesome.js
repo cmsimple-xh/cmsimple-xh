@@ -7,7 +7,7 @@
   plugins: [
     "advlist anchor autolink autosave charmap code colorpicker contextmenu emoticons fullscreen hr",
     "image importcss insertdatetime link lists media nonbreaking paste",
-    "save searchreplace table textcolor visualblocks visualchars wordcount fontawesome noneditable"
+    "save searchreplace table textcolor visualblocks visualchars wordcount noneditable"
   ],
   external_plugins: {
     "fontawesome": "%CMSIMPLE_ROOT%plugins/fa/editors/tinymce4/fontawesome/plugin.min.js"

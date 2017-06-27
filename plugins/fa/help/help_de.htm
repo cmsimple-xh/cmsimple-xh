@@ -10,6 +10,7 @@
 <body>
 
 <article>
+
 <h1>Fa_XH – Handbuch</h1>
 <img src="../fa.png" class="logo" alt="Fort Awesome">
 <p>
@@ -25,13 +26,13 @@
 <p>
     Weiterhin liefert Fa_XH Editor-Plugins aus, um die Verwendung von Font
     Awesome Icons im Content zu vereinfachen, wenn dies gewünscht wird. Zur Zeit
-    werden nur TinyMCE 4 und CKEditor unterstützt.
+    werden nur <i>TinyMCE 4</i> und <i>CKEditor</i> unterstützt.
 </p>
 
 <nav id="nav">
 <h2>Inhaltsverzeichnis</h2>
 <ul>
-<li><a href="#notice">Wichtiger Hinweis</a></li>
+<!--<li><a href="#notice">Wichtiger Hinweis</a></li>-->
 <li><a href="#requirements">Voraussetzungen</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#settings">Einstellungen</a></li>
@@ -43,12 +44,13 @@
         <li><a href="#usage-plugins">Plugin-Entwickler</a></li>
     </ul>
 </li>
-<li><a href="#limitations">Beschränkungen</a></li>
+<li><a href="#limitations">Einschränkungen</a></li>
 <li><a href="#license">Lizenz</a></li>
 <li><a href="#credits">Danksagung</a></li>
 </ul>
 </nav>
 
+<!--
 <section id="notice">
 <h2>Wichtiger Hinweis</h2>
 <p class="important">
@@ -56,11 +58,12 @@
     ein so genannter Release-Candidate. Vorsicht bei der Verwendung!
 </p>
 </section>
+-->
 
 <section id="requirements">
 <h2>Voraussetzungen</h2>
 <p>
-    Fa_XH ist ein Plugin für CMSimple_XH &ge; 1.6.3. Es benötigt PHP &ge; 5.3.0.
+    Fa_XH ist ein Plugin für CMSimple_XH ≥ 1.6.3. Es benötigt PHP ≥ 5.3.0.
 </p>
 </section>
 
@@ -79,19 +82,17 @@
     Entpacken Sie die ZIP-Datei auf Ihrem Computer.
 </li>
 <li>
-    Laden Sie das gesamte Verzeichnis fa/ auf Ihren Server in das plugins/
-    Verzeichnis von CMSimple_XH hoch.
+    Laden Sie das gesamte Verzeichnis <code>fa/</code> auf Ihren Server in das
+    plugins/ Verzeichnis von CMSimple_XH hoch.
 </li>
 <li>
-    Vergeben Sie Schreibrechte für die Unterverzeichnisse css/, config/ und
-    languages/.
+    Vergeben Sie Schreibrechte für die Unterverzeichnisse <code>css/</code>,
+    <code>config/</code> und <code>languages/</code>.
 </li>
-<!--
-<li>
-    Navigieren Sie zu <em>Plugins</em>→<em>Fa</em> im Administrationsbereich,
-    und prüfen Sie, ob alle Voraussetzungen für den Betrieb erfüllt sind.
+<li class="important">
+    Navigieren Sie zu <i>Plugins</i> → <i>Fa</i> im Administrationsbereich, und
+    prüfen Sie, ob alle Voraussetzungen für den Betrieb erfüllt sind.
 </li>
--->
 </ol>
 </section>
 
@@ -100,21 +101,21 @@
 <p>
     Die Konfiguration des Plugins erfolgt wie bei vielen anderen
     CMSimple_XH-Plugins auch im Administrationsbereich der Homepage. Wählen Sie
-    unter <em>Plugins</em> → <em>Fa</em> aus.
+    unter <i>Plugins</i> → <i>Fa</i> aus.
 </p>
 <p>
-    Sie können die Original-Einstellungen von Fa_XH in der
-    <em>Konfiguration</em> ändern. Beim Überfahren der Hilfe-Icons mit der Maus
-    werden Hinweise zu den Einstellungen angezeigt.
+    Sie können die Original-Einstellungen von Fa_XH in der <i>Konfiguration</i>
+    ändern. Beim Überfahren der Hilfe-Icons mit der Maus werden Hinweise zu den
+    Einstellungen angezeigt.
 </p>
 <p>
-    Die Lokalisierung wird unter <em>Sprache</em> vorgenommen. Sie können die
+    Die Lokalisierung wird unter <i>Sprache</i> vorgenommen. Sie können die
     Zeichenketten in Ihre eigene Sprache übersetzen, falls keine entsprechende
     Sprachdatei zur Verfügung steht, oder sie entsprechend Ihren Anforderungen
     anpassen.
 </p>
 <p>
-    Das Aussehen von Fa_XH kann unter <em>Stylesheet</em> angepasst werden.
+    Das Aussehen von Fa_XH kann unter <i>Stylesheet</i> angepasst werden.
 </p>
 </section>
 
@@ -125,10 +126,9 @@
 <h3>End-Anwender</h3>
 <p>
     Wollen Sie Font Awesome Icons im Content verwenden, dann aktivieren Sie
-    einfach die Konfigurationsoption <em>Require</em> → <em>Auto</em>.
-    Prinzipiell genügt das bereits, aber in Hinblick auf WYSIWYG-Editoren kann
-    es sein, dass Sie Font Awesome deren &lt;iframe&gt;s verfügbar machen
-    müssen.
+    einfach die Konfigurationsoption <i>Require</i> → <i>Auto</i>. Prinzipiell
+    genügt das bereits, aber in Hinblick auf WYSIWYG-Editoren kann es sein, dass
+    Sie Font Awesome deren <code>&lt;iframe&gt;</code>s verfügbar machen müssen.
 </p>
 
 <section id="usage-content-tinymce4">
@@ -144,21 +144,19 @@
 </li>
 <li>
     Bearbeiten Sie das kopierte <code>init_fontawesome.js</code> und ersetzen
-    Sie alle Vorkommen von <code>%CMSIMPLE_ROOT%</code> mit dem absoluten Pfad
-    des CMSimple_XH Installationsordners. Haben Sie CMSimple_XH direkt im
-    Webroot installiert, verwenden Sie <code>/</code> (ein einziger
-    Schrägstrich); haben Sie es in einem Unterordner namens <code>sub</code>
-    installiert, verwenden Sie <code>/sub/</code>.
+    Sie alle Vorkommen von <code>%CMSIMPLE_ROOT%</code> mit dem absoluten
+    URL-Pfad der CMSimple_XH Installation, den Sie unter <i>Plugins</i> →
+    <i>Fa</i> → <i>CMSIMPLE_ROOT</i> finden können.
 </li>
 <li>
-    Konfigurieren Sie den TinyMCE 4, so dass er die <em>fontawesome</em>
-    <em>init</em> nutzt.
+    Konfigurieren Sie den TinyMCE 4, so dass er die <code>fontawesome</code>
+    <i>init</i> nutzt.
 </li>
 </ul>
 <p>
     Nach diesen Vorbereitungen finden Sie einen neuen Schalter in der Toolbar
-    mit dem Namen <em>Font Awesome</em>, der einen Dialog öffnet, wo Sie
-    das gewünschte Font Awesome Icon auswählen und einfügen können.
+    mit dem Namen <i>Font Awesome</i>, der einen Dialog öffnet, wo Sie das
+    gewünschte Font Awesome Icon auswählen und einfügen können.
 </p>
 <p>
     Das fontawesome Plugin für TinyMCE 4 unterstützt nur Icons, die als
@@ -175,7 +173,7 @@
     können; dieses wird dann automatisch vom CKEditor geladen.
 </p>
 <p>
-    Verwenden Sie den Toolbar-Schalter <em>Font Awesome einfügen</em>, um das
+    Verwenden Sie den Toolbar-Schalter <i>Font Awesome einfügen</i>, um das
     gewünschte Font Awesome Icon auszuwählen, zu manipulieren und einzufügen.
     Klicken Sie doppelt auf ein bereits eingefügtes Icon, um es zu bearbeiten.
 </p>
@@ -243,10 +241,22 @@ $command->execute();
 </section>
 
 <section id="limitations">
-<h2>Beschränkungen</h2>
+<h2>Einschränkungen</h2>
 <p>
     Das Font Aweseome Plugin für TinyMCE 4 benötigt einen zeitgemäßen Browser;
     IE ≤ 8 wird nicht unterstützt.
+</p>
+<p>
+    TinyMCE 4 hat <a href="https://github.com/tinymce/tinymce/issues/3175">einen
+    Fehler</a> bezüglich Block-Level-Elementen, die nur andere Elemente, aber
+    keinen wirklichen Content enthalten. Also wird beim Einfügen eines Font
+    Awesome Icons in einen ansonsten leeren Absatz das Icon nicht erhalten. Das
+    TinyMCE 4 Font Awesome Plugin enthält einen Workaround dafür (nämlich, dass
+    zusätzlich ein geschütztes Leerzeichen eingefügt wird), aber das Verwenden
+    von Inhalten, die durch andere Editoren erstellt wurden, die diesen
+    Workaround nicht implementieren, wird hier nicht besonders berücksichtigt.
+    Es wird grundsätzlich empfohlen beim einmal gewählten Editor zu bleiben, so
+    dass dieses Problem ignoriert werden kann.
 </p>
 </section>
 
@@ -257,7 +267,7 @@ $command->execute();
     href="http://www.gnu.org/licenses/gpl.html">GPLv3</a> verwendet werden.
 </p>
 <p>
-    © 2017 Christoph M. Becker
+    Copyright © 2017 Christoph M. Becker
 </p>
 </section>
 
@@ -281,21 +291,14 @@ $command->execute();
     CKEditor</a> von Michael Janea. Danke für die Veröffentlichung unter GPL.
 </p>
 <p>
-    Fa_XH wurde von frase angeregt. Vielen Dank!
+    Fa_XH wurde von <i>frase</i> angeregt. Vielen Dank!
 </p>
-<!--
-<p>
-    This plugin uses free applications icons from <a
-    href="http://www.aha-soft.com/">Aha-Soft</a>. Many thanks for making these icons
-    freely available.
-</p>
--->
 <p>
     Vielen Dank an die Gemeinschaft im <a
     href="http://www.cmsimpleforum.com/">CMSimple_XH-Forum</a> für Tipps,
-    Anregungen und das Testen. Besonders möchte ich lck und frase für frühes
-    Testen und Feedback danken, manu für Hilfe bei dem TinyMCE 4 Plugin, und
-    Holger für Hilfe bei dem CKEditor Plugin.
+    Anregungen und das Testen. Besonders möchte ich <i>lck</i> und <i>frase</i>
+    für frühes Testen und Feedback danken, <i>manu</i> für Hilfe bei dem TinyMCE
+    4 Plugin, und <i>Holger</i> für Hilfe bei dem CKEditor Plugin.
 </p>
 <p>
     Zu guter Letzt vielen Dank an <a href="http://harteg.dk/">Peter Harteg</a>,
