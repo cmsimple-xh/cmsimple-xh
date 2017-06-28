@@ -313,6 +313,9 @@ HTML;
         ini_get('session.use_only_cookies'), false, $stx['use_only_cookies']
     );
     $checks['other'][] = array(
+        ini_get('session.cookie_lifetime') == 0, false, $stx['cookie_lifetime']
+    );
+    $checks['other'][] = array(
         strpos(ob_get_contents(), "\xEF\xBB\xBF") !== 0,
         false, $stx['bom']
     );
