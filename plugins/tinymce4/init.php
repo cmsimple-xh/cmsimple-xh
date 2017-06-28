@@ -88,6 +88,8 @@ function tinymce4_filebrowser()
 function include_tinymce4() 
 {
     global $edit, $pth, $h, $u, $l, $hjs, $plugin_cf;
+    $pcf = $plugin_cf['tinymce4'];
+    
     static $again = false;
 
     if ($again) {
@@ -95,9 +97,9 @@ function include_tinymce4()
     }
     $again = true;
     
-    if (TINYMCE4_VARIANT == 'CDN') {
+    if ($pcf['CDN'] == true) {  //CDN Version
         //do not use defaultconfig, leave the chance to update the std CDN_src
-        $tiny_src = empty($plugin_cf['tinymce4']['CDN_alt_src']) ? TINYMCE4_CDN_ORIG : $plugin_cf['tinymce4']['CDN_alt_src'];
+        $tiny_src = empty($pcf['CDN_alt_src']) ? TINYMCE4_CDN_ORIG : $pcf['CDN_alt_src'];
     } else {
         $tiny_src = $pth['folder']['plugins'] . 
             'tinymce4/' . 
@@ -219,7 +221,7 @@ function tinymce4_config($config, $selector)
      */
     $temp = str_replace(
         '%LANGUAGE%', 'language: "' . $tiny_language .'",'
-        . ($tiny_language !='en' && TINYMCE4_VARIANT == 'CDN' ? 
+        . ($tiny_language !='en' && $plugin_cf['CDN'] == true ? 
             '
   language_url: "' . 
             CMSIMPLE_ROOT.'plugins/tinymce4/tinymce/langs/' . 
