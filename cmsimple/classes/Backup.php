@@ -120,7 +120,7 @@ class Backup
     private function findBackups()
     {
         $result = array();
-        if ($dir = opendir($this->contentFolder)) {
+        if (is_dir($this->contentFolder) && ($dir = opendir($this->contentFolder))) {
             while (($entry = readdir($dir)) !== false) {
                 if (XH_isContentBackup($entry)) {
                     $result[] = $entry;

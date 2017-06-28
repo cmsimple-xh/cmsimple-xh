@@ -254,8 +254,7 @@ class Controller
         $dir = $this->browseBase . $this->currentDirectory;
         $this->files = array();
 
-        $handle = opendir($dir);
-        if ($handle) {
+        if (is_dir($dir) && ($handle = opendir($dir))) {
             while (false !== ($file = readdir($handle))) {
                 if (strpos($file, '.') === 0) {
                     continue;
@@ -285,8 +284,7 @@ class Controller
     private function getFolders($directory)
     {
         $folders = array();
-        $handle = opendir($directory);
-        if ($handle) {
+        if (is_dir($directory) && ($handle = opendir($directory))) {
             while (false !== ($file = readdir($handle))) {
                 if (strpos($file, '.') === 0) {
                     continue;
@@ -571,7 +569,7 @@ class Controller
     private function isEmpty($folder)
     {
         $isEmpty = true;
-        if ($dir = opendir($folder)) {
+        if (is_dir($folder) && ($dir = opendir($folder))) {
             while (($entry = readdir($dir)) !== false) {
                 if ($entry != '.' && $entry != '..') {
                     $isEmpty = false;
