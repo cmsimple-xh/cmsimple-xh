@@ -221,7 +221,7 @@ function tinymce4_config($config, $selector)
      */
     $temp = str_replace(
         '%LANGUAGE%', 'language: "' . $tiny_language .'",'
-        . ($tiny_language !='en' && $plugin_cf['CDN'] == true ? 
+        . ($tiny_language !='en' && $pcf['CDN'] == true ? 
             '
   language_url: "' . 
             CMSIMPLE_ROOT.'plugins/tinymce4/tinymce/langs/' . 
