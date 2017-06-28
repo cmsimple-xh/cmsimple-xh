@@ -331,5 +331,3 @@ $tx['validate']['intfilok']="INTERNAL LINK TO FILE OK";
 $tx['validate']['intok']="INTERNAL LINK OK";
 $tx['validate']['mailto']="MAILTO LINK";
 $tx['validate']['notxt']="NO TEXT IN LINK";
-
-?>

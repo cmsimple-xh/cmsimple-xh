@@ -59,7 +59,6 @@ abstract class CoreArrayFileEdit extends ArrayFileEdit
                 $o .= "\$$this->varName['$cat']['$name']=\"$opt\";\n";
             }
         }
-        $o .= "\n?>\n";
         return $o;
     }
 

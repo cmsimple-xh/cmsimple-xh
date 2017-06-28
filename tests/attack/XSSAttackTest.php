@@ -38,5 +38,3 @@ class XSSAttackTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($condition);
     }
 }
-
-?>
