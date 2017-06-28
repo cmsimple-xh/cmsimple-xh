@@ -1894,7 +1894,7 @@ function XH_title($site, $subtitle)
  */
 function XH_builtinTemplate($bodyClass)
 {
-    global $sl, $_XH_csrfProtection;
+    global $sl, $_XH_csrfProtection, $bjs;
 
     echo '<!DOCTYPE html>', "\n", '<html',
         (strlen($sl) == 2 ? " lang=\"$sl\"" : ''), '>', "\n";
@@ -1902,7 +1902,7 @@ function XH_builtinTemplate($bodyClass)
     echo '<head>', "\n" . head(),
         '<meta name="robots" content="noindex">', "\n",
         '</head>', "\n", '<body class="', $bodyClass,'"', onload(), '>', "\n",
-        $content, '</body>', "\n", '</html>', "\n";
+        $content, $bjs, '</body>', "\n", '</html>', "\n";
     if (isset($_XH_csrfProtection)) {
         $_XH_csrfProtection->store();
     }
