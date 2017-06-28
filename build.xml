@@ -29,7 +29,7 @@
     </target>
 
     <target name="sniff" description="checks adherence to PSR-2">
-        <phpcodesniffer standard="PSR2" format="full">
+        <phpcodesniffer standard="PSR2" format="full" haltonerror="true">
             <fileset refid="php-sources"/>
             <fileset refid="unit-tests"/>
         </phpcodesniffer>
