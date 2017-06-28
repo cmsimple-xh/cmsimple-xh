@@ -173,6 +173,8 @@
         <copy file="dist/cmsimplexh/plugins/meta_tags/languages/en.php" tofile="dist/cmsimplexh/plugins/meta_tags/languages/default.php" preservelastmodified="true"/>
         <copy file="dist/cmsimplexh/plugins/page_params/languages/en.php" tofile="dist/cmsimplexh/plugins/page_params/languages/default.php" preservelastmodified="true"/>
 
+        <move file="dist/cmsimplexh/userfiles/downloads/_XHdebug.txt" tofile="dist/cmsimplexh/userfiles/downloads/XHdebug.txt"/>
+
         <zip destfile="CMSimple_XH-${version}.zip" basedir="dist"/>
         <delete dir="dist" quiet="true"/>
     </target>
