@@ -1,4 +1,4 @@
-tinymce.addI18n('fr_FR',{
+tinymce.addI18n('fr',{
 "Cut": "Couper",
 "Heading 5": "En-t\u00eate 5",
 "Header 2": "Titre 2",
