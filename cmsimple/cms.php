@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @file cms.php
+ *
  * The main file of CMSimple_XH.
  *
  * @category  CMSimple_XH
@@ -91,7 +93,7 @@ define('XH_URICHAR_SEPARATOR', '|');
  * This <i>read-write</i> variable can be used to set the page title in the
  * plugin administration and for special extension pages.
  *
- * @global string $title
+ * @var string $title
  *
  * @access public
  */

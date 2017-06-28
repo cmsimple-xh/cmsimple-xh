@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @file functions.php
+ *
  * General functions.
  *
  * @category  CMSimple_XH

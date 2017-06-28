@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @file compat.php
+ *
  * Backward compatible functionality.
  *
  * @category  CMSimple_XH
@@ -67,13 +69,13 @@ function rp($p)
 }
 
 /**
- * Returns '&' or '&amp;' according to the setting of $cf['xhtml']['amp'].
+ * Returns `&` or `&amp;amp;` according to the setting of `$cf['xhtml']['amp']`.
  *
  * @return string HTML
  *
  * @global array The configuration of the core.
  *
- * @deprecated since 1.5.4. Use '&amp;' instead.
+ * @deprecated since 1.5.4. Use `&amp;amp;` instead.
  */
 function amp()
 {
