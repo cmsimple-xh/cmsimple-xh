@@ -228,6 +228,13 @@ function tinymce4_config($config, $selector)
             $tiny_language.'.js",' : ''), $temp
     );
 
+    /* 
+     * compute CMSIMPLEROOT faciliates usage of init_fontawesome.js
+     */
+    $temp = str_replace(
+        '%CMSIMPLE_ROOT%', CMSIMPLE_ROOT, $temp
+    );
+
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
     $temp = str_replace('%ELEMENT_FORMAT%', $elementFormat, $temp);
     
