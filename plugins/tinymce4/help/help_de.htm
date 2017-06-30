@@ -18,10 +18,11 @@
 <li><a href="#installation">Installation</a></li>
 <li><a href="#settings">Einstellungen & Benutzung </a>
   <ul>
-<li><a href="#simple" title="simple">einfache Variante</a></li>
 <li><a href="#sophisticated" title="sophisticated">Download Variante</a></li>
+<li><a href="#simple" title="simple">einfache Variante</a></li>
 </ul>
 </li>
+<li><a href="#manualupdate">Update js library</a> </li>
 <li><a href="#license">Lizenz</a></li>
 <li><a href="#credits">Danksagungen</a></li>
 </ul>
@@ -46,29 +47,28 @@
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
 <h2><a name="settings" id="settings">Einstellung &amp; Benutzung </a> </h2>
-<p>Es gibt zwei Möglichkeiten die Plugin Funktionalität aufzurufen. Die erste Möglichkeit ist einfach und simpel, die zweite ist anspruchsvoller, bietet aber zusätzliche Einstellungsmöglichkeiten. Details siehe folgende Absätze </p>
+<p><a name="sophisticated"></a><strong>Download Variante (Voreinstellung) </strong></p>
 <ol>
-  <li><strong><a name="simple"></a>einfach &amp; simpel  </strong></li>
+  <p>Mit dem Plugin wird Ihnen eine aktuelle Version der TinyMCE Library mitgeliefert.  Kontrollieren Sie in den CMS Einstellungen &gt; Konfiguration, ob bei Editor &gt; Name &quot;tinymce4&quot; eingetragen ist. Somit ist der Editor nach der Installation benutzungsbereit.</p>
+  <li><strong><a name="simple"></a>immer aktuell </strong></li>
 
-  <p>Da wir den Editor in den meisten Fällen auf dem öffentlichen Webserver verwenden, ist die Einbindung des Editor aus einem CDN (Content Delivery Network, Voreinstellung) am einfachsten. Vorteile: der Editor ist immer aktuell, die Downloadgrösse des Programmpaketes lässt sich reduzieren. </p>
+  <p>Da wir den Editor in den meisten Fällen auf dem öffentlichen Webserver verwenden, bietet sich an,  die Einbindung des Editor aus einem CDN (Content Delivery Network, Voreinstellung) vorzunehmen. Vorteile: der Editor ist immer aktuell. Dafür ist in den Plugin Einstellungen die Checkbox &quot;CDN&quot; zu aktivieren.</p>
+  <p>Die voreingestellte Quelle ist <code>cloud.tinymce.com</code>.  </p>
   <p>Ephox, der Herausgeber von TinyMCE verlangt für die Benützung einen kostenlosen API Key, welcher bei der <a href="https://store.ephox.com/signup/" target="_blank">Registrierung</a> erstellt werden kann. Die Kontrolle, wer den Editor kostenlos benützt, finde ich gerechtfertigt. Der Editor läuft auch ohne API Key, einfach mit einer entsprechenden Meldung in der Toolbar.</p>
   <p>    Nach Erstellung des API Keys, ist die CDN Quelle in der Konfiguration wie folgt anzupassen:<br>
     <code>https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=Dein_API_key</code></p>
-  <p>Es gibt auch CDN Quellen, welche keinen API Key benötigen, zum Beispiel <a href="https://cdnjs.com/libraries/tinymce" target="_blank">cdnjs.com</a>, wobei hier die Version manuell eingestellt werden muss. </p>
-  <p><a href="#">zum Seitenanfang</a></p>
-  <li><a name="sophisticated"></a><strong>Download Variante </strong></li>
-  <p>Die Download Variante kommt vor allem auf einem lokalen Webserver zum Tragen, weil dann keine Internetverbindung benötigt wird.</p>
-  <p>Dafür muss der Editor <a href="https://www.tinymce.com/download/" target="_blank">beim Hersteller gedownloaded</a> werden. Aus der .zip Datei ist der Ordner(<code>tinymce/js/tinymce</code>)  ins Zielverzeichnis (<code>plugins/tinymce4/tinymce</code>) zu kopieren.</p>
-  <p>Abschliessend ist in der Plugin Konfiguration die CDN Checkbox abzuwählen. Jetzt sollte der Editor bei Aufruf aus dem eigenen Verzeichnis geladen werden.  </p>
+  <p>Es gibt auch CDN Quellen, welche keinen API Key benötigen, zum Beispiel <a href="https://cdnjs.com/libraries/tinymce" target="_blank">cdnjs.com</a>, wobei hier die Version manuell eingestellt werden muss.</p>
   </ol>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
-
-<div class="toplink"></div>
+<h2 id="manualupdate">manuelles Update der tinymce4 js library</h2>
+<p>Es ist möglich, die tinymce js library manuell zu aktualisieren. </p>
+<p>Dafür muss die gewünschte library <a href="https://www.tinymce.com/download/" target="_blank">beim Hersteller gedownloaded</a> werden. Aus der .zip Datei ist der Ordner(<code>tinymce/js/tinymce</code>)  ins Zielverzeichnis (<code>plugins/tinymce4/tinymce</code>) zu kopieren.</p>
+<div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
 <h2><a name="license" id="license">Lizenz</a></h2>
 <p>Das Plugin TinyMCE4 ist lizenziert unter
 <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
-<p>&copy; 2017 <a href="http://www.pixolution.ch" target="_blank">Emanuel Marinello</a> </p>
+<p align="left">&copy; 2017 <a href="http://www.pixolution.ch" target="_blank">Emanuel Marinello</a> </p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
 <h2><a name="credits" id="credits">Danksagungen</a></h2>

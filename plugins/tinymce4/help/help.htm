@@ -17,12 +17,13 @@
 <ul id="nav">
   <li><a href="#requirements">Requirements</a></li>
 <li><a href="#installation">Installation</a></li>
-<li><a href="#settings">Einstellungen & Benutzung </a>
+<li><a href="#settings">Configuration &amp; Usage </a>
   <ul>
-<li><a href="#simple" title="simple">simple &amp; easy</a></li>
 <li><a href="#sophisticated" title="sophisticated">Download Variant</a></li>
-</ul>
+<li><a href="#simple" title="simple">always latest version</a></li>
+  </ul>
 </li>
+<li><a href="#manualupdate">manual js library update </a></li>
 <li><a href="#license">Licence</a></li>
 <li><a href="#credits">Thanks to </a></li>
 </ul>
@@ -46,27 +47,24 @@
 <div class="toplink"><a href="#">to top</a></div>
 
 <h2><a name="settings" id="settings">Configuration &amp; Usage  </a> </h2>
-<p>There are two possibilities to run the editor. The first one is simple &amp; easy, the second one more sophisticated but grants more possibilities. <br>
-  Further details as follows
-</p>
 <ol>
-  <li><strong><a name="simple"></a>simple &amp; easy </strong></li>
-
-  <p>Since we use the editor mostly on public webservers, the linkage from a CDN (Content Delivery Network, preset) is the easiest. Benefits: don't worry about releases, the download size of the program package reduces.</p>
+  <li><a name="sophisticated"></a><strong>Download Variant (preset) </strong></li>
+  <p>Along with der plugin the latest version of the tinyMCE4 is delivered. Please check in CMS Settings &gt; Configuration if the field Editor &gt; Name is set with &quot;tinymce4&quot;. Therefore the editor is ready to use. </p>
+  <li><strong><a name="simple"></a>always latest version </strong></li>
+  <p>Since we use the editor mostly on public webservers, the linkage from a CDN (Content Delivery Network) is optional. Benefits: don't worry about releases.</p>
+  <p>The preset source is <code>cloud.tinymce.com</code>. </p>
   <p>Ephox, the publisher of TinyMCE demands a free API key, which is generated on <a href="https://store.ephox.com/signup/" target="_blank">Registration</a>. To keep track of whom using their free software is fair deal. The editor even runs without API key, just with a according message in the toolbar.</p>
-  <p>    On receipt of your API key, the CDN source in configuration has to be modified as follows:<br>
+  <p>    On receipt of your API key, the CDN source in the plugin configuration has to be modified as follows:<br>
     <code>https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=your_API_key</code></p>
-  <p>There are othe CDN sources whitout API keys, <a href="https://cdnjs.com/libraries/tinymce" target="_blank">cdnjs.com</a> as example. But here you have to keep track of the correct version of your own.</p>
-  <p><a href="#">to top</a></p>
-  <li><a name="sophisticated"></a><strong>Download Variant </strong></li>
-  <p>The download variant is handy for a local webserver for testing, because you don't nedd an internet connection.</p>
-  <p>therefore the editor has to be <a href="https://www.tinymce.com/download/" target="_blank">downloaded from the publishers webpage</a>. Extract the directory(<code>tinymce/js/tinymce</code>) from the .zip file and copy the content to the target directory(<code>plugins/tinymce4/tinymce</code>).</p>
-  <p>Finally you have to uncheck the CDN checkbox in the configuration. Now the editor should be loaded  from the own directory.</p>
-  </ol>
+  <p>There are other CDN sources whitout API keys, <a href="https://cdnjs.com/libraries/tinymce" target="_blank">cdnjs.com</a> as example. But here you have to keep track of the correct version of your own.</p>
+  <p>Finally you have to check the CDN checkbox in the plugin configuration and the plugin is ready for CDN usage. </p>
+</ol>
 <div class="toplink"><a href="#">to top</a></div>
 
-<div class="toplink"></div>
-
+<h2 id="manualupdate">manual update of the tinymce4 js library</h2>
+<p>It is possible to update the tinymce js library by hand. </p>
+<p>Therefore the editor has to be <a href="https://www.tinymce.com/download/" target="_blank">downloaded from the publishers webpage</a>. Extract the directory(<code>tinymce/js/tinymce</code>) from the .zip file and copy the content to the target directory(<code>plugins/tinymce4/tinymce</code>).</p>
+<div class="toplink"><a href="#">to top</a></div>
 <h2><a name="license" id="license">Licence</a></h2>
 <p>The plugin TinyMCE4 is licenced under
 <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
