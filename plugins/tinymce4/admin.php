@@ -82,7 +82,7 @@ if (XH_wantsPluginAdministration('tinymce4')) {
 
         
     if ($admin == '' || $admin == 'plugin_main') {
-        if (TINYMCE4_VARIANT == 'CDN' ) {
+        if ($plugin_cf['tinymce4']['CDN'] == true  ) {
             $tiny_src = empty($plugin_cf['tinymce4']['CDN_alt_src']) ? TINYMCE4_CDN_ORIG : $plugin_cf['tinymce4']['CDN_alt_src'];
         } else {
             $tiny_src = $pth['folder']['plugins'] . 
@@ -91,15 +91,21 @@ if (XH_wantsPluginAdministration('tinymce4')) {
         $o .= '<script type="text/javascript" src="' . $tiny_src . '"></script>';
         $tinymce_version 
             = '<script type="text/javascript">
-            document.write(tinymce.majorVersion + " (revision " 
-            + tinymce.minorVersion + ")");
+                if (typeof(tinymce) === "undefined" || tinymce === null) {
+                    alert("tinyMCE not present! Either offline or local library missing.") 
+                }
+                else {
+                    document.write(tinymce.majorVersion + " (revision " 
+                    + tinymce.minorVersion + ")");
+                        
+                }
             </script>';
     
         $o .= '<h1>TinyMCE4 for CMSimple_XH</h1>';
         $o .= '<p>Version for '.CMSIMPLE_XH_VERSION.'</p>';
         //$o .= '<p>Plugin version '.XH_pluginVersion($plugin).'</p>';
         $o .= '<p>TinyMCE ';
-        $o .= TINYMCE4_VARIANT == 'CDN'? 'Content delivery network (CDN) ': '';
+        $o .= $plugin_cf['tinymce4']['CDN'] == true ? 'Content delivery network (CDN) ': '';
         $o .= 'version ' . $tinymce_version . 
             '  &ndash; <a href="http://www.tinymce.com/" ' . 
             'target="_blank">www.tinymce.com/</a>';

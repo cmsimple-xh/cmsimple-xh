@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- utf-8-marker: äöüß -->
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="content-language" content="de">
+<title>TinyMCE4 - Manual</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>TinyMCE4 Rich Text Editor - a CMSimple_XH Plugin</h1>
+<p><span id="result_box" lang="de">TinyMCE4 (tinymce4) is a Rich Text Editor (RTE), which goes along with CMSimple_XH from version 1.7 as standard editor. </span> </p>
+
+<ul id="nav">
+  <li><a href="#requirements">Requirements</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#settings">Configuration &amp; Usage </a>
+  <ul>
+<li><a href="#sophisticated" title="sophisticated">Download Variant</a></li>
+<li><a href="#simple" title="simple">always latest version</a></li>
+  </ul>
+</li>
+<li><a href="#manualupdate">manual js library update </a></li>
+<li><a href="#license">Licence</a></li>
+<li><a href="#credits">Thanks to </a></li>
+</ul>
+
+<div id="body">
+
+<p><strong>Please read this documentation carefully, otherwise support might not be granted! It is generally a good idea to read the documentation, before problems encouter! </strong></p>
+
+<h2><a name="requirements" id="requirements">Requirements</a></h2>
+<p>TinyMCE4 is a plugin for CMSimple_XH from version  1.6</p>
+<div class="toplink"><a href="#">to top</a></div>
+
+<h2><a name="installation" id="installation">Installation</a></h2>
+<p>The installation is done as like many other  CMSimple_XH-plugins. For more information consult the <a href="http://www.cmsimple-xh.org/wiki/doku.php/installation" target="_blank">CMSimple_XH  Wiki</a>.</p>
+<ol>
+  <li>Backup your data on your server.</li>
+  <li>Unpack the .zip-file on your computer.</li>
+  <li>Load the entire directory  tinymce4/ onto your server into the plugins/ directory of CMSimple_XH.</li>
+  <li>Grant write permission for the supdirectories config/ and  languages/.</li>
+  </ol>
+<div class="toplink"><a href="#">to top</a></div>
+
+<h2><a name="settings" id="settings">Configuration &amp; Usage  </a> </h2>
+<ol>
+  <li><a name="sophisticated"></a><strong>Download Variant (preset) </strong></li>
+  <p>Along with der plugin the latest version of the tinyMCE4 is delivered. Please check in CMS Settings &gt; Configuration if the field Editor &gt; Name is set with &quot;tinymce4&quot;. Therefore the editor is ready to use. </p>
+  <li><strong><a name="simple"></a>always latest version </strong></li>
+  <p>Since we use the editor mostly on public webservers, the linkage from a CDN (Content Delivery Network) is optional. Benefits: don't worry about releases.</p>
+  <p>The preset source is <code>cloud.tinymce.com</code>. </p>
+  <p>Ephox, the publisher of TinyMCE demands a free API key, which is generated on <a href="https://store.ephox.com/signup/" target="_blank">Registration</a>. To keep track of whom using their free software is fair deal. The editor even runs without API key, just with a according message in the toolbar.</p>
+  <p>    On receipt of your API key, the CDN source in the plugin configuration has to be modified as follows:<br>
+    <code>https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=your_API_key</code></p>
+  <p>There are other CDN sources whitout API keys, <a href="https://cdnjs.com/libraries/tinymce" target="_blank">cdnjs.com</a> as example. But here you have to keep track of the correct version of your own.</p>
+  <p>Finally you have to check the CDN checkbox in the plugin configuration and the plugin is ready for CDN usage. </p>
+</ol>
+<div class="toplink"><a href="#">to top</a></div>
+
+<h2 id="manualupdate">manual update of the tinymce4 js library</h2>
+<p>It is possible to update the tinymce js library by hand. </p>
+<p>Therefore the editor has to be <a href="https://www.tinymce.com/download/" target="_blank">downloaded from the publishers webpage</a>. Extract the directory(<code>tinymce/js/tinymce</code>) from the .zip file and copy the content to the target directory(<code>plugins/tinymce4/tinymce</code>).</p>
+<div class="toplink"><a href="#">to top</a></div>
+<h2><a name="license" id="license">Licence</a></h2>
+<p>The plugin TinyMCE4 is licenced under
+<a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
+<p>&copy; 2017 <a href="http://www.pixolution.ch" target="_blank">Emanuel Marinello</a> </p>
+<div class="toplink"><a href="#">to top</a></div>
+
+<h2><a name="credits" id="credits">Thanks to </a></h2>
+<p><a href="http://3-magi.net/" title="3-magi.net" target="_blank">cmb Christoph M. Becker</a> for the support at the implementation of this plugin.</p>
+<p>the community of <a href="http://www.cmsimpleforum.com">CMSimple forum</a>
+  for tips, suggestions and testing.</p>
+<p>at last to  <a href="http://harteg.dk/">Peter Harteg</a>,  the "father" of CMSimple, and all developers of <a href="http://www.cmsimple-xh.org/">CMSimple_XH</a>, without them this fantastic CMS wouldn't exist.</p>
+<div class="toplink"><a href="#">to top</a></div>
+
+</div>
+
+</body>
+
+</html>

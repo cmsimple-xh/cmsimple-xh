@@ -118,7 +118,7 @@ tinymce.addI18n('it',{
 "Orientation": "Orientamento",
 "Flip vertically": "Rifletti verticalmente",
 "Invert": "Inverti",
-"Date\/time": "Date\/time",
+"Date\/time": "Data\/Ora",
 "Insert date\/time": "Inserisci Data\/Ora",
 "Remove link": "Rimuovi link",
 "Url": "Url",
