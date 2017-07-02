@@ -1,7 +1,7 @@
 <?php
 
 /*
- * @version $Id: jquery.inc.php 257 2015-03-12 20:05:31Z hi $
+ * @version $Id: jquery.inc.php 272 2017-07-02 08:25:14Z hi $
  *
  */
 
@@ -12,8 +12,8 @@
  * to enable jQuery, jQueryUI 
  * and other jQuery-based plugins
  *
- * Version:    1.6.3
- * Build:      2017062901
+ * Version:    1.6.4
+ * Build:      2017070201
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -25,9 +25,6 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 
 //be sure that all globals are accessible when called from another function
 global $hjs, $plugin_cf, $pth;
-
-//load plugin-configuration for xh < 1.6
-require($pth['folder']['plugins'] . 'jquery/config/config.php');
 
 function include_jQuery($path = '') {
     global $pth, $plugin_cf, $hjs;

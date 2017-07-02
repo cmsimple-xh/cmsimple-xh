@@ -11,8 +11,8 @@
  * Admin-interface for configuring the plugin
  * via the standard-functions of pluginloader.
  *
- * Version:    1.6.3
- * Build:      2017062901
+ * Version:    1.6.4
+ * Build:      2017070201
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -85,7 +85,7 @@ if (isset($_GET['jquery'])) {
     if ($admin == '') {
         $o .= "\n" . '<div>';
         $o .= "\n" . '<h1>jQuery for CMSimple</h1>';
-        $o .= "\n" . '<p>Version 1.6.3 - 2017-06-29</p>';
+        $o .= "\n" . '<p>Version 1.6.4 - 2017-07-02</p>';
         $o .= "\n" . '<p>&copy;2011-2016 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
         $o .= "\n" . '<p>';
         $o .= "\n" . 'jQuery Version: ';

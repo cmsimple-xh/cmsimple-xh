@@ -8,8 +8,8 @@
 /**
  * jQuery for CMSimple
  *
- * Version:    1.6.3
- * Build:      2017062901
+ * Version:    1.6.4
+ * Build:      2017070201
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de

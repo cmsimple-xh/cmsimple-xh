@@ -1,3 +1,9 @@
+
+Version 1.6.4 2017-07-02
+
+Fix indirect modification of overloaded element notice in XH 1.7, introduced with
+Version 1.6.3
+
 ------------------------------------------------------------------------------------------------------------------
 
 Version 1.6.3 2017-06-29
