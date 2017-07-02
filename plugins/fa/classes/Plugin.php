@@ -23,7 +23,7 @@ namespace Fa;
 
 class Plugin
 {
-    const VERSION = '1.0';
+    const VERSION = '1.1';
 
     public function run()
     {
@@ -63,7 +63,6 @@ class Plugin
         $view = new View('info');
         $view->logo = "{$pth['folder']['plugins']}fa/fa.png";
         $view->version = self::VERSION;
-        $view->cmsimpleRoot = CMSIMPLE_ROOT;
         $checkService = new SystemCheckService;
         $view->checks = $checkService->getChecks();
         return $view;

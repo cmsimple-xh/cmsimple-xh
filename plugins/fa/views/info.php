@@ -26,9 +26,6 @@
     Fa_XH. If not, see <a href="http://www.gnu.org/licenses/"
     target="_blank">http://www.gnu.org/licenses/</a>.
 </p>
-<p>
-    CMSIMPLE_ROOT: <input value="<?php echo $this->cmsimpleRoot()?>" readonly>
-</p>
 <div class="fa_syscheck">
     <h2><?php echo $this->text('syscheck_title')?></h2>
 <?php foreach ($this->checks as $check):?>

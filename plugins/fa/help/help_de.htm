@@ -126,37 +126,20 @@
 <h3>End-Anwender</h3>
 <p>
     Wollen Sie Font Awesome Icons im Content verwenden, dann aktivieren Sie
-    einfach die Konfigurationsoption <i>Require</i> → <i>Auto</i>. Prinzipiell
-    genügt das bereits, aber in Hinblick auf WYSIWYG-Editoren kann es sein, dass
-    Sie Font Awesome deren <code>&lt;iframe&gt;</code>s verfügbar machen müssen.
+    einfach die Konfigurationsoption <i>Require</i> → <i>Auto</i>.
 </p>
 
 <section id="usage-content-tinymce4">
 <h4>TinyMCE 4</h4>
 <p>
-    Für TinyMCE 4, der der Standardeditor von CMSimple_XH 1.7 ist, möchten Sie
-    vermutlich das fontawesome Plugin installieren. Also:
+    Sie benötigen eine aktuelle Version des TinyMCE 4 Plugins um das fontawesome
+    Plugin verwenden zu können; dieses wird dann automatisch vom TinyMCE 4
+    geladen, falls das <code>fontawesome</code> init in dessen Konfiguration
+    gewählt ist.
 </p>
-<ul>
-<li>
-    Kopieren Sie <code>plugins/fa/editors/tinymce4/init_fontawesome.js</code> nach
-    <code>plugins/tinymce4/inits/</code>.
-</li>
-<li>
-    Bearbeiten Sie das kopierte <code>init_fontawesome.js</code> und ersetzen
-    Sie alle Vorkommen von <code>%CMSIMPLE_ROOT%</code> mit dem absoluten
-    URL-Pfad der CMSimple_XH Installation, den Sie unter <i>Plugins</i> →
-    <i>Fa</i> → <i>CMSIMPLE_ROOT</i> finden können.
-</li>
-<li>
-    Konfigurieren Sie den TinyMCE 4, so dass er die <code>fontawesome</code>
-    <i>init</i> nutzt.
-</li>
-</ul>
 <p>
-    Nach diesen Vorbereitungen finden Sie einen neuen Schalter in der Toolbar
-    mit dem Namen <i>Font Awesome</i>, der einen Dialog öffnet, wo Sie das
-    gewünschte Font Awesome Icon auswählen und einfügen können.
+    Verwenden Sie den Toolbar-Schalter <i>Font Awesome</i>, um das gewünschte
+    Font Awesome Icon auszuwählen und einzufügen.
 </p>
 <p>
     Das fontawesome Plugin für TinyMCE 4 unterstützt nur Icons, die als
