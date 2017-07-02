@@ -148,10 +148,12 @@
         </move>
         <move todir="dist/cmsimplexh">
             <fileset dir="export">
+                <exclude name=".travis.yml"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.json"/>
                 <exclude name="composer.lock"/>
                 <exclude name="coverage.xml"/>
+                <exclude name="Doxyfile"/>
                 <exclude name="pax_global_header"/>
                 <exclude name="phpcompatinfo.*"/>
                 <exclude name="README.md"/>
