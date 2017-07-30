@@ -1,13 +1,15 @@
 language: php
 php:
     - '5.6'
+    - '7.0'
 install:
-    - pecl install runkit
+    - if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then pecl install runkit
+    - if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then pecl install uopz
     - composer install
 before_script:
     - export PATH=vendor/bin:$PATH
     - echo 'date.timezone = Europe/Copenhagen' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-    - echo 'runkit.internal_override = 1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+    - if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then echo 'runkit.internal_override = 1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 script:
     - phing sniff
     - phing unit-tests
