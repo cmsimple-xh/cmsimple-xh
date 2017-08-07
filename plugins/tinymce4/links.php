@@ -32,7 +32,7 @@ function get_images($directory)
     $i = 0;
 
     while (false !== ($file = readdir($handle))) {
-        if (preg_match("/(\.jpg$|\.gif$|\.png$|\.jpeg$)/i", $file)) {
+        if (preg_match("/(\.jpg$|\.gif$|\.png$|\.jpeg$)/ui", $file)) {
             $files[$i]['name'] = $file;
             $files[$i]['path'] = $directory . "" . $file;
             $i++;
@@ -78,8 +78,8 @@ function get_internal_links($h, $u, $l, $downloads_path)
         $list[] = array('title' => 'DOWNLOADS:' , 'value' => " ");
         $fs = sortdir($downloads_path);
         foreach ($fs as $p) {
-            if (preg_match("/.+\..+$/", $p)) {
-                $list[] = array('title' => '__' . substr($p, 0, 25) . 
+            if (preg_match("/.+\..+$/u", $p)) {
+                $list[] = array('title' => '__' . utf8_substr($p, 0, 25) . 
                 ' (' . 
                 (round((filesize($downloads_path . '/' . $p)) * 10 >> 8) / 10) . 
                 ' KB)' , 'value' => './?download=' . $p);
