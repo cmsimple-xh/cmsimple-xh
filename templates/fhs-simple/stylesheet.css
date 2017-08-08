@@ -32,12 +32,12 @@ i, em {
 	font-style: normal;
 	font-weight: normal;
 }
-bold, strong {
+b, strong {
 	font-family: "OpenSans-Semibold", sans-serif;
 	font-style: normal;
 	font-weight: normal;
 }
-bold i, strong i, bold em, strong em, i bold, i strong, em bold, em strong {
+b i, strong i, b em, strong em, i b, i strong, em b, em strong {
 	font-family: "OpenSans-SemiboldItalic", sans-serif;
 	font-style: normal;
 	font-weight: normal;

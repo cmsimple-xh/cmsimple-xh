@@ -464,20 +464,16 @@ function editmenu()
 function content()
 {
     global $s, $o, $c, $edit;
-    $heading = '';
 
     if (!($edit && XH_ADM) && $s > -1) {
         if (isset($_GET['search'])) {
             $search = XH_hsc(stsl($_GET['search']));
             $words = explode(' ', $search);
             $c[$s] = XH_highlightSearchWords($words, $c[$s]);
-            $heading = XH_highlightSearchWords($words, $heading);
         }
-        $o .= $heading . preg_replace('/#CMSimple (.*?)#/is', '', $c[$s]);
-        return  preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $o);
-    } else {
-        return  preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $o);
+        $o .= preg_replace('/#CMSimple (.*?)#/is', '', $c[$s]);
     }
+    return  preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $o);
 }
 
 
