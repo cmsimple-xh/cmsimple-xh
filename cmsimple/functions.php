@@ -2159,7 +2159,7 @@ function XH_decodeJson($string)
  *
  * @param mixed $value A PHP value.
  *
- * @return string or 
+ * @return string or
  *         bool false on JSON error
  *
  * @global object The JSON codec.
