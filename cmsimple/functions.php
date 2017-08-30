@@ -1294,7 +1294,7 @@ function XH_debug($errno, $errstr, $errfile, $errline)
         . '<br>' . "\n";
 
     if ($errno === E_USER_ERROR) {
-        die($errors[count($errors) - 1]);
+        XH_exit($errors[count($errors) - 1]);
     }
 
     /* Don't execute PHP internal error handler */
