@@ -1287,7 +1287,7 @@ function XH_debug($errno, $errstr, $errfile, $errline)
             $errtype = 'DEPRECATED';
             break;
         default:
-            $errtype = "Unknow error type [$errno]";
+            $errtype = "Unknown error type [$errno]";
     }
 
     $errors[] = "<b>$errtype:</b> $errstr" . '<br>' . "$errfile:$errline"
