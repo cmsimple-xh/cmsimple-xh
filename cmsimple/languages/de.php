@@ -111,7 +111,6 @@ $tx['help']['mailform_email']="Erst wenn eine E-Mail-Adresse eingegeben wird, is
 $tx['help']['mailform_lf_only']="Wenn der Mailversand nicht ordnungsgemäß funktioniert, versuchen Sie diese Option zu aktivieren.";
 $tx['help']['menu_color']="Nicht von CMSimple_XH Systemfunktionen genutzt";
 $tx['help']['menu_highlightcolor']="Nicht von CMSimple_XH Systemfunktionen genutzt";
-$tx['help']['menu_levels']="Die Seiten der Website können in bis zu 6 Menü-Ebenen angeordnet werden. 3 Ebenen sind die Voreinstellung.";
 $tx['help']['menu_sdoc']="Leer lassen oder \"parent\" einstellen, wodurch Oberseiten der aktuellen Seite die Stil-Klasse \"sdocs\" erhalten.";
 
 $tx['help']['meta_robots']="Standarteinstellung für alle Seiten. \"index,follow\" weist Suchroboter an, die Seite in den Suchindex aufzunehmen und allen Links zu folgen. \"noindex,nofollow\" weist das Gegenteil an.";
