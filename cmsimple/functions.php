@@ -1555,7 +1555,7 @@ function XH_logMessage($type, $module, $category, $description)
  */
 function loginforms()
 {
-    global $cf, $tx, $onload, $f, $o, $s, $sn, $su;
+    global $cf, $tx, $onload, $f, $o, $s, $sn, $su, $u, $xh_publisher;
 
     if ($f == 'login' || $f == 'xh_login_failed') {
         $cf['meta']['robots'] = "noindex";
@@ -1581,7 +1581,11 @@ function loginforms()
             $o .= '<a href="' . $sn . '?&function=forgotten">'
                 . $tx['title']['password_forgotten'] . '</a>';
         }
-        $o .= '<p><a href="' . "$sn?$su" . '">' . $tx['login']['back']
+        $query = $su === 'login' ? $u[$xh_publisher->getFirstPublishedPage()] : $su;
+        if ($query !== '') {
+            $query = "?$query";
+        }
+        $o .= '<p><a href="' . "$sn$query" . '">' . $tx['login']['back']
             . '</a></p>';
         $o .= ' </div>';
         $s = -1;
