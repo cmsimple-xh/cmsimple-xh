@@ -328,6 +328,7 @@ if ($cf['site']['timezone'] !== '' && function_exists('date_default_timezone_set
  *
  * @access public
  */
+$sl = '';
 if (preg_match('/\/([A-z]{2})\/index.php$/', sv('SCRIPT_NAME'), $temp)
     && XH_isLanguageFolder($temp = strtolower($temp[1]))
 ) {
