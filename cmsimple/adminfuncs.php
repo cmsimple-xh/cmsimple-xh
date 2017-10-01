@@ -10,7 +10,7 @@
  * @copyright 1999-2009 Peter Harteg
  * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 /**
@@ -55,7 +55,7 @@ function XH_pluginVersion($plugin)
  *
  * @return string HTML
  *
- * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#system_check
+ * @see http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#system_check
  *
  * @since 1.5.4
  */

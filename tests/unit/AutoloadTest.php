@@ -6,7 +6,7 @@
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 namespace XH;
@@ -19,7 +19,7 @@ use org\bovigo\vfs\vfsStreamDirectory;
  *
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @see      http://cmsimple-xh.org/
  * @since    1.7
  */
 class AutoloadTest extends TestCase
