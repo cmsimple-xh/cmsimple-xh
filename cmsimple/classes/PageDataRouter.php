@@ -2,8 +2,6 @@
 /**
  * The page data facade.
  *
- * @category  CMSimple_XH
- * @package   XH
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
@@ -18,8 +16,6 @@ namespace XH;
  * Handles all the data that has to be collected
  * to generate the page-data-array.
  *
- * @category CMSimple_XH
- * @package  XH
  * @author   Martin Damken <kontakt@zeichenkombinat.de>
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3

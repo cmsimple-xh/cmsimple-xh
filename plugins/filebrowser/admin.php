@@ -3,8 +3,6 @@
 /**
  * Internal Filebrowser -- admin.php
  *
- * @category  CMSimple_XH
- * @package   Filebrowser
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>

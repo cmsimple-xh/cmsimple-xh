@@ -3,8 +3,6 @@
 /**
  * Testing the functions in functions.php.
  *
- * @category  Testing
- * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2013-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
@@ -29,8 +27,6 @@ EOS
 /**
  * A test case for the functions in functions.php.
  *
- * @category Testing
- * @package  XH
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/

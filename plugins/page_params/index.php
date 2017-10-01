@@ -7,8 +7,6 @@
  * visibility of the page.
  * index.php is called by pluginloader and manipulates the respective CMSimple-data.
  *
- * @category  CMSimple_XH
- * @package   Pageparams
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    Jerry Jakobsfeld <mail@simplesolutions.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>

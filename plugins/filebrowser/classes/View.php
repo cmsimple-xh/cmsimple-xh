@@ -3,8 +3,6 @@
 /**
  * The file browser view class.
  *
- * @category  CMSimple_XH
- * @package   Filebrowser
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
@@ -17,8 +15,6 @@ namespace Filebrowser;
 /**
  * The file browser view class.
  *
- * @category CMSimple_XH
- * @package  Filebrowser
  * @author   Martin Damken <kontakt@zeichenkombinat.de>
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3

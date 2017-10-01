@@ -5,8 +5,6 @@
  * Creates the menu for the user to change
  * page-parameters per page.
  *
- * @category  CMSimple_XH
- * @package   Pageparams
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    Jerry Jakobsfeld <mail@simplesolutions.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>

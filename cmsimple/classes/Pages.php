@@ -3,8 +3,6 @@
 /**
  * A class for handling of CMSimple pages.
  *
- * @category  CMSimple_XH
- * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2013-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
@@ -17,8 +15,6 @@ namespace XH;
  * Encapsulates access to several page related global variables,
  * and offers some page related utility methods.
  *
- * @category CMSimple_XH
- * @package  XH
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/

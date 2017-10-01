@@ -9,8 +9,6 @@
  * The environment variable CMSIMPLEDIR has to be set to the installation folder
  * (e.g. / or /cmsimple_xh/).
  *
- * @category  Testing
- * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2013-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
@@ -22,8 +20,6 @@ namespace XH;
 /**
  * A test case to check the validity of the produced HTML.
  *
- * @category Testing
- * @package  XH
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/

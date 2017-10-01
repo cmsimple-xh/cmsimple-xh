@@ -3,8 +3,6 @@
 /**
  * The search function of CMSimple_XH.
  *
- * @category  CMSimple_XH
- * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
@@ -36,8 +34,6 @@ namespace XH;
 /**
  * The search class.
  *
- * @category CMSimple_XH
- * @package  XH
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/

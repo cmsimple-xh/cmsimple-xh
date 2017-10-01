@@ -6,8 +6,6 @@
  * Admin-interface for configuring the plugin
  * via the standard-functions of pluginloader.
  *
- * @category  CMSimple_XH
- * @package   Metatags
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>

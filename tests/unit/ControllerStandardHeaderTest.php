@@ -3,8 +3,6 @@
 /**
  * Testing the controller functionality.
  *
- * @category  Testing
- * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2014-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
@@ -20,8 +18,6 @@ use org\bovigo\vfs\vfsStream;
 /**
  * Testing the standard headers.
  *
- * @category Testing
- * @package  XH
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://cmsimple-xh.org/

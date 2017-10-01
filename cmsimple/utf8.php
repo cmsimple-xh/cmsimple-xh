@@ -5,8 +5,6 @@
  *
  * UTF-8 related string functions.
  *
- * @category  CMSimple_XH
- * @package   XH
  * @author    Harry Fuecks <hfuecks@gmail.com>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2006-2007 Harry Fuecks
