@@ -1558,7 +1558,7 @@ function XH_logMessage($type, $module, $category, $description)
  */
 function loginforms()
 {
-    global $cf, $tx, $onload, $f, $o, $s, $sn, $su, $u, $xh_publisher;
+    global $cf, $tx, $onload, $f, $o, $s, $sn, $su, $u, $title, $xh_publisher;
 
     if ($f == 'login' || $f == 'xh_login_failed') {
         $cf['meta']['robots'] = "noindex";
@@ -1566,7 +1566,7 @@ function loginforms()
         $message = ($f == 'xh_login_failed')
             ? XH_message('fail', $tx['login']['failure'])
             : '';
-        $f = $tx['menu']['login'];
+        $title = $tx['menu']['login'];
         $o .= '<div class="xh_login">'
             . '<h1>' . $tx['menu']['login'] . '</h1>'
             . $message
