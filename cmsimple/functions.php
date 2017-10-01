@@ -1196,7 +1196,7 @@ function XH_debugmode()
     $dbglevel = '';
     $filename = $pth['folder']['downloads'] . '_XHdebug.txt';
     if (file_exists($filename)) {
-        ini_set('display_errors', 1);
+        ini_set('display_errors', 0);
         $dbglevel = file_get_contents($filename);
         if (strlen($dbglevel) == 1) {
             set_error_handler('XH_debug');
