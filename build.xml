@@ -154,6 +154,7 @@
                 <exclude name="composer.lock"/>
                 <exclude name="coverage.xml"/>
                 <exclude name="Doxyfile"/>
+                <exclude name="doxygen_input_filter.php"/>
                 <exclude name="pax_global_header"/>
                 <exclude name="phpcompatinfo.*"/>
                 <exclude name="README.md"/>
