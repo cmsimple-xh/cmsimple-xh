@@ -1323,7 +1323,7 @@ $_XH_controller->sendStandardHeaders();
 
 if ($print) {
     XH_builtinTemplate('print');
-} elseif (strtolower($f) == 'login' || $f == 'forgotten') {
+} elseif (in_array($f, array('login', 'xh_login_failed', 'forgotten'))) {
     XH_builtinTemplate('xh_login');
 }
 
