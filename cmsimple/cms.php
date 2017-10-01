@@ -931,7 +931,7 @@ $pd_router = null;
 /**
  * The publisher instance.
  *
- * @global int $xh_publisher
+ * @global XH::Publisher $xh_publisher
  *
  * @access public
  *
