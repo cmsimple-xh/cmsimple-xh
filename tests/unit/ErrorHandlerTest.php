@@ -55,6 +55,7 @@ class ErrorHandlerTest extends TestCase
     public function provideDataForErrorTest()
     {
         return array(
+            [E_RECOVERABLE_ERROR, 'ERROR'],
             [E_USER_ERROR, 'XH-ERROR']
         );
     }

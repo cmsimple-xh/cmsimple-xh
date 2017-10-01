@@ -1274,6 +1274,9 @@ function XH_debug($errno, $errstr, $errfile, $errline)
             $errfile = $backtrace[2]['file'];
             $errline = $backtrace[2]['line'];
             break;
+        case E_RECOVERABLE_ERROR:
+            $errtype = 'ERROR';
+            break;
         case E_WARNING:
             $errtype = 'WARNING';
             break;
@@ -1293,7 +1296,7 @@ function XH_debug($errno, $errstr, $errfile, $errline)
     $errors[] = "<b>$errtype:</b> $errstr" . '<br>' . "$errfile:$errline"
         . '<br>' . "\n";
 
-    if ($errno === E_USER_ERROR) {
+    if (in_array($errno, [E_USER_ERROR, E_RECOVERABLE_ERROR])) {
         XH_exit($errors[count($errors) - 1]);
     }
 
