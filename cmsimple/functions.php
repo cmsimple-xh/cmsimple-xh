@@ -1205,14 +1205,14 @@ function XH_debugmode()
                     error_reporting(0);
                     break;
                 case 1:
-                    error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
+                    error_reporting(E_ERROR | E_USER_ERROR | E_USER_WARNING | E_PARSE);
                     break;
                 case 2:
-                    error_reporting(E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE);
+                    error_reporting(E_ERROR | E_USER_ERROR | E_WARNING | E_USER_WARNING | E_PARSE);
                     break;
                 case 3:
                     error_reporting(
-                        E_ERROR | E_WARNING | E_USER_WARNING | E_PARSE | E_NOTICE
+                        E_ERROR | E_USER_ERROR | E_WARNING | E_USER_WARNING | E_PARSE | E_NOTICE
                     );
                     break;
                 case 4:
@@ -1225,10 +1225,10 @@ function XH_debugmode()
                     error_reporting(E_ALL);
                     break;
                 default:
-                    error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
+                    error_reporting(E_ERROR | E_USER_ERROR | E_USER_WARNING | E_PARSE);
             }
         } else {
-            error_reporting(E_ERROR | E_USER_WARNING | E_PARSE);
+            error_reporting(E_ERROR | E_USER_ERROR | E_USER_WARNING | E_PARSE);
         }
     } else {
         ini_set('display_errors', 0);
