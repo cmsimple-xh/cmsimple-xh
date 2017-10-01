@@ -42,9 +42,6 @@ class ControllerLogoutTest extends ControllerLogInOutTestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global PasswordHash The password hasher.
-     * @global array        The configuration of the core.
      */
     protected function setUp()
     {
@@ -109,8 +106,6 @@ class ControllerLogoutTest extends ControllerLogInOutTestCase
      * Tests that logout sets $f.
      *
      * @return void
-     *
-     * @global string The requested function.
      */
     public function testSetsF()
     {

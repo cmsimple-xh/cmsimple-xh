@@ -70,8 +70,6 @@ class Li
      * @param mixed $st The menu level to start with or the type of menu.
      *
      * @return string HTML
-     *
-     * @global int The index of the current page.
      */
     public function render(array $ta, $st)
     {
@@ -160,8 +158,6 @@ class Li
      * @param int $i The index of the current item.
      *
      * @return int
-     *
-     * @global array  The menu levels of the pages.
      */
     protected function getMenuLevel($i)
     {
@@ -176,8 +172,6 @@ class Li
      * @param int $i The index of the current item.
      *
      * @return string
-     *
-     * @global array  The configuration of the core.
      */
     protected function getClassName($i)
     {
@@ -214,11 +208,6 @@ class Li
      * @param int $i The index of the current item.
      *
      * @return bool
-     *
-     * @global int    The index of the current page.
-     * @global array  The URLs of the pages.
-     * @global array  The menu levels of the pages.
-     * @global array  The configuration of the core.
      */
     protected function isAnchestorOfSelectedPage($i)
     {
@@ -235,10 +224,6 @@ class Li
      * @param int $i The index of the current item.
      *
      * @return bool
-     *
-     * @global int    The number of pages.
-     * @global array  The menu levels of the pages.
-     * @global array  The configuration of the core.
      */
     protected function hasChildren($i)
     {
@@ -263,8 +248,6 @@ class Li
      * @param int $i The index of the current item.
      *
      * @return string HTML
-     *
-     * @global array  The headings of the pages.
      */
     protected function renderMenuItem($i)
     {
@@ -303,9 +286,6 @@ class Li
      * @param int $i The index of the current item.
      *
      * @return bool
-     *
-     * @global array  Whether we are in edit mode.
-     * @global object The page data router.
      */
     protected function shallOpenInNewWindow($i)
     {

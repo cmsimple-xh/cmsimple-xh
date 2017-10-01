@@ -59,11 +59,6 @@ abstract class TextFileEdit extends FileEdit
      * Returns the form to edit the file contents.
      *
      * @return string HTML
-     *
-     * @global string The script name.
-     * @global array  The localization of the core.
-     * @global string The title of the current page.
-     * @global object The CSRF protection object.
      */
     public function form()
     {
@@ -101,8 +96,6 @@ abstract class TextFileEdit extends FileEdit
      * Otherwise writes error message to $e, and returns the edit form.
      *
      * @return mixed
-     *
-     * @global object The CSRF protection object.
      */
     public function submit()
     {

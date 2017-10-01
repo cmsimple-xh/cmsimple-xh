@@ -146,8 +146,6 @@ abstract class ArrayFileEdit extends FileEdit
      * @param array  $opt  The field options.
      *
      * @return string HTML
-     *
-     * @global array The localization of the core.
      */
     protected function formField($cat, $name, array $opt)
     {
@@ -206,11 +204,6 @@ abstract class ArrayFileEdit extends FileEdit
      * Returns the form to edit the file contents.
      *
      * @return string HTML
-     *
-     * @global string The script name.
-     * @global array  The localization of the core.
-     * @global string The title of the current page.
-     * @global object The CSRF protection object.
      */
     public function form()
     {
@@ -298,9 +291,6 @@ abstract class ArrayFileEdit extends FileEdit
      * Otherwise writes an error message to $e, and returns the edit form.
      *
      * @return string HTML
-     *
-     * @global string Error messages.
-     * @global object The CSRF protection object.
      */
     public function submit()
     {

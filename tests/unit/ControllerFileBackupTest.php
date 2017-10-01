@@ -40,9 +40,6 @@ class ControllerFileBackupTest extends TestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global string            The name of a special file to be handled.
-     * @global CSRFProtection The CRSF protector.
      */
     protected function setUp()
     {
@@ -64,8 +61,6 @@ class ControllerFileBackupTest extends TestCase
      * Tests that the CSRF token is checked.
      *
      * @return void
-     *
-     * @global CSRFProtection The CRSF protector.
      */
     public function testChecksCsrfToken()
     {

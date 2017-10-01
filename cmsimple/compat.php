@@ -20,8 +20,6 @@
  *
  * @param string $u Autogallery's installation folder.
  *
- * @global string The URL of the active page.
- *
  * @return string HTML
  *
  * @deprecated since 1.5.4. Use a gallery plugin instead.
@@ -73,8 +71,6 @@ function rp($p)
  *
  * @return string HTML
  *
- * @global array The configuration of the core.
- *
  * @deprecated since 1.5.4. Use `&amp;amp;` instead.
  */
 function amp()
@@ -112,9 +108,6 @@ function guestbooklink()
  * @param string $fl The download URL, e.g. ?download=file.ext
  *
  * @return bool
- *
- * @global array  The paths of system files and folders.
- * @global string The script name.
  *
  * @deprecated since 1.6.
  */
@@ -167,8 +160,6 @@ function rf($fl)
  * @param string $fl       A key of $pth['file'].
  * @param bool   $writable Whether the file has to writable.
  *
- * @global array The paths of system files and folders.
- *
  * @return bool
  *
  * @deprecated since 1.6.
@@ -210,11 +201,6 @@ function chkfile($fl, $writable)
  *
  * @param int $pageIndex The page index.
  *
- * @global bool  Whether edit-mode is active.
- * @global array The contents of all pages.
- * @global int   The Index of the active page.
- * @global array The URLs of all pages.
- *
  * @return void
  *
  * @author mvwd
@@ -247,8 +233,6 @@ function preCallPlugins($pageIndex = -1)
  * @param string $m The log message.
  *
  * @return void
- *
- * @global array  The paths of system files and folders.
  *
  * @deprecated since 1.6
  */

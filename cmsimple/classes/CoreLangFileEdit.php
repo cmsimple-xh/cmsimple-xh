@@ -29,10 +29,6 @@ class CoreLangFileEdit extends CoreArrayFileEdit
 {
     /**
      * Constructs an instance.
-     *
-     * @global string The current language.
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
      */
     public function __construct()
     {

@@ -114,8 +114,6 @@ abstract class PluginMenu
 
     /**
      * Initializes a new instance.
-     *
-     * @global string The script name.
      */
     public function __construct()
     {
@@ -130,9 +128,6 @@ abstract class PluginMenu
      * @param bool $showMain Whether to show the main menu item.
      *
      * @return void
-     *
-     * @global string The name of the current plugin.
-     * @global array  The paths of system files and folders.
      */
     public function render($showMain)
     {
@@ -163,9 +158,6 @@ abstract class PluginMenu
      * Initializes the menu item labels.
      *
      * @return void
-     *
-     * @global array The localization of the core.
-     * @global array The localization of the plugins.
      */
     private function initLabels()
     {
@@ -192,8 +184,6 @@ abstract class PluginMenu
      * Initializes the menu item URLs.
      *
      * @return void
-     *
-     * @global array The paths of system files and folders.
      */
     private function initUrls()
     {

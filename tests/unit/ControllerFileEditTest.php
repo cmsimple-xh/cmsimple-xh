@@ -60,9 +60,6 @@ class ControllerFileEditTest extends TestCase
      * Tests that the array action calls FileEdit::form().
      *
      * @return void
-     *
-     * @global string The name of a special file to be handled.
-     * @global string The requested action.
      */
     public function testArrayActionCallsForm()
     {
@@ -78,9 +75,6 @@ class ControllerFileEditTest extends TestCase
      * Tests that the save action calls FileEdit::submit().
      *
      * @return void
-     *
-     * @global string The name of a special file to be handled.
-     * @global string The requested action.
      */
     public function testSaveActionCallsSubmit()
     {

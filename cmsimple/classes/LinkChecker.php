@@ -33,10 +33,6 @@ class LinkChecker
      * Prepares the link check.
      *
      * @return string HTML
-     *
-     * @global string The script name.
-     * @global array  The paths of system files and folders.
-     * @global array  The localization of the core.
      */
     public function prepare()
     {
@@ -94,10 +90,6 @@ class LinkChecker
      * Gathers all links in the content and returns the result.
      *
      * @return array
-     *
-     * @global array The page contents.
-     * @global array The page URLs.
-     * @global int   The number of pages.
      */
     private function gatherLinks()
     {
@@ -170,12 +162,6 @@ class LinkChecker
      * @param array $test URL parts.
      *
      * @return string
-     *
-     * @global array The content of the pages.
-     * @global array The URLs of the pages.
-     * @global int   The number of pages.
-     * @global array The paths of system files and folders.
-     * @global array The configuration of the core.
      */
     private function checkInternalLink(array $test)
     {
@@ -369,10 +355,6 @@ class LinkChecker
      * @param array $hints        The errors and warnings.
      *
      * @return string HTML
-     *
-     * @global array The localization of the core.
-     * @global array The page headings.
-     * @global array The page URLs.
      */
     public function message($checkedLinks, array $hints)
     {

@@ -50,9 +50,6 @@ class ControllerFrontendFTest extends TestCase
      * Tests $f == 'forgotten'.
      *
      * @return void
-     *
-     * @global string The requested function.
-     * @global string The requested function.
      */
     public function testForgotten()
     {
@@ -67,9 +64,6 @@ class ControllerFrontendFTest extends TestCase
      * Tests $f == 'search'.
      *
      * @return void
-     *
-     * @global string The requested function.
-     * @global string The requested function.
      */
     public function testSearch()
     {
@@ -84,10 +78,6 @@ class ControllerFrontendFTest extends TestCase
      * Tests $f == 'mailform' for mailform display.
      *
      * @return void
-     *
-     * @global string The URL of the current page.
-     * @global string Whether the mailform is requested.
-     * @global string The requested function.
      */
     public function testMailformDisplay()
     {
@@ -103,10 +93,6 @@ class ControllerFrontendFTest extends TestCase
      * Test $f == 'mailform' for mailform submission.
      *
      * @return void
-     *
-     * @global string The URL of the current page.
-     * @global string The requested function.
-     * @global string The requested function.
      */
     public function testMailformSubmission()
     {
@@ -122,10 +108,6 @@ class ControllerFrontendFTest extends TestCase
      * Tests $f == 'sitemap'.
      *
      * @return void
-     *
-     * @global string The URL of the current page.
-     * @global string Whether the sitemap is requested.
-     * @global string The requested function.
      */
     public function testSitemap()
     {
@@ -141,10 +123,6 @@ class ControllerFrontendFTest extends TestCase
      * Tests $f == 'xhpages'.
      *
      * @return void
-     *
-     * @global string The URL of the current page.
-     * @global string Whether the page manager is requested.
-     * @global string The requested function.
      */
     public function testXhpages()
     {
@@ -159,11 +137,6 @@ class ControllerFrontendFTest extends TestCase
      * Tests $f == 'sitemap', if search and sitemap are requested.
      *
      * @return void
-     *
-     * @global string The URL of the current page.
-     * @global string Whether the sitemap is requested.
-     * @global string The requested function.
-     * @global string The requested function.
      */
     public function testSearchAndSitemap()
     {

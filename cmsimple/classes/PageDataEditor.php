@@ -29,8 +29,6 @@ class PageDataEditor
      * Returns the currently unused page data fields.
      *
      * @return array
-     *
-     * @global object The page data router.
      */
     private function unusedFields()
     {
@@ -49,8 +47,6 @@ class PageDataEditor
      * false if saving failed.
      *
      * @return int
-     *
-     * @global object The page data router.
      */
     private function deleteFields()
     {
@@ -89,9 +85,6 @@ class PageDataEditor
      *                       <var>false</var> on failure.
      *
      * @return string HTML
-     *
-     * @global array The paths of system files and folders.
-     * @global array The localization of the core.
      */
     private function renderMessage($deleted)
     {
@@ -117,10 +110,6 @@ class PageDataEditor
      *                       initial request resp. <var>false</var> on failure.
      *
      * @return string HTML
-     *
-     * @global string The script name.
-     * @global array  The localization of the core.
-     * @global array  The CSRF protection object.
      */
     private function render($deleted = null)
     {
@@ -157,8 +146,6 @@ class PageDataEditor
      * Handles requests to the page data editor.
      *
      * @return string HTML
-     *
-     * @global object The CSRF protection object.
      */
     public function process()
     {

@@ -99,9 +99,6 @@ class Search
      * where all words of the search string are contained.
      *
      * @return array
-     *
-     * @global array The content of the pages.
-     * @global array The configuration of the core.
      */
     public function search()
     {
@@ -163,8 +160,6 @@ class Search
      * @param int $count How often the search string was found.
      *
      * @return string HTML
-     *
-     * @global array The localization of the core.
      */
     private function foundMessage($count)
     {
@@ -189,13 +184,6 @@ class Search
      * Returns the search results view.
      *
      * @return string HTML
-     *
-     * @global array  The headings of the pages.
-     * @global array  The URLs of the pages.
-     * @global string The script name.
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
-     * @global object The page data router.
      */
     public function render()
     {

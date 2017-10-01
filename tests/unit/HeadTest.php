@@ -50,10 +50,6 @@ class HeadTest extends TestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global array The paths of system files and folders.
-     * @global array The configuration of the core.
-     * @global array The localization of the core.
      */
     protected function setUp()
     {
@@ -164,9 +160,6 @@ class HeadTest extends TestCase
      * Tests that the prev link is rendered.
      *
      * @return void
-     *
-     * @global string The script name.
-     * @global array  The page URLs.
      */
     public function testRendersPrevLink()
     {
@@ -187,9 +180,6 @@ class HeadTest extends TestCase
      * Tests that the next page link is rendered.
      *
      * @return void
-     *
-     * @global string The script name.
-     * @global array  The page URLs.
      */
     public function testRendersNextLink()
     {

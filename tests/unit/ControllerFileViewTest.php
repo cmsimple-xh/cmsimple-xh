@@ -61,8 +61,6 @@ class ControllerFileViewTest extends TestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global string The name of a special file to be handled.
      */
     protected function setUp()
     {
@@ -80,8 +78,6 @@ class ControllerFileViewTest extends TestCase
      * Sets up the file system.
      *
      * @return void
-     *
-     * @global array The paths of system files and folders.
      */
     protected function setUpFileSystem()
     {
@@ -150,8 +146,6 @@ class ControllerFileViewTest extends TestCase
      * Tests the log file view.
      *
      * @return void
-     *
-     * @global string The name of a special file to be handled.
      */
     public function testLogFile()
     {

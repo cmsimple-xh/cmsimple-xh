@@ -29,10 +29,6 @@ class CoreConfigFileEdit extends CoreArrayFileEdit
 {
     /**
      * Constructs an instance.
-     *
-     * @global array  The paths of system files and folders.
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
      */
     public function __construct()
     {

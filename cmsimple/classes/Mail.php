@@ -64,8 +64,6 @@ class Mail
 
     /**
      * Initializes a new instance.
-     *
-     * @global array The configuration of the core.
      */
     public function __construct()
     {

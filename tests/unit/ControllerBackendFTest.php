@@ -50,9 +50,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'validate'.
      *
      * @return void
-     *
-     * @global string Whether the link check is requested.
-     * @global string The requested function.
      */
     public function testValidate()
     {
@@ -67,9 +64,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'do_validate'.
      *
      * @return void
-     *
-     * @global string Whether the actual link check is requested.
-     * @global string The requested function.
      */
     public function testDoValidate()
     {
@@ -84,9 +78,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'settings'.
      *
      * @return void
-     *
-     * @global string Whether the settings page is requested.
-     * @global string The requested function.
      */
     public function testSettings()
     {
@@ -101,9 +92,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'xh_backups'.
      *
      * @return void
-     *
-     * @global string Whether the backup page is requested.
-     * @global string The requested function.
      */
     public function testBackups()
     {
@@ -118,9 +106,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'xh_pagedata'.
      *
      * @return void
-     *
-     * @global string Whether the pagedata editor is requested.
-     * @global string The requested function.
      */
     public function testPagedata()
     {
@@ -135,9 +120,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'sysinfo'.
      *
      * @return void
-     *
-     * @global string Whether the system info is requested.
-     * @global string The requested function.
      */
     public function testSysinfo()
     {
@@ -152,9 +134,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'phpinfo'.
      *
      * @return void
-     *
-     * @global string Whether the PHP info is requested.
-     * @global string The requested function.
      */
     public function testPhpinfo()
     {
@@ -169,9 +148,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'file'.
      *
      * @return void
-     *
-     * @global string The name of a special file to be handled.
-     * @global string The requested function.
      */
     public function testFile()
     {
@@ -186,10 +162,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'userfiles'.
      *
      * @return void
-     *
-     * @global string Whether the file browser is requested to show the
-     *                userfiles folder.
-     * @global string The requested function.
      */
     public function testUserfiles()
     {
@@ -204,10 +176,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'images'.
      *
      * @return void
-     *
-     * @global string Whether the file browser is requested to show the image
-     *                folder.
-     * @global string The requested function.
      */
     public function testImages()
     {
@@ -222,10 +190,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'downloads'.
      *
      * @return void
-     *
-     * @global string Whether the file browser is requested to show the download
-     *                folder.
-     * @global string The requested function.
      */
     public function testDownloads()
     {
@@ -240,9 +204,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'save'.
      *
      * @return void
-     *
-     * @global string The requested function.
-     * @global string The requested function.
      */
     public function testSave()
     {
@@ -257,10 +218,6 @@ class ControllerBackendFTest extends TestCase
      * Tests $f == 'save' when system info and saving are requested.
      *
      * @return void
-     *
-     * @global string The requested function.
-     * @global string Whether the system info is requested.
-     * @global string The requested function.
      */
     public function testSysinfoAndSave()
     {

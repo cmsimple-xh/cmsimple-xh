@@ -60,8 +60,6 @@ class Backup
      * Initializes a new instance.
      *
      * @param array $contentFolders An array of foldernames.
-     *
-     * @global array The configuration of the core.
      */
     public function __construct(array $contentFolders)
     {
@@ -202,8 +200,6 @@ class Backup
      * @param string $filename A filename.
      *
      * @return string HTML
-     *
-     * @global array The localization of the core.
      */
     private function renderCreationInfo($filename)
     {
@@ -239,8 +235,6 @@ class Backup
      * @param string $filename A filename.
      *
      * @return string HTML
-     *
-     * @global array The localization of the core.
      */
     private function renderDeletionInfo($filename)
     {

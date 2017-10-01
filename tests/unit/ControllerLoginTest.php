@@ -54,8 +54,6 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global array        The configuration of the core.
      */
     protected function setUp()
     {
@@ -98,8 +96,6 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      * Tests that login success set the session variables.
      *
      * @return void
-     *
-     * @global array        The configuration of the core.
      */
     public function testSuccessSetsSessionVariables()
     {
@@ -143,9 +139,6 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      * Tests that login failure sets global variables.
      *
      * @return void
-     *
-     * @global string       The requested function.
-     * @global string       Whether login is requested.
      */
     public function testFailSetsGlobalVariables()
     {

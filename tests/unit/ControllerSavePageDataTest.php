@@ -68,10 +68,6 @@ class ControllerSavePageDataTest extends TestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global int            The index of the currently selected page.
-     * @global PageDataRouter The page data router.
-     * @global CSRFProtection The CSRF protector.
      */
     protected function setUp()
     {
@@ -104,9 +100,6 @@ class ControllerSavePageDataTest extends TestCase
      * Tests that PageDataRouter::update() is called.
      *
      * @return void
-     *
-     * @global int            The index of the currently selected page.
-     * @global PageDataRouter The page data router.
      */
     public function testCallsUpdate()
     {
@@ -121,8 +114,6 @@ class ControllerSavePageDataTest extends TestCase
      * Tests that Ajax success outputs a message.
      *
      * @return void
-     *
-     * @global PageDataRouter The page data router.
      */
     public function testAjaxSuccessOutputsMessage()
     {
@@ -139,8 +130,6 @@ class ControllerSavePageDataTest extends TestCase
      * Tests that Ajax failure outputs a message.
      *
      * @return void
-     *
-     * @global PageDataRouter The page data router.
      */
     public function testAjaxFailureOutputsMessage()
     {
@@ -169,8 +158,6 @@ class ControllerSavePageDataTest extends TestCase
      * Tests that no Ajax success does not call e().
      *
      * @return void
-     *
-     * @global PageDataRouter The page data router.
      */
     public function testNoAjaxSuccessDoesNotCallE()
     {
@@ -186,8 +173,6 @@ class ControllerSavePageDataTest extends TestCase
      * Tests that no Ajax failure calls e().
      *
      * @return void
-     *
-     * @global PageDataRouter The page data router.
      */
     public function testNoAjaxFailureCallsE()
     {

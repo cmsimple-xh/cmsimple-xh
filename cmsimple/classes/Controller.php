@@ -32,10 +32,6 @@ class Controller
      * Initializes the paths related to the template.
      *
      * @return void
-     *
-     * @global array The paths of system files and folders.
-     * @global array The configuration of the core.
-     * @global array The localization of the core.
      */
     public function initTemplatePaths()
     {
@@ -57,11 +53,6 @@ class Controller
      * Handles search requests.
      *
      * @return void
-     *
-     * @global array  The paths of system files and folders.
-     * @global array  The localization of the core.
-     * @global string The content of the title element.
-     * @global string The HTML of the contents area.
      */
     public function handleSearch()
     {
@@ -81,8 +72,6 @@ class Controller
      * Makes and returns a search object.
      *
      * @return Search
-     *
-     * @global string The search string.
      */
     public function makeSearch()
     {
@@ -95,11 +84,6 @@ class Controller
      * Handles mailform requests.
      *
      * @return void
-     *
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
-     * @global string The content of the title element.
-     * @global string The HTML of the contents area.
      */
     public function handleMailform()
     {
@@ -131,12 +115,6 @@ class Controller
      * Handles sitemap requests.
      *
      * @return void
-     *
-     * @global int    The number of pages.
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
-     * @global string The content of the title element.
-     * @global string The HTML of the content area.
      *
      * @todo Declare visibility.
      */
@@ -180,12 +158,6 @@ class Controller
      * Handles login and logout.
      *
      * @return void
-     *
-     * @global string Whether admin mode is active.
-     * @global string Whether login is requested.
-     * @global string Whether logout is requested.
-     * @global string The admin password.
-     * @global string The requested function.
      */
     public function handleLoginAndLogout()
     {
@@ -209,12 +181,6 @@ class Controller
      * Handles login requests.
      *
      * @return void
-     *
-     * @global string       The requested function.
-     * @global array        The paths of system files and folders.
-     * @global string       The admin password.
-     * @global string       Whether login is requested.
-     * @global array        The configuration of the core.
      */
     public function handleLogin()
     {
@@ -243,12 +209,6 @@ class Controller
      * Handles logout requests.
      *
      * @return void
-     *
-     * @global string Whether admin mode is active.
-     * @global string The requested function.
-     * @global string Whether logout is requested.
-     * @global array  The localization of the core.
-     * @global string The HTML for the contents area.
      */
     public function handleLogout()
     {
@@ -282,13 +242,6 @@ class Controller
      * Sets frontend $f.
      *
      * @return void
-     *
-     * @global string The requested function.
-     * @global string The URL of the current page.
-     * @global string Whether the mailform is requested.
-     * @global string Whether the sitemap is requested.
-     * @global string Whether the page manager is requested.
-     * @global string The requested function.
      */
     public function setFrontendF()
     {
@@ -313,23 +266,6 @@ class Controller
      * Sets backend $f.
      *
      * @return void
-     *
-     * @global string The requested function.
-     * @global string Whether the link check is requested.
-     * @global string Whether the actual link check is requested.
-     * @global string Whether the settings page is requested.
-     * @global string Whether the backup page is requested.
-     * @global string Whether the pagedata editor is requested.
-     * @global string Whether the system info is requested.
-     * @global string Whether the PHP info is requested.
-     * @global string The name of a special file to be handled.
-     * @global string Whether the file browser is requested to show the
-     *                userfiles folder.
-     * @global string Whether the file browser is requested to show the image
-     *                folder.
-     * @global string Whether the file browser is requested to show the download
-     *                folder.
-     * @global string The requested function.
      *
      * @todo Handling of userfiles, images and downloads is probably not
      *       necessary, as this should already be handled by the filebrowser.
@@ -376,8 +312,6 @@ class Controller
      * Returns whether page data have to be saved.
      *
      * @return bool
-     *
-     * @global int The number of the current page.
      */
     public function wantsSavePageData()
     {
@@ -390,12 +324,6 @@ class Controller
      * Handles save page data requests.
      *
      * @return void
-     *
-     * @global array          The paths of system files and folders.
-     * @global int            The index of the currently selected page.
-     * @global PageDataRouter The page data router.
-     * @global array          The localization of the core.
-     * @global CSRFProtection The CSRF protector.
      */
     public function handleSavePageData()
     {
@@ -426,8 +354,6 @@ class Controller
      *
      * @return void
      *
-     * @global string The HTML for the contents area.
-     *
      * @todo Unused?
      */
     public function handlePagedataEditor()
@@ -452,10 +378,6 @@ class Controller
      * Handles file view requests.
      *
      * @return void
-     *
-     * @global array  The paths of system files and folders.
-     * @global string The name of a special file to be handled.
-     * @global string The HTML for the contents area.
      */
     public function handleFileView()
     {
@@ -474,9 +396,6 @@ class Controller
      * Handles file backup requests.
      *
      * @return void
-     *
-     * @global string         The name of a special file to be handled.
-     * @global CSRFProtection The CRSF protector.
      */
     public function handleFileBackup()
     {
@@ -495,10 +414,6 @@ class Controller
      * Handles file edit requests.
      *
      * @return void
-     *
-     * @global string The name of a special file to be handled.
-     * @global string The requested action.
-     * @global string The HTML for the contents area.
      */
     public function handleFileEdit()
     {
@@ -537,9 +452,6 @@ class Controller
      * Outputs administration script elements.
      *
      * @return void
-     *
-     * @global array  The localization of the core.
-     * @global string The HTML for the contents area.
      */
     public function outputAdminScripts()
     {
@@ -568,9 +480,6 @@ EOT;
      * Sets functions as permitted.
      *
      * @return void
-     *
-     * @global string Whether edit mode is requested.
-     * @global string Whether normal mode is requested.
      *
      * @todo Rename!
      */
@@ -602,9 +511,6 @@ EOT;
      * Handles save requests.
      *
      * @return void
-     *
-     * @global string         The text of the editor on save.
-     * @global CSRFProtection The CSRF protector.
      */
     public function handleSaveRequest()
     {
@@ -618,10 +524,6 @@ EOT;
      * Whether edit mode is requested and the edit contents shall be displayed.
      *
      * @return bool
-     *
-     * @global string Whether edit mode is requested.
-     * @global string The requested function.
-     * @global string The filename requested for download.
      *
      * @todo Do we need $f == 'save' && !$download?
      *       IOW: isn't the script already exited in these cases?
@@ -637,10 +539,6 @@ EOT;
      * Outputs the edit contents (either editor or cntlocateheading).
      *
      * @return void
-     *
-     * @global int    The index of the currently selected page.
-     * @global array  The localization of the core.
-     * @global string The HTML for the contents area.
      */
     public function outputEditContents()
     {
@@ -668,8 +566,6 @@ EOT;
      * Returns whether the page manager is missing.
      *
      * @return bool
-     *
-     * @global string The requested function.
      */
     public function isPagemanagerMissing()
     {
@@ -683,16 +579,6 @@ EOT;
      * Returns whether the filebrowser is needed.
      *
      * @return bool
-     *
-     * @global string Whether the file browser is requested to show the image folder.
-     * @global string Whether the file browser is requested to show the download
-     *                folder.
-     * @global string Whether the file browser is requested to show the userfiles
-     *                folder.
-     * @global string Whether the file browser is requested to show the media folder.
-     * @global string Whether edit mode is requested.
-     * @global string The requested function.
-     * @global string The filename requested for download.
      *
      * @todo Do we need $f == 'save' && !$download?
      *       IOW: isn't the script already exited in these cases?
@@ -711,9 +597,6 @@ EOT;
      * @param string $name A plugin name ("filebrowser" or "pagemanager").
      *
      * @return bool
-     *
-     * @global array The paths of system files and folders.
-     * @global array The configuration of the core.
      */
     private function isExternalMissing($name)
     {
@@ -729,10 +612,6 @@ EOT;
      * @param string $name A plugin name ("filebrowser" or "pagemanger").
      *
      * @return bool
-     *
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
-     * @global string The HTML for the <li>s holding error messages.
      */
     public function reportMissingExternal($name)
     {
@@ -749,14 +628,6 @@ EOT;
      * may result in an infinite loop, so we do it this way.
      *
      * @return void
-     *
-     * @global bool   Whether we're logged in as administrator.
-     * @global bool   Whether we're in edit mode.
-     * @global array  The localization of the core.
-     * @global int    The current page.
-     * @global string The HTML fragment for insertion in the contents area.
-     * @global string The current special function.
-     * @global string The title of the page.
      */
     public function verifyAdm()
     {
@@ -776,8 +647,6 @@ EOT;
      * Renders the error messages stored in $e.
      *
      * @return string HTML
-     *
-     * @global string The HTML for the <li>s holding error messages.
      */
     public function renderErrorMessages()
     {
@@ -798,10 +667,6 @@ EOT;
      * is aborted.
      *
      * @return void
-     *
-     * @global string The ISO 659-1 code of the current language.
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
      *
      * @todo Emit error message only in admin mode?
      */

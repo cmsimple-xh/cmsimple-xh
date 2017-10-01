@@ -122,8 +122,6 @@ class View
 
     /**
      * Initializes a newly created instance.
-     *
-     * @global array  The localization of the plugins.
      */
     public function __construct()
     {
@@ -138,8 +136,6 @@ class View
      * @param array $folders An array of folders.
      *
      * @return string HTML
-     *
-     * @global array The localization of the core.
      */
     private function folderList(array $folders)
     {
@@ -204,9 +200,6 @@ class View
      * @param array $folders An array of folders.
      *
      * @return string
-     *
-     * @global object The CRSF protection object.
-     * @global string The script name.
      */
     private function subfolderList(array $folders)
     {
@@ -243,10 +236,6 @@ class View
      * @param array $files An array of files.
      *
      * @return string
-     *
-     * @global string     The script name.
-     * @global object     The CRSF protection object.
-     * @global Controller The filebrowser controller.
      */
     private function fileList(array $files)
     {
@@ -499,8 +488,6 @@ class View
      * Renders the JavaScript configuration script element.
      *
      * @return string HTML
-     *
-     * @global array The localization of the plugins.
      *
      * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
      */

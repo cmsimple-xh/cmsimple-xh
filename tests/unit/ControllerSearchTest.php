@@ -47,8 +47,6 @@ class ControllerSearchTest extends TestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global array The localization of the core.
      */
     protected function setUp()
     {
@@ -65,8 +63,6 @@ class ControllerSearchTest extends TestCase
      * Tests that the title is set.
      *
      * @return void
-     *
-     * @global string The content of the title element.
      */
     public function testSetsTitle()
     {

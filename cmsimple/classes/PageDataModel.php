@@ -103,9 +103,6 @@ class PageDataModel
      * Fixes the page data after reading.
      *
      * @return void
-     *
-     * @global int   The index of the current page.
-     * @global array The page data of the current page.
      */
     private function fixUp()
     {
