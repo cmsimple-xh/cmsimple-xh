@@ -1,24 +1,18 @@
 <?php
 
+namespace XH;
+
 /**
  * A class for handling of CMSimple pages.
+ *
+ * Encapsulates access to several page related global variables,
+ * and offers some page related utility methods.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2013-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
- */
-
-namespace XH;
-
-/**
- * Encapsulates access to several page related global variables,
- * and offers some page related utility methods.
- *
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see      http://cmsimple-xh.org/
- * @since    1.6
+ * @since     1.6
  */
 class Pages
 {

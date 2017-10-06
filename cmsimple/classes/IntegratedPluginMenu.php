@@ -1,7 +1,9 @@
 <?php
 
+namespace XH;
+
 /**
- * The builders for the integrated plugin menus.
+ * The menu builder for a plugin menu that is integrated in the admin menu.
  *
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
@@ -9,17 +11,7 @@
  * @copyright 2009-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
- */
-
-namespace XH;
-
-/**
- * The menu builder for a plugin menu that is integrated in the admin menu.
- *
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see      http://cmsimple-xh.org/
- * @since    1.6.2
+ * @since     1.6.2
  */
 class IntegratedPluginMenu extends PluginMenu
 {
