@@ -48,6 +48,10 @@
               passthru="true" logoutput="true"/>
     </target>
 
+    <target name="phan" description="run Phan static analysis">
+        <exec command="phan -f .phan/files" passthru="true" logoutput="true" checkreturn="true"/>
+    </target>
+
     <target name="unit-tests" description="runs all unit tests">
         <phpunit bootstrap="tests/bootstrap.php" haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
@@ -148,6 +152,7 @@
         </move>
         <move todir="dist/cmsimplexh">
             <fileset dir="export">
+                <exclude name=".phan/**"/>
                 <exclude name=".travis.yml"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.json"/>
