@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6376e5cdb8cdb6bbfb9111e0d03e106a",
+    "content-hash": "a880a673fc2aa29410f068e226d79284",
     "packages": [],
     "packages-dev": [
         {
@@ -662,59 +662,6 @@
             ],
             "description": "Official version of pdepend to be handled with Composer",
             "time": "2017-01-19T14:23:36+00:00"
-        },
-        {
-            "name": "phan/phan",
-            "version": "0.9.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phan/phan.git",
-                "reference": "d2f3fbd719cb9236f1d85fb6018f9c8b7e41ffaa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phan/phan/zipball/d2f3fbd719cb9236f1d85fb6018f9c8b7e41ffaa",
-                "reference": "d2f3fbd719cb9236f1d85fb6018f9c8b7e41ffaa",
-                "shasum": ""
-            },
-            "require": {
-                "ext-ast": "^0.1.4",
-                "php": "~7.1.0",
-                "symfony/console": "~2.3|~3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^6.2.1"
-            },
-            "bin": [
-                "phan",
-                "phan_client",
-                "tocheckstyle"
-            ],
-            "type": "project",
-            "autoload": {
-                "psr-4": {
-                    "Phan\\": "src/Phan"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rasmus Lerdorf"
-                },
-                {
-                    "name": "Andrew S. Morrison"
-                }
-            ],
-            "description": "A static analyzer for PHP",
-            "keywords": [
-                "analyzer",
-                "php",
-                "static"
-            ],
-            "time": "2017-08-15T19:31:44+00:00"
         },
         {
             "name": "phing/phing",
