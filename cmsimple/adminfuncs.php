@@ -948,7 +948,7 @@ function XH_saveContents()
     }
     $cnts .= '</body></html>';
     if (!file_exists($pth['folder']['content'])) {
-        mkdir($pth['folder']['content'], true);
+        mkdir($pth['folder']['content'], 0x755, true);
     }
     return XH_writeFile($pth['file']['content'], $cnts) !== false;
 }
