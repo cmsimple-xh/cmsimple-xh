@@ -126,10 +126,8 @@ class ChangePassword
         $html = '<p>'
             . '<label for="' . $id . '">' . $this->lang['password'][$which]
             . '</label> '
-            . tag(
-                'input id="' . $id . '" type="password" name="' . $id
-                . '" value="' . XH_hsc($value) . '"'
-            );
+            . '<input id="' . $id . '" type="password" name="' . $id
+                . '" value="' . XH_hsc($value) . '">';
         if (in_array($which, array('old', 'new'))) {
             $html .= ' <span class="xh_password_score"></span>';
         }
@@ -230,6 +228,6 @@ class ChangePassword
             }
         }
         $o .= "\n?>\n";
-        return XH_writeFile($pth['file']['config'], $o);
+        return (bool) XH_writeFile($pth['file']['config'], $o);
     }
 }

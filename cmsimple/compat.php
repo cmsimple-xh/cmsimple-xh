@@ -142,7 +142,7 @@ function chkdl($fl)
  *
  * @param string $fl The file name.
  *
- * @return string
+ * @return ?string
  *
  * @deprecated since 1.6
  */
@@ -150,7 +150,7 @@ function rf($fl)
 {
     trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
     if (!file_exists($fl)) {
-        return;
+        return null;
     }
     clearstatcache();
     return file_get_contents($fl);
@@ -167,7 +167,7 @@ function rf($fl)
  *
  * @global array The paths of system files and folders.
  *
- * @return bool
+ * @return void
  *
  * @deprecated since 1.6.
  */

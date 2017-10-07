@@ -68,7 +68,7 @@ class Li
         $this->st = $st;
         $tl = count($this->ta);
         if ($tl < 1) {
-            return;
+            return '';
         }
         $t = '';
         if ($this->st == 'submenu' || $this->st == 'search') {

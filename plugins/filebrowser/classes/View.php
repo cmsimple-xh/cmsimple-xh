@@ -419,7 +419,7 @@ class View
      * Appends a localized error message to the message area of the view.
      *
      * @param string $message A message key.
-     * @param array  $args    Arguments.
+     * @param ?array $args    Arguments.
      *
      * @return void
      */
@@ -433,7 +433,7 @@ class View
      * Appends a localized success message to the message area of the view.
      *
      * @param string $message A message key.
-     * @param array  $args    The arguments.
+     * @param ?array $args    The arguments.
      *
      * @return void
      */
@@ -447,7 +447,7 @@ class View
      * Appends a localized info message to the message area of the view.
      *
      * @param string $message A message key.
-     * @param array  $args    The arguments.
+     * @param ?array $args    The arguments.
      *
      * @return void
      */
@@ -473,7 +473,7 @@ class View
      * Returns a localized message.
      *
      * @param string $string A message key.
-     * @param mixed  $args   A single argument or an array of arguments.
+     * @param ?array $args   A single argument or an array of arguments.
      *
      * @return string
      */

@@ -42,7 +42,7 @@ return [
     "quick_mode" => true,
 
     // Only emit critical issues
-    "minimum_severity" => 10,
+    "minimum_severity" => 5,
 
     // A set of fully qualified class-names for which
     // a call to parent::__construct() is required
@@ -52,9 +52,12 @@ return [
     // A list of directories holding code that we want
     // to parse, but not analyze
     "exclude_analysis_directory_list" => [
+        '.phan/stubs'
     ],
 
     'directory_list' => [
         '.phan/stubs'
     ],
+
+    'simplify_ast' => true,
 ];

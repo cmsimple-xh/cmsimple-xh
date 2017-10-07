@@ -198,6 +198,6 @@ class PasswordForgotten
             }
         }
         $o .= PHP_EOL . '?>' . PHP_EOL;
-        return XH_writeFile($pth['file']['config'], $o);
+        return (bool) XH_writeFile($pth['file']['config'], $o);
     }
 }

@@ -116,7 +116,7 @@ abstract class PluginMenu
      *
      * @param bool $showMain Whether to show the main menu item.
      *
-     * @return void
+     * @return string|void
      *
      * @global string The name of the current plugin.
      * @global array  The paths of system files and folders.
@@ -196,4 +196,39 @@ abstract class PluginMenu
             . '&admin=plugin_language&action=plugin_edit&normal';
         $this->helpUrl = $pth['file']['plugin_help'];
     }
+
+    /**
+     * Makes the main menu item.
+     *
+     * @return void
+     */
+    abstract protected function makeMainItem();
+
+    /**
+     * Makes the stylesheet menu item.
+     *
+     * @return void
+     */
+    abstract protected function makeStylesheetItem();
+
+    /**
+     * Makes the configuration menu item.
+     *
+     * @return void
+     */
+    abstract protected function makeConfigItem();
+
+    /**
+     * Makes the language menu item.
+     *
+     * @return void
+     */
+    abstract protected function makeLanguageItem();
+
+    /**
+     * Makes the help menu item.
+     *
+     * @return void
+     */
+    abstract protected function makeHelpItem();
 }

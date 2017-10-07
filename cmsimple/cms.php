@@ -1302,7 +1302,7 @@ if (!($edit && XH_ADM) && $s > -1) {
 
 
 if ($s == -1 && !$f && $o == '') {
-    shead('404');
+    shead(404);
 }
 
 loginforms();

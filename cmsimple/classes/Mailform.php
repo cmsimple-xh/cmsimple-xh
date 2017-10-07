@@ -198,7 +198,7 @@ class Mailform
         static $again = false;
 
         if ($again) {
-            return false;
+            return '';
         }
         $again = true;
 

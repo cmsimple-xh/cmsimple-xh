@@ -157,7 +157,7 @@ class LinkChecker
      *
      * @param array $test URL parts.
      *
-     * @return string
+     * @return int
      *
      * @global array The content of the pages.
      * @global array The URLs of the pages.
@@ -240,7 +240,7 @@ class LinkChecker
      *
      * @param array $parts URL parts.
      *
-     * @return string
+     * @return int
      */
     private function checkExternalLink(array $parts)
     {
@@ -260,7 +260,7 @@ class LinkChecker
      * @param string $host A host name.
      * @param string $path An absolute path.
      *
-     * @return int
+     * @return int|false
      */
     protected function makeHeadRequest($host, $path)
     {

@@ -57,7 +57,7 @@ class CSRFProtection
     public function tokenInput()
     {
         if (!isset($this->token)) {
-            $this->token = md5(uniqid(rand()));
+            $this->token = md5(uniqid((string) rand()));
         }
         $o = '<input type="hidden" name="' . $this->keyName . '" value="'
             . $this->token . '">';

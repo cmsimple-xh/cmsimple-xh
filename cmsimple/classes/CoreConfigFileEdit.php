@@ -35,6 +35,7 @@ class CoreConfigFileEdit extends CoreArrayFileEdit
         );
         $this->redir = '?file=config&action=array&xh_success=config';
         $this->cfg = array();
+        $mcf = array();
         $fn = $pth['folder']['cmsimple'] . 'metaconfig.php';
         if (is_readable($fn)) {
             include $fn;

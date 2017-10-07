@@ -38,7 +38,7 @@ class ClassicPluginMenu extends PluginMenu
      *
      * @param bool $showMain Whether to show the main settings menu item.
      *
-     * @return HTML
+     * @return string|void
      */
     public function render($showMain)
     {

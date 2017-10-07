@@ -233,7 +233,7 @@ function evaluate_plugincall($text)
  *
  * @param string $___expression The expression to evaluate.
  *
- * @return srting
+ * @return string
  *
  * @since 1.6
  */
@@ -294,7 +294,7 @@ function XH_spliceString(&$string, $offset, $length = 0, $replacement = '')
  * @param string $text   The text.
  * @param bool   $compat Whether only last CMSimple script will be evaluated.
  *
- * @return void
+ * @return string
  *
  * @since 1.5
  */
@@ -315,7 +315,7 @@ function evaluate_scripting($text, $compat = true)
  * @global array The headings of the pages.
  * @global bool  Whether edit mode is active.
  *
- * @return string HTML
+ * @return string|false
  */
 function newsbox($heading)
 {
@@ -407,13 +407,13 @@ function include_editor()
  * Returns the result of calling *_replace() of the configured editor.
  * Returns false on failure.
  *
- * @param string $elementID The element with this ID will become an editor.
- * @param string $config    The configuration.
+ * @param string|false $elementID The element with this ID will become an editor.
+ * @param string       $config    The configuration.
  *
  * @global array The paths of system files and folders.
  * @global array The configuration of the core.
  *
- * @return void
+ * @return string|false
  *
  * @see http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces
 
@@ -625,7 +625,7 @@ function download($fl)
     if (!is_readable($fl)
         || ($download != '' && !preg_match('/.+\..+$/', $fl))
     ) {
-        shead('404');
+        shead(404);
         $o .= '<p>File ' . XH_hsc($fl) . '</p>';
         return;
     } else {
@@ -756,7 +756,7 @@ function rfc()
  * @global array The configuration of the core.
  * @global bool  Whether edit mode is active.
  *
- * @return array
+ * @return array|false
  *
  * @since 1.6
  */
@@ -818,7 +818,7 @@ function XH_readContents($language = null)
         $ancestors[$l[$i] - 1] = XH_uenc($temp, $search, $replace);
         $ancestors = array_slice($ancestors, 0, $l[$i]);
         $url = implode($cf['uri']['seperator'], $ancestors);
-        $u[] = utf8_substr($url, 0, $cf['uri']['length']);
+        $u[] = utf8_substr($url, 0, (int) $cf['uri']['length']);
         $tooLong[] = utf8_strlen($url) > $cf['uri']['length'];
         $removed[] = false;
     }
@@ -874,7 +874,7 @@ function XH_readContents($language = null)
 /**
  * Finds the index of the previous page.
  *
- * @return int
+ * @return int|false
  *
  * @global int   The index of the current page.
  *
@@ -895,7 +895,7 @@ function XH_findPreviousPage()
 /**
  * Finds the index of the next page.
  *
- * @return int
+ * @return int|false
  *
  * @global int The index of the current page.
  * @global int The number of pages.
@@ -1245,7 +1245,7 @@ function XH_debugmode()
  *
  * @global array The list of PHP errors formatted as HTML fragment.
  *
- * @return void
+ * @return bool
  */
 function XH_debug($errno, $errstr, $errfile, $errline)
 {
@@ -1253,7 +1253,7 @@ function XH_debug($errno, $errstr, $errfile, $errline)
 
     if (!(error_reporting() & $errno)) {
         // This error code is not included in error_reporting
-        return;
+        return false;
     }
 
     switch ($errno) {
@@ -1552,7 +1552,7 @@ function XH_logMessage($type, $module, $category, $description)
  * @global string The script name.
  * @global string The URL of the selected page.
  *
- * @return string HTML
+ * @return void
  */
 function loginforms()
 {
@@ -1681,7 +1681,7 @@ function XH_afterPluginLoading($callback = null)
  *
  * @param mixed $param A parameter.
  *
- * @return void
+ * @return void|string
  *
  * @since 1.7
  */
@@ -1945,7 +1945,7 @@ function XH_helpIcon($tooltip)
  * Returns whether a file is a content backup by checking the filename.
  *
  * @param string $filename    A filename.
- * @param string $regularOnly Whether to check for regalur backup names only.
+ * @param bool   $regularOnly Whether to check for regalur backup names only.
  *
  * @return bool
  *
@@ -2047,7 +2047,7 @@ function XH_secondLanguages()
  *
  * @param string $path A relative path.
  *
- * @return string
+ * @return bool
  *
  * @since 1.6
  */
@@ -2192,7 +2192,7 @@ function XH_encodeJson($value)
  */
 function XH_lastJsonError()
 {
-    return json_last_error();
+    return (bool) json_last_error();
 }
 
 /**
@@ -2235,7 +2235,7 @@ function XH_mailform($subject = null)
     global $cf;
 
     if ($cf['mailform']['email'] == '') {
-        return false;
+        return '';
     }
 
     $mailform = new XH\Mailform(true, $subject);
@@ -2682,7 +2682,7 @@ function XH_startSession()
  *
  * One of the 3 functions to show "Site/CMS Info".
  *
- * @return The HTML.
+ * @return string
  *
  * @global array The configuration of the core.
  * @global array The language localization of the core.

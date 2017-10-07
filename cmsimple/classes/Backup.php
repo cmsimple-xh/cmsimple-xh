@@ -150,7 +150,7 @@ class Backup
         if (!empty($backups)) {
             return $this->contentFolder . $backups[count($backups) - 1];
         } else {
-            return false;
+            return '';
         }
     }
 

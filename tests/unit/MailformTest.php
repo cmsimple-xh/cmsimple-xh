@@ -169,7 +169,7 @@ class MailformTest extends TestCase
 
         $pth['folder']['classes'] = './cmsimple/classes/';
         $cf['mailform']['email'] = '';
-        $this->assertFalse(XH_mailform());
+        $this->assertSame('', XH_mailform());
     }
 
     /**
@@ -186,7 +186,7 @@ class MailformTest extends TestCase
         $mailform->process();
         $mailform = $this->getMockBuilder(Mailform::class)->setMethods(array('render', 'check'))->getMock();
         $mailform->expects($this->never())->method('check');
-        $this->assertFalse($mailform->process());
+        $this->assertSame('', $mailform->process());
     }
 
     public function testSubjectIsSetFromQueryParameter()

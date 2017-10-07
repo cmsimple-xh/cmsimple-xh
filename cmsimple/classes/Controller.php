@@ -715,7 +715,7 @@ EOT;
      *
      * @param string $name A plugin name ("filebrowser" or "pagemanger").
      *
-     * @return bool
+     * @return void
      *
      * @global array  The configuration of the core.
      * @global array  The localization of the core.

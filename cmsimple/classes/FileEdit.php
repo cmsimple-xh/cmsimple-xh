@@ -57,7 +57,7 @@ abstract class FileEdit
      */
     protected function save()
     {
-        return XH_writeFile($this->filename, $this->asString());
+        return (bool) XH_writeFile($this->filename, $this->asString());
     }
 
     /**

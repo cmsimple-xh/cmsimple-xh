@@ -838,7 +838,7 @@ function plugin_admin_common()
             $fileEdit = new XH\PluginTextFileEdit();
             break;
         default:
-            return false;
+            return '';
     }
     switch ($action) {
         case 'plugin_edit':
@@ -848,7 +848,7 @@ function plugin_admin_common()
         case 'plugin_textsave':
             return $fileEdit->submit();
         default:
-            return false;
+            return '';
     }
 }
 
@@ -882,18 +882,18 @@ function XH_contentEditor()
         $e .= '<li>' . $msg . '</li>' . "\n";
     }
     $o = '<form method="POST" id="ta" action="' . $sn . '">'
-        . tag('input type="hidden" name="selected" value="' . $u[$s] . '"');
+        . '<input type="hidden" name="selected" value="' . $u[$s] . '">';
     //Add page level and heading to post data because the split markers
     //are filtered out if mode is not "advanced"
     if (!$cf['mode']['advanced']) {
-        $o .= tag('input type="hidden" name="level" value="' . $l[$s] . '"')
-            . tag('input type="hidden" name="heading" value="' . $h[$s] . '"');
+        $o .= '<input type="hidden" name="level" value="' . $l[$s] . '">'
+            . '<input type="hidden" name="heading" value="' . $h[$s] . '">';
         //replace split-markers
         $tempContent = preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $c[$s]);
     } else {
         $tempContent = $c[$s];
     }
-    $o .= tag('input type="hidden" name="function" value="save"')
+    $o .= '<input type="hidden" name="function" value="save">'
         . '<textarea name="text" id="text" class="xh-editor" style="height: '
         . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
         . XH_hsc($tempContent)

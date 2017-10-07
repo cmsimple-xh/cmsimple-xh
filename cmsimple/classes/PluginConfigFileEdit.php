@@ -31,6 +31,7 @@ class PluginConfigFileEdit extends PluginArrayFileEdit
         parent::__construct();
         $this->caption = ucfirst($plugin) . ' &ndash; '
             . utf8_ucfirst($tx['filetype']['config']);
+        $plugin_mcf = array();
         $fn = $pth['folder']['plugins'] . $plugin . '/config/metaconfig.php';
         if (is_readable($fn)) {
             include $fn;

@@ -181,7 +181,7 @@ class Controller
      * @global array The content of the pages.
      * @global array The URLs of the pages.
      *
-     * @return array
+     * @return array|false
      */
     private function fileIsLinked($file)
     {

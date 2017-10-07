@@ -36,7 +36,7 @@ class PageDataEditor
      * Deletes the requested page data fields. Returns number of fields deleted;
      * false if saving failed.
      *
-     * @return int
+     * @return int|false
      *
      * @global object The page data router.
      */
