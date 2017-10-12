@@ -328,7 +328,7 @@ function newsbox($heading)
             $pattern = '/.*?<!--XH_ml[1-9]:.*?-->/isu';
             $body = preg_replace($pattern, "", $c[$i]);
             $pattern = '/#CMSimple (.*?)#/is';
-            return $edit
+            return XH_ADM && $edit
                 ? $body
                 : preg_replace($pattern, '', evaluate_scripting($body, false));
         }
