@@ -173,14 +173,14 @@ class View
      */
     public function folderLink($folder, array $folders)
     {
-        // TODO: Do we need PHP_SELF here; might allow for XSS.
-        $link = str_replace('index.php', '', $_SERVER['PHP_SELF']);
+        global $sn;
+
         $class = 'folder';
         if (substr($this->currentDirectory, 0, strlen($folder)) == $folder) {
             $class = 'openFolder';
         }
         $temp = explode('/', $folder);
-        $html = '<li class="' . $class . '"><a href="' . $link . '?'
+        $html = '<li class="' . $class . '"><a href="' . $sn . '?'
             . XH_hsc($this->linkParams) . '&amp;subdir=' . $folder . '">'
             . end($temp) . '</a>';
         if (count($folders[$folder]['children']) > 0) {
