@@ -192,6 +192,23 @@
             </fileset>
         </copy>
         <delete>
+            <fileset dir="patchee">
+                <present present="both" targetdir="current"/>
+            </fileset>
+        </delete>
+        <foreach param="filename" target="list-deleted-file">
+            <fileset dir="patchee/cmsimplexh">
+                <type type="file"/>
+            </fileset>
+        </foreach>
+        <move file="deleted_files.txt" todir="dist">
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="\\" replace="/"/>
+                </replaceregexp>
+            </filterchain>
+        </move>
+        <delete>
             <fileset dir="dist/cmsimplexh">
                 <include name="cmsimple/log.txt"/>
                 <include name="content/content.htm"/>
@@ -212,4 +229,7 @@
         <delete dir="dist" quiet="true"/>
     </target>
 
+    <target name="list-deleted-file">
+        <echo msg="${filename}${line.separator}" file="deleted_files.txt" append="true"/>
+    </target>
 </project>
