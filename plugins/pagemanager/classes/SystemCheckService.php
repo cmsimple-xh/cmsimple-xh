@@ -107,7 +107,7 @@ class SystemCheckService
      */
     private function checkPlugin($plugin)
     {
-        $state = is_dir($this->pluginsFolder) ? 'success' : 'fail';
+        $state = is_dir("{$this->pluginsFolder}$plugin") ? 'success' : 'fail';
         $label = sprintf($this->lang['syscheck_plugin'], $plugin);
         $stateLabel = $this->lang["syscheck_$state"];
         return (object) compact('state', 'label', 'stateLabel');
