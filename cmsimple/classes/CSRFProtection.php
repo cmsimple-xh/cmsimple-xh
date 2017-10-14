@@ -51,13 +51,11 @@ class CSRFProtection
      * for inclusion in an HTML form.
      *
      * @return string HTML
-     *
-     * @todo Use cryptographically stronger token?
      */
     public function tokenInput()
     {
         if (!isset($this->token)) {
-            $this->token = md5(uniqid((string) rand()));
+            $this->token = bin2hex(random_bytes(16));
         }
         $o = '<input type="hidden" name="' . $this->keyName . '" value="'
             . $this->token . '">';
