@@ -1294,7 +1294,7 @@ function XH_debug($errno, $errstr, $errfile, $errline)
     $errors[] = "<b>$errtype:</b> $errstr" . '<br>' . "$errfile:$errline"
         . '<br>' . "\n";
 
-    if (in_array($errno, [E_USER_ERROR, E_RECOVERABLE_ERROR])) {
+    if (in_array($errno, array(E_USER_ERROR, E_RECOVERABLE_ERROR))) {
         XH_exit($errors[count($errors) - 1]);
     }
 
