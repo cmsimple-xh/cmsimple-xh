@@ -943,8 +943,8 @@ function XH_saveContents()
     foreach ($c as $j => $i) {
         preg_match("/(.*?)($hot(.+?)$hct)(.*)/isu", $i, $matches);
         $page = $matches[1] . $matches[2] . PHP_EOL . $pd_router->pageAsPHP($j)
-            . $matches[4];
-        $cnts .= rtrim($page, "\r\n") . "\n";
+            . trim($matches[4], "\r\n");
+        $cnts .= $page . "\n";
     }
     $cnts .= '</body></html>';
     if (!file_exists($pth['folder']['content'])) {
