@@ -336,11 +336,6 @@ function XH_settingsView()
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
 
-    foreach (array('stylesheet', 'template') as $i) {
-        $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=edit">'
-            . utf8_ucfirst($tx['action']['edit']) . ' '
-            . $tx['filetype'][$i] . '</a></li>' . "\n";
-    }
     foreach (array('log') as $i) {
         $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=view">'
             . utf8_ucfirst($tx['action']['view']) . ' '
@@ -352,6 +347,7 @@ function XH_settingsView()
     $o .= XH_backupsView();
     $o .= '<h4>' . $tx['settings']['more'] . '</h4>' . "\n"
         . '<ul>' . "\n"
+        . '<li><a href="' . $sn . '?xh_template">' . $tx['editmenu']['template'] . '</a></li>'
         . '<li><a href="' . $sn . '?&validate">' . $tx['editmenu']['validate'] . '</a></li>'
         . '<li><a href="' . $sn . '?&xh_pagedata">' .$tx['editmenu']['pagedata'] . '</a></li>'
         . '<li><a href="' . $sn . '?&xh_change_password">' . $tx['editmenu']['change_password'] . '</a></li>'
@@ -486,6 +482,63 @@ function XH_pluginsView()
     return $o;
 }
 
+
+/**
+ * Returns the template menu array
+ *
+ * @return array
+ *
+ * @since 1.8
+ */
+function XH_templateMenu()
+{
+    global $pth, $tx, $sn;
+
+    $templateMenu = array();
+    if (file_exists($pth['file']['template_config'])) {
+        $templateMenu[] = array(
+            'label' => utf8_ucfirst($tx['editmenu']['configuration']),
+            'url' => $sn . '?file=template_config&action=array'
+        );
+    }
+    if (file_exists($pth['file']['template_language'])) {
+        $templateMenu[] = array(
+            'label' => utf8_ucfirst($tx['editmenu']['language']),
+            'url' => $sn . '?file=template_language&action=array'
+        );
+    }
+    $templateMenu[] = array(
+        'label' => utf8_ucfirst($tx['editmenu']['code']),
+        'url' => $sn . '?file=template&action=edit'
+    );
+    $templateMenu[] = array(
+        'label' => utf8_ucfirst($tx['editmenu']['stylesheet']),
+        'url' => $sn . '?file=stylesheet&action=edit'
+    );
+    return $templateMenu;
+}
+
+
+/**
+ * Returns the template view.
+ *
+ * @return string HTML
+ *
+ * @since 1.8
+ */
+function XH_templateView()
+{
+    global $tx;
+
+    $o = '<h1>' . $tx['editmenu']['template'] . '</h1><ul>';
+    foreach (XH_templateMenu() as $item) {
+        $o .= XH_adminMenuItem($item, 0);
+    }
+    $o .= '</ul>';
+    return $o;
+}
+
+
 /**
  * Creates the menu of a plugin (add row, add tab), constructed as a table.
  * This is an object implemented with a procedural interface.
@@ -603,11 +656,8 @@ function XH_adminMenu(array $plugins = array())
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['template']),
-            'url' => $sn . '?file=template&action=edit'
-        ),
-        array(
-            'label' => utf8_ucfirst($tx['editmenu']['stylesheet']),
-            'url' => $sn . '?file=stylesheet&action=edit'
+            'url' => $sn . '?&xh_template',
+            'children' => XH_templateMenu()
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['log']),

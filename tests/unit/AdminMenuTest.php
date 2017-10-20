@@ -47,6 +47,7 @@ class AdminMenuTest extends TestCase
             'editmenu' => array(
                 'backups' => 'Backups',
                 'change_password' => 'Password',
+                'code' => 'Code',
                 'configuration' => 'Configuration',
                 'downloads' => 'Downloads',
                 'edit' => 'Edit mode',

@@ -2157,41 +2157,55 @@ function XH_numberSuffix($count)
 }
 
 /**
- * Returns the configuration resp. language array of the core resp. a plugin.
+ * Returns the configuration resp. language array of the core, a plugin or the template.
  *
  * For plugins pluginFiles() has to be called before.
  *
- * @param bool $plugin   Whether to return plugin information (opposed to core).
- * @param bool $language Whether to return the language array (opposed to config).
+ * @param string $kind     "core", "plugin" or "template".
+ * @param bool   $language Whether to return the language array (opposed to config).
  *
  * @return array
  *
  * @since 1.6
  */
-function XH_readConfiguration($plugin = false, $language = false)
+function XH_readConfiguration($kind = "core", $language = false)
 {
     global $pth;
 
-    if (!$plugin) {
-        if (!$language) {
-            $varname = 'cf';
-            $defaultFilename = $pth['folder']['cmsimple'] . 'defaultconfig.php';
-            $filename = $pth['file']['config'];
-        } else {
-            $varname = 'tx';
-            $defaultFilename = $pth['folder']['language'] . 'default.php';
-            $filename = $pth['file']['language'];
-        }
-    } else {
-        if (!$language) {
-            $varname = 'plugin_cf';
-            $defaultFilename = $pth['folder']['plugin_config'] . 'defaultconfig.php';
-            $filename = $pth['file']['plugin_config'];
-        } else {
-            $varname = 'plugin_tx';
-            $defaultFilename = $pth['folder']['plugin_languages'] . 'default.php';
-            $filename = $pth['file']['plugin_language'];
-        }
+    switch ($kind) {
+        case "core":
+            if (!$language) {
+                $varname = 'cf';
+                $defaultFilename = $pth['folder']['cmsimple'] . 'defaultconfig.php';
+                $filename = $pth['file']['config'];
+            } else {
+                $varname = 'tx';
+                $defaultFilename = $pth['folder']['language'] . 'default.php';
+                $filename = $pth['file']['language'];
+            }
+            break;
+        case "plugin":
+            if (!$language) {
+                $varname = 'plugin_cf';
+                $defaultFilename = $pth['folder']['plugin_config'] . 'defaultconfig.php';
+                $filename = $pth['file']['plugin_config'];
+            } else {
+                $varname = 'plugin_tx';
+                $defaultFilename = $pth['folder']['plugin_languages'] . 'default.php';
+                $filename = $pth['file']['plugin_language'];
+            }
+            break;
+        case "template":
+            if (!$language) {
+                $varname = 'tpl_cf';
+                $defaultFilename = $pth['folder']['template_config'] . 'defaultconfig.php';
+                $filename = $pth['file']['template_config'];
+            } else {
+                $varname = 'tpl_tx';
+                $defaultFilename = $pth['folder']['template_language'] . 'default.php';
+                $filename = $pth['file']['template_language'];
+            }
+            break;
     }
     if (is_readable($defaultFilename)) {
         include $defaultFilename;

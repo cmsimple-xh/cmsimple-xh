@@ -31,6 +31,7 @@ $tx['action']['view']="ansehen";
 
 $tx['editmenu']['backups']="Sicherheitskopien";
 $tx['editmenu']['change_password']="Passwort";
+$tx['editmenu']['code']="Code";
 $tx['editmenu']['configuration']="Konfiguration";
 $tx['editmenu']['downloads']="Downloads";
 $tx['editmenu']['edit']="Bearbeiten";

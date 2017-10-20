@@ -502,16 +502,16 @@ class FunctionsTest extends TestCase
     {
         return array(
             array('cmsimple', 'defaultconfig.php', 'config', 'cf'),
-            array('language', 'default.php', 'language', 'tx', false, true),
-            array('plugin_config', 'defaultconfig.php', 'plugin_config', 'plugin_cf', true),
-            array('plugin_languages', 'default.php', 'plugin_language', 'plugin_tx', true, true)
+            array('language', 'default.php', 'language', 'tx', 'core', true),
+            array('plugin_config', 'defaultconfig.php', 'plugin_config', 'plugin_cf', 'plugin'),
+            array('plugin_languages', 'default.php', 'plugin_language', 'plugin_tx', 'plugin', true)
         );
     }
 
     /**
      * @dataProvider dataForReadConfiguration()
      */
-    public function testReadConfiguration($folderKey, $filename, $fileKey, $varname, $plugin = false, $language = false)
+    public function testReadConfiguration($folderKey, $filename, $fileKey, $varname, $kind = 'core', $language = false)
     {
         global $pth;
 
@@ -544,7 +544,7 @@ class FunctionsTest extends TestCase
             'bar' => array('a' => 'b', 'c' => 'c'),
             'baz' => array('a' => 'b', 'c' => 'c')
         );
-        $actual = XH_readConfiguration($plugin, $language);
+        $actual = XH_readConfiguration($kind, $language);
         $this->assertEquals($expected, $actual);
     }
 
@@ -555,7 +555,7 @@ class FunctionsTest extends TestCase
      *
      * @dataProvider dataForReadConfiguration()
      */
-    public function testReadEmptyConfiguration($folderKey, $filename, $fileKey, $varname, $plugin = false, $language = false)
+    public function testReadEmptyConfiguration($folderKey, $filename, $fileKey, $varname, $kind = 'core', $language = false)
     {
         global $pth;
 
@@ -582,7 +582,7 @@ class FunctionsTest extends TestCase
             'foo' => array('a' => 'b', 'c' => 'c'),
             'bar' => array('a' => 'b', 'c' => 'c')
         );
-        $actual = XH_readConfiguration($plugin, $language);
+        $actual = XH_readConfiguration($kind, $language);
         $this->assertEquals($expected, $actual);
     }
 
