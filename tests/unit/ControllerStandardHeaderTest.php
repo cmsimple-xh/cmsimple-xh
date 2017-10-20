@@ -57,8 +57,6 @@ class ControllerStandardHeaderTest extends TestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global array The configuration of the core.
      */
     protected function setUp()
     {

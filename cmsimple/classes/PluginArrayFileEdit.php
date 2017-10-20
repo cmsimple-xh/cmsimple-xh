@@ -24,10 +24,6 @@ abstract class PluginArrayFileEdit extends ArrayFileEdit
 
     /**
      * Constructs an instance.
-     *
-     * @global array  The paths of system files and folders.
-     * @global string The current language.
-     * @global string The name of the currently loading plugin.
      */
     public function __construct()
     {

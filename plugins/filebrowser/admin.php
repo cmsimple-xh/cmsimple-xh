@@ -115,10 +115,6 @@ if (isset($_GET['filebrowser']) && $_GET['filebrowser'] == 'editorbrowser') {
  * Handles the editorbrowser.
  *
  * @return void
- *
- * @global array                  The paths of system files and folders.
- * @global XH\CSRFProtection      The CSRF protector.
- * @global Filebrowser_Controller The filebrowser controller.
  */
 function Filebrowser_forEditor()
 {

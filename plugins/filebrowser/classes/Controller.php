@@ -124,9 +124,6 @@ class Controller
 
     /**
      * Constructs an instance.
-     *
-     * @global array The paths of system files and folders.
-     * @global array The configuration of the plugins.
      */
     public function __construct()
     {
@@ -177,10 +174,6 @@ class Controller
      *
      * @param string $file A file name.
      *
-     * @global array The headings of the pages.
-     * @global array The content of the pages.
-     * @global array The URLs of the pages.
-     *
      * @return array|false
      */
     private function fileIsLinked($file)
@@ -211,10 +204,6 @@ class Controller
      * where the images are used.
      *
      * @return array
-     *
-     * @global array The content of the pages.
-     * @global array The headings of the pages.
-     * @global int   The number of pages.
      */
     public function usedImages()
     {

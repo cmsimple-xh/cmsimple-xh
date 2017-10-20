@@ -50,9 +50,6 @@ class ControllerSitemapTest extends TestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global int   The number of pages.
-     * @global array The localization of the core.
      */
     protected function setUp()
     {
@@ -77,8 +74,6 @@ class ControllerSitemapTest extends TestCase
      * Tests that the title is set.
      *
      * @return void
-     *
-     * @global string The content of the title element.
      */
     public function testSetsTitle()
     {
@@ -92,8 +87,6 @@ class ControllerSitemapTest extends TestCase
      * Tests the rendered HTML.
      *
      * @return void
-     *
-     * @global string The HTML of the contents area.
      */
     public function testRenderedHTML()
     {

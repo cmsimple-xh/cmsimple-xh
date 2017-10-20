@@ -83,9 +83,6 @@ class PageDataView
      * @param string $filename Name of the view file.
      *
      * @return string HTML
-     *
-     * @global array          The paths of system files and folders.
-     * @global CSRFProtection The CSRF protector.
      */
     public function view($filename)
     {

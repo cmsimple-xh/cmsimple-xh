@@ -17,11 +17,6 @@ abstract class CoreArrayFileEdit extends ArrayFileEdit
 {
     /**
      * Constructs an instance.
-     *
-     * @global array  The paths of system files and folders.
-     * @global string The current language.
-     * @global string The key of the system file.
-     * @global array  The localization of the plugins.
      */
     public function __construct()
     {
@@ -57,8 +52,6 @@ abstract class CoreArrayFileEdit extends ArrayFileEdit
      * @param string $regex The regex the filename must match.
      *
      * @return array
-     *
-     * @global array The paths of system files and folders.
      */
     protected function selectOptions($fn, $regex)
     {

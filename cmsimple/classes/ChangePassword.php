@@ -59,8 +59,6 @@ class ChangePassword
 
     /**
      * Initializes a new instance.
-     *
-     * @global CSRFProtection The CSRF protector.
      */
     public function __construct()
     {
@@ -80,8 +78,6 @@ class ChangePassword
     /**
      * Process the default action.
      *
-     * @global string The HTML of the contents area.
-     *
      * @return void
      */
     public function defaultAction()
@@ -93,8 +89,6 @@ class ChangePassword
 
     /**
      * Renders the change password form.
-     *
-     * @global string The site name.
      *
      * @return string
      */
@@ -149,8 +143,6 @@ class ChangePassword
     /**
      * Process the save action.
      *
-     * @global string The HTML of the contents area.
-     *
      * @return void
      */
     public function saveAction()
@@ -202,8 +194,6 @@ class ChangePassword
 
     /**
      * Saves the configuration with the new password hash.
-     *
-     * @global array The paths of system files and folders.
      *
      * @return bool
      */

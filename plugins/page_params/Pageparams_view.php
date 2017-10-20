@@ -19,9 +19,6 @@
  * @return string HTML
  *
  * @since 1.6
- *
- * @global array The paths of system files and folders.
- * @global array The localization of the plugins.
  */
 function Pageparams_hjs()
 {
@@ -78,8 +75,6 @@ function Pageparams_checkbox($name, $checked)
  *
  * @return string HTML
  *
- * @global array The localization of the plugins.
- *
  * @since 1.6
  */
 function Pageparams_lastEditRadiogroup($value)
@@ -104,8 +99,6 @@ function Pageparams_lastEditRadiogroup($value)
  * @param int $value The current value.
  *
  * @return string HTML
- *
- * @global array The localization of the plugins.
  *
  * @since 1.6
  */
@@ -170,8 +163,6 @@ function Pageparams_scheduleInput($name, $value, $disabled)
  *
  * @return string HTML
  *
- * @global array The localization of the plugins.
- *
  * @since 1.6
  */
 function Pageparams_templateSelectbox(array $page)
@@ -206,8 +197,6 @@ function Pageparams_templateSelectbox(array $page)
  *
  * @return string HTML
  *
- * @global array The localization of the plugins.
- *
  * @since 1.6
  */
 function Pageparams_linkList($default, $disabled)
@@ -235,11 +224,6 @@ function Pageparams_linkList($default, $disabled)
  * @param array $page Page data of the current page.
  *
  * @return string HTML
- *
- * @global string The script name.
- * @global string The URL of the current page.
- * @global string Document fragment to insert into the HEAD element.
- * @global array  The localization of the plugins.
  */
 function Pageparams_view(array $page)
 {

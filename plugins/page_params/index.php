@@ -33,8 +33,6 @@ if (!defined('PLUGINLOADER_VERSION')) {
  *
  * @return void
  *
- * @global array  The content of the pages.
- *
  * @since 1.6
  */
 function Pageparams_handleRelocation($index, array $data)
@@ -58,10 +56,6 @@ function Pageparams_handleRelocation($index, array $data)
  * @param int $n Index of the current page.
  *
  * @return void
- *
- * @global array  The paths of system files and folders.
- * @global array  The configuration of the core.
- * @global object The page data router.
  *
  * @since 1.6
  */

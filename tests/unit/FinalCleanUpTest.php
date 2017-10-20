@@ -55,10 +55,6 @@ class FinalCleanUpTest extends TestCase
      * Sets up the global variables of the test fixture.
      *
      * @return void
-     *
-     * @global array  PHP errors, warnings and notices.
-     * @global array  The configuration of the core.
-     * @global string The script elements to insert at the bottom of the body.
      */
     private function setUpGlobals()
     {
@@ -159,8 +155,6 @@ class FinalCleanUpTest extends TestCase
      * Tests the scrolling admin menu.
      *
      * @return void
-     *
-     * @global array The configuration of the core.
      */
     public function testScrollingAdminMenu()
     {

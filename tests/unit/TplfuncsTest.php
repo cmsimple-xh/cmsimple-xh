@@ -145,9 +145,6 @@ class TplfuncsTest extends TestCase
      * Tests the link to the previous page.
      *
      * @return void
-     *
-     * @global array The localization of the core.
-     * @global int   The index of the requested page.
      */
     public function testPreviouspage()
     {
@@ -168,8 +165,6 @@ class TplfuncsTest extends TestCase
      * Tests that there's no link to the previous page if there is none.
      *
      * @return void
-     *
-     * @global int The index of the requested page.
      */
     public function testNoPreviousPage()
     {
@@ -186,9 +181,6 @@ class TplfuncsTest extends TestCase
      * Tests the link to the next page.
      *
      * @return void
-     *
-     * @global int   The index of the requested page.
-     * @global int   The number of pages.
      */
     public function testNextpage()
     {
@@ -210,9 +202,6 @@ class TplfuncsTest extends TestCase
      * Tests that there's no link to the next page if there is none.
      *
      * @return void
-     *
-     * @global int The index of the requested page.
-     * @global int The number of pages.
      */
     public function testNoNextPage()
     {
@@ -236,8 +225,6 @@ class TplfuncsTest extends TestCase
      * Tests languagemenu().
      *
      * @return void
-     *
-     * @global array The paths of system files and folders.
      */
     public function testLanguageMenu()
     {

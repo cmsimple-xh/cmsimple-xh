@@ -50,9 +50,6 @@ class ControllerMailformTest extends TestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global array The configuration of the core.
-     * @global array The localization of the core.
      */
     protected function setUp()
     {
@@ -76,8 +73,6 @@ class ControllerMailformTest extends TestCase
      * Tests that the title is set.
      *
      * @return void
-     *
-     * @global string The content of the title element.
      */
     public function testSetsTitle()
     {
@@ -91,8 +86,6 @@ class ControllerMailformTest extends TestCase
      * Tests the rendered HTML.
      *
      * @return void
-     *
-     * @global string The HTML of the content area.
      */
     public function testRenderedHTML()
     {
@@ -117,8 +110,6 @@ class ControllerMailformTest extends TestCase
      * Tests that shead() is called when the mailform is disabled.
      *
      * @return void
-     *
-     * @global array The configuration of the core.
      */
     public function testCallsSheadWhenMailformIsDisabled()
     {

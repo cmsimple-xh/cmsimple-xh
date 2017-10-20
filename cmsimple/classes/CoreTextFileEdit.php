@@ -17,10 +17,6 @@ class CoreTextFileEdit extends TextFileEdit
 {
     /**
      * Construct an instance.
-     *
-     * @global array  The paths of system files and folders.
-     * @global string The requested special file.
-     * @global array  The localization of the core.
      */
     public function __construct()
     {

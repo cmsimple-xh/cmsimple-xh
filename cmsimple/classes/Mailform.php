@@ -86,8 +86,6 @@ class Mailform
      * @param string $subject  An alternative subject field preset text instead of
      *                         the subject default in localization.
      * @param Mail   $mail     A mail object.
-     *
-     * @global array The localization of the core.
      */
     public function __construct($embedded = false, $subject = null, $mail = null)
     {
@@ -129,9 +127,6 @@ class Mailform
      * Returns error messages resp. an empty string if everything is okay.
      *
      * @return string HTML
-     *
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
      */
     public function check()
     {
@@ -156,9 +151,6 @@ class Mailform
      * Submits the mailform and returns whether that succeeded.
      *
      * @return bool
-     *
-     * @global array The configuration of the core.
-     * @global array The localization of the core.
      */
     public function submit()
     {
@@ -184,11 +176,6 @@ class Mailform
      * Processes the mailform request and returns the resulting view.
      *
      * @return string HTML
-     *
-     * @global string The requested action.
-     * @global array  The localization of the core.
-     *
-     * @staticvar bool Whether any mailform is processed more than once.
      *
      * @todo Remove static variable for better testability.
      */
@@ -221,11 +208,6 @@ class Mailform
      * Returns the mailform view.
      *
      * @return string HTML
-     *
-     * @global string The script name.
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
-     * @global string The current page URL.
      */
     public function render()
     {

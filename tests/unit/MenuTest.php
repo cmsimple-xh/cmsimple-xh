@@ -28,8 +28,6 @@ class MenuTest extends TestCase
      * Sets up the default fixture.
      *
      * @return void
-     *
-     * @global int The index of the selected page.
      */
     protected function setUp()
     {
@@ -48,11 +46,6 @@ class MenuTest extends TestCase
      * Sets up the default page structure.
      *
      * @return void
-     *
-     * @global int   The number of pages.
-     * @global array The headings of the pages.
-     * @global array The URLs of the pages.
-     * @global array The levels of the pages.
      */
     private function setUpPageStructure()
     {
@@ -92,8 +85,6 @@ class MenuTest extends TestCase
      * Sets up the default configuration options.
      *
      * @return void
-     *
-     * @global array The configuration of the core.
      */
     private function setUpConfiguration()
     {
@@ -120,8 +111,6 @@ class MenuTest extends TestCase
      * @param bool $flag Whether to enable edit mode.
      *
      * @return void
-     *
-     * @global bool Whether edit mode is enabled.
      */
     private function setUpEditMode($flag)
     {
@@ -135,8 +124,6 @@ class MenuTest extends TestCase
      * Sets up the default page data router mock.
      *
      * @return void
-     *
-     * @global PageDataRouter The page data router.
      */
     private function setUpPageDataRouterMock()
     {
@@ -209,8 +196,6 @@ class MenuTest extends TestCase
      *
      * @return void
      *
-     * @global int The index of the selected page.
-     *
      * @dataProvider dataForToc
      */
     public function testToc($start, $end, array $expected)
@@ -246,11 +231,6 @@ class MenuTest extends TestCase
      * Tests that two menu levels have the expected result.
      *
      * @return void
-     *
-     * @global array The levels of the pages.
-     * @global int   The number of pages.
-     * @global int   The index of the selected page.
-     * @global array The configuration of the core.
      */
     public function testTwoMenuLevelsToc()
     {
@@ -267,9 +247,6 @@ class MenuTest extends TestCase
      * Tests that show_hidden->pages_toc has the expected result.
      *
      * @return void
-     *
-     * @global int   The index of the selected page.
-     * @global array The configuration of the core.
      */
     public function testTocShowHiddenPagesShowsHiddenPage()
     {
@@ -284,9 +261,6 @@ class MenuTest extends TestCase
      * Tests that menu_levelcatch doesn't have a far subpage.
      *
      * @return void
-     *
-     * @global int   The index of the selected page.
-     * @global array The configuration of the core.
      */
     public function testLevelcatchDoesntFarSubpage()
     {
@@ -301,8 +275,6 @@ class MenuTest extends TestCase
      * Tests that no selected page has only toplevel pages.
      *
      * @return void
-     *
-     * @global int The index of the selected page.
      */
     public function testNoPageSelectedHasToplevelsOnly()
     {
@@ -468,8 +440,6 @@ class MenuTest extends TestCase
      * Tests that a selected page with children has the class "docs".
      *
      * @return void
-     *
-     * @global int The index of the selected page.
      */
     public function testSelectedPageHasClassSdocs()
     {
@@ -515,8 +485,6 @@ class MenuTest extends TestCase
      * Tests that a not selected childless page has the class "doc".
      *
      * @return void
-     *
-     * @global int The index of the selected page.
      */
     public function testNotSelectedChildlessPageHasClassDoc()
     {
@@ -538,9 +506,6 @@ class MenuTest extends TestCase
      * @param string $class A CSS class.
      *
      * @return void
-     *
-     * @global int   The index of the selected page.
-     * @global array The configuration of the core.
      *
      * @dataProvider dataForParentOfSelectedPageHasClassDependingOnSdoc
      */
@@ -578,8 +543,6 @@ class MenuTest extends TestCase
      * @param string $class      A CSS class.
      *
      * @return void
-     *
-     * @global array The configuration of the core.
      *
      * @dataProvider dataForH1WithH3HasClassDependingOnLevelcatch
      */
@@ -653,8 +616,6 @@ class MenuTest extends TestCase
      * Tests that the "Blog" submenu has exactly three items.
      *
      * @return void
-     *
-     * @global int The index of the selected page.
      */
     public function testBlogSubmenuHasExactlyThreeItems()
     {

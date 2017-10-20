@@ -17,12 +17,6 @@ class PluginConfigFileEdit extends PluginArrayFileEdit
 {
     /**
      * Constructs an instance.
-     *
-     * @global array  The paths of system files and folders.
-     * @global string The name of the currently loading plugin.
-     * @global array  The localization of the core.
-     * @global array  The configuration of the plugins.
-     * @global array  The localization of the plugins.
      */
     public function __construct()
     {

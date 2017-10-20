@@ -63,11 +63,6 @@ class Pages
 
     /**
      * Constructs an instance.
-     *
-     * @global array The headings of the pages.
-     * @global array The URLs of the pages.
-     * @global array The menu levels of the pages.
-     * @global array The contents of the pages.
      */
     public function __construct()
     {
@@ -200,8 +195,6 @@ class Pages
      * @param bool $ignoreHidden Whether hidden pages should be ignored.
      *
      * @return array of int
-     *
-     * @global array The configuration of the core.
      */
     public function children($n, $ignoreHidden = true)
     {

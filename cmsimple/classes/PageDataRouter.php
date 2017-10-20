@@ -364,12 +364,6 @@ class PageDataRouter
      *
      * @param int $s The index of the page.
      *
-     * @global bool
-     * @global string
-     * @global string
-     * @global string
-     * @global object The publisher.
-     *
      * @return string HTML
      */
 // @codingStandardsIgnoreStart
