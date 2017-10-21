@@ -28,15 +28,19 @@ group the options in categories. The options can have the
 following types, which can be specified in a file
 metaconfig.php.
 
-* *string*: a rather short text (represented as text input)
-* *text*: a text of arbitrary length (represented as textarea)
-* *bool*: a boolean value (represented as checkbox)
-* *enum*: one of several fixed values (represented as selectlist)
-* *xenum*: a text with suggestions of several fixed values (represented as text input with datalist)
-* *function*: one of several dynamic values (represented as selectlist)
-* *xfunction*: a text with suggestions of several dynamic values (represented as text input with datalist)
-* *hidden*: a hidden text field
-* *random*: a hidden random value that is regenerated on each save
+* `string`: a rather short text (represented as text input)
+* `text`: a text of arbitrary length (represented as textarea)
+* `bool`: a boolean value (represented as checkbox)
+* `enum`: one of several fixed values (represented as selectlist)
+* `xenum`: a text with suggestions of several fixed values (represented as text input with datalist)
+* `function`: one of several dynamic values (represented as selectlist)
+* `xfunction`: a text with suggestions of several dynamic values (represented as text input with datalist)
+* `hidden`: a hidden text field
+* `random`: a hidden random value that is regenerated on each save
+
+As of CMSimple_XH 1.7.0 it is also possible to mark configuration as advanced
+options by prepending a `+`, for instance `+bool` or `+string`. Such options are
+only displayed if the user presses the `More …` button in the configuration.
 
 Usage {#usage}
 ==============
