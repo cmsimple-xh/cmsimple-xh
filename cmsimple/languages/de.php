@@ -113,7 +113,7 @@ $tx['help']['menu_color']="Nicht von CMSimple_XH Systemfunktionen genutzt";
 $tx['help']['menu_highlightcolor']="Nicht von CMSimple_XH Systemfunktionen genutzt";
 $tx['help']['menu_sdoc']="Leer lassen oder \"parent\" einstellen, wodurch Oberseiten der aktuellen Seite die Stil-Klasse \"sdocs\" erhalten.";
 
-$tx['help']['meta_robots']="Standarteinstellung für alle Seiten. \"index,follow\" weist Suchroboter an, die Seite in den Suchindex aufzunehmen und allen Links zu folgen. \"noindex,nofollow\" weist das Gegenteil an.";
+$tx['help']['meta_robots']="Standardeinstellung für alle Seiten. \"index,follow\" weist Suchroboter an, die Seite in den Suchindex aufzunehmen und allen Links zu folgen. \"noindex,nofollow\" weist das Gegenteil an.";
 
 $tx['help']['pagemanager_external']="Wenn Sie einen externen Seiten-Manager verwenden möchten, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['plugins_disabled']="Eine durch Kommata getrennte Liste von Plugins, die nicht geladen werden sollen. <strong>Vorsicht: wenn eines dieser Plugins auf der Website verwendet wird, kann es sein, dass Sie auf die Website nicht mehr zugreifen können, und diese Option per FTP korrigieren müssen!</strong>";
