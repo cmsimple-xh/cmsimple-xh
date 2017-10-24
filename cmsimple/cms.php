@@ -74,7 +74,7 @@
  */
 
 // prevent direct access
-if (preg_match('/cms.php/i', $_SERVER['PHP_SELF'])) {
+if (preg_match('/cms\.php/i', $_SERVER['PHP_SELF'])) {
     die('Access Denied');
 }
 
