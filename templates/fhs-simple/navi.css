@@ -142,7 +142,7 @@
 	display: block;
 	border-top: 1px dotted #ccc;
 }
-.secmenu span :not(.newsin) {
+.secmenu .sdoc span, .secmenu .sdocs span {
 	padding: .5em .5em .5em 1em;
 	display: block;
 	background: rgba(0, 0, 0, 0.05);
