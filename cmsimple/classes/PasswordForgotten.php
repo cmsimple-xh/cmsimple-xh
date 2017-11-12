@@ -63,7 +63,8 @@ class PasswordForgotten
         global $title, $o, $sn, $tx, $onload;
 
         $title = $tx['title']['password_forgotten'];
-        $o .= '<h1>' . $title . '</h1>';
+        $o .= '<div class="xh_login">'
+            . '<h1>' . $title . '</h1>';
         switch ($this->status) {
             case 'sent':
                 $o .= '<p>' . $tx['password_forgotten']['email1_sent'] . '</p>';
@@ -81,6 +82,7 @@ class PasswordForgotten
                 $onload .= 'document.forms[\'xh_forgotten\'].elements[\'xh_email\']'
                     . '.focus();';
         }
+        $o .= '</div>';
     }
 
     /**
