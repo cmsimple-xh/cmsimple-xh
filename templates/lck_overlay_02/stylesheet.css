@@ -618,10 +618,10 @@ table td {
 	padding: 0;
 	width: 100% !important;
 }
-.left_30,
-.left_50,
-.right_30,
-.right_50 {
+.left_30, img.left_30, div.left_30,
+.left_50, img.left_50, div.left_50,
+.right_30, img.right_30, div.right_30,
+.right_50, img.right_50, div.right_50 {
 	float: none;
 	margin: 1em 0;
 	max-width: 100%;
