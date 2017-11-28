@@ -183,7 +183,7 @@ class Search
         $count = count($pages);
         $o .= $this->foundMessage($count) . PHP_EOL;
         if ($count > 0) {
-            $o .= '<ul>' . PHP_EOL;
+            $o .= '<ul class="xh_search_results">' . PHP_EOL;
             $words = implode(' ', $words);
             foreach ($pages as $i) {
                 $pageData = $pd_router->find_page($i);
