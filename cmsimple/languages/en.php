@@ -129,6 +129,7 @@ $tx['help']['uri_seperator']="The character which separates names of pages and s
 $tx['help']['uri_word_separator']="The character which separates words in the URL.";
 $tx['help']['uri_length']="The URLs of the pages will be truncated at this length. This might change in a future release, so it's best to use shorter page headings (e.g. by using Page&rarr;Alternative heading).";
 
+$tx['help']['folders_content']="The folder where the contents are stored (content.htm etc.)";
 $tx['help']['folders_userfiles']="The base folder of all userfiles.";
 $tx['help']['folders_downloads']="A subfolder of userfiles.";
 $tx['help']['folders_images']="A subfolder of userfiles.";
