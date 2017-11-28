@@ -130,6 +130,7 @@ $tx['help']['uri_seperator']="Das Zeichen, das die Namen von Seiten und Untersei
 $tx['help']['uri_word_separator']="Das Zeichen, das Wörter in der URL trennt.";
 $tx['help']['uri_length']="Die URLs der Seiten werden ab dieser Länge abgeschnitten. Das könnte sich in einer zukünftigen Version ändern, so dass es das Beste ist, kürzere Seitenüberschriften zu verwenden (z.B. durch die Verwendung von Seite&rarr;Andere Seitenüberschrift).";
 
+$tx['help']['folders_content']="Der Ordner, in dem die Inhalte gespeichert werden (content.htm etc.)";
 $tx['help']['folders_userfiles']="Der Basisordner aller Benutzerdateien.";
 $tx['help']['folders_downloads']="Ein Unterordner der Benutzerdateien.";
 $tx['help']['folders_images']="Ein Unterordner der Benutzerdateien.";
