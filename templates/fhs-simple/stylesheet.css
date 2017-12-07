@@ -1,9 +1,10 @@
-/*** FONTS ***/
+@charset "utf-8";
+/*** FONTS ***/	
 @font-face {
 	font-family: 'OpenSans-Regular';
 	src: url('fonts/opensans/OpenSans-Regular.eot');
 	src: url('fonts/opensans/OpenSans-Regular.eot?#iefix') format('embedded-opentype'), url('fonts/opensans/OpenSans-Regular.woff') format('woff');
-	font-weight: normal;
+	font-weight: 400;
 	font-style: normal;
 }
 @font-face {
@@ -11,36 +12,30 @@
 	src: url('fonts/opensans/OpenSans-RegularItalic.eot');
 	src: url('fonts/opensans/OpenSans-RegularItalic.eot?#iefix') format('embedded-opentype'), url('fonts/opensans/OpenSans-RegularItalic.woff') format('woff');
 	font-weight: normal;
-	font-style: normal;
+	font-style: italic;
 }
 @font-face {
 	font-family: 'OpenSans-Semibold';
 	src: url('fonts/opensans/OpenSans-Semibold.eot');
 	src: url('fonts/opensans/OpenSans-Semibold.eot?#iefix') format('embedded-opentype'), url('fonts/opensans/OpenSans-Semibold.woff') format('woff');
-	font-weight: normal;
+	font-weight: 600;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'OpenSans-SemiboldItalic';
 	src: url('fonts/opensans/OpenSans-SemiboldItalic.eot');
 	src: url('fonts/opensans/OpenSans-SemiboldItalic.eot?#iefix') format('embedded-opentype'), url('fonts/opensans/OpenSans-SemiboldItalic.woff') format('woff');
-	font-weight: normal;
-	font-style: normal;
+	font-weight: 600;
+	font-style: italic;
 }
 i, em {
 	font-family: "OpenSans-RegularItalic", sans-serif;
-	font-style: normal;
-	font-weight: normal;
 }
 b, strong {
 	font-family: "OpenSans-Semibold", sans-serif;
-	font-style: normal;
-	font-weight: normal;
 }
 b i, strong i, b em, strong em, i b, i strong, em b, em strong {
 	font-family: "OpenSans-SemiboldItalic", sans-serif;
-	font-style: normal;
-	font-weight: normal;
 }
 /*** Allgemeine Styles ***/
 .clear {
