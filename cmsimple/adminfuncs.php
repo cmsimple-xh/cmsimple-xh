@@ -297,7 +297,7 @@ HTML;
         );
     }
     $checks['other'][] = array(
-        date_default_timezone_get() !== 'UTC',
+        in_array($temp = date_default_timezone_get(), timezone_identifiers_list()) && $temp !== 'UTC',
         false, $stx['timezone']
     );
     $checks['other'][] = array(
