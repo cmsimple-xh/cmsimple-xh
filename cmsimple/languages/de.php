@@ -319,9 +319,9 @@ $tx['title']['userfiles']="Andere";
 $tx['title']['validate']="Links prüfen";
 $tx['title']['xh_backups']="Sicherheitskopien";
 
-$tx['toc']['dupl']="DOPPELTE ÜBERSCHRIFT";
-$tx['toc']['empty']="LEERE ÜBERSCHRIFT";
-$tx['toc']['missing']="FEHLENDE ÜBERSCHRIFT";
+$tx['toc']['dupl']="DOPPELTER SEITENAME";
+$tx['toc']['empty']="LEERER SEITENAME";
+$tx['toc']['missing']="FEHLENDER SEITENAME";
 $tx['toc']['newpage']="NEUE SEITE";
 
 $tx['uri']['toolong']="Gemäß Einstellungen&rarr;CMS&rarr;Uri&rarr;Length ist die URL zu lang:";
