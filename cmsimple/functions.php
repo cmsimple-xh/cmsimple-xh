@@ -2533,13 +2533,21 @@ function XH_onShutdown()
         unset($_SESSION['xh_password']);
     }
 
-    if (error_reporting() <= 0) {
-        $lastError = error_get_last();
-        if (in_array($lastError['type'], array(E_ERROR, E_PARSE))) {
+    $lastError = error_get_last();
+    if (in_array($lastError['type'], array(E_ERROR, E_PARSE))) {
+        if (error_reporting() <= 0) {
             echo $tx['error']['fatal'];
+        } else {
+            printf(
+                '%s in <b>%s</b> on line <b>%d</b>',
+                nl2br($lastError['message']),
+                $lastError['file'],
+                $lastError['line']
+            );
         }
     }
 }
+
 /**
  * Returns a timestamp formatted according to config and lang.
  *
