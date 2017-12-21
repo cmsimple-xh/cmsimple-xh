@@ -104,9 +104,9 @@
 
     <target name="build" description="builds a distributable ZIP archive">
         <fail unless="version" message="version is not defined!"/>
-        <exec command="git archive -o export.tar HEAD" checkreturn="true"/>
-        <untar file="export.tar" todir="export"/>
-        <delete file="export.tar"/>
+        <exec command="git archive -o export.zip HEAD" checkreturn="true"/>
+        <unzip file="export.zip" todir="export"/>
+        <delete file="export.zip"/>
         <tstamp>
             <format property="TODAY" pattern="%Y-%m-%d"/>
         </tstamp>
