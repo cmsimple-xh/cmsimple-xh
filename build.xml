@@ -196,6 +196,7 @@
                 <present present="both" targetdir="current"/>
             </fileset>
         </delete>
+        <touch file="deleted_files.txt"/>
         <foreach param="filename" target="list-deleted-file">
             <fileset dir="patchee/cmsimplexh">
                 <type type="file"/>
