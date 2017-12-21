@@ -172,7 +172,9 @@ class MainAdminController extends Controller
             'offendingExtensionError' => $this->lang['error_offending_extension'],
             'hasCheckboxes' => $this->config['pagedata_attribute'] !== '',
             'dataURL' => (string) $url->with('pagemanager', '')->with('admin', 'plugin_main')
-                ->with('action', 'plugin_data')->with('edit', '')
+                ->with('action', 'plugin_data')->with('edit', ''),
+            'uriCharOrg' => explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']),
+            'uriCharNew' => explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new'])
         );
         return json_encode($config);
     }
