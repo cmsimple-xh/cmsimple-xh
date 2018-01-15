@@ -174,7 +174,7 @@ class Search
      */
     public function render()
     {
-        global $h, $u, $sn, $cf, $tx, $pd_router;
+        global $h, $u, $cf, $tx, $pd_router;
 
         $cf['meta']['robots'] = 'noindex, nofollow';
         $o = '<h1>' . $tx['search']['result'] . '</h1>';
@@ -189,8 +189,7 @@ class Search
                 $pageData = $pd_router->find_page($i);
                 $site = isset($pageData['title']) ? $pageData['title'] : '';
                 $title = XH_title($site, $h[$i]);
-                $url = $sn . '?' . $u[$i] . '&amp;search=' . urlencode($words);
-                $o .= '    <li><a href="' . $url . '">' . $title . '</a>';
+                $o .= '    <li>' . a($i, '&amp;search=' . urlencode($words)) . $title . '</a>';
                 $description = isset($pageData['description'])
                     ? $pageData['description'] : '';
                 if ($description != '') {
