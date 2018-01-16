@@ -1464,7 +1464,6 @@ function loginforms()
             . '<form id="login" name="login" action="' . $sn . '?' . $su
             . '" method="post">'
             . '<input type="hidden" name="login" value="true">'
-            . '<input type="hidden" name="selected" value="' . $su . '">'
             . '<input type="password" name="keycut" id="passwd" value="">'
             . ' '
             . '<input type="submit" name="submit" id="submit" value="'
