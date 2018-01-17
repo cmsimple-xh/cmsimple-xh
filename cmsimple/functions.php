@@ -873,13 +873,8 @@ function XH_findNextPage()
  */
 function a($i, $x)
 {
-    global $sn, $u, $cf;
+    global $sn, $u;
 
-    if ($i == 0 && !XH_ADM) {
-        if ($x == '' && $cf['locator']['show_homepage'] == 'true') {
-            return '<a href="' . $sn . '?' . $u[0] . '">';
-        }
-    }
     return isset($u[$i])
         ? '<a href="' . $sn . '?' . $u[$i] . $x . '">'
         : '<a href="' . $sn . '?' . $x . '">';
