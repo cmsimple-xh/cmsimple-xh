@@ -47,7 +47,7 @@ function Pageparams_handleRelocation($index, array $data)
     if ((int) $data['use_header_location'] > 0 && trim($location) !== '') {
         $components = parse_url($location);
         if (!$components || !isset($components['scheme'])) {
-            $location = CMSIMPLE_URL . $location;
+            $location = CMSIMPLE_URL . str_replace('#', '\x23', $location);
         }
         $c[$index] = '#CMSimple header("Location:'. $location .'"); exit; #';
     }
