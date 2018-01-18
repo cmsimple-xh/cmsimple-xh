@@ -316,6 +316,15 @@ class FunctionsTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testAWithEmptyX()
+    {
+        global $sn, $u;
+
+        $sn = '/xh/';
+        $u = [];
+        $this->assertEquals('<a href="/xh/">', a(0, ''));
+    }
+
     public function testMeta()
     {
         $actual = meta('robots');

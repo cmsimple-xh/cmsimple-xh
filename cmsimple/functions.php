@@ -877,7 +877,7 @@ function a($i, $x)
 
     return isset($u[$i])
         ? '<a href="' . $sn . '?' . $u[$i] . $x . '">'
-        : '<a href="' . $sn . '?' . $x . '">';
+        : '<a href="' . $sn . ($x ? '?' . $x : '') . '">';
 }
 
 /**
