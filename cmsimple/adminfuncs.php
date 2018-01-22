@@ -180,6 +180,17 @@ function XH_absoluteUrlPath($path)
 function XH_isAccessProtected($path)
 {
     $url = preg_replace('/index\.php$/', '', CMSIMPLE_URL) . $path;
+    if (extension_loaded('curl')) {
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_NOBODY, true);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 5);
+        if (curl_exec($curl)) {
+            $status = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+            curl_close($curl);
+            return $status >= 400 && $status < 500;
+        }
+        curl_close($curl);
+    }
     $defaultContext = stream_context_set_default(
         array('http' => array('method' => 'HEAD', 'timeout' => 5))
     );
