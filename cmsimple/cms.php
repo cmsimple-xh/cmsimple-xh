@@ -589,7 +589,7 @@ $userfiles = null;
  *
  * This <i>read-only</i> variable is initialized from a <var>edit</var>
  * GET/POST parameter or the <var>mode</var> cookie. If you want to switch to
- * edit or view mode, you should set the <var>edit</var> GET parameter.
+ * edit mode, set the <var>edit</var> GET parameter.
  *
  * @global string $edit
  *
@@ -600,11 +600,12 @@ $userfiles = null;
 $edit = null;
 
 /**
- * Whether normal mode is requested.
+ * Whether normal (aka view) mode is requested.
  *
  * This <i>read-only</i> variable is initialized from a <var>normal</var>
- * GET/POST parameter or the <var>mode</var> cookie. If you want to switch to
- * edit or view mode, you should set the <var>normal</var> GET parameter.
+ * GET/POST parameter, but not from the <var>mode</var> cookie. If you want to
+ * detect normal mode, check for <code>!$edit</code>. If you want to switch to
+ * normal mode, set the <var>normal</var> GET parameter.
  *
  * @global string $normal
  *
