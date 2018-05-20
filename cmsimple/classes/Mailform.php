@@ -189,7 +189,7 @@ class Mailform
         }
         $again = true;
 
-        $anchor = '<div id="xh_mailform"></div>';
+        $anchor = '<div id="xh_mailform_anchor"></div>';
         if ($action == 'send') {
             $o = $this->check();
             if (!$o && $this->submit()) {
