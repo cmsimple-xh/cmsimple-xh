@@ -238,6 +238,11 @@
     margin: 0 0 8px 0;
 }
 
+#xh_mailform_anchor div {
+    width: 250px;
+    margin: 0 0 8px 0;
+}
+
 #xh_mailform .text, .xh_mailform textarea {
     width: 100%;
     box-sizing: border-box;
