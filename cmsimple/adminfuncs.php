@@ -240,7 +240,7 @@ function XH_sysinfo()
         . '</ul>' . "\n\n";
     $o .= '<p><b>' . $tx['sysinfo']['php_version'] . '</b></p>' . "\n"
         . '<ul>' . "\n" . '<li>' . phpversion() . '</li>' . "\n"
-        . '<li><a href="' . $sn . '?&phpinfo" target="blank"><b>'
+        . '<li><a href="' . $sn . '?&phpinfo" target="_blank"><b>'
         . $tx['sysinfo']['phpinfo_link'] . '</b></a> &nbsp; '
         . $tx['sysinfo']['phpinfo_hint'] . '</li>' . "\n" . '</ul>' . "\n" . "\n";
 
