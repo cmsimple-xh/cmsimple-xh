@@ -250,13 +250,27 @@ function searchbox()
 
 
 /**
+ * Returns a link to the homepage.
+ *
+ * @param string $img Optional image file name, searched in template folder.
+ *
+ * @return string HTML
+ */
+function homelink($img = '') 
+{
+    //TODO why not use ml() ?
+    return a(0) . img_or_text($img, 'Home') . '</a>';
+}
+
+
+/**
  * Returns the sitemap link.
  *
  * @return string HTML
  */
-function sitemaplink()
+function sitemaplink($img = '')
 {
-    return ml('sitemap');
+    return ml('sitemap', $img);
 }
 
 
@@ -265,12 +279,12 @@ function sitemaplink()
  *
  * @return string HTML
  */
-function printlink()
+function printlink($img = '')
 {
     global $tx;
 
     return '<a href="' . XH_printUrl() . '" rel="nofollow">'
-        . $tx['menu']['print'] . '</a>';
+        . img_or_text($img, $tx['menu']['print']) . '</a>';
 }
 
 /**
@@ -466,34 +480,38 @@ function submenu($html = '')
 /**
  * Returns a link to the previous page.
  *
+ * @param string $img Optional image file name, searched in images plugin folder.
+ *
  * @return string HTML
  *
  * @see nextpage()
  */
-function previouspage()
+function previouspage($img='')
 {
     global $tx;
 
     $index = XH_findPreviousPage();
     if ($index !== false) {
-        return a($index, '" rel="prev') . $tx['navigator']['previous'] . '</a>';
+        return a($index, '" rel="prev') . img_or_text($img, $tx['navigator']['previous']) . '</a>';
     }
 }
 
 /**
  * Returns a link to the next page
  *
+ * @param string $img Optional image file name, searched in images plugin folder.
+ *
  * @return string HTML
  *
  * @see previouspage()
  */
-function nextpage()
+function nextpage($img='')
 {
     global $tx;
 
     $index = XH_findNextPage();
     if ($index !== false) {
-        return a($index, '" rel="next') . $tx['navigator']['next'] . '</a>';
+        return a($index, '" rel="next') . img_or_text($img, $tx['navigator']['next']) . '</a>';
     }
 }
 
@@ -502,13 +520,15 @@ function nextpage()
  *
  * To work, an appropriate ID has to be defined in the template.
  *
+ * @param string $img Optional image file name, searched in images plugin folder.
+ *
  * @param string $id An (X)HTML ID.
  */
-function top($id = 'TOP')
+function top($id = 'TOP', $img='')
 {
     global $tx;
 
-    return '<a href="#' . $id . '">' . $tx['navigator']['top'] . '</a>';
+    return '<a href="#' . $id . '">' . img_or_text($img, $tx['navigator']['top']) . '</a>';
 }
 
 
