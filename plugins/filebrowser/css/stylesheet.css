@@ -181,8 +181,9 @@ a.xhfbfile:hover, span.xhfbfile:hover {
 div[id*='xhFilebrowser'] span.fa {
 	vertical-align: baseline;
 }
-div[id*='xhFilebrowser'] span.fa-folder {
-	color: rgb(255,153,0);
+div[id*='xhFilebrowser'] span.fa-folder,
+div[id*='xhFilebrowser'] span.fa-folder-open {
+    color: rgb(255,153,0);
 }
 div[id*='xhFilebrowser'] span.fa-tag {
 	color: rgb(51,153,204);

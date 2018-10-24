@@ -168,12 +168,14 @@ class View
         global $sn;
 
         $class = 'folder';
+        $fa_class = 'folder';
         if (substr($this->currentDirectory, 0, strlen("$folder/")) == "$folder/") {
             $class = 'openFolder';
+            $fa_class = 'folder-open';
         }
         $temp = explode('/', $folder);
         $html = '<li class="' . $class . '"><a href="' . $sn . '?'
-            . XH_hsc($this->linkParams) . '&amp;subdir=' . $folder . '"><span class="fa fa-folder fa-fw fa-lg"></span> '
+            . XH_hsc($this->linkParams) . '&amp;subdir=' . $folder . '"><span class="fa fa-' . $fa_class . ' fa-fw fa-lg"></span> '
             . end($temp) . '</a>';
         if (count($folders[$folder]['children']) > 0) {
             if (substr($this->currentDirectory, 0, strlen($folder)) !== $folder) {
