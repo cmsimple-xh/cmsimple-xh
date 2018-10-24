@@ -58,7 +58,6 @@ display: none;
 }
 
 #xhFilebrowser li.openFolder, #xhFilebrowserMenu li.openFolder {
-list-style-image:url(icons/folder.png);
 padding: 2px 0 2px 5px;
 margin: 0 0 0 0;
 line-height: 1em;
@@ -67,7 +66,6 @@ font-weight: 900;
 }
 
 #xhFilebrowser li.folder, #xhFilebrowserMenu li.folder{
-list-style-image:url(icons/folder.png);
 padding: 2px 0 2px 5px;
 margin: 0 0 0 0;
 line-height: 1em;
@@ -178,3 +176,38 @@ a.xhfbfile:hover, span.xhfbfile:hover {
 #xhFilebrowserMenu a:hover {color: #c60; text-decoration: none;}
 #xhFilebrowserMenu a:active {color: #c60; text-decoration: none;}
 #xhFilebrowserMenu a:focus {color: #c60; text-decoration: none;}
+
+/* FA-Icons & colors */
+div[id*='xhFilebrowser'] span.fa {
+	vertical-align: baseline;
+}
+div[id*='xhFilebrowser'] span.fa-folder {
+	color: rgb(255,153,0);
+}
+div[id*='xhFilebrowser'] span.fa-tag {
+	color: rgb(51,153,204);
+}
+div[id*='xhFilebrowser'] span.fa-remove {
+	color: rgb(255,51,0);
+}
+/* Buttons */
+div[id*='xhFilebrowser'] .xhButtonImg {
+	font: inherit !important;
+	cursor: pointer !important;
+	padding: 0 !important;
+	margin: 0 .25em .25em 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	vertical-align: baseline;
+	text-transform: none !important;
+	height: auto !important;
+	display: inline-block;
+	max-width: inherit !important;
+}
+div[id*='xhFilebrowser'] .xhButtonImg:hover,
+div[id*='xhFilebrowser'] .xhButtonImg:active,
+div[id*='xhFilebrowser'] .xhButtonImg:focus {
+	outline: thin dotted !important;
+	outline: 5px auto -webkit-focus-ring-color !important;
+	outline-offset: 1px !important;
+}

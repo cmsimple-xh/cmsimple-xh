@@ -61,6 +61,9 @@ if (!$cf['filebrowser']['external']
         $f = 'media';
     }
 
+    $temp = new Fa\RequireCommand;
+    $temp->execute();
+
     $bjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
         . 'filebrowser/js/filebrowser.min.js"></script>';
 

@@ -138,7 +138,7 @@ class View
         global $tx;
 
         $html = '<ul><li class="openFolder"><a href="?'
-            . XH_hsc($this->linkParams) . '">'
+            . XH_hsc($this->linkParams) . '"><span class="fa fa-folder fa-fw fa-lg"></span> '
             . $tx['title']['userfiles'] . ' ' . $this->lang['folder'] . '</a>';
         if (!empty($folders)) {
             $html .= '<ul>';
@@ -173,7 +173,7 @@ class View
         }
         $temp = explode('/', $folder);
         $html = '<li class="' . $class . '"><a href="' . $sn . '?'
-            . XH_hsc($this->linkParams) . '&amp;subdir=' . $folder . '">'
+            . XH_hsc($this->linkParams) . '&amp;subdir=' . $folder . '"><span class="fa fa-folder fa-fw fa-lg"></span> '
             . end($temp) . '</a>';
         if (count($folders[$folder]['children']) > 0) {
             if (substr($this->currentDirectory, 0, strlen($folder)) !== $folder) {
@@ -207,13 +207,13 @@ class View
             $html = '<ul>';
             foreach ($folders as $folder) {
                 $name = str_replace($this->currentDirectory, '', $folder);
-                $html .= '<li class="folder">'
+                $html .= '<li class="folder"><span class="fa fa-folder fa-fw fa-lg"></span>'
                     . '<form style="display: inline;" method="post" action="'
                     . $action . '" class="filebrowser_delete_folder" data-path="'
                     . XH_hsc($this->basePath) . $folder . '">'
-                    . '<input type="image" src="' . $this->browserPath
-                    . 'css/icons/delete.png" alt="delete" title="'
+                    . '<button class="xhButtonImg" title="'
                     . $this->translate('delete_folder') . '">'
+                    .'<span class="fa fa-remove fa-lg fa-fw"></span></button>'
                     . '<input type="hidden" name="deleteFolder">'
                     . '<input type="hidden" name="folder" value="' . $folder . '">'
                     . $_XH_csrfProtection->tokenInput()
@@ -269,10 +269,9 @@ class View
                 . '<form style="display: inline;" method="post" action="'
                 . $action . '" class="filebrowser_delete_file" data-path="'
                 . XH_hsc($this->currentDirectory . $file) . '">'
-                . '<input type="image" src="' . $this->browserPath
-                . 'css/icons/delete.png" alt="delete" title="'
-                . $this->translate('delete_file')
-                . '" style="width: 16px; height: 16px">'
+                . '<button class="xhButtonImg" title="'
+                . $this->translate('delete_file') . '">'
+                .'<span class="fa fa-remove fa-lg fa-fw"></span></button>'
                 . '<input type="hidden" name="deleteFile">'
                 . '<input type="hidden" name="filebrowser_file" value="'
                 . $file . '">'
@@ -284,11 +283,9 @@ class View
                 . '<input type="hidden" name="renameFile" value="'
                 . $file . '">'
                 . '<input type="hidden" name="oldName" value="' . $file . '">'
-                . '<input type="image" src="' . $this->browserPath
-                . 'css/icons/rename.png"' . ' alt="'
-                . $this->translate('rename_file') . '" title="'
-                . $this->translate('rename_file')
-                . '" style="width: 16px; height: 16px">'
+                . '<button class="xhButtonImg" title="'
+                . $this->translate('rename_file') . '">'
+                .'<span class="fa fa-tag fa-lg fa-fw"></span></button>'
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
                 . '<a style="position:relative" class="xhfbfile" href="'
