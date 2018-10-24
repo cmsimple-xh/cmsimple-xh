@@ -126,7 +126,13 @@ font-weight: 300;
 
 #xhFilebrowser a { color: #333;}
 a.xhfbfile, span.xhfbfile {padding: 0 2px 0 0; line-height: 1em;}
-a.xhfbfile img, span.xhfbfile img {border: none; margin: 6px;}
+a.xhfbfile img, span.xhfbfile img {
+    border: none !important;
+    margin: .25em 0 0 0 !important;
+    max-height: 10em !important;
+    max-width: 10em !important;
+    box-shadow: none !important;
+}
 a.xhfbfile span, span.xhfbfile span {display: none;}
 a.xhfbfile:hover span, #filebrowser_files ul li:hover a.xhfbfile span,
 span.xhfbfile:hover span, #filebrowser_files ul li:hover span.xhfbfile span {
