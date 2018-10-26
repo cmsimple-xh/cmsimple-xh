@@ -315,7 +315,7 @@ $tx['title']['settings']="Einstellungen";
 $tx['title']['sitemap']="Inhaltsverzeichnis";
 $tx['title']['sysinfo']="System-Info";
 $tx['title']['templates']="Templates";
-$tx['title']['userfiles']="Andere";
+$tx['title']['userfiles']="Benutzer-Dateien";
 $tx['title']['validate']="Links prüfen";
 $tx['title']['xh_backups']="Sicherheitskopien";
 
