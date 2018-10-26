@@ -49,7 +49,6 @@ $tx['editmenu']['settings']="Einstellungen";
 $tx['editmenu']['stylesheet']="Stylesheet";
 $tx['editmenu']['sysinfo']="Info";
 $tx['editmenu']['template']="Template";
-$tx['editmenu']['userfiles']="Andere";
 $tx['editmenu']['validate']="Links prüfen";
 
 $tx['error']['401']="Fehler 401: Nicht erlaubt";
