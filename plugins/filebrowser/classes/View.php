@@ -138,7 +138,7 @@ class View
         global $tx;
 
         $html = '<ul><li class="openFolder"><a href="?'
-            . XH_hsc($this->linkParams) . '"><span class="fa fa-folder fa-fw fa-lg"></span> '
+            . XH_hsc($this->linkParams) . '"><span class="fa fa-folder-open fa-fw fa-lg"></span> '
             . $tx['title']['userfiles'] . ' ' . $this->lang['folder'] . '</a>';
         if (!empty($folders)) {
             $html .= '<ul>';
@@ -210,7 +210,7 @@ class View
             foreach ($folders as $folder) {
                 $name = str_replace($this->currentDirectory, '', $folder);
                 $html .= '<li class="folder"><span class="fa fa-folder fa-fw fa-lg"></span>'
-                    . '<form style="display: inline;" method="post" action="'
+                    . '<form method="post" action="'
                     . $action . '" class="filebrowser_delete_folder" data-path="'
                     . XH_hsc($this->basePath) . $folder . '">'
                     . '<button class="xhButtonImg" title="'
@@ -267,8 +267,8 @@ class View
         $action = $sn . '?' . XH_hsc($_SERVER['QUERY_STRING']);
         foreach ($files as $file) {
             $class = $class == 'odd' ? 'even' : 'odd';
-            $html .= '<li style="white-space:nowrap;" class="' . $class . '">'
-                . '<form style="display: inline;" method="post" action="'
+            $html .= '<li class="' . $class . '">'
+                . '<form method="post" action="'
                 . $action . '" class="filebrowser_delete_file" data-path="'
                 . XH_hsc($this->currentDirectory . $file) . '">'
                 . '<button class="xhButtonImg" title="'
@@ -279,7 +279,7 @@ class View
                 . $file . '">'
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
-                . '<form method="post" style="display:inline;" action="'
+                . '<form method="post" action="'
                 . $action . '" class="filebrowser_rename_file" data-path="'
                 . XH_hsc($file) . '">'
                 . '<input type="hidden" name="renameFile" value="'
@@ -290,7 +290,7 @@ class View
                 .'<span class="fa fa-tag fa-lg fa-fw"></span></button>'
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
-                . '<a style="position:relative" class="xhfbfile" href="'
+                . '<a class="xhfbfile" href="'
                 . $this->basePath . $this->currentDirectory . $file
                 . '" target="_blank">' . $file;
 
@@ -367,8 +367,8 @@ class View
             $width = 150;
             $height = $width / $ratio;
         }
-        return '<span style="position: relative;  z-index: 4; ">'
-            . '<span style="font-weight: normal; border: none;">'
+        return '<span>'
+            . '<span>'
             . $image[0] . ' x ' . $image[1] . ' px</span>' . '<br>'
             . '<img src="' . $path . '" width="' . $width . '" height="'
             . $height . '" alt="' . $file . '">'
@@ -468,7 +468,7 @@ class View
      */
     public function message($message)
     {
-        $this->message .= '<p style="width: auto;">' . $message . '</p>';
+        $this->message .= '<p>' . $message . '</p>';
     }
 
     /**
