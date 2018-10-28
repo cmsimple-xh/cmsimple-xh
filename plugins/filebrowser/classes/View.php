@@ -176,7 +176,7 @@ class View
         global $sn;
 
         $class = 'folder';
-        if (substr($this->currentDirectory, 0, strlen($folder)) == $folder) {
+        if (substr($this->currentDirectory, 0, strlen("$folder/")) == "$folder/") {
             $class = 'openFolder';
         }
         $temp = explode('/', $folder);
