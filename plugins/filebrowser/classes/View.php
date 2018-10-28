@@ -238,6 +238,20 @@ class View
     }
 
     /**
+     * Returns whether a file is an image file.
+     *
+     * @param string $filename A file name.
+     *
+     * @return bool
+     */
+    private function isImageFile($filename)
+    {
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $exts = array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'tiff', 'ico');
+        return in_array(strtolower($ext), $exts);
+    }
+
+    /**
      * Returns the file list view for the CMS browser.
      *
      * @param array $files An array of files.
@@ -303,7 +317,7 @@ class View
                 : '';
 
             $path = $this->basePath . $this->currentDirectory . $file;
-            if (($image = getimagesize($path))) {
+            if ($this->isImageFile($path) && ($image = getimagesize($path))) {
                 $html .= $this->renderImage($path, $file, $image, $usage);
             }
             $html .= '</a> (' .  $this->renderFileSize($path) . ')</li>';
@@ -341,7 +355,7 @@ class View
 
             $path = $dir . $file;
             if (strpos($this->linkParams, 'type=images') !== false
-                && ($image = getimagesize($path))
+                && $this->isImageFile($path) && ($image = getimagesize($path))
             ) {
                 $html .= $this->renderImage($path, $file, $image);
             }
