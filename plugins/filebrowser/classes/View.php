@@ -209,7 +209,7 @@ class View
             $html = '<ul>';
             foreach ($folders as $folder) {
                 $name = str_replace($this->currentDirectory, '', $folder);
-                $html .= '<li class="folder"><span class="fa fa-folder fa-fw fa-lg"></span>'
+                $html .= '<li class="folder">'
                     . '<form method="post" action="'
                     . $action . '" class="filebrowser_delete_folder" data-path="'
                     . XH_hsc($this->basePath) . $folder . '">'
@@ -221,7 +221,7 @@ class View
                     . $_XH_csrfProtection->tokenInput()
                     . '</form>'
                     . '<a href="?' . $this->linkParams . '&amp;subdir=' . $folder
-                    . '">' . $name . '</a></li>';
+                    . '"><span class="fa fa-folder fa-fw fa-lg"></span>' . $name . '</a></li>';
             }
             $html .= '</ul>';
         }
