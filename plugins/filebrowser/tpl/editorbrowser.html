@@ -23,7 +23,7 @@ global $pth, $_XH_csrfProtection;
                 <div style="padding: 3em;">
 
                     <form method="post" class="filebrowser_upload" enctype="multipart/form-data">
-                        <input type="file" name="fbupload">
+                        <input type="file" name="fbupload" required>
                         <input type="hidden" name="upload" value="upload">
 			<?php echo $_XH_csrfProtection->tokenInput()?>
                         <input type="submit" class="submit" value="<?php echo $this->translate('upload_file')?>">
@@ -35,7 +35,7 @@ global $pth, $_XH_csrfProtection;
                 <div style="padding: 3em;">
 
                     <form method="post">
-                        <input type="text" name="createFolder" size="30">
+                        <input type="text" name="createFolder" size="30" required>
 			<?php echo $_XH_csrfProtection->tokenInput()?>
                         <input type="submit" class="submit" value="<?php echo $this->translate('create_folder')?>">
                     </form>
