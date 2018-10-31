@@ -215,7 +215,7 @@ div.xhFilebrowserDiv .xhButtonImg:focus {
 }
 div.xhFilebrowserDiv button.filebrowser_folder_toggle,
 div.xhFilebrowserDiv button.filebrowser_upload_toggle,
-div.xhFilebrowserDiv input.submit {
+div.xhFilebrowserDiv button.submit {
 	font: normal 15px/normal sans-serif;
 	font-weight: bold !important;
 	padding: .25em .5em !important;
@@ -232,8 +232,8 @@ div.xhFilebrowserDiv input.submit {
 }
 div.xhFilebrowserDiv button.filebrowser_folder_toggle:hover,
 div.xhFilebrowserDiv button.filebrowser_folder_toggle:focus,
-div.xhFilebrowserDiv input.submit:hover,
-div.xhFilebrowserDiv input.submit:focus,
+div.xhFilebrowserDiv button.submit:hover,
+div.xhFilebrowserDiv button.submit:focus,
 div.xhFilebrowserDiv button.filebrowser_upload_toggle:hover,
 div.xhFilebrowserDiv button.filebrowser_upload_toggle:focus {
 	background: #999 !important;
