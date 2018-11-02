@@ -688,8 +688,9 @@ class MenuTest extends TestCase
 
     public function testBuildHcForThirdPage()
     {
-        global $s, $si, $hc, $hl;
+        global $c, $s, $si, $hc, $hl;
 
+        $c = [];
         $s = 3;
         XH_buildHc();
         $this->assertEquals(array(0, 1, 2, 3, 6, 7, 8, 9, 10), $hc);
@@ -699,8 +700,9 @@ class MenuTest extends TestCase
 
     public function testBuildHcForFifthPage()
     {
-        global $s, $si, $hc, $hl;
+        global $c, $s, $si, $hc, $hl;
 
+        $c = [];
         $s = 5;
         XH_buildHc();
         $this->assertEquals(array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10), $hc);
