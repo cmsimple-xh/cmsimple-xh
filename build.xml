@@ -96,7 +96,7 @@
     </target>
 
     <target name="js-doc">
-        <exec command="jsdoc --destination doc/js assets/js/admin.min.js"
+        <exec command="jsdoc --destination doc/js assets/js/"
               passthru="true" checkreturn="true"/>
     </target>
 
@@ -124,6 +124,7 @@
         </move>
         <jsMin targetDir="dist/cmsimplexh" suffix="" failOnError="false">
             <fileset dir="export">
+                <include name="assets/js/core.min.js"/>
                 <include name="assets/js/admin.min.js"/>
                 <include name="plugins/filebrowser/js/filebrowser.min.js"/>
                 <include name="plugins/meta_tags/metatags.min.js"/>
