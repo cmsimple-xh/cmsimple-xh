@@ -53,7 +53,7 @@ class Search
      */
     public function __construct($searchString)
     {
-        $this->searchString = $searchString;
+        $this->searchString = trim(preg_replace('/\s+/u', ' ', $searchString));
     }
 
     /**

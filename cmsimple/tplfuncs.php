@@ -412,7 +412,7 @@ function content()
 
     if (!($edit && XH_ADM) && $s > -1) {
         if (isset($_GET['search'])) {
-            $search = XH_hsc(stsl($_GET['search']));
+            $search = XH_hsc(trim(preg_replace('/\s+/u', ' ', (stsl($_GET['search'])))));
             $words = explode(' ', $search);
             $c[$s] = XH_highlightSearchWords($words, $c[$s]);
         }
