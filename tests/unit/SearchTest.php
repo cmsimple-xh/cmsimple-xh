@@ -38,7 +38,8 @@ class SearchTest extends TestCase
             'More about CMSimple.',
             '#CMSimple hide# CMSimple again',
             'Bill &amp; Ted',
-            "se\xC3\xB1or"
+            "se\xC3\xB1or",
+            "\xC2\xA0"
         );
         $cf['show_hidden']['pages_search'] == 'true';
     }
@@ -54,7 +55,8 @@ class SearchTest extends TestCase
             array( // testing unicode equivalence
                 "sen\xCC\x83or",
                 array(5)
-            )
+            ),
+            array("\xC2\xA0", array())
         );
     }
 
