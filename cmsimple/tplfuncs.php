@@ -408,13 +408,20 @@ function editmenu()
  */
 function content()
 {
-    global $s, $o, $c, $edit;
+    global $s, $o, $c, $edit, $bjs, $pth;
 
     if (!($edit && XH_ADM) && $s > -1) {
         if (isset($_GET['search'])) {
             $search = XH_hsc(trim(preg_replace('/\s+/u', ' ', (stsl($_GET['search'])))));
-            $words = explode(' ', $search);
-            $c[$s] = XH_highlightSearchWords($words, $c[$s]);
+            $words = array_unique(explode(' ', $search));
+            usort($words, function ($a, $b) {
+                return strlen($b) - strlen($a);
+            });
+            $words = json_encode($words);
+            $bjs .= <<<HTML
+<script type="text/javascript" >var XH = XH || {}; XH.searchWords = $words;</script>
+<script type="text/javascript" src="{$pth['file']['corejs']}"></script>
+HTML;
         }
         $o .= preg_replace('/#CMSimple (.*?)#/is', '', $c[$s]);
     }
