@@ -301,4 +301,14 @@ class Pages
         }
         return $result;
     }
+
+    /**
+     * Returns a page object of selected page
+     *
+     * @return object
+     */
+    public function getSelected()
+    {
+        return new Page($this);
+    }
 }
