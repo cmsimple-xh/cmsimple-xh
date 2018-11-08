@@ -303,7 +303,7 @@ class Pages
     }
 
     /**
-     * Returns a page object of selected page
+     * Returns a XH\Page instance of selected page
      *
      * @return XH\Page instance
      */
