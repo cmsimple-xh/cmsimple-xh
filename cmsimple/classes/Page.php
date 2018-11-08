@@ -4,7 +4,7 @@ namespace XH;
 
 /**
  * Initiates a page object. Its methods act as a wrapper
- * of the XH/Pages methods for better OOP access
+ * of the use of XH\Pages methods for better OOP access
  *
  * @category CMSimple_XH
  * @package  XH
