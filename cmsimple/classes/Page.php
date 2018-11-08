@@ -16,7 +16,7 @@ Class Page
 {
     
     /**
-     * Instance of XH/Pages.
+     * Instance of XH\Pages.
      *
      * @var pages
      *
