@@ -18,7 +18,7 @@ Class Page
     /**
      * Instance of XH\Pages.
      *
-     * @var XH\Pages
+     * @var XH\Pages pages
      *
      */
     private $pages;
@@ -34,7 +34,7 @@ Class Page
     /**
      * Constructs an instance.
      *
-     * @param obj pages instance
+     * @param XH\Pages pages instance
      *
      * @param int $selected Intex of selected page
      *
