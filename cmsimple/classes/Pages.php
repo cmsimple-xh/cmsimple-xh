@@ -305,7 +305,7 @@ class Pages
     /**
      * Returns a page object of selected page
      *
-     * @return object
+     * @return XH\Page instance
      */
     public function getSelected()
     {
