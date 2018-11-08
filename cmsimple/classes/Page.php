@@ -38,7 +38,7 @@ Class Page
      *
      * @param int $selected Intex of selected page
      *
-     * @global int Index selected page.
+     * @var int s Index selected page.
      */
     public function __construct($pages,$selected = NULL)
     {
