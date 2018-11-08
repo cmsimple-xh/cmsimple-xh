@@ -18,7 +18,7 @@ Class Page
     /**
      * Instance of XH\Pages.
      *
-     * @var pages
+     * @var XH\Pages
      *
      */
     private $pages;
