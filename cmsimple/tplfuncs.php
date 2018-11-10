@@ -256,10 +256,10 @@ function searchbox()
  *
  * @return string HTML
  */
-function homelink($img = '') 
+function homelink($img = '')
 {
     //TODO why not use ml() ?
-    return a(0) . img_or_text($img, 'Home') . '</a>';
+    return a(xh_publisher->getFirstPublishedPage()) . XH_imgOrText($img, 'Home') . '</a>';
 }
 
 
@@ -284,7 +284,7 @@ function printlink($img = '')
     global $tx;
 
     return '<a href="' . XH_printUrl() . '" rel="nofollow">'
-        . img_or_text($img, $tx['menu']['print']) . '</a>';
+        . XH_imgOrText($img, $tx['menu']['print']) . '</a>';
 }
 
 /**
@@ -492,7 +492,7 @@ function previouspage($img='')
 
     $index = XH_findPreviousPage();
     if ($index !== false) {
-        return a($index, '" rel="prev') . img_or_text($img, $tx['navigator']['previous']) . '</a>';
+        return a($index, '" rel="prev') . XH_imgOrText($img, $tx['navigator']['previous']) . '</a>';
     }
 }
 
@@ -505,13 +505,13 @@ function previouspage($img='')
  *
  * @see previouspage()
  */
-function nextpage($img='')
+function nextpage($img = '')
 {
     global $tx;
 
     $index = XH_findNextPage();
     if ($index !== false) {
-        return a($index, '" rel="next') . img_or_text($img, $tx['navigator']['next']) . '</a>';
+        return a($index, '" rel="next') . XH_imgOrText($img, $tx['navigator']['next']) . '</a>';
     }
 }
 
@@ -524,11 +524,11 @@ function nextpage($img='')
  *
  * @param string $id An (X)HTML ID.
  */
-function top($id = 'TOP', $img='')
+function top($id = 'TOP', $img = '')
 {
     global $tx;
 
-    return '<a href="#' . $id . '">' . img_or_text($img, $tx['navigator']['top']) . '</a>';
+    return '<a href="#' . $id . '">' . XH_imgOrText($img, $tx['navigator']['top']) . '</a>';
 }
 
 

@@ -901,20 +901,21 @@ function meta($n)
 }
 
 /**
- * Returns an IMG tag if an $img is provided and is valid, and a literal string otherwise.  
+ * Returns an IMG tag if an $img is provided and is valid, and a literal string otherwise.
  *
  * @param string $img Optional image file name, to be searched in $pth['folder']['templateimages']
  *
  * @param string $title Optional title for the image, also used as alternative to image
  */
-function img_or_text($img, $title) {
-    
+function XH_imgOrText($img, $title)
+{    
     global $pth;
     
-    if(isset($img) && $img != '' && file_exists($pth['folder']['templateimages'] . $img))
+    if (isset($img) && $img != '' && file_exists($pth['folder']['templateimages'] . $img)) {
         return '<img title="' . $title . '" src="' . $pth['folder']['templateimages'] . $img . '" alt="' . $title . '" />';
-    else
+    } else {
         return $title;
+    }
 }
 
 /**
@@ -926,7 +927,7 @@ function img_or_text($img, $title) {
  *
  * @return string HTML
  */
-function ml($i, $img='')
+function ml($i, $img = '')
 {
     global $f, $sn, $tx;
 
@@ -936,7 +937,7 @@ function ml($i, $img='')
     if ($f != $i) {
         $t .= '<a href="' . $sn . '?&amp;' . $i . '">';
     }
-    $t .= img_or_text($img, $tx['menu'][$i]);
+    $t .= XH_imgOrText($img, $tx['menu'][$i]);
     if ($f != $i) {
         $t .= '</a>';
     }
