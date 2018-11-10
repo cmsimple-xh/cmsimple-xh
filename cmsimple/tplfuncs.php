@@ -259,7 +259,7 @@ function searchbox()
 function homelink($img = '')
 {
     //TODO why not use ml() ?
-    return a(xh_publisher->getFirstPublishedPage()) . XH_imgOrText($img, 'Home') . '</a>';
+    return a(0) . XH_imgOrText($img, 'Home') . '</a>';
 }
 
 
