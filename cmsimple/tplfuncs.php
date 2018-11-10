@@ -486,7 +486,7 @@ function submenu($html = '')
  *
  * @see nextpage()
  */
-function previouspage($img='')
+function previouspage($img = '')
 {
     global $tx;
 

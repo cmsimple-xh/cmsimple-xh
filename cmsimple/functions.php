@@ -908,11 +908,12 @@ function meta($n)
  * @param string $title Optional title for the image, also used as alternative to image
  */
 function XH_imgOrText($img, $title)
-{    
+{
     global $pth;
     
     if (isset($img) && $img != '' && file_exists($pth['folder']['templateimages'] . $img)) {
-        return '<img title="' . $title . '" src="' . $pth['folder']['templateimages'] . $img . '" alt="' . $title . '" />';
+        return '<img title="' . $title . '" src="' . $pth['folder']['templateimages'] . $img
+                                                                    . '" alt="' . $title . '" />';
     } else {
         return $title;
     }
