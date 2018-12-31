@@ -9,7 +9,6 @@ install:
     - composer install
 before_script:
     - export PATH=vendor/bin:$PATH
-    - echo 'date.timezone = Europe/Copenhagen' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then echo 'runkit.internal_override = 1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi
 script:
     - phing sniff
