@@ -105,7 +105,7 @@ $tx['help']['show_hidden_pages_toc']="Angeklickt = Wenn versteckte Seiten aufger
 
 $tx['help']['images_maxsize']="Maximale Größe für das Hochladen von Bildern in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
 $tx['help']['language_default']="Die Hauptsprache der Website";
-$tx['help']['locator_show_homepage']="Angeklickt = Der Locator ('Sie sind hier') beginnt mit einen Link zur Startseite.";
+$tx['help']['locator_show_homepage']="Angeklickt = Der Locator ('Sie sind hier') beginnt mit einem Link zur Startseite.";
 $tx['help']['mailform_captcha']="Angeklickt = CAPTCHA-Spamschutz im Kontakt-Formular aktiviert";
 $tx['help']['mailform_email']="Erst wenn eine E-Mail-Adresse eingegeben wird, ist das Kontakt-Formular verfügbar.";
 $tx['help']['mailform_lf_only']="Wenn der Mailversand nicht ordnungsgemäß funktioniert, versuchen Sie diese Option zu aktivieren.";
