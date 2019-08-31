@@ -34,6 +34,8 @@ class ControllerLogoutTest extends ControllerLogInOutTestCase
 
     protected $filePutContentsStub;
 
+    protected $sessionNameMock;
+
     /**
      * Sets up the test fixture.
      *
@@ -45,6 +47,7 @@ class ControllerLogoutTest extends ControllerLogInOutTestCase
         $_SESSION = array();
         $this->backupMock = $this->createFunctionMock('XH_backup');
         $this->filePutContentsStub = $this->createFunctionMock('file_put_contents');
+        $this->sessionNameMock = $this->createFunctionMock('session_name');
     }
 
     protected function tearDown()
@@ -52,6 +55,7 @@ class ControllerLogoutTest extends ControllerLogInOutTestCase
         parent::tearDown();
         $this->backupMock->restore();
         $this->filePutContentsStub->restore();
+        $this->sessionNameMock->restore();
     }
 
     /**
