@@ -358,7 +358,7 @@ XH_createLanguageFile($pth['file']['language']);
  *
  * @see $plugin_tx
  */
-$tx = XH_readConfiguration(false, true);
+$tx = XH_readConfiguration("core", true);
 if (!$tx) {
     die("Language file {$pth['file']['language']} missing");
 }
@@ -726,7 +726,8 @@ $temp = array(
     'action', 'admin', 'download', 'downloads', 'edit', 'file', 'function', 'images',
     'login', 'logout', 'keycut', 'mailform', 'media', 'normal', 'phpinfo', 'print', 'search',
     'selected', 'settings', 'sitemap', 'sysinfo', 'text', 'userfiles', 'validate', 'xhpages',
-    'xh_backups', 'xh_change_password', 'xh_do_validate', 'xh_pagedata', 'xh_plugins'
+    'xh_backups', 'xh_change_password', 'xh_do_validate', 'xh_pagedata', 'xh_plugins',
+    'xh_template'
 );
 foreach ($temp as $i) {
     if (!isset($GLOBALS[$i])) {
@@ -1122,6 +1123,19 @@ unset($plugin);
 
 XH_afterPluginLoading();
 
+/**
+ * The configuration of the template
+ *
+ * @global array $tpl_cf
+ */
+$tpl_cf = XH_readConfiguration("template");
+
+/**
+ * The localization of the template
+ *
+ * @global array $tpl_tx
+ */
+$tpl_tx = XH_readConfiguration("template", true);
 
 switch ($f) {
     case 'search':
@@ -1255,6 +1269,9 @@ if (XH_ADM) {
             break;
         case 'xh_plugins':
             $o .= XH_pluginsView();
+            break;
+        case 'xh_template':
+            $o .= XH_templateView();
             break;
     }
 }

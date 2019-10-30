@@ -118,6 +118,6 @@ class PluginConfig implements ArrayAccess
         if ($this->language) {
             XH_createLanguageFile($pth['file']['plugin_language']);
         }
-        $this->configs += XH_readConfiguration(true, $this->language);
+        $this->configs += XH_readConfiguration("plugin", $this->language);
     }
 }

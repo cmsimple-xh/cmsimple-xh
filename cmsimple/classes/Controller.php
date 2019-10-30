@@ -22,7 +22,7 @@ class Controller
      */
     public function initTemplatePaths()
     {
-        global $pth, $cf, $tx;
+        global $pth, $cf, $tx, $sl;
 
         $pth['folder']['templates'] = $pth['folder']['base'] . 'templates/';
         $template = $tx['subsite']['template'] == ''
@@ -31,6 +31,10 @@ class Controller
         $pth['folder']['template'] = $pth['folder']['templates'] . $template . '/';
         $pth['file']['template'] = $pth['folder']['template'] . 'template.htm';
         $pth['file']['stylesheet'] = $pth['folder']['template'] . 'stylesheet.css';
+        $pth['folder']['template_config'] = $pth['folder']['template'] . 'config/';
+        $pth['file']['template_config'] = $pth['folder']['template_config'] . 'config.php';
+        $pth['folder']['template_language'] = $pth['folder']['template'] . 'languages/';
+        $pth['file']['template_language'] = $pth['folder']['template_language'] . $sl . '.php';
         $pth['folder']['menubuttons'] = $pth['folder']['template'] . 'menu/';
         $pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
         $pth['folder']['templateflags'] = $pth['folder']['template'] . 'flags/';
@@ -262,7 +266,7 @@ class Controller
     {
         global $function, $validate, $xh_do_validate, $settings, $xh_backups,
             $xh_pagedata, $sysinfo, $phpinfo, $file, $userfiles, $images,
-            $downloads, $f, $xh_change_password, $xh_plugins;
+            $downloads, $f, $xh_change_password, $xh_plugins, $xh_template;
 
         if ($function == 'save') {
             $f = 'save';
@@ -292,6 +296,8 @@ class Controller
             $f = 'change_password';
         } elseif ($xh_plugins) {
             $f = 'xh_plugins';
+        } elseif ($xh_template) {
+            $f = 'xh_template';
         }
     }
 
@@ -411,7 +417,9 @@ class Controller
             'language' => 'XH\CoreLangFileEdit',
             'content' => 'XH\CoreTextFileEdit',
             'template' => 'XH\CoreTextFileEdit',
-            'stylesheet' => 'XH\CoreTextFileEdit'
+            'stylesheet' => 'XH\CoreTextFileEdit',
+            'template_config' => 'XH\TemplateConfigFileEdit',
+            'template_language' => 'XH\TemplateLangFileEdit'
         );
         $fileEditor = isset($map[$file])
             ? $this->makeFileEditor($map[$file])
