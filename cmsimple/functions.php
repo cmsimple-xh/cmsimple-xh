@@ -901,21 +901,44 @@ function meta($n)
 }
 
 /**
+ * Returns an IMG tag if an $img is provided and is valid, and a literal string otherwise.
+ *
+ * @param string $img Optional image file name, to be searched in $pth['folder']['templateimages']
+ *
+ * @param string $title Optional title for the image, also used as alternative to image
+ */
+function XH_imgOrText($img, $title)
+{
+    global $pth;
+    
+    if (isset($img) && $img != '' && file_exists($pth['folder']['templateimages'] . $img)) {
+        return '<img title="' . $title . '" src="' . $pth['folder']['templateimages'] . $img
+                                                                    . '" alt="' . $title . '" />';
+    } else {
+        return $title;
+    }
+}
+
+/**
  * Returns the link to a special CMSimple_XH page, e.g. sitemap.
  *
  * @param string $i A key of $tx['menu'].
  *
+ * @param string $img Optional image file name, to be searched in $pth['folder']['templateimages']
+ *
  * @return string HTML
  */
-function ml($i)
+function ml($i, $img = '')
 {
     global $f, $sn, $tx;
 
+    //items in $tx['menu']: login, mailform, print, sitemap, tab_main, tab_css, tab_config, tab_language, tab_help
+    
     $t = '';
     if ($f != $i) {
         $t .= '<a href="' . $sn . '?&amp;' . $i . '">';
     }
-    $t .= $tx['menu'][$i];
+    $t .= XH_imgOrText($img, $tx['menu'][$i]);
     if ($f != $i) {
         $t .= '</a>';
     }
