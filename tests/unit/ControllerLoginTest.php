@@ -6,7 +6,7 @@
  * @category  Testing
  * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2014-2017 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2014-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  */
@@ -50,6 +50,8 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
 
     protected $filePutContentsMock;
 
+    protected $sessionNameMock;
+
     /**
      * Sets up the test fixture.
      *
@@ -71,6 +73,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
         $this->eMock = $this->createFunctionMock('e');
         $this->logMessageMock = $this->createFunctionMock('XH_logMessage');
         $this->filePutContentsMock = $this->createFunctionMock('file_put_contents');
+        $this->sessionNameMock = $this->createFunctionMock('session_name');
     }
 
     protected function tearDown()
@@ -80,6 +83,7 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
         $this->eMock->restore();
         $this->logMessageMock->restore();
         $this->filePutContentsMock->restore();
+        $this->sessionNameMock->restore();
     }
 
     /**

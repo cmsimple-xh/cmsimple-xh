@@ -48,3 +48,5 @@ spl_autoload_register(function ($className) {
 if (!function_exists('password_hash') || !function_exists('random_bytes')) {
     include_once './cmsimple/password.php';
 }
+
+date_default_timezone_set('UTC');
