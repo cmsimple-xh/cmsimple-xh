@@ -15,7 +15,7 @@
  */
 
 
-define('TINYMCE4_CDN_ORIG', 'https://cloud.tinymce.com/stable/tinymce.min.js');  //TinyMCE4 externally loaded
+define('TINYMCE4_CDN_ORIG', 'https://cloud.tinymce.com/4/tinymce.min.js');  //TinyMCE4 externally loaded
 //define('TINYMCE4_VARIANT', 'jQuery');  //TinyMCE4 jQuery Version not yet realized 
 
 /**

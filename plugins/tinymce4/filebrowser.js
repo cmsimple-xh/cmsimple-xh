@@ -14,7 +14,7 @@ function wrFilebrowser (field_name, url, type, win) {
 
     tinymce.activeEditor.windowManager.open(
         {
-            title: 'File Manager',
+            title: 'Filebrowser',
             url  : cmsURL,
             width : 800,
             height : 600,
