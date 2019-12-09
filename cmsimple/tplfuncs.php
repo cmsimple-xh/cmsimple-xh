@@ -417,7 +417,7 @@ function locator($bc_sep = '&gt;')
         if ($i > 0) {
             $html .= ' ' . $bc_sep . ' ';
         }
-		$html .= '<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">';
+		$html .= '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
 		$inner = '<span itemprop="name">' . $title
 			. '</span>';
         if (isset($url) && $i < $last) {
