@@ -411,7 +411,7 @@ function locator($bc_sep = '&gt;')
 {
     $breadcrumbs = XH_getLocatorModel();
     $last = count($breadcrumbs) - 1;
-	$html = '<span itemscope itemtype="http://schema.org/BreadcrumbList">';
+	$html = '<span itemscope itemtype="https://schema.org/BreadcrumbList">';
     foreach ($breadcrumbs as $i => $breadcrumb) {
         list($title, $url) = $breadcrumb;
         if ($i > 0) {
