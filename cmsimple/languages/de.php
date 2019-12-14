@@ -333,3 +333,7 @@ $tx['validate']['intfilok']="INTERNE VERLINKUNG AUF DATEI OK";
 $tx['validate']['intok']="INTERNE VERLINKUNG OK";
 $tx['validate']['mailto']="MAILTO VERLINKUNG";
 $tx['validate']['notxt']="KEIN TEXT IN VERLINKUNG";
+
+$tx['help']['avoid_dc_force_ssl']="Website nur per SSL (https) erreichbar";
+$tx['help']['avoid_dc_remove_index']="index.php aus URL entfernen";
+$tx['help']['avoid_dc_select_www']="Aufruf der Website (www.):<br>\"-\" beides ist möglich<br>\"force\" nur per www.<br>\"none\" nur ohne www.";

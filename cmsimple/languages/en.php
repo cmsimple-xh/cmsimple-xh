@@ -332,3 +332,7 @@ $tx['validate']['intfilok']="INTERNAL LINK TO FILE OK";
 $tx['validate']['intok']="INTERNAL LINK OK";
 $tx['validate']['mailto']="MAILTO LINK";
 $tx['validate']['notxt']="NO TEXT IN LINK";
+
+$tx['help']['avoid_dc_force_ssl']="Website only available via SSL (https)";
+$tx['help']['avoid_dc_remove_index']="remove index.php from URL";
+$tx['help']['avoid_dc_select_www']="Access to the website (www.):<br>\"-\" both are possible<br>\"force\" only by www.<br>\"none\" only without www.";
