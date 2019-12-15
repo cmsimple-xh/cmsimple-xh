@@ -254,7 +254,7 @@ $tx['search']['label']="Suchbegriffe";
 $tx['search']['notfound']="\"%s\" wurde nicht gefunden.";
 $tx['search']['result']="Suchergebnis";
 
-$tx['settings']['backup']="Sicherheitskopien";
+$tx['settings']['backup']="Inhaltsdatei";
 $tx['settings']['backupexplain1']="Beim Logout wird eine Sicherheitskopie des Inhalts angelegt. Die älteste Kopie wird gelöscht.";
 $tx['settings']['backupexplain2']="Sicherheitskopie-Namen beginnen mit Datum und Uhrzeit der Erstellung: YYYYMMDD_HHMMSS";
 $tx['settings']['backupsuffix']="Geben Sie einen Dateinamen ein (nur a-z, 0-9, Minus und Unterstrich; höchstens 20 Zeichen):";

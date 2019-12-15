@@ -253,7 +253,7 @@ $tx['search']['label']="Search terms";
 $tx['search']['notfound']="\"%s\" was not found.";
 $tx['search']['result']="Result of your search";
 
-$tx['settings']['backup']="Backup";
+$tx['settings']['backup']="Content file";
 $tx['settings']['backupexplain1']="On logout content is backed up and the oldest backup file will be deleted.";
 $tx['settings']['backupexplain2']="Backup file names start with date and time of backup as: YYYYMMDD_HHMMSS";
 $tx['settings']['backupsuffix']="Enter a filename (only a-z, 0-9, minus and underscore; at most 20 characters):";
