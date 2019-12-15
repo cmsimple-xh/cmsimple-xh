@@ -458,7 +458,8 @@ function XH_backupsView()
         . $_XH_csrfProtection->tokenInput()
         . '</form>'
         . '</li>' . "\n";
-    $o .= '</ul>' . "\n" . '<hr>' . "\n" . '<p>'
+    $o .= '</ul>' . "\n" . '<hr>' . "\n" . '<h2>'
+        . $tx['h2']['xh_backups'] . '</h2>' . "\n" . '<p>'
         . $tx['settings']['backupexplain1'] . '</p>' . "\n" . '<p>'
         . $tx['settings']['backupexplain2'] . '</p>' . "\n" . '<ul>' . "\n";
     $fs = sortdir($pth['folder']['content']);

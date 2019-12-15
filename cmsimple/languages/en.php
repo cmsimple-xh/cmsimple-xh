@@ -316,7 +316,8 @@ $tx['title']['sysinfo']="System Info";
 $tx['title']['templates']="Templates";
 $tx['title']['userfiles']="Userfiles";
 $tx['title']['validate']="Validate links";
-$tx['title']['xh_backups']="Backup";
+$tx['title']['xh_backups']="Content file";
+$tx['h2']['xh_backups']="Backup";
 
 $tx['toc']['dupl']="DUPLICATE PAGE NAME";
 $tx['toc']['empty']="EMPTY PAGE NAME";

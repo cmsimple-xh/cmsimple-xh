@@ -78,7 +78,7 @@ $tx['error']['undefined']="Undefiniert";
 
 $tx['filetype']['backup']="Sicherung";
 $tx['filetype']['config']="Konfiguration";
-$tx['filetype']['content']="Content-Datei";
+$tx['filetype']['content']="Inhaltsdatei";
 $tx['filetype']['execute']="Ausführen";
 $tx['filetype']['file']="Datei";
 $tx['filetype']['folder']="Ordner";
@@ -317,7 +317,8 @@ $tx['title']['sysinfo']="System-Info";
 $tx['title']['templates']="Templates";
 $tx['title']['userfiles']="Benutzer-Dateien";
 $tx['title']['validate']="Links prüfen";
-$tx['title']['xh_backups']="Sicherheitskopien";
+$tx['title']['xh_backups']="Inhaltsdatei";
+$tx['h2']['xh_backups']="Sicherheitskopien";
 
 $tx['toc']['dupl']="DOPPELTER SEITENAME";
 $tx['toc']['empty']="LEERER SEITENAME";
