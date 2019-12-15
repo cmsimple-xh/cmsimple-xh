@@ -247,10 +247,12 @@ function XH_sysinfo()
     $o .= '<h4>' . $tx['sysinfo']['helplinks'] . '</h4>' . "\n" . "\n";
     $o .= <<<HTML
 <ul>
-<li><a href="http://www.cmsimple-xh.org/">cmsimple-xh.org &raquo;</a></li>
-<li><a href="http://www.cmsimple-xh.org/wiki/">cmsimple-xh.org/wiki/ &raquo;</a></li>
-<li><a href="http://www.cmsimpleforum.com/">cmsimpleforum.com &raquo;</a></li>
-<li><a href="http://www.cmsimple-xh.org/de/?Alles_auf_einen_Blick">cmsimple-xh.org/de/?Alles_auf_einen_Blick &raquo;</a></li>
+<li><a target="_blank" rel="noopener" rel="noreferrer" href="https://www.cmsimple-xh.org/">cmsimple-xh.org &raquo;</a></li>
+<li><a target="_blank" rel="noopener" rel="noreferrer" href="https://wiki.cmsimple-xh.org/">wiki.cmsimple-xh.org &raquo;</a></li>
+<li><a target="_blank" rel="noopener" rel="noreferrer" href="https://www.cmsimpleforum.com/">cmsimpleforum.com &raquo;</a></li>
+<li><a target="_blank" rel="noopener" rel="noreferrer" href="https://www.cmsimple-xh.org/?Important-Links">cmsimple-xh.org/?Important-Links &raquo;</a></li>
+<li><a target="_blank" rel="noopener" rel="noreferrer" href="https://www.cmsimple-xh.org/?Plugin-Repository">cmsimple-xh.org/?Plugin-Repository &raquo;</a></li>
+<li><a target="_blank" rel="noopener" rel="noreferrer" href="https://www.cmsimple-xh.org/?Template-Repository">cmsimple-xh.org/?Template-Repository &raquo;</a></li>
 </ul>
 
 HTML;
