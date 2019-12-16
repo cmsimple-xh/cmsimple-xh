@@ -547,13 +547,13 @@ class Controller
 
         $interval = 1000 * (ini_get('session.gc_maxlifetime') - 1);
         $o .= <<<EOT
-<script type="text/javascript">
+<script>
 if (document.cookie.indexOf('status=adm') == -1) {
     document.write('<div class="xh_warning">{$tx['error']['nocookies']}<\/div>');
 }
 </script>
 <noscript><div class="xh_warning">{$tx['error']['nojs']}</div></noscript>
-<script type="text/javascript">
+<script>
 setInterval(function() {
     var request = new XMLHttpRequest();
 
