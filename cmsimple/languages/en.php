@@ -197,6 +197,8 @@ $tx['mailform']['senderphone']="Your phone number: ";
 $tx['mailform']['subject']="Subject (required): ";
 $tx['mailform']['subject_default']="Mailform on %s";
 
+$tx['mailform']['reset_pw_error']="Error, the password was not changed.";
+
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Mailform";
 $tx['menu']['print']="Print view";
