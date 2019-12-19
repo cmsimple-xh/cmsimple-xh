@@ -198,6 +198,7 @@ $tx['mailform']['senderphone']="Telefon-Nr.: ";
 $tx['mailform']['subject']="Betreff (erforderlich): ";
 $tx['mailform']['subject_default']="Kontaktformular auf %s";
 
+$tx['mailform']['sendermail']="E-Mail-Adresse: ";
 $tx['mailform']['reset_pw_error']="Fehler, das Passwort wurde nicht geändert.";
 
 $tx['menu']['login']="Login";
