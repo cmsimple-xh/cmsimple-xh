@@ -405,9 +405,11 @@ function lastupdate($br = null, $hour = null)
 /**
  * Returns the locator (breadcrumb navigation).
  *
+ * @param string $separator The separator between the breadcrumb links.
+ * 
  * @return string HTML
  */
-function locator($bc_sep = '&gt;')
+function locator($separator = '&gt;')
 {
     $breadcrumbs = XH_getLocatorModel();
     $last = count($breadcrumbs) - 1;
@@ -415,7 +417,7 @@ function locator($bc_sep = '&gt;')
     foreach ($breadcrumbs as $i => $breadcrumb) {
         list($title, $url) = $breadcrumb;
         if ($i > 0) {
-            $html .= ' ' . $bc_sep . ' ';
+            $html .= ' ' . $separator . ' ';
         }
         $html .= '<span itemprop="itemListElement" '
                 . 'itemscope itemtype="https://schema.org/ListItem">';
