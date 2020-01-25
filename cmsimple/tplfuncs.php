@@ -419,7 +419,7 @@ function locator($bc_sep = '&gt;')
         }
         $html .= '<span itemprop="itemListElement" '
                 . 'itemscope itemtype="https://schema.org/ListItem">';
-        $inner = '<span itemprop="name">' . $title 	. '</span>';
+        $inner = '<span itemprop="name">' . $title . '</span>';
         if (isset($url) && $i < $last) {
             $html .= '<a itemprop="item" href="' . $url . '">'
                     . $inner . '</a>';
