@@ -417,16 +417,16 @@ function locator($bc_sep = '&gt;')
         if ($i > 0) {
             $html .= ' ' . $bc_sep . ' ';
         }
-		$html .= '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
-		$inner = '<span itemprop="name">' . $title
-			. '</span>';
+        $html .= '<span itemprop="itemListElement" '
+                . 'itemscope itemtype="https://schema.org/ListItem">';
+            $inner = '<span itemprop="name">' . $title 	. '</span>';
         if (isset($url) && $i < $last) {
-			$html .= '<a itemprop="item" href="' . $url . '">'
-                . $inner . '</a>';
+            $html .= '<a itemprop="item" href="' . $url . '">'
+                    . $inner . '</a>';
         } else {
-			$html .= $inner;
+            $html .= $inner;
         }
-		$html .= '<meta itemprop="position" content="'. ($i + 1) . '"></span>';
+	$html .= '<meta itemprop="position" content="'. ($i + 1) . '"></span>';
     }
     $html .= '</span>';
     return $html;
