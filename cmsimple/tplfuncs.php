@@ -406,7 +406,7 @@ function lastupdate($br = null, $hour = null)
  * Returns the locator (breadcrumb navigation).
  *
  * @param string $separator The separator between the breadcrumb links.
- * 
+ *
  * @return string HTML
  */
 function locator($separator = '&gt;')
