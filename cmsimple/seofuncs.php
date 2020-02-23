@@ -105,11 +105,17 @@ function XH_avoidDC() {
 
 //Redirect if adjustments were necessary
     if ($redir) {
+        if(isset($_SERVER['PROTOCOL'])
+        && !empty($_SERVER['PROTOCOL'])) {
+            $protocol = $_SERVER['PROTOCOL'];
+        } else {
+            $protocol = 'HTTP/1.1';
+        }
         $url = $scheme . '://' . $host . $path;
         if ($query_str != '') {
             $url .= '?' . XH_enc_redir($query_str);
         }
-        header("HTTP/1.1 301 Moved Permanently");
+        header("$protocol 301 Moved Permanently");
         header("Location: $url");
         header("Connection: close");
         exit;
