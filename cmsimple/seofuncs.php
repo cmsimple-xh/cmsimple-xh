@@ -54,7 +54,7 @@ function XH_avoidDC() {
     $redir = false;
 
 //Force Encrypted Connection
-    if ($force_ssl && ($scheme == 'http')) {
+    if (($force_ssl == 'force') && ($scheme == 'http')) {
         $scheme = 'https';
         $redir = true;
     }
@@ -63,7 +63,7 @@ function XH_avoidDC() {
 //https://github.com/cmsimple-xh/cmsimple-xh/issues/282
     $ep_count = 0;
     $path = preg_replace('#(/){2,}#s', '/', $path, -1, $ep_count);
-    if($ep_count > 0) {
+    if ($ep_count > 0) {
         $redir = true;
     }
 
@@ -122,3 +122,47 @@ function XH_avoidDC() {
     }
 }
 
+// return for $mcf['avoid_dc']['force_ssl'];
+function XH_Check_SSL() {
+
+    $field = 'enum:-,force';
+
+    $parts = parse_url(CMSIMPLE_URL);
+    $host = $parts['host'];
+
+    if (function_exists('curl_init')) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,'https://' . $host);
+        curl_setopt($ch, CURLOPT_CERTINFO, 1);
+        curl_setopt($ch, CURLOPT_VERBOSE, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_NOBODY, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,  2);
+        $result = curl_exec($ch);
+        if (curl_errno($ch) != 0) {
+            // certificate error or failed to connect port 443
+            $field = 'enum:-';
+        } else {
+            $field = 'enum:-,force';
+        }
+    return $field;
+    }
+
+    if (function_exists('stream_socket_client')) {
+        $errno = '';
+        $errstr = '';
+        $opt = stream_context_create(array('ssl' => array('capture_peer_cert' => TRUE)));
+        $fp = stream_socket_client('ssl://' . $host . ':443',
+              $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $opt);
+        if (!$fp) {
+            // certificate error or failed to connect port 443
+            $field = 'enum:-';
+        } else {
+            $field = 'enum:-,force';
+        }
+    return $field;
+    }
+
+return $field;
+}

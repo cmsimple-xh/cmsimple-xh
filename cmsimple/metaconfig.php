@@ -33,8 +33,8 @@ $mcf['editmenu']['external']="xfunction:XH_registeredEditmenuPlugins";
 $mcf['mode']['advanced']="hidden";
 $mcf['format']['date']="enum:none,short,medium,long,full";
 $mcf['format']['time']="enum:none,short,medium,long,full";
-$mcf['avoid_dc']['force_ssl']="bool";
-$mcf['avoid_dc']['remove_index']="bool";
-$mcf['avoid_dc']['select_www']="enum:-,force,none";
+$mcf['avoid_dc']['force_ssl']="+" . XH_Check_SSL();
+$mcf['avoid_dc']['remove_index']="+bool";
+$mcf['avoid_dc']['select_www']="+enum:-,force,none";
 
 ?>
