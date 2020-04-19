@@ -15,33 +15,12 @@
  * @link      http://cmsimple-xh.org/
  */
 
-//Encode QUERY_STRING for remove with use uenc()
-function XH_enc_redir($url_query_str = '') {
-
-global $cf;
-
-    $url_sep = $cf['uri']['seperator'];
-    $url_query_encstr = '';
-
-    $url_query_array = explode($url_sep, $url_query_str);
-    foreach($url_query_array as $url_query_tmp) {
-        $tmp = uenc($url_query_tmp);
-        $url_query_encstr .= $tmp . $url_sep;
-    }
-    //some characters are double encoded 
-    //(Men%25C3%25BC-Ebenen-%5Bde%5D -> Men%C3%BC-Ebenen-%5Bde%5D)
-    $url_query_encstr = preg_replace('#%(25)*#i', '%', $url_query_encstr);
-    $url_query_encstr = rtrim($url_query_encstr, $url_sep);
-
-return $url_query_encstr;
-}
-
 //Is based on the adc plugin from Holger Irmler <cmsimple@holgerirmler.de>
 function XH_avoidDC() {
 
     global $cf, $su, $s, $xh_publisher;
 
-    $force_ssl = $cf['avoid_dc']['force_ssl'];       //https erzwingen?
+    $use_ssl = $cf['avoid_dc']['use_ssl'];           //https erzwingen?
     $force_www = $cf['avoid_dc']['select_www'];      //Aufruf mit oder ohne "www"
     $remove_index = $cf['avoid_dc']['remove_index']; //index.pht loeschen?
 
@@ -51,10 +30,12 @@ function XH_avoidDC() {
     $path = $parts['path'];
     $query_str = $_SERVER['QUERY_STRING'];
 
+    $url_sep = $cf['uri']['seperator'];
+
     $redir = false;
 
 //Force Encrypted Connection
-    if (($force_ssl == 'force') && ($scheme == 'http')) {
+    if (($use_ssl == 'force') && ($scheme == 'http')) {
         $scheme = 'https';
         $redir = true;
     }
@@ -62,8 +43,24 @@ function XH_avoidDC() {
 //Remove empty path segments in an URL
 //https://github.com/cmsimple-xh/cmsimple-xh/issues/282
     $ep_count = 0;
-    $path = preg_replace('#(/){2,}#s', '/', $path, -1, $ep_count);
+    $path = preg_replace('#(/){2,}#s',
+                         '/',
+                         $path,
+                         -1,
+                         $ep_count);
     if ($ep_count > 0) {
+        $redir = true;
+    }
+
+//Replaced encoded url-seperator (i.e. / --> %2F, : --> %3A)
+//sometimes also double encoded - / --> %252F --> %25252F
+    $enus_count = 0;
+    $query_str = preg_replace('#%(25)*' . bin2hex($url_sep) . '#i',
+                              $url_sep,
+                              $query_str,
+                              -1,
+                              $enus_count);
+    if ($enus_count > 0) {
         $redir = true;
     }
 
@@ -113,7 +110,7 @@ function XH_avoidDC() {
         }
         $url = $scheme . '://' . $host . $path;
         if ($query_str != '') {
-            $url .= '?' . XH_enc_redir($query_str);
+            $url .= '?' . XH_uenc_redir($query_str);
         }
         header("$protocol 301 Moved Permanently");
         header("Location: $url");
@@ -122,7 +119,35 @@ function XH_avoidDC() {
     }
 }
 
-// return for $mcf['avoid_dc']['force_ssl'];
+//Encode QUERY_STRING for redirect with use uenc()
+function XH_uenc_redir($url_query_str = '') {
+
+global $cf;
+
+    $url_sep = $cf['uri']['seperator'];
+    $url_query_uencstr = '';
+
+    $url_query_parts = array();
+    if (strpos($url_query_str, '&') !== false) {
+        $url_query_parts[] = strstr($url_query_str, '&', true);
+        $url_query_parts[] = strstr($url_query_str, '&');
+    } else {
+        $url_query_parts[] = $url_query_str;
+    }
+    $url_page_array = explode($url_sep, $url_query_parts['0']);
+    foreach($url_page_array as $url_page_tmp) {
+        $tmp = uenc($url_page_tmp);
+        $tmp = preg_replace('#%(25)*#i', '%', $tmp);
+        $url_query_uencstr .= $tmp . $url_sep;
+    }
+    $url_query_uencstr = rtrim($url_query_uencstr, $url_sep);
+    $url_query_uencstr = $url_query_uencstr 
+                      . ($url_query_parts['1'] ? $url_query_parts['1'] : '');
+
+return $url_query_uencstr;
+}
+
+//Return for $mcf['avoid_dc']['use_ssl'];
 function XH_Check_SSL() {
 
     $field = 'enum:-,force';
