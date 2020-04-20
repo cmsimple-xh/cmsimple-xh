@@ -605,7 +605,7 @@ function rmanl($t)
  */
 function stsl($t)
 {
-    return get_magic_quotes_gpc() ? stripslashes($t) : $t;
+    return ((float)phpversion()<5.4 && get_magic_quotes_gpc()) ? stripslashes($t) : $t;
 }
 
 /**

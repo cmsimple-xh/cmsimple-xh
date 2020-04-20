@@ -303,7 +303,7 @@ HTML;
         false, $stx['timezone']
     );
     $checks['other'][] = array(
-        !get_magic_quotes_runtime(), false, $stx['magic_quotes']
+        (float)phpversion()>=5.4||!get_magic_quotes_runtime(), false, $stx['magic_quotes']
     );
     $checks['other'][] = array(
         !ini_get('safe_mode'), false, $stx['safe_mode']

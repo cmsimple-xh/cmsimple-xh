@@ -245,7 +245,7 @@ function hi_updateInstalledScripts() {
     $handle = opendir($pth['folder']['plugins']);
     if ($handle) {
         while ($installed_plugin = readdir($handle)) {
-            if (strpos($installed_plugin, '.') === false && $installed_plugin != $pluginloader_cfg['foldername_pluginloader'] && is_dir($pth['folder']['plugins'] . $installed_plugin) && !in_array(strtolower($installed_plugin), $ignore)) {
+            if (strpos($installed_plugin, '.') === false && (!isset($pluginloader_cfg['foldername_pluginloader']) || $installed_plugin != $pluginloader_cfg['foldername_pluginloader']) && is_dir($pth['folder']['plugins'] . $installed_plugin) && !in_array(strtolower($installed_plugin), $ignore)) {
                 $installed_plugins[] = $installed_plugin;
             }
         }
