@@ -134,13 +134,18 @@ global $cf;
     } else {
         $url_query_parts[] = $url_query_str;
     }
-    $url_page_array = explode($url_sep, $url_query_parts['0']);
-    foreach($url_page_array as $url_page_tmp) {
-        $tmp = uenc($url_page_tmp);
-        $tmp = preg_replace('#%(25)*#i', '%', $tmp);
-        $url_query_uencstr .= $tmp . $url_sep;
+    if (strpos($url_query_parts['0'], '=') === false) {
+        $url_page_array = explode($url_sep, $url_query_parts['0']);
+        foreach($url_page_array as $url_page_tmp) {
+            $tmp = uenc($url_page_tmp);
+            $tmp = preg_replace('#%(25)*#i', '%', $tmp);
+            $url_query_uencstr .= $tmp . $url_sep;
+        }
+        $url_query_uencstr = rtrim($url_query_uencstr, $url_sep);
+    } else {
+        $url_query_uencstr = $url_query_parts['0'];
     }
-    $url_query_uencstr = rtrim($url_query_uencstr, $url_sep);
+    
     $url_query_uencstr = $url_query_uencstr 
                       . ($url_query_parts['1'] ? $url_query_parts['1'] : '');
 
