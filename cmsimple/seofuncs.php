@@ -21,7 +21,7 @@ function XH_avoidDC() {
     global $cf, $su, $s, $xh_publisher;
 
     $use_ssl = $cf['avoid_dc']['use_ssl'];           //https erzwingen?
-    $force_www = $cf['avoid_dc']['select_www'];      //Aufruf mit oder ohne "www"
+    $use_www = $cf['avoid_dc']['select_www'];        //Aufruf mit oder ohne "www"
     $remove_index = $cf['avoid_dc']['remove_index']; //index.pht loeschen?
 
     $parts = parse_url(CMSIMPLE_URL);
@@ -35,7 +35,8 @@ function XH_avoidDC() {
     $redir = false;
 
 //Force Encrypted Connection
-    if (($use_ssl == 'force') && ($scheme == 'http')) {
+    if (($use_ssl == 'force' || $use_ssl == 'force_unchecked')
+     && ($scheme == 'http')) {
         $scheme = 'https';
         $redir = true;
     }
@@ -72,14 +73,14 @@ function XH_avoidDC() {
         }
     }
 
-    if ($force_www == 'force') {
+    if ($use_www == 'force') {
         //Call page with "www"
         if (strtolower(substr($host, 0, 4)) != 'www.') {
             $host = 'www.' . $host;
             $redir = true;
         }
     }
-    if ($force_www == 'none') {
+    if ($use_www == 'none') {
         //or filter out "www" if required
         if (strtolower(substr($host, 0, 4)) == 'www.') {
             $host = substr_replace($host, '', 0, 4);
@@ -155,42 +156,70 @@ return $url_query_uencstr;
 //Return for $mcf['avoid_dc']['use_ssl'];
 function XH_Check_SSL() {
 
-    $field = 'enum:-,force';
+    $field = 'enum:-,force_unchecked';
 
     $parts = parse_url(CMSIMPLE_URL);
     $host = $parts['host'];
+    if (strtolower(substr($host, 0, 4)) == 'www.') {
+        $host = substr_replace($host, '', 0, 4);
+    }
+    $host_array = array($host, 'www.'.$host);
 
     if (function_exists('curl_init')) {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,'https://' . $host);
-        curl_setopt($ch, CURLOPT_CERTINFO, 1);
-        curl_setopt($ch, CURLOPT_VERBOSE, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_NOBODY, 1);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,  2);
-        $result = curl_exec($ch);
-        if (curl_errno($ch) != 0) {
-            // certificate error or failed to connect port 443
-            $field = 'enum:-';
-        } else {
-            $field = 'enum:-,force';
+
+        $field_count = 0;
+
+        foreach ($host_array as $host_array_tmp) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL,'https://' . $host_array_tmp);
+            curl_setopt($ch, CURLOPT_CERTINFO, 1);
+            curl_setopt($ch, CURLOPT_VERBOSE, 1);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_NOBODY, 1);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,  2);
+            $result = curl_exec($ch);
+            if (curl_errno($ch) != 0) {
+                // certificate error or failed to connect port 443
+            } else {
+                // certificate ok
+                $field_count++;
+            }
         }
+    if ($field_count < 2) {
+        $field = 'enum:-';
+    } else {
+        $field = 'enum:-,force';
+    }
+    unset($field_count);
     return $field;
     }
 
     if (function_exists('stream_socket_client')) {
-        $errno = '';
-        $errstr = '';
-        $opt = stream_context_create(array('ssl' => array('capture_peer_cert' => TRUE)));
-        $fp = stream_socket_client('ssl://' . $host . ':443',
-              $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $opt);
-        if (!$fp) {
-            // certificate error or failed to connect port 443
-            $field = 'enum:-';
-        } else {
-            $field = 'enum:-,force';
+
+        $field_count = 0;
+
+        foreach ($host_array as $host_array_tmp) {
+            $errno = '';
+            $errstr = '';
+            set_error_handler(function(){return true;}); //
+            $opt = stream_context_create(array('ssl' => array('capture_peer_cert' => TRUE)));
+            $fp = stream_socket_client('ssl://' . $host_array_tmp . ':443',
+                  $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $opt);
+            restore_error_handler(); //
+            if (!$fp) {
+                // certificate error or failed to connect port 443
+            } else {
+                // certificate ok
+                $field_count++;
+            }
         }
+    if ($field_count < 2) {
+        $field = 'enum:-';
+    } else {
+        $field = 'enum:-,force';
+    }
+    unset($field_count);
     return $field;
     }
 

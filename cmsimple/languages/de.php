@@ -338,6 +338,6 @@ $tx['validate']['intok']="INTERNE VERLINKUNG OK";
 $tx['validate']['mailto']="MAILTO VERLINKUNG";
 $tx['validate']['notxt']="KEIN TEXT IN VERLINKUNG";
 
-$tx['help']['avoid_dc_use_ssl']="Aufruf der Website per SSL (https):<br>\"-\" beides ist möglich<br>\"force\" nur per SSL.";
+$tx['help']['avoid_dc_use_ssl']="Aufruf der Website per SSL (https):<br>\"-\" beides ist möglich<br>\"force\" oder \"force_unchecked\" nur per SSL.<br><br>- \"force\" - Das Zertifikat wurde erfolgreich überprüft.<br>- \"force_unchecked\" - !!! Das Zertifikat konnte nicht überprüft werden.";
 $tx['help']['avoid_dc_remove_index']="index.php aus URL entfernen";
 $tx['help']['avoid_dc_select_www']="Aufruf der Website (www.):<br>\"-\" beides ist möglich<br>\"force\" nur per www.<br>\"none\" nur ohne www.";
