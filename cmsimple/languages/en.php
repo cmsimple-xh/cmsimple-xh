@@ -339,4 +339,4 @@ $tx['validate']['notxt']="NO TEXT IN LINK";
 
 $tx['help']['avoid_dc_use_ssl']="Calling the website via SSL (https):<br>\"-\" both are possible<br>\"force\" or \"force_unchecked\" only by SSL.<br><br>- \"force\" - The certificate was checked successfully.<br>- \"force_unchecked\" - !!! The certificate could not be checked.";
 $tx['help']['avoid_dc_remove_index']="remove index.php from URL";
-$tx['help']['avoid_dc_select_www']="Access to the website (www.):<br>\"-\" both are possible<br>\"force\" only by www.<br>\"none\" only without www.";
+$tx['help']['avoid_dc_select_www']="Access to the website (www.):<br>\"-\" both are possible<br>\"force\" only by www.<br>\"none\" only without www.<br><br>\"force\" or \"none\" enforce a logout.";

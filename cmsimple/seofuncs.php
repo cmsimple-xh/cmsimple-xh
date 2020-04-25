@@ -73,18 +73,23 @@ function XH_avoidDC() {
         }
     }
 
-    if ($use_www == 'force') {
-        //Call page with "www"
+//with or without www.
+    //call page with "www"
+    if ($use_www == 'force' && !isset($_GET['logout'])) {
         if (strtolower(substr($host, 0, 4)) != 'www.') {
             $host = 'www.' . $host;
             $redir = true;
+            //if changed
+            XH_adc_logout();
         }
     }
-    if ($use_www == 'none') {
-        //or filter out "www" if required
+    //or filter out "www" if required
+    if ($use_www == 'none' && !isset($_GET['logout'])) {
         if (strtolower(substr($host, 0, 4)) == 'www.') {
             $host = substr_replace($host, '', 0, 4);
             $redir = true;
+            //if changed
+            XH_adc_logout();
         }
     }
 
@@ -117,6 +122,21 @@ function XH_avoidDC() {
         header("Location: $url");
         header("Connection: close");
         exit;
+    }
+}
+
+//logout if changed with or without www.
+function XH_adc_logout() {
+
+    $url = CMSIMPLE_URL . '?&logout';
+
+    if (XH_ADM) {
+        if (isset($_GET['file']) && $_GET['file'] == 'config') {
+            if (isset($_GET['xh_success'])) {
+                header("Location: $url");
+                exit;
+            }
+        }
     }
 }
 
