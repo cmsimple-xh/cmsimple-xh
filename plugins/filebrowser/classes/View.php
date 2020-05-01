@@ -274,7 +274,7 @@ class View
         $fb = $_XH_filebrowser; // FIXME: the view shouldn't know the controller
         $imgs = $fb->usedImages();
         $base = $fb->browseBase;
-        if ($base{0} == '.' && $base{1} == '/') {
+        if ($base[0] == '.' && $base[1] == '/') {
             $base = substr($base, 2);
         }
         $action = $sn . '?' . XH_hsc($_SERVER['QUERY_STRING']);

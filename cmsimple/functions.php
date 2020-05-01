@@ -605,7 +605,7 @@ function rmanl($t)
  */
 function stsl($t)
 {
-    return get_magic_quotes_gpc() ? stripslashes($t) : $t;
+    return ((float)phpversion()<5.4 && get_magic_quotes_gpc()) ? stripslashes($t) : $t;
 }
 
 /**
@@ -930,16 +930,12 @@ function XH_findNextPage()
  */
 function a($i, $x)
 {
-    global $sn, $u, $cf;
+    global $sn, $u, $xh_publisher;
 
-    if ($i == 0 && !XH_ADM) {
-        if ($x == '' && $cf['locator']['show_homepage'] == 'true') {
-            return '<a href="' . $sn . '?' . $u[0] . '">';
-        }
-    }
-    return isset($u[$i])
+    return isset($u[$i]) && (XH_ADM || $i !== $xh_publisher->getFirstPublishedPage())
         ? '<a href="' . $sn . '?' . $u[$i] . $x . '">'
-        : '<a href="' . $sn . '?' . $x . '">';
+        //: '<a href="' . $sn . ($x ? ($x[0] != '"' ? '?' . $x : $x) : '') . '">';
+        : '<a href="' . $sn . ($x ? ($x[$i] != '"' ? '?' . $x : $x) : '') . '">';
 }
 
 /**
@@ -2861,9 +2857,13 @@ function XH_getLocatorModel()
  */
 function XH_getPageURL($index)
 {
-    global $sn, $u;
+    global $sn, $u, $xh_publisher;
 
-    return $sn . '?' . $u[$index];
+    if ($index === $xh_publisher->getFirstPublishedPage()) {
+        return $sn;
+    } else {
+        return $sn . '?' . $u[$index];
+    }
 }
 
 /**

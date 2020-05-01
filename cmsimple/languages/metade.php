@@ -52,3 +52,4 @@ $mtx['uri']="URL";
 $mtx['urichar']="URL-Zeichen";
 $mtx['userfiles']="Benutzerdateien";
 $mtx['word separator']="Worttrennzeichen";
+$mtx['avoid_dc']="Duplicate Content vermeiden";

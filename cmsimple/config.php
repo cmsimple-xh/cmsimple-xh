@@ -47,3 +47,6 @@ $cf['title']['format']="{SITE} &ndash; {PAGE}";
 $cf['mode']['advanced']="";
 $cf['format']['date']="long";
 $cf['format']['time']="short";
+$cf['avoid_dc']['use_ssl']="";
+$cf['avoid_dc']['remove_index']="";
+$cf['avoid_dc']['select_www']="";

@@ -44,16 +44,16 @@ $pd_router->add_tab(
 /*
  * Set the meta tags contents.
  */
-if ($pd_current['title']) {
+if (isset($pd_current['title'])) {
     $cf['site']['title'] = $pd_current['title'];
     $cf['title']['format'] = "{SITE}";
 }
-if ($pd_current['description']) {
+if (isset($pd_current['description'])) {
     $tx['meta']['description'] = $pd_current['description'];
 }
-if ($pd_current['keywords']) {
+if (isset($pd_current['keywords'])) {
     $tx['meta']['keywords'] = $pd_current['keywords'];
 }
-if ($pd_current['robots']) {
+if (isset($pd_current['robots'])) {
     $cf['meta']['robots'] = $pd_current['robots'];
 }
