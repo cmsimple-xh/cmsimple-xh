@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<?php
+// ***
+// fhs-simple
+// version 2.0 - 2020/1
+// template for CMSimple_XH ≥ 1.7
+// © 2019 fhs - www.fhseidel.de
+// ***
+
+// if jQuery4CMSimple is installed, include its jQuery library
+if (is_readable($pth['folder']['plugins'].'jquery/jquery.inc.php')) {
+    include_once $pth['folder']['plugins'].'jquery/jquery.inc.php';
+    include_jQuery();
+}
+// Plugin FA_XH
+if (function_exists('fa_require')) {
+    fa_require();
+} else {
+    die('Das Template "fhs-simple" benötigt das Fa_XH-Plugin.<br>Das Fa_XH-Plugin kann hier heruntergeladen werden: <a href="http://3-magi.net/de/?CMSimple_XH/Fa_XH" target="_blank">Download</a>');
+}
+?>
+<html lang="<?=$sl;?>">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<?=head();?>
+<link rel="apple-touch-icon" sizes="180x180" href="<?=$pth['folder']['templateimages']?>favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="<?=$pth['folder']['templateimages']?>favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="<?=$pth['folder']['templateimages']?>favicon/favicon-16x16.png">
+<link rel="manifest" href="<?=$pth['folder']['templateimages']?>favicon/site.webmanifest">
+<link rel="mask-icon" href="<?=$pth['folder']['templateimages']?>favicon/safari-pinned-tab.svg" color="#ff6600">
+<link rel="shortcut icon" href="<?=$pth['folder']['templateimages']?>favicon/favicon.ico">
+<meta name="apple-mobile-web-app-title" content="CMSimple_XH">
+<meta name="application-name" content="CMSimple_XH">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="<?=$pth['folder']['templateimages']?>favicon/mstile-144x144.png">
+<meta name="msapplication-config" content="<?=$pth['folder']['templateimages']?>favicon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+</head>
+
+<body<?=onload();?>>
+<header class="row-full-width" id="header">
+<nav class="langMenu"><?=languagemenu();?></nav>
+<div class="row">
+<div class="header-cont">
+<div id="logo"><a href="./" class="logo">&nbsp;</a></div>
+<div id="logoTxt">
+<h1><a href="./">&nbsp;<?=sitename()?></a></h1>
+</div>
+</div>
+</div>
+<div class="burger nav-buttonNoJS" title="Menu"><a href="?&sitemap"><i class="fa fa-bars fa-2x"></i></a></div>
+<script>document.write('<button onclick="this.blur();" class="burger" title="Menu"><span class="nos"><\/span><span class="ncs"><\/span><span class="nbs"><\/span><\/button>');</script>
+</header>
+<nav class="nav_horizontal closed">
+<div class="row"><?=toc();?></div>
+</nav>
+<div class="row-full-width" id="wrapper">
+<div class="row content">
+<nav class="locator"><i class="fa fa-map-marker"></i> <?=locator('›');?></nav>
+<div class="c24">
+<aside class="secmenu c8 mw240">
+<div id="search1"><?=searchbox();?></div>
+<nav>
+<h2><?php
+if($s >= 0) {
+    if(($l[$s] == 1) && toc(2)) {
+        echo $h[$s];
+    } elseif($l[$s] > 1) {
+        for($count = 0;;) {
+            $count++;
+            if($l[$s - $count] < $l[$s]) {
+                echo $h[$s - $count];
+                break;
+            }
+        }
+    }
+}
+?></h2>
+<?=toc(2,9);?></nav>
+<div id="newsboxes">
+<section class="news">
+<div class="newsin"><?=newsbox('News01');?></div>
+</section>
+<section class="news">
+<div class="newsin"><?=newsbox('News02');?></div>
+</section>
+</div>
+</aside>
+</div>
+<main class="maincont c16 mw240"><?=content();?>
+<div class="submenDiv"><?=submenu('<span>%s</span>');?></div>
+<aside id="newsboxes2" class="row">
+<section class="news">
+<?=newsbox('News01');?>
+</section>
+<section class="news">
+<?=newsbox('News02');?>
+</section>
+</aside>
+</main>
+<nav class="row prevNextP"><div class="prevP"><?=previouspage();?></div><div class="nextP"><?=nextpage();?></div></nav>
+</div>
+</div>
+<footer class="row-full-width" id="footer">
+<nav class="row">
+<p class="moreLinks"><?=printlink();?> | <?=sitemaplink();?> | <?=mailformlink();?> | <!--<a href="?Impressum">IMPRESSUM</a> | --><?=loginlink();?></p>
+</nav>
+<div class="row">
+<p class="copyright">
+<?php if (function_exists('poweredbylink')):?>
+<i class="fa fa-copyright fa-fw"></i> <?=date("Y");?> Your Company<br><span class="smaller"><?=poweredbylink()?> &middot; <a href="http://fhseidel.de/" target="_blank">Template by fhs</a></span></p>
+<?php else:?>
+<i class="fa fa-copyright fa-fw"></i> <?=date("Y");?> Your Company<span class="smaller"><br>Powered by <a href="http://www.cmsimple-xh.org/" target="_blank">CMSimple_XH</a><br><a href="http://fhseidel.de/" target="_blank">Template by fhs</a></span></p>
+<?php endif?>
+</div>
+</footer>
+<div><a id="topLink" href="#"><i class="fa fa-angle-up fa-3x"></i></a></div>
+<script src='<?=$pth['folder']['template']?>scripts/script.min.js'></script> 
+<script>
+<?php // if JS activated -> hamburger display none ?>
+document.write('<style>.nav-buttonNoJS {display: none !important;}<\/style>');
+</script>
+</body>
+</html>
