@@ -1,648 +1,1663 @@
-/*
- * Adminmenu
- */
+/*** core.css for CMSimple_XH ***/
+/*** classic part ***/
 
+/* system-font.css v2.0.2 | CC0-1.0 License | github.com/jonathantneal/system-font-css */
+@font-face {
+	font-family: system-ui;
+	font-style: normal;
+	font-weight: 300;
+	src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Segoe UI Light"), local("Ubuntu Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
+}
+@font-face {
+	font-family: system-ui;
+	font-style: italic;
+	font-weight: 300;
+	src: local(".SFNSText-LightItalic"), local(".HelveticaNeueDeskInterface-Italic"), local(".LucidaGrandeUI"), local("Segoe UI Light Italic"), local("Ubuntu Light Italic"), local("Roboto-LightItalic"), local("DroidSans"), local("Tahoma");
+}
+@font-face {
+	font-family: system-ui;
+	font-style: normal;
+	font-weight: 400;
+	src: local(".SFNSText-Regular"), local(".HelveticaNeueDeskInterface-Regular"), local(".LucidaGrandeUI"), local("Segoe UI"), local("Ubuntu"), local("Roboto-Regular"), local("DroidSans"), local("Tahoma");
+}
+@font-face {
+	font-family: system-ui;
+	font-style: italic;
+	font-weight: 400;
+	src: local(".SFNSText-Italic"), local(".HelveticaNeueDeskInterface-Italic"), local(".LucidaGrandeUI"), local("Segoe UI Italic"), local("Ubuntu Italic"), local("Roboto-Italic"), local("DroidSans"), local("Tahoma");
+}
+@font-face {
+	font-family: system-ui;
+	font-style: normal;
+	font-weight: 500;
+	src: local(".SFNSText-Medium"), local(".HelveticaNeueDeskInterface-MediumP4"), local(".LucidaGrandeUI"), local("Segoe UI Semibold"), local("Ubuntu Medium"), local("Roboto-Medium"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+@font-face {
+	font-family: system-ui;
+	font-style: italic;
+	font-weight: 500;
+	src: local(".SFNSText-MediumItalic"), local(".HelveticaNeueDeskInterface-MediumItalicP4"), local(".LucidaGrandeUI"), local("Segoe UI Semibold Italic"), local("Ubuntu Medium Italic"), local("Roboto-MediumItalic"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+@font-face {
+	font-family: system-ui;
+	font-style: normal;
+	font-weight: 700;
+	src: local(".SFNSText-Bold"), local(".HelveticaNeueDeskInterface-Bold"), local(".LucidaGrandeUI"), local("Segoe UI Bold"), local("Ubuntu Bold"), local("Roboto-Bold"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+@font-face {
+	font-family: system-ui;
+	font-style: italic;
+	font-weight: 700;
+	src: local(".SFNSText-BoldItalic"), local(".HelveticaNeueDeskInterface-BoldItalic"), local(".LucidaGrandeUI"), local("Segoe UI Bold Italic"), local("Ubuntu Bold Italic"), local("Roboto-BoldItalic"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+/* adminmenu */
 #xh_adminmenu_scrolling {
-    z-index: 999;
+	z-index: 999;
 }
-
 #xh_adminmenu_fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 999;
+	box-sizing: border-box;
 }
-
 #xh_adminmenu {
-    width: 100%;
-    background-color: #2e3436;
-    font-size: 14px;
-    padding: 0;
-    margin: 0;
-    overflow: visible;
-    border-bottom: 1px solid #aaa;
-    color: #d3d7cf;
+	width: 100%;
+	background-color: #2e3436;
+	padding: 0;
+	margin: 0;
+	overflow: visible;
+	border-bottom: 1px solid #ccc;
+	color: #d3d7cf;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	box-sizing: border-box;
 }
-
 #xh_adminmenu ul {
-    height: 36px;
-    list-style-type: none !important;
-    list-style-image: none;
-    font-family: arial, sans-serif;
-    font-style: normal;
-    margin: 0;
-    padding: 0;
-    background-color: #2e3436;
+	list-style-type: none !important;
+	margin: 0;
+	padding: 0;
+	background-color: #2e3436;
+	box-sizing: border-box;
 }
-
 #xh_adminmenu li {
-    list-style-type: none !important;
-    float: left;
-    position: relative;
-    width: 125px;
-    background-color: #2e3436;
-    text-align: center;
-    color: #d3d7cf;
-    padding: 8px 0 0 0;
-    margin: 2px 0 0 0;
+	list-style-type: none !important;
+	float: left;
+	position: relative;
+	width: 150px;
+	background-color: #2e3436;
+	text-align: center;
+	color: #d3d7cf;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
-
-#xh_adminmenu li a:hover,
-#xh_adminmenu li:hover {
-    background-color: #3f4446;
-}
-
 #xh_adminmenu a,
 #xh_adminmenu a:visited,
 #xh_adminmenu span {
-    display: block;
-    color: #d3d7cf;
-    height: 28px;
-    padding: 0 6px 0 6px;
-    text-decoration: none;
-    font-style: normal;
+	display: block;
+	color: #d3d7cf;
+	padding: .5em;
+	text-decoration: none;
+	font-style: normal;
+	box-sizing: border-box;
 }
-
-#xh_adminmenu span {
-    cursor: default;
+#xh_adminmenu_update {
+	padding: 0 !important;
 }
-
+#xh_adminmenu_update img {
+	width: 1em !important;
+	height: 1em !important;
+}
+#xh_adminmenu li a:hover {
+	background-color: #3f4446;
+}
 #xh_adminmenu ul ul {
-    list-style-type: none !important;
-    height: 0;
-    left: 0;
-    position: absolute;
-    top: 36px;
-    margin: 0;
-    z-index: 9999;
-    visibility: hidden;
+	list-style-type: none !important;
+	height: 0;
+	left: 0;
+	position: absolute;
+	margin: 0;
+	visibility: hidden;
+	z-index: 9999;
 }
-
 #xh_adminmenu ul ul li {
-    background: #4f5456;
-    height: 26px;
-    padding: 3px 0 0 0;
-    margin: 0;
+	background: #4f5456;
 }
-
-#xh_adminmenu ul ul li a,
-#xh_adminmenu ul ul li span {
-    height: 16px;
-    padding: 3px 0 0 0;
-    margin: 0;
+#xh_adminmenu ul ul li:hover,
+#xh_adminmenu ul ul a:hover {
+	background: #c50;
 }
-
-#xh_adminmenu ul ul li:hover {
-    height: 26px;
-    padding: 3px 0 0 0;
-    background: #c50;
+#xh_adminmenu ul ul li a:hover {
+	background: #c50;
 }
-
-#xh_adminmenu ul ul li a:hover,
-#xh_adminmenu ul ul li span:hover {
-    background: #c50;
-    height: 20px;
-    padding: 3px 0 0 0;
-    margin: 0;
-}
-
 #xh_adminmenu ul ul ul {
-    left: 100%;
-    top: 0px;
-    width: 100%;
-    visibility: hidden;
-    padding: 0;
-    margin: 0;
+	left: 100%;
+	top: 0;
+	width: 100%;
+	visibility: hidden;
+	padding: 0;
+	margin: 0;
 }
-
 #xh_adminmenu ul ul ul li {
-    background: #c50;
-    height: 26px;
-    padding: 3px 0 0 0;
-    margin: 0;
+	background: #c50;
 }
-
-#xh_adminmenu ul ul ul li a,
-#xh_adminmenu ul ul ul li span {
-    height: 26px;
-    padding: 3px 0 0 0;
-    margin: 0;
+#xh_adminmenu ul ul ul a:hover {
+	background: #e70;
 }
-
-#xh_adminmenu ul ul ul li:hover {
-    background: #e70;
-    height: 26px;
-    padding: 3px 0 0 0;
-    margin: 0;
-}
-
 #xh_adminmenu ul ul ul li a:hover,
 #xh_adminmenu ul ul ul li span:hover {
-    background: #e70;
-    height: 20px;
-    padding: 3px 0 0 0;
-    margin: 0;
+	background: #e70;
 }
-
 #xh_adminmenu li:hover > ul {
-    visibility: visible;
+	visibility: visible;
 }
-
-/*
- * Pluginmenu
- */
-
-.edit {
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.2em;
-    border: 1px solid;
-    margin: 2px 0;
+#xh_adminmenu span {
+	cursor: default;
 }
-
-.edit td {
-    padding: 4px 6px;
+#xh_adminmenu span:empty:before {
+	content: "\00a0";
 }
-
-/*
- * Debug mode
- */
-
+/* plugin menu */
+table.edit {
+	font: 500 normal 15px/normal system-ui, sans-serif !important;
+	background: transparent !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	border: 0 !important;
+	border-collapse: collapse !important;
+	width: 100%;
+}
+table.edit:first-of-type {
+	margin-top: .5em !important;
+}
+table.edit:last-of-type {
+	margin-bottom: .5em !important;
+}
+table.edit td {
+	font: 500 normal 15px/normal system-ui, sans-serif !important;
+	text-align: center !important;
+	line-height: normal !important;
+	padding: 0 !important;
+	float: left !important;
+	border-bottom: .25em solid transparent !important;
+}
+table.edit td:not(:last-child) {
+	border-right: .25em solid transparent !important;
+}
+table.edit td a,
+table.edit a:link {
+	background: #eee !important;
+	padding: .25em .5em !important;
+	color: #000 !important;
+	display: block !important;
+	border: 1px solid #ccc !important;
+	text-decoration: none !important;
+	transition: none;
+}
+table.edit td a:hover {
+	background: #999 !important;
+	border: 1px solid #999 !important;
+	color: #fff !important;
+	text-decoration: none !important;
+}
+/* debug mode */
 .xh_debug {
-    height: 18px;
-    background: #900;
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    line-height: 14px;
-    color: #fff;
-    text-align: center;
-    border: 0px solid #000;
-    padding: 2px 6px;
-    margin: auto;
+	background: #900;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	color: #fff;
+	text-align: center;
+	padding: .5em;
 }
-
+.xh_debug_warnings b,
+.xh_debug_warnings strong {
+	font: 500 normal 15px/1.25em system-ui, sans-serif !important;
+	color: #000 !important;
+}
 .xh_debug_warnings {
-    background: #fc0;
-    font-family: arial, sans-serif;
-    font-size: 14px;
-    color: #000;
-    padding: 4px 6px;
+	background: #fc0;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	color: #000;
+	padding: .5em 2em;
+	position: relative;
 }
-
-/*
- * Messages
- */
-
-.xh_success,
-.xh_info,
-.xh_warning,
-.xh_fail,
-.cmsimplecore_warning {
-    padding: 0.7em;
-    padding-left: 36px;
-    border-radius: 7px;
+.xh_debug_warnings ul {
+	margin: 0;
+	padding:0;
 }
-
-.xh_success {
-    background: #e1f8cb url("success.png") no-repeat 10px;
-    color: #37620d;
-    border: 1px solid #c6d880;
+/* configuration */
+#xh_config_form {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	color: #000 !important;
+	margin: .5em 0;
 }
-
-.xh_info {
-    background: #e9f5fb url("info.png") no-repeat 10px;
-    color: #16597a;
-    border: 1px solid #84c7e9;
-}
-
-.xh_warning,
-.cmsimplecore_warning {
-    background: #ffffbb url("warning.png") no-repeat 10px;
-    color: #756730;
-    border: 1px solid #ffd324;
-}
-
-.xh_fail {
-    background: #fbe5e2 url("fail.png") no-repeat 10px;
-    color: #992213;
-    border: 1px solid #f2a197;
-}
-
-/*
- * Mailform
- */
-
-#xh_mailform div {
-    width: 250px;
-    margin: 0 0 8px 0;
-}
-
-#xh_mailform .text, .xh_mailform textarea {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.xh_captcha_code {
-    float: left;
-    color: #fff;
-    text-decoration: none;
-    background-color: #000;
-    padding: 1px 5px 2px 5px;
-    margin: 0 4px;
-}
-
-.text, .xh_captcha_input, .xh_mailform textarea {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    font-size: 13px;
-    color: #222;
-    background-color: white;
-    padding: 2px 4px;
-    margin: 0 0 2px 0;
-}
-
-.xh_captcha_input  {
-    float: left;
-    width: 5em;
-    border: 1px solid #666;
-    margin: 0 0 10px 0;
-}
-
-/*
- * System Check
- */
-
-#xh_system_check {
-    list-style: none;
-    padding-left: 0;
-}
-
-#xh_system_check li {
-    margin-left: 0;
-}
-
-#xh_system_check img {
-    padding-right: 1em;
-}
-
-li.xh_system_check_cat_start {
-    margin-top: 1em;
-}
-
-/*
- * Configuration
- */
-
 #xh_config_form fieldset {
-    padding: 1em 0.5em;
-    margin: 1em 0;
+	padding: .5em !important;
+	margin: 1em 0 !important;
+	background: #f5f5f5 !important;
+	border: 1px solid #ccc !important;
 }
-
+#xh_config_form fieldset legend {
+	font: 500 13px/normal system-ui, sans-serif !important;
+	color: #000 !important;
+	padding: .1em .5em 0 .5em !important;
+	margin: 0 0 1.5em 0 !important;
+	background: #eee;
+	width: auto !important;
+	text-transform: uppercase;
+	border: 1px solid #ccc !important;
+	border-bottom-color: #eee !important;
+	border-radius: .25em .25em 0 0;
+}
 #xh_config_form div.xh_label,
 #xh_config_form div.xh_field {
-    padding: 0;
-    margin: 0;
-    border: 0;
-    float: left;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	padding: 0 !important;
+	margin: 0 0 .25em 0 !important;
+	border: 0 !important;
+	float: left !important;
 }
-
 #xh_config_form div.xh_label {
-    width: 35%;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	width: 37% !important;
+	padding: .25em !important;
+	background: #f9f9f9 !important;
+	border: 1px solid #ddd !important;
+	text-align: right !important;
+	color: #666 !important;
+	margin: 0 .25em .25em 0 !important;
+	box-sizing: border-box;
 }
-
 #xh_config_form div.xh_field {
-    width: 65%;
+	width: calc(63% - .35em) !important;
+	box-sizing: border-box;
 }
-
 #xh_config_form .xh_field button {
-    margin: 0 0 6px 0;
+	margin: 0 !important;
 }
-
 #xh_config_form .xh_field select,
 #xh_config_form div.xh_field {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
 }
-
 #xh_config_form .xh_field select {
-    border: 1px solid #bbb;
-    font-size: 13px;
-    margin: 0 0 6px 0;
+	border: 1px solid #ccc !important;
+	padding: .125em !important;
 }
-
 #xh_config_form div.xh_label span.xh_label {
-    margin: 3px 0;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	margin: 0 !important;
 }
-
 #xh_config_form img {
-    margin: 0;
+	margin: 0;
 }
-
 #xh_config_form input[type="checkbox"] {
-    margin: 0.3em 0;
+	margin: .25em 0 !important;
+	padding: 0 !important;
+	vertical-align: text-bottom;
+	box-sizing: border-box;
 }
-
 #xh_config_form br {
-    clear: both;
+	clear: both;
 }
-
 #xh_config_form input.xh_setting,
 #xh_config_form input.cmsimplecore_settings,
 #xh_config_form textarea.xh_setting,
 #xh_config_form textarea.cmsimplecore_settings {
-    width: 90%;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    font-size: 13px;
-    color: #222;
-    padding: 1px 2px;
-    margin: 0 0 6px 0;
-    border: 1px solid #bbb;
-    background: #fff;
-    border-radius: 0;
+	width: 100% !important;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	color: #000 !important;
+	padding: .25em !important;
+	margin-bottom: 0.25em !important;
+	border: 1px solid #ccc !important;
+	border-radius: 0 !important;
+	background: #fff !important;
+	box-sizing: border-box !important;
 }
-
 #xh_config_form textarea.xh_setting,
 #xh_config_form textarea.cmsimplecore_settings {
-    height: 49px;
-    overflow: hidden;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	overflow: hidden !important;
+	background: #fff !important;
+	box-sizing: border-box !important;
 }
-
 #xh_config_form textarea.xh_setting_short,
 #xh_config_form textarea.cmsimplecore_settings_short {
-    height: 18px;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	background: #fff !important;
+	box-sizing: border-box !important;
 }
-
+#xh_config_form input[type="submit"],
+.xh_file_edit~input[type="submit"],
+.xh_config_form_advanced_button,
+#xh_change_password button {
+	font: 500 normal 15px/normal system-ui, sans-serif !important;
+	margin: .5em 0 !important;
+	padding: .25em .5em !important;
+	box-sizing: border-box !important;
+	background: #eee !important;
+	color: #000 !important;
+	border: 1px solid #ccc !important;
+	border-radius: 0 !important;
+	cursor: pointer !important;
+	height: auto !important;
+	text-transform: none !important;
+}
+#xh_config_form input[type="submit"]:hover,
+.xh_file_edit~input[type="submit"].submit:hover,
+.xh_config_form_advanced_button:hover,
+#xh_change_password button:hover {
+	background: #999 !important;
+	color: #fff !important;
+	border: 1px solid #999 !important;
+}
 .xh_config_form_advanced_button {
-    display: block;
-    margin: 1em 0;
+	display: block !important;
+	margin: 1em 0 !important;
 }
-
+/* password change */
+#xh_change_password input {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	color: #000;
+	padding: .25em !important;
+	margin-bottom: 0.25em;
+	border: 1px solid #ccc;
+	border-radius: 0;
+	background: #fff !important;
+	box-sizing: border-box;
+}
+#xh_change_password button {
+	background: #fff !important;
+}
 #xh_change_password label {
-    display: inline-block;
-    min-width: 12em;
+	font: 500 15px/1.25em system-ui, sans-serif !important;
+	display: inline-block !important;
+	min-width: 10em;
+	max-width: calc(37% - 1em - 2px) !important;
+	color: #000 !important;
+	padding: 0 .5em 0 0 !important;
+	text-align: right !important;
+	font-weight: 500;
 }
-
-/*
- * Tooltips
- */
-
-.pl_tooltip {
-    font-family: arial, sans-serif;
-    font-size: 14px;
+#xh_change_password p {
+	padding: 0 !important;
+	margin: 0 !important;
 }
-
-a.pl_tooltip,
-a.pl_tooltip:link,
-a.pl_tooltip:visited,
-a.pl_tooltip:active {
-    position: relative;
-    text-decoration: none;
-    font-weight: normal;
-    border: 0;
+form#xh_change_password {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	background: #eee;
+	border: 1px solid #ccc;
+	padding: 1em 1em .5em 1em;
 }
-
-a.pl_tooltip:hover {
-    /* IE needs some change for the a:hover to handle the a:hover span */
-    background-color: transparent;
-}
-
-a.pl_tooltip span {
-    display: none;
-}
-
-a.pl_tooltip span p {
-    width: auto !important;
-}
-
-a.pl_tooltip:hover span {
-    display: block;
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    width: 360px;
-    z-index: 10;
-    border: 1px dotted;
-    padding: 2px 10px 2px 10px;
-    background: #eee;
-    color: #222;
-    text-align: left;
-}
-
-a.pl_tooltip img {
-    border: 0;
-}
-
-/*
- * New tooltip styling, which allows <p> elements in the help texts.
- * TODO: change that everywhere, and get rid of the old styles for XH 2.0
- */
-
+/* tooltips */
 div.pl_tooltip {
-    font: normal normal 14px arial, sans-serif;
-    text-decoration: none;
-    position: relative;
-    border: 0;
-    float: left;
-    margin-right: .25em;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	text-decoration: none;
+	position: relative;
+	border: 0;
+	float: left;
+	margin-right: .25em;
+	clear: both;
 }
-
 div.pl_tooltip:hover {
-    /* IE needs some change for the a:hover to handle the a:hover span */
-    /* TODO: check if that's necessary for IE >= 7 */
-    background-color: transparent;
+	background-color: transparent;
 }
-
 div.pl_tooltip > div {
-    display: none;
+	display: none;
+	text-align: left !important;
 }
-
+div.pl_tooltip > div a,
+div.pl_tooltip a {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	color: #666 !important;
+	text-decoration: underline !important;
+}
 div.pl_tooltip > div p {
-    width: auto !important;
+	text-align: left !important;
+	width: auto !important;
+	margin: 0 0 .25em 0 !important;
 }
-
-div.pl_tooltip:hover > div {
-    display: block;
-    position: absolute;
-    top: 1em;
-    left: .7em;
-    width: 360px;
-    z-index: 10;
-    border: 1px dotted #666;
-    padding: 7px 10px;
-    background: #eee;
-    color: #222;
-    text-align: left;
+div.pl_tooltip:hover > div,
+div.xh_label:hover > div > div,
+a.pl_tooltip:hover span {
+	display: block;
+	position: absolute;
+	top: 1.5em;
+	left: 1.5em;
+	width: 360px;
+	z-index: 10;
+	border: 1px dotted #666;
+	padding: .25em .5em;
+	background: #ffffa5;
+	color: #000;
+	text-align: left;
 }
-
-div.pl_tooltip img {
-    border: 0;
-    /*vertical-align: text-top;*/
+div.xh_label:hover {
+	cursor: help;
 }
-
-/*
- * Pagedata tabs and views.
- */
-
+div.pl_tooltip img,
+a.pl_tooltip img {
+	border: 0;
+	vertical-align: baseline;
+	padding: 0 .25em 0 0;
+	box-shadow: none !important;
+}
+a.pl_tooltip {
+	position: relative;
+}
+a.pl_tooltip span {
+	display: none;
+}
+/* pagedata tabs and views */
+#xh_pdtabs,
+#xh_pdviews {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	color: #000 !important;
+	text-align: left !important;
+}
 #xh_pdtabs {
-    font-weight: normal;
-    margin-top: 10px;
-    color: #000;
+	margin: 1em 0 0 0 !important;
 }
-
 #xh_pdtabs a {
-    border: 1px solid #888;
-    padding: 1px 3px 2px 3px;
-    background-color: #ddd;
-    background-image: linear-gradient(to bottom, #eee, #ccc);
-    border-bottom: none;
-    border-radius: 5px 5px 0 0;
+	border: 1px solid #ccc !important;
+	border-radius: .25em .25em 0 0 !important;
+	padding: .25em .5em !important;
+	background-color: #ddd !important;
+	color: #000 !important;
+	font-style: normal !important;
+	font-weight: normal !important;
+	text-decoration: none !important;
+	display: inline-block !important;
+	margin: .25em 0 -1px 0 !important;
 }
-
 #xh_pdtabs a:hover {
-    color: red;
-    cursor: pointer;
-    background-color: #cde;
-    background-image: linear-gradient(to bottom, #def, #bcd);
+	color: #000 !important;
+	cursor: pointer !important;
+	background-color: #f5f5f5 !important;
 }
-
 #xh_pdtabs .xh_active_tab,
 #pdtabs .xh_active_tab:hover {
-    background-color: #cdc;
-    background-image: linear-gradient(to top, #fff, #aba);
-    padding-top: 3px;
+	color: #000 !important;
+	background-color: #f5f5f5 !important;
+	border-bottom-color: #f5f5f5 !important;
 }
-
-#xh_pdviews {
-    background:#fff;
-    color: #000;
+#xh_pdviews input,
+#xh_pdviews textarea,
+#xh_pdviews select,
+#xh_pdviews button {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	color: #000 !important;
 }
-
+#xh_pdviews input[type="submit"],
+#xh_pdviews button {
+	padding: .25em .5em !important;
+	border: 1px solid #ccc !important;
+	background: #fff !important;
+	height: auto !important;
+	border-radius: 0 !important;
+	cursor: pointer !important;
+	height: auto !important;
+	box-sizing: border-box !important;
+	margin: .25em !important;
+	text-transform: none !important;
+}
+#xh_pdviews input[type="submit"]:last-of-type,
+#xh_pdviews button:last-of-type {
+	margin: .25em 0 !important;
+	font-weight: 500 !important;
+}
+#xh_pdviews input[type="submit"]:hover,
+#xh_pdviews button:hover {
+	color: #fff !important;
+	border: 1px solid #999 !important;
+	background: #999 !important;
+}
+#xh_pdviews input[type="text"],
+#xh_pdviews textarea,
+#xh_pdviews select {
+	background: #fff !important;
+	border: 1px solid #ccc !important;
+	border-radius: 0 !important;
+	padding: .25em .5em !important;
+	margin: .125em 0 !important;
+	box-sizing: border-box !important;
+	width: 100% !important;
+}
+#xh_pdviews input[type*="dat"] {
+	width: 25% !important;
+	padding: .25em .5em !important;
+	border: 1px solid #ccc !important;
+}
+#xh_pdviews input:disabled,
+#xh_pdviews select:disabled {
+	background: #f5f5f5 !important;
+	cursor: not-allowed !important;
+}
+#xh_pdviews select {
+	width: auto !important;
+	padding: .125em !important;
+}
+#xh_pdviews label {
+	color: #000 !important;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	margin: 0 !important;
+	display: block;
+	max-width: 100%;
+}
+#xh_pdviews a {
+	border: 0 !important;
+}
+#xh_pdviews .pl_tooltip ~ span ~ label,
+#xh_pdviews a.pl_tooltip ~ label {
+ display: inline-block !important;
+}
+#xh_pdviews p {
+	margin: .5em 0 !important;
+	padding: 0 !important;
+}
+#xh_pdviews div > p {
+	color: #000 !important;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+#xh_pdviews ul,
+#xh_pdviews ul li:before {
+	color: #000 !important;
+	list-style-image: none !important;
+	content: '' !important;
+}
+#xh_pdviews input[type="checkbox"],
+#xh_pdviews input[type="radio"] {
+	margin: 0 .5em 0 0 !important;
+}
 #xh_pdviews .xh_view_toggle {
-    width: 20px;
-    height: 20px;
-    float: right;
-    background: url(cross.png) no-repeat top right;
-    cursor: pointer;
+	width: 20px;
+	height: 20px;
+	float: right;
+	background: url(cross.svg) no-repeat top right;
+	cursor: pointer;
 }
-
+a.xh_view_toggle {
+	text-decoration: none !important;
+	border: 0 !important;
+}
 #xh_pdviews .xh_active_view {
-    display: block;
-    padding: 1.5ex 3ex;
-    border: 1px solid #808080;
+	display: block;
+	padding: .5em;
+	border: 1px solid #ccc;
+	background: #f5f5f5;
+	margin: 0 0 1em 0;
 }
-
 #xh_pdviews .xh_inactive_view {
-    display: none;
-    display: block;
-    padding: 1.5ex 3ex;
-    border: 1px solid #808080;
-    display: none;
+	display: none;
 }
-
-/*
- * Modal dialogs
- */
-
+#xh_pdviews form {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+}
+#xh_pdviews b,
+#xh_pdviews strong,
+#xh_pdviews b,
+#xh_pdviews strong,
+.pl_tooltip b,
+.pl_tooltip strong {
+	font: 500 normal 15px/1.25em system-ui, sans-serif !important;
+	color: #000 !important;
+}
+#xh_pdviews hr {
+	margin: .25em 0 !important;
+	border: 0 !important;
+	border-top: 1px solid #ccc !important;
+	clear: both !important;
+	box-shadow: none !important;
+}
+#xh_pdviews p.xh_success,
+#xh_pdviews p.xh_info,
+#xh_pdviews p.xh_warning,
+#xh_pdviews p.xh_fail,
+#xh_pdviews p.cmsimplecore_warning,
+#xh_pdviews li.xh_success,
+#xh_pdviews li.xh_info,
+#xh_pdviews li.xh_warning,
+#xh_pdviews li.xh_fail,
+#xh_pdviews li.cmsimplecore_warning {
+	margin: .5em 0 !important;
+	padding: .5em .5em .5em 2em !important;
+}
+/* mailform */
+#xh_mailform div {
+}
+#xh_mailform .text,
+#xh_mailform .xh_mailform textarea {
+	width: 100%;
+}
+/*#xh_mailform .text,
+#xh_mailform .xh_mailform textarea {
+	font: inherit;
+	color: inherit;
+	padding: 4px;
+	margin: 0 0 4px 0;
+	box-sizing: border-box;
+	width: 100%;
+}
+.xh_captcha_code {
+	float: left;
+	font: inherit;
+	color: #fff;
+	border: 1px solid #333;
+	background-color: #333;
+	padding:2px 4px;
+	margin: 4px 0 4px 4px;
+	box-sizing: border-box;
+	width: 5em;
+	text-align: center;
+	height: auto !important;
+}
+.xh_captcha_input {
+	font: inherit;
+	color: #333;
+	float: left;
+	width: 5em;
+	border: 1px solid #333;
+	padding:2px 4px;
+	margin: 4px 0;
+	text-align: center;
+	box-sizing: border-box;
+	height: auto !important;
+}*/
+/* modal dialogs */
 div.xh_modal_dialog_overlay {
-    position: fixed;
-    display: table;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #222;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 9999;
+	position: fixed;
+	display: table;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #222;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 9999;
 }
-
 div.xh_modal_dialog_center {
-    display: table-cell;
-    vertical-align: middle;
+	display: table-cell;
+	vertical-align: middle;
 }
-
 div.xh_modal_dialog {
-    overflow: auto;
-    color: black;
-    background: white;
-    margin: auto;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 1em;
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	overflow: auto;
+	color: black;
+	background: white;
+	margin: auto;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 1em;
 }
-
 div.xh_modal_dialog_error {
-    padding-top: 1em;
-    color: red;
-    font-weight: bold;
+	padding-top: 1em;
+	color: red;
+	font-weight: bold;
 }
-
 div.xh_modal_dialog_buttons {
-    text-align: right;
-    padding-top: 0.5em;
+	text-align: right;
+	padding-top: 0.5em;
 }
-
 div.xh_modal_dialog_buttons button {
-    width: 5em;
+	width: 5em;
 }
-
 form.xh_inline_form {
-    display: inline;
+	display: inline;
 }
-
-/*
- * Login form
- */
-
-body.xh_login {}
-
+/* login form */
+body.xh_login {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	position: relative;
+	text-align: center;
+	height: 100vh;
+	width: 100%;
+	padding: 0;
+	margin: auto;
+}
 body.xh_login div.xh_login {
-    width: 30em;
-    margin: 2em auto 0 auto;
+	border: 1px solid rgba(0,0,0,.1);
+	box-shadow: inset 2px 2px 1px rgba(255, 255, 255, .75),inset -2px -2px 1px rgba(0,0,0,.1);
+	background: rgba(255,255,255,.25);
+	border-radius: 0;
+	margin: 0;
+	padding: .99em;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	text-align: center;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	width: auto;
 }
-
+div.xh_login {
+	height: auto !important;
+}
+body.xh_login strong,
+body.xh_login b {
+	font: 400 normal 15px/1.25em system-ui, sans-serif !important;
+}
+body.xh_login h1 {
+	font: 500 normal 2em/1.25 system-ui, sans-serif !important;
+	margin: 0 0 .25em 0 !important;
+	text-align: center !important;
+	text-transform: none;
+	color: #000;
+}
+body.xh_login a {
+}
+body.xh_login input {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	padding: .25em .5em !important;
+	background: #fff !important;
+	border: 1px solid #ccc !important;
+	color: #000 !important;
+	height: auto !important;
+	box-sizing: border-box !important;
+	margin: 0 0 .5em 0 !important;
+}
+body.xh_login input[type="submit"] {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	color: #000 !important;
+	padding: .25em .5em !important;
+	border: 1px solid #ccc !important;
+	background: #eee !important;
+	height: auto !important;
+	border-radius: 0;
+	cursor: pointer;
+	height: auto !important;
+	box-sizing: border-box !important;
+	margin: 0 0 .5em 0 !important;
+}
+body.xh_login input[type="submit"]:hover {
+	color: #fff !important;
+	border: 1px solid #999 !important;
+	background: #999 !important;
+}
+div.xh_login p {
+	text-align: center !important;
+	margin: 1em 0 !important;
+	color: #000;
+}
+/* miscellaneous */
 div.xh_break {
-    float: none;
-    clear: both;
-    padding: 0;
-    border: 0;
-    margin: 0;
-    width: 100%;
+	float: none;
+	clear: both;
+	padding: 0;
+	border: 0;
+	margin: 0;
+	width: 100%;
 }
-
-/*
- * Miscellaneous
- */
-
 #xh_logfile {
-    height: 40em;
-    overflow: auto;
-    border: 1px solid #888;
-    background:white;
-    color:black;
-    font: 12px/1.6 "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	height: 40em;
+	width: 100%;
+	font: normal 14px/1.25em monospace !important;
+	color: #000;
+	background: #f3f3f3;
+	padding: 0.5em !important;
+	border: 1px solid #ccc;
+	overflow: auto;
+	box-sizing: border-box;
 }
-
-#xh_pagedata ul {
-    list-style: none;
-}
-
 textarea.xh_file_edit {
-    width: 99%;
-    font-family: Consolas, 'courier new', monospace;
-    font-size: 14px;
-    color: #222;
-    background-color: #fff;
-    padding: 0 !important;
+	width: 100%;
+	font: normal 14px/1.25em monospace !important;
+	color: #000;
+	background: #f3f3f3;
+	padding: 0.5em !important;
+	border: 1px solid #ccc;
+	overflow: auto;
+	box-sizing: border-box;
 }
-
 .flag {
-    border: 0;
+	border: 0;
 }
-
 .xh_find {
-    background: #fd0;
-    color: #000;
+	background: #fd0;
+	color: #000;
+}
+img.helpicon {
+	background: transparent;
+}
+#xh_linkchecker ul {
+	padding: initial !important;
+	margin: initial !important;
+	list-style: initial !important;
+}
+#xh_linkchecker ul li {
+	padding: initial !important;
+	margin: initial !important;
+	list-style: circle inside !important;
+	margin: 0 0 .5em 0 !important;
+}
+#xh_linkchecker ul li:before {
+	content: '' !important;
+	padding: initial !important;
+	margin: initial !important;
+}
+form.xh_inline_form input[type="submit"] {
+	font: 500 normal 15px/1.25em system-ui, sans-serif !important;
+	color: #000 !important;
+	padding: .25em .5em !important;
+	border: 1px solid #ccc !important;
+	background: #eee !important;
+	border-radius: 0;
+	cursor: pointer;
+	height: auto !important;
+	box-sizing: border-box !important;
+	margin: .25em !important;
+	text-transform: none !important;
+}
+form.xh_inline_form input[type="submit"]:hover {
+	color: #fff !important;
+	border: 1px solid #999 !important;
+	background: #999 !important;
+}
+#xh_config_form input.xh_setting:focus,
+#xh_config_form input.cmsimplecore_settings:focus,
+#xh_config_form textarea.xh_setting:focus,
+#xh_config_form textarea.cmsimplecore_settings:focus,
+#xh_pdviews input:focus,
+#xh_pdviews textarea:focus,
+#xh_change_password input:focus,
+textarea.xh_file_edit:focus {
+	background: #fffff3 !important;
+}
+#xh_pdviews input[type="text"].color {
+	width: auto !important;
 }
 
-img.helpicon {
-    background: none;
+/*** core.css for CMSimple_XH ***/
+/*** extended part ***/
+
+/* the XH-styles */
+div.xhContainer {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	background: #fff;
+	color: #000;
+	padding: 1.5em .5em .25em .5em;
+	/*padding: .5em .5em .25em .5em;*/ /*** ohne XH Version ***/
+	margin: .5em 0;
+	max-width: 100%;
+	border: 1px solid #ccc;
+	overflow-x: auto;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+}
+.xhContainer *::after,
+.xhContainer *::before {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+div.xhContainer b,
+div.xhContainer strong,
+div.xhContainer b i,
+div.xhContainer strong em,
+div.xhContainer i b,
+div.xhContainer em strong {
+	font-weight: 600 !important;
+	color: #000 !important;
+}
+div.xhContainer p {
+	margin: 0 0 .5em 0 !important;
+}
+div.xhContainer img {
+	box-shadow: none !important;
+}
+div.xhContainer p:last-of-type {
+}
+div.xhContainer a {
+	color: #337ab7 !important;
+	text-decoration: none !important;
+	border: 0 !important;
+}
+div.xhContainer a:focus,
+div.xhContainer a:hover {
+	color: #23527c !important;
+	text-decoration: underline !important;
+}
+div.xhContainer h1,
+div.xhContainer h2,
+div.xhContainer h3,
+div.xhContainer h4,
+div.xhContainer h5,
+div.xhContainer h6,
+p.xh1,
+p.xh2,
+p.xh3,
+p.xh4,
+p.xh5,
+p.xh6 {
+	text-transform: none !important;
+	color: #000 !important;
+	margin-top: 1em !important;
+	margin-bottom: .25em !important;
+	font: 500 normal 15px/normal system-ui, sans-serif !important;
+	text-align: left !important;
+	text-shadow: none !important;
+}
+div.xhContainer h1,
+p.xh1 {
+	font-size: 34px !important;
+}
+div.xhContainer h1:first-of-type,
+div.xhContainer p.xh1:first-of-type {
+	margin-top: .25em !important;
+}
+div.xhContainer h2,
+p.xh2 {
+	font-size: 28px !important;
+}
+div.xhContainer h3,
+p.xh3 {
+	font-size: 22px !important;
+}
+div.xhContainer h4,
+p.xh4 {
+	font-size: 18px !important;
+}
+div.xhContainer h5,
+p.xh5 {
+	font-size: 17px !important;
+}
+div.xhContainer h6,
+p.xh6 {
+	font-size: 15px !important;
+}
+.xhMark {
+	font-size: .9em;
+	padding: 2px 4px;
+	background: #ffffa5;
+}
+.xhSmall {
+	font-size: .85em;
+}
+.xhTextLeft {
+	text-align: left !important;
+}
+.xhTextCenter {
+	text-align: center !important;
+}
+.xhTextRight {
+	text-align: right !important;
+}
+.xhTextJustify {
+	text-align: justify !important;
+}
+.xhTextNoWrap {
+	white-space: nowrap !important;
+}
+/* html tags */
+.xhContainer hr,
+hr.xhHr {
+	margin: .25em 0;
+	border: 0;
+	border-top: 1px solid #ccc;
+	box-shadow: none !important;
+}
+hr.xhHrFull {
+	margin: .25em -.5em;
+}
+.xhContainer code,
+code.xhCode,
+.xhContainer pre,
+pre.xhPre,
+.xhContainer kbd,
+kbd.xhKbd {
+	font: normal 14px/normal monospace;
+	color: #333;
+}
+.xhContainer pre,
+pre.xhPre {
+	display: block;
+	padding: 0.5em;
+	margin: .5em 0;
+	word-break: break-all;
+	word-wrap: break-word;
+	background-color: #f5f5f5;
+	border: 1px solid #ccc;
+	border-radius: 0;
+	overflow: auto;
+}
+.xhContainer code,
+code.xhCode {
+	padding: 1px 3px;
+	background-color: #f5f5f5;
+	border-radius: 4px;
+}
+/* lists */
+.xhContainer ul,
+ul.xhListUnordered {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	margin: .5em 0 !important;
+	padding: 0 0 0 2em !important;
+	list-style: disc !important;
+}
+.xhContainer ul li,
+ul.xhListUnordered li {
+	list-style: disc !important;
+}
+.xhContainer ul ul,
+ul.xhListUnordered ul {
+	margin: 0 !important;
+	padding: 0 0 0 1em !important;
+	list-style: circle !important;
+}
+.xhContainer ul ul li,
+ul.xhListUnordered ul li {
+	list-style: circle !important;
+}
+.xhContainer ul ul ul,
+ul.xhListUnordered ul ul {
+	margin: 0;
+	padding: 0 0 0 1em !important;
+	list-style: square !important;
+}
+.xhContainer ul ul ul li,
+ul.xhListUnordered ul ul li {
+	list-style: square !important;
+}
+.xhContainer ul li,
+ul.xhListUnordered li,
+.xhContainer ul ul li,
+ul.xhListUnordered ul li,
+.xhContainer ul ul ul li,
+ul.xhListUnordered ul ul li {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.xhContainer ul li:before,
+ul.xhListUnordered li:before,
+.xhContainer ul ul li:before,
+ul.xhListUnordered ul li:before,
+.xhContainer ul ul ul li:before,
+ul.xhListUnordered ul ul li:before,
+ul.xhListInline li:before,
+ul.xhSysCheckList li:before {
+	content: '' !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.xhContainer ol,
+ol.xhListOrdered {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	margin: .5em 0 !important;
+	padding: 0 0 0 2em !important;
+	list-style: decimal !important;
+}
+.xhContainer ol ol,
+ol.xhListOrdered ol {
+	margin: 0 !important;
+	padding: 0 0 0 1em !important;
+	list-style: upper-alpha !important;
+}
+.xhContainer ol ol ol,
+ol.xhListOrdered ol ol {
+	margin: 0 !important;
+	padding: 0 0 0 1em !important;
+	list-style: lower-alpha !important;
+}
+.xhContainer ol li,
+ol.xhListOrdered li,
+.xhContainer ol ol li,
+ol.xhListOrdered ol li,
+.xhContainer ol ol ol li,
+ol.xhListOrdered ol ol li {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.xhContainer ol li:before,
+ol.xhListOrdered li:before,
+.xhContainer ol ol li:before,
+ol.xhListOrdered ol li:before,
+.xhContainer ol ol ol li:before,
+ol.xhListOrdered ol ol li:before {
+	content: '' !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+ul.xhListInline {
+	padding-left: 0 !important;
+	margin: .5em -.5em !important;
+	list-style: none !important;
+}
+ul.xhListInline li {
+	display: inline-block !important;
+	padding: 0 .5em !important;
+}
+/* system check lists */
+ul.xhSysCheckList {
+	list-style: none !important;
+	padding-left: 0 !important;
+	margin: .5em 0 !important;
+}
+ul.xhSysCheckList li {
+	list-style: none !important;
+	padding: .5em .5em .5em 2em !important;
+	margin: 0 0 .25em 0 !important;
+}
+ul.xhSysCheckList li.xhListCatStart {
+	margin: 1em 0 .25em 0 !important;
+}
+.xhContainer dl,
+dl.xhDefList,
+dl.xhDefListHoriz {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	margin: .5em 0;
+}
+.xhContainer dl dt,
+dl.xhDefList dt {
+	font-weight: 500;
+	margin: 0;
+	padding: 0;
+}
+.xhContainer dl dd,
+dl.xhDefList dd {
+	margin: 0;
+	padding: 0;
+}
+/* xh messages */
+.xhSuccess,
+.xhInfo,
+.xhNoInfo,
+.xhWarning,
+.xhFail,
+li.xhSuccess,
+li.xhInfo,
+li.xhNoInfo,
+li.xhWarning,
+li.xhFail {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	padding: .475em .5em .5em 2em !important;
+	margin: .5em 0 !important;
+	text-align: left;
+}
+.xhSuccess p,
+.xhInfo p,
+.xhNoInfo p,
+.xhWarning p,
+.xhFail p {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.xhSuccess a,
+.xhInfo a,
+.xhNoInfo a,
+.xhWarning a,
+.xhFail a {
+	color: #000 !important;
+	text-decoration: none !important;
+	border: 0 !important;
+	border-bottom: 1px dotted #ccc !important;
+	background: transparent !important;
+}
+.xhSuccess {
+	background: #e1f8cb url("success.svg") no-repeat .5em .5em;
+	color: #37620d;
+	border: 1px solid #c6d880;
+}
+.xhInfo {
+	background: #e9f5fb url("info.svg") no-repeat .5em .5em;
+	color: #16597a;
+	border: 1px solid #84c7e9;
+}
+.xhNoInfo {
+	background: #f5f5f5 url("noinfo.svg") no-repeat .5em .5em;
+	color: #444;
+	border: 1px solid #ccc;
+}
+.xhWarning {
+	background: #ffffbb url("warning.svg") no-repeat .5em .5em;
+	color: #756730;
+	border: 1px solid #ffd324;
+}
+.xhFail {
+	background: #ffeae5 url("fail.svg") no-repeat .5em .5em;
+	color: #f30;
+	border: 1px solid #f2a197;
+}
+/* xh messages OLD */
+.xh_success,
+.xh_info,
+.xh_warning,
+.xh_fail,
+.cmsimplecore_warning,
+li.xh_success,
+li.xh_info,
+li.xh_warning,
+li.xh_fail,
+li.cmsimplecore_warning,
+.xhContainer .xh_success,
+.xhContainer .xh_info,
+.xhContainer .xh_warning,
+.xhContainer .xh_fail,
+.xhContainer .cmsimplecore_warning {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	padding: .475em .5em .5em 2em !important;
+	display: block !important;
+	margin: .25em 0 !important;
+}
+.xh_success ul,
+.xh_info ul,
+.xh_warning ul,
+.xh_fail ul,
+.cmsimplecore_warning ul {
+	list-style: none;
+}
+.xh_success a,
+.xh_info a,
+.xh_warning a,
+.xh_fail a,
+.cmsimplecore_warning a {
+	color: #000 !important;
+	text-decoration: none !important;
+	border: 0 !important;
+	border-bottom: 1px dotted #ccc !important;
+	background: transparent !important;
+}
+.xh_success {
+	background: #e1f8cb url("success.svg") no-repeat .5em .5em;
+	color: #37620d;
+	border: 1px solid #c6d880;
+}
+.xh_info {
+	background: #e9f5fb url("info.svg") no-repeat .5em .5em;
+	color: #16597a;
+	border: 1px solid #84c7e9;
+}
+.xh_warning,
+.cmsimplecore_warning {
+	background: #ffffbb url("warning.svg") no-repeat .5em .5em;
+	color: #756730;
+	border: 1px solid #ffd324;
+}
+.xh_fail {
+	background: #ffeae5 url("fail.svg") no-repeat .5em .5em;
+	color: #f30;
+	border: 1px solid #f2a197;
+}
+/* system check OLD */
+#xh_system_check {
+	list-style: none !important;
+	padding-left: 0 !important;
+	margin: .75em 0 !important;
+}
+#xh_system_check ul,
+ul.cryptographp_syscheck,
+ul.twocents_syscheck,
+ul.upd_list {
+	list-style: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+#xh_system_check li,
+#xh_system_check ul li {
+	padding: .475em .5em .5em 2em !important;
+	margin: 0 0 .25em 0 !important;
+}
+#xh_system_check li:before,
+#xh_system_check ul li:before,
+li.xh_success:before,
+li.xh_warning:before,
+li.xh_fail:before {
+	content: '' !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	font: inherit !important;
+}
+#xh_system_check img {
+	padding-right: .5em !important;
+}
+#xh_system_check li.xh_system_check_cat_start {
+	margin: 1em 0 .25em 0 !important;
+}
+/* buttons */
+.xhButton,
+.xhContainer a.xhButton,
+input.xhButton,
+input[type="submit"].xhButton {
+	font: 500 normal 15px/normal system-ui, sans-serif !important;
+	margin: .25em 0 !important;
+	box-sizing: border-box;
+	padding: .25em .5em !important;
+	background: #eee !important;
+	color: #000 !important;
+	border: 1px solid #ccc !important;
+	border-radius: 0 !important;
+	cursor: pointer !important;
+	text-decoration: none !important;
+	vertical-align: middle !important;
+	text-transform: none !important;
+	height: auto !important;
+	display: inline-block;
+}
+.xhButton:hover,
+.xhButton:focus,
+.xhContainer a.xhButton:hover,
+.xhContainer a.xhButton:focus,
+input[type="submit"].xhButton:hover,
+input[type="submit"].xhButton:focus {
+	background: #999 !important;
+	color: #fff !important;
+	border: 1px solid #999 !important;
+	text-decoration: none !important;
+}
+.xhButtonLight,
+.xhContainer a.xhButtonLight,
+input.xhButtonLight,
+input[type="submit"].xhButtonLight {
+	font: 500 normal 15px/normal system-ui, sans-serif !important;
+	margin: .25em 0 !important;
+	padding: .25em .5em !important;
+	box-sizing: border-box !important;
+	background: #fff !important;
+	color: #000 !important;
+	border: 1px solid #ccc !important;
+	border-radius: 0 !important;
+	cursor: pointer !important;
+	text-decoration: none !important;
+	vertical-align: middle !important;
+	text-transform: none !important;
+	height: auto !important;
+	display: inline-block;
+}
+.xhButtonLight:hover,
+.xhButtonLight:focus,
+.xhContainer a.xhButtonLight:hover,
+.xhContainer a.xhButtonLight:focus,
+input[type="submit"].xhButtonLight:hover,
+input[type="submit"].xhButtonLight:focus {
+	background: #999 !important;
+	color: #fff !important;
+	border: 1px solid #999 !important;
+	text-decoration: none !important;
+}
+.xhButtonImg {
+	font: 500 normal 15px/normal system-ui, sans-serif !important;
+	color: #000 !important;
+	cursor: pointer !important;
+	padding: 0 !important;
+	margin: .25em 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	vertical-align: baseline;
+	text-transform: none !important;
+	height: auto !important;
+	display: inline-block;
+}
+.xhButtonImg:hover,
+.xhButtonImg:active,
+.xhButtonImg:focus {
+	outline: thin dotted !important;
+	outline: 5px auto -webkit-focus-ring-color !important;
+	outline-offset: 1px !important;
+}
+.xhButton img,
+.xhButtonLight img,
+.xhButtonImg img {
+	max-width: inherit !important;
+	vertical-align: baseline;
+}
+.xhButtonGroup {
+	margin: .5em 0;
+}
+.xhButtonGroup .xhButton,
+.xhButtonGroup .xhButtonLight,
+.xhButtonGroup .xhButtonImg {
+	margin: 0 4px 4px 0 !important;
+}
+/* tables */
+.xhTable {
+	font: normal 15px/normal system-ui, sans-serif !important;
+	width: 100%;
+	max-width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+	margin: 10px 0;
+	background: #fff;
+	color: #000;
+}
+.xhTable > caption + thead > tr:first-child > td,
+.xhTable > caption + thead > tr:first-child > th,
+.xhTable > colgroup + thead > tr:first-child > td,
+.xhTable > colgroup + thead > tr:first-child > th,
+.xhTable > thead:first-child > tr:first-child > td,
+.xhTable > thead:first-child > tr:first-child > th {
+	border-top: 0;
+}
+.xhTable th {
+	font-weight: 500;
+	text-align: left;
+}
+.xhTable > tbody > tr > td,
+.xhTable > tbody > tr > th,
+.xhTable > tfoot > tr > td,
+.xhTable > tfoot > tr > th,
+.xhTable > thead > tr > td,
+.xhTable > thead > tr > th {
+	box-sizing: border-box;
+	padding: 2px;
+	line-height: normal;
+	vertical-align: top;
+	border-top: 1px solid #ccc;
+}
+.xhTable > thead > tr > th {
+	box-sizing: border-box;
+	vertical-align: bottom !important;
+	border-bottom: 1px solid #666 !important;
+}
+.xhTableBordered {
+	border: 1px solid #ccc;
+}
+.xhTableBordered > tbody > tr > td,
+.xhTableBordered > tbody > tr > th,
+.xhTableBordered > tfoot > tr > td,
+.xhTableBordered > tfoot > tr > th,
+.xhTableBordered > thead > tr > td,
+.xhTableBordered > thead > tr > th {
+	border: 1px solid #ccc;
+}
+.xhTableNoBorder {
+	border: 0;
+}
+.xhTableNoBorder > tbody > tr > td,
+.xhTableNoBorder > tbody > tr > th,
+.xhTableNoBorder > tfoot > tr > td,
+.xhTableNoBorder > tfoot > tr > th,
+.xhTableNoBorder > thead > tr > td,
+.xhTableNoBorder > thead > tr > th {
+	border: 0;
+}
+.xhTableStriped > tbody > tr:nth-of-type(2n+1) {
+	background-color: #f5f5f5;
+}
+.xhTableHover > tbody > tr:hover {
+	background-color: #f5f5f5;
+}
+.xhTableResponsiveDiv {
+	min-height: .01%;
+	overflow-x: auto;
+}
+/* forms */
+.xhForm {
+	font: normal 15px/1.25em system-ui, sans-serif !important;
+	margin: .25em 0 !important;
+	padding: 0 !important;
+}
+.xhForm input,
+.xhForm select,
+.xhForm textarea {
+	font: normal 15px/normal system-ui, sans-serif !important;
+}
+.xhForm input[type="file"] {
+	border: 0 !important;
+	padding: 0 !important;
+	cursor: pointer;
+}
+.xhForm label {
+	font: normal 15px/normal system-ui, sans-serif !important;
+	color: #000 !important;
+	display: block !important;
+	max-width: 100% !important;
+	margin: 0 0 .25em 0 !important;
+	font-weight: 500 !important;
+}
+.xhForm p.xhFormText,
+.xhForm p.xhFormHelp {
+	display: block !important;
+	margin: .25em 0 .5em 0 !important;
+}
+.xhForm p.xhFormHelp {
+	color: #777 !important;
+	background: #fff url("help_icon.svg") no-repeat 0 .5em !important;
+	padding: .475em .5em .5em 1.5em !important;
+}
+.xhFormGroup {
+	margin-bottom: .5em !important;
+}
+.xhFormControl {
+	display: block !important;
+	width: 100% !important;
+	height: auto !important;
+	padding: .25em .5em !important;
+	color: #000 !important;
+	background-color: #fff !important;
+	background-image: none !important;
+	border: 1px solid #ccc !important;
+	border-radius: 0 !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	-webkit-transition: none !important;
+	-o-transition: none !important;
+	transition: none !important;
+	box-sizing: border-box !important;
+}
+.xhFormControl:focus {
+	background: #fffff3 !important;
+}
+.xhForm .xhCheckbox label,
+.xhForm .xhRadio label {
+	padding-left: 0 !important;
+	font-weight: normal !important;
+	cursor: pointer;
+}
+.xhForm input[type="checkbox"],
+.xhForm input[type="radio"] {
+	margin: 0 .5em 0 0 !important;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 0;
+}
+.xhDisabled input[type="checkbox"],
+.xhDisabled input[type="radio"],
+.xhForm .xhDisabled label,
+input[type="checkbox"].disabled,
+input[type="checkbox"][disabled],
+input[type="radio"].disabled,
+input[type="radio"][disabled] {
+	cursor: not-allowed !important;
+}
+.xhDisabled label {
+	color: #777 !important;
+}
+form.xhFormInline,
+.xhFormInline .xhFormGroup,
+.xhFormInline label,
+.xhFormInline .xhFormControl,
+.xhFormInlinePart .xhFormGroup,
+.xhFormInlinePart label,
+.xhFormInlinePart .xhFormControl {
+	display: inline-block !important;
+	width: auto !important;
+	margin-right: .5em !important;
+}
+.xhFormInlinePart .xhFormGroup {
+	margin: 0 .25em .5em 0 !important;
+	vertical-align: top !important;
+}
+form.xhFormInline {
+	margin-right: 0 !important;
+}
+.xhFormInlinePart label ~ textarea {
+ vertical-align: top !important;
+}
+/* chexkboxes */
+div.xh_field input[type="checkbox"] {
+	-webkit-appearance: none !important;
+	appearance:none !important;
+	width: 3.5em !important;
+	height: 1.5em !important;
+	border:1px solid #ccc !important;
+	background:#eee !important;
+	position:relative !important;
+	display:inline-block !important;
+	overflow:hidden !important;
+	vertical-align:middle !important;
+	transition: background 0.3s !important;
+	box-sizing:border-box !important;
+	cursor: pointer;
+	margin: .2em 0 !important;
+}
+div.xh_field input[type="checkbox"]::after {
+	content: '\f10c' !important;
+	font-family: "FontAwesome";
+	color: #fff;
+	position: absolute !important;
+	top: -1px !important;
+	left: -1px !important;
+	width: 1.75em !important;
+	height: 1.5em !important;
+	background: #666 !important;
+	transition: left 0.1s cubic-bezier(0.785, 0.135, 0.15, 0.86) !important;
+	text-align: center;
+	line-height: 1.5;
+}
+div.xh_field input[type="checkbox"]:checked::after {
+	content: '\f00c' !important;
+	font-family: "FontAwesome";
+}
+div.xh_field input[type="checkbox"]:checked {
+	background:#3c0 !important;
+	border-color:#ccc !important;
+}
+div.xh_field input[type="checkbox"]:checked:after {
+	left: 1.75em !important;
+	border-color:#ccc !important;
+}
+
+/* responsive part */
+@media (min-width: 768px) {
+dl.xhDefListHoriz dt {
+	float: left;
+	width: 33%;
+	overflow: hidden;
+	clear: left;
+	text-align: right;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+dl.xhDefListHoriz dd {
+	margin-left: 35%;
+}
+.xhTableResponsiveDiv {
+	width: 100%;
+	overflow-y: hidden;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
+}
+}
+ @media (min-width: 992px) {
+}
+div.xhContainer .xhVersion {
+	background: #f5f5f5 !important;
+	color: #666 !important;
+	text-align: right !important;
+	padding: .1em .5em !important;
+	font-size: .75em !important;
+	border-bottom: 1px solid #ccc !important;
+	border-left: 1px solid #ccc !important;
+	top: 0 !important;
+	right: 0 !important;
+	position: absolute !important;
 }

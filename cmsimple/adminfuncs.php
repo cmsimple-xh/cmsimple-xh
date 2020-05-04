@@ -688,8 +688,8 @@ function XH_adminMenu(array $plugins = array())
     $rows = 12;
     $columns = ceil($total / $rows);
     $rows = ceil($total / $columns);
-    $width = 125 * $columns;
-    $marginLeft = min($width, 250) - $width;
+    $width = 150 * $columns;
+    $marginLeft = min($width, 300) - $width;
     natcasesort($plugins);
     $plugins = array_values($plugins);
     $orderedPlugins = array();
