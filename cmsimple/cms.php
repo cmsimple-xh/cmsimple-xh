@@ -1008,13 +1008,11 @@ $l = null;
 rfc(); // Here content is loaded
 
 /*
- * Remove index.php from url --> config
- * http or https --> config
- * www or not www --> config
  * Remove $su from FirstPublicPage
  * Remove empty path segments in an URL - https://github.com/cmsimple-xh/cmsimple-xh/issues/282
+ * Integration of the ADC-Core_XH plugin with extended functions (optional)
 */
-XH_avoidDC();
+XH_URI_Cleaning();
 
 $_XH_controller->setFrontendF();
 
