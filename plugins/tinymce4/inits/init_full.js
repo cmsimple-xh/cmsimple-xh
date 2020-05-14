@@ -6,13 +6,13 @@
   menubar:false,
   plugins: [
     "advlist anchor autolink autosave charmap code colorpicker contextmenu emoticons fullscreen  help hr",
-    "image importcss insertdatetime link lists media nonbreaking paste",
-    "save searchreplace table textcolor visualblocks visualchars wordcount"
+    "image importcss insertdatetime link lists media nonbreaking noneditable paste",
+    "save searchreplace table textcolor visualblocks visualchars wordcount xhplugincall"
   ],
   toolbar1: "save | fullscreen code formatselect fontselect fontsizeselect styleselect",
   toolbar2: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify cut copy paste pastetext | bullist numlist outdent indent blockquote",
   toolbar3: "undo redo | link unlink anchor image media | hr nonbreaking removeformat visualblocks visualchars | forecolor backcolor | searchreplace | charmap",
-  toolbar4: "emoticons subscript superscript | table insertdatetime help",
+  toolbar4: "emoticons subscript superscript | table insertdatetime help | xhplugincall",
   image_advtab: true,
   image_title: true,
   file_browser_callback: "%FILEBROWSER_CALLBACK%",
@@ -27,5 +27,6 @@
   "insertdatetime_formats": ["%H:%M:%S", "%d.%m.%Y", "%I:%M:%S %p", "%D"],
   relative_urls: true,
   convert_urls: false,
-  entity_encoding: "raw"
+  entity_encoding: "raw",
+  noneditable_noneditable_class: 'mceNonEditable'
  }

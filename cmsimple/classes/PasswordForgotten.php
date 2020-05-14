@@ -138,25 +138,30 @@ class PasswordForgotten
      */
     private function reset()
     {
-        global $pth, $cf, $tx;
+        global $pth, $cf, $tx, $e;
 
         $password = bin2hex(random_bytes(8));
         $hash = password_hash($password, PASSWORD_BCRYPT);
-        $to = $cf['security']['email'];
-        $message = $tx['password_forgotten']['email2_text'] . ' ' . $password;
-        $mail = new Mail();
-        $mail->setTo($to);
-        $mail->setSubject($tx['title']['password_forgotten']);
-        $mail->setMessage($message);
-        $mail->addHeader('From', $to);
-        $sent = $mail->send();
-        if ($sent) {
-            if (!$this->saveNewPassword($hash)) {
-                e('cntsave', 'config', $pth['file']['config']);
+        if(($hash !== false) && ($password != '')) {
+            $to = $cf['security']['email'];
+            $message = $tx['password_forgotten']['email2_text'] . ' ' . $password;
+            $mail = new Mail();
+            $mail->setTo($to);
+            $mail->setSubject($tx['title']['password_forgotten']);
+            $mail->setMessage($message);
+            $mail->addHeader('From', $to);
+            $sent = $mail->send();
+            if ($sent) {
+                if (!$this->saveNewPassword($hash)) {
+                    e('cntsave', 'config', $pth['file']['config']);
+                }
+                $this->status = 'reset';
+            } else {
+                $this->status = '';
+                $e .= '<li>' . $tx['mailform']['notsend'] . '</li>';
             }
-            $this->status = 'reset';
         } else {
-            $this->status = '';
+            $e .= XH_message('fail', $tx['mailform']['reset_pw_error']);
         }
     }
 

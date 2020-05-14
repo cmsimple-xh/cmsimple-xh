@@ -24,7 +24,12 @@ $_XH_filebrowser->setBrowserPath($pth['folder']['plugins'] . 'filebrowser/');
 $_XH_filebrowser->setMaxFileSize('images', $cf['images']['maxsize']);
 $_XH_filebrowser->setMaxFileSize('downloads', $cf['downloads']['maxsize']);
 
-XH_registerStandardPluginMenuItems(false);
+/*
+ * Register the plugin menu items.
+ */
+if (function_exists('XH_registerStandardPluginMenuItems')) {
+    XH_registerStandardPluginMenuItems(false);
+}
 
 if (XH_wantsPluginAdministration('filebrowser')) {
     $o .= print_plugin_admin('off');

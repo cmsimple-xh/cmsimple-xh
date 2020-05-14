@@ -81,7 +81,7 @@ function get_internal_links($h, $u, $l, $downloads_path)
             if (preg_match("/.+\..+$/u", $p)) {
                 $list[] = array('title' => '__' . utf8_substr($p, 0, 25) . 
                 ' (' . 
-                (round((filesize($downloads_path . '/' . $p)) * 10 >> 8) / 10) . 
+                intval(filesize($downloads_path . '/' . $p) / 1024) . 
                 ' KB)' , 'value' => './?download=' . $p);
             }
         }

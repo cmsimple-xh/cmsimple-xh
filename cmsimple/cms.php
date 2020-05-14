@@ -246,6 +246,7 @@ require_once $pth['folder']['cmsimple'] . 'utf8.php';
 if (!function_exists('password_hash') || !function_exists('random_bytes')) {
     include_once $pth['folder']['cmsimple'] . 'password.php';
 }
+require_once $pth['folder']['cmsimple'] . 'seofuncs.php';
 
 /**
  * The controller.
@@ -1005,6 +1006,13 @@ $l = null;
 
 rfc(); // Here content is loaded
 
+/*
+ * Remove $su from FirstPublicPage
+ * Remove empty path segments in an URL - https://github.com/cmsimple-xh/cmsimple-xh/issues/282
+ * Integration of the ADC-Core_XH plugin with extended functions (optional)
+*/
+XH_URI_Cleaning();
+
 $_XH_controller->setFrontendF();
 
 if (is_readable($pth['folder']['cmsimple'] . 'userfuncs.php')) {
@@ -1327,7 +1335,7 @@ if ($print) {
 }
 
 if (XH_ADM) {
-    $bjs .= '<script type="text/javascript" src="' . $pth['file']['adminjs']
+    $bjs .= '<script src="' . $pth['file']['adminjs']
         . '"></script>' . PHP_EOL
         . XH_adminJSLocalization();
 }

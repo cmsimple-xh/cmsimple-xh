@@ -232,10 +232,12 @@ function XH_sysinfo()
     $o .= '<h4>' . $tx['sysinfo']['helplinks'] . '</h4>' . "\n" . "\n";
     $o .= <<<HTML
 <ul>
-<li><a href="http://www.cmsimple-xh.org/">cmsimple-xh.org &raquo;</a></li>
-<li><a href="http://www.cmsimple-xh.org/wiki/">cmsimple-xh.org/wiki/ &raquo;</a></li>
-<li><a href="http://www.cmsimpleforum.com/">cmsimpleforum.com &raquo;</a></li>
-<li><a href="http://www.cmsimple-xh.org/de/?Alles_auf_einen_Blick">cmsimple-xh.org/de/?Alles_auf_einen_Blick &raquo;</a></li>
+<li><a target="_blank" rel="noopener" rel="noreferrer" href="https://www.cmsimple-xh.org/">cmsimple-xh.org &raquo;</a></li>
+<li><a target="_blank" rel="noopener" rel="noreferrer" href="https://wiki.cmsimple-xh.org/">wiki.cmsimple-xh.org &raquo;</a></li>
+<li><a target="_blank" rel="noopener" rel="noreferrer" href="https://www.cmsimpleforum.com/">cmsimpleforum.com &raquo;</a></li>
+<li><a target="_blank" rel="noopener" rel="noreferrer" href="https://www.cmsimple-xh.org/?Important-Links">cmsimple-xh.org/?Important-Links &raquo;</a></li>
+<li><a target="_blank" rel="noopener" rel="noreferrer" href="https://www.cmsimple-xh.org/?Plugin-Repository">cmsimple-xh.org/?Plugin-Repository &raquo;</a></li>
+<li><a target="_blank" rel="noopener" rel="noreferrer" href="https://www.cmsimple-xh.org/?Template-Repository">cmsimple-xh.org/?Template-Repository &raquo;</a></li>
 </ul>
 
 HTML;
@@ -286,7 +288,7 @@ HTML;
         false, $stx['timezone']
     );
     $checks['other'][] = array(
-        !get_magic_quotes_runtime(), false, $stx['magic_quotes']
+        (float)phpversion()>=5.4||!get_magic_quotes_runtime(), false, $stx['magic_quotes']
     );
     $checks['other'][] = array(
         !ini_get('safe_mode'), false, $stx['safe_mode']
@@ -375,7 +377,7 @@ function XH_logFileView()
     return '<h1>' . $tx['title']['log'] . '</h1>'
         . '<pre id="xh_logfile">' . XH_hsc(XH_readFile($pth['file']['log']))
         . '</pre>'
-        . '<script type="text/javascript">'
+        . '<script>'
         . '(function () {'
         . 'var elt = document.getElementById("xh_logfile");'
         . 'elt.scrollTop = elt.scrollHeight;'
@@ -429,7 +431,8 @@ function XH_backupsView()
         . $_XH_csrfProtection->tokenInput()
         . '</form>'
         . '</li>' . "\n";
-    $o .= '</ul>' . "\n" . '<hr>' . "\n" . '<p>'
+    $o .= '</ul>' . "\n" . '<hr>' . "\n" . '<h2>'
+        . $tx['h2']['xh_backups'] . '</h2>' . "\n" . '<p>'
         . $tx['settings']['backupexplain1'] . '</p>' . "\n" . '<p>'
         . $tx['settings']['backupexplain2'] . '</p>' . "\n" . '<ul>' . "\n";
     $fs = sortdir($pth['folder']['content']);
@@ -841,7 +844,7 @@ function XH_contentEditor()
         . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
         . XH_hsc($tempContent)
         . '</textarea>'
-        . '<script type="text/javascript">'
+        . '<script>'
         . 'document.getElementById("text").style.height=(' . $cf['editor']['height']
         . ') + "px";</script>'
         . $_XH_csrfProtection->tokenInput();
@@ -1070,7 +1073,7 @@ function XH_adminJSLocalization()
             $l10n[$category][$key] = $tx[$category][$key];
         }
     }
-    $o = '<script type="text/javascript">XH.i18n = '
+    $o = '<script>XH.i18n = '
         . XH_encodeJson($l10n) . '</script>' . PHP_EOL;
     return $o;
 }

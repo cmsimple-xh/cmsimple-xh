@@ -157,12 +157,14 @@ class Mailform
         global $cf, $tx;
 
         $this->mail->setTo($cf['mailform']['email']);
-        $this->mail->addHeader('From', $this->sender);
+        $this->mail->addHeader('From', $cf['mailform']['email']);
+        $this->mail->addHeader('Reply-To', $this->sender);
         $this->mail->addHeader('X-Remote', sv('REMOTE_ADDR'));
         $this->mail->setSubject($this->subject);
         $this->mail->setMessage(
             $tx['mailform']['sendername'] . $this->sendername . "\n"
-            . $tx['mailform']['senderphone'] . $this->senderphone . "\n\n"
+            . $tx['mailform']['senderphone'] . $this->senderphone . "\n"
+            . $tx['mailform']['sendermail'] . $this->sender . "\n\n"
             . $this->mailform
         );
         $sent = $this->mail->send();

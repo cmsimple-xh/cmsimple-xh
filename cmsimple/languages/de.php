@@ -77,7 +77,7 @@ $tx['error']['undefined']="Undefiniert";
 
 $tx['filetype']['backup']="Sicherung";
 $tx['filetype']['config']="Konfiguration";
-$tx['filetype']['content']="Content-Datei";
+$tx['filetype']['content']="Inhaltsdatei";
 $tx['filetype']['execute']="Ausführen";
 $tx['filetype']['file']="Datei";
 $tx['filetype']['folder']="Ordner";
@@ -197,6 +197,9 @@ $tx['mailform']['senderphone']="Telefon-Nr.: ";
 $tx['mailform']['subject']="Betreff (erforderlich): ";
 $tx['mailform']['subject_default']="Kontaktformular auf %s";
 
+$tx['mailform']['sendermail']="E-Mail-Adresse: ";
+$tx['mailform']['reset_pw_error']="Fehler, das Passwort wurde nicht geändert.";
+
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Kontakt-Formular";
 $tx['menu']['print']="Druckansicht";
@@ -253,7 +256,7 @@ $tx['search']['label']="Suchbegriffe";
 $tx['search']['notfound']="\"%s\" wurde nicht gefunden.";
 $tx['search']['result']="Suchergebnis";
 
-$tx['settings']['backup']="Sicherheitskopien";
+$tx['settings']['backup']="Inhaltsdatei";
 $tx['settings']['backupexplain1']="Beim Logout wird eine Sicherheitskopie des Inhalts angelegt. Die älteste Kopie wird gelöscht.";
 $tx['settings']['backupexplain2']="Sicherheitskopie-Namen beginnen mit Datum und Uhrzeit der Erstellung: YYYYMMDD_HHMMSS";
 $tx['settings']['backupsuffix']="Geben Sie einen Dateinamen ein (nur a-z, 0-9, Minus und Unterstrich; höchstens 20 Zeichen):";
@@ -316,7 +319,8 @@ $tx['title']['sysinfo']="System-Info";
 $tx['title']['templates']="Templates";
 $tx['title']['userfiles']="Benutzer-Dateien";
 $tx['title']['validate']="Links prüfen";
-$tx['title']['xh_backups']="Sicherheitskopien";
+$tx['title']['xh_backups']="Inhaltsdatei";
+$tx['h2']['xh_backups']="Sicherheitskopien";
 
 $tx['toc']['dupl']="DOPPELTER SEITENAME";
 $tx['toc']['empty']="LEERER SEITENAME";

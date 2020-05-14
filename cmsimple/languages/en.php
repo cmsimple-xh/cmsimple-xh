@@ -196,6 +196,9 @@ $tx['mailform']['senderphone']="Your phone number: ";
 $tx['mailform']['subject']="Subject (required): ";
 $tx['mailform']['subject_default']="Mailform on %s";
 
+$tx['mailform']['sendermail']="e-mail address: ";
+$tx['mailform']['reset_pw_error']="Error, the password was not changed.";
+
 $tx['menu']['login']="Login";
 $tx['menu']['mailform']="Mailform";
 $tx['menu']['print']="Print view";
@@ -252,7 +255,7 @@ $tx['search']['label']="Search terms";
 $tx['search']['notfound']="\"%s\" was not found.";
 $tx['search']['result']="Result of your search";
 
-$tx['settings']['backup']="Backup";
+$tx['settings']['backup']="Content file";
 $tx['settings']['backupexplain1']="On logout content is backed up and the oldest backup file will be deleted.";
 $tx['settings']['backupexplain2']="Backup file names start with date and time of backup as: YYYYMMDD_HHMMSS";
 $tx['settings']['backupsuffix']="Enter a filename (only a-z, 0-9, minus and underscore; at most 20 characters):";
@@ -315,7 +318,8 @@ $tx['title']['sysinfo']="System Info";
 $tx['title']['templates']="Templates";
 $tx['title']['userfiles']="Userfiles";
 $tx['title']['validate']="Validate links";
-$tx['title']['xh_backups']="Backup";
+$tx['title']['xh_backups']="Content file";
+$tx['h2']['xh_backups']="Backups";
 
 $tx['toc']['dupl']="DUPLICATE PAGE NAME";
 $tx['toc']['empty']="EMPTY PAGE NAME";

@@ -213,7 +213,7 @@ class Controller
         for ($i = 0; $i < $cl; $i++) {
             preg_match_all('/<img.*?src=(["\'])(.*?)\\1.*?>/is', $c[$i], $m);
             foreach ($m[2] as $fn) {
-                if ($fn{0} == '.' && $fn{1} == '/') {
+                if ($fn[0] == '.' && $fn[1] == '/') {
                     $fn = substr($fn, 2);
                 }
                 if (array_key_exists($fn, $images)) {
