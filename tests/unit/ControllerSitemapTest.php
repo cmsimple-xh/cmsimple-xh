@@ -3,12 +3,10 @@
 /**
  * Testing the controller functionality.
  *
- * @category  Testing
- * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2014-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 namespace XH;
@@ -20,11 +18,9 @@ use org\bovigo\vfs\vfsStream;
 /**
  * Testing the handling of sitemap requests.
  *
- * @category Testing
- * @package  XH
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @see      http://cmsimple-xh.org/
  * @since    1.6.3
  */
 class ControllerSitemapTest extends TestCase
@@ -54,9 +50,6 @@ class ControllerSitemapTest extends TestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global int   The number of pages.
-     * @global array The localization of the core.
      */
     protected function setUp()
     {
@@ -81,8 +74,6 @@ class ControllerSitemapTest extends TestCase
      * Tests that the title is set.
      *
      * @return void
-     *
-     * @global string The content of the title element.
      */
     public function testSetsTitle()
     {
@@ -96,8 +87,6 @@ class ControllerSitemapTest extends TestCase
      * Tests the rendered HTML.
      *
      * @return void
-     *
-     * @global string The HTML of the contents area.
      */
     public function testRenderedHTML()
     {

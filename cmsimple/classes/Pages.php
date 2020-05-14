@@ -1,28 +1,18 @@
 <?php
 
-/**
- * A class for handling of CMSimple pages.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
+ * A class for handling of CMSimple pages.
+ *
  * Encapsulates access to several page related global variables,
  * and offers some page related utility methods.
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
- * @since    1.6
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
+ * @since     1.6
  */
 class Pages
 {
@@ -73,11 +63,6 @@ class Pages
 
     /**
      * Constructs an instance.
-     *
-     * @global array The headings of the pages.
-     * @global array The URLs of the pages.
-     * @global array The menu levels of the pages.
-     * @global array The contents of the pages.
      */
     public function __construct()
     {
@@ -210,8 +195,6 @@ class Pages
      * @param bool $ignoreHidden Whether hidden pages should be ignored.
      *
      * @return array of int
-     *
-     * @global array The configuration of the core.
      */
     public function children($n, $ignoreHidden = true)
     {

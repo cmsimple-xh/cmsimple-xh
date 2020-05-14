@@ -3,12 +3,10 @@
 /**
  * Testing XH_finalCleanUp().
  *
- * @category  Testing
- * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2014-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 namespace XH;
@@ -16,11 +14,9 @@ namespace XH;
 /**
  * A test case for XH_finalCleanUp().
  *
- * @category Testing
- * @package  XH
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @see     http://cmsimple-xh.org/
  */
 class FinalCleanUpTest extends TestCase
 {
@@ -59,10 +55,6 @@ class FinalCleanUpTest extends TestCase
      * Sets up the global variables of the test fixture.
      *
      * @return void
-     *
-     * @global array  PHP errors, warnings and notices.
-     * @global array  The configuration of the core.
-     * @global string The script elements to insert at the bottom of the body.
      */
     private function setUpGlobals()
     {
@@ -167,8 +159,6 @@ class FinalCleanUpTest extends TestCase
      * Tests the scrolling admin menu.
      *
      * @return void
-     *
-     * @global array The configuration of the core.
      */
     public function testScrollingAdminMenu()
     {

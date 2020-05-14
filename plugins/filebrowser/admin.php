@@ -3,13 +3,11 @@
 /**
  * Internal Filebrowser -- admin.php
  *
- * @category  CMSimple_XH
- * @package   Filebrowser
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 /*
@@ -124,10 +122,6 @@ if (isset($_GET['filebrowser']) && $_GET['filebrowser'] == 'editorbrowser') {
  * Handles the editorbrowser.
  *
  * @return void
- *
- * @global array                  The paths of system files and folders.
- * @global XH\CSRFProtection      The CSRF protector.
- * @global Filebrowser_Controller The filebrowser controller.
  */
 function Filebrowser_forEditor()
 {

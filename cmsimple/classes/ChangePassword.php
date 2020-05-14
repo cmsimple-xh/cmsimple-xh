@@ -1,29 +1,17 @@
 <?php
 
-/**
- * Changing the password.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    Peter Harteg <peter@harteg.dk>
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
  * Changing the password.
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
- * @since    1.7
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
+ * @since     1.7
  */
 class ChangePassword
 {
@@ -71,8 +59,6 @@ class ChangePassword
 
     /**
      * Initializes a new instance.
-     *
-     * @global CSRFProtection The CSRF protector.
      */
     public function __construct()
     {
@@ -92,8 +78,6 @@ class ChangePassword
     /**
      * Process the default action.
      *
-     * @global string The HTML of the contents area.
-     *
      * @return void
      */
     public function defaultAction()
@@ -105,8 +89,6 @@ class ChangePassword
 
     /**
      * Renders the change password form.
-     *
-     * @global string The site name.
      *
      * @return string
      */
@@ -138,10 +120,8 @@ class ChangePassword
         $html = '<p>'
             . '<label for="' . $id . '">' . $this->lang['password'][$which]
             . '</label> '
-            . tag(
-                'input id="' . $id . '" type="password" name="' . $id
-                . '" value="' . XH_hsc($value) . '"'
-            );
+            . '<input id="' . $id . '" type="password" name="' . $id
+                . '" value="' . XH_hsc($value) . '">';
         if (in_array($which, array('old', 'new'))) {
             $html .= ' <span class="xh_password_score"></span>';
         }
@@ -162,8 +142,6 @@ class ChangePassword
 
     /**
      * Process the save action.
-     *
-     * @global string The HTML of the contents area.
      *
      * @return void
      */
@@ -217,8 +195,6 @@ class ChangePassword
     /**
      * Saves the configuration with the new password hash.
      *
-     * @global array The paths of system files and folders.
-     *
      * @return bool
      */
     private function savePassword()
@@ -242,6 +218,6 @@ class ChangePassword
             }
         }
         $o .= "\n?>\n";
-        return XH_writeFile($pth['file']['config'], $o);
+        return (bool) XH_writeFile($pth['file']['config'], $o);
     }
 }

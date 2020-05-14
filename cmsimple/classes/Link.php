@@ -1,28 +1,16 @@
 <?php
 
-/**
- * The links for the link checker.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    Peter Harteg <peter@harteg.dk>
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
  * The links for the link checker.
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
  */
 class Link
 {

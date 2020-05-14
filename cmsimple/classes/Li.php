@@ -1,30 +1,17 @@
 <?php
 
-/**
- * Handling of the menus.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    Peter Harteg <peter@harteg.dk>
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
  * The menu renderer.
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   Peter Harteg <peter@harteg.dk>
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
- * @since    1.6.3
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
+ * @since     1.6.3
  */
 class Li
 {
@@ -70,8 +57,6 @@ class Li
      * @param mixed $st The menu level to start with or the type of menu.
      *
      * @return string HTML
-     *
-     * @global int The index of the current page.
      */
     public function render(array $ta, $st)
     {
@@ -81,7 +66,7 @@ class Li
         $this->st = $st;
         $tl = count($this->ta);
         if ($tl < 1) {
-            return;
+            return '';
         }
         $t = '';
         if ($this->st == 'submenu' || $this->st == 'search') {
@@ -160,8 +145,6 @@ class Li
      * @param int $i The index of the current item.
      *
      * @return int
-     *
-     * @global array  The menu levels of the pages.
      */
     protected function getMenuLevel($i)
     {
@@ -176,8 +159,6 @@ class Li
      * @param int $i The index of the current item.
      *
      * @return string
-     *
-     * @global array  The configuration of the core.
      */
     protected function getClassName($i)
     {
@@ -214,11 +195,6 @@ class Li
      * @param int $i The index of the current item.
      *
      * @return bool
-     *
-     * @global int    The index of the current page.
-     * @global array  The URLs of the pages.
-     * @global array  The menu levels of the pages.
-     * @global array  The configuration of the core.
      */
     protected function isAnchestorOfSelectedPage($i)
     {
@@ -235,10 +211,6 @@ class Li
      * @param int $i The index of the current item.
      *
      * @return bool
-     *
-     * @global int    The number of pages.
-     * @global array  The menu levels of the pages.
-     * @global array  The configuration of the core.
      */
     protected function hasChildren($i)
     {
@@ -263,8 +235,6 @@ class Li
      * @param int $i The index of the current item.
      *
      * @return string HTML
-     *
-     * @global array  The headings of the pages.
      */
     protected function renderMenuItem($i)
     {
@@ -303,9 +273,6 @@ class Li
      * @param int $i The index of the current item.
      *
      * @return bool
-     *
-     * @global array  Whether we are in edit mode.
-     * @global object The page data router.
      */
     protected function shallOpenInNewWindow($i)
     {

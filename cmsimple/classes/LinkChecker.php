@@ -1,18 +1,5 @@
 <?php
 
-/**
- * The link checker.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    Peter Harteg <peter@harteg.dk>
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
@@ -21,11 +8,12 @@ namespace XH;
  * $hints[$pageIndex][$type][$n] = $link, where <var>$type</var> is "errors"
  * or "caveats".
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
  */
 class LinkChecker
 {
@@ -33,10 +21,6 @@ class LinkChecker
      * Prepares the link check.
      *
      * @return string HTML
-     *
-     * @global string The script name.
-     * @global array  The paths of system files and folders.
-     * @global array  The localization of the core.
      */
     public function prepare()
     {
@@ -94,10 +78,6 @@ class LinkChecker
      * Gathers all links in the content and returns the result.
      *
      * @return array
-     *
-     * @global array The page contents.
-     * @global array The page URLs.
-     * @global int   The number of pages.
      */
     private function gatherLinks()
     {
@@ -169,13 +149,7 @@ class LinkChecker
      *
      * @param array $test URL parts.
      *
-     * @return string
-     *
-     * @global array The content of the pages.
-     * @global array The URLs of the pages.
-     * @global int   The number of pages.
-     * @global array The paths of system files and folders.
-     * @global array The configuration of the core.
+     * @return int
      */
     private function checkInternalLink(array $test)
     {
@@ -252,7 +226,7 @@ class LinkChecker
      *
      * @param array $parts URL parts.
      *
-     * @return string
+     * @return int
      */
     private function checkExternalLink(array $parts)
     {
@@ -272,7 +246,7 @@ class LinkChecker
      * @param string $host A host name.
      * @param string $path An absolute path.
      *
-     * @return int
+     * @return int|false
      */
     protected function makeHeadRequest($host, $path)
     {
@@ -369,10 +343,6 @@ class LinkChecker
      * @param array $hints        The errors and warnings.
      *
      * @return string HTML
-     *
-     * @global array The localization of the core.
-     * @global array The page headings.
-     * @global array The page URLs.
      */
     public function message($checkedLinks, array $hints)
     {

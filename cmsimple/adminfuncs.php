@@ -5,14 +5,12 @@
  *
  * Admin only functions.
  *
- * @category  CMSimple_XH
- * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
  * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 /**
@@ -21,8 +19,6 @@
  * @param string $plugin Name of a plugin.
  *
  * @return string
- *
- * @global array The paths of system files and folders.
  *
  * @since 1.6
  */
@@ -53,11 +49,9 @@ function XH_pluginVersion($plugin)
  *
  * @param array $data The data ;)
  *
- * @global array The localization of the core.
- *
  * @return string HTML
  *
- * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#system_check
+ * @see http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#system_check
  *
  * @since 1.5.4
  */
@@ -127,8 +121,6 @@ function XH_systemCheck(array $data)
  * @param string $state A state.
  * @param string $text  A message text.
  *
- * @global array The localization of the core.
- *
  * @return string
  *
  * @since 1.7.0
@@ -149,8 +141,6 @@ function XH_systemCheckLi($class, $state, $text)
  * @param string $path A relative path.
  *
  * @return string
- *
- * @global string The script name.
  *
  * @since 1.6.1
  */
@@ -205,11 +195,6 @@ function XH_isAccessProtected($path)
 
 /**
  * Returns the system information view.
- *
- * @global array           The paths of system files and folders.
- * @global array           The configuration of the core.
- * @global array           The localization of the core.
- * @global string The script name.
  *
  * @return string HTML
  *
@@ -338,9 +323,6 @@ HTML;
  *
  * @return string HTML
  *
- * @global string The script name.
- * @global array  The localization of the core.
- *
  * @since 1.6
  */
 function XH_settingsView()
@@ -385,10 +367,6 @@ function XH_settingsView()
  *
  * @return string HTML
  *
- * @global array  The paths of system files and folders.
- * @global array  The localization of the core.
- * @global string The title of the current page.
- *
  * @since 1.6
  */
 function XH_logFileView()
@@ -418,11 +396,6 @@ function XH_logFileView()
  * Returns the backup view.
  *
  * @return string HTML
- *
- * @global array  The paths of system files and folders.
- * @global array  The script name.
- * @global array  The localization of the core.
- * @global object The CSRF protection object.
  *
  * @since 1.6
  */
@@ -490,10 +463,6 @@ function XH_backupsView()
  *
  * @return string HTML
  *
- * @global array  The script name.
- * @global array  The configuration of the core
- * @global array  The localization of the core.
- *
  * @since 1.7
  */
 function XH_pluginsView()
@@ -532,8 +501,6 @@ function XH_pluginsView()
  * @param array  $style  Array with style-data for the containing table-cell
  *
  * @return mixed
- *
- * @global XH\ClassicPluginMenu The plugin menu builder.
  */
 function pluginMenu($add = '', $link = '', $target = '', $text = '', array $style = array())
 {
@@ -581,8 +548,6 @@ function XH_registerStandardPluginMenuItems($showMain)
  *
  * @return mixed
  *
- * @staticvar array $pluginMenu The array of already registered menu items.
- *
  * @since 1.6.2
  */
 function XH_registerPluginMenuItem($plugin, $label = null, $url = null, $target = null)
@@ -610,15 +575,6 @@ function XH_registerPluginMenuItem($plugin, $label = null, $url = null, $target 
  * @param array $plugins A list of plugins.
  *
  * @return string HTML
- *
- * @global string The scipt name.
- * @global bool   Whether edit mode is active.
- * @global int    The index of the current page.
- * @global array  The URLs of the pages.
- * @global array  The configuration of the core.
- * @global array  The localization of the core.
- * @global string The URL of the current page.
- * @global array  The localization of the plugins.
  *
  * @since 1.6
  */
@@ -809,8 +765,6 @@ function XH_adminMenuItem(array $item, $level = 0)
  *                     ('ON'/'OFF').
  *
  * @return string HTML
- *
- * @global XH\ClassicPluginMenu The plugin menu builder.
  */
 function print_plugin_admin($main)
 {
@@ -822,9 +776,6 @@ function print_plugin_admin($main)
 /**
  * Handles reading and writing of plugin files
  * (e.g. en.php, config.php, stylesheet.css).
- *
- * @global string The requested action.
- * @global string The requested admin-action.
  *
  * @return string Returns the created form or the result of saving the data.
  */
@@ -843,7 +794,7 @@ function plugin_admin_common()
             $fileEdit = new XH\PluginTextFileEdit();
             break;
         default:
-            return false;
+            return '';
     }
     switch ($action) {
         case 'plugin_edit':
@@ -853,23 +804,13 @@ function plugin_admin_common()
         case 'plugin_textsave':
             return $fileEdit->submit();
         default:
-            return false;
+            return '';
     }
 }
 
 
 /**
  * Returns the content editor and activates it.
- *
- * @global string The script name.
- * @global string The currently active page URL.
- * @global int    The index of the currently active page.
- * @global array  The URLs of the pages.
- * @global array  The content of the pages.
- * @global string Error messages as HTML fragment consisting of LI Elements.
- * @global array  The configuration of the core.
- * @global array  The localization of the core.
- * @global object The CSRF protection object.
  *
  * @return string  HTML
  *
@@ -887,18 +828,18 @@ function XH_contentEditor()
         $e .= '<li>' . $msg . '</li>' . "\n";
     }
     $o = '<form method="POST" id="ta" action="' . $sn . '">'
-        . tag('input type="hidden" name="selected" value="' . $u[$s] . '"');
+        . '<input type="hidden" name="selected" value="' . $u[$s] . '">';
     //Add page level and heading to post data because the split markers
     //are filtered out if mode is not "advanced"
     if (!$cf['mode']['advanced']) {
-        $o .= tag('input type="hidden" name="level" value="' . $l[$s] . '"')
-            . tag('input type="hidden" name="heading" value="' . $h[$s] . '"');
+        $o .= '<input type="hidden" name="level" value="' . $l[$s] . '">'
+            . '<input type="hidden" name="heading" value="' . $h[$s] . '">';
         //replace split-markers
         $tempContent = preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $c[$s]);
     } else {
         $tempContent = $c[$s];
     }
-    $o .= tag('input type="hidden" name="function" value="save"')
+    $o .= '<input type="hidden" name="function" value="save">'
         . '<textarea name="text" id="text" class="xh-editor" style="height: '
         . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
         . XH_hsc($tempContent)
@@ -919,12 +860,6 @@ function XH_contentEditor()
  * Saves the current contents (including the page data), if edit mode is active.
  *
  * @return bool Whether that succeeded
- *
- * @global array  The content of the pages.
- * @global array  The paths of system files and folders.
- * @global array  The localization of the core.
- * @global array  Whether edit mode is active.
- * @global object The page data router.
  *
  * @since 1.6
  */
@@ -962,15 +897,6 @@ function XH_saveContents()
  * Saves content.htm after submitting changes from the content editor.
  *
  * @param string $text The text to save.
- *
- * @global array  The paths of system files and folders.
- * @global array  The configuation of the core.
- * @global array  The localization of the core.
- * @global object The page data router.
- * @global array  The content of the pages.
- * @global int    The index of the active page.
- * @global array  The URLs of the pages.
- * @global string The URL of the active page.
  *
  * @return void
  *
@@ -1042,12 +968,6 @@ function XH_saveEditorContents($text)
  * Empties the contents.
  *
  * @return void
- *
- * @global array  The content of the pages.
- * @global int    The number of pages.
- * @global array  The paths of system files and folders.
- * @global array  An HTML fragment with error messages.
- * @global object The pagedata router.
  */
 function XH_emptyContents()
 {
@@ -1077,9 +997,6 @@ function XH_emptyContents()
  * @param string $filename The filename.
  *
  * @return void
- *
- * @global array  The paths of system files and folders.
- * @global array  An HTML fragment with error messages.
  *
  * @since 1.6
  */
@@ -1137,8 +1054,6 @@ function XH_extraBackup($suffix)
  * Returns SCRIPT element containing the localization for admin.min.js.
  *
  * @return string HTML
- *
- * @global array The localization of the core.
  *
  * @since 1.6
  */

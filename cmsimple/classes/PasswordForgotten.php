@@ -1,27 +1,15 @@
 <?php
 
-/**
- * Handling of password forgotten functionality.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
- * The password forgotten handling class.
+ * Handling of password forgotten functionality.
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
- * @since    1.6
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
+ * @since     1.6
  */
 class PasswordForgotten
 {
@@ -51,12 +39,6 @@ class PasswordForgotten
      * Renders the view.
      *
      * @return void
-     *
-     * @global string The page title.
-     * @global string The generated HTML.
-     * @global string The script name.
-     * @global array  The localization of the core.
-     * @global string JS for the onload attribute of the BODY element.
      */
     private function render()
     {
@@ -91,8 +73,6 @@ class PasswordForgotten
      * @param bool $previous Whether to generate the MAC for the previous hour.
      *
      * @return string
-     *
-     * @global array The configuration of the core.
      */
     public function mac($previous = false)
     {
@@ -123,10 +103,6 @@ class PasswordForgotten
      * with a link to reset the password.
      *
      * @return void
-     *
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
-     * @global string LI elements to be emitted as error messages.
      */
     private function submit()
     {
@@ -159,10 +135,6 @@ class PasswordForgotten
      * info email.
      *
      * @return void.
-     *
-     * @global array  The paths of system files and folders.
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
      */
     private function reset()
     {
@@ -200,8 +172,6 @@ class PasswordForgotten
      * @param string $hash A password hash.
      *
      * @return bool
-     *
-     * @global array The paths of system files and folders.
      */
     private function saveNewPassword($hash)
     {
@@ -217,6 +187,6 @@ class PasswordForgotten
             }
         }
         $o .= PHP_EOL . '?>' . PHP_EOL;
-        return XH_writeFile($pth['file']['config'], $o);
+        return (bool) XH_writeFile($pth['file']['config'], $o);
     }
 }

@@ -3,12 +3,10 @@
 /**
  * Testing the controller functionality.
  *
- * @category  Testing
- * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2014-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 namespace XH;
@@ -20,11 +18,9 @@ use org\bovigo\vfs\vfsStream;
 /**
  * Testing the setting of frontend $f.
  *
- * @category Testing
- * @package  XH
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @see      http://cmsimple-xh.org/
  * @since    1.6.3
  */
 class ControllerFrontendFTest extends TestCase
@@ -50,9 +46,6 @@ class ControllerFrontendFTest extends TestCase
      * Tests $f == 'forgotten'.
      *
      * @return void
-     *
-     * @global string The requested function.
-     * @global string The requested function.
      */
     public function testForgotten()
     {
@@ -67,9 +60,6 @@ class ControllerFrontendFTest extends TestCase
      * Tests $f == 'search'.
      *
      * @return void
-     *
-     * @global string The requested function.
-     * @global string The requested function.
      */
     public function testSearch()
     {
@@ -84,10 +74,6 @@ class ControllerFrontendFTest extends TestCase
      * Tests $f == 'mailform' for mailform display.
      *
      * @return void
-     *
-     * @global string The URL of the current page.
-     * @global string Whether the mailform is requested.
-     * @global string The requested function.
      */
     public function testMailformDisplay()
     {
@@ -103,10 +89,6 @@ class ControllerFrontendFTest extends TestCase
      * Test $f == 'mailform' for mailform submission.
      *
      * @return void
-     *
-     * @global string The URL of the current page.
-     * @global string The requested function.
-     * @global string The requested function.
      */
     public function testMailformSubmission()
     {
@@ -122,10 +104,6 @@ class ControllerFrontendFTest extends TestCase
      * Tests $f == 'sitemap'.
      *
      * @return void
-     *
-     * @global string The URL of the current page.
-     * @global string Whether the sitemap is requested.
-     * @global string The requested function.
      */
     public function testSitemap()
     {
@@ -141,10 +119,6 @@ class ControllerFrontendFTest extends TestCase
      * Tests $f == 'xhpages'.
      *
      * @return void
-     *
-     * @global string The URL of the current page.
-     * @global string Whether the page manager is requested.
-     * @global string The requested function.
      */
     public function testXhpages()
     {
@@ -159,11 +133,6 @@ class ControllerFrontendFTest extends TestCase
      * Tests $f == 'sitemap', if search and sitemap are requested.
      *
      * @return void
-     *
-     * @global string The URL of the current page.
-     * @global string Whether the sitemap is requested.
-     * @global string The requested function.
-     * @global string The requested function.
      */
     public function testSearchAndSitemap()
     {

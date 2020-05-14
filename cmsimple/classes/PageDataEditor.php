@@ -1,27 +1,15 @@
 <?php
 
-/**
- * The page data editor.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
- * The page data editor class.
+ * The page data editor.
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
- * @since    1.6
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
+ * @since     1.6
  */
 class PageDataEditor
 {
@@ -29,8 +17,6 @@ class PageDataEditor
      * Returns the currently unused page data fields.
      *
      * @return array
-     *
-     * @global object The page data router.
      */
     private function unusedFields()
     {
@@ -48,9 +34,7 @@ class PageDataEditor
      * Deletes the requested page data fields. Returns number of fields deleted;
      * false if saving failed.
      *
-     * @return int
-     *
-     * @global object The page data router.
+     * @return int|false
      */
     private function deleteFields()
     {
@@ -89,9 +73,6 @@ class PageDataEditor
      *                       <var>false</var> on failure.
      *
      * @return string HTML
-     *
-     * @global array The paths of system files and folders.
-     * @global array The localization of the core.
      */
     private function renderMessage($deleted)
     {
@@ -117,10 +98,6 @@ class PageDataEditor
      *                       initial request resp. <var>false</var> on failure.
      *
      * @return string HTML
-     *
-     * @global string The script name.
-     * @global array  The localization of the core.
-     * @global array  The CSRF protection object.
      */
     private function render($deleted = null)
     {
@@ -157,8 +134,6 @@ class PageDataEditor
      * Handles requests to the page data editor.
      *
      * @return string HTML
-     *
-     * @global object The CSRF protection object.
      */
     public function process()
     {

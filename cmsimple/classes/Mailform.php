@@ -1,29 +1,17 @@
 <?php
 
+namespace XH;
+
 /**
  * Handling of the mailform.
  *
- * @category  CMSimple_XH
- * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
  * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
-namespace XH;
-
-/**
- * The mailform class.
- *
- * @category CMSimple_XH
- * @package  XH
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
- * @since    1.6
+ * @see       http://cmsimple-xh.org/
+ * @since     1.6
  */
 class Mailform
 {
@@ -98,8 +86,6 @@ class Mailform
      * @param string $subject  An alternative subject field preset text instead of
      *                         the subject default in localization.
      * @param Mail   $mail     A mail object.
-     *
-     * @global array The localization of the core.
      */
     public function __construct($embedded = false, $subject = null, $mail = null)
     {
@@ -141,9 +127,6 @@ class Mailform
      * Returns error messages resp. an empty string if everything is okay.
      *
      * @return string HTML
-     *
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
      */
     public function check()
     {
@@ -168,9 +151,6 @@ class Mailform
      * Submits the mailform and returns whether that succeeded.
      *
      * @return bool
-     *
-     * @global array The configuration of the core.
-     * @global array The localization of the core.
      */
     public function submit()
     {
@@ -199,11 +179,6 @@ class Mailform
      *
      * @return string HTML
      *
-     * @global string The requested action.
-     * @global array  The localization of the core.
-     *
-     * @staticvar bool Whether any mailform is processed more than once.
-     *
      * @todo Remove static variable for better testability.
      */
     public function process()
@@ -212,7 +187,7 @@ class Mailform
         static $again = false;
 
         if ($again) {
-            return false;
+            return '';
         }
         $again = true;
 
@@ -235,11 +210,6 @@ class Mailform
      * Returns the mailform view.
      *
      * @return string HTML
-     *
-     * @global string The script name.
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
-     * @global string The current page URL.
      */
     public function render()
     {

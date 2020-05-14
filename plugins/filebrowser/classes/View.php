@@ -3,13 +3,11 @@
 /**
  * The file browser view class.
  *
- * @category  CMSimple_XH
- * @package   Filebrowser
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 namespace Filebrowser;
@@ -17,12 +15,10 @@ namespace Filebrowser;
 /**
  * The file browser view class.
  *
- * @category CMSimple_XH
- * @package  Filebrowser
  * @author   Martin Damken <kontakt@zeichenkombinat.de>
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @see      http://cmsimple-xh.org/
  */
 class View
 {
@@ -122,8 +118,6 @@ class View
 
     /**
      * Initializes a newly created instance.
-     *
-     * @global array  The localization of the plugins.
      */
     public function __construct()
     {
@@ -138,8 +132,6 @@ class View
      * @param array $folders An array of folders.
      *
      * @return string HTML
-     *
-     * @global array The localization of the core.
      */
     private function folderList(array $folders)
     {
@@ -204,9 +196,6 @@ class View
      * @param array $folders An array of folders.
      *
      * @return string
-     *
-     * @global object The CRSF protection object.
-     * @global string The script name.
      */
     private function subfolderList(array $folders)
     {
@@ -257,10 +246,6 @@ class View
      * @param array $files An array of files.
      *
      * @return string
-     *
-     * @global string     The script name.
-     * @global object     The CRSF protection object.
-     * @global Controller The filebrowser controller.
      */
     private function fileList(array $files)
     {
@@ -437,7 +422,7 @@ class View
      * Appends a localized error message to the message area of the view.
      *
      * @param string $message A message key.
-     * @param array  $args    Arguments.
+     * @param ?array $args    Arguments.
      *
      * @return void
      */
@@ -451,7 +436,7 @@ class View
      * Appends a localized success message to the message area of the view.
      *
      * @param string $message A message key.
-     * @param array  $args    The arguments.
+     * @param ?array $args    The arguments.
      *
      * @return void
      */
@@ -465,7 +450,7 @@ class View
      * Appends a localized info message to the message area of the view.
      *
      * @param string $message A message key.
-     * @param array  $args    The arguments.
+     * @param ?array $args    The arguments.
      *
      * @return void
      */
@@ -491,7 +476,7 @@ class View
      * Returns a localized message.
      *
      * @param string $string A message key.
-     * @param mixed  $args   A single argument or an array of arguments.
+     * @param ?array $args   A single argument or an array of arguments.
      *
      * @return string
      */
@@ -513,8 +498,6 @@ class View
      * Renders the JavaScript configuration script element.
      *
      * @return string HTML
-     *
-     * @global array The localization of the plugins.
      *
      * @SuppressWarnings(PHPMD.UnusedPrivateMethod)
      */

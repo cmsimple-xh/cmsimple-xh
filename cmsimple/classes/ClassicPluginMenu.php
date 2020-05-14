@@ -1,30 +1,17 @@
 <?php
 
-/**
- * The plugin menu builders for the classic plugin menu.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    Peter Harteg <peter@harteg.dk>
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
  * The plugin menu builders for the classic plugin menu.
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   Peter Harteg <peter@harteg.dk>
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
- * @since    1.6.2
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
+ * @since     1.6.2
  */
 class ClassicPluginMenu extends PluginMenu
 {
@@ -51,7 +38,7 @@ class ClassicPluginMenu extends PluginMenu
      *
      * @param bool $showMain Whether to show the main settings menu item.
      *
-     * @return HTML
+     * @return string|void
      */
     public function render($showMain)
     {

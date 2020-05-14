@@ -1,38 +1,22 @@
 <?php
 
-/**
- * Editing of core config files.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    Peter Harteg <peter@harteg.dk>
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
  * Editing of core config files.
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
- * @since    1.6
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
+ * @since     1.6
  */
 class CoreConfigFileEdit extends CoreArrayFileEdit
 {
     /**
      * Constructs an instance.
-     *
-     * @global array  The paths of system files and folders.
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
      */
     public function __construct()
     {
@@ -47,6 +31,7 @@ class CoreConfigFileEdit extends CoreArrayFileEdit
         );
         $this->redir = '?file=config&action=array&xh_success=config';
         $this->cfg = array();
+        $mcf = array();
         $fn = $pth['folder']['cmsimple'] . 'metaconfig.php';
         if (is_readable($fn)) {
             include $fn;

@@ -3,12 +3,10 @@
 /**
  * Testing the controller functionality.
  *
- * @category  Testing
- * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2014-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 namespace XH;
@@ -20,11 +18,9 @@ use org\bovigo\vfs\vfsStream;
 /**
  * Testing the handling of save page data requests.
  *
- * @category Testing
- * @package  XH
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @see      http://cmsimple-xh.org/
  * @since    1.6.3
  */
 class ControllerSavePageDataTest extends TestCase
@@ -68,10 +64,6 @@ class ControllerSavePageDataTest extends TestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global int            The index of the currently selected page.
-     * @global PageDataRouter The page data router.
-     * @global CSRFProtection The CSRF protector.
      */
     protected function setUp()
     {
@@ -104,9 +96,6 @@ class ControllerSavePageDataTest extends TestCase
      * Tests that PageDataRouter::update() is called.
      *
      * @return void
-     *
-     * @global int            The index of the currently selected page.
-     * @global PageDataRouter The page data router.
      */
     public function testCallsUpdate()
     {
@@ -121,8 +110,6 @@ class ControllerSavePageDataTest extends TestCase
      * Tests that Ajax success outputs a message.
      *
      * @return void
-     *
-     * @global PageDataRouter The page data router.
      */
     public function testAjaxSuccessOutputsMessage()
     {
@@ -139,8 +126,6 @@ class ControllerSavePageDataTest extends TestCase
      * Tests that Ajax failure outputs a message.
      *
      * @return void
-     *
-     * @global PageDataRouter The page data router.
      */
     public function testAjaxFailureOutputsMessage()
     {
@@ -169,8 +154,6 @@ class ControllerSavePageDataTest extends TestCase
      * Tests that no Ajax success does not call e().
      *
      * @return void
-     *
-     * @global PageDataRouter The page data router.
      */
     public function testNoAjaxSuccessDoesNotCallE()
     {
@@ -186,8 +169,6 @@ class ControllerSavePageDataTest extends TestCase
      * Tests that no Ajax failure calls e().
      *
      * @return void
-     *
-     * @global PageDataRouter The page data router.
      */
     public function testNoAjaxFailureCallsE()
     {

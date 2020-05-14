@@ -1,29 +1,19 @@
 <?php
+
+namespace XH;
+
 /**
  * The page data facade.
  *
- * @category  CMSimple_XH
- * @package   XH
+ * Handles all the data that has to be collected
+ * to generate the page-data-array.
+ *
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
  * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
-namespace XH;
-
-/**
- * Handles all the data that has to be collected
- * to generate the page-data-array.
- *
- * @category CMSimple_XH
- * @package  XH
- * @author   Martin Damken <kontakt@zeichenkombinat.de>
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 class PageDataRouter
 {
@@ -135,7 +125,7 @@ class PageDataRouter
     /**
      * Replaces the existing page data.
      *
-     * @param array $data The new page data.
+     * @param ?array $data The new page data.
      *
      * @return bool Whether the page data have been refreshed.
      */
@@ -373,12 +363,6 @@ class PageDataRouter
      * Returns the page data tab views.
      *
      * @param int $s The index of the page.
-     *
-     * @global bool
-     * @global string
-     * @global string
-     * @global string
-     * @global object The publisher.
      *
      * @return string HTML
      */

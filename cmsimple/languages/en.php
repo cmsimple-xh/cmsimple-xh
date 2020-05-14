@@ -49,7 +49,6 @@ $tx['editmenu']['settings']="Settings";
 $tx['editmenu']['stylesheet']="Stylesheet";
 $tx['editmenu']['sysinfo']="Info";
 $tx['editmenu']['template']="Template";
-$tx['editmenu']['userfiles']="Userfiles";
 $tx['editmenu']['validate']="Validate links";
 
 $tx['error']['401']="Error 401: Unauthorized";

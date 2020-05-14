@@ -3,3 +3,5 @@ tests/coverage/
 vendor/
 assets/css/xhstyles.css
 /composer.lock
+/cmsimple/.sessionname
+/cmsimple/log.txt

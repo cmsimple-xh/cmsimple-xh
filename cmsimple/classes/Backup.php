@@ -1,30 +1,17 @@
 <?php
 
-/**
- * Handling of the content backups.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    Peter Harteg <peter@harteg.dk>
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
  * Handling of the content backups.
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   Peter Harteg <peter@harteg.dk>
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
- * @since    1.6.2
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
+ * @since     1.6.2
  */
 class Backup
 {
@@ -60,8 +47,6 @@ class Backup
      * Initializes a new instance.
      *
      * @param array $contentFolders An array of foldernames.
-     *
-     * @global array The configuration of the core.
      */
     public function __construct(array $contentFolders)
     {
@@ -163,7 +148,7 @@ class Backup
         if (!empty($backups)) {
             return $this->contentFolder . $backups[count($backups) - 1];
         } else {
-            return false;
+            return '';
         }
     }
 
@@ -202,8 +187,6 @@ class Backup
      * @param string $filename A filename.
      *
      * @return string HTML
-     *
-     * @global array The localization of the core.
      */
     private function renderCreationInfo($filename)
     {
@@ -239,8 +222,6 @@ class Backup
      * @param string $filename A filename.
      *
      * @return string HTML
-     *
-     * @global array The localization of the core.
      */
     private function renderDeletionInfo($filename)
     {

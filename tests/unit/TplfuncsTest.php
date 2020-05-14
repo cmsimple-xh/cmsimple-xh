@@ -3,12 +3,10 @@
 /**
  * Testing the functions in adminfuncs.php.
  *
- * @category  Testing
- * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 namespace XH;
@@ -20,11 +18,9 @@ use org\bovigo\vfs\vfsStream;
 /**
  * A test case for the functions in tplfuncs.php.
  *
- * @category Testing
- * @package  XH
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @see      http://cmsimple-xh.org/
  * @since    1.6
  */
 class TplfuncsTest extends TestCase
@@ -149,9 +145,6 @@ class TplfuncsTest extends TestCase
      * Tests the link to the previous page.
      *
      * @return void
-     *
-     * @global array The localization of the core.
-     * @global int   The index of the requested page.
      */
     public function testPreviouspage()
     {
@@ -172,8 +165,6 @@ class TplfuncsTest extends TestCase
      * Tests that there's no link to the previous page if there is none.
      *
      * @return void
-     *
-     * @global int The index of the requested page.
      */
     public function testNoPreviousPage()
     {
@@ -190,9 +181,6 @@ class TplfuncsTest extends TestCase
      * Tests the link to the next page.
      *
      * @return void
-     *
-     * @global int   The index of the requested page.
-     * @global int   The number of pages.
      */
     public function testNextpage()
     {
@@ -214,9 +202,6 @@ class TplfuncsTest extends TestCase
      * Tests that there's no link to the next page if there is none.
      *
      * @return void
-     *
-     * @global int The index of the requested page.
-     * @global int The number of pages.
      */
     public function testNoNextPage()
     {
@@ -240,8 +225,6 @@ class TplfuncsTest extends TestCase
      * Tests languagemenu().
      *
      * @return void
-     *
-     * @global array The paths of system files and folders.
      */
     public function testLanguageMenu()
     {

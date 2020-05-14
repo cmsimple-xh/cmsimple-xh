@@ -3,12 +3,10 @@
 /**
  * Testing the head() function.
  *
- * @category  Testing
- * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2014-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 namespace XH;
@@ -16,11 +14,9 @@ namespace XH;
 /**
  * Testing the head() function.
  *
- * @category Testing
- * @package  XH
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @see      http://cmsimple-xh.org/
  * @since    1.6.3
  */
 class HeadTest extends TestCase
@@ -50,10 +46,6 @@ class HeadTest extends TestCase
      * Sets up the test fixture.
      *
      * @return void
-     *
-     * @global array The paths of system files and folders.
-     * @global array The configuration of the core.
-     * @global array The localization of the core.
      */
     protected function setUp()
     {
@@ -164,9 +156,6 @@ class HeadTest extends TestCase
      * Tests that the prev link is rendered.
      *
      * @return void
-     *
-     * @global string The script name.
-     * @global array  The page URLs.
      */
     public function testRendersPrevLink()
     {
@@ -187,9 +176,6 @@ class HeadTest extends TestCase
      * Tests that the next page link is rendered.
      *
      * @return void
-     *
-     * @global string The script name.
-     * @global array  The page URLs.
      */
     public function testRendersNextLink()
     {

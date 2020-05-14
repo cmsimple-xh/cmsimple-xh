@@ -1,29 +1,16 @@
 <?php
 
-/**
- * The page data model.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    Martin Damken <kontakt@zeichenkombinat.de>
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
  * Handles the page-data-array including reading and writing of the files.
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   Martin Damken <kontakt@zeichenkombinat.de>
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @author    Martin Damken <kontakt@zeichenkombinat.de>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
  */
 class PageDataModel
 {
@@ -103,9 +90,6 @@ class PageDataModel
      * Fixes the page data after reading.
      *
      * @return void
-     *
-     * @global int   The index of the current page.
-     * @global array The page data of the current page.
      */
     private function fixUp()
     {
@@ -132,7 +116,7 @@ class PageDataModel
     /**
      * Replaces the existing page data.
      *
-     * @param array $data The new page data.
+     * @param ?array $data The new page data.
      *
      * @return bool Whether the page data have been refreshed.
      */

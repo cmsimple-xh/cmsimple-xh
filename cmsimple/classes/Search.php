@@ -1,18 +1,5 @@
 <?php
 
-/**
- * The search function of CMSimple_XH.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    Peter Harteg <peter@harteg.dk>
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 /*
   ======================================
   @CMSIMPLE_XH_VERSION@
@@ -36,12 +23,12 @@ namespace XH;
 /**
  * The search class.
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
- * @since    1.6
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
+ * @since     1.6
  */
 class Search
 {
@@ -99,9 +86,6 @@ class Search
      * where all words of the search string are contained.
      *
      * @return array
-     *
-     * @global array The content of the pages.
-     * @global array The configuration of the core.
      */
     public function search()
     {
@@ -163,8 +147,6 @@ class Search
      * @param int $count How often the search string was found.
      *
      * @return string HTML
-     *
-     * @global array The localization of the core.
      */
     private function foundMessage($count)
     {
@@ -189,17 +171,10 @@ class Search
      * Returns the search results view.
      *
      * @return string HTML
-     *
-     * @global array  The headings of the pages.
-     * @global array  The URLs of the pages.
-     * @global string The script name.
-     * @global array  The configuration of the core.
-     * @global array  The localization of the core.
-     * @global object The page data router.
      */
     public function render()
     {
-        global $h, $u, $sn, $cf, $tx, $pd_router;
+        global $h, $u, $cf, $tx, $pd_router;
 
         $cf['meta']['robots'] = 'noindex, nofollow';
         $o = '<h1>' . $tx['search']['result'] . '</h1>';
@@ -208,14 +183,13 @@ class Search
         $count = count($pages);
         $o .= $this->foundMessage($count) . PHP_EOL;
         if ($count > 0) {
-            $o .= '<ul>' . PHP_EOL;
+            $o .= '<ul class="xh_search_results">' . PHP_EOL;
             $words = implode(' ', $words);
             foreach ($pages as $i) {
                 $pageData = $pd_router->find_page($i);
                 $site = isset($pageData['title']) ? $pageData['title'] : '';
                 $title = XH_title($site, $h[$i]);
-                $url = $sn . '?' . $u[$i] . '&amp;search=' . urlencode($words);
-                $o .= '    <li><a href="' . $url . '">' . $title . '</a>';
+                $o .= '    <li>' . a($i, '&amp;search=' . urlencode($words)) . $title . '</a>';
                 $description = isset($pageData['description'])
                     ? $pageData['description'] : '';
                 if ($description != '') {

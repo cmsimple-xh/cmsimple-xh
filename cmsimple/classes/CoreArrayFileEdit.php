@@ -1,39 +1,22 @@
 <?php
 
-/**
- * The abstract base class for editing of core config and text files.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    Peter Harteg <peter@harteg.dk>
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
  * The abstract base class for editing of core config and text files.
  *
- * @category CMSimple_XH
- * @package  XH
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
- * @since    1.6
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @see       http://cmsimple-xh.org/
+ * @since     1.6
  */
 abstract class CoreArrayFileEdit extends ArrayFileEdit
 {
     /**
      * Constructs an instance.
-     *
-     * @global array  The paths of system files and folders.
-     * @global string The current language.
-     * @global string The key of the system file.
-     * @global array  The localization of the plugins.
      */
     public function __construct()
     {
@@ -69,8 +52,6 @@ abstract class CoreArrayFileEdit extends ArrayFileEdit
      * @param string $regex The regex the filename must match.
      *
      * @return array
-     *
-     * @global array The paths of system files and folders.
      */
     protected function selectOptions($fn, $regex)
     {

@@ -5,22 +5,18 @@
  *
  * Backward compatible functionality.
  *
- * @category  CMSimple_XH
- * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
  * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 /**
  * Returns the code to display a photogallery.
  *
  * @param string $u Autogallery's installation folder.
- *
- * @global string The URL of the active page.
  *
  * @return string HTML
  *
@@ -73,8 +69,6 @@ function rp($p)
  *
  * @return string HTML
  *
- * @global array The configuration of the core.
- *
  * @deprecated since 1.5.4. Use `&amp;amp;` instead.
  */
 function amp()
@@ -113,9 +107,6 @@ function guestbooklink()
  *
  * @return bool
  *
- * @global array  The paths of system files and folders.
- * @global string The script name.
- *
  * @deprecated since 1.6.
  */
 function chkdl($fl)
@@ -144,7 +135,7 @@ function chkdl($fl)
  *
  * @param string $fl The file name.
  *
- * @return string
+ * @return ?string
  *
  * @deprecated since 1.6
  */
@@ -152,7 +143,7 @@ function rf($fl)
 {
     trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
     if (!file_exists($fl)) {
-        return;
+        return null;
     }
     clearstatcache();
     return file_get_contents($fl);
@@ -167,9 +158,7 @@ function rf($fl)
  * @param string $fl       A key of $pth['file'].
  * @param bool   $writable Whether the file has to writable.
  *
- * @global array The paths of system files and folders.
- *
- * @return bool
+ * @return void
  *
  * @deprecated since 1.6.
  */
@@ -210,11 +199,6 @@ function chkfile($fl, $writable)
  *
  * @param int $pageIndex The page index.
  *
- * @global bool  Whether edit-mode is active.
- * @global array The contents of all pages.
- * @global int   The Index of the active page.
- * @global array The URLs of all pages.
- *
  * @return void
  *
  * @author mvwd
@@ -247,8 +231,6 @@ function preCallPlugins($pageIndex = -1)
  * @param string $m The log message.
  *
  * @return void
- *
- * @global array  The paths of system files and folders.
  *
  * @deprecated since 1.6
  */

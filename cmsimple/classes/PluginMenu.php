@@ -1,29 +1,16 @@
 <?php
 
-/**
- * The plugin menu builder.
- *
- * @category  CMSimple_XH
- * @package   XH
- * @author    Peter Harteg <peter@harteg.dk>
- * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
- */
-
 namespace XH;
 
 /**
  * The plugin menu builder.
  *
- * @category CMSimple_XH
- * @package  XH
  * @author   Peter Harteg <peter@harteg.dk>
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @see      http://cmsimple-xh.org/
  * @since    1.6.2
  */
 abstract class PluginMenu
@@ -114,8 +101,6 @@ abstract class PluginMenu
 
     /**
      * Initializes a new instance.
-     *
-     * @global string The script name.
      */
     public function __construct()
     {
@@ -129,10 +114,7 @@ abstract class PluginMenu
      *
      * @param bool $showMain Whether to show the main menu item.
      *
-     * @return void
-     *
-     * @global string The name of the current plugin.
-     * @global array  The paths of system files and folders.
+     * @return string|void
      */
     public function render($showMain)
     {
@@ -163,9 +145,6 @@ abstract class PluginMenu
      * Initializes the menu item labels.
      *
      * @return void
-     *
-     * @global array The localization of the core.
-     * @global array The localization of the plugins.
      */
     private function initLabels()
     {
@@ -192,8 +171,6 @@ abstract class PluginMenu
      * Initializes the menu item URLs.
      *
      * @return void
-     *
-     * @global array The paths of system files and folders.
      */
     private function initUrls()
     {
@@ -209,4 +186,39 @@ abstract class PluginMenu
             . '&admin=plugin_language&action=plugin_edit&normal';
         $this->helpUrl = $pth['file']['plugin_help'];
     }
+
+    /**
+     * Makes the main menu item.
+     *
+     * @return void
+     */
+    abstract protected function makeMainItem();
+
+    /**
+     * Makes the stylesheet menu item.
+     *
+     * @return void
+     */
+    abstract protected function makeStylesheetItem();
+
+    /**
+     * Makes the configuration menu item.
+     *
+     * @return void
+     */
+    abstract protected function makeConfigItem();
+
+    /**
+     * Makes the language menu item.
+     *
+     * @return void
+     */
+    abstract protected function makeLanguageItem();
+
+    /**
+     * Makes the help menu item.
+     *
+     * @return void
+     */
+    abstract protected function makeHelpItem();
 }

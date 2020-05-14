@@ -5,8 +5,6 @@
  *
  * The main file of CMSimple_XH.
  *
- * @category  CMSimple_XH
- * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
@@ -76,7 +74,7 @@
  */
 
 // prevent direct access
-if (preg_match('/cms.php/i', $_SERVER['PHP_SELF'])) {
+if (preg_match('/cms\.php/i', $_SERVER['PHP_SELF'])) {
     die('Access Denied');
 }
 
@@ -592,7 +590,7 @@ $userfiles = null;
  *
  * This <i>read-only</i> variable is initialized from a <var>edit</var>
  * GET/POST parameter or the <var>mode</var> cookie. If you want to switch to
- * edit or view mode, you should set the <var>edit</var> GET parameter.
+ * edit mode, set the <var>edit</var> GET parameter.
  *
  * @global string $edit
  *
@@ -603,11 +601,12 @@ $userfiles = null;
 $edit = null;
 
 /**
- * Whether normal mode is requested.
+ * Whether normal (aka view) mode is requested.
  *
  * This <i>read-only</i> variable is initialized from a <var>normal</var>
- * GET/POST parameter or the <var>mode</var> cookie. If you want to switch to
- * edit or view mode, you should set the <var>normal</var> GET parameter.
+ * GET/POST parameter, but not from the <var>mode</var> cookie. If you want to
+ * detect normal mode, check for <code>!$edit</code>. If you want to switch to
+ * normal mode, set the <var>normal</var> GET parameter.
  *
  * @global string $normal
  *
@@ -1312,7 +1311,7 @@ if (!($edit && XH_ADM) && $s > -1) {
 
 
 if ($s == -1 && !$f && $o == '') {
-    shead('404');
+    shead(404);
 }
 
 loginforms();

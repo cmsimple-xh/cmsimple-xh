@@ -3,12 +3,10 @@
 /**
  * Testing the mailform.
  *
- * @category  Testing
- * @package   XH
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @see       http://cmsimple-xh.org/
  */
 
 namespace XH;
@@ -16,11 +14,9 @@ namespace XH;
 /**
  * A test case for the mailform.
  *
- * @category Testing
- * @package  XH
  * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://cmsimple-xh.org/
+ * @see      http://cmsimple-xh.org/
  * @since    1.6
  */
 class MailformTest extends TestCase
@@ -173,7 +169,7 @@ class MailformTest extends TestCase
 
         $pth['folder']['classes'] = './cmsimple/classes/';
         $cf['mailform']['email'] = '';
-        $this->assertFalse(XH_mailform());
+        $this->assertSame('', XH_mailform());
     }
 
     /**
@@ -190,7 +186,7 @@ class MailformTest extends TestCase
         $mailform->process();
         $mailform = $this->getMockBuilder(Mailform::class)->setMethods(array('render', 'check'))->getMock();
         $mailform->expects($this->never())->method('check');
-        $this->assertFalse($mailform->process());
+        $this->assertSame('', $mailform->process());
     }
 
     public function testSubjectIsSetFromQueryParameter()
