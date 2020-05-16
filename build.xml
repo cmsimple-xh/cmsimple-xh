@@ -53,38 +53,17 @@
     </target>
 
     <target name="unit-tests" description="runs all unit tests">
-        <phpunit bootstrap="tests/bootstrap.php" haltonerror="true" haltonfailure="true">
-            <formatter type="plain" usefile="false"/>
-            <batchtest>
-                <fileset dir="tests/unit">
-                    <include name="*Test.php"/>
-                </fileset>
-            </batchtest>
-        </phpunit>
+        <exec command="phpunit --bootstrap tests/bootstrap.php tests/unit" passthru="true" checkreturn="true"/>
     </target>
 
     <target name="validation-tests" description="runs all validation tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
-        <phpunit bootstrap="tests/bootstrap.php" haltonerror="true" haltonfailure="true">
-            <formatter type="plain" usefile="false"/>
-            <batchtest>
-                <fileset dir="tests/validation">
-                    <include name="*Test.php"/>
-                </fileset>
-            </batchtest>
-        </phpunit>
+        <exec command="phpunit --bootstrap tests/bootstrap.php tests/validation" passthru="true" checkreturn="true"/>
     </target>
 
     <target name="attack-tests" description="runs all attack tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
-        <phpunit haltonerror="true" haltonfailure="true">
-            <formatter type="plain" usefile="false"/>
-            <batchtest>
-                <fileset dir="tests/attack">
-                    <include name="*Test.php"/>
-                </fileset>
-            </batchtest>
-        </phpunit>
+        <exec command="phpunit --bootstrap tests/bootstrap.php tests/attack" passthru="true" checkreturn="true"/>
     </target>
 
     <target name="all-tests" depends="unit-tests,validation-tests,attack-tests"
