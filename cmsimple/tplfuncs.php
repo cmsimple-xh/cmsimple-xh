@@ -22,8 +22,6 @@
  */
 function XH_renderPrevLink()
 {
-    global $sn, $u;
-
     $index = XH_findPreviousPage();
     if ($index !== false) {
         return '<link rel="prev" href="' . XH_getPageURL($index) . '">';
@@ -41,8 +39,6 @@ function XH_renderPrevLink()
  */
 function XH_renderNextLink()
 {
-    global $sn, $u;
-
     $index = XH_findNextPage();
     if ($index !== false) {
         return '<link rel="next" href="' . XH_getPageURL($index) . '">';
