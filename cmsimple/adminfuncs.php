@@ -288,7 +288,7 @@ HTML;
         false, $stx['timezone']
     );
     $checks['other'][] = array(
-        (float)phpversion()>=5.4||!get_magic_quotes_runtime(), false, $stx['magic_quotes']
+        version_compare(PHP_VERSION, '5.4', '>=') || !get_magic_quotes_runtime(), false, $stx['magic_quotes']
     );
     $checks['other'][] = array(
         !ini_get('safe_mode'), false, $stx['safe_mode']
