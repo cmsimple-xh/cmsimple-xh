@@ -580,7 +580,7 @@ function rmanl($t)
  */
 function stsl($t)
 {
-    return ((float)phpversion()<5.4 && get_magic_quotes_gpc()) ? stripslashes($t) : $t;
+    return (version_compare(PHP_VERSION, '5.4', '<') && get_magic_quotes_gpc()) ? stripslashes($t) : $t;
 }
 
 /**
