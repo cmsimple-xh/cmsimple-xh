@@ -148,17 +148,19 @@ class TplfuncsTest extends TestCase
      */
     public function testPreviouspage()
     {
-        global $tx, $s;
+        global $tx;
 
-        $s = 10;
-        $hideMock = $this->createFunctionMock('hide');
-        $hideMock->expects($this->any())->willReturn(false);
+        $findPreviousPageMock = $this->createFunctionMock('XH_findPreviousPage');
+        $findPreviousPageMock->expects($this->any())->willReturn(1);
+        $getPageUrlMock = $this->createFunctionMock('XH_getPageURL');
+        $getPageUrlMock->expects($this->any())->willReturn('some URL');
         $this->assertXPathContains(
             '//a[@rel="prev"]',
             $tx['navigator']['previous'],
             previouspage()
         );
-        $hideMock->restore();
+        $getPageUrlMock->restore();
+        $findPreviousPageMock->restore();
     }
 
     /**
@@ -171,10 +173,10 @@ class TplfuncsTest extends TestCase
         global $s;
 
         $s = 10;
-        $hideMock = $this->createFunctionMock('hide');
-        $hideMock->expects($this->any())->willReturn(true);
+        $findPreviousPageMock = $this->createFunctionMock('XH_findPreviousPage');
+        $findPreviousPageMock->expects($this->any())->willReturn(false);
         $this->assertNull(previouspage());
-        $hideMock->restore();
+        $findPreviousPageMock->restore();
     }
 
     /**
@@ -184,18 +186,17 @@ class TplfuncsTest extends TestCase
      */
     public function testNextpage()
     {
-        global $s, $cl;
-
-        $s = 0;
-        $cl = 10;
-        $hideMock = $this->createFunctionMock('hide');
-        $hideMock->expects($this->any())->willReturn(false);
+        $findNextPageMock = $this->createFunctionMock('XH_findNextPage');
+        $findNextPageMock->expects($this->any())->willReturn(1);
+        $getPageUrlMock = $this->createFunctionMock('XH_getPageURL');
+        $getPageUrlMock->expects($this->any())->willReturn('some URL');
         $this->assertXPathContains(
             '//a[@rel="next"]',
             'next', /*$tx['navigator']['next']*/
             nextpage()
         );
-        $hideMock->restore();
+        $getPageUrlMock->restore();
+        $findNextPageMock->restore();
     }
 
     /**
@@ -205,14 +206,10 @@ class TplfuncsTest extends TestCase
      */
     public function testNoNextPage()
     {
-        global $s, $cl;
-
-        $s = 0;
-        $cl = 10;
-        $hideMock = $this->createFunctionMock('hide');
-        $hideMock->expects($this->any())->willReturn(true);
+        $findNextPageMock = $this->createFunctionMock('XH_findNextPage');
+        $findNextPageMock->expects($this->any())->willReturn(false);
         $this->assertNull(nextpage());
-        $hideMock->restore();
+        $findNextPageMock->restore();
     }
 
     public function testTop()
