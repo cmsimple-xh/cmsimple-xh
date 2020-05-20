@@ -131,10 +131,10 @@ class AdminMenuTest extends TestCase
     public function pluginData()
     {
         return array(
-            array(12, 'width:125px; margin-left: 0px'),
-            array(13, 'width:250px; margin-left: 0px'),
-            array(24, 'width:250px; margin-left: 0px'),
-            array(25, 'width:375px; margin-left: -125px')
+            array(12, 'width:150px; margin-left: 0px'),
+            array(13, 'width:300px; margin-left: 0px'),
+            array(24, 'width:300px; margin-left: 0px'),
+            array(25, 'width:450px; margin-left: -150px')
         );
     }
 
@@ -142,7 +142,7 @@ class AdminMenuTest extends TestCase
     {
         $this->plugins = range(1, 10);
         $this->assertXPathCount(
-            '//ul[@style="width:125px; margin-left: 0px"]/li',
+            '//ul[@style="width:150px; margin-left: 0px"]/li',
             10,
             XH_adminMenu($this->plugins)
         );
@@ -155,7 +155,7 @@ class AdminMenuTest extends TestCase
         $cf = array('plugins' => array('hidden' => '1, 5, 10'));
         $this->plugins = range(1, 10);
         $this->assertXPathCount(
-            '//ul[@style="width:125px; margin-left: 0px"]/li',
+            '//ul[@style="width:150px; margin-left: 0px"]/li',
             7,
             XH_adminMenu($this->plugins)
         );
