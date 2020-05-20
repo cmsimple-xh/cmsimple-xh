@@ -12,6 +12,8 @@
  * @see       http://cmsimple-xh.org/
  */
 
+use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
+
 /**
  * A test case to actually check the CSRF protection.
  *
