@@ -12,6 +12,8 @@
  * @see       http://cmsimple-xh.org/
  */
 
+use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
+
 /**
  * A test case to actually check the CSRF protection.
  *
@@ -48,7 +50,7 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
      */
     protected function setCurlOptions($fields)
     {
-        if (defined('CURLOPT_SAFE_UPLOAD')) {
+        if (defined('CURLOPT_SAFE_UPLOAD') && version_compare(PHP_VERSION, '7.0', '<')) {
             curl_setopt($this->curlHandle, CURLOPT_SAFE_UPLOAD, false);
         }
         $options = array(
@@ -57,7 +59,7 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_COOKIEFILE => $this->cookieFile
         );
-        @curl_setopt_array($this->curlHandle, $options);
+        curl_setopt_array($this->curlHandle, $options);
     }
 
     public function dataForAttack()
@@ -165,7 +167,9 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
             ),
             array( // filebrowser: upload file
                 array(
-                    'fbupload' => '@' . realpath('./tests/attack/data/hack.txt'),
+                    'fbupload' => version_compare(PHP_VERSION, '7.0', '>=')
+                        ? new CURLFile(realpath('./tests/attack/data/hack.txt'))
+                        : '@' . realpath('./tests/attack/data/hack.txt'),
                     'upload' => 'upload'
                 ),
                 '&downloads'
@@ -197,7 +201,9 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
             ),
             array( // editorbrowser: upload file
                 array(
-                    'fbupload' => '@' . realpath('./tests/attack/data/hack.txt'),
+                    'fbupload' => version_compare(PHP_VERSION, '7.0', '>=')
+                        ? new CURLFile(realpath('./tests/attack/data/hack.txt'))
+                        : '@' . realpath('./tests/attack/data/hack.txt'),
                     'upload' => 'upload'
                 ),
                 '&filebrowser=editorbrowser&editor=tinymce&prefix=./&base=./&type=image'

@@ -159,16 +159,15 @@ class HeadTest extends TestCase
      */
     public function testRendersPrevLink()
     {
-        global $sn, $u;
-
-        $sn = '/xh/';
-        $u = array('Welcome');
         $findPreviousPageMock = $this->createFunctionMock('XH_findPreviousPage');
         $findPreviousPageMock->expects($this->any())->willReturn(0);
+        $getPageUrlMock = $this->createFunctionMock('XH_getPageURL');
+        $getPageUrlMock->expects($this->any())->willReturn('/xh/?previous');
         $this->assertXPath(
-            '//link[@rel="prev" and @href="/xh/?Welcome"]',
+            '//link[@rel="prev" and @href="/xh/?previous"]',
             head()
         );
+        $getPageUrlMock->restore();
         $findPreviousPageMock->restore();
     }
 
@@ -179,16 +178,15 @@ class HeadTest extends TestCase
      */
     public function testRendersNextLink()
     {
-        global $sn, $u;
-
-        $sn = '/xh/';
-        $u = array('Welcome');
         $findNextPageMock = $this->createFunctionMock('XH_findNextPage');
         $findNextPageMock->expects($this->any())->willReturn(0);
+        $getPageUrlMock = $this->createFunctionMock('XH_getPageURL');
+        $getPageUrlMock->expects($this->any())->willReturn('/xh/?next');
         $this->assertXPath(
-            '//link[@rel="next" and @href="/xh/?Welcome"]',
+            '//link[@rel="next" and @href="/xh/?next"]',
             head()
         );
+        $getPageUrlMock->restore();
         $findNextPageMock->restore();
     }
 
@@ -199,9 +197,12 @@ class HeadTest extends TestCase
      */
     public function testRendersTemplateStylesheetLink()
     {
+        $getPageUrlMock = $this->createFunctionMock('XH_getPageURL');
+        $getPageUrlMock->expects($this->any())->willReturn('some URL');
         $this->assertXPath(
             '//link[@rel="stylesheet" and @type="text/css" and @href="stylesheet"]',
             head()
         );
+        $getPageUrlMock->restore();
     }
 }
