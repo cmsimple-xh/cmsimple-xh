@@ -53,7 +53,11 @@
     </target>
 
     <target name="unit-tests" description="runs all unit tests">
-        <exec command="phpunit --bootstrap tests/bootstrap.php tests/unit" passthru="true" checkreturn="true"/>
+        <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
+            <arg value="--bootstrap"/>
+            <arg file="tests/bootstrap.php"/>
+            <arg file="tests/unit"/>
+        </exec>
     </target>
 
     <target name="validation-tests" description="runs all validation tests">
