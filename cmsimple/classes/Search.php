@@ -174,7 +174,7 @@ class Search
      */
     public function render()
     {
-        global $h, $u, $cf, $tx, $pd_router;
+        global $h, $cf, $tx, $pd_router;
 
         $cf['meta']['robots'] = 'noindex, nofollow';
         $o = '<h1>' . $tx['search']['result'] . '</h1>';
