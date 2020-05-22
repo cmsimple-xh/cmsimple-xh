@@ -1,71 +1,89 @@
-﻿===============================================
-@CMSIMPLE_XH_VERSION@
-released @CMSIMPLE_XH_DATE@
-===============================================
+﻿===========================================================
+ @CMSIMPLE_XH_VERSION@
+ released @CMSIMPLE_XH_DATE@
+===========================================================
 
-PASSWORD for this installation:
+ 1. PREPARATION / SERVER TEST
+ 
+ Upload the file "reqcheck.php" to the directory,
+ in which your CMSimple_XH installation should take place.
+ 
+ Call this file with a browser:
+ http(s)://example.com[/subdirectory]/reqcheck.php
+ 
+ When errors or problems are reported
+ these must be eliminated.
+ 
+ Only when everything is GREEN (so everything is in order)
+ you can start the installation after you have deleted
+ the file "reqcheck.php".
 
-           test
+===========================================================
 
-Please Change this password immediately !
+ 2. INSTALLATION
 
-===============================================
+ Extract the ZIP archive from the download.
+ Now upload all files from the folder "cmsimplexh/"
+ to your web server.
+ 
+ On some servers, write permissions must be explicitly
+ assigned for some files, see also:
+ https://wiki.cmsimple-xh.org/doku.php/installation
+ 
+ Detailed UPDATE instructions
+ are available in the CMSimple_XH forum:
+ https://www.cmsimpleforum.com/viewtopic.php?f=16&t=4895
 
-INSTALLATION
+===========================================================
 
-Unzip the download and upload all files of the
-folder cmsimplexh/ to your webserver.
+ 3. CHANGE DEFAULT PASSWORD
+ 
+ The default password for this installation is:
+ "test" (without quotation marks)
+ 
+ The default password should or must now be immediately
+ be changed! Proceed as follows.
+ 
+ Log in. Select in the admin menu:
+ Settings > Password
+ Here you can enter your own password.
 
-On some servers you have to set writing
-permissions for some files, see
-http://www.cmsimple-xh.org/wiki/doku.php/installation
+ IMPORTANT NOTE
+ =================
+ Please do NOT change the default password with
+ a text editor directly in config.php, as it only
+ contains the encrypted password.
+ Change the default password immediately
+ after the first login ONLINE!
+ (Login with the default password "test")
+ This is the safest working method.
+ 
+ To edit the CMSimple_XH system files you should only
+ use an editor (e.g. notepad++) which recognizes the
+ coding "utf-8 without BOM" (Byte Order Mark),
+ opens and saves the files in this way.
+ 
+ If the system files are stored in a different
+ encoding than "utf-8 without BOM", serious problems
+ can occur with various CMSimple_XH functions.
+ 
+ PASSWORD FORGOTTEN
+ If you have forgotten your password, you can restore
+ the default password "test".
+ Enter (offline) the following in the file
+ "config.php" under $cf['security']['password']=
+ \$2y\$10\$TtMCJlxEv6D27BngvfdNrewGqIx2R0aPCHORruqpe63LQpz7.E9Gq
+ 
+ Then upload the file "config.php" to the server again.
+ Then you can log back in with the default password "test".
 
-Detailed UPDATE instructions are available in the CMSimple forum
-(http://www.cmsimpleforum.com/viewtopic.php?f=4&t=4868).
+===========================================================
 
-===============================================
-
-#########################################
-     I M P O R T A N T   N O T I C E
-#########################################
-
-Please DO NOT change the password directly in
-config.php by using a text editor, because the
-config.php only contains the encrypted password.
-Change the default password right away after
-login ONLINE !
-(Login with default password "test")
-
-This is the easiest and best working way.
-
-
-For editing CMSimple_XH files it is essential
-to USE ONLY editors, capable of detecting,
-opening and saving files as "utf-8 without BOM"
-(Byte Order Mark), like notepad++.
-
-If this condition is not fulfilled, you will
-damage your CMSimple installation.
-
-
-If you have forgotten your password, you can
-enter the encrypted password "test", i.e.:
-
-\$2y\$10\$TtMCJlxEv6D27BngvfdNrewGqIx2R0aPCHORruqpe63LQpz7.E9Gq
-
-via ftp into config.php and login using "test".
-
-===============================================
-
-D e s c r i p t i o n   o f   t h e
-s o f t w a r e   p a c k a g e :
-
-CMSimple_XH is a fast, small, easy-to-use and
-easy-to-install modular Content Management
-System (CMS), which doesn't need a database.
-
-It is free Open Source Software under the
-GPL3 Licence.
-
-CMSimple_XH stores the content of the different
-pages in one single html-file (content.htm).
+ Software Description:
+ =====================
+ CMSimple_XH is a fast, small, easy to use and
+ easy to install modular Content Management System (CMS),
+ which does not require a database. CMSimple_XH stores the
+ content of all pages in a single HTML file.
+ It is free open source software under the GPL3 license.
+ 
