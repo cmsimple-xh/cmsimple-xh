@@ -1177,22 +1177,6 @@ $si = -1;
 
 XH_buildHc();
 
-/*
- * Enables the automatic creation of a "Site/CMS Info" page.
- * To generate a link to this page add <?php echo poweredbylink()?>
- * to the template plus a template.nfo file containing a description
- * of the template in plain text with link to the designer site.
- *
- * Newsbox text titled 'Site/CMS Info' will appear at the beginning
- * of the generated page.
- */
-if ($su == uenc('site/cms info')) {
-    $f = $title = 'Site/CMS Info';
-    $s = -1;
-    $o .= '<h1>' . $title . '</h1>';
-    $o .= newsbox('Site/CMS Info') . XH_poweredBy();
-}
-
 if (XH_ADM) {
     $_XH_controller->setBackendF();
 
