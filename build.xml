@@ -100,6 +100,7 @@
         <move todir="dist">
             <fileset dir="export">
                 <include name="README*.txt"/>
+                <include name="reqcheck.php"/>
             </fileset>
             <filterchain>
                 <replacetokens>
@@ -123,7 +124,6 @@
                 <include name="cmsimple/functions.php"/>
                 <include name="cmsimple/classes/Search.php"/>
                 <include name="plugins/filebrowser/admin.php"/>
-                <include name="plugins/tinymce/admin.php"/>
             </fileset>
             <filterchain>
                 <replacetokens>
