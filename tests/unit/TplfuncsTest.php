@@ -247,4 +247,14 @@ class TplfuncsTest extends TestCase
         );
         $secondLanguagesMock->restore();
     }
+
+    /**
+     * @return void
+     */
+    public function testPoweredByLink()
+    {
+        $expected = '<a href="https://cmsimple-xh.org/" target="_blank">'
+            . 'Powered by CMSimple_XH</a>';
+        $this->assertEquals($expected, poweredByLink());
+    }
 }
