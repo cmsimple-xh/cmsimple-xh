@@ -720,14 +720,6 @@ class FunctionsTest extends TestCase
         $flockMock->restore();
     }
 
-    /**
-     * @dataProvider dataForHightlightSearchWords
-     */
-    public function testHighlightSearchWords($words, $text, $expected)
-    {
-        $this->assertEquals($expected, XH_highlightSearchWords($words, $text));
-    }
-
     public function dataForHightlightSearchWords()
     {
         return [
