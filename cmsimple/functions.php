@@ -2436,31 +2436,6 @@ function XH_lockFile($handle, $operation)
     return flock($handle, $operation);
 }
 
-/**
- * Highlights the search words in a text.
- *
- * @param array  $words An array of search words.
- * @param string $text  A text.
- *
- * @return string HTML
- *
- * @since 1.6.5
- */
-function XH_highlightSearchWords(array $words, $text)
-{
-    $words = array_unique($words);
-    usort($words, function ($a, $b) {
-        return strlen($b) - strlen($a);
-    });
-    $patterns = array();
-    foreach ($words as $word) {
-        $word = trim($word);
-        if ($word != '') {
-            $patterns[] = '/' . preg_quote($word, '/') . '(?![^<]*>)/isuU';
-        }
-    }
-    return preg_replace($patterns, '<span class="xh_find">$0</span>', $text);
-}
 
 /**
  * Autoloads classes named after CMSimple_XH/PEAR coding standards.
