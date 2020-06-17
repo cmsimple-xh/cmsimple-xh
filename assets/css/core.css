@@ -813,8 +813,10 @@ textarea.xh_file_edit {
 	border: 0;
 }
 .xh_find {
-	background: #fd0;
-	color: #000;
+	background: #fd0 !important;
+	color: #000 !important;
+	display: inline !important;
+	padding: 0 !important;
 }
 img.helpicon {
 	background: transparent;
