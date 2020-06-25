@@ -579,21 +579,17 @@ function XH_emergencyTemplate()
 }
 
 /**
- * Creates the link to the generated page "Site/CMS Info".
+ * Returns a powered by CMSimple_XH link.
  *
- * One of the 3 functions to create "Site/CMS Info".
+ * @param string $linktext
  *
- * @param string $linktext The text to be displayed as the link in the template.
- *
- * @return string The link.
+ * @return string
  *
  * @since 1.7
  */
 function poweredByLink($linktext = '')
 {
-    global $sn;
-
-    $linktext = $linktext ? $linktext : 'Site/CMS Info';
-    return '<a href="' . $sn . '?' . uenc('site/cms info') . '">'
+    $linktext = $linktext ? $linktext : 'Powered by CMSimple_XH';
+    return '<a href="https://cmsimple-xh.org/" target="_blank">'
         . $linktext . '</a>';
 }
