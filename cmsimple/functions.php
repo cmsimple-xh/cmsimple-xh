@@ -2456,10 +2456,20 @@ function XH_highlightSearchWords(array $words, $text)
     foreach ($words as $word) {
         $word = trim($word);
         if ($word != '') {
-            $patterns[] = '/' . preg_quote($word, '/') . '(?![^<]*>)/isuU';
+            $patterns[] = '/(?:<(?:"[^"]*?"|[^>]*?)*>|(' . preg_quote($word, '/') . ')|&[^;]*;)/isu';
         }
     }
-    return preg_replace($patterns, '<span class="xh_find">$0</span>', $text);
+    return preg_replace_callback(
+        $patterns,
+        function ($matches) {
+            if (!isset($matches[1])) {
+                return $matches[0];
+            } else {
+                return "<span class=\"xh_find\">{$matches[1]}</span>";
+            }
+        },
+        $text
+    );
 }
 
 /**
