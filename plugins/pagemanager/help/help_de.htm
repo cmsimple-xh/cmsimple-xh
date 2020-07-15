@@ -1,322 +1,103 @@
 <!DOCTYPE html>
-<html lang="de">
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
 <head>
-<meta http-equiv="content-type" content="text/html;charset=utf-8">
-<title>Pagemanager_XH – Handbuch</title>
-<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Pagemanager_XH – Benutzerhandbuch</title>
+  <style type="text/css">
+    body {
+        font-family: Georgia, serif;
+        line-height: 1.5;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        background: #ffffe1;
+        max-width: 40em;
+    }
+    p {
+        text-align: justify;
+    }
+    pre {
+        color: black;
+        background: #ffe;
+        overflow: auto;
+        padding: 0.2em 0.5em;
+        border: 1px solid silver;
+    }
+  </style>
 </head>
-
 <body>
-
-<article>
-<h1>Pagemanager_XH – Handbuch</h1>
-<img src="../pagemanager.png" class="logo" alt="Baumansicht">
-<p>
-    Pagemanager_XH vereinfacht die Verwaltung von Seiten in einer
-    CMSimple_XH-Installation. Dieses Plugin ist vom Funktionsumfang vergleichbar
-    mit dem Menumanager-Plugin, ist aber durch die Baumdarstellung auch bei
-    umfangreichen Homepages übersichtlicher. Darüber hinaus können beim
-    Pagemanager_XH ganze Menüstrukturen auf einmal verschoben werden.
-</p>
-
-<nav id="nav">
-<h2>Inhaltsverzeichnis</h2>
+<h1 id="pagemanager_xh">Pagemanager_XH</h1>
+<p>Pagemanager_XH vereinfacht die Verwaltung von Seiten in einer CMSimple_XH-Installation. Dieses Plugin ist vom Funktionsumfang vergleichbar mit dem Menumanager-Plugin, ist aber durch die Baumdarstellung auch bei umfangreichen Homepages übersichtlicher. Darüber hinaus können beim Pagemanager_XH ganze Menüstrukturen auf einmal verschoben werden.</p>
+<h2 id="inhaltsverzeichnis">Inhaltsverzeichnis</h2>
 <ul>
-<!--<li><a href="#notice">Wichtiger Hinweis</a></li>-->
-<li><a href="#requirements">Voraussetzungen</a></li>
+<li><a href="#voraussetzungen">Voraussetzungen</a></li>
+<li><a href="#download">Download</a></li>
 <li><a href="#installation">Installation</a></li>
-<li><a href="#settings">Einstellungen</a></li>
-<li><a href="#usage">Verwendung</a></li>
-<li><a href="#limitations">Beschränkungen</a></li>
-<li><a href="#license">Lizenz</a></li>
-<li><a href="#credits">Danksagung</a></li>
+<li><a href="#einstellungen">Einstellungen</a></li>
+<li><a href="#verwendung">Verwendung</a></li>
+<li><a href="#beschränkungen">Beschränkungen</a></li>
+<li><a href="#fehlerbehebung">Fehlerbehebung</a></li>
+<li><a href="#lizenz">Lizenz</a></li>
+<li><a href="#danksagung">Danksagung</a></li>
 </ul>
-</nav>
-
-<!--
-<section id="notice">
-<h2>Wichtiger Hinweis</h2>
-<p class="important">
-    Pagemanager_XH 3 wurde bisher nicht in diversen Umgebungen getestet. Es ist
-    ein so genannter Release-Candidate. Vorsicht bei der Verwendung!
-</p>
-</section>
--->
-
-<section id="requirements">
-<h2>Voraussetzungen</h2>
-<p>
-    Pagemanager_XH ist ein Plugin für CMSimple_XH &ge; 1.7. Zusätzlich benötigt
-    es noch das jQuery4CMSimple und das Fa_XH Plugin, die in allen Standarddownloads von
-    CMSimple_XH bereits enthalten sind. Es benötigt ebenfalls PHP &ge; 5.3.0 mit
-    der JSON Extension.
-</p>
-</section>
-
-<section id="installation">
-<h2>Installation</h2>
-<p>
-    Die Installation erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch. Im
-    <a href="http://www.cmsimple-xh.org/wiki/doku.php/de:installation">
-    CMSimple_XH Wiki</a> finden sie ausführliche Hinweise.
-</p>
-<ol>
-<li class="important">
-    Sichern Sie die Daten auf Ihrem Server.
-</li>
-<li>
-    Entpacken Sie die ZIP-Datei auf Ihrem Computer.
-</li>
-<li>
-    Laden Sie das gesamte Verzeichnis pagemanager/ auf Ihren Server in das
-    plugins/ Verzeichnis von CMSimple_XH hoch.
-</li>
-<li>
-    Vergeben Sie Schreibrechte für die Unterverzeichnisse css/, config/ und
-    languages/.
-</li>
-<li class="important">
-    Navigieren Sie zu Administration des Pagemanagers (<em>Plugins</em> →
-    <em>Pagemanager</em>), und prüfen Sie, ob alle Voraussetzungen für den
-    Betrieb erfüllt sind.
-</li>
+<h2 id="voraussetzungen">Voraussetzungen</h2>
+<p>Pagemanager_XH ist ein Plugin für CMSimple_XH ≥ 1.7. Zusätzlich benötigt es noch das jQuery4CMSimple und das Fa_XH Plugin, die in allen Standarddownloads von CMSimple_XH bereits enthalten sind. Es benötigt ebenfalls PHP ≥ 5.3.0 mit der JSON Extension.</p>
+<h2 id="download">Download</h2>
+<p>Das <a href="https://github.com/cmb69/pagemanager_xh/releases/latest">aktuelle Release</a> kann von Github herunter geladen werden.</p>
+<h2 id="installation">Installation</h2>
+<p>Die Installation erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch. Im <a href="https://wiki.cmsimple-xh.org/doku.php/de:installation">CMSimple_XH Wiki</a> finden sie ausführliche Hinweise.</p>
+<ol type="1">
+<li>Sichern Sie die Daten auf Ihrem Server.</li>
+<li>Entpacken Sie die ZIP-Datei auf Ihrem Computer.</li>
+<li>Laden Sie das gesamte Verzeichnis pagemanager/ auf Ihren Server in das plugins/ Verzeichnis von CMSimple_XH hoch.</li>
+<li>Vergeben Sie Schreibrechte für die Unterverzeichnisse css/, config/ und languages/.</li>
+<li>Navigieren Sie zu Administration des Pagemanagers (<em>Plugins</em> → <em>Pagemanager</em>), und prüfen Sie, ob alle Voraussetzungen für den Betrieb erfüllt sind.</li>
 </ol>
-</section>
-
-<section id="settings">
-<h2>Einstellungen</h2>
-<p>
-    Die Konfiguration des Plugins erfolgt wie bei vielen anderen
-    CMSimple_XH-Plugins auch im Administrationsbereich der Homepage. Wählen Sie
-    unter <em>Plugins</em> → <em>Pagemanager</em> aus.
-</p>
-<p>
-    Sie können die Original-Einstellungen von Pagemanager_XH in der
-    <em>Konfiguration</em> ändern. Beim Überfahren der Hilfe-Icons mit der Maus
-    werden Hinweise zu den Einstellungen angezeigt.
-</p>
-<p>
-    Die Lokalisierung wird unter <em>Sprache</em> vorgenommen. Sie können die
-    Zeichenketten in Ihre eigene Sprache übersetzen, falls keine entsprechende
-    Sprachdatei zur Verfügung steht, oder sie entsprechend Ihren Anforderungen
-    anpassen.
-</p>
-<p>
-    Das Aussehen von Pagemanager_XH kann unter <em>Stylesheet</em> angepasst
-    werden.
-</p>
-</section>
-
-<section id="usage">
-<h2>Verwendung</h2>
-<p>
-    Dieses Plugin ist ausschließlich für den Administrationsbereich von
-    CMSimple_XH gedacht. Es wird über <em>Seiten</em> im Administrationsmenü
-    aufgerufen. Nun sehen Sie die Struktur Ihrer Homepage in einer Darstellung,
-    die prinzipiell dem Inhaltsverzeichnis entspricht. Allerdings können Sie
-    hier einzelne Seitenzweige öffnen und schließen, um auch bei umfangreichen
-    Homepages nicht die Übersicht zu verlieren. Das Öffnen und Schließen erfolgt
-    über die kleinen Markierungen links von der Seite, oder durch Doppel-Klicken
-    auf den Titel.
-</p>
-<img style="max-width:100%; margin:0 auto" src="pagemanager.png" alt="Pagemanager_XH Bildschirmfoto">
-<p>
-    Oberhalb der Baumansich der Seiten Ihrer Homepage befindet sich
-    Pagemanager_XHs <strong>Werkzeugleiste</strong>. Die Werkzeugleiste ist
-    besonders nützlich, wenn Ihr Browser verhindert, dass sich das Kontext-Menü
-    öffnet. Es ist zu beachten, dass die Toolbar in der Plugin-Konfiguration
-    deaktiviert werden kann.
-</p>
-<p>
-    Das Umorganisieren der Seitenstruktur erfolgt per <strong>Drag &amp;
-    Drop</strong>; beim Ziehen einer Seite werden entsprechende Markierungen
-    eingeblendet, damit Sie sehen können, wo die Seite beim Ablegen eingeordnet
-    wird. Sollte es nicht möglich sein auf eine bestimmte Seite zu ziehen, weil
-    das z.B. in einer rekursiven Seitenstruktur resultieren würde, oder die
-    resultierende Verschachtelungstiefe zu groß würde, wird das durch ein
-    Kreuz angezeigt, oder es wird einfach nicht möglich sein, die Seite hier
-    abzulegen. <em>Also beachten sie genau die Markierungen</em>, bis Sie ein
-    Gefühl dafür bekommen, wie das Drag &amp; Drop funktioniert. Wenn Sie beim
-    Ziehen einer Seite STRG gedrückt halten, wird die Seite kopiert statt
-    verschoben.
-</p>
-<p>
-    Weitere Funktionen sind über die Werkzeugleiste und das
-    <strong>Kontextmenü</strong> (klicken Sie mit der rechten Maustaste auf eine
-    Seite) verfügbar. Es können neue Seiten hinzugefügt, bestehende umbenannt
-    und gelöscht werden (<em>wenn die gewählte Seite gelöscht wird, werden alle
-    ihre Unterseiten ebenfalls gelöscht</em>), es stehen die üblichen
-    Zwischenablagefunktionen zur Verfügung, die alternativ zu Drag & Drop
-    verwendet werden können, und es kann direkt zu einer Seite navigiert werden,
-    entweder im <em>Bearbeitungs-</em> oder <em>Ansichtsmodus</em>. Es ist zu
-    beachten, dass aktuell nicht verfügbare Funktionalität deaktiviert ist.
-    Beispielsweise erfordern die meisten Funktionen, dass eine Seite ausgewählt
-    ist; ist dies nicht der Fall, dann sind die entsprechenden Funktionen
-    deaktiviert (ausgegraut). Ein weiteres Beispiel ist die <em>Einfügen</em> →
-    <em>hinein</em> Funktionalität, die nicht verfügbar ist, wenn die Seite im
-    Clipboard in sich selbst eingefügt werden soll.
-</p>
-<p>
-    Die Checkboxen links von den Seiten erlauben es, deren
-    <strong>Veröffentlichungsstatus</strong> anzusehen und zu ändern. Es kann
-    eingestellt werden, ob sie sich auf 'Veröffentlicht?' oder 'In der
-    Navigation anzeigen' beziehen. Wenn diese Einstellung leer ist
-    (Voreinstellung), dann werden keine Checkboxen angezeigt.
-</p>
-<p>
-    <strong>Doppelte Überschriften</strong> werden mit einem Warn-Icon markiert,
-    und sollten am besten gleich umbenannt werden.
-    <strong>Neu erstellte Seiten</strong> werden mit einem ausgefüllten Ordner-Icon
-    angezeigt bis zum nächsten mal gespeichert wird, damit sie besser von
-    bereits bestehenden unterschieden werden können. <strong>Seiten, die nicht
-    umbenannt werden können</strong>, weil ihre Überschriften zusätzliches
-    Markup enthalten, werden mit einem <em>Marke</em>-Icon markiert;
-    solche Seiten sind erlaubt, aber wenn das zusätzliche Markup entfernt werden
-    soll, muss dies im Editor erfolgen.
-</p>
-<p>
-    Die Möglichkeit ganze Unterstrukturen zu kopieren mag auf den ersten Blick
-    nicht einleuchtend sein, aber sie könnte nützlich werden, wenn z.B. eine
-    Galerie auf diesen Seiten anzeigt wird, denn der gesamte Inhalt <em>und</em>
-    die Metadaten werden ebenso mit kopiert. Danach ist es möglich, einzelne
-    Details nachträglich anzupassen.
-</p>
-<p>
-    Es ist zu beachten, dass es keine Rückgängig- oder Abbrechen-Funktion gibt.
-    Wurde die Seitenstruktur total durcheinander gebracht, kann einfach die
-    Ansicht des Browsers aktualisiert werden <em>ohne</em> vorher zu speichern.
-    Die alte Seitenstruktur wird dann wieder angezeigt.
-</p>
-</section>
-
-<section id="limitations">
-<h2>Beschränkungen</h2>
-
-<section>
-<h3>Unregelmäßige Seitenstruktur</h3>
-<p>
-    Es is möglich, dass die bestehende Homepage eine unregelmäßige
-    Seitenstruktur aufweist. Zum Beispiel kann nach einem
-    <code>&lt;h1&gt;</code> Überschrift direkt eine <code>&lt;h3&gt;</code>
-    Überschrift folgen, ohne eine <code>&lt;h2&gt;</code> Überschrift
-    dazwischen. Solche Unregelmäßigkeiten in der Seitenstruktur könnten sich
-    versehentlich eingeschlichen haben, während die Seitenstruktur manuell im
-    Editor verändert wurde (z.B. durch Änderung von Titel-Formatierungen, oder
-    Löschen von Seiten), aber es ist denkbar, dass diese Möglichkeit von Ihrem
-    System zu einem speziellen Zweck verwendet wird.
-</p>
-<p>
-    Jedenfalls kann Pagemanager nicht mit solchen unregelmäßigen
-    Seitenstrukturen umgehen, und wenn eine solche entdeckt wird, wird eine
-    Meldung angezeigt und angeboten die Struktur zu korrigieren. Wenn die
-    Unregelmäßigkeit versehentlich entstanden ist, kann beruhigt bestätigt und
-    fortgefahren werden. Andernfalls (oder wenn Sie sich nicht sicher sind),
-    erstellen Sie eine Sicherungskopie der Inhaltsdatei bevor Sie fortfahren,
-    speichern dann die korrigierte Struktur im Pagemanager, und prüfen Sie
-    sorgfältig, ob alles immer noch wie gewünscht funktioniert.
-</p>
-</section>
-
-<section>
-<h3>jQuery</h3>
-<p>
-    Pagemanager_XH <em>könnte</em> in Installationen mit jQuery abhängigen
-    Plugins/Addons/Templates, die jQuery4CMSimple nicht verwenden, sondern ihre
-    eigene jQuery Bibliothek importieren, nicht funktionieren. Dieses Problem
-    wird nicht behoben werden (es ist ohnehin nicht möglich, es für alle Fälle
-    zu beheben), weil allen Entwicklern geraten wird, ausschließlich
-    jQuery4CMSimple in Verbindung mit ihrem jQuery basierten Code für
-    CMSimple_XH zu verwenden. Daher sollten diejenigen Erweiterungen
-    aktualisiert werden, die sich nicht daran halten!
-</p>
-</section>
-
-<section>
-<h3>Drag &amp; Drop im Internet Explorer</h3>
-<p>
-    Es gibt bekannte Probleme bezüglich Drag &amp; Drop im Internet Explorer.
-    Insbesondere funktioniert das Verschieben oder Kopieren einer Seite in eine
-    andere Seite hinein nicht in Verbindung mit dem Standard-Admin-Menü. Die
-    Ursache ist eine <a
-    href="https://github.com/jquery/jquery/issues/3676">Einschränkung in
-    jQuery</a>. Verwenden Sie entweder die "Zwischenablage"-Funktionalität,
-    aktualisieren Sie auf Edge (oder einen anderen Browser) oder verwenden Sie
-    ein alternatives Admin-Menü.
-</p>
-</section>
-
-</section>
-
-<section id="license">
-<h2>Lizenz</h2>
-<p>
-    Pagemanager_XH kann unter Einhaltung der <a
-    href="http://www.gnu.org/licenses/gpl.html">GPLv3</a> verwendet werden.
-</p>
-<p>&copy; 2011-2017 Christoph M. Becker</p>
-<p>
-    Danish Übersetzung &copy; 2011-2014 Jens Maegaard<br>
-    Estnische Übersetzung &copy; 2014 Alo Tanavots<br>
-    Französische Übersetzung &copy; 2011-2014 Patrick Varlet<br>
-    Italienische Übersetzung &copy; 2014 Milko Dalla Battista<br>
-    Niederländische Übersetzung &copy; 2014 Emile Bastings<br>
-    Slovakische Übersetzung &copy; 2011-2014 Dr. Martin Sereday<br>
-    Tschechische Übersetzung &copy; 2011-2014 Josef Němec
-</p>
-</section>
-
-<section id="credits">
-<h2>Danksagung</h2>
-<p>
-    Dieses Plugin verwendet <a href="http://www.jstree.com/">jsTree</a>. Vielen
-    Dank an Ivan Bozhanov, den Entwickler dieser Bibliothek. jsTree verwendet <a
-    href="http://jQuery.com">jQuery</a>. Vielen Dank allen Entwicklern dieses
-    JavaScript Frameworks. jQuery wird CMSimple_XH durch <a
-    href="http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple">
-    jQuery4CMSimple</a> zur Verfügung gestellt. Vielen Dank an Holger Irmler,
-    den Entwickler dieses Plugins.
-</p>
-<p>
-    Das <em>proton</em> Theme für jsTree ist eine leicht angepasste Version des
-    <a href="https://github.com/orangehill/jstree-bootstrap-theme">jsTree
-    Bootstrap Themes</a>. Danke für die Veröffentlichung dieses schönen Themes
-    unter MIT Lizenz.
-</p>
-<p>
-    Dieses Plugin verwendet <a href="http://fontawesome.io/">Font Awesome von
-    Dave Gandy</a>. Vielen Dank für die Bereitstellung dieses großartigen
-    ikonischen Schriftarten- und CSS-Toolkits unter einer GPL freundlichen
-    Lizenz.
-</p>
-<p>
-    Das Plugin-Icon wurde von <a href="http://www.everaldo.com/">Everaldo
-    Coelho</a> entworfen. Vielen Dank für die Veröffentlichung unter GPL.
-</p>
-<p>
-    Vielen Dank an die Gemeinschaft im <a
-    href="http://www.cmsimpleforum.com/">CMSimple_XH-Forum</a> für Tipps,
-    Anregungen und das Testen. Besonders möchte ich <em>snafu</em> danken,
-    dessen frühe Rückmeldungen mich ermutigt haben, Pagemanager_XH weiter zu
-    entwickeln. Vielen Dank an <em>Ulrich</em> der einen schweren Fehler (und
-    mehrere kleinere Probleme) fand, und der bei der Behebung desselben half,
-    indem er eine detailierte Beschreibung gab, was geschehen war. Und vielen
-    Dank an <em>Gert</em>, der einige Fehlerkorrekturen und Übersetzungen und
-    viele wertvolle Tipps zur Verfügung gestellt hat. Und ich möchte ebenfalls
-    <em>Martin</em> danken, dessen Bericht über Probleme mit dem Kontextmenü das
-    Hinzufügen der Werkzeugleiste inspiriert hat, sowie <em>Tata</em>, der die
-    "scrollende" Toolbar inspiriert hat.
-</p>
-<p>
-    Zu guter Letzt vielen Dank an <a href="http://harteg.dk/">Peter Harteg</a>,
-    den "Vater" von CMSimple, und allen Entwicklern von <a
-    href="http://www.cmsimple-xh.org/">CMSimple_XH</a>, ohne die dieses
-    fantastische CMS nicht existieren würde.
-</p>
-</section>
-
-</article>
-
+<h2 id="einstellungen">Einstellungen</h2>
+<p>Die Konfiguration des Plugins erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch im Administrationsbereich der Homepage. Wählen Sie unter <em>Plugins</em> → <em>Pagemanager</em> aus.</p>
+<p>Sie können die Original-Einstellungen von Pagemanager_XH in der <em>Konfiguration</em> ändern. Beim Überfahren der Hilfe-Icons mit der Maus werden Hinweise zu den Einstellungen angezeigt.</p>
+<p>Die Lokalisierung wird unter <em>Sprache</em> vorgenommen. Sie können die Zeichenketten in Ihre eigene Sprache übersetzen, falls keine entsprechende Sprachdatei zur Verfügung steht, oder sie entsprechend Ihren Anforderungen anpassen.</p>
+<p>Das Aussehen von Pagemanager_XH kann unter <em>Stylesheet</em> angepasst werden.</p>
+<h2 id="verwendung">Verwendung</h2>
+<p>Dieses Plugin ist ausschließlich für den Administrationsbereich von CMSimple_XH gedacht. Es wird über <em>Seiten</em> im Administrationsmenü aufgerufen. Nun sehen Sie die Struktur Ihrer Homepage in einer Darstellung, die prinzipiell dem Inhaltsverzeichnis entspricht. Allerdings können Sie hier einzelne Seitenzweige öffnen und schließen, um auch bei umfangreichen Homepages nicht die Übersicht zu verlieren. Das Öffnen und Schließen erfolgt über die kleinen Markierungen links von der Seite, oder durch Doppel-Klicken auf den Titel.</p>
+<p>Oberhalb der Baumansich der Seiten Ihrer Homepage befindet sich Pagemanager_XHs <strong>Werkzeugleiste</strong>. Die Werkzeugleiste ist besonders nützlich, wenn Ihr Browser verhindert, dass sich das Kontext-Menü öffnet. Es ist zu beachten, dass die Toolbar in der Plugin-Konfiguration deaktiviert werden kann.</p>
+<p>Das Umorganisieren der Seitenstruktur erfolgt per <strong>Drag &amp; Drop</strong>; beim Ziehen einer Seite werden entsprechende Markierungen eingeblendet, damit Sie sehen können, wo die Seite beim Ablegen eingeordnet wird. Sollte es nicht möglich sein auf eine bestimmte Seite zu ziehen, weil das z.B. in einer rekursiven Seitenstruktur resultieren würde, oder die resultierende Verschachtelungstiefe zu groß würde, wird das durch ein Kreuz angezeigt, oder es wird einfach nicht möglich sein, die Seite hier abzulegen. <em>Also beachten sie genau die Markierungen</em>, bis Sie ein Gefühl dafür bekommen, wie das Drag &amp; Drop funktioniert. Wenn Sie beim Ziehen einer Seite STRG gedrückt halten, wird die Seite kopiert statt verschoben.</p>
+<p>Weitere Funktionen sind über die Werkzeugleiste und das <strong>Kontextmenü</strong> (klicken Sie mit der rechten Maustaste auf eine Seite) verfügbar. Es können neue Seiten hinzugefügt, bestehende umbenannt und gelöscht werden (<em>wenn die gewählte Seite gelöscht wird, werden alle ihre Unterseiten ebenfalls gelöscht</em>), es stehen die üblichen Zwischenablagefunktionen zur Verfügung, die alternativ zu Drag &amp; Drop verwendet werden können, und es kann direkt zu einer Seite navigiert werden, entweder im <em>Bearbeitungs-</em> oder <em>Ansichtsmodus</em>. Es ist zu beachten, dass aktuell nicht verfügbare Funktionalität deaktiviert ist. Beispielsweise erfordern die meisten Funktionen, dass eine Seite ausgewählt ist; ist dies nicht der Fall, dann sind die entsprechenden Funktionen deaktiviert (ausgegraut). Ein weiteres Beispiel ist die <em>Einfügen</em> → <em>hinein</em> Funktionalität, die nicht verfügbar ist, wenn die Seite im Clipboard in sich selbst eingefügt werden soll.</p>
+<p>Die Checkboxen links von den Seiten erlauben es, deren <strong>Veröffentlichungsstatus</strong> anzusehen und zu ändern. Es kann eingestellt werden, ob sie sich auf ‘Veröffentlicht?’ oder ‘In der Navigation anzeigen’ beziehen. Wenn diese Einstellung leer ist (Voreinstellung), dann werden keine Checkboxen angezeigt.</p>
+<p><strong>Doppelte Überschriften</strong> werden mit einem Warn-Icon markiert, und sollten am besten gleich umbenannt werden. <strong>Neu erstellte Seiten</strong> werden mit einem ausgefüllten Ordner-Icon angezeigt bis zum nächsten mal gespeichert wird, damit sie besser von bereits bestehenden unterschieden werden können. <strong>Seiten, die nicht umbenannt werden können</strong>, weil ihre Überschriften zusätzliches Markup enthalten, werden mit einem <em>Marke</em>-Icon markiert; solche Seiten sind erlaubt, aber wenn das zusätzliche Markup entfernt werden soll, muss dies im Editor erfolgen.</p>
+<p>Die Möglichkeit ganze Unterstrukturen zu kopieren mag auf den ersten Blick nicht einleuchtend sein, aber sie könnte nützlich werden, wenn z.B. eine Galerie auf diesen Seiten anzeigt wird, denn der gesamte Inhalt <em>und</em> die Metadaten werden ebenso mit kopiert. Danach ist es möglich, einzelne Details nachträglich anzupassen.</p>
+<p>Es ist zu beachten, dass es keine Rückgängig- oder Abbrechen-Funktion gibt. Wurde die Seitenstruktur total durcheinander gebracht, kann einfach die Ansicht des Browsers aktualisiert werden <em>ohne</em> vorher zu speichern. Die alte Seitenstruktur wird dann wieder angezeigt.</p>
+<h2 id="beschränkungen">Beschränkungen</h2>
+<h3 id="unregelmäßige-seitenstruktur">Unregelmäßige Seitenstruktur</h3>
+<p>Es is möglich, dass die bestehende Homepage eine unregelmäßige Seitenstruktur aufweist. Zum Beispiel kann nach einem <code>&lt;h1&gt;</code> Überschrift direkt eine <code>&lt;h3&gt;</code> Überschrift folgen, ohne eine <code>&lt;h2&gt;</code> Überschrift dazwischen. Solche Unregelmäßigkeiten in der Seitenstruktur könnten sich versehentlich eingeschlichen haben, während die Seitenstruktur manuell im Editor verändert wurde (z.B. durch Änderung von Titel-Formatierungen, oder Löschen von Seiten), aber es ist denkbar, dass diese Möglichkeit von Ihrem System zu einem speziellen Zweck verwendet wird.</p>
+<p>Jedenfalls kann Pagemanager nicht mit solchen unregelmäßigen Seitenstrukturen umgehen, und wenn eine solche entdeckt wird, wird eine Meldung angezeigt und angeboten die Struktur zu korrigieren. Wenn die Unregelmäßigkeit versehentlich entstanden ist, kann beruhigt bestätigt und fortgefahren werden. Andernfalls (oder wenn Sie sich nicht sicher sind), erstellen Sie eine Sicherungskopie der Inhaltsdatei bevor Sie fortfahren, speichern dann die korrigierte Struktur im Pagemanager, und prüfen Sie sorgfältig, ob alles immer noch wie gewünscht funktioniert.</p>
+<h3 id="jquery">jQuery</h3>
+<p>Pagemanager_XH <em>könnte</em> in Installationen mit jQuery abhängigen Plugins/Addons/Templates, die jQuery4CMSimple nicht verwenden, sondern ihre eigene jQuery Bibliothek importieren, nicht funktionieren. Dieses Problem wird nicht behoben werden (es ist ohnehin nicht möglich, es für alle Fälle zu beheben), weil allen Entwicklern geraten wird, ausschließlich jQuery4CMSimple in Verbindung mit ihrem jQuery basierten Code für CMSimple_XH zu verwenden. Daher sollten diejenigen Erweiterungen aktualisiert werden, die sich nicht daran halten!</p>
+<h3 id="drag-drop-im-internet-explorer">Drag &amp; Drop im Internet Explorer</h3>
+<p>Es gibt bekannte Probleme bezüglich Drag &amp; Drop im Internet Explorer. Insbesondere funktioniert das Verschieben oder Kopieren einer Seite in eine andere Seite hinein nicht in Verbindung mit dem Standard-Admin-Menü. Die Ursache ist eine <a href="https://github.com/jquery/jquery/issues/3676">Einschränkung in jQuery</a>. Verwenden Sie entweder die “Zwischenablage”-Funktionalität, aktualisieren Sie auf Edge (oder einen anderen Browser) oder verwenden Sie ein alternatives Admin-Menü.</p>
+<h2 id="fehlerbehebung">Fehlerbehebung</h2>
+<p>Melden Sie Programmfehler und stellen Sie Supportanfragen entweder auf <a href="https://github.com/cmb69/pagemanager_xh/issues">Github</a> oder im <a href="https://cmsimpleforum.com/">CMSimple_XH Forum</a>.</p>
+<h2 id="lizenz">Lizenz</h2>
+<p>Pagemanager_XH ist freie Software. Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.</p>
+<p>Die Veröffentlichung von Pagemanager_XH erfolgt in der Hoffnung, daß es Ihnen von Nutzen sein wird, aber <em>ohne irgendeine Garantie</em>, sogar ohne die implizite Garantie der <em>Marktreife</em> oder der <em>Verwendbarkeit für einen bestimmten Zweck</em>. Details finden Sie in der GNU General Public License.</p>
+<p>Sie sollten ein Exemplar der GNU General Public License zusammen mit Pagemanager_XH erhalten haben. Falls nicht, siehe <a href="http://www.gnu.org/licenses/" class="uri">http://www.gnu.org/licenses/</a>.</p>
+<p>© 2011-2019 Christoph M. Becker</p>
+<p>Danish Übersetzung © 2011-2014 Jens Maegaard<br />
+Estnische Übersetzung © 2014 Alo Tanavots<br />
+Französische Übersetzung © 2011-2014 Patrick Varlet<br />
+Italienische Übersetzung © 2014 Milko Dalla Battista<br />
+Niederländische Übersetzung © 2014 Emile Bastings<br />
+Slovakische Übersetzung © 2011-2014 Dr. Martin Sereday<br />
+Tschechische Übersetzung © 2011-2014 Josef Němec</p>
+<h2 id="danksagung">Danksagung</h2>
+<p>Dieses Plugin verwendet <a href="http://www.jstree.com/">jsTree</a>. Vielen Dank an Ivan Bozhanov, den Entwickler dieser Bibliothek. jsTree verwendet <a href="http://jQuery.com">jQuery</a>. Vielen Dank allen Entwicklern dieses JavaScript Frameworks. jQuery wird CMSimple_XH durch <a href="http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple">jQuery4CMSimple</a> zur Verfügung gestellt. Vielen Dank an Holger Irmler, den Entwickler dieses Plugins.</p>
+<p>Das <em>proton</em> Theme für jsTree ist eine leicht angepasste Version des <a href="https://github.com/orangehill/jstree-bootstrap-theme">jsTree Bootstrap Themes</a>. Danke für die Veröffentlichung dieses schönen Themes unter MIT Lizenz.</p>
+<p>Dieses Plugin verwendet <a href="http://fontawesome.io/">Font Awesome von Dave Gandy</a>. Vielen Dank für die Bereitstellung dieses großartigen ikonischen Schriftarten- und CSS-Toolkits unter einer GPL freundlichen Lizenz.</p>
+<p>Das Plugin-Icon wurde von <a href="http://www.everaldo.com/">Everaldo Coelho</a> entworfen. Vielen Dank für die Veröffentlichung unter GPL.</p>
+<p>Vielen Dank an die Gemeinschaft im <a href="http://www.cmsimpleforum.com/">CMSimple_XH-Forum</a> für Tipps, Anregungen und das Testen. Besonders möchte ich <em>snafu</em> danken, dessen frühe Rückmeldungen mich ermutigt haben, Pagemanager_XH weiter zu entwickeln. Vielen Dank an <em>Ulrich</em> der einen schweren Fehler (und mehrere kleinere Probleme) fand, und der bei der Behebung desselben half, indem er eine detailierte Beschreibung gab, was geschehen war. Und vielen Dank an <em>Gert</em>, der einige Fehlerkorrekturen und Übersetzungen und viele wertvolle Tipps zur Verfügung gestellt hat. Und ich möchte ebenfalls <em>Martin</em> danken, dessen Bericht über Probleme mit dem Kontextmenü das Hinzufügen der Werkzeugleiste inspiriert hat, sowie <em>Tata</em>, der die “scrollende” Toolbar inspiriert hat.</p>
+<p>Zu guter Letzt vielen Dank an <a href="http://harteg.dk/">Peter Harteg</a>, den “Vater” von CMSimple, und allen Entwicklern von <a href="http://www.cmsimple-xh.org/">CMSimple_XH</a>, ohne die dieses fantastische CMS nicht existieren würde.</p>
 </body>
-
 </html>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2011-2017 Christoph M. Becker
+ * Copyright 2011-2019 Christoph M. Becker
  *
  * This file is part of Pagemanager_XH.
  *
@@ -25,7 +25,7 @@ use XH\Pages;
 
 class Plugin
 {
-    const VERSION = '3.2';
+    const VERSION = '3.4';
 
     public function run()
     {
