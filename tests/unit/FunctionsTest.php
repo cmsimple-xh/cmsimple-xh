@@ -790,7 +790,33 @@ class FunctionsTest extends TestCase
             [
                 ['word', 'word'], 'foo word bar',
                 'foo <span class="xh_find">word</span> bar'
-            ]
+            ],
+            // searching for entity names must not highlight
+            [
+                ['lt'], '<div>Standard text, paragraphs, heading &lt;h2&gt;</div>',
+                '<div>Standard text, paragraphs, heading &lt;h2&gt;</div>'
+            ],
+            // searching must not highlight inside of tags
+            // cf. <https://cmsimpleforum.com/viewtopic.php?f=10&t=14178>
+            [
+                ['emil'],
+                '<a href="userfiles/images/billedudlaan/k47_emil_nielsen/wtrmrk/2.jpg"'
+                . ' rel="prettyPhoto[imgalbum0]" title="566 - 50x60 cm<br />">'
+                . '<img src="userfiles/images/billedudlaan/k47_emil_nielsen/thumb/imgalbum_2.jpg"'
+                . ' class="thumb" alt="" title="" width="135" height="113"></a>',
+                '<a href="userfiles/images/billedudlaan/k47_emil_nielsen/wtrmrk/2.jpg"'
+                . ' rel="prettyPhoto[imgalbum0]" title="566 - 50x60 cm<br />">'
+                . '<img src="userfiles/images/billedudlaan/k47_emil_nielsen/thumb/imgalbum_2.jpg"'
+                . ' class="thumb" alt="" title="" width="135" height="113"></a>'
+            ],
+            // searching for "<" and ">"
+            [
+                ['&lt;code&gt;'],
+                'blah blah <code>&lt;code&gt;some code&lt;/code&gt;</code>'
+                . ' yada yada',
+                'blah blah <code><span class="xh_find">&lt;code&gt;</span>some code&lt;/code&gt;</code>'
+                . ' yada yada'
+            ],
         ];
     }
 
