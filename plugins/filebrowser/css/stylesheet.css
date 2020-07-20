@@ -1,127 +1,135 @@
-#xhFilebrowser, #xhFilebrowserMenu {
-background: #fff;
-min-width: 440px;
-color: #333;
-border: 1px solid #999999;
-margin: 1px 0;
-overflow: auto;
-padding: 8px 16px;
-font-family: arial, sans-serif;
-font-size: 14px;
+div.xhFilebrowserDiv {
+	font: normal 15px/normal sans-serif;
+	text-transform: none !important;
+	color: #000 !important;
+	text-decoration: none !important;
+	background: #fff !important;
+	border: 0 !important;
+	margin: 0 !important;
+	padding: 0.5em !important;
+	letter-spacing: normal;
+	text-shadow: none !important;
 }
-
-#xhFilebrowserMenu {
-font-weight: 700;
+/* Filebrowser Links */
+div.xhFilebrowserDiv a {
+	color: #000 !important;
+	text-decoration: none !important;
+	font-style: normal !important;
+	transition: none !important;
+	border: 0 !important;
 }
-
-
-/* FILEBROWSER MENU */
-
-#xhFilebrowser {
-font-family: arial, sans-serif;
-font-size: 14px;
-font-weight: 900;
-
+div.xhFilebrowserDiv a:hover,
+div.xhFilebrowserDiv a:active,
+div.xhFilebrowserDiv a:focus {
+	color: #c60 !important;
+	text-decoration: none !important;
+	font-style: normal !important;
+	transition: none !important;
+	border: 0 !important;
 }
-
-#xhFilebrowser  fieldset, #xhFilebrowserMenu  fieldset {
-margin: 5px;
-display:none;
+/* Filebrowser Lists */
+div.xhFilebrowserDiv ul,
+div.xhFilebrowserDiv ul ul,
+div.xhFilebrowserDiv ul ul ul {
+	list-style-type: none !important;
+	list-style-image: none !important;
+	list-style-position: inside !important;
+	padding: 0 !important;
+	margin: .5em 0 !important;
 }
-
-#xhFilebrowser fieldset legend, #xhFilebrowserMenu fieldset legend {
-   font-weight: bold;
+div.xhFilebrowserDiv ul li,
+div.xhFilebrowserDiv ul ul li,
+div.xhFilebrowserDiv ul ul ul li {
+	list-style-type: none !important;
+	list-style-image: none !important;
+	list-style-position: inside !important;
+	padding: 4px 0 0 2px !important;
+	white-space: nowrap !important;
+	margin: 0 !important;
 }
-
-
-/* FILEBROWSER LISTS */
-
+div.xhFilebrowserDiv ul li::before {
+	color: inherit !important;
+	content: "" !important;
+	margin-left: 0 !important;
+	padding: 0 !important;
+}
+div.xhFilebrowserDiv ul.unseen {
+	display: none;
+}
+div.xhFilebrowserDiv li.openFolder ul {
+	margin: 0 0 0 24px !important;
+}
+div.xhFilebrowserDiv li.openFolder {
+	font-weight: bold !important;
+}
+div.xhFilebrowserDiv li.folder {
+	font-weight: normal !important;
+}
+div.xhFilebrowserDiv li.folder form,
+div.xhFilebrowserDiv form.filebrowser_delete_file,
+div.xhFilebrowserDiv form.filebrowser_rename_file {
+	display: inline !important;
+}
 span.xhfb_files {
-font-weight: 700;
-color: #900;
+	font-weight: bold;
 }
-
 p.xhfb_files {
-font-weight: 700;
-padding: 0;
+	font-weight: bold;
+	padding: 0;
 }
-
-#xhFilebrowser ul, #xhFilebrowserMenu ul {
-list-style-image: none;
-list-style-position:inside;
-padding: 0;
-margin: auto;
+/* Fieldsets */
+div.xhFilebrowserDiv fieldset {
+	font: normal 15px/normal sans-serif;
+	margin: 1em 0 !important;
+	display: none;
+	padding: .5em !important;
+	background: #f9f9f9 !important;
+	border: 1px solid #ccc !important;
+	box-sizing: border-box;
+	letter-spacing: normal;
 }
-
-#xhFilebrowser ul.unseen, #xhFilebrowserMenu ul.unseen{
-display: none;
+div.xhFilebrowserDiv fieldset legend {
+	font: normal 15px/normal sans-serif;
+	border: 0 !important;
+	display: inline;
+	width: auto;
+	padding: 0 .25em;
+	margin: 0;
+	color: #000;
+	letter-spacing: normal;
 }
-
-#xhFilebrowser li.openFolder, #xhFilebrowserMenu li.openFolder {
-list-style-image:url(icons/folder.png);
-padding: 2px 0 2px 5px;
-margin: 0 0 0 0;
-line-height: 1em;
-font-size: 14px;
-font-weight: 900;
-}
-
-#xhFilebrowser li.folder, #xhFilebrowserMenu li.folder{
-list-style-image:url(icons/folder.png);
-padding: 2px 0 2px 5px;
-margin: 0 0 0 0;
-line-height: 1em;
-font-size: 13px;
-font-weight: 300;
-}
-
-
-#xhFilebrowser li.openFolder ul, #xhFilebrowserMenu li.openFolder ul {margin-left: 20px;}
-
-
-/* FILEBROWSER FOLDERS */
-
+/* Filebrowser Folders */
 #xhFilebrowser #filebrowser_folders {
-    float: left;
-    width: 40%;
-    overflow: auto;
-
+	float: left;
+	width: 40%;
+	overflow: auto;
 }
-
+#filebrowser_files li.odd {
+	background: #f9f9f9;
+}
 #filebrowser_subfolders {
-    padding: 0 0 10px 0;
+	padding: 0 0 .5em 0;
 }
-
 #filebrowser_subfolders li {
-    font-size: 13px;
-    font-weight: 900;
+	font-weight: bold;
 }
-
-
-/* FILEBROWSER FILES */
-
 #filebrowser_files {
-    font-weight: 300;
-    padding: 0 0 0 30px;
-    margin-bottom: 20px;
+	overflow: auto !important;
 }
-
-#filebrowser_files li {
-    list-style-type: none;
-    font-size: 13px;
-    padding: 2px 0;
-    margin: 0;
+#filebrowser_files.xhfb_Bg {
+	padding-top: .75em !important;
 }
-
-#filebrowser_files li:hover {
-   background-color: #ccc;
+a.xhfbfile img,
+span.xhfbfile img {
+	border: none !important;
+	margin: .25em 0 0 0 !important;
+	max-height: 10em !important;
+	max-width: 10em !important;
+	box-shadow: none !important;
 }
-
-#filebrowser_files li.odd {}
-
-#filebrowser_files ul, #filebrowser_files ul li {
-    margin-left: 0em;
-    padding-left: 0em;
+a.xhfbfile span,
+span.xhfbfile span {
+	display: none;
 }
 
 #xhFilebrowser a { color: #333;}
@@ -136,45 +144,136 @@ a.xhfbfile img, span.xhfbfile img {
 a.xhfbfile span, span.xhfbfile span {display: none;}
 a.xhfbfile:hover span, #filebrowser_files ul li:hover a.xhfbfile span,
 span.xhfbfile:hover span, #filebrowser_files ul li:hover span.xhfbfile span {
-    display: block;
-    float: right;
-    border: #aaa 1px solid;
-    padding: 2px;
-    background-color: #ddd;
+	display: block;
+	float: right;
+	border: 1px solid #ccc;
+	padding: .25em;
+	background-color: #f0f0f0;
+	margin-top: -4px;
+	font-size: .9em !important;
+	position: relative;
+	z-index: 4;
+	box-sizing: border-box !important;
 }
-a.xhfbfile:hover, span.xhfbfile:hover {
-    background-color: #ccc;
-    cursor:pointer;
+#filebrowser_files ul li:hover span:not(.xhfbfile) > span {
+	border: 0 !important;
+	background: transparent !important;
 }
-#xhFilebrowser div {
-    font-family: arial, sans-serif;
-    padding: 0px;
-    margin: 0px;
+#filebrowser_files li:hover {
+	background-color: #e9e9e9;
 }
-
-
-#filebrowser_subfolders  fieldset legend {}
-
-#xhFilebrowser a:link {color: #222; text-decoration: none; font-style: normal;}
-#xhFilebrowser a:visited {color: #222; text-decoration: none; font-style: normal;}
-#xhFilebrowser a:hover {color: #c60; text-decoration: none;}
-#xhFilebrowser a:active {color: #c60; text-decoration: none;}
-#xhFilebrowser a:focus {color: #c60; text-decoration: none;}
-
-#xhFilebrowser li.openFolder a:link {color: #920; text-decoration: none; font-style: normal;}
-#xhFilebrowser li.openFolder a:visited {color: #920; text-decoration: none; font-style: normal;}
-#xhFilebrowser li.openFolder a:hover {color: #c60; text-decoration: none;}
-#xhFilebrowser li.openFolder a:active {color: #c60; text-decoration: none;}
-#xhFilebrowser li.openFolder a:focus {color: #c60; text-decoration: none;}
-
-#xhFilebrowser li.folder a:link {color: #222; text-decoration: none; font-style: normal;}
-#xhFilebrowser li.folder a:visited {color: #222; text-decoration: none; font-style: normal;}
-#xhFilebrowser li.folder a:hover {color: #c60; text-decoration: none;}
-#xhFilebrowser li.folder a:active {color: #c60; text-decoration: none;}
-#xhFilebrowser li.folder a:focus {color: #c60; text-decoration: none;}
-
-#xhFilebrowserMenu a:link {color: #222; text-decoration: none; font-style: normal;}
-#xhFilebrowserMenu a:visited {color: #222; text-decoration: none; font-style: normal;}
-#xhFilebrowserMenu a:hover {color: #c60; text-decoration: none;}
-#xhFilebrowserMenu a:active {color: #c60; text-decoration: none;}
-#xhFilebrowserMenu a:focus {color: #c60; text-decoration: none;}
+a.xhfbfile:hover,
+span.xhfbfile:hover {
+	/* [disabled]background-color: #f5f5f5; */
+	/* [disabled]cursor:pointer; */
+}
+/* FA-Icons & colors */
+div.xhFilebrowserDiv span.fa {
+	vertical-align: baseline;
+}
+div.xhFilebrowserDiv span.fa-folder,
+div.xhFilebrowserDiv span.fa-folder-open {
+	color: rgb(255,153,0);
+}
+div.xhFilebrowserDiv span.fa-tag {
+	color: rgb(51,153,204);
+}
+div.xhFilebrowserDiv span.fa-remove {
+	color: rgb(255,51,0);
+}
+/* Buttons */
+div.xhFilebrowserDiv button {
+	font: normal 15px/normal sans-serif;
+	cursor: pointer !important;
+	padding: 0 !important;
+	background: transparent !important;
+	color: #000 !important;
+	border: 0 !important;
+	box-shadow: none !important;
+	letter-spacing: normal;
+}
+div.xhFilebrowserDiv .xhButtonImg {
+	font: normal 15px/normal sans-serif;
+	cursor: pointer !important;
+	padding: 0 !important;
+	margin: 0 .25em 0 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	vertical-align: baseline;
+	text-transform: none !important;
+	height: auto !important;
+	display: inline-block;
+	max-width: inherit !important;
+	box-shadow: none !important;
+	letter-spacing: normal;
+}
+div.xhFilebrowserDiv .xhButtonImg:hover,
+div.xhFilebrowserDiv .xhButtonImg:active,
+div.xhFilebrowserDiv .xhButtonImg:focus {
+	outline: 1px dotted #000 !important;
+	outline-offset: 1px !important;
+}
+div.xhFilebrowserDiv button.filebrowser_folder_toggle,
+div.xhFilebrowserDiv button.filebrowser_upload_toggle,
+div.xhFilebrowserDiv button.submit {
+	font: normal 15px/normal sans-serif;
+	font-weight: bold !important;
+	padding: .25em .5em !important;
+	background: #eee !important;
+	color: #000 !important;
+	border: 1px solid #ccc !important;
+	border-radius: 0 !important;
+	cursor: pointer !important;
+	text-decoration: none !important;
+	text-transform: none !important;
+	height: auto !important;
+	display: inline-block;
+	letter-spacing: normal;
+}
+div.xhFilebrowserDiv button.filebrowser_folder_toggle:hover,
+div.xhFilebrowserDiv button.filebrowser_folder_toggle:focus,
+div.xhFilebrowserDiv button.submit:hover,
+div.xhFilebrowserDiv button.submit:focus,
+div.xhFilebrowserDiv button.filebrowser_upload_toggle:hover,
+div.xhFilebrowserDiv button.filebrowser_upload_toggle:focus {
+	background: #999 !important;
+	color: #fff !important;
+	border: 1px solid #999 !important;
+	text-decoration: none !important;
+}
+div.xhFilebrowserDiv input[name="createFolder"],
+div.xhFilebrowserDiv input[type="file"] {
+	font: normal 15px/normal sans-serif;
+	font-weight: normal !important;
+	padding: .25em .5em !important;
+	margin: 0 0 .25em 0 !important;
+	color: #000 !important;
+	background-color: #fff !important;
+	background-image: none !important;
+	border: 1px solid #ccc !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	transition: none !important;
+	box-sizing: border-box !important;
+	display: inline-block !important;
+	letter-spacing: normal;
+}
+/* Others */
+div.xhFilebrowserDiv hr {
+	border: 0 !important;
+	border-bottom: 1px solid #ccc !important;
+	height: 0 !important;
+	clear: both !important;
+	margin: .25em 0 !important;
+	box-shadow: none !important;
+}
+div.xhFilebrowserDiv .xhfbBtnRgth {
+	text-align: right;
+}
+div.xhFilebrowserDiv h1 {
+	color: #000;
+	font-size: 2em;
+	margin: 0 0 .5em 0;
+	letter-spacing: normal;
+	text-shadow: none !important;
+}
