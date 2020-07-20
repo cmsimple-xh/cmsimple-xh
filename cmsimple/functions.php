@@ -2381,7 +2381,7 @@ function XH_onShutdown()
     }
 
     $lastError = error_get_last();
-    if (in_array($lastError['type'], array(E_ERROR, E_PARSE))) {
+    if (isset($lastError) && in_array($lastError['type'], array(E_ERROR, E_PARSE))) {
         if (error_reporting() <= 0) {
             echo $tx['error']['fatal'];
         } else {

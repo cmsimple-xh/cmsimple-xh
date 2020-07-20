@@ -1,56 +1,50 @@
-<?php
+<!DOCTYPE html>
+<?php 
 global $pth, $_XH_csrfProtection;
 ?>
-<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Filebrowser</title>
-        <link rel="stylesheet" href="<?php echo "{$pth['folder']['corestyle']}xhstyles.css"?>" type="text/css">
-        <style type="text/css">body {padding: 0; margin: 0; overflow: auto;}</style>
-
-        %SCRIPT%
-
-	<?php echo $this->renderJsConfig()?>
-        <script type="text/javascript" src="<?php echo $pth['folder']['plugin']?>js/filebrowser.min.js"></script>
-    </head>
-    <body>
-        <div id="xhFilebrowserMenu">
-        %MESSAGE%
-            <button type="button" class="filebrowser_folder_toggle"><?php echo $this->translate('create_folder'); ?></button>
-            <button type="button" class="filebrowser_upload_toggle"><?php echo $this->translate('upload_file'); ?></button>
-            <fieldset id="xhfbUploadFile" class="xhfbform">
-                <legend><?php echo $this->translate('upload_file_to', array(XH_hsc($this->currentDirectory))); ?></legend>
-                <div style="padding: 3em;">
-
-                    <form method="post" class="filebrowser_upload" enctype="multipart/form-data">
-                        <input type="file" name="fbupload" required>
-                        <input type="hidden" name="upload" value="upload">
-			<?php echo $_XH_csrfProtection->tokenInput()?>
-                        <input type="submit" class="submit" value="<?php echo $this->translate('upload_file')?>">
-                    </form>
-                </div>
-            </fieldset>
-            <fieldset id="xhfbCreateDir" class="xhfbform">
-                <legend><?php echo $this->translate('create_subfolder_in', array(XH_hsc($this->currentDirectory))); ?></legend>
-                <div style="padding: 3em;">
-
-                    <form method="post">
-                        <input type="text" name="createFolder" size="30" required>
-			<?php echo $_XH_csrfProtection->tokenInput()?>
-                        <input type="submit" class="submit" value="<?php echo $this->translate('create_folder')?>">
-                    </form>
-                </div>
-            </fieldset>
-        </div>
-        <div id="xhFilebrowser">
-            <div id="filebrowser_folders">
-                %FOLDERS%
-            </div>
-            <div id="filebrowser_files" style="overflow: auto; z-index: 3; font-weight: 300; padding: 6px 6px 100px 30px;">
-			<span class="xhfb_files"><?php echo $this->translate('files');?></span><br><br>
-                %FILES%
-            </div>
-            <div style="clear:both;"></div>
-        </div>
-    </body>
+<head>
+<title>Filebrowser</title>
+<link rel="stylesheet" href="<?php echo $pth['folder']['plugins']?>fa/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="<?php echo $pth['folder']['corestyle']?>xhstyles.css" type="text/css">
+<style>body {padding: 0; margin: 0; overflow: auto;}</style>
+%SCRIPT%
+<?php echo $this->renderJsConfig()?>
+<script src="<?php echo $pth['folder']['plugin']?>js/filebrowser.min.js"></script>
+</head>
+<body>
+<div class="xhFilebrowserDiv">
+<div id="xhFilebrowserMenu">
+%MESSAGE%
+<button type="button" class="filebrowser_folder_toggle"><span class="fa fa-plus-square"></span> <?php echo $this->translate('create_folder'); ?> …</button>
+<button type="button" class="filebrowser_upload_toggle"><span class="fa fa-upload"></span> <?php echo $this->translate('upload_file'); ?> …</button>
+<fieldset id="xhfbUploadFile" class="xhfbform">
+<legend><?php echo $this->translate('upload_file_to', array(XH_hsc($this->currentDirectory))); ?></legend>
+<form method="post" class="filebrowser_upload" enctype="multipart/form-data">
+<input type="file" name="fbupload" required>
+<input type="hidden" name="upload" value="upload">
+<?php echo $_XH_csrfProtection->tokenInput()?>
+<button type="submit" class="submit xhButton"><span class="fa fa-plus-square"></span> <?php echo $this->translate('upload_file')?></button>
+</form>
+</fieldset>
+<fieldset id="xhfbCreateDir" class="xhfbform">
+<legend><?php echo $this->translate('create_subfolder_in', array(XH_hsc($this->currentDirectory))); ?></legend>
+<form method="post">
+<input type="text" name="createFolder" required>
+<?php echo $_XH_csrfProtection->tokenInput()?>
+<button type="submit" class="submit xhButton"><span class="fa fa-plus-square"></span> <?php echo $this->translate('create_folder')?></button>
+</form>
+</fieldset>
+</div>
+<div id="xhFilebrowser">
+<div id="filebrowser_folders">
+%FOLDERS%
+</div>
+<div id="filebrowser_files" class="xhfb_Bg">
+<span class="xhfb_files"><?php echo $this->translate('files');?></span>
+%FILES%
+</div>
+</div>
+</div>
+</body>
 </html>
