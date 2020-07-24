@@ -1,18 +1,13 @@
 <?php
 
-/*
- * @version $Id: admin.php 265 2016-12-04 20:17:55Z hi $
- *
- */
-
 /**
  * jQuery for CMSimple
  *
  * Admin-interface for configuring the plugin
  * via the standard-functions of pluginloader.
  *
- * Version:    1.6.4
- * Build:      2017070201
+ * Version:    1.6.5
+ * Build:      2020072301
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -85,11 +80,11 @@ if (isset($_GET['jquery'])) {
     if ($admin == '') {
         $o .= "\n" . '<div>';
         $o .= "\n" . '<h1>jQuery for CMSimple</h1>';
-        $o .= "\n" . '<p>Version 1.6.4 - 2017-07-02</p>';
-        $o .= "\n" . '<p>&copy;2011-2016 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
+        $o .= "\n" . '<p>Version 1.6.5 - 2020-07-23</p>';
+        $o .= "\n" . '<p>&copy;2011-2020 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
         $o .= "\n" . '<p>';
         $o .= "\n" . 'jQuery Version: ';
-        $o .= '<script type="text/javascript">
+        $o .= '<script>
 					var migrate = " & Migrate-Plugin";
 					if (typeof jQuery.migrateWarnings === \'undefined\') {
 						migrate = "";
@@ -98,7 +93,7 @@ if (isset($_GET['jquery'])) {
 			   </script>';
         $o .= "\n" . tag('br');
         $o .= "\n" . 'jQueryUI Version: ';
-        $o .= '<script type="text/javascript">document.write(jQuery.ui.version)</script>';
+        $o .= '<script>document.write(jQuery.ui.version)</script>';
         $o .= "\n" . '</p>';
         $o .= "\n" . '</div>';
     }
