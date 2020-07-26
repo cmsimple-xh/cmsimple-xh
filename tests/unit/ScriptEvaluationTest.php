@@ -11,6 +11,8 @@
 
 namespace XH;
 
+use PHPUnit_Framework_Error_Warning as Warning;
+
 /**
  * A helper to test multiple evaluation of a function with side effects.
  */
@@ -49,11 +51,9 @@ class ScriptEvaluationTest extends TestCase
         error_reporting($oldErrorReporting);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Warning
-     */
     public function testNestedScriptingTriggersWarning()
     {
+        $this->expectException(Warning::class);
         evaluate_scripting('{{{PLUGIN:trim(\'#CMSimple die("failed");#\');}}}');
     }
 
