@@ -1,10 +1,5 @@
 <?php
 
-/*
- * @version $Id: jquery.inc.php 272 2017-07-02 08:25:14Z hi $
- *
- */
-
 /**
  * jQuery for CMSimple
  *
@@ -12,8 +7,8 @@
  * to enable jQuery, jQueryUI 
  * and other jQuery-based plugins
  *
- * Version:    1.6.4
- * Build:      2017070201
+ * Version:    1.6.5
+ * Build:      2020072301
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -37,11 +32,11 @@ function include_jQuery($path = '') {
                 return;
             }
         }
-        $js = '<script type="text/javascript" src="' . $path . '"></script>';
+        $js = '<script src="' . $path . '"></script>';
         if ($plugin_cf['jquery']['load_migrate'] == 'true') {
             $migrate = $pth['folder']['plugins'] . 'jquery/lib/migrate/' . $plugin_cf['jquery']['version_migrate'];
             if (is_file($migrate)) {
-                $js .= "\n" . '<script type="text/javascript" src="' . $migrate . '"></script>';
+                $js .= "\n" . '<script src="' . $migrate . '"></script>';
                 $js .= "\n";
             } else {
                 e('missing', 'file', $migrate);
@@ -64,7 +59,7 @@ function include_jQueryUI($path = '') {
                 return;
             }
         }
-        $hjs .= "\n" . '<script type="text/javascript" src="' . $path . '"></script>';
+        $hjs .= "\n" . '<script src="' . $path . '"></script>';
         define('JQUERY_UI', TRUE);
 
         if (file_exists($pth['folder']['template'] . 'jquery_ui/jquery_ui.css')) {
@@ -101,7 +96,7 @@ function include_jQueryPlugin($name = '', $path = '') {
             }
             $name = strtolower($name);
             if (!in_array($name, $jQueryPlugins)) {
-                $hjs .= "\n" . '<script type="text/javascript" src="' . $path . '"></script>';
+                $hjs .= "\n" . '<script src="' . $path . '"></script>';
                 $jQueryPlugins[] .= $name;
             }
         }

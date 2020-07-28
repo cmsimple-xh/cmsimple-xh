@@ -100,6 +100,7 @@
         <move todir="dist">
             <fileset dir="export">
                 <include name="README*.txt"/>
+                <include name="reqcheck.php"/>
             </fileset>
             <filterchain>
                 <replacetokens>
@@ -123,7 +124,6 @@
                 <include name="cmsimple/functions.php"/>
                 <include name="cmsimple/classes/Search.php"/>
                 <include name="plugins/filebrowser/admin.php"/>
-                <include name="plugins/tinymce/admin.php"/>
             </fileset>
             <filterchain>
                 <replacetokens>
@@ -165,6 +165,8 @@
         <copy file="dist/cmsimplexh/plugins/page_params/languages/en.php" tofile="dist/cmsimplexh/plugins/page_params/languages/default.php" preservelastmodified="true"/>
 
         <move file="dist/cmsimplexh/userfiles/downloads/_XHdebug.txt" tofile="dist/cmsimplexh/userfiles/downloads/XHdebug.txt"/>
+
+        <echo file="dist/cmsimplexh/reqcheck.php">This file serves no purpose, and can be deleted.</echo>
 
         <zip destfile="CMSimple_XH-${version}.zip" basedir="dist"/>
         <delete dir="dist" quiet="true"/>
@@ -213,6 +215,7 @@
         <delete includeemptydirs="true">
             <fileset dir="dist/cmsimplexh/templates" includes="**"/>
         </delete>
+        <echo file="dist/cmsimplexh/reqcheck.php">This file serves no purpose, and can be deleted.</echo>
         <zip destfile="CMSimple_XH-${version}-patch.zip" basedir="dist" includeemptydirs="false"/>
         <delete dir="patchee" quiet="true"/>
         <delete dir="current" quiet="true"/>
