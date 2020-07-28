@@ -24,7 +24,7 @@ if (isset($_GET['phpinfo'])) {
     exit;
 }
 
-$version = 'CMSimple_XH 1.7.3';
+$version = '@CMSIMPLE_XH_VERSION@';
 $title = "$version – Requirements Check";
 
 $checks = array();
