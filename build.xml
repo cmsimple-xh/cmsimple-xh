@@ -133,7 +133,7 @@
                 </replacetokens>
             </filterchain>
         </move>
-        <move todir="dist/cmsimplexh">
+        <move todir="dist/cmsimplexh" includeemptydirs="true">
             <fileset dir="export">
                 <exclude name=".phan/**"/>
                 <exclude name=".travis.yml"/>
