@@ -2611,7 +2611,7 @@ function XH_getPageURL($index)
 {
     global $sn, $u, $xh_publisher;
 
-    if ($index === $xh_publisher->getFirstPublishedPage()) {
+    if ($index === $xh_publisher->getFirstPublishedPage() && !(XH_ADM)) {
         return $sn;
     } else {
         return $sn . '?' . $u[$index];
