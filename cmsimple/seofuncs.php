@@ -18,10 +18,12 @@
 /**
  * SEO functionality
  *
- * @integration of the ADC-Core_XH plugin with extended functions (optional)
+ * Integration of the ADC-Core_XH plugin with extended functions (optional)
  *
- * @remove empty path segments in an URL
- * @remove $su from FirstPublicPage
+ * Remove empty path segments in an URL
+ * Remove $su from FirstPublicPage
+ *
+ * @return void
  *
  * @since 1.7.3
  */
