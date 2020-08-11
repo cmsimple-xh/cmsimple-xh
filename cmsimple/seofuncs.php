@@ -15,6 +15,16 @@
  * @link      http://cmsimple-xh.org/
  */
 
+/**
+ * SEO functionality
+ *
+ * @integration of the ADC-Core_XH plugin with extended functions (optional)
+ *
+ * @remove empty path segments in an URL
+ * @remove $su from FirstPublicPage
+ *
+ * @since 1.7.3
+ */
 function XH_URI_Cleaning()
 {
     global $su, $s, $xh_publisher, $pth;
@@ -27,7 +37,7 @@ function XH_URI_Cleaning()
 
     $redir = false;
 
-// Integration of the ADC-Core_XH plugin with extended functions (optional)
+//Integration of the ADC-Core_XH plugin with extended functions (optional)
     if (is_readable($pth['folder']['plugins'] . 'adc_core/seofuncs.php')) {
         include_once $pth['folder']['plugins'] . 'adc_core/seofuncs.php';
     }
