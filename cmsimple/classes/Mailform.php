@@ -191,7 +191,10 @@ class Mailform
         }
         $again = true;
 
-        $anchor = '<div id="xh_mailform"></div>';
+        $anchor = '';
+        if (!isset($_GET['mailform'])) {
+            $anchor = '<div id="xh_mailform"></div>';
+        }
         if ($action == 'send') {
             $o = $this->check();
             if (!$o && $this->submit()) {
