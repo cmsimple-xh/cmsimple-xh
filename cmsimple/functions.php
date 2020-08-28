@@ -873,12 +873,11 @@ function XH_findNextPage()
  */
 function a($i, $x)
 {
-    global $sn, $u, $xh_publisher;
-
-    return isset($u[$i]) && (XH_ADM || $i !== $xh_publisher->getFirstPublishedPage())
-        ? '<a href="' . $sn . '?' . $u[$i] . $x . '">'
-        //: '<a href="' . $sn . ($x ? ($x[0] != '"' ? '?' . $x : $x) : '') . '">';
-        : '<a href="' . $sn . ($x ? ($x[$i] != '"' ? '?' . $x : $x) : '') . '">';
+    $a_href = XH_getPageURL($i);
+    if (stripos($a_href, '?') === false) {
+        ($x ? $x = '?' . $x : '');
+    }
+    return '<a href="' . $a_href . $x . '">';
 }
 
 /**
