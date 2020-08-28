@@ -156,8 +156,14 @@ class Mailform
     {
         global $cf, $tx;
 
-        $this->mail->setTo($cf['mailform']['email']);
-        $this->mail->addHeader('From', $cf['mailform']['email']);
+        $cf_email = trim($cf['mailform']['email'], ' ,');
+        $cf_email_array = explode(',', $cf_email);
+        $cf_email_array = array_map('trim', $cf_email_array);
+        $header_from = $cf_email_array[0];
+        $header_to = implode(',', $cf_email_array);
+
+        $this->mail->setTo($header_to);
+        $this->mail->addHeader('From', $header_from);
         $this->mail->addHeader('Reply-To', $this->sender);
         $this->mail->addHeader('X-Remote', sv('REMOTE_ADDR'));
         $this->mail->setSubject($this->subject);
