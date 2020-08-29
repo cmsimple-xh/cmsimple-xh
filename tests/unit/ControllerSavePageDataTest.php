@@ -67,7 +67,7 @@ class ControllerSavePageDataTest extends TestCase
      */
     protected function setUp()
     {
-        global $s, $pd_router, $_XH_csrfProtection;
+        global $pth, $s, $pd_router, $_XH_csrfProtection;
 
         $_POST = array(
             'foo' => 'bar',
@@ -75,7 +75,8 @@ class ControllerSavePageDataTest extends TestCase
             'xh_csrf_token' => '0123456789abcdef'
         );
         $s = 0;
-        $pd_router = $this->createMock(PageDataRouter::class);
+        $pth['file']['content'] = '';
+        $pd_router = @$this->createMock(PageDataRouter::class);
         $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
         $this->subject = new Controller();
         $this->eMock = $this->createFunctionMock('e');

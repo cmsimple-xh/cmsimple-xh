@@ -43,8 +43,13 @@ class ControllerLogoutTest extends ControllerLogInOutTestCase
      */
     protected function setUp()
     {
+        global $pth;
+
         parent::setUp();
         $_SESSION = array();
+        $pth = array(
+            'folder' => ['cmsimple' => './cmsimple/'],
+        );
         $this->backupMock = $this->createFunctionMock('XH_backup');
         $this->filePutContentsStub = $this->createFunctionMock('file_put_contents');
         $this->sessionNameMock = $this->createFunctionMock('session_name');
