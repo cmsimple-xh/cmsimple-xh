@@ -50,7 +50,8 @@ class CoreConfigFileEditTest extends TestCase
         $pth = array(
             'folder' => array(
                 'cmsimple' => vfsStream::url('test/'),
-                'language' => vfsStream::url('test/')
+                'language' => vfsStream::url('test/'),
+                'corestyle' => '',
             ),
             'file' => array(
                 'config' => vfsStream::url('test/config.php')
@@ -248,7 +249,7 @@ EOT;
 
     public function testSuccessMessage()
     {
-        $_GET['xh_success'] = '';
+        $_GET['xh_success'] = 'config';
         $this->assertXPath(
             '//p[@class="xh_success"]',
             $this->subject->form()
