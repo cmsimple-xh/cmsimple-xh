@@ -14,6 +14,7 @@ namespace XH;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit_Framework_Error_Deprecated as Deprecated;
 
 /**
  * A test case for the functions in tplfuncs.php.
@@ -116,11 +117,9 @@ class TplfuncsTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testGuestbooklinkIsDeprecated()
     {
+        $this->expectException(Deprecated::class);
         guestbooklink();
     }
 
@@ -133,11 +132,9 @@ class TplfuncsTest extends TestCase
         $this->assertEmpty($actual);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testEditmenuIsDeprecated()
     {
+        $this->expectException(Deprecated::class);
         editmenu();
     }
 
