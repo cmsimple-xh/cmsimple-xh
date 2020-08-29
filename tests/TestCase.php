@@ -93,7 +93,7 @@ class TestCase extends PHPUnit_Framework_TestCase
         $nodes = $this->queryXPath($query, $html);
         if ($nodes && $nodes->length > 0) {
             foreach ($nodes as $node) {
-                if (!$text || strpos($node->nodeValue, $text) !== false) {
+                if (strpos($node->nodeValue, $text) !== false) {
                     $this->assertTrue(true);
                     return;
                 }

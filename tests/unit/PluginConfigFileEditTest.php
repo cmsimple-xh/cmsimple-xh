@@ -172,7 +172,7 @@ EOT;
 
     public function testSuccessMessage()
     {
-        $_GET['xh_success'] = '';
+        $_GET['xh_success'] = 'config';
         $this->assertXPath(
             '//p[@class="xh_success"]',
             $this->subject->form()
