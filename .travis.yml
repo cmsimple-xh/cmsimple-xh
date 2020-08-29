@@ -4,10 +4,12 @@ php:
     - '7.1'
     - '7.2'
     - '7.3'
+    - '7.4'
 install:
     - if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then pecl install runkit; fi
     - phpenv config-rm xdebug.ini
     - if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then pecl install uopz; fi
+    - if [[ $TRAVIS_PHP_VERSION == "7.4" ]]; then echo "opcache.enable=0" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
     - composer install
 before_script:
     - export PATH=vendor/bin:$PATH
