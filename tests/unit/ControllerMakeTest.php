@@ -39,6 +39,9 @@ class ControllerMakeTest extends TestCase
      */
     protected function setUp()
     {
+        global $cf;
+
+        $cf['mailform']['lf_only'] = '';
         $this->subject = new Controller();
     }
 

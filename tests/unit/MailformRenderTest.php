@@ -19,6 +19,9 @@ class MailformRenderTest extends TestCase
 
     protected function setUp()
     {
+        global $cf;
+
+        $cf['mailform']['lf_only'] = '';
         $this->subject = new Mailform();
         $this->tagStub = $this->createFunctionMock('tag');
         $this->tagStub->expects($this->any())->will($this->returnCallback(

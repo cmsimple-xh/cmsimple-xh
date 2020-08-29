@@ -55,12 +55,16 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
      */
     protected function setUp()
     {
-        global $cf;
+        global $pth, $cf;
 
         parent::setUp();
         $_SERVER = array(
             'HTTP_USER_AGENT' => 'Mozilla/5.0',
             'REMOTE_ADDR' => '127.0.0.1'
+        );
+        $pth = array(
+            'folder' => ['cmsimple' => './cmsimple/'],
+            'file' => ['log' => ''],
         );
         $this->passwordVerifyMock = $this->createFunctionMock('password_verify');
         $cf['security']['password'] = '$P$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1';

@@ -37,7 +37,7 @@ class SearchTest extends TestCase
             "se\xC3\xB1or",
             "\xC2\xA0"
         );
-        $cf['show_hidden']['pages_search'] == 'true';
+        $cf['show_hidden']['pages_search'] = '';
     }
 
     public function dataForSearch()

@@ -46,8 +46,9 @@ class ControllerSearchTest extends TestCase
      */
     protected function setUp()
     {
-        global $tx;
+        global $pth, $tx;
 
+        $pth['file']['search'] = '';
         $tx['title']['search'] = 'Search';
         $this->subject = $this->getMockBuilder(Controller::class)->setMethods(array('makeSearch'))->getMock();
         $this->searchMock = $this->createMock(Search::class);

@@ -21,9 +21,10 @@ class AdminMenuTest extends TestCase
 
     protected function setUp()
     {
-        global $edit;
+        global $edit, $cf;
 
         $edit = false;
+        $cf['plugins']['hidden'] = '';
         $this->setUpPageStructure();
         $this->plugins = array('plugin');
         $this->setUpLocalization();
