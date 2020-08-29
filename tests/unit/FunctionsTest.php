@@ -318,10 +318,13 @@ class FunctionsTest extends TestCase
 
     public function testAWithEmptyX()
     {
-        global $sn, $u;
+        global $sn, $u, $xh_publisher;
 
         $sn = '/xh/';
         $u = [];
+        $xh_publisher = $this->createMock(Publisher::class);
+        $xh_publisher->method('getFirstPublishedPage')->willReturn(0);
+        $this->setConstant('XH_ADM', false);
         $this->assertEquals('<a href="/xh/">', a(0, ''));
     }
 
