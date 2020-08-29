@@ -2,8 +2,8 @@
     "require-dev": {
         "phing/phing": "2.16.*",
         "squizlabs/php_codesniffer": "2.9.*",
-        "phpmd/phpmd": "2.7.*",
-        "bartlett/php-compatinfo": "5.2.*",
+        "phpmd/phpmd": "2.8.*",
+        "bartlett/php-compatinfo": "5.3.*",
         "phpunit/phpunit": "5.7.*",
         "mikey179/vfsstream": "1.6.*",
         "tedivm/jshrink": "1.3.*"
