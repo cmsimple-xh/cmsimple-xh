@@ -76,7 +76,7 @@ class ControllerSavePageDataTest extends TestCase
         );
         $s = 0;
         $pth['file']['content'] = '';
-        $pd_router = $this->createMock(PageDataRouter::class);
+        $pd_router = @$this->createMock(PageDataRouter::class);
         $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
         $this->subject = new Controller();
         $this->eMock = $this->createFunctionMock('e');
