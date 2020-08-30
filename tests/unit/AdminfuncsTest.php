@@ -11,7 +11,7 @@
 
 namespace XH;
 
-use PHPUnit_Framework_Error_Warning as Warning;
+use PHPUnit\Framework\Error\Warning as Warning;
 
 /**
  * A test case for the functions in adminfuncs.php.
