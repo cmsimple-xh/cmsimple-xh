@@ -34,8 +34,15 @@ function XH_URI_Cleaning()
     $parts = parse_url(CMSIMPLE_URL);
     $scheme = $parts['scheme'];
     $host = $parts['host'];
+    $port = '';
+    if (!empty($parts['port'])) {
+        $port = ':' . $parts['port'];
+    }
     $path = $parts['path'];
-    $query_str = $_SERVER['QUERY_STRING'];
+    $query_str = '';
+    if (isset($_SERVER['QUERY_STRING'])) {
+        $query_str = $_SERVER['QUERY_STRING'];
+    }
 
     $redir = false;
 
@@ -79,7 +86,7 @@ function XH_URI_Cleaning()
         } else {
             $protocol = 'HTTP/1.1';
         }
-        $url = $scheme . '://' . $host . $path;
+        $url = $scheme . '://' . $host . $port . $path;
         if ($query_str != '') {
             $url .= '?' . XH_uenc_redir($query_str);
         }
