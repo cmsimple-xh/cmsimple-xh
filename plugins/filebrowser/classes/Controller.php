@@ -253,8 +253,8 @@ class Controller
                 }
             }
             closedir($handle);
-            natcasesort($this->folders);
-            natcasesort($this->files);
+            sort($this->folders, SORT_NATURAL | SORT_FLAG_CASE);
+            sort($this->files, SORT_NATURAL | SORT_FLAG_CASE);
         }
     }
 
@@ -283,7 +283,7 @@ class Controller
                 }
             }
             closedir($handle);
-            natcasesort($folders);
+            sort($folders, SORT_NATURAL | SORT_FLAG_CASE);
         }
         return $folders;
     }

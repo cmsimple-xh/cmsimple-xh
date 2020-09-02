@@ -130,7 +130,7 @@ class Model
                 }
             }
         }
-        natcasesort($themes);
+        sort($themes, SORT_NATURAL | SORT_FLAG_CASE);
         return $themes;
     }
 

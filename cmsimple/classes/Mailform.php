@@ -93,20 +93,20 @@ class Mailform
 
         $this->embedded = $embedded;
         $this->sendername = isset($_POST['sendername'])
-            ? stsl($_POST['sendername']) : '';
+            ? $_POST['sendername'] : '';
         $this->senderphone = isset($_POST['senderphone'])
-            ? stsl($_POST['senderphone']) : '';
+            ? $_POST['senderphone'] : '';
         $this->sender = isset($_POST['sender'])
-            ? stsl($_POST['sender']) : '';
+            ? $_POST['sender'] : '';
         $this->getlast = isset($_POST['getlast'])
-            ? stsl($_POST['getlast']) : '';
+            ? $_POST['getlast'] : '';
         $this->cap = isset($_POST['cap'])
-            ? stsl($_POST['cap']) : '';
+            ? $_POST['cap'] : '';
             
         if (isset($_POST['subject'])) {
-            $this->subject = stsl($_POST['subject']);
+            $this->subject = $_POST['subject'];
         } elseif (isset($_GET['xh_mailform_subject'])) {
-            $this->subject = stsl($_GET['xh_mailform_subject']);
+            $this->subject = $_GET['xh_mailform_subject'];
         } elseif (isset($subject)) {
             $this->subject = $subject;
         } else {
@@ -115,10 +115,10 @@ class Mailform
             
         if ($embedded) {
             $this->mailform = isset($_POST['xh_mailform'])
-                ? stsl($_POST['xh_mailform']) : '';
+                ? $_POST['xh_mailform'] : '';
         } else {
             $this->mailform = isset($_POST['mailform'])
-                ? stsl($_POST['mailform']) : '';
+                ? $_POST['mailform'] : '';
         }
         $this->mail = isset($mail) ? $mail : new Mail();
     }
