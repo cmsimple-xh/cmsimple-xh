@@ -243,7 +243,7 @@ class MainAdminController extends Controller
         global $pth;
 
         $this->csrfProtector->check();
-        if ($this->model->save(stsl($_POST['json']))) {
+        if ($this->model->save($_POST['json'])) {
             echo XH_message('success', $this->lang['message_save_success']);
         } else {
             $message = sprintf($this->lang['message_save_failure'], $pth['file']['content']);

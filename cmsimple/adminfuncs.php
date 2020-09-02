@@ -288,9 +288,6 @@ HTML;
         false, $stx['timezone']
     );
     $checks['other'][] = array(
-        version_compare(PHP_VERSION, '5.4', '>=') || !get_magic_quotes_runtime(), false, $stx['magic_quotes']
-    );
-    $checks['other'][] = array(
         !ini_get('safe_mode'), false, $stx['safe_mode']
     );
     $checks['other'][] = array(
@@ -405,7 +402,7 @@ function XH_backupsView()
 
     $o = '<ul>' . "\n";
     if (isset($_GET['xh_success'])) {
-        $o .= XH_message('success', $tx['message'][stsl($_GET['xh_success'])]);
+        $o .= XH_message('success', $tx['message'][$_GET['xh_success']]);
     }
     $o .= '<li>' . utf8_ucfirst($tx['filetype']['content']) . ' <a href="'
         . $sn . '?file=content&amp;action=view" target="_blank">'
@@ -473,8 +470,7 @@ function XH_pluginsView()
     $hiddenPlugins = explode(',', $cf['plugins']['hidden']);
     $hiddenPlugins = array_map('trim', $hiddenPlugins);
     $plugins = array_diff($plugins, $hiddenPlugins);
-    natcasesort($plugins);
-    $plugins = array_values($plugins);
+    sort($plugins, SORT_NATURAL | SORT_FLAG_CASE);
 
     $o = '<h1>' . $tx['title']['plugins'] . '</h1><ul>';
     foreach ($plugins as $plugin) {
@@ -646,8 +642,7 @@ function XH_adminMenu(array $plugins = array())
     $rows = ceil($total / $columns);
     $width = 150 * $columns;
     $marginLeft = min($width, 300) - $width;
-    natcasesort($plugins);
-    $plugins = array_values($plugins);
+    sort($plugins, SORT_NATURAL | SORT_FLAG_CASE);
     $orderedPlugins = array();
     for ($j = 0; $j < $rows; ++$j) {
         for ($i = 0; $i < $total; $i += $rows) {
@@ -909,16 +904,13 @@ function XH_saveEditorContents($text)
     //clean up and inject split-markers
     if (!$cf['mode']['advanced']) {
         $text = preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $text);
-        $split = '<!--XH_ml' . stsl($_POST['level']) . ':'
-            . stsl($_POST['heading']) . '-->'
+        $split = '<!--XH_ml' . $_POST['level'] . ':'
+            . $_POST['heading'] . '-->'
             . "\n";
         $text = $split . $text;
     }
     $hot = '<!--XH_ml[1-9]:';
     $hct = '-->';
-    // TODO: this might be done before the plugins are loaded
-    //       for backward compatibility
-    $text = stsl($text);
     // remove empty headings
     $text = preg_replace("/$hot(&nbsp;|&#160;|\xC2\xA0| )?$hct/isu", '', $text);
     // replace P elements around plugin calls and scripting with DIVs

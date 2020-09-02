@@ -64,7 +64,7 @@ class Controller
     {
         global $search;
 
-        return new Search(stsl($search));
+        return new Search($search);
     }
 
     /**
@@ -151,7 +151,7 @@ class Controller
         global $adm, $login, $logout, $keycut, $f;
 
         $adm = gc('status') == 'adm' && logincheck();
-        $keycut = stsl($keycut);
+        $keycut = $keycut;
         if ($login && $keycut == '' && !$adm) {
             $login = null;
             $f = 'login';
@@ -319,7 +319,6 @@ class Controller
         $_XH_csrfProtection->check();
         $postData = $_POST;
         unset($postData['save_page_data'], $postData['xh_csrf_token']);
-        $postData = array_map('stsl', $postData);
         $successful = $pd_router->update($s, $postData);
         if (isset($_GET['xh_pagedata_ajax'])) {
             if ($successful) {
@@ -390,7 +389,7 @@ class Controller
 
         $_XH_csrfProtection->check();
         if ($file == 'content') {
-            $suffix = stsl($_POST['xh_suffix']);
+            $suffix = $_POST['xh_suffix'];
             if (preg_match('/^[a-z_0-9-]{1,20}$/i', $suffix)) {
                 XH_extraBackup($suffix);
             }
