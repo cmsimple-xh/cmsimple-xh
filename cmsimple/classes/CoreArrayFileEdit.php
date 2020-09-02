@@ -66,7 +66,7 @@ abstract class CoreArrayFileEdit extends ArrayFileEdit
             }
             closedir($dh);
         }
-        natcasesort($options);
+        sort($options, SORT_NATURAL | SORT_FLAG_CASE);
         return $options;
     }
 }
