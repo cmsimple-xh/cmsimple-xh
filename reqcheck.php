@@ -33,6 +33,7 @@ $checks['the PHP Version is at least 5.3.7'] = version_compare(PHP_VERSION, '5.3
 foreach (array('json', 'mbstring', 'session') as $ext) {
     $checks['the PHP extension "' . $ext . '" is installed'] = extension_loaded($ext) ? 'okay' : 'fail';
 }
+$checks['the PHP extension "openssl" is installed'] = extension_loaded('openssl') ? 'okay' : 'warn';
 $checks['magic_quotes_runtime is off'] = (version_compare(PHP_VERSION, '5.4', '>=') || !get_magic_quotes_runtime()) ? 'okay' : 'warn';
 $checks['safe_mode is off'] = !ini_get('safe_mode') ? 'okay' : 'warn';
 $checks['session.use_trans_sid is off'] = !ini_get('session.use_trans_sid') ? 'okay' : 'warn';

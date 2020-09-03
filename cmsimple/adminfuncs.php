@@ -249,6 +249,7 @@ HTML;
             array('intl', false),
             'json',
             'mbstring',
+            array('openssl', false),
             'session'
         ),
         'writable' => array(),
