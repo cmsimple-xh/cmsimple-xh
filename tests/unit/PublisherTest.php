@@ -20,11 +20,11 @@ class PublisherTest extends TestCase
 
     protected function setUp()
     {
-        global $pd_router, $edit, $c;
+        global $pd_router, $edit, $c, $l;
 
         $this->setConstant('XH_ADM', false);
         $edit = false;
-        $pd_router = $this->createMock(PageDataRouter::class);
+        $pd_router = @$this->createMock(PageDataRouter::class);
         $pd_router->method('find_all')->willReturn(array(
             0 => array(
                 'linked_to_menu' => '1',
@@ -92,6 +92,7 @@ class PublisherTest extends TestCase
             7 => '',
             8 => '#cmsimple hide#'
         );
+        $l = [1, 1, 1, 1, 1, 1, 1, 1, 1];
         $this->subject = new Publisher([false, false, false, false, false, false, false, true, false]);
     }
 

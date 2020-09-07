@@ -29,6 +29,9 @@ class MailTest extends TestCase
 
     protected function setUp()
     {
+        global $cf;
+
+        $cf['mailform']['lf_only'] = '';
         $this->subject = new Mail();
         $this->getHostByNameMock = $this->createFunctionMock('gethostbyname');
         $this->mailMock = $this->createFunctionMock('mail');

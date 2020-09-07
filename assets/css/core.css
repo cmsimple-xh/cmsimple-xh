@@ -627,43 +627,9 @@ a.xh_view_toggle {
 #xh_mailform div {
 }
 #xh_mailform .text,
-#xh_mailform .xh_mailform textarea {
+.xh_mailform textarea {
 	width: 100%;
 }
-/*#xh_mailform .text,
-#xh_mailform .xh_mailform textarea {
-	font: inherit;
-	color: inherit;
-	padding: 4px;
-	margin: 0 0 4px 0;
-	box-sizing: border-box;
-	width: 100%;
-}
-.xh_captcha_code {
-	float: left;
-	font: inherit;
-	color: #fff;
-	border: 1px solid #333;
-	background-color: #333;
-	padding:2px 4px;
-	margin: 4px 0 4px 4px;
-	box-sizing: border-box;
-	width: 5em;
-	text-align: center;
-	height: auto !important;
-}
-.xh_captcha_input {
-	font: inherit;
-	color: #333;
-	float: left;
-	width: 5em;
-	border: 1px solid #333;
-	padding:2px 4px;
-	margin: 4px 0;
-	text-align: center;
-	box-sizing: border-box;
-	height: auto !important;
-}*/
 /* modal dialogs */
 div.xh_modal_dialog_overlay {
 	position: fixed;

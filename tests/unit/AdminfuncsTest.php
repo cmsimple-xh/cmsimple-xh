@@ -11,6 +11,8 @@
 
 namespace XH;
 
+use PHPUnit_Framework_Error_Warning as Warning;
+
 /**
  * A test case for the functions in adminfuncs.php.
  *
@@ -26,13 +28,11 @@ class AdminfuncsTest extends TestCase
         $this->setConstant('XH_ADM', true);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Warning
-     */
     public function testSaveContentsRequiresEditMode()
     {
         global $edit;
 
+        $this->expectException(Warning::class);
         $edit = false;
         XH_saveContents();
     }

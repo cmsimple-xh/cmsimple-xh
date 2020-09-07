@@ -40,6 +40,7 @@ class LocatorModelTest extends TestCase
             'locator' => array('home' => 'Home')
         );
         $this->setUpMocks();
+        $this->setConstant('XH_ADM', false);
     }
 
     protected function setUpContent()

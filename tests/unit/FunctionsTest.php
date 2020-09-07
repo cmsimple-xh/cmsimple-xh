@@ -14,6 +14,7 @@ namespace XH;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit_Framework_Error_Deprecated as Deprecated;
 
 /**
  * A test case for the functions in functions.php.
@@ -37,35 +38,27 @@ class FunctionsTest extends TestCase
         $_SERVER['SERVER_NAME'] = 'example.com';
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testHIsDeprecated()
     {
+        $this->expectException(Deprecated::class);
         h(0);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testLIsDeprecated()
     {
+        $this->expectException(Deprecated::class);
         l(0);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testAutogalleryIsDeprecated()
     {
+        $this->expectException(Deprecated::class);
         autogallery('');
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testAmpIsDeprecated()
     {
+        $this->expectException(Deprecated::class);
         amp();
     }
 
@@ -140,11 +133,9 @@ class FunctionsTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testRpIsDeprecated()
     {
+        $this->expectException(Deprecated::class);
         rp('');
     }
 
@@ -165,11 +156,9 @@ class FunctionsTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testInitvarIsDeprecated()
     {
+        $this->expectException(Deprecated::class);
         initvar('foo');
     }
 
@@ -190,19 +179,15 @@ class FunctionsTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testChkdlIsDeprecated()
     {
+        $this->expectException(Deprecated::class);
         chkdl('dummy');
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testRfIsDeprecated()
     {
+        $this->expectException(Deprecated::class);
         rf('dummy');
     }
 
@@ -229,11 +214,9 @@ class FunctionsTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testWritelogIsDeprecated()
     {
+        $this->expectException(Deprecated::class);
         writelog('foo');
     }
 
@@ -318,10 +301,13 @@ class FunctionsTest extends TestCase
 
     public function testAWithEmptyX()
     {
-        global $sn, $u;
+        global $sn, $u, $xh_publisher;
 
         $sn = '/xh/';
         $u = [];
+        $xh_publisher = $this->createMock(Publisher::class);
+        $xh_publisher->method('getFirstPublishedPage')->willReturn(0);
+        $this->setConstant('XH_ADM', false);
         $this->assertEquals('<a href="/xh/">', a(0, ''));
     }
 

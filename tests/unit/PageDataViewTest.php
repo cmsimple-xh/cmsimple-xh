@@ -25,6 +25,9 @@ class PageDataViewTest extends TestCase
 
     protected function setUp()
     {
+        global $pth;
+
+        $pth['folder']['corestyle'] = '';
         $tabs = array(
             'Meta' => array('Metatags_view.php', null),
             'Page' => array('Pageparams_view.php', null)

@@ -8,7 +8,7 @@
  *
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2020 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -42,16 +42,16 @@ $pd_router->add_tab(
 /*
  * Set the meta tags contents.
  */
-if (isset($pd_current['title'])) {
+if (!empty($pd_current['title'])) {
     $cf['site']['title'] = $pd_current['title'];
     $cf['title']['format'] = "{SITE}";
 }
-if (isset($pd_current['description'])) {
+if (!empty($pd_current['description'])) {
     $tx['meta']['description'] = $pd_current['description'];
 }
-if (isset($pd_current['keywords'])) {
+if (!empty($pd_current['keywords'])) {
     $tx['meta']['keywords'] = $pd_current['keywords'];
 }
-if (isset($pd_current['robots'])) {
+if (!empty($pd_current['robots'])) {
     $cf['meta']['robots'] = $pd_current['robots'];
 }

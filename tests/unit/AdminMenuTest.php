@@ -11,6 +11,8 @@
 
 namespace XH;
 
+require './cmsimple/languages/en.php';
+
 class AdminMenuTest extends TestCase
 {
     private $plugins;
@@ -19,9 +21,10 @@ class AdminMenuTest extends TestCase
 
     protected function setUp()
     {
-        global $edit;
+        global $edit, $cf;
 
         $edit = false;
+        $cf['plugins']['hidden'] = '';
         $this->setUpPageStructure();
         $this->plugins = array('plugin');
         $this->setUpLocalization();
@@ -43,30 +46,6 @@ class AdminMenuTest extends TestCase
     {
         global $tx, $plugin_tx;
 
-        $tx = array(
-            'editmenu' => array(
-                'backups' => 'Backups',
-                'change_password' => 'Password',
-                'configuration' => 'Configuration',
-                'downloads' => 'Downloads',
-                'edit' => 'Edit mode',
-                'files' => 'Files',
-                'images' => 'Images',
-                'language' => 'Language',
-                'log' => 'Log',
-                'logout' => 'logout',
-                'media' => 'Media',
-                'normal' => 'View mode',
-                'pagedata' => 'Page data',
-                'pagemanager' => 'Pages',
-                'plugins' => 'Plugins',
-                'settings' => 'Settings',
-                'stylesheet' => 'Stylesheet',
-                'sysinfo' => 'Info',
-                'template' => 'Template',
-                'validate' => 'Check links'
-            )
-        );
         $plugin_tx = array();
     }
 
@@ -102,7 +81,7 @@ class AdminMenuTest extends TestCase
             array($tx['editmenu']['media'], '/?&edit&media'),
             array($tx['editmenu']['settings'], '/?&settings'),
             array($tx['editmenu']['configuration'], '/?file=config&action=array'),
-            array($tx['editmenu']['lanugage'], '/?file=language&action=array'),
+            array($tx['editmenu']['language'], '/?file=language&action=array'),
             array($tx['editmenu']['template'], '/?file=template&action=edit'),
             array($tx['editmenu']['stylesheet'], '/?file=stylesheet&action=edit'),
             array($tx['editmenu']['log'], '/?file=log&action=view'),

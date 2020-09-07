@@ -1,3 +1,8 @@
+Full history since v.1.6.3 is now available on GitHub https://github.com/TN03/jQuery_XH
+
+========================================================================================
+
+
 
 Version 1.6.4 2017-07-02
 

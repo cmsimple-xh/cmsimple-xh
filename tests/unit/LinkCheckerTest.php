@@ -25,7 +25,7 @@ class LinkCheckerTest extends TestCase
 
     protected function setUp()
     {
-        global $c, $u, $cl, $pth, $cf, $onload;
+        global $c, $h, $u, $cl, $pth, $cf, $onload;
 
         $c = array(
             '<h1>Welcome</h1>'
@@ -36,6 +36,11 @@ class LinkCheckerTest extends TestCase
             . '<a href="#content">Top</a>',
             '<h1>Secret</h1>'
             . '#CMSimple remove#'
+        );
+        $h = array(
+            'Welcome',
+            'About',
+            'Secret',
         );
         $u = array(
             'Welcome',
