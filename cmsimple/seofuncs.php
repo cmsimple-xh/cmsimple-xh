@@ -75,6 +75,7 @@ function XH_URI_Cleaning()
                    . '/', '', $query_str, -1, $fpp_count);
         if ($fpp_count > 0) {
             $redir = true;
+            header("Cache-Control: no-cache, no-store, must-revalidate");
         }
     }
 
