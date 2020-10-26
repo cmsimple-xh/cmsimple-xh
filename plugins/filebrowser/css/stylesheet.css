@@ -123,7 +123,8 @@ a.xhfbfile img,
 span.xhfbfile img {
 	border: none !important;
 	margin: .25em 0 0 0 !important;
-	width: auto;
+	width: 100%;
+    object-fit: scale-down;
 	max-height: 10em !important;
 	max-width: 10em !important;
 	box-shadow: none !important;
@@ -138,7 +139,8 @@ a.xhfbfile, span.xhfbfile {padding: 0 2px 0 0; line-height: 1em;}
 a.xhfbfile img, span.xhfbfile img {
     border: none !important;
     margin: .25em 0 0 0 !important;
-	width: auto;
+	width: 100%;
+    object-fit: scale-down;
     max-height: 10em !important;
     max-width: 10em !important;
     box-shadow: none !important;
