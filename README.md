@@ -1,6 +1,6 @@
 # CMSimple_XH – a flat file CMS
 
-[![stable: 1.7.3](https://img.shields.io/badge/stable-1.7.3-green.svg)](https://github.com/cmsimple-xh/cmsimple-xh/releases/tag/1.7.3)
+[![stable: 1.7.4](https://img.shields.io/badge/stable-1.7.4-green.svg)](https://github.com/cmsimple-xh/cmsimple-xh/releases/tag/1.7.4)
 [![Travis branch](https://img.shields.io/travis/cmsimple-xh/cmsimple-xh.svg)](https://travis-ci.org/cmsimple-xh/cmsimple-xh/branches)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
