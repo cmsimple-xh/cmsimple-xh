@@ -143,6 +143,7 @@
                 <exclude name="coverage.xml"/>
                 <exclude name="Doxyfile"/>
                 <exclude name="doxygen_input_filter.php"/>
+                <exclude name="important-notices.md"/>
                 <exclude name="pax_global_header"/>
                 <exclude name="phpcompatinfo.*"/>
                 <exclude name="README.md"/>
@@ -202,6 +203,7 @@
         </move>
         <delete>
             <fileset dir="dist/cmsimplexh">
+                <include name="important-notices.md"/>
                 <include name="cmsimple/log.txt"/>
                 <include name="content/content.htm"/>
                 <include name="2lang/content/content.htm"/>
