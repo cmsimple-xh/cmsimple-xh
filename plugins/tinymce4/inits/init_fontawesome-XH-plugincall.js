@@ -10,7 +10,8 @@
     "save searchreplace table textcolor visualblocks visualchars wordcount fontawesome noneditable xhplugincall"
   ],
   external_plugins: {
-    "fontawesome": "%CMSIMPLE_ROOT%plugins/fa/editors/tinymce4/fontawesome/plugin.min.js"
+    "fontawesome": "%CMSIMPLE_ROOT%plugins/fa/editors/tinymce4/fontawesome/plugin.min.js",
+    "xhplugincall": "%CMSIMPLE_ROOT%plugins/tinymce4/tinymce/plugins/xhplugincall/plugin.min.js"
   },
   toolbar1: "save | fullscreen code formatselect fontselect fontsizeselect styleselect",
   toolbar2: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify cut copy paste pastetext | bullist numlist outdent indent blockquote",

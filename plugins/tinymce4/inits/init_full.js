@@ -9,6 +9,9 @@
     "image importcss insertdatetime link lists media nonbreaking noneditable paste",
     "save searchreplace table textcolor visualblocks visualchars wordcount xhplugincall"
   ],
+  external_plugins: {
+    "xhplugincall": "%CMSIMPLE_ROOT%plugins/tinymce4/tinymce/plugins/xhplugincall/plugin.min.js"
+  },
   toolbar1: "save | fullscreen code formatselect fontselect fontsizeselect styleselect",
   toolbar2: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify cut copy paste pastetext | bullist numlist outdent indent blockquote",
   toolbar3: "undo redo | link unlink anchor image media | hr nonbreaking removeformat visualblocks visualchars | forecolor backcolor | searchreplace | charmap",
