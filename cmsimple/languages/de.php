@@ -99,7 +99,7 @@ $tx['help']['backup_numberoffiles']="Nach jedem Ausloggen erzeugt das System ein
 
 $tx['help']['show_hidden_path_locator']="Angeklickt = Der Locator ('Sie sind hier'-Anzeige) zeigt auch den Pfad einer versteckten Seite.";
 $tx['help']['show_hidden_pages_search']="Angeklickt = Auch versteckte Seiten werden in den Ergebnissen der internen Suchfunktion angegeben.";
-$tx['help']['show_hidden_pages_sitemap']="Angecklickt = Auch versteckte Seiten erscheinen im Inhaltsverzeichnis (Sitemap).";
+$tx['help']['show_hidden_pages_sitemap']="Angeklickt = Auch versteckte Seiten erscheinen im Inhaltsverzeichnis (Sitemap).";
 $tx['help']['show_hidden_pages_toc']="Angeklickt = Wenn versteckte Seiten aufgerufen werden (z.B. durch Link), werden Sie im Navigationsmenü gezeigt.";
 
 $tx['help']['images_maxsize']="Maximale Größe für das Hochladen von Bildern in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
