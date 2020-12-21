@@ -178,7 +178,7 @@ class View
             . XH_hsc($this->linkParams) . '&amp;subdir=' . $folder . '"><span class="fa fa-' . $fa_class . ' fa-fw fa-lg"></span> '
             . end($temp) . '</a>';
         if (count($folders[$folder]['children']) > 0) {
-            if (substr($this->currentDirectory, 0, strlen($folder)) !== $folder) {
+            if (substr($this->currentDirectory, 0, strlen("$folder/")) !== "$folder/") {
                 $class = 'unseen';
             }
 
