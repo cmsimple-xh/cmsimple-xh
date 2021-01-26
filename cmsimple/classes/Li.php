@@ -25,7 +25,7 @@ class Li
     /**
      * The menu level to start with or the type of menu.
      *
-     * @var mixed
+     * @var int|string
      */
     protected $st;
 
@@ -54,7 +54,8 @@ class Li
      * Renders a menu structure of certain pages.
      *
      * @param array $ta The indexes of the pages.
-     * @param mixed $st The menu level to start with or the type of menu.
+     * @param int|string $st The menu level to start with or the type of menu.
+     *                       'search' is no longer used by the core since ~ 1.5.
      *
      * @return string HTML
      */
@@ -69,23 +70,23 @@ class Li
             return '';
         }
         $t = '';
-        if ($this->st == 'submenu' || $this->st == 'search') {
+        if ($this->st === 'submenu' || $this->st === 'search') {
             $t .= '<ul class="' . $this->st . '">' . "\n";
         }
         $this->b = 0;
-        if ($this->st > 0) {
-            $this->b = $this->st - 1;
+        if ((int) $this->st > 0) {
+            $this->b = (int) $this->st - 1;
             $this->st = 'menulevel';
         }
         $this->lf = array();
         for ($i = 0; $i < $tl; $i++) {
             $this->tf = ($s != $this->ta[$i]);
-            if ($this->st == 'menulevel' || $this->st == 'sitemaplevel') {
+            if ($this->st === 'menulevel' || $this->st === 'sitemaplevel') {
                 $t .= $this->renderULStartTags($i);
             }
             $t .= '<li class="' . $this->getClassName($i) . '">';
             $t .= $this->renderMenuItem($i);
-            if ($this->st == 'menulevel' || $this->st == 'sitemaplevel') {
+            if ($this->st === 'menulevel' || $this->st === 'sitemaplevel') {
                 if ($this->getMenuLevel($i + 1) > $this->getMenuLevel($i)) {
                     $this->lf[$this->getMenuLevel($i)] = true;
                 } else {
@@ -97,7 +98,7 @@ class Li
                 $t .= '</li>' . "\n";
             }
         }
-        if ($this->st == 'submenu' || $this->st == 'search') {
+        if ($this->st === 'submenu' || $this->st === 'search') {
             $t .= '</ul>' . "\n";
         }
         return $t;
