@@ -112,7 +112,7 @@ Pageparams_switchTemplate($pd_s);
  * Override defaults by page-parameters but only if not in edit-mode.
  */
 if (!$edit && $pd_current) {
-    if ($pd_current['show_last_edit'] > 0
+    if ((int) $pd_current['show_last_edit'] > 0
         && $pd_current['last_edit'] !== ''
     ) {
         $temp = '<div id = "pp_last_update">'
@@ -120,7 +120,7 @@ if (!$edit && $pd_current) {
             . '<time datetime="' . date('c', $pd_current['last_edit']) . '">'
             . XH_formatDate($pd_current['last_edit'])
             . '</time></div>';
-        if ($pd_current['show_last_edit'] == 1) {
+        if ((int) $pd_current['show_last_edit'] === 1) {
             $c[$pd_s] .= $temp;
         } else {
             $c[$pd_s] = $temp . $c[$pd_s];

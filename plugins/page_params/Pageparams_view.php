@@ -71,7 +71,7 @@ function Pageparams_checkbox($name, $checked)
 /**
  * Returns the last edit radio group.
  *
- * @param int $value The current value.
+ * @param string $value The current value.
  *
  * @return string HTML
  *
@@ -83,7 +83,7 @@ function Pageparams_lastEditRadiogroup($value)
 
     $o = '';
     foreach (array('top' => 2, 'bottom' => 1, 'no' => 0) as $string => $number) {
-        $checked = $value == $number ? ' checked="checked"' : '';
+        $checked = (int) $value === $number ? ' checked="checked"' : '';
         $radio = '<input type="radio" name="show_last_edit"'
             . ' value="' . $number . '"' . $checked . '>';
         $o .= "\n\t\t" . '<label>' . $radio
@@ -96,7 +96,7 @@ function Pageparams_lastEditRadiogroup($value)
 /**
  * Returns the redirect radio group.
  *
- * @param int $value The current value.
+ * @param string $value The current value.
  *
  * @return string HTML
  *
@@ -109,7 +109,7 @@ function Pageparams_redirectRadiogroup($value)
     $o = '';
     $options = array('yes_new' => 2, 'yes_same' => 1, 'no' => 0);
     foreach ($options as $string => $number) {
-        $checked = $value == $number ? ' checked="checked"' : '';
+        $checked = (int) $value === $number ? ' checked="checked"' : '';
         $radio = '<input type="radio" name="use_header_location"'
             . ' value="' . $number . '"' . $checked . '>';
         $o .= "\n\t\t" . '<label>' . $radio
