@@ -1567,25 +1567,24 @@ div.xh_field input[type="checkbox"] {
 	margin: .2em 0 !important;
 }
 div.xh_field input[type="checkbox"]::after {
-	content: '\f10c' !important;
-	font-family: "FontAwesome";
+	content: "";
 	color: #fff;
 	position: absolute !important;
 	top: -1px !important;
 	left: -1px !important;
 	width: 1.75em !important;
 	height: 1.5em !important;
-	background: #666 !important;
 	transition: left 0.1s cubic-bezier(0.785, 0.135, 0.15, 0.86) !important;
 	text-align: center;
 	line-height: 1.5;
+	background: #666 url(xh-check-off.svg) no-repeat center center;
+	background-size: contain;
 }
 div.xh_field input[type="checkbox"]:checked::after {
-	content: '\f00c' !important;
-	font-family: "FontAwesome";
+	background-image: url(xh-check-on.svg);
 }
 div.xh_field input[type="checkbox"]:checked {
-	background:#3c0 !important;
+	background-color: #3c0 !important;
 	border-color:#ccc !important;
 }
 div.xh_field input[type="checkbox"]:checked:after {
