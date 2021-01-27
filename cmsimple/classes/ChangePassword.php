@@ -218,6 +218,10 @@ class ChangePassword
             }
         }
         $o .= "\n?>\n";
-        return (bool) XH_writeFile($pth['file']['config'], $o);
+        $res = (bool) XH_writeFile($pth['file']['config'], $o);
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($pth['file']['config']);
+        }
+        return $res;
     }
 }
