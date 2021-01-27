@@ -518,7 +518,9 @@ class Controller
         }
         if (!mkdir($folder)) {
             $this->view->error('error_cant_create_folder');
+            return;
         }
+        chmod($folder, 0777);
         $this->view->success('success_folder_created', array(basename($folder)));
     }
 
