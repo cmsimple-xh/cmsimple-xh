@@ -1597,17 +1597,33 @@ function XH_pluginStylesheet()
 
     $plugins = XH_plugins();
 
-    $ofn = $pth['folder']['corestyle'] . 'xhstyles.css';
-    $expired = !file_exists($ofn) || filemtime($pth['file']['corestyle']) > filemtime($ofn);
+    // create array of pluginname => hash of CSS file contents
+    $hashes = ['core' => sha1_file($pth['file']['corestyle'])];
+    foreach ($plugins as $plugin) {
+        $fn = $pth['folder']['plugins'] . $plugin . '/css/stylesheet.css';
+        if (is_file($fn)) {
+            $hashes[$plugin] = sha1_file($fn);
+        } else {
+            $hashes[$plugin] = '';
+        }
+    }
 
-    // check for newly (un)installed plugins
+    $ofn = $pth['folder']['corestyle'] . 'xhstyles.css';
+    $expired = !file_exists($ofn);
+
+    // check for newly (un)installed plugins and changes in the individual plugin stylesheets
     if (!$expired) {
         if (($ofp = fopen($ofn, 'r')) !== false
-            && fgets($ofp, 4096) && fgets($ofp, 4096)
-            && ($oldPlugins = fgets($ofp, 4096))
+            && fgets($ofp) && fgets($ofp)
+            && ($oldPlugins = fgets($ofp))
         ) {
             $oldPlugins = explode(',', trim($oldPlugins, " *\r\n"));
-            $expired = $plugins != $oldPlugins;
+            $oldhashes = [];
+            foreach ($oldPlugins as $oldPlugin) {
+                list($plugin, $hash) = explode(':', $oldPlugin);
+                $oldhashes[$plugin] = $hash;
+            }
+            $expired = $hashes != $oldhashes;
         } else {
             $expired = true;
         }
@@ -1616,19 +1632,9 @@ function XH_pluginStylesheet()
         }
     }
 
-    // check for changes in the individual plugin stylesheets
-    if (!$expired) {
-        foreach ($plugins as $plugin) {
-            $fn = $pth['folder']['plugins'] . $plugin . '/css/stylesheet.css';
-            if (file_exists($fn) && filemtime($fn) > filemtime($ofn)) {
-                $expired = true;
-                break;
-            }
-        }
-    }
-
     // create combined plugin stylesheet
     if ($expired) {
+        var_dump("expired");
         $o = array(
             PHP_EOL . '/' . str_pad(' ' . $pth['file']['corestyle'], 76, '*', STR_PAD_LEFT) . ' */'
             . PHP_EOL . PHP_EOL . file_get_contents($pth['file']['corestyle'])
@@ -1647,9 +1653,16 @@ function XH_pluginStylesheet()
                 $o[] = $css;
             }
         }
+        $pluginline = '';
+        foreach ($hashes as $plugin => $hash) {
+            if ($pluginline) {
+                $pluginline .= ',';
+            }
+            $pluginline .= "$plugin:$hash";
+        }
         $o = '/*' . PHP_EOL
             . ' * Automatically created by CMSimple_XH. DO NOT MODIFY!' . PHP_EOL
-            . ' * ' . implode(',', $plugins) . PHP_EOL
+            . ' * ' . $pluginline . PHP_EOL
             . ' */' . PHP_EOL . PHP_EOL
             . implode(PHP_EOL . PHP_EOL, $o);
         if (!XH_writeFile($ofn, $o)) {
