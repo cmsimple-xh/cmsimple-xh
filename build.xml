@@ -79,7 +79,8 @@
     </target>
 
     <target name="php-doc">
-        <exec command="doxygen Doxyfile"/>
+        <mkdir dir="doc/php"/>
+        <exec command="doxygen Doxyfile" passthru="true" checkreturn="true"/>
     </target>
 
     <target name="js-doc">
