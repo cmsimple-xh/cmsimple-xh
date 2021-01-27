@@ -64,3 +64,7 @@ variables which are documented in {@link cms.php}. Not all global
 variables are part of the public API, only those tagged as public.
 Furthermore many of the public variables should be treated as
 read-only or read-write as documented.
+
+\warning
+All parameter names of functions and methods are subject to change,
+and none of the CMSimple\_XH APIs should be called using named arguments for now.
