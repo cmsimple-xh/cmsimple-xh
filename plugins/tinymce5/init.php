@@ -227,28 +227,6 @@ function tinymce5_config($config, $selector)
         '%CMSIMPLE_ROOT%', CMSIMPLE_ROOT, $temp
     );
 
-    $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
-    $temp = str_replace('%ELEMENT_FORMAT%', $elementFormat, $temp);
-    
-    $_named_pageheaders = $_pageheaders = $_headers = array();
-    for ( $i = 1; $i <= 6; $i++ ) {
-             $_pageheaders [] = "Header $i=h$i";
-            $_named_pageheaders [] = sprintf($ptx['pageheader'], $i) . "=h$i";
-            $_headers[] = "Header $i=h$i";
-    };
-    $temp = str_replace('%PAGEHEADERS%', implode(';', $_pageheaders), $temp);
-    
-    $temp = str_replace('%HEADERS%', implode(';', $_headers), $temp);
-    $temp = str_replace(
-        '%NAMED_PAGEHEADERS%', 
-        implode(
-            ';', 
-            ($s >= 0 && $s < $cl) ? 
-            $_named_pageheaders : 
-            $_pageheaders
-        ), $temp
-    );
-
     $temp = str_replace('%SELECTOR%', $selector, $temp);
     
     $temp = str_replace(
