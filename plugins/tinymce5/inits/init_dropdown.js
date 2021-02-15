@@ -1,8 +1,5 @@
 {
   selector: "%SELECTOR%",
-//  theme: "modern",
-//  skin: "lightgray",
-//  menubar:false,
   plugins: [
     "advlist anchor autolink autosave charmap code codesample emoticons fontawesome fullscreen help hr",
     "image imagetools importcss insertdatetime link lists media nonbreaking paste preview",
@@ -15,11 +12,6 @@
   toolbar: 'save | fullscreen | undo redo | styleselect | bold italic | link image alignleft aligncenter alignright',
   menubar: 'edit insert view format table tools help',
   menu: {
-//    edit: {title: 'Edit', items: 'undo redo cut copy paste pastetext | selectall | searchreplace'},
-//    insert: {title: 'Insert', items: 'image link media template codesample inserttable | charmap emoticons hr | nonbreaking anchor | insertdatetime'},
-//default    view: {title: 'View', items: 'code visualaid visualchars visualblocks | preview fullscreen'},
-//default    format: {title: 'Format', items: 'bold italic underline strikethrough superscript subscript | formats align| removeformat'},
-//    table: {title: 'Table', items: 'inserttable tableprops deletetable | cell row column'},
     tools: {title: 'Tools', items: 'fontawesome xhplugincall'}
   },
   table_advtab: true,
@@ -34,8 +26,7 @@
   style_formats_autohide: true,
   importcss_selector_filter: /(?:([a-z0-9\-_]+))(\.[a-z0-9_\-\.]+)$/i,
   %LANGUAGE%
-  element_format: "%ELEMENT_FORMAT%",
-  block_formats: "%HEADERS%;p=p;div=div;code=code;pre=pre;dt=dt;dd=dd",
+  element_format: "html",
   "insertdatetime_formats": ["%H:%M:%S", "%d.%m.%Y", "%I:%M:%S %p", "%D"],
   relative_urls: true,
   convert_urls: false,
@@ -43,8 +34,8 @@
   noneditable_noneditable_class: 'fa',
   noneditable_noneditable_class: 'mceNonEditable',  
   extended_valid_elements: 'span[*]',
-  images_upload_url : "./?filebrowser=imageuploader&editor=tinymce5",
-//  images_upload_base_path :"",
+  paste_data_images: true,
+  images_upload_url : "./?tinymce5=imageuploader",
   images_upload_credentials: true,
   automatic_uploads: true,
   images_reuse_filename: false

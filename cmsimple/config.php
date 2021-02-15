@@ -1,7 +1,7 @@
 <?php
 
 $cf['security']['password']="\$2y\$10\$TtMCJlxEv6D27BngvfdNrewGqIx2R0aPCHORruqpe63LQpz7.E9Gq";
-$cf['security']['secret']="69ba0d354ada9463210ff236";
+$cf['security']['secret']="df511606734ad2eb6bbd9202";
 $cf['security']['email']="";
 $cf['security']['frame_options']="";
 $cf['site']['template']="fhs-simple-2019";
