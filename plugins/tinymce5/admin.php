@@ -1,9 +1,6 @@
 <?php
 /**
- * tinyMCE Editor - admin module
- *
- * Handles reading and writing of plugin files - init selectors are dynamically 
- * loaded from ./inits/ representation of init_.js files
+ * tinyMCE5 Editor - admin module
  *
  * PHP version >= 7
  *
@@ -111,6 +108,17 @@ if (XH_wantsPluginAdministration($plugin)) {
             $o .= '.de/" target="_blank">Zeichenkombinat.de</a><br>'.PHP_EOL;
             $o .= 'from &nbsp;version 1.5.7 &ndash; <a href="http://www.pixolution';
             $o .= '.ch/" target="_blank">pixolution.ch</a></p>'.PHP_EOL;
+            $o .= '<h2>Credits</h2>'.PHP_EOL;
+            $o .= '<p>Font Awesome Plugin made by 
+                <a href="https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team" 
+                target="_blank">frase</a><br>'.PHP_EOL;
+            $o .= 'xhPluginCall Plugin made by 
+                <a href="http://www.cmsimple.sk/?Impressum" target="_blank">Tata</a>
+                and <a href="https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team" 
+                target="_blank">manu</a><br>'.PHP_EOL;
+            $o .= 'imageUpload script inspired by 
+                <a href="https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team" 
+                target="_blank">cmb69\'s</a> filebrowser upload.</p>'.PHP_EOL;
             break;
         default:
             $o .= plugin_admin_common();
@@ -162,7 +170,7 @@ function tinymce5_imageUploader()
             XH_logMessage( 'error', 'uploadFile', 'tinymce5', $key . ': ' . $val);
         }
         // Notify editor that the upload failed
-        header("HTTP/1.0 500 Server Error");
+        header("HTTP/1.0 500 Server Error, See XH logfile");
     }
 }
 /*
