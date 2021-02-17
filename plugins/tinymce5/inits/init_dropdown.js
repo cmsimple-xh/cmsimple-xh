@@ -1,7 +1,7 @@
 {
   selector: "%SELECTOR%",
   plugins: [
-    "advlist anchor autolink autosave charmap code codesample emoticons fontawesome fullscreen help hr",
+    "anchor autolink autosave charmap code codesample emoticons fontawesome fullscreen help hr",
     "image imagetools importcss insertdatetime link lists media nonbreaking paste preview",
     "save searchreplace table template visualblocks visualchars wordcount noneditable xhplugincall"
   ],
@@ -9,7 +9,7 @@
     "fontawesome": "%CMSIMPLE_ROOT%plugins/fa/editors/tinymce5/fontawesome/plugin.min.js",
     "xhplugincall":"%CMSIMPLE_ROOT%plugins/tinymce5/tinymce/plugins/xhplugincall/plugin.min.js"
   },
-  toolbar: 'save | fullscreen | undo redo | styleselect | bold italic | link image alignleft aligncenter alignright',
+  toolbar: 'save | undo redo | styleselect | bold italic | link image | alignleft aligncenter alignright | bullist numlist',
   menubar: 'edit insert view format table tools help',
   menu: {
     tools: {title: 'Tools', items: 'fontawesome xhplugincall'}
