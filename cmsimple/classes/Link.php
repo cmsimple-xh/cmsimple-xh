@@ -50,6 +50,11 @@ class Link
     const STATUS_ANCHOR_MISSING = -6;
 
     /**
+     * A tel: link.
+     */
+    const STATUS_TEL = -7;
+
+    /**
      * The URL.
      *
      * @var string
