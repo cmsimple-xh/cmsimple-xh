@@ -137,6 +137,10 @@ $tx['help']['folders_media']="A subfolder of userfiles.";
 $tx['help']['format_date']="The date format if ext/intl is available; otherwise the date/time format falls back to <code>\$tx['lastupdate']['format']</code>.";
 $tx['help']['format_time']="The time format if ext/intl is available; otherwise the date/time format falls back to <code>\$tx['lastupdate']['format']</code>.";
 
+$tx['help']['link_mailto'] = "Output note about mailto links when checking links?";
+$tx['help']['link_tel'] = "Output note about tel links when checking links?";
+$tx['help']['link_redir'] = "Max. Number of redirects LinkCheck should follow.";
+
 $tx['label']['empty']="- EMPTY -";
 
 $tx['languagemenu']['text']="select language: ";
@@ -152,6 +156,7 @@ $tx['link']['checked_2_4']="%d links have been checked. ";
 $tx['link']['checked_5']="%d links have been checked. ";
 $tx['link']['checking']="Link check in progress...";
 $tx['link']['email']="Is this email address valid and still in use?";
+$tx['link']['tel']="Is this telephone number still up to date?";
 $tx['link']['error']="Error: ";
 $tx['link']['errors']="Errors: ";
 $tx['link']['ext_error_domain']="faulty external Link, domain not reachable.";

@@ -47,3 +47,6 @@ $cf['title']['format']="{SITE} – {PAGE}";
 $cf['mode']['advanced']="";
 $cf['format']['date']="long";
 $cf['format']['time']="short";
+$cf['link']['mailto'] = "";
+$cf['link']['tel'] = "";
+$cf['link']['redir'] = "0";
