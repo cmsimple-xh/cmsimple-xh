@@ -345,7 +345,7 @@ class LinkChecker
         global $tx;
 
         $o = '<li>' . "\n" . '<b>' . $tx['link']['link'] . '</b>'
-            . '<a href="' . $link->getURL() . '">' . $link->getText() . '</a>'
+            . '<a target="_blank" href="' . $link->getURL() . '">' . $link->getText() . '</a>'
             . '<br>' . "\n"
             . '<b>' . $tx['link']['linked_page'] . '</b>' . $link->getURL()
             . '<br>' . "\n"
@@ -382,7 +382,7 @@ class LinkChecker
         global $tx;
 
         $o = '<li>' . "\n" . '<b>' . $tx['link']['link'] . '</b>'
-            . '<a href="' . $link->getURL() . '">' . $link->getText() . '</a>'
+            . '<a target="_blank" href="' . $link->getURL() . '">' . $link->getText() . '</a>'
             . '<br>' . "\n"
             . '<b>' . $tx['link']['linked_page'] . '</b>'
             . $link->getURL() . '<br>' . "\n";
