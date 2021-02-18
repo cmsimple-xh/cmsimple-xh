@@ -308,7 +308,6 @@ class LinkChecker
                 $headers = get_headers($url, 1);
                 $status = array();
                 preg_match('#HTTP/[0-9\.]+\s+([0-9]+)#i', $headers[0], $status);
-                var_dump($status[1]);
                 if (!empty($status[1])) {
                     if ((int) $status[1] === 200) {
                         break;
