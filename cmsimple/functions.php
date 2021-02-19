@@ -1598,7 +1598,7 @@ function XH_pluginStylesheet()
     $plugins = XH_plugins();
 
     // create array of pluginname => hash of CSS file contents
-    $hashes = ['core' => sha1_file($pth['file']['corestyle'])];
+    $hashes = array('core' => sha1_file($pth['file']['corestyle']));
     foreach ($plugins as $plugin) {
         $fn = $pth['folder']['plugins'] . $plugin . '/css/stylesheet.css';
         if (is_file($fn)) {
@@ -1618,7 +1618,7 @@ function XH_pluginStylesheet()
             && ($oldPlugins = fgets($ofp))
         ) {
             $oldPlugins = explode(',', trim($oldPlugins, " *\r\n"));
-            $oldhashes = [];
+            $oldhashes = array();
             foreach ($oldPlugins as $oldPlugin) {
                 list($plugin, $hash) = explode(':', $oldPlugin);
                 $oldhashes[$plugin] = $hash;
@@ -1634,7 +1634,6 @@ function XH_pluginStylesheet()
 
     // create combined plugin stylesheet
     if ($expired) {
-        var_dump("expired");
         $o = array(
             PHP_EOL . '/' . str_pad(' ' . $pth['file']['corestyle'], 76, '*', STR_PAD_LEFT) . ' */'
             . PHP_EOL . PHP_EOL . file_get_contents($pth['file']['corestyle'])
