@@ -295,37 +295,26 @@ class LinkChecker
         }
         // alternative to cURL
         if (function_exists('get_headers')) {
-            // Store previous default context
-            $prev = stream_context_get_options(stream_context_get_default());
-            stream_context_set_default(array(
+            $context = stream_context_create(
+                array(
                     'http' => array(
                         'method' => 'HEAD',
-                        'timeout' => $timeout
+                        'timeout' => $timeout,
+                        'max_redirects' => $maxredir + 1,
+                        'user_agent' => 'CMSimple_XH Link-Checker'
                     )
                 )
             );
-            for ($i = 0; $i <= $maxredir; $i++ ) {
-                $headers = get_headers($url, 1);
-                $status = array();
-                preg_match('#HTTP/[0-9\.]+\s+([0-9]+)#i', $headers[0], $status);
-                if (!empty($status[1])) {
-                    if ((int) $status[1] === 200) {
-                        break;
-                    } else {
-                        if (!empty($headers['Location'])) {
-                            if (is_array($headers['Location'])) {
-                                $url = $headers['Location'][$i];
-                            } else {
-                                $url = $headers['Location'];
-                            }
-                        } else {
-                            break;
-                        }
-                    }
+            $headers = get_headers($url, 1, $context);
+            $status = array();
+            for ($i = 0; $i <= $maxredir; $i++) {
+                if (!empty($headers[$i])) {
+                    $headers_tmp = $headers[$i];
+                } else {
+                    break;
                 }
-            // Restore previous default context
-            stream_context_set_default($prev);
             }
+            preg_match('#HTTP/[0-9\.]+\s+([0-9]+)#i', $headers_tmp, $status);
             if (!empty($status[1])) {
                 return (int) $status[1];
             }
