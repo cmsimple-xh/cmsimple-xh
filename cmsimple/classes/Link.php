@@ -50,6 +50,16 @@ class Link
     const STATUS_ANCHOR_MISSING = -6;
 
     /**
+     * A tel: link.
+     */
+    const STATUS_TEL = -7;
+
+    /**
+     * Link has not been checked according to configuration.
+     */
+    const STATUS_NOT_CHECKED = -8;
+
+    /**
      * The URL.
      *
      * @var string
