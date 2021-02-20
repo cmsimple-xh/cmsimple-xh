@@ -96,7 +96,6 @@ $tx['help']['functions_file']="Bitte nicht ändern";
 $tx['help']['meta_author']="(Kann-Eingabe) Hier für Suchmaschinen den Autor der Texte Ihrer Site eintragen.";
 $tx['help']['backup_numberoffiles']="Nach jedem Ausloggen erzeugt das System eine Sicherungskopie der Content-Datei. Hier die Anzahl solcher Dateien eintragen, die das System automatisch aufbewahrt.";
 
-
 $tx['help']['show_hidden_path_locator']="Angeklickt = Der Locator ('Sie sind hier'-Anzeige) zeigt auch den Pfad einer versteckten Seite.";
 $tx['help']['show_hidden_pages_search']="Angeklickt = Auch versteckte Seiten werden in den Ergebnissen der internen Suchfunktion angegeben.";
 $tx['help']['show_hidden_pages_sitemap']="Angecklickt = Auch versteckte Seiten erscheinen im Inhaltsverzeichnis (Sitemap).";
@@ -138,6 +137,10 @@ $tx['help']['folders_media']="Ein Unterordner der Benutzerdateien.";
 $tx['help']['format_date']="Das Datumsformat, wenn ext/intl verfügbar ist; andernfalls wird auf <code>\$tx['lastupdate']['format']</code> zurückgegriffen.";
 $tx['help']['format_time']="Das Zeitformat, wenn ext/intl verfügbar ist; andernfalls wird auf <code>\$tx['lastupdate']['format']</code> zurückgegriffen.";
 
+$tx['help']['link_mailto'] = "Hinweis zu mailto-Links beim LinkCheck ausgeben?";
+$tx['help']['link_tel'] = "Hinweis zu tel-Links beim LinkCheck ausgeben?";
+$tx['help']['link_redir'] = "Max. Anzahl von Weiterleitungen, denen LinkCheck folgen soll.";
+
 $tx['label']['empty']="- LEER -";
 
 $tx['languagemenu']['text']="Sprachauswahl: ";
@@ -153,6 +156,7 @@ $tx['link']['checked_2_4']="%d Links wurden geprüft. ";
 $tx['link']['checked_5']="%d Links wurden geprüft. ";
 $tx['link']['checking']="Link-Check läuft...";
 $tx['link']['email']="Ist diese E-Mail-Adresse noch aktuell?";
+$tx['link']['tel']="Ist diese Telefonnummer noch aktuell?";
 $tx['link']['error']="Fehler: ";
 $tx['link']['errors']="Fehler: ";
 $tx['link']['ext_error_domain']="Fehlerhafter externer Link, Domain nicht erreichbar.";
