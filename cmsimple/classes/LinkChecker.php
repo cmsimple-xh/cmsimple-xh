@@ -271,23 +271,31 @@ class LinkChecker
         global $cf;
 
         $url = $scheme . '://' . $host . $path;
-        $timeout = 5;
+        $timeout = 6;
+        $connect_timeout = 5;
         $maxredir = (int) $cf['link']['redir'];
+        $agent = 'CMSimple_XH Link-Checker';
 
-        if (function_exists('curl_init')) {
+        if (extension_loaded('curl')) {
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HEADER, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_NOBODY, true);
-            curl_setopt($ch, CURLOPT_USERAGENT, 'CMSimple_XH Link-Checker');
-            curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+            $options = array(
+                CURLOPT_URL             => $url,
+                CURLOPT_HEADER          => true,
+                CURLOPT_RETURNTRANSFER  => true,
+                CURLOPT_NOBODY          => true,
+                CURLOPT_USERAGENT       => $agent,
+                CURLOPT_TIMEOUT         => $timeout,
+                CURLOPT_CONNECTTIMEOUT  => $connect_timeout,
+                CURLOPT_FRESH_CONNECT   => true
+            );
             if ($maxredir > 0) {
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-                curl_setopt($ch, CURLOPT_MAXREDIRS, $maxredir);
+                $options[CURLOPT_FOLLOWLOCATION] = true;
+                $options[CURLOPT_MAXREDIRS]      = $maxredir;
             }
-            $data = curl_exec($ch);
-            $headers = curl_getinfo($ch);
+            curl_setopt_array($ch, $options);
+            if (curl_exec($ch) !== false) {
+                $headers = curl_getinfo($ch);
+            }
             curl_close($ch);
             if (!empty($headers['http_code'])) {
                 return (int) $headers['http_code'];
@@ -298,10 +306,10 @@ class LinkChecker
             $context = stream_context_create(
                 array(
                     'http' => array(
-                        'method' => 'HEAD',
-                        'timeout' => $timeout,
+                        'method'        => 'HEAD',
+                        'timeout'       => $timeout,
                         'max_redirects' => $maxredir + 1,
-                        'user_agent' => 'CMSimple_XH Link-Checker'
+                        'user_agent'    => $agent
                     )
                 )
             );
@@ -319,7 +327,7 @@ class LinkChecker
                 return (int) $status[1];
             }
         }
-    return false;
+        return false;
     }
 
     /**
