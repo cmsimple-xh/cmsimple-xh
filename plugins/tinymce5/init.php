@@ -121,10 +121,12 @@ function include_tinymce5()
     var myLinkList;
 	' . $linkList . '
 	</script>
-    <style type="text/css">
-        div.mce-fullscreen {z-index: 999;}  /*fullscreen overlays admin toolbar */
-    </style>
 	';
+/* obsolete?
+    <style type="text/css">
+        div.mce-fullscreen {z-index: 999;}  /*fullscreen overlays admin toolbar 
+    </style>
+*/    
 }
 
 
@@ -140,21 +142,24 @@ function tinymce5_config($config, $selector)
 {
     global $cl, $pth, $sl, $cf, $plugin_cf, $plugin_tx, $s;
 
-    $pcf = $plugin_cf['tinymce5'];
-    $ptx = $plugin_tx['tinymce5'];
     $pluginName = basename(dirname(__FILE__), "/");
+    $pcf = $plugin_cf[$pluginName];
+    $ptx = $plugin_tx[$pluginName];
     $pluginPth = $pth['folder']['plugins'] . $pluginName . '/';
-
+/* was soll das ??
     if (!isset($pcf)) {
         include_once $pluginPth . 'config/config.php';
     }
-
+*/
+/* since init config is selectable only
     $tiny_mode
         = isset($pcf['init']) 
             && file_exists($pluginPth . 'inits/init_' . $pcf['init'] . '.js') ?
             $pcf['init'] : 
             'full';
-    $initFile = $pluginPth . 'inits/init_' . $tiny_mode . '.js';
+*/            
+    $initFile = $pluginPth . 'inits/init_' . $pcf['init'] . '.js';
+    
     if ($config) {
         $initFile = false;
 
@@ -164,8 +169,8 @@ function tinymce5_config($config, $selector)
             $temp = explode('_', basename($init, '.js'));
 
             if (isset($temp[1]) && $temp[1] === $config) {
-                $tiny_mode = $config;
-                $initFile = $pluginPth . 'inits/init_' . $tiny_mode . '.js';
+//                $tiny_mode = $config;
+                $initFile = $pluginPth . 'inits/init_' . $pcf['init'] . '.js';
                 break;
             }
         }
