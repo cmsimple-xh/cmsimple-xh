@@ -138,7 +138,7 @@ function include_tinymce5()
  *
  * @return string editor config
  */
-function tinymce5_config($config, $selector)
+function tinymce5_config($config = '', $selector = '')
 {
     global $cl, $pth, $sl, $cf, $plugin_cf, $plugin_tx, $s;
 
