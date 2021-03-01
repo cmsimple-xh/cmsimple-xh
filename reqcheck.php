@@ -28,7 +28,7 @@ $version = '@CMSIMPLE_XH_VERSION@';
 $title = "$version – Requirements Check";
 
 $checks = array();
-$checks['the Webserver is supported'] = preg_match('/apache|nginx|iis/i', $_SERVER['SERVER_SOFTWARE']) ? 'okay' : 'warn';
+$checks['the Webserver is supported'] = preg_match('/apache|nginx|iis|litespeed/i', $_SERVER['SERVER_SOFTWARE']) ? 'okay' : 'warn';
 $checks['the PHP Version is at least 5.3.7'] = version_compare(PHP_VERSION, '5.3.7', '>=') ? 'okay' : 'fail';
 foreach (array('json', 'mbstring', 'session') as $ext) {
     $checks['the PHP extension "' . $ext . '" is installed'] = extension_loaded($ext) ? 'okay' : 'fail';
