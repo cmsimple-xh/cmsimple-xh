@@ -36,7 +36,7 @@ foreach (array('json', 'mbstring', 'session') as $ext) {
 $checks['magic_quotes_runtime is off'] = (version_compare(PHP_VERSION, '5.4', '>=') || !get_magic_quotes_runtime()) ? 'okay' : 'warn';
 $checks['safe_mode is off'] = !ini_get('safe_mode') ? 'okay' : 'warn';
 $checks['session.use_trans_sid is off'] = !ini_get('session.use_trans_sid') ? 'okay' : 'warn';
-$checks['session.use_only_cookies is off'] = ini_get('session.use_only_cookies') ? 'okay' : 'warn';
+$checks['session.use_only_cookies is on'] = ini_get('session.use_only_cookies') ? 'okay' : 'warn';
 $checks['session.cookie_lifetime is zero'] = ini_get('session.cookie_lifetime') == 0 ? 'okay' : 'warn';
 $checks['the function fsockopen is available'] = function_exists('fsockopen') ? 'okay' : 'warn';
 
