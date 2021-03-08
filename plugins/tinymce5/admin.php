@@ -55,11 +55,11 @@ if (XH_wantsPluginAdministration($plugin)) {
     function tinymce_getInits() 
     {
         global $action, $plugin, $pth;
-        $inits = glob($pth['folder']['plugins'] . $plugin.'/inits/*.js');
+        $inits = glob($pth['folder']['plugins'] . $plugin.'/inits/*.json');
         
         $options = array();
         foreach ($inits as $init) {
-            $temp = explode('_', basename($init, '.js'));
+            $temp = explode('_', basename($init, '.json'));
             if (isset($temp[1])) {
                 $options[] = $temp[1];
             }
@@ -116,6 +116,9 @@ if (XH_wantsPluginAdministration($plugin)) {
                 <a href="http://www.cmsimple.sk/?Impressum" target="_blank">Tata</a>
                 and <a href="https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team" 
                 target="_blank">manu</a><br>'.PHP_EOL;
+            $o .= 'init script inspired by 
+                <a href="https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team" 
+                target="_blank">cmb69\'s</a> codeeditor\'s init.<br>'.PHP_EOL;
             $o .= 'imageUpload script inspired by 
                 <a href="https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team" 
                 target="_blank">cmb69\'s</a> filebrowser upload.</p>'.PHP_EOL;
