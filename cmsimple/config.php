@@ -40,6 +40,7 @@ $cf['plugins']['disabled']="";
 $cf['plugins']['hidden']="meta_tags,page_params";
 $cf['uri']['seperator']="/";
 $cf['uri']['word_separator']="-";
+$cf['uri']['soft_hyphen']="";
 $cf['uri']['length']="200";
 $cf['editmenu']['scroll']="";
 $cf['editmenu']['external']="";

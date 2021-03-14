@@ -768,7 +768,12 @@ function XH_readContents($language = null)
             $empty++;
             $temp = $tx['toc']['empty'] . ' ' . $empty;
         }
-        $h[] = $temp;
+        if (($softHyphen = trim($cf['uri']['soft_hyphen'])) === '') {
+            $h[] = $temp;
+        } else {
+            $h[] = str_replace($softHyphen, '&shy;', $temp);
+            $temp = str_replace($softHyphen, '', $temp);
+        }
         $ancestors[$l[$i] - 1] = XH_uenc($temp, $search, $replace);
         $ancestors = array_slice($ancestors, 0, $l[$i]);
         $url = implode($cf['uri']['seperator'], $ancestors);

@@ -126,6 +126,7 @@ $tx['help']['site_compat']="Whether the website needs functions that have been r
 $tx['help']['title_format']="The way the title of a page of your site (&lt;title&gt;) is shown in the tab of your browser.";
 $tx['help']['uri_seperator']="The character which separates names of pages and sub pages in the URL.";
 $tx['help']['uri_word_separator']="The character which separates words in the URL.";
+$tx['help']['uri_soft_hyphen']="A character string that is used as soft hyphen in the page heading, but is omitted from the URL.";
 $tx['help']['uri_length']="The URLs of the pages will be truncated at this length. This might change in a future release, so it's best to use shorter page headings (e.g. by using Page&rarr;Alternative heading).";
 
 $tx['help']['folders_content']="The folder where the contents are stored (content.htm etc.)";
