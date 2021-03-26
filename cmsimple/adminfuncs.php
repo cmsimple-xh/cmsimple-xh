@@ -264,6 +264,7 @@ HTML;
     foreach ($temp as $i) {
         $checks['writable'][] = $pth['file'][$i];
     }
+    $checks['writable'][] = "{$pth['folder']['cmsimple']}.sessionname";
     $checks['writable'] = array_unique($checks['writable']);
     sort($checks['writable']);
     $files = array(
