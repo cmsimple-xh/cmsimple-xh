@@ -28,7 +28,6 @@
   "relative_urls": true,
   "convert_urls": false,
   "entity_encoding": "raw",
-  "noneditable_noneditable_class": "fa,mceNonEditable",
   "extended_valid_elements": "span[*]",
   "paste_data_images": true,
   "images_upload_url": "./?tinymce5=imageuploader",
