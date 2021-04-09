@@ -1,0 +1,37 @@
+{
+  "selector": "",
+  "plugins": [
+    "anchor autolink autosave charmap code codesample emoticons fontawesome fullscreen help hr",
+    "image imagetools importcss insertdatetime link lists media nonbreaking paste preview",
+    "save searchreplace table template visualblocks visualchars wordcount noneditable xhplugincall"
+  ],
+  "external_plugins": {
+    "fontawesome": "%CMSIMPLE_ROOT%plugins/fa/editors/tinymce5/fontawesome/plugin.min.js",
+    "xhplugincall":"%CMSIMPLE_ROOT%plugins/tinymce5/tinymce/plugins/xhplugincall/plugin.min.js"
+  },
+  "toolbar": "save | undo redo | styleselect | bold italic | link image | alignleft aligncenter alignright | bullist numlist",
+  "menubar": "edit insert view format table tools help",
+  "menu": {
+    "tools": {"title": "Tools", "items": "fontawesome xhplugincall"}
+  },
+  "table_advtab": true,
+  "table_cell_advtab": true,
+  "table_style_by_css": true,
+  "autosave_interval": "20s",
+  "image_advtab": true,
+  "image_title": true,
+  "file_picker_callback": "",
+  "content_css": "%STYLESHEET%,%CMSIMPLE_ROOT%plugins/fa/css/font-awesome.min.css",
+  "importcss_append":true,
+  "element_format": "html",
+  "insertdatetime_formats": ["%H:%M:%S", "%d.%m.%Y", "%I:%M:%S %p", "%D"],
+  "relative_urls": true,
+  "convert_urls": false,
+  "entity_encoding": "raw",
+  "extended_valid_elements": "span[*]",
+  "paste_data_images": true,
+  "images_upload_url": "./?tinymce5=imageuploader",
+  "images_upload_credentials": true,
+  "automatic_uploads": true,
+  "images_reuse_filename": false
+}
