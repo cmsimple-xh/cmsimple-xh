@@ -1,0 +1,26 @@
+name: Check
+on: [push]
+jobs:
+  check:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        php_version: ['7.4', '7.3', '7.2']
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{matrix.php_version}}
+          extensions: uopz
+      - name: Checkout CMSimple_XH
+        uses: actions/checkout@v2
+      - name: composer install
+        run: composer install
+      - name: phing sniff
+        run: PATH=vendor/bin:$PATH phing sniff
+      - name: phing mess
+        run: PATH=vendor/bin:$PATH phing mess
+      - name: phing compat
+        run: PATH=vendor/bin:$PATH phing compat
+      - name: phing unit-test
+        run: PATH=vendor/bin:$PATH phing unit-tests
