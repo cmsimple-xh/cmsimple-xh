@@ -1485,7 +1485,7 @@ function loginforms()
  *
  * @param string $filename A file path.
  *
- * @return string
+ * @return string|false
  *
  * @since 1.6
  */
