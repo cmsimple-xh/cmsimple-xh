@@ -1,5 +1,6 @@
 doc/
 tests/coverage/
+/tools
 vendor/
 assets/css/xhstyles.css
 /composer.lock

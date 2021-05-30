@@ -42,7 +42,7 @@ return [
     "quick_mode" => true,
 
     // Only emit critical issues
-    "minimum_severity" => 5,
+    "minimum_severity" => 10,
 
     // A set of fully qualified class-names for which
     // a call to parent::__construct() is required

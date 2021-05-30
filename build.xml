@@ -137,6 +137,7 @@
         <move todir="dist/cmsimplexh" includeemptydirs="true">
             <fileset dir="export">
                 <exclude name=".phan/**"/>
+                <exclude name=".phive/**"/>
                 <exclude name=".travis.yml"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.json"/>
