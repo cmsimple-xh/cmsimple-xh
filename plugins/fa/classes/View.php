@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2017 Christoph M. Becker
+ * Copyright 2017-2021 Christoph M. Becker
  *
  * This file is part of Fa_XH.
  *
@@ -29,9 +29,9 @@ class View
     private $template;
 
     /**
-     * @var array
+     * @var array<string,mixed>
      */
-    private $data = array();
+    public $data = array();
 
     /**
      * @param string $template
@@ -39,15 +39,6 @@ class View
     public function __construct($template)
     {
         $this->template = $template;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $value
-     */
-    public function __set($name, $value)
-    {
-        $this->data[$name] = $value;
     }
 
     /**
@@ -70,6 +61,7 @@ class View
 
     /**
      * @param string $name
+     * @param mixed[] $args
      * @return string
      */
     public function __call($name, array $args)
@@ -84,7 +76,7 @@ class View
     {
         ob_start();
         $this->render();
-        return ob_get_clean();
+        return (string) ob_get_clean();
     }
     
     /**
@@ -103,6 +95,7 @@ class View
     /**
      * @param string $key
      * @param int $count
+     * @return string
      */
     protected function plural($key, $count)
     {
@@ -119,7 +112,7 @@ class View
     }
 
     /**
-     * @return string
+     * @return void
      */
     public function render()
     {
