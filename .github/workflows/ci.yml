@@ -12,15 +12,20 @@ jobs:
         with:
           php-version: ${{matrix.php_version}}
           extensions: uopz
+          tools: composer,phive
       - name: Checkout CMSimple_XH
         uses: actions/checkout@v2
+      - name: phive install
+        run: phive --no-progress install --trust-gpg-keys 0x8101FB57DD8130F0
       - name: composer install
         run: composer install
       - name: phing sniff
-        run: PATH=vendor/bin:$PATH phing sniff
+        run: PATH=tools:vendor/bin:$PATH phing sniff
+      - name: phing phan
+        run: PATH=tools:vendor/bin:$PATH phing phan
       - name: phing mess
-        run: PATH=vendor/bin:$PATH phing mess
+        run: PATH=tools:vendor/bin:$PATH phing mess
       - name: phing compat
-        run: PATH=vendor/bin:$PATH phing compat
+        run: PATH=tools:vendor/bin:$PATH phing compat
       - name: phing unit-test
-        run: PATH=vendor/bin:$PATH phing unit-tests
+        run: PATH=tools:vendor/bin:$PATH phing unit-tests
