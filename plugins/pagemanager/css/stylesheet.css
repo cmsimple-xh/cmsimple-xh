@@ -23,8 +23,8 @@
     text-align: center;
 }
 #pagemanager_toolbar button {
-    margin: 0.7em 0.3em 0.7em 0.3em;
-    padding: 0.4em 0.6em 0.4em 0.6em;
+	margin: .25em;
+	padding: .25em;
 }
 #pagemanager_toolbar button span {
     display: inline-block;
@@ -42,15 +42,6 @@
 #pagemanager_toolbar .pagemanager_tool_inner button {
     margin: 0;
     width: 100%;
-}
-
-/*
- * Context menu
- */
-
-/* To have enough space for the whole context menu, if the template has a small footer */
-#pagemanager_footer {
-    height: 150px;
 }
 
 /*

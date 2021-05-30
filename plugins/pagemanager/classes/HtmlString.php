@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2016-2019 Christoph M. Becker
+ * Copyright 2016-2021 Christoph M. Becker
  *
  * This file is part of Pagemanager_XH.
  *

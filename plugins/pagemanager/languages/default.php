@@ -28,6 +28,7 @@ $plugin_tx['pagemanager']['message_confirm_leave']="*** UNSAVED MODIFICATIONS! *
 $plugin_tx['pagemanager']['message_menu_level']="Too deep page nesting!";
 $plugin_tx['pagemanager']['message_save_success']="The page structure has been successfully saved.";
 $plugin_tx['pagemanager']['message_save_failure']="The page structure could not be saved to \"%s\"!";
+$plugin_tx['pagemanager']['message_pdattr']="The value of the configuration option pagedata_attribute has been changed. Reload Pagemanager or change pagedata_attribute to its old value.";
 $plugin_tx['pagemanager']['error_structure_confirmation']="Proceed!";
 $plugin_tx['pagemanager']['error_structure_warning']="Irregular page structure found. For details see the plugin help and consult your webmaster! If you proceed this will be fixed by Pagemanager_XH, what may not be what you want.";
 $plugin_tx['pagemanager']['error_nesting']="Too deep nesting of page structure!";

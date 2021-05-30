@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2016-2019 Christoph M. Becker
+ * Copyright 2016-2021 Christoph M. Becker
  *
  * This file is part of Pagemanager_XH.
  *
@@ -29,7 +29,7 @@ class View
     private $template;
 
     /**
-     * @var array
+     * @var array<string,mixed>
      */
     private $data = array();
 
@@ -44,6 +44,7 @@ class View
     /**
      * @param string $name
      * @param mixed $value
+     * @return void
      */
     public function __set($name, $value)
     {
@@ -70,6 +71,7 @@ class View
 
     /**
      * @param string $name
+     * @param array<int,mixed> $args
      * @return string
      */
     public function __call($name, array $args)
@@ -84,7 +86,7 @@ class View
     {
         ob_start();
         $this->render();
-        return ob_get_clean();
+        return (string) ob_get_clean();
     }
     
     /**
@@ -103,6 +105,7 @@ class View
     /**
      * @param string $key
      * @param int $count
+     * @return string
      */
     protected function plural($key, $count)
     {
@@ -119,7 +122,7 @@ class View
     }
 
     /**
-     * @return string
+     * @return void
      */
     public function render()
     {
