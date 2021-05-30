@@ -28,6 +28,7 @@ $plugin_tx['pagemanager']['message_confirm_leave']="*** UNGESICHERTE ÄNDERUNGEN
 $plugin_tx['pagemanager']['message_menu_level']="Zu tiefe Seitenverschachtelung!";
 $plugin_tx['pagemanager']['message_save_success']="Die Seitenstruktur wurde erfolgreich gespeichert.";
 $plugin_tx['pagemanager']['message_save_failure']="Die Seitenstruktur konnte nicht in \"%s\" gespeichert werden!";
+$plugin_tx['pagemanager']['message_pdattr']="Der Wert der Konfigurationsoption pagedata_attribute wurde geändert. Laden sie Pagemanager neu, oder ändern sie pagedata_attribute zu seinem alten Wert.";
 $plugin_tx['pagemanager']['error_structure_confirmation']="Fortfahren!";
 $plugin_tx['pagemanager']['error_structure_warning']="Unregelmäßige Seitenstruktur gefunden. Lesen Sie die Plugin-Hilfe und fragen Sie Ihren Webmaster! Wenn Sie fortfahren wird dies vom Pagemanager_XH korrigiert, was u.U. nicht in ihrem Interesse liegt.";
 $plugin_tx['pagemanager']['error_nesting']="Zu tiefe Verschachtelung der Seitenstruktur!";

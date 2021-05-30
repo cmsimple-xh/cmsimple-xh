@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2011-2019 Christoph M. Becker
+ * Copyright 2011-2021 Christoph M. Becker
  *
  * This file is part of Pagemanager_XH.
  *
@@ -22,7 +22,9 @@
 namespace Pagemanager;
 
 use Fa;
+use XH\CSRFProtection;
 use XH\Pages;
+use XH\PageDataRouter;
 
 class MainAdminController extends Controller
 {
@@ -37,7 +39,7 @@ class MainAdminController extends Controller
     private $pages;
 
     /**
-     * @var array
+     * @var array<string,string>
      */
     private $config;
 
@@ -69,6 +71,9 @@ class MainAdminController extends Controller
         $this->csrfProtector = $_XH_csrfProtection;
     }
 
+    /**
+     * @return void
+     */
     public function indexAction()
     {
         global $pth, $title, $hjs, $bjs;
@@ -107,6 +112,7 @@ class MainAdminController extends Controller
             'preview' => 'fa fa-eye',
             'help' => 'fa fa-book'
         );
+        $view->pdattr = $this->config['pagedata_attribute'];
         $view->csrfTokenInput = new HtmlString($this->csrfProtector->tokenInput());
         $view->render();
     }
@@ -135,6 +141,9 @@ class MainAdminController extends Controller
             },
             explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org'])
         );
+        array_unshift($uricharOrg, "\xC2\xAD");
+        $uricharNew = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
+        array_unshift($uricharNew, "");
         $config = array(
             'stateKey' => 'pagemanager_' . bin2hex(CMSIMPLE_ROOT),
             'okButton' => $this->lang['button_ok'],
@@ -180,16 +189,30 @@ class MainAdminController extends Controller
             'dataURL' => (string) $url->with('pagemanager', '')->with('admin', 'plugin_main')
                 ->with('action', 'plugin_data')->with('edit', ''),
             'uriCharOrg' => $uricharOrg,
-            'uriCharNew' => explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new'])
+            'uriCharNew' => $uricharNew,
         );
-        return json_encode($config);
+        return (string) json_encode($config);
     }
 
+    /**
+     * @return void
+     */
     public function dataAction()
     {
         $this->model->calculateHeadings();
-        header('Content-Type: application/json; charset=UTF-8');
-        echo json_encode($this->getPagesData());
+        $json = json_encode($this->getPagesData());
+        if ($json !== false) {
+            header('Content-Type: application/json; charset=UTF-8');
+            echo $json;
+        } else {
+            header("HTTP/1.0 500 Internal Server Error");
+            header('Content-Type: test/plain; charset=UTF-8');
+            if (function_exists('json_last_error_msg')) {
+                echo json_last_error_msg();
+            } else {
+                echo "json encode error " . json_last_error();
+            }
+        }
     }
 
     /**
@@ -210,7 +233,7 @@ class MainAdminController extends Controller
 
     /**
      * @param int $index
-     * @return array
+     * @return array<string,mixed>
      */
     private function getPageData($index)
     {
@@ -238,11 +261,18 @@ class MainAdminController extends Controller
         return $res;
     }
 
+    /**
+     * @return void
+     */
     public function saveAction()
     {
         global $pth;
 
         $this->csrfProtector->check();
+        if ($_POST['pagemanager_pdattr'] !== $this->config['pagedata_attribute']) {
+            echo XH_message('fail', $this->lang['message_pdattr']);
+            return;
+        }
         if ($this->model->save(stsl($_POST['json']))) {
             echo XH_message('success', $this->lang['message_save_success']);
         } else {

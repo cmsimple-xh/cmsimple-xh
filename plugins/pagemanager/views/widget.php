@@ -27,9 +27,9 @@
     <input type="hidden" name="admin" value="plugin_main">
     <input type="hidden" name="action" value="plugin_save">
     <input type="hidden" name="json" id="pagemanager_json" value="">
+    <input type="hidden" name="pagemanager_pdattr" value="<?php echo $this->pdattr?>">
     <?php echo $this->csrfTokenInput()?>
     <p class="pagemanager_status" style="display:none">
         <img src="<?php echo $this->ajaxLoaderPath()?>" alt="Loading">
     </p>
 </form>
-<div id="pagemanager_footer"></div>

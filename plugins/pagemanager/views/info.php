@@ -4,7 +4,7 @@
     Version <?php echo $this->version()?>
 </p>
 <p>
-    Copyright &copy; 2011-2019 Christoph M. Becker
+    Copyright &copy; 2011-2021 Christoph M. Becker
 </p>
 <p>
     Pagemanager_XH is powered by <a href="http://www.jstree.com/"

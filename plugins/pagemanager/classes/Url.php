@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2016-2019 Christoph M. Becker
+ * Copyright 2016-2021 Christoph M. Becker
  *
  * This file is part of Pagemanager_XH.
  *
@@ -29,12 +29,13 @@ class Url
     private $path;
 
     /**
-     * @var array
+     * @var array<string,mixed>
      */
     private $params;
 
     /**
      * @param string $path
+     * @param array<string,mixed> $params
      */
     public function __construct($path, array $params)
     {
@@ -79,7 +80,7 @@ class Url
      */
     private function queryString()
     {
-        return preg_replace('/=(?=&|$)/', '', http_build_query($this->params, null, '&'));
+        return (string) preg_replace('/=(?=&|$)/', '', http_build_query($this->params, "", '&'));
     }
 
     /**
