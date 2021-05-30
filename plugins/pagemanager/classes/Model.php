@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2011-2019 Christoph M. Becker
+ * Copyright 2011-2021 Christoph M. Becker
  *
  * This file is part of Pagemanager_XH.
  *
@@ -61,7 +61,7 @@ class Model
 
     /**
      * @param string $heading
-     * @return string
+     * @return bool
      */
     private function mayRename($heading)
     {
@@ -75,10 +75,14 @@ class Model
     private function cleanedHeading($heading)
     {
         $heading = trim(strip_tags($heading));
+        $heading = str_replace("\xC2\xAD", "|-|", $heading);
         $heading = html_entity_decode($heading, ENT_COMPAT, 'UTF-8');
         return $heading;
     }
 
+    /**
+     * @return void
+     */
     public function calculateHeadings()
     {
         global $c, $tx;
@@ -144,7 +148,8 @@ class Model
 
         $parser = new JSONProcessor(
             $c,
-            $plugin_cf['pagemanager']['pagedata_attribute']
+            $plugin_cf['pagemanager']['pagedata_attribute'],
+            time()
         );
         $parser->process($json);
         $c = $parser->getContents();

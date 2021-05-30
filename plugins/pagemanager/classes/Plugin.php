@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2011-2019 Christoph M. Becker
+ * Copyright 2011-2021 Christoph M. Becker
  *
  * This file is part of Pagemanager_XH.
  *
@@ -25,15 +25,16 @@ use XH\Pages;
 
 class Plugin
 {
-    const VERSION = '3.4';
+    const VERSION = '3.6';
 
+    /**
+     * @return void
+     */
     public function run()
     {
         global $f, $cf, $o;
 
-        if (function_exists('XH_registerStandardPluginMenuItems')) {
-            XH_registerStandardPluginMenuItems(false);
-        }
+        XH_registerStandardPluginMenuItems(false);
         if ($f === 'xhpages' && in_array($cf['pagemanager']['external'], array('', 'pagemanager'))) {
             $o .= $this->handleMainAdministration('plugin_text');
         } elseif (XH_wantsPluginAdministration('pagemanager')) {
@@ -46,7 +47,7 @@ class Plugin
      */
     private function handleAdministration()
     {
-        global $plugin, $admin, $action;
+        global $admin, $action;
 
         $o = print_plugin_admin('on');
         switch ($admin) {
@@ -60,7 +61,7 @@ class Plugin
                 $o .= $this->handleMainAdministration($action);
                 break;
             default:
-                $o .= plugin_admin_common($action, $admin, $plugin);
+                $o .= plugin_admin_common();
         }
         return $o;
     }
@@ -82,7 +83,7 @@ class Plugin
             default:
                 ob_start();
                 $controller->indexAction();
-                return ob_get_clean();
+                return (string) ob_get_clean();
         }
     }
 }
