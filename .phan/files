@@ -4,6 +4,7 @@ cmsimple/compat.php
 cmsimple/config.php
 cmsimple/functions.php
 cmsimple/metaconfig.php
+cmsimple/seofuncs.php
 cmsimple/tplfuncs.php
 cmsimple/utf8.php
 cmsimple/classes/ArrayFileEdit.php
