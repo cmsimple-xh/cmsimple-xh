@@ -737,7 +737,9 @@ function XH_readContents($language = null)
     $l = array();
     $empty = 0;
     $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
+    array_unshift($search, "\xC2\xAD");
     $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
+    array_unshift($replace, "");
 
     if (($content = XH_readFile($contentFile)) === false) {
         return false;
@@ -940,7 +942,9 @@ function uenc($s)
 
     if (isset($tx['urichar']['org']) && isset($tx['urichar']['new'])) {
         $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
+        array_unshift($search, "\xC2\xAD");
         $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
+        array_unshift($replace, "");
     } else {
         $search = $replace = array();
     }
