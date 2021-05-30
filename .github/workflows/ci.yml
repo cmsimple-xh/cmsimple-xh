@@ -11,7 +11,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{matrix.php_version}}
-          extensions: uopz
+          extensions: ast,uopz
           tools: composer,phive
       - name: Checkout CMSimple_XH
         uses: actions/checkout@v2
