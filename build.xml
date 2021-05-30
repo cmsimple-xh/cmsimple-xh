@@ -169,6 +169,8 @@
 
         <move file="dist/cmsimplexh/userfiles/downloads/_XHdebug.txt" tofile="dist/cmsimplexh/userfiles/downloads/XHdebug.txt"/>
 
+        <touch file="dist/cmsimplexh/cmsimple/.sessionname"/>
+
         <echo file="dist/cmsimplexh/reqcheck.php">This file serves no purpose, and can be deleted.</echo>
 
         <zip destfile="CMSimple_XH-${version}.zip" basedir="dist"/>
@@ -207,6 +209,7 @@
             <fileset dir="dist/cmsimplexh">
                 <include name="important-notices.md"/>
                 <include name="cmsimple/log.txt"/>
+                <include name="cmsimple/.sessionname"/>
                 <include name="content/content.htm"/>
                 <include name="2lang/content/content.htm"/>
                 <include name="cmsimple/config.php"/>
