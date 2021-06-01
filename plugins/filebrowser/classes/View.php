@@ -238,7 +238,7 @@ class View
     private function isImageFile($filename)
     {
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
-        $exts = array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'tiff', 'ico');
+        $exts = array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'webp', 'tiff', 'ico');
         return in_array(strtolower($ext), $exts);
     }
 
