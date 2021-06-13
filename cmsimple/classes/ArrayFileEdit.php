@@ -207,7 +207,8 @@ abstract class ArrayFileEdit extends FileEdit
         } else {
             $message = '';
         }
-        $o = '<h1>' . $this->caption . '</h1>' . $message
+        $o = '<template id="xh_admin">'
+            . '<h1>' . $this->caption . '</h1>' . $message
             . '<form id="xh_config_form" action="' . $action
             . '" method="post" accept-charset="UTF-8">'
             . $button
@@ -220,6 +221,7 @@ abstract class ArrayFileEdit extends FileEdit
         }
         $o .= $_XH_csrfProtection->tokenInput();
         $o .= $button . '</form>';
+        $o .= '</template>';
 
         return $o;
     }
