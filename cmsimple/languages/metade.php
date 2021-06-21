@@ -21,6 +21,7 @@ $mtx['legal']="";
 $mtx['length']="Länge";
 $mtx['levelcatch']="";
 $mtx['levels']="Ebenen";
+$mtx['link']="Links prüfen";
 $mtx['locator']="\"Sie sind hier\"-Anzeige (Locator)";
 $mtx['mailform']="E-Mail-Formular";
 $mtx['maxsize']="Maximalgröße";
