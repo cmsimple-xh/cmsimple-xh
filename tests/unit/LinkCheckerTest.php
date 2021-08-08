@@ -67,13 +67,15 @@ class LinkCheckerTest extends TestCase
             ->setMethods(['makeHeadRequest'])
             ->getMock();
         $this->linkChecker->method('makeHeadRequest')
-            ->will($this->returnCallback(function ($scheme, $host, $path) {
+            ->will($this->returnCallback(function ($scheme, $host) {
+                assert(isset($scheme));
                 // request to IDN will fail
                 if (preg_match('/[\x80-\xFF]/', $host)) {
                     return false;
                 }
                 return 200;
-            }));
+                })
+            );
     }
 
     public function testPrepare()
