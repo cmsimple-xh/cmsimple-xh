@@ -56,7 +56,7 @@ class LinkChecker
     {
         $links = $this->gatherLinks();
         $failure = array(
-            400, 404, 500, Link::STATUS_INTERNALFAIL,
+            400, 403, 404, 405, 410, 500, Link::STATUS_INTERNALFAIL,
             Link::STATUS_EXTERNALFAIL, Link::STATUS_CONTENT_NOT_FOUND,
             Link::STATUS_FILE_NOT_FOUND, Link::STATUS_ANCHOR_MISSING
         );
@@ -64,7 +64,9 @@ class LinkChecker
         foreach ($links as $index => $currentLinks) {
             foreach ($currentLinks as $link) {
                 $this->determineLinkStatus($link);
-                if ($link->getStatus() !== 200) {
+                if (($link->getStatus() !== 200)
+                    && ($link->getStatus() !== Link::STATUS_NOT_CHECKED)
+                ) {
                     $type = in_array($link->getStatus(), $failure)
                         ? 'errors' : 'caveats';
                     $hints[$index][$type][] = $link;
@@ -123,14 +125,28 @@ class LinkChecker
      */
     public function determineLinkStatus(Link $link)
     {
+        global $cf;
+
         $parts = parse_url($link->getURL());
         if (isset($parts['scheme'])) {
             switch ($parts['scheme']) {
                 case 'http':
+                case 'https':
                     $status = $this->checkExternalLink($parts);
                     break;
                 case 'mailto':
-                    $status = Link::STATUS_MAILTO;
+                    if (!empty($cf['link']['mailto'])) {
+                        $status = Link::STATUS_MAILTO;
+                    } else {
+                        $status = Link::STATUS_NOT_CHECKED;
+                    }
+                    break;
+                case 'tel':
+                    if (!empty($cf['link']['tel'])) {
+                        $status = Link::STATUS_TEL;
+                    } else {
+                        $status = Link::STATUS_NOT_CHECKED;
+                    }
                     break;
                 case '':
                     $status = $this->checkInternalLink($parts);
@@ -192,7 +208,7 @@ class LinkChecker
             $pages = $c;
         }
         for ($i = 0; $i < $contentLength; $i++) {
-            if ($urls[$i] === $query) {
+            if ($query === '' || $urls[$i] === $query) {
                 if (!isset($test['fragment'])) {
                     return 200;
                 }
@@ -235,7 +251,7 @@ class LinkChecker
         if (isset($parts['query'])) {
             $path .= "?" . $parts['query'];
         }
-        $status = $this->makeHeadRequest($parts['host'], $path);
+        $status = $this->makeHeadRequest($parts['scheme'], $parts['host'], $path);
         return ($status !== false) ? $status : Link::STATUS_EXTERNALFAIL;
     }
 
@@ -243,26 +259,74 @@ class LinkChecker
      * Makes a head request and returns the response status code, FALSE if the
      * request failed.
      *
+     * @param string $scheme http(s).
      * @param string $host A host name.
      * @param string $path An absolute path.
      *
      * @return int|false
      */
-    protected function makeHeadRequest($host, $path)
+    protected function makeHeadRequest($scheme, $host, $path)
     {
-        $errno = $errstr = null;
-        $socket = fsockopen($host, 80, $errno, $errstr, 5);
-        if ($socket) {
-            $request = "HEAD $path HTTP/1.1\r\nHost: $host\r\n"
-                . "User-Agent: CMSimple_XH Link-Checker\r\n\r\n";
-            fwrite($socket, $request);
-            $response = fread($socket, 12);
-            fclose($socket);
-            $status = substr($response, 9);
-            return (int) $status;
-        } else {
-            return false;
+        global $cf;
+
+        $url = $scheme . '://' . $host . $path;
+        $timeout = 6;
+        $connect_timeout = 5;
+        $maxredir = (int) $cf['link']['redir'];
+        $agent = 'CMSimple_XH Link-Checker';
+
+        if (extension_loaded('curl')) {
+            $ch = curl_init();
+            $options = array(
+                CURLOPT_URL             => $url,
+                CURLOPT_HEADER          => true,
+                CURLOPT_RETURNTRANSFER  => true,
+                CURLOPT_NOBODY          => true,
+                CURLOPT_USERAGENT       => $agent,
+                CURLOPT_TIMEOUT         => $timeout,
+                CURLOPT_CONNECTTIMEOUT  => $connect_timeout,
+                CURLOPT_FRESH_CONNECT   => true
+            );
+            if ($maxredir > 0) {
+                $options[CURLOPT_FOLLOWLOCATION] = true;
+                $options[CURLOPT_MAXREDIRS]      = $maxredir;
+            }
+            curl_setopt_array($ch, $options);
+            if (curl_exec($ch) !== false) {
+                $headers = curl_getinfo($ch);
+            }
+            curl_close($ch);
+            if (!empty($headers['http_code'])) {
+                return (int) $headers['http_code'];
+            }
         }
+        // alternative to cURL
+        if (function_exists('get_headers')) {
+            $context = stream_context_create(
+                array(
+                    'http' => array(
+                        'method'        => 'HEAD',
+                        'timeout'       => $timeout,
+                        'max_redirects' => $maxredir + 1,
+                        'user_agent'    => $agent
+                    )
+                )
+            );
+            $headers = get_headers($url, 1, $context);
+            $status = array();
+            for ($i = 0; $i <= $maxredir; $i++) {
+                if (!empty($headers[$i])) {
+                    $headers_tmp = $headers[$i];
+                } else {
+                    break;
+                }
+            }
+            preg_match('#HTTP/[0-9\.]+\s+([0-9]+)#i', $headers_tmp, $status);
+            if (!empty($status[1])) {
+                return (int) $status[1];
+            }
+        }
+        return false;
     }
 
     /**
@@ -277,7 +341,7 @@ class LinkChecker
         global $tx;
 
         $o = '<li>' . "\n" . '<b>' . $tx['link']['link'] . '</b>'
-            . '<a href="' . $link->getURL() . '">' . $link->getText() . '</a>'
+            . '<a target="_blank" href="' . $link->getURL() . '">' . $link->getText() . '</a>'
             . '<br>' . "\n"
             . '<b>' . $tx['link']['linked_page'] . '</b>' . $link->getURL()
             . '<br>' . "\n"
@@ -314,13 +378,16 @@ class LinkChecker
         global $tx;
 
         $o = '<li>' . "\n" . '<b>' . $tx['link']['link'] . '</b>'
-            . '<a href="' . $link->getURL() . '">' . $link->getText() . '</a>'
+            . '<a target="_blank" href="' . $link->getURL() . '">' . $link->getText() . '</a>'
             . '<br>' . "\n"
             . '<b>' . $tx['link']['linked_page'] . '</b>'
             . $link->getURL() . '<br>' . "\n";
         switch ($link->getStatus()) {
             case Link::STATUS_MAILTO:
                 $o .= $tx['link']['email'] . "\n";
+                break;
+            case Link::STATUS_TEL:
+                $o .= $tx['link']['tel'] . "\n";
                 break;
             case Link::STATUS_UNKNOWN:
                 $o .= $tx['link'][Link::STATUS_UNKNOWN] . "\n";
@@ -358,10 +425,10 @@ class LinkChecker
         $o .= '<p><b>' . $tx['link']['check_errors'] . '</b></p>' . "\n";
         $o .= '<p>' . $tx['link']['check'] . '</p>' . "\n";
         foreach ($hints as $page => $problems) {
-            $o .= '<hr>' . "\n\n" . '<h4>' . $tx['link']['page']
-                . '<a href="?' . $u[$page] . '">' . $h[$page] . '</a></h4>' . "\n";
+            $o .= '<hr>' . "\n\n" . '<h2>' . $tx['link']['page']
+                . '<a href="?' . $u[$page] . '">' . $h[$page] . '</a></h2>' . "\n";
             if (isset($problems['errors'])) {
-                $o .= '<h5>' . $tx['link']['errors'] . '</h5>' . "\n"
+                $o .= '<h3>' . $tx['link']['errors'] . '</h3>' . "\n"
                     . '<ul>' . "\n";
                 foreach ($problems['errors'] as $link) {
                     $o .= $this->reportError($link);
@@ -369,7 +436,7 @@ class LinkChecker
                 $o .= '</ul>' . "\n" . "\n";
             }
             if (isset($problems['caveats'])) {
-                $o .= '<h5>' . $tx['link']['hints'] . '</h5>' . "\n"
+                $o .= '<h3>' . $tx['link']['hints'] . '</h3>' . "\n"
                     . '<ul>' . "\n";
                 foreach ($problems['caveats'] as $link) {
                     $o .= $this->reportNotice($link);
