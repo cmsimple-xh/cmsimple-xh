@@ -74,8 +74,7 @@ class LinkCheckerTest extends TestCase
                     return false;
                 }
                 return 200;
-                })
-            );
+            }));
     }
 
     public function testPrepare()
