@@ -44,7 +44,7 @@ class AdminMenuTest extends TestCase
 
     private function setUpLocalization()
     {
-        global $tx, $plugin_tx;
+        global $plugin_tx;
 
         $plugin_tx = array();
     }
