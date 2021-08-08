@@ -425,7 +425,7 @@ function hi_fsFileGetContents($url, $timeout = 30) {
     } elseif ($status == 204 or $status == 304) { // No Content | Not modified
         return '';
     } elseif (in_array($status, Array(300, 301, 302, 303, 307))) {
-        preg_match('~Location: (?P<location>\S+)~', $header, $match);
+        preg_match('~Location: (?P<location>\S+)~i', $header, $match);
         $result = hi_fsFileGetContents($match['location'], $timeout);
     } elseif ($status >= 400) { // Any error
         return false;
