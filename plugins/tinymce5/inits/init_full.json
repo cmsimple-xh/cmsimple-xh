@@ -9,7 +9,7 @@
     "fontawesome": "%CMSIMPLE_ROOT%plugins/fa/editors/tinymce5/fontawesome/plugin.min.js",
     "xhplugincall":"%CMSIMPLE_ROOT%plugins/tinymce5/tinymce/plugins/xhplugincall/plugin.min.js"
   },
-  "toolbar": "save | fullscreen code undo redo styleselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify cut copy paste pastetext | bullist numlist outdent indent blockquote | link unlink anchor image media | hr nonbreaking removeformat visualblocks visualchars | forecolor backcolor | searchreplace | charmap emoticons subscript superscript | table insertdatetime help | xhplugincall",
+  "toolbar": "save | fullscreen code undo redo styleselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify cut copy paste pastetext | bullist numlist outdent indent blockquote | link unlink anchor image media | hr nonbreaking removeformat visualblocks visualchars | forecolor backcolor | searchreplace | charmap emoticons subscript superscript | table insertdatetime help | fontawesome xhplugincall",
   "toolbar_mode": "sliding",
   "table_advtab": true,
   "table_cell_advtab": true,
