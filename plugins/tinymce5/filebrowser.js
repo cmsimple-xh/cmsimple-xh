@@ -15,7 +15,7 @@ function wrFilebrowser (callback, value, meta) {
     // FIXME: avoid the following two global variables!
     filebrowsercallback = callback;
     filebrowserwindow = tinymce.activeEditor.windowManager.open({
-        title: "File Manager",
+        title: "Filebrowser",
         size: 'medium',
         body: {
             type: "panel",
