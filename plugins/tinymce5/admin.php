@@ -95,7 +95,6 @@ if (XH_wantsPluginAdministration($plugin)) {
                 </script>';
         
             $o .= '<h1>TinyMCE5 for CMSimple_XH</h1>'.PHP_EOL;
-            $o .= '<p>Version for '.CMSIMPLE_XH_VERSION.'</p>'.PHP_EOL;
             $o .= '<p>TinyMCE ';
             $o .= $plugin_cf['tinymce5']['CDN'] == true ? 'Content delivery network (CDN) ': '';
             $o .= 'version ' . $tinymce_version . 
@@ -111,7 +110,8 @@ if (XH_wantsPluginAdministration($plugin)) {
             $o .= '<h2>Credits</h2>'.PHP_EOL;
             $o .= '<p>Font Awesome Plugin made by 
                 <a href="https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team" 
-                target="_blank">frase</a><br>'.PHP_EOL;
+                target="_blank">Christoph M.
+    Becker</a><br>'.PHP_EOL;
             $o .= 'xhPluginCall Plugin made by 
                 <a href="http://www.cmsimple.sk/?Impressum" target="_blank">Tata</a>
                 and <a href="https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team" 
