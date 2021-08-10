@@ -185,7 +185,7 @@ $tx['log']['description']="Beschreibung";
 $tx['login']['back']="Zurück";
 $tx['login']['failure']="Sie haben ein falsches Passwort eingegeben!";
 $tx['login']['loggedout']="Sie wurden ausgeloggt";
-$tx['login']['warning']="Administrationsbereich. Bitte Passwort eingeben";
+$tx['login']['warning']="Administrationsbereich. Bitte Passwort eingeben.";
 
 $tx['mailform']['captcha']="Bitte diese Zahl eingeben (Spamschutz)";
 $tx['mailform']['captchafalse']="Bitte Zahl zum Schutz vor Spam eingeben";
