@@ -14,20 +14,10 @@ function wrFilebrowser (callback, value, meta) {
 
     // FIXME: avoid the following two global variables!
     filebrowsercallback = callback;
-    filebrowserwindow = tinymce.activeEditor.windowManager.open({
+    filebrowserwindow = tinymce.activeEditor.windowManager.openUrl({
         title: "Filebrowser",
-        size: 'large',
-        body: {
-            type: "panel",
-            items: [{
-                type: "htmlpanel",
-                html: '<iframe src="' + cmsURL + '" style="width:100%" onload="top.resizeIframe(this)"></iframe>'
-            }]
-        },
-        buttons: []
+        width: 800,
+        url: cmsURL
     });
     return false;
-}
-function resizeIframe(obj) {
-  obj.style.height = obj.contentWindow.document.body.offsetHeight + 2 + 'px'; // no idea why border is not included
 }
