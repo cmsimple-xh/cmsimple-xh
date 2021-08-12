@@ -278,3 +278,13 @@ div.xhFilebrowserDiv h1 {
 	letter-spacing: normal;
 	text-shadow: none !important;
 }
+
+.tox .tox-dialog iframe{
+	max-height: 400px;
+	min-height: 400px !important;
+}
+#filebrowser_files::after {
+	content: "";
+	display: block;
+	height: calc(9em - 2px);
+}
