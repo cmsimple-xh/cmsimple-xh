@@ -129,10 +129,6 @@ span.xhfbfile img {
 	max-width: 10em !important;
 	box-shadow: none !important;
 }
-a.xhfbfile span,
-span.xhfbfile span {
-	display: none;
-}
 
 #xhFilebrowser a { color: #333;}
 a.xhfbfile, span.xhfbfile {padding: 0 2px 0 0; line-height: 1em;}
