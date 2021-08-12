@@ -9,7 +9,8 @@
     "xhplugincall":"%CMSIMPLE_ROOT%plugins/tinymce5/tinymce/plugins/xhplugincall/plugin.min.js",
     "codemirror":"%CMSIMPLE_ROOT%plugins/tinymce5/tinymce/plugins/codemirror/plugin.min.js"
   },
-  "toolbar": "save | undo redo | styleselect | bold italic | link image | alignleft aligncenter alignright | bullist numlist",
+  "toolbar": "save | undo | styleselect | bold italic | link unlink image | alignleft aligncenter alignright | bullist numlist",
+
   "menubar": "edit insert view format table tools help",
   "menu": {
     "tools": {"title": "Tools", "items": "fontawesome xhplugincall"}
