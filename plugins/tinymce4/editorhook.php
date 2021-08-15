@@ -1,7 +1,7 @@
 <?php
 
 $script = '
-<script language="javascript" type="text/javascript">
+<script>
 
 
 var FileBrowserDialogue = {
