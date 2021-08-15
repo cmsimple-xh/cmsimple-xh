@@ -1,7 +1,7 @@
 <?php
 
 $script = '
-<script language="javascript" type="text/javascript">
+<script>
 
 function setLink(link){
     top.filebrowsercallback(link);
