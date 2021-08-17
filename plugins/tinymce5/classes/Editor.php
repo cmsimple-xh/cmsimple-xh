@@ -146,6 +146,11 @@ class Editor
         $parsedconfig = str_replace('%STYLESHEET%',$pth['folder']['template'] . 'stylesheet.css',$parsedconfig);
         $parsedconfig = str_replace('%CMSIMPLE_ROOT%',CMSIMPLE_ROOT,$parsedconfig);
         
+        /*
+         * Use the codemirror theme configured for Codeeditor_XH if available.
+         */
+        $parsedconfig = str_replace('%CODEMIRROR_THEME%',$plugin_cf['codeeditor']['theme'],$parsedconfig);
+        
         /* 
          * Enable the file_picker_callback in Admin mode only (functions/callbacks not possible in JSON)
         */

@@ -37,7 +37,7 @@
     height: 800,
     fullscreen: false,
     config:{
-      theme: 'zenburn'
+      theme: '%CODEMIRROR_THEME%'
     }
   }
 }
