@@ -278,3 +278,15 @@ div.xhFilebrowserDiv h1 {
 	letter-spacing: normal;
 	text-shadow: none !important;
 }
+
+/* belongs to https://github.com/cmsimple-xh/cmsimple-xh/issues/515 */
+
+.tox .tox-dialog iframe{
+	max-height: 400px;
+	min-height: 400px !important;
+}
+#filebrowser_files::after {
+	content: "";
+	display: block;
+	height: calc(9em - 2px);
+}

@@ -235,6 +235,13 @@ function tinymce4_config($config, $selector)
         '%CMSIMPLE_ROOT%', CMSIMPLE_ROOT, $temp
     );
 
+    /*
+     * use the codemirror theme configured for Codeeditor_XH if available
+     */
+    if (isset($plugin_cf['codeeditor']['theme'])) {
+        $temp = str_replace('%CODEMIRROR_THEME%',$plugin_cf['codeeditor']['theme'],$temp);
+    }
+
     $elementFormat = $cf['xhtml']['endtags'] == 'true' ? 'xhtml' : 'html';
     $temp = str_replace('%ELEMENT_FORMAT%', $elementFormat, $temp);
     
