@@ -37,7 +37,7 @@
   "images_reuse_filename": false,
   "codemirror":{
     "config": {
-      "theme": "zenburn"
+      "theme": "%CODEMIRROR_THEME%"
     }
   }
 }
