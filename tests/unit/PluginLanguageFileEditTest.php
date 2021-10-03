@@ -68,18 +68,7 @@ class PluginLanguageFileEditTest extends TestCase
     {
         global $_XH_csrfProtection;
 
-        $this->_tagStub = $this->createFunctionMock('tag');
-        $this->_tagStub->expects($this->any())->will($this->returnCallback(
-            function ($str) {
-                return "<$str>";
-            }
-        ));
         $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
-    }
-
-    protected function tearDown()
-    {
-        $this->_tagStub->restore();
     }
 
     public function testFormAttributes()

@@ -90,12 +90,6 @@ class CoreConfigFileEditTest extends TestCase
     {
         global $_XH_csrfProtection;
 
-        $this->_tagStub = $this->createFunctionMock('tag');
-        $this->_tagStub->expects($this->any())->will($this->returnCallback(
-            function ($str) {
-                return "<$str>";
-            }
-        ));
         $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
     }
 
@@ -116,11 +110,6 @@ class CoreConfigFileEditTest extends TestCase
 ?>
 EOT;
         file_put_contents(vfsStream::url('test/metaconfig.php'), $contents);
-    }
-
-    protected function tearDown()
-    {
-        $this->_tagStub->restore();
     }
 
     public function testFormAttributes()

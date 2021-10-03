@@ -21,8 +21,6 @@ class BackupTest extends TestCase
 
     private $subject;
 
-    private $utf8UcfirstMock;
-
     protected function setUp()
     {
         global $pth, $cf, $tx;
@@ -46,14 +44,7 @@ class BackupTest extends TestCase
                 'deleted' => 'deleted'
             )
         );
-        $this->utf8UcfirstMock = $this->createFunctionMock('utf8_ucfirst');
-        $this->utf8UcfirstMock->expects($this->any())->will($this->returnArgument(0));
         $this->subject = new Backup(array($this->contentFolder));
-    }
-
-    protected function tearDown()
-    {
-        $this->utf8UcfirstMock->restore();
     }
 
     /**

@@ -73,12 +73,6 @@ class PluginConfigFileEditTest extends TestCase
     {
         global $_XH_csrfProtection;
 
-        $this->_tagStub = $this->createFunctionMock('tag');
-        $this->_tagStub->expects($this->any())->will($this->returnCallback(
-            function ($str) {
-                return "<$str>";
-            }
-        ));
         $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
     }
 
@@ -97,11 +91,6 @@ class PluginConfigFileEditTest extends TestCase
 ?>
 EOT;
         file_put_contents($filename, $contents);
-    }
-
-    protected function tearDown()
-    {
-        $this->_tagStub->restore();
     }
 
     public function testFormAttributes()
