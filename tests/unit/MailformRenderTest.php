@@ -15,25 +15,12 @@ class MailformRenderTest extends TestCase
 {
     private $subject;
 
-    private $tagStub;
-
     protected function setUp()
     {
         global $cf;
 
         $cf['mailform']['lf_only'] = '';
         $this->subject = new Mailform();
-        $this->tagStub = $this->createFunctionMock('tag');
-        $this->tagStub->expects($this->any())->will($this->returnCallback(
-            function ($string) {
-                return "<$string>";
-            }
-        ));
-    }
-
-    protected function tearDown()
-    {
-        $this->tagStub->restore();
     }
 
     public function testForm()

@@ -17,8 +17,6 @@ class AdminMenuTest extends TestCase
 {
     private $plugins;
 
-    private $ucfirstMock;
-
     protected function setUp()
     {
         global $edit, $cf;
@@ -28,8 +26,6 @@ class AdminMenuTest extends TestCase
         $this->setUpPageStructure();
         $this->plugins = array('plugin');
         $this->setUpLocalization();
-        $this->ucfirstMock = $this->createFunctionMock('utf8_ucfirst');
-        $this->ucfirstMock->expects($this->any())->will($this->returnArgument(0));
     }
 
     private function setUpPageStructure()
@@ -47,11 +43,6 @@ class AdminMenuTest extends TestCase
         global $plugin_tx;
 
         $plugin_tx = array();
-    }
-
-    protected function tearDown()
-    {
-        $this->ucfirstMock->restore();
     }
 
     /**
