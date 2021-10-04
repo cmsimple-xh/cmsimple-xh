@@ -24,7 +24,7 @@ class PublisherTest extends TestCase
 
         $this->setConstant('XH_ADM', false);
         $edit = false;
-        $pd_router = @$this->createMock(PageDataRouter::class);
+        $pd_router = $this->createMock(PageDataRouter::class);
         $pd_router->method('find_all')->willReturn(array(
             0 => array(
                 'linked_to_menu' => '1',
