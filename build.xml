@@ -140,7 +140,6 @@
             <fileset dir="export">
                 <exclude name=".github/**"/>
                 <exclude name=".phan/**"/>
-                <exclude name=".travis.yml"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.json"/>
                 <exclude name="composer.lock"/>
