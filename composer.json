@@ -3,9 +3,10 @@
         "phing/phing": "2.16.*",
         "squizlabs/php_codesniffer": "2.9.*",
         "phpmd/phpmd": "2.9.*",
-        "bartlett/php-compatinfo": "5.2.*",
-        "phpunit/phpunit": "5.7.*",
+        "bartlett/php-compatinfo": "5.3.*",
+        "phpunit/phpunit": "7.5.*",
         "mikey179/vfsstream": "1.6.*",
-        "tedivm/jshrink": "1.3.*"
+        "tedivm/jshrink": "1.3.*",
+        "phan/phan": "2.7.*"
     }
 }

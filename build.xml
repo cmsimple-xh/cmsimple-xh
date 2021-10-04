@@ -54,6 +54,8 @@
 
     <target name="unit-tests" description="runs all unit tests">
         <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
+            <arg value="--globals-backup"/>
+            <arg value="--dont-report-useless-tests"/>
             <arg value="--bootstrap"/>
             <arg file="tests/bootstrap.php"/>
             <arg file="tests/unit"/>
@@ -138,7 +140,6 @@
             <fileset dir="export">
                 <exclude name=".github/**"/>
                 <exclude name=".phan/**"/>
-                <exclude name=".phive/**"/>
                 <exclude name=".travis.yml"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.json"/>
