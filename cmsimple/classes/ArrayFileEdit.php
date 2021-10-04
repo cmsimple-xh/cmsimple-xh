@@ -202,7 +202,7 @@ abstract class ArrayFileEdit extends FileEdit
         $value = utf8_ucfirst($tx['action']['save']);
         $button = '<input type="submit" class="submit" value="' . $value . '">';
         if (isset($_GET['xh_success'])) {
-            $filetype = utf8_ucfirst($tx['filetype'][stsl($_GET['xh_success'])]);
+            $filetype = utf8_ucfirst($tx['filetype'][$_GET['xh_success']]);
             $message = XH_message('success', $tx['message']['saved'], $filetype);
         } else {
             $message = '';
@@ -289,7 +289,7 @@ abstract class ArrayFileEdit extends FileEdit
         foreach ($this->cfg as $cat => $opts) {
             foreach ($opts as $name => $opt) {
                 $iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
-                $val = isset($_POST[$iname]) ? stsl($_POST[$iname]) : '';
+                $val = isset($_POST[$iname]) ? $_POST[$iname] : '';
                 if ($opt['type'] == 'bool') {
                     $val = isset($_POST[$iname]) ? 'true' : '';
                 } elseif ($opt['type'] == 'random') {

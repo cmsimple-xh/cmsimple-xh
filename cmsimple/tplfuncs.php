@@ -282,7 +282,7 @@ function XH_printUrl()
 
     $t = '&print';
     if ($f == 'search') {
-        $t .= '&function=search&search=' . urlencode(stsl($search));
+        $t .= '&function=search&search=' . urlencode($search);
     } elseif ($f == 'file') {
         $t .= '&file=' . $file;
     } elseif ($f != '' && $f != 'save') {

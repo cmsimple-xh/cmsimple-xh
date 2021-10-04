@@ -65,11 +65,11 @@ class ChangePassword
         global $cf, $tx, $_XH_csrfProtection;
 
         $this->passwordOld = isset($_POST['xh_password_old'])
-            ? stsl($_POST['xh_password_old']) : '';
+            ? $_POST['xh_password_old'] : '';
         $this->passwordNew = isset($_POST['xh_password_new'])
-            ? stsl($_POST['xh_password_new']) : '';
+            ? $_POST['xh_password_new'] : '';
         $this->passwordConfirmation = isset($_POST['xh_password_confirmation'])
-            ? stsl($_POST['xh_password_confirmation']) : '';
+            ? $_POST['xh_password_confirmation'] : '';
         $this->config = $cf;
         $this->lang = $tx;
         $this->csrfProtector = $_XH_csrfProtection;

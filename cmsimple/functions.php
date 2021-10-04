@@ -572,15 +572,17 @@ function rmanl($t)
  * Returns the un-quoted $t, i.e. reverses the effect
  * of magic_quotes_gpc/magic_quotes_sybase.
  *
- * If in doubt, use on all user input (but at most once!).
+ * Since magic_quotes are gone, it is a NOP now.
  *
  * @param string $t A string.
  *
  * @return string
+ *
+ * @deprecated since 1.8
  */
 function stsl($t)
 {
-    return (version_compare(PHP_VERSION, '5.4', '<') && get_magic_quotes_gpc()) ? stripslashes($t) : $t;
+    return $t;
 }
 
 /**
@@ -1342,8 +1344,6 @@ function pluginFiles($plugin)
  * @since 1.6
  *
  * @todo Might be optimized to set $admPlugins only when necessary.
- * @todo with PHP 5.4.0 replace array_values()
- *       by sort($plugins, SORT_NATURAL | SORT_FLAG_CASE)
  */
 function XH_plugins($admin = false)
 {
@@ -1371,10 +1371,8 @@ function XH_plugins($admin = false)
             }
             closedir($dh);
         }
-        natcasesort($plugins);
-        $plugins = array_values($plugins);
-        natcasesort($admPlugins);
-        $admPlugins = array_values($admPlugins);
+        sort($plugins, SORT_NATURAL | SORT_FLAG_CASE);
+        sort($admPlugins, SORT_NATURAL | SORT_FLAG_CASE);
     }
     return $admin ? $admPlugins : $plugins;
 }
@@ -1869,7 +1867,7 @@ function XH_templates()
         }
         closedir($handle);
     }
-    natcasesort($templates);
+    sort($templates, SORT_NATURAL | SORT_FLAG_CASE);
     return $templates;
 }
 
@@ -1893,7 +1891,7 @@ function XH_availableLocalizations()
         }
         closedir($handle);
     }
-    natcasesort($languages);
+    sort($languages, SORT_NATURAL | SORT_FLAG_CASE);
     return $languages;
 }
 
@@ -2073,8 +2071,7 @@ function XH_lastJsonError()
 /**
  * Converts special characters to HTML entities.
  *
- * Same as htmlspecialchars($string, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8'),
- * but works for PHP < 5.4 as well.
+ * Same as htmlspecialchars($string, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8').
  *
  * @param string $string A string.
  *
@@ -2084,13 +2081,7 @@ function XH_lastJsonError()
  */
 function XH_hsc($string)
 {
-    if (!defined('ENT_SUBSTITUTE')) {
-        $string = utf8_bad_replace($string, "\xEF\xBF\xBD");
-        $string = htmlspecialchars($string, ENT_COMPAT, 'UTF-8');
-    } else {
-        $string = htmlspecialchars($string, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8');
-    }
-    return $string;
+    return htmlspecialchars($string, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8');
 }
 
 /**
@@ -2319,8 +2310,8 @@ function XH_registerPluginType($type, $plugin = null)
     } else {
         if (isset($plugins[$type])) {
             $result = $plugins[$type];
-            natcasesort($result);
-            return array_values($result);
+            sort($result, SORT_NATURAL | SORT_FLAG_CASE);
+            return $result;
         } else {
             return array();
         }

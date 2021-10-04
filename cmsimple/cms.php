@@ -243,7 +243,7 @@ require_once $pth['folder']['cmsimple'] . 'functions.php';
 spl_autoload_register('XH_autoload');
 require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
 require_once $pth['folder']['cmsimple'] . 'utf8.php';
-if (!function_exists('password_hash') || !function_exists('random_bytes')) {
+if (!function_exists('random_bytes')) {
     include_once $pth['folder']['cmsimple'] . 'password.php';
 }
 require_once $pth['folder']['cmsimple'] . 'seofuncs.php';
@@ -805,7 +805,7 @@ if (!isset($cf['uri']['length'])) {
 $su = utf8_substr($su, 0, $cf['uri']['length']);
 
 if ($download != '') {
-    download($pth['folder']['downloads'] . basename(stsl($download)));
+    download($pth['folder']['downloads'] . basename($download));
 }
 
 $pth['file']['search'] = $pth['folder']['cmsimple'] . 'search.php';
