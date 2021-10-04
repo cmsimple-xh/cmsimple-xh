@@ -279,7 +279,6 @@ $tx['syscheck']['fail']="Fehler";
 $tx['syscheck']['fsockopen']="die Funktion fsockopen verfügbar ist";
 $tx['syscheck']['locale_available']="Locale '%s' verfügbar ist";
 $tx['syscheck']['locale_default']="das Standard-Locale aktiv ist";
-$tx['syscheck']['magic_quotes']="magic_quotes_runtime deaktiviert ist";
 $tx['syscheck']['message']="Prüfe, dass %1\$s … %2\$s";
 $tx['syscheck']['password']="das voreingestellte Passwort geändert wurde";
 $tx['syscheck']['phpversion']="die PHP-Version ≥ %s";
