@@ -244,7 +244,7 @@ HTML;
 
     $stx = $tx['syscheck'];
     $checks = array(
-        'phpversion' => '5.3.7',
+        'phpversion' => '5.5.0',
         'extensions' => array(
             array('intl', false),
             'json',
