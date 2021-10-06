@@ -33,6 +33,7 @@
             <arg value="--standard=PSR2"/>
             <arg value="--extensions=php"/>
             <arg value="--ignore=languages,*config.php"/>
+            <arg line="--runtime-set ignore_warnings_on_exit true"/>
             <arg file="cmsimple"/>
             <arg file="plugins/filebrowser"/>
             <arg file="plugins/meta_tags"/>
