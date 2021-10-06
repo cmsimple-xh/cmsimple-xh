@@ -29,10 +29,16 @@
     </target>
 
     <target name="sniff" description="checks adherence to PSR-2">
-        <phpcodesniffer standard="PSR2" format="full" haltonerror="true">
-            <fileset refid="php-sources"/>
-            <fileset refid="unit-tests"/>
-        </phpcodesniffer>
+        <exec executable="phpcs" passthru="true" checkreturn="true">
+            <arg value="--standard=PSR2"/>
+            <arg value="--extensions=php"/>
+            <arg value="--ignore=languages,*config.php"/>
+            <arg file="cmsimple"/>
+            <arg file="plugins/filebrowser"/>
+            <arg file="plugins/meta_tags"/>
+            <arg file="plugins/page_params"/>
+            <arg file="tests/unit"/>
+        </exec>
     </target>
 
     <target name="mess" description="detects code flaws">
