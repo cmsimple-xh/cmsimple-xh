@@ -4,20 +4,6 @@
 
     <property name="build" value="01"/>
 
-    <fileset id="php-sources" dir=".">
-        <include name="cmsimple/*.php"/>
-        <exclude name="cmsimple/*config.php"/>
-        <include name="cmsimple/classes/*.php"/>
-        <include name="plugins/filebrowser/*.php"/>
-        <include name="plugins/filebrowser/classes/*.php"/>
-        <include name="plugins/meta_tags/*.php"/>
-        <include name="plugins/page_params/*.php"/>
-    </fileset>
-
-    <fileset id="unit-tests" dir="tests/unit">
-        <include name="*.php"/>
-    </fileset>
-
     <fileset id="tutorials" dir="tutorials">
         <include name="XH/*.pkg"/>
         <include name="XH/*.cls"/>
@@ -43,10 +29,11 @@
     </target>
 
     <target name="mess" description="detects code flaws">
-        <phpmd rulesets="unusedcode">
-            <fileset refid="php-sources"/>
-            <fileset refid="unit-tests"/>
-         </phpmd>
+        <exec executable="phpmd" passthru="true" checkreturn="true">
+            <arg value="cmsimple,plugins/filebrowser,plugins/meta_tags,plugins/page_params,tests/unit"/>
+            <arg value="text"/>
+            <arg value="unusedcode"/>
+        </exec>
     </target>
 
     <target name="compat"
