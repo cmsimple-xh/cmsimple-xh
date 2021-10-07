@@ -23,7 +23,7 @@ class PageDataModelTest extends TestCase
 {
     protected $pd;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $cf;
 

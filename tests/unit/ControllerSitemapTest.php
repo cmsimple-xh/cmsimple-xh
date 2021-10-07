@@ -48,10 +48,8 @@ class ControllerSitemapTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $cl, $tx;
 
@@ -64,7 +62,7 @@ class ControllerSitemapTest extends TestCase
         $this->liMock = $this->createFunctionMock('li');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->hideMock->restore();
         $this->liMock->restore();

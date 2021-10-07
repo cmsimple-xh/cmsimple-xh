@@ -34,10 +34,8 @@ class ControllerRenderErrorMessagesTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $e;
 

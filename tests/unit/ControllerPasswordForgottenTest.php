@@ -41,10 +41,8 @@ class ControllerPasswordForgottenTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockBuilder(Controller::class)->setMethods(array('makePasswordForgotten'))->getMock();
         $this->passwordForgottenMock = $this->createMock(PasswordForgotten::class);

@@ -62,10 +62,8 @@ class ControllerSavePageDataTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pth, $s, $pd_router, $_XH_csrfProtection;
 
@@ -85,7 +83,7 @@ class ControllerSavePageDataTest extends TestCase
         $this->messageMock = $this->createFunctionMock('XH_message');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->eMock->restore();
         $this->exitMock->restore();

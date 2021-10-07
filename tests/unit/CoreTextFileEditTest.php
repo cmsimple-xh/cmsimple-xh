@@ -29,7 +29,7 @@ class CoreTextFileEditTest extends TestCase
 
     private $testFile;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pth, $sn, $file, $_XH_csrfProtection;
 

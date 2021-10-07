@@ -25,7 +25,7 @@ class LocatorTest extends TestCase
 
     protected $modelMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->aMock = $this->createFunctionMock('a');
         $this->aMock->expects($this->any())->willReturn('<a href="foo">');
@@ -35,7 +35,7 @@ class LocatorTest extends TestCase
         );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->aMock->restore();
         $this->modelMock->restore();

@@ -29,7 +29,7 @@ class MenuTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pth, $s;
 
@@ -169,7 +169,7 @@ class MenuTest extends TestCase
         );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->aStub->restore();
         $this->hideStub->restore();

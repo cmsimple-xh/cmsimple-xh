@@ -27,7 +27,7 @@ class MailTest extends TestCase
 
     protected $mailMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $cf;
 
@@ -37,7 +37,7 @@ class MailTest extends TestCase
         $this->mailMock = $this->createFunctionMock('mail');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->getHostByNameMock->restore();
         $this->mailMock->restore();

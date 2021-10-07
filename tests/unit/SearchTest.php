@@ -24,7 +24,7 @@ class SearchTest extends TestCase
     /**
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $c, $cf, $o, $hjs, $bjs, $e, $onload;
 

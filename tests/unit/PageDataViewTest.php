@@ -23,7 +23,7 @@ class PageDataViewTest extends TestCase
 {
     protected $pageDataView;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pth;
 

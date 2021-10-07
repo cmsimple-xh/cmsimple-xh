@@ -33,7 +33,7 @@ class CSRFProtectionTest extends TestCase
 
     protected $exitMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->setConstant('CMSIMPLE_ROOT', '/test/');
         $this->startSessionMock = $this->createFunctionMock('XH_startSession');
@@ -42,7 +42,7 @@ class CSRFProtectionTest extends TestCase
         $this->subject = new CSRFProtection();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->startSessionMock->restore();
         $this->headerMock->restore();

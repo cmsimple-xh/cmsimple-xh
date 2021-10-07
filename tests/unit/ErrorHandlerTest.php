@@ -28,13 +28,13 @@ class ErrorHandlerTest extends TestCase
      */
     private $errorHandling;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->errorHandling = error_reporting();
         error_reporting(-1);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         error_reporting($this->errorHandling);
     }

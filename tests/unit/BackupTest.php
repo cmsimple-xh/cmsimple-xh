@@ -21,7 +21,7 @@ class BackupTest extends TestCase
 
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pth, $cf, $tx;
 

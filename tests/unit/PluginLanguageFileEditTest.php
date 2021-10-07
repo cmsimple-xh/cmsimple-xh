@@ -27,7 +27,7 @@ class PluginLanguageFileEditTest extends TestCase
 {
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $sn, $pth, $file, $plugin;
 

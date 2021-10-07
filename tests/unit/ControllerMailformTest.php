@@ -48,10 +48,8 @@ class ControllerMailformTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $cf, $tx;
 
@@ -64,7 +62,7 @@ class ControllerMailformTest extends TestCase
         $this->sheadMock = $this->createFunctionMock('shead');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->sheadMock->restore();
     }

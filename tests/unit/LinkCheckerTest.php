@@ -23,7 +23,7 @@ class LinkCheckerTest extends TestCase
 {
     protected $linkChecker;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $c, $h, $u, $cl, $pth, $cf, $onload;
 

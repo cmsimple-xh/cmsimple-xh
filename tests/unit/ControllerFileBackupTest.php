@@ -34,10 +34,8 @@ class ControllerFileBackupTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $file, $_XH_csrfProtection;
 
@@ -48,7 +46,7 @@ class ControllerFileBackupTest extends TestCase
         $this->extraBackupMock = $this->createFunctionMock('XH_extraBackup');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->extraBackupMock->restore();
     }

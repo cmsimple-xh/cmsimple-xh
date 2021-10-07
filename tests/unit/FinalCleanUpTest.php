@@ -28,10 +28,8 @@ class FinalCleanUpTest extends TestCase
 
     /**
      * Sets up the default fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->setUpFunctionStubs();
         $this->setConstant('XH_ADM', true);
@@ -72,10 +70,8 @@ class FinalCleanUpTest extends TestCase
 
     /**
      * Tears down the function stubs.
-     *
-     * @return void
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->adminMenuStub->restore();
         $this->pluginsStub->restore();

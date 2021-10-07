@@ -23,7 +23,7 @@ class PagesTest extends TestCase
 {
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $h, $u, $l, $c, $cf;
 

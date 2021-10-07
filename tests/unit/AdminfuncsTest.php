@@ -23,7 +23,7 @@ use PHPUnit\Framework\Error\Warning as Warning;
  */
 class AdminfuncsTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->setConstant('XH_ADM', true);
     }

@@ -34,10 +34,8 @@ class ControllerFrontendFTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = new Controller();
     }

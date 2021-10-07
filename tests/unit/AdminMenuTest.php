@@ -17,7 +17,7 @@ class AdminMenuTest extends TestCase
 {
     private $plugins;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $edit, $cf;
 

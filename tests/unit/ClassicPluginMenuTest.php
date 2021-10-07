@@ -17,7 +17,7 @@ use org\bovigo\vfs\vfsStream;
 
 class ClassicPluginMenuTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         global $sn, $plugin, $sl, $tx, $_XH_pluginMenu;
 
