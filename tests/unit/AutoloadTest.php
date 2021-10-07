@@ -52,7 +52,7 @@ EOT;
      */
     protected $root;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pth;
 
@@ -71,7 +71,7 @@ EOT;
         spl_autoload_register('XH_autoload');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         spl_autoload_unregister('XH_autoload');
     }

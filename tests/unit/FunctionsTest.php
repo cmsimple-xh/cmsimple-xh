@@ -29,7 +29,7 @@ class FunctionsTest extends TestCase
     /**
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $cf, $tx;
 

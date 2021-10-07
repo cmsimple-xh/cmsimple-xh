@@ -23,7 +23,7 @@ class PasswordForgottenTest extends TestCase
 {
     protected $passwordForgotten;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $cf;
 

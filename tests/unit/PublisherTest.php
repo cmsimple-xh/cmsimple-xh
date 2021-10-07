@@ -18,7 +18,7 @@ class PublisherTest extends TestCase
      */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pd_router, $edit, $c, $l;
 

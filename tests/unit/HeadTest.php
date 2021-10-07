@@ -44,10 +44,8 @@ class HeadTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pth, $cf, $tx;
 
@@ -78,7 +76,7 @@ class HeadTest extends TestCase
      *
      * @return void
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->titleMock->restore();
         $this->pluginsMock->restore();

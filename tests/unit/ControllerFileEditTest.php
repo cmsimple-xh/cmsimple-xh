@@ -41,10 +41,8 @@ class ControllerFileEditTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockBuilder(Controller::class)->setMethods(array('makeFileEditor'))->getMock();
         $this->fileEditorMock = $this->createMock(CoreConfigFileEdit::class);

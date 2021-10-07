@@ -55,10 +55,8 @@ class ControllerStandardHeaderTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $cf;
 
@@ -69,7 +67,7 @@ class ControllerStandardHeaderTest extends TestCase
         $this->exitMock = $this->createFunctionMock('XH_exit');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->headersSentMock->restore();
         $this->headerMock->restore();

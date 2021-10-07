@@ -38,10 +38,8 @@ class ControllerLogoutTest extends ControllerLogInOutTestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pth;
 
@@ -55,7 +53,7 @@ class ControllerLogoutTest extends ControllerLogInOutTestCase
         $this->sessionNameMock = $this->createFunctionMock('session_name');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         $this->backupMock->restore();

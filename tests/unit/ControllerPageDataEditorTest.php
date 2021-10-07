@@ -41,10 +41,8 @@ class ControllerPageDataEditorTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->subject = $this->getMockBuilder(Controller::class)->setMethods(array('makePageDataEditor'))->getMock();
         $this->pageDataEditorMock = $this->createMock(PageDataEditor::class);

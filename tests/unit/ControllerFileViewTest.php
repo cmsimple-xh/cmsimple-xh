@@ -55,10 +55,8 @@ class ControllerFileViewTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $file;
 
@@ -85,7 +83,7 @@ class ControllerFileViewTest extends TestCase
         file_put_contents($pth['file']['content'], 'foo');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->exitMock->restore();
         $this->headerMock->restore();
