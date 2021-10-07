@@ -77,7 +77,7 @@ function amp()
 
     trigger_error('Function amp() is deprecated', E_USER_DEPRECATED);
 
-    if ($cf['xhtml']['amp'] == 'true') {
+    if (isset($cf['xhtml']['amp']) && $cf['xhtml']['amp'] == 'true') {
         return '&amp;';
     } else {
         return '&';
