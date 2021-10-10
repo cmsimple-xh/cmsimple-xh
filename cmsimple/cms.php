@@ -664,17 +664,6 @@ $search = null;
 $selected = null;
 
 /**
- * Whether the settings page is requested.
- *
- * This variable is initialized from a <var>settings</var> GET/POST parameter.
- *
- * @global string $settings
- *
- * @access private
- */
-$settings = null;
-
-/**
  * Whether the sitemap is requested.
  *
  * This variable is initialized from a <var>sitemap</var> GET/POST parameter.
@@ -698,17 +687,6 @@ $sitemap = null;
 $text = null;
 
 /**
- * Whether the link check is requested.
- *
- * This variable is initialized from a <var>validate</var> GET/POST parameter.
- *
- * @global string $validate
- *
- * @access private
- */
-$validate = null;
-
-/**
  * Whether the page manager is requested.
  *
  * This variable is initialized from a <var>xhpages</var> GET/POST parameter,
@@ -725,9 +703,8 @@ $xhpages = null;
 
 $temp = array(
     'action', 'admin', 'download', 'downloads', 'edit', 'file', 'function', 'images',
-    'login', 'logout', 'keycut', 'mailform', 'media', 'normal', 'phpinfo', 'print', 'search',
-    'selected', 'settings', 'sitemap', 'sysinfo', 'text', 'userfiles', 'validate', 'xhpages',
-    'xh_backups', 'xh_change_password', 'xh_do_validate', 'xh_pagedata', 'xh_plugins'
+    'login', 'logout', 'keycut', 'mailform', 'media', 'normal', 'print', 'search',
+    'selected', 'sitemap', 'text', 'userfiles', 'xhpages'
 );
 foreach ($temp as $i) {
     if (!isset($GLOBALS[$i])) {
