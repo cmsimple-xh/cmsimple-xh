@@ -412,7 +412,7 @@ function content()
 
     if (!($edit && XH_ADM) && $s > -1) {
         if (isset($_GET['search'])) {
-            $search = XH_hsc(trim(preg_replace('/\s+/u', ' ', (stsl($_GET['search'])))));
+            $search = XH_hsc(trim(preg_replace('/\s+/u', ' ', $_GET['search'])));
             $words = explode(' ', $search);
             $c[$s] = XH_highlightSearchWords($words, $c[$s]);
         }
@@ -526,6 +526,7 @@ function languagemenu()
     $i = array_search($sl, $r);
     unset($r[$i]);
 
+    $langName = [];
     $langNames = explode(';', $cf['language']['2nd_lang_names']);
     foreach ($langNames as $value) {
         $langName[substr($value, 0, 2)] = substr($value, 3);

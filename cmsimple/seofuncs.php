@@ -32,6 +32,7 @@ function XH_URI_Cleaning()
     global $su, $s, $xh_publisher, $pth;
 
     $parts = parse_url(CMSIMPLE_URL);
+    assert(isset($parts['scheme'], $parts['host'], $parts['path']));
     $scheme = $parts['scheme'];
     $host = $parts['host'];
     $port = '';
