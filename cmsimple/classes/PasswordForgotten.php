@@ -134,7 +134,7 @@ class PasswordForgotten
      * Resets the password to a randomly generated one and sends an appropriate
      * info email.
      *
-     * @return void.
+     * @return void
      */
     private function reset()
     {

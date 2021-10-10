@@ -312,7 +312,7 @@ class LinkChecker
                     )
                 )
             );
-            $headers = get_headers($url, 1, $context);
+            $headers = get_headers($url, true, $context);
             $status = array();
             for ($i = 0; $i <= $maxredir; $i++) {
                 if (!empty($headers[$i])) {
@@ -321,6 +321,7 @@ class LinkChecker
                     break;
                 }
             }
+            assert(isset($headers_tmp));
             preg_match('#HTTP/[0-9\.]+\s+([0-9]+)#i', $headers_tmp, $status);
             if (!empty($status[1])) {
                 return (int) $status[1];
