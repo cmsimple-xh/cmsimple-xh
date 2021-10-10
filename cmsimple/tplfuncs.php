@@ -469,7 +469,7 @@ function submenu($html = '')
 /**
  * Returns a link to the previous page.
  *
- * @return string HTML
+ * @return string|null HTML
  *
  * @see nextpage()
  */
@@ -481,13 +481,13 @@ function previouspage()
     if ($index !== false) {
         return '<a href="' . XH_getPageURL($index) . '" rel="prev">' . $tx['navigator']['previous'] . '</a>';
     }
-    return "";
+    return null;
 }
 
 /**
  * Returns a link to the next page
  *
- * @return string HTML
+ * @return string|null HTML
  *
  * @see previouspage()
  */
@@ -499,7 +499,7 @@ function nextpage()
     if ($index !== false) {
         return '<a href="' . XH_getPageURL($index) . '" rel="next">' . $tx['navigator']['next'] . '</a>';
     }
-    return "";
+    return null;
 }
 
 /**
