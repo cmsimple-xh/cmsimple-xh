@@ -260,9 +260,7 @@ class Controller
      */
     public function setBackendF()
     {
-        global $function, $validate, $xh_do_validate, $settings, $xh_backups,
-            $xh_pagedata, $sysinfo, $phpinfo, $file, $userfiles, $images,
-            $downloads, $f, $xh_change_password, $xh_plugins;
+        global $function, $file, $userfiles, $images, $downloads, $f;
 
         if ($function == 'save') {
             $f = 'save';
@@ -274,23 +272,23 @@ class Controller
             $f = 'userfiles';
         } elseif ($file) {
             $f = 'file';
-        } elseif ($phpinfo) {
+        } elseif (isset($_GET["phpinfo"]) || isset($_POST["phpinfo"])) {
             $f = 'phpinfo';
-        } elseif ($sysinfo) {
+        } elseif (isset($_GET["sysinfo"]) || isset($_POST["sysinfo"])) {
             $f = 'sysinfo';
-        } elseif ($xh_pagedata) {
+        } elseif (isset($_GET["xh_pagedata"]) || isset($_POST["xh_pagedata"])) {
             $f = 'xh_pagedata';
-        } elseif ($xh_backups) {
+        } elseif (isset($_GET["xh_backups"]) || isset($_POST["xh_backups"])) {
             $f = 'xh_backups';
-        } elseif ($settings) {
+        } elseif (isset($_GET["settings"]) || isset($_POST["settings"])) {
             $f = 'settings';
-        } elseif ($xh_do_validate) {
+        } elseif (isset($_GET["xh_do_validate"]) || isset($_POST["xh_do_validate"])) {
             $f = 'do_validate';
-        } elseif ($validate) {
+        } elseif (isset($_GET["validate"]) || isset($_POST["validate"])) {
             $f = 'validate';
-        } elseif ($xh_change_password) {
+        } elseif (isset($_GET["xh_change_password"]) || isset($_POST["xh_change_password"])) {
             $f = 'change_password';
-        } elseif ($xh_plugins) {
+        } elseif (isset($_GET["xh_plugins"]) || isset($_POST["xh_plugins"])) {
             $f = 'xh_plugins';
         }
     }

@@ -47,9 +47,9 @@ class ControllerBackendFTest extends TestCase
      */
     public function testValidate()
     {
-        global $validate, $f;
+        global $f;
 
-        $validate = 'true';
+        $_GET["validate"] = "validate";
         $this->subject->setBackendF();
         $this->assertEquals('validate', $f);
     }
@@ -61,9 +61,9 @@ class ControllerBackendFTest extends TestCase
      */
     public function testDoValidate()
     {
-        global $xh_do_validate, $f;
+        global $f;
 
-        $xh_do_validate = 'true';
+        $_GET["xh_do_validate"] = "xh_do_validate";
         $this->subject->setBackendF();
         $this->assertEquals('do_validate', $f);
     }
@@ -75,9 +75,9 @@ class ControllerBackendFTest extends TestCase
      */
     public function testSettings()
     {
-        global $settings, $f;
+        global $f;
 
-        $settings = 'true';
+        $_GET["settings"] = "settings";
         $this->subject->setBackendF();
         $this->assertEquals('settings', $f);
     }
@@ -89,9 +89,9 @@ class ControllerBackendFTest extends TestCase
      */
     public function testBackups()
     {
-        global $xh_backups, $f;
+        global $f;
 
-        $xh_backups = 'true';
+        $_GET["xh_backups"] = "xh_backups";
         $this->subject->setBackendF();
         $this->assertEquals('xh_backups', $f);
     }
@@ -103,9 +103,9 @@ class ControllerBackendFTest extends TestCase
      */
     public function testPagedata()
     {
-        global $xh_pagedata, $f;
+        global $f;
 
-        $xh_pagedata = 'true';
+        $_GET["xh_pagedata"] = "xh_pagedata";
         $this->subject->setBackendF();
         $this->assertEquals('xh_pagedata', $f);
     }
@@ -117,9 +117,9 @@ class ControllerBackendFTest extends TestCase
      */
     public function testSysinfo()
     {
-        global $sysinfo, $f;
+        global $f;
 
-        $sysinfo = 'true';
+        $_GET["sysinfo"] = "sysinfo";
         $this->subject->setBackendF();
         $this->assertEquals('sysinfo', $f);
     }
@@ -131,9 +131,9 @@ class ControllerBackendFTest extends TestCase
      */
     public function testPhpinfo()
     {
-        global $phpinfo, $f;
+        global $f;
 
-        $phpinfo = 'true';
+        $_GET["phpinfo"] = "phpinfo";
         $this->subject->setBackendF();
         $this->assertEquals('phpinfo', $f);
     }
