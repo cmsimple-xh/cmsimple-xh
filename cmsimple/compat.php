@@ -97,6 +97,7 @@ function guestbooklink()
     if (function_exists('gblink')) {
         return gblink();
     }
+    return "";
 }
 
 /**

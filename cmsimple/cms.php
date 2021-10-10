@@ -1238,7 +1238,11 @@ if (XH_ADM) {
         case 'validate':
         case 'do_validate':
             $temp = new XH\LinkChecker();
-            $o .= ($f == 'validate') ? $temp->prepare() : $temp->doCheck();
+            if ($f == 'validate') {
+                $o .= $temp->prepare();
+            } else {
+                $temp->doCheck();
+            }
             break;
         case 'change_password':
             $temp = new XH\ChangePassword();

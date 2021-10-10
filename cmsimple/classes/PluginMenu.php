@@ -137,7 +137,7 @@ abstract class PluginMenu
             $this->makeLanguageItem();
         }
         if (is_readable($pth['file']['plugin_help'])) {
-            $this->makeHelpItem($pth['file']['plugin_help']);
+            $this->makeHelpItem();
         }
     }
 

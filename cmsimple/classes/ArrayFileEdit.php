@@ -278,7 +278,7 @@ abstract class ArrayFileEdit extends FileEdit
      * and the file could be successfully saved.
      * Otherwise writes an error message to $e, and returns the edit form.
      *
-     * @return string HTML
+     * @return string|noreturn HTML
      */
     public function submit()
     {
@@ -313,9 +313,9 @@ abstract class ArrayFileEdit extends FileEdit
     /**
      * Returns an option array.
      *
-     * @param string $mcf  The meta config of the option.
+     * @param string|null $mcf  The meta config of the option.
      * @param mixed  $val  The current value of the option.
-     * @param string $hint A hint for the option usage.
+     * @param string|null $hint A hint for the option usage.
      *
      * @return array
      */

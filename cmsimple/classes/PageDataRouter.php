@@ -329,7 +329,7 @@ class PageDataRouter
                 $params = array();
             }
             return $this->model->replace($new_pages, $index);
-        } elseif (count($headings) == 1) {
+        } else {
             /*
              * The heading may have changed, stay up to date.
              */

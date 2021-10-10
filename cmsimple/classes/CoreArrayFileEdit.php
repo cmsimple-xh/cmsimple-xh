@@ -15,6 +15,9 @@ namespace XH;
  */
 abstract class CoreArrayFileEdit extends ArrayFileEdit
 {
+    /** @var string */
+    protected $varName;
+
     /**
      * Constructs an instance.
      */

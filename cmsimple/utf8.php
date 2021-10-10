@@ -99,7 +99,7 @@ function utf8_strpos($haystack, $needle, $offset = 0)
  * @param string $needle   A needle.
  * @param int    $offset   An offset in Unicode code points.
  *
- * @return int
+ * @return int|false
  */
 function utf8_stripos($haystack, $needle, $offset = 0)
 {

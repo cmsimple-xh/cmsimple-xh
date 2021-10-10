@@ -99,7 +99,12 @@ function XH_URI_Cleaning()
     }
 }
 
-//Encode QUERY_STRING for redirect with use uenc()
+/**
+ * Encode QUERY_STRING for redirect with use uenc()
+ * 
+ * @param string $url_query_str
+ * @return string
+ **/
 function XH_uenc_redir($url_query_str = '')
 {
     global $cf;

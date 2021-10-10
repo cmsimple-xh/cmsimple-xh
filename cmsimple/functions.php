@@ -50,6 +50,7 @@ function geturl($u)
         fclose($fh);
         return preg_replace("/.*<body[^>]*>(.*)<\/body>.*/is", '$1', $t);
     }
+    return "";
 }
 
 /**
@@ -72,6 +73,7 @@ function geturlwp($u)
         fclose($fh);
         return $t;
     }
+    return "";
 }
 
 /**
@@ -890,7 +892,7 @@ function a($i, $x)
  *
  * @param string $n The name attribute.
  *
- * @return string HTML
+ * @return string|null HTML
  */
 function meta($n)
 {
@@ -902,6 +904,7 @@ function meta($n)
         $content = XH_hsc($value);
         return '<meta name="' . $n . '" content="' . $content . '">' . "\n";
     }
+    return null;
 }
 
 /**
@@ -1382,13 +1385,14 @@ function XH_plugins($admin = false)
  *
  * @param string $s The name of the cookie.
  *
- * @return string
+ * @return string|null
  */
 function gc($s)
 {
     if (isset($_COOKIE[$s])) {
         return $_COOKIE[$s];
     }
+    return null;
 }
 
 /**
@@ -2262,7 +2266,7 @@ function XH_renameFile($oldname, $newname)
  *
  * @param mixed $status A status message or code.
  *
- * @return void
+ * @return noreturn
  *
  * @since 1.6.2
  */
