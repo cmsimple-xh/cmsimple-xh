@@ -306,6 +306,7 @@ function mailformlink()
     if ($cf['mailform']['email'] != '') {
         return ml('mailform');
     }
+    return "";
 }
 
 /**
@@ -323,6 +324,7 @@ function loginlink()
         return a($index, $extra . '&amp;login" rel="nofollow')
             . $tx['menu']['login'] . '</a>';
     }
+    return "";
 }
 
 
@@ -461,6 +463,7 @@ function submenu($html = '')
             }
         }
     }
+    return "";
 }
 
 /**
@@ -478,6 +481,7 @@ function previouspage()
     if ($index !== false) {
         return '<a href="' . XH_getPageURL($index) . '" rel="prev">' . $tx['navigator']['previous'] . '</a>';
     }
+    return "";
 }
 
 /**
@@ -495,6 +499,7 @@ function nextpage()
     if ($index !== false) {
         return '<a href="' . XH_getPageURL($index) . '" rel="next">' . $tx['navigator']['next'] . '</a>';
     }
+    return "";
 }
 
 /**
@@ -503,6 +508,7 @@ function nextpage()
  * To work, an appropriate ID has to be defined in the template.
  *
  * @param string $id An (X)HTML ID.
+ * @return string
  */
 function top($id = 'TOP')
 {

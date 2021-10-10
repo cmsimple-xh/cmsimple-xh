@@ -224,7 +224,7 @@ class Pages
      * @param int  $n            A page index.
      * @param bool $ignoreHidden Whether hidden pages should be ignored.
      *
-     * @return int
+     * @return int|null
      */
     public function parent($n, $ignoreHidden = true)
     {

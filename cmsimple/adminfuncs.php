@@ -515,7 +515,6 @@ function pluginMenu($add = '', $link = '', $target = '', $text = '', array $styl
             break;
         case 'SHOW':
             return $_XH_pluginMenu->show();
-            break;
     }
 }
 
