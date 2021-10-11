@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2017-2019 The CMSimple_XH developers.
+ * Copyright 2017-2021 The CMSimple_XH developers.
  *
  * This file is part of CMSimple_XH.
  *
