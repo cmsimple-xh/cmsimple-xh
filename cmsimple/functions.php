@@ -50,6 +50,7 @@ function geturl($u)
         fclose($fh);
         return preg_replace("/.*<body[^>]*>(.*)<\/body>.*/is", '$1', $t);
     }
+    return "";
 }
 
 /**
@@ -72,6 +73,7 @@ function geturlwp($u)
         fclose($fh);
         return $t;
     }
+    return "";
 }
 
 /**
@@ -773,8 +775,8 @@ function XH_readContents($language = null)
             $temp = $tx['toc']['empty'] . ' ' . $empty;
         }
         $h[] = $temp;
-        $ancestors[$l[$i] - 1] = XH_uenc($temp, $search, $replace);
-        $ancestors = array_slice($ancestors, 0, $l[$i]);
+        $ancestors[(int) $l[$i] - 1] = XH_uenc($temp, $search, $replace);
+        $ancestors = array_slice($ancestors, 0, (int) $l[$i]);
         $url = implode($cf['uri']['seperator'], $ancestors);
         $u[] = utf8_substr($url, 0, (int) $cf['uri']['length']);
         $tooLong[] = utf8_strlen($url) > $cf['uri']['length'];
@@ -890,7 +892,7 @@ function a($i, $x)
  *
  * @param string $n The name attribute.
  *
- * @return string HTML
+ * @return string|null HTML
  */
 function meta($n)
 {
@@ -902,6 +904,7 @@ function meta($n)
         $content = XH_hsc($value);
         return '<meta name="' . $n . '" content="' . $content . '">' . "\n";
     }
+    return null;
 }
 
 /**
@@ -1060,7 +1063,7 @@ function tag($s)
  *
  * @param int $s The HTTP status response code (401, 403, 404).
  *
- * @return void.
+ * @return void
  */
 function shead($s)
 {
@@ -1115,7 +1118,7 @@ function XH_debugmode()
     $dbglevel = '';
     $filename = $pth['folder']['downloads'] . '_XHdebug.txt';
     if (file_exists($filename)) {
-        ini_set('display_errors', 0);
+        ini_set('display_errors', "0");
         $dbglevel = file_get_contents($filename);
         if (strlen($dbglevel) == 1) {
             set_error_handler('XH_debug');
@@ -1150,7 +1153,7 @@ function XH_debugmode()
             error_reporting(E_ERROR | E_USER_ERROR | E_USER_WARNING | E_PARSE);
         }
     } else {
-        ini_set('display_errors', 0);
+        ini_set('display_errors', "0");
         error_reporting(0);
     }
     return error_reporting() > 0;
@@ -1382,19 +1385,20 @@ function XH_plugins($admin = false)
  *
  * @param string $s The name of the cookie.
  *
- * @return string
+ * @return string|null
  */
 function gc($s)
 {
     if (isset($_COOKIE[$s])) {
         return $_COOKIE[$s];
     }
+    return null;
 }
 
 /**
  * Returns wether the user is logged in.
  *
- * @return bool.
+ * @return bool
  */
 function logincheck()
 {
@@ -1961,7 +1965,7 @@ function XH_isInternalPath($path)
 /**
  * Returns whether a URL points to this CMSimple installation.
  *
- * @param string $urlParts Parts of an URL.
+ * @param array $urlParts Parts of an URL.
  *
  * @return bool
  *
@@ -2262,7 +2266,7 @@ function XH_renameFile($oldname, $newname)
  *
  * @param mixed $status A status message or code.
  *
- * @return void
+ * @return noreturn
  *
  * @since 1.6.2
  */

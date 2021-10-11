@@ -89,6 +89,7 @@ class PageDataEditor
                 return XH_message('success', $ptx['deleted_' . $suffix], $deleted);
             }
         }
+        return "";
     }
 
     /**

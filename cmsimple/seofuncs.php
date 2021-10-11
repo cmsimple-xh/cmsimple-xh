@@ -32,6 +32,7 @@ function XH_URI_Cleaning()
     global $su, $s, $xh_publisher, $pth;
 
     $parts = parse_url(CMSIMPLE_URL);
+    assert(isset($parts['scheme'], $parts['host'], $parts['path']));
     $scheme = $parts['scheme'];
     $host = $parts['host'];
     $port = '';
@@ -98,7 +99,12 @@ function XH_URI_Cleaning()
     }
 }
 
-//Encode QUERY_STRING for redirect with use uenc()
+/**
+ * Encode QUERY_STRING for redirect with use uenc()
+ *
+ * @param string $url_query_str
+ * @return string
+ **/
 function XH_uenc_redir($url_query_str = '')
 {
     global $cf;

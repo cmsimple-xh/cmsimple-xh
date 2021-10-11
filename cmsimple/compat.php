@@ -97,6 +97,7 @@ function guestbooklink()
     if (function_exists('gblink')) {
         return gblink();
     }
+    return "";
 }
 
 /**
@@ -117,7 +118,7 @@ function chkdl($fl)
     $m = false;
     if (is_dir($pth['folder']['downloads'])) {
         if ($fd = opendir($pth['folder']['downloads'])) {
-            while (($p = readdir($fd)) == true) {
+            while (($p = readdir($fd))) {
                 if (preg_match("/.+\..+$/", $p)) {
                     if ($fl == $sn . '?download=' . $p) {
                         $m = true;
