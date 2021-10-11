@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2013-2019 Christoph M. Becker
+ * Copyright 2013-2021 Christoph M. Becker
  *
  * This file is part of ReqCheck_XH.
  *
