@@ -8,7 +8,6 @@ namespace XH;
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2013-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
- * @see       http://cmsimple-xh.org/
  * @since     1.6
  */
 class PageDataEditor
