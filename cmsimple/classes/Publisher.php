@@ -16,7 +16,7 @@ namespace XH;
  * @author    Jerry Jakobsfeld <mail@simplesolutions.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @copyright GNU GPLv3 http://www.gnu.org/licenses/gpl-3.0.en.html
  * @see       http://cmsimple-xh.org/
  * @since     1.7
  */
