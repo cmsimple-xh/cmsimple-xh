@@ -93,7 +93,7 @@ const XH_URICHAR_SEPARATOR = '|';
  *
  * @var string $title
  *
- * @access public
+ * @public
  */
 $title = '';
 
@@ -106,7 +106,7 @@ $title = '';
  *
  * @global string $o
  *
- * @access public
+ * @public
  */
 $o = '';
 
@@ -118,7 +118,7 @@ $o = '';
  *
  * @global string $e
  *
- * @access public
+ * @public
  *
  * @see e()
  */
@@ -132,7 +132,7 @@ $e = '';
  *
  * @global string $hjs
  *
- * @access public
+ * @public
  *
  * @see $bjs
  */
@@ -146,7 +146,7 @@ $hjs = '';
  *
  * @global string $bjs
  *
- * @access public
+ * @public
  *
  * @see $hjs
  *
@@ -164,7 +164,7 @@ $bjs = '';
  *
  * @global string $onload
  *
- * @access public
+ * @public
  */
 $onload = '';
 
@@ -175,7 +175,7 @@ $onload = '';
  *
  * @global mixed $temp
  *
- * @access public
+ * @public
  */
 $temp = null;
 
@@ -186,7 +186,7 @@ $temp = null;
  *
  * @global mixed $i
  *
- * @access public
+ * @public
  */
 $i = null;
 
@@ -197,7 +197,7 @@ $i = null;
  *
  * @global mixed $j
  *
- * @access public
+ * @public
  */
 $j = null;
 
@@ -221,7 +221,7 @@ const CMSIMPLE_XH_DATE = '@CMSIMPLE_XH_DATE@';
  *
  * @global array $pth
  *
- * @access public
+ * @public
  *
  * @link http://www.cmsimple-xh.org/wiki/doku.php/core_variables#pth
  */
@@ -253,7 +253,7 @@ require_once $pth['folder']['cmsimple'] . 'seofuncs.php';
  *
  * @var XH\Controller
  *
- * @access private
+ * @private
  */
 $_XH_controller = new XH\Controller();
 
@@ -264,7 +264,7 @@ $_XH_controller = new XH\Controller();
  *
  * @global array $cf
  *
- * @access public
+ * @public
  *
  * @see $plugin_cf
  */
@@ -303,7 +303,7 @@ if ($cf['site']['compat']) {
  *
  * @global array $errors
  *
- * @access private
+ * @private
  */
 $errors = array();
 xh_debugmode();
@@ -325,7 +325,7 @@ if ($cf['site']['timezone'] !== '' && function_exists('date_default_timezone_set
  *
  * @global string $sl
  *
- * @access public
+ * @public
  */
 $sl = '';
 if (preg_match('/\/([A-z]{2})\/index.php$/', sv('SCRIPT_NAME'), $temp)
@@ -355,7 +355,7 @@ XH_createLanguageFile($pth['file']['language']);
  *
  * @global array $tx
  *
- * @access public
+ * @public
  *
  * @see $plugin_tx
  */
@@ -380,7 +380,7 @@ $tx['meta']['codepage']='UTF-8';
  *
  * @global array $txc
  *
- * @access public
+ * @public
  *
  * @deprecated since 1.6 (use $cf resp. $tx instead).
  */
@@ -402,7 +402,7 @@ XH_checkValidUtf8(
  *
  * Should be treated as <i>read-only</i>.
  *
- * @access public
+ * @public
  *
  * @global bool $iis
  */
@@ -413,7 +413,7 @@ $iis = strpos(sv('SERVER_SOFTWARE'), "IIS");
  *
  * Should be treated as <i>read-only</i>.
  *
- * @access public
+ * @public
  *
  * @global bool $cgi
  */
@@ -426,7 +426,7 @@ $cgi = (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi');
  *
  * @global string $sn
  *
- * @access public
+ * @public
  *
  * @see CMSIMPLE_URL
  */
@@ -441,7 +441,7 @@ $sn = preg_replace('/([^\?]*)\?.*/', '$1', sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_U
  *
  * @global string $admin
  *
- * @access public
+ * @public
  */
 $admin = null;
 
@@ -454,7 +454,7 @@ $admin = null;
  *
  * @global string $action
  *
- * @access public
+ * @public
  */
 $action = null;
 
@@ -467,7 +467,7 @@ $action = null;
  *
  * @global string $function
  *
- * @access public
+ * @public
  */
 $function = null;
 
@@ -480,7 +480,7 @@ $function = null;
  *
  * @global string $login
  *
- * @access private
+ * @private
  */
 $login = null;
 
@@ -494,7 +494,7 @@ $login = null;
  *
  * @global string $keycut
  *
- * @access private
+ * @private
  */
 $keycut = null;
 
@@ -506,7 +506,7 @@ $keycut = null;
  *
  * @global string $logout
  *
- * @access private
+ * @private
  */
 $logout = null;
 
@@ -518,7 +518,7 @@ $logout = null;
  *
  * @global string $mailform
  *
- * @access private
+ * @private
  */
 $mailform = null;
 
@@ -529,7 +529,7 @@ $mailform = null;
  *
  * @global string $download
  *
- * @access private
+ * @private
  */
 $download = null;
 
@@ -542,7 +542,7 @@ $download = null;
  *
  * @global string $downloads
  *
- * @access public
+ * @public
  */
 $downloads = null;
 
@@ -555,7 +555,7 @@ $downloads = null;
  *
  * @global string $images
  *
- * @access public
+ * @public
  */
 $images = null;
 
@@ -568,7 +568,7 @@ $images = null;
  *
  * @global string $media
  *
- * @access public
+ * @public
  */
 $media = null;
 
@@ -581,7 +581,7 @@ $media = null;
  *
  * @global string $userfiles
  *
- * @access public
+ * @public
  */
 $userfiles = null;
 
@@ -594,7 +594,7 @@ $userfiles = null;
  *
  * @global string $edit
  *
- * @access public
+ * @public
  *
  * @see $normal
  */
@@ -610,7 +610,7 @@ $edit = null;
  *
  * @global string $normal
  *
- * @access public
+ * @public
  *
  * @see $edit
  */
@@ -624,7 +624,7 @@ $normal = null;
  *
  * @global string $print
  *
- * @access public
+ * @public
  */
 $print = null;
 
@@ -635,7 +635,7 @@ $print = null;
  *
  * @global string $file
  *
- * @access private
+ * @private
  */
 $file = null;
 
@@ -647,7 +647,7 @@ $file = null;
  *
  * @global string $search
  *
- * @access public
+ * @public
  */
 $search = null;
 
@@ -659,7 +659,7 @@ $search = null;
  *
  * @global string $selected
  *
- * @access private
+ * @private
  */
 $selected = null;
 
@@ -670,7 +670,7 @@ $selected = null;
  *
  * @global string $settings
  *
- * @access private
+ * @private
  */
 $settings = null;
 
@@ -682,7 +682,7 @@ $settings = null;
  *
  * @global string $sitemap
  *
- * @access private
+ * @private
  */
 $sitemap = null;
 
@@ -693,7 +693,7 @@ $sitemap = null;
  *
  * @global string $text
  *
- * @access private
+ * @private
  */
 $text = null;
 
@@ -704,7 +704,7 @@ $text = null;
  *
  * @global string $validate
  *
- * @access private
+ * @private
  */
 $validate = null;
 
@@ -717,7 +717,7 @@ $validate = null;
  *
  * @global string $xhpages
  *
- * @access public
+ * @public
  *
  * @link http://www.cmsimple-xh.org/wiki/doku.php/plugin_interfaces#page_managers
  */
@@ -772,7 +772,7 @@ define(
  *
  * @global string $su
  *
- * @access public
+ * @public
  *
  * @see $selected
  * @see $u
@@ -818,7 +818,7 @@ $pth['file']['mailform'] = $pth['folder']['cmsimple'] . 'mailform.php';
  *
  * @global bool $adm
  *
- * @access public
+ * @public
  *
  * @see XH_ADM
  */
@@ -833,7 +833,7 @@ $adm = 0;
  *
  * @global string $f
  *
- * @access public
+ * @public
  */
 $f = '';
 
@@ -842,7 +842,7 @@ $f = '';
  *
  * @global XH\ClassicPluginMenu $_XH_pluginMenu
  *
- * @access private
+ * @private
  */
 $_XH_pluginMenu = new XH\ClassicPluginMenu();
 
@@ -853,7 +853,7 @@ $_XH_pluginMenu = new XH\ClassicPluginMenu();
  *
  * @global string $plugin
  *
- * @access public
+ * @public
  */
 $plugin = null;
 
@@ -874,7 +874,7 @@ foreach (XH_plugins() as $plugin) {
  *
  * @global XH\CSRFProtection $_XH_csrfProtection
  *
- * @access public
+ * @public
  *
  * @tutorial CSRFProtection.cls
  */
@@ -915,7 +915,7 @@ $_XH_controller->setFunctionsAsPermitted();
  *
  * @global int $cl
  *
- * @access public
+ * @public
  */
 $cl = 0;
 
@@ -926,7 +926,7 @@ $cl = 0;
  *
  * @global XH\PageDataRouter $pd_router
  *
- * @access public
+ * @public
  */
 $pd_router = null;
 
@@ -935,7 +935,7 @@ $pd_router = null;
  *
  * @global XH::Publisher $xh_publisher
  *
- * @access public
+ * @public
  *
  * @since 1.7.0
  */
@@ -950,7 +950,7 @@ $xh_publisher = null;
  *
  * @global int $s
  *
- * @access public
+ * @public
  */
 $s = -1;
 
@@ -961,7 +961,7 @@ $s = -1;
  *
  * @global array $c
  *
- * @access public
+ * @public
  */
 $c = null;
 
@@ -972,7 +972,7 @@ $c = null;
  *
  * @global array $h
  *
- * @access public
+ * @public
  *
  * @see h()
  */
@@ -985,7 +985,7 @@ $h = null;
  *
  * @global array $u
  *
- * @access public
+ * @public
  *
  * @see $su
  */
@@ -998,7 +998,7 @@ $u = null;
  *
  * @global array $l
  *
- * @access public
+ * @public
  *
  * @see l()
  */
@@ -1060,7 +1060,7 @@ if (XH_ADM) {
  *
  * @global int $pd_s
  *
- * @access public
+ * @public
  *
  * @see $s
  */
@@ -1073,7 +1073,7 @@ $pd_s = ($s == -1 && !$f && $o == '' && $su == '') ? $xh_publisher->getFirstPubl
  *
  * @global array $pd_current
  *
- * @access public
+ * @public
  */
 $pd_current = $pd_router->find_page($pd_s);
 
@@ -1084,7 +1084,7 @@ $pd_current = $pd_router->find_page($pd_s);
  *
  * @global XH\PluginConfig $plugin_cf
  *
- * @access public
+ * @public
  *
  * @see $cf
  */
@@ -1097,7 +1097,7 @@ $plugin_cf = new XH\PluginConfig();
  *
  * @global XH\PluginConfig $plugin_tx
  *
- * @access public
+ * @public
  *
  * @see $tx
  */
@@ -1153,7 +1153,7 @@ switch ($f) {
  *
  * @global array $hc
  *
- * @access public
+ * @public
  */
 $hc = array();
 
@@ -1162,7 +1162,7 @@ $hc = array();
  *
  * @global int $hl
  *
- * @access private
+ * @private
  */
 $hl = -1;
 
@@ -1171,7 +1171,7 @@ $hl = -1;
  *
  * @global int $si
  *
- * @access private
+ * @private
  */
 $si = -1;
 
@@ -1284,7 +1284,7 @@ if (XH_ADM) {
  *
  * @global string $output
  *
- * @access public
+ * @public
  */
 $output = null;
 if (!($edit && XH_ADM) && $s > -1) {
