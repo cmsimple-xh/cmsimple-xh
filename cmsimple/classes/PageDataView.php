@@ -32,8 +32,8 @@ class PageDataView
     /**
      * Constructs an instance.
      *
-     * @param array  $page Data of the page.
-     * @param ?array $tabs The filenames of the views of page data tabs.
+     * @param array      $page Data of the page.
+     * @param array|null $tabs The filenames of the views of page data tabs.
      */
     public function __construct(array $page, array $tabs = null)
     {
