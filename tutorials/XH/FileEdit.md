@@ -45,8 +45,8 @@ only displayed if the user presses the `More …` button in the configuration.
 Usage {#usage}
 ==============
 
-To display the edit form ::form() has to be called; to handle the
-form submission ::submit() has to be called. For instance:
+To display the edit form XH::FileEdit::form() has to be called; to handle the
+form submission XH::FileEdit::submit() has to be called. For instance:
 
 ````{.php}
 require_once $pth['folder']['classes'] . 'FileEdit.php';

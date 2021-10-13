@@ -2058,7 +2058,7 @@ function XH_encodeJson($value)
 
 /**
  * Returns whether an error has occurred
- * during the last {@link XH_decodeJSON()}.
+ * during the last XH_decodeJson().
  *
  * @return bool
  *
@@ -2239,7 +2239,7 @@ function XH_unionOf2DArrays(array $array1, array $array2)
  * The file is moved between directories if necessary. If newname exists, it
  * will be overwritten.
  *
- * This is a wrapper around {@link rename rename()}, which offers a fallback for
+ * This is a wrapper around rename(), which offers a fallback for
  * the limitation of PHP < 5.3 on Windows that the rename operation fails, if
  * <var>$newfile</var> already exists. Note, that the fallback solution is not
  * atomic.
@@ -2431,7 +2431,7 @@ function XH_formatDate($timestamp)
 /**
  * Implements portable advisory file locking.
  *
- * For now it is just a simple wrapper around {@link flock flock()}.
+ * For now it is just a simple wrapper around flock().
  *
  * @param resource $handle    A file handle.
  * @param int      $operation A lock operation (use LOCK_SH, LOCK_EX or LOCK_UN).
