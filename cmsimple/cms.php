@@ -88,7 +88,7 @@ const XH_URICHAR_SEPARATOR = '|';
 /**
  * The title of the current page.
  *
- * This <i>read-write</i> variable can be used to set the page title in the
+ * This *read-write* variable can be used to set the page title in the
  * plugin administration and for special extension pages.
  *
  * @var string $title
@@ -100,7 +100,7 @@ $title = '';
 /**
  * The HTML for the contents area.
  *
- * This <i>read-write</i> variable is used to buffer the output, which is
+ * This *read-write* variable is used to buffer the output, which is
  * prepended to the contents of the current page (if any). Usually you will
  * only append to this variable.
  *
@@ -111,9 +111,9 @@ $title = '';
 $o = '';
 
 /**
- * The HTML for the <li>s holding error messages.
+ * The HTML for the `<li>`s holding error messages.
  *
- * This <i>read-write</i> variable can be used to add error messages above the
+ * This *read-write* variable can be used to add error messages above the
  * content. Usually you will only append to this variable.
  *
  * @var string $e
@@ -125,9 +125,9 @@ $o = '';
 $e = '';
 
 /**
- * HTML that will be inserted to the <head> section.
+ * HTML that will be inserted to the `<head>` section.
  *
- * This <i>read-write</i> variable can be used to add script, style, meta and link
+ * This *read-write* variable can be used to add script, style, meta and link
  * elements etc. to the head element. Usually you will only append to this variable.
  *
  * @var string $hjs
@@ -139,9 +139,9 @@ $e = '';
 $hjs = '';
 
 /**
- * HTML that will be inserted right before the </body> tag.
+ * HTML that will be inserted right before the `</body>` tag.
  *
- * This <i>read-write</i> variable can be used to add script elements to the end
+ * This *read-write* variable can be used to add script elements to the end
  * of the body element. Usually you will only append to this variable.
  *
  * @var string $bjs
@@ -159,7 +159,7 @@ $bjs = '';
 /**
  * JavaScript for the onload attribute of the body element.
  *
- * This <i>read-write</i> variable can be used to register window onload event
+ * This *read-write* variable can be used to register window onload event
  * handlers. Usually you will only append to this variable.
  *
  * @var string $onload
@@ -171,7 +171,7 @@ $onload = '';
 /**
  * A temporary value.
  *
- * This <i>read-write</i> variable can be used to avoid polluting the global scope.
+ * This *read-write* variable can be used to avoid polluting the global scope.
  *
  * @var mixed $temp
  *
@@ -182,7 +182,7 @@ $temp = null;
 /**
  * A temporary (loop) value.
  *
- * This <i>read-write</i> variable can be used to avoid polluting the global scope.
+ * This *read-write* variable can be used to avoid polluting the global scope.
  *
  * @var mixed $i
  *
@@ -193,7 +193,7 @@ $i = null;
 /**
  * A temporary (loop) value.
  *
- * This <i>read-write</i> variable can be used to avoid polluting the global scope.
+ * This *read-write* variable can be used to avoid polluting the global scope.
  *
  * @var mixed $j
  *
@@ -217,7 +217,7 @@ const CMSIMPLE_XH_DATE = '@CMSIMPLE_XH_DATE@';
 /**
  * A two dimensional array that holds the paths of important files and folders.
  *
- * Should be treated as <i>read-only</i>.
+ * Should be treated as *read-only*.
  *
  * @var array $pth
  *
@@ -260,7 +260,7 @@ $_XH_controller = new XH\Controller();
 /**
  * The configuration of the core.
  *
- * Should be treated as <i>read-only</i>.
+ * Should be treated as *read-only*.
  *
  * @var array $cf
  *
@@ -321,7 +321,7 @@ if ($cf['site']['timezone'] !== '' && function_exists('date_default_timezone_set
 /**
  * The current language.
  *
- * This <i>read-only</i> variable contains an ISO 639-1 language code.
+ * This *read-only* variable contains an ISO 639-1 language code.
  *
  * @var string $sl
  *
@@ -351,7 +351,7 @@ XH_createLanguageFile($pth['file']['language']);
 /**
  * The localization of the core.
  *
- * Should be treated as <i>read-only</i>.
+ * Should be treated as *read-only*.
  *
  * @var array $tx
  *
@@ -400,7 +400,7 @@ XH_checkValidUtf8(
 /**
  * Whether the webserver is IIS.
  *
- * Should be treated as <i>read-only</i>.
+ * Should be treated as *read-only*.
  *
  * @public
  *
@@ -411,7 +411,7 @@ $iis = strpos(sv('SERVER_SOFTWARE'), "IIS");
 /**
  * Whether PHP is executed as (F)CGI.
  *
- * Should be treated as <i>read-only</i>.
+ * Should be treated as *read-only*.
  *
  * @public
  *
@@ -422,7 +422,7 @@ $cgi = (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi');
 /**
  * The relative path of the root folder, i.e. the script name.
  *
- * Should be treated as <i>read-only</i>.
+ * Should be treated as *read-only*.
  *
  * @var string $sn
  *
@@ -435,7 +435,7 @@ $sn = preg_replace('/([^\?]*)\?.*/', '$1', sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_U
 /**
  * The requested plugin administration part.
  *
- * This <i>read-only</i> variable is initialized from an <var>admin</var>
+ * This *read-only* variable is initialized from an `admin`
  * GET/POST parameter, and is usually used in combination with
  * {@link $action} to request some functionality of a plugin back-end.
  *
@@ -448,7 +448,7 @@ $admin = null;
 /**
  * The requested action.
  *
- * This <i>read-only</i> variable is initialized from an <var>action</var>
+ * This *read-only* variable is initialized from an `action`
  * GET/POST parameter, and is usually used in combination with
  * {@link $admin} to request some functionality of a plugin back-end.
  *
@@ -461,9 +461,9 @@ $action = null;
 /**
  * The requested function.
  *
- * This variable is set from a <var>function</var> GET/POST parameter, which
+ * This variable is set from a `function` GET/POST parameter, which
  * denotes some special functionality. If set from your extension treat it as
- * <i>read-write</i>; otherwise ignore it.
+ * *read-write*; otherwise ignore it.
  *
  * @var string $function
  *
@@ -474,7 +474,7 @@ $function = null;
 /**
  * Whether login is requested.
  *
- * This variable is initialized from a <var>login</var> GET/POST parameter.
+ * This variable is initialized from a `login` GET/POST parameter.
  * If the login has been successful, {@link $f} == 'login'; otherwise {@link $f}
  * == 'xh_login_failed'.
  *
@@ -487,9 +487,9 @@ $login = null;
 /**
  * The admin password.
  *
- * This variable is initialized from a <var>keycut</var> GET/POST parameter.
+ * This variable is initialized from a `keycut` GET/POST parameter.
  *
- * This variable has been renamed from <var>$passwd</var> since CMSimple_XH 1.6
+ * This variable has been renamed from `$passwd` since CMSimple_XH 1.6
  * to avoid trouble with mod_security.
  *
  * @var string $keycut
@@ -501,7 +501,7 @@ $keycut = null;
 /**
  * Whether logout is requested.
  *
- * This variable is initialized from a <var>logout</var> GET/POST parameter.
+ * This variable is initialized from a `logout` GET/POST parameter.
  * On logout {@link $f} == 'xh_loggedout'.
  *
  * @var string $logout
@@ -513,7 +513,7 @@ $logout = null;
 /**
  * Whether the mailform is requested.
  *
- * This variable is initialized from a <var>mailform</var> GET/POST parameter.
+ * This variable is initialized from a `mailform` GET/POST parameter.
  * If the mailform has been requested {@link $f} == 'mailform'.
  *
  * @var string $mailform
@@ -525,7 +525,7 @@ $mailform = null;
 /**
  * The filename requested for download.
  *
- * This variable is initialized from a <var>download</var> GET/POST parameter.
+ * This variable is initialized from a `download` GET/POST parameter.
  *
  * @var string $download
  *
@@ -536,9 +536,9 @@ $download = null;
 /**
  * Whether the file browser is requested to show the download folder.
  *
- * This variable is initialized from a <var>downloads</var> GET/POST parameter,
+ * This variable is initialized from a `downloads` GET/POST parameter,
  * and should only be used by file browsers and similar extensions, which may
- * treat it as <i>read-write</i>.
+ * treat it as *read-write*.
  *
  * @var string $downloads
  *
@@ -549,9 +549,9 @@ $downloads = null;
 /**
  * Whether the file browser is requested to show the image folder.
  *
- * This variable is initialized from a <var>images</var> GET/POST parameter,
+ * This variable is initialized from a `images` GET/POST parameter,
  * and should only be used by file browsers and similar extensions, which may
- * treat it as <i>read-write</i>.
+ * treat it as *read-write*.
  *
  * @var string $images
  *
@@ -562,9 +562,9 @@ $images = null;
 /**
  * Whether the file browser is requested to show the media folder.
  *
- * This variable is initialized from a <var>media</var> GET/POST parameter,
+ * This variable is initialized from a `media` GET/POST parameter,
  * and should only be used by file browsers and similar extensions, which may
- * treat it as <i>read-write</i>.
+ * treat it as *read-write*.
  *
  * @var string $media
  *
@@ -575,9 +575,9 @@ $media = null;
 /**
  * Whether the file browser is requested to show the userfiles folder.
  *
- * This variable is initialized from a <var>userfiles</var> GET/POST parameter,
+ * This variable is initialized from a `userfiles` GET/POST parameter,
  * and should only be used by file browsers and similar extensions, which may
- * treat it as <i>read-write</i>.
+ * treat it as *read-write*.
  *
  * @var string $userfiles
  *
@@ -588,9 +588,9 @@ $userfiles = null;
 /**
  * Whether edit mode is requested.
  *
- * This <i>read-only</i> variable is initialized from a <var>edit</var>
- * GET/POST parameter or the <var>mode</var> cookie. If you want to switch to
- * edit mode, set the <var>edit</var> GET parameter.
+ * This *read-only* variable is initialized from an `edit`
+ * GET/POST parameter or the `mode` cookie. If you want to switch to
+ * edit mode, set the `edit` GET parameter.
  *
  * @var string $edit
  *
@@ -603,10 +603,10 @@ $edit = null;
 /**
  * Whether normal (aka view) mode is requested.
  *
- * This <i>read-only</i> variable is initialized from a <var>normal</var>
- * GET/POST parameter, but not from the <var>mode</var> cookie. If you want to
- * detect normal mode, check for <code>!$edit</code>. If you want to switch to
- * normal mode, set the <var>normal</var> GET parameter.
+ * This *read-only* variable is initialized from a `normal`
+ * GET/POST parameter, but not from the `mode` cookie. If you want to
+ * detect normal mode, check for `!$edit`. If you want to switch to
+ * normal mode, set the `normal` GET parameter.
  *
  * @var string $normal
  *
@@ -619,7 +619,7 @@ $normal = null;
 /**
  * Whether print mode is requested.
  *
- * This <i>read-only</i> variable is initialized from a <var>print</var> GET/POST
+ * This *read-only* variable is initialized from a `print` GET/POST
  * parameter.
  *
  * @var string $print
@@ -631,7 +631,7 @@ $print = null;
 /**
  * The name of a special file to be handled in the back-end.
  *
- * This variable is initialized from a <var>file</var> GET/POST parameter.
+ * This variable is initialized from a `file` GET/POST parameter.
  *
  * @var string $file
  *
@@ -642,7 +642,7 @@ $file = null;
 /**
  * The current search string.
  *
- * This <i>read-only</i> variable is initialized from a <var>search</var>
+ * This *read-only* variable is initialized from a `search`
  * GET/POST parameter.
  *
  * @var string $search
@@ -654,7 +654,7 @@ $search = null;
 /**
  * The URL of the requested page.
  *
- * This variable is initialized from a <var>selected</var> GET/POST parameter.
+ * This variable is initialized from a `selected` GET/POST parameter.
  * If present {@link $su} is set accordingly.
  *
  * @var string $selected
@@ -666,7 +666,7 @@ $selected = null;
 /**
  * Whether the settings page is requested.
  *
- * This variable is initialized from a <var>settings</var> GET/POST parameter.
+ * This variable is initialized from a `settings` GET/POST parameter.
  *
  * @var string $settings
  *
@@ -677,7 +677,7 @@ $settings = null;
 /**
  * Whether the sitemap is requested.
  *
- * This variable is initialized from a <var>sitemap</var> GET/POST parameter.
+ * This variable is initialized from a `sitemap` GET/POST parameter.
  * If the sitemap is requested {@link $f} == 'sitemap'.
  *
  * @var string $sitemap
@@ -689,7 +689,7 @@ $sitemap = null;
 /**
  * The text of the editor on save.
  *
- * This variable is initialized from a <var>text</var> GET/POST parameter.
+ * This variable is initialized from a `text` GET/POST parameter.
  *
  * @var string $text
  *
@@ -700,7 +700,7 @@ $text = null;
 /**
  * Whether the link check is requested.
  *
- * This variable is initialized from a <var>validate</var> GET/POST parameter.
+ * This variable is initialized from a `validate` GET/POST parameter.
  *
  * @var string $validate
  *
@@ -711,9 +711,9 @@ $validate = null;
 /**
  * Whether the page manager is requested.
  *
- * This variable is initialized from a <var>xhpages</var> GET/POST parameter,
+ * This variable is initialized from a `xhpages` GET/POST parameter,
  * and should only be used by page managers, which may treat it as
- * <i>read-write</i>.
+ * *read-write*.
  *
  * @var string $xhpages
  *
@@ -768,7 +768,7 @@ define(
 /**
  * The current page's URL (selected URL).
  *
- * Should be treated as <i>read-only</i>.
+ * Should be treated as *read-only*.
  *
  * @var string $su
  *
@@ -814,7 +814,7 @@ $pth['file']['mailform'] = $pth['folder']['cmsimple'] . 'mailform.php';
 /**
  * Whether admin mode is active.
  *
- * This variable is strictly <i>read-only</i>.
+ * This variable is strictly *read-only*.
  *
  * @var bool $adm
  *
@@ -827,9 +827,9 @@ $adm = 0;
 /**
  * The requested function.
  *
- * This <i>read-write</i> variable is initialized from different GET/POST
- * parameters. Usually you will want to treat it as <i>read-only</i> or even as
- * <i>private</i>.
+ * This *read-write* variable is initialized from different GET/POST
+ * parameters. Usually you will want to treat it as *read-only* or even as
+ * *private*.
  *
  * @var string $f
  *
@@ -849,7 +849,7 @@ $_XH_pluginMenu = new XH\ClassicPluginMenu();
 /**
  * The currently loaded plugin.
  *
- * Should be treated as <i>read-only</i>.
+ * Should be treated as *read-only*.
  *
  * @var string $plugin
  *
@@ -870,7 +870,7 @@ foreach (XH_plugins() as $plugin) {
 /**
  * The CRSF protection object.
  *
- * Should be treated as <i>read-only</i>.
+ * Should be treated as *read-only*.
  *
  * @var XH\CSRFProtection $_XH_csrfProtection
  *
@@ -911,7 +911,7 @@ $_XH_controller->setFunctionsAsPermitted();
 /**
  * The number of pages.
  *
- * Treat as <i>read-only</i>.
+ * Treat as *read-only*.
  *
  * @var int $cl
  *
@@ -922,7 +922,7 @@ $cl = 0;
 /**
  * The page data router.
  *
- * Treat as <i>read-only</i>.
+ * Treat as *read-only*.
  *
  * @var XH\PageDataRouter $pd_router
  *
@@ -944,7 +944,7 @@ $xh_publisher = null;
 /**
  * The index of the currently requested page.
  *
- * Treat as <i>read-only</i>. Note that $s is not properly set for the start
+ * Treat as *read-only*. Note that `$s` is not properly set for the start
  * page until all plugins are loaded. If you need the know the index of the
  * currently requested page during plugin loading, consider to use {@link $pd_s}.
  *
@@ -957,7 +957,7 @@ $s = -1;
 /**
  * The content of the pages.
  *
- * Treat as <i>read-only</i> when in edit mode.
+ * Treat as *read-only* when in edit mode.
  *
  * @var array $c
  *
@@ -968,7 +968,7 @@ $c = null;
 /**
  * The headings of the pages.
  *
- * Treat as <i>read-only</i>.
+ * Treat as *read-only*.
  *
  * @var array $h
  *
@@ -981,7 +981,7 @@ $h = null;
 /**
  * The URLs of the pages.
  *
- * Treat as <i>read-only</i>.
+ * Treat as *read-only*.
  *
  * @var array $u
  *
@@ -994,7 +994,7 @@ $u = null;
 /**
  * The menu levels of the pages.
  *
- * Treat as <i>read-only</i>.
+ * Treat as *read-only*.
  *
  * @var array $l
  *
@@ -1053,10 +1053,10 @@ if (XH_ADM) {
 /**
  * The index of the currently requested page.
  *
- * Treat as <i>read-only</i>. Note that the index of the currently requested page
+ * Treat as *read-only*. Note that the index of the currently requested page
  * is available in {@link $s} after the plugins have been loaded. During plugin
  * loading you may use $pd_s, but this is not guaranteed to be correct, as it
- * may be set to 0, even if $s might later be -1.
+ * may be set to 0, even if `$s` might later be -1.
  *
  * @var int $pd_s
  *
@@ -1069,7 +1069,7 @@ $pd_s = ($s == -1 && !$f && $o == '' && $su == '') ? $xh_publisher->getFirstPubl
 /**
  * The infos about the current page.
  *
- * Treat as <i>read-only</i>.
+ * Treat as *read-only*.
  *
  * @var array $pd_current
  *
@@ -1080,7 +1080,7 @@ $pd_current = $pd_router->find_page($pd_s);
 /**
  * The configuration of the plugins.
  *
- * Treat as <i>read-only</i>.
+ * Treat as *read-only*.
  *
  * @var XH\PluginConfig $plugin_cf
  *
@@ -1093,7 +1093,7 @@ $plugin_cf = new XH\PluginConfig();
 /**
  * The localization of the plugins.
  *
- * Treat as <i>read-only</i>.
+ * Treat as *read-only*.
  *
  * @var XH\PluginConfig $plugin_tx
  *
@@ -1149,7 +1149,7 @@ switch ($f) {
 /**
  * The page indexes of the visible menu items.
  *
- * This <i>read-only</i> variable can be used to build a menu with {@link li()}.
+ * This *read-only* variable can be used to build a menu with {@link li()}.
  *
  * @var array $hc
  *
