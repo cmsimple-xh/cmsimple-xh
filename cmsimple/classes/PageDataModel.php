@@ -115,7 +115,7 @@ class PageDataModel
     /**
      * Replaces the existing page data.
      *
-     * @param ?array $data The new page data.
+     * @param array|null $data The new page data.
      *
      * @return bool Whether the page data have been refreshed.
      */
