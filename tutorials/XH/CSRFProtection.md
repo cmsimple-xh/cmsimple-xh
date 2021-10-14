@@ -21,7 +21,7 @@ The CSRF protection of CMSimple_XH is based on randomly created
 are stored in the user's session data. On form submission the tokens are
 compared, and if they are not equal, the form submission is rejected.
 The tokens are renewed for each session, so an attacker who wants to
-forge a form has to <emphasis>guess</emphasis> the currently expected
+forge a form has to *guess* the currently expected
 token, what makes the success of an attack highly unlikely.
 
 For now, the CSRF protection functionality is made available as a
