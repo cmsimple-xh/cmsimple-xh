@@ -10,7 +10,7 @@ $contents = preg_replace($regexp, $replac, $contents);
 
 // Work around cms.php issues
 if (basename($argv[1]) === "cms.php") {
-    $contents = preg_replace('/^(?:if|foreach)(?:[^}]+){/m', "{", $contents);
+    $contents = preg_replace('/^(?:if|foreach|switch)(?:[^}]+){/m', "{", $contents);
 }
 
 echo $contents;
