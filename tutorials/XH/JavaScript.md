@@ -1,6 +1,5 @@
-# JavaScript
-
-[TOC]
+JavaScript {#javascript}
+==========
 
 CMSimple_XH is mainly developed in PHP. To improve the user
 experience browser-side scripting is necessary; this is done
@@ -9,7 +8,8 @@ no precompiled language such as CoffeeScript or TypeScript is used).
 This is documented in the separate
 [JavaScript Documentation](../js/index.html).
 
-# jQuery {#jquery}
+jQuery {#javascript_jquery}
+------
 
 Due to the fact that several major JavaScript frameworks may not be
 compatible with each other and the popularity of

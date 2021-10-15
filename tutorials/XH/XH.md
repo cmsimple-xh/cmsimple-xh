@@ -1,15 +1,13 @@
-# Developer Documentation for CMSimple_XH
-
-[TOC]
-
-# Introduction {#intro}
+Developer Documentation for CMSimple_XH {#mainpage}
+=======================================
 
 This documentation is meant for core and plugin developers as well
 as template designers. It documents the core and the standard
 plugins which are not developed externally (currently Filebrowser,
 Meta_tags and Page_params).
         
-# System Architecture {#architecture}
+System Architecture {#mainpage_architecture}
+-------------------
 
 All requests to the website are directed to index.php in the root
 folder of the installation or to index.php in a language folder.
@@ -17,7 +15,8 @@ These index.php files are just thin wrappers for including
 {@link cms.php} which defines variables and constants and
 includes necessary files according to the individual request.
 
-## Plugins {#plugins}
+Plugins {#mainpage_plugins}
+-------
 
 Plugins are handled by the "plugin loader". This term stems from
 the past, where it was an external component that had to be
@@ -47,7 +46,8 @@ register an appropriate callback.
 More developer information about plugins can be found in the
 [Wiki](http://www.cmsimple-xh.org/wiki/doku.php/developers_manual).
 
-## Templates {#templates}
+Templates {#mainpage_templates}
+---------
 
 At the end of usual page requests the file template.htm of the
 active template is included. That is an HTML file with embedded
@@ -57,7 +57,8 @@ PHP, the so-called template tags, which are defined in
 More developer information about templates can be found in the
 [Wiki](http://www.cmsimple-xh.org/wiki/doku.php/developers_manual).
 
-# API {#api}
+API {#mainpage_api}
+---
 
 An important part of the API of CMSimple_XH consists of global
 variables which are documented in {@link cms.php}. Not all global

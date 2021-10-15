@@ -874,7 +874,7 @@ foreach (XH_plugins() as $plugin) {
  *
  * @public
  *
- * @tutorial CSRFProtection.cls
+ * @see @ref csrf
  */
 $_XH_csrfProtection = null;
 if (isset($_COOKIE['status']) && $_COOKIE['status'] == 'adm'

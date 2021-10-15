@@ -1,7 +1,5 @@
-Class Autoloading
+Class Autoloading {#autoloading}
 =================
-
-[TOC]
 
 As of CMSimple_XH 1.7.0 the core uses [class
 autoloading](http://php.net/manual/en/language.oop5.autoload.php), and the
@@ -11,8 +9,8 @@ to better suite the tradionational folder structure of CMSimple_XH, namely that
 the `<Vendor Name>` has actually to be the `<Plugin Name>` (or `XH` in case of
 core classes), which maps to the `classes/` folder of the plugin.
 
-Example {#example}
-==================
+Example {#autoloading_example}
+-------
 
 Let's consider a fictious plugin named Foo with the following filesystem
 structure (irrelevant files and folders ommitted for brevity):
@@ -30,8 +28,8 @@ classes you can use the fully qualified class name, i.e. `\Foo\Bar\Baz` and
 `\Foo\Qux`, respectively, or any short form which resolves to these fully
 qualified class names.
 
-Underscores in Namespaces and Class Names {#underscores}
-========================================================
+Underscores in Namespaces and Class Names {#autoloading_underscores}
+-----------------------------------------
 
 Note that the class loader also supports old style pseudo namespacing with
 underscores (`_`), which are treated identical to proper namespace separators,
@@ -41,8 +39,8 @@ This is meant for backward compatibility purposes, most notably for core classes
 which didn't use namespaces in CMSimple_XH 1.6. For new developments proper
 namespacing is recommended.
 
-Case {#case}
-============
+Case {#autoloading_case}
+----
 
 To avoid issues regarding the case (in)sensitivity of different file systems,
 you have to write all class names exactly like the name of the file they're
