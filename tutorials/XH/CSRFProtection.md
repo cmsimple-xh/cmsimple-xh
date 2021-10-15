@@ -1,7 +1,5 @@
-CSRF Protection
+CSRF Protection {#csrf}
 ===============
-
-[TOC]
 
 According to [Wikipedia](http://en.wikipedia.org/wiki/Cross-site_request_forgery):
 > CSRF (Cross-site request forgery) is a type of malicious exploit
@@ -28,8 +26,8 @@ For now, the CSRF protection functionality is made available as a
 global object, @ref $_XH_csrfProtection; this is
 quite likely to change in a future version.
 
-Usage {#usage}
-=====
+Usage {#csrf_usage}
+-----
 
 Every form which has to be protected against CSRF attacks has to
 be extended by a hidden input element which can be inserted by calling
@@ -69,8 +67,8 @@ CMSimple_XH and the administration forms of plugins, which are handled
 by `plugin_admin_common()`. Other forms
 require to add CSRF protection in the way described above.
 
-Stronger Protection {#stronger-protection}
-===================
+Stronger Protection {#csrf_stronger_protection}
+-------------------
 
 While a common token for each session gives reasonable protection
 againgst CSRF attacks, a new token for each request is even more secure.
@@ -104,8 +102,8 @@ if (!isset($_POST[...])) {
 }
 ````
 
-External Scripts {#external-scripts}
-================
+External Scripts {#csrf_external_scripts}
+----------------
 
 Sometimes a plugin requests an "external" script, i.e. does
 not request an index.php of the CMSimple_XH installation. In this
