@@ -1002,6 +1002,10 @@ $u = null;
 $l = null;
 
 rfc(); // Here content is loaded
+assert(is_array($h));
+assert(is_array($c));
+assert($pd_router instanceof \XH\PageDataRouter);
+assert($xh_publisher instanceof \XH\Publisher);
 
 /*
  * Remove $su from FirstPublicPage
@@ -1203,6 +1207,7 @@ if (XH_ADM) {
             $_XH_controller->handlePageDataEditor();
             break;
         case 'file':
+            assert(is_string($file));
             if (XH_isContentBackup($file, false)) {
                 $pth['file'][$file] = $pth['folder']['content'] . $file;
             }
