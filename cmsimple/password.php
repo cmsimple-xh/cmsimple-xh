@@ -20,7 +20,7 @@ if (!function_exists('random_bytes')) {
     {
         $buffer = '';
         $buffer_valid = false;
-        if (function_exists('mcrypt_create_iv') && !defined('PHALANGER')) {
+        if (function_exists('mcrypt_create_iv') && defined('MCRYPT_DEV_URANDOM') && !defined('PHALANGER')) {
             $buffer = mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
             if ($buffer) {
                 $buffer_valid = true;
