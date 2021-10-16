@@ -52,11 +52,17 @@ return [
     // A list of directories holding code that we want
     // to parse, but not analyze
     "exclude_analysis_directory_list" => [
-        '.phan/stubs'
+        '.phan/stubs',
+        'plugins/fa',
     ],
 
     'directory_list' => [
         '.phan/stubs',
+        'cmsimple',
+        'plugins/fa',
+        'plugins/filebrowser',
+        'plugins/metatags',
+        'plugins/page_params',
     ],
 
     'simplify_ast' => true,
