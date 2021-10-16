@@ -28,18 +28,18 @@ return [
     // If true, missing properties will be created when
     // they are first seen. If false, we'll report an
     // error message.
-    "allow_missing_properties" => true,
+    "allow_missing_properties" => false,
 
     // Allow null to be cast as any type and for any
     // type to be cast to null.
-    "null_casts_as_any_type" => true,
+    "null_casts_as_any_type" => false,
 
     // Backwards Compatibility Checking
     'backward_compatibility_checks' => false,
 
     // Run a quick version of checks that takes less
     // time
-    "quick_mode" => true,
+    "quick_mode" => false,
 
     // Only emit critical issues
     "minimum_severity" => 10,
@@ -56,7 +56,7 @@ return [
     ],
 
     'directory_list' => [
-        '.phan/stubs'
+        '.phan/stubs',
     ],
 
     'simplify_ast' => true,

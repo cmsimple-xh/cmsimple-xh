@@ -177,7 +177,7 @@ class PageDataModel
      *
      * @param int $key The index of the page.
      *
-     * @return array
+     * @return array|null
      */
     public function findKey($key)
     {
