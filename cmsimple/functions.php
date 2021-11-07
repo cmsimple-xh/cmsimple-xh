@@ -1515,7 +1515,7 @@ function XH_readFile($filename)
  * @param string $filename The filename.
  * @param string $contents The content to write.
  *
- * @return int The number of bytes written, or false on failure.
+ * @return int|false The number of bytes written, or false on failure.
  *
  * @since 1.6
  */
