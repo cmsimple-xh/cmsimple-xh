@@ -781,7 +781,7 @@ if (sv('QUERY_STRING') != '') {
     if (!strpos($j[0], '=')) {
         $su = $j[0];
     }
-    if ($su == '' && $selected != '') {
+    if ($su == '') {
         if (isset($_GET['selected'])) {
             header('Location: ' . XH_redirectSelectedUrl(), true, 301);
             exit;
