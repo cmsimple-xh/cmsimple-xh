@@ -48,6 +48,7 @@ class PluginConfig implements ArrayAccess
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         if (!isset($this->configs[$offset])) {
@@ -63,6 +64,7 @@ class PluginConfig implements ArrayAccess
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if (!isset($this->configs[$offset])) {
@@ -79,6 +81,7 @@ class PluginConfig implements ArrayAccess
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (!isset($this->configs[$offset])) {
@@ -94,6 +97,7 @@ class PluginConfig implements ArrayAccess
      *
      * @return void
      */
+    #[ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         if (!isset($this->configs[$offset])) {
