@@ -97,7 +97,7 @@ class PluginConfig implements ArrayAccess
      *
      * @return void
      */
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         if (!isset($this->configs[$offset])) {
