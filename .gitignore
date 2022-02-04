@@ -6,3 +6,5 @@ assets/css/xhstyles.css
 /composer.lock
 /cmsimple/.sessionname
 /cmsimple/log.txt
+/node_modules
+/package-lock.json
