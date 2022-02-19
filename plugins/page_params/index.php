@@ -61,7 +61,7 @@ function Pageparams_handleRelocation($index, array $data)
  */
 function Pageparams_switchTemplate($n)
 {
-    global $pth, $cf, $pd_router;
+    global $pth, $cf, $pd_router, $sl;
 
     $pages = new XH\Pages();
     while (true) {
@@ -82,8 +82,13 @@ function Pageparams_switchTemplate($n)
         $pth['folder']['template'] = $dir;
         $pth['file']['template'] = $dir . 'template.htm';
         $pth['file']['stylesheet'] = $dir . 'stylesheet.css';
+        $pth['folder']['template_config'] = $dir . 'config/';
+        $pth['file']['template_config'] = $pth['folder']['template_config'] . 'config.php';
+        $pth['folder']['template_language'] = $dir . 'languages/';
+        $pth['file']['template_language'] = $pth['folder']['template_language'] . $sl . '.php';
         $pth['folder']['menubuttons'] = $dir . 'menu/';
         $pth['folder']['templateimages'] = $dir . 'images/';
+        $pth['folder']['templateflags'] = $dir . 'flags/';
     }
 }
 

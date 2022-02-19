@@ -38,6 +38,8 @@ class Controller
         $pth['folder']['menubuttons'] = $pth['folder']['template'] . 'menu/';
         $pth['folder']['templateimages'] = $pth['folder']['template'] . 'images/';
         $pth['folder']['templateflags'] = $pth['folder']['template'] . 'flags/';
+
+        XH_createLanguageFile($pth['file']['template_language']);
     }
 
     /**
