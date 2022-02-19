@@ -178,6 +178,15 @@ class Editor
         ) {
             $append .= ',' . PHP_EOL . '"importcss_selector_filter": /(?:([a-z0-9\-_]+))(\.[a-z0-9_\-\.]+)$/i';          
         }
+        
+        /* 
+         * blocks the upload of <img> elements with the alt attribute that starts with "demo-img"
+         * images_dataimg_filter is deprecated since 5.9.3
+        */
+        if (isset($temp['images_upload_url']))
+            $append .= ',' . PHP_EOL . 'images_dataimg_filter: function(img) {
+    return !img.alt.startsWith("demo-img");
+  }';          
 
         $lastpos = strrpos ($parsedconfig,'}');
         $parsedconfig = substr($parsedconfig,0,$lastpos) . $append . substr($parsedconfig,$lastpos);
