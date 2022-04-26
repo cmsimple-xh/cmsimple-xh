@@ -2376,7 +2376,7 @@ function XH_registeredEditmenuPlugins()
  *
  * @since 1.7.6
  */
-function XH_registeredLanguagesmenuPlugins()
+function XH_registeredLanguagemenuPlugins()
 {
     $metaLangMenus = 'enum:,';
     $regLangMenus = XH_registerPluginType('languagemenu');
