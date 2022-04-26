@@ -526,6 +526,13 @@ function languagemenu()
 {
     global $pth, $cf, $sl;
 
+    if ($cf['language']['menu'] != '') {
+        $menuFunc = $cf['language']['menu'] . '_languagemenu';
+        if (function_exists($menuFunc)) {
+            return $menuFunc();
+        }
+    }
+
     $r = XH_secondLanguages();
     array_unshift($r, $cf['language']['default']);
     $i = array_search($sl, $r);
