@@ -103,6 +103,7 @@ $tx['help']['show_hidden_pages_toc']="Whether hidden pages are shown in the toc 
 
 $tx['help']['images_maxsize']="Maximum size of uploaded images in Byte. This must neither exceed the limit set for upload_max_filesize nor post_max_size in the PHP configuration.";
 $tx['help']['language_default']="The primary language of your site";
+$tx['help']['language_menu']="alternative language menu";
 $tx['help']['locator_show_homepage']="Whether the locator starts with a link to the first page (homepage) or not.";
 $tx['help']['mailform_captcha']="Whether a CAPTCHA shall be used in the mailform to prevent SPAM-mails.";
 $tx['help']['mailform_email']="The mailform will only be enabled when an email address is entered here.";
