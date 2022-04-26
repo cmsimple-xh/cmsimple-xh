@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2017 Christoph M. Becker
+ * Copyright 2017-2021 Christoph M. Becker
  *
  * This file is part of Fa_XH.
  *
@@ -23,8 +23,11 @@ namespace Fa;
 
 class Plugin
 {
-    const VERSION = '1.2';
+    const VERSION = '1.3';
 
+    /**
+     * @return void
+     */
     public function run()
     {
         global $plugin_cf;
@@ -33,7 +36,7 @@ class Plugin
             $command = new RequireCommand;
             $command->execute();
         }
-        if (XH_ADM) {
+        if (XH_ADM) { // @phpstan-ignore-line
             XH_registerStandardPluginMenuItems(false);
             if (XH_wantsPluginAdministration('fa')) {
                 $this->handlePluginAdministration();
@@ -41,9 +44,12 @@ class Plugin
         }
     }
 
+    /**
+     * @return void
+     */
     private function handlePluginAdministration()
     {
-        global $o, $action, $admin;
+        global $o, $admin;
 
         $o .= print_plugin_admin('off');
         switch ($admin) {
@@ -51,20 +57,25 @@ class Plugin
                 $o .= $this->handlePluginInfo();
                 break;
             default:
-                $o .= plugin_admin_common($action, $admin, 'fa');
+                $o .= plugin_admin_common();
         }
     }
 
+    /**
+     * @return string
+     */
     private function handlePluginInfo()
     {
         global $title, $pth;
 
         $title = 'Fa';
-        $view = new View('info');
-        $view->logo = "{$pth['folder']['plugins']}fa/fa.png";
-        $view->version = self::VERSION;
         $checkService = new SystemCheckService;
-        $view->checks = $checkService->getChecks();
-        return $view;
+        $view = new View('info');
+        $view->data = array(
+            'logo' => "{$pth['folder']['plugins']}fa/fa.png",
+            'version' => self::VERSION,
+            'checks' => $checkService->getChecks(),
+        );
+        return (string) $view;
     }
 }

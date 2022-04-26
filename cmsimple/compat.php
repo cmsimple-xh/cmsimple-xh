@@ -8,9 +8,8 @@
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  */
 
 /**
@@ -77,7 +76,7 @@ function amp()
 
     trigger_error('Function amp() is deprecated', E_USER_DEPRECATED);
 
-    if ($cf['xhtml']['amp'] == 'true') {
+    if (isset($cf['xhtml']['amp']) && $cf['xhtml']['amp'] == 'true') {
         return '&amp;';
     } else {
         return '&';
@@ -97,6 +96,7 @@ function guestbooklink()
     if (function_exists('gblink')) {
         return gblink();
     }
+    return "";
 }
 
 /**
@@ -117,7 +117,7 @@ function chkdl($fl)
     $m = false;
     if (is_dir($pth['folder']['downloads'])) {
         if ($fd = opendir($pth['folder']['downloads'])) {
-            while (($p = readdir($fd)) == true) {
+            while (($p = readdir($fd))) {
                 if (preg_match("/.+\..+$/", $p)) {
                     if ($fl == $sn . '?download=' . $p) {
                         $m = true;

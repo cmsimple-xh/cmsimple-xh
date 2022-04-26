@@ -4,14 +4,14 @@
  * Testing the functions in adminfuncs.php.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
 
 namespace XH;
 
-use PHPUnit_Framework_Error_Warning as Warning;
+use PHPUnit\Framework\Error\Warning as Warning;
 
 /**
  * A test case for the functions in adminfuncs.php.
@@ -23,7 +23,7 @@ use PHPUnit_Framework_Error_Warning as Warning;
  */
 class AdminfuncsTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->setConstant('XH_ADM', true);
     }

@@ -1,24 +1,19 @@
-The FileEdit Class Hierarchy
+The FileEdit Class Hierarchy {#file_editor}
 ============================
-
-[TOC]
-
-Introduction {#intro}
-=====================
 
 The FileEdit class hierarchie is responsible for the handling of the
 editing of files in the back-end. Its implementation makes heavy use
 of the [template method pattern](http://en.wikipedia.org/wiki/Template_method_pattern).
 The two main branches are TextFileEdit and ArrayFileEdit.
 
-TextFileEdit {#textfileedit}
-----------------------------
+TextFileEdit {#file_editor_text}
+------------
 
 The predefined concrete subclasses of TextFileEdit offer a
 simple textarea to edit the content of a text file.
 
-ArrayFileEdit {#arrayfileedit}
-------------------------------
+ArrayFileEdit {#file_editor_array}
+-------------
 
 This branch offers editing of files storing data in an array
 structure. The predefined subclasses handle two- dimensional PHP
@@ -42,11 +37,11 @@ As of CMSimple_XH 1.7.0 it is also possible to mark configuration as advanced
 options by prepending a `+`, for instance `+bool` or `+string`. Such options are
 only displayed if the user presses the `More …` button in the configuration.
 
-Usage {#usage}
-==============
+Usage {#file_editor_usage}
+-----
 
-To display the edit form ::form() has to be called; to handle the
-form submission ::submit() has to be called. For instance:
+To display the edit form XH::FileEdit::form() has to be called; to handle the
+form submission XH::FileEdit::submit() has to be called. For instance:
 
 ````{.php}
 require_once $pth['folder']['classes'] . 'FileEdit.php';

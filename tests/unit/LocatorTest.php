@@ -4,7 +4,7 @@
  * Testing the locator (breadcrumb menu).
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2015-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2015-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -25,7 +25,7 @@ class LocatorTest extends TestCase
 
     protected $modelMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->aMock = $this->createFunctionMock('a');
         $this->aMock->expects($this->any())->willReturn('<a href="foo">');
@@ -35,7 +35,7 @@ class LocatorTest extends TestCase
         );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->aMock->restore();
         $this->modelMock->restore();

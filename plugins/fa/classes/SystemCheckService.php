@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2017 Christoph M. Becker
+ * Copyright 2017-2021 Christoph M. Becker
  *
  * This file is part of Fa_XH.
  *
@@ -29,7 +29,7 @@ class SystemCheckService
     private $pluginFolder;
 
     /**
-     * @var array
+     * @var array<string,string>
      */
     private $lang;
 
@@ -48,7 +48,7 @@ class SystemCheckService
     {
         return array(
             $this->checkPhpVersion('5.3.0'),
-            $this->checkXhVersion('1.6.3'),
+            $this->checkXhVersion('1.7.0'),
             $this->checkWritability("$this->pluginFolder/css/"),
             $this->checkWritability("$this->pluginFolder/config/"),
             $this->checkWritability("$this->pluginFolder/languages/")

@@ -28,21 +28,21 @@ return [
     // If true, missing properties will be created when
     // they are first seen. If false, we'll report an
     // error message.
-    "allow_missing_properties" => true,
+    "allow_missing_properties" => false,
 
     // Allow null to be cast as any type and for any
     // type to be cast to null.
-    "null_casts_as_any_type" => true,
+    "null_casts_as_any_type" => false,
 
     // Backwards Compatibility Checking
     'backward_compatibility_checks' => false,
 
     // Run a quick version of checks that takes less
     // time
-    "quick_mode" => true,
+    "quick_mode" => false,
 
     // Only emit critical issues
-    "minimum_severity" => 5,
+    "minimum_severity" => 10,
 
     // A set of fully qualified class-names for which
     // a call to parent::__construct() is required
@@ -52,11 +52,17 @@ return [
     // A list of directories holding code that we want
     // to parse, but not analyze
     "exclude_analysis_directory_list" => [
-        '.phan/stubs'
+        '.phan/stubs',
+        'plugins/fa',
     ],
 
     'directory_list' => [
-        '.phan/stubs'
+        '.phan/stubs',
+        'cmsimple',
+        'plugins/fa',
+        'plugins/filebrowser',
+        'plugins/metatags',
+        'plugins/page_params',
     ],
 
     'simplify_ast' => true,

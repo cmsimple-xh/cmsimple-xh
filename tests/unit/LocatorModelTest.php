@@ -4,7 +4,7 @@
  * Testing the locator (breadcrumb navigation) model.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2015-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2015-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -23,7 +23,7 @@ class LocatorModelTest extends TestCase
 {
     protected $hideMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $sn, $f, $cf, $tx, $xh_publisher;
 
@@ -74,7 +74,7 @@ class LocatorModelTest extends TestCase
         $this->hideMock->expects($this->any())->will($this->returnValueMap($hideMap));
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->hideMock->restore();
     }

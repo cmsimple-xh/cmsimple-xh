@@ -4,7 +4,7 @@
  * Testing the controller functionality.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2014-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2014-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -62,10 +62,8 @@ class ControllerSavePageDataTest extends TestCase
 
     /**
      * Sets up the test fixture.
-     *
-     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pth, $s, $pd_router, $_XH_csrfProtection;
 
@@ -76,7 +74,7 @@ class ControllerSavePageDataTest extends TestCase
         );
         $s = 0;
         $pth['file']['content'] = '';
-        $pd_router = @$this->createMock(PageDataRouter::class);
+        $pd_router = $this->createMock(PageDataRouter::class);
         $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
         $this->subject = new Controller();
         $this->eMock = $this->createFunctionMock('e');
@@ -85,7 +83,7 @@ class ControllerSavePageDataTest extends TestCase
         $this->messageMock = $this->createFunctionMock('XH_message');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->eMock->restore();
         $this->exitMock->restore();

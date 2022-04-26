@@ -12,5 +12,3 @@ function setLink(url) {
 }
 </script>
 EOS;
-
-?>

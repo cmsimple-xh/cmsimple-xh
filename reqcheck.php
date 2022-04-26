@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2013-2019 Christoph M. Becker
+ * Copyright 2013-2021 Christoph M. Becker
  *
  * This file is part of ReqCheck_XH.
  *
@@ -28,12 +28,11 @@ $version = '@CMSIMPLE_XH_VERSION@';
 $title = "$version – Requirements Check";
 
 $checks = array();
-$checks['the Webserver is supported'] = preg_match('/apache|nginx|iis/i', $_SERVER['SERVER_SOFTWARE']) ? 'okay' : 'warn';
-$checks['the PHP Version is at least 5.3.7'] = version_compare(PHP_VERSION, '5.3.7', '>=') ? 'okay' : 'fail';
+$checks['the Webserver is supported'] = preg_match('/apache|nginx|iis|litespeed/i', $_SERVER['SERVER_SOFTWARE']) ? 'okay' : 'warn';
+$checks['the PHP Version is at least 5.5.0'] = version_compare(PHP_VERSION, '5.5.0', '>=') ? 'okay' : 'fail';
 foreach (array('json', 'mbstring', 'session') as $ext) {
     $checks['the PHP extension "' . $ext . '" is installed'] = extension_loaded($ext) ? 'okay' : 'fail';
 }
-$checks['magic_quotes_runtime is off'] = (version_compare(PHP_VERSION, '5.4', '>=') || !get_magic_quotes_runtime()) ? 'okay' : 'warn';
 $checks['safe_mode is off'] = !ini_get('safe_mode') ? 'okay' : 'warn';
 $checks['session.use_trans_sid is off'] = !ini_get('session.use_trans_sid') ? 'okay' : 'warn';
 $checks['session.use_only_cookies is on'] = ini_get('session.use_only_cookies') ? 'okay' : 'warn';

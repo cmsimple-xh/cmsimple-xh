@@ -9,9 +9,8 @@ namespace XH;
  * and offers some page related utility methods.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2013-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  * @since     1.6
  */
 class Pages
@@ -224,7 +223,7 @@ class Pages
      * @param int  $n            A page index.
      * @param bool $ignoreHidden Whether hidden pages should be ignored.
      *
-     * @return int
+     * @return int|null
      */
     public function parent($n, $ignoreHidden = true)
     {

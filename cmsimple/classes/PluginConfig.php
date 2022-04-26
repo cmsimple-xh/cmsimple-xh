@@ -11,9 +11,8 @@ use ArrayAccess;
  * allow for lazy loading of the configuration and language files, respectively.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2017-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2017-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  * @since     1.7.0
  */
 class PluginConfig implements ArrayAccess
@@ -49,6 +48,7 @@ class PluginConfig implements ArrayAccess
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         if (!isset($this->configs[$offset])) {
@@ -64,6 +64,7 @@ class PluginConfig implements ArrayAccess
      *
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if (!isset($this->configs[$offset])) {
@@ -80,6 +81,7 @@ class PluginConfig implements ArrayAccess
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (!isset($this->configs[$offset])) {
@@ -95,6 +97,7 @@ class PluginConfig implements ArrayAccess
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         if (!isset($this->configs[$offset])) {

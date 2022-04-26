@@ -5,14 +5,11 @@
  *
  * SEO functions.
  *
- * @category  CMSimple_XH
- * @package   XH
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
  * @copyright 2009-2020 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://cmsimple-xh.org/
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  */
 
 /**
@@ -32,6 +29,7 @@ function XH_URI_Cleaning()
     global $su, $s, $xh_publisher, $pth;
 
     $parts = parse_url(CMSIMPLE_URL);
+    assert(isset($parts['scheme'], $parts['host'], $parts['path']));
     $scheme = $parts['scheme'];
     $host = $parts['host'];
     $port = '';
@@ -98,7 +96,12 @@ function XH_URI_Cleaning()
     }
 }
 
-//Encode QUERY_STRING for redirect with use uenc()
+/**
+ * Encode QUERY_STRING for redirect with use uenc()
+ *
+ * @param string $url_query_str
+ * @return string
+ **/
 function XH_uenc_redir($url_query_str = '')
 {
     global $cf;

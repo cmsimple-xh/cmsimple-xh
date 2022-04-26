@@ -4,7 +4,7 @@
  * Testing XH_autoload().
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2017-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2017-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -52,7 +52,7 @@ EOT;
      */
     protected $root;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pth;
 
@@ -71,7 +71,7 @@ EOT;
         spl_autoload_register('XH_autoload');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         spl_autoload_unregister('XH_autoload');
     }

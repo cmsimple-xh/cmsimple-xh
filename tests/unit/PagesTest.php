@@ -4,7 +4,7 @@
  * Testing the pages class.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -23,7 +23,7 @@ class PagesTest extends TestCase
 {
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $h, $u, $l, $c, $cf;
 

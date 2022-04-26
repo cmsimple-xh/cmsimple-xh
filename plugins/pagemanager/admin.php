@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2011-2019 Christoph M. Becker
+ * Copyright 2011-2021 Christoph M. Becker
  *
  * This file is part of Pagemanager_XH.
  *
@@ -28,7 +28,7 @@ use Pagemanager\Model;
 use Pagemanager\Plugin;
 
 /**
- * @return array
+ * @return array<int,string>
  */
 function Pagemanager_themes()
 {

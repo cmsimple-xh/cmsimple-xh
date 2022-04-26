@@ -8,9 +8,8 @@ namespace XH;
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  * @since     1.7
  */
 class ChangePassword
@@ -65,11 +64,11 @@ class ChangePassword
         global $cf, $tx, $_XH_csrfProtection;
 
         $this->passwordOld = isset($_POST['xh_password_old'])
-            ? stsl($_POST['xh_password_old']) : '';
+            ? $_POST['xh_password_old'] : '';
         $this->passwordNew = isset($_POST['xh_password_new'])
-            ? stsl($_POST['xh_password_new']) : '';
+            ? $_POST['xh_password_new'] : '';
         $this->passwordConfirmation = isset($_POST['xh_password_confirmation'])
-            ? stsl($_POST['xh_password_confirmation']) : '';
+            ? $_POST['xh_password_confirmation'] : '';
         $this->config = $cf;
         $this->lang = $tx;
         $this->csrfProtector = $_XH_csrfProtection;

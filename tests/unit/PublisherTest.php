@@ -4,7 +4,7 @@
  * Test case for the Publisher class.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2017-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2017-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -18,13 +18,13 @@ class PublisherTest extends TestCase
      */
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pd_router, $edit, $c, $l;
 
         $this->setConstant('XH_ADM', false);
         $edit = false;
-        $pd_router = @$this->createMock(PageDataRouter::class);
+        $pd_router = $this->createMock(PageDataRouter::class);
         $pd_router->method('find_all')->willReturn(array(
             0 => array(
                 'linked_to_menu' => '1',

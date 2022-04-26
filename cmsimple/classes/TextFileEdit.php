@@ -8,9 +8,8 @@ namespace XH;
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  * @since     1.6
  */
 abstract class TextFileEdit extends FileEdit
@@ -56,7 +55,7 @@ abstract class TextFileEdit extends FileEdit
         $action = isset($this->plugin) ? $sn . '?&amp;' . $this->plugin : $sn;
         $value = utf8_ucfirst($tx['action']['save']);
         if (isset($_GET['xh_success'])) {
-            $filetype = utf8_ucfirst($tx['filetype'][stsl($_GET['xh_success'])]);
+            $filetype = utf8_ucfirst($tx['filetype'][$_GET['xh_success']]);
             $message =  XH_message('success', $tx['message']['saved'], $filetype);
         } else {
             $message = '';
@@ -90,7 +89,7 @@ abstract class TextFileEdit extends FileEdit
         global $_XH_csrfProtection;
 
         $_XH_csrfProtection->check();
-        $this->text = stsl($_POST[$this->textareaName]);
+        $this->text = $_POST[$this->textareaName];
         if ($this->save() !== false) {
             header('Location: ' . CMSIMPLE_URL . $this->redir, true, 303);
             XH_exit();

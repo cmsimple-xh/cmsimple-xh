@@ -8,9 +8,8 @@ namespace XH;
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  */
 class Link
 {
@@ -48,6 +47,16 @@ class Link
      * Linked anchor (URI fragment) is missing.
      */
     const STATUS_ANCHOR_MISSING = -6;
+
+    /**
+     * A tel: link.
+     */
+    const STATUS_TEL = -7;
+
+    /**
+     * Link has not been checked according to configuration.
+     */
+    const STATUS_NOT_CHECKED = -8;
 
     /**
      * The URL.

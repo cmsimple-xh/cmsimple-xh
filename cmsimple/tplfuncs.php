@@ -8,9 +8,8 @@
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  */
 
 /**
@@ -282,7 +281,7 @@ function XH_printUrl()
 
     $t = '&print';
     if ($f == 'search') {
-        $t .= '&function=search&search=' . urlencode(stsl($search));
+        $t .= '&function=search&search=' . urlencode($search);
     } elseif ($f == 'file') {
         $t .= '&file=' . $file;
     } elseif ($f != '' && $f != 'save') {
@@ -306,6 +305,7 @@ function mailformlink()
     if ($cf['mailform']['email'] != '') {
         return ml('mailform');
     }
+    return "";
 }
 
 /**
@@ -323,6 +323,7 @@ function loginlink()
         return a($index, $extra . '&amp;login" rel="nofollow')
             . $tx['menu']['login'] . '</a>';
     }
+    return "";
 }
 
 
@@ -412,7 +413,7 @@ function content()
 
     if (!($edit && XH_ADM) && $s > -1) {
         if (isset($_GET['search'])) {
-            $search = XH_hsc(trim(preg_replace('/\s+/u', ' ', (stsl($_GET['search'])))));
+            $search = XH_hsc(trim(preg_replace('/\s+/u', ' ', $_GET['search'])));
             $words = explode(' ', $search);
             $c[$s] = XH_highlightSearchWords($words, $c[$s]);
         }
@@ -461,12 +462,13 @@ function submenu($html = '')
             }
         }
     }
+    return "";
 }
 
 /**
  * Returns a link to the previous page.
  *
- * @return string HTML
+ * @return string|null HTML
  *
  * @see nextpage()
  */
@@ -478,12 +480,13 @@ function previouspage()
     if ($index !== false) {
         return '<a href="' . XH_getPageURL($index) . '" rel="prev">' . $tx['navigator']['previous'] . '</a>';
     }
+    return null;
 }
 
 /**
  * Returns a link to the next page
  *
- * @return string HTML
+ * @return string|null HTML
  *
  * @see previouspage()
  */
@@ -495,6 +498,7 @@ function nextpage()
     if ($index !== false) {
         return '<a href="' . XH_getPageURL($index) . '" rel="next">' . $tx['navigator']['next'] . '</a>';
     }
+    return null;
 }
 
 /**
@@ -503,6 +507,7 @@ function nextpage()
  * To work, an appropriate ID has to be defined in the template.
  *
  * @param string $id An (X)HTML ID.
+ * @return string
  */
 function top($id = 'TOP')
 {
@@ -526,6 +531,7 @@ function languagemenu()
     $i = array_search($sl, $r);
     unset($r[$i]);
 
+    $langName = [];
     $langNames = explode(';', $cf['language']['2nd_lang_names']);
     foreach ($langNames as $value) {
         $langName[substr($value, 0, 2)] = substr($value, 3);

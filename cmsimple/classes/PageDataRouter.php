@@ -11,9 +11,8 @@ namespace XH;
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  */
 class PageDataRouter
 {
@@ -329,7 +328,7 @@ class PageDataRouter
                 $params = array();
             }
             return $this->model->replace($new_pages, $index);
-        } elseif (count($headings) == 1) {
+        } else {
             /*
              * The heading may have changed, stay up to date.
              */

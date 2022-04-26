@@ -4,7 +4,7 @@
  * Testing the functions in adminfuncs.php.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -14,7 +14,7 @@ namespace XH;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
-use PHPUnit_Framework_Error_Deprecated as Deprecated;
+use PHPUnit\Framework\Error\Deprecated as Deprecated;
 
 /**
  * A test case for the functions in tplfuncs.php.
@@ -29,7 +29,7 @@ class TplfuncsTest extends TestCase
     /**
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         global $cf, $tx, $onload;
 

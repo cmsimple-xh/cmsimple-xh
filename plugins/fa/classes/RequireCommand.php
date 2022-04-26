@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2017 Christoph M. Becker
+ * Copyright 2017-2021 Christoph M. Becker
  *
  * This file is part of Fa_XH.
  *
@@ -40,15 +40,28 @@ class RequireCommand
         $this->pluginFolder = "{$pth['folder']['plugins']}fa/";
     }
 
+    /**
+     * @return void
+     */
     public function execute()
     {
-        global $hjs;
-    
+        global $hjs, $plugin_cf;
+
         if (self::$isEmitted) {
             return;
         }
         self::$isEmitted = true;
-        $hjs .= '<link rel="stylesheet" type="text/css" href="' . $this->pluginFolder
-            . 'css/font-awesome.min.css">';
+
+        switch ($plugin_cf['fa']['fontawesome_version']) {
+            case '5':
+                $fa_css_pth = 'css/v5/all.min.css';
+                break;
+            default:
+                $fa_css_pth = 'css/font-awesome.min.css';
+        }
+        $hjs .= '<link rel="stylesheet" type="text/css" href="' . $this->pluginFolder . $fa_css_pth . '">';
+        if ($plugin_cf['fa']['fontawesome_version'] === '5' && $plugin_cf['fa']['fontawesome_shim']) {
+            $hjs .= '<link rel="stylesheet" type"text/css" href="' . $this->pluginFolder . 'css/v5/v4-shims.min.css">';
+        }
     }
 }

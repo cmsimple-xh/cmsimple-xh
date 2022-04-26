@@ -8,9 +8,8 @@ namespace XH;
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  * @since     1.6
  */
 abstract class ArrayFileEdit extends FileEdit
@@ -202,7 +201,7 @@ abstract class ArrayFileEdit extends FileEdit
         $value = utf8_ucfirst($tx['action']['save']);
         $button = '<input type="submit" class="submit" value="' . $value . '">';
         if (isset($_GET['xh_success'])) {
-            $filetype = utf8_ucfirst($tx['filetype'][stsl($_GET['xh_success'])]);
+            $filetype = utf8_ucfirst($tx['filetype'][$_GET['xh_success']]);
             $message = XH_message('success', $tx['message']['saved'], $filetype);
         } else {
             $message = '';
@@ -278,7 +277,7 @@ abstract class ArrayFileEdit extends FileEdit
      * and the file could be successfully saved.
      * Otherwise writes an error message to $e, and returns the edit form.
      *
-     * @return string HTML
+     * @return string|noreturn HTML
      */
     public function submit()
     {
@@ -289,7 +288,7 @@ abstract class ArrayFileEdit extends FileEdit
         foreach ($this->cfg as $cat => $opts) {
             foreach ($opts as $name => $opt) {
                 $iname = XH_FORM_NAMESPACE . $cat . '_' . $name;
-                $val = isset($_POST[$iname]) ? stsl($_POST[$iname]) : '';
+                $val = isset($_POST[$iname]) ? $_POST[$iname] : '';
                 if ($opt['type'] == 'bool') {
                     $val = isset($_POST[$iname]) ? 'true' : '';
                 } elseif ($opt['type'] == 'random') {
@@ -313,9 +312,9 @@ abstract class ArrayFileEdit extends FileEdit
     /**
      * Returns an option array.
      *
-     * @param string $mcf  The meta config of the option.
+     * @param string|null $mcf  The meta config of the option.
      * @param mixed  $val  The current value of the option.
-     * @param string $hint A hint for the option usage.
+     * @param string|null $hint A hint for the option usage.
      *
      * @return array
      */

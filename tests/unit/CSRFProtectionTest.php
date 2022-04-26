@@ -8,7 +8,7 @@
  * (e.g. cmsimple_xh/).
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -33,7 +33,7 @@ class CSRFProtectionTest extends TestCase
 
     protected $exitMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->setConstant('CMSIMPLE_ROOT', '/test/');
         $this->startSessionMock = $this->createFunctionMock('XH_startSession');
@@ -42,7 +42,7 @@ class CSRFProtectionTest extends TestCase
         $this->subject = new CSRFProtection();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->startSessionMock->restore();
         $this->headerMock->restore();

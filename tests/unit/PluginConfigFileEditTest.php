@@ -4,7 +4,7 @@
  * Testing the PluginConfigFileEdit class.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -27,7 +27,7 @@ class PluginConfigFileEditTest extends TestCase
 {
     private $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $sn, $pth, $file, $plugin;
 
@@ -73,12 +73,6 @@ class PluginConfigFileEditTest extends TestCase
     {
         global $_XH_csrfProtection;
 
-        $this->_tagStub = $this->createFunctionMock('tag');
-        $this->_tagStub->expects($this->any())->will($this->returnCallback(
-            function ($str) {
-                return "<$str>";
-            }
-        ));
         $_XH_csrfProtection = $this->createMock(CSRFProtection::class);
     }
 
@@ -97,11 +91,6 @@ class PluginConfigFileEditTest extends TestCase
 ?>
 EOT;
         file_put_contents($filename, $contents);
-    }
-
-    protected function tearDown()
-    {
-        $this->_tagStub->restore();
     }
 
     public function testFormAttributes()

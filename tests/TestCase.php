@@ -4,7 +4,7 @@
  * Our test case base class.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -22,11 +22,7 @@ class TestCase extends PHPUnit_Framework_TestCase
      */
     protected function createFunctionMock($name)
     {
-        if (PHP_MAJOR_VERSION >= 7) {
-            return new UopzFunctionMock($name, $this);
-        } else {
-            return new RunkitFunctionMock($name, $this);
-        }
+        return new UopzFunctionMock($name, $this);
     }
 
     /**
@@ -38,11 +34,7 @@ class TestCase extends PHPUnit_Framework_TestCase
         if (!defined($name)) {
             define($name, $value);
         } else {
-            if (PHP_MAJOR_VERSION >= 7) {
-                uopz_redefine($name, $value);
-            } else {
-                runkit_constant_redefine($name, $value);
-            }
+            uopz_redefine($name, $value);
         }
     }
 

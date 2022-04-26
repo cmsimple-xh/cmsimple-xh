@@ -4,14 +4,15 @@
  * Testing the functions in functions.php.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
 
 namespace XH;
 
-use PHPUnit_Framework_Error_Warning as Warning;
+use PHPUnit\Framework\Error\Error as Error;
+use PHPUnit\Framework\Error\Warning as Warning;
 
 /**
  * A helper to test multiple evaluation of a function with side effects.
@@ -36,7 +37,7 @@ EOS
  */
 class ScriptEvaluationTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         global $tx, $var;
 
@@ -90,10 +91,7 @@ class ScriptEvaluationTest extends TestCase
 
     public function testEvaluateCmsimpleScriptingParseError()
     {
-        if (PHP_MAJOR_VERSION !== 5) {
-            $this->markTestSkipped();
-        }
-        $this->expectOutputRegex('/^\s*Parse error:/s');
+        $this->expectException(Error::class);
         evaluate_cmsimple_scripting('#CMSimple trim(\');#');
     }
 
@@ -164,10 +162,7 @@ class ScriptEvaluationTest extends TestCase
 
     public function testEvaluatePluginCallParseError()
     {
-        if (PHP_MAJOR_VERSION !== 5) {
-            $this->markTestSkipped();
-        }
-        $this->expectOutputRegex('/^\s*Parse error:/s');
+        $this->expectException(Error::class);
         evaluate_plugincall('{{{trim(\')}}}');
     }
 }

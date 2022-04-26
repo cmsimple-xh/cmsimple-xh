@@ -8,9 +8,8 @@ namespace XH;
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  */
 class PageDataModel
 {
@@ -116,7 +115,7 @@ class PageDataModel
     /**
      * Replaces the existing page data.
      *
-     * @param ?array $data The new page data.
+     * @param array|null $data The new page data.
      *
      * @return bool Whether the page data have been refreshed.
      */
@@ -178,7 +177,7 @@ class PageDataModel
      *
      * @param int $key The index of the page.
      *
-     * @return array
+     * @return array|null
      */
     public function findKey($key)
     {

@@ -4,7 +4,7 @@
  * Testing the CoreTextFileEdit class.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -29,7 +29,7 @@ class CoreTextFileEditTest extends TestCase
 
     private $testFile;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $pth, $sn, $file, $_XH_csrfProtection;
 

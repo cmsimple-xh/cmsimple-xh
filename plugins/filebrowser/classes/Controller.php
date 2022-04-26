@@ -5,7 +5,7 @@
  *
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -253,8 +253,8 @@ class Controller
                 }
             }
             closedir($handle);
-            natcasesort($this->folders);
-            natcasesort($this->files);
+            sort($this->folders, SORT_NATURAL | SORT_FLAG_CASE);
+            sort($this->files, SORT_NATURAL | SORT_FLAG_CASE);
         }
     }
 
@@ -283,7 +283,7 @@ class Controller
                 }
             }
             closedir($handle);
-            natcasesort($folders);
+            sort($folders, SORT_NATURAL | SORT_FLAG_CASE);
         }
         return $folders;
     }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2011-2019 Christoph M. Becker
+ * Copyright 2011-2021 Christoph M. Becker
  *
  * This file is part of Pagemanager_XH.
  *
@@ -20,6 +20,8 @@
  */
 
 namespace Pagemanager;
+
+use XH\PageDataRouter;
 
 class JSONProcessor
 {
@@ -44,7 +46,7 @@ class JSONProcessor
     private $level;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $id;
 
@@ -59,7 +61,12 @@ class JSONProcessor
     private $pdattrName;
 
     /**
-     * @var bool
+     * @var int
+     */
+    private $now;
+
+    /**
+     * @var string
      */
     private $pdattr;
 
@@ -76,18 +83,21 @@ class JSONProcessor
     /**
      * @param string[] $contents
      * @param string $pdattrName
+     * @param int $now
      */
-    public function __construct(array $contents, $pdattrName)
+    public function __construct(array $contents, $pdattrName, $now)
     {
         global $pd_router;
 
         $this->contents = $contents;
         $this->pdattrName = $pdattrName;
+        $this->now = $now;
         $this->pdRouter = $pd_router;
     }
 
     /**
      * @param string $json
+     * @return void
      */
     public function process($json)
     {
@@ -99,6 +109,7 @@ class JSONProcessor
 
     /**
      * @param array[] $pages
+     * @return void
      */
     private function processPages(array $pages)
     {
@@ -109,13 +120,22 @@ class JSONProcessor
         $this->level--;
     }
 
+    /**
+     * @param array<string,mixed> $page
+     * @return void
+     */
     private function processPage(array $page)
     {
-        $pattern = '/^pagemanager_([0-9]*)(?:_copy_[0-9]+)?$/';
-        $this->id = strpos($page['id'], 'pagemanager_') !== 0
-            ? null
-            : (int) preg_replace($pattern, '$1', $page['id']);
-        $this->title = htmlspecialchars($page['text'], ENT_NOQUOTES, 'UTF-8');
+        if (strpos($page['id'], 'pagemanager_') !== 0) {
+            $this->id = null;
+        } else {
+            $pattern = '/^pagemanager_([0-9]*)(?:_copy_[0-9]+)?$/';
+            $id = preg_replace($pattern, '$1', $page['id']);
+            assert(!is_array($id));
+            $this->id = (int) $id;
+        }
+        $title = str_replace("|-|", "\xC2\xAD", $page['text']);
+        $this->title = htmlspecialchars($title, ENT_NOQUOTES, 'UTF-8');
         $this->pdattr = $page['state']['checked'] ? '1' : '0';
         $this->mayRename = !preg_match('/unrenameable$/', $page['type']);
 
@@ -129,6 +149,9 @@ class JSONProcessor
         $this->processPages($page['children']);
     }
 
+    /**
+     * @return void
+     */
     private function appendExistingPageContent()
     {
         $content = $this->contents[$this->id];
@@ -147,21 +170,27 @@ class JSONProcessor
         $pattern = "/<!--XH_ml[0-9]:.*?-->/";
         $replacement = "<!--XH_ml{$this->level}:"
             . addcslashes($this->title, '$\\') . '-->';
-        return preg_replace($pattern, $replacement, $content, 1);
+        return (string) preg_replace($pattern, $replacement, $content, 1);
     }
 
+    /**
+     * @return void
+     */
     private function appendNewPageContent()
     {
         $this->newContents[] = "<!--XH_ml{$this->level}:{$this->title}-->";
     }
 
+    /**
+     * @return void
+     */
     private function appendPageData()
     {
         if (isset($this->id)) {
             $pageData = $this->pdRouter->find_page($this->id);
         } else {
             $pageData = $this->pdRouter->new_page();
-            $pageData['last_edit'] = time();
+            $pageData['last_edit'] = $this->now;
         }
         if ($this->mayRename) {
             $pageData['url'] = uenc($this->title);

@@ -8,9 +8,8 @@ namespace XH;
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  * @since     1.6
  */
 class Mailform
@@ -93,20 +92,20 @@ class Mailform
 
         $this->embedded = $embedded;
         $this->sendername = isset($_POST['sendername'])
-            ? stsl($_POST['sendername']) : '';
+            ? $_POST['sendername'] : '';
         $this->senderphone = isset($_POST['senderphone'])
-            ? stsl($_POST['senderphone']) : '';
+            ? $_POST['senderphone'] : '';
         $this->sender = isset($_POST['sender'])
-            ? stsl($_POST['sender']) : '';
+            ? $_POST['sender'] : '';
         $this->getlast = isset($_POST['getlast'])
-            ? stsl($_POST['getlast']) : '';
+            ? $_POST['getlast'] : '';
         $this->cap = isset($_POST['cap'])
-            ? stsl($_POST['cap']) : '';
+            ? $_POST['cap'] : '';
             
         if (isset($_POST['subject'])) {
-            $this->subject = stsl($_POST['subject']);
+            $this->subject = $_POST['subject'];
         } elseif (isset($_GET['xh_mailform_subject'])) {
-            $this->subject = stsl($_GET['xh_mailform_subject']);
+            $this->subject = $_GET['xh_mailform_subject'];
         } elseif (isset($subject)) {
             $this->subject = $subject;
         } else {
@@ -115,10 +114,10 @@ class Mailform
             
         if ($embedded) {
             $this->mailform = isset($_POST['xh_mailform'])
-                ? stsl($_POST['xh_mailform']) : '';
+                ? $_POST['xh_mailform'] : '';
         } else {
             $this->mailform = isset($_POST['mailform'])
-                ? stsl($_POST['mailform']) : '';
+                ? $_POST['mailform'] : '';
         }
         $this->mail = isset($mail) ? $mail : new Mail();
     }

@@ -4,7 +4,7 @@
  * Testing the link checker.
  *
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2013-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2013-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -23,7 +23,7 @@ class LinkCheckerTest extends TestCase
 {
     protected $linkChecker;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $c, $h, $u, $cl, $pth, $cf, $onload;
 
@@ -56,14 +56,19 @@ class LinkCheckerTest extends TestCase
             'file' => array('template' => './tests/unit/data/template.htm')
         );
         $cf = array(
-            'mailform' => array('email' => 'devs@cmsimple-xh.org')
+            'mailform' => array('email' => 'devs@cmsimple-xh.org'),
+            'link' => [
+                'mailto' => "true",
+                'tel' => "true"
+            ]
         );
         $onload = '';
         $this->linkChecker = $this->getMockBuilder(LinkChecker::class)
             ->setMethods(['makeHeadRequest'])
             ->getMock();
         $this->linkChecker->method('makeHeadRequest')
-            ->will($this->returnCallback(function ($host) {
+            ->will($this->returnCallback(function ($scheme, $host) {
+                assert(isset($scheme));
                 // request to IDN will fail
                 if (preg_match('/[\x80-\xFF]/', $host)) {
                     return false;
@@ -102,7 +107,9 @@ class LinkCheckerTest extends TestCase
             array('./?download=doesnotexist', Link::STATUS_FILE_NOT_FOUND),
             array('./?download=doesnotexist.txt?v01', Link::STATUS_FILE_NOT_FOUND),
             array('http://www.cmsimple-xh.org/', 200),
+            array('https://bugs.php.net/', 200),
             array('mailto:devs@cmsimple-xh.org', Link::STATUS_MAILTO),
+            array('tel:00491234123456', Link::STATUS_TEL),
             array('./tests/unit/data/template.htm', 200),
             array('./tests/unit/data/doesnotexist', Link::STATUS_INTERNALFAIL),
             array('./tests/unit/data/doesnotexist?v=1', Link::STATUS_INTERNALFAIL),
@@ -112,7 +119,6 @@ class LinkCheckerTest extends TestCase
             // TODO: add checks for second languages, what is actually too cumbersome
 
             // the following are (current) limitations
-            array('https://bugs.php.net', Link::STATUS_UNKNOWN), // no HTTPS protocol support
             array('./tests/unit/data/', Link::STATUS_INTERNALFAIL), // fails, even there's a index.(php|html)
             array('./tests/unit/anotherxh/?Welcome', 200), // erroneously checks the same installation
             array('anotherxh/?Welcome2', Link::STATUS_INTERNALFAIL), // fails, even if anotherxh/ would exist
@@ -163,19 +169,24 @@ class LinkCheckerTest extends TestCase
     {
         $link1 = new Link('devs@cmsimple-xh.org', 'Developers');
         $link1->setStatus(Link::STATUS_MAILTO);
-        $link2 = new Link('?Welcome', 'Start Page');
-        $link2->setStatus(Link::STATUS_INTERNALFAIL);
+        $link2 = new Link('00491234123456', '+49 1234 123456');
+        $link2->setStatus(Link::STATUS_TEL);
+        $link3 = new Link('?Welcome', 'Start Page');
+        $link3->setStatus(Link::STATUS_INTERNALFAIL);
         $hints = array(
             0 => array(
                 'caveats' => array($link1)
             ),
             1 => array(
-                'errors' => array($link2),
+                'caveats' => array($link2)
+            ),
+            2 => array(
+                'errors' => array($link3),
                 'caveats' => array($link1)
             )
         );
         $actual = $this->linkChecker->message(7, $hints);
-        $this->assertXPathCount('//h4', 2, $actual);
-        $this->assertXPathCount('//h5', 3, $actual);
+        $this->assertXPathCount('//h2', 3, $actual);
+        $this->assertXPathCount('//h3', 4, $actual);
     }
 }

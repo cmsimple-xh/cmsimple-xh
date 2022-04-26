@@ -5,13 +5,12 @@ namespace XH;
 /**
  * The plugin menu builder.
  *
- * @author   Peter Harteg <peter@harteg.dk>
- * @author   The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see      http://cmsimple-xh.org/
- * @since    1.6.2
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
+ * @since     1.6.2
  */
 abstract class PluginMenu
 {
@@ -137,7 +136,7 @@ abstract class PluginMenu
             $this->makeLanguageItem();
         }
         if (is_readable($pth['file']['plugin_help'])) {
-            $this->makeHelpItem($pth['file']['plugin_help']);
+            $this->makeHelpItem();
         }
     }
 

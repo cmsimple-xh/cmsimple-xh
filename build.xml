@@ -4,20 +4,6 @@
 
     <property name="build" value="01"/>
 
-    <fileset id="php-sources" dir=".">
-        <include name="cmsimple/*.php"/>
-        <exclude name="cmsimple/*config.php"/>
-        <include name="cmsimple/classes/*.php"/>
-        <include name="plugins/filebrowser/*.php"/>
-        <include name="plugins/filebrowser/classes/*.php"/>
-        <include name="plugins/meta_tags/*.php"/>
-        <include name="plugins/page_params/*.php"/>
-    </fileset>
-
-    <fileset id="unit-tests" dir="tests/unit">
-        <include name="*.php"/>
-    </fileset>
-
     <fileset id="tutorials" dir="tutorials">
         <include name="XH/*.pkg"/>
         <include name="XH/*.cls"/>
@@ -29,17 +15,25 @@
     </target>
 
     <target name="sniff" description="checks adherence to PSR-2">
-        <phpcodesniffer standard="PSR2" format="full" haltonerror="true">
-            <fileset refid="php-sources"/>
-            <fileset refid="unit-tests"/>
-        </phpcodesniffer>
+        <exec executable="phpcs" passthru="true" checkreturn="true">
+            <arg value="--standard=PSR2"/>
+            <arg value="--extensions=php"/>
+            <arg value="--ignore=languages,*config.php"/>
+            <arg line="--runtime-set ignore_warnings_on_exit true"/>
+            <arg file="cmsimple"/>
+            <arg file="plugins/filebrowser"/>
+            <arg file="plugins/meta_tags"/>
+            <arg file="plugins/page_params"/>
+            <arg file="tests/unit"/>
+        </exec>
     </target>
 
     <target name="mess" description="detects code flaws">
-        <phpmd rulesets="unusedcode">
-            <fileset refid="php-sources"/>
-            <fileset refid="unit-tests"/>
-         </phpmd>
+        <exec executable="phpmd" passthru="true" checkreturn="true">
+            <arg value="cmsimple,plugins/filebrowser,plugins/meta_tags,plugins/page_params,tests/unit"/>
+            <arg value="text"/>
+            <arg value="unusedcode"/>
+        </exec>
     </target>
 
     <target name="compat"
@@ -54,6 +48,8 @@
 
     <target name="unit-tests" description="runs all unit tests">
         <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
+            <arg value="--globals-backup"/>
+            <arg value="--dont-report-useless-tests"/>
             <arg value="--bootstrap"/>
             <arg file="tests/bootstrap.php"/>
             <arg file="tests/unit"/>
@@ -136,8 +132,8 @@
         </move>
         <move todir="dist/cmsimplexh" includeemptydirs="true">
             <fileset dir="export">
+                <exclude name=".github/**"/>
                 <exclude name=".phan/**"/>
-                <exclude name=".travis.yml"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.json"/>
                 <exclude name="composer.lock"/>
@@ -167,6 +163,8 @@
         <copy file="dist/cmsimplexh/plugins/page_params/languages/en.php" tofile="dist/cmsimplexh/plugins/page_params/languages/default.php" preservelastmodified="true"/>
 
         <move file="dist/cmsimplexh/userfiles/downloads/_XHdebug.txt" tofile="dist/cmsimplexh/userfiles/downloads/XHdebug.txt"/>
+
+        <touch file="dist/cmsimplexh/cmsimple/.sessionname"/>
 
         <echo file="dist/cmsimplexh/reqcheck.php">This file serves no purpose, and can be deleted.</echo>
 
@@ -206,6 +204,7 @@
             <fileset dir="dist/cmsimplexh">
                 <include name="important-notices.md"/>
                 <include name="cmsimple/log.txt"/>
+                <include name="cmsimple/.sessionname"/>
                 <include name="content/content.htm"/>
                 <include name="2lang/content/content.htm"/>
                 <include name="cmsimple/config.php"/>

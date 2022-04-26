@@ -8,9 +8,8 @@ namespace XH;
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  * @since     1.6.3
  */
 class Controller
@@ -64,7 +63,7 @@ class Controller
     {
         global $search;
 
-        return new Search(stsl($search));
+        return new Search($search);
     }
 
     /**
@@ -151,7 +150,7 @@ class Controller
         global $adm, $login, $logout, $keycut, $f;
 
         $adm = gc('status') == 'adm' && logincheck();
-        $keycut = stsl($keycut);
+        $keycut = $keycut;
         if ($login && $keycut == '' && !$adm) {
             $login = null;
             $f = 'login';
@@ -319,7 +318,6 @@ class Controller
         $_XH_csrfProtection->check();
         $postData = $_POST;
         unset($postData['save_page_data'], $postData['xh_csrf_token']);
-        $postData = array_map('stsl', $postData);
         $successful = $pd_router->update($s, $postData);
         if (isset($_GET['xh_pagedata_ajax'])) {
             if ($successful) {
@@ -390,7 +388,7 @@ class Controller
 
         $_XH_csrfProtection->check();
         if ($file == 'content') {
-            $suffix = stsl($_POST['xh_suffix']);
+            $suffix = $_POST['xh_suffix'];
             if (preg_match('/^[a-z_0-9-]{1,20}$/i', $suffix)) {
                 XH_extraBackup($suffix);
             }
@@ -444,7 +442,7 @@ class Controller
     {
         global $tx, $o;
 
-        $interval = 1000 * (ini_get('session.gc_maxlifetime') - 1);
+        $interval = 1000 * ((int) ini_get('session.gc_maxlifetime') - 1);
         $o .= <<<EOT
 <script>
 if (document.cookie.indexOf('status=adm') == -1) {

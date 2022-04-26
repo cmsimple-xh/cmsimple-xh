@@ -8,9 +8,8 @@
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2019 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
- * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @see       http://cmsimple-xh.org/
+ * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  */
 
 
@@ -50,6 +49,7 @@ function geturl($u)
         fclose($fh);
         return preg_replace("/.*<body[^>]*>(.*)<\/body>.*/is", '$1', $t);
     }
+    return "";
 }
 
 /**
@@ -72,6 +72,7 @@ function geturlwp($u)
         fclose($fh);
         return $t;
     }
+    return "";
 }
 
 /**
@@ -572,15 +573,17 @@ function rmanl($t)
  * Returns the un-quoted $t, i.e. reverses the effect
  * of magic_quotes_gpc/magic_quotes_sybase.
  *
- * If in doubt, use on all user input (but at most once!).
+ * Since magic_quotes are gone, it is a NOP now.
  *
  * @param string $t A string.
  *
  * @return string
+ *
+ * @deprecated since 1.8
  */
 function stsl($t)
 {
-    return (version_compare(PHP_VERSION, '5.4', '<') && get_magic_quotes_gpc()) ? stripslashes($t) : $t;
+    return $t;
 }
 
 /**
@@ -737,7 +740,9 @@ function XH_readContents($language = null)
     $l = array();
     $empty = 0;
     $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
+    array_unshift($search, "\xC2\xAD");
     $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
+    array_unshift($replace, "");
 
     if (($content = XH_readFile($contentFile)) === false) {
         return false;
@@ -769,8 +774,8 @@ function XH_readContents($language = null)
             $temp = $tx['toc']['empty'] . ' ' . $empty;
         }
         $h[] = $temp;
-        $ancestors[$l[$i] - 1] = XH_uenc($temp, $search, $replace);
-        $ancestors = array_slice($ancestors, 0, $l[$i]);
+        $ancestors[(int) $l[$i] - 1] = XH_uenc($temp, $search, $replace);
+        $ancestors = array_slice($ancestors, 0, (int) $l[$i]);
         $url = implode($cf['uri']['seperator'], $ancestors);
         $u[] = utf8_substr($url, 0, (int) $cf['uri']['length']);
         $tooLong[] = utf8_strlen($url) > $cf['uri']['length'];
@@ -886,7 +891,7 @@ function a($i, $x)
  *
  * @param string $n The name attribute.
  *
- * @return string HTML
+ * @return string|null HTML
  */
 function meta($n)
 {
@@ -898,6 +903,7 @@ function meta($n)
         $content = XH_hsc($value);
         return '<meta name="' . $n . '" content="' . $content . '">' . "\n";
     }
+    return null;
 }
 
 /**
@@ -940,7 +946,9 @@ function uenc($s)
 
     if (isset($tx['urichar']['org']) && isset($tx['urichar']['new'])) {
         $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
+        array_unshift($search, "\xC2\xAD");
         $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
+        array_unshift($replace, "");
     } else {
         $search = $replace = array();
     }
@@ -1054,7 +1062,7 @@ function tag($s)
  *
  * @param int $s The HTTP status response code (401, 403, 404).
  *
- * @return void.
+ * @return void
  */
 function shead($s)
 {
@@ -1109,7 +1117,7 @@ function XH_debugmode()
     $dbglevel = '';
     $filename = $pth['folder']['downloads'] . '_XHdebug.txt';
     if (file_exists($filename)) {
-        ini_set('display_errors', 0);
+        ini_set('display_errors', "0");
         $dbglevel = file_get_contents($filename);
         if (strlen($dbglevel) == 1) {
             set_error_handler('XH_debug');
@@ -1144,7 +1152,7 @@ function XH_debugmode()
             error_reporting(E_ERROR | E_USER_ERROR | E_USER_WARNING | E_PARSE);
         }
     } else {
-        ini_set('display_errors', 0);
+        ini_set('display_errors', "0");
         error_reporting(0);
     }
     return error_reporting() > 0;
@@ -1338,8 +1346,6 @@ function pluginFiles($plugin)
  * @since 1.6
  *
  * @todo Might be optimized to set $admPlugins only when necessary.
- * @todo with PHP 5.4.0 replace array_values()
- *       by sort($plugins, SORT_NATURAL | SORT_FLAG_CASE)
  */
 function XH_plugins($admin = false)
 {
@@ -1367,10 +1373,8 @@ function XH_plugins($admin = false)
             }
             closedir($dh);
         }
-        natcasesort($plugins);
-        $plugins = array_values($plugins);
-        natcasesort($admPlugins);
-        $admPlugins = array_values($admPlugins);
+        sort($plugins, SORT_NATURAL | SORT_FLAG_CASE);
+        sort($admPlugins, SORT_NATURAL | SORT_FLAG_CASE);
     }
     return $admin ? $admPlugins : $plugins;
 }
@@ -1380,19 +1384,20 @@ function XH_plugins($admin = false)
  *
  * @param string $s The name of the cookie.
  *
- * @return string
+ * @return string|null
  */
 function gc($s)
 {
     if (isset($_COOKIE[$s])) {
         return $_COOKIE[$s];
     }
+    return null;
 }
 
 /**
  * Returns wether the user is logged in.
  *
- * @return bool.
+ * @return bool
  */
 function logincheck()
 {
@@ -1485,7 +1490,7 @@ function loginforms()
  *
  * @param string $filename A file path.
  *
- * @return string
+ * @return string|false
  *
  * @since 1.6
  */
@@ -1510,7 +1515,7 @@ function XH_readFile($filename)
  * @param string $filename The filename.
  * @param string $contents The content to write.
  *
- * @return int The number of bytes written, or false on failure.
+ * @return int|false The number of bytes written, or false on failure.
  *
  * @since 1.6
  */
@@ -1865,7 +1870,7 @@ function XH_templates()
         }
         closedir($handle);
     }
-    natcasesort($templates);
+    sort($templates, SORT_NATURAL | SORT_FLAG_CASE);
     return $templates;
 }
 
@@ -1889,7 +1894,7 @@ function XH_availableLocalizations()
         }
         closedir($handle);
     }
-    natcasesort($languages);
+    sort($languages, SORT_NATURAL | SORT_FLAG_CASE);
     return $languages;
 }
 
@@ -1959,7 +1964,7 @@ function XH_isInternalPath($path)
 /**
  * Returns whether a URL points to this CMSimple installation.
  *
- * @param string $urlParts Parts of an URL.
+ * @param array $urlParts Parts of an URL.
  *
  * @return bool
  *
@@ -2053,7 +2058,7 @@ function XH_encodeJson($value)
 
 /**
  * Returns whether an error has occurred
- * during the last {@link XH_decodeJSON()}.
+ * during the last XH_decodeJson().
  *
  * @return bool
  *
@@ -2069,8 +2074,7 @@ function XH_lastJsonError()
 /**
  * Converts special characters to HTML entities.
  *
- * Same as htmlspecialchars($string, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8'),
- * but works for PHP < 5.4 as well.
+ * Same as htmlspecialchars($string, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8').
  *
  * @param string $string A string.
  *
@@ -2080,13 +2084,7 @@ function XH_lastJsonError()
  */
 function XH_hsc($string)
 {
-    if (!defined('ENT_SUBSTITUTE')) {
-        $string = utf8_bad_replace($string, "\xEF\xBF\xBD");
-        $string = htmlspecialchars($string, ENT_COMPAT, 'UTF-8');
-    } else {
-        $string = htmlspecialchars($string, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8');
-    }
-    return $string;
+    return htmlspecialchars($string, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8');
 }
 
 /**
@@ -2241,7 +2239,7 @@ function XH_unionOf2DArrays(array $array1, array $array2)
  * The file is moved between directories if necessary. If newname exists, it
  * will be overwritten.
  *
- * This is a wrapper around {@link rename rename()}, which offers a fallback for
+ * This is a wrapper around rename(), which offers a fallback for
  * the limitation of PHP < 5.3 on Windows that the rename operation fails, if
  * <var>$newfile</var> already exists. Note, that the fallback solution is not
  * atomic.
@@ -2267,7 +2265,7 @@ function XH_renameFile($oldname, $newname)
  *
  * @param mixed $status A status message or code.
  *
- * @return void
+ * @return noreturn
  *
  * @since 1.6.2
  */
@@ -2315,8 +2313,8 @@ function XH_registerPluginType($type, $plugin = null)
     } else {
         if (isset($plugins[$type])) {
             $result = $plugins[$type];
-            natcasesort($result);
-            return array_values($result);
+            sort($result, SORT_NATURAL | SORT_FLAG_CASE);
+            return $result;
         } else {
             return array();
         }
@@ -2433,7 +2431,7 @@ function XH_formatDate($timestamp)
 /**
  * Implements portable advisory file locking.
  *
- * For now it is just a simple wrapper around {@link flock flock()}.
+ * For now it is just a simple wrapper around flock().
  *
  * @param resource $handle    A file handle.
  * @param int      $operation A lock operation (use LOCK_SH, LOCK_EX or LOCK_UN).
