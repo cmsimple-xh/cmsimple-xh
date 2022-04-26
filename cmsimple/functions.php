@@ -2379,7 +2379,7 @@ function XH_registeredEditmenuPlugins()
 function XH_registeredLanguagesmenuPlugins()
 {
     $metaLangMenus = 'enum:,';
-    $regLangMenus = XH_registerPluginType('languagesmenu');
+    $regLangMenus = XH_registerPluginType('languagemenu');
     foreach ($regLangMenus as $regLangMenu) {
         $metaLangMenus .= $regLangMenu . ',';
     }
