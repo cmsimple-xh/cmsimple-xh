@@ -2372,13 +2372,13 @@ function XH_registeredEditmenuPlugins()
 /**
  * Returns the names of the registered languagemenu plugins.
  *
- * @return array
+ * @return string
  *
  * @since 1.7.6
  */
 function XH_registeredLanguagemenuPlugins()
 {
-    $metaLangMenus = 'enum:,';
+    $metaLangMenus = 'enum:standard,';
     $regLangMenus = XH_registerPluginType('languagemenu');
     foreach ($regLangMenus as $regLangMenu) {
         $metaLangMenus .= $regLangMenu . ',';
