@@ -526,7 +526,7 @@ function languagemenu()
 {
     global $pth, $cf, $sl;
 
-    if ($cf['language']['menu'] != '') {
+   if ($cf['language']['menu'] != 'standard') {
         $menuFunc = $cf['language']['menu'] . '_languagemenu';
         if (function_exists($menuFunc)) {
             return $menuFunc();
