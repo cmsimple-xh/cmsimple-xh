@@ -36,12 +36,6 @@
         </exec>
     </target>
 
-    <target name="compat"
-            description="checks compatibility with PHP_CompatInfo">
-        <exec command="phpcompatinfo analyser:run --alias current"
-              passthru="true" logoutput="true"/>
-    </target>
-
     <target name="phan" description="run Phan static analysis">
         <exec command="phan" passthru="true" logoutput="true" checkreturn="true"/>
     </target>
@@ -136,7 +130,6 @@
                 <exclude name="doxygen_input_filter.php"/>
                 <exclude name="important-notices.md"/>
                 <exclude name="pax_global_header"/>
-                <exclude name="phpcompatinfo.*"/>
                 <exclude name="README.md"/>
                 <exclude name="ruleset.xml"/>
                 <exclude name="2lang/.2lang"/>

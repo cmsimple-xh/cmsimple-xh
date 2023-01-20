@@ -24,7 +24,5 @@ jobs:
         run: PATH=vendor/bin:$PATH phing phan
       - name: phing mess
         run: PATH=vendor/bin:$PATH phing mess
-      - name: phing compat
-        run: PATH=vendor/bin:$PATH phing compat
       - name: phing unit-test
         run: PATH=vendor/bin:$PATH phing unit-tests
