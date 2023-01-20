@@ -43,7 +43,7 @@
     </target>
 
     <target name="phan" description="run Phan static analysis">
-        <exec command="phan -f .phan/files" passthru="true" logoutput="true" checkreturn="true"/>
+        <exec command="phan" passthru="true" logoutput="true" checkreturn="true"/>
     </target>
 
     <target name="unit-tests" description="runs all unit tests">
