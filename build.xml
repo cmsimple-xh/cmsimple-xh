@@ -47,13 +47,7 @@
     </target>
 
     <target name="unit-tests" description="runs all unit tests">
-        <exec executable="vendor/bin/phpunit" passthru="true" checkreturn="true">
-            <arg value="--globals-backup"/>
-            <arg value="--dont-report-useless-tests"/>
-            <arg value="--bootstrap"/>
-            <arg file="tests/bootstrap.php"/>
-            <arg file="tests/unit"/>
-        </exec>
+        <exec executable="phpunit" passthru="true" checkreturn="true"/>
     </target>
 
     <target name="validation-tests" description="runs all validation tests">
@@ -70,7 +64,7 @@
             description="runs all tests"/>
 
     <target name="coverage" description="generates coverage report">
-        <exec command="phpdbg -qrr vendor/phpunit/phpunit/phpunit --configuration coverage.xml"
+        <exec command="phpdbg -qrr vendor/phpunit/phpunit/phpunit --configuration phpunit.xml"
               passthru="true" logoutput="true"/>
     </target>
 
