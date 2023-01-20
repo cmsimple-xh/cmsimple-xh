@@ -12,6 +12,7 @@ jobs:
         with:
           php-version: ${{matrix.php_version}}
           extensions: ast,uopz
+          ini-values: uopz.exit=1
           tools: composer,phive
       - name: Checkout CMSimple_XH
         uses: actions/checkout@v2
