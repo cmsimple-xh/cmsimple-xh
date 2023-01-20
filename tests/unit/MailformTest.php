@@ -116,6 +116,7 @@ class MailformTest extends TestCase
         global $action;
 
         $action = '';
+        $this->resetProcess();
         $mailform = $this->getMockBuilder(Mailform::class)->setMethods(array('render'))->getMock();
         $mailform->expects($this->once())->method('render');
         $mailform->process();
@@ -126,6 +127,7 @@ class MailformTest extends TestCase
         global $action;
 
         $action = 'send';
+        $this->resetProcess();
         $mailform = $this->getMockBuilder(Mailform::class)->setMethods(array('check', 'submit'))->getMock();
         $mailform->expects($this->once())->method('check')
             ->willReturn('');
@@ -139,6 +141,7 @@ class MailformTest extends TestCase
         global $action;
 
         $action = 'send';
+        $this->resetProcess();
         $mailform = $this->getMockBuilder(Mailform::class)->setMethods(array('check', 'render'))->getMock();
         $mailform->expects($this->once())->method('check')
             ->willReturn('some error message');
@@ -151,6 +154,7 @@ class MailformTest extends TestCase
         global $action;
 
         $action = 'send';
+        $this->resetProcess();
         $mailform = $this->getMockBuilder(Mailform::class)->setMethods(array('check', 'submit', 'render'))->getMock();
         $mailform->expects($this->once())->method('check')
             ->willReturn('');
@@ -158,6 +162,14 @@ class MailformTest extends TestCase
             ->willReturn(false);
         $mailform->expects($this->once())->method('render');
         $mailform->process();
+    }
+
+    private function resetProcess()
+    {
+        // hack to allow repeated testing of this "once" method
+        $statics = uopz_get_static(Mailform::class, "process");
+        $statics["again"] = false;
+        uopz_set_static(Mailform::class, "process", $statics);
     }
 
     /**
