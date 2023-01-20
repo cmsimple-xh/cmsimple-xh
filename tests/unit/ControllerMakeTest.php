@@ -50,6 +50,9 @@ class ControllerMakeTest extends TestCase
      */
     public function testMakeSearch()
     {
+        global $search;
+
+        $search = "irrelevant";
         $this->assertInstanceOf(Search::class, $this->subject->makeSearch());
     }
 
