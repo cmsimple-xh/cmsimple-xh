@@ -263,13 +263,13 @@ class PagesTest extends TestCase
         $expected = array(
             array('Welcome', '?Welcome'),
             array('Blog', '?Blog'),
-            array("${indent}July", '?Blog:July'),
-            array("$indent${indent}Hot", '?Blog:July:Hot'),
-            array("$indent${indent}Visible", '?Blog:Hidden:Visible'),
-            array("${indent}January", '?Blog:January'),
-            array("$indent${indent}Cold", '?Blog:January:Cold'),
+            array("{$indent}July", '?Blog:July'),
+            array("$indent{$indent}Hot", '?Blog:July:Hot'),
+            array("$indent{$indent}Visible", '?Blog:Hidden:Visible'),
+            array("{$indent}January", '?Blog:January'),
+            array("$indent{$indent}Cold", '?Blog:January:Cold'),
             array("About", '?About'),
-            array("${indent}Contact", '?About:Contact'),
+            array("{$indent}Contact", '?About:Contact'),
         );
         $this->assertEquals($expected, $this->subject->linkList());
     }
@@ -280,14 +280,14 @@ class PagesTest extends TestCase
         $expected = array(
             array('* Welcome', '?Welcome'),
             array('* Blog', '?Blog'),
-            array("* ${indent}July", '?Blog:July'),
-            array("* $indent${indent}Hot", '?Blog:July:Hot'),
-            array("* ${indent}Hidden", '?Blog:Hidden'),
-            array("* $indent${indent}Visible", '?Blog:Hidden:Visible'),
-            array("* ${indent}January", '?Blog:January'),
-            array("* $indent${indent}Cold", '?Blog:January:Cold'),
+            array("* {$indent}July", '?Blog:July'),
+            array("* $indent{$indent}Hot", '?Blog:July:Hot'),
+            array("* $indent}Hidden", '?Blog:Hidden'),
+            array("* $indent{$indent}Visible", '?Blog:Hidden:Visible'),
+            array("* {$indent}January", '?Blog:January'),
+            array("* $indent{$indent}Cold", '?Blog:January:Cold'),
             array("* About", '?About'),
-            array("* ${indent}Contact", '?About:Contact'),
+            array("* {$indent}Contact", '?About:Contact'),
             array('* News', '?News')
         );
         $this->assertEquals($expected, $this->subject->linkList('* ', false));
