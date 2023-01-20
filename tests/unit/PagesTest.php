@@ -282,7 +282,7 @@ class PagesTest extends TestCase
             array('* Blog', '?Blog'),
             array("* {$indent}July", '?Blog:July'),
             array("* $indent{$indent}Hot", '?Blog:July:Hot'),
-            array("* $indent}Hidden", '?Blog:Hidden'),
+            array("* {$indent}Hidden", '?Blog:Hidden'),
             array("* $indent{$indent}Visible", '?Blog:Hidden:Visible'),
             array("* {$indent}January", '?Blog:January'),
             array("* $indent{$indent}Cold", '?Blog:January:Cold'),
