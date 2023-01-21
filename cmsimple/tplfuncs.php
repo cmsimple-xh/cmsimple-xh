@@ -419,7 +419,7 @@ function content()
         }
         $o .= preg_replace('/#CMSimple (.*?)#/is', '', $c[$s]);
     }
-    return  preg_replace('/<!--XH_ml[1-9]:.*?-->/is', '', $o);
+    return  preg_replace('/<!--XH_ml[1-9]:.*?-->\R*/is', '', $o);
 }
 
 
