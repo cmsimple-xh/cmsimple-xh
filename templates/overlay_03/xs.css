@@ -1,0 +1,11 @@
+/* CSS only for Template-Demo and Language xs (Christmas) */
+#tpllck_body,
+.overlay {
+	background: none;
+	background-image: url(../../userfiles/images/tpl-test-bg/sno_ani.gif), url(../../userfiles/images/tpl-test-bg/bg_xs.jpg);
+	background-position: left top, center center;
+	background-attachment: fixed, fixed;
+	background-repeat: repeat, no-repeat;
+	background-size: 500px, cover;
+	background-color: #2a2a2a;
+}
