@@ -791,7 +791,7 @@ function XH_readContents($language = null)
     foreach ($c as $i => $j) {
         if (preg_match('/<\?php(.*?)\?>/is', $j, $m)) {
             eval($m[1]);
-            $c[$i] = preg_replace('/<\?php(.*?)\?>/is', '', $j);
+            $c[$i] = preg_replace('/\R*<\?php(.*?)\?>\R*/is', '', $j);
             $hasPageData = true;
         } else {
             $page_data[] = array();
