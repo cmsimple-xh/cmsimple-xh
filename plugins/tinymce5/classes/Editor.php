@@ -42,7 +42,7 @@ class Editor
      * @param string $config    The configuration string.
      * @param string $selector  The editor area selector.
      *
-     * @return string
+     * @return string|false
      *
      * @global array  The paths of system files and folders.
      * @global string The selected language
@@ -317,7 +317,7 @@ class Editor
         if (!$elementId) {
             return '';
         }
-       
+        $config = self::config($config, '#' . $elementId);
         return self::setInit($config);
     }
 
@@ -327,7 +327,7 @@ class Editor
      *
      * @param string $classes The classes of the textarea(s) that should become
      *                        an editor instance.
-     * @param string $config  The configuration string.
+     * @param string|false $config  The configuration string.
      *
      * @return void
      *
@@ -379,13 +379,16 @@ class Editor
 /**
  * Helper sequence to set the init JS string correctly.
  *
- * @param string $config The configuration string.
+ * @param string|false $config The configuration string.
  * @return string the whole editor js string
  *
  */
     private static function setInit($config) 
     {
         static $run = 0;
+        if ($config === false) {
+            return "";
+        }
         $js = str_replace(
             'tinyArgs', 'tinyArgs'.$run, '
             if (typeof(tinymce) === "undefined" || tinymce === null) {

@@ -534,7 +534,10 @@ a.pl_tooltip span {
 }
 #xh_pdviews select {
 	width: auto !important;
+	max-width: 100%;
 	padding: .125em !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 #xh_pdviews label {
 	color: #000 !important;

@@ -33,7 +33,7 @@ class CSRFAttackTest extends PHPUnit_Framework_TestCase
     /**
      * Log in to back-end and store cookies in a temp file.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->url = 'http://localhost' . getenv('CMSIMPLEDIR');
         $this->cookieFile = tempnam(sys_get_temp_dir(), 'CC');

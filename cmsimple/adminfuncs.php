@@ -347,11 +347,10 @@ function XH_settingsView()
     }
     $o .= '</ul>' . "\n";
 
-    $o .= '<h4>' . $tx['settings']['backup'] . '</h4>' . "\n";
-    $o .= XH_backupsView();
     $o .= '<h4>' . $tx['settings']['more'] . '</h4>' . "\n"
         . '<ul>' . "\n"
         . '<li><a href="' . $sn . '?&validate">' . $tx['editmenu']['validate'] . '</a></li>'
+        . '<li><a href="' . $sn . '?&xh_backups">' . $tx['editmenu']['backups'] . '</a></li>'
         . '<li><a href="' . $sn . '?&xh_pagedata">' .$tx['editmenu']['pagedata'] . '</a></li>'
         . '<li><a href="' . $sn . '?&xh_change_password">' . $tx['editmenu']['change_password'] . '</a></li>'
         . '<li><a href="' . $sn . '?&sysinfo">' . $tx['editmenu']['sysinfo'] . '</a></li>'

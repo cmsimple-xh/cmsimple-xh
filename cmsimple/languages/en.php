@@ -61,7 +61,7 @@ $tx['error']['cntlocateheading']="No page selected";
 $tx['error']['cntopen']="Could not open";
 $tx['error']['cntsave']="Could not save";
 $tx['error']['cntwriteto']="Could not write to";
-$tx['error']['fatal']="A fatal error occurred. Enable <a href=\"http://www.cmsimple-xh.org/wiki/doku.php/troubleshooting#debug_mode\" target=\"_blank\">debug mode</a> for further information.";
+$tx['error']['fatal']="A fatal error occurred. Enable <a href=\"https://wiki.cmsimple-xh.org/?tips-and-tricks/troubleshooting-debug-mode\" target=\"_blank\">debug mode</a> for further information.";
 $tx['error']['noeditor']="External editor \"%s\" missing!";
 $tx['error']['nofilebrowser']="External filebrowser \"%s\" missing!";
 $tx['error']['nopagemanager']="External pagemanager \"%s\" missing!";
