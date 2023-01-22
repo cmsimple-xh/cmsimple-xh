@@ -1,0 +1,188 @@
+/* CSS for Backend global, Pluginslist & Edit-Mode (body class "adminglobal", "adminglobal xh_plugins" & "adminedit") */
+@media only screen and (min-width: 1px) {
+:root {
+	--content-main: 800px; /* Backend - global width for all pages */
+	--editors-area: 1019px; /* Backend - only Edit-Mode width (Calculation example: View-Mode, H1 width + 26px (padding's & Scrollbar-width), e.g.(993px + 26px = 1019px) */
+}
+
+/* Global */
+/* TOP anchor - FIX (scroll realy to the top) */
+#TOP {
+	position: absolute;
+	top: -110px;
+}
+.adminglobal .tpllck_content_main {
+	font-size: 1.25rem;
+	max-width: 1200px; /* Fallback for older Browsers */
+	max-width: var(--content-main);
+}
+.adminedit .tpllck_content_main {
+	max-width: 1200px; /* Fallback for older Browsers */
+	max-width: var(--editors-area);
+}
+
+/* Overlay Menu */
+html[style^="margin-top: 5"] #xh_adminmenu_fixed ~ .overlay .menu,
+html[style^="margin-top: 6"] #xh_adminmenu_fixed ~ .overlay .menu,
+html[style^="margin-top: 7"] #xh_adminmenu_fixed ~ .overlay .menu {
+	margin: 5rem auto 1rem;
+}
+html[style^="margin-top: 9"] #xh_adminmenu_fixed ~ .overlay .menu,
+html[style^="margin-top: 10"] #xh_adminmenu_fixed ~ .overlay .menu {
+	margin: 7rem auto 1rem;
+}
+html[style^="margin-top: 10"] #xh_adminmenu_fixed ~ .overlay .menu .menu-btn-cross {
+	top: 7rem;
+}
+
+/* Pagemanager */
+#pagemanager {
+	color: #222;
+	font: 14px/normal Arial, sans-serif;
+	margin: 0 auto;
+}
+#pagemanager ul {
+	margin: 0;
+	padding-left: 0;
+}
+#pagemanager li {
+	line-height: 1.4;
+	padding: inherit;
+}
+#pagemanager li:before {
+	content: none;
+}
+#pagemanager a {
+	border: 0 none transparent;
+}
+/* Pagemanager Theme */
+#pagemanager.jstree-default {
+	background-color: #fff;
+	color: #222;
+}
+/* Pagemanager contextmenu */
+.vakata-context {
+	font: 14px/normal Arial, sans-serif;
+	z-index: 999;
+}
+
+/* Filebrowser */
+#xhFilebrowserMenu,
+#xhFilebrowser {
+	margin: 0 auto;
+}
+#xhFilebrowserMenu li:before,
+#xhFilebrowser li:before {
+	content: none;
+}
+#xhFilebrowser .folder input[type="image"],
+#xhFilebrowser input[type="image"]:not(:first-child) {
+	margin: 0 1rem;
+}
+
+/* Settings */
+#xh_config_form .xh_label {
+	font: 14px/normal Arial, sans-serif;
+}
+#xh_system_check li:before {
+	content: none;
+}
+/* Settings (Template + Stylesheet + Plugins Stylesheet) */
+textarea.xh_file_edit {
+	background-color: #FAFAFA;
+	margin-top: 1em;
+}
+.CodeMirror {
+	font: 14px/normal Arial, sans-serif;
+}
+/* Settings (Log file) */
+#xh_logfile {
+	background-color: #FAFAFA;
+}
+
+/* Plugins & Pluginslist */
+.adminglobal.xh_plugins .tpllck_content_main script ~ ul ul {
+	padding: 0;
+}
+.adminglobal.xh_plugins .tpllck_content_main script ~ ul:first-of-type {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	overflow: hidden;
+}
+.adminglobal.xh_plugins .tpllck_content_main script ~ ul li {
+	list-style: inside none none;
+	padding: 0;
+}
+.adminglobal.xh_plugins .tpllck_content_main script ~ ul:first-of-type > li {
+	background-color: #fff;
+	border: 1px solid #E0E0E0;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	box-sizing: border-box;
+	display: inline-block;
+	flex: 0 0 98%;
+	margin: 1%;
+	overflow: auto;
+	padding: 10px 10px 10px 25px !important;
+}
+.adminglobal.xh_plugins .tpllck_content_main script ~ ul:first-of-type > li > a {
+	color: #e53935;
+	font-size: 1.25rem;
+	font-weight: bold;
+}
+
+.adminglobal.xh_plugins .tpllck_content_main script ~ ul ul li a {
+	color: #000;
+	font-size: 1.25rem;
+}
+/* Optional */
+.adminglobal.xh_plugins .tpllck_content_main script ~ ul li:before {
+	content: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* Unordered Lists global */
+.adminglobal .tpllck_content_main script ~ ul {
+	list-style: inside none square;
+}
+.adminglobal .tpllck_content_main script ~ ul li {
+	padding: 2px 0;
+}
+.adminglobal .tpllck_content_main script ~ ul li::marker {
+	color: #fff;
+}
+
+/* Update-Check */
+#upd_list_container {
+	max-width: inherit;
+}
+.upd_list li {
+	margin-left: 0 !important;
+	padding: 0 !important;
+}
+.upd_list li:before {
+	content: none !important;
+}
+}
+
+@media only screen and (min-width: 375px) and (max-width: 767px) {
+.adminglobal.xh_plugins .tpllck_content_main script ~ ul:first-of-type > li {
+	flex: 0 0 48%;
+}	
+}
+
+@media only screen and (min-width: 768px) {
+.adminglobal.xh_plugins .tpllck_content_main script ~ ul:first-of-type > li {
+	flex: 1 1 31%;
+}	
+}
+
+@media only screen and (max-width: 979px) {
+.menu-btn-cross {
+	right: 1.2rem;
+	top: 5rem;
+}
+}
