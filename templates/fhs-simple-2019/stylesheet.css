@@ -402,6 +402,8 @@ button.burgerJS {
 	color: #333;
 }
 #searchbox input[type="submit"] {
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
 	margin: 0;
 	padding: .25em .5em !important;
 	width: 25%;
@@ -409,6 +411,7 @@ button.burgerJS {
 	background: #f60;
 	color: #fff;
 	text-shadow: 1px 1px 1px rgba(0,0,0,.6);
+	border-radius: 0;
 }
 #searchbox input[type="submit"]:hover,
 #searchbox input[type="submit"]:focus {
