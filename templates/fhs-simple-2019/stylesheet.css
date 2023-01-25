@@ -393,6 +393,8 @@ button.burgerJS {
 	margin: .35em 0 1.5em 0;
 }
 #searchbox input[name="search"] {
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
 	margin: 0;
 	padding: .25em .5em !important;
 	width: 75%;
