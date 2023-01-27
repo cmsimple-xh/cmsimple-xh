@@ -946,6 +946,8 @@ function uenc($s)
         $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
         array_unshift($replace, "");
     } else {
+        $search = $replace = array();
+    }
     if (extension_loaded('intl')) {
         $s = str_replace($search, $replace, $s);
         $rule = 'Any-Latin; Latin-ASCII; [:Punctuation:] Remove; Lower();';
