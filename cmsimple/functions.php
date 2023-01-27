@@ -739,10 +739,6 @@ function XH_readContents($language = null)
     $removed = array();
     $l = array();
     $empty = 0;
-    $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
-    array_unshift($search, "\xC2\xAD");
-    $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
-    array_unshift($replace, "");
 
     if (($content = XH_readFile($contentFile)) === false) {
         return false;
@@ -774,7 +770,7 @@ function XH_readContents($language = null)
             $temp = $tx['toc']['empty'] . ' ' . $empty;
         }
         $h[] = $temp;
-        $ancestors[(int) $l[$i] - 1] = XH_uenc($temp, $search, $replace);
+        $ancestors[(int) $l[$i] - 1] = uenc($temp);
         $ancestors = array_slice($ancestors, 0, (int) $l[$i]);
         $url = implode($cf['uri']['seperator'], $ancestors);
         $u[] = utf8_substr($url, 0, (int) $cf['uri']['length']);
@@ -950,9 +946,14 @@ function uenc($s)
         $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
         array_unshift($replace, "");
     } else {
+    if (extension_loaded('intl')) {
+        $s = str_replace($search, $replace, $s);
+        $rule = 'Any-Latin; Latin-ASCII; [:Punctuation:] Remove; Lower();';
+        $s = transliterator_transliterate($rule, $s);
         $search = $replace = array();
     }
-    return XH_uenc($s, $search, $replace);
+    $s = XH_uenc($s, $search, $replace);
+    return $s;
 }
 
 /**
