@@ -942,12 +942,12 @@ function uenc($s)
 
     if (isset($tx['urichar']['org']) && isset($tx['urichar']['new'])) {
         $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
-        array_unshift($search, "\xC2\xAD");
         $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
-        array_unshift($replace, "");
     } else {
         $search = $replace = array();
     }
+    array_unshift($search, "\xC2\xAD");
+    array_unshift($replace, "");
     if (extension_loaded('intl')) {
         $s = str_replace($search, $replace, $s);
         $rule = 'Any-Latin; Latin-ASCII; [:Punctuation:] Remove; Lower();';
