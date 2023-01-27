@@ -12,8 +12,8 @@ $tx['template']['text1']="Text 1 for templates requiring this text";
 $tx['template']['text2']="Text 2 for templates requiring this text";
 $tx['template']['text3']="Text 3 for templates requiring this text";
 
-$tx['urichar']['new']="-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-";
-$tx['urichar']['org']="&amp;|'|§|%|:|/|?|#|[|]|@|!|$|&|'|(|)|*|+|,|;|=|\"";
+$tx['urichar']['new']="-|-|-|-|-|-|-|-|-|-|-|-|-|-";
+$tx['urichar']['org']="&amp;|&lt;|&gt;|^|°|$|€|=|²|³|~|+|´|`";
 
 $tx['action']['advanced_hide']="Less &hellip;";
 $tx['action']['advanced_show']="More &hellip;";
