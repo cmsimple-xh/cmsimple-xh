@@ -1,5 +1,7 @@
 <?php
 
+const XH_URICHAR_SEPARATOR = '|';
+
 require_once './vendor/autoload.php';
 
 require_once './cmsimple/utf8.php';

@@ -48,8 +48,8 @@ class CoreConfigFileEdit extends CoreArrayFileEdit
                     continue;
                 }
                 $omcf = isset($mcf[$cat][$name]) ? $mcf[$cat][$name] : null;
-                $hint = isset($tx['help']["${cat}_$name"])
-                    ? $tx['help']["${cat}_$name"] : null;
+                $hint = isset($tx['help']["{$cat}_$name"])
+                    ? $tx['help']["{$cat}_$name"] : null;
                 $this->cfg[$cat][$name] = $this->option($omcf, $val, $hint);
             }
             if (empty($this->cfg[$cat])) {

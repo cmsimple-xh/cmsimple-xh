@@ -61,7 +61,7 @@ return [
         'cmsimple',
         'plugins/fa',
         'plugins/filebrowser',
-        'plugins/metatags',
+        'plugins/meta_tags',
         'plugins/page_params',
     ],
 

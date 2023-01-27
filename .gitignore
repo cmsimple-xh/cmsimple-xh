@@ -6,3 +6,5 @@ assets/css/xhstyles.css
 /composer.lock
 /cmsimple/.sessionname
 /cmsimple/log.txt
+/.phpunit.cache
+/.phpunit.result.cache

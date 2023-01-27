@@ -32,6 +32,8 @@ class ControllerFileBackupTest extends TestCase
      */
     protected $subject;
 
+    private $extraBackupMock;
+
     /**
      * Sets up the test fixture.
      */

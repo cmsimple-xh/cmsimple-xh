@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html id="overlay" lang="<?php echo $sl;?>">
+<?php
+// Include Template language files
+include "{$pth['folder']['template']}languages/default.php";
+if (file_exists("{$pth['folder']['template']}languages/$sl.php")) {
+	include "{$pth['folder']['template']}languages/$sl.php";
+}
+// Include expanded languagemenu
+if (file_exists("{$pth['folder']['template']}langmenu_custom.php")) {
+	include "{$pth['folder']['template']}langmenu_custom.php";
+}
+?>
+<head>
+<?php echo head();?>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+// Include second language specific stylesheet (e.g. fr.css), if created - Optional
+if (file_exists("{$pth['folder']['template']}$sl.css")) {
+	echo '<link rel="stylesheet" type="text/css" href="'.$pth['folder']['template'].$sl.'.css">'."\n";
+}
+// admintemplate.css - Only included in Admin-Mode && (...) - Important, must be included as last css-file!
+if (XH_ADM) {if ($edit || ($s < 0 && !($sitemap || $search))) {
+	echo '<link rel="stylesheet" type="text/css" href="'.$pth['folder']['template'].'admintemplate.css">'."\n";}
+	else {
+	echo '<link rel="stylesheet" type="text/css" href="'.$pth['folder']['template'].'adminview.css">'."\n";}
+}
+?>
+</head>
+
+<body <?php if (XH_ADM) {if ($s < 0 && !$sitemap && $xh_plugins) {echo 'class="adminglobal xh_plugins"';} elseif ($s < 0 && !$sitemap && !$search) {echo 'class="adminglobal"';} elseif ($edit && $s > -1) {echo 'class="adminedit"';} else {echo 'class="adminview"';}}?> id="tpllck_body" <?php echo onload();?>>
+<div id="TOP"><div id="content"></div></div>
+<div class="tpllck_container">
+<!-- ************************* Left-Container - Languagemenu, Sitename, Menu-Button, Subnavigation ************************* -->
+	<div class="tpllck_left_container">
+		<div class="tpllck_sidebar">
+			<div class="sidebarinner">
+								
+				<!-- Logo + Sitename + Slogan -->
+				<div class="logobox"><?=$tpl_tx['text']['sitename_logobox']?></div> <!-- Note: $tpl_tx['text']['...'] Texts defined in template languages/*.php -->
+				<div class="sitename"><?php echo sitename();?></div>
+				<div class="site-slogan"><?php echo $tpl_tx['text']['sitename_slogan'] ?></div>
+				
+				<!-- Menu-Button -->
+				<div class="menu-btn">
+					<a class="btn-open" href="#overlay" title="<?=$tpl_tx['text']['menu_button']?>">
+					<div class="top"></div>
+					<div class="middle"></div>
+					<div class="bottom"></div>
+					</a>
+				</div>
+				
+				<!-- Languagemeu -->
+				<?php if (!empty(XH_secondLanguages())):?>
+					<div class="langMenu"><?=languagemenu_custom()?></div> <!-- Note: Settings are defined in template languages/*.php -->
+				<?php endif?>
+			</div>
+			
+			<!-- Subnav -->
+			<div class="tpllck_subnav">
+				<div class="navinner">
+					<div class="navicons">
+					<input id="search" type="checkbox">
+					<span class="tpllck_search" tabindex="0"><label for="search" class="search-toggle">
+					<img src="<?php echo $pth['folder']['templateimages'];?>gmi_search.png" alt="<?php echo $tx['title']['search'] ?>" title="<?php echo $tx['title']['search'] ?>">
+					</label></span>
+					<span><a href="./?&amp;sitemap">
+					<img src="<?php echo $pth['folder']['templateimages'];?>gmi_sitemap.png" alt="<?php echo $tx['menu']['sitemap'] ?>" title="<?php echo $tx['menu']['sitemap'] ?>">
+					</a></span>
+					<span><a href="<?php echo XH_printUrl();?>">
+					<img src="<?php echo $pth['folder']['templateimages'];?>gmi_print.png" alt="<?php echo $tx['menu']['print'] ?>" title="<?php echo $tx['menu']['print'] ?>">
+					</a></span>
+					<span><a href="./?&amp;mailform">
+					<img src="<?php echo $pth['folder']['templateimages'];?>gmi_mail.png" alt="<?php echo $tx['menu']['mailform'] ?>" title="<?php echo $tx['menu']['mailform'] ?>">
+					</a></span>
+					<form method="post" id="searchform" action="index.php">
+					<input id="searchfield" type="text" name="search" value="<?php echo $tx['title']['search'] ?>..." onfocus="if (this.value == '<?php echo $tx['title']['search'] ?>...') {this.value = '';}" onblur="if (this.value == '') {this.value = '<?php echo $tx['title']['search'] ?>...';}">
+					<input type="hidden" name="function" value="search">
+					</form>
+					</div>
+					
+					<div class="navlink">
+					<span><a href="?<?=XH_hsc(uenc($tpl_tx['text']['legalnotice']))?>"><?=XH_hsc(uenc($tpl_tx['text']['legalnotice']))?></a></span>
+					<span><a href="?<?=XH_hsc(uenc($tpl_tx['text']['privacy']))?>"><?=XH_hsc(uenc($tpl_tx['text']['privacy']))?></a></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<!-- ************************* Right-Container - Content + Footer ************************* -->
+	<div class="tpllck_right_container">
+		<div class="tpllck_content">
+			<div class="tpllck_content_main">
+				<div class="tpllck_locator"><span tabindex="0"><?php echo $tx['locator']['text'];?></span><span><?php echo locator();?></span></div> <!-- Bread-Crumbs-Locator -->
+				<?php echo content();?>
+				<div class="tpllck_submenu"><?php echo submenu('<span>%s</span>');?></div>
+			</div>
+			
+			<!-- ************************* Footer (Copyright, CMS-/Template-Info, Login) ************************* -->
+			<footer id="tpllck_footer">
+				<div class="tpllck_copyright">
+					<span class="sitemaplink"><?=sitemaplink()?></span>
+					<span class="separator"> | </span>
+					<span>© <?=date("Y");?> <?=XH_hsc($tpl_tx['text']['footer_company-name'])?> | Powered by <a href="http://www.cmsimple-xh.org/" target="_blank">CMSimple_XH</a></span>
+					<span class="separator"> | </span>
+					<span>Template by <a href="http://www.cmsimplexh.momadu.de/" target="_blank">lck</a> | <?=loginlink();?></span>
+				</div>
+			</footer>
+		</div>
+	</div>
+</div>
+
+<!-- ************************* Overlay Menu + Newsboxes ************************* -->
+<div class="overlay">
+	<div class="menu">
+		<div class="menu-btn-cross">
+			<a class="btn-close" href="#content" title="<?=$tpl_tx['text']['modal-overlay']?>">
+				<div class="top"></div>
+				<div class="middle"></div>
+				<div class="bottom"></div>
+			</a>
+		</div>
+		<?php echo li($hc,1);?>
+	</div>
+	
+	<!-- Newsboxes -->
+	<div class="tpllck_newsboxes">
+		<ul>
+			<li><?php echo newsbox('News01');?></li>
+			<li class="spacer"></li>
+			<li><?php echo newsbox('News02');?></li> <!-- For an additional Newsbox e.g. 'News03', copy line 131 and this line and paste it below -->
+		</ul>
+	</div>
+</div>
+
+<!-- ************************* Scroll-to-top button ************************* -->
+<div class="scroll-to-top"><a href="#TOP" title="<?=$tpl_tx['text']['pagetools_to-top'];?>"> </a></div>
+
+</body>
+</html>

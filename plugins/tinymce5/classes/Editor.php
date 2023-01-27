@@ -42,7 +42,7 @@ class Editor
      * @param string $config    The configuration string.
      * @param string $selector  The editor area selector.
      *
-     * @return string
+     * @return string|false
      *
      * @global array  The paths of system files and folders.
      * @global string The selected language
@@ -178,6 +178,15 @@ class Editor
         ) {
             $append .= ',' . PHP_EOL . '"importcss_selector_filter": /(?:([a-z0-9\-_]+))(\.[a-z0-9_\-\.]+)$/i';          
         }
+        
+        /* 
+         * blocks the upload of <img> elements with the alt attribute that starts with "demo-img"
+         * images_dataimg_filter is deprecated since 5.9.3
+        */
+        if (isset($temp['images_upload_url']))
+            $append .= ',' . PHP_EOL . 'images_dataimg_filter: function(img) {
+    return !img.alt.startsWith("demo-img");
+  }';          
 
         $lastpos = strrpos ($parsedconfig,'}');
         $parsedconfig = substr($parsedconfig,0,$lastpos) . $append . substr($parsedconfig,$lastpos);
@@ -317,7 +326,7 @@ class Editor
         if (!$elementId) {
             return '';
         }
-       
+        $config = self::config($config, '#' . $elementId);
         return self::setInit($config);
     }
 
@@ -327,7 +336,7 @@ class Editor
      *
      * @param string $classes The classes of the textarea(s) that should become
      *                        an editor instance.
-     * @param string $config  The configuration string.
+     * @param string|false $config  The configuration string.
      *
      * @return void
      *
@@ -379,13 +388,16 @@ class Editor
 /**
  * Helper sequence to set the init JS string correctly.
  *
- * @param string $config The configuration string.
+ * @param string|false $config The configuration string.
  * @return string the whole editor js string
  *
  */
     private static function setInit($config) 
     {
         static $run = 0;
+        if ($config === false) {
+            return "";
+        }
         $js = str_replace(
             'tinyArgs', 'tinyArgs'.$run, '
             if (typeof(tinymce) === "undefined" || tinymce === null) {

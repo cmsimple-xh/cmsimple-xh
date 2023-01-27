@@ -860,6 +860,7 @@ $plugin = null;
  */
 foreach (XH_plugins() as $plugin) {
     pluginFiles($plugin);
+    // @phan-suppress-next-line PhanTypeMismatchArgumentInternalReal
     if (is_readable($pth['file']['plugin_classes'])) {
         include_once $pth['file']['plugin_classes'];
     }
@@ -1109,6 +1110,7 @@ $plugin_tx = new XH\PluginConfig(true);
  */
 foreach (XH_plugins() as $plugin) {
     pluginFiles($plugin);
+    // @phan-suppress-next-line PhanTypeMismatchArgumentInternalReal
     if (is_readable($pth['file']['plugin_index'])) {
         include $pth['file']['plugin_index'];
     }
@@ -1120,8 +1122,9 @@ if (XH_ADM) {
      */
     foreach (XH_plugins(true) as $plugin) {
         pluginFiles($plugin);
+        // @phan-suppress-next-line PhanTypeMismatchArgumentInternalReal
         if (is_readable($pth['file']['plugin_admin'])) {
-            include $pth['file']['plugin_admin'];
+                include $pth['file']['plugin_admin'];
         }
     }
     $o .= $pd_router->create_tabs($s);

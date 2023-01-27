@@ -88,22 +88,27 @@ if (!$cf['filebrowser']['external']
         );
     }
     if (isset($_POST['deleteFile']) && isset($_POST['filebrowser_file'])) {
+        // @phan-suppress-next-line PhanNonClassMethodCall
         $_XH_csrfProtection->check();
         $_XH_filebrowser->deleteFile($_POST['filebrowser_file']);
     }
     if (isset($_POST['deleteFolder']) && isset($_POST['folder'])) {
+        // @phan-suppress-next-line PhanNonClassMethodCall
         $_XH_csrfProtection->check();
         $_XH_filebrowser->deleteFolder($_POST['folder']);
     }
     if (isset($_POST['upload'])) {
+        // @phan-suppress-next-line PhanNonClassMethodCall
         $_XH_csrfProtection->check();
         $_XH_filebrowser->uploadFile();
     }
     if (isset($_POST['createFolder'])) {
+        // @phan-suppress-next-line PhanNonClassMethodCall
         $_XH_csrfProtection->check();
         $_XH_filebrowser->createFolder();
     }
     if (isset($_POST['renameFile'])) {
+        // @phan-suppress-next-line PhanNonClassMethodCall
         $_XH_csrfProtection->check();
         $_XH_filebrowser->renameFile();
     }
@@ -177,10 +182,12 @@ function Filebrowser_forEditor()
         $_XH_filebrowser->determineCurrentType();
 
         if (isset($_POST['upload'])) {
+            // @phan-suppress-next-line PhanNonClassMethodCall
             $_XH_csrfProtection->check();
             $_XH_filebrowser->uploadFile();
         }
         if (isset($_POST['createFolder'])) {
+            // @phan-suppress-next-line PhanNonClassMethodCall
             $_XH_csrfProtection->check();
             $_XH_filebrowser->createFolder();
         }

@@ -1,0 +1,40 @@
+/* CSS for Backend View-Mode (hide rest of Adminmenu) (body class "adminview") */
+@media only screen and (min-width: 980px) {
+#xh_adminmenu_fixed {
+	width: auto;
+}
+#xh_adminmenu,
+#xh_adminmenu ul {
+	background-color: transparent;
+	border-bottom: 0 solid transparent;
+	height: auto;
+}
+#xh_adminmenu li:nth-of-type(n + 2) {
+	display: none !important;
+}
+#xh_adminmenu li:nth-of-type(1) {
+	background-color: transparent;
+	border-radius: 50%;
+	height: 100px;
+	margin: 0;
+	padding: 0;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100px;
+}
+#xh_adminmenu li:nth-of-type(1) a {
+	background-color: #900;
+	border-radius: 50%;
+	color: #fff;
+	height: 100px;
+	line-height: 100px;
+	margin: 0;
+	padding: 0;
+	transform: rotate(-45deg);
+	width: 100px;
+}
+#xh_adminmenu li:nth-of-type(1) a:hover {
+	border-radius: 50%;
+}
+}

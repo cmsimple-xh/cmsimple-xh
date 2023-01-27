@@ -29,7 +29,7 @@ class ValidationTest extends TestCase
 {
     public function validate($html)
     {
-        $url = 'http://validator.w3.org/check';
+        $url = 'https://validator.w3.org/check';
         $curlHandle = curl_init($url);
         curl_setopt_array($curlHandle, array(
             CURLOPT_POST => true,

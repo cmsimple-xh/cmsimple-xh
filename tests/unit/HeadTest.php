@@ -102,6 +102,7 @@ class HeadTest extends TestCase
      */
     public function testRendersContentType()
     {
+        $this->titleMock->expects($this->any())->willReturn("");
         $this->assertXPath(
             '//meta[@http-equiv="content-type" and @content="text/html;charset=UTF-8"]',
             head()
@@ -115,6 +116,7 @@ class HeadTest extends TestCase
      */
     public function testRendersMetaRobots()
     {
+        $this->titleMock->expects($this->any())->willReturn("");
         $this->assertXPath(
             '//meta[@name="robots" and @content="index, follow"]',
             head()
@@ -128,6 +130,7 @@ class HeadTest extends TestCase
      */
     public function testRendersMetaKeywords()
     {
+        $this->titleMock->expects($this->any())->willReturn("");
         $this->assertXPath(
             '//meta[@name="keywords" and @content="CMSimple, XH"]',
             head()
@@ -157,6 +160,7 @@ class HeadTest extends TestCase
      */
     public function testRendersPrevLink()
     {
+        $this->titleMock->expects($this->any())->willReturn("");
         $findPreviousPageMock = $this->createFunctionMock('XH_findPreviousPage');
         $findPreviousPageMock->expects($this->any())->willReturn(0);
         $getPageUrlMock = $this->createFunctionMock('XH_getPageURL');
@@ -176,6 +180,7 @@ class HeadTest extends TestCase
      */
     public function testRendersNextLink()
     {
+        $this->titleMock->expects($this->any())->willReturn("");
         $findNextPageMock = $this->createFunctionMock('XH_findNextPage');
         $findNextPageMock->expects($this->any())->willReturn(0);
         $getPageUrlMock = $this->createFunctionMock('XH_getPageURL');
@@ -195,6 +200,7 @@ class HeadTest extends TestCase
      */
     public function testRendersTemplateStylesheetLink()
     {
+        $this->titleMock->expects($this->any())->willReturn("");
         $getPageUrlMock = $this->createFunctionMock('XH_getPageURL');
         $getPageUrlMock->expects($this->any())->willReturn('some URL');
         $this->assertXPath(
