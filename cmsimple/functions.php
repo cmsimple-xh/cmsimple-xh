@@ -938,24 +938,30 @@ function ml($i)
  */
 function uenc($s)
 {
-    global $tx;
+    global $tx, $cf;
 
     if (isset($tx['urichar']['org']) && isset($tx['urichar']['new'])) {
         $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
+                                           
         $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
+                                    
     } else {
         $search = $replace = array();
     }
     array_unshift($search, "\xC2\xAD");
     array_unshift($replace, "");
-    if (extension_loaded('intl')) {
+    if ($cf['uri']['transliteration'] == 'true'
+    && extension_loaded('intl')) {
         $s = str_replace($search, $replace, $s);
-        $rule = 'Any-Latin; Latin-ASCII; [:Punctuation:] Remove; Lower();';
+        $rule = 'Any-Latin; Latin-ASCII; [:Punctuation:] Remove;';
+        if ($cf['uri']['lowercase'] == 'true') {
+            $rule = $rule . ' Lower();';
+        }
         $s = transliterator_transliterate($rule, $s);
+        $s = preg_replace('/[^A-Za-z0-9-]/i', '-', $s);
         $search = $replace = array();
     }
-    $s = XH_uenc($s, $search, $replace);
-    return $s;
+    return XH_uenc($s, $search, $replace);
 }
 
 /**
