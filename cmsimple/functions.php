@@ -942,9 +942,7 @@ function uenc($s)
 
     if (isset($tx['urichar']['org']) && isset($tx['urichar']['new'])) {
         $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
-                                           
         $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
-                                    
     } else {
         $search = $replace = array();
     }
