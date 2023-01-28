@@ -940,6 +940,7 @@ function uenc($s)
 {
     global $tx, $cf;
 
+    $separator = $cf['uri']['word_separator'];
     if (isset($tx['urichar']['org']) && isset($tx['urichar']['new'])) {
         $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
         $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
@@ -956,7 +957,7 @@ function uenc($s)
             $rule = $rule . ' Lower();';
         }
         $s = transliterator_transliterate($rule, $s);
-        $s = preg_replace('/[^A-Za-z0-9-]/', '-', $s);
+        $s = preg_replace('/[^A-Za-z0-9-]/', $separator, $s);
         $search = $replace = array();
     }
     return XH_uenc($s, $search, $replace);
