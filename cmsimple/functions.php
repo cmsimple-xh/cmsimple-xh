@@ -951,12 +951,12 @@ function uenc($s)
     if ($cf['uri']['transliteration'] == 'true'
     && extension_loaded('intl')) {
         $s = str_replace($search, $replace, $s);
-        $rule = 'Any-Latin; Latin-ASCII; [:Punctuation:] Remove;';
+        $rule = 'Any-Latin; Latin-ASCII;';
         if ($cf['uri']['lowercase'] == 'true') {
             $rule = $rule . ' Lower();';
         }
         $s = transliterator_transliterate($rule, $s);
-        $s = preg_replace('/[^A-Za-z0-9-]/i', '-', $s);
+        $s = preg_replace('/[^A-Za-z0-9-]/', '-', $s);
         $search = $replace = array();
     }
     return XH_uenc($s, $search, $replace);
