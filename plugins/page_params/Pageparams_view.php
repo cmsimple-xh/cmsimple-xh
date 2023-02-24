@@ -219,6 +219,43 @@ function Pageparams_linkList($default, $disabled)
 }
 
 /**
+ * Returns a header status selectbox.
+ *
+ * @param array $page Page data of the current page.
+ *
+ * @return string HTML
+ *
+ * @since 1.8
+ */
+function Pageparams_headerStatusSelectbox($page_header_status)
+{
+
+    if (isset($page_header_status) && trim($page_header_status) !== '') {
+        $header_status = $page_header_status;
+        $selected = '';
+    } else {
+        $header_status = '';
+        $selected = ' selected="selected"';
+    }
+    $o = "\n" . '<select name="header_status">';
+    $o .= "\n\t" . '<option value=""' . $selected . '></option>';
+    $options = array('403', '404', '410');
+    foreach ($options as $header_status_tmp) {
+        $selected = ($header_status_tmp == $header_status) ? ' selected="selected"' : '';
+        $o .= "\n\t"
+            . '<option value="'
+            . $header_status_tmp
+            . '"'
+            . $selected
+            . '">' 
+            . $header_status_tmp
+            . '</option>';
+    }
+    $o .= "\n" . '</select>';
+    return $o;
+}
+
+/**
  * Returns the editor tab view.
  *
  * @param array $page Page data of the current page.
@@ -286,6 +323,13 @@ function Pageparams_view(array $page)
     $view .= '<br>';
     $view .= Pageparams_linkList($page['header_location'], (int) $page['use_header_location'] === 0);
     $view .= '<br>' . "\n\t";
+
+    /*
+     * header_status
+     */
+    $view .= Pageparams_caption($lang['header_status'], $lang['hint_header_status']);
+    $view .= Pageparams_headerStatusSelectbox($page['header_status']);
+    $view .= "\n\t" . '<hr>';
 
     $view .= "\n\t" . '<input name="save_page_data" type="hidden">'
         . "\n\t" . '<div style="text-align: right">'
