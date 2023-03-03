@@ -247,7 +247,7 @@ function Pageparams_headerStatusSelectbox($page_header_status)
             . $header_status_tmp
             . '"'
             . $selected
-            . '">' 
+            . '">'
             . $header_status_tmp
             . '</option>';
     }
