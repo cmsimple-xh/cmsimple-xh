@@ -151,6 +151,7 @@
         <move file="dist/cmsimplexh/userfiles/downloads/_XHdebug.txt" tofile="dist/cmsimplexh/userfiles/downloads/XHdebug.txt"/>
 
         <touch file="dist/cmsimplexh/cmsimple/.sessionname"/>
+        <mkdir dir="dist/cmsimplexh/userfiles/media"/>
 
         <echo file="dist/cmsimplexh/reqcheck.php">This file serves no purpose, and can be deleted.</echo>
 
