@@ -22,7 +22,7 @@ jobs:
         run: PATH=vendor/bin:$PATH phing build -Dversion=${{github.event.inputs.version}}
       - name: Unzip build
         run: unzip CMSimple_XH-${{github.event.inputs.version}}.zip -d artifacts
-      - run: ls userfiles
+      - run: ls artifacts/userfiles
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
