@@ -129,9 +129,8 @@
                 <exclude name="Doxyfile"/>
                 <exclude name="doxygen_input_filter.php"/>
                 <exclude name="important-notices.md"/>
-                <exclude name="pax_global_header"/>
+                <exclude name="phpunit.xml"/>
                 <exclude name="README.md"/>
-                <exclude name="ruleset.xml"/>
                 <exclude name="2lang/.2lang"/>
                 <exclude name="tests/**"/>
                 <exclude name="tutorials/**"/>
