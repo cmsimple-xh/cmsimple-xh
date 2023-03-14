@@ -6,8 +6,8 @@
  * Admin-interface for configuring the plugin
  * via the standard-functions of pluginloader.
  *
- * Version:    1.6.5
- * Build:      2020072301
+ * Version:    1.6.6
+ * Build:      20230314
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -78,12 +78,12 @@ if (isset($_GET['jquery'])) {
         $o .= plugin_admin_common($action, $admin, $plugin);
     }
     if ($admin == '') {
-        $o .= "\n" . '<div>';
-        $o .= "\n" . '<h1>jQuery for CMSimple</h1>';
-        $o .= "\n" . '<p>Version 1.6.5 - 2020-07-23</p>';
-        $o .= "\n" . '<p>&copy;2011-2020 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
-        $o .= "\n" . '<p>';
-        $o .= "\n" . 'jQuery Version: ';
+        $o .= PHP_EOL . '<div>';
+        $o .= PHP_EOL . '<h1>jQuery for CMSimple</h1>';
+        $o .= PHP_EOL . '<p>Version 1.6.6 - 2023-03-14</p>';
+        $o .= PHP_EOL . '<p>&copy;2011-2023 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
+        $o .= PHP_EOL . '<p>';
+        $o .= PHP_EOL . 'jQuery Version: ';
         $o .= '<script>
 					var migrate = " & Migrate-Plugin";
 					if (typeof jQuery.migrateWarnings === \'undefined\') {
@@ -91,10 +91,10 @@ if (isset($_GET['jquery'])) {
 					}
 					document.write(jQuery.fn.jquery + migrate)
 			   </script>';
-        $o .= "\n" . tag('br');
-        $o .= "\n" . 'jQueryUI Version: ';
+        $o .= PHP_EOL . '<br>';
+        $o .= PHP_EOL . 'jQueryUI Version: ';
         $o .= '<script>document.write(jQuery.ui.version)</script>';
-        $o .= "\n" . '</p>';
-        $o .= "\n" . '</div>';
+        $o .= PHP_EOL . '</p>';
+        $o .= PHP_EOL . '</div>';
     }
 }

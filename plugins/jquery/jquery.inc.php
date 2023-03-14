@@ -7,8 +7,8 @@
  * to enable jQuery, jQueryUI 
  * and other jQuery-based plugins
  *
- * Version:    1.6.5
- * Build:      2020072301
+ * Version:    1.6.6
+ * Build:      20230314
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -36,8 +36,8 @@ function include_jQuery($path = '') {
         if ($plugin_cf['jquery']['load_migrate'] == 'true') {
             $migrate = $pth['folder']['plugins'] . 'jquery/lib/migrate/' . $plugin_cf['jquery']['version_migrate'];
             if (is_file($migrate)) {
-                $js .= "\n" . '<script src="' . $migrate . '"></script>';
-                $js .= "\n";
+                $js .= PHP_EOL . '<script src="' . $migrate . '"></script>';
+                $js .= PHP_EOL;
             } else {
                 e('missing', 'file', $migrate);
                 return;
@@ -59,25 +59,32 @@ function include_jQueryUI($path = '') {
                 return;
             }
         }
-        $hjs .= "\n" . '<script src="' . $path . '"></script>';
+        $hjs .= '<script src="' . $path . '"></script>';
         define('JQUERY_UI', TRUE);
 
         if (file_exists($pth['folder']['template'] . 'jquery_ui/jquery_ui.css')) {
             //load a complete custom ui-theme
-            $hjs .= "\n" . tag('link rel="stylesheet" type="text/css" media="screen" href="'
-                            . $pth['folder']['template'] . 'jquery_ui/jquery_ui.css"');
+            $hjs .= PHP_EOL
+                  . '<link rel="stylesheet" type="text/css" media="screen" href="'
+                  . $pth['folder']['template']
+                  . 'jquery_ui/jquery_ui.css">';
         } else {
             //load the default theme
-            $hjs .= "\n" . tag('link rel="stylesheet" type="text/css" media="screen" href="' . $pth['folder']['plugins']
-                            . 'jquery/lib/jquery_ui/' . $plugin_cf['jquery']['version_ui'] . '/css/jquery-ui.min.css"');
-            $hjs .= "\n";
+            $hjs .= PHP_EOL
+                  . '<link rel="stylesheet" type="text/css" media="screen" href="'
+                  . $pth['folder']['plugins']
+                  . 'jquery/lib/jquery_ui/'
+                  . $plugin_cf['jquery']['version_ui']
+                  . '/css/jquery-ui.min.css">';
             //include a custom css-file to overwrite single selectors
             if (file_exists($pth['folder']['template'] . 'jquery_ui/stylesheet.css')) {
-                $hjs .= "\n" . tag('link rel="stylesheet" type="text/css" media="screen" href="'
-                                . $pth['folder']['template'] . 'jquery_ui/stylesheet.css"')
-                        . "\n";
+                $hjs .= PHP_EOL
+                      . '<link rel="stylesheet" type="text/css" media="screen" href="'
+                      . $pth['folder']['template']
+                      . 'jquery_ui/stylesheet.css">';
             }
         }
+        $hjs .= PHP_EOL;
     }
 }
 
@@ -96,7 +103,7 @@ function include_jQueryPlugin($name = '', $path = '') {
             }
             $name = strtolower($name);
             if (!in_array($name, $jQueryPlugins)) {
-                $hjs .= "\n" . '<script src="' . $path . '"></script>';
+                $hjs .= PHP_EOL . '<script src="' . $path . '"></script>';
                 $jQueryPlugins[] .= $name;
             }
         }
