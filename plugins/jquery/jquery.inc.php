@@ -37,13 +37,12 @@ function include_jQuery($path = '') {
             $migrate = $pth['folder']['plugins'] . 'jquery/lib/migrate/' . $plugin_cf['jquery']['version_migrate'];
             if (is_file($migrate)) {
                 $js .= PHP_EOL . '<script src="' . $migrate . '"></script>';
-                $js .= PHP_EOL;
             } else {
                 e('missing', 'file', $migrate);
                 return;
             }
         }
-        $hjs = $js . $hjs;
+        $hjs = $js . PHP_EOL . $hjs;
         define('JQUERY', TRUE);
     }
 }
