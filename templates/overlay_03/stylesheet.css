@@ -1063,7 +1063,7 @@ ul.sitemaplevel1 ul li:before {
 }
 }
 
-@media screen and (max-width: 979px) {
+@media screen and (max-width: 979px), screen and (max-height: 720px) {
 #tpllck_body {
 	background-image: url(images/lck_bgoverlay.png), url(images/bg01_mobil.jpg);
 }
