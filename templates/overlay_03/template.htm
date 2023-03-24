@@ -8,7 +8,7 @@ if (file_exists("{$pth['folder']['template']}languages/$sl.php")) {
 }
 // Include expanded languagemenu
 if (file_exists("{$pth['folder']['template']}langmenu_custom.php")) {
-	include "{$pth['folder']['template']}langmenu_custom.php";
+	include_once "{$pth['folder']['template']}langmenu_custom.php";
 }
 ?>
 <head>
