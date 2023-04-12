@@ -90,8 +90,8 @@ class MainAdminController extends Controller
         include_jQueryPlugin('jstree', "{$this->pluginFolder}jstree/jstree.min.js");
         $command = new Fa\RequireCommand;
         $command->execute();
-        $bjs .= '<script type="text/javascript">var PAGEMANAGER = ' . $this->jsConfig() . ';</script>'
-            . '<script type="text/javascript" src="' . XH_hsc("{$this->pluginFolder}pagemanager.js") . '"></script>';
+        $bjs .= '<script>var PAGEMANAGER = ' . $this->jsConfig() . ';</script>'
+              . '<script src="' . XH_hsc("{$this->pluginFolder}pagemanager.js") . '"></script>';
         $view = new View('widget');
         $view->title = $title;
         $view->submissionUrl = $this->submissionURL();

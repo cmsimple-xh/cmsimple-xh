@@ -48,7 +48,7 @@ function hi_updateQuickCheck($pluginname) {
             'versionstr' => $versionStr,
             'do_quickcheck' => 1
         );
-        $t = '<script type = "text/javascript">
+        $t = '<script>
                 jQuery.ajax({
                     type: "POST",
                     url: "' . $url . '",
@@ -134,7 +134,7 @@ function hi_updateCheck($pluginname = '', $single_check = 1) {
             . '</p></div>';
     $t .= '<div id="upd_' . $pluginname . '_Info"></div>';
     $t .= '</div>';
-    $t .= '<script type = "text/javascript">
+    $t .= '<script>
                 jQuery.ajax({
                     type: "POST",
                     url: "' . $url . '",
@@ -275,7 +275,7 @@ function hi_updateNotify() {
     //Display info-icon in editmenu, if updates are available
     global $sn, $o, $plugin_tx;
     $o .= "\n";
-    $o .= '<script type="text/javascript">
+    $o .= '<script>
                     jQuery(document).ready(function($){
                         $("#editmenu_update").css("display","block"); //before xh1.6
                         $("#xh_adminmenu_update").css("display","block"); //sice xh1.6RC
@@ -352,7 +352,7 @@ function upd_addMenuEntry() {
     );
     $href = $sn . '?&amp;hi_updatecheck&amp;admin=plugin_main&amp;normal';
     $t = "\n";
-    $t .= '<script type="text/javascript">
+    $t .= '<script>
                     jQuery(document).ready(function($){
                         $("#edit_menu").append("<li id=\"editmenu_update\"><a href=\"' . $href . '\">' . $imgtag . '<\/a></li>");                   //before xh1.6
                         $("#xh_adminmenu > ul").append("<li id=\"xh_adminmenu_update\"><a href=\"' . $href . '\">' . $imgtag . '<\/a></li>");       //since xh1.6RC

@@ -510,7 +510,7 @@ class View
             'confirm_upload' => $ptx['confirm_upload'],
             'prompt_rename' => $ptx['prompt_rename']
         );
-        return '<script type="text/javascript">var FILEBROWSER = '
+        return '<script>var FILEBROWSER = '
             . json_encode($config) . ';</script>';
     }
 }

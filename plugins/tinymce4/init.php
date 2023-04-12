@@ -119,20 +119,20 @@ function include_tinymce4()
     }
     
     $hjs .='
-        <script language="javascript" type="text/javascript" src="'. 
+        <script src="'. 
         $tiny_src. 
         '"></script>
-	<script type="text/javascript">
-	' . tinymce4_filebrowser() . '
+    <script>
+    ' . tinymce4_filebrowser() . '
     var myImageList;
-	' . $imageList . '
+    ' . $imageList . '
     var myLinkList;
-	' . $linkList . '
-	</script>
+    ' . $linkList . '
+    </script>
     <style type="text/css">
         div.mce-fullscreen {z-index: 999;}  /*fullscreen overlays admin toolbar */
     </style>
-	';
+    ';
 }
 
 
@@ -331,7 +331,7 @@ function init_tinymce4($classes = array(), $config = false)
     $temp = tinymce4_config($config, $initClasses);
 
     $hjs .= '
-	<script language="javascript" type="text/javascript">
+	<script>
 	' . _setInit($temp) . '
 	</script>
 	';
