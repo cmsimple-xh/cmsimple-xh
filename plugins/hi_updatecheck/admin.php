@@ -8,8 +8,8 @@
  * ==================================================================
  * Update-Check-Plugin for CMSimple_XH
  * ==================================================================
- * Version:    1.4
- * Build:      2016011001
+ * Version:    1.5
+ * Build:      2023062001
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -25,18 +25,17 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 if (defined('CMSIMPLE_RELEASE')) {
     $o .= '<div class="upd_error">'
             . 'Sorry, Update-Check-Plugin can only work with the original CMSimple_XH from '
-            . '<a target="_blank" href="http://www.cmsimple-xh.org">www.cmsimple-xh.org.</a>'
-            . tag('br')
+            . '<a target="_blank" href="http://www.cmsimple-xh.org">www.cmsimple-xh.org.</a><br>'
             . 'Please delete the folder /plugins/hi_updatecheck/ from your installation.'
             . '</div>';
     return;
 }
 
-define('UPD_VERSION', '1.4');
-define('UPD_DATE', '2016-01-10');
+define('UPD_VERSION', '1.5');
+define('UPD_DATE', '2023-06-20');
 
 //Path to core-Versioninfo
-define('CMSIMPLE_XH_VERSIONINFO', 'http://www.cmsimple-xh.org/downloads/versioninfo/cmsimple_xh-version.nfo');
+define('CMSIMPLE_XH_VERSIONINFO', 'http://www.cmsimple-xh.org/userfiles/downloads/versioninfo/cmsimple_xh-version.nfo');
 
 include_once($pth['folder']['plugins'] . 'jquery/jquery.inc.php');
 include_jQuery();
@@ -96,21 +95,21 @@ if (function_exists('XH_wantsPluginAdministration')
 /**
  * Returns the plugin version information view.
  *
- * @return string  The (X)HTML.
+ * @return string  The HTML.
  */
 function hi_updateVersion() {
     global $pth;
 
-    return '<h1>CMSimple_XH - Update-Check</h1>' . "\n"
-            . tag('img src="' . $pth['folder']['plugins'] . 'hi_updatecheck/images/software-update-icon.png" class="upd_plugin_icon"')
-            . '<p>Version: ' . UPD_VERSION . ' - ' . UPD_DATE . '</p>' . "\n"
-            . '<p>Copyright &copy;2013-2014 <a href="http://cmsimple.holgerirmler.de/">Holger Irmler</a> - all rights reserved' . tag('br')
-            . '<p class="upd_license">License: GPL3</p>' . "\n"
+    return '<h1>CMSimple_XH - Update-Check</h1>' . PHP_EOL
+            . '<img src="' . $pth['folder']['plugins'] . 'hi_updatecheck/images/software-update-icon.png" class="upd_plugin_icon">'
+            . '<p>Version: ' . UPD_VERSION . ' - ' . UPD_DATE . '</p>' . PHP_EOL
+            . '<p>Copyright &copy;2013-2014 <a href="http://cmsimple.holgerirmler.de/">Holger Irmler</a> - all rights reserved<br>'
+            . '<p class="upd_license">License: GPL3</p>' . PHP_EOL
             . '<p class="upd_license">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR'
             . ' IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,'
             . ' FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE'
             . ' AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER'
             . ' LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,'
             . ' OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE'
-            . ' SOFTWARE.</p>' . "\n";
+            . ' SOFTWARE.</p>' . PHP_EOL;
 }
