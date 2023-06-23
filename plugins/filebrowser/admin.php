@@ -64,8 +64,9 @@ if (!$cf['filebrowser']['external']
     $temp = new Fa\RequireCommand;
     $temp->execute();
 
-    $bjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
-        . 'filebrowser/js/filebrowser.min.js"></script>';
+    $bjs .= '<script src="'
+          . $pth['folder']['plugins']
+          . 'filebrowser/js/filebrowser.min.js"></script>';
 
     $temp = isset($_GET['subdir'])
         ? str_replace(array('..', '.'), '', $_GET['subdir'])

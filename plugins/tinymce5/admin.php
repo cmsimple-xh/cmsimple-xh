@@ -80,10 +80,10 @@ if (XH_wantsPluginAdministration($plugin)) {
                 $plugin_cf[$plugin]['CDN_src'] :
                 $pth['folder']['plugins'] .  $plugin.'/' . 'tinymce/tinymce.min.js';
                 
-            $o .= '<script type="text/javascript" src="' . $tiny_src . '"></script>'.PHP_EOL;
+            $o .= '<script src="' . $tiny_src . '"></script>'.PHP_EOL;
             
             $tinymce_version 
-                = '<script type="text/javascript">
+                = '<script>
                     if (typeof(tinymce) === "undefined" || tinymce === null) {
                         alert("tinyMCE not present! Either offline or local library missing.") 
                     }

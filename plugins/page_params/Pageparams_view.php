@@ -27,10 +27,12 @@ function Pageparams_hjs()
     $config = json_encode(
         array('message' => $plugin_tx['page_params']['error_date_format'])
     );
-    return '<script type="text/javascript">var PAGEPARAMS = ' . $config
-        . ';</script>'
-        . '<script type="text/javascript" src="' . $pth['folder']['plugins']
-        . 'page_params/pageparams.min.js"></script>';
+    return '<script>var PAGEPARAMS = '
+         . $config
+         . ';</script>'
+         . '<script src="'
+         . $pth['folder']['plugins']
+         . 'page_params/pageparams.min.js"></script>';
 }
 
  /**

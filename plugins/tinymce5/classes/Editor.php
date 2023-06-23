@@ -294,10 +294,10 @@ class Editor
         }
 
         $hjs .='
-            <script language="javascript" type="text/javascript" src="'. 
+            <script src="'. 
             $tiny_src. 
             '"></script>
-        <script type="text/javascript">
+        <script>
         ' . self::filebrowser() . '
         var myLinkList;
         ' . $linkList . '
@@ -356,7 +356,7 @@ class Editor
         $temp = self::config($config, $initClasses);
 
         $hjs .= '
-        <script language="javascript" type="text/javascript">
+        <script>
         ' . self::setInit($temp) . '
         </script>
         ';
