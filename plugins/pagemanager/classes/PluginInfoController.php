@@ -21,8 +21,24 @@
 
 namespace Pagemanager;
 
-class PluginInfoController extends Controller
+class PluginInfoController
 {
+    /** @var string */
+    private $pluginFolder;
+
+    /** @var array<string,string> */
+    private $lang;
+
+    /**
+     * @param string $pluginFolder
+     * @param array<string,string> $lang
+     */
+    public function __construct($pluginFolder, $lang)
+    {
+        $this->pluginFolder = $pluginFolder;
+        $this->lang = $lang;
+    }
+
     /**
      * @return void
      */

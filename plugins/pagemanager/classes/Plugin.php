@@ -25,7 +25,7 @@ use XH\Pages;
 
 class Plugin
 {
-    const VERSION = '3.6';
+    const VERSION = '3.7';
 
     /**
      * @return void
@@ -47,12 +47,15 @@ class Plugin
      */
     private function handleAdministration()
     {
-        global $admin, $action;
+        global $pth, $plugin_tx, $admin, $action;
 
         $o = print_plugin_admin('on');
         switch ($admin) {
             case '':
-                $controller = new PluginInfoController;
+                $controller = new PluginInfoController(
+                    "{$pth['folder']['plugins']}pagemanager/",
+                    $plugin_tx['pagemanager']
+                );
                 ob_start();
                 $controller->indexAction();
                 $o .= ob_get_clean();
