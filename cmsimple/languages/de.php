@@ -277,6 +277,7 @@ $tx['syscheck']['cookie_lifetime']="session.cookie_lifetime 0 ist";
 $tx['syscheck']['extension']="die Erweiterung '%s' geladen ist";
 $tx['syscheck']['fail']="Fehler";
 $tx['syscheck']['fsockopen']="die Funktion fsockopen verfügbar ist";
+$tx['syscheck']['curl']="die Funktion cURL verfügbar ist";
 $tx['syscheck']['locale_available']="Locale '%s' verfügbar ist";
 $tx['syscheck']['locale_default']="das Standard-Locale aktiv ist";
 $tx['syscheck']['message']="Prüfe, dass %1\$s … %2\$s";

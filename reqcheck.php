@@ -38,6 +38,7 @@ $checks['session.use_trans_sid is off'] = !ini_get('session.use_trans_sid') ? 'o
 $checks['session.use_only_cookies is on'] = ini_get('session.use_only_cookies') ? 'okay' : 'warn';
 $checks['session.cookie_lifetime is zero'] = ini_get('session.cookie_lifetime') == 0 ? 'okay' : 'warn';
 $checks['the function fsockopen is available'] = function_exists('fsockopen') ? 'okay' : 'warn';
+$checks['the function cURL is available'] = function_exists('curl_init') ? 'okay' : 'warn';
 
 $fail = $warn = false;
 foreach ($checks as $state) {

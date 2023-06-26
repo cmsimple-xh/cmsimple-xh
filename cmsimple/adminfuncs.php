@@ -310,6 +310,9 @@ HTML;
     $checks['other'][] = array(
         function_exists('fsockopen'), false, $stx['fsockopen']
     );
+    $checks['other'][] = array(
+        function_exists('curl_init'), false, $stx['curl']
+    );
     $o .= XH_systemCheck($checks);
     return $o;
 }
