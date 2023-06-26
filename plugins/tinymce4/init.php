@@ -331,10 +331,10 @@ function init_tinymce4($classes = array(), $config = false)
     $temp = tinymce4_config($config, $initClasses);
 
     $hjs .= '
-	<script language="javascript" type="text/javascript">
-	' . _setInit($temp) . '
-	</script>
-	';
+    <script>
+    ' . _setInit($temp) . '
+    </script>
+    ';
     return;
 }
 
