@@ -272,7 +272,7 @@ $tx['settings']['warning']="Bitte hier nur solche Änderungen durchführen, bei 
 $tx['submenu']['heading']="weiter zu:";
 
 $tx['syscheck']['access_protected']="'%s' zugriffsgeschützt ist";
-$tx['syscheck']['bom']="kein <a href=\"https://wiki.cmsimple-xh.org/archiv/doku.php/de:utf8#was_ist_ein_bom\" target=\"_blank\">BOM</a> vorhanden ist";
+$tx['syscheck']['bom']="kein <a href=\"https://wiki.cmsimple-xh.org/de/?glossar#id7_bom\" target=\"_blank\">BOM</a> vorhanden ist";
 $tx['syscheck']['cookie_lifetime']="session.cookie_lifetime 0 ist";
 $tx['syscheck']['extension']="die Erweiterung '%s' geladen ist";
 $tx['syscheck']['fail']="Fehler";
