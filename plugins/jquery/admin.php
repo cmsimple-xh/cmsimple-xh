@@ -37,6 +37,7 @@ if (isset($_GET['jquery'])) {
             }
         }
         closedir($handle);
+        sort($versions);
         return $versions;
     }
 
@@ -50,6 +51,7 @@ if (isset($_GET['jquery'])) {
             }
         }
         closedir($handle);
+        sort($versions);
         return $versions;
     }
 
@@ -60,6 +62,7 @@ if (isset($_GET['jquery'])) {
         foreach ($temp as $version) {
             $versions[] = basename($version);
         }
+        sort($versions);
         return $versions;
     }
 
