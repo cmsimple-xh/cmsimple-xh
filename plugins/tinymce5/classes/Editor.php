@@ -234,20 +234,9 @@ class Editor
 
         //default filebrowser
         $_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
-        
-        //principle occurance of XH_VERSION is checked in index.php
-        if (CMSIMPLE_XH_VERSION != '@CMSIMPLE_XH_VERSION@'
-            && version_compare(CMSIMPLE_XH_VERSION, 'CMSimple_XH 1.7', 'lt')
-        ) { 
-            $url =  CMSIMPLE_ROOT . 
-                'plugins/filebrowser/editorbrowser.php?editor=tinymce5&prefix=' . 
-                CMSIMPLE_BASE . 
-                '&base=./';
-        } else {  // CMSimple_XH v1.7 (r1518)
-            $url =  CMSIMPLE_ROOT . 
-                '?filebrowser=editorbrowser&editor=tinymce5&prefix=' . 
-                CMSIMPLE_BASE;           
-        }
+        $url =  CMSIMPLE_ROOT . 
+            '?filebrowser=editorbrowser&editor=tinymce5&prefix=' . 
+            CMSIMPLE_BASE;    
         $script = file_get_contents($pth['folder']['plugins']. self::PLUGIN . '/filebrowser.js');
         $script = str_replace('%URL%',  $url, $script);
         return $script;
