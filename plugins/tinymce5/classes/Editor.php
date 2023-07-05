@@ -118,7 +118,12 @@ class Editor
         $temp['language'] =  $tiny_language;
         if ($tiny_language !='en' && $pcf['CDN'] == true ) 
             $temp['language_url'] =  CMSIMPLE_ROOT.'plugins/' . self::PLUGIN . '/tinymce/langs/' . $tiny_language.'.js';
-            
+        
+        /*
+         * fix Firefox scrollToTop Problem
+        */
+        $temp['content_style'] = 'body {height:unset;}';
+        
         /*
          * Omit image upload ability when not in Admin mode
         */
