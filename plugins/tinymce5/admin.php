@@ -9,7 +9,7 @@
  * @package   Tinymce5
  * @author    manu <info@pixolution.ch>
  * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2023 The CMSimple_XH developers <https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  * @since     File available since Release 1.6.0
