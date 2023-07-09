@@ -22,10 +22,5 @@
   "relative_urls": true,
   "convert_urls": false,
   "entity_encoding": "raw",
-  "extended_valid_elements": "span[*]",
-  "paste_data_images": true,
-  "images_upload_url" : "./?tinymce6=imageuploader",
-  "images_upload_credentials": true,
-  "automatic_uploads": true,
-  "images_reuse_filename": false
+  "extended_valid_elements": "span[*]"
 }
