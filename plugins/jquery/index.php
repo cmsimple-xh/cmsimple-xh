@@ -4,7 +4,7 @@
  * jQuery for CMSimple
  *
  * Version:    1.6.6
- * Build:      2023062101
+ * Build:      2023071101
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
