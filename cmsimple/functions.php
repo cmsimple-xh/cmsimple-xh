@@ -2370,6 +2370,20 @@ function XH_registeredEditmenuPlugins()
 }
 
 /**
+ * Returns the names of the registered languagemenu plugins.
+ *
+ * @return array
+ *
+ * @since 1.8.0
+ */
+function XH_registeredLanguagemenuPlugins()
+{
+    $regLangMenus = XH_registerPluginType('languagemenu');
+    array_unshift($regLangMenus, 'standard');
+    return $regLangMenus;
+}
+
+/**
  * Handles the shutdown of the script.
  *
  * <ul>
