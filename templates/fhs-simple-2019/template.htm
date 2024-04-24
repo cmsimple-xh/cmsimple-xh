@@ -37,7 +37,7 @@ if (function_exists('fa_require')) {
 <meta name="theme-color" content="#ffffff">
 </head>
 
-<body<?=onload();?>>
+<body <?=XH_ADM ? onload() : '';?>>
 <header class="row-full-width" id="header">
 <nav class="langMenu"><?=languagemenu();?></nav>
 <div class="row">
