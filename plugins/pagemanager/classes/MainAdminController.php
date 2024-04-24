@@ -26,8 +26,13 @@ use XH\CSRFProtection;
 use XH\Pages;
 use XH\PageDataRouter;
 
-class MainAdminController extends Controller
+class MainAdminController
 {
+    /**
+     * @var string
+     */
+    private $pluginFolder;
+
     /**
      * @var Model
      */
@@ -42,6 +47,11 @@ class MainAdminController extends Controller
      * @var array<string,string>
      */
     private $config;
+
+    /**
+     * @var array<string,string>
+     */
+    private $lang;
 
     /**
      * @var string
@@ -60,12 +70,13 @@ class MainAdminController extends Controller
 
     public function __construct()
     {
-        global $plugin_cf, $pd_router, $_XH_csrfProtection;
+        global $pth, $plugin_cf, $plugin_tx, $pd_router, $_XH_csrfProtection;
 
-        parent::__construct();
+        $this->pluginFolder = "{$pth['folder']['plugins']}pagemanager/";
         $this->model = new Model;
         $this->pages = new Pages;
         $this->config = $plugin_cf['pagemanager'];
+        $this->lang = $plugin_tx['pagemanager'];
         $this->pdAttr = $this->config['pagedata_attribute'];
         $this->pdRouter = $pd_router;
         $this->csrfProtector = $_XH_csrfProtection;
@@ -90,8 +101,8 @@ class MainAdminController extends Controller
         include_jQueryPlugin('jstree', "{$this->pluginFolder}jstree/jstree.min.js");
         $command = new Fa\RequireCommand;
         $command->execute();
-        $bjs .= '<script type="text/javascript">var PAGEMANAGER = ' . $this->jsConfig() . ';</script>'
-            . '<script type="text/javascript" src="' . XH_hsc("{$this->pluginFolder}pagemanager.js") . '"></script>';
+        $bjs .= '<script>var PAGEMANAGER = ' . $this->jsConfig() . ';</script>'
+              . '<script src="' . XH_hsc("{$this->pluginFolder}pagemanager.js") . '"></script>';
         $view = new View('widget');
         $view->title = $title;
         $view->submissionUrl = $this->submissionURL();
@@ -207,17 +218,13 @@ class MainAdminController extends Controller
         } else {
             header("HTTP/1.0 500 Internal Server Error");
             header('Content-Type: test/plain; charset=UTF-8');
-            if (function_exists('json_last_error_msg')) {
-                echo json_last_error_msg();
-            } else {
-                echo "json encode error " . json_last_error();
-            }
+            echo json_last_error_msg();
         }
     }
 
     /**
      * @param ?int $parent
-     * @return array[]
+     * @return list<array<string,mixed>>
      */
     private function getPagesData($parent = null)
     {
@@ -273,7 +280,7 @@ class MainAdminController extends Controller
             echo XH_message('fail', $this->lang['message_pdattr']);
             return;
         }
-        if ($this->model->save(stsl($_POST['json']))) {
+        if ($this->model->save($_POST['json'])) {
             echo XH_message('success', $this->lang['message_save_success']);
         } else {
             $message = sprintf($this->lang['message_save_failure'], $pth['file']['content']);

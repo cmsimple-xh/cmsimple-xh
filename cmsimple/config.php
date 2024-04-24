@@ -1,7 +1,7 @@
 <?php
 
 $cf['security']['password']="\$2y\$10\$TtMCJlxEv6D27BngvfdNrewGqIx2R0aPCHORruqpe63LQpz7.E9Gq";
-$cf['security']['secret']="cf7c3ecb0495698c7f657d65";
+$cf['security']['secret']="b41bd1913a2a5412f41cabcf";
 $cf['security']['email']="";
 $cf['security']['frame_options']="";
 $cf['site']['template']="fhs-simple-2019";
@@ -27,13 +27,13 @@ $cf['show_hidden']['pages_sitemap']="";
 $cf['show_hidden']['path_locator']="";
 $cf['images']['maxsize']="5000000";
 $cf['downloads']['maxsize']="5000000";
-$cf['editor']['external']="tinymce4";
+$cf['editor']['external']="tinymce5";
 $cf['editor']['height']="600";
 $cf['filebrowser']['external']="";
 $cf['pagemanager']['external']="";
 $cf['menu']['color']="000000";
 $cf['menu']['highlightcolor']="808080";
-$cf['menu']['levels']="3";
+$cf['menu']['levels']="9";
 $cf['menu']['levelcatch']="10";
 $cf['menu']['sdoc']="parent";
 $cf['plugins']['disabled']="";

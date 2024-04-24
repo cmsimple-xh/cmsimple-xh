@@ -1,353 +1,325 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE HTML>
+<html lang="de">
 <head>
-  
-  <title>UpdateCheck für CMSimple_XH :: Hilfe</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-
-  
-  <style>
-html, body {
-margin: 0;
-padding: 0;
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hi_updatecheck – Handbuch</title>
+<style>
+:root {
+	scroll-behavior: smooth;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 body {
-font-family: verdana, arial, sans-serif;
-background-color: #e2e2e2;
-text-align: center;
-font-size: 0.9em;
-line-height: 1.3;
+	background-color: #e2e2e2;
+	font: 16px/1.5em sans-serif;
+	color: #333;
+	hyphens: auto;
 }
-.additional{
-font-size: 90%;
-color: #666;
-line-height: 1.1;
+#wrapper {
+	padding: 0;
+	width: 980px;
+	margin: 0 auto;
+	max-width: 100%;
 }
-p.code {font-family: Courier New; border: 1px solid #999; background: #eed; padding: 8px 12px;}
-  </style>
-  
-  <meta content="Holger Irmler" name="author">
+article.main {
+	background: #fff;
+	padding: 2em;
+	float: left;
+	width: 75%;
+	margin: 0;
+	position: relative;
+}
+nav {
+	display: inline-block;
+	position: fixed;
+	padding: 0 1em;
+	max-height: 100vh;
+	overflow: auto;
+	max-width: 25%;
+	top: 2em;
+}
+nav ul {
+	list-style: none;
+	padding-left: 0;
+	text-align: left;
+}
+nav ul ul {
+	font-size: small;
+	padding-left: 1em;
+}
+nav a {
+	color: #000;
+	display: block;
+	padding: .25em 0;
+	margin: 0 0 .1em;
+	text-decoration: none;
+}
+.additional {
+	font-size: .9em;
+	color: #666;
+}
+p.code {
+	font-family: monospace;
+	border: 1px solid #ccc;
+	background: #efefef;
+	padding: 0.1em 0.25em;
+	margin: .5em 0;
+	overflow-wrap: break-word;
+}
+span.code {
+	font-family: monospace;
+	background: #efefef;
+	padding:.1em .25em;
+}
+hr {
+	border: none;
+	border-top: 1px dotted #666;
+	color: transparent;
+	background-color: transparent;
+	height: 1px;
+	margin: .5em 0;
+}
+p {
+	margin: 0;
+}
+ul,
+ol {
+	padding: 0 0 0 2em;
+}
+h1,
+h2,
+h3 {
+	font-weight: normal;
+	margin: 1em 0 .25em 0;
+	line-height: 1.25em;
+	color: #000;
+}
+h1 {
+	font-size: 2.2em;
+	margin-top: 0;
+}
+h2 {
+	font-size: 1.6em;
+}
+h3 {
+	font-size: 1.2em;
+}
+div.logo {
+	height: 128px;
+	width: 128px;
+	float: right;
+	margin: 0 0 1em 1em;
+}
+div.logo img {
+	height: 100%;
+	width: 100%;
+}
+a {
+	color: #666;
+}
+img a {
+	text-decoration: none !important;
+}
+table.respTable {
+	font: normal .9em/1.5em sans-serif;
+	display: inline-block;
+	vertical-align: top;
+	width: 100%;
+	max-width: 100%;
+	overflow-x: auto;
+	border-collapse: collapse;
+	border-spacing: 0;
+	margin: 1em 0;
+	-webkit-overflow-scrolling: touch;
+	padding: 0 0 .5em 0;
+	hyphens: none;
+}
+table.respTable caption {
+	text-align: left;
+	padding: 0 0 .5em 0;
+	font: bold 1.2em/1.5em sans-serif;
+}
+.respTable thead th,
+.respTable tbody th {
+	font: bold 1em/1.5em sans-serif;
+	padding: 0.5em;
+	text-align: left;
+	vertical-align: top;
+	border: 1px solid #ccc;
+	hyphens: none;
+	white-space: nowrap;
+}
+.respTable td {
+	padding: .5em;
+	border: 1px solid #ccc;
+	vertical-align: top;
+}
+.respTable td p {
+	margin: 0;
+}
+ @media screen and (max-width: 640px) {
+body {
+	font-size: 12px;
+}
+nav {
+	display: inline-block;
+	position: relative;
+	width: auto;
+	overflow: hidden;
+	height: auto;
+    max-width: 100%;
+	top: 0;
+	padding: 1em 2em;
+}
+article.main {
+	width: 100%;
+	max-width: 100%;
+	float: none;
+}
+}
+hr {
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+.borderFrame {
+	border: 3px double #333;
+	padding: 0.5em;
+}
+</style>
 </head>
 
-
 <body>
-
-
-<div style="border: 1px solid rgb(187, 187, 187); margin: 0px auto auto; padding: 0pt 3em; text-align: left; width: 780px; background-color: rgb(255, 255, 255);">
-
-<h1><img style="width: 128px; height: 128px; float: left;" alt="" src="../images/software-update-icon.png"></h1>
-
-<h1><a class="mozTocH1" name="mozTocId902206"></a>UpdateCheck
-für CMSimple_XH<br>
-
-
-</h1>
-
-
-<p>Ein kleines CMSimple-Plugin, das hilft Ihre
-CMSimple_XH Installation aktuell zu halten </p>
-
-
-<p class="additional">Version 1.2<br>
-
-
-<span class="additional">
-&copy;&nbsp;2013-2014 Holger Irmler, </span><a class="additional" target="_blank" href="http://cmsimple.holgerirmler.de">http://CMSimple.HolgerIrmler.de</a><span class="additional">.<br>
-
-
-</span></p>
-
-
-<br>
-
-
-<h2><a class="mozTocH2" name="mozTocId43365"></a>Installation</h2>
-
-
-<ol>
-
-
-  <li> <b>Legen Sie immer eine Sicherungskopie Ihrer Installation an</b>
-bevor Sie ein neues Plugin hinzufügen. </li>
-
-
-  <li>Entpacken Sie das Archiv und laden Sie die Dateien und Ordner in
-Ihren
-Plugins-Ordner. <span class="additional">
-    
-    <p>Es sollte so aussehen: </p>
-
-
-    
-    <ul>
-
-
-      <li>[Root]
-        
-        <ul>
-
-
-          <li>[2lang]</li>
-
-
-          <li>[cmsimple]</li>
-
-
-          <li>...</li>
-
-
-          <li>[plugins]
-            
-            <ul>
-
-
-              <li>...</li>
-
-
-              <li>[pluginloader]</li>
-
-
-              <li><b>[hi_updatecheck]</b>
-                
-                <ul>
-
-
-                  <li><b>[config]</b></li>
-
-
-                  <li><span class="additional"><b>[css]</b></span></li>
-
-
-                  <li><span class="additional"><b>[help]</b></span></li>
-
-
-                  <li><span class="additional"><b>[languages]<br>
-
-
-                    </b></span></li>
-
-
-                  <li>admin.php</li>
-
-
-                  <li>index.php</li>
-
-
-                  <li>JSON.php</li>
-
-
-                  <li>updatecheck.php</li>
-
-
-                  <li>version.nfo</li>
-
-
-                
-                </ul>
-
-
-              </li>
-
-
-              <li>index.php</li>
-
-
-            
-            </ul>
-
-
-          </li>
-
-
-          <li>[...]</li>
-
-
-          <li>index.php</li>
-
-
-        
-        </ul>
-
-
-      </li>
-
-
-    
-    </ul>
-
-
-    </span> </li>
-
-
-  
-  <p>Wenn Sie die Plugin-Administration online durchführen wollen, müssen Sie
-Schreibberechtigungen für die Order&nbsp;'config', 'css' und
-'languages' und für die enthaltenen Dateien vergeben.</p>
-
-
-  <li><span style="font-weight: bold;">Konfiguration
-    </span><br>
-
-
-Die voreingestellte Konfiguration sollte für die meisten Anwender geeignet sein. Sie
-finden Hinweise zu den Konfigurationsoptionen, wenn Sie auf die blauen Fragenzeichen zeigen.</li>
-
-
-</ol>
-
-
-<h2><a class="mozTocH2" name="mozTocId571817"></a>Verwendung</h2>
-
-Per Voreinstellung (Konfigurationseinstellung "autocheck" = 1) führt das Plugin
-einen "stillen Quick-Check" im Hintergrund durch, direkt nach dem Sie sich in Ihre
-CMSimple_XH Installation eingeloggt haben. Wenn genügend Zeit vergeht bevor Sie den
-nächsten Klick im Backend tätigen, und Updates verfügbar sind, wird ein
-Info-Icon neben dem Logout-Schalter in der Menüleiste angezeigt.<br>
-
-
-Abgesehen davon wird eine Benachrichtigung zu Beginn der "System Info" Seite
-angezeigt ( Einstellungen -&gt; Info ).<br>
-
-<br>
-
-<div style="text-align: center;"><img style="border: 1px solid ; width: 628px; height: 406px;" alt="" src="../images/updatecheck1.PNG"><br>
-
-</div>
-
-<div style="text-align: center;"><span class="additional">Info-Icon und Benachrichtigung auf der "System Info" Seite</span></div>
-
-<br>
-
-<br>
-
-
-Dieser "Quick-Check" wird nur einmal pro Sitzung durchgeführt.<br>
-
-Klicken Sie das Icon oder den Link auf der System-Info Seite an, um einen vollständigen Update-Check zu starten.<br>
-
-<br>
-
-<br>
-
-<div style="text-align: center;"><img style="border: 1px solid ; width: 627px; height: 609px;" alt="" src="../images/updatecheck2.PNG"><br>
-
-</div>
-
-
-<div style="text-align: center;"><span class="additional">Beispiel Updatecheck Ergebnis</span><br>
-
-<span class="additional"></span></div>
-
-<span class="additional"><br>
-
-</span>
-<span style="font-weight: bold;"><br>
-
-Von Zeit zu Zeit sollten Sie
-die Updateprüfung selbst anstoßen: </span><br style="font-weight: bold;">
-
-
-gehen Sie zu Plugins -&gt; hi_updatecheck -&gt; Nach Updates suchen<br style="font-weight: bold;">
-
-
-<br>
-
-
-<h2><a class="mozTocH2" name="mozTocId508485"></a>Kompatibilität</h2>
-
-<span style="font-weight: bold;">
-Seien Sie gewarnt!</span> Dieses Plugin funktioniert nur mit dem original CMSimple_XH von <a href="www.cmsimple-xh.org" target="_blank">www.cmsimple-xh.org</a>.<br>
-
-
-Die Verwendung unter anderen Versionen / Derivaten kann zu Fehlern und/oder falschen
-Informationen führen!<br>
-
-
-<br>
-
-<br>
-
-<br>
-
-Hinweise für Entwickler finden Sie in der <a href="./help.htm">englischen Hilfedatei</a>. <br>
-
-Viel Spaß und bleiben Sie auf dem neusten Stand ;-).<br>
-
-<br>
-
-<br>
-
-<br>
-
-<h2><a class="mozTocH2" name="mozTocId185790"></a><span style="font-weight: bold;">Danksagung</span></h2>
-
-Das Design der Meldungen basiert auf einem Artikel von Janko Jovanovic.<br>
-
-Die Icons, die für die Meldungen verwendet werden, wurden von Miles Ponson erschaffen und frei zur Verfügung gestellt.<br>
-
-Das Plugin-Icon wurde von Alexandre Moore erschaffen und frei zur Verfügung gestellt.<br>
-
-<br>
-
-Besonderer Dank an <a href="http://3-magi.net" target="_blank">Christoph M. Becker</a> für die Prüfung meines Codes, den Austausch von Ideen und konstruktives Feedback bezüglich dieses Plugins<br>
-<br>
-Die dänische Übersetzung wurde von Jens Maegaard bereitgestellt - <a href="http://www.JmNet.dk" target="_blank">www.JmNet.dk</a> - <a href="http://www.CMSimple-xh.dk" target="_blank">www.CMSimple-xh.dk</a><br>
-
-<br>
-
-<span style="font-weight: bold;"></span>
-<ol>
-
-
-</ol>
-
-
-<h2><a class="mozTocH2" name="mozTocId160751"></a>Copyright &amp; Lizenz</h2>
-
-
-<ul>
-
-</ul>
-
-
-<p>Copyright &copy;2013-2014 <a href="http://cmsimple.holgerirmler.de/">Holger Irmler</a> - alle Rechte vorbehalten<br>
-
+<div id="wrapper">
+<article class="main">
+<div class="logo"><img src="../images/software-update-icon.png" alt="hi_updatecheck Logo"></div>
+<h1 id="start">hi_updatecheck</h1>
+<p><strong>Ein Plugin das hilft Ihre CMSimple_XH Installation aktuell zu halten</strong></p>
+<hr>
+<h2 id="function">Funktionsweise</h2>
+<p><em>hi_updatecheck</em> kann (automatisch oder manuell angestoßen) die Aktualität von CMSimple_XH und der installierten Plugins überprüfen.</p>
+<p>Abhängig von der Konfiguration (<span class="code">autocheck = an</span>), wird sofort nach dem Login ein (stiller) Schnelltest ausgeführt.</p>
+<p>Werden Updates gefunden, erscheint im Adminmenü ein  Hinweis-Icon (<img src="../images/info.svg" alt="Info-Icon"> beim Standard-Adminmenü), das zugleich ein Link zur Updates-Seite ist.</p>
+<p>Gleichzeitig erscheint unter <span class="code">Einstellungen → Info</span> ein Texthinweis auf verfügbare Updates, ebenfalls mit Link zur Updates-Seite des Plugins.</p>
+<p>Sollte dieser automatische Check nicht funktionieren (z.B. wegen TimeOut bei schlechter Server-Erreichbarkeit), dann kann man den Updatecheck auch manuell anstoßen<br>
+<span class="code">Plugins → Hi_updatecheck → Nach Updates suchen</span><br>
 </p>
-
-<p class="upd_license">Lizenz: GPL3</p>
-
-<p style="text-align: justify;" class="upd_license">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT 
-WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
-THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION 
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION 
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-
-<p style="text-align: justify;" class="upd_license"></p>
-
-
+<h2 id="requirements">Voraussetzungen</h2>
+<p><em>hi_updatecheck</em> wird mit CMSimple_XH ausgeliefert und erfordert somit keine speziellen Voraussetzungen.</p>
+<p>Um Plugins prüfen zu können, müssen diese zwingend eine <span class="code">version.nfo</span> zur Verfügeng stellen. Mehr Infos dazu weiter unten im Abschnitt <a href="#plugin-devs">Für Plugin-Entwickler.</a></p>
+<h2 id="installation">Installation</h2>
+<p>Die Installation erfolgt ebenso wie bei vielen anderen CMSimple_XH-Plugins.</p>
 <ol>
-
-
+<li>Zunächst sollten alle Daten auf dem Server gesichert werden.</li>
+<li>Die heruntergeladene ZIP-Datei wird auf dem eigenen Computer entpackt.</li>
+<li>Das enthaltene Verzeichnis <span class="code">hi_updatecheck/</span> wird jetzt komplett auf den Server in das <span class="code">plugins/</span>-Verzeichnis von CMSimple_XH hochgeladen.</li>
+<li>Falls nötig, müssen Schreibrechte für die Unterverzeichnisse <span class="code">config/</span>, <span class="code">css/</span> und <span class="code">languages/</span> und alle darin vorhandenen Dateien vergeben werden.</li>
 </ol>
-
-
-<h2><a class="mozTocH2" name="mozTocId753693"></a>Sie brauchen
-Hilfe?</h2>
-
-
-<p>... besuchen Sie <a target="_blank" href="http://www.cmsimpleforum.com">cmsimpleforum.com</a>.</p>
-
-
-<span style="font-weight: bold;">
-</span>
-<pre style="font-weight: bold; line-height: 1.2em; font-size: 90%; color: rgb(102, 102, 102);"><br> </pre>
-
-
+<h2 id="config">Einstellungen</h2>
+<p class="code">Plugins → Hi_updatecheck → Konfiguration</p>
+<p>Hier können die Grundeinstellungen für das Plugin vorgenommen werden.</p>
+<p>&nbsp;</p>
+<p><span class="code">Autocheck → Autocheck → an/aus</span> <em>Checkbox</em> (default: <em>an</em>)</p>
+<p><strong>an</strong> = <em>hi_updatecheck</em> führt einmalig nach jedem Login einen Quick-Check durch.</p>
+<p><strong>aus</strong> = <em>hi_updatecheck</em> führt keinen Quick-Check durch.</p>
+<p>&nbsp;</p>
+<p><span class="code">Autocheck →  Timeout</span> <em>Textfeld</em> (default: <em>3</em>)</p>
+<p>Zeit in Sekunden, die jedes Modul bei der automatischen Updateprüfung beanspruchen kann/darf.</p>
+<p>&nbsp;</p>
+<p><span class="code">Autocheck → Notify</span> <em>Auswahlfeld</em> (default: <em>All updates</em>)</p>
+<p><strong>All updates</strong> = Zeigt das Info-Icon, sobald irgendein Update verfügbar ist.</p>
+<p><strong>Only critical updates</strong> = Zeigt das Info-Icon nur, wenn kritische Updates verfügbar sind.</p>
+<p>&nbsp;</p>
+<p><span class="code">Ignore →   Ignore</span><em> Textfeld</em></p>
+<p>Eine mittels Komma separierte Liste von Plugins, die nicht bei der Updateprüfung berücksichtigt werden sollen (normalerweise nur Plugins, die ausschließlich mit CMSimple_XH angeboten werden).</p>
+<hr>
+<h2 id="plugin-devs">Für Plugin-Entwickler</h2>
+<p>Plugins sollten prinzipiell mit einer <span class="code">version.nfo</span> ausgeliefert werden, damit eine Versionskontrolle mit <em>hi_updatecheck</em> durchgeführt werden kann.</p>
+<p> Das ist wirklich einfach und am Plugin-Code müssen keine Änderungen vorgenommen werden. Alles was zu tun ist, ist eine Datei namens <span class="code">version.nfo</span> in den Stammordner des Plugins zu legen und eine umbenannte Kopie &#8211; irgendwo für die Welt lesbar/verfügbar &#8211; auf dem Server.</p>
+<h3>Wie funktioniert das?</h3>
+<p><em>hi_updatecheck</em> sucht in jedem Plugin-Ordner nach einer <span class="code">version.nfo</span>-Datei, extrahiert die darin enthaltenen Informationen und vergleicht sie mit den Informationen auf Ihrem Server. Je nach Ergebnis erhält der Benutzer Informationen über verfügbare Updates, den Link zur Downloadseite, kritische Updates oder einfach nur einen Hinweis, dass das Plugin auf dem neuesten Stand ist.</p>
+<h3>Erstellen einer version.nfo-Datei</h3>
+<p>Die <span class="code">version.nfo</span> ist eine einfache CSV-Datei (eigentlich eine Textdatei), kodiert als UTF-8 (ohne BOM) mit genau den folgenden sieben Parametern in einer Zeile, durch Komma getrennt:</p>
+<p class="code">PluginName, Version, ReadVersion, Critical, AddInfos, DownloadUrl, UrlToRemoteInfo</p>
+<table class="respTable">
+<caption>
+Beschreibung der Parameter
+</caption>
+<tbody>
+<tr>
+<th>PluginName *</th>
+<td>Der lesbare Name des Plugins der für die Info-Meldungen in der HTML-Ausgabe verwendet wird.<br>
+<em>Beispiel:</em> <strong>hi_updatecheck</strong></td>
+</tr>
+<tr>
+<th>Version *</th>
+<td>Die Version des Plugins.<br>
+Dieser Eintrag wird zum Vergleich der Versionen verwendet.<br>
+<em>Format:</em> alles, was PHPs <span class="code">version_compare()</span> verstehen kann.<br>
+<em>Beispiele:</em> <strong>1.5.7</strong> oder <strong>1.3.2 RC&#8230;</strong> oder Build(Daten) wie <strong>2013051601</strong>, <strong>2013051602</strong></td>
+</tr>
+<tr>
+<th>ReadVersion *</th>
+<td>Dieser Eintrag wird in der HTML-Ausgabe für den Benutzer angezeigt.<br>
+<em>Beispiele:</em> <strong>1.5.3 - 2013-05-16</strong> oder nur <strong>1.5.2</strong> oder alles, was sonst nützlich ist.</td>
+</tr>
+<tr>
+<th>Critical</th>
+<td>Dieser Parameter wird verwendet, um die Benutzer über <em>kritische</em> Updates zu informieren.<br>
+Wenn eine Version zur Behebung eines kritischen Fehlers veröffentlicht wird, muss hier die Versionsnummer angegeben werden. Die Benutzer werden mit einer Warnmeldung benachrichtigt, wenn ihre installierte Version gleich oder älter als die hier angegebene ist. <br>
+<em> Format:</em> Wie bei &quot;Version&quot; oben.<br>
+HINWEIS: Dieser Eintrag sollte auch in zukünftigen Versionen beibehalten werden, falls ein Benutzer frühere Updates verpasst hat.</td>
+</tr>
+<tr>
+<th>AddInfos</th>
+<td>Zusätzliche Informationen. Dieser Eintrag wird in der HTML-Ausgabe für den Benutzer angezeigt.<br>
+Normalerweise sollte dieses Feld leer bleiben. Hier kann ohnehin nur ein kurzer zusätzlichen Text <em>in nur einer Sprache</em> ausgegeben werden. Außerdem werden alle Script- und HTML-Auszeichnungen entfernt.</td>
+</tr>
+<tr>
+<th>DownloadUrl *</th>
+<td>Die vollständige URL zur Downloadseite der neuen Version. Dieser Eintrag wird verwendet um einen Link in der Nachricht zu erstellen, die dem Benutzer angezeigt wird.<br>
+<em> Beispiel:</em> <strong>https://www.domain.tld?Plugins/Pluginname</strong></td>
+</tr>
+<tr>
+<th>UrlToRemoteInfo *</th>
+<td>Vollständige URL zur aktuellen<span class="code">*.nfo</span>-Datei des Plugins.<br>
+Diese Datei muss permanent über das Internet erreichbar sein!<br>
+<em>Bitte beachten:</em> Diese URL sollte sich in Zukunft nicht ändern! <br>
+<em> Beispiel:</em> <strong>https://www.domain.tld/downloads/versioninfos/Pluginname_version.nfo</strong></td>
+</tr>
+</tbody>
+</table>
+<p>HINWEISE: <br>
+Die mit <strong>*</strong> gekennzeichneten Felder dürfen nicht leer sein.<br>
+Für <em>leere</em> Parameter müssen trotzdem die Kommas gesetzt werden! Das Plugin prüft, ob genau sieben Parameter in der .nfo-Datei vorhanden sind und ignoriert das Plugin ansonsten.</p>
+<p>&nbsp;</p>
+<p>Die so erzeugte Datei muss nun im Root-Ordner des Plugins abgelegt werden &#8211; auf derselben Ebene wie <em>index.php</em> und <em>admin.php</em>. Der Dateiname muss <strong>version.nfo</strong> lauten.</p>
+<p>Dann muss eine (umbenannte) Kopie dieser Datei auf einen Server hochgeladen werden, der über die im letzten Parameter <strong>UrlToRemoteInfo</strong> angegebene Url permanent erreichbar ist.</p>
+<p>&nbsp;</p>
+<h4>Vollständiges Beispiel anhand des jQuery-Plugins</h4>
+<p class="code"> jQuery,2013033001,1.4,,,http://www.cmsimple-xh.org/wiki/doku.php/extend:jquery4cmsimple,http://cmsimple.holgerirmler.de/downloads/versioninfo/jQuery4CMSimple_version.nfo</p>
+<p>In diesem Beispiel wurde &quot;Build&quot; verwendet, um die Versionen zu vergleichen. &quot;Critical&quot; und &quot;AddInfos&quot; sind leer.</p>
+<hr>
+<h2 id="license">Copyright und Lizenz</h2>
+<p>© 2013 &#8211; 2022 <a href="https://github.com/TN03" target="_blank">Holger Irmler</a><br>
+Lizenz: <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPLv3</a></p>
+<p>&nbsp;</p>
+<p>Das Plugin-Icon wurde von Alexandre Moore erschaffen und frei zur Verfügung gestellt. Besonderer Dank an <a href="https://github.com/cmb69" target="_blank">Christoph M. Becker</a> für die Prüfung meines Codes, den Austausch von Ideen und konstruktives Feedback bezüglich dieses Plugins.</p>
+</article>
+<nav id="nav">
+<ul>
+<li><a href="#">↑ nach oben ↑</a></li>
+<li><a href="#function">Funktionsweise</a></li>
+<li><a href="#requirements">Voraussetzungen</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#config">Einstellungen</a></li>
+<li><a href="#plugin-devs">Für Plugin-Entwickler</a></li>
+<li><a href="#license">Lizenz</a></li>
+</ul>
+</nav>
 </div>
-
-
 </body>
 </html>

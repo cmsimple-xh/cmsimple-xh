@@ -5,7 +5,7 @@
  */
 
 $script = <<<EOS
-<script type="text/javascript">
+<script>
 function setLink(url) {
     window.opener.codeeditor.insertURI(url);
     window.close();

@@ -25,13 +25,13 @@ line-height: 1.1;
 }
 p.code {font-family: Courier New; border: 1px solid #999; background: #eed; padding: 8px 12px;}
   </style>
-  <script type="text/javascript" src="sh/scripts/shCore.js"></script>
-  <script type="text/javascript" src="sh/scripts/shBrushPhp.js"></script>
+  <script src="sh/scripts/shCore.js"></script>
+  <script src="sh/scripts/shBrushPhp.js"></script>
   <link type="text/css" rel="stylesheet" href="sh/styles/shCore.css">
 
   <link type="text/css" rel="stylesheet" href="sh/styles/shThemeDefault.css">
 
-  <script type="text/javascript">
+  <script>
 SyntaxHighlighter.config.clipboardSwf = 'sh/scripts/clipboard.swf';
 SyntaxHighlighter.all();
   </script>
@@ -52,10 +52,10 @@ jQueryUI to
 a CMSimple installation and make the libraries available to use with
 other CMSimple-Plugins. </p>
 
-<p class="additional">Version 1.6 - 2015-03-12<br>
+<p class="additional">Version 1.6.6 - 2023-07-11<br>
 
 <span class="additional">
-&copy; 2011-2015 Holger Irmler, </span><a class="additional" target="_blank" href="http://cmsimple.holgerirmler.de">http://CMSimple.HolgerIrmler.de</a><span class="additional">.<br>
+&copy; 2011-2023 Holger Irmler, </span><a class="additional" target="_blank" href="http://cmsimple.holgerirmler.de">http://CMSimple.HolgerIrmler.de</a><span class="additional">.<br>
 
 </span></p>
 
@@ -413,7 +413,7 @@ To include your own code, use the common CMSimple-way:<br>
 If your script goes to the &lt;head&gt; - section, use <span style="font-weight: bold;">$hjs</span>:<br>
 
 <script type="syntaxhighlighter" class="brush: php"><![CDATA[
-$hjs .= '<script type="text/javascript">
+$hjs .= '<script>
             jQuery(document).ready(function(){...});
          &lt;/script>';
 ]]></script>
@@ -422,7 +422,7 @@ use <span style="font-weight: bold;">$o</span>
 variable:<br>
 
 <script type="syntaxhighlighter" class="brush: php"><![CDATA[
-$o .= '<script type="text/javascript">
+$o .= '<script>
           jQuery("p.neat").addClass("ohmy").show("slow");
        &lt;/script>';
 ]]></script>

@@ -35,6 +35,4 @@ function Pagemanager_themes()
     return Model::getThemes();
 }
 
-$temp = new Plugin();
-$temp->run();
-$temp = null;
+(new Plugin())->run();

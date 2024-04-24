@@ -8,7 +8,7 @@
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    Jerry Jakobsfeld <mail@simplesolutions.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2023 The CMSimple_XH developers <https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -27,10 +27,12 @@ function Pageparams_hjs()
     $config = json_encode(
         array('message' => $plugin_tx['page_params']['error_date_format'])
     );
-    return '<script type="text/javascript">var PAGEPARAMS = ' . $config
-        . ';</script>'
-        . '<script type="text/javascript" src="' . $pth['folder']['plugins']
-        . 'page_params/pageparams.min.js"></script>';
+    return '<script>var PAGEPARAMS = '
+         . $config
+         . ';</script>'
+         . '<script src="'
+         . $pth['folder']['plugins']
+         . 'page_params/pageparams.min.js"></script>';
 }
 
  /**

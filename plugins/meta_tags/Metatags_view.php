@@ -8,7 +8,7 @@
  *
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2023 The CMSimple_XH developers <https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -30,8 +30,9 @@ function Metatags_view(array $page)
 
     $my_fields = array('title', 'description', 'keywords', 'robots');
 
-    $bjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
-        . 'meta_tags/metatags.min.js"></script>';
+    $bjs .= '<script src="'
+          . $pth['folder']['plugins']
+          . 'meta_tags/metatags.min.js"></script>';
 
     $view ="\n" . '<form action="' . $sn . '?' . $su
         . '" method="post" id="meta_tags">'

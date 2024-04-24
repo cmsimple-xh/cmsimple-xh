@@ -36,7 +36,7 @@ class JSONProcessor
     private $newContents;
 
     /**
-     * @var array[]
+     * @var list<array<string,mixed>>
      */
     private $pageData;
 
@@ -108,7 +108,7 @@ class JSONProcessor
     }
 
     /**
-     * @param array[] $pages
+     * @param list<array<string,mixed>> $pages
      * @return void
      */
     private function processPages(array $pages)
@@ -210,7 +210,7 @@ class JSONProcessor
     }
 
     /**
-     * @return array[]
+     * @return list<array<string,mixed>>
      */
     public function getPageData()
     {

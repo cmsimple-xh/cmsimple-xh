@@ -8,7 +8,7 @@
  * @author    Peter Harteg <peter@harteg.dk>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
  * @copyright 1999-2009 Peter Harteg
- * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2023 The CMSimple_XH developers <https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team>
  * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
  */
 
@@ -179,6 +179,17 @@ function XH_absoluteUrlPath($path)
 function XH_isAccessProtected($path)
 {
     $url = preg_replace('/index\.php$/', '', CMSIMPLE_URL) . $path;
+    if (extension_loaded('curl')) {
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_NOBODY, true);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 5);
+        if (curl_exec($curl)) {
+            $status = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+            curl_close($curl);
+            return $status >= 400 && $status < 500;
+        }
+        curl_close($curl);
+    }
     $defaultContext = stream_context_set_default(
         array('http' => array('method' => 'HEAD', 'timeout' => 5))
     );
@@ -309,6 +320,9 @@ HTML;
     );
     $checks['other'][] = array(
         function_exists('fsockopen'), false, $stx['fsockopen']
+    );
+    $checks['other'][] = array(
+        function_exists('curl_init'), false, $stx['curl']
     );
     $o .= XH_systemCheck($checks);
     return $o;

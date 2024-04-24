@@ -545,4 +545,3 @@ class CMB_JSON
     }
 }
 
-?>

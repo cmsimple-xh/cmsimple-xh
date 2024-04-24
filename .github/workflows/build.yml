@@ -1,0 +1,29 @@
+name: Build
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: CMSimple_XH version to build
+        required: true
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+      - name: Checkout CMSimple_XH
+        uses: actions/checkout@v3
+      - name: Install composer
+        run: composer install
+      - name: Build CMSimple_XH
+        run: PATH=vendor/bin:$PATH phing build -Dversion=${{github.event.inputs.version}}
+      - name: Unzip build
+        run: unzip CMSimple_XH-${{github.event.inputs.version}}.zip -d artifacts
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: CMSimple_XH-${{github.event.inputs.version}}
+          path: artifacts

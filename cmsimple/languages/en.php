@@ -274,11 +274,12 @@ $tx['settings']['warning']="Only change settings when you understand the effect 
 $tx['submenu']['heading']="Submenu";
 
 $tx['syscheck']['access_protected']="'%s' is access protected";
-$tx['syscheck']['bom']="there is no <a href=\"http://www.cmsimple-xh.org/wiki/doku.php/utf8#what_s_a_bom\" target=\"_blank\">BOM</a>";
+$tx['syscheck']['bom']="there is no <a href=\"https://wiki.cmsimple-xh.org/?glossar#id7_bom\" target=\"_blank\">BOM</a>";
 $tx['syscheck']['cookie_lifetime']="session.cookie_lifetime is 0";
 $tx['syscheck']['extension']="extension '%s' is loaded";
 $tx['syscheck']['fail']="failure";
 $tx['syscheck']['fsockopen']="function fsockopen is available";
+$tx['syscheck']['curl']="function cURL is available";
 $tx['syscheck']['locale_available']="locale '%s' is available";
 $tx['syscheck']['locale_default']="default locale is in use";
 $tx['syscheck']['message']="Checking that %1\$s … %2\$s";

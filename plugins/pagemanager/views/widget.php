@@ -1,24 +1,24 @@
-<h1><?php echo $this->title()?></h1>
-<form id="pagemanager_form" action="<?php echo $this->submissionUrl()?>"
+<h1><?=$this->title()?></h1>
+<form id="pagemanager_form" action="<?=$this->submissionUrl()?>"
       method="post" accept-charset="UTF-8">
 <?php if ($this->isIrregular):?>
     <div id="pagemanager_structure_warning" class="cmsimplecore_warning">
-        <p><?php echo $this->text('error_structure_warning')?></p>
+        <p><?=$this->text('error_structure_warning')?></p>
         <p>
             <button type="button">
-                <?php echo $this->text('error_structure_confirmation')?>
+                <?=$this->text('error_structure_confirmation')?>
             </button>
         </p>
     </div>
 <?php endif?>
     <p class="pagemanager_status" style="display:none">
-        <img src="<?php echo $this->ajaxLoaderPath()?>" alt="Loading">
+        <img src="<?=$this->ajaxLoaderPath()?>" alt="Loading">
     </p>
 <?php if ($this->hasToolbar):?>
     <div id="pagemanager_toolbar">
 <?php   foreach ($this->tools as $tool => $class):?>
-        <button type="button" id="pagemanager_<?php echo $this->escape($tool)?>" title="<?php echo $this->text("op_{$tool}")?>" aria-label="<?php echo $this->text("op_{$tool}")?>">
-            <span class="<?php echo $this->escape($class)?> fa-lg" aria-hidden="true"></span>
+        <button type="button" id="pagemanager_<?=$this->escape($tool)?>" title="<?=$this->text("op_{$tool}")?>" aria-label="<?=$this->text("op_{$tool}")?>">
+            <span class="<?=$this->escape($class)?> fa-lg" aria-hidden="true"></span>
         </button>
 <?php   endforeach?>
     </div>
@@ -27,9 +27,9 @@
     <input type="hidden" name="admin" value="plugin_main">
     <input type="hidden" name="action" value="plugin_save">
     <input type="hidden" name="json" id="pagemanager_json" value="">
-    <input type="hidden" name="pagemanager_pdattr" value="<?php echo $this->pdattr?>">
-    <?php echo $this->csrfTokenInput()?>
+    <input type="hidden" name="pagemanager_pdattr" value="<?=$this->pdattr?>">
+    <?=$this->csrfTokenInput()?>
     <p class="pagemanager_status" style="display:none">
-        <img src="<?php echo $this->ajaxLoaderPath()?>" alt="Loading">
+        <img src="<?=$this->ajaxLoaderPath()?>" alt="Loading">
     </p>
 </form>

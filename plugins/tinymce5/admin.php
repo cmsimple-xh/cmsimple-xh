@@ -9,7 +9,7 @@
  * @package   Tinymce5
  * @author    manu <info@pixolution.ch>
  * @copyright 1999-2009 <http://cmsimple.org/>
- * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2023 The CMSimple_XH developers <https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link      http://cmsimple-xh.org/
  * @since     File available since Release 1.6.0
@@ -80,10 +80,10 @@ if (XH_wantsPluginAdministration($plugin)) {
                 $plugin_cf[$plugin]['CDN_src'] :
                 $pth['folder']['plugins'] .  $plugin.'/' . 'tinymce/tinymce.min.js';
                 
-            $o .= '<script type="text/javascript" src="' . $tiny_src . '"></script>'.PHP_EOL;
+            $o .= '<script src="' . $tiny_src . '"></script>'.PHP_EOL;
             
             $tinymce_version 
-                = '<script type="text/javascript">
+                = '<script>
                     if (typeof(tinymce) === "undefined" || tinymce === null) {
                         alert("tinyMCE not present! Either offline or local library missing.") 
                     }

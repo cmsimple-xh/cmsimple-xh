@@ -1,3 +1,10 @@
+Version 1.5
+cURL as first method
+remove the use of tag()
+\n -> PHP_EOL
+Domain as part of the UserAgent
+Updating the help files by frase-git
+
 Version 1.4
 Added support for https protocol
 

@@ -118,7 +118,12 @@ class Editor
         $temp['language'] =  $tiny_language;
         if ($tiny_language !='en' && $pcf['CDN'] == true ) 
             $temp['language_url'] =  CMSIMPLE_ROOT.'plugins/' . self::PLUGIN . '/tinymce/langs/' . $tiny_language.'.js';
-            
+        
+        /*
+         * fix Firefox scrollToTop Problem
+        */
+        $temp['content_style'] = 'body {height:unset;}';
+        
         /*
          * Omit image upload ability when not in Admin mode
         */
@@ -234,20 +239,9 @@ class Editor
 
         //default filebrowser
         $_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
-        
-        //principle occurance of XH_VERSION is checked in index.php
-        if (CMSIMPLE_XH_VERSION != '@CMSIMPLE_XH_VERSION@'
-            && version_compare(CMSIMPLE_XH_VERSION, 'CMSimple_XH 1.7', 'lt')
-        ) { 
-            $url =  CMSIMPLE_ROOT . 
-                'plugins/filebrowser/editorbrowser.php?editor=tinymce5&prefix=' . 
-                CMSIMPLE_BASE . 
-                '&base=./';
-        } else {  // CMSimple_XH v1.7 (r1518)
-            $url =  CMSIMPLE_ROOT . 
-                '?filebrowser=editorbrowser&editor=tinymce5&prefix=' . 
-                CMSIMPLE_BASE;           
-        }
+        $url =  CMSIMPLE_ROOT . 
+            '?filebrowser=editorbrowser&editor=tinymce5&prefix=' . 
+            CMSIMPLE_BASE;    
         $script = file_get_contents($pth['folder']['plugins']. self::PLUGIN . '/filebrowser.js');
         $script = str_replace('%URL%',  $url, $script);
         return $script;
@@ -294,10 +288,10 @@ class Editor
         }
 
         $hjs .='
-            <script language="javascript" type="text/javascript" src="'. 
+            <script src="'. 
             $tiny_src. 
             '"></script>
-        <script type="text/javascript">
+        <script>
         ' . self::filebrowser() . '
         var myLinkList;
         ' . $linkList . '
@@ -356,7 +350,7 @@ class Editor
         $temp = self::config($config, $initClasses);
 
         $hjs .= '
-        <script language="javascript" type="text/javascript">
+        <script>
         ' . self::setInit($temp) . '
         </script>
         ';

@@ -1,7 +1,7 @@
-<h1>Pagemanager – <?php echo $this->text('menu_info')?></h1>
-<img src="<?php echo $this->logoPath()?>" class="pagemanager_logo" alt="<?php echo $this->text('alt_logo')?>">
+<h1>Pagemanager – <?=$this->text('menu_info')?></h1>
+<img src="<?=$this->logoPath()?>" class="pagemanager_logo" alt="<?=$this->text('alt_logo')?>">
 <p>
-    Version <?php echo $this->version()?>
+    Version <?=$this->version()?>
 </p>
 <p>
     Copyright &copy; 2011-2021 Christoph M. Becker
@@ -28,8 +28,8 @@
     target="_blank">http://www.gnu.org/licenses/</a>.
 </p>
 <div class="pagemanager_syscheck">
-    <h2><?php echo $this->text('syscheck_title')?></h2>
+    <h2><?=$this->text('syscheck_title')?></h2>
 <?php foreach ($this->checks as $check):?>
-    <p class="xh_<?php echo $this->escape($check->state)?>"><?php echo $this->text('syscheck_message', $check->label, $check->stateLabel)?></p>
+    <p class="xh_<?=$this->escape($check->state)?>"><?=$this->text('syscheck_message', $check->label, $check->stateLabel)?></p>
 <?php endforeach?>
 </div>

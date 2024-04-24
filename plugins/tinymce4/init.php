@@ -58,20 +58,10 @@ function tinymce4_filebrowser()
     //default filebrowser
     $_SESSION['tinymce_fb_callback'] = 'wrFilebrowser';
     
-    //principle occurance of XH_VERSION is checked in index.php
-    if (CMSIMPLE_XH_VERSION != '@CMSIMPLE_XH_VERSION@'
-        && version_compare(CMSIMPLE_XH_VERSION, 'CMSimple_XH 1.7', 'lt')
-    ) { 
-        $url =  CMSIMPLE_ROOT . 
-            'plugins/filebrowser/editorbrowser.php?editor=tinymce4&prefix=' . 
-            CMSIMPLE_BASE . 
-            '&base=./';
-    } else {  // CMSimple_XH v1.7 (r1518)
-        $url =  CMSIMPLE_ROOT . 
-            '?filebrowser=editorbrowser&editor=tinymce4&prefix=' . 
-            CMSIMPLE_BASE;           
-    }
-    
+
+    $url =  CMSIMPLE_ROOT . 
+        '?filebrowser=editorbrowser&editor=tinymce4&prefix=' . 
+        CMSIMPLE_BASE;
     $script = file_get_contents(dirname(__FILE__) . '/filebrowser.js');
     $script = str_replace('%URL%',  $url, $script);
     return $script;
@@ -119,20 +109,20 @@ function include_tinymce4()
     }
     
     $hjs .='
-        <script language="javascript" type="text/javascript" src="'. 
+        <script src="'. 
         $tiny_src. 
         '"></script>
-	<script type="text/javascript">
-	' . tinymce4_filebrowser() . '
+    <script>
+    ' . tinymce4_filebrowser() . '
     var myImageList;
-	' . $imageList . '
+    ' . $imageList . '
     var myLinkList;
-	' . $linkList . '
-	</script>
+    ' . $linkList . '
+    </script>
     <style type="text/css">
         div.mce-fullscreen {z-index: 999;}  /*fullscreen overlays admin toolbar */
     </style>
-	';
+    ';
 }
 
 
@@ -331,10 +321,10 @@ function init_tinymce4($classes = array(), $config = false)
     $temp = tinymce4_config($config, $initClasses);
 
     $hjs .= '
-	<script language="javascript" type="text/javascript">
-	' . _setInit($temp) . '
-	</script>
-	';
+    <script>
+    ' . _setInit($temp) . '
+    </script>
+    ';
     return;
 }
 

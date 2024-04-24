@@ -2,7 +2,7 @@
 
 /* script.php build: 2011012801 */
 $script = '
-<script language="javascript" type="text/javascript">
+<script>
  function setLink(link){
 
         //window.opener.CKEDITOR.tools.callFunction( 2, link );

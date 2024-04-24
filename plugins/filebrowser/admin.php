@@ -5,7 +5,7 @@
  *
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2021 The CMSimple_XH developers <http://cmsimple-xh.org/?The_Team>
+ * @copyright 2009-2023 The CMSimple_XH developers <https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -64,8 +64,9 @@ if (!$cf['filebrowser']['external']
     $temp = new Fa\RequireCommand;
     $temp->execute();
 
-    $bjs .= '<script type="text/javascript" src="' . $pth['folder']['plugins']
-        . 'filebrowser/js/filebrowser.min.js"></script>';
+    $bjs .= '<script src="'
+          . $pth['folder']['plugins']
+          . 'filebrowser/js/filebrowser.min.js"></script>';
 
     $temp = isset($_GET['subdir'])
         ? str_replace(array('..', '.'), '', $_GET['subdir'])
