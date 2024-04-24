@@ -9,6 +9,7 @@ $mcf['language']['default']="function:XH_availableLocalizations";
 $mcf['language']['2nd_lang_names']="hidden";
 $mcf['mailform']['captcha']="bool";
 $mcf['mailform']['lf_only']="+bool";
+$mcf['head']['links']="+bool";
 $mcf['locator']['show_homepage']="bool";
 $mcf['folders']['content']="hidden";
 $mcf['folders']['userfiles']="hidden";

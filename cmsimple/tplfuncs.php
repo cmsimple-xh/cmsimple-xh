@@ -70,8 +70,10 @@ function head()
             . "\n"
             . '<!-- plugins: ' . $plugins . ' -->' . "\n";
     }
-    $o .= XH_renderPrevLink() . XH_renderNextLink()
-        . '<link rel="stylesheet" href="' . XH_pluginStylesheet()
+    if ($cf['head']['links'] == 'true') {
+        $o .= XH_renderPrevLink() . XH_renderNextLink() . PHP_EOL;
+    }
+    $o .= '<link rel="stylesheet" href="' . XH_pluginStylesheet()
         . '" type="text/css">' . PHP_EOL
         . $hjs
         . '<link rel="stylesheet" href="' . $pth['file']['stylesheet']
