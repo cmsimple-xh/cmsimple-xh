@@ -320,10 +320,11 @@ class LinkChecker
                     break;
                 }
             }
-            assert(isset($headers_tmp));
-            preg_match('#HTTP/[0-9\.]+\s+([0-9]+)#i', $headers_tmp, $status);
-            if (!empty($status[1])) {
-                return (int) $status[1];
+            if (!empty($headers_tmp)) {
+                preg_match('#HTTP/[0-9\.]+\s+([0-9]+)#i', $headers_tmp, $status);
+                if (!empty($status[1])) {
+                    return (int) $status[1];
+                }
             }
         }
         return false;
