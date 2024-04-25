@@ -62,9 +62,9 @@ function head()
     }
     $t = '<meta http-equiv="content-type" content="text/html;charset=UTF-8">'
         . "\n" . $t;
-    $plugins = implode(', ', XH_plugins());
     $o = $t;
     if (error_reporting() > 0) {
+        $plugins = implode(', ', XH_plugins());
         $o .= '<meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' '
             . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org">'
             . "\n"
