@@ -2,9 +2,9 @@
 <?php
 // ***
 // fhs-simple
-// version 2.0 - 2020/1
+// version 2.1 - 2024/4
 // template for CMSimple_XH ≥ 1.7
-// © 2019 fhs - www.fhseidel.de
+// © 2024 fhs - www.cmsimple-xh.org/?fhseidel
 // ***
 
 // if jQuery4CMSimple is installed, include its jQuery library
@@ -37,7 +37,7 @@ if (function_exists('fa_require')) {
 <meta name="theme-color" content="#ffffff">
 </head>
 
-<body<?=onload();?>>
+<body <?=XH_ADM ? onload() : '';?>>
 <header class="row-full-width" id="header">
 <nav class="langMenu"><?=languagemenu();?></nav>
 <div class="row">
@@ -108,9 +108,9 @@ if($s >= 0) {
 <div class="row">
 <p class="copyright">
 <?php if (function_exists('poweredbylink')):?>
-<i class="fa fa-copyright fa-fw"></i> <?=date("Y");?> Your Company<br><span class="smaller"><?=poweredbylink()?> &middot; <a href="http://fhseidel.de/" target="_blank">Template by fhs</a></span></p>
+<i class="fa fa-copyright fa-fw"></i> <?=date("Y");?> Your Company<br><span class="smaller"><?=poweredbylink()?> &middot; <a href="https://www.cmsimple-xh.org/?fhseidel" target="_blank">Template by fhs</a></span></p>
 <?php else:?>
-<i class="fa fa-copyright fa-fw"></i> <?=date("Y");?> Your Company<span class="smaller"><br>Powered by <a href="http://www.cmsimple-xh.org/" target="_blank">CMSimple_XH</a><br><a href="http://fhseidel.de/" target="_blank">Template by fhs</a></span></p>
+<i class="fa fa-copyright fa-fw"></i> <?=date("Y");?> Your Company<span class="smaller"><br>Powered by <a href="https://www.cmsimple-xh.org/" target="_blank">CMSimple_XH</a><br><a href="https://www.cmsimple-xh.org/?fhseidel" target="_blank">Template by fhs</a></span></p>
 <?php endif?>
 </div>
 </footer>
