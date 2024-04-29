@@ -12,8 +12,8 @@ $tx['template']['text1']="Text 1 for templates requiring this text";
 $tx['template']['text2']="Text 2 for templates requiring this text";
 $tx['template']['text3']="Text 3 for templates requiring this text";
 
-$tx['urichar']['new']="-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-";
-$tx['urichar']['org']="&amp;|'|§|%|:|/|?|#|[|]|@|!|$|&|'|(|)|*|+|,|;|=|\"";
+$tx['urichar']['new']="-|-|-";
+$tx['urichar']['org']="&amp;|&lt;|&gt;";
 
 $tx['action']['advanced_hide']="Less &hellip;";
 $tx['action']['advanced_show']="More &hellip;";
@@ -128,6 +128,8 @@ $tx['help']['title_format']="The way the title of a page of your site (&lt;title
 $tx['help']['uri_seperator']="The character which separates names of pages and sub pages in the URL.";
 $tx['help']['uri_word_separator']="The character which separates words in the URL.";
 $tx['help']['uri_length']="The URLs of the pages will be truncated at this length. This might change in a future release, so it's best to use shorter page headings (e.g. by using Page&rarr;Alternative heading).";
+$tx['help']['uri_transliteration']="Turn on transliteration (letter-perfect transfer).<br>The PHP extension 'intl' must be loaded.";
+$tx['help']['uri_lowercase']="Query-String in lowercase only.<br>Transliteration must be enabled and the PHP extension 'intl' must be loaded.";
 
 $tx['help']['folders_content']="The folder where the contents are stored (content.htm etc.)";
 $tx['help']['folders_userfiles']="The base folder of all userfiles.";
