@@ -2646,11 +2646,15 @@ function XH_redirectSelectedUrl()
 {
     global $selected;
 
-    $queryString = ltrim(preg_replace('/&?selected=[^&]+/', '', $_SERVER['QUERY_STRING']), '&');
+    $queryString = ltrim(preg_replace('/&?selected=[^&]*/', '', $_SERVER['QUERY_STRING']), '&');
     if ($queryString) {
         $queryString = "$selected&$queryString";
     } else {
         $queryString = $selected;
     }
-    return CMSIMPLE_URL . "?$queryString";
+    $url = CMSIMPLE_URL;
+    if ($queryString !== "") {
+        $url .= "?$queryString";
+    }
+    return $url;
 }
