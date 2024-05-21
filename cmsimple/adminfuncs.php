@@ -338,7 +338,7 @@ HTML;
  */
 function XH_settingsView()
 {
-    global $sn, $tx;
+    global $sn, $tx, $pth;
 
     $o = '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
         . '<h4>' . $tx['settings']['systemfiles'] . '</h4>' . "\n" . '<ul>' . "\n";
@@ -358,6 +358,11 @@ function XH_settingsView()
         $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=view">'
             . utf8_ucfirst($tx['action']['view']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
+    }
+    if (is_readable($pth['file']['debug-log'])) {
+        $o .= '<li><a target="_blank" href="?file=debug-log&amp;action=view">'
+            . utf8_ucfirst($tx['action']['view']) . ' '
+            . $tx['filetype']['debug_log'] . '</a></li>' . "\n";
     }
     $o .= '</ul>' . "\n";
 

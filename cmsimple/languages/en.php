@@ -85,6 +85,7 @@ $tx['filetype']['language']="language file";
 $tx['filetype']['log']="log";
 $tx['filetype']['stylesheet']="stylesheet";
 $tx['filetype']['template']="template";
+$tx['filetype']['debug_log']="debug log";
 
 $tx['help']['downloads_maxsize']="Maximum size of uploaded files in Byte. This must neither exceed the limit set for upload_max_filesize nor post_max_size in the PHP configuration.";
 $tx['help']['editmenu_scroll']="Whether the admin menu shall scroll with your webpage. Not checked = fixed admin menu.";
@@ -143,6 +144,8 @@ $tx['help']['format_time']="The time format if ext/intl is available; otherwise 
 $tx['help']['link_mailto'] = "Output note about mailto links when checking links?";
 $tx['help']['link_tel'] = "Output note about tel links when checking links?";
 $tx['help']['link_redir'] = "Max. Number of redirects LinkCheck should follow.";
+
+$tx['help']['debug_log'] = "Collect debug mode messages in log file.<br>Debug mode must be activated.";
 
 $tx['label']['empty']="- EMPTY -";
 
