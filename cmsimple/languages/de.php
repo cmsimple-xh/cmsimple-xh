@@ -39,6 +39,7 @@ $tx['editmenu']['help']="Hilfe";
 $tx['editmenu']['images']="Bilder";
 $tx['editmenu']['language']="Sprach-Datei";
 $tx['editmenu']['log']="Log-Datei";
+$tx['editmenu']['debug-log']="Debug-Log-Datei";
 $tx['editmenu']['logout']="Logout";
 $tx['editmenu']['media']="Media";
 $tx['editmenu']['normal']="Vorschau";
