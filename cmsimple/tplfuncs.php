@@ -569,18 +569,25 @@ function languagemenu()
  *
  * @since 1.6.3
  */
-function XH_emergencyTemplate()
+function XH_emergencyTemplate($tplError)
 {
+    $tplErrorOut = '<div style="border: 2px solid #ff0000; margin: 20px; padding: 10px;">'
+                 . PHP_EOL
+                 . $tplError
+                 . '</div>'
+                 . PHP_EOL;
+
     header('HTTP/1.0 503 Service Unavailable');
     header('Content-Type: text/html;charset=UTF-8');
-    echo '<!DOCTYPE html><head>'
+    echo '<!DOCTYPE html><html><head>'
     . head()
     . '</head><body '
     . onload()
     . '>'
-    . sitename()
+    . sitename() . '<br>'
+    . languagemenu()
     . toc()
-    . content()
+    . $tplErrorOut . content()
     . loginlink()
     . '</body></html>';
     XH_exit();

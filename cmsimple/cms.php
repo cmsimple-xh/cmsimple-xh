@@ -1341,13 +1341,25 @@ $i = false;
 $temp = fopen($pth['file']['template'], 'r');
 if ($temp) {
     if (XH_lockFile($temp, LOCK_SH)) {
-        $i = include $pth['file']['template'];
+        try {
+            $i = include $pth['file']['template'];
+        } catch (Throwable $t) {
+            ob_clean();
+            $tplError = 'Error-Message: ' . $t->getMessage() . '<br>'
+                      . PHP_EOL
+                      . 'File: ' . pathinfo($t->getFile())['basename'] . '<br>'
+                      . PHP_EOL
+                      . 'Line: ' . $t->getLine()
+                      . PHP_EOL;
+        }
         XH_lockFile($temp, LOCK_UN);
     }
     fclose($temp);
+} else {
+    $tplError = $pth['file']['template'] . ' not found' . PHP_EOL;
 }
 if (!$i) {// the template could not be included
-    XH_emergencyTemplate();
+    XH_emergencyTemplate($tplError);
 }
 
 if (isset($_XH_csrfProtection)) {
