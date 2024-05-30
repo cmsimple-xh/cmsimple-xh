@@ -1015,6 +1015,17 @@ assert($xh_publisher instanceof \XH\Publisher);
 */
 XH_URI_Cleaning();
 
+/*
+ * Prevents a blank page in the backend when calling a URI without query string
+*/
+if (XH_ADM && ($_SERVER['QUERY_STRING'] == '')) {
+    header('Location:' . CMSIMPLE_URL
+                       . '?'
+                       . $u[$xh_publisher->getFirstPublishedPage()],
+    true, 302);
+    exit;
+}
+
 $_XH_controller->setFrontendF();
 
 if (is_readable($pth['folder']['cmsimple'] . 'userfuncs.php')) {
