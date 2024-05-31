@@ -94,6 +94,7 @@ $pd_router->add_interest('template');
 $pd_router->add_interest('show_last_edit');
 $pd_router->add_interest('header_location');
 $pd_router->add_interest('use_header_location');
+$pd_router->add_interest('header_status');
 
 /*
  * Add a tab for admin-menu.
@@ -152,5 +153,16 @@ if (!(XH_ADM && $edit)) {
         } elseif ($xh_publisher->isHidden($i)) {
             $c[$i] = '#CMSimple hide#' . $c[$i];
         }
+    }
+}
+
+/*
+ * Sets the HTTP status code
+ */
+
+if (isset($pd_current['header_status'])
+&& trim($pd_current['header_status']) !== '') {
+    if ($xh_publisher->isHidden($s) && $xh_publisher->isPublished($s)) {
+        http_response_code($pd_current['header_status']);
     }
 }
