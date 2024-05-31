@@ -3,6 +3,7 @@
 $plugin_tx['page_params']['tab']="Page";
 $plugin_tx['page_params']['form_title']="Page parameters";
 $plugin_tx['page_params']['header_location']="Redirect page?";
+$plugin_tx['page_params']['header_status']="HTTP-Statuscode";
 $plugin_tx['page_params']['template']="Page template:";
 $plugin_tx['page_params']['last_edit']="Last edited:";
 $plugin_tx['page_params']['top']="top";
@@ -26,3 +27,4 @@ $plugin_tx['page_params']['hint_linked_to_menu']="<p>If unchecked, this page wil
 $plugin_tx['page_params']['hint_last_edit']="<p>Choose \"top\" or \"bottom\" to display the date of the last edit of this very page above resp. below the content. The Date format can be changed in the language settings, the look can be styled with the CSS selector <em>#pp_last_update</em>.</p>";
 $plugin_tx['page_params']['hint_template']="<p>Here you can select a special template for this page. All subpages of the page will also have this template.</p>";
 $plugin_tx['page_params']['hint_header_location']="<p>Here you can redirect this page to another internal or external page.</p><p>External targets have to be noted including the protocol (e.g. http://)</p>";
+$plugin_tx['page_params']['hint_header_status']="<p>Status code for custom error pages.<br>The page must be marked as hidden and published.<br>The HTTP status code is supplied by the server in response to each HTTP request.</p>";
