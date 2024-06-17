@@ -81,9 +81,29 @@ class ChangePassword
      */
     public function defaultAction()
     {
-        global $o;
+        global $o, $cf, $pth, $tx;
 
+        $minPWlength = (int)$cf['password']['min_length'];
+        if (password_verify('test', $cf['security']['password'])) {
+            $maxRemainingTime = (int)$cf['password']['max_remaining_time'];
+            $remainingTime = $maxRemainingTime
+                           - (time() - filectime($pth['folder']['cmsimple'] . 'defaultpw.lock'));
+            $remainingTime = $remainingTime / 60;
+            $remainingTime = round($remainingTime);
+            $remainingTime = ($remainingTime <= 0
+                           ? ' <span style="color: #f00";>(' . $remainingTime . ' min) </span>'
+                           : ' (' . $remainingTime . ' min)');
+            $o .= '<p class="xh_warning">'
+                . $tx['login']['pw_must_change']
+                . $remainingTime
+                . '</p>'
+                . PHP_EOL;
+        }
         $o .= $this->render();
+        $o .= '<p class="xh_info">' . $tx['password']['invalid'] . '<br>'
+            . sprintf($this->lang['password']['too_short'], $minPWlength)
+            . '</p>'
+            . PHP_EOL;
     }
 
     /**
@@ -152,6 +172,10 @@ class ChangePassword
         if ($hash = $this->validate($error)) {
             $this->config['security']['password'] = $hash;
             $this->savePassword();
+            XH_logMessage('info', 'XH', 'login', 'password was changed');
+            if (!$written) {
+                e('cntwriteto', 'log', $pth['file']['log']);
+            }
             header('Location: ' . CMSIMPLE_URL);
             exit;
         } else {
@@ -169,7 +193,10 @@ class ChangePassword
      */
     private function validate(&$error)
     {
+        global $cf;
+
         $result = null;
+        $minPWlength = (int)$cf['password']['min_length'];
         if ($this->passwordOld && $this->passwordNew
             && $this->passwordConfirmation
         ) {
@@ -177,7 +204,9 @@ class ChangePassword
             if (!$hash) {
                 $error = $this->lang['password']['wrong'];
             } else {
-                if (!preg_match('/^[!-~]+$/u', $this->passwordNew)) {
+                if (mb_strlen($this->passwordNew, 'UTF-8') < $minPWlength) {
+                    $error = sprintf($this->lang['password']['too_short'], $minPWlength);
+                } elseif (!preg_match('/^[!-~]+$/u', $this->passwordNew)) {
                     $error = $this->lang['password']['invalid'];
                 } elseif ($this->passwordNew != $this->passwordConfirmation) {
                     $error = $this->lang['password']['mismatch'];
@@ -217,7 +246,7 @@ class ChangePassword
             }
         }
         $o .= "\n?>\n";
-        $res = (bool) XH_writeFile($pth['file']['config'], $o);
+        $res = (bool) XH_writeFile($pth['file']['config'], $o, true);
         if (function_exists('opcache_invalidate')) {
             opcache_invalidate($pth['file']['config']);
         }

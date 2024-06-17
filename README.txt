@@ -41,12 +41,15 @@
  The default password for this installation is:
  "test" (without quotation marks)
  
- The default password should or must now be immediately
- be changed! Proceed as follows.
+ The default password must now be changed immediately!
+ You have 5 minutes to do this after the FTP upload.
+ During this time, only the password can be changed,
+ all other settings cannot be saved.
+ Proceed as follows:
  
- Log in. Select in the admin menu:
+ Log in with 'test'! You will be redirected automatically:
  Settings > Password
- Here you can enter your own password.
+ You can now enter your own password here.
 
  IMPORTANT NOTE
  =================

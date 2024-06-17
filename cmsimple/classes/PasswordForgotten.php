@@ -186,7 +186,7 @@ class PasswordForgotten
             }
         }
         $o .= PHP_EOL . '?>' . PHP_EOL;
-        $res = (bool) XH_writeFile($pth['file']['config'], $o);
+        $res = (bool) XH_writeFile($pth['file']['config'], $o, true);
         if (function_exists('opcache_invalidate')) {
             opcache_invalidate($pth['file']['config']);
         }
