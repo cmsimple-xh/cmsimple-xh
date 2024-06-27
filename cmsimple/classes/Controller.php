@@ -193,7 +193,10 @@ class Controller
                     e('cntwriteto', 'log', $pth['file']['log']);
                 }
                 if ($keycut == 'test') {
-                    XH_logMessage('warning', 'XH', 'login', 'login password expired');
+                    $written = XH_logMessage('warning',
+                                             'XH',
+                                             'login',
+                                             'login password expires and must be changed');
                     if (!$written) {
                         e('cntwriteto', 'log', $pth['file']['log']);
                     }

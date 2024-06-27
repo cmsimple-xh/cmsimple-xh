@@ -172,7 +172,7 @@ class ChangePassword
         if ($hash = $this->validate($error)) {
             $this->config['security']['password'] = $hash;
             $this->savePassword();
-            XH_logMessage('info', 'XH', 'login', 'password was changed');
+            $written = XH_logMessage('info', 'XH', 'login', 'password was changed');
             if (!$written) {
                 e('cntwriteto', 'log', $pth['file']['log']);
             }
