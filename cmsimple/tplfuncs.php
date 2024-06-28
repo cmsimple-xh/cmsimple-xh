@@ -528,6 +528,15 @@ function languagemenu()
 {
     global $pth, $cf, $sl;
 
+    // for external menu from plugin
+    $extLanguageMenu = trim($cf['languagemenu']['external']);
+    if ($extLanguageMenu != '') {
+        $menuFunc = $extLanguageMenu . '_languagemenu';
+        if (function_exists($menuFunc)) {
+            return $menuFunc();
+        }
+    }
+
     $r = XH_secondLanguages();
     array_unshift($r, $cf['language']['default']);
     $i = array_search($sl, $r);
