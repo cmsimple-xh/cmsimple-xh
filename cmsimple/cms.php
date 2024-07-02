@@ -1018,7 +1018,9 @@ XH_URI_Cleaning();
 /*
  * Prevents a blank page in the backend when calling a URI without query string
 */
-if (XH_ADM && ($_SERVER['QUERY_STRING'] == '')) {
+if (XH_ADM
+&& $_SERVER['QUERY_STRING'] == ''
+&& !$_POST) {
     header('Location:' . CMSIMPLE_URL
                        . '?'
                        . $u[$xh_publisher->getFirstPublishedPage()],
