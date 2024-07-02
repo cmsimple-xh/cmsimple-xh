@@ -192,7 +192,7 @@ $tx['login']['warning']="Administrationsbereich. Bitte Passwort eingeben.";
 
 $tx['mailform']['captcha']="Bitte diese Zahl eingeben (Spamschutz)";
 $tx['mailform']['captchafalse']="Bitte Zahl zum Schutz vor Spam eingeben";
-$tx['mailform']['message']="Mitteilungstext";
+$tx['mailform']['message']="Mitteilungstext (erforderlich)";
 $tx['mailform']['mustwritemessage']="Bitte Mitteilungstext eingeben";
 $tx['mailform']['notaccepted']="Bitte erforderliche Felder ausfüllen";
 $tx['mailform']['notsend']="Die Nachricht konnte nicht versendet werden";
