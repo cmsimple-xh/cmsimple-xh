@@ -527,12 +527,17 @@ EOT;
      */
     public function outputEditContents()
     {
-        global $s, $tx, $o;
+        global $s, $tx, $o, $u, $xh_publisher;
 
         if ($s > -1) {
             $o .= XH_contentEditor();
         } else {
             $o .= XH_message('info', $tx['error']['cntlocateheading']) . "\n";
+            header('Location:' . CMSIMPLE_URL 
+                               . '?'
+                               . $u[$xh_publisher->getFirstPublishedPage()],
+            true, 302);
+            exit;
         }
     }
 
