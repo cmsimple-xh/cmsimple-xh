@@ -1011,7 +1011,7 @@ assert($xh_publisher instanceof \XH\Publisher);
 /*
  * Remove $su from FirstPublicPage
  * Remove empty path segments in an URL - https://github.com/cmsimple-xh/cmsimple-xh/issues/282
- * Integration of the ADC-Core_XH plugin with extended functions (optional)
+ * Integration of external plugin with extended functions (optional).
 */
 XH_URI_Cleaning();
 
