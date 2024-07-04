@@ -51,8 +51,11 @@ function XH_URI_Cleaning()
      * "%PLUGIN-NAME%Main.php"
      * The corresponding function must be named according to this scheme:
      * "%PLUGIN-NAME%Main"
-     * An array is transferred to this function:
+     *
+     * This function is called as follows:
+     * "%PLUGIN-NAME%Main"($redir, $scheme, $host, $port, $path, $query_str);
      * $redir (bool), and $scheme, $host, $port, $path, $query_str (all parts of the URI)
+     *
      * An array is expected as the return:
      * 'redir'     => bool
      * 'scheme'    => string
