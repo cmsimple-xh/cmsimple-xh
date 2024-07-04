@@ -176,6 +176,75 @@ abstract class ArrayFileEdit extends FileEdit
                 }
                 $o .= '</datalist>';
                 return $o;
+            case 'password':
+                if ($opt['vals']) {$opt['vals'] = array_map('trim', $opt['vals']);}
+                $o = '<input type="password" name="' . $iname . '" value="'
+                    . XH_hsc($opt['val'])
+                    . (!empty($opt['vals'][0]) ? '" minlength="' . XH_hsc($opt['vals'][0]) : '')
+                    . '" class="xh_setting">';
+                return $o;
+            case 'email':
+                $o = '<input type="email" name="' . $iname . '" value="'
+                    . XH_hsc($opt['val'])
+                    . '" class="xh_setting">';
+                return $o;
+            case 'number':
+                if ($opt['vals']) {$opt['vals'] = array_map('trim', $opt['vals']);}
+                $o = '<input type="number" name="' . $iname . '" value="'
+                    . XH_hsc($opt['val'])
+                    . (!empty($opt['vals'][0]) ? '" min="' . XH_hsc($opt['vals'][0]) : '')
+                    . (!empty($opt['vals'][1]) ? '" max="' . XH_hsc($opt['vals'][1]) : '')
+                    . (!empty($opt['vals'][2]) ? '" step="' . XH_hsc($opt['vals'][2]) : '')
+                    . '" class="xh_setting">';
+                return $o;
+            case 'range':
+                if ($opt['vals']) {$opt['vals'] = array_map('trim', $opt['vals']);}
+                $o = '<input type="range" name="' . $iname . '" value="'
+                    . XH_hsc($opt['val'])
+                    . (!empty($opt['vals'][0]) ? '" min="' . XH_hsc($opt['vals'][0]) : '')
+                    . (!empty($opt['vals'][1]) ? '" max="' . XH_hsc($opt['vals'][1]) : '')
+                    . (!empty($opt['vals'][2]) ? '" step="' . XH_hsc($opt['vals'][2]) : '')
+                    . '" class="xh_setting" oninput="' . $iname . '_num.value = this.value">';
+                $o .= '<output id="' . $iname . '_num">'
+                    . (XH_hsc($opt['val']) ? XH_hsc($opt['val']) : 'n.a.')
+                    . '</output>';
+                return $o;
+            case 'color':
+                if ($opt['vals']) {$opt['vals'] = array_map('trim', $opt['vals']);}
+                $o = '<input type="color" name="' . $iname . '" value="'
+                    . XH_hsc($opt['val']) . '" class="xh_setting"';
+                if ($opt['vals'][0]) {
+                    $o .= ' list="' . $iname . '_DATA">';
+                    $o .= '<datalist id="' . $iname . '_DATA">';
+                    foreach ($opt['vals'] as $val) {
+                        $label = ($val == '')
+                            ? ' label="' . $tx['label']['empty'] . '"'
+                            : '';
+                        $o .= '<option' . $label . ' value="' . XH_hsc($val) . '">';
+                    }
+                    $o .= '</datalist>';
+                } else {
+                    $o .= '>';
+                }
+                return $o;
+            case 'date':
+                if ($opt['vals']) {$opt['vals'] = array_map('trim', $opt['vals']);}
+                $o = '<input type="date" name="' . $iname . '" value="'
+                    . XH_hsc($opt['val'])
+                    . (!empty($opt['vals'][0]) ? '" min="' . XH_hsc($opt['vals'][0]) : '')
+                    . (!empty($opt['vals'][1]) ? '" max="' . XH_hsc($opt['vals'][1]) : '')
+                    . (!empty($opt['vals'][2]) ? '" step="' . XH_hsc($opt['vals'][2]) : '')
+                    . '" class="xh_setting">';
+                return $o;
+            case 'time':
+                if ($opt['vals']) {$opt['vals'] = array_map('trim', $opt['vals']);}
+                $o = '<input type="time" name="' . $iname . '" value="'
+                    . XH_hsc($opt['val'])
+                    . (!empty($opt['vals'][0]) ? '" min="' . XH_hsc($opt['vals'][0]) : '')
+                    . (!empty($opt['vals'][1]) ? '" max="' . XH_hsc($opt['vals'][1]) : '')
+                    . (!empty($opt['vals'][2]) ? '" step="' . XH_hsc($opt['vals'][2]) : '')
+                    . '" class="xh_setting">';
+                return $o;
             case 'hidden':
             case 'random':
                 return '<input type="hidden" name="' . $iname . '" value="'
@@ -332,6 +401,12 @@ abstract class ArrayFileEdit extends FileEdit
         switch ($typeTag) {
             case 'enum':
             case 'xenum':
+            case 'password':
+            case 'number':
+            case 'range':
+            case 'color':
+            case 'date':
+            case 'time':
                 $vals = explode(',', substr($type, strlen($typeTag) + 1));
                 $type = $typeTag;
                 break;
