@@ -26,7 +26,7 @@
  */
 function XH_URI_Cleaning()
 {
-    global $su, $s, $xh_publisher, $pth;
+    global $cf, $su, $s, $xh_publisher, $pth;
 
     $parts = parse_url(CMSIMPLE_URL);
     assert(isset($parts['scheme'], $parts['host'], $parts['path']));
@@ -44,13 +44,47 @@ function XH_URI_Cleaning()
 
     $redir = false;
 
-//Integration of the ADC-Core_XH plugin with extended functions (optional)
-    if (is_readable($pth['folder']['plugins'] . 'adc_core/seofuncs.php')) {
-        include_once $pth['folder']['plugins'] . 'adc_core/seofuncs.php';
+    /* Integration of external plugin with extended functions (optional).
+     * The plugin must be entered in the configuration of CMSimple_Xh under:
+     * seo - name
+     * The corresponding PHP file must be named according to this scheme:
+     * "%PLUGIN-NAME%Main.php"
+     * The corresponding function must be named according to this scheme:
+     * "%PLUGIN-NAME%Main"
+     *
+     * This function is called as follows:
+     * "%PLUGIN-NAME%Main"($redir, $scheme, $host, $port, $path, $query_str);
+     * $redir (bool), and $scheme, $host, $port, $path, $query_str (all parts of the URI)
+     *
+     * An array is expected as the return:
+     * 'redir'     => bool
+     * 'scheme'    => string
+     * 'host'      => string
+     * 'port'      => string
+     * 'path'      => string
+     * 'query_str' => string
+     */
+    $CfExtPluginSEO = trim($cf['seo']['external']);
+    if ($CfExtPluginSEO != '') {
+        $extPluginPth = $pth['folder']['plugins'] . $CfExtPluginSEO;
+        $extPluginPHP = $CfExtPluginSEO . 'Main.php';
+        $extPluginFunc = $CfExtPluginSEO . 'Main';
+        if (is_readable($extPluginPth . '/' . $extPluginPHP)) {
+            include_once($extPluginPth . '/' . $extPluginPHP);
+            if (function_exists($extPluginFunc)) {
+                $external = $extPluginFunc($redir, $scheme, $host, $port, $path, $query_str);
+                $redir = $external['redir'];
+                $scheme = $external['scheme'];
+                $host = $external['host'];
+                $port = $external['port'];
+                $path = $external['path'];
+                $query_str = $external['query_str'];
+            }
+        }
     }
 
-//Remove empty path segments in an URL
-//https://github.com/cmsimple-xh/cmsimple-xh/issues/282
+    //Remove empty path segments in an URL
+    //https://github.com/cmsimple-xh/cmsimple-xh/issues/282
     $ep_count = 0;
     $path = preg_replace(
         '#(/){2,}#s',
@@ -63,7 +97,7 @@ function XH_URI_Cleaning()
         $redir = true;
     }
 
-//Remove $su from FirstPublicPage
+    //Remove $su from FirstPublicPage
     if (!XH_ADM && $s === $xh_publisher->getFirstPublishedPage()
     && !isset($_GET['login'])
     && !isset($_POST['login'])) {
@@ -77,7 +111,7 @@ function XH_URI_Cleaning()
         }
     }
 
-//Redirect if adjustments were necessary
+    //Redirect if adjustments were necessary
     if ($redir) {
         if (isset($_SERVER['PROTOCOL'])
         && !empty($_SERVER['PROTOCOL'])) {
