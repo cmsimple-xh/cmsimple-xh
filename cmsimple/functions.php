@@ -1687,7 +1687,7 @@ function XH_pluginStylesheet()
             . ' * ' . $pluginline . PHP_EOL
             . ' */' . PHP_EOL . PHP_EOL
             . implode(PHP_EOL . PHP_EOL, $o);
-        if (!XH_writeFile($ofn, $o)) {
+        if (!XH_writeFile($ofn, $o, true)) {
             e('cntwriteto', 'stylesheet', $ofn);
         }
     }
