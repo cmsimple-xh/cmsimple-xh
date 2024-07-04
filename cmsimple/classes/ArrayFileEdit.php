@@ -204,7 +204,10 @@ abstract class ArrayFileEdit extends FileEdit
                     . (!empty($opt['vals'][0]) ? '" min="' . XH_hsc($opt['vals'][0]) : '')
                     . (!empty($opt['vals'][1]) ? '" max="' . XH_hsc($opt['vals'][1]) : '')
                     . (!empty($opt['vals'][2]) ? '" step="' . XH_hsc($opt['vals'][2]) : '')
-                    . '" class="xh_setting">';
+                    . '" class="xh_setting" oninput="' . $iname . '_num.value = this.value">';
+                $o .= '<output id="' . $iname . '_num">'
+                    . (XH_hsc($opt['val']) ? XH_hsc($opt['val']) : 'n.a.')
+                    . '</output>';
                 return $o;
             case 'color':
                 if ($opt['vals']) {$opt['vals'] = array_map('trim', $opt['vals']);}
