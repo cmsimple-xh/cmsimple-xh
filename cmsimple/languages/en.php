@@ -192,7 +192,7 @@ $tx['login']['warning']="Site administration. Please enter password.";
 
 $tx['mailform']['captcha']="Please enter this number (spam prevention)";
 $tx['mailform']['captchafalse']="Please enter anti-spam code";
-$tx['mailform']['message']="Message";
+$tx['mailform']['message']="Message (required)";
 $tx['mailform']['mustwritemessage']="No message has been entered";
 $tx['mailform']['notaccepted']="Please fill in the required fields";
 $tx['mailform']['notsend']="The message could not be sent";

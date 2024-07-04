@@ -267,19 +267,24 @@ class Mailform
 
         // textarea
         $name = $this->embedded ? 'xh_mailform' : 'mailform';
-        $o .= '<textarea rows="12" cols="40" name="' . $name
+        $o .= '<div>' . "\n" . '<label for="xh_mailform_message">'
+            . $tx['mailform']['message'] . '</label>' . '<br>' . "\n"
+            . '<textarea id="xh_mailform_message" rows="12" cols="40" name="' . $name
             . '" required="required" title="' . $tx['mailform']['message'] . '">'
-            . XH_hsc($this->mailform) . '</textarea>';
+            . XH_hsc($this->mailform) . '</textarea>' . "\n"
+            . '</div>' . "\n";
 
         // captcha
         if (isset($cf['mailform']['captcha'])
             && trim($cf['mailform']['captcha']) == 'true'
         ) {
-            $o .= '<p>' .  $tx['mailform']['captcha'] . '</p>' . "\n"
+            $o .= '<div>' . "\n" . '<label for="xh_mailform_captcha">'
+                . $tx['mailform']['captcha'] . '</label>' . '<br>' . "\n"
                 .  '<input type="text" name="cap" class="xh_captcha_input"'
-                . ' required="required">'
+                . ' id="xh_mailform_captcha" required="required">'
                 . "\n" .  '<span class="xh_captcha_code">' . "\n"
-                .  $random . '</span>' . "\n";
+                .  $random . '</span>' . "\n"
+                . '</div>' . "\n";
         }
 
         // send button
