@@ -278,6 +278,7 @@ $tx['syscheck']['access_protected']="'%s' is access protected";
 $tx['syscheck']['bom']="there is no <a href=\"https://wiki.cmsimple-xh.org/?glossar#id7_bom\" target=\"_blank\">BOM</a>";
 $tx['syscheck']['cookie_lifetime']="session.cookie_lifetime is 0";
 $tx['syscheck']['extension']="extension '%s' is loaded";
+$tx['syscheck']['function']="function '%s' is available";
 $tx['syscheck']['fail']="failure";
 $tx['syscheck']['fsockopen']="function fsockopen is available";
 $tx['syscheck']['curl']="function cURL is available";
