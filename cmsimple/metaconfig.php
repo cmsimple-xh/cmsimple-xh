@@ -31,12 +31,12 @@ $mcf['menu']['sdoc']="enum:,parent";
 $mcf['uri']['length']="hidden";
 $mcf['uri']['transliteration']="bool";
 $mcf['uri']['lowercase']="bool";
+$mcf['canonical']['link']="bool";
 $mcf['editmenu']['scroll']="bool";
 $mcf['editmenu']['external']="xfunction:XH_registeredEditmenuPlugins";
 $mcf['mode']['advanced']="hidden";
 $mcf['format']['date']="enum:none,short,medium,long,full";
 $mcf['format']['time']="enum:none,short,medium,long,full";
-$mcf['link']['mailto']="+bool";
-$mcf['link']['tel']="+bool";
-$mcf['link']['redir']="+enum:0,1,2,3";
-?>
+$mcf['validate']['mailto']="+bool";
+$mcf['validate']['tel']="+bool";
+$mcf['validate']['redir']="+enum:0,1,2,3";
