@@ -2666,9 +2666,18 @@ function XH_redirectSelectedUrl()
  *
  * @since 1.8.0
  */
- function XH_canonicalLink()
- {
+function XH_canonicalLink()
+{
     global $su, $u, $function, $sitemap, $mailform, $cf, $CanonicalLinkInc;
+
+    $metaRobotsArray = explode(',', $cf['meta']['robots']);
+    $metaRobotsArray = array_map('trim', $metaRobotsArray);
+    $metaRobotsArray = array_map('strtolower', $metaRobotsArray);
+    $searchArray = array('noindex', 'nofollow', 'disallow');
+    $check = array_intersect($searchArray, $metaRobotsArray);
+    if (count($check) > 0) {
+        return false;
+    }
 
     $cfInclude = explode(',', $cf['canonical']['include']);
     $cfInclude = array_map('trim', $cfInclude);
