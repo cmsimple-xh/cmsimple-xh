@@ -1095,7 +1095,7 @@ function XH_adminJSLocalization()
         }
     }
     $o = '<script>XH.i18n = '
-        . XH_encodeJson($l10n) . '</script>' . PHP_EOL;
+        . json_encode($l10n) . '</script>' . PHP_EOL;
     return $o;
 }
 
