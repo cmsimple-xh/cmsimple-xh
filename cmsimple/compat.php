@@ -246,3 +246,188 @@ function writelog($m)
         e('cntwriteto', 'log', $pth['file']['log']);
     }
 }
+
+/**
+ * Returns a page heading.
+ *
+ * @param int $n The index of the page.
+ *
+ * @return string
+ *
+ * @see $h
+ *
+ * @deprecated since 1.7. Use $h instead.
+ */
+function h($n)
+{
+    global $h;
+
+    trigger_error('Function h() is deprecated', E_USER_DEPRECATED);
+
+    return $h[$n];
+}
+
+/**
+ * Returns a page's menu level.
+ *
+ * @param int $n The index of the page.
+ *
+ * @return int
+ *
+ * @see $l
+ *
+ * @deprecated since 1.7. Use $l instead.
+ */
+function l($n)
+{
+    global $l;
+
+    trigger_error('Function l() is deprecated', E_USER_DEPRECATED);
+
+    return $l[$n];
+}
+
+/**
+ * Initializes a global variable according to a GET or POST parameter.
+ *
+ * @param string $name The name of the global variable.
+ *
+ * @return void
+ *
+ * @deprecated since 1.7.0
+ */
+function initvar($name)
+{
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
+
+    if (!isset($GLOBALS[$name])) {
+        if (isset($_GET[$name])) {
+            $GLOBALS[$name] = $_GET[$name];
+        } elseif (isset($_POST[$name])) {
+            $GLOBALS[$name] = $_POST[$name];
+        } else {
+            $GLOBALS[$name] = '';
+        }
+    }
+}
+
+/**
+ * Returns the un-quoted $t, i.e. reverses the effect
+ * of magic_quotes_gpc/magic_quotes_sybase.
+ *
+ * Since magic_quotes are gone, it is a NOP now.
+ *
+ * @param string $t A string.
+ *
+ * @return string
+ *
+ * @deprecated since 1.8
+ */
+function stsl($t)
+{
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
+
+    return $t;
+}
+
+/**
+ * Returns an HTML stand alone tag.
+ *
+ * Used to returns an (X)HTML compliant stand alone tag
+ * according to the settings of $cf['xhtml']['endtags'].
+ *
+ * @param string $s The contents of the tag.
+ *
+ * @return string HTML
+ *
+ * @deprecated since 1.7
+ *
+ * @todo Add deprecation warning (XH 1.8?)
+ */
+function tag($s)
+{
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
+
+    return '<' . $s . '>';
+}
+
+/**
+ * Returns the JSON string decoded as PHP value.
+ *
+ * @param string $string A JSON string.
+ *
+ * @return mixed
+ *
+ * @since 1.6
+ *
+ * @deprecated since 1.8.
+ */
+function XH_decodeJson($string)
+{
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
+
+    return json_decode($string);
+}
+
+/**
+ * Returns the JSON representation of a value.
+ *
+ * @param mixed $value A PHP value.
+ *
+ * @return string or
+ *         bool false on JSON error
+ *
+ * @since 1.6
+ *
+ * @deprecated since 1.8.
+ */
+function XH_encodeJson($value)
+{
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
+
+    return json_encode($value);
+}
+
+/**
+ * Returns whether an error has occurred
+ * during the last XH_decodeJson().
+ *
+ * @return bool
+ *
+ * @since 1.6
+ *
+ * @deprecated since 1.8.
+ */
+function XH_lastJsonError()
+{
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
+
+    return (bool) json_last_error();
+}
+
+/**
+ * Attempts to rename oldname to newname, and returns whether that succeeded.
+ *
+ * The file is moved between directories if necessary. If newname exists, it
+ * will be overwritten.
+ *
+ * This is a wrapper around rename(), which offers a fallback for
+ * the limitation of PHP < 5.3 on Windows that the rename operation fails, if
+ * <var>$newfile</var> already exists. Note, that the fallback solution is not
+ * atomic.
+ *
+ * @param string $oldname A filename.
+ * @param string $newname A filename.
+ *
+ * @return bool
+ *
+ * @since 1.6
+ *
+ * @deprecated since 1.8.
+ */
+function XH_renameFile($oldname, $newname)
+{
+    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
+
+    return rename($oldname, $newname);
+}
