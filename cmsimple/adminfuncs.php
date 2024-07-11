@@ -13,6 +13,38 @@
  */
 
 /**
+ * Return an error message if the password is 'test'.
+ *
+ * @return string
+ *
+ * @since 1.8
+ */
+function XH_checkDefaultPW()
+{
+    global $cf, $pth, $tx;
+
+    if (password_verify('test', $cf['security']['password'])) {
+        $maxRemainingTime = (int)$cf['password']['max_remaining_time'];
+        $remainingTime = $maxRemainingTime
+                       - (time() - filectime($pth['folder']['cmsimple'] . 'defaultpw.lock'));
+        $remainingTime = $remainingTime / 60;
+        $remainingTime = round($remainingTime);
+        $remainingTime = ($remainingTime <= 0
+                       ? ' <span style="color: #f00";>(' . $remainingTime . ' min) </span>'
+                       : ' (' . $remainingTime . ' min)');
+        $error = '<li>'
+               . $tx['login']['pw_must_change']
+               . $remainingTime
+               . '</li>'
+               . "\n";
+        return $error;
+    }
+    return false;
+}
+$e .= XH_checkDefaultPW();
+
+
+/**
  * Returns the readable version of a plugin.
  *
  * @param string $plugin Name of a plugin.

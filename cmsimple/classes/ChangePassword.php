@@ -81,26 +81,12 @@ class ChangePassword
      */
     public function defaultAction()
     {
-        global $o, $cf, $pth, $tx;
+        global $o, $cf;
 
-        $minPWlength = (int)$cf['password']['min_length'];
-        if (password_verify('test', $cf['security']['password'])) {
-            $maxRemainingTime = (int)$cf['password']['max_remaining_time'];
-            $remainingTime = $maxRemainingTime
-                           - (time() - filectime($pth['folder']['cmsimple'] . 'defaultpw.lock'));
-            $remainingTime = $remainingTime / 60;
-            $remainingTime = round($remainingTime);
-            $remainingTime = ($remainingTime <= 0
-                           ? ' <span style="color: #f00";>(' . $remainingTime . ' min) </span>'
-                           : ' (' . $remainingTime . ' min)');
-            $o .= '<p class="xh_warning">'
-                . $tx['login']['pw_must_change']
-                . $remainingTime
-                . '</p>'
-                . PHP_EOL;
-        }
+        $minPWlength = $cf['password']['min_length'];
         $o .= $this->render();
-        $o .= '<p class="xh_info">' . $tx['password']['invalid'] . '<br>'
+        $o .= '<p class="xh_info">' . $this->lang['password']['invalid']
+            . '<br>'
             . sprintf($this->lang['password']['too_short'], $minPWlength)
             . '</p>'
             . PHP_EOL;
