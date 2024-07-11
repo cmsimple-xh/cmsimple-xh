@@ -86,5 +86,5 @@ function get_internal_links($h, $u, $l, $downloads_path)
             }
         }
     }
-    return(XH_encodeJSON($list));
+    return(json_encode($list));
 }
