@@ -1,6 +1,8 @@
 <?php
 
 $cf['security']['password']="\$2y\$10\$TtMCJlxEv6D27BngvfdNrewGqIx2R0aPCHORruqpe63LQpz7.E9Gq";
+$cf['password']['min_length']="8";
+$cf['password']['max_remaining_time']="300";
 $cf['security']['secret']="b41bd1913a2a5412f41cabcf";
 $cf['security']['email']="";
 $cf['security']['frame_options']="";
