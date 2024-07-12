@@ -310,7 +310,11 @@ HTML;
     $checks['writable'] = array_unique($checks['writable']);
     sort($checks['writable']);
     $files = array(
-        $pth['file']['config'], $pth['file']['content'], $pth['file']['template']
+        $pth['file']['config'],
+        $pth['file']['content'],
+        $pth['file']['template'],
+        $pth['file']['log'],
+        $pth['file']['debug-log']
     );
     foreach ($files as $file) {
         $checks['other'][] = array(

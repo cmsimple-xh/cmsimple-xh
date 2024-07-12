@@ -207,7 +207,9 @@ class Controller
         } else {
             $login = null;
             $f = 'xh_login_failed';
-            XH_logMessage('warning', 'XH', 'login', 'login failed from ' . $_SERVER['REMOTE_ADDR']);
+            XH_logMessage('warning', 'XH', 'login', 'login with: "' . $keycut
+                                                                    . '" failed from '
+                                                                    . $_SERVER['REMOTE_ADDR']);
         }
     }
 
