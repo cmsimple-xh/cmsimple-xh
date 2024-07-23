@@ -881,6 +881,24 @@ function XH_contentEditor()
 }
 
 /**
+ * Creates an temp backup of the contents file.
+ *
+ * @return void
+ *
+ * @since 1.8
+ */
+function XH_tmpBackup()
+{
+    global $pth;
+
+    $date = date("Ymd_His");
+    $dest = $pth['folder']['content'] . $date . '_tmp.htm';
+    if (!copy($pth['file']['content'], $dest)) {
+        e('cntsave', 'backup', $dest);
+    }
+}
+
+/**
  * Saves the current contents (including the page data), if edit mode is active.
  *
  * @return bool Whether that succeeded
@@ -889,7 +907,7 @@ function XH_contentEditor()
  */
 function XH_saveContents()
 {
-    global $c, $pth, $tx, $edit, $pd_router;
+    global $c, $pth, $tx, $edit, $pd_router, $cf;
 
     if (!(XH_ADM && $edit)) {
         trigger_error(
@@ -913,6 +931,9 @@ function XH_saveContents()
     $cnts .= '</body></html>';
     if (!file_exists($pth['folder']['content'])) {
         mkdir($pth['folder']['content'], 0x755, true);
+    }
+    if ($cf['backup']['tmpfiles'] == 'true') {
+        XH_tmpBackup();
     }
     return XH_writeFile($pth['file']['content'], $cnts) !== false;
 }

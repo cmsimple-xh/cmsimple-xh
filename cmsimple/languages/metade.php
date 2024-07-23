@@ -46,6 +46,7 @@ $mtx['show_hidden']="versteckte Seiten anzeigen";
 $mtx['show_homepage']="Startseite anzeigen";
 $mtx['site']="Site";
 $mtx['template']="Template";
+$mtx['tmpfiles']="Temporäre Sicherung";
 $mtx['timezone']="Zeitzone";
 $mtx['title']="Seitentitel in der Browseranzeige";
 $mtx['type']="Typ";
