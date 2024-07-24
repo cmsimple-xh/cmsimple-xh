@@ -1248,6 +1248,10 @@ if (XH_ADM) {
                             XH_emptyContents();
                         }
                         break;
+                    case 'delete':
+                        $_XH_csrfProtection->check();
+                        XH_delete($pth['file'][$file]);
+                        break;
                     default:
                         $_XH_controller->handleFileEdit();
                 }

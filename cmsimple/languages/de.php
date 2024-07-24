@@ -221,6 +221,7 @@ $tx['menu']['tab_help']="Hilfe";
 
 $tx['message']['backedup']="Der Content wurde erfolgreich gesichert.";
 $tx['message']['debug_mode']="Debug-Modus ist aktiv!";
+$tx['message']['delete']="Sicherungsdatei gelöscht.";
 $tx['message']['emptied']="Der Content wurde erfolgreich geleert.";
 $tx['message']['pd_success']="Seitenspezifische Daten erfolgreich gespeichert. Manche Einstellungen werden erst nach Seitenaktualisierung oder Wechsel zu anderer Seite wirksam.";
 $tx['message']['pd_fail']="Die seitenspezifischen Daten konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.";

@@ -477,8 +477,19 @@ function XH_backupsView()
                 . '<input type="submit" class="submit" value="'
                 . $tx['action']['restore'] . '">'
                 . $_XH_csrfProtection->tokenInput()
-                . '</form>'
-                . '</li>' . "\n";
+                . '</form>';
+            if (!XH_isContentBackup($p, 'content')
+            && !XH_isContentBackup($p, 'tmp')) {
+                $o .=  ' - <form action="' . $sn . '?&xh_backups" method="post"'
+                    . ' class="xh_inline_form">'
+                    . '<input type="hidden" name="file" value="' . $p . '">'
+                    . '<input type="hidden" name="action" value="delete">'
+                    . '<input type="submit" class="submit" value="'
+                    . $tx['action']['delete'] . '">'
+                    . $_XH_csrfProtection->tokenInput()
+                    . '</form>';
+            }
+            $o .=  '</li>' . "\n";
         }
     }
     $o .= '</ul>' . "\n";
@@ -1064,6 +1075,29 @@ function XH_restore($filename)
     }
     // the following relocation is necessary to cater for the changed content
     $url = CMSIMPLE_URL . '?&xh_backups&xh_success=restored';
+    header('Location: ' . $url, true, 303);
+    exit;
+}
+
+/**
+ * Delete a content backup..
+ *
+ * @param string $filename The filename.
+ *
+ * @return void
+ *
+ * @since 1.8
+ */
+function XH_delete($filename)
+{
+    global $e;
+
+    if (!unlink($filename)) {
+        e('cntdelete', 'content', $filename);
+        return;
+    }
+    // the following relocation is necessary to cater for the changed content
+    $url = CMSIMPLE_URL . '?&xh_backups&xh_success=delete';
     header('Location: ' . $url, true, 303);
     exit;
 }

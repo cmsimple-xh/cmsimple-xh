@@ -221,6 +221,7 @@ $tx['menu']['tab_help']="Help";
 
 $tx['message']['backedup']="The content has been successfully backed up.";
 $tx['message']['debug_mode']="Debug-Mode is enabled!";
+$tx['message']['delete']="Backup file deleted.";
 $tx['message']['emptied']="The content has been successfully emptied.";
 $tx['message']['pd_success']="Page data successfully saved. Some settings may only become effective after page refresh or browsing to another page.";
 $tx['message']['pd_fail']="The page data could not be saved. Please try again.";
