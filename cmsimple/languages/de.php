@@ -2,6 +2,7 @@
 
 $tx['site']['title']="Deutscher Seitentitel";
 $tx['subsite']['template']="";
+$tx['publish']['current']="";
 
 $tx['meta']['keywords']="Schlagworte durch Kommata getrennt hier eingeben";
 $tx['meta']['description']="Kurzbeschreibung der Website für Suchmaschinenergebnisse";

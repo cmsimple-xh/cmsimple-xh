@@ -1002,6 +1002,19 @@ $u = null;
  */
 $l = null;
 
+/**
+ * Optionally publish other content.
+ *
+ * Selection by entry in the language file.
+ *
+ * @since 1.8
+*/
+if (!XH_ADM
+&& $tx['publish']['current'] != ''
+&& is_readable($pth['folder']['content'] . $tx['publish']['current'])) {
+    $pth['file']['content'] = $pth['folder']['content'] . $tx['publish']['current'];
+}
+
 rfc(); // Here content is loaded
 assert(is_array($h));
 assert(is_array($c));

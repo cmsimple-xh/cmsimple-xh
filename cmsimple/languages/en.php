@@ -2,6 +2,7 @@
 
 $tx['site']['title']="English Site Title";
 $tx['subsite']['template']="";
+$tx['publish']['current']="";
 
 $tx['meta']['keywords']="Enter list of comma separated keywords here";
 $tx['meta']['description']="Enter website description for search engine results here";
