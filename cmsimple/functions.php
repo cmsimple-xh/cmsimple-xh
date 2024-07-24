@@ -1849,9 +1849,14 @@ function XH_helpIcon($tooltip)
  *
  * @since 1.6
  */
-function XH_isContentBackup($filename, $regularOnly = true)
+function XH_isContentBackup($filename, $regularOnly = 'content')
 {
-    $suffix = $regularOnly ? 'content' : '[^.]+';
+    if ($regularOnly === 'content'
+    || $regularOnly === 'tmp') {
+        $suffix = $regularOnly;
+    } else {
+        $suffix = '[^.]+';
+    }
     return (bool) preg_match('/^\d{8}_\d{6}_' . $suffix . '.htm$/', $filename);
 }
 

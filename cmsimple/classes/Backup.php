@@ -101,12 +101,12 @@ class Backup
      *
      * @return array
      */
-    private function findBackups()
+    private function findBackups($suffix = 'content')
     {
         $result = array();
         if (is_dir($this->contentFolder) && ($dir = opendir($this->contentFolder))) {
             while (($entry = readdir($dir)) !== false) {
-                if (XH_isContentBackup($entry)) {
+                if (XH_isContentBackup($entry, $suffix)) {
                     $result[] = $entry;
                 }
             }
@@ -176,6 +176,13 @@ class Backup
         foreach ($basenames as $basename) {
             $filename = $this->contentFolder . $basename;
             $result[$filename] = unlink($filename);
+        }
+        if (isset($_GET['logout'])) {
+            $basenames = $this->findBackups('tmp');
+            foreach ($basenames as $basename) {
+                $filename = $this->contentFolder . $basename;
+                $result[$filename] = unlink($filename);
+            }
         }
         return $result;
     }

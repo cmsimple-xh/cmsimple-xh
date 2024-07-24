@@ -16,6 +16,7 @@ $mcf['folders']['userfiles']="hidden";
 $mcf['folders']['downloads']="hidden";
 $mcf['folders']['images']="hidden";
 $mcf['folders']['media']="hidden";
+$mcf['backup']['tmpfiles']="bool";
 $mcf['show_hidden']['pages_toc']="bool";
 $mcf['show_hidden']['pages_search']="bool";
 $mcf['show_hidden']['pages_sitemap']="bool";
@@ -39,4 +40,3 @@ $mcf['format']['time']="enum:none,short,medium,long,full";
 $mcf['link']['mailto']="+bool";
 $mcf['link']['tel']="+bool";
 $mcf['link']['redir']="+enum:0,1,2,3";
-?>
