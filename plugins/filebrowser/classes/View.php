@@ -5,7 +5,7 @@
  *
  * @author    Martin Damken <kontakt@zeichenkombinat.de>
  * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
- * @copyright 2009-2023 The CMSimple_XH developers <https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team>
+ * @copyright 2009-2024 The CMSimple_XH developers <https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @see       http://cmsimple-xh.org/
  */
@@ -137,19 +137,19 @@ class View
     {
         global $tx;
 
-        $html = '<ul><li class="openFolder"><a href="?'
+        $html = '<ul>' . "\n" . '<li class="openFolder"><a href="?'
             . XH_hsc($this->linkParams) . '"><span class="fa fa-folder-open fa-fw fa-lg"></span> '
             . $tx['title']['userfiles'] . ' ' . $this->lang['folder'] . '</a>';
         if (!empty($folders)) {
-            $html .= '<ul>';
+            $html .= '<ul>' . "\n";
             foreach ($folders as $data) {
                 if ($data['level'] == 2) {
                     $html .= $data['linkList'];
                 }
             }
-            $html .='</ul>';
+            $html .='</ul>' . "\n";
         }
-        $html .= '</li></ul>';
+        $html .= '</li>' . "\n" . '</ul>' . "\n";
         return $html;
     }
 
@@ -182,13 +182,13 @@ class View
                 $class = 'unseen';
             }
 
-            $html .= '<ul class="' . $class . '">';
+            $html .= '<ul class="' . $class . '">' . "\n";
             foreach ($folders[$folder]['children'] as $child) {
                 $html .= $this->folderLink($child, $folders);
             }
-            $html .= '</ul>';
+            $html .= '</ul>' . "\n";
         }
-        $html .= '</li>';
+        $html .= '</li>' . "\n";
         return $html;
     }
 
@@ -206,7 +206,7 @@ class View
         $html = '';
         if (is_array($folders) && count($folders) > 0) {
             $action = $sn . '?' . XH_hsc($_SERVER['QUERY_STRING']);
-            $html = '<ul>';
+            $html = '<ul>' . "\n";
             foreach ($folders as $folder) {
                 $name = str_replace($this->currentDirectory, '', $folder);
                 $html .= '<li class="folder">'
@@ -221,9 +221,10 @@ class View
                     . $_XH_csrfProtection->tokenInput()
                     . '</form>'
                     . '<a href="?' . $this->linkParams . '&amp;subdir=' . $folder
-                    . '"><span class="fa fa-folder fa-fw fa-lg"></span>' . $name . '</a></li>';
+                    . '"><span class="fa fa-folder fa-fw fa-lg"></span>' . $name . '</a></li>'
+                    . "\n";
             }
-            $html .= '</ul>';
+            $html .= '</ul>' . "\n";
         }
         return $html;
     }
@@ -237,9 +238,36 @@ class View
      */
     private function isImageFile($filename)
     {
+        global $plugin_cf;
+
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
-        $exts = array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'webp', 'tiff', 'ico');
+        $extsStrg = trim($plugin_cf['filebrowser']['extensions_handle_as_images'], ' ,');
+        $extsArray = explode(',', $extsStrg);
+        $exts = array_map('trim', $extsArray);
         return in_array(strtolower($ext), $exts);
+    }
+
+    /**
+     * Returns width and height from svg
+     *
+     * @param string $filename A file name.
+     *
+     * @return array if successful
+     * @return false if not successful
+     */
+    private function getsvgsize($filename)
+    {
+        $svgSize = false;
+        if (function_exists('simplexml_load_file')) {
+            $svg = simplexml_load_file($filename);
+            if (isset($svg['viewBox'])) {
+                $viewBoxParts = explode(' ', $svg['viewBox']);
+                $svgWidth = $viewBoxParts[2];
+                $svgHeight = $viewBoxParts[3];
+                $svgSize = array($svgWidth, $svgHeight);
+            }
+        }
+        return $svgSize;
     }
 
     /**
@@ -251,12 +279,12 @@ class View
      */
     private function fileList(array $files)
     {
-        global $sn, $_XH_csrfProtection, $_XH_filebrowser;
+        global $sn, $_XH_csrfProtection, $_XH_filebrowser, $plugin_cf;
 
         if (empty($files)) {
             return '';
         }
-        $html = '<ul>';
+        $html = '<ul>' . "\n";
         $class = 'even';
         $fb = $_XH_filebrowser; // FIXME: the view shouldn't know the controller
         $imgs = $fb->usedImages();
@@ -301,12 +329,24 @@ class View
                 : '';
 
             $path = $this->basePath . $this->currentDirectory . $file;
-            if ($this->isImageFile($path) && ($image = getimagesize($path))) {
-                $html .= $this->renderImage($path, $file, $image, $usage);
+            if ($this->isImageFile($path)) {
+                $ext = pathinfo($path, PATHINFO_EXTENSION);
+                $extsStrg = trim($plugin_cf['filebrowser']['extensions_no_getimagesize'], ' ,');
+                $extsArray = explode(',', $extsStrg);
+                $exts = array_map('trim', $extsArray);
+                if (in_array($ext, $exts)) {
+                    if ($ext == 'svg' && $image = $this->getsvgsize($path)) {
+                        $html .= $this->renderImage($path, $file, $image, true, $usage);
+                    } else {
+                        $html .= $this->renderImage($path, $file, array(150, 150), false, $usage);
+                    }
+                } elseif ($image = getimagesize($path)) {
+                    $html .= $this->renderImage($path, $file, $image, true, $usage);
+                }
             }
-            $html .= '</a> (' .  $this->renderFileSize($path) . ')</li>';
+            $html .= '</a> (' .  $this->renderFileSize($path) . ')</li>' . "\n";
         }
-        $html .= '</ul>';
+        $html .= '</ul>' . "\n";
         return $html;
     }
 
@@ -319,10 +359,12 @@ class View
      */
     private function fileListForEditor(array $files)
     {
+        global $plugin_cf;
+
         if (empty($files)) {
             return '';
         }
-        $html = '<ul>';
+        $html = '<ul>' . "\n";
         $dir = $this->basePath . $this->currentDirectory;
         $is_image = (int) (strpos($this->linkParams, 'type=images') === 0);
         $class = 'even';
@@ -339,13 +381,25 @@ class View
 
             $path = $dir . $file;
             if (strpos($this->linkParams, 'type=images') !== false
-                && $this->isImageFile($path) && ($image = getimagesize($path))
+                && $this->isImageFile($path)
             ) {
-                $html .= $this->renderImage($path, $file, $image);
+                $ext = pathinfo($path, PATHINFO_EXTENSION);
+                $extsStrg = trim($plugin_cf['filebrowser']['extensions_no_getimagesize'], ' ,');
+                $extsArray = explode(',', $extsStrg);
+                $exts = array_map('trim', $extsArray);
+                if (in_array($ext, $exts)) {
+                    if ($ext == 'svg' && $image = $this->getsvgsize($path)) {
+                        $html .= $this->renderImage($path, $file, $image);
+                    } else {
+                        $html .= $this->renderImage($path, $file, array(150, 150), false);
+                    }
+                } elseif ($image = getimagesize($path)) {
+                    $html .= $this->renderImage($path, $file, $image);
+                }
             }
-            $html .= '</span> (' . $this->renderFileSize($path) . ')</li>';
+            $html .= '</span> (' . $this->renderFileSize($path) . ')</li>' . "\n";
         }
-        $html .= '</ul>';
+        $html .= '</ul>' . "\n";
         return $html;
     }
 
@@ -359,7 +413,7 @@ class View
      *
      * @return string HTML
      */
-    private function renderImage($path, $file, array $image, $usage = null)
+    private function renderImage($path, $file, array $image, $showsize = true, $usage = null)
     {
         list($width, $height) = $image;
         if ($width > 150) {
@@ -368,10 +422,11 @@ class View
             $height = $width / $ratio;
         }
         return '<span>'
-            . '<span>'
-            . $image[0] . ' x ' . $image[1] . ' px</span>' . '<br>'
-            . '<img src="' . $path . '" width="' . $width . '" height="'
-            . $height . '" alt="' . $file . '">'
+            . ($showsize ? '<span>'
+            . $image[0] . ' x ' . $image[1] . ' px</span>' . '<br>' : '')
+            . '<img src="' . $path . '" width="' . $width . 'px" height="'
+            . $height . 'px" max-width="' . $width . 'px" max-height="'
+            . $height . 'px" alt="' . $file . '">'
             . (isset($usage) ? '<br>' . $usage : '')
             . '</span>';
     }
