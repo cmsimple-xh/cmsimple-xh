@@ -355,7 +355,7 @@ HTML;
  */
 function XH_settingsView()
 {
-    global $sn, $tx,;
+    global $sn, $tx;
 
     $o = '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
         . '<h2>' . $tx['settings']['systemfiles'] . '</h2>' . "\n" . '<ul>' . "\n";
