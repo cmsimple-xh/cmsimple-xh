@@ -53,3 +53,4 @@ $cf['format']['time']="short";
 $cf['link']['mailto']="true";
 $cf['link']['tel']="true";
 $cf['link']['redir']="0";
+$cf['debug']['log']="";

@@ -1178,7 +1178,7 @@ function XH_debugmode()
  */
 function XH_debug($errno, $errstr, $errfile, $errline)
 {
-    global $errors;
+    global $errors, $pth, $cf;
 
     if (!(error_reporting() & $errno)) {
         // This error code is not included in error_reporting
@@ -1222,6 +1222,12 @@ function XH_debug($errno, $errstr, $errfile, $errline)
 
     $errors[] = "<b>$errtype:</b> $errstr" . '<br>' . "$errfile:$errline"
         . '<br>' . "\n";
+    if ($cf['debug']['log'] == 'true') {
+        error_log(date('Y-m-d H:i:s') . "\t"
+                . "$errtype: $errstr - $errfile:$errline" . "\n",
+                  3,
+                  $pth['file']['debug-log']);
+    }
 
     if (in_array($errno, array(E_USER_ERROR, E_RECOVERABLE_ERROR))) {
         XH_exit($errors[count($errors) - 1]);

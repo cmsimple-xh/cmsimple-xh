@@ -233,6 +233,7 @@ $pth['folder']['classes'] = $pth['folder']['cmsimple'] . 'classes/';
 $pth['folder']['plugins'] = $pth['folder']['base'] . 'plugins/';
 
 $pth['file']['log'] = $pth['folder']['cmsimple'] . 'log.txt';
+$pth['file']['debug-log'] = $pth['folder']['cmsimple'] . 'debug-log.txt';
 $pth['file']['cms'] = $pth['folder']['cmsimple'] . 'cms.php';
 $pth['file']['config'] = $pth['folder']['cmsimple'] . 'config.php';
 

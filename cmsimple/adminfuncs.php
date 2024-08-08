@@ -355,7 +355,7 @@ HTML;
  */
 function XH_settingsView()
 {
-    global $sn, $tx;
+    global $sn, $tx, $pth;
 
     $o = '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
         . '<h2>' . $tx['settings']['systemfiles'] . '</h2>' . "\n" . '<ul>' . "\n";
@@ -375,6 +375,11 @@ function XH_settingsView()
         $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=view">'
             . utf8_ucfirst($tx['action']['view']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
+    }
+    if (is_readable($pth['file']['debug-log'])) {
+        $o .= '<li><a target="_blank" href="' . $sn . '?file=debug-log&amp;action=view">'
+            . utf8_ucfirst($tx['action']['view']) . ' '
+            . $tx['filetype']['debug_log'] . '</a></li>' . "\n";
     }
     $o .= '</ul>' . "\n";
 
@@ -605,7 +610,7 @@ function XH_registerPluginMenuItem($plugin, $label = null, $url = null, $target 
  */
 function XH_adminMenu(array $plugins = array())
 {
-    global $sn, $edit, $s, $u, $cf, $tx, $su, $plugin_tx;
+    global $sn, $edit, $s, $u, $cf, $tx, $su, $plugin_tx, $pth;
 
     if ($s < 0) {
         $su = $u[0];
@@ -642,6 +647,11 @@ function XH_adminMenu(array $plugins = array())
             'url' => $sn . '?file=log&action=view'
         ),
         array(
+            'label' => utf8_ucfirst($tx['editmenu']['debug-log']),
+            'url' => $sn . '?file=debug-log&action=view',
+            'target' => '_blank'
+        ),
+        array(
             'label' => utf8_ucfirst($tx['editmenu']['validate']),
             'url' => $sn . '?&validate'
         ),
@@ -662,6 +672,9 @@ function XH_adminMenu(array $plugins = array())
             'url' => $sn . '?&sysinfo'
         )
     );
+    if (!is_readable($pth['file']['debug-log'])) {
+        unset($settingsMenu[5]);
+    }
     $hiddenPlugins = explode(',', $cf['plugins']['hidden']);
     $hiddenPlugins = array_map('trim', $hiddenPlugins);
     $plugins = array_diff($plugins, $hiddenPlugins);
