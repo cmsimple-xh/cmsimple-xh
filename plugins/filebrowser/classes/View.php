@@ -135,10 +135,14 @@ class View
      */
     private function folderList(array $folders)
     {
-        global $tx;
+        global $tx, $pth;
 
         $html = '<ul>' . "\n" . '<li class="openFolder"><a href="?'
-            . XH_hsc($this->linkParams) . '"><span class="fa fa-folder-open fa-fw fa-lg"></span> '
+            . XH_hsc($this->linkParams)
+            . '"><img class="folder-open" src="'
+            . $pth['folder']['plugin']
+            . 'images/folder-open.svg" alt="'
+            . $tx['title']['userfiles']. ' ' . $this->lang['folder'] . '"> '
             . $tx['title']['userfiles'] . ' ' . $this->lang['folder'] . '</a>';
         if (!empty($folders)) {
             $html .= '<ul>' . "\n";
@@ -165,17 +169,21 @@ class View
      */
     public function folderLink($folder, array $folders)
     {
-        global $sn;
+        global $sn, $pth;
 
         $class = 'folder';
-        $fa_class = 'folder';
+        $icon_class = 'folder';
         if (substr($this->currentDirectory, 0, strlen("$folder/")) == "$folder/") {
             $class = 'openFolder';
-            $fa_class = 'folder-open';
+            $icon_class = 'folder-open';
         }
         $temp = explode('/', $folder);
         $html = '<li class="' . $class . '"><a href="' . $sn . '?'
-            . XH_hsc($this->linkParams) . '&amp;subdir=' . $folder . '"><span class="fa fa-' . $fa_class . ' fa-fw fa-lg"></span> '
+            . XH_hsc($this->linkParams)
+            . '&amp;subdir=' . $folder
+            . '"><img class="' . $icon_class . '" src="'
+            . $pth['folder']['plugin'] . 'images/' . $icon_class . '.svg" alt="'
+            . $folder . '"> '
             . end($temp) . '</a>';
         if (count($folders[$folder]['children']) > 0) {
             if (substr($this->currentDirectory, 0, strlen("$folder/")) !== "$folder/") {
@@ -201,7 +209,7 @@ class View
      */
     private function subfolderList(array $folders)
     {
-        global $_XH_csrfProtection, $sn;
+        global $_XH_csrfProtection, $sn, $pth;
 
         $html = '';
         if (is_array($folders) && count($folders) > 0) {
@@ -215,13 +223,19 @@ class View
                     . XH_hsc($this->basePath) . $folder . '">'
                     . '<button class="xhButtonImg" title="'
                     . $this->translate('delete_folder') . '">'
-                    .'<span class="fa fa-remove fa-lg fa-fw"></span></button>'
+                    .'<img class="remove" src="'
+                    . $pth['folder']['plugin'] . 'images/close.svg" alt="'
+                    . $this->translate('delete_folder')
+                    . '"></button>'
                     . '<input type="hidden" name="deleteFolder">'
                     . '<input type="hidden" name="folder" value="' . $folder . '">'
                     . $_XH_csrfProtection->tokenInput()
                     . '</form>'
                     . '<a href="?' . $this->linkParams . '&amp;subdir=' . $folder
-                    . '"><span class="fa fa-folder fa-fw fa-lg"></span>' . $name . '</a></li>'
+                    . '"><img class="folder" src="'
+                    . $pth['folder']['plugin'] . 'images/folder.svg" alt="'
+                    . $name . '"> '
+                    . $name . '</a></li>'
                     . "\n";
             }
             $html .= '</ul>' . "\n";
@@ -278,7 +292,7 @@ class View
      */
     private function fileList(array $files)
     {
-        global $sn, $_XH_csrfProtection, $_XH_filebrowser, $plugin_cf;
+        global $sn, $_XH_csrfProtection, $_XH_filebrowser, $plugin_cf, $pth;
 
         if (empty($files)) {
             return '';
@@ -300,7 +314,10 @@ class View
                 . XH_hsc($this->currentDirectory . $file) . '">'
                 . '<button class="xhButtonImg" title="'
                 . $this->translate('delete_file') . '">'
-                .'<span class="fa fa-remove fa-lg fa-fw"></span></button>'
+                .'<img class="remove" src="'
+                . $pth['folder']['plugin'] . 'images/close.svg" alt="'
+                . $this->translate('delete_file')
+                . '"></button>'
                 . '<input type="hidden" name="deleteFile">'
                 . '<input type="hidden" name="filebrowser_file" value="'
                 . $file . '">'
@@ -314,7 +331,10 @@ class View
                 . '<input type="hidden" name="oldName" value="' . $file . '">'
                 . '<button class="xhButtonImg" title="'
                 . $this->translate('rename_file') . '">'
-                .'<span class="fa fa-tag fa-lg fa-fw"></span></button>'
+                .'<img class="rename" src="'
+                . $pth['folder']['plugin'] . 'images/sell.svg" alt="'
+                . $this->translate('rename_file')
+                . '"></button>'
                 . $_XH_csrfProtection->tokenInput()
                 . '</form>'
                 . '<a class="xhfbfile" href="'
