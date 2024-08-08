@@ -1,3 +1,9 @@
+Version 1.6
+replace PHP_EOL with LF ("/n") for html output (The output in XH is characterized by "/n" in most places.)
+PHP version and XH version as part of the UserAgent
+more information on cURL errors
+correct URLs http -> https
+
 Version 1.5
 cURL as first method
 remove the use of tag()
