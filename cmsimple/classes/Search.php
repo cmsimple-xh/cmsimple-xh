@@ -131,7 +131,18 @@ class Search
             $old[$var] = $GLOBALS[$var];
         }
         $s = $pageIndex;
+        /*
+         * $GLOBALS['xh_searching']
+         * This allows plugins to be excluded from the search.
+         * Not every plugin returns content relevant for the search (e.g.: Shariff_XH).
+         * with:
+         * if (isset($GLOBALS['xh_searching']) && $GLOBALS['xh_searching']) return;
+         * is integrated before the actual function of the plugin,
+         * the plugin is no longer executed during the search.
+         */
+        $GLOBALS['xh_searching'] = true;
         $content = strip_tags(evaluate_plugincall($content));
+        unset($GLOBALS['xh_searching']);
         foreach ($vars as $var) {
             $GLOBALS[$var] = $old[$var];
         }
