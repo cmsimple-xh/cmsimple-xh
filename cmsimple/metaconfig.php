@@ -41,3 +41,4 @@ $mcf['format']['time']="enum:none,short,medium,long,full";
 $mcf['link']['mailto']="+bool";
 $mcf['link']['tel']="+bool";
 $mcf['link']['redir']="+enum:0,1,2,3";
+$mcf['debug']['log']="+bool";

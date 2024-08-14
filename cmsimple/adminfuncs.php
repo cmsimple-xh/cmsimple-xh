@@ -58,7 +58,7 @@ function XH_pluginVersion($plugin)
     global $pth;
 
     $internalPlugins = array(
-        'filebrowser', 'meta_tags', 'page_params', 'tinymce'
+        'filebrowser', 'meta_tags', 'page_params'
     );
     if (in_array($plugin, $internalPlugins)) {
         $version = 'for ' . CMSIMPLE_XH_VERSION;
@@ -92,7 +92,7 @@ function XH_systemCheck(array $data)
 
     $stx = $tx['syscheck'];
 
-    $o = "<h4>$stx[title]</h4>\n<ul id=\"xh_system_check\">\n";
+    $o = "<h2>$stx[title]</h2>\n<ul id=\"xh_system_check\">\n";
 
     if (key_exists('phpversion', $data)) {
         $ok = version_compare(PHP_VERSION, $data['phpversion']) >= 0;
@@ -112,6 +112,24 @@ function XH_systemCheck(array $data)
                 $cat,
                 extension_loaded($ext) ? 'success' : $notok,
                 sprintf($stx['extension'], $ext)
+            );
+            $cat = '';
+        }
+    }
+
+    if (key_exists('functions', $data)) {
+        $cat = 'xh_system_check_cat_start';
+        foreach ($data['functions'] as $func) {
+            if (is_array($func)) {
+                $notok = $func[1] ? 'fail' : 'warning';
+                $func = $func[0];
+            } else {
+                $notok = 'fail';
+            }
+            $o .= XH_systemCheckLi(
+                $cat,
+                function_exists($func) ? 'success' : $notok,
+                sprintf($stx['function'], $func)
             );
             $cat = '';
         }
@@ -246,32 +264,32 @@ function XH_sysinfo()
 {
     global $pth, $cf, $tx, $sn;
 
-    $o = '<p><b>' . $tx['sysinfo']['version'] . '</b></p>' . "\n";
+    $o = '<h2>' . $tx['sysinfo']['version'] . '</h2>' . "\n";
     $o .= '<ul>' . "\n" . '<li>' . CMSIMPLE_XH_VERSION . '&nbsp;&nbsp;Released: '
-        . CMSIMPLE_XH_DATE . '</li>' . "\n" . '</ul>' . "\n" . "\n";
+        . CMSIMPLE_XH_DATE . '</li>' . "\n" . '</ul>' . "\n";
 
-    $o .= '<p><b>' . $tx['sysinfo']['plugins'] . '</b></p>' . "\n" . "\n";
+    $o .= '<h2>' . $tx['sysinfo']['plugins'] . '</h2>' . "\n";
 
     $o .= '<ul>' . "\n";
     foreach (XH_plugins() as $temp) {
         $o .= '<li>' . ucfirst($temp) . ' ' . XH_pluginVersion($temp) . '</li>'
             . "\n";
     }
-    $o .= '</ul>' . "\n" . "\n";
+    $o .= '</ul>' . "\n";
 
     $serverSoftware = !empty($_SERVER['SERVER_SOFTWARE'])
         ? $_SERVER['SERVER_SOFTWARE']
         : $tx['sysinfo']['unknown'];
-    $o .= '<p><b>' . $tx['sysinfo']['webserver'] . '</b></p>' . "\n"
+    $o .= '<h2>' . $tx['sysinfo']['webserver'] . '</h2>' . "\n"
         . '<ul>' . "\n" . '<li>' . $serverSoftware . '</li>' . "\n"
-        . '</ul>' . "\n\n";
-    $o .= '<p><b>' . $tx['sysinfo']['php_version'] . '</b></p>' . "\n"
+        . '</ul>' . "\n";
+    $o .= '<h2>' . $tx['sysinfo']['php_version'] . '</h2>' . "\n"
         . '<ul>' . "\n" . '<li>' . phpversion() . '</li>' . "\n"
         . '<li><a href="' . $sn . '?&phpinfo" target="_blank"><b>'
         . $tx['sysinfo']['phpinfo_link'] . '</b></a> &nbsp; '
-        . $tx['sysinfo']['phpinfo_hint'] . '</li>' . "\n" . '</ul>' . "\n" . "\n";
+        . $tx['sysinfo']['phpinfo_hint'] . '</li>' . "\n" . '</ul>' . "\n";
 
-    $o .= '<h4>' . $tx['sysinfo']['helplinks'] . '</h4>' . "\n" . "\n";
+    $o .= '<h2>' . $tx['sysinfo']['helplinks'] . '</h2>' . "\n";
     $o .= <<<HTML
 <ul>
 <li><a target="_blank" rel="noopener" rel="noreferrer" href="https://www.cmsimple-xh.org/">cmsimple-xh.org &raquo;</a></li>
@@ -286,12 +304,17 @@ HTML;
 
     $stx = $tx['syscheck'];
     $checks = array(
-        'phpversion' => '5.5.0',
+        'phpversion' => '7.4.0',
         'extensions' => array(
             array('intl', false),
             'json',
             'mbstring',
-            'session'
+            array('openssl', false),
+            'session',
+            'curl'
+        ),
+        'functions' => array(
+            'fsockopen',
         ),
         'writable' => array(),
         'other' => array()
@@ -302,7 +325,7 @@ HTML;
     foreach ($temp as $i) {
         $checks['writable'][] = $pth['folder'][$i];
     }
-    $temp = array('config', 'log', 'language', 'content', 'template', 'stylesheet');
+    $temp = array('config', 'log', 'debug-log', 'language', 'content', 'template', 'stylesheet');
     foreach ($temp as $i) {
         $checks['writable'][] = $pth['file'][$i];
     }
@@ -354,12 +377,6 @@ HTML;
         !password_verify('test', $cf['security']['password']),
         false, $stx['password']
     );
-    $checks['other'][] = array(
-        function_exists('fsockopen'), false, $stx['fsockopen']
-    );
-    $checks['other'][] = array(
-        function_exists('curl_init'), false, $stx['curl']
-    );
     $o .= XH_systemCheck($checks);
     return $o;
 }
@@ -377,7 +394,7 @@ function XH_settingsView()
     global $sn, $tx;
 
     $o = '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
-        . '<h4>' . $tx['settings']['systemfiles'] . '</h4>' . "\n" . '<ul>' . "\n";
+        . '<h2>' . $tx['settings']['systemfiles'] . '</h2>' . "\n" . '<ul>' . "\n";
 
     foreach (array('config', 'language') as $i) {
         $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=array">'
@@ -390,14 +407,16 @@ function XH_settingsView()
             . utf8_ucfirst($tx['action']['edit']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
-    foreach (array('log') as $i) {
-        $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=view">'
+    foreach (array('log', 'debug-log') as $i) {
+        $o .= '<li><a '
+            . ($i == 'debug-log' ? 'target="_blank" ' : '')
+            . 'href="' . $sn . '?file=' . $i . '&amp;action=view">'
             . utf8_ucfirst($tx['action']['view']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
     $o .= '</ul>' . "\n";
 
-    $o .= '<h4>' . $tx['settings']['more'] . '</h4>' . "\n"
+    $o .= '<h2>' . $tx['settings']['more'] . '</h2>' . "\n"
         . '<ul>' . "\n"
         . '<li><a href="' . $sn . '?&validate">' . $tx['editmenu']['validate'] . '</a></li>'
         . '<li><a href="' . $sn . '?&xh_backups">' . $tx['editmenu']['backups'] . '</a></li>'
@@ -659,6 +678,11 @@ function XH_adminMenu(array $plugins = array())
         array(
             'label' => utf8_ucfirst($tx['editmenu']['log']),
             'url' => $sn . '?file=log&action=view'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['debug-log']),
+            'url' => $sn . '?file=debug-log&action=view',
+            'target' => '_blank'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['validate']),

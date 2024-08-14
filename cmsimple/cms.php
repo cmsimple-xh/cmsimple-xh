@@ -233,6 +233,7 @@ $pth['folder']['classes'] = $pth['folder']['cmsimple'] . 'classes/';
 $pth['folder']['plugins'] = $pth['folder']['base'] . 'plugins/';
 
 $pth['file']['log'] = $pth['folder']['cmsimple'] . 'log.txt';
+$pth['file']['debug-log'] = $pth['folder']['cmsimple'] . 'debug-log.txt';
 $pth['file']['cms'] = $pth['folder']['cmsimple'] . 'cms.php';
 $pth['file']['config'] = $pth['folder']['cmsimple'] . 'config.php';
 
@@ -1015,6 +1016,19 @@ assert($xh_publisher instanceof \XH\Publisher);
 */
 XH_URI_Cleaning();
 
+/*
+ * Prevents a blank page in the backend when calling a URI without query string
+*/
+if (XH_ADM
+&& $_SERVER['QUERY_STRING'] == ''
+&& !$_POST) {
+    header('Location:' . CMSIMPLE_URL
+                       . '?'
+                       . $u[$xh_publisher->getFirstPublishedPage()],
+    true, 302);
+    exit;
+}
+
 $_XH_controller->setFrontendF();
 
 if (is_readable($pth['folder']['cmsimple'] . 'userfuncs.php')) {
@@ -1344,13 +1358,25 @@ $i = false;
 $temp = fopen($pth['file']['template'], 'r');
 if ($temp) {
     if (XH_lockFile($temp, LOCK_SH)) {
-        $i = include $pth['file']['template'];
+        try {
+            $i = include $pth['file']['template'];
+        } catch (Throwable $t) {
+            ob_clean();
+            $tplError = 'Error-Message: ' . $t->getMessage() . '<br>'
+                      . PHP_EOL
+                      . 'File: ' . pathinfo($t->getFile())['basename'] . '<br>'
+                      . PHP_EOL
+                      . 'Line: ' . $t->getLine()
+                      . PHP_EOL;
+        }
         XH_lockFile($temp, LOCK_UN);
     }
     fclose($temp);
+} else {
+    $tplError = $pth['file']['template'] . ' not found' . PHP_EOL;
 }
 if (!$i) {// the template could not be included
-    XH_emergencyTemplate();
+    XH_emergencyTemplate($tplError);
 }
 
 if (isset($_XH_csrfProtection)) {

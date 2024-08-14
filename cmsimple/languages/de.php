@@ -39,6 +39,7 @@ $tx['editmenu']['help']="Hilfe";
 $tx['editmenu']['images']="Bilder";
 $tx['editmenu']['language']="Sprach-Datei";
 $tx['editmenu']['log']="Log-Datei";
+$tx['editmenu']['debug-log']="Debug-Log-Datei";
 $tx['editmenu']['logout']="Logout";
 $tx['editmenu']['media']="Media";
 $tx['editmenu']['normal']="Vorschau";
@@ -85,6 +86,7 @@ $tx['filetype']['language']="Sprach-Datei";
 $tx['filetype']['log']="Log-Datei";
 $tx['filetype']['stylesheet']="CSS-Datei";
 $tx['filetype']['template']="Template-Datei";
+$tx['filetype']['debug-log']="Debug-Log-Datei";
 
 $tx['help']['downloads_maxsize']="Maximale Größe für das Hochladen von Datein in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
 $tx['help']['editmenu_scroll']="Angeklickt = das Admin Menü scrollt mit";
@@ -143,6 +145,8 @@ $tx['help']['format_time']="Das Zeitformat, wenn ext/intl verfügbar ist; andern
 $tx['help']['link_mailto'] = "Hinweis zu mailto-Links beim LinkCheck ausgeben?";
 $tx['help']['link_tel'] = "Hinweis zu tel-Links beim LinkCheck ausgeben?";
 $tx['help']['link_redir'] = "Max. Anzahl von Weiterleitungen, denen LinkCheck folgen soll.";
+
+$tx['help']['debug_log'] = "Meldungen des Debug-Mode in Logdatei sammeln.<br>Debug-Mode muss aktiviert sein.";
 
 $tx['label']['empty']="- LEER -";
 
@@ -281,6 +285,7 @@ $tx['syscheck']['access_protected']="'%s' zugriffsgeschützt ist";
 $tx['syscheck']['bom']="kein <a href=\"https://wiki.cmsimple-xh.org/de/?glossar#id7_bom\" target=\"_blank\">BOM</a> vorhanden ist";
 $tx['syscheck']['cookie_lifetime']="session.cookie_lifetime 0 ist";
 $tx['syscheck']['extension']="die Erweiterung '%s' geladen ist";
+$tx['syscheck']['function']="die Funktion '%s' verfügbar ist";
 $tx['syscheck']['fail']="Fehler";
 $tx['syscheck']['fsockopen']="die Funktion fsockopen verfügbar ist";
 $tx['syscheck']['curl']="die Funktion cURL verfügbar ist";
