@@ -5,7 +5,6 @@ global $pth, $_XH_csrfProtection;
 <html lang="en">
 <head>
 <title>Filebrowser</title>
-<link rel="stylesheet" href="<?php echo $pth['folder']['plugins']?>fa/css/font-awesome.min.css" type="text/css">
 <link rel="stylesheet" href="<?php echo $pth['folder']['corestyle']?>xhstyles.css" type="text/css">
 <style>body {padding: 0; margin: 0; overflow: auto;}</style>
 %SCRIPT%
@@ -16,15 +15,42 @@ global $pth, $_XH_csrfProtection;
 <div class="xhFilebrowserDiv">
 <div id="xhFilebrowserMenu">
 %MESSAGE%
-<button type="button" class="filebrowser_folder_toggle"><span class="fa fa-plus-square"></span> <?php echo $this->translate('create_folder'); ?> …</button>
-<button type="button" class="filebrowser_upload_toggle"><span class="fa fa-upload"></span> <?php echo $this->translate('upload_file'); ?> …</button>
+<button type="button" class="filebrowser_folder_toggle">
+<?php 
+    echo '<img class="editorbrowser-icon" src="'
+        . $pth['folder']['plugin']
+        . 'images/add_box.svg" alt="'
+        . $this->translate('create_folder')
+        . '"> '
+        . $this->translate('create_folder');
+?>
+ …</button>
+<button type="button" class="filebrowser_upload_toggle">
+<?php
+    echo '<img class="editorbrowser-icon" src="'
+        . $pth['folder']['plugin']
+        . 'images/upload.svg" alt="'
+        . $this->translate('upload_file')
+        . '"> '
+        . $this->translate('upload_file');
+?>
+ …</button>
 <fieldset id="xhfbUploadFile" class="xhfbform">
 <legend><?php echo $this->translate('upload_file_to', array(XH_hsc($this->currentDirectory))); ?></legend>
 <form method="post" class="filebrowser_upload" enctype="multipart/form-data">
 <input type="file" name="fbupload" required>
 <input type="hidden" name="upload" value="upload">
 <?php echo $_XH_csrfProtection->tokenInput()?>
-<button type="submit" class="submit xhButton"><span class="fa fa-plus-square"></span> <?php echo $this->translate('upload_file')?></button>
+<button type="submit" class="submit xhButton">
+<?php
+    echo '<img class="editorbrowser-icon" src="'
+        . $pth['folder']['plugin']
+        . 'images/upload.svg" alt="'
+        . $this->translate('upload_file')
+        . '"> '
+        . $this->translate('upload_file');
+?>
+</button>
 </form>
 </fieldset>
 <fieldset id="xhfbCreateDir" class="xhfbform">
@@ -32,7 +58,16 @@ global $pth, $_XH_csrfProtection;
 <form method="post">
 <input type="text" name="createFolder" required>
 <?php echo $_XH_csrfProtection->tokenInput()?>
-<button type="submit" class="submit xhButton"><span class="fa fa-plus-square"></span> <?php echo $this->translate('create_folder')?></button>
+<button type="submit" class="submit xhButton">
+<?php
+    echo '<img class="editorbrowser-icon" src="'
+    . $pth['folder']['plugin']
+    . 'images/add_box.svg" alt="'
+    . $this->translate('create_folder')
+    . '"> '
+    . $this->translate('create_folder');
+?>
+</button>
 </form>
 </fieldset>
 </div>
