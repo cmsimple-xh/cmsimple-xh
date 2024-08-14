@@ -475,7 +475,7 @@ $function = null;
  *
  * This variable is initialized from a `login` GET/POST parameter.
  * If the login has been successful, {@link $f} == 'login'; otherwise {@link $f}
- * == 'xh_login_failed'.
+ * == 'xh_login_failed' or == 'xh_login_pw_expired'.
  *
  * @var string $login
  *
@@ -1337,7 +1337,10 @@ $_XH_controller->sendStandardHeaders();
 
 if ($print) {
     XH_builtinTemplate('print');
-} elseif (in_array($f, array('login', 'xh_login_failed', 'forgotten'))) {
+} elseif (in_array($f, array('login',
+                             'xh_login_failed',
+                             'xh_login_pw_expired',
+                             'forgotten'))) {
     XH_builtinTemplate('xh_login');
 }
 

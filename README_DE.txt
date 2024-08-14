@@ -41,10 +41,13 @@
  Das Standard-Passwort für diese Installation lautet:
  "test" (ohne Anführungszeichen)
  
- Das Standard-Passwort sollte bzw. muss nun unverzüglich
- geändert werden! Gehe wie folgt vor.
+ Das Standard-Passwort muss nun unverzüglich geändert werden!
+ Dafür hast du nach dem FTP-Upload 5 Minuten Zeit.
+ In dieser Zeit kann nur das Passwort geändert werden,
+ alle weiteren Einstellungen lassen sich nicht abspeichern.
+ Gehe wie folgt vor:
  
- Logge dich ein. Wähle im Admin-Menü:
+ Logge dich mit 'test' ein! Du wirst automatisch weitergeleitet:
  Einstellungen > Passwort
  Hier kannst du nun dein eigenes Passwort eintragen.
 

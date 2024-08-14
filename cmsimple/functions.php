@@ -1464,12 +1464,16 @@ function loginforms()
 {
     global $cf, $tx, $onload, $f, $o, $s, $sn, $su, $u, $title, $xh_publisher;
 
-    if ($f == 'login' || $f == 'xh_login_failed') {
+    if ($f == 'login' || $f == 'xh_login_failed' || $f == 'xh_login_pw_expired') {
         $cf['meta']['robots'] = "noindex";
         $onload .= 'document.forms[\'login\'].elements[\'keycut\'].focus();';
-        $message = ($f == 'xh_login_failed')
-            ? XH_message('fail', $tx['login']['failure'])
-            : '';
+        if ($f == 'xh_login_failed') {
+            $message = XH_message('fail', $tx['login']['failure']);
+        } elseif ($f == 'xh_login_pw_expired') {
+            $message = XH_message('fail', $tx['login']['pw_expired']);
+        } else {
+             $message = '';
+        }
         $title = $tx['menu']['login'];
         $o .= '<div class="xh_login">'
             . '<h1>' . $tx['menu']['login'] . '</h1>'
@@ -1533,9 +1537,15 @@ function XH_readFile($filename)
  *
  * @since 1.6
  */
-function XH_writeFile($filename, $contents)
+function XH_writeFile($filename, $contents, $pwChange=false)
 {
+    global $cf;
+
     $res = false;
+    if (password_verify('test', $cf['security']['password'])
+    && !$pwChange) {
+        return $res;
+    }
     $stream = fopen($filename, 'cb');
     if ($stream) {
         if (XH_lockFile($stream, LOCK_EX)) {
@@ -1683,7 +1693,7 @@ function XH_pluginStylesheet()
             . ' * ' . $pluginline . PHP_EOL
             . ' */' . PHP_EOL . PHP_EOL
             . implode(PHP_EOL . PHP_EOL, $o);
-        if (!XH_writeFile($ofn, $o)) {
+        if (!XH_writeFile($ofn, $o, true)) {
             e('cntwriteto', 'stylesheet', $ofn);
         }
     }

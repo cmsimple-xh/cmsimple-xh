@@ -191,6 +191,8 @@ $tx['log']['description']="Beschreibung";
 
 $tx['login']['back']="Zurück";
 $tx['login']['failure']="Sie haben ein falsches Passwort eingegeben!";
+$tx['login']['pw_must_change']="Sie müssen Ihr Passwort ändern!";
+$tx['login']['pw_expired']="Das Standardpasswort ist abgelaufen!";
 $tx['login']['loggedout']="Sie wurden ausgeloggt";
 $tx['login']['warning']="Administrationsbereich. Bitte Passwort eingeben.";
 
@@ -245,6 +247,7 @@ $tx['password']['confirmation']="Bestätigung";
 $tx['password']['fields_missing']="Alle Felder ausfüllen.";
 $tx['password']['invalid']="Das neue Passwort darf nur aus ASCII-Zeichen bestehen.";
 $tx['password']['mismatch']="Das neue Passwort stimmt nicht mit der Bestätigung überein.";
+$tx['password']['too_short']="Das neue Passwort muss min. %d Zeichen enthalten.";
 $tx['password']['new']="Neues Passwort";
 $tx['password']['old']="Altes Passwort";
 $tx['password']['score']="Passwortstärke: %s";

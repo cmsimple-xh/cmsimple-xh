@@ -191,6 +191,8 @@ $tx['log']['description']="description";
 
 $tx['login']['back']="Back";
 $tx['login']['failure']="You have entered a wrong password!";
+$tx['login']['pw_must_change']="You have to change your password!";
+$tx['login']['pw_expired']="The default password has expired!";
 $tx['login']['loggedout']="You have been logged out";
 $tx['login']['warning']="Site administration. Please enter password.";
 
@@ -245,6 +247,7 @@ $tx['password']['confirmation']="Confirmation";
 $tx['password']['fields_missing']="Fill out all fields.";
 $tx['password']['invalid']="New password must consist of ASCII characters only.";
 $tx['password']['mismatch']="New password and its confirmation do not match.";
+$tx['password']['too_short']="The new password must contain at least %d characters.";
 $tx['password']['new']="New password";
 $tx['password']['old']="Old password";
 $tx['password']['score']="Password score: %s";
