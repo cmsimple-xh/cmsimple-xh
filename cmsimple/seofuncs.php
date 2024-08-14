@@ -150,8 +150,8 @@ function XH_uenc_redir($url_query_str = '')
     } else {
         $url_query_parts[] = $url_query_str;
     }
-    if (strpos($url_query_parts['0'], '=') === false) {
-        $url_page_array = explode($url_sep, $url_query_parts['0']);
+    if (strpos($url_query_parts[0], '=') === false) {
+        $url_page_array = explode($url_sep, $url_query_parts[0]);
         foreach ($url_page_array as $url_page_tmp) {
             $tmp = uenc($url_page_tmp);
             $tmp = preg_replace('#%(25)*#i', '%', $tmp);
@@ -159,11 +159,14 @@ function XH_uenc_redir($url_query_str = '')
         }
         $url_query_uencstr = rtrim($url_query_uencstr, $url_sep);
     } else {
-        $url_query_uencstr = $url_query_parts['0'];
+        $url_query_uencstr = $url_query_parts[0];
     }
 
     $url_query_uencstr = $url_query_uencstr
-                      . ($url_query_parts['1'] ? $url_query_parts['1'] : '');
+                      . (isset($url_query_parts[1]) && $url_query_parts[1] != ''
+                            ? $url_query_parts[1]
+                            : ''
+                        );
 
     return $url_query_uencstr;
 }

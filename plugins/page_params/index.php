@@ -94,6 +94,7 @@ $pd_router->add_interest('template');
 $pd_router->add_interest('show_last_edit');
 $pd_router->add_interest('header_location');
 $pd_router->add_interest('use_header_location');
+$pd_router->add_interest('header_status');
 
 /*
  * Add a tab for admin-menu.
@@ -140,7 +141,7 @@ if (!(XH_ADM && $edit)) {
     }
     for ($i = 0; $i < $cl; $i++) {
         // unpublishing superseedes hiding:
-        if (!$xh_publisher->isPublished($i)) {
+        if (!XH_ADM && !$xh_publisher->isPublished($i)) {
             $c[$i] = '#CMSimple hide#';
             if ($s == $i) {
                 $s = -1;
@@ -149,8 +150,26 @@ if (!(XH_ADM && $edit)) {
                 $pd_s = ($i < $cl - 1 ? $i + 1 : -1);
                 $c[$i] .= '#CMSimple shead(404);#';
             }
+        } elseif (!$xh_publisher->isPublished($i)) {
+            $c[$i] = '#CMSimple hide#'
+                   . '<div class="xh_warning">'
+                   . $plugin_tx['page_params']['warning_unpublished']
+                   . '</div>'
+                   . "\n"
+                   . $c[$i];
         } elseif ($xh_publisher->isHidden($i)) {
             $c[$i] = '#CMSimple hide#' . $c[$i];
         }
+    }
+}
+
+/*
+ * Sets the HTTP status code
+ */
+
+if (isset($pd_current['header_status'])
+&& trim($pd_current['header_status']) !== '') {
+    if ($xh_publisher->isHidden($s) && $xh_publisher->isPublished($s)) {
+        http_response_code($pd_current['header_status']);
     }
 }
