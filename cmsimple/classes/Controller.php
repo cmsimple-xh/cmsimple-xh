@@ -555,11 +555,13 @@ EOT;
             $o .= XH_contentEditor();
         } else {
             $o .= XH_message('info', $tx['error']['cntlocateheading']) . "\n";
-            header('Location:' . CMSIMPLE_URL 
-                               . '?'
-                               . $u[$xh_publisher->getFirstPublishedPage()],
-            true, 302);
-            exit;
+            if (isset($_GET['login'])) {
+                header('Location:' . CMSIMPLE_URL 
+                                   . '?'
+                                   . $u[$xh_publisher->getFirstPublishedPage()],
+                true, 302);
+                exit;
+            }
         }
     }
 
