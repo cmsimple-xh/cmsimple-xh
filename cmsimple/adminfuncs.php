@@ -344,7 +344,9 @@ HTML;
     foreach ($files as $file) {
         $checks['other'][] = array(
             XH_isAccessProtected($file), false,
-            sprintf($stx['access_protected'], $file)
+            '<a target="_blank" href="' . $file . '">'
+            . sprintf($stx['access_protected'], $file)
+            . '</a>'
         );
     }
     if ($tx['locale']['all'] == '') {
