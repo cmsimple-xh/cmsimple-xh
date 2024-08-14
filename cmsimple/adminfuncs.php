@@ -13,6 +13,38 @@
  */
 
 /**
+ * Return an error message if the password is 'test'.
+ *
+ * @return string
+ *
+ * @since 1.8
+ */
+function XH_checkDefaultPW()
+{
+    global $cf, $pth, $tx;
+
+    if (password_verify('test', $cf['security']['password'])) {
+        $maxRemainingTime = (int)$cf['password']['max_remaining_time'];
+        $remainingTime = $maxRemainingTime
+                       - (time() - filemtime($pth['folder']['cmsimple'] . 'defaultpw.lock'));
+        $remainingTime = $remainingTime / 60;
+        $remainingTime = round($remainingTime);
+        $remainingTime = ($remainingTime <= 0
+                       ? ' <span style="color: #f00";>(' . $remainingTime . ' min) </span>'
+                       : ' (' . $remainingTime . ' min)');
+        $error = '<li>'
+               . $tx['login']['pw_must_change']
+               . $remainingTime
+               . '</li>'
+               . "\n";
+        return $error;
+    }
+    return false;
+}
+$e .= XH_checkDefaultPW();
+
+
+/**
  * Returns the readable version of a plugin.
  *
  * @param string $plugin Name of a plugin.
@@ -293,7 +325,7 @@ HTML;
     foreach ($temp as $i) {
         $checks['writable'][] = $pth['folder'][$i];
     }
-    $temp = array('config', 'log', 'language', 'content', 'template', 'stylesheet');
+    $temp = array('config', 'log', 'debug-log', 'language', 'content', 'template', 'stylesheet');
     foreach ($temp as $i) {
         $checks['writable'][] = $pth['file'][$i];
     }
@@ -301,7 +333,11 @@ HTML;
     $checks['writable'] = array_unique($checks['writable']);
     sort($checks['writable']);
     $files = array(
-        $pth['file']['config'], $pth['file']['content'], $pth['file']['template']
+        $pth['file']['config'],
+        $pth['file']['content'],
+        $pth['file']['template'],
+        $pth['file']['log'],
+        $pth['file']['debug-log']
     );
     foreach ($files as $file) {
         $checks['other'][] = array(
@@ -371,8 +407,10 @@ function XH_settingsView()
             . utf8_ucfirst($tx['action']['edit']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
-    foreach (array('log') as $i) {
-        $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=view">'
+    foreach (array('log', 'debug-log') as $i) {
+        $o .= '<li><a '
+            . ($i == 'debug-log' ? 'target="_blank" ' : '')
+            . 'href="' . $sn . '?file=' . $i . '&amp;action=view">'
             . utf8_ucfirst($tx['action']['view']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
@@ -651,6 +689,11 @@ function XH_adminMenu(array $plugins = array())
         array(
             'label' => utf8_ucfirst($tx['editmenu']['log']),
             'url' => $sn . '?file=log&action=view'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['debug-log']),
+            'url' => $sn . '?file=debug-log&action=view',
+            'target' => '_blank'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['validate']),
@@ -1150,7 +1193,7 @@ function XH_adminJSLocalization()
         }
     }
     $o = '<script>XH.i18n = '
-        . XH_encodeJson($l10n) . '</script>' . PHP_EOL;
+        . json_encode($l10n) . '</script>' . PHP_EOL;
     return $o;
 }
 

@@ -40,6 +40,7 @@ $tx['editmenu']['help']="Hilfe";
 $tx['editmenu']['images']="Bilder";
 $tx['editmenu']['language']="Sprach-Datei";
 $tx['editmenu']['log']="Log-Datei";
+$tx['editmenu']['debug-log']="Debug-Log-Datei";
 $tx['editmenu']['logout']="Logout";
 $tx['editmenu']['media']="Media";
 $tx['editmenu']['normal']="Vorschau";
@@ -86,6 +87,7 @@ $tx['filetype']['language']="Sprach-Datei";
 $tx['filetype']['log']="Log-Datei";
 $tx['filetype']['stylesheet']="CSS-Datei";
 $tx['filetype']['template']="Template-Datei";
+$tx['filetype']['debug-log']="Debug-Log-Datei";
 
 $tx['help']['downloads_maxsize']="Maximale Größe für das Hochladen von Datein in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
 $tx['help']['editmenu_scroll']="Angeklickt = das Admin Menü scrollt mit";
@@ -106,6 +108,7 @@ $tx['help']['show_hidden_pages_toc']="Angeklickt = Wenn versteckte Seiten aufger
 
 $tx['help']['images_maxsize']="Maximale Größe für das Hochladen von Bildern in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
 $tx['help']['language_default']="Die Hauptsprache der Website";
+$tx['help']['languagemenu_external']="Wenn Sie ein alternatives Sprachmenü verwenden möchten, z.B. Polyglot_XH oder LangMan_XH, installieren Sie das Plugin und tragen Sie seinen Namen hier ein.<br>Ein Doppelklick kann Vorschläge anzeigen.";
 $tx['help']['locator_show_homepage']="Angeklickt = Der Locator ('Sie sind hier') beginnt mit einem Link zur Startseite.";
 $tx['help']['mailform_captcha']="Angeklickt = CAPTCHA-Spamschutz im Kontakt-Formular aktiviert";
 $tx['help']['mailform_email']="Erst wenn eine E-Mail-Adresse eingegeben wird, ist das Kontakt-Formular verfügbar.";
@@ -132,6 +135,10 @@ $tx['help']['uri_word_separator']="Das Zeichen, das Wörter in der URL trennt.";
 $tx['help']['uri_length']="Die URLs der Seiten werden ab dieser Länge abgeschnitten. Das könnte sich in einer zukünftigen Version ändern, so dass es das Beste ist, kürzere Seitenüberschriften zu verwenden (z.B. durch die Verwendung von Seite&rarr;Andere Seitenüberschrift).";
 $tx['help']['uri_transliteration']="Transliteration (buchstabengetreue Übertragung) einschalten.<br>Die PHP-Erweiterung 'intl' muss geladen sein.";
 $tx['help']['uri_lowercase']="Query-String nur in Kleinbuchstaben.<br>Transliteration muss eingeschalten sein und die PHP-Erweiterung 'intl' muss geladen sein.";
+$tx['help']['seo_external']="Spezielles Plugin für zusätzliche SEO-Funktionalität.<br>Wenn Sie ein externes SEO-Plugin nutzen wollen, installieren Sie dieses und tragen Sie den Plugin-Namen hier ein.<br>Ein Doppelklick kann Vorschläge anzeigen.";
+
+$tx['help']['canonical_link']="Kanonischen Link aktivieren.";
+$tx['help']['canonical_include']="Get-Parameter, die im Kanonischen Link erhalten bleiben sollen.<br>Durch Komma getrennt eingeben (foo,bar,id,...).";
 
 $tx['help']['folders_content']="Der Ordner, in dem die Inhalte gespeichert werden (content.htm etc.)";
 $tx['help']['folders_userfiles']="Der Basisordner aller Benutzerdateien.";
@@ -142,9 +149,11 @@ $tx['help']['folders_media']="Ein Unterordner der Benutzerdateien.";
 $tx['help']['format_date']="Das Datumsformat, wenn ext/intl verfügbar ist; andernfalls wird auf <code>\$tx['lastupdate']['format']</code> zurückgegriffen.";
 $tx['help']['format_time']="Das Zeitformat, wenn ext/intl verfügbar ist; andernfalls wird auf <code>\$tx['lastupdate']['format']</code> zurückgegriffen.";
 
-$tx['help']['link_mailto'] = "Hinweis zu mailto-Links beim LinkCheck ausgeben?";
-$tx['help']['link_tel'] = "Hinweis zu tel-Links beim LinkCheck ausgeben?";
-$tx['help']['link_redir'] = "Max. Anzahl von Weiterleitungen, denen LinkCheck folgen soll.";
+$tx['help']['validate_mailto'] = "Hinweis zu mailto-Links beim LinkCheck ausgeben?";
+$tx['help']['validate_tel'] = "Hinweis zu tel-Links beim LinkCheck ausgeben?";
+$tx['help']['validate_redir'] = "Max. Anzahl von Weiterleitungen, denen LinkCheck folgen soll.";
+
+$tx['help']['debug_log'] = "Meldungen des Debug-Mode in Logdatei sammeln.<br>Debug-Mode muss aktiviert sein.";
 
 $tx['label']['empty']="- LEER -";
 
@@ -189,12 +198,14 @@ $tx['log']['description']="Beschreibung";
 
 $tx['login']['back']="Zurück";
 $tx['login']['failure']="Sie haben ein falsches Passwort eingegeben!";
+$tx['login']['pw_must_change']="Sie müssen Ihr Passwort ändern!";
+$tx['login']['pw_expired']="Das Standardpasswort ist abgelaufen!";
 $tx['login']['loggedout']="Sie wurden ausgeloggt";
 $tx['login']['warning']="Administrationsbereich. Bitte Passwort eingeben.";
 
 $tx['mailform']['captcha']="Bitte diese Zahl eingeben (Spamschutz)";
 $tx['mailform']['captchafalse']="Bitte Zahl zum Schutz vor Spam eingeben";
-$tx['mailform']['message']="Mitteilungstext";
+$tx['mailform']['message']="Mitteilungstext (erforderlich)";
 $tx['mailform']['mustwritemessage']="Bitte Mitteilungstext eingeben";
 $tx['mailform']['notaccepted']="Bitte erforderliche Felder ausfüllen";
 $tx['mailform']['notsend']="Die Nachricht konnte nicht versendet werden";
@@ -244,6 +255,7 @@ $tx['password']['confirmation']="Bestätigung";
 $tx['password']['fields_missing']="Alle Felder ausfüllen.";
 $tx['password']['invalid']="Das neue Passwort darf nur aus ASCII-Zeichen bestehen.";
 $tx['password']['mismatch']="Das neue Passwort stimmt nicht mit der Bestätigung überein.";
+$tx['password']['too_short']="Das neue Passwort muss min. %d Zeichen enthalten.";
 $tx['password']['new']="Neues Passwort";
 $tx['password']['old']="Altes Passwort";
 $tx['password']['score']="Passwortstärke: %s";

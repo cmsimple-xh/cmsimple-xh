@@ -134,14 +134,14 @@ class LinkChecker
                     $status = $this->checkExternalLink($parts);
                     break;
                 case 'mailto':
-                    if (!empty($cf['link']['mailto'])) {
+                    if (!empty($cf['validate']['mailto'])) {
                         $status = Link::STATUS_MAILTO;
                     } else {
                         $status = Link::STATUS_NOT_CHECKED;
                     }
                     break;
                 case 'tel':
-                    if (!empty($cf['link']['tel'])) {
+                    if (!empty($cf['validate']['tel'])) {
                         $status = Link::STATUS_TEL;
                     } else {
                         $status = Link::STATUS_NOT_CHECKED;
@@ -271,7 +271,7 @@ class LinkChecker
         $url = $scheme . '://' . $host . $path;
         $timeout = 6;
         $connect_timeout = 5;
-        $maxredir = (int) $cf['link']['redir'];
+        $maxredir = (int) $cf['validate']['redir'];
         $agent = 'CMSimple_XH Link-Checker';
 
         if (extension_loaded('curl')) {

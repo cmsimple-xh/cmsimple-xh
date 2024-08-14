@@ -40,6 +40,7 @@ $tx['editmenu']['help']="Help";
 $tx['editmenu']['images']="Images";
 $tx['editmenu']['language']="Language";
 $tx['editmenu']['log']="Log file";
+$tx['editmenu']['debug-log']="debug log";
 $tx['editmenu']['logout']="Logout";
 $tx['editmenu']['media']="Media";
 $tx['editmenu']['normal']="View mode";
@@ -86,6 +87,7 @@ $tx['filetype']['language']="language file";
 $tx['filetype']['log']="log";
 $tx['filetype']['stylesheet']="stylesheet";
 $tx['filetype']['template']="template";
+$tx['filetype']['debug-log']="debug log";
 
 $tx['help']['downloads_maxsize']="Maximum size of uploaded files in Byte. This must neither exceed the limit set for upload_max_filesize nor post_max_size in the PHP configuration.";
 $tx['help']['editmenu_scroll']="Whether the admin menu shall scroll with your webpage. Not checked = fixed admin menu.";
@@ -106,6 +108,7 @@ $tx['help']['show_hidden_pages_toc']="Whether hidden pages are shown in the toc 
 
 $tx['help']['images_maxsize']="Maximum size of uploaded images in Byte. This must neither exceed the limit set for upload_max_filesize nor post_max_size in the PHP configuration.";
 $tx['help']['language_default']="The primary language of your site";
+$tx['help']['languagemenu_external']="If you want to use an alternative language menu, e.g. Polyglot_XH or LangMan_XH, install the plugin and enter its name here.<br>A double-click can display suggestions.";
 $tx['help']['locator_show_homepage']="Whether the locator starts with a link to the first page (homepage) or not.";
 $tx['help']['mailform_captcha']="Whether a CAPTCHA shall be used in the mailform to prevent SPAM-mails.";
 $tx['help']['mailform_email']="The mailform will only be enabled when an email address is entered here.";
@@ -132,6 +135,10 @@ $tx['help']['uri_word_separator']="The character which separates words in the UR
 $tx['help']['uri_length']="The URLs of the pages will be truncated at this length. This might change in a future release, so it's best to use shorter page headings (e.g. by using Page&rarr;Alternative heading).";
 $tx['help']['uri_transliteration']="Turn on transliteration (letter-perfect transfer).<br>The PHP extension 'intl' must be loaded.";
 $tx['help']['uri_lowercase']="Query-String in lowercase only.<br>Transliteration must be enabled and the PHP extension 'intl' must be loaded.";
+$tx['help']['seo_external']="Special plugin for additional SEO functionality.<br>If you want to use an external SEO plugin, install it and enter the plugin name here.<br>A double-click can display suggestions.";
+
+$tx['help']['canonical_link']="Activate canonical link.";
+$tx['help']['canonical_include']="Get parameters that are to be retained in the canonical link.<br>Enter separated by a comma (foo,bar,id,...).";
 
 $tx['help']['folders_content']="The folder where the contents are stored (content.htm etc.)";
 $tx['help']['folders_userfiles']="The base folder of all userfiles.";
@@ -142,9 +149,11 @@ $tx['help']['folders_media']="A subfolder of userfiles.";
 $tx['help']['format_date']="The date format if ext/intl is available; otherwise the date/time format falls back to <code>\$tx['lastupdate']['format']</code>.";
 $tx['help']['format_time']="The time format if ext/intl is available; otherwise the date/time format falls back to <code>\$tx['lastupdate']['format']</code>.";
 
-$tx['help']['link_mailto'] = "Output note about mailto links when checking links?";
-$tx['help']['link_tel'] = "Output note about tel links when checking links?";
-$tx['help']['link_redir'] = "Max. Number of redirects LinkCheck should follow.";
+$tx['help']['validate_mailto'] = "Output note about mailto links when checking links?";
+$tx['help']['validate_tel'] = "Output note about tel links when checking links?";
+$tx['help']['validate_redir'] = "Max. Number of redirects LinkCheck should follow.";
+
+$tx['help']['debug_log'] = "Collect debug mode messages in log file.<br>Debug mode must be activated.";
 
 $tx['label']['empty']="- EMPTY -";
 
@@ -189,12 +198,14 @@ $tx['log']['description']="description";
 
 $tx['login']['back']="Back";
 $tx['login']['failure']="You have entered a wrong password!";
+$tx['login']['pw_must_change']="You have to change your password!";
+$tx['login']['pw_expired']="The default password has expired!";
 $tx['login']['loggedout']="You have been logged out";
 $tx['login']['warning']="Site administration. Please enter password.";
 
 $tx['mailform']['captcha']="Please enter this number (spam prevention)";
 $tx['mailform']['captchafalse']="Please enter anti-spam code";
-$tx['mailform']['message']="Message";
+$tx['mailform']['message']="Message (required)";
 $tx['mailform']['mustwritemessage']="No message has been entered";
 $tx['mailform']['notaccepted']="Please fill in the required fields";
 $tx['mailform']['notsend']="The message could not be sent";
@@ -244,6 +255,7 @@ $tx['password']['confirmation']="Confirmation";
 $tx['password']['fields_missing']="Fill out all fields.";
 $tx['password']['invalid']="New password must consist of ASCII characters only.";
 $tx['password']['mismatch']="New password and its confirmation do not match.";
+$tx['password']['too_short']="The new password must contain at least %d characters.";
 $tx['password']['new']="New password";
 $tx['password']['old']="Old password";
 $tx['password']['score']="Password score: %s";

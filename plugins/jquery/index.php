@@ -3,11 +3,13 @@
 /**
  * jQuery for CMSimple
  *
- * Version:    1.6.6
- * Build:      2023071101
+ * Version:    1.6.7
+ * Build:      2024080501
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
+ * Copyright:  CMSimple_XH developers
+ * Website:    https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team
  * */
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');

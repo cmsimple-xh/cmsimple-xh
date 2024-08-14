@@ -7,11 +7,13 @@
  * to enable jQuery, jQueryUI 
  * and other jQuery-based plugins
  *
- * Version:    1.6.6
- * Build:      2023071101
+ * Version:    1.6.7
+ * Build:      2024080501
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
+ * Copyright:  CMSimple_XH developers
+ * Website:    https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team
  * */
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
@@ -36,13 +38,13 @@ function include_jQuery($path = '') {
         if ($plugin_cf['jquery']['load_migrate'] == 'true') {
             $migrate = $pth['folder']['plugins'] . 'jquery/lib/migrate/' . $plugin_cf['jquery']['version_migrate'];
             if (is_file($migrate)) {
-                $js .= PHP_EOL . '<script src="' . $migrate . '"></script>';
+                $js .= "\n" . '<script src="' . $migrate . '"></script>';
             } else {
                 e('missing', 'file', $migrate);
                 return;
             }
         }
-        $hjs = $js . PHP_EOL . $hjs;
+        $hjs = $js . "\n" . $hjs;
         define('JQUERY', TRUE);
     }
 }
@@ -63,13 +65,13 @@ function include_jQueryUI($path = '') {
 
         if (file_exists($pth['folder']['template'] . 'jquery_ui/jquery_ui.css')) {
             //load a complete custom ui-theme
-            $hjs .= PHP_EOL
+            $hjs .= "\n"
                   . '<link rel="stylesheet" type="text/css" media="screen" href="'
                   . $pth['folder']['template']
                   . 'jquery_ui/jquery_ui.css">';
         } else {
             //load the default theme
-            $hjs .= PHP_EOL
+            $hjs .= "\n"
                   . '<link rel="stylesheet" type="text/css" media="screen" href="'
                   . $pth['folder']['plugins']
                   . 'jquery/lib/jquery_ui/'
@@ -77,13 +79,13 @@ function include_jQueryUI($path = '') {
                   . '/css/jquery-ui.min.css">';
             //include a custom css-file to overwrite single selectors
             if (file_exists($pth['folder']['template'] . 'jquery_ui/stylesheet.css')) {
-                $hjs .= PHP_EOL
+                $hjs .= "\n"
                       . '<link rel="stylesheet" type="text/css" media="screen" href="'
                       . $pth['folder']['template']
                       . 'jquery_ui/stylesheet.css">';
             }
         }
-        $hjs .= PHP_EOL;
+        $hjs .= "\n";
     }
 }
 
@@ -102,7 +104,7 @@ function include_jQueryPlugin($name = '', $path = '') {
             }
             $name = strtolower($name);
             if (!in_array($name, $jQueryPlugins)) {
-                $hjs .= PHP_EOL . '<script src="' . $path . '"></script>';
+                $hjs .= "\n" . '<script src="' . $path . '"></script>';
                 $jQueryPlugins[] .= $name;
             }
         }

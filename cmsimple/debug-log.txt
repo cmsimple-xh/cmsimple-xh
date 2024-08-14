@@ -1,0 +1,1 @@
+Lists PHP errors, if activated in the configuration.
