@@ -20,6 +20,7 @@ $plugin_tx['page_params']['quick_select']="Quick select...";
 $plugin_tx['page_params']['submit']="save";
 $plugin_tx['page_params']['use_default_template']="default template";
 $plugin_tx['page_params']['error_date_format']="Date must be in format \"yyyy-mm-ddThh:mm\", e.g. 2017-04-02T15:24";
+$plugin_tx['page_params']['warning_unpublished']="This page is currently not published.";
 $plugin_tx['page_params']['hint_heading']="<p>If you check here, you can enter a different heading or no heading, which will be displayed on the page.</p><p>The heading you enter here will only be visible in view mode or when logged out.</p><p>The normal page heading you have entered in the text editor below will be used for the menu as usual.</p>";
 $plugin_tx['page_params']['hint_published']="<p>If unchecked, this page will be hidden from your visitors. Trying to link to this page will return \"Error 404: Not found\".</p>";
 $plugin_tx['page_params']['hint_publication_period']="<p>You can specify the publication period by specifying the release and expirations dates.</p><p>Date Format is: yyyy-mm-ddThh:m.</p><p>If the release date is set, the page will only be published when the publication date has passed. If the expiration date is specified the page will be hidden after the expiration date has passed. Both fields may be left empty.</p><p>\"Published\" must be checked to make the publication period effective.</p>";

@@ -141,7 +141,7 @@ if (!(XH_ADM && $edit)) {
     }
     for ($i = 0; $i < $cl; $i++) {
         // unpublishing superseedes hiding:
-        if (!$xh_publisher->isPublished($i)) {
+        if (!XH_ADM && !$xh_publisher->isPublished($i)) {
             $c[$i] = '#CMSimple hide#';
             if ($s == $i) {
                 $s = -1;
@@ -150,6 +150,13 @@ if (!(XH_ADM && $edit)) {
                 $pd_s = ($i < $cl - 1 ? $i + 1 : -1);
                 $c[$i] .= '#CMSimple shead(404);#';
             }
+        } elseif (!$xh_publisher->isPublished($i)) {
+            $c[$i] = '#CMSimple hide#'
+                   . '<div class="xh_warning">'
+                   . $plugin_tx['page_params']['warning_unpublished']
+                   . '</div>'
+                   . "\n"
+                   . $c[$i];
         } elseif ($xh_publisher->isHidden($i)) {
             $c[$i] = '#CMSimple hide#' . $c[$i];
         }
