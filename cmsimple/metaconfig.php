@@ -9,6 +9,7 @@ $mcf['site']['template']="function:XH_templates";
 $mcf['site']['compat']="hidden";
 $mcf['language']['default']="function:XH_availableLocalizations";
 $mcf['language']['2nd_lang_names']="hidden";
+$mcf['languagemenu']['external']="xfunction:XH_registeredLanguagemenuPlugins";
 $mcf['mailform']['captcha']="bool";
 $mcf['mailform']['lf_only']="+bool";
 $mcf['head']['links']="+bool";
