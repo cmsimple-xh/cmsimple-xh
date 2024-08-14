@@ -35,6 +35,7 @@ $mcf['uri']['transliteration']="bool";
 $mcf['uri']['lowercase']="bool";
 $mcf['editmenu']['scroll']="bool";
 $mcf['editmenu']['external']="xfunction:XH_registeredEditmenuPlugins";
+$mcf['seo']['external']="xfunction:XH_registeredExtendedSEOPlugins";
 $mcf['mode']['advanced']="hidden";
 $mcf['format']['date']="enum:none,short,medium,long,full";
 $mcf['format']['time']="enum:none,short,medium,long,full";

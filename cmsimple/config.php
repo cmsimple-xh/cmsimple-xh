@@ -48,6 +48,7 @@ $cf['uri']['transliteration']="";
 $cf['uri']['lowercase']="";
 $cf['editmenu']['scroll']="";
 $cf['editmenu']['external']="";
+$cf['seo']['external']="";
 $cf['title']['format']="{SITE} – {PAGE}";
 $cf['mode']['advanced']="";
 $cf['format']['date']="long";

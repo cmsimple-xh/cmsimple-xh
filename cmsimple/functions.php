@@ -2394,6 +2394,18 @@ function XH_registeredEditmenuPlugins()
 }
 
 /**
+ * Returns the names of the registered extended SEO plugins.
+ *
+ * @return array
+ *
+ * @since 1.8.0
+ */
+function XH_registeredExtendedSEOPlugins()
+{
+    return XH_registerPluginType('extendedSEO');
+}
+
+/**
  * Handles the shutdown of the script.
  *
  * <ul>
