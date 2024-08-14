@@ -168,19 +168,33 @@ span.xhfbfile:hover {
 	/* [disabled]background-color: #f5f5f5; */
 	/* [disabled]cursor:pointer; */
 }
-/* FA-Icons & colors */
-div.xhFilebrowserDiv span.fa {
-	vertical-align: baseline;
+/* Icons */
+div.xhFilebrowserDiv img.folder,
+div.xhFilebrowserDiv img.folder-open {
+    vertical-align: bottom;
+    max-width: 1.6em;
+    max-height: 1.2em;
+    margin: 0 0.25em;
 }
-div.xhFilebrowserDiv span.fa-folder,
-div.xhFilebrowserDiv span.fa-folder-open {
-	color: rgb(255,153,0);
+div.xhFilebrowserDiv img.remove,
+div.xhFilebrowserDiv img.rename {
+    max-width: 1.6em !important;
+    max-height: 1.1em;
+    margin: 0 0.4em;
 }
-div.xhFilebrowserDiv span.fa-tag {
-	color: rgb(51,153,204);
+div.xhFilebrowserDiv .filebrowser_delete_folder img.remove {
+    vertical-align: bottom;
 }
-div.xhFilebrowserDiv span.fa-remove {
-	color: rgb(255,51,0);
+div.xhFilebrowserDiv .filebrowser_delete_file img.remove,
+div.xhFilebrowserDiv img.rename {
+    vertical-align: baseline;
+}
+div.xhFilebrowserDiv img.editorbrowser-icon,
+div.xhFilebrowserDiv img.cmsbrowser-icon {
+    vertical-align: baseline;
+    max-width: 1.6em !important;
+    max-height: 1em;
+    margin: 0 0 -1px 0;
 }
 /* Buttons */
 div.xhFilebrowserDiv button {

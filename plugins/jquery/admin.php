@@ -6,11 +6,13 @@
  * Admin-interface for configuring the plugin
  * via the standard-functions of pluginloader.
  *
- * Version:    1.6.6
- * Build:      2023071101
+ * Version:    1.6.7
+ * Build:      2024080501
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
+ * Copyright:  CMSimple_XH developers
+ * Website:    https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team
  * */
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
@@ -80,12 +82,13 @@ if (isset($_GET['jquery'])) {
         $o .= plugin_admin_common($action, $admin, $plugin);
     }
     if ($admin == '') {
-        $o .= PHP_EOL . '<div>';
-        $o .= PHP_EOL . '<h1>jQuery for CMSimple</h1>';
-        $o .= PHP_EOL . '<p>Version 1.6.6 - 2023-06-21</p>';
-        $o .= PHP_EOL . '<p>&copy;2011-2023 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
-        $o .= PHP_EOL . '<p>';
-        $o .= PHP_EOL . 'jQuery Version: ';
+        $o .= "\n" . '<div>';
+        $o .= "\n" . '<h1>jQuery for CMSimple</h1>';
+        $o .= "\n" . '<p>Version 1.6.7 - 2024-08-05</p>';
+        $o .= "\n" . '<p>&copy;2011-2023 <a href="http://cmsimple.holgerirmler.de/" target="_blank">http://CMSimple.HolgerIrmler.de</a></p>';
+        $o .= "\n" . '<p>&copy;2024 <a href="https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team" target="_blank">The CMSimple_XH developers</a></p>';
+        $o .= "\n" . '<p>';
+        $o .= "\n" . 'jQuery Version: ';
         $o .= '<script>
                     var migrate = " & Migrate-Plugin";
                     if (typeof jQuery.migrateWarnings === \'undefined\') {
@@ -93,10 +96,10 @@ if (isset($_GET['jquery'])) {
                     }
                     document.write(jQuery.fn.jquery + migrate)
                </script>';
-        $o .= PHP_EOL . '<br>';
-        $o .= PHP_EOL . 'jQueryUI Version: ';
+        $o .= "\n" . '<br>';
+        $o .= "\n" . 'jQueryUI Version: ';
         $o .= '<script>document.write(jQuery.ui.version)</script>';
-        $o .= PHP_EOL . '</p>';
-        $o .= PHP_EOL . '</div>';
+        $o .= "\n" . '</p>';
+        $o .= "\n" . '</div>';
     }
 }

@@ -1178,7 +1178,7 @@ function XH_debugmode()
  */
 function XH_debug($errno, $errstr, $errfile, $errline)
 {
-    global $errors;
+    global $errors, $pth, $cf;
 
     if (!(error_reporting() & $errno)) {
         // This error code is not included in error_reporting
@@ -1222,6 +1222,12 @@ function XH_debug($errno, $errstr, $errfile, $errline)
 
     $errors[] = "<b>$errtype:</b> $errstr" . '<br>' . "$errfile:$errline"
         . '<br>' . "\n";
+    if ($cf['debug']['log'] == 'true') {
+        error_log(date('Y-m-d H:i:s') . "\t"
+                . "$errtype: $errstr - $errfile:$errline" . "\n",
+                  3,
+                  $pth['file']['debug-log']);
+    }
 
     if (in_array($errno, array(E_USER_ERROR, E_RECOVERABLE_ERROR))) {
         XH_exit($errors[count($errors) - 1]);
@@ -1458,12 +1464,16 @@ function loginforms()
 {
     global $cf, $tx, $onload, $f, $o, $s, $sn, $su, $u, $title, $xh_publisher;
 
-    if ($f == 'login' || $f == 'xh_login_failed') {
+    if ($f == 'login' || $f == 'xh_login_failed' || $f == 'xh_login_pw_expired') {
         $cf['meta']['robots'] = "noindex";
         $onload .= 'document.forms[\'login\'].elements[\'keycut\'].focus();';
-        $message = ($f == 'xh_login_failed')
-            ? XH_message('fail', $tx['login']['failure'])
-            : '';
+        if ($f == 'xh_login_failed') {
+            $message = XH_message('fail', $tx['login']['failure']);
+        } elseif ($f == 'xh_login_pw_expired') {
+            $message = XH_message('fail', $tx['login']['pw_expired']);
+        } else {
+             $message = '';
+        }
         $title = $tx['menu']['login'];
         $o .= '<div class="xh_login">'
             . '<h1>' . $tx['menu']['login'] . '</h1>'
@@ -1527,9 +1537,15 @@ function XH_readFile($filename)
  *
  * @since 1.6
  */
-function XH_writeFile($filename, $contents)
+function XH_writeFile($filename, $contents, $pwChange=false)
 {
+    global $cf;
+
     $res = false;
+    if (password_verify('test', $cf['security']['password'])
+    && !$pwChange) {
+        return $res;
+    }
     $stream = fopen($filename, 'cb');
     if ($stream) {
         if (XH_lockFile($stream, LOCK_EX)) {
@@ -1677,7 +1693,7 @@ function XH_pluginStylesheet()
             . ' * ' . $pluginline . PHP_EOL
             . ' */' . PHP_EOL . PHP_EOL
             . implode(PHP_EOL . PHP_EOL, $o);
-        if (!XH_writeFile($ofn, $o)) {
+        if (!XH_writeFile($ofn, $o, true)) {
             e('cntwriteto', 'stylesheet', $ofn);
         }
     }
@@ -2387,6 +2403,18 @@ function XH_registeredEditmenuPlugins()
 function XH_registeredLanguagemenuPlugins()
 {
     return XH_registerPluginType('languagemenu');
+}
+
+/**
+ * Returns the names of the registered extended SEO plugins.
+ *
+ * @return array
+ *
+ * @since 1.8.0
+ */
+function XH_registeredExtendedSEOPlugins()
+{
+    return XH_registerPluginType('extendedSEO');
 }
 
 /**

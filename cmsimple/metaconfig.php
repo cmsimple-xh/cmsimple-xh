@@ -1,6 +1,8 @@
 <?php
 
 $mcf['security']['password']="hidden";
+$mcf['password']['min_length']="hidden";
+$mcf['password']['max_remaining_time']="hidden";
 $mcf['security']['secret']="random";
 $mcf['security']['frame_options']="enum:DENY,SAMEORIGIN,";
 $mcf['site']['template']="function:XH_templates";
@@ -34,9 +36,11 @@ $mcf['uri']['transliteration']="bool";
 $mcf['uri']['lowercase']="bool";
 $mcf['editmenu']['scroll']="bool";
 $mcf['editmenu']['external']="xfunction:XH_registeredEditmenuPlugins";
+$mcf['seo']['external']="xfunction:XH_registeredExtendedSEOPlugins";
 $mcf['mode']['advanced']="hidden";
 $mcf['format']['date']="enum:none,short,medium,long,full";
 $mcf['format']['time']="enum:none,short,medium,long,full";
 $mcf['link']['mailto']="+bool";
 $mcf['link']['tel']="+bool";
 $mcf['link']['redir']="+enum:0,1,2,3";
+$mcf['debug']['log']="+bool";
