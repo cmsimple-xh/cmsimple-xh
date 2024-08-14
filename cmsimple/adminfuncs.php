@@ -233,6 +233,8 @@ function XH_isAccessProtected($path)
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_NOBODY, true);
         curl_setopt($curl, CURLOPT_TIMEOUT, 5);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curl, CURLOPT_MAXREDIRS, 1);
         if (curl_exec($curl)) {
             $status = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
             curl_close($curl);
