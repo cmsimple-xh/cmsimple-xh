@@ -1120,6 +1120,16 @@ $plugin_cf = new XH\PluginConfig();
 $plugin_tx = new XH\PluginConfig(true);
 
 /*
+ * @var array $CanonicalLinkInc
+ *
+ * Gives the possibility for plugins to publish get parameters
+ * that should be included in the canonical link.
+ *
+ * @public
+ */
+$CanonicalLinkInc = array();
+
+/*
  * Include index.php of all plugins.
  */
 foreach (XH_plugins() as $plugin) {
@@ -1148,6 +1158,18 @@ unset($plugin);
 
 XH_afterPluginLoading();
 
+/**
+ * Returns the canonical link element
+ *
+ * @return string
+ *
+ * @since 1.8.0
+ */
+if ($cf['canonical']['link']
+&& !XH_ADM
+&& !isset($_GET['print'])) {
+    $hjs .= XH_canonicalLink();
+}
 
 switch ($f) {
     case 'search':

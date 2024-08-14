@@ -135,6 +135,9 @@ $tx['help']['uri_transliteration']="Turn on transliteration (letter-perfect tran
 $tx['help']['uri_lowercase']="Query-String in lowercase only.<br>Transliteration must be enabled and the PHP extension 'intl' must be loaded.";
 $tx['help']['seo_external']="Special plugin for additional SEO functionality.<br>If you want to use an external SEO plugin, install it and enter the plugin name here.<br>A double-click can display suggestions.";
 
+$tx['help']['canonical_link']="Activate canonical link.";
+$tx['help']['canonical_include']="Get parameters that are to be retained in the canonical link.<br>Enter separated by a comma (foo,bar,id,...).";
+
 $tx['help']['folders_content']="The folder where the contents are stored (content.htm etc.)";
 $tx['help']['folders_userfiles']="The base folder of all userfiles.";
 $tx['help']['folders_downloads']="A subfolder of userfiles.";
@@ -144,9 +147,9 @@ $tx['help']['folders_media']="A subfolder of userfiles.";
 $tx['help']['format_date']="The date format if ext/intl is available; otherwise the date/time format falls back to <code>\$tx['lastupdate']['format']</code>.";
 $tx['help']['format_time']="The time format if ext/intl is available; otherwise the date/time format falls back to <code>\$tx['lastupdate']['format']</code>.";
 
-$tx['help']['link_mailto'] = "Output note about mailto links when checking links?";
-$tx['help']['link_tel'] = "Output note about tel links when checking links?";
-$tx['help']['link_redir'] = "Max. Number of redirects LinkCheck should follow.";
+$tx['help']['validate_mailto'] = "Output note about mailto links when checking links?";
+$tx['help']['validate_tel'] = "Output note about tel links when checking links?";
+$tx['help']['validate_redir'] = "Max. Number of redirects LinkCheck should follow.";
 
 $tx['help']['debug_log'] = "Collect debug mode messages in log file.<br>Debug mode must be activated.";
 

@@ -135,6 +135,9 @@ $tx['help']['uri_transliteration']="Transliteration (buchstabengetreue Übertrag
 $tx['help']['uri_lowercase']="Query-String nur in Kleinbuchstaben.<br>Transliteration muss eingeschalten sein und die PHP-Erweiterung 'intl' muss geladen sein.";
 $tx['help']['seo_external']="Spezielles Plugin für zusätzliche SEO-Funktionalität.<br>Wenn Sie ein externes SEO-Plugin nutzen wollen, installieren Sie dieses und tragen Sie den Plugin-Namen hier ein.<br>Ein Doppelklick kann Vorschläge anzeigen.";
 
+$tx['help']['canonical_link']="Kanonischen Link aktivieren.";
+$tx['help']['canonical_include']="Get-Parameter, die im Kanonischen Link erhalten bleiben sollen.<br>Durch Komma getrennt eingeben (foo,bar,id,...).";
+
 $tx['help']['folders_content']="Der Ordner, in dem die Inhalte gespeichert werden (content.htm etc.)";
 $tx['help']['folders_userfiles']="Der Basisordner aller Benutzerdateien.";
 $tx['help']['folders_downloads']="Ein Unterordner der Benutzerdateien.";
@@ -144,9 +147,9 @@ $tx['help']['folders_media']="Ein Unterordner der Benutzerdateien.";
 $tx['help']['format_date']="Das Datumsformat, wenn ext/intl verfügbar ist; andernfalls wird auf <code>\$tx['lastupdate']['format']</code> zurückgegriffen.";
 $tx['help']['format_time']="Das Zeitformat, wenn ext/intl verfügbar ist; andernfalls wird auf <code>\$tx['lastupdate']['format']</code> zurückgegriffen.";
 
-$tx['help']['link_mailto'] = "Hinweis zu mailto-Links beim LinkCheck ausgeben?";
-$tx['help']['link_tel'] = "Hinweis zu tel-Links beim LinkCheck ausgeben?";
-$tx['help']['link_redir'] = "Max. Anzahl von Weiterleitungen, denen LinkCheck folgen soll.";
+$tx['help']['validate_mailto'] = "Hinweis zu mailto-Links beim LinkCheck ausgeben?";
+$tx['help']['validate_tel'] = "Hinweis zu tel-Links beim LinkCheck ausgeben?";
+$tx['help']['validate_redir'] = "Max. Anzahl von Weiterleitungen, denen LinkCheck folgen soll.";
 
 $tx['help']['debug_log'] = "Meldungen des Debug-Mode in Logdatei sammeln.<br>Debug-Mode muss aktiviert sein.";
 

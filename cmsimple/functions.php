@@ -2698,3 +2698,60 @@ function XH_redirectSelectedUrl()
     }
     return $url;
 }
+
+/**
+ * Returns the canonical link element
+ *
+ * @return string
+ *
+ * @since 1.8.0
+ */
+function XH_canonicalLink()
+{
+    global $su, $u, $function, $sitemap, $mailform, $cf, $CanonicalLinkInc;
+
+    $metaRobotsArray = explode(',', $cf['meta']['robots']);
+    $metaRobotsArray = array_map('trim', $metaRobotsArray);
+    $metaRobotsArray = array_map('strtolower', $metaRobotsArray);
+    $searchArray = array('noindex', 'nofollow', 'disallow');
+    $check = array_intersect($searchArray, $metaRobotsArray);
+    if (count($check) > 0) {
+        return false;
+    }
+
+    $cfInclude = explode(',', $cf['canonical']['include']);
+    $cfInclude = array_map('trim', $cfInclude);
+    $include = array_merge($cfInclude, $CanonicalLinkInc);
+    $include[] = 'function';
+    if ($function === 'search') {
+        $include[]  = 'search';
+    }
+    $include = array_values(array_unique($include));
+    $params = $_GET;
+    if (count($params) > 0 && key($params) == $su) {
+        array_shift($params);
+    }
+    ksort($params);
+    $url = CMSIMPLE_URL;
+    if ($su != '') {
+        $query = ($su == $u[0]) ? '' : $su;
+    } elseif ($sitemap) {
+        $query = 'sitemap';
+    } elseif ($mailform) {
+        $query = 'mailform';
+    } else {
+        $query = '';
+    }
+    foreach ($params as $key => $val) {
+        if (in_array($key, $include)) {
+            $query .= '&' . $key;
+            if ($val !== '') {
+                $query .= '=' . $val;
+            }
+        }
+    }
+    if ($query != '') {
+        $url .= '?' . ltrim($query, '&');
+    }
+    return '<link rel="canonical" href="' . XH_hsc($url) . '">' . PHP_EOL;
+}
