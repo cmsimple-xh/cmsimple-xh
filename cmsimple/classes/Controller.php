@@ -176,7 +176,7 @@ class Controller
             $maxRemainingTime = (int)$cf['password']['max_remaining_time'];
             if ($keycut == 'test'
             && (!is_readable($pth['folder']['cmsimple'] . 'defaultpw.lock')
-            || time() - filectime($pth['folder']['cmsimple'] . 'defaultpw.lock') > $maxRemainingTime)) {
+            || time() - filemtime($pth['folder']['cmsimple'] . 'defaultpw.lock') > $maxRemainingTime)) {
                 $login = null;
                 $f = 'xh_login_pw_expired';
                 XH_logMessage('warning', 'XH', 'login', 'login password expired');

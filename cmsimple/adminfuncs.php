@@ -26,7 +26,7 @@ function XH_checkDefaultPW()
     if (password_verify('test', $cf['security']['password'])) {
         $maxRemainingTime = (int)$cf['password']['max_remaining_time'];
         $remainingTime = $maxRemainingTime
-                       - (time() - filectime($pth['folder']['cmsimple'] . 'defaultpw.lock'));
+                       - (time() - filemtime($pth['folder']['cmsimple'] . 'defaultpw.lock'));
         $remainingTime = $remainingTime / 60;
         $remainingTime = round($remainingTime);
         $remainingTime = ($remainingTime <= 0
