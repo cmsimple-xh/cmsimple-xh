@@ -515,8 +515,19 @@ function XH_backupsView()
                 . '<input type="submit" class="submit" value="'
                 . $tx['action']['restore'] . '">'
                 . $_XH_csrfProtection->tokenInput()
-                . '</form>'
-                . '</li>' . "\n";
+                . '</form>';
+            if (!XH_isContentBackup($p, 'content')
+            && !XH_isContentBackup($p, 'tmp')) {
+                $o .=  ' - <form action="' . $sn . '?&xh_backups" method="post"'
+                    . ' class="xh_inline_form">'
+                    . '<input type="hidden" name="file" value="' . $p . '">'
+                    . '<input type="hidden" name="action" value="delete">'
+                    . '<input type="submit" class="submit" value="'
+                    . $tx['action']['delete'] . '">'
+                    . $_XH_csrfProtection->tokenInput()
+                    . '</form>';
+            }
+            $o .=  '</li>' . "\n";
         }
     }
     $o .= '</ul>' . "\n";
@@ -924,6 +935,24 @@ function XH_contentEditor()
 }
 
 /**
+ * Creates an temp backup of the contents file.
+ *
+ * @return void
+ *
+ * @since 1.8
+ */
+function XH_tmpBackup()
+{
+    global $pth;
+
+    $date = date("Ymd_His");
+    $dest = $pth['folder']['content'] . $date . '_tmp.htm';
+    if (!copy($pth['file']['content'], $dest)) {
+        e('cntsave', 'backup', $dest);
+    }
+}
+
+/**
  * Saves the current contents (including the page data), if edit mode is active.
  *
  * @return bool Whether that succeeded
@@ -932,7 +961,7 @@ function XH_contentEditor()
  */
 function XH_saveContents()
 {
-    global $c, $pth, $tx, $edit, $pd_router;
+    global $c, $pth, $tx, $edit, $pd_router, $cf;
 
     if (!(XH_ADM && $edit)) {
         trigger_error(
@@ -956,6 +985,9 @@ function XH_saveContents()
     $cnts .= '</body></html>';
     if (!file_exists($pth['folder']['content'])) {
         mkdir($pth['folder']['content'], 0x755, true);
+    }
+    if ($cf['backup']['tmpfiles'] == 'true') {
+        XH_tmpBackup();
     }
     return XH_writeFile($pth['file']['content'], $cnts) !== false;
 }
@@ -1086,6 +1118,29 @@ function XH_restore($filename)
     }
     // the following relocation is necessary to cater for the changed content
     $url = CMSIMPLE_URL . '?&xh_backups&xh_success=restored';
+    header('Location: ' . $url, true, 303);
+    exit;
+}
+
+/**
+ * Delete a content backup..
+ *
+ * @param string $filename The filename.
+ *
+ * @return void
+ *
+ * @since 1.8
+ */
+function XH_delete($filename)
+{
+    global $e;
+
+    if (!unlink($filename)) {
+        e('cntdelete', 'content', $filename);
+        return;
+    }
+    // the following relocation is necessary to cater for the changed content
+    $url = CMSIMPLE_URL . '?&xh_backups&xh_success=delete';
     header('Location: ' . $url, true, 303);
     exit;
 }

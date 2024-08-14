@@ -25,6 +25,7 @@ $cf['folders']['downloads']="downloads/";
 $cf['folders']['images']="images/";
 $cf['folders']['media']="media/";
 $cf['backup']['numberoffiles']="10";
+$cf['backup']['tmpfiles']="";
 $cf['show_hidden']['pages_toc']="";
 $cf['show_hidden']['pages_search']="";
 $cf['show_hidden']['pages_sitemap']="";

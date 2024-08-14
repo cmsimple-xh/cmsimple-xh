@@ -19,6 +19,7 @@ $mcf['folders']['userfiles']="hidden";
 $mcf['folders']['downloads']="hidden";
 $mcf['folders']['images']="hidden";
 $mcf['folders']['media']="hidden";
+$mcf['backup']['tmpfiles']="bool";
 $mcf['show_hidden']['pages_toc']="bool";
 $mcf['show_hidden']['pages_search']="bool";
 $mcf['show_hidden']['pages_sitemap']="bool";

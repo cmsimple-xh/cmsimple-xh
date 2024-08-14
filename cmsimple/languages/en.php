@@ -2,6 +2,7 @@
 
 $tx['site']['title']="English Site Title";
 $tx['subsite']['template']="";
+$tx['publish']['current']="";
 
 $tx['meta']['keywords']="Enter list of comma separated keywords here";
 $tx['meta']['description']="Enter website description for search engine results here";
@@ -98,6 +99,7 @@ $tx['help']['functions_file']="Please do not change";
 $tx['help']['meta_author']="(Optional) Enter here for the benefit of search engines the name of the author of your pages.";
 $tx['help']['head_links']="Activates pagination (links - page break) in the head.";
 $tx['help']['backup_numberoffiles']="After each logout a backup of the content file is generated. Enter the number of such files which the system automatically keeps.";
+$tx['help']['backup_tmpfiles']="Create a temporary backup for each save operation. (Only applies to the content.)";
 
 $tx['help']['show_hidden_path_locator']="Whether the path of the hidden page is shown in the locator.";
 $tx['help']['show_hidden_pages_search']="Whether hidden pages are shown in the results of the internal search function.";
@@ -230,6 +232,7 @@ $tx['menu']['tab_help']="Help";
 
 $tx['message']['backedup']="The content has been successfully backed up.";
 $tx['message']['debug_mode']="Debug-Mode is enabled!";
+$tx['message']['delete']="Backup file deleted.";
 $tx['message']['emptied']="The content has been successfully emptied.";
 $tx['message']['pd_success']="Page data successfully saved. Some settings may only become effective after page refresh or browsing to another page.";
 $tx['message']['pd_fail']="The page data could not be saved. Please try again.";

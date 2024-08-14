@@ -2,6 +2,7 @@
 
 $tx['site']['title']="Deutscher Seitentitel";
 $tx['subsite']['template']="";
+$tx['publish']['current']="";
 
 $tx['meta']['keywords']="Schlagworte durch Kommata getrennt hier eingeben";
 $tx['meta']['description']="Kurzbeschreibung der Website für Suchmaschinenergebnisse";
@@ -98,6 +99,7 @@ $tx['help']['functions_file']="Bitte nicht ändern";
 $tx['help']['meta_author']="(Kann-Eingabe) Hier für Suchmaschinen den Autor der Texte Ihrer Site eintragen.";
 $tx['help']['head_links']="Aktiviert die Paginierung (Links - Seitenumbruch) im Head.";
 $tx['help']['backup_numberoffiles']="Nach jedem Ausloggen erzeugt das System eine Sicherungskopie der Content-Datei. Hier die Anzahl solcher Dateien eintragen, die das System automatisch aufbewahrt.";
+$tx['help']['backup_tmpfiles']="Temporäre Sicherung bei jedem Speichervorgang anlegen. (Betrifft nur den Inhalt.)";
 
 $tx['help']['show_hidden_path_locator']="Angeklickt = Der Locator ('Sie sind hier'-Anzeige) zeigt auch den Pfad einer versteckten Seite.";
 $tx['help']['show_hidden_pages_search']="Angeklickt = Auch versteckte Seiten werden in den Ergebnissen der internen Suchfunktion angegeben.";
@@ -230,6 +232,7 @@ $tx['menu']['tab_help']="Hilfe";
 
 $tx['message']['backedup']="Der Content wurde erfolgreich gesichert.";
 $tx['message']['debug_mode']="Debug-Modus ist aktiv!";
+$tx['message']['delete']="Sicherungsdatei gelöscht.";
 $tx['message']['emptied']="Der Content wurde erfolgreich geleert.";
 $tx['message']['pd_success']="Seitenspezifische Daten erfolgreich gespeichert. Manche Einstellungen werden erst nach Seitenaktualisierung oder Wechsel zu anderer Seite wirksam.";
 $tx['message']['pd_fail']="Die seitenspezifischen Daten konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.";

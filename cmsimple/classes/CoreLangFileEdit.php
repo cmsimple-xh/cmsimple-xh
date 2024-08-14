@@ -19,7 +19,7 @@ class CoreLangFileEdit extends CoreArrayFileEdit
      */
     public function __construct()
     {
-        global $sl, $cf, $tx;
+        global $sl, $cf, $tx, $pth;
 
         parent::__construct();
         $this->varName = 'tx';
@@ -46,6 +46,21 @@ class CoreLangFileEdit extends CoreArrayFileEdit
                         $co['vals'] = $this->selectOptions('templates', '/^([^\.]*)$/i');
                         array_unshift($co['vals'], '');
                     }
+                }
+                if ($cat == 'publish' && $name == 'current') {
+                    $contentFileArray = array();
+                    $co['type'] = 'enum';
+                        $fileArray = sortdir($pth['folder']['content']);
+                        foreach ($fileArray as $p) {
+                            if (!XH_isContentBackup($p, 'content')
+                            && !XH_isContentBackup($p, 'tmp')
+                            && is_file($pth['folder']['content'] . $p)) {
+                                $contentFileArray[] = $p;
+                            }
+                        }
+                        $deleteArray = array('.htaccess', 'content.htm');
+                        $co['vals'] = array_diff($contentFileArray, $deleteArray);
+                        array_unshift($co['vals'], '');
                 }
                 $this->cfg[$cat][$name] = $co;
             }
