@@ -155,6 +155,8 @@ $tx['help']['validate_redir'] = "Max. Number of redirects LinkCheck should follo
 
 $tx['help']['debug_log'] = "Collect debug mode messages in log file.<br>Debug mode must be activated.";
 
+$tx['help']['search_description']="Displays the meta description in the search results.<br>An explicit description must be created for the page.";
+
 $tx['label']['empty']="- EMPTY -";
 
 $tx['languagemenu']['text']="select language: ";
