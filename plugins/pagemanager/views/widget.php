@@ -16,9 +16,9 @@
     </p>
 <?php if ($this->hasToolbar):?>
     <div id="pagemanager_toolbar">
-<?php   foreach ($this->tools as $tool => $class):?>
+<?php   foreach ($this->tools as $tool => $svg):?>
         <button type="button" id="pagemanager_<?=$this->escape($tool)?>" title="<?=$this->text("op_{$tool}")?>" aria-label="<?=$this->text("op_{$tool}")?>">
-            <span class="<?=$this->escape($class)?> fa-lg" aria-hidden="true"></span>
+            <img class="widget-icon" src="<?=$pth['folder']['plugin']?>images/<?=$this->escape($svg)?>.svg" alt="" aria-hidden="true">
         </button>
 <?php   endforeach?>
     </div>

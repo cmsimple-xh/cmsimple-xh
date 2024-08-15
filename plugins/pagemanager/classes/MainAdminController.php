@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Copyright 2011-2021 Christoph M. Becker
+ * Copyright 2011-2023 Christoph M. Becker
+ * Copyright 2024 The CMSimple_XH developers
  *
  * This file is part of Pagemanager_XH.
  *
@@ -21,7 +22,6 @@
 
 namespace Pagemanager;
 
-use Fa;
 use XH\CSRFProtection;
 use XH\Pages;
 use XH\PageDataRouter;
@@ -99,10 +99,8 @@ class MainAdminController
         include_once $pth['folder']['plugins'] . 'jquery/jquery.inc.php';
         include_jQuery();
         include_jQueryPlugin('jstree', "{$this->pluginFolder}jstree/jstree.min.js");
-        $command = new Fa\RequireCommand;
-        $command->execute();
         $bjs .= '<script>var PAGEMANAGER = ' . $this->jsConfig() . ';</script>'
-              . '<script src="' . XH_hsc("{$this->pluginFolder}pagemanager.js") . '"></script>';
+              . '<script src="' . XH_hsc("{$this->pluginFolder}pagemanager.min.js") . '"></script>';
         $view = new View('widget');
         $view->title = $title;
         $view->submissionUrl = $this->submissionURL();
@@ -110,18 +108,18 @@ class MainAdminController
         $view->ajaxLoaderPath = "{$this->pluginFolder}images/ajax-loader-bar.gif";
         $view->hasToolbar = (bool) $this->config['toolbar_show'];
         $view->tools = array(
-            'save' => 'fa fa-save',
-            'toggle' => 'fa fa-expand',
-            'open' => 'fa fa-plus-square-o',
-            'add' => 'fa fa-file-o',
-            'rename' => 'fa fa-tag',
-            'remove' => 'fa fa-trash-o',
-            'cut' => 'fa fa-cut',
-            'copy' => 'fa fa-copy',
-            'paste' => 'fa fa-paste',
-            'edit' => 'fa fa-edit',
-            'preview' => 'fa fa-eye',
-            'help' => 'fa fa-book'
+            'save' => 'save',
+            'toggle' => 'open_in_full',
+            'open' => 'add_box',
+            'add' => 'description',
+            'rename' => 'sell',
+            'remove' => 'delete',
+            'cut' => 'content_cut',
+            'copy' => 'content_copy',
+            'paste' => 'content_paste',
+            'edit' => 'edit',
+            'preview' => 'visibility',
+            'help' => 'menu_book'
         );
         $view->pdattr = $this->config['pagedata_attribute'];
         $view->csrfTokenInput = new HtmlString($this->csrfProtector->tokenInput());
@@ -184,15 +182,15 @@ class MainAdminController
             'after' => $this->lang['label_after'],
             'userManual' => $pth['file']['plugin_help'],
             'classes' => array(
-                'open' => 'fa-plus-square-o',
-                'add' => 'fa-file-o',
-                'rename' => 'fa-tag',
-                'remove' => 'fa-trash-o',
-                'cut' => 'fa-cut',
-                'copy' => 'fa-copy',
-                'paste' => 'fa-paste',
-                'edit' => 'fa-edit',
-                'preview' => 'fa-eye'
+                'open' => 'add_box',
+                'add' => 'description',
+                'rename' => 'sell',
+                'remove' => 'delete',
+                'cut' => 'content_cut',
+                'copy' => 'content_copy',
+                'paste' => 'content_paste',
+                'edit' => 'edit',
+                'preview' => 'visibility'
             ),
             'duplicateHeading' => $tx['toc']['dupl'],
             'offendingExtensionError' => $this->lang['error_offending_extension'],

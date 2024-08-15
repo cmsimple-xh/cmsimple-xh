@@ -4,7 +4,8 @@
     Version <?=$this->version()?>
 </p>
 <p>
-    Copyright &copy; 2011-2021 Christoph M. Becker
+    Copyright &copy; 2011-2023 Christoph M. Becker<br>
+    Copyright &copy; 2024 The CMSimple_XH developers
 </p>
 <p>
     Pagemanager_XH is powered by <a href="http://www.jstree.com/"

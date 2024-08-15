@@ -39,5 +39,3 @@ $plugin_tx['pagemanager']['cf_toolbar_show']="Om værktøjslinjen skal vises.";
 $plugin_tx['pagemanager']['cf_pagedata_attribute']="Den pagedata attribut, der skal redigeres med afkrydsningsfelterne: \"linked_to_menu\" (synlig i menuen) eller \"udgivet\" (offentliggjort). Efterlad tom for at skjule afkrydsningsfelterne.";
 $plugin_tx['pagemanager']['cf_treeview_theme']="Tema af trævisning widget.";
 $plugin_tx['pagemanager']['cf_treeview_animation']="Varighed af åbne / lukke animationer i ms. 0 betyder ingen animation.";
-
-?>

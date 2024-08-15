@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Copyright 2011-2021 Christoph M. Becker
+ * Copyright 2011-2023 Christoph M. Becker
+ * Copyright 2024 The CMSimple_XH developers
  *
  * This file is part of Pagemanager_XH.
  *
@@ -52,15 +53,19 @@ class SystemCheckService
      */
     public function getChecks()
     {
+        global $sl;
+
         return array(
             $this->checkPhpVersion('5.5.0'),
             $this->checkExtension('json'),
             $this->checkXhVersion('1.7'),
-            $this->checkPlugin('fa'),
             $this->checkPlugin('jquery'),
             $this->checkWritability("$this->pluginFolder/css/"),
+            $this->checkWritability("$this->pluginFolder/css/stylesheet.css"),
             $this->checkWritability("$this->pluginFolder/config/"),
-            $this->checkWritability("$this->pluginFolder/languages/")
+            $this->checkWritability("$this->pluginFolder/config/config.php"),
+            $this->checkWritability("$this->pluginFolder/languages/"),
+            $this->checkWritability("$this->pluginFolder/languages/" . $sl . ".php")
         );
     }
 

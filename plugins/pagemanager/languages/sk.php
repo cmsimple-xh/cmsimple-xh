@@ -32,5 +32,3 @@ $plugin_tx['pagemanager']['syscheck_writable']="'%s' umožňuje zápis";
 $plugin_tx['pagemanager']['syscheck_xhversion']="CMSimple_XH-Verzia ≥ %s";
 $plugin_tx['pagemanager']['treeview_loading']="Načítavam...";
 $plugin_tx['pagemanager']['treeview_new']="Nová stránka";
-
-?>

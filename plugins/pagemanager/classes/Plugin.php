@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Copyright 2011-2021 Christoph M. Becker
+ * Copyright 2011-2023 Christoph M. Becker
+ * Copyright 2024 The CMSimple_XH developers
  *
  * This file is part of Pagemanager_XH.
  *
@@ -25,7 +26,7 @@ use XH\Pages;
 
 class Plugin
 {
-    const VERSION = '3.7';
+    const VERSION = '3.8';
 
     /**
      * @return void
@@ -34,7 +35,7 @@ class Plugin
     {
         global $f, $cf, $o;
 
-        XH_registerStandardPluginMenuItems(false);
+        XH_registerStandardPluginMenuItems(true);
         if ($f === 'xhpages' && in_array($cf['pagemanager']['external'], array('', 'pagemanager'))) {
             $o .= $this->handleMainAdministration('plugin_text');
         } elseif (XH_wantsPluginAdministration('pagemanager')) {

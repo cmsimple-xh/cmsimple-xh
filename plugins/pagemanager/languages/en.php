@@ -49,5 +49,3 @@ $plugin_tx['pagemanager']['cf_toolbar_show']="Whether the toolbar shall be shown
 $plugin_tx['pagemanager']['cf_pagedata_attribute']="The pagedata attribute to be edited with the checkboxes: \"linked_to_menu\" (visible in menu) or \"published\" (published). Leave empty to hide the checkboxes.";
 $plugin_tx['pagemanager']['cf_treeview_theme']="Theme of tree view widget.";
 $plugin_tx['pagemanager']['cf_treeview_animation']="Duration of open/close animations in ms. 0 means no animation.";
-
-?>

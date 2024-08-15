@@ -49,5 +49,3 @@ $plugin_tx['pagemanager']['cf_toolbar_show']="Ob die Werkzeugleiste angezeigt we
 $plugin_tx['pagemanager']['cf_pagedata_attribute']="Das Pagedata Attribut, das mit den Checkboxen bearbeitet werden kann: \"linked_to_menu\" (sichtbar im Menü) oder \"published\" (veröffentlicht). Leer lassen, um keine Checkboxen anzuzeigen.";
 $plugin_tx['pagemanager']['cf_treeview_theme']="Stil der Baumansicht.";
 $plugin_tx['pagemanager']['cf_treeview_animation']="Dauer der Öffnen/Schließen-Animation in ms. 0 bedeutet keine Animation.";
-
-?>

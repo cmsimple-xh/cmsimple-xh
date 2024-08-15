@@ -38,5 +38,3 @@ $plugin_tx['pagemanager']['syscheck_writable']="Adresář \"%s\" je zapisovateln
 $plugin_tx['pagemanager']['syscheck_xhversion']="CMSimple_XH verze ≥ %s";
 $plugin_tx['pagemanager']['treeview_loading']="Načítám....";
 $plugin_tx['pagemanager']['treeview_new']="Nová strana";
-
-?>
