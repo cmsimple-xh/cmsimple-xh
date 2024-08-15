@@ -30,7 +30,10 @@ $title = "$version – Requirements Check";
 $checks = array();
 $checks['the Webserver is supported'] = preg_match('/apache|nginx|iis|litespeed/i', $_SERVER['SERVER_SOFTWARE']) ? 'okay' : 'warn';
 $checks['the PHP Version is at least 7.4.0'] = version_compare(PHP_VERSION, '7.4.0', '>=') ? 'okay' : 'fail';
-foreach (array('intl', 'json', 'mbstring', 'openssl', 'session', 'curl') as $ext) {
+foreach (array( 'curl') as $ext) {
+    $checks['the PHP extension "' . $ext . '" is installed'] = extension_loaded($ext) ? 'okay' : 'warn';
+}
+foreach (array('intl', 'json', 'mbstring', 'openssl', 'session') as $ext) {
     $checks['the PHP extension "' . $ext . '" is installed'] = extension_loaded($ext) ? 'okay' : 'fail';
 }
 $checks['the function fsockopen is available'] = function_exists('fsockopen') ? 'okay' : 'warn';

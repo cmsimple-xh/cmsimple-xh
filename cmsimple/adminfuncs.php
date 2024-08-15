@@ -313,10 +313,10 @@ HTML;
             'mbstring',
             array('openssl', false),
             'session',
-            'curl'
+            array('curl', false)
         ),
         'functions' => array(
-            'fsockopen',
+            array('fsockopen', false)
         ),
         'writable' => array(),
         'other' => array()

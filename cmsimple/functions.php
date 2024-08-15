@@ -1747,7 +1747,7 @@ function XH_helpIcon($tooltip)
 {
     global $pth, $tx;
 
-    $src = $pth['folder']['corestyle'] . 'help_icon.png';
+    $src = $pth['folder']['corestyle'] . 'help_icon.svg';
     $o = '<div class="pl_tooltip">'
         . '<img src="' . $src . '" alt="' . $tx['editmenu']['help'] . '">'
         . '<div>' . $tooltip . '</div>'
