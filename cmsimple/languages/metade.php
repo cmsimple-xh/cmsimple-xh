@@ -48,7 +48,6 @@ $mtx['site']="Site";
 $mtx['template']="Template";
 $mtx['tmpfiles']="Temporäre Sicherung";
 $mtx['timezone']="Zeitzone";
-$mtx['title']="Seitentitel in der Browseranzeige";
 $mtx['type']="Typ";
 $mtx['uri']="URL";
 $mtx['urichar']="URL-Zeichen";
