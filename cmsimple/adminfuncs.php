@@ -23,10 +23,12 @@ function XH_checkDefaultPW()
 {
     global $cf, $pth, $tx;
 
+    $pwLockFile = $pth['folder']['downloads'] . '.defaultpw.lock';
+
     if (password_verify('test', $cf['security']['password'])) {
         $maxRemainingTime = (int)$cf['password']['max_remaining_time'];
         $remainingTime = $maxRemainingTime
-                       - (time() - filemtime($pth['folder']['cmsimple'] . 'defaultpw.lock'));
+                       - (time() - filemtime($pwLockFile));
         $remainingTime = $remainingTime / 60;
         $remainingTime = round($remainingTime);
         $remainingTime = ($remainingTime <= 0
@@ -42,7 +44,6 @@ function XH_checkDefaultPW()
     return false;
 }
 $e .= XH_checkDefaultPW();
-
 
 /**
  * Returns the readable version of a plugin.

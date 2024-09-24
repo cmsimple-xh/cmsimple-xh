@@ -42,7 +42,7 @@
  "test" (ohne Anführungszeichen)
  
  Das Standard-Passwort muss nun unverzüglich geändert werden!
- Dafür hast du nach dem FTP-Upload 5 Minuten Zeit.
+ Dafür hast du nach dem ersten Seitenaufruf 5 Minuten Zeit.
  In dieser Zeit kann nur das Passwort geändert werden,
  alle weiteren Einstellungen lassen sich nicht abspeichern.
  Gehe wie folgt vor:
