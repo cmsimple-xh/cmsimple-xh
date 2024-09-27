@@ -13,6 +13,38 @@
  */
 
 /**
+ * Return an error message if the password is 'test'.
+ *
+ * @return string
+ *
+ * @since 1.8
+ */
+function XH_checkDefaultPW()
+{
+    global $cf, $pth, $tx;
+
+    if (password_verify('test', $cf['security']['password'])) {
+        $maxRemainingTime = (int)$cf['password']['max_remaining_time'];
+        $remainingTime = $maxRemainingTime
+                       - (time() - filemtime($pth['folder']['cmsimple'] . 'defaultpw.lock'));
+        $remainingTime = $remainingTime / 60;
+        $remainingTime = round($remainingTime);
+        $remainingTime = ($remainingTime <= 0
+                       ? ' <span style="color: #f00";>(' . $remainingTime . ' min) </span>'
+                       : ' (' . $remainingTime . ' min)');
+        $error = '<li>'
+               . $tx['login']['pw_must_change']
+               . $remainingTime
+               . '</li>'
+               . "\n";
+        return $error;
+    }
+    return false;
+}
+$e .= XH_checkDefaultPW();
+
+
+/**
  * Returns the readable version of a plugin.
  *
  * @param string $plugin Name of a plugin.
@@ -26,7 +58,7 @@ function XH_pluginVersion($plugin)
     global $pth;
 
     $internalPlugins = array(
-        'filebrowser', 'meta_tags', 'page_params', 'tinymce'
+        'filebrowser', 'meta_tags', 'page_params'
     );
     if (in_array($plugin, $internalPlugins)) {
         $version = 'for ' . CMSIMPLE_XH_VERSION;
@@ -60,7 +92,7 @@ function XH_systemCheck(array $data)
 
     $stx = $tx['syscheck'];
 
-    $o = "<h4>$stx[title]</h4>\n<ul id=\"xh_system_check\">\n";
+    $o = "<h2>$stx[title]</h2>\n<ul id=\"xh_system_check\">\n";
 
     if (key_exists('phpversion', $data)) {
         $ok = version_compare(PHP_VERSION, $data['phpversion']) >= 0;
@@ -80,6 +112,24 @@ function XH_systemCheck(array $data)
                 $cat,
                 extension_loaded($ext) ? 'success' : $notok,
                 sprintf($stx['extension'], $ext)
+            );
+            $cat = '';
+        }
+    }
+
+    if (key_exists('functions', $data)) {
+        $cat = 'xh_system_check_cat_start';
+        foreach ($data['functions'] as $func) {
+            if (is_array($func)) {
+                $notok = $func[1] ? 'fail' : 'warning';
+                $func = $func[0];
+            } else {
+                $notok = 'fail';
+            }
+            $o .= XH_systemCheckLi(
+                $cat,
+                function_exists($func) ? 'success' : $notok,
+                sprintf($stx['function'], $func)
             );
             $cat = '';
         }
@@ -183,6 +233,8 @@ function XH_isAccessProtected($path)
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_NOBODY, true);
         curl_setopt($curl, CURLOPT_TIMEOUT, 5);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curl, CURLOPT_MAXREDIRS, 1);
         if (curl_exec($curl)) {
             $status = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
             curl_close($curl);
@@ -214,32 +266,32 @@ function XH_sysinfo()
 {
     global $pth, $cf, $tx, $sn;
 
-    $o = '<p><b>' . $tx['sysinfo']['version'] . '</b></p>' . "\n";
+    $o = '<h2>' . $tx['sysinfo']['version'] . '</h2>' . "\n";
     $o .= '<ul>' . "\n" . '<li>' . CMSIMPLE_XH_VERSION . '&nbsp;&nbsp;Released: '
-        . CMSIMPLE_XH_DATE . '</li>' . "\n" . '</ul>' . "\n" . "\n";
+        . CMSIMPLE_XH_DATE . '</li>' . "\n" . '</ul>' . "\n";
 
-    $o .= '<p><b>' . $tx['sysinfo']['plugins'] . '</b></p>' . "\n" . "\n";
+    $o .= '<h2>' . $tx['sysinfo']['plugins'] . '</h2>' . "\n";
 
     $o .= '<ul>' . "\n";
     foreach (XH_plugins() as $temp) {
         $o .= '<li>' . ucfirst($temp) . ' ' . XH_pluginVersion($temp) . '</li>'
             . "\n";
     }
-    $o .= '</ul>' . "\n" . "\n";
+    $o .= '</ul>' . "\n";
 
     $serverSoftware = !empty($_SERVER['SERVER_SOFTWARE'])
         ? $_SERVER['SERVER_SOFTWARE']
         : $tx['sysinfo']['unknown'];
-    $o .= '<p><b>' . $tx['sysinfo']['webserver'] . '</b></p>' . "\n"
+    $o .= '<h2>' . $tx['sysinfo']['webserver'] . '</h2>' . "\n"
         . '<ul>' . "\n" . '<li>' . $serverSoftware . '</li>' . "\n"
-        . '</ul>' . "\n\n";
-    $o .= '<p><b>' . $tx['sysinfo']['php_version'] . '</b></p>' . "\n"
+        . '</ul>' . "\n";
+    $o .= '<h2>' . $tx['sysinfo']['php_version'] . '</h2>' . "\n"
         . '<ul>' . "\n" . '<li>' . phpversion() . '</li>' . "\n"
         . '<li><a href="' . $sn . '?&phpinfo" target="_blank"><b>'
         . $tx['sysinfo']['phpinfo_link'] . '</b></a> &nbsp; '
-        . $tx['sysinfo']['phpinfo_hint'] . '</li>' . "\n" . '</ul>' . "\n" . "\n";
+        . $tx['sysinfo']['phpinfo_hint'] . '</li>' . "\n" . '</ul>' . "\n";
 
-    $o .= '<h4>' . $tx['sysinfo']['helplinks'] . '</h4>' . "\n" . "\n";
+    $o .= '<h2>' . $tx['sysinfo']['helplinks'] . '</h2>' . "\n";
     $o .= <<<HTML
 <ul>
 <li><a target="_blank" rel="noopener" rel="noreferrer" href="https://www.cmsimple-xh.org/">cmsimple-xh.org &raquo;</a></li>
@@ -254,12 +306,17 @@ HTML;
 
     $stx = $tx['syscheck'];
     $checks = array(
-        'phpversion' => '5.5.0',
+        'phpversion' => '7.4.0',
         'extensions' => array(
             array('intl', false),
             'json',
             'mbstring',
-            'session'
+            array('openssl', false),
+            'session',
+            array('curl', false)
+        ),
+        'functions' => array(
+            array('fsockopen', false)
         ),
         'writable' => array(),
         'other' => array()
@@ -270,7 +327,7 @@ HTML;
     foreach ($temp as $i) {
         $checks['writable'][] = $pth['folder'][$i];
     }
-    $temp = array('config', 'log', 'language', 'content', 'template', 'stylesheet');
+    $temp = array('config', 'log', 'debug-log', 'language', 'content', 'template', 'stylesheet');
     foreach ($temp as $i) {
         $checks['writable'][] = $pth['file'][$i];
     }
@@ -278,12 +335,18 @@ HTML;
     $checks['writable'] = array_unique($checks['writable']);
     sort($checks['writable']);
     $files = array(
-        $pth['file']['config'], $pth['file']['content'], $pth['file']['template']
+        $pth['file']['config'],
+        $pth['file']['content'],
+        $pth['file']['template'],
+        $pth['file']['log'],
+        $pth['file']['debug-log']
     );
     foreach ($files as $file) {
         $checks['other'][] = array(
             XH_isAccessProtected($file), false,
-            sprintf($stx['access_protected'], $file)
+            '<a target="_blank" href="' . $file . '">'
+            . sprintf($stx['access_protected'], $file)
+            . '</a>'
         );
     }
     if ($tx['locale']['all'] == '') {
@@ -318,12 +381,6 @@ HTML;
         !password_verify('test', $cf['security']['password']),
         false, $stx['password']
     );
-    $checks['other'][] = array(
-        function_exists('fsockopen'), false, $stx['fsockopen']
-    );
-    $checks['other'][] = array(
-        function_exists('curl_init'), false, $stx['curl']
-    );
     $o .= XH_systemCheck($checks);
     return $o;
 }
@@ -341,7 +398,7 @@ function XH_settingsView()
     global $sn, $tx;
 
     $o = '<p>' . $tx['settings']['warning'] . '</p>' . "\n"
-        . '<h4>' . $tx['settings']['systemfiles'] . '</h4>' . "\n" . '<ul>' . "\n";
+        . '<h2>' . $tx['settings']['systemfiles'] . '</h2>' . "\n" . '<ul>' . "\n";
 
     foreach (array('config', 'language') as $i) {
         $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=array">'
@@ -354,14 +411,16 @@ function XH_settingsView()
             . utf8_ucfirst($tx['action']['edit']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
-    foreach (array('log') as $i) {
-        $o .= '<li><a href="' . $sn . '?file=' . $i . '&amp;action=view">'
+    foreach (array('log', 'debug-log') as $i) {
+        $o .= '<li><a '
+            . ($i == 'debug-log' ? 'target="_blank" ' : '')
+            . 'href="' . $sn . '?file=' . $i . '&amp;action=view">'
             . utf8_ucfirst($tx['action']['view']) . ' '
             . $tx['filetype'][$i] . '</a></li>' . "\n";
     }
     $o .= '</ul>' . "\n";
 
-    $o .= '<h4>' . $tx['settings']['more'] . '</h4>' . "\n"
+    $o .= '<h2>' . $tx['settings']['more'] . '</h2>' . "\n"
         . '<ul>' . "\n"
         . '<li><a href="' . $sn . '?&validate">' . $tx['editmenu']['validate'] . '</a></li>'
         . '<li><a href="' . $sn . '?&xh_backups">' . $tx['editmenu']['backups'] . '</a></li>'
@@ -460,8 +519,19 @@ function XH_backupsView()
                 . '<input type="submit" class="submit" value="'
                 . $tx['action']['restore'] . '">'
                 . $_XH_csrfProtection->tokenInput()
-                . '</form>'
-                . '</li>' . "\n";
+                . '</form>';
+            if (!XH_isContentBackup($p, 'content')
+            && !XH_isContentBackup($p, 'tmp')) {
+                $o .=  ' - <form action="' . $sn . '?&xh_backups" method="post"'
+                    . ' class="xh_inline_form">'
+                    . '<input type="hidden" name="file" value="' . $p . '">'
+                    . '<input type="hidden" name="action" value="delete">'
+                    . '<input type="submit" class="submit" value="'
+                    . $tx['action']['delete'] . '">'
+                    . $_XH_csrfProtection->tokenInput()
+                    . '</form>';
+            }
+            $o .=  '</li>' . "\n";
         }
     }
     $o .= '</ul>' . "\n";
@@ -623,6 +693,11 @@ function XH_adminMenu(array $plugins = array())
         array(
             'label' => utf8_ucfirst($tx['editmenu']['log']),
             'url' => $sn . '?file=log&action=view'
+        ),
+        array(
+            'label' => utf8_ucfirst($tx['editmenu']['debug-log']),
+            'url' => $sn . '?file=debug-log&action=view',
+            'target' => '_blank'
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['validate']),
@@ -864,6 +939,24 @@ function XH_contentEditor()
 }
 
 /**
+ * Creates an temp backup of the contents file.
+ *
+ * @return void
+ *
+ * @since 1.8
+ */
+function XH_tmpBackup()
+{
+    global $pth;
+
+    $date = date("Ymd_His");
+    $dest = $pth['folder']['content'] . $date . '_tmp.htm';
+    if (!copy($pth['file']['content'], $dest)) {
+        e('cntsave', 'backup', $dest);
+    }
+}
+
+/**
  * Saves the current contents (including the page data), if edit mode is active.
  *
  * @return bool Whether that succeeded
@@ -872,7 +965,7 @@ function XH_contentEditor()
  */
 function XH_saveContents()
 {
-    global $c, $pth, $tx, $edit, $pd_router;
+    global $c, $pth, $tx, $edit, $pd_router, $cf;
 
     if (!(XH_ADM && $edit)) {
         trigger_error(
@@ -896,6 +989,9 @@ function XH_saveContents()
     $cnts .= '</body></html>';
     if (!file_exists($pth['folder']['content'])) {
         mkdir($pth['folder']['content'], 0x755, true);
+    }
+    if ($cf['backup']['tmpfiles'] == 'true') {
+        XH_tmpBackup();
     }
     return XH_writeFile($pth['file']['content'], $cnts) !== false;
 }
@@ -1031,6 +1127,29 @@ function XH_restore($filename)
 }
 
 /**
+ * Delete a content backup..
+ *
+ * @param string $filename The filename.
+ *
+ * @return void
+ *
+ * @since 1.8
+ */
+function XH_delete($filename)
+{
+    global $e;
+
+    if (!unlink($filename)) {
+        e('cntdelete', 'content', $filename);
+        return;
+    }
+    // the following relocation is necessary to cater for the changed content
+    $url = CMSIMPLE_URL . '?&xh_backups&xh_success=delete';
+    header('Location: ' . $url, true, 303);
+    exit;
+}
+
+/**
  * Creates an extra backup of the contents file.
  *
  * @param string $suffix A suffix for the filename.
@@ -1078,7 +1197,7 @@ function XH_adminJSLocalization()
         }
     }
     $o = '<script>XH.i18n = '
-        . XH_encodeJson($l10n) . '</script>' . PHP_EOL;
+        . json_encode($l10n) . '</script>' . PHP_EOL;
     return $o;
 }
 

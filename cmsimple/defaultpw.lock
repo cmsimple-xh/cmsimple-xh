@@ -1,0 +1,34 @@
+/**
+ * @file defaultpw.lock
+ *
+ * @author    Peter Harteg <peter@harteg.dk>
+ * @author    The CMSimple_XH developers <devs@cmsimple-xh.org>
+ * @copyright 1999-2009 Peter Harteg
+ * @copyright 2009-2023 The CMSimple_XH developers <https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team>
+ * @copyright GNU GPLv3 <http://www.gnu.org/licenses/gpl-3.0.en.html>
+ */
+
+
+/*
+  ======================================
+  @CMSIMPLE_XH_VERSION@
+  @CMSIMPLE_XH_DATE@
+  based on CMSimple version 3.3 - December 31. 2009
+  For changelog, downloads and information please see http://www.cmsimple-xh.org/
+  ======================================
+  -- COPYRIGHT INFORMATION START --
+  Based on CMSimple version 3.3 - December 31. 2009
+  Small - simple - smart
+  (c) 1999-2009 Peter Andreas Harteg - peter@harteg.dk
+
+  This file is part of CMSimple_XH
+  For licence see notice in /cmsimple/cms.php
+  -- COPYRIGHT INFORMATION END --
+  ======================================
+ */
+
+/**
+ * Password lock for the default password 'test'.
+ *
+ * @since 1.8
+ */

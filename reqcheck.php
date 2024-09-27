@@ -29,16 +29,18 @@ $title = "$version – Requirements Check";
 
 $checks = array();
 $checks['the Webserver is supported'] = preg_match('/apache|nginx|iis|litespeed/i', $_SERVER['SERVER_SOFTWARE']) ? 'okay' : 'warn';
-$checks['the PHP Version is at least 5.5.0'] = version_compare(PHP_VERSION, '5.5.0', '>=') ? 'okay' : 'fail';
-foreach (array('json', 'mbstring', 'session') as $ext) {
+$checks['the PHP Version is at least 7.4.0'] = version_compare(PHP_VERSION, '7.4.0', '>=') ? 'okay' : 'fail';
+foreach (array( 'curl') as $ext) {
+    $checks['the PHP extension "' . $ext . '" is installed'] = extension_loaded($ext) ? 'okay' : 'warn';
+}
+foreach (array('intl', 'json', 'mbstring', 'openssl', 'session') as $ext) {
     $checks['the PHP extension "' . $ext . '" is installed'] = extension_loaded($ext) ? 'okay' : 'fail';
 }
+$checks['the function fsockopen is available'] = function_exists('fsockopen') ? 'okay' : 'warn';
 $checks['safe_mode is off'] = !ini_get('safe_mode') ? 'okay' : 'warn';
 $checks['session.use_trans_sid is off'] = !ini_get('session.use_trans_sid') ? 'okay' : 'warn';
 $checks['session.use_only_cookies is on'] = ini_get('session.use_only_cookies') ? 'okay' : 'warn';
 $checks['session.cookie_lifetime is zero'] = ini_get('session.cookie_lifetime') == 0 ? 'okay' : 'warn';
-$checks['the function fsockopen is available'] = function_exists('fsockopen') ? 'okay' : 'warn';
-$checks['the function cURL is available'] = function_exists('curl_init') ? 'okay' : 'warn';
 
 $fail = $warn = false;
 foreach ($checks as $state) {

@@ -62,16 +62,18 @@ function head()
     }
     $t = '<meta http-equiv="content-type" content="text/html;charset=UTF-8">'
         . "\n" . $t;
-    $plugins = implode(', ', XH_plugins());
     $o = $t;
     if (error_reporting() > 0) {
+        $plugins = implode(', ', XH_plugins());
         $o .= '<meta name="generator" content="' . CMSIMPLE_XH_VERSION . ' '
             . CMSIMPLE_XH_BUILD . ' - www.cmsimple-xh.org">'
             . "\n"
             . '<!-- plugins: ' . $plugins . ' -->' . "\n";
     }
-    $o .= XH_renderPrevLink() . XH_renderNextLink()
-        . '<link rel="stylesheet" href="' . XH_pluginStylesheet()
+    if ($cf['head']['links'] == 'true') {
+        $o .= XH_renderPrevLink() . XH_renderNextLink() . PHP_EOL;
+    }
+    $o .= '<link rel="stylesheet" href="' . XH_pluginStylesheet()
         . '" type="text/css">' . PHP_EOL
         . $hjs
         . '<link rel="stylesheet" href="' . $pth['file']['stylesheet']
@@ -526,6 +528,15 @@ function languagemenu()
 {
     global $pth, $cf, $sl;
 
+    // for external menu from plugin
+    $extLanguageMenu = trim($cf['languagemenu']['external']);
+    if ($extLanguageMenu != '') {
+        $menuFunc = $extLanguageMenu . '_languagemenu';
+        if (function_exists($menuFunc)) {
+            return $menuFunc();
+        }
+    }
+
     $r = XH_secondLanguages();
     array_unshift($r, $cf['language']['default']);
     $i = array_search($sl, $r);
@@ -567,18 +578,25 @@ function languagemenu()
  *
  * @since 1.6.3
  */
-function XH_emergencyTemplate()
+function XH_emergencyTemplate($tplError)
 {
+    $tplErrorOut = '<div style="border: 2px solid #ff0000; margin: 20px; padding: 10px;">'
+                 . PHP_EOL
+                 . $tplError
+                 . '</div>'
+                 . PHP_EOL;
+
     header('HTTP/1.0 503 Service Unavailable');
     header('Content-Type: text/html;charset=UTF-8');
-    echo '<!DOCTYPE html><head>'
+    echo '<!DOCTYPE html><html><head>'
     . head()
     . '</head><body '
     . onload()
     . '>'
-    . sitename()
+    . sitename() . '<br>'
+    . languagemenu()
     . toc()
-    . content()
+    . $tplErrorOut . content()
     . loginlink()
     . '</body></html>';
     XH_exit();

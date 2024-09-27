@@ -131,7 +131,18 @@ class Search
             $old[$var] = $GLOBALS[$var];
         }
         $s = $pageIndex;
+        /*
+         * $GLOBALS['xh_searching']
+         * This allows plugins to be excluded from the search.
+         * Not every plugin returns content relevant for the search (e.g.: Shariff_XH).
+         * with:
+         * if (isset($GLOBALS['xh_searching']) && $GLOBALS['xh_searching']) return;
+         * is integrated before the actual function of the plugin,
+         * the plugin is no longer executed during the search.
+         */
+        $GLOBALS['xh_searching'] = true;
         $content = strip_tags(evaluate_plugincall($content));
+        unset($GLOBALS['xh_searching']);
         foreach ($vars as $var) {
             $GLOBALS[$var] = $old[$var];
         }
@@ -181,9 +192,9 @@ class Search
         $words = $this->getWords();
         $pages = $this->search();
         $count = count($pages);
-        $o .= $this->foundMessage($count) . PHP_EOL;
+        $o .= $this->foundMessage($count) . "\n";
         if ($count > 0) {
-            $o .= '<ul class="xh_search_results">' . PHP_EOL;
+            $o .= '<ul class="xh_search_results">' . "\n";
             $words = implode(' ', $words);
             foreach ($pages as $i) {
                 $pageData = $pd_router->find_page($i);
@@ -192,12 +203,13 @@ class Search
                 $o .= '    <li>' . a($i, '&amp;search=' . urlencode($words)) . $title . '</a>';
                 $description = isset($pageData['description'])
                     ? $pageData['description'] : '';
-                if ($description != '') {
+                if ($cf['search']['description'] == 'true'
+                && $description != '') {
                     $o .= '<div>' . XH_hsc($description) . '</div>';
                 }
-                $o .= '</li>' . PHP_EOL;
+                $o .= '</li>' . "\n";
             }
-            $o .= '</ul>' . PHP_EOL;
+            $o .= '</ul>' . "\n";
         }
         return $o;
     }

@@ -32,5 +32,3 @@ $plugin_tx['pagemanager']['cf_toolbar_show']="<p>Kas tööriistariba on nähtav?
 $plugin_tx['pagemanager']['cf_pagedata_attribute']="<p>Jah/ei (vaikimisi jah) leheandmete valikukastide seaded, näit <b>published</b> või <b>linked_to_menu</b>.</p><p><strong>Hoiatus:</strong> Kui valite sobimatu väärtuse, keerate oma pagedata.php segamini!</p>";
 $plugin_tx['pagemanager']['cf_treeview_theme']="<p>Kataloogipuu vaate vidina mall: <b>cmsimple</b></p><p>Teised maiild on saadaval from http://3-magi.net/?CMSimple_XH/Pagemanager_XH.</p>";
 $plugin_tx['pagemanager']['cf_treeview_animation']="<p>Animatsioonide avamise/sulgemise kestus (ms). 0 tähendab animatsioonide puudumist.</p>";
-
-?>

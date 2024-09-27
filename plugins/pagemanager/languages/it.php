@@ -32,5 +32,3 @@ $plugin_tx['pagemanager']['cf_toolbar_show']="Se mostrare la barra degli strumen
 $plugin_tx['pagemanager']['cf_pagedata_attribute']="I parametri di 'pagedata' da impostare con le caselle di spunta: \"linked_to_menu\" (Visible nel menu) o \"published\" (Pubblicare). Lasciare vuoto per nascondere le caselle di spunta.";
 $plugin_tx['pagemanager']['cf_treeview_theme']="Stile per la vista 'ad albero'.";
 $plugin_tx['pagemanager']['cf_treeview_animation']="Durata dell'animazione di apertura/chiusura  in millisecondi. '0' seignifica che non c'è animazione.";
-
-?>

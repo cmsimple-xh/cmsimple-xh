@@ -157,8 +157,10 @@ class HeadTest extends TestCase
      * Tests that the prev link is rendered.
      *
      * @return void
+     * remove for 1.8
+     * https://github.com/cmsimple-xh/cmsimple-xh/issues/285
      */
-    public function testRendersPrevLink()
+    /*public function testRendersPrevLink()
     {
         $this->titleMock->expects($this->any())->willReturn("");
         $findPreviousPageMock = $this->createFunctionMock('XH_findPreviousPage');
@@ -171,14 +173,16 @@ class HeadTest extends TestCase
         );
         $getPageUrlMock->restore();
         $findPreviousPageMock->restore();
-    }
+    }*/
 
     /**
      * Tests that the next page link is rendered.
      *
      * @return void
+     * remove for 1.8
+     * https://github.com/cmsimple-xh/cmsimple-xh/issues/285
      */
-    public function testRendersNextLink()
+    /*public function testRendersNextLink()
     {
         $this->titleMock->expects($this->any())->willReturn("");
         $findNextPageMock = $this->createFunctionMock('XH_findNextPage');
@@ -191,7 +195,7 @@ class HeadTest extends TestCase
         );
         $getPageUrlMock->restore();
         $findNextPageMock->restore();
-    }
+    }*/
 
     /**
      * Tests that the template stylesheet link element is rendered.

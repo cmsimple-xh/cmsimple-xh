@@ -173,21 +173,43 @@ class Controller
         global $f, $pth, $keycut, $login, $adm, $edit, $cf;
 
         if (password_verify($keycut, $cf['security']['password'])) {
-            setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
-            XH_startSession();
-            session_regenerate_id(true);
-            $_SESSION['xh_password'] = $cf['security']['password'];
-            $_SESSION['xh_user_agent'] = md5($_SERVER['HTTP_USER_AGENT']);
-            $adm = true;
-            $edit = true;
-            $written = XH_logMessage('info', 'XH', 'login', 'login from ' . $_SERVER['REMOTE_ADDR']);
-            if (!$written) {
-                e('cntwriteto', 'log', $pth['file']['log']);
+            $maxRemainingTime = (int)$cf['password']['max_remaining_time'];
+            if ($keycut == 'test'
+            && (!is_readable($pth['folder']['cmsimple'] . 'defaultpw.lock')
+            || time() - filemtime($pth['folder']['cmsimple'] . 'defaultpw.lock') > $maxRemainingTime)) {
+                $login = null;
+                $f = 'xh_login_pw_expired';
+                XH_logMessage('warning', 'XH', 'login', 'login password expired');
+            } else {
+                setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
+                XH_startSession();
+                session_regenerate_id(true);
+                $_SESSION['xh_password'] = $cf['security']['password'];
+                $_SESSION['xh_user_agent'] = md5($_SERVER['HTTP_USER_AGENT']);
+                $adm = true;
+                $edit = true;
+                $written = XH_logMessage('info', 'XH', 'login', 'login from ' . $_SERVER['REMOTE_ADDR']);
+                if (!$written) {
+                    e('cntwriteto', 'log', $pth['file']['log']);
+                }
+                if ($keycut == 'test') {
+                    $written = XH_logMessage('warning',
+                                             'XH',
+                                             'login',
+                                             'login password expires and must be changed');
+                    if (!$written) {
+                        e('cntwriteto', 'log', $pth['file']['log']);
+                    }
+                    header('Location: ' . CMSIMPLE_URL . '?&xh_change_password');
+                    exit;
+                }
             }
         } else {
             $login = null;
             $f = 'xh_login_failed';
-            XH_logMessage('warning', 'XH', 'login', 'login failed from ' . $_SERVER['REMOTE_ADDR']);
+            XH_logMessage('warning', 'XH', 'login', 'login with: "' . $keycut
+                                                                    . '" failed from '
+                                                                    . $_SERVER['REMOTE_ADDR']);
         }
     }
 
@@ -527,12 +549,19 @@ EOT;
      */
     public function outputEditContents()
     {
-        global $s, $tx, $o;
+        global $s, $tx, $o, $u, $xh_publisher;
 
         if ($s > -1) {
             $o .= XH_contentEditor();
         } else {
             $o .= XH_message('info', $tx['error']['cntlocateheading']) . "\n";
+            if (isset($_GET['login'])) {
+                header('Location:' . CMSIMPLE_URL 
+                                   . '?'
+                                   . $u[$xh_publisher->getFirstPublishedPage()],
+                true, 302);
+                exit;
+            }
         }
     }
 

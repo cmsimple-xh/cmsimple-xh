@@ -2,7 +2,16 @@ Full history since v.1.6.6 is now available on GitHub https://github.com/cmsimpl
 
 ========================================================================================
 
- Version 1.6.6 2023-06-21
+ Version 1.6.7 2024-08-05
+
+ Update jQuery to 3.7.1
+ Update jQuery migrate to 3.5.0
+ Update jQuery ui to 1.13.3
+ replace PHP_EOL with LF ("/n") for html output (The output in XH is characterized by "/n" in most places.)
+
+------------------------------------------------------------------------------------------------------------------
+
+ Version 1.6.6 2023-07-11
 
  Update jQuery to 3.6.4, 3.7.0
  Update jQuery migrate to 3.4.0, 3.4.1

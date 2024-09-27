@@ -8,11 +8,13 @@
  * ==================================================================
  * Update-Check-Plugin for CMSimple_XH
  * ==================================================================
- * Version:    1.5
- * Build:      2023062001
+ * Version:    1.6
+ * Build:      2024080501
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
+ * Copyright:  CMSimple_XH developers
+ * Website:    https://www.cmsimple-xh.org/?About-CMSimple_XH/The-XH-Team
  * License:    GPL3
  * ==================================================================
  */
@@ -299,13 +301,13 @@ function hi_versionInfo($versionStr = FALSE) {
 function hi_updateNotify() {
     //Display info-icon in editmenu, if updates are available
     global $sn, $o, $plugin_tx;
-    $o .= PHP_EOL;
+    $o .= "\n";
     $o .= '<script>
                     jQuery(document).ready(function($){
                         $("#editmenu_update").css("display","block"); //before xh1.6
                         $("#xh_adminmenu_update").css("display","block"); //sice xh1.6RC
                     });
-            </script>' . PHP_EOL;
+            </script>' . "\n";
 
     //Prepend notification to "Sysinfo" - page if updates are available
     if (isset($_GET['sysinfo'])) {
@@ -314,7 +316,7 @@ function hi_updateNotify() {
                 . '<br>'
                 . '<a href="' . $sn . '?&amp;hi_updatecheck&amp;admin=plugin_main&amp;normal">' . $plugin_tx['hi_updatecheck']['message_sysinfo-link'] . '</a>'
                 . '</div>';
-        $o .= $upd_msg_sysinfo . PHP_EOL;
+        $o .= $upd_msg_sysinfo . "\n";
     }
 }
 
@@ -371,13 +373,13 @@ function upd_addMenuEntry() {
     global $sn, $plugin_tx, $pth;
 
     $href = $sn . '?&amp;hi_updatecheck&amp;admin=plugin_main&amp;normal';
-    $t = PHP_EOL;
+    $t = "\n";
     $t .= '<script>
     jQuery(document).ready(function($){
         $("#edit_menu").append("<li id=\"editmenu_update\"><a href=\"' . $href . '\"><\/a></li>");                   //before xh1.6
         $("#xh_adminmenu > ul").append("<li id=\"xh_adminmenu_update\"><a href=\"' . $href . '\"><\/a></li>");       //since xh1.6RC
     });
-    </script>' . PHP_EOL;
+    </script>' . "\n";
     return $t;
 }
 
@@ -387,11 +389,13 @@ function upd_addMenuEntry() {
  */
 
 function hi_fsFileGetContents($url, $timeout = 30) {
+    global $plugin_cf;
 
-    $connect_timeout = 5;
-    $maxredir = 3;
-    $agent = ($_SERVER['SERVER_NAME'] ? $_SERVER['SERVER_NAME'] . ' ' : '')
-           . 'hi_UpdateChecker';
+    $connect_timeout = (int)$plugin_cf['hi_updatecheck']['curl_connect_timeout'];
+    $maxredir = (int)$plugin_cf['hi_updatecheck']['curl_maxredir'];
+    $agent = CMSIMPLE_URL
+           . ', PHP:' . phpversion()
+           . ', ' . CMSIMPLE_XH_VERSION;
 
     // cURL
     if (extension_loaded('curl')) {
@@ -412,7 +416,8 @@ function hi_fsFileGetContents($url, $timeout = 30) {
         if ($result !== false) {
             $headers = curl_getinfo($ch);
         } else {
-            throw new RuntimeException("cannot connect to $url");
+            $curlerror = (curl_errno($ch) ?  curl_errno($ch) : '');
+            throw new RuntimeException("cannot connect to $url , $curlerror");
         }
         curl_close($ch);
         if (!empty($headers['http_code'])) {
@@ -463,7 +468,7 @@ function hi_fsFileGetContents($url, $timeout = 30) {
         $header = '';
         do {
             $line = rtrim(fgets($fp));
-            $header .= $line . PHP_EOL;
+            $header .= $line . "\n";
         } while (!empty($line) and ! feof($fp));
         // read data
         $result = '';

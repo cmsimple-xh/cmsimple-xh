@@ -2,6 +2,7 @@
 
 $tx['site']['title']="Deutscher Seitentitel";
 $tx['subsite']['template']="";
+$tx['publish']['current']="";
 
 $tx['meta']['keywords']="Schlagworte durch Kommata getrennt hier eingeben";
 $tx['meta']['description']="Kurzbeschreibung der Website für Suchmaschinenergebnisse";
@@ -12,8 +13,8 @@ $tx['template']['text1']="Text 1 für entsprechend vorbereitete Templates";
 $tx['template']['text2']="Text 2 für entsprechend vorbereitete Templates";
 $tx['template']['text3']="Text 3 für entsprechend vorbereitete Templates";
 
-$tx['urichar']['new']="-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|ae|oe|ue|ss|Ae|Oe|Ue";
-$tx['urichar']['org']="&amp;|'|§|%|:|/|?|#|[|]|@|!|$|&|'|(|)|*|+|,|;|=|\"|ä|ö|ü|ß|Ä|Ö|Ü";
+$tx['urichar']['new']="-|-|-";
+$tx['urichar']['org']="&amp;|&lt;|&gt;";
 
 $tx['action']['advanced_hide']="Weniger &hellip;";
 $tx['action']['advanced_show']="Mehr &hellip;";
@@ -39,6 +40,7 @@ $tx['editmenu']['help']="Hilfe";
 $tx['editmenu']['images']="Bilder";
 $tx['editmenu']['language']="Sprach-Datei";
 $tx['editmenu']['log']="Log-Datei";
+$tx['editmenu']['debug-log']="Debug-Log-Datei";
 $tx['editmenu']['logout']="Logout";
 $tx['editmenu']['media']="Media";
 $tx['editmenu']['normal']="Vorschau";
@@ -85,6 +87,7 @@ $tx['filetype']['language']="Sprach-Datei";
 $tx['filetype']['log']="Log-Datei";
 $tx['filetype']['stylesheet']="CSS-Datei";
 $tx['filetype']['template']="Template-Datei";
+$tx['filetype']['debug-log']="Debug-Log-Datei";
 
 $tx['help']['downloads_maxsize']="Maximale Größe für das Hochladen von Datein in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
 $tx['help']['editmenu_scroll']="Angeklickt = das Admin Menü scrollt mit";
@@ -94,7 +97,9 @@ $tx['help']['editor_external']="Hier den Namen in Kleinbuchstaben des zu benutze
 $tx['help']['filebrowser_external']="Wenn Sie einen externen Datei-Browser verwenden möchten, z.B. hi_kcfinder, installieren Sie das Plugin und tragen Sie seinen Namen hier ein";
 $tx['help']['functions_file']="Bitte nicht ändern";
 $tx['help']['meta_author']="(Kann-Eingabe) Hier für Suchmaschinen den Autor der Texte Ihrer Site eintragen.";
+$tx['help']['head_links']="Aktiviert die Paginierung (Links - Seitenumbruch) im Head.";
 $tx['help']['backup_numberoffiles']="Nach jedem Ausloggen erzeugt das System eine Sicherungskopie der Content-Datei. Hier die Anzahl solcher Dateien eintragen, die das System automatisch aufbewahrt.";
+$tx['help']['backup_tmpfiles']="Temporäre Sicherung bei jedem Speichervorgang anlegen. (Betrifft nur den Inhalt.)";
 
 $tx['help']['show_hidden_path_locator']="Angeklickt = Der Locator ('Sie sind hier'-Anzeige) zeigt auch den Pfad einer versteckten Seite.";
 $tx['help']['show_hidden_pages_search']="Angeklickt = Auch versteckte Seiten werden in den Ergebnissen der internen Suchfunktion angegeben.";
@@ -103,6 +108,7 @@ $tx['help']['show_hidden_pages_toc']="Angeklickt = Wenn versteckte Seiten aufger
 
 $tx['help']['images_maxsize']="Maximale Größe für das Hochladen von Bildern in Byte. Dieser Wert darf weder upload_max_filesize noch post_max_size in der PHP-Konfiguration überschreiten.";
 $tx['help']['language_default']="Die Hauptsprache der Website";
+$tx['help']['languagemenu_external']="Wenn Sie ein alternatives Sprachmenü verwenden möchten, z.B. Polyglot_XH oder LangMan_XH, installieren Sie das Plugin und tragen Sie seinen Namen hier ein.<br>Ein Doppelklick kann Vorschläge anzeigen.";
 $tx['help']['locator_show_homepage']="Angeklickt = Der Locator ('Sie sind hier') beginnt mit einem Link zur Startseite.";
 $tx['help']['mailform_captcha']="Angeklickt = CAPTCHA-Spamschutz im Kontakt-Formular aktiviert";
 $tx['help']['mailform_email']="Erst wenn eine E-Mail-Adresse eingegeben wird, ist das Kontakt-Formular verfügbar.";
@@ -127,6 +133,12 @@ $tx['help']['title_format']="Das Format des Seitentitels (&lt;title&gt;) wie er 
 $tx['help']['uri_seperator']="Das Zeichen, das die Namen von Seiten und Unterseiten in der URL trennt.";
 $tx['help']['uri_word_separator']="Das Zeichen, das Wörter in der URL trennt.";
 $tx['help']['uri_length']="Die URLs der Seiten werden ab dieser Länge abgeschnitten. Das könnte sich in einer zukünftigen Version ändern, so dass es das Beste ist, kürzere Seitenüberschriften zu verwenden (z.B. durch die Verwendung von Seite&rarr;Andere Seitenüberschrift).";
+$tx['help']['uri_transliteration']="Transliteration (buchstabengetreue Übertragung) einschalten.<br>Die PHP-Erweiterung 'intl' muss geladen sein.";
+$tx['help']['uri_lowercase']="Query-String nur in Kleinbuchstaben.<br>Transliteration muss eingeschalten sein und die PHP-Erweiterung 'intl' muss geladen sein.";
+$tx['help']['seo_external']="Spezielles Plugin für zusätzliche SEO-Funktionalität.<br>Wenn Sie ein externes SEO-Plugin nutzen wollen, installieren Sie dieses und tragen Sie den Plugin-Namen hier ein.<br>Ein Doppelklick kann Vorschläge anzeigen.";
+
+$tx['help']['canonical_link']="Kanonischen Link aktivieren.";
+$tx['help']['canonical_include']="Get-Parameter, die im Kanonischen Link erhalten bleiben sollen.<br>Durch Komma getrennt eingeben (foo,bar,id,...).";
 
 $tx['help']['folders_content']="Der Ordner, in dem die Inhalte gespeichert werden (content.htm etc.)";
 $tx['help']['folders_userfiles']="Der Basisordner aller Benutzerdateien.";
@@ -137,9 +149,13 @@ $tx['help']['folders_media']="Ein Unterordner der Benutzerdateien.";
 $tx['help']['format_date']="Das Datumsformat, wenn ext/intl verfügbar ist; andernfalls wird auf <code>\$tx['lastupdate']['format']</code> zurückgegriffen.";
 $tx['help']['format_time']="Das Zeitformat, wenn ext/intl verfügbar ist; andernfalls wird auf <code>\$tx['lastupdate']['format']</code> zurückgegriffen.";
 
-$tx['help']['link_mailto'] = "Hinweis zu mailto-Links beim LinkCheck ausgeben?";
-$tx['help']['link_tel'] = "Hinweis zu tel-Links beim LinkCheck ausgeben?";
-$tx['help']['link_redir'] = "Max. Anzahl von Weiterleitungen, denen LinkCheck folgen soll.";
+$tx['help']['validate_mailto'] = "Hinweis zu mailto-Links beim LinkCheck ausgeben?";
+$tx['help']['validate_tel'] = "Hinweis zu tel-Links beim LinkCheck ausgeben?";
+$tx['help']['validate_redir'] = "Max. Anzahl von Weiterleitungen, denen LinkCheck folgen soll.";
+
+$tx['help']['debug_log'] = "Meldungen des Debug-Mode in Logdatei sammeln.<br>Debug-Mode muss aktiviert sein.";
+
+$tx['help']['search_description']="Zeigt die Meta-Beschreibung in den Suchergebnissen an.<br>Es muss eine explizite Beschreibung für die Seite angelegt sein.";
 
 $tx['label']['empty']="- LEER -";
 
@@ -184,12 +200,14 @@ $tx['log']['description']="Beschreibung";
 
 $tx['login']['back']="Zurück";
 $tx['login']['failure']="Sie haben ein falsches Passwort eingegeben!";
+$tx['login']['pw_must_change']="Sie müssen Ihr Passwort ändern!";
+$tx['login']['pw_expired']="Das Standardpasswort ist abgelaufen!";
 $tx['login']['loggedout']="Sie wurden ausgeloggt";
 $tx['login']['warning']="Administrationsbereich. Bitte Passwort eingeben.";
 
 $tx['mailform']['captcha']="Bitte diese Zahl eingeben (Spamschutz)";
 $tx['mailform']['captchafalse']="Bitte Zahl zum Schutz vor Spam eingeben";
-$tx['mailform']['message']="Mitteilungstext";
+$tx['mailform']['message']="Mitteilungstext (erforderlich)";
 $tx['mailform']['mustwritemessage']="Bitte Mitteilungstext eingeben";
 $tx['mailform']['notaccepted']="Bitte erforderliche Felder ausfüllen";
 $tx['mailform']['notsend']="Die Nachricht konnte nicht versendet werden";
@@ -216,6 +234,7 @@ $tx['menu']['tab_help']="Hilfe";
 
 $tx['message']['backedup']="Der Content wurde erfolgreich gesichert.";
 $tx['message']['debug_mode']="Debug-Modus ist aktiv!";
+$tx['message']['delete']="Sicherungsdatei gelöscht.";
 $tx['message']['emptied']="Der Content wurde erfolgreich geleert.";
 $tx['message']['pd_success']="Seitenspezifische Daten erfolgreich gespeichert. Manche Einstellungen werden erst nach Seitenaktualisierung oder Wechsel zu anderer Seite wirksam.";
 $tx['message']['pd_fail']="Die seitenspezifischen Daten konnten nicht gespeichert werden. Bitte versuchen Sie es erneut.";
@@ -238,6 +257,7 @@ $tx['password']['confirmation']="Bestätigung";
 $tx['password']['fields_missing']="Alle Felder ausfüllen.";
 $tx['password']['invalid']="Das neue Passwort darf nur aus ASCII-Zeichen bestehen.";
 $tx['password']['mismatch']="Das neue Passwort stimmt nicht mit der Bestätigung überein.";
+$tx['password']['too_short']="Das neue Passwort muss min. %d Zeichen enthalten.";
 $tx['password']['new']="Neues Passwort";
 $tx['password']['old']="Altes Passwort";
 $tx['password']['score']="Passwortstärke: %s";
@@ -275,8 +295,8 @@ $tx['syscheck']['access_protected']="'%s' zugriffsgeschützt ist";
 $tx['syscheck']['bom']="kein <a href=\"https://wiki.cmsimple-xh.org/de/?glossar#id7_bom\" target=\"_blank\">BOM</a> vorhanden ist";
 $tx['syscheck']['cookie_lifetime']="session.cookie_lifetime 0 ist";
 $tx['syscheck']['extension']="die Erweiterung '%s' geladen ist";
+$tx['syscheck']['function']="die Funktion '%s' verfügbar ist";
 $tx['syscheck']['fail']="Fehler";
-$tx['syscheck']['fsockopen']="die Funktion fsockopen verfügbar ist";
 $tx['syscheck']['curl']="die Funktion cURL verfügbar ist";
 $tx['syscheck']['locale_available']="Locale '%s' verfügbar ist";
 $tx['syscheck']['locale_default']="das Standard-Locale aktiv ist";

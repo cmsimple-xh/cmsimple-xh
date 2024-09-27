@@ -28,7 +28,20 @@ if (XH_ADM) {if ($edit || ($s < 0 && !($sitemap || $search))) {
 ?>
 </head>
 
-<body <?php if (XH_ADM) {if ($s < 0 && !$sitemap && $xh_plugins) {echo 'class="adminglobal xh_plugins"';} elseif ($s < 0 && !$sitemap && !$search) {echo 'class="adminglobal"';} elseif ($edit && $s > -1) {echo 'class="adminedit"';} else {echo 'class="adminview"';}}?> id="tpllck_body" <?php echo onload();?>>
+<body<?php
+        if (XH_ADM) {
+            if ($s < 0 && !$sitemap && $xh_plugins) {
+                echo ' class="adminglobal xh_plugins"';
+            } elseif ($s < 0 && !$sitemap && !$search) {
+                echo ' class="adminglobal"';
+            } elseif ($edit && $s > -1) {
+                echo ' class="adminedit"';
+            } else {
+                echo ' class="adminview"';
+            }
+        echo onload();
+        }
+     ?> id="tpllck_body">
 <div id="TOP"><div id="content"></div></div>
 <div class="tpllck_container">
 <!-- ************************* Left-Container - Languagemenu, Sitename, Menu-Button, Subnavigation ************************* -->

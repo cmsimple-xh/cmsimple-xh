@@ -76,46 +76,6 @@ function geturlwp($u)
 }
 
 /**
- * Returns a page heading.
- *
- * @param int $n The index of the page.
- *
- * @return string
- *
- * @see $h
- *
- * @deprecated since 1.7. Use $h instead.
- */
-function h($n)
-{
-    global $h;
-
-    trigger_error('Function h() is deprecated', E_USER_DEPRECATED);
-
-    return $h[$n];
-}
-
-/**
- * Returns a page's menu level.
- *
- * @param int $n The index of the page.
- *
- * @return int
- *
- * @see $l
- *
- * @deprecated since 1.7. Use $l instead.
- */
-function l($n)
-{
-    global $l;
-
-    trigger_error('Function l() is deprecated', E_USER_DEPRECATED);
-
-    return $l[$n];
-}
-
-/**
  * Returns a text with CMSimple scripting evaluated.
  *
  * Scripts are evaluated as if they were in the global scope, except that
@@ -486,30 +446,6 @@ function XH_finalCleanUp($html)
 }
 
 /**
- * Initializes a global variable according to a GET or POST parameter.
- *
- * @param string $name The name of the global variable.
- *
- * @return void
- *
- * @deprecated since 1.7.0
- */
-function initvar($name)
-{
-    trigger_error('Function ' . __FUNCTION__ . '() is deprecated', E_USER_DEPRECATED);
-
-    if (!isset($GLOBALS[$name])) {
-        if (isset($_GET[$name])) {
-            $GLOBALS[$name] = $_GET[$name];
-        } elseif (isset($_POST[$name])) {
-            $GLOBALS[$name] = $_POST[$name];
-        } else {
-            $GLOBALS[$name] = '';
-        }
-    }
-}
-
-/**
  * Returns the value of a $_SERVER key.
  *
  * @param string $s The key.
@@ -567,23 +503,6 @@ function XH_rmws($str)
 function rmanl($t)
 {
     return preg_replace("/(\r\n|\r|\n)+/", "", $t);
-}
-
-/**
- * Returns the un-quoted $t, i.e. reverses the effect
- * of magic_quotes_gpc/magic_quotes_sybase.
- *
- * Since magic_quotes are gone, it is a NOP now.
- *
- * @param string $t A string.
- *
- * @return string
- *
- * @deprecated since 1.8
- */
-function stsl($t)
-{
-    return $t;
 }
 
 /**
@@ -739,10 +658,6 @@ function XH_readContents($language = null)
     $removed = array();
     $l = array();
     $empty = 0;
-    $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
-    array_unshift($search, "\xC2\xAD");
-    $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
-    array_unshift($replace, "");
 
     if (($content = XH_readFile($contentFile)) === false) {
         return false;
@@ -774,7 +689,7 @@ function XH_readContents($language = null)
             $temp = $tx['toc']['empty'] . ' ' . $empty;
         }
         $h[] = $temp;
-        $ancestors[(int) $l[$i] - 1] = XH_uenc($temp, $search, $replace);
+        $ancestors[(int) $l[$i] - 1] = uenc($temp);
         $ancestors = array_slice($ancestors, 0, (int) $l[$i]);
         $url = implode($cf['uri']['seperator'], $ancestors);
         $u[] = utf8_substr($url, 0, (int) $cf['uri']['length']);
@@ -942,14 +857,26 @@ function ml($i)
  */
 function uenc($s)
 {
-    global $tx;
+    global $tx, $cf;
 
+    $separator = $cf['uri']['word_separator'];
     if (isset($tx['urichar']['org']) && isset($tx['urichar']['new'])) {
         $search = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['org']);
-        array_unshift($search, "\xC2\xAD");
         $replace = explode(XH_URICHAR_SEPARATOR, $tx['urichar']['new']);
-        array_unshift($replace, "");
     } else {
+        $search = $replace = array();
+    }
+    array_unshift($search, "\xC2\xAD");
+    array_unshift($replace, "");
+    if ($cf['uri']['transliteration'] == 'true'
+    && extension_loaded('intl')) {
+        $s = str_replace($search, $replace, $s);
+        $rule = 'Any-Latin; Latin-ASCII;';
+        if ($cf['uri']['lowercase'] == 'true') {
+            $rule = $rule . ' Lower();';
+        }
+        $s = transliterator_transliterate($rule, $s);
+        $s = preg_replace('/[^A-Za-z0-9-]/', $separator, $s);
         $search = $replace = array();
     }
     return XH_uenc($s, $search, $replace);
@@ -1036,25 +963,6 @@ function hide($i)
         return false;
     }
     return (!($edit && XH_ADM) && cmscript('hide', $c[$i]));
-}
-
-/**
- * Returns an HTML stand alone tag.
- *
- * Used to returns an (X)HTML compliant stand alone tag
- * according to the settings of $cf['xhtml']['endtags'].
- *
- * @param string $s The contents of the tag.
- *
- * @return string HTML
- *
- * @deprecated since 1.7
- *
- * @todo Add deprecation warning (XH 1.8?)
- */
-function tag($s)
-{
-    return '<' . $s . '>';
 }
 
 /**
@@ -1170,7 +1078,7 @@ function XH_debugmode()
  */
 function XH_debug($errno, $errstr, $errfile, $errline)
 {
-    global $errors;
+    global $errors, $pth, $cf;
 
     if (!(error_reporting() & $errno)) {
         // This error code is not included in error_reporting
@@ -1214,6 +1122,12 @@ function XH_debug($errno, $errstr, $errfile, $errline)
 
     $errors[] = "<b>$errtype:</b> $errstr" . '<br>' . "$errfile:$errline"
         . '<br>' . "\n";
+    if ($cf['debug']['log'] == 'true') {
+        error_log(date('Y-m-d H:i:s') . "\t"
+                . "$errtype: $errstr - $errfile:$errline" . "\n",
+                  3,
+                  $pth['file']['debug-log']);
+    }
 
     if (in_array($errno, array(E_USER_ERROR, E_RECOVERABLE_ERROR))) {
         XH_exit($errors[count($errors) - 1]);
@@ -1450,12 +1364,16 @@ function loginforms()
 {
     global $cf, $tx, $onload, $f, $o, $s, $sn, $su, $u, $title, $xh_publisher;
 
-    if ($f == 'login' || $f == 'xh_login_failed') {
+    if ($f == 'login' || $f == 'xh_login_failed' || $f == 'xh_login_pw_expired') {
         $cf['meta']['robots'] = "noindex";
         $onload .= 'document.forms[\'login\'].elements[\'keycut\'].focus();';
-        $message = ($f == 'xh_login_failed')
-            ? XH_message('fail', $tx['login']['failure'])
-            : '';
+        if ($f == 'xh_login_failed') {
+            $message = XH_message('fail', $tx['login']['failure']);
+        } elseif ($f == 'xh_login_pw_expired') {
+            $message = XH_message('fail', $tx['login']['pw_expired']);
+        } else {
+             $message = '';
+        }
         $title = $tx['menu']['login'];
         $o .= '<div class="xh_login">'
             . '<h1>' . $tx['menu']['login'] . '</h1>'
@@ -1519,9 +1437,15 @@ function XH_readFile($filename)
  *
  * @since 1.6
  */
-function XH_writeFile($filename, $contents)
+function XH_writeFile($filename, $contents, $pwChange=false)
 {
+    global $cf;
+
     $res = false;
+    if (password_verify('test', $cf['security']['password'])
+    && !$pwChange) {
+        return $res;
+    }
     $stream = fopen($filename, 'cb');
     if ($stream) {
         if (XH_lockFile($stream, LOCK_EX)) {
@@ -1669,7 +1593,7 @@ function XH_pluginStylesheet()
             . ' * ' . $pluginline . PHP_EOL
             . ' */' . PHP_EOL . PHP_EOL
             . implode(PHP_EOL . PHP_EOL, $o);
-        if (!XH_writeFile($ofn, $o)) {
+        if (!XH_writeFile($ofn, $o, true)) {
             e('cntwriteto', 'stylesheet', $ofn);
         }
     }
@@ -1823,7 +1747,7 @@ function XH_helpIcon($tooltip)
 {
     global $pth, $tx;
 
-    $src = $pth['folder']['corestyle'] . 'help_icon.png';
+    $src = $pth['folder']['corestyle'] . 'help_icon.svg';
     $o = '<div class="pl_tooltip">'
         . '<img src="' . $src . '" alt="' . $tx['editmenu']['help'] . '">'
         . '<div>' . $tooltip . '</div>'
@@ -1841,9 +1765,14 @@ function XH_helpIcon($tooltip)
  *
  * @since 1.6
  */
-function XH_isContentBackup($filename, $regularOnly = true)
+function XH_isContentBackup($filename, $regularOnly = 'content')
 {
-    $suffix = $regularOnly ? 'content' : '[^.]+';
+    if ($regularOnly === 'content'
+    || $regularOnly === 'tmp') {
+        $suffix = $regularOnly;
+    } else {
+        $suffix = '[^.]+';
+    }
     return (bool) preg_match('/^\d{8}_\d{6}_' . $suffix . '.htm$/', $filename);
 }
 
@@ -2024,54 +1953,6 @@ function XH_convertPrintUrls($pageContent)
 }
 
 /**
- * Returns the JSON string decoded as PHP value.
- *
- * @param string $string A JSON string.
- *
- * @return mixed
- *
- * @since 1.6
- *
- * @todo Deprecate starting with 1.8.
- */
-function XH_decodeJson($string)
-{
-    return json_decode($string);
-}
-
-/**
- * Returns the JSON representation of a value.
- *
- * @param mixed $value A PHP value.
- *
- * @return string or
- *         bool false on JSON error
- *
- * @since 1.6
- *
- * @todo Deprecate starting with 1.8.
- */
-function XH_encodeJson($value)
-{
-    return json_encode($value);
-}
-
-/**
- * Returns whether an error has occurred
- * during the last XH_decodeJson().
- *
- * @return bool
- *
- * @since 1.6
- *
- * @todo Deprecate starting with 1.8.
- */
-function XH_lastJsonError()
-{
-    return (bool) json_last_error();
-}
-
-/**
  * Converts special characters to HTML entities.
  *
  * Same as htmlspecialchars($string, ENT_COMPAT | ENT_SUBSTITUTE, 'UTF-8').
@@ -2234,31 +2115,6 @@ function XH_unionOf2DArrays(array $array1, array $array2)
 }
 
 /**
- * Attempts to rename oldname to newname, and returns whether that succeeded.
- *
- * The file is moved between directories if necessary. If newname exists, it
- * will be overwritten.
- *
- * This is a wrapper around rename(), which offers a fallback for
- * the limitation of PHP < 5.3 on Windows that the rename operation fails, if
- * <var>$newfile</var> already exists. Note, that the fallback solution is not
- * atomic.
- *
- * @param string $oldname A filename.
- * @param string $newname A filename.
- *
- * @return bool
- *
- * @since 1.6
- *
- * @todo Deprecate for 1.8.
- */
-function XH_renameFile($oldname, $newname)
-{
-    return rename($oldname, $newname);
-}
-
-/**
  * Exits the running script.
  *
  * Simple wrapper for exit for testing purposes.
@@ -2367,6 +2223,30 @@ function XH_registeredPagemanagerPlugins()
 function XH_registeredEditmenuPlugins()
 {
     return XH_registerPluginType('editmenu');
+}
+
+/**
+ * Returns the names of the registered languagemenu plugins.
+ *
+ * @return array
+ *
+ * @since 1.8.0
+ */
+function XH_registeredLanguagemenuPlugins()
+{
+    return XH_registerPluginType('languagemenu');
+}
+
+/**
+ * Returns the names of the registered extended SEO plugins.
+ *
+ * @return array
+ *
+ * @since 1.8.0
+ */
+function XH_registeredExtendedSEOPlugins()
+{
+    return XH_registerPluginType('extendedSEO');
 }
 
 /**
@@ -2638,11 +2518,72 @@ function XH_redirectSelectedUrl()
 {
     global $selected;
 
-    $queryString = ltrim(preg_replace('/&?selected=[^&]+/', '', $_SERVER['QUERY_STRING']), '&');
+    $queryString = ltrim(preg_replace('/&?selected=[^&]*/', '', $_SERVER['QUERY_STRING']), '&');
     if ($queryString) {
         $queryString = "$selected&$queryString";
     } else {
         $queryString = $selected;
     }
-    return CMSIMPLE_URL . "?$queryString";
+    $url = CMSIMPLE_URL;
+    if ($queryString !== "") {
+        $url .= "?$queryString";
+    }
+    return $url;
+}
+
+/**
+ * Returns the canonical link element
+ *
+ * @return string
+ *
+ * @since 1.8.0
+ */
+function XH_canonicalLink()
+{
+    global $su, $u, $function, $sitemap, $mailform, $cf, $CanonicalLinkInc;
+
+    $metaRobotsArray = explode(',', $cf['meta']['robots']);
+    $metaRobotsArray = array_map('trim', $metaRobotsArray);
+    $metaRobotsArray = array_map('strtolower', $metaRobotsArray);
+    $searchArray = array('noindex', 'nofollow', 'disallow');
+    $check = array_intersect($searchArray, $metaRobotsArray);
+    if (count($check) > 0) {
+        return false;
+    }
+
+    $cfInclude = explode(',', $cf['canonical']['include']);
+    $cfInclude = array_map('trim', $cfInclude);
+    $include = array_merge($cfInclude, $CanonicalLinkInc);
+    $include[] = 'function';
+    if ($function === 'search') {
+        $include[]  = 'search';
+    }
+    $include = array_values(array_unique($include));
+    $params = $_GET;
+    if (count($params) > 0 && key($params) == $su) {
+        array_shift($params);
+    }
+    ksort($params);
+    $url = CMSIMPLE_URL;
+    if ($su != '') {
+        $query = ($su == $u[0]) ? '' : $su;
+    } elseif ($sitemap) {
+        $query = 'sitemap';
+    } elseif ($mailform) {
+        $query = 'mailform';
+    } else {
+        $query = '';
+    }
+    foreach ($params as $key => $val) {
+        if (in_array($key, $include)) {
+            $query .= '&' . $key;
+            if ($val !== '') {
+                $query .= '=' . $val;
+            }
+        }
+    }
+    if ($query != '') {
+        $url .= '?' . ltrim($query, '&');
+    }
+    return '<link rel="canonical" href="' . XH_hsc($url) . '">' . PHP_EOL;
 }

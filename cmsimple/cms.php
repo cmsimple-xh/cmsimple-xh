@@ -233,6 +233,7 @@ $pth['folder']['classes'] = $pth['folder']['cmsimple'] . 'classes/';
 $pth['folder']['plugins'] = $pth['folder']['base'] . 'plugins/';
 
 $pth['file']['log'] = $pth['folder']['cmsimple'] . 'log.txt';
+$pth['file']['debug-log'] = $pth['folder']['cmsimple'] . 'debug-log.txt';
 $pth['file']['cms'] = $pth['folder']['cmsimple'] . 'cms.php';
 $pth['file']['config'] = $pth['folder']['cmsimple'] . 'config.php';
 
@@ -474,7 +475,7 @@ $function = null;
  *
  * This variable is initialized from a `login` GET/POST parameter.
  * If the login has been successful, {@link $f} == 'login'; otherwise {@link $f}
- * == 'xh_login_failed'.
+ * == 'xh_login_failed' or == 'xh_login_pw_expired'.
  *
  * @var string $login
  *
@@ -781,7 +782,7 @@ if (sv('QUERY_STRING') != '') {
     if (!strpos($j[0], '=')) {
         $su = $j[0];
     }
-    if ($su == '' && $selected != '') {
+    if ($su == '') {
         if (isset($_GET['selected'])) {
             header('Location: ' . XH_redirectSelectedUrl(), true, 301);
             exit;
@@ -1002,6 +1003,19 @@ $u = null;
  */
 $l = null;
 
+/**
+ * Optionally publish other content.
+ *
+ * Selection by entry in the language file.
+ *
+ * @since 1.8
+*/
+if (!XH_ADM
+&& $tx['publish']['current'] != ''
+&& is_readable($pth['folder']['content'] . $tx['publish']['current'])) {
+    $pth['file']['content'] = $pth['folder']['content'] . $tx['publish']['current'];
+}
+
 rfc(); // Here content is loaded
 assert(is_array($h));
 assert(is_array($c));
@@ -1011,9 +1025,22 @@ assert($xh_publisher instanceof \XH\Publisher);
 /*
  * Remove $su from FirstPublicPage
  * Remove empty path segments in an URL - https://github.com/cmsimple-xh/cmsimple-xh/issues/282
- * Integration of the ADC-Core_XH plugin with extended functions (optional)
+ * Integration of external plugin with extended functions (optional).
 */
 XH_URI_Cleaning();
+
+/*
+ * Prevents a blank page in the backend when calling a URI without query string
+*/
+if (XH_ADM
+&& $_SERVER['QUERY_STRING'] == ''
+&& !$_POST) {
+    header('Location:' . CMSIMPLE_URL
+                       . '?'
+                       . $u[$xh_publisher->getFirstPublishedPage()],
+    true, 302);
+    exit;
+}
 
 $_XH_controller->setFrontendF();
 
@@ -1106,6 +1133,16 @@ $plugin_cf = new XH\PluginConfig();
 $plugin_tx = new XH\PluginConfig(true);
 
 /*
+ * @var array $CanonicalLinkInc
+ *
+ * Gives the possibility for plugins to publish get parameters
+ * that should be included in the canonical link.
+ *
+ * @public
+ */
+$CanonicalLinkInc = array();
+
+/*
  * Include index.php of all plugins.
  */
 foreach (XH_plugins() as $plugin) {
@@ -1134,6 +1171,18 @@ unset($plugin);
 
 XH_afterPluginLoading();
 
+/**
+ * Returns the canonical link element
+ *
+ * @return string
+ *
+ * @since 1.8.0
+ */
+if ($cf['canonical']['link']
+&& !XH_ADM
+&& !isset($_GET['print'])) {
+    $hjs .= XH_canonicalLink();
+}
 
 switch ($f) {
     case 'search':
@@ -1235,6 +1284,10 @@ if (XH_ADM) {
                             XH_emptyContents();
                         }
                         break;
+                    case 'delete':
+                        $_XH_csrfProtection->check();
+                        XH_delete($pth['file'][$file]);
+                        break;
                     default:
                         $_XH_controller->handleFileEdit();
                 }
@@ -1323,7 +1376,10 @@ $_XH_controller->sendStandardHeaders();
 
 if ($print) {
     XH_builtinTemplate('print');
-} elseif (in_array($f, array('login', 'xh_login_failed', 'forgotten'))) {
+} elseif (in_array($f, array('login',
+                             'xh_login_failed',
+                             'xh_login_pw_expired',
+                             'forgotten'))) {
     XH_builtinTemplate('xh_login');
 }
 
@@ -1341,13 +1397,25 @@ $i = false;
 $temp = fopen($pth['file']['template'], 'r');
 if ($temp) {
     if (XH_lockFile($temp, LOCK_SH)) {
-        $i = include $pth['file']['template'];
+        try {
+            $i = include $pth['file']['template'];
+        } catch (Throwable $t) {
+            ob_clean();
+            $tplError = 'Error-Message: ' . $t->getMessage() . '<br>'
+                      . PHP_EOL
+                      . 'File: ' . pathinfo($t->getFile())['basename'] . '<br>'
+                      . PHP_EOL
+                      . 'Line: ' . $t->getLine()
+                      . PHP_EOL;
+        }
         XH_lockFile($temp, LOCK_UN);
     }
     fclose($temp);
+} else {
+    $tplError = $pth['file']['template'] . ' not found' . PHP_EOL;
 }
 if (!$i) {// the template could not be included
-    XH_emergencyTemplate();
+    XH_emergencyTemplate($tplError);
 }
 
 if (isset($_XH_csrfProtection)) {

@@ -26,5 +26,3 @@ $plugin_tx['pagemanager']['error_structure_confirmation']="Je sais <em>exactemen
 $plugin_tx['pagemanager']['error_structure_warning']="Structure de page irrégulière trouvée. Pour les détails voir l'aide du plugin et consultez votre webmaster !";
 $plugin_tx['pagemanager']['error_nesting']="Trop d'imbrications dans la structure de pages !";
 $plugin_tx['pagemanager']['error_offending_extension']="Fonction irrégulière utilisant sa propre librairie JQuery détectée (voir manuel, section \"Limitations\").";
-
-?>
