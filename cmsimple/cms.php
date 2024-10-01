@@ -1022,6 +1022,21 @@ assert(is_array($c));
 assert($pd_router instanceof \XH\PageDataRouter);
 assert($xh_publisher instanceof \XH\Publisher);
 
+/**
+ * Creates the file .defaultpw.lock in the download folder.
+ * @since 1.8
+ */
+$pwLockFile = $pth['folder']['downloads'] . '.defaultpw.lock';
+if (!is_readable($pwLockFile)) {
+    $pwLockNow = new DateTime();
+    $pwLockNow = $pwLockNow->format('Y.m.d - H:i');
+    @$written = file_put_contents($pwLockFile, $pwLockNow);
+    if (!$written) {
+        @e('cntsave', 'file', $pwLockFile);
+        XH_logMessage('warning', 'XH', 'login', 'Could not save .defaultpw.lock.');
+    }
+}
+
 /*
  * Remove $su from FirstPublicPage
  * Remove empty path segments in an URL - https://github.com/cmsimple-xh/cmsimple-xh/issues/282

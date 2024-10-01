@@ -172,11 +172,13 @@ class Controller
     {
         global $f, $pth, $keycut, $login, $adm, $edit, $cf;
 
+        $pwLockFile = $pth['folder']['downloads'] . '.defaultpw.lock';
+
         if (password_verify($keycut, $cf['security']['password'])) {
             $maxRemainingTime = (int)$cf['password']['max_remaining_time'];
             if ($keycut == 'test'
-            && (!is_readable($pth['folder']['cmsimple'] . 'defaultpw.lock')
-            || time() - filemtime($pth['folder']['cmsimple'] . 'defaultpw.lock') > $maxRemainingTime)) {
+            && (!is_readable($pwLockFile)
+            || time() - filemtime($pwLockFile) > $maxRemainingTime)) {
                 $login = null;
                 $f = 'xh_login_pw_expired';
                 XH_logMessage('warning', 'XH', 'login', 'login password expired');
