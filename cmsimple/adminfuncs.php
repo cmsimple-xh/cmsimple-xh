@@ -473,10 +473,11 @@ function XH_backupsView()
 {
     global $pth, $sn, $tx, $_XH_csrfProtection;
 
-    $o = '<ul>' . "\n";
+    $o = '';
     if (isset($_GET['xh_success'])) {
         $o .= XH_message('success', $tx['message'][$_GET['xh_success']]);
     }
+    $o .= '<ul>' . "\n";
     $o .= '<li>' . utf8_ucfirst($tx['filetype']['content']) . ' <a href="'
         . $sn . '?file=content&amp;action=view" target="_blank">'
         . $tx['action']['view'] . '</a>' . ' <a href="' . $sn . '?file=content">'
