@@ -42,7 +42,7 @@
  "test" (without quotation marks)
  
  The default password must now be changed immediately!
- You have 5 minutes to do this after the FTP upload.
+ You have 5 minutes to do this after the first page view.
  During this time, only the password can be changed,
  all other settings cannot be saved.
  Proceed as follows:
