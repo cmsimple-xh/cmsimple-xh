@@ -1,11 +1,11 @@
 {
   "menubar":false,
-  "plugins": "advlist anchor autolink autosave charmap code codesample emoticons fontawesome fullscreen help image importcss insertdatetime link lists media nonbreaking preview save searchreplace table template visualblocks visualchars wordcount xhplugincall",
+  "plugins": "advlist anchor autolink autosave charmap code codesample emoticons fontawesome fullscreen help image importcss insertdatetime link lists media nonbreaking save searchreplace table template visualblocks visualchars wordcount xhplugincall",
   "external_plugins": {
     "fontawesome": "%CMSIMPLE_ROOT%plugins/fa/editors/tinymce6/fontawesome/plugin.min.js",
     "xhplugincall":"%CMSIMPLE_ROOT%plugins/tinymce6/tinymce/plugins/xhplugincall/plugin.min.js"
   },
-  "toolbar": "save | fullscreen code undo redo styleselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify cut copy paste pastetext | bullist numlist outdent indent blockquote | link unlink anchor image media | hr nonbreaking removeformat visualblocks visualchars | forecolor backcolor | searchreplace | charmap emoticons subscript superscript | table insertdatetime help | fontawesome xhplugincall",
+  "toolbar": "save | fullscreen code undo redo styles | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify cut copy paste pastetext | bullist numlist outdent indent blockquote | link unlink anchor image media | hr nonbreaking removeformat visualblocks visualchars | forecolor backcolor | searchreplace | charmap emoticons subscript superscript | table insertdatetime help | fontawesome xhplugincall",
   "toolbar_mode": "wrap",
   "table_advtab": true,
   "table_cell_advtab": true,
@@ -16,8 +16,7 @@
   "content_css": "%STYLESHEET%,%CMSIMPLE_ROOT%plugins/fa/css/font-awesome.min.css",
   "importcss_append":true,
   "style_formats_autohide": true,
-  "element_format": "html",
-  "block_formats": "%HEADERS%;p=p;div=div;code=code;pre=pre;dt=dt;dd=dd",
+  "block_formats_obsolete?": "%HEADERS%;p=p;div=div;code=code;pre=pre;dt=dt;dd=dd",
   "insertdatetime_formats": ["%H:%M:%S", "%d.%m.%Y", "%I:%M:%S %p", "%D"],
   "relative_urls": true,
   "convert_urls": false,

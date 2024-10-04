@@ -1,10 +1,10 @@
 {
-  "plugins": "anchor autolink autosave charmap code codesample emoticons fontawesome fullscreen help image importcss insertdatetime link lists media nonbreaking preview save searchreplace table template visualblocks visualchars wordcount xhplugincall",
+  "plugins": "anchor autolink autosave charmap code codesample emoticons fontawesome fullscreen help image importcss insertdatetime link lists media nonbreaking save searchreplace table template visualblocks visualchars wordcount xhplugincall",
   "external_plugins": {
     "fontawesome": "%CMSIMPLE_ROOT%plugins/fa/editors/tinymce6/fontawesome/plugin.min.js",
     "xhplugincall":"%CMSIMPLE_ROOT%plugins/tinymce6/tinymce/plugins/xhplugincall/plugin.min.js"
   },
-  "toolbar": "save | undo | styleselect | bold italic | link unlink image | alignleft aligncenter alignright | bullist numlist",
+  "toolbar": "save undo styles bold italic link unlink image alignleft aligncenter alignright bullist numlist",
   "menubar": "edit insert view format table tools help",
   "menu": {
     "tools": {"title": "Tools", "items": "fontawesome xhplugincall"}
@@ -18,7 +18,6 @@
   "file_picker_callback": "",
   "content_css": "%STYLESHEET%,%CMSIMPLE_ROOT%plugins/fa/css/font-awesome.min.css",
   "importcss_append":true,
-  "element_format": "html",
   "insertdatetime_formats": ["%H:%M:%S", "%d.%m.%Y", "%I:%M:%S %p", "%D"],
   "relative_urls": true,
   "convert_urls": false,
