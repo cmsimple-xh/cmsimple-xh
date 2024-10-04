@@ -95,6 +95,12 @@ class Editor
             $o.= XH_message('fail','bad JSON: '.json_last_error_msg ());
             return false;
         }
+        
+        /*
+         * remove description
+        */
+        
+        unset($temp['description']);
 
         /*
          * use english if tiny doesn't know $sl resp. $cf['default']['language']
@@ -191,7 +197,20 @@ class Editor
         if (isset($temp['images_upload_url']))
             $append .= ',' . PHP_EOL . 'images_dataimg_filter: function(img) {
     return !img.alt.startsWith("demo-img");
-  }';          
+  }';        
+        
+        /*
+         * Use the codemirror theme configured for Codeeditor_XH if available.
+         */
+        if (isset($temp['external_plugins']['codemirror']) && isset($plugin_cf['codeeditor']['theme'])) {
+            $append .= ',' . PHP_EOL . ' setup: (editor) => {
+		editor.options.register("codemirror_theme", { processor: "string", default: "'.$plugin_cf["codeeditor"]["theme"].'" });
+    }';        
+        }
+
+        /* 
+         * merge the append string into parsed config before the trailing curled bracket
+        */
 
         $lastpos = strrpos ($parsedconfig,'}');
         $parsedconfig = substr($parsedconfig,0,$lastpos) . $append . substr($parsedconfig,$lastpos);

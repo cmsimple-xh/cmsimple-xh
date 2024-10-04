@@ -1,4 +1,5 @@
 {
+  "description": "This init just includes the codemirror plugin. If XH plugin codeeditor ist present, the View Source Code will be executed by codemirror. The theme will be taken from the codeeditor setting.",
   "plugins": "anchor autolink autosave charmap code codesample emoticons fontawesome fullscreen help image importcss insertdatetime link lists media nonbreaking preview save searchreplace table template visualblocks visualchars wordcount xhplugincall",
   "external_plugins": {
     "fontawesome": "%CMSIMPLE_ROOT%plugins/fa/editors/tinymce6/fontawesome/plugin.min.js",
@@ -25,10 +26,5 @@
   "relative_urls": true,
   "convert_urls": false,
   "entity_encoding": "raw",
-  "extended_valid_elements": "span[*]",
-  "codemirror":{
-    "config": {
-      "theme": "%CODEMIRROR_THEME%"
-    }
-  }
+  "extended_valid_elements": "span[*]"
 }
