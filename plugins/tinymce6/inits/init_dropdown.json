@@ -4,11 +4,12 @@
     "fontawesome": "%CMSIMPLE_ROOT%plugins/tinymce6/tinymce/plugins/fontawesome/plugin.min.js",
     "xhplugincall":"%CMSIMPLE_ROOT%plugins/tinymce6/tinymce/plugins/xhplugincall/plugin.min.js"
   },
-  "toolbar": "save undo styles bold italic link unlink image alignleft aligncenter alignright bullist numlist",
+  "toolbar": "save undo blocks bold italic link unlink image alignleft aligncenter alignright bullist numlist",
   "menubar": "edit insert view format table tools help",
   "menu": {
     "tools": {"title": "Tools", "items": "fontawesome xhplugincall"}
   },
+  "block_formats": "Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3; Header 4=h4; Header 5=h5; Header 6=h6; Div=div; Code=code; Pre=pre; Blockquote=blockquote",
   "table_advtab": true,
   "table_cell_advtab": true,
   "table_style_by_css": true,

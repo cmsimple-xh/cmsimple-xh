@@ -1,13 +1,11 @@
 {
-  "description": "This init just includes the codemirror plugin. If XH plugin codeeditor ist present, the View Source Code will be executed by codemirror. The theme will be taken from the codeeditor setting.",
+  "description": "just in case you have XH_Shop installed, then this init is mandatory. Its about the same as the dropdown init.",
   "plugins": "anchor autolink autosave charmap code codesample emoticons fontawesome fullscreen help image importcss insertdatetime link lists media nonbreaking save searchreplace table template visualblocks visualchars wordcount xhplugincall",
   "external_plugins": {
     "fontawesome": "%CMSIMPLE_ROOT%plugins/tinymce6/tinymce/plugins/fontawesome/plugin.min.js",
-    "xhplugincall":"%CMSIMPLE_ROOT%plugins/tinymce6/tinymce/plugins/xhplugincall/plugin.min.js",
-    "codemirror":"%CMSIMPLE_ROOT%plugins/tinymce6/tinymce/plugins/codemirror/plugin.min.js"
+    "xhplugincall":"%CMSIMPLE_ROOT%plugins/tinymce6/tinymce/plugins/xhplugincall/plugin.min.js"
   },
   "toolbar": "save undo blocks bold italic link unlink image alignleft aligncenter alignright bullist numlist",
-
   "menubar": "edit insert view format table tools help",
   "menu": {
     "tools": {"title": "Tools", "items": "fontawesome xhplugincall"}
