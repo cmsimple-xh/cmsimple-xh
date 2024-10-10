@@ -4,6 +4,7 @@
   "toolbar1": "save | fullscreen | bold italic underline | blocks | bullist numlist | image link unlink",
   "image_advtab": true,
   "image_title": true,
+  "image_caption": true,
   "content_css": "%STYLESHEET%,%CMSIMPLE_ROOT%plugins/fa/css/font-awesome.min.css",
   "importcss_append":true,
   "insertdatetime_formats": ["%H:%M:%S", "%d.%m.%Y", "%I:%M:%S %p", "%D"],

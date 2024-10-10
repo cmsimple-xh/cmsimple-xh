@@ -9,6 +9,7 @@
   "toolbar_mode": "sliding",
   "image_advtab": true,
   "image_title": true,
+  "image_caption": true,
   "content_css": "%STYLESHEET%,%CMSIMPLE_ROOT%plugins/fa/css/font-awesome.min.css",
   "importcss_append":true,
   "style_formats_autohide": true,
