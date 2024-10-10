@@ -11,17 +11,12 @@
     "tools": {"title": "Tools", "items": "fontawesome xhplugincall"}
   },
   "block_formats": "Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3; Header 4=h4; Header 5=h5; Header 6=h6; Div=div; Code=code; Pre=pre; Blockquote=blockquote",
-  "table_advtab": true,
-  "table_cell_advtab": true,
-  "table_style_by_css": true,
-  "autosave_interval": "20s",
   "image_advtab": true,
   "image_title": true,
   "file_picker_callback": "",
   "content_css": "%STYLESHEET%,%CMSIMPLE_ROOT%plugins/fa/css/font-awesome.min.css",
   "importcss_append":true,
   "insertdatetime_formats": ["%H:%M:%S", "%d.%m.%Y", "%I:%M:%S %p", "%D"],
-  "relative_urls": true,
   "convert_urls": false,
   "entity_encoding": "raw",
   "extended_valid_elements": "span[*]"

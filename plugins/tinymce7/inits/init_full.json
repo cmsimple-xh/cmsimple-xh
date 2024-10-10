@@ -7,10 +7,6 @@
   },
   "toolbar": "save | fullscreen code undo redo styles | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify cut copy paste pastetext | bullist numlist outdent indent blockquote | link unlink anchor image media | hr nonbreaking removeformat visualblocks visualchars | forecolor backcolor | searchreplace | charmap emoticons subscript superscript | table insertdatetime help | fontawesome xhplugincall",
   "toolbar_mode": "sliding",
-  "table_advtab": true,
-  "table_cell_advtab": true,
-  "table_style_by_css": true,
-  "autosave_interval": "20s",
   "image_advtab": true,
   "image_title": true,
   "content_css": "%STYLESHEET%,%CMSIMPLE_ROOT%plugins/fa/css/font-awesome.min.css",
@@ -18,7 +14,6 @@
   "style_formats_autohide": true,
   "block_formats_obsolete?": "%HEADERS%;p=p;div=div;code=code;pre=pre;dt=dt;dd=dd",
   "insertdatetime_formats": ["%H:%M:%S", "%d.%m.%Y", "%I:%M:%S %p", "%D"],
-  "relative_urls": true,
   "convert_urls": false,
   "entity_encoding": "raw",
   "extended_valid_elements": "span[*]"
