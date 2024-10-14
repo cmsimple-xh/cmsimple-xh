@@ -14,6 +14,7 @@ $mcf['mailform']['captcha']="bool";
 $mcf['mailform']['lf_only']="+bool";
 $mcf['head']['links']="+bool";
 $mcf['search']['description']="bool";
+$mcf['search']['title']="bool";
 $mcf['locator']['show_homepage']="bool";
 $mcf['folders']['content']="hidden";
 $mcf['folders']['userfiles']="hidden";
