@@ -4,7 +4,7 @@
   "external_plugins": {
     "fontawesome": "%CMSIMPLE_ROOT%plugins/tinymce7/tinymce/plugins/fontawesome/plugin.min.js",
     "xhplugincall":"%CMSIMPLE_ROOT%plugins/tinymce7/tinymce/plugins/xhplugincall/plugin.min.js",
-    "codemirror":"%CMSIMPLE_ROOT%plugins/tinymce6/tinymce/plugins/codemirror/plugin.min.js"
+    "codemirror":"%CMSIMPLE_ROOT%plugins/tinymce7/tinymce/plugins/codemirror/plugin.min.js"
   },
   "toolbar": "save undo blocks bold italic link unlink image alignleft aligncenter alignright bullist numlist",
   "promotion": false,
