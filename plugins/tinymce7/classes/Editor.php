@@ -126,6 +126,12 @@ class Editor
             $temp['language_url'] =  CMSIMPLE_ROOT.'plugins/' . self::PLUGIN . '/tinymce/langs/' . $tiny_language.'.js';
         
         /*
+         * if tinyMCE is not from CDN, set the "gpl" licence key
+        */
+        if ($pcf['CDN'] != true)
+            $temp['license_key'] = "gpl";
+        
+        /*
          * fix Firefox scrollToTop Problem
         */
         $temp['content_style'] = 'body {height:unset;}';
