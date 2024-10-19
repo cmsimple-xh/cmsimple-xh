@@ -58,6 +58,8 @@ function inArray(key, arr)
 		cssFiles: [// Default CSS files
 			'codemirror-combined.css']
 	};
+  if (typeof userSettings !== 'undefined' && userSettings !== "default")
+    CMsettings.cssFiles.push('theme/' + userSettings + '.css');
 
   // Merge config
     CMsettings.config.theme = userSettings;
