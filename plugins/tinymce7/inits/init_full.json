@@ -7,6 +7,7 @@
   },
   "toolbar": "save | fullscreen code undo redo styles | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify cut copy paste pastetext | bullist numlist outdent indent blockquote | link unlink anchor image media | hr nonbreaking removeformat visualblocks visualchars | forecolor backcolor | searchreplace | charmap emoticons subscript superscript | table insertdatetime help | fontawesome xhplugincall",
   "toolbar_mode": "sliding",
+  "promotion": false,
   "image_advtab": true,
   "image_title": true,
   "image_caption": true,

@@ -5,6 +5,7 @@
     "xhplugincall":"%CMSIMPLE_ROOT%plugins/tinymce7/tinymce/plugins/xhplugincall/plugin.min.js"
   },
   "toolbar": "save undo blocks bold italic link unlink image alignleft aligncenter alignright bullist numlist",
+  "promotion": false,
   "menubar": "edit insert view format table tools help",
   "menu": {
     "tools": {"title": "Tools", "items": "fontawesome xhplugincall"}

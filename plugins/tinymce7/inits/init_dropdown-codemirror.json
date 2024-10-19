@@ -7,7 +7,7 @@
     "codemirror":"%CMSIMPLE_ROOT%plugins/tinymce6/tinymce/plugins/codemirror/plugin.min.js"
   },
   "toolbar": "save undo blocks bold italic link unlink image alignleft aligncenter alignright bullist numlist",
-
+  "promotion": false,
   "menubar": "edit insert view format table tools help",
   "menu": {
     "tools": {"title": "Tools", "items": "fontawesome xhplugincall"}
