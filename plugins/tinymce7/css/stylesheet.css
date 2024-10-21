@@ -8,3 +8,8 @@ html.tox-fullscreen {
 .tox-menubar {
 	hyphens: none;
 }
+/* preview plugin - use the full height of the iframe. */
+.tox .tox-dialog iframe[srcdoc] {
+    max-height: 100%;
+    min-height: 100% !important;
+}
