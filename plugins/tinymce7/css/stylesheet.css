@@ -5,3 +5,6 @@ border-radius: 0 0 10px 10px !important;
 html.tox-fullscreen {
     overflow: initial;
 }
+.tox-menubar {
+	hyphens: none;
+}
