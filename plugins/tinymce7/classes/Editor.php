@@ -32,6 +32,16 @@ class Editor
     
     const PLUGIN = 'tinymce7';
     
+    /**    
+     * @private static array Defines the four character language format that fits to tinyMCE
+     */
+    
+    private static $lang_conversion = array(
+            "fr" => "fr_FR",
+            "tw" => "zh_TW",
+            "zh" => "zh_CN"
+        );
+    
     /**
      * Returns the configuration in JSON format.
      *
@@ -103,20 +113,32 @@ class Editor
         unset($temp['description']);
 
         /*
+         * 'language' can be set in inits
          * use english if tiny doesn't know $sl resp. $cf['default']['language']
-         */
+         * leave an empty en.js in lang/ folder, just in case en is not default language
+         * Translate the language code into a four character language code, see language packs
+         */    
          
-        if (file_exists($pluginPth . 'tinymce/langs/' . $sl . '.js')) {
-            $tiny_language = $sl;
-        } elseif (file_exists(
-            $pluginPth . 'tinymce/langs/' . 
-            $cf['language']['default'] .  '.js'
-        )) {
-            $tiny_language = $cf['language']['default'];
-        } else {
+        switch (true){
+        // language set in init
+        case (!empty($temp['language']) && file_exists($pluginPth . 'tinymce/langs/' . self::translateLang($temp['language']) . '.js')):
+            $tiny_language = self::translateLang($temp['language']);
+            break;
+        // language set in $sl selected language
+        case (file_exists($pluginPth . 'tinymce/langs/' . self::translateLang($sl) . '.js')):
+            $tiny_language = self::translateLang($sl);
+            break;
+        // language set in config default language
+        case (file_exists($pluginPth . 'tinymce/langs/' . self::translateLang($cf['language']['default']) .  '.js')):
+            $tiny_language = translateLang($cf['language']['default']);
+            break;
+        // language set to tinymce standard
+        default:
             $tiny_language = 'en';
         }
         
+        
+
         /* %LANGUAGE% = language:"[lang]"  and language_url = path to 
          * tinymce language file(in regard to the TinyMCE CDN Variant) 
          * if lang other than en
@@ -436,5 +458,16 @@ class Editor
         $run++;
         return $js;
 }
+
+    /**
+     * Translate the language two character into a four character language code suitable
+     * for tinyMCE
+     * @param string $lang The two character language code
+     * @return string The four character language code
+     */
+
+    private static function translateLang($lang) {
+        return array_key_exists($lang,self::$lang_conversion) ? self::$lang_conversion[$lang] : $lang;
+    }
 }
 

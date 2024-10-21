@@ -1,4 +1,4 @@
-tinymce.addI18n('fr', {
+tinymce.addI18n('fr_FR', {
     'Icons': 'Icônes',
     'Web Application': 'Application Web',
     'File Type': 'Type de fichier',
