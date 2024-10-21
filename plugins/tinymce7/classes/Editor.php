@@ -34,6 +34,7 @@ class Editor
     
     /**    
      * @private static array Defines the four character language format that fits to tinyMCE
+     * Translate the language code into a four character language code, see language packs
      */
     
     private static $lang_conversion = array(
@@ -116,13 +117,12 @@ class Editor
          * 'language' can be set in inits
          * use english if tiny doesn't know $sl resp. $cf['default']['language']
          * leave an empty en.js in lang/ folder, just in case en is not default language
-         * Translate the language code into a four character language code, see language packs
-         */    
+         */
          
         switch (true){
-        // language set in init
-        case (!empty($temp['language']) && file_exists($pluginPth . 'tinymce/langs/' . self::translateLang($temp['language']) . '.js')):
-            $tiny_language = self::translateLang($temp['language']);
+        // language set in config
+        case (!empty($pcf['global_backend_language']) && file_exists($pluginPth . 'tinymce/langs/' . self::translateLang($pcf['global_backend_language']) . '.js')):
+            $tiny_language = self::translateLang($pcf['global_backend_language']);
             break;
         // language set in $sl selected language
         case (file_exists($pluginPth . 'tinymce/langs/' . self::translateLang($sl) . '.js')):

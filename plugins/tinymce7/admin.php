@@ -67,6 +67,23 @@ if (XH_wantsPluginAdministration($plugin)) {
         return $options;
     }
 
+    /**
+     * Returns all available language option.
+     *
+     * @return array options
+     */
+    function tinymce_getLang() 
+    {
+        global $plugin, $pth;
+        $languages = glob($pth['folder']['plugins'] . $plugin.'/tinymce/langs/*.js');
+
+        $options = array('');
+        foreach ($languages as $language) {
+            $options[] = basename($language, '.js');
+        }
+        return $options;
+    }
+
 /*
  * Register the plugin menu items.
  */
