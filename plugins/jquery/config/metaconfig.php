@@ -3,11 +3,8 @@
 /**
  * jQuery for CMSimple
  *
- * Admin-interface for configuring the plugin
- * via the standard-functions of pluginloader.
- *
- * Version:    1.6.7
- * Build:      2024080501
+ * Version:    1.6.8
+ * Build:      2024101401
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
