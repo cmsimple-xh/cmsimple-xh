@@ -548,7 +548,7 @@ function languagemenu()
         $langName[substr($value, 0, 2)] = substr($value, 3);
     }
 
-    $t = '';
+    $t = '<div class="xh_languagemenu">';
     foreach ($r as $lang) {
         $url = $pth['folder']['base']
             . ($lang == $cf['language']['default'] ? '' : $lang . '/');
@@ -567,6 +567,7 @@ function languagemenu()
             : $title;
         $t .= '<a href="' . $url . '">' . $el . '</a> ';
     }
+    $t .= '</div>';
     return $t;
 }
 
