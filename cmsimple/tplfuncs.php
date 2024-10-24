@@ -262,12 +262,14 @@ function sitemaplink()
  *
  * @return string HTML
  */
-function printlink()
+function printlink($url = false)
 {
     global $tx;
 
-    return '<a href="' . XH_printUrl() . '" rel="nofollow">'
-        . $tx['menu']['print'] . '</a>';
+        return '<a class="xh_printlink" href="'
+              . ($url ? XH_printUrl($url) : XH_printUrl())
+              . '" rel="nofollow">'
+              . $tx['menu']['print'] . '</a>';
 }
 
 /**
@@ -277,12 +279,14 @@ function printlink()
  *
  * @since 1.6
  */
-function XH_printUrl()
+function XH_printUrl($url = false)
 {
     global $f, $search, $file, $sn;
 
     $t = '&print';
-    if ($f == 'search') {
+    if ($url) {
+        $t = $url . $t;
+    } elseif ($f == 'search') {
         $t .= '&function=search&search=' . urlencode($search);
     } elseif ($f == 'file') {
         $t .= '&file=' . $file;
