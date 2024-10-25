@@ -269,18 +269,22 @@ function evaluate_scripting($text, $compat = true)
  *
  * @return string|false
  */
-function newsbox($heading)
+function newsbox($heading, $print = false)
 {
-    global $c, $cl, $h, $edit;
+    global $c, $cl, $h, $u, $edit;
 
     for ($i = 0; $i < $cl; $i++) {
         if ($h[$i] == $heading) {
             $pattern = '/.*?<!--XH_ml[1-9]:.*?-->/isu';
             $body = preg_replace($pattern, "", $c[$i]);
             $pattern = '/#CMSimple (.*?)#/is';
-            return XH_ADM && $edit
-                ? $body
-                : preg_replace($pattern, '', evaluate_scripting($body, false));
+            $boxContent = (XH_ADM && $edit
+                            ? $body
+                            :preg_replace($pattern, '', evaluate_scripting($body, false)));
+            if ($print && $print == 'printlink') {
+                $boxContent .= printlink($u[$i]);
+            }
+            return $boxContent;
         }
     }
     return false;
