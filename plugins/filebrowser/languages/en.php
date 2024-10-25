@@ -21,7 +21,7 @@ $plugin_tx['filebrowser']['success_uploaded']="<b>%s</b> uploaded.";
 $plugin_tx['filebrowser']['success_folder_created']="<b>%s</b> created.";
 $plugin_tx['filebrowser']['success_renamed']="<b>%s</b> renamed to <b>%s</b>.";
 
-$plugin_tx['filebrowser']['image_usedin']="Used in:";
+$plugin_tx['filebrowser']['file_usedin']="Used in:";
 
 $plugin_tx['filebrowser']['upload_file_to']="Upload file to <b>%s</b>";
 $plugin_tx['filebrowser']['create_subfolder_in']="Create subfolder in <b>%s</b>";

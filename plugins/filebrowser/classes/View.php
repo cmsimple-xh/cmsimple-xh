@@ -300,7 +300,7 @@ class View
         $html = '<ul>' . "\n";
         $class = 'even';
         $fb = $_XH_filebrowser; // FIXME: the view shouldn't know the controller
-        $imgs = $fb->usedImages();
+        $usedArray = $fb->usedFiles();
         $base = $fb->browseBase;
         if ($base[0] == '.' && $base[1] == '/') {
             $base = substr($base, 2);
@@ -342,9 +342,9 @@ class View
                 . '" target="_blank">' . $file;
 
             $ffn = $base . $fb->currentDirectory . $file;
-            $usage = array_key_exists($ffn, $imgs)
-                ? '<strong>' . $this->translate('image_usedin') . '</strong>'
-                    . '<br>' . implode('<br>', $imgs[$ffn])
+            $usage = array_key_exists($ffn, $usedArray)
+                ? '<strong>' . $this->translate('file_usedin') . '</strong>'
+                    . '<br>' . implode('<br>', $usedArray[$ffn])
                 : '';
 
             $path = $this->basePath . $this->currentDirectory . $file;
@@ -362,6 +362,8 @@ class View
                 } elseif ($image = getimagesize($path)) {
                     $html .= $this->renderImage($path, $file, $image, true, $usage);
                 }
+            } else {
+                $usage ? $html .= '<span>' . $usage .'</span>' : '';
             }
             $html .= '</a> (' .  $this->renderFileSize($path) . ')</li>' . "\n";
         }
