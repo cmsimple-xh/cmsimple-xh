@@ -156,6 +156,7 @@ $tx['help']['validate_redir'] = "Max. Anzahl von Weiterleitungen, denen LinkChec
 $tx['help']['debug_log'] = "Meldungen des Debug-Mode in Logdatei sammeln.<br>Debug-Mode muss aktiviert sein.";
 
 $tx['help']['search_description']="Zeigt die Meta-Beschreibung in den Suchergebnissen an.<br>Es muss eine explizite Beschreibung für die Seite angelegt sein.";
+$tx['help']['search_title']="Zeigt den Seitentitel in den Suchergebnissen an.<br>Es muss ein expliziter Seitentitel für die Seite angelegt sein.";
 
 $tx['label']['empty']="- LEER -";
 

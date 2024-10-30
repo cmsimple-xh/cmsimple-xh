@@ -262,12 +262,14 @@ function sitemaplink()
  *
  * @return string HTML
  */
-function printlink()
+function printlink($url = false)
 {
     global $tx;
 
-    return '<a href="' . XH_printUrl() . '" rel="nofollow">'
-        . $tx['menu']['print'] . '</a>';
+        return '<a class="xh_printlink" href="'
+              . ($url ? XH_printUrl($url) : XH_printUrl())
+              . '" rel="nofollow">'
+              . $tx['menu']['print'] . '</a>';
 }
 
 /**
@@ -277,12 +279,14 @@ function printlink()
  *
  * @since 1.6
  */
-function XH_printUrl()
+function XH_printUrl($url = false)
 {
     global $f, $search, $file, $sn;
 
     $t = '&print';
-    if ($f == 'search') {
+    if ($url) {
+        $t = $url . $t;
+    } elseif ($f == 'search') {
         $t .= '&function=search&search=' . urlencode($search);
     } elseif ($f == 'file') {
         $t .= '&file=' . $file;
@@ -548,7 +552,7 @@ function languagemenu()
         $langName[substr($value, 0, 2)] = substr($value, 3);
     }
 
-    $t = '';
+    $t = '<div class="xh_languagemenu">';
     foreach ($r as $lang) {
         $url = $pth['folder']['base']
             . ($lang == $cf['language']['default'] ? '' : $lang . '/');
@@ -567,6 +571,7 @@ function languagemenu()
             : $title;
         $t .= '<a href="' . $url . '">' . $el . '</a> ';
     }
+    $t .= '</div>';
     return $t;
 }
 

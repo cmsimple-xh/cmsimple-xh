@@ -2,6 +2,31 @@ Full history since v.1.6.6 is now available on GitHub https://github.com/cmsimpl
 
 ========================================================================================
 
+ Version 1.6.8 2024-10-14
+
+ Update jQuery migrate to 3.5.2
+ Update jQuery ui to 1.14.0
+ 
+ Remove jQuery 1.11.3
+ Remove jQuery 3.1.1
+ Remove jQuery 3.2.1
+ Remove jQuery 3.5.1
+ Remove jQuery 3.6.0
+ Remove jQuery 3.7.0
+
+ Remove jQuery ui 1.11.4
+ Remove jQuery ui 1.12.1
+ Remove jQuery ui 1.13.2
+ Remove jQuery ui 1.13.3
+
+ Remove jQuery migrate 3.0.0
+ Remove jQuery migrate 3.3.0
+ Remove jQuery migrate 3.4.0
+ Remove jQuery migrate 3.4.1
+ Remove jQuery migrate 3.5.0
+
+------------------------------------------------------------------------------------------------------------------
+
  Version 1.6.7 2024-08-05
 
  Update jQuery to 3.7.1

@@ -198,13 +198,16 @@ class Search
             $words = implode(' ', $words);
             foreach ($pages as $i) {
                 $pageData = $pd_router->find_page($i);
-                $site = isset($pageData['title']) ? $pageData['title'] : '';
+                $site = '';
+                if ($cf['search']['title'] == 'true'
+                && isset($pageData['title'])) {
+                    $site = $pageData['title'];
+                }
                 $title = XH_title($site, $h[$i]);
                 $o .= '    <li>' . a($i, '&amp;search=' . urlencode($words)) . $title . '</a>';
-                $description = isset($pageData['description'])
-                    ? $pageData['description'] : '';
                 if ($cf['search']['description'] == 'true'
-                && $description != '') {
+                && isset($pageData['description'])) {
+                    $description = $pageData['description'];
                     $o .= '<div>' . XH_hsc($description) . '</div>';
                 }
                 $o .= '</li>' . "\n";
