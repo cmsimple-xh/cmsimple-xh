@@ -187,16 +187,6 @@ class Editor
         $parsedconfig = str_replace('%STYLESHEET%',$pth['folder']['template'] . 'stylesheet.css',$parsedconfig);
         $parsedconfig = str_replace('%CMSIMPLE_ROOT%',CMSIMPLE_ROOT,$parsedconfig);
         
-        /*
-         * obsolete??
-        */
-        
-        $_headers = array();
-        for ( $i = 1; $i <= 6; $i++ ) {
-                $_headers[] = "Header $i=h$i";
-        };
-        $parsedconfig = str_replace('%HEADERS%', implode(';', $_headers), $parsedconfig);
-        
         
         /*
          * Use the codemirror theme configured for Codeeditor_XH if available.
