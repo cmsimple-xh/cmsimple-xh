@@ -38,7 +38,9 @@ class Editor
     
     private static $lang_conversion = array(
             "fr" => "fr_FR",
-            "tw" => "zh_TW",
+            "dk" => "da",
+            "es" => "es-ES",
+            "tw" => "th",
             "zh" => "zh_CN"
         );
     
