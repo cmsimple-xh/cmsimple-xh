@@ -172,23 +172,44 @@ class Controller
      * Returns an array of A elements linking to the pages
      * where <var>$file</var> is used.
      *
-     * @param string $file A file name.
+     * @param string $fullFilePath A full filepath
+     * i.e. './userfiles/downloads/filename.ext'.
      *
      * @return array|false
      */
-    private function fileIsLinked($file)
+    private function fileIsLinked($fullFilePath)
     {
-        global $h, $c, $u;
+        global $h, $c, $cf, $u;
 
         $i = 0;
+        $usage = false;
         $usages = array();
+
+        $path_parts = pathinfo($fullFilePath);
+        $filePath = $path_parts['dirname'] . '/';
+        $file = $path_parts['basename'];
+        $convertFile = mb_convert_encoding($file, 'UTF-8', mb_detect_encoding($file));
+        $convertFile = str_replace(' ', '%20', $convertFile);
+
         // TODO: improve regex for better performance
-        $regex = '#<.*(?:src|href|download)=(["\']).*' . preg_quote($file, '#')
-            . '\\1.*>#is';
+        $regex = '#<(?:img|a|video|source).*?(?:src|href|poster|srcset)=(["\']).*?('
+               . preg_quote($fullFilePath, '#'). '|' . $filePath . preg_quote($convertFile, '#')
+               . '|\?download=('
+               . preg_quote($file, '#') . '|' . preg_quote($convertFile, '#')
+               . '))\\1.*?>#is';
 
         foreach ($c as $page) {
-            if (preg_match($regex, $page) > 0) {
-                $usages[] = '<a href="?' . $u[$i] . '">' . $h[$i] . '</a>';
+            if (preg_match($regex, $page, $m) > 0) {
+                if (strpos($m[2], '?download=') !== false) {
+                    if (strpos($fullFilePath, $cf['folders']['userfiles'] . $cf['folders']['downloads'])) {
+                        $usage = true;
+                    }
+                } else {
+                    $usage = true;
+                }
+                if ($usage) {
+                    $usages[] = '<a href="?' . $u[$i] . '">' . $h[$i] . '</a>';
+                }
             }
             $i++;
         }
@@ -201,31 +222,36 @@ class Controller
 
     /**
      * Returns an associative array mapping from file names to page headings,
-     * where the images are used.
+     * where the files are used.
      *
      * @return array
      */
-    public function usedImages()
+    public function usedFiles()
     {
-        global $c, $h, $cl;
+        global $c, $h, $cl, $cf, $pth;
 
-        $images = array();
+        $files = array();
         for ($i = 0; $i < $cl; $i++) {
-            preg_match_all('/<img.*?src=(["\'])(.*?)\\1.*?>/is', $c[$i], $m);
+            preg_match_all('/<(?:img|a|video|source).*?(?:src|href|poster|srcset)=(["\'])(.*?)\\1.*?>/is',
+                           $c[$i],
+                           $m);
             foreach ($m[2] as $fn) {
+                $fn = str_replace(array('./?download=', '%20'),
+                                  array($pth['folder']['userfiles'] . $cf['folders']['downloads'], ' '),
+                                  $fn);
                 if ($fn[0] == '.' && $fn[1] == '/') {
                     $fn = substr($fn, 2);
                 }
-                if (array_key_exists($fn, $images)) {
-                    if (!in_array($h[$i], $images[$fn])) {
-                        $images[$fn][] = $h[$i];
+                if (array_key_exists($fn, $files)) {
+                    if (!in_array($h[$i], $files[$fn])) {
+                        $files[$fn][] = $h[$i];
                     }
                 } else {
-                    $images[$fn] = array($h[$i]);
+                    $files[$fn] = array($h[$i]);
                 }
             }
         }
-        return $images;
+        return $files;
     }
 
     /**
@@ -587,13 +613,13 @@ class Controller
             $this->view->error('error_cant_change_extension');
             return;
         }
-        $newPath = $this->browseBase . $this->currentDirectory . '/' . $newName;
-        $oldPath = $this->browseBase . $this->currentDirectory . '/' . $oldName;
+        $newPath = $this->browseBase . $this->currentDirectory . $newName;
+        $oldPath = $this->browseBase . $this->currentDirectory . $oldName;
         if (file_exists($newPath)) {
             $this->view->error('error_file_already_exists', array($newName));
             return;
         }
-        $pages = $this->fileIsLinked($oldName);
+        $pages = $this->fileIsLinked($oldPath);
         if (is_array($pages)) {
             $this->view->error('error_cant_rename', array($oldName));
             $this->view->message .= '<div class="xh_info">'
