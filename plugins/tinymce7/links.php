@@ -78,7 +78,12 @@ function get_internal_links($h, $u, $l, $downloads_path)
         $list[] = array('title' => 'DOWNLOADS:' , 'value' => " ");
         $fs = sortdir($downloads_path);
         foreach ($fs as $p) {
-            if (preg_match("/.+\..+$/u", $p)) {
+            if (preg_match("/.+\..+$/u", $p)        // looking for proper file extension?
+                && !in_array($p, array('.',         // exclude system files
+                                   '..',
+                                   'XHdebug.txt',
+                                   '_XHdebug.txt',
+                                   '.defaultpw.lock'))) {
                 $list[] = array('title' => '__' . utf8_substr($p, 0, 25) . 
                 ' (' . 
                 intval(filesize($downloads_path . '/' . $p) / 1024) . 
