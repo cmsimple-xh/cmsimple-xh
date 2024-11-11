@@ -1,0 +1,1 @@
+//just leave en.js here for compatibility reasons (see classes/Editor.php)
