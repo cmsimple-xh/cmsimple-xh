@@ -132,7 +132,7 @@ class Editor
             break;
         // language set in config default language
         case (file_exists($pluginPth . 'tinymce/langs/' . self::translateLang($cf['language']['default']) .  '.js')):
-            $tiny_language = translateLang($cf['language']['default']);
+            $tiny_language = self::translateLang($cf['language']['default']);
             break;
         // language set to tinymce standard
         default:
