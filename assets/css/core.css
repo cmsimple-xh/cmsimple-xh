@@ -404,6 +404,10 @@ div.pl_tooltip:hover {
 div.pl_tooltip > div {
 	display: none;
 	text-align: left !important;
+	-webkit-hyphens: auto;
+	hyphens: auto;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 div.pl_tooltip > div a,
 div.pl_tooltip a {
