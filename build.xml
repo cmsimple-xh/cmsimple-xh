@@ -152,7 +152,9 @@
 
         <touch file="dist/cmsimplexh/cmsimple/.sessionname"/>
 
-        <echo file="dist/cmsimplexh/reqcheck.php">This file serves no purpose, and can be deleted.</echo>
+        <echo file="dist/cmsimplexh/reqcheck.php">This file serves no purpose, and can be deleted.${line.separator}</echo>
+        <echo file="dist/cmsimplexh/cmsimple/log.txt">just to test write access. See settings->info.${line.separator}</echo>
+        <echo file="dist/cmsimplexh/cmsimple/debug-log.txt">just to test write access. See settings->info.${line.separator}</echo>
 
         <zip destfile="CMSimple_XH-${version}.zip" basedir="dist"/>
         <delete dir="dist" quiet="true"/>
