@@ -1049,10 +1049,11 @@ function XH_debugmode()
                     );
                     break;
                 case 4:
-                    error_reporting(E_ALL ^ (E_NOTICE | E_WARNING | E_USER_WARNING));
+                    error_reporting(
+                        E_ALL ^ (E_NOTICE | E_WARNING | E_USER_WARNING | E_DEPRECATED | E_USER_DEPRECATED));
                     break;
                 case 5:
-                    error_reporting(E_ALL ^ E_NOTICE);
+                    error_reporting(E_ALL ^ (E_NOTICE | E_USER_DEPRECATED));
                     break;
                 case 6:
                     error_reporting(E_ALL);
