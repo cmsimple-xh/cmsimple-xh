@@ -12,7 +12,7 @@
     $plugin_tx['hi_updatecheck']['message_up-to-date']="ist aktuell.";
     $plugin_tx['hi_updatecheck']['message_update-available']="Für %s ist die neue Version %s verfügbar!";
     $plugin_tx['hi_updatecheck']['message_update-critical']="Dies ist ein kritisches Update! Bitte aktualisieren Sie Ihr System zeitnah!";
-    $plugin_tx['hi_updatecheck']['message_version-newer']="The installierte Version von %s ist neuer als %s! Ist es eine Vorab-Version?";
+    $plugin_tx['hi_updatecheck']['message_version-newer']="Die installierte Version von %s ist neuer als %s! Ist es eine Vorab-Version?";
     $plugin_tx['hi_updatecheck']['message_no-versioninfo1']="Für %s sind keine Versions-Informationen vorhanden!";
     $plugin_tx['hi_updatecheck']['message_no-versioninfo2']="Kontaktieren Sie den Autor direkt, um Updates zu erhalten.";
     $plugin_tx['hi_updatecheck']['message_qc-update-found']="Es sind Updates verfügbar...";

@@ -1,3 +1,8 @@
+Version 1.6.1
+Translation errors in de.php
+Extended error output
+Exception for TinyMCE7
+
 Version 1.6
 replace PHP_EOL with LF ("/n") for html output (The output in XH is characterized by "/n" in most places.)
 PHP version and XH version as part of the UserAgent

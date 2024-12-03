@@ -8,8 +8,8 @@
  * ==================================================================
  * Update-Check-Plugin for CMSimple_XH
  * ==================================================================
- * Version:    1.6
- * Build:      2024080501
+ * Version:    1.6.1
+ * Build:      2024120301
  * Copyright:  Holger Irmler
  * Email:      CMSimple@HolgerIrmler.de
  * Website:    http://CMSimple.HolgerIrmler.de
@@ -416,7 +416,11 @@ function hi_fsFileGetContents($url, $timeout = 30) {
         if ($result !== false) {
             $headers = curl_getinfo($ch);
         } else {
-            $curlerror = (curl_errno($ch) ?  curl_errno($ch) : '');
+            $curlerror = (curl_errno($ch)
+                            ?  curl_errno($ch)
+                                . ' - '
+                                . curl_strerror(curl_errno($ch))
+                            : '');
             throw new RuntimeException("cannot connect to $url , $curlerror");
         }
         curl_close($ch);
