@@ -342,7 +342,7 @@ function stsl($t)
  *
  * @deprecated since 1.7
  *
- * @todo Add deprecation warning (XH 1.8?)
+ * deprecation warning since XH 1.8
  */
 function tag($s)
 {
