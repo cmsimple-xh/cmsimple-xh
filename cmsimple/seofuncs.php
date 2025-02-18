@@ -15,7 +15,7 @@
 /**
  * SEO functionality
  *
- * Integration of the ADC-Core_XH plugin with extended functions (optional)
+ * Integration of external plugin with extended functions (optional).
  *
  * Remove empty path segments in an URL
  * Remove $su from FirstPublicPage
