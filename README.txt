@@ -50,6 +50,10 @@
  Log in with 'test'! You will be redirected automatically:
  Settings > Password
  You can now enter your own password here.
+ 
+ If the 5 minutes have elapsed, it is only possible to log on to the system again,
+ if the file /userfiles/downloads/.defaultpw.lock is deleted via the FTP program.
+ From this moment on, 5 minutes run again.
 
  IMPORTANT NOTE
  =================
