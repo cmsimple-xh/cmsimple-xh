@@ -390,25 +390,6 @@ function locator($separator = '&gt;')
 }
 
 /**
- * Returns the admin menu.
- *
- * Returns an empty string since XH 1.5,
- * as the admin menu is automatically inserted to the template.
- *
- * @return string HTML
- *
- * @see XH_adminMenu()
- *
- * @deprecated since 1.7. Just remove from the template.
- */
-function editmenu()
-{
-    trigger_error('Function editmenu() is deprecated', E_USER_DEPRECATED);
-
-    return '';
-}
-
-/**
  * Returns the contents area.
  *
  * @return string HTML
@@ -427,7 +408,6 @@ function content()
     }
     return  preg_replace('/<!--XH_ml[1-9]:.*?-->/is', '', $o);
 }
-
 
 /**
  * Returns the submenu of a page.
