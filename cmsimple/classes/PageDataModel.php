@@ -119,7 +119,7 @@ class PageDataModel
      *
      * @return bool Whether the page data have been refreshed.
      */
-    public function refresh(array $data = null)
+    public function refresh(?array $data = null)
     {
         if (isset($data)) {
             $this->data = $data;

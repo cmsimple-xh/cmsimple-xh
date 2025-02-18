@@ -128,7 +128,7 @@ class PageDataRouter
      *
      * @return bool Whether the page data have been refreshed.
      */
-    public function refresh(array $data = null)
+    public function refresh(?array $data = null)
     {
         return $this->model->refresh($data);
     }

@@ -501,7 +501,7 @@ class View
      *
      * @return void
      */
-    public function error($message = '', array $args = null)
+    public function error($message = '', ?array $args = null)
     {
         $this->message .= '<p class="xh_fail">'
             . $this->translate($message, $args) . '</p>';
@@ -515,7 +515,7 @@ class View
      *
      * @return void
      */
-    public function success($message, array $args = null)
+    public function success($message, ?array $args = null)
     {
         $this->message .= '<p class="xh_success">'
             . $this->translate($message, $args) . '</p>';
@@ -529,7 +529,7 @@ class View
      *
      * @return void
      */
-    public function info($message, array $args = null)
+    public function info($message, ?array $args = null)
     {
         $this->message .= '<p class="xh_info">'
             . $this->translate($message, $args) . '</p>';
@@ -555,7 +555,7 @@ class View
      *
      * @return string
      */
-    public function translate($string = '', array $args = null)
+    public function translate($string = '', ?array $args = null)
     {
         if (strlen($string) === 0) {
             return '';
