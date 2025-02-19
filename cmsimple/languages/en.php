@@ -128,7 +128,7 @@ $tx['help']['security_email']="The email address for the password forgotten func
 $tx['help']['security_frame_options']="Whether pages of your site are allowed to be displayed in frames: \"DENY\" means never, \"SAMEORIGIN\" means only on pages from the same domain. Leave empty to allow framing, what is, however, not recommended for security reasons.";
 $tx['help']['site_template']="Default template of the site";
 $tx['help']['site_timezone']="Usually no entry necessary; a <a href=\"http://www.php.net/manual/en/timezones.php\">time zone</a> can be entered to override your server's setting (see http://www.php.net/manual/en/timezones.php).";
-$tx['help']['site_compat']="Whether the website needs functions that have been removed in CMSimple_XH 1.7.";
+$tx['help']['site_compat']="Does the website require functions that have been removed as of CMSimple_XH 1.7?<br>These functions output an XH-DEPRECATED message in debug mode.<br>If there is no such message, this setting can be deactivated.";
 $tx['help']['title_format']="The way the title of a page of your site (&lt;title&gt;) is shown in the tab of your browser.";
 $tx['help']['uri_seperator']="The character which separates names of pages and sub pages in the URL.";
 $tx['help']['uri_word_separator']="The character which separates words in the URL.";
