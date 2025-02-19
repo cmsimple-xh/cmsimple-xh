@@ -275,10 +275,12 @@ class LinkChecker
         $agent = 'CMSimple_XH Link-Checker';
 
         // DNS error
-        $ip = gethostbyname($host);
-        if ($ip == $host) {
-            return false;
-        }
+        if (!filter_var($host, FILTER_VALIDATE_IP)) {
+            $ip = gethostbyname($host);
+            if ($ip == $host) {
+                return false;
+            }
+        } //todo for else -> certificate check for IPs
 
         if (extension_loaded('curl')) {
             $ch = curl_init();
