@@ -274,6 +274,12 @@ class LinkChecker
         $maxredir = (int) $cf['validate']['redir'];
         $agent = 'CMSimple_XH Link-Checker';
 
+        // DNS error
+        $ip = gethostbyname($host);
+        if ($ip == $host) {
+            return false;
+        }
+
         if (extension_loaded('curl')) {
             $ch = curl_init();
             $options = array(
