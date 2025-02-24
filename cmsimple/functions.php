@@ -1442,13 +1442,12 @@ function XH_readFile($filename)
  *
  * @since 1.6
  */
-function XH_writeFile($filename, $contents, $pwChange=false)
+function XH_writeFile($filename, $contents, $pwChange = false)
 {
     global $cf;
 
     $res = false;
-    if (password_verify('test', $cf['security']['password'])
-    && !$pwChange) {
+    if ($_SESSION['xh_default_password'] && !$pwChange) {
         return $res;
     }
     $stream = fopen($filename, 'cb');

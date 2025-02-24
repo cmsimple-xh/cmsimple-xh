@@ -195,6 +195,7 @@ class Controller
                     e('cntwriteto', 'log', $pth['file']['log']);
                 }
                 if ($keycut == 'test') {
+                    $_SESSION['xh_default_password'] = true;
                     $written = XH_logMessage('warning',
                                              'XH',
                                              'login',
@@ -205,6 +206,7 @@ class Controller
                     header('Location: ' . CMSIMPLE_URL . '?&xh_change_password');
                     exit;
                 }
+                $_SESSION['xh_default_password'] = false;
             }
         } else {
             $login = null;
@@ -232,6 +234,7 @@ class Controller
         XH_startSession();
         session_regenerate_id(true);
         unset($_SESSION['xh_password']);
+        unset($_SESSION['xh_default_password']);
         $o .= XH_message('success', $tx['login']['loggedout']);
         $f = 'xh_loggedout';
     }
