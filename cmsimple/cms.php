@@ -242,9 +242,6 @@ require_once $pth['folder']['cmsimple'] . 'functions.php';
 spl_autoload_register('XH_autoload');
 require_once $pth['folder']['cmsimple'] . 'tplfuncs.php';
 require_once $pth['folder']['cmsimple'] . 'utf8.php';
-if (!function_exists('random_bytes')) {
-    include_once $pth['folder']['cmsimple'] . 'password.php';
-}
 require_once $pth['folder']['cmsimple'] . 'seofuncs.php';
 
 /**
