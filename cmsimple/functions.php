@@ -1444,8 +1444,6 @@ function XH_readFile($filename)
  */
 function XH_writeFile($filename, $contents, $pwChange = false)
 {
-    global $cf;
-
     $res = false;
     if ($_SESSION['xh_default_password'] && !$pwChange) {
         return $res;
