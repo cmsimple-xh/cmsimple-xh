@@ -152,7 +152,7 @@ class ChangePassword
      */
     public function saveAction()
     {
-        global $o;
+        global $o, $pth;
 
         $this->csrfProtector->check();
         if ($hash = $this->validate($error)) {
