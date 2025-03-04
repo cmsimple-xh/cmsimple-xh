@@ -1139,8 +1139,6 @@ function XH_restore($filename)
  */
 function XH_delete($filename)
 {
-    global $e;
-
     if (!unlink($filename)) {
         e('cntdelete', 'content', $filename);
         return;
