@@ -308,7 +308,7 @@ class LinkChecker
             }
         }
         // alternative to cURL
-        if (function_exists('get_headers')) {
+        elseif (function_exists('get_headers')) {
             $context = stream_context_create(
                 array(
                     'http' => array(
