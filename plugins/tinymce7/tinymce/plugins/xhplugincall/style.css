@@ -1,12 +1,17 @@
 .xhplugincall {
-	color: #c00;
-	padding: .4rem .4rem .4rem 2rem;
-	background-image: url('no_edit.png');
-	background-repeat: no-repeat;
-	background-position: left;
-	background-color: #ffffa5;
-	position: relative;
-	}
+    color: #c00;
+    padding: .4rem .4rem .4rem 2rem;
+    background-image: url('no_edit.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-color: #ffffa5;
+    position: relative;
+    display: inline-flex;
+    hyphens: auto;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+    width: calc(100% - 2.4rem);
+}
 .xhplugincall:hover:after{
 	content: "DON'T TOUCH THE PLUGIN CALL UNLESS YOU KNOW WHAT ARE YOU DOING!!!";
 	background: #f00;
@@ -19,7 +24,7 @@
 	top: 2.5rem;
 	left: 0;
   z-index:2;
-	}
+}
 .xhplugincall:lang(de):hover:after {
 	content: "AUFRUF NICHT VERÄNDERN, SOLANGE SIE NICHT WISSEN, WAS SIE TUN!!!";
 }
