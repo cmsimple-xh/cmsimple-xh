@@ -51,6 +51,9 @@
 	src: local(".SFNSText-BoldItalic"), local(".HelveticaNeueDeskInterface-BoldItalic"), local(".LucidaGrandeUI"), local("Segoe UI Bold Italic"), local("Ubuntu Bold Italic"), local("Roboto-BoldItalic"), local("DroidSans-Bold"), local("Tahoma Bold");
 }
 /* adminmenu */
+#xh_adminmenu_scrolling {
+	z-index: 999;
+}
 #xh_adminmenu_fixed {
 	position: fixed;
 	top: 0;
