@@ -52,7 +52,8 @@
 }
 /* adminmenu */
 #xh_adminmenu_scrolling {
-	z-index: 999;
+   position: relative;
+   z-index: 999;
 }
 #xh_adminmenu_fixed {
 	position: fixed;
