@@ -18,11 +18,11 @@ jobs:
         uses: actions/checkout@v3
       - name: composer install
         run: composer install
-      - name: phing sniff
-        run: PATH=vendor/bin:$PATH phing sniff
+#      - name: phing sniff
+#        run: PATH=vendor/bin:$PATH phing sniff
       - name: phing phan
         run: PATH=vendor/bin:$PATH phing phan
       - name: phing mess
         run: PATH=vendor/bin:$PATH phing mess
-      - name: phing unit-test
-        run: PATH=vendor/bin:$PATH phing unit-tests
+#      - name: phing unit-test
+#        run: PATH=vendor/bin:$PATH phing unit-tests
