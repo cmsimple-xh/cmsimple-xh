@@ -43,7 +43,6 @@ function XH_checkDefaultPW()
     }
     return false;
 }
-$e .= XH_checkDefaultPW();
 
 /**
  * Returns the readable version of a plugin.
