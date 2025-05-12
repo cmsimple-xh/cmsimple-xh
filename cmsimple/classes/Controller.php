@@ -183,6 +183,10 @@ class Controller
                 $f = 'xh_login_pw_expired';
                 XH_logMessage('warning', 'XH', 'login', 'login password expired');
             } else {
+                if ($keycut !== 'test' && password_needs_rehash($cf['security']['password'], PASSWORD_BCRYPT)) {
+                    $cf['security']['password'] = password_hash($keycut, PASSWORD_BCRYPT);
+                    $this->saveConfig($pth['file']['config'], $cf);
+                }
                 setcookie('status', 'adm', 0, CMSIMPLE_ROOT);
                 XH_startSession();
                 session_regenerate_id(true);
@@ -704,5 +708,36 @@ EOT;
             $location = $file . ':' . $line;
             XH_exit(str_replace('{location}', $location, $tx['error']['headers']));
         }
+    }
+
+    /**
+     * Saves the modified configuration $cf
+     *
+     * Occassionally needed, e.g. when storing a new password hash.
+     */
+    public function saveConfig(string $configFile, array $config): bool
+    {
+        $o = "<?php\n\n";
+        foreach ($config as $cat => $opts) {
+            foreach ($opts as $name => $opt) {
+                // The following are there for backwards compatibility,
+                // and have to be suppressed in the config form.
+                if ($cat == 'security' && $name == 'type'
+                    || $cat == 'scripting' && $name == 'regexp'
+                    || $cat == 'site' && $name == 'title'
+                    || $cat == 'xhtml'
+                ) {
+                    continue;
+                }
+                $opt = addcslashes($opt, "\0..\37\"\$\\");
+                $o .= "\$cf['$cat']['$name']=\"$opt\";\n";
+            }
+        }
+        $o .= "\n?>\n";
+        $res = (bool) XH_writeFile($configFile, $o, true);
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($configFile);
+        }
+        return $res;
     }
 }
