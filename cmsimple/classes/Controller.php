@@ -184,6 +184,7 @@ class Controller
                 XH_logMessage('warning', 'XH', 'login', 'login password expired');
             } else {
                 if ($keycut !== 'test' && password_needs_rehash($cf['security']['password'], PASSWORD_BCRYPT)) {
+                    $_SESSION['xh_default_password'] = false;
                     $cf['security']['password'] = password_hash($keycut, PASSWORD_BCRYPT);
                     $this->saveConfig($pth['file']['config'], $cf);
                 }
