@@ -183,9 +183,12 @@ class Controller
                 $f = 'xh_login_pw_expired';
                 XH_logMessage('warning', 'XH', 'login', 'login password expired');
             } else {
-                if ($keycut !== 'test' && password_needs_rehash($cf['security']['password'], PASSWORD_BCRYPT)) {
+                if (
+                    $keycut !== 'test'
+                    && password_needs_rehash($cf['security']['password'], PASSWORD_BCRYPT, ['cost' => 12])
+                ) {
                     $_SESSION['xh_default_password'] = false;
-                    $cf['security']['password'] = password_hash($keycut, PASSWORD_BCRYPT);
+                    $cf['security']['password'] = password_hash($keycut, PASSWORD_BCRYPT, ['cost' => 12]);
                     $this->saveConfig($pth['file']['config'], $cf);
                 }
                 setcookie('status', 'adm', 0, CMSIMPLE_ROOT);

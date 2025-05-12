@@ -1445,7 +1445,7 @@ function XH_readFile($filename)
 function XH_writeFile($filename, $contents, $pwChange = false)
 {
     $res = false;
-    if ($_SESSION['xh_default_password'] && !$pwChange) {
+    if (array_key_exists('xh_default_password', $_SESSION) && $_SESSION['xh_default_password'] && !$pwChange) {
         return $res;
     }
     $stream = fopen($filename, 'cb');
@@ -2267,7 +2267,7 @@ function XH_onShutdown()
 {
     global $tx;
 
-    if (!XH_ADM && isset($_SESSION['xh_password'])) {
+    if (defined("XH_ADM") && !XH_ADM && isset($_SESSION['xh_password'])) {
         unset($_SESSION['xh_password']);
     }
 

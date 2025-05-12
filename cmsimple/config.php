@@ -1,17 +1,17 @@
 <?php
 
-$cf['security']['password']="\$2y\$10\$TtMCJlxEv6D27BngvfdNrewGqIx2R0aPCHORruqpe63LQpz7.E9Gq";
-$cf['password']['min_length']="8";
-$cf['password']['max_remaining_time']="300";
+$cf['security']['password']="\$2y\$12\$9NXtNK1JPVQcDIpHJ/l.8e0s49uNzAMFkTAR1itoj4ytThn5EKSJC";
 $cf['security']['secret']="b41bd1913a2a5412f41cabcf";
 $cf['security']['email']="";
 $cf['security']['frame_options']="";
+$cf['password']['min_length']="8";
+$cf['password']['max_remaining_time']="300";
 $cf['site']['template']="fhs-simple-2019";
 $cf['site']['timezone']="";
 $cf['site']['compat']="true";
 $cf['language']['default']="en";
-$cf['languagemenu']['external']="";
 $cf['language']['2nd_lang_names']="cs=Čeština;da=Dansk;de=Deutsch;en=English;es=Español;fi=Suomi;fr=Français;el=Ελληνικά;hu=Magyar;it=Italiano;nl=Nederlands;no=Norsk;pl=Polski;ru=Русский;sv=Svensk;sk=Slovenčina";
+$cf['languagemenu']['external']="";
 $cf['mailform']['email']="";
 $cf['mailform']['captcha']="true";
 $cf['mailform']['lf_only']="";
@@ -63,3 +63,5 @@ $cf['validate']['mailto']="true";
 $cf['validate']['tel']="true";
 $cf['validate']['redir']="0";
 $cf['debug']['log']="";
+
+?>

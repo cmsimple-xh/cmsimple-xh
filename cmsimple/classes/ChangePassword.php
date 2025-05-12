@@ -197,7 +197,7 @@ class ChangePassword
                 } elseif ($this->passwordNew != $this->passwordConfirmation) {
                     $error = $this->lang['password']['mismatch'];
                 } else {
-                    $result = password_hash($this->passwordNew, PASSWORD_BCRYPT);
+                    $result = password_hash($this->passwordNew, PASSWORD_BCRYPT, ['cost' => 12]);
                 }
             }
         } else {
