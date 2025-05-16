@@ -152,12 +152,12 @@ class ChangePassword
      */
     public function saveAction()
     {
-        global $o, $pth;
+        global $o, $pth, $_XH_controller;
 
         $this->csrfProtector->check();
         if ($hash = $this->validate($error)) {
             $this->config['security']['password'] = $hash;
-            $this->savePassword();
+            $_XH_controller->saveConfig($pth['file']['config'], $this->config);
             $written = XH_logMessage('info', 'XH', 'login', 'password was changed');
             if (!$written) {
                 e('cntwriteto', 'log', $pth['file']['log']);
@@ -197,45 +197,12 @@ class ChangePassword
                 } elseif ($this->passwordNew != $this->passwordConfirmation) {
                     $error = $this->lang['password']['mismatch'];
                 } else {
-                    $result = password_hash($this->passwordNew, PASSWORD_BCRYPT);
+                    $result = password_hash($this->passwordNew, PASSWORD_BCRYPT, ['cost' => 12]);
                 }
             }
         } else {
             $error = $this->lang['password']['fields_missing'];
         }
         return $result;
-    }
-
-    /**
-     * Saves the configuration with the new password hash.
-     *
-     * @return bool
-     */
-    private function savePassword()
-    {
-        global $pth;
-
-        $o = "<?php\n\n";
-        foreach ($this->config as $cat => $opts) {
-            foreach ($opts as $name => $opt) {
-                // The following are there for backwards compatibility,
-                // and have to be suppressed in the config form.
-                if ($cat == 'security' && $name == 'type'
-                    || $cat == 'scripting' && $name == 'regexp'
-                    || $cat == 'site' && $name == 'title'
-                    || $cat == 'xhtml'
-                ) {
-                    continue;
-                }
-                $opt = addcslashes($opt, "\0..\37\"\$\\");
-                $o .= "\$cf['$cat']['$name']=\"$opt\";\n";
-            }
-        }
-        $o .= "\n?>\n";
-        $res = (bool) XH_writeFile($pth['file']['config'], $o, true);
-        if (function_exists('opcache_invalidate')) {
-            opcache_invalidate($pth['file']['config']);
-        }
-        return $res;
     }
 }

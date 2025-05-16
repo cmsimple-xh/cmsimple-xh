@@ -140,7 +140,7 @@ class PasswordForgotten
         global $pth, $cf, $tx, $e;
 
         $password = bin2hex(random_bytes(8));
-        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
         if (($hash !== false) && ($password != '')) {
             $to = $cf['security']['email'];
             $message = $tx['password_forgotten']['email2_text'] . ' ' . $password;
