@@ -121,6 +121,7 @@ class PluginTextFileEditTest extends TestCase
         );
         $exitSpy = $this->createFunctionMock('XH_exit');
         $exitSpy->expects($this->once());
+        $_SESSION = ['xh_default_password' => ''];
         $_POST = array('plugin_text' => 'body{}');
         $this->subject->submit();
         $headerSpy->restore();

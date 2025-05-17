@@ -30,6 +30,8 @@ class ErrorHandlerTest extends TestCase
 
     protected function setUp(): void
     {
+        global $cf;
+        $cf = ['debug' => ['log' => '']]; 
         $this->errorHandling = error_reporting();
         error_reporting(-1);
     }

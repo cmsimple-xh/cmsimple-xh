@@ -559,6 +559,7 @@ function languagemenu()
 /**
  * Provides a minimal template (in case template isn't found).
  *
+ * @param string $tplError
  * @return void
  *
  * @since 1.6.3

@@ -28,6 +28,7 @@ class PageDataRouterTest extends TestCase
         global $cf;
 
         $cf['uri']['word_separator'] = '-';
+        $cf['uri']['transliteration'] = '';
         $h = array('Welcome', 'News');
         $fields = array('url', 'foo', 'bar', 'list');
         $temp = array('url' => 'deleted', 'foo' => '', 'bar' => '', 'baz' => 42);
