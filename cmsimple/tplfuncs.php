@@ -75,7 +75,7 @@ function head()
     }
     $o .= '<link rel="stylesheet" href="' . XH_pluginStylesheet()
         . '" type="text/css">' . PHP_EOL
-        . '<!--{11DF30E2-DDD5-4250-8F6B-C9E1147218A1}-->' // $hjs replacement
+        . '<!--$hjs here-->' // $hjs replacement
         . '<link rel="stylesheet" href="' . $pth['file']['stylesheet']
         . '" type="text/css">' . "\n";
     return $o;
