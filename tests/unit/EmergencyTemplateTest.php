@@ -34,7 +34,7 @@ class EmergencyTemplateTest extends TestCase
     protected function setUp(): void
     {
         $mockNames = array(
-            'header', 'head', 'onload', 'toc', 'content', 'loginlink', 'XH_exit'
+            'header', 'head', 'onload', 'toc', 'content', 'loginlink', 'XH_exit', 'languagemenu',
         );
         foreach ($mockNames as $mockName) {
             $this->mocks[$mockName] = $this->createFunctionMock($mockName);
@@ -61,7 +61,7 @@ class EmergencyTemplateTest extends TestCase
     {
         $this->mocks['header']->expects($this->atLeastOnce())
             ->willReturn('HTTP/1.0 503 Service Unavailable');
-        XH_emergencyTemplate();
+        XH_emergencyTemplate('');
     }
 
     /**
@@ -73,7 +73,7 @@ class EmergencyTemplateTest extends TestCase
     {
         $this->mocks['header']->expects($this->atLeastOnce())
             ->willReturn('Content-Type: text/html;charset=UTF-8');
-        XH_emergencyTemplate();
+        XH_emergencyTemplate('');
     }
 
     /**
@@ -84,7 +84,7 @@ class EmergencyTemplateTest extends TestCase
     public function testCallsHead()
     {
         $this->mocks['head']->expects($this->once());
-        XH_emergencyTemplate();
+        XH_emergencyTemplate('');
     }
 
     /**
@@ -95,7 +95,7 @@ class EmergencyTemplateTest extends TestCase
     public function testCallsOnload()
     {
         $this->mocks['onload']->expects($this->once());
-        XH_emergencyTemplate();
+        XH_emergencyTemplate('');
     }
 
     /**
@@ -106,7 +106,7 @@ class EmergencyTemplateTest extends TestCase
     public function testCallsToc()
     {
         $this->mocks['toc']->expects($this->once());
-        XH_emergencyTemplate();
+        XH_emergencyTemplate('');
     }
 
     /**
@@ -117,7 +117,7 @@ class EmergencyTemplateTest extends TestCase
     public function testCallsContent()
     {
         $this->mocks['content']->expects($this->once());
-        XH_emergencyTemplate();
+        XH_emergencyTemplate('');
     }
 
     /**
@@ -128,7 +128,7 @@ class EmergencyTemplateTest extends TestCase
     public function testCallsLoginlink()
     {
         $this->mocks['loginlink']->expects($this->once());
-        XH_emergencyTemplate();
+        XH_emergencyTemplate('');
     }
 
     /**
@@ -139,6 +139,6 @@ class EmergencyTemplateTest extends TestCase
     public function testExitsScript()
     {
         $this->mocks['XH_exit']->expects($this->once());
-        XH_emergencyTemplate();
+        XH_emergencyTemplate('');
     }
 }

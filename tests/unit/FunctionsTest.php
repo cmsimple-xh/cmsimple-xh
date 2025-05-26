@@ -238,6 +238,7 @@ class FunctionsTest extends TestCase
 
     public function testWriteFile()
     {
+        $_SESSION = ['xh_default_password' => ''];
         $filename = './tests/unit/data/temp';
         $expected = 'foo';
         XH_writeFile($filename, $expected);
