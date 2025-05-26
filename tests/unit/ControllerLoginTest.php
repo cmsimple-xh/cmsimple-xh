@@ -56,13 +56,14 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
         global $pth, $cf;
 
         parent::setUp();
+        vfsStream::setup('root');
         $_SERVER = array(
             'HTTP_USER_AGENT' => 'Mozilla/5.0',
             'REMOTE_ADDR' => '127.0.0.1'
         );
         $pth = array(
             'folder' => ['cmsimple' => './cmsimple/', 'downloads' => './userfiles/downloads'],
-            'file' => ['log' => ''],
+            'file' => ['config' => vfsStream::url('root/config.php'), 'log' => ''],
         );
         $this->passwordVerifyMock = $this->createFunctionMock('password_verify');
         $cf['security']['password'] = '$P$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1';
