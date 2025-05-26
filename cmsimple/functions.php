@@ -1761,7 +1761,7 @@ function XH_helpIcon($tooltip)
  * Returns whether a file is a content backup by checking the filename.
  *
  * @param string $filename    A filename.
- * @param bool   $regularOnly Whether to check for regalur backup names only.
+ * @param string $regularOnly Whether to check for regalur backup names only.
  *
  * @return bool
  *

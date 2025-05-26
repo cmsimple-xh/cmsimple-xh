@@ -58,16 +58,16 @@ class BackupTest extends TestCase
     public function dataForIsContentBackup()
     {
         return array(
-            array('20140503_192021_content.htm', true, true),
-            array('20140503_1920_content.htm', true, false),
-            array('20140503_192021_special.htm', true, false),
-            array('20140503_192021_special.html', true, false),
-            array('2013-07-11-01-02-03-content.htm', true, false),
-            array('20140503_192021_content.htm', false, true),
-            array('20140503_1920_content.htm', false, false),
-            array('20140503_192021_special.htm', false, true),
-            array('20140503_192021_special.html', false, false),
-            array('2013-07-11-01-02-03-content.htm', false, false)
+            array('20140503_192021_content.htm', 'content', true),
+            array('20140503_1920_content.htm', 'content', false),
+            array('20140503_192021_special.htm', 'content', false),
+            array('20140503_192021_special.html', 'content', false),
+            array('2013-07-11-01-02-03-content.htm', 'content', false),
+            array('20140503_192021_content.htm', '', true),
+            array('20140503_1920_content.htm', '', false),
+            array('20140503_192021_special.htm', '', true),
+            array('20140503_192021_special.html', '', false),
+            array('2013-07-11-01-02-03-content.htm', '', false)
         );
     }
 

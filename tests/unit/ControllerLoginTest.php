@@ -61,11 +61,12 @@ class ControllerLoginTest extends ControllerLogInOutTestCase
             'REMOTE_ADDR' => '127.0.0.1'
         );
         $pth = array(
-            'folder' => ['cmsimple' => './cmsimple/'],
+            'folder' => ['cmsimple' => './cmsimple/', 'downloads' => './userfiles/downloads'],
             'file' => ['log' => ''],
         );
         $this->passwordVerifyMock = $this->createFunctionMock('password_verify');
         $cf['security']['password'] = '$P$BHYRVbjeM5YAvnwX2AkXnyqjLhQAod1';
+        $cf['password']['max_remaining_time'] = '300';
         $this->eMock = $this->createFunctionMock('e');
         $this->logMessageMock = $this->createFunctionMock('XH_logMessage');
         $this->filePutContentsMock = $this->createFunctionMock('file_put_contents');

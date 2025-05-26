@@ -57,10 +57,10 @@ class LinkCheckerTest extends TestCase
         );
         $cf = array(
             'mailform' => array('email' => 'devs@cmsimple-xh.org'),
-            'link' => [
+            'validate' => [
                 'mailto' => "true",
                 'tel' => "true"
-            ]
+            ],
         );
         $onload = '';
         $this->linkChecker = $this->getMockBuilder(LinkChecker::class)
