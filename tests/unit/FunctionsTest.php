@@ -360,6 +360,7 @@ class FunctionsTest extends TestCase
 
         $expected = array('de', 'fr');
         $pth['folder']['base'] = './tests/unit/data/';
+        uopz_set_static('XH_secondLanguages', ['langs' => null]);
         $actual = XH_secondLanguages();
         $this->assertEquals($expected, $actual);
     }
@@ -383,9 +384,11 @@ class FunctionsTest extends TestCase
      */
     public function testIsInternalPath($path, $language, $expected)
     {
-        global $sl;
+        global $sl, $pth;
 
+        uopz_set_static('XH_secondLanguages', ['langs' => null]);
         $sl = $language;
+        $pth['folder']['base'] = './tests/unit/data/';
         $actual = XH_isInternalPath($path);
         $this->assertEquals($expected, $actual);
     }
