@@ -15,7 +15,7 @@ jobs:
           ini-values: uopz.exit=1
           tools: composer
       - name: Checkout CMSimple_XH
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: composer install
         run: composer install
 #      - name: phing sniff
