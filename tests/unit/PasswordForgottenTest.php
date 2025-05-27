@@ -11,6 +11,8 @@
 
 namespace XH;
 
+use org\bovigo\vfs\vfsStream;
+
 /**
  * A test case for the password forgotten class.
  *
@@ -25,15 +27,18 @@ class PasswordForgottenTest extends TestCase
 
     protected function setUp(): void
     {
-        global $cf;
+        global $pth, $cf, $tx;
 
-        $cf = array(
-            'security' => array(
-                'email' => 'devs@cmsimple-xh.org',
-                'secret' => '0123456789abcdef'
-            )
-        );
-        $this->passwordForgotten = new PasswordForgotten();
+        vfsStream::setup('root');
+        $pth['file']['config'] = vfsStream::url('root/config.php');
+        copy('./cmsimple/config.php', vfsStream::url('root/config.php'));
+        $cf = XH_includeVar('./cmsimple/config.php', 'cf');
+        $cf['security']['email'] = 'devs@cmsimple-xh.org';
+        $cf['security']['secret'] = '0123456789abcdef';
+        $tx = XH_includeVar('./cmsimple/languages/en.php', 'tx');
+        $mail = $this->getMockBuilder(Mail::class)->onlyMethods(["send"])->getMock();
+        $mail->expects($this->any())->method("send")->willReturn(true);
+        $this->passwordForgotten = new PasswordForgotten($mail);
     }
 
     protected function currentMac()
@@ -55,5 +60,15 @@ class PasswordForgottenTest extends TestCase
     public function testCheckMac()
     {
         $this->assertTrue($this->passwordForgotten->checkMac($this->currentMac()));
+    }
+
+    public function testSavesNewPasswordOnResetAfterSuccessfulMailing(): void
+    {
+        global $cf;
+        $oldPasswordHash = $cf['security']['password'];
+        $_GET['xh_code'] = '6fa0cd0c8c1f0ba35d37551b2378459c';
+        $this->passwordForgotten->dispatch();
+        $cf = XH_includeVar(vfsStream::url('root/config.php'), 'cf');
+        $this->assertNotEquals($oldPasswordHash, $cf['security']['password']);
     }
 }

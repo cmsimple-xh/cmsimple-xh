@@ -1445,7 +1445,7 @@ function XH_readFile($filename)
 function XH_writeFile($filename, $contents, $pwChange = false)
 {
     $res = false;
-    if (array_key_exists('xh_default_password', $_SESSION) && $_SESSION['xh_default_password'] && !$pwChange) {
+    if (isset($_SESSION['xh_default_password']) && $_SESSION['xh_default_password'] && !$pwChange) {
         return $res;
     }
     $stream = fopen($filename, 'cb');
