@@ -5,6 +5,10 @@ on:
       version:
         description: CMSimple_XH version to build
         required: true
+      ref:
+        description: The branch, tag or SHA to checkout
+        required: true
+        default: master
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -16,6 +20,8 @@ jobs:
           tools: composer
       - name: Checkout CMSimple_XH
         uses: actions/checkout@v4
+        with:
+          ref: ${{github.event.inputs.ref}}
       - name: Install composer
         run: composer install
       - name: Build CMSimple_XH
