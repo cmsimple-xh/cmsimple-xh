@@ -12,6 +12,7 @@
         "phpunit/phpunit": "8.5.*",
         "mikey179/vfsstream": "^1.6.10",
         "tedivm/jshrink": "^1.4.0",
-        "phan/phan": "5.4.*"
+        "phan/phan": "5.4.*",
+        "approvals/approval-tests": "*@dev"
     }
 }

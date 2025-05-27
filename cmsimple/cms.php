@@ -1256,7 +1256,7 @@ if (XH_ADM) {
 
     switch ($f) {
         case 'sysinfo':
-            $o .= XH_sysinfo();
+            $o .= (new SystemInfo)->render();
             break;
         case 'phpinfo':
             phpinfo();

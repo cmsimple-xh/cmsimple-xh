@@ -1,5 +1,8 @@
 <?php
 
+const CMSIMPLE_XH_VERSION = 'CMSimple_XH 1.8';
+const CMSIMPLE_XH_DATE = '2024-12-11';
+const CMSIMPLE_URL = 'http://example.com/';
 const XH_URICHAR_SEPARATOR = '|';
 
 require_once './vendor/autoload.php';
