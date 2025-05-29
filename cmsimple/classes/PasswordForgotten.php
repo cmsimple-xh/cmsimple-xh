@@ -2,6 +2,8 @@
 
 namespace XH;
 
+use XH\Mail;
+
 /**
  * Handling of password forgotten functionality.
  *
@@ -18,6 +20,13 @@ class PasswordForgotten
      * @var string
      */
     private $status = '';
+
+    private ?Mail $mail;
+
+    public function __construct(?Mail $mail = null)
+    {
+        $this->mail = $mail;
+    }
 
     /**
      * Dispatches according to the request.
@@ -112,7 +121,7 @@ class PasswordForgotten
             $message = $tx['password_forgotten']['email1_text'] . "\r\n"
                 . '<' . CMSIMPLE_URL . '?&function=forgotten&xh_code='
                 . $this->mac() . '>';
-            $mail = new Mail();
+            $mail = $this->mail ?? new Mail();
             $mail->setTo($to);
             $mail->setSubject($tx['title']['password_forgotten']);
             $mail->setMessage($message);
@@ -144,7 +153,7 @@ class PasswordForgotten
         if (($hash !== false) && ($password != '')) {
             $to = $cf['security']['email'];
             $message = $tx['password_forgotten']['email2_text'] . ' ' . $password;
-            $mail = new Mail();
+            $mail = $this->mail ?? new Mail();
             $mail->setTo($to);
             $mail->setSubject($tx['title']['password_forgotten']);
             $mail->setMessage($message);
