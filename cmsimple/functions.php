@@ -2267,7 +2267,7 @@ function XH_onShutdown()
 {
     global $tx;
 
-    if (defined("XH_ADM") && !XH_ADM && isset($_SESSION['xh_password'])) {
+    if (defined('XH_ADM') && !XH_ADM && isset($_SESSION['xh_password'])) {
         unset($_SESSION['xh_password']);
     }
 
