@@ -53,7 +53,7 @@ function XH_renderNextLink()
  */
 function head()
 {
-    global $title, $cf, $pth, $tx, $hjs;
+    global $title, $cf, $pth, $tx;
 
     $t = XH_title($cf['site']['title'], $title);
     $t = '<title>' . strip_tags($t) . '</title>' . "\n";
@@ -75,7 +75,7 @@ function head()
     }
     $o .= '<link rel="stylesheet" href="' . XH_pluginStylesheet()
         . '" type="text/css">' . PHP_EOL
-        . $hjs
+        . '<!--$hjs here-->' // $hjs replacement
         . '<link rel="stylesheet" href="' . $pth['file']['stylesheet']
         . '" type="text/css">' . "\n";
     return $o;
