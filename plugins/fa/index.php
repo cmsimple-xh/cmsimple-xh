@@ -19,15 +19,28 @@
  * along with Fa_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// phpcs:disable PSR1.Files.SideEffects
+
+use Fa\Plugin;
+
+if (!defined("CMSIMPLE_XH_VERSION")) {
+    http_response_code(403);
+    exit;
+}
+
 /**
+ * @var array<string,array<string,string>> $plugin_cf
+ */
+
+if ($plugin_cf["fa"]["require_auto"]) {
+    Plugin::requireCommand()->execute();
+}
+
+/**
+ * @api
  * @return void
  */
 function fa_require()
 {
-    $command = new Fa\RequireCommand;
-    $command->execute();
+    Plugin::requireCommand()->execute();
 }
-
-$temp = new Fa\Plugin;
-$temp->run();
-$temp = null;

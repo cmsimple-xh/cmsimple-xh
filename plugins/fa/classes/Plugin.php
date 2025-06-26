@@ -23,59 +23,26 @@ namespace Fa;
 
 class Plugin
 {
-    const VERSION = '1.3';
+    public const VERSION = '1.5';
 
-    /**
-     * @return void
-     */
-    public function run()
+    public static function requireCommand(): RequireCommand
     {
-        global $plugin_cf;
-
-        if ($plugin_cf['fa']['require_auto']) {
-            $command = new RequireCommand;
-            $command->execute();
-        }
-        if (XH_ADM) { // @phpstan-ignore-line
-            XH_registerStandardPluginMenuItems(false);
-            if (XH_wantsPluginAdministration('fa')) {
-                $this->handlePluginAdministration();
-            }
-        }
-    }
-
-    /**
-     * @return void
-     */
-    private function handlePluginAdministration()
-    {
-        global $o, $admin;
-
-        $o .= print_plugin_admin('off');
-        switch ($admin) {
-            case '':
-                $o .= $this->handlePluginInfo();
-                break;
-            default:
-                $o .= plugin_admin_common();
-        }
-    }
-
-    /**
-     * @return string
-     */
-    private function handlePluginInfo()
-    {
-        global $title, $pth;
-
-        $title = 'Fa';
-        $checkService = new SystemCheckService;
-        $view = new View('info');
-        $view->data = array(
-            'logo' => "{$pth['folder']['plugins']}fa/fa.png",
-            'version' => self::VERSION,
-            'checks' => $checkService->getChecks(),
+        global $pth, $plugin_cf;
+        return new RequireCommand(
+            $pth["folder"]["plugins"] . "fa/",
+            $plugin_cf["fa"]
         );
-        return (string) $view;
+    }
+
+    public static function infoCommand(): InfoCommand
+    {
+        global $pth;
+        return new InfoCommand($pth["folder"]["plugins"] . "fa/", self::view());
+    }
+
+    private static function view(): View
+    {
+        global $pth, $plugin_tx;
+        return new View($pth["folder"]["plugins"] . "fa/views/", $plugin_tx["fa"]);
     }
 }
