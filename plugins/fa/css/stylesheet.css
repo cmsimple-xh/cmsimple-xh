@@ -1,5 +1,4 @@
-.fa_logo {
-    float: left;
-    margin-right: 1.5em;
-    margin-bottom: 0.5em;
-}
+/* plugin info */
+
+article.fa_pluginfo {}
+article.fa_pluginfo .fa_syscheck {}

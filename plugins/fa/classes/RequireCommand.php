@@ -28,40 +28,58 @@ class RequireCommand
      */
     private static $isEmitted = false;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $pluginFolder;
 
-    public function __construct()
-    {
-        global $pth;
+    /** @var array<string,string> */
+    private $conf;
 
-        $this->pluginFolder = "{$pth['folder']['plugins']}fa/";
+    /**
+     * @api
+     * @param ?array<string,string> $conf
+     */
+    public function __construct(?string $pluginFolder = null, ?array $conf = null)
+    {
+        global $pth, $plugin_cf;
+        $this->pluginFolder = $pluginFolder ?? $pth["folder"]["plugins"] . "fa/";
+        $this->conf = $conf ?? $plugin_cf["fa"];
     }
 
     /**
+     * @api
      * @return void
      */
     public function execute()
     {
-        global $hjs, $plugin_cf;
+        global $hjs;
 
         if (self::$isEmitted) {
             return;
         }
         self::$isEmitted = true;
 
-        switch ($plugin_cf['fa']['fontawesome_version']) {
-            case '5':
+        switch ($this->conf['fontawesome_version']) {
+            case "5":
                 $fa_css_pth = 'css/v5/all.min.css';
+                break;
+            case "6":
+                $fa_css_pth = 'css/v6/all.min.css';
                 break;
             default:
                 $fa_css_pth = 'css/font-awesome.min.css';
         }
         $hjs .= '<link rel="stylesheet" type="text/css" href="' . $this->pluginFolder . $fa_css_pth . '">';
-        if ($plugin_cf['fa']['fontawesome_version'] === '5' && $plugin_cf['fa']['fontawesome_shim']) {
-            $hjs .= '<link rel="stylesheet" type"text/css" href="' . $this->pluginFolder . 'css/v5/v4-shims.min.css">';
+        if ($this->conf['fontawesome_shim']) {
+            switch ($this->conf['fontawesome_version']) {
+                case "5":
+                    $hjs .= '<link rel="stylesheet" type="text/css" href="' . $this->pluginFolder
+                        . 'css/v5/v4-shims.min.css">';
+                    break;
+                case "6":
+                    $hjs .= '<link rel="stylesheet" type="text/css" href="' . $this->pluginFolder
+                        . 'css/v6/v4-shims.min.css">';
+                    break;
+            }
         }
     }
 }
