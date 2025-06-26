@@ -403,7 +403,7 @@ function editor_replace($elementID = false, $config = '')
  */
 function XH_finalCleanUp($html)
 {
-    global $errors, $cf, $tx, $bjs;
+    global $errors, $cf, $tx, $hjs, $bjs;
 
     if (XH_ADM === true) {
         $debugHint = '';
@@ -443,6 +443,9 @@ function XH_finalCleanUp($html)
         $html = preg_replace('~<body[^>]*>~i', $replacement, $html, 1);
     }
 
+    if (!empty($hjs)) {
+        $html = str_replace('<!--$hjs here-->', $hjs, $html);
+    }
     if (!empty($bjs)) {
         $html = str_replace('</body', "$bjs\n</body", $html);
     }
@@ -1445,7 +1448,7 @@ function XH_readFile($filename)
 function XH_writeFile($filename, $contents, $pwChange = false)
 {
     $res = false;
-    if (array_key_exists('xh_default_password', $_SESSION) && $_SESSION['xh_default_password'] && !$pwChange) {
+    if (isset($_SESSION['xh_default_password']) && $_SESSION['xh_default_password'] && !$pwChange) {
         return $res;
     }
     $stream = fopen($filename, 'cb');
@@ -2267,7 +2270,7 @@ function XH_onShutdown()
 {
     global $tx;
 
-    if (defined("XH_ADM") && !XH_ADM && isset($_SESSION['xh_password'])) {
+    if (defined('XH_ADM') && !XH_ADM && isset($_SESSION['xh_password'])) {
         unset($_SESSION['xh_password']);
     }
 
