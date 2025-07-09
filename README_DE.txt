@@ -52,7 +52,7 @@
  Hier kannst du nun dein eigenes Passwort eintragen.
  
  Sind die 5 min verstrichen, ist eine Anmeldung am System erst wieder möglich,
- wenn per FTP-Programm die Datei /userfiles/downloads/.defaultpw.lock geslöscht wird.
+ wenn per FTP-Programm die Datei /userfiles/downloads/.defaultpw.lock gelöscht wird.
  Ab diesem Moment laufen wieder 5 min.
 
  WICHTIGER HINWEIS
