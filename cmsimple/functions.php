@@ -1370,11 +1370,10 @@ function XH_logMessage($type, $module, $category, $description)
  */
 function loginforms()
 {
-    global $cf, $tx, $onload, $f, $o, $s, $sn, $su, $u, $title, $xh_publisher;
+    global $cf, $tx, $f, $o, $s, $sn, $su, $u, $title, $xh_publisher;
 
     if ($f == 'login' || $f == 'xh_login_failed' || $f == 'xh_login_pw_expired') {
         $cf['meta']['robots'] = "noindex";
-        $onload .= 'document.forms[\'login\'].elements[\'keycut\'].focus();';
         if ($f == 'xh_login_failed') {
             $message = XH_message('fail', $tx['login']['failure']);
         } elseif ($f == 'xh_login_pw_expired') {
@@ -1390,7 +1389,7 @@ function loginforms()
             . '<form id="login" name="login" action="' . $sn . '?' . $su
             . '" method="post">'
             . '<input type="hidden" name="login" value="true">'
-            . '<input type="password" name="keycut" id="passwd" value="">'
+            . '<input type="password" name="keycut" id="passwd" value="" autofocus>'
             . ' '
             . '<input type="submit" name="submit" id="submit" value="'
             . $tx['menu']['login'] . '">'

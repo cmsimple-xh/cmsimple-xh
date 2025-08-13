@@ -50,7 +50,7 @@ class PasswordForgotten
      */
     private function render()
     {
-        global $title, $o, $sn, $tx, $onload;
+        global $title, $o, $sn, $tx;
 
         $title = $tx['title']['password_forgotten'];
         $o .= '<div class="xh_login">'
@@ -66,11 +66,9 @@ class PasswordForgotten
                 $o .= '<p>' . $tx['password_forgotten']['request'] . '</p>'
                 . '<form name="xh_forgotten" action="' . $sn . '?&function=forgotten"'
                 . ' method="post">'
-                . '<input type="text" name="xh_email">'
+                . '<input type="text" name="xh_email" autofocus>'
                 . '<input type="submit" class="submit" value="Send Reminder">'
                 . '</form>';
-                $onload .= 'document.forms[\'xh_forgotten\'].elements[\'xh_email\']'
-                    . '.focus();';
         }
         $o .= '</div>';
     }
