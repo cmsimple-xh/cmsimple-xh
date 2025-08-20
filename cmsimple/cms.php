@@ -911,6 +911,7 @@ define('XH_ADM', $adm);
 
 if (XH_ADM) {
     include_once $pth['folder']['cmsimple'] . 'adminfuncs.php';
+    $e .= XH_checkDefaultPW();
     if (isset($_GET['xh_keep_alive'])) {
         $_XH_controller->handleKeepAlive();
     }
