@@ -300,4 +300,14 @@ class Pages
         }
         return $result;
     }
+
+    /**
+     * Returns a XH\Page instance of selected page
+     *
+     * @return XH\Page instance
+     */
+    public function getSelected()
+    {
+        return new Page($this);
+    }
 }
