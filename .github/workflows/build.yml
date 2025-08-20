@@ -5,6 +5,16 @@ on:
       version:
         description: CMSimple_XH version to build
         required: true
+      ref:
+        description: The branch, tag or SHA to checkout
+        required: true
+        default: master
+      patchee:
+        description: Against which CMSimple_XH version the patch should be built (e.g. 1.8)
+        default: ''
+      patchee-tag:
+        description: The tag of the patchee (e.g. 1.8.0); blank to use patchee
+        default: ''
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -16,12 +26,27 @@ jobs:
           tools: composer
       - name: Checkout CMSimple_XH
         uses: actions/checkout@v4
+        with:
+          ref: ${{github.event.inputs.ref}}
       - name: Install composer
         run: composer install
       - name: Build CMSimple_XH
         run: PATH=vendor/bin:$PATH phing build -Dversion=${{github.event.inputs.version}}
-      - name: Unzip build
-        run: unzip CMSimple_XH-${{github.event.inputs.version}}.zip -d artifacts
+      - if: github.event.inputs.patchee != ''
+        name: Download Patchee
+        run: |
+          curl -fsSL -o CMSimple_XH-${{github.event.inputs.patchee}}.zip https://github.com/cmsimple-xh/cmsimple-xh/releases/download/${{github.event.inputs.patchee-tag || github.event.inputs.patchee}}/CMSimple_XH-${{github.event.inputs.patchee}}.zip
+      - if: github.event.inputs.patchee != ''
+        name: Build patch
+        run: |
+          PATH=vendor/bin:$PATH phing build-patch -Dversion=${{github.event.inputs.version}} -Dpatchee=CMSimple_XH-${{github.event.inputs.patchee}}.zip
+      - name: Move build to artifacts folder
+        run: |
+          mkdir artifacts
+          mv CMSimple_XH-${{github.event.inputs.version}}.zip artifacts
+          if [ -f CMSimple_XH-${{github.event.inputs.version}}-patch.zip ]; then
+            mv CMSimple_XH-${{github.event.inputs.version}}-patch.zip artifacts
+          fi
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
