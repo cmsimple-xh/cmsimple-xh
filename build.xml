@@ -10,7 +10,9 @@
     </fileset>
 
     <target name="help" description="lists available targets">
-        <exec command="phing -l" outputProperty="help"/>
+        <exec executable="phing" outputProperty="help">
+            <arg line="-l"/>
+        </exec>
         <echo>${help}</echo>
     </target>
 
@@ -37,7 +39,7 @@
     </target>
 
     <target name="phan" description="run Phan static analysis">
-        <exec command="phan" passthru="true" logoutput="true" checkreturn="true"/>
+        <exec executable="phan" passthru="true" logoutput="true" checkreturn="true"/>
     </target>
 
     <target name="unit-tests" description="runs all unit tests">
@@ -46,37 +48,47 @@
 
     <target name="validation-tests" description="runs all validation tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
-        <exec command="phpunit --bootstrap tests/bootstrap.php tests/validation" passthru="true" checkreturn="true"/>
+        <exec executable="phpunit" passthru="true" checkreturn="true">
+            <arg line="--bootstrap tests/bootstrap.php tests/validation"/>
+        </exec>
     </target>
 
     <target name="attack-tests" description="runs all attack tests">
         <fail unless="env.CMSIMPLEDIR" message="CMSIMPLEDIR undefined!"/>
-        <exec command="phpunit --bootstrap tests/bootstrap.php tests/attack" passthru="true" checkreturn="true"/>
+        <exec executable="phpunit" passthru="true" checkreturn="true">
+            <arg line="--bootstrap tests/bootstrap.php tests/attack"/>
+        </exec>
     </target>
 
     <target name="all-tests" depends="unit-tests,validation-tests,attack-tests"
             description="runs all tests"/>
 
     <target name="coverage" description="generates coverage report">
-        <exec command="phpdbg -qrr vendor/phpunit/phpunit/phpunit --configuration phpunit.xml"
-              passthru="true" logoutput="true"/>
+        <exec executable="phpdbg" passthru="true" logoutput="true">
+            <arg line="-qrr vendor/phpunit/phpunit/phpunit --configuration phpunit.xml"/>
+        </exec>
     </target>
 
     <target name="php-doc">
         <mkdir dir="doc/php"/>
-        <exec command="doxygen Doxyfile" passthru="true" checkreturn="true"/>
+        <exec executable="doxygen" passthru="true" checkreturn="true">
+            <arg file="Doxyfile"/>
+        </exec>
     </target>
 
     <target name="js-doc">
-        <exec command="jsdoc --destination doc/js assets/js/admin.min.js"
-              passthru="true" checkreturn="true"/>
+        <exec executable="jsdoc" passthru="true" checkreturn="true">
+            <arg line="--destination doc/js assets/js/admin.min.js"/>
+        </exec>
     </target>
 
     <target name="doc" depends="php-doc,js-doc" description="generates the developer documentation"/>
 
     <target name="build" description="builds a distributable ZIP archive">
         <fail unless="version" message="version is not defined!"/>
-        <exec command="git archive -o export.zip HEAD" checkreturn="true"/>
+        <exec executable="git" checkreturn="true">
+            <arg line="archive -o export.zip HEAD"/>
+        </exec>
         <unzip file="export.zip" todir="export"/>
         <delete file="export.zip"/>
         <tstamp>
